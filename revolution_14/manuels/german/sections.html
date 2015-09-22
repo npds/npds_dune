@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Administration - NPDS</title>
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face="Verdana,Arial,Helvetica" size="2">
+<center><b>Abschnitte</b></center>
+<div><br />Der Neue Abschnitte Manager hat eine grosse Funktionalität. <br />
+<br />Die wichtigsten Funktionen sind:<br />
+&nbsp;- eine bessere Baumstruktur: Abschnitt/Unter-Abschnitt/Publikation<br />
+&nbsp;- minis-workflow der Publikation<br />
+&nbsp;- eine gute Administration der Autorenrechte<br />
+&nbsp;- eine gute Administration der Visualisierungsrechte<br />
+
+<br />Bevor Sie beginnen:<br />
+&nbsp;- zwei Positionen werden automatisch zum Zeitpunkt der Installation hinzugefügt:<br />
+&nbsp;&nbsp;&nbsp;- Various erlaubt das erstellen einer Einzelseite (zum Beispiel)<br />
+&nbsp;&nbsp;&nbsp;- Paper weight für die Dokumentenrechte, die Tests, die Einstellungen auf standby...<br />
+&nbsp;- Ihre alten Abschnitte sind in Form von Sub-Kategorien verfügbar (ohne Titel) und die Autorenrechte sind einstellbar.<br />
+&nbsp;- Es kann auch ein horizontales Javascript Menu undein spezifischer Block erzeugt werden(function#bloc_rubric)<br />
+<br /><center>::--::</center><br />
+<strong>Abschnitte:<br /></strong>
+Es erzeugt einen Titel, eine Einführung und ein Statut: aktiv (ja oder nein).<br />Ein inaktiver Abscnitt wird nicht angezeigt in NPDS. Durch defekt erstellter nicht aktiver Abschnitt <br />
+
+<br /><strong>Unter-Abschnitt:</strong><br />Er ist eienm Abschnitt zugeordnet, zeigt einen Titel und (wenn nötig) ein Bild (Flash wird unterstützt :: speichern unter: images/sections), eine Einführung und Verwaltung der Benutzerrechte.<br />
+
+<br /><strong>Publikation:<br /></strong>Ist einem Unter-Abschnitt zugeordnet und zeigt einen Titel It is attached to a sub-section and lays out a title, wenn nötig mit einem Link zu anderen Publikationen,&nbsp;Inhalte und die Benutzerverwaltung.<br />
+&nbsp;NPDS Berechtigungen für den Inhalt:&nbsp;<br />
+&nbsp;- Code einfügen PHP, C, Perl.... Es ist nötig den Code zwischen Klammern zu setzten: Beispiel [code]your_source[/code ].<br />
+&nbsp;- Die Administration mehrerer Seiten.&nbsp; Es ist notwendig, die Seiten zu kennzeichnen via [ pageX ] wobei X folgendermassen aussehen soll [ page1 ] dann [ page2 ]...). <br />
+
+<br /><strong>Neue Publikation:<br /></strong>
+&nbsp;- Für den SuperAdmin: <br />
+&nbsp;&nbsp; Die neue Publikation wird sofort veröffentlicht.<br />
+&nbsp;- Für einen Administrator des Abschnitts:<br />
+&nbsp;&nbsp;&nbsp;Die neue Publikation wartet auf die Veröffentlichung durch den Superadmin. <br />
+
+<br /><strong>Pblikation im Zusammenhang mit:<br /></strong>Diese Funktion erlaubt eine Quer-Navigation zwischen verschiedenen Abschniten und Unter-Abschnitten. <br />
+
+<br /><strong>Administration der Reihenfolge:<br /></strong>Da sind die Abschnitte, die Unterkategorien und die Publikationen. NPDS erlaubt Ihnen die Einordnung. <br />
+
+<br /><strong>Status und Ausblenden: <br /></strong>Der Status eines Abschnitts wird angezeigt. Zur Erinnerung, ein Abschnitt mit dem Status 'Off' wird nichtt&nbsp;angezeigt in NPDS.<br />Das Ausblenden von Abschnitten, Unter-abschnitten und Publikationen wird nach einer Bestätigung.<br />
+
+<br /><strong>Publkationen warten auf Veröffentlichung:<br /></strong>Die Liste zeigt die wartenden Publikationen und Sie sind in der lage diese zu: sehen, modifizieren, löschen oder freizugeben. <br />
+
+<br /><strong>Autoren:<br /></strong>
+&nbsp;- Für den SuperAdmin:<br />
+&nbsp;&nbsp; Alles ist erlaubt <br /><br />
+&nbsp;- Für den Administrator des Abschnitts:<br />
+&nbsp;&nbsp; Die Rechtevergabe muss, Unter-Kategorie für Unter-Kategorie vergeben werden(Vorsicht, wenn Sie eine neue Kategorie anlegen, die Unter-Kategorie : hat keine Rechte&nbsp;ist durch defect betroffen) beeinflusst durch 4 Kategorien: <br />
+&nbsp;&nbsp; - Zu erstellen: Erlaube das Erstllen&nbsp;einer Publikation die dann auf Freigebe wartet<br />
+&nbsp;&nbsp; - Zur Freigabe: Erlaube das Hinzufügen einer Publikation in die Warteschleife<br />
+&nbsp;&nbsp; - Zu editieren: Erlaube das Editieren<br />
+&nbsp;&nbsp; - Zu löschen: Erlaube das löschen <br />
+<br />Jeder Autor kann seine Rechte an Kategorien und Unter-Kategorien einsehen.<br />&nbsp;<br />
+
+<strong>Um die Baumstruktur zu aktivieren:<br /></strong>It&nbsp;Rechte zur Umsetzung der Anzeige von Unterkategorien und der Publikationen in der Baumstruktur..<br />
+<br />
+
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div></font>
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+		<img src="static/img/image01.jpg" class="watermark" /><br /><br />
+		<img src="static/img/image02.jpg" class="watermark" width="500" height="200" /><br /><br />
+		<img src="static/img/image03.jpg" width="500" height="200" /><br /><br />
+		<img src="static/img/image02.jpg" class="watermark" width="500" /><br /><br />
+		<img src="static/img/image02.jpg" class="watermark" height="200" /><br /><br />		

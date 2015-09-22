@@ -144,7 +144,7 @@ function GraphicAdmin($hlpfile) {
 
    if ($messages_npds[1]) {
       settype($mes_x, "array");
-// a revoir je n'arrive pas à changer l'icone du message....
+// a revoir je n'arrive pas √† changer l'icone du message....
       $fico ='';
       for ($i=1;$i<count($messages_npds);$i++) {
          $zob = explode('|',$messages_npds[$i]);//print_r ( $f_mes );
@@ -167,18 +167,18 @@ function GraphicAdmin($hlpfile) {
    }
    //<== recuperation traitement des messages de NPDS
 
-   //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
-   //article à valider
+   //==> recup√©rations des √©tats des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
+   //article √† valider
    $newsubs=sql_num_rows(sql_query("select qid from ".$NPDS_Prefix."queue"));
    if($newsubs) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newsubs."' where fid='38'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='38'");
    //news auto
    $newauto=sql_num_rows(sql_query("select anid from ".$NPDS_Prefix."autonews"));
-   if($newauto) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("articles sont programmés pour la publication.")."' where fid=37"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0',fretour_h='' where fid=37");
+   if($newauto) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("articles sont programm√©s pour la publication.")."' where fid=37"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0',fretour_h='' where fid=37");
    //etat filemanager
    if ($filemanager) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1' where fid='27'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0' where fid='27'");
    //version npds
    if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1' where fid=36"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0' where fid='36'");
-   //referant à gérer
+   //referant √† g√©rer
    if($httpref = 1) {
    $result=sql_fetch_assoc(sql_query("select count(*) as total from ".$NPDS_Prefix."referer"));
    if ($result['total']>=$httprefmax) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' where fid='39'");else sql_query("update fonctions ".$NPDS_Prefix." set fetat='0' where fid='39'");
@@ -186,15 +186,15 @@ function GraphicAdmin($hlpfile) {
    //critique en attente
    $critsubs= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add"));
    if($critsubs) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$critsubs."' where fid='35'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='35'");
-   //nouveau lien à valider
+   //nouveau lien √† valider
    $newlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_newlink"));
    if($newlink) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newlink."' where fid='41'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='41'");
-   //lien rompu à valider
+   //lien rompu √† valider
    $brokenlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest where brokenlink='1'"));
    if($brokenlink) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$brokenlink."' where fid='42'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='42'");
-   //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
+   //<== etc...etc recup√©rations des √©tats des fonctions d'ALERTE et maj
 
-   //==> construction de la zone de téléchargement des versions de NPDS
+   //==> construction de la zone de t√©l√©chargement des versions de NPDS
    if (($vs != $Version_Sub) or ($vn != $Version_Num)) {
    $scri='
    <script type="text/javascript">
@@ -225,12 +225,12 @@ function GraphicAdmin($hlpfile) {
        html += \'                    <b>\'+data.length+\'</b> '.adm_translate("Versions").'\n\';
        html += \'                </li>\n\';
        html += \'                <li class="yui3-u-1-2">\n\';
-       html += \'                    <b>1291</b> '.adm_translate("TÈlÈchargements").'\n\';
+       html += \'                    <b>1291</b> '.adm_translate("T√àl√àchargements").'\n\';
        html += \'                </li>\n\';
        html += \'            </ul>\n\';
        html += \'        </div>\n\';
        html += \'   </div>\n\';
-       html += \'   <p class="yui3-u-1 versus_st">'.adm_translate("TÈlÈcharger une version courante.").'</p>\n\';
+       html += \'   <p class="yui3-u-1 versus_st">'.adm_translate("T√àl√àcharger une version courante.").'</p>\n\';
        html += \'   <ul class="yui3-g">\n\';
 
       for (i=0, l=data.length; i < l; ++i) {
@@ -240,7 +240,7 @@ function GraphicAdmin($hlpfile) {
        html += \'      </div>\n\';
        html += \'      <div class="versus_stats yui3-u-1-3">\n\';
        html += \'        <ul class="yui3-g">\n\';
-       html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dcounter + \'</b><span>'.adm_translate("TÈlÈchargements").'</span></li>\n\';
+       html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dcounter + \'</b><span>'.adm_translate("T√àl√àchargements").'</span></li>\n\';
        html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dfilesize + \'</b><span>Mo</span></li>\n\';
        html += \'        </ul>\n\';
        html += \'      </div>\n\';
@@ -270,9 +270,9 @@ function GraphicAdmin($hlpfile) {
    //]]>
    </script>'."\n";
 }
-   //<== construction de la zone de téléchargement des versions de NPDS
+   //<== construction de la zone de t√©l√©chargement des versions de NPDS
 
-   //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en possède les droits d'accès
+   //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connect√© en poss√®de les droits d'acc√®s
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
 //   $Q = sql_fetch_assoc($Q);
    if ($Q['radminsuper']==1) {
@@ -294,7 +294,7 @@ function GraphicAdmin($hlpfile) {
       };
    
       if ($SAQ['fcategorie'] == 9) {
-         //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
+         //==<euh je ne sais plus comment j'avais envisager l'arriv√©e des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
          $li_c ='<li class=" btn btn-secondary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          else 
@@ -437,7 +437,7 @@ function GraphicAdmin($hlpfile) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
-            btn_hide.attr('title','".adm_translate("DÈplier la liste")."');
+            btn_hide.attr('title','".adm_translate("D√àplier la liste")."');
             i_id.attr('class','fa fa-plus-square-o');
         }
        });
@@ -459,7 +459,7 @@ function GraphicAdmin($hlpfile) {
          </div>
          <div id="adm_men_man" class="col-xs-9 men_man">
             <ul class="liste" id="lst_men_top">
-               <li class="btn btn-default" data-toggle="tooltip" title="'.adm_translate("DÈconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>'."\n";
+               <li class="btn btn-default" data-toggle="tooltip" title="'.adm_translate("D√àconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>'."\n";
    if ($hlpfile) {
       $adm_ent .='
               <li class="btn btn-default" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a href="javascript:openwindow();">&nbsp;<i class="fa fa-question-circle fa-2x text-info"></i></a></li>'."\n";
@@ -585,10 +585,10 @@ function adminMain($deja_affiches) {
       </table>
       <ul class="pagination">
       <li class="active"><a href="#">'.$nbre_articles.' Articles</a></li>
-      <li><a href="admin.php?op=suite_articles&amp;deja_affiches=0" class="noir">'.adm_translate("Les plus rÈcents").'</a></li>';
+      <li><a href="admin.php?op=suite_articles&amp;deja_affiches=0" class="noir">'.adm_translate("Les plus r√àcents").'</a></li>';
 
 
-      if ($deja_affiches>=$admart) echo "<li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".($deja_affiches-$admart)."\" class=\"noir\">".adm_translate("PrÈcÈdent")."</a></li>";
+      if ($deja_affiches>=$admart) echo "<li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".($deja_affiches-$admart)."\" class=\"noir\">".adm_translate("Pr√àc√àdent")."</a></li>";
       if (($deja_affiches + $i) < $nbre_articles) {
          $deja_affiches+=$admart;
          echo " <li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".$deja_affiches."\" class=\"noir\">".adm_translate("Suivant")."</a></li></ul>";

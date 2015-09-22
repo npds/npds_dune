@@ -1,0 +1,42 @@
+<html><head>
+<title>Informations Channels (Headlines) - NPDS V</title>
+
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=Verdana,Arial,Helvetica size=2>
+<center>
+  <b>Informations Channels (Headlines)</b> 
+</center>
+<br /><br />
+You can activate informations channels from other sites.<br />
+These channels are not text files but RDF/XML files.<br />
+Warning : using this feature may slow down your server.<br />
+Every channels are refreshed every hour. Don't change this value as it may use 
+up most of your bandwidth<br />
+<br />
+<b>Add a channel : </b><br />
+Fill the fields (Title, URL, URL RDF/XML, status). If you activate a channel, 
+a new box will appear. Inactive boxes won't appear.<br />
+<br />
+<b>Change a channel status : </b><br />
+Just click on Edit and select the status on the next page.<br />
+<br />
+To delete a channel, click on... delete.<br />
+<br />
+If your site is behind a <b>Proxy Server</b> configure the proxy.conf.php file 
+(root of your site) to allow the access to one or more informations channels.<br />
+<br />
+<b>Configuration of boxes that host information channels : </b><br />
+in the Manage blocks (left/right), you can add:<br />
+ - function#headlines<br />
+=> in this case, all active channels are displayed one after another.<br />
+OR<br />
+ - function#headlines<br />
+- params#$ID_of_channel<br />
+=> in this case only the ID channel "ID_of_channel" is displayed. You can set 
+as many blocks as you want... <br />
+<br />
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

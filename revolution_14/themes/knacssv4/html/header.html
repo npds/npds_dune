@@ -1,0 +1,34 @@
+ <header class="header1">
+<div id="decohead">
+<h1><a href="index.php" id="slogan" class="line slogan">Knacss V4</a></h1>
+<div id="nav" class="line pas"> <?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   if (autorisation(-1)) {
+      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+   } elseif (autorisation(1)) {
+      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
+      settype($cookie[0], 'integer');
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
+      else
+         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
+      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
+   } ?></a> </div>
+
+<br/>
+
+<nav class="line right menu " aria-haspopup="true" aria-controls="p3"><img src="themes/!theme!/images/submenu.gif" alt="">
+	<ul id="p3">
+		<li aria-haspopup="false"><a href="index.php">Home</a><b></b></li>
+		<li aria-haspopup="false"><a href="static.php?op=central.html&npds=-1&metalang=1">1 colonne</a><b></b></li>
+		<li aria-haspopup="false"><a href="static.php?op=central.html&npds=0&metalang=1">2 col Gauche</a><b></b></li>
+		<li aria-haspopup="false"><a href="static.php?op=central.html&npds=1&metalang=1">3 colonnes</a><b></b></li>
+		<li aria-haspopup="false"><a href="static.php?op=central.html&npds=2&metalang=1">2 col Droite</a><b></b></li>
+		<li aria-haspopup="false"><a href="static.php?op=central.html&npds=3&metalang=1">2+1 gauche</a><b></b></li>
+		<li aria-haspopup="false"><a href="static.php?op=central.html&npds=4&metalang=1">2+1 droite</a><b></b></li>
+	</ul>
+</nav>
+   </header>

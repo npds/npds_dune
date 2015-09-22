@@ -1,0 +1,152 @@
+<html><head>
+<title>Edit / Create block (or box) - NPDS V</title>
+
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=Verdana,Arial,Helvetica size=2> 
+<center>
+  <b>Block (oder Box) editieren / erstellen</b>
+</center>
+<br />
+<br />
+NPDS erlaubt es Blöcke (oder Boxen) an der Seite Ihrer Webseite anzuzeigen.<br />
+NPDS (mitgeeigneten Templates) zeigt Blöcke auf den meisten Seiten.<br />
+<br />
+<b>Blöcke können angezeigt werden für Administratoren, registrierten Benutzern, oder Gruppen, nur für Anonyme oder für Alle</b>.<br />
+<br />
+<b>Block bearbeiten : </b><br />
+Ändern Sie die gewünschten Informationen innerhalb des Blocks, und wählen Sie die entsprechende Aktion und klicken dann auf <i>OK</i>.<br />
+Sie können nur einen Block gleichzeitig bearbeiten.<br />
+<br />
+<b>Block löschen :</b><br />
+Wählen Sie einen Block und klicken Sie dann auf <i>Block löschen</i>, klicken Sie dann auf <i>OK</i>.
+Sie können nur einen Block auf einmal löschen.<br />
+<br />
+<b>Block erstellen (links oder rechts) :</b><br />
+Seinen Titel eingeben, sein <b>index</b> (erlaubt eine sortierte Anzeige) und <i>Block ersellen ...</i>. <br />
+Standardmässig wird der Block automatisch aktiviert.<br />
+<br />
+<hr width="80%">
+<b>Block und SuperCache </b>:<br />
+&nbsp;- Blöcke sind "SuperCached" und können aktiviert oder deaktiviert werden, ohne die Tempatedateien zu verändern.<br />
+&nbsp;- Ein Block mit der Cachezeit 0 (null) wird nicht gecachet.<br />
+&nbsp;- Blöcke haben eine Onlinehilfe, die aufgerufen werden kann unter 'contextual-help' 
+Modul (leer lassen für keine Hilfe). <br />
+<br />
+<b>NPDS hat ein erweitertes Blocksytem zur Anzeige von </b>:<br />
+- HTML (wenn Sie einen HTML Block erstellen wollen / wählen Sie die HTML Option)<br />
+- Javascript<br />
+- PHP und/oder SSI (Server Side Include)<br />
+- PHP / NPDS Funktion<br />
+<br />
+Wenn Sie Code einbinden wollen müssen Sie diese Syntax verwenden :<br />
+. Für PHP und/oder SSI code :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<b>include#ihr_ordner/ihre_datei.php</b> (without ', ohne 
+").<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ihre_datei.php Muss eine php Datei sein ! Und die Anzeige (no echo "..."; but $content.="...";) Muss im sein <b>$content</b>.<br />
+<br />
+. Für PHP und/oder NPDS Functions :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<b>function#ihre_funktionen</b> => function#Xblock (ohne ', ohne", ohne () und ohne ;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Wenn Ihre Funktionen Parameter haben :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>function#ihre_funktion</b> => function#XNews (ohne ', ohne", ohne () und ohne ;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>params#ihr_parameter</b> => params#5,10,false (ohne ', ohne" aber Komma getrennt).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beispielsweise :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function#category<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function#oldNews<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;params#$storynum<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function#RecentForumPosts<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;params#Forums Infos,15,0,false,10,false,-:&nbsp; 
+<br />
+<br />
+Sie können auch die zwei Sätze :<br />
+&nbsp;<b>include#your_folder/your_file.php</b> (ohne ', ohne").<br />
+&nbsp;und dann<br />
+&nbsp;<b>function#your_function</b> => function#XNews (ohne ', ohne ", ohne () und ohne ;).<br />
+&nbsp;<b>params#your_param</b> => params#5,10,false (ohne ', ohne " aber Komma getrennt).<br />
+&nbsp;=> that allows you to load your code and to execute it !<br />
+<br />
+<b>Block CSS</b> :<br />
+&nbsp;<b>class-title#name</b> einer Klasse in Ihrer CSS Datei.<br />
+&nbsp;<b>class-content#name</b> einer Klasse in Ihrer CSS Datei.<br />
+&nbsp;=> So können Sie jedem Block eine CSS Klasse zuordnen(Titel und Inhalt) !<br />
+<br />
+&nbsp;- Theme-Dynamic hat wzei neue Schlüsselworte : B_class_title und B_class_content
+die Sie in bloc.html verwenden können<br />
+&nbsp;- PHP Templates haben zwei neue Variablen : $B_class_title and $B_class_content
+die Sie in die Templateinside Box Funktion 'importieren' können (benutzen Sie einen globalen  ...)<br />
+<br /><br />
+<b>Block CSS Spezifikation</b> :<br />
+Um eine CSS Spezifikation zu haben, müssen Sie:
+<li> den Wert in der Administration überprüfen</li>
+<li> die Block ID kennen</li>
+<li> Die ID und Klasse in der style.css  deklarieren oder Sie nutzen die pages.php (die für Ihrem Template gehört ) </li>
+<br /><br />
+<b>Beispiel :<br /><br />
+CSS Spezifikation für den linken Bloc ID 2<br />
+</b>  <br />
+<quote>
+#LB_2 .LB_title { <br />
+      color: #FF0000; <br />
+      font-family: Georgia, "Times New Roman", serif; <br />
+      font-size: 1.25em; <br />
+      font-weight: bold;<br />
+      height: 21px;     <br />
+      text-align: center; <br />
+      line-height: 21px;   <br />
+}                      <br />
+#LB_2 .LB_contain ul {  <br />
+       list-style: none;  <br />
+       width: 150px;      <br />
+       margin:0px;       <br />
+       padding:0px;        <br />
+}                      <br />
+#LB_2 .LB_contain li {    <br />
+       margin:0;   <br />
+       padding:0;  <br />
+}               <br />
+#LB_2 .LB_contain li a { <br />
+       min-height: 1.5em;      <br />
+       height: auto !important;  <br />
+       height: 1.5em;        <br />
+       line-height: 1.5em;     <br />
+       margin: 1px 0px 1px 0px;  <br />
+       padding: 0px 5px 0px 5px;  <br />
+       border-bottom: solid 1px #C8C8C8;  <br />
+       border-left: solid 10px #427FBC;   <br />
+       color: #646464;           <br />
+       text-decoration: none;   <br />
+       font-weight: normal;   <br />
+       font-size: 1em; <br />
+}             <br />
+
+#LB_2 .LB_contain li a:hover {  <br />
+       border-left: solid 10px #cccccc;   <br />
+       background: #f0f0f0;       <br />
+       font-weight: bold;  <br />
+       color: #000000; <br />
+       text-decoration: none;    <br />
+}    <br />
+</quote>
+<br /><br />
+<b>Block URI</b> :<br />
+&nbsp;<b>uri#list_of_uri_separate_by_space</b> f&uuml;r zeigten Block nur in den Referer URI.<br />
+&nbsp;in diesem Fall der Cache-Time wird auf Null gesetzt werden<br />
+&nbsp;Beispiel: uri#index.php user.php forum.php static.php?op=statik.txt&npds=1<br />
+&nbsp;uri# Tag erlauben die Verwendung von * : viewforum.php?forum=* or viewtopic.php?topic=*&forum=10
+<br />
+&nbsp;=> Das ist die einzige, unterst&uuml;tzte Syntax! <br />
+<br /><br />
+<b>Block Hidden</b> :<br />
+&nbsp;hidden#... nicht zeigen, das Thema der Bl&ouml;cke, sondern laden Sie die Inhalte.<br />
+&nbsp;Dies erlaubt es, den Block f&uuml;r &quot;Last&quot; von Javascript, PHP-Dateien, CSS-Dateien verwenden ...<br />
+&nbsp;Beispiel: hidden#&lt;script type=&quot;text/javascript&quot; src=&quot;lib/yui/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+<br />&nbsp;=> Das ist die einzige, unterst&uuml;tzte Syntax!
+<br /><br />
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

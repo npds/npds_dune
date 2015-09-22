@@ -1,0 +1,62 @@
+<html><head>
+<title>Admin Plugins - NPDS V</title>
+
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=Verdana,Arial,Helvetica size=2>
+<center><b>Admin Plugins</b></center>
+<br /><br />
+This is where you configure some plugins used by NPDS.<br />
+<br />
+The module creator (for instance IPBAN) has to do his best just so the configuration 
+works fine inside NPDS.<br />
+<br />
+After installing a module that has its own configuration pannel (via Plugins), 
+the module will appear in the list. <br />
+<br />
+The description of an Admin plugin is (file : admin/extend-modules.txt):<br />
+For each plugins :<br />
+[module]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;[nom]Plugins Name[/nom]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;[ModPath]path to the module (i.e. : modules/ipban)[/ModPath]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;[ModStart]file that launches the module (i.e. : ipban)[/ModStart]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;[niveau][/niveau]<br />
+[/module]<br />
+.<br />
+.<br />
+<br />
+Tags : [niveau][/niveau] are optional (or empty) : in this case only SuperAdmins 
+can configure the plugins.<br />
+<br />
+Tags : [niveau][/niveau] integrates ONE (one means ONE) of the following values, 
+only SuperAdmins AND administrators of the function can access it.<br />
+&nbsp;-&nbsp;valuess :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminarticle</b> (Articles and Publish),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radmintopic</b> (Topic),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminleft</b> (Left blocks),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminmain</b> (Main block),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminright</b> (Right blocks),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsurvey</b> (Poll),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsection</b> (Sections),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminlink</b> (Links),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminephem</b> (Ephemerids),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminhead</b> (Headlines),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminfaq</b> (FAQ),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radmindownload</b> (Downlaod),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminforum</b> (Forums),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminreviews</b> (Reviews),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminlnl</b> (Newsletter),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsdv</b> (Groups management),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminuser</b> (Edit Users),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminfilem</b> (FileManager),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsuper</b> (Super Admin)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>no-right</b> (All Admins even if admin have NO Right)<br /><br />
+For instance :<br />
+- A plugin that has [niveau]<b>radminlnl</b>[/niveau] as 'level'
+will be shown to SuperAdmins AND Newsletter Administrators.<br /><br />
+- A plugin that has [niveau]<b>no-right</b>[/niveau] as 'level'
+will be shown by All Administrators even if an admin have no right.<br /><br />
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

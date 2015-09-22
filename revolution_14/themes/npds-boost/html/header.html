@@ -1,0 +1,139 @@
+<?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   $con='';
+   $ava='';
+
+if (!isset($powerpack)) {include ("powerpack.php");}
+   if (if_chat()) $cha= '<a href="#"><i class="fa fa-comments fa-lg"></i></a>';
+   if (autorisation(-1)) {
+      $con = "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
+      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x"></i></a>';
+   } elseif (autorisation(1)) {
+      settype($cookie[0], 'integer');
+      list($user_avatar)=sql_fetch_row(sql_query("select user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
+
+      if (!$user_avatar) {
+      $imgtmp="images/forum/avatar/blank.gif";
+       } else if (stristr($user_avatar,"users_private")) {
+      $imgtmp=$user_avatar;
+      } else {
+      if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
+      if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
+      }
+      
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg"></i> '.translate("Private Message").' <span class="label-pill label-default">'.$nbmes.'</span></a>';
+      
+      $ava='<a class="dropdown-item" href="user.php"><img src="'.$imgtmp.'" width="64" height="64" /></a>';
+      $btn_con = '<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
+   } 
+   ?>
+   <!--
+   <div id="uppernavbar" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#barnav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+          <a class="navbar-brand"><span class="mega-octicon octicon-beaker">Labo jpb/phr</span></a>
+      </div>
+      <div class="collapse navbar-collapse" id="barnav">
+         <ul class="nav navbar-left navbar-nav">
+            <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
+               <ul class="dropdown-menu" role="menu">
+                  <li><a href="index.php?op=index.php">Les articles</a></li>
+                  <li><a href="search.php">Les archives</a></li>
+                  <li><a href="submit.php">Proposer un article</a></li>
+                  <li class="divider"></li>
+               </ul>
+            </li>
+            <li><a href="download.php?dcategory=CDPCA&sortby=">Download</a></li>
+            <li><a href="modules.php?ModPath=links&ModStart=links">Liens</a></li>
+            <li><a href="faq.php">FAQ</a></li>
+            <li><a href="modules.php?ModPath=contact&ModStart=contact">Contact</a></li>
+         </ul>
+      <div class="navbar-header">
+         <ul id="" class="nav navbar-nav navbar-right">
+            <li class="dropdown user-dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+               <ul class="dropdown-menu">
+                  <li><?php echo $ava; ?></li>
+                  <li><a href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+                  <li><?php echo $bal; ?></li>
+                  <li class="divider"></li>
+                  <li><?php echo $btn_con; ?></li>
+               </ul>
+            </li>
+            <?php echo '<li>'.$cha.'</li>'; ?>
+         </ul>
+      </div>
+   </div>
+   </div>
+   -->
+<nav class="navbar navbar-fixed-top navbar navbar-dark bg-inverse ">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="barnav">
+    <a class="navbar-brand" href="#"><span>Labo jpb/phr</span></a>
+    <ul class="nav navbar-nav">
+      <li class="nav-item dropdown">
+         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
+         <ul class="dropdown-menu" role="menu">
+            <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
+            <li><a class="dropdown-item" href="search.php">Les archives</a></li>
+            <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
+            <li class="dropdown-divider"></li>
+         </ul>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="download.php?dcategory=CDPCA&amp;sortby=">Download</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">Liens</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">Contact</a>
+      </li>
+      <li class="nav-item dropdown">
+         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+         <ul class="dropdown-menu">
+            <li><?php echo $ava; ?></li>
+            <li class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+            <li><?php echo $bal; ?></li>
+            <li class="dropdown-divider"></li>
+            <li><?php echo $btn_con; ?></li>
+         </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+   
+   
+   <div class="page-header">
+      <div class="row">
+         <div id="logo_header" class="col-sm-8">
+            <h1>Labo de d&#xE9;veloppement Revolution 15</h1>
+         </div>
+         <div id="ban" class="col-sm-4 text-right"> !banner! </div>
+      </div>
+      <div class="row">
+         <div id="slogan" class="col-sm-8 slogan">!slogan!</div>
+         <div id="online" class="col-sm-4 text-right">!nb_online!</div>
+      </div>
+      <button type="button" class="col navbar-toggler hidden-md-up" data-toggle="collapse" data-target="#col_LB,#col_RB">
+      <i class="fa fa-bars faa-burst animated"></i>
+      <span class="sr-only">Toggle colonne</span>
+      </button>
+   </div>

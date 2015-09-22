@@ -1,0 +1,76 @@
+<html>
+<head>
+  <title>Meta-lang - NPDS V</title>
+<style>
+ BODY { FONT-FAMILY: arial,sans-serif }
+</style>
+</head>
+<body alink="#000000" bgcolor="#ffffff" vlink="#551a8b">
+
+<table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#ffffff">
+  <tbody>
+  <tr>
+    <td align="center">
+
+    <p><b><font size="+2">Administration de META-LANG</font></b></p>
+
+    <p><table border="0" cellpadding="0" cellspacing="0" width="100%"
+    bgcolor="#ffffff">
+      <tbody>
+      <tr>
+        <td>
+        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
+          <tbody>
+          <tr>
+            <td bgcolor="#333366" nowrap>
+            <b><font color="#ffffff" face="arial,sans-serif">META_LANG ?</font></b></td>
+          </tr></tbody>
+        </table>
+                        <p align="justify"><br />
+        <b><u>A quoi &#xE7;a sert ?</u> </b><br />
+        META-LANG est un langage particulier &#xE0; NPDS. Il est compos&#xE9; de mots (les META-MOT) permettant, en toute s&#xE9;curit&#xE9;, d'appeler &#xE0; l'emplacement
+        o&#xF9; vous avez inscrit ce META-MOT (dans une new, un article, un billet, un commentaire ou l'&#xE9;dito de votre site voir m&#xEA;me une page static), le r&#xE9;sultat de fonction internes de NPDS.</p>
+
+        <p><b><u>A savoir</u> </b><br />
+        Il existe 5 types de META-MOT en usage pour votre site <br />
+        </p>
+
+        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
+          <tbody>
+          <tr>
+            <td bgcolor="#333366" nowrap>
+            <b><font color="#ffffff" face="arial,sans-serif">Les types de META-MOT</font></b></td>
+          </tr></tbody>
+        </table>
+       </p>
+
+                        <ol type="1">
+                            <li><b>docu</b><br>Sera utilis&#xE9; pour le CMS lui m&#xEA;me pour des traitements tr&#xE8;s particuliers et/ou de la documentation en ligne.<br>
+                            Actuellement seul <b><font color="red">^</font></b> est pr&#xE9;sent dans cette cat&#xE9;gorie<br />Vous ne pourrez pas cr&#xE9;er ce type de meta-mot</li>
+
+                            <li><b>meta</b><br>En usage dans presque tous NPDS, sera utilis&#xE9; pour appeler le r&#xE9;sultat d'une fonction
+                            pr&#xE9;cise qui sera affich&#xE9;e &#xE0; l'emplacement de sa saisie.<br>C'est la cat&#xE9;gorie la plus importante de NPDS et permet la mise en oeuvre de fonctions tr&#xE8;s &#xE9;volu&#xE9;es.<br />
+                            Il existe deux formes d'&#xE9;criture (dans la zone script) en fonction du niveau de complexit&#xE9; de ce que vous voulez r&#xE9;aliser : <br />
+                            - $cmd=... instruction PHP tenant sur une seule ligne ...;<br />
+                            - function MM_votre-meta-mot () {<br />
+                            &nbsp;&nbsp;Code PHP<br />
+                            &nbsp;&nbsp;Code PHP<br />
+                            &nbsp;&nbsp;Code PHP<br />
+                            &nbsp;&nbsp;return (votre-retour);<br />
+                            &nbsp;&nbsp;}<br />
+                            </li>
+
+                            <li><b>mot</b><br />Sera utilis&#xE9; pour afficher un mot (association de lettres ou chiffres) pouvant ex&#xE9;cuter une fonction de base type HTML comme l'appel
+                            &#xE0; un lien, de la correction orthographique, la gestion des abr&#xE9;viations, ...<br>Cette cat&#xE9;gorie est tr&#xE8;s utile pour gagner en productivit&#xE9;.</li>
+
+                            <li><b>smil</b><br />Sera utilis&#xE9;e pour int&#xE9;grer des smilies et/ou des raccourcis vers des images.</li>
+
+                            <li><b>them</b><br />Sera utilis&#xE9;e pour documenter les fonctions internes de NPDS relatives aux th&#xE8;mes.</li>
+                        </ol>
+        </td>
+      </tr></tbody>
+    </table></td>
+  </tr></tbody>
+</table><br /><br /><p align="CENTER"><img src="../../images/admin/manuels.gif" border="0" / /></p>
+</body>
+</html>

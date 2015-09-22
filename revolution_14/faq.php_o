@@ -1,0 +1,108 @@
+<?php
+/************************************************************************/
+/* DUNE by NPDS                                                         */
+/* ===========================                                          */
+/*                                                                      */
+/* Based on PhpNuke 4.x source code                                     */
+/*                                                                      */
+/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+if (!function_exists("Mysql_Connexion")) {
+   include ("mainfile.php");
+}
+
+function ShowFaq($id_cat, $categories) {
+    global $sitename;
+    global $NPDS_Prefix;
+
+    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+    echo "$sitename ".translate("FAQ (Frequently Ask Question)");
+    echo "</td></tr></table><br />\n";
+    echo"<a name=\"top\"></a>".translate("Category:")." <a href=\"faq.php\" class=\"noir\">".translate("Main")."</a> -> ".StripSlashes($categories);
+
+    echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">
+    <tr><td class=\"ongl\">".translate("Question")."</td></tr>";
+    $result = sql_query("select id, id_cat, question, answer from ".$NPDS_Prefix."faqanswer where id_cat='$id_cat'");
+    while (list($id, $id_cat, $question, $answer) = sql_fetch_row($result)) {
+        $rowcolor = tablos();
+        echo"<tr $rowcolor><td><a href=\"#$id\" class=\"noir\"> - ".aff_langue($question)."</a></td></tr>";
+    }
+    echo "</table>
+    <br />";
+}
+
+function ShowFaqAll($id_cat) {
+    global $NPDS_Prefix;
+
+    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+    echo translate("Answer");
+    echo "</td></tr></table>\n";
+    echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
+    $result = sql_query("select id, id_cat, question, answer from ".$NPDS_Prefix."faqanswer where id_cat='$id_cat'");
+    while(list($id, $id_cat, $question, $answer) = sql_fetch_row($result)) {
+        $rowcolor = tablos();
+        echo"<tr $rowcolor><td><a name=\"$id\"></a><span class=\"header\"><b>&nbsp;".aff_langue($question)."&nbsp;</b></span><p align=\"justify\">";
+        $answer=aff_code(aff_langue($answer));
+        echo meta_lang($answer);
+        echo "</p><hr noshade=\"noshade\" class=\"ongl\" /><a href=\"#top\" class=\"noir\">".translate("Back to Top")."</a><br /><br /></td></tr>";
+    }
+    echo"</table><br /><br /><div align=\"center\"><b>[ <a href=\"faq.php\" class=\"noir\">".translate("Back to FAQ Index")."</a> ]</b></div>";
+}
+
+ settype($myfaq,'string');
+ if (!$myfaq) {
+    include ("header.php");
+    // Include cache manager
+    if ($SuperCache) {
+       $cache_obj = new cacheManager();
+       $cache_obj->startCachingPage();
+    } else {
+       $cache_obj = new SuperCacheEmpty();
+    }
+    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+       opentable();
+       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+       echo "$sitename ".translate("FAQ (Frequently Ask Question)");
+       echo "</td></tr></table>\n";
+       echo "<br /><table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
+       <tr><td class=\"ongl\">".translate("Categories")."</td></tr>";
+       $result = sql_query("select id_cat, categories from ".$NPDS_Prefix."faqcategories ORDER BY id_cat ASC");
+       while(list($id_cat, $categories) = sql_fetch_row($result)) {
+          $rowcolor=tablos();
+          $catname = urlencode(aff_langue($categories));
+          echo"<tr $rowcolor><td><a href=\"faq.php?id_cat=$id_cat&amp;myfaq=yes&amp;categories=$catname\" class=\"noir\">".aff_langue($categories)."</a></td></tr>";
+       }
+       echo"</table>";
+       closetable();
+    }
+    if ($SuperCache) {
+       $cache_obj->endCachingPage();
+    }
+    include ("footer.php");
+
+ } else {
+    $title="FAQ : ".removeHack(StripSlashes($categories));
+    include("header.php");
+    // Include cache manager
+    if ($SuperCache) {
+       $cache_obj = new cacheManager();
+       $cache_obj->startCachingPage();
+    } else {
+       $cache_obj = new SuperCacheEmpty();
+    }
+    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+       opentable();
+       ShowFaq($id_cat, removeHack($categories));
+       ShowFaqAll($id_cat);
+       closetable();
+    }
+    if ($SuperCache) {
+       $cache_obj->endCachingPage();
+    }
+    include("footer.php");
+ }
+?>

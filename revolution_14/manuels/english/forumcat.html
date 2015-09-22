@@ -1,0 +1,73 @@
+<html><head>
+<title>Edit Forums - NPDS V</title>
+</head>
+<body bgcolor="#FFFFFF">
+<font face=Verdana,Arial,Helvetica size=2> 
+<center>
+  <b>Edit Forums</b> 
+</center>
+<br />
+<br />
+You can edit and administrate your forums with this feature..<br />
+The first list displays the categories and active forums <br />
+<br />
+<b>Edit Forums :</b><br />
+This second page shows the forums from that category<br />
+You can add a forum :<br />
+- <b>Forum Name</b><br />
+- Description (keep it simple)<br />
+- nickname of moderator(s) (required) : if you want to add more moderators to 
+the same forum, use : nickname, nickname1,nickname7...<br />
+<br />
+- <b>Access level (Post)</b> :<br />
+=> Anonymous post allowed<br />
+=> Registered users post only<br />
+=> Moderators post only<br />
+=> Closed ( forum is closed )<br />
+<br />
+- <b>Forum type</b> : Public, Private, PHP Script, extended text, Groups or Hidden<br />
+=> Public = everyone can access the forum<br />
+=> Private = you'll need a password to enter the forum<br />
+=> PHP Script = This Forum allows to display code (php, perl, c, ...).<br />
+Warning : some functions do not work with this forum (Smilley, ...)<br />
+=> Extended Text = You can associate a SFORM to this forum<br />
+=> Groups = You can make this forum only for the members of N groups<br />
+=> Hidden = Only members can see it<br />
+=> This last field uses some values :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;-> Password (if Private Forum )<br />
+&nbsp;&nbsp;&nbsp;&nbsp;-> Form filename(if Extended Text Forum) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in modules/sform/forum (i.e. : form.php)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;-> Members groups ID (if Groups Forum) (ID : 5,12,56 for instance)<br />
+<br />
+- <b>Forum Mode</b> : Standard or Tree<br />
+=> The tree mode allows a particular display but requires more power from the server <br />
+<br />
+- <b>Attachment</b> :<br />
+=> if you have allowed the forum upload feature, you can specifiy which forum 
+can use this function.<br />
+<br />
+<b>Make a redirection to an external forum </b> (a link to call it out loud), just
+enter the URL in the field for the Forum Name!<br />
+<br />
+<b>Sub-Forum :</b><br />A forum isn't visible if it's name start with &lt;!&gt;. One new meta-mot give you the reading status of one forum : forum_subfolder(ID_of_forum).<br />
+=> Imagine one forum with id = 3 and with this name : "&lt;!&gt;Only for NPDS" / Imagine the comment-text of forum with id 1 like : forum_subfolder(3) &lt;a href="viewforum.php?forum=3"&gt;Only for NPDS&lt;/a&gt;<br />
+<br />
+<br />
+You can edit a forum to make changes and you can also delete it.<br />
+<br />
+<b>Add category :</b><br />
+You can add a category in which you can add forums. Click on Add to validate. 
+<br />
+<br />
+<b>Edit (category) :</b><br />
+You can edit the category (the title AND ID (to sort the categories). Click on Ok to validate. <br />
+<br />
+<b>Delete (category) :</b><br />
+You can delete a category with all the forums and messages related to it. <br />
+<br />
+<center>
+  <img src="../../images/admin/manuels.gif" border="0" /> 
+</center>
+</font> 
+</body>
+</html>

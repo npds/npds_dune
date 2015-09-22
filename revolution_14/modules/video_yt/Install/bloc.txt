@@ -1,0 +1,23 @@
+###################################################################################
+##
+## Nom: video_yt
+## Version: 2.2
+## Date: 10/07/2012
+## Auteur: Jpb 
+## 
+## Description :
+## Module qui permet d'afficher dans NPDS les vidéos stockées sur Youtube 
+## 
+## Niveau d'installation : simple
+## Temps d'installation : 1 minute
+## Fichiers a Èditer :  0
+##
+################################################################################
+
+*************************************************************************
+* Code à insérer dans un bloc pour accèder au module
+*************************************************************************
+
+include#modules/video_yt/video_bloc.php
+
+=> le bloc affichera une vidéo aléatoire de votre vidéothèque youtube

@@ -1,0 +1,94 @@
+----------------------------------------------------------------------
+Installation : Cluster-Paradise
+----------------------------------------------------------------------
+Ce n'est pas un module mais un 'service' NPDS ... en fait un Web service créé en 2002 (!)
+Cluster-Paradise permet à un site NPDS (maître) de mettre directement à jour un (ou des) site(s) NPDS (esclave(s)) et
+cela sans quasi aucune intervention ni du webmestre du site émetteur ni de celui du site destinataire.
+
+Ce service est pour l'instant simple mais l'objectif est bien de permettre la réalisation d'une 'Communauté' de sites NPDS.
+
+Par exemple, Cluster-Paradise (CP) permet à npds.org de publier certaines de ses news sur modules.npds.org.
+
+----------------------------------------------------------------------
+Pour activer Cluster-Paradise :
+----------------------------------------------------------------------
+ - il faut un site maître et au moins un site esclave.
+
+   --------------------------
+   -| sur le site maître : |-
+   --------------------------
+     - dans le fichier cluster-activate.php :
+       $cluster_activate=true;
+
+     - dans le fichier data-cluster-M.php (voir sample.data-cluster-M.php) :
+       définir l'indice zéro du tableau $part (le maitre - vous) comme cela
+       $part[0]=array(
+               "WWW"=> "www.mon_site.org",
+               "KEY"=> "la_clef_de_mon_site", (la clef peut-être n'importe quelle chaine de caractères (ou presque)
+       );
+
+       définir au moins un indice complémentaire (site esclave) comme cela
+	WWW         : doit contenir l'url complète de votre partenaire esclave (SANS http://)                                */
+	SUBSCRIBE   : doit contenir le type d'abonnement (pour l'instant NEWS)                                         */
+	OP          : doit contenir le sens de l'abonnement (EXPORT pour vous IMPORT pour le(s) site(s) esclave(s))           */
+	FROMTOPICID : ID du Topic dont les news sont envoyées. Si vide, tous les Topics sont envoyées                */
+	TOTOPIC     : Nom (long) du topic de destination sur le site esclave. Si vide, Topic par défaut              */
+	FROMCATID   : ID de la Catégorie dont les news sont envoyées. Si vide, toutes les catégories sont envoyées   */
+	TOCATEG     : Nom de la catégorie de destination sur le site esclave. Si vide, Catégorie par défaut          */
+
+	AUTHOR : doit contenir le pseudo de l'Admin avec lequel sera publié la News - nous vous recommandons de créer un Admin spécifique (le même) sur le(s) site(s) esclave(s)                                    */
+	/!\ ATTENTION : cet admin ne doit avoir QUE les droits de publication d'articles                    */
+
+	MEMBER : doit contenir le pseudo du membre considéré comme l'auteur des News - nous vous recommandons de créer un MEMBRE spécifique (le même) sur le(s) site(s) esclave(s)                                   */
+	/!\ ATTENTION : ce membre doit avoir un pseudo et un nom IDENTIQUE (zone véritable identité)        */
+
+	$part[1]=array(
+	"WWW"=> "www.esclave-un.net",
+	"SUBSCRIBE"=> "NEWS",
+	"OP"=> "EXPORT",
+	"FROMTOPICID"=> "5",
+	"TOTOPIC"=> "GNU / GPL",
+	"FROMCATID"=> "",
+	"TOCATEG"=> "",
+	"AUTHOR"=> "NPDS-Cluster",
+	"MEMBER"=> "NPDS"
+	);
+
+   ---------------------------
+   -| sur le site escalve : |-
+   ---------------------------
+     - dans le fichier data-cluster-E.php (voir sample.data-cluster-E.php) :
+	WWW       : doit contenir l'url complète de votre partenaire maitre (SANS http://)                                
+	KEY       : doit contenir sa clef de sécurité (demandez là au webmestre du site maitre du cluster)                
+	SUBSCRIBE : doit contenir le type d'abonnement (pour l'instant NEWS)                                        
+	OP        : doit contenir le sens de l'abonnement (pour l'instant IMPORT pour vous EXPORT pour le maitre du cluster)
+
+	$part[0]=array(
+	"WWW"=> "www.npds.org",
+	"KEY"=> "la_clef_de_npds.org",
+	"SUBSCRIBE"=> "NEWS",
+	"OP"=> "IMPORT"
+	);
+
+     - Définir un Auteur ET un Membre en accord avec la définition faite dans le Maître du Cluster (voir ci-dessus).
+       Sans cet auteur et ce membre, CP ne fonctionnera pas
+
+
+=> Si votre configuration est bonne, lorsque vous publierez une new sur le Maître, une fenètre popup (attention aux anti-popup) vous demandera
+si vous voulez mettre à jour le partenaire XXX ou si vous voulez abandonner la diffusion (si vous avez + partenaires, vous aurez + fenètres ...).
+Simple non ?
+
+   -----------------
+   -| Nota bene : |-
+   -----------------
+
+   - Un site peut-être à la fois maitre d'un cluster et escalve de plusieurs
+   - Une fois la news publiée, elle devient totallement autonomme
+   - Attention aux images, CP ne publi (pour l'instant) que les news, pas les images. Les liens <img src> resteront donc
+     en direction du maitre du Cluster.
+
+   ------------------------------------
+   -| Autres utilisations Possible : |-
+   ------------------------------------
+   - Si votre poste de travail personnel est un serveur Web, vous devriez pouvoir mettre votre site à jour à distance ...
+

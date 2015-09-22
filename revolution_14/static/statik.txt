@@ -1,0 +1,2 @@
+Cette page static peut permettre de g&eacute;rer des &eacute;l&eacute;ments quasi-permanents dans NPDS comme des textes, images, ... .<br />
+L'arborescence se trouve sous /static et peut contenir un sous-r&eacute;pertoire (static/demo par exemple).<br /><br />

@@ -1,0 +1,39 @@
+<html><head>
+<title>Informations Channels (Headlines) - NPDS V</title>
+
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=Verdana,Arial,Helvetica size=2>
+<center>
+  <b>Informations Kanäle (Headlines)</b> 
+</center>
+<br /><br />
+Sie können Informations Kanäle von anderen Seiten aktivieren.<br />
+Diese Kanäle sind keine Textdateien, sondern RDF/XML Dateien.<br />
+Warnung : dieses Modul kann die Geschwindigkeit Ihrer Webseite negativ beeinflussen.<br />
+Alle Kanäle werden stündlich erneuert. Verändern Sie diese Einstellung nicht, denn es beansprucht schon so genug Recourcen. <br />
+<br />
+<b>Einen Kanal hinzufügen : </b><br />
+Füllen Sie die Felder aus (Titel, URL, URL RDF/XML, Status). Wenn Sie einen Kanal aktivieren, wird eine neue Box angezeigt. Inaktivie Kanäle werden nicht angezeigt..<br />
+<br />
+<b>Einen Kanal eistellen : </b><br />
+Klicken Sie auf editieren und wählen Sie den Status der Seite aus.<br />
+<br />
+Um einen Kanal zu löschen, klicken Sie auf... löschen.<br />
+<br />
+Wenn Ihre Seite hinter einem  <b>Proxy Server</b> liegt, konfigurieren Sie dieproxy.conf.php
+(root Ihrer Seite) um den Zugang zu einem oder mehreren Kanäleen zu erlauben.<br />
+<br />
+<b>Konfiguration der Boxen, in denen die Kanäle angezeigt werden sollen : </b><br />
+In der Block Administration (links/rexhts), können Sie hinzufügen:<br />
+ - function#headlines<br />
+=> in diesem Fall werden alle Kanäle einer nach dem anderen angezeigt.<br />
+OR<br />
+ - function#headlines<br />
+- params#$ID_of_channel<br />
+=> in diesem Fall wird nur die ID des Kanals angezeigt "ID_of_channel" . Sie können soviele Kanäle einfügen, wie Sie wollen. <br />
+<br />
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

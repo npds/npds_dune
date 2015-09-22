@@ -1,0 +1,39 @@
+[jour]
+!edito-notitle!
+
+Edito utilisant les meta-mots pour afficher le système de news
+
+<hr noshade="noshade" class="ongl" />
+
+<table border="0" width="100%">
+  <tr>
+    <td width="100%" valign="top" class="header">!article_complet!0 </td>
+  </tr>
+  <tr>
+    <td width="100%">
+      <table width=100% cellspacing=2 cellpadding=2 border=0>
+        <tr>
+          <td width="50%" valign="top" class="header">!article_complet!-1 </td>
+          <td width="50%" valign="top" class="header">!article_complet!-2 </td>
+        </tr>
+
+        <tr>
+          <td width="50%" valign="top" class="header">!article_complet!-3 </td>
+          <td width="50%" valign="top" class="header">!article_complet!-4 </td>
+        </tr>
+        <tr>
+          <td width="50%" valign="top" class="header">!article_complet!-5 </td>
+          <td width="50%" valign="top" class="header">!article_complet!-6 </td>
+        </tr>
+        <tr>
+          <td width="50%" valign="top" class="header">!article_complet!-7 </td>
+          <td width="50%" valign="top" class="header">!article_complet!-8 </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="100%" valign="top">!article_complet!-9 </td>
+  </tr>
+</table>
+[/jour][nuit][/nuit]aff_jours=300&aff_jour=checked&aff_nuit=checked&aff_date=1069246788

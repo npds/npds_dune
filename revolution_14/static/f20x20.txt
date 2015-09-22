@@ -1,0 +1,104 @@
+﻿<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+<h3>Format : 20 x 20</h3>
+		<div class="row">	
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image01.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+				<img class="img-responsive" src="static/images/f20x20/image01.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image02.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image02.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image03.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image03.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image04.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image04.jpg" alt="" /></a>
+				<br />
+			</div>	
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image05.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image05.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image06.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image06.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image07.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image07.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image08.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image08.jpg" alt="" /></a>
+				<br />
+			</div>	
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image09.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image09.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image10.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image10.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image11.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image11.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image12.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image12.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image13.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image13.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image14.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image14.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image15.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image15.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image16.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image16.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image17.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image17.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image18.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image18.jpg" alt="" /></a>
+				<br />
+			</div>
+			<div class="col-sm-3">
+			<a href="static/images/f20x20/image19.jpg" data-lightbox="roadtrip" data-title="Anne Lavergne, 2015, Format : 20 x 20<br />Clic sur le X pour fermer" data-toggle="tooltip" data-placement="top" title="Cliquer pour agrandir">
+			<img class="img-responsive" src="static/images/f20x20/image19.jpg" alt="" /></a>
+				<br />
+			</div>			
+		</div>		
+	</div>
+<div class="col-md-1"></div>
+</div>

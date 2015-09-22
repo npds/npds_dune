@@ -1,0 +1,15 @@
+<?php
+// two choice :   member or admin 
+if (secur_static("member")) { ?>   
+   <p align="center">
+   Mod&eacute;le de page statique pour NPDS visible que si l'utilisateur est identifi&eacute; comme membre connect&eacute;.
+   <br /><br />
+   Model of static page for NPDS, that only connected members can see.
+   </p>
+
+<?php
+} else {                           
+   echo "Access Denied / Acc&egrave;s Refus&eacute;";
+   if (cur_charset=="utf-8") echo" / &#x901A;&#x5165;&#x88AB;&#x5426;&#x8BA4;";
+}
+?>

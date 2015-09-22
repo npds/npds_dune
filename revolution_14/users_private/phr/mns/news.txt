@@ -1,0 +1,2 @@
+12 06 2015!;!Il faut bien un premier ... article!;!<p><img class="img-responsive" src="modules/upload/upload/SO03200415.jpg" alt="SO03200415.jpg" border="0" /></p><p>Et bien je le suis....</p><p>Essayez les Ministes de <a href="http://www.npds.org" target="_blank" title="www.npds.org">NPDS</a></p><p>C'est simplement tout good</p><p>La TEAM de Développement</p>
+12 06 2015!;!Test pour rendre responsive l'image de l'article!;!<p><img class="img-responsive" src="modules/upload/upload/SO03200415.jpg" alt="SO03200415.jpg" border="0" /></p>

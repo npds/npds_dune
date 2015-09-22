@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>Administration - NPDS</title>
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font size="2" face="Verdana,Arial,Helvetica">
+</font><center>
+  <font size="2" face="Verdana,Arial,Helvetica"><b>Rubricas</b></font>
+</center><font size="2" face="Verdana,Arial,Helvetica"></font><div><font size="2" face="Verdana,Arial,Helvetica"><br />
+Nuevo motor de gesti&oacute;n de las r&uacute;bricas m&aacute;s orientado workflow y disponiendo de un conjunto de funcionalidades
+completo.<br />
+Las evoluciones principales son:<br />
+- una estructura m&aacute;s rica: r&uacute;brica/subdivisi&oacute;n de
+r&uacute;brica/publicaci&oacute;n<br />
+- un miniworkflow de publicaci&oacute;n<br />
+- una gesti&oacute;n fina de los derechos de los autores<br />
+- una gesti&oacute;n fina de los derechos de visualizaci&oacute;n</font></div>
+<font size="2" face="Verdana,Arial,Helvetica"><br />
+</font><div><font size="2" face="Verdana,Arial,Helvetica">Antes de empezar:
+  </font><font size="2"></font><p><font size="2" face="Verdana,Arial,Helvetica">- se a&ntilde;aden autom&aacute;ticamente dos r&uacute;bricas particulares en la
+    instalaci&oacute;n:<br />
+    - Diversos permitiendo la realizaci&oacute;n de p&aacute;ginas hu&eacute;rfanas (por
+    ejemplo)<br />
+    - Pisapapeles para los documentos en instancias, las pruebas, la
+  puesta en espera...</font></p>
+  <font size="2"><font face="Verdana,Arial,Helvetica"><br />
+  - sus antiguas r&uacute;bricas son recogidas en forma de una subdivisi&oacute;n de
+  r&uacute;brica (sin t&iacute;tulo) y los derechos de los autores ajustados lo
+  mejor posible.</font></font></div>  
+<p><font size="2" face="Verdana,Arial,Helvetica"><br />
+  - Finalmente este nuevo motor de r&uacute;brica dispone de un menu
+din&aacute;mica horizontal en javascript compatible IE y FF y de un bloque
+espec&iacute;fico (function#bloc_rubrique)</font></p>
+<p align="center"><br />
+  ::--::<br />
+  <br />
+  <font size="2"><font face="Verdana,Arial,Helvetica"> </font></font></p>
+<font size="2"><font face="Verdana,Arial,Helvetica"><font size="0"><font size="2" face="Verdana,Arial,Helvetica"></font></font></font></font><div><font size="2" face="Verdana,Arial,Helvetica"><strong>R&uacute;brica:</strong><br />
+  Dispone de un t&iacute;tulo, de una introducci&oacute;n y de un estatuto: en
+  l&iacute;nea (s&iacute; o no).<br />
+  NPDS no indicar&aacute; una r&uacute;brica que no este en linea por defecto una nueva
+  r&uacute;brica creada coge por defecto el estatuto NO en linea.<br />
+  <br />
+  <strong>Subdivisi&oacute;n de r&uacute;brica:</strong><br />
+Est&aacute; vinculada a una R&uacute;brica y dispone de un titulo,en caso contrario de
+una imagen asociada (el flash se soporta :: lugares de almacenamiento:
+im&aacute;genes/secciones), de una introducci&oacute;n y de la gesti&oacute;n de los
+derechos de los usuarios.<br />
+<br />
+<strong>Publicaci&oacute;n:</strong><br />
+Est&aacute; vinculada a una Subdivisi&oacute;n de r&uacute;brica y dispone de un titulo,
+en caso contrario de un v&iacute;nculo hacia publicaciones conexas, de un
+contenido y de la gesti&oacute;n de los derechos de los usuarios.<br />
+</font><font size="2"><font size="2" face="Verdana,Arial,Helvetica">
+</font></font><div>
+  <p><font size="2" face="Verdana,Arial,Helvetica">NPDS autoriza para el contenido:<br />
+    - la visualizaci&oacute;n de c&oacute;digo PHP, C, Perl... . <br />
+    Es necesario
+    encuadrar su &quot;codigo fuente&quot; por las pseudobalizas [ code]su_codigo[/code].<br />
+    - la gesti&oacute;n de varias p&aacute;ginas.<br />
+    Es necesario incorporar en su art&iacute;culo una (o varias) ruptura (s) de<br />
+    p&aacute;gina mediante [ pageX ] donde X puede ser lo que sea <br />
+    (p.ej.: [ page1 ] luego [ page2 ]...).</font></p>
+  <p><font size="2" face="Verdana,Arial,Helvetica">    <br />
+    Nueva publicaci&oacute;n:<br />
+    - Para un SuperAdmin: La nueva publicaci&oacute;n se pondr&aacute; inmediatamente
+    en l&iacute;nea.<br />
+    - Para un administrador de R&uacute;brica: la nueva publicaci&oacute;n pasar&aacute;
+    obligatoriamente al estatuto &quot;en espera de validaci&oacute;n&quot;.<br />
+    <b><br />
+    Publicaci&oacute;n conexa:</b></font></p>
+  <p>Se trata de una publicaci&oacute;n que puede ser relacionada con el contenido
+    del art&iacute;culo en curso. Esta funci&oacute;n autoriza una navegaci&oacute;n
+    transversal entre sus distintas r&uacute;bricas, subdivisiones de r&uacute;brica.</p>
+  <p><strong>Gesti&oacute;n del orden:</strong></p>
+  <p>Que se trate de las r&uacute;bricas, de las subdivisiones de r&uacute;brica o las
+    publicaciones, NPDS le permite aplicar su clasificaci&oacute;n</p>
+  <p><strong>Estatuto y supresi&oacute;n:</strong></p>
+  <p>Se indica el estatuto de la r&uacute;brica.  recordatorio, una
+    r&uacute;brica teniendo el estatuto En diferido no sera mostrada por NPDS.<br />
+    La supresi&oacute;n de una r&uacute;brica, subdivisi&oacute;n de r&uacute;brica, publicaci&oacute;n
+    se realiza sistem&aacute;ticamente despu&eacute;s de una validaci&oacute;n. Una vez
+    validada, es definitiva.</p>
+  <p><font size="2"><font face="Verdana,Arial,Helvetica"><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><br />
+            <strong><br />
+            Publicaciones en espera de validaci&oacute;n:</strong><br />
+  Se indica la lista de la publicaci&oacute;n en espera y en funci&oacute;n de los
+  derechos, podr&aacute;: consultar, modificar, suprimir y publicar
+  finalmente.<br />
+  <br /> </font></font></font><font><font><font><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><font><font><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><font><font><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><font size="2" face="Verdana,Arial,Helvetica"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+</div><font size="2"><font><font><font><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><font><font><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><font><font><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><font size="2" face="Verdana,Arial,Helvetica"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font>
+<div><font size="2" face="Verdana,Arial,Helvetica"><b>Autores :</b><br />
+</font></div>
+<font size="2"><font size="2" face="Verdana,Arial,Helvetica">&nbsp;- Para un SuperAdmin: toda autorizacion <br />
+- Para un administrador de R&uacute;brica: la gesti&oacute;n de los derechos debe
+hacerse, subdivisiones de r&uacute;brica por subdivisiones de r&uacute;brica
+(atenci&oacute;n en el momento de la creaci&oacute;n de nuevas r&uacute;bricas,
+subdivisiones de r&uacute;brica ning&uacute;n derecho se afecta por defecto)<br />
+seg&uacute;n 4 criterios:<br />
+- Crear: autoriza la creaci&oacute;n de una publicaci&oacute;n que tendr&aacute; el
+estatuto &quot;en espera de validaci&oacute;n&quot; inicialmente<br />
+- Publicar: autoriza la puesta en l&iacute;nea de una publicaci&oacute;n que tiene
+el estatuto &quot;en espera de validaci&oacute;n&quot;<br />
+- Modificar: autoriza la modificaci&oacute;n de un contenido en l&iacute;nea<br />
+</font></font>- Suprimir: autoriza la supresi&oacute;n de un contenido en l&iacute;nea<br />
+<p>Cada autor puede verse asignador uno o m&aacute;s derechos sobre una o m&aacute;s
+  r&uacute;bricas, subdivisiones de r&uacute;brica.</p>
+<font size="2"><font face="Verdana,Arial,Helvetica"><font size="0"><font size="2" face="Verdana,Arial,Helvetica"><br />
+<strong><br />
+Activar Toggle-Div:</strong><br />
+Se trata de aplicar una funci&oacute;n que permite el &quot;plegado-despliegue&quot;
+de las subdivisiones de r&uacute;brica, publicaciones conexas... en la
+interfaz de visualizaci&oacute;n del usuario.<br />
+<br />
+
+</font></div>   
+<font size="2"><center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

@@ -1,0 +1,53 @@
+!opentable!
+
+<h3>[transl]Welcome to the TOP page for[/transl] !sitename!</h3>
+<br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most read stories[/transl]</td><td class="ongl" align="right">[transl]read:[/transl]</td></tr>
+top_stories(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most commented stories[/transl]</td><td class="ongl" align="right">[transl]comments:[/transl]</td></tr>
+top_commented_stories(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most active categories[/transl]</td><td class="ongl" align="right">[transl]read:[/transl]</td></tr>
+top_categories(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most read articles in special sections[/transl]</td><td class="ongl" align="right">[transl]Hits[/transl]</td></tr>
+top_sections(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most active news submitters[/transl]</td><td class="ongl" align="right">[transl]sent news:[/transl]</td></tr>
+top_storie_authors(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most voted polls[/transl]</td><td class="ongl" align="right">[transl]votes:[/transl]</td></tr>
+top_polls(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most active authors[/transl]</td><td class="ongl" align="right">[transl]news published:[/transl]</td></tr>
+top_authors(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most read reviews[/transl]</td><td class="ongl" align="right">[transl]read:[/transl]</td></tr>
+top_reviews(<?php echo $top; ?>)
+</table><br /><br />
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td class="ongl"><?php echo $top; ?> [transl]most downloaded[/transl]</td><td class="ongl" align="right">[transl]downloads[/transl]</td></tr>
+<?php echo topdownload_data("long","dcounter"); ?>
+</table><br /><br />
+
+<p align="center"><a href="http://www.npds.org" class="noir">http://www.npds.org</a></p>
+
+!closetable!

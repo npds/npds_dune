@@ -1,0 +1,29 @@
+<?php
+/************************************************************************/
+/* SFORM Extender for NPDS USER .                                       */
+/* ===========================                                          */
+/*                                                                      */
+/* P. Brunier 2004 for NPDS V                                           */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+/* Dont modify this file is you dont know what you make                 */
+/************************************************************************/
+$sform_path="modules/sform/";
+include_once($sform_path."sform.php");
+
+global $m;
+$m=new form_handler();
+//********************
+$m->add_form_title("Register");
+$m->add_form_method("post");
+$m->add_form_check("false");
+$m->add_url("user.php");
+
+/************************************************/
+include($sform_path."extend-user/aff_formulaire.php");
+/************************************************/
+echo $m->aff_response("class=\"ligna\"");
+?>

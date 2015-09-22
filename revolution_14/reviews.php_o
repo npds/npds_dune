@@ -1,0 +1,517 @@
+<?php
+/************************************************************************/
+/* DUNE by NPDS                                                         */
+/* ===========================                                          */
+/*                                                                      */
+/* Based on PhpNuke 4.x source code                                     */
+/*                                                                      */
+/* This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier   */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+if (!function_exists("Mysql_Connexion")) {
+   include ("mainfile.php");
+}
+
+function display_score($score) {
+   if ($ibid=theme_image("blue.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/blue.gif";}
+   $image = "<img src=\"$imgtmp\" alt=\"\" />";
+   if ($ibid=theme_image("bluehalf.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/bluehalf.gif";}
+   $halfimage = "<img src=\"$imgtmp\" alt=\"\" />";
+   if ($ibid=theme_image("star.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/star.gif";}
+   $full = "<img src=\"$imgtmp\" alt=\"\" />";
+
+   if ($score == 10) {
+      for ($i=0; $i < 5; $i++)
+         echo "$full";
+   } else if ($score % 2) {
+      $score -= 1;
+      $score /= 2;
+      for ($i=0; $i < $score; $i++)
+         echo "$image";
+      echo "$halfimage";
+   } else {
+      $score /= 2;
+      for ($i=0; $i < $score; $i++)
+         echo "$image";
+   }
+}
+
+function write_review() {
+   global $admin, $sitename, $user, $cookie, $short_review;
+   global $NPDS_Prefix;
+
+   include ('header.php');
+   opentable();
+   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2 \" border=\"0\"><tr><td class=\"header\">\n";
+   echo translate("Write a Review for")." $sitename";
+   echo "</td></tr></table>\n";
+
+   echo "<form method=\"post\" action=\"reviews.php\">
+        <b>".translate("Product Title")." :</b><br />
+        <input class=\"textbox_standard\" type=\"text\" name=\"title\" size=\"40\" maxlength=\"150\" />&nbsp;
+        <i>".translate("Name of the Reviewed Product.")."</i><br /><br />
+        <b>".translate("Review")." :</b><br />
+        <textarea class=\"textbox\" name=\"text\" rows=\"15\" cols=\"40\"></textarea><br />
+        <i>".translate("Your actual review. Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.")."</i><br /><br />";
+   if ($user) {
+      $result=sql_query("select uname, email from ".$NPDS_Prefix."users where uname='$cookie[1]'");
+      list($uname, $email) = sql_fetch_row($result);
+      echo "<b>".translate("Your name")." :</b> $uname<br />
+            <b>".translate("Your email")." :</b> $email<br /><br />
+            <input type=\"hidden\" name=\"reviewer\" value=\"$uname\" />
+            <input type=\"hidden\" name=\"email\" value=\"$email\" />";
+   } else {
+      echo "<b>".translate("Your name")." :</b><br />
+            <input class=\"textbox_standard\" type=\"text\" name=\"reviewer\" size=\"40\" maxlength=\"100\" value=\"$name\" /><br />
+            <i>".translate("Your Full Name. Required.")."</i><br /><br />
+            <b>".translate("Your email")." :</b><br />
+            <input class=\"textbox_standard\" type=\"text\" name=\"email\" size=\"40\" maxlength=\"100\" value=\"$email\" /><br />
+            <i>".translate("Your E-mail address. Required.")."</i><br /><br />";
+   }
+   echo "<b>".translate("Score")." :</b><br />
+        <select class=\"textbox_standard\" name=\"score\">
+        <option value=\"10\">10</option>
+        <option value=\"9\">9</option>
+        <option value=\"8\">8</option>
+        <option value=\"7\">7</option>
+        <option value=\"6\">6</option>
+        <option value=\"5\">5</option>
+        <option value=\"4\">4</option>
+        <option value=\"3\">3</option>
+        <option value=\"2\">2</option>
+        <option value=\"1\">1</option>
+        </select>
+        <i>".translate("Select from 1=poor to 10=excelent.")."</i><br /><br />";
+   if (!$short_review) {
+      echo "<b>".translate("Related Link")." :</b><br />
+           <input class=\"textbox_standard\" type=\"text\" name=\"url\" size=\"40\" maxlength=\"100\" value=\"\" /><br />
+           <i>".translate("Product Official Website. Make sure your URL starts by")."<span class=\"rouge\"> \"http(s)://\".</span></i><br /><br />
+           <b>".translate("Link title")." :</b><br />
+           <input class=\"textbox_standard\" type=\"text\" name=\"url_title\" size=\"40\" maxlength=\"50\" /><br />
+           <i>".translate("Required if you have a related link, otherwise not required.")."</i><br /><br />";
+      if ($admin) {
+         echo "<b>".translate("Image filename")." :</b><br />
+              <input class=\"textbox_standard\" type=\"text\" name=\"cover\" size=\"40\" maxlength=\"100\" /><br />
+              <i>".translate("Name of the cover image, located in images/reviews/. Not required.")."</i><br /><br />";
+      }
+   }
+   echo translate("Please make sure that the information entered is 100% valid and uses proper grammar and capitalization. For instance, please do not enter your text in ALL CAPS, as it will be rejected.")."<br /><br />";
+   echo "<input type=\"hidden\" name=\"op\" value=\"preview_review\" /><input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Preview")."\" /> <input class=\"bouton_standard\" type=\"button\" onclick=\"history.go(-1)\" value=\"".translate("Go Back")."\" /></form>";
+   closetable();
+   include ("footer.php");
+}
+
+function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id) {
+   global $admin, $short_review;
+
+   $title = stripslashes(strip_tags($title));
+   $text = stripslashes(removeHack(conv2br($text)));
+   $reviewer = stripslashes(strip_tags($reviewer));
+   $url_title = stripslashes(strip_tags($url_title));
+
+   include ('header.php');
+   opentable();
+   echo "<form method=\"post\" action=\"reviews.php\">";
+   if ($title == "") {
+      $error = 1;
+      echo translate("Invalid Title... can not be blank")."<br />";
+   }
+   if ($text == "") {
+      $error = 1;
+      echo translate("Invalid review text... can not be blank")."<br />";
+   }
+   if (($score < 1) || ($score > 10)) {
+      $error = 1;
+      echo translate("Invalid score... must be between 1 and 10")."<br />";
+   }
+   if (($hits < 0) && ($id != 0)) {
+      $error = 1;
+      echo translate("Hits must be a positive integer")."<br />";
+   }
+   if ($reviewer == "" || $email == "") {
+      $error = 1;
+      echo translate("You must enter both your name and your email")."<br />";
+   } else if ($reviewer != "" && $email != "")
+      if (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)) {
+         $error = 1;
+         echo translate("Invalid email (eg: you@hotmail.com)")."<br />";
+      }
+
+   if ((($url_title != "" && $url =="") || ($url_title == "" && $url != "")) and (!$short_reviews)) {
+      $error = 1;
+      echo translate("You must enter BOTH a link title and a related link or leave both blank")."<br />";
+   } else if (($url != "") && (!preg_match('#^http(s)?://#i',$url))) {
+      $error = 1;
+      echo translate("Product Official Website. Make sure your URL starts by")."<span class=\"rouge\"> \"http(s)://\".</span></i><br />";
+   }
+
+   if ($error == 1) {
+      echo "<br /><input class=\"bouton_standard\" type=\"button\" onclick=\"history.go(-1)\" value=\"".translate("Go Back")."\" />";
+   } else {
+      global $gmt;
+      $fdate=date(str_replace("%","",translate("linksdatestring")),time()+($gmt*3600));
+      echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+      echo translate("Waiting Reviews");
+      echo "</td></tr></table>\n";
+      echo "<br />\n";
+      echo translate("Added:")." $fdate";
+      echo "<hr noshade=\"noshade\" class=\"ongl\" />";
+      echo "<span class=\"titrea\">$title</span><br />";
+      if ($cover != "")
+         echo "<img src=\"images/reviews/$cover\" align=\"right\" hspace=\"10\" vspace=\"10\">";
+      echo $text;
+      echo "<hr noshade=\"noshade\" class=\"ongl\" />";
+      echo "<b>".translate("Reviewer:")."</b> <a href=\"mailto:$email\" class=\"noir\" target=\"_blank\">$reviewer</a><br />";
+      echo "<b>".translate("Score:")."</b> ";
+      display_score($score);
+      if ($url != "")
+         echo "<br /><b>".translate("Related Link")." :</b> <a href=\"$url\" target=\"_blank\" class=\"noir\">$url_title</a>";
+      if ($id != 0) {
+         echo "<br /><b>".translate("Review ID")." :</b> $id<br />";
+         echo "<b>".translate("Hits")." :</b> $hits<br />";
+      }
+      $text = urlencode($text);
+      echo "<input type=\"hidden\" name=\"id\" value=\"$id\" />
+            <input type=\"hidden\" name=\"hits\" value=\"$hits\" />
+            <input type=\"hidden\" name=\"date\" value=\"$fdate\" />
+            <input type=\"hidden\" name=\"title\" value=\"$title\" />
+            <input type=\"hidden\" name=\"text\" value=\"$text\" />
+            <input type=\"hidden\" name=\"reviewer\" value=\"$reviewer\" />
+            <input type=\"hidden\" name=\"email\" value=\"$email\" />
+            <input type=\"hidden\" name=\"score\" value=\"$score\" />
+            <input type=\"hidden\" name=\"url\" value=\"$url\" />
+            <input type=\"hidden\" name=\"url_title\" value=\"$url_title\" />
+            <input type=\"hidden\" name=\"cover\" value=\"$cover\" />
+            <input type=\"hidden\" name=\"op\" value=\"add_reviews\" />";
+      echo "<br /><br />".translate("Does this look right?")."&nbsp;&nbsp;";
+      if (!$admin)
+         echo Q_spambot();
+      echo "<input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Yes")."\" />&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"button\" onclick=\"history.go(-1)\" value=\"".translate("No")."\" />";
+      if ($id != 0)
+         $word = translate("modified");
+      else
+         $word = translate("added");
+      if ($admin)
+         echo "<br /><br /><b>".translate("Note:")."</b> ".translate("Currently logged in as admin... this review will be")." $word ".translate("immediately").".";
+   }
+   echo "</form>";
+   closetable();
+   include ("footer.php");
+}
+
+function reversedate($myrow) {
+   if (substr($myrow,2,1)=="-") {
+      $day=substr($myrow,0,2);
+      $month=substr($myrow,3,2);
+      $year=substr($myrow,6,4);
+   } else {
+      $day=substr($myrow,8,2);
+      $month=substr($myrow,5,2);
+      $year=substr($myrow,0,4);
+   }
+   return ($year."-".$month."-".$day);
+}
+
+function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse) {
+   global $admin, $user;
+   global $NPDS_Prefix;
+
+   include ('header.php');
+   $date=reversedate($date);
+   $title = stripslashes(FixQuotes(strip_tags($title)));
+   $text = stripslashes(Fixquotes(urldecode(removeHack($text))));
+
+   if (!$user and !$admin) {
+      //anti_spambot
+      if (!R_spambot($asb_question, $asb_reponse, $text)) {
+         Ecr_Log("security", "Review Anti-Spam : title=".$title, "");
+         redirect_url("index.php");
+         die();
+      }
+   }
+
+   opentable();
+   echo "<br /><p align=\"center\">".translate("Thanks for submitting this review")."";
+   if ($id != 0)
+      echo " ".translate("modification")."";
+   else
+      echo ", $reviewer";
+   echo "<br /><br />";
+   if (($admin) && ($id == 0)) {
+      sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
+      echo translate("It is now available in the reviews database.");
+   } else if (($admin) && ($id != 0)) {
+      sql_query("UPDATE ".$NPDS_Prefix."reviews SET date='$date', title='$title', text='$text', reviewer='$reviewer', email='$email', score='$score', cover='$cover', url='$url', url_title='$url_title', hits='$hits' where id='$id'");
+      echo translate("It is now available in the reviews database.");
+   } else {
+      sql_query("INSERT INTO ".$NPDS_Prefix."reviews_add VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$url', '$url_title')");
+      echo translate("The editors will look at your submission. It should be available soon!");
+   }
+   echo "<br /><br />[ <a href=\"reviews.php\" class=\"noir\">".translate("Back to Reviews Index")."</a> ]<br /></p>";
+   closetable();
+   include ("footer.php");
+}
+
+function reviews($field, $order) {
+   global $NPDS_Prefix;
+   include ('header.php');
+   opentable();
+   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+   echo translate("Welcome to Reviews Section");
+   echo "</td></tr></table>\n";
+   $result = sql_query("select title, description from ".$NPDS_Prefix."reviews_main");
+   list($title, $description) = sql_fetch_row($result);
+   echo "<br /><b>".aff_langue($title)."</b><br /><br />".aff_langue($description)."<br /><br />";
+   echo "<p align=\"center\">";
+   echo "[ <a href=\"reviews.php?op=write_review\" class=\"noir\">".translate("Write a Review")."</a> ]</p><br /><br />\n";
+   if ($order!="ASC" and $order!="DESC") $order="ASC";
+   switch ($field) {
+          case "reviewer":
+               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by reviewer $order");
+               break;
+
+          case "score":
+               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by score $order");
+               break;
+
+          case "hits":
+               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by hits $order");
+               break;
+
+          case "date":
+               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by id $order");
+               break;
+
+          default:
+               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by title $order");
+               break;
+   }
+   $numresults = sql_num_rows($result);
+   if ($numresults > 0) {
+      if ($ibid=theme_image("download/up.gif")) {$imgtmpU=$ibid;} else {$imgtmpU="images/download/up.gif";}
+      if ($ibid=theme_image("download/down.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/download/down.gif";}
+      echo "<table border=\"0\" width=\"100%\" cellpadding=\"1\" cellspacing=\"1\">
+            <tr class=\"header\">
+            <td class=\"box\" align=\"center\">
+            <a href=\"reviews.php?op=sort&amp;field=date&amp;order=ASC\"><img src=\"$imgtmpU\" border=\"0\" width=\"15\" height=\"9\" alt=\"Date\" /></a> Date <a href=\"reviews.php?op=sort&amp;field=date&amp;order=DESC\"><img src=\"$imgtmpD\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Descending")."\" /></a>
+            </td>
+            <td class=\"box\">
+            <a href=\"reviews.php?op=sort&amp;field=title&amp;order=ASC\"><img src=\"$imgtmpU\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Ascending")."\" /></a> ".translate("Title")." <a href=\"reviews.php?op=sort&amp;field=title&amp;order=DESC\"><img src=\"$imgtmpD\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Descending")."\" /></a>
+            </td>
+            <td class=\"box\" align=\"center\" nowrap=\"nowrap\" >
+            <a href=\"reviews.php?op=sort&amp;field=reviewer&amp;order=ASC\"><img src=\"$imgtmpU\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Ascending")."\" /></a> ".translate("Posted by")." <a href=\"reviews.php?op=sort&amp;field=reviewer&amp;order=DESC\"><img src=\"$imgtmpD\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Descending")."\" /></a>
+            </td>
+            <td class=\"box\" align=\"center\" nowrap=\"nowrap\" >
+            <a href=\"reviews.php?op=sort&amp;field=score&amp;order=ASC\"><img src=\"$imgtmpU\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Ascending")."\" /></a> Score <a href=\"reviews.php?op=sort&amp;field=score&amp;order=DESC\"><img src=\"$imgtmpD\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Descending")."\" /></a>
+            </td>
+            <td class=\"box\" align=\"center\" nowrap=\"nowrap\" >
+            <a href=\"reviews.php?op=sort&amp;field=hits&amp;order=ASC\"><img src=\"$imgtmpU\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Ascending")."\" /></a> Hits <a href=\"reviews.php?op=sort&amp;field=hits&amp;order=DESC\"><img src=\"$imgtmpD\" border=\"0\" width=\"15\" height=\"9\" alt=\"".translate("Sort Descending")."\" /></a>
+            </td>
+            </tr>";
+      while ($myrow=sql_fetch_assoc($result)) {
+         $title = $myrow["title"];
+         $id = $myrow["id"];
+         $reviewer = $myrow["reviewer"];
+         $score = $myrow["score"];
+         $hits = $myrow["hits"];
+         $date = $myrow["date"];
+         $rowcolor = tablos();
+         echo "<tr $rowcolor>
+               <td nowrap=\"nowrap\" align=\"left\"><span>".f_date ($date)."</span>&nbsp;</td>
+               <td width=\"40%\"><a href=\"reviews.php?op=showcontent&amp;id=$id\" class=\"noir\">$title</a></td>
+               <td width=\"20%\" align=\"center\">";
+         if ($reviewer != "") echo $reviewer;
+         echo "</td><td width=\"18%\" align=\"center\">";
+         display_score($score);
+         echo "</td><td width=\"14%\" align=\"center\">$hits</td></tr>";
+      }
+      echo "</table>";
+   }
+   echo "<br />$numresults ".translate("Total Review(s) found.")."<br />";
+
+   sql_free_result($result);
+   closetable();
+   include ("footer.php");
+}
+
+function f_date($xdate) {
+   $year = substr($xdate,0,4);
+   $month = substr($xdate,5,2);
+   $day = substr($xdate,8,2);
+   $fdate=date(str_replace("%","",translate("linksdatestring")),mktime (0,0,0,$month,$day,$year));
+   return $fdate;
+}
+
+function showcontent($id) {
+   global $admin;
+   global $NPDS_Prefix;
+   include ('header.php');
+   opentable();
+   settype($id,"integer");
+   sql_query("UPDATE ".$NPDS_Prefix."reviews SET hits=hits+1 WHERE id='$id'");
+   $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews WHERE id='$id'");
+   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+   echo translate("Reviews")."</td><td class=\"header\" align=\"right\">";
+   echo "[ <a href=\"reviews.php\" class=\"header\">".translate("Back to Reviews Index")."</a> ]";
+   echo "</td></tr></table>\n";
+   echo "<br />";
+   $myrow = sql_fetch_assoc($result);
+   $id =  $myrow["id"];
+   $fdate=f_date($myrow["date"]);
+   $title = $myrow["title"];
+   $text = $myrow["text"];
+   $cover = $myrow["cover"];
+   $reviewer = $myrow["reviewer"];
+   $email = $myrow["email"];
+   $hits = $myrow["hits"];
+   $url = $myrow["url"];
+   $url_title = $myrow["url_title"];
+   $score = $myrow["score"];
+   echo "<b>".translate("Added:")."</b> $fdate<br />";
+   echo "<hr noshade=\"noshade\" class=\"ongl\" />";
+   echo "<span class=\"titrea\">$title</span><br />";
+   if ($cover != "")
+      echo "<img src=\"images/reviews/$cover\" align=\"right\" hspace=\"10\" vspace=\"10\" />";
+   echo $text;
+   echo "<hr noshade=\"noshade\" class=\"ongl\" />";
+   if ($admin)
+      echo "<p align=\"right\"><b>".translate("Admin:")."</b> [ <a href=\"reviews.php?op=mod_review&amp;id=$id\" class=\"noir\">".translate("Edit")."</a> | <a href=\"reviews.php?op=del_review&amp;id_del=$id\" class=\"rouge\">".translate("Delete")."</a> ]</p>";
+   if ($reviewer != "")
+      echo "<b>".translate("Reviewer:")."</b> <a href=\"mailto:$email\" target=\"_blank\" class=\"noir\">$reviewer</a><br />";
+   if ($score != "")
+      echo "<b>".translate("Score:")."</b> ";
+   display_score($score);
+   if ($url != "")
+      echo "<br /><b>".translate("Related Link:")."</b> <a href=\"$url\" target=\"_blank\" class=\"noir\">$url_title</a>";
+   echo "<br /><b>".translate("Hits:")."</b> $hits";
+   sql_free_result($result);
+   closetable();
+
+   global $anonpost, $moderate, $user;
+   if (file_exists("modules/comments/reviews.conf.php")) {
+      include ("modules/comments/reviews.conf.php");
+      include ("modules/comments/comments.php");
+   }
+   include ("footer.php");
+}
+
+function mod_review($id) {
+   global $admin;
+   global $NPDS_Prefix;
+   include ('header.php');
+   opentable();
+
+   settype($id,"integer");
+   if (($id != 0) && ($admin)) {
+      $result = sql_query("select * from ".$NPDS_Prefix."reviews where id = '$id'");
+      $myrow =  sql_fetch_assoc($result);
+      $id =  $myrow["id"];
+      $date = $myrow["date"];
+      $title = $myrow["title"];
+      $text = str_replace("<br />","\r\n",$myrow["text"]);
+      $cover = $myrow["cover"];
+      $reviewer = $myrow["reviewer"];
+      $email = $myrow["email"];
+      $hits = $myrow["hits"];
+      $url = $myrow["url"];
+      $url_title = $myrow["url_title"];
+      $score = $myrow["score"];
+      echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+      echo translate("Review Modification");
+      echo "</td></tr></table>\n";
+      echo "<br />";
+      echo "<form method=\"post\" action=\"reviews.php?op=preview_review\"><input type=\"hidden\" name=\"id\" value=\"$id\">";
+      echo "<table border=\"0\" width=\"100%\">
+           <tr>
+           <td width=\"20%\"><b>".translate("Date:")."</b></td>
+           <td><input class=\"textbox_standard\" type=\"text\" name=\"date\" size=\"15\" value=\"$date\" maxlength=\"10\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Title:")."</b></td>
+           <td><input class=\"textbox\" type=\"text\" name=\"title\" size=\"34\" maxlength=\"150\" value=\"$title\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Text:")."</b></td>
+           <td><textarea class=\"textbox\" name=\"text\" rows=\"20\" cols=\"35\">$text</textarea></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Reviewer:")."</b></td>
+           <td><input class=\"textbox_standard\" type=\"text\" name=\"reviewer\" size=\"34\" maxlength=\"100\" value=\"$reviewer\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Email:")."</b></td>
+           <td><input class=\"textbox\" type=\"text\" name=\"email\" value=\"$email\" size=\"34\" maxlength=\"100\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Score:")."</b></td>
+           <td><input class=\"textbox_standard\" type=\"text\" name=\"score\" value=\"$score\" size=\"3\" maxlength=\"2\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Link:")."</b></td>
+           <td><input class=\"textbox\" type=\"text\" name=\"url\" value=\"$url\" size=\"34\" maxlength=\"100\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Link title:")."</b></td>
+           <td><input class=\"textbox\" type=\"text\" name=\"url_title\" value=\"$url_title\" size=\"34\" maxlength=\"50\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Cover image:")."</b></td>
+           <td><input class=\"textbox\" type=\"text\" name=\"cover\" value=\"$cover\" size=\"34\" maxlength=\"100\" /></td>
+           </tr><tr>
+           <td width=\"20%\"><b>".translate("Hits:")."</b></td>
+           <td><input class=\"textbox_standard\" type=\"text\" name=\"hits\" value=\"$hits\" size=\"6\" maxlength=\"5\" /></td>
+           </tr>
+           </table><br />";
+      echo "<input type=\"hidden\" name=\"op\" value=\"preview_review\" /><input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Preview Modifications")."\" />&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"button\" onclick=\"history.go(-1)\" value=\"".translate("Cancel")."\" /></form>";
+      sql_free_result($result);
+   }
+   closetable();
+   include ("footer.php");
+}
+
+function del_review($id_del) {
+   global $admin;
+   global $NPDS_Prefix;
+
+   settype($id_del,"integer");
+   if ($admin) {
+      sql_query("delete from ".$NPDS_Prefix."reviews where id='$id_del'");
+      // commentaires
+      if (file_exists("modules/comments/reviews.conf.php")) {
+          include ("modules/comments/reviews.conf.php");
+          sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' and topic_id='id_del'");
+      }
+   }
+   redirect_url("reviews.php");
+}
+
+settype($op,'string');
+switch ($op) {
+   case "showcontent":
+        showcontent($id);
+        break;
+
+   case "write_review":
+        write_review();
+        break;
+
+   case "preview_review":
+        preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id);
+        break;
+
+   case "add_reviews":
+        send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse);
+        break;
+
+   case "del_review":
+        del_review($id_del);
+        break;
+
+   case "mod_review":
+        mod_review($id);
+        break;
+
+   case "sort":
+        reviews($field,$order);
+        break;
+
+   default:
+        reviews("date","DESC");
+        break;
+}
+?>

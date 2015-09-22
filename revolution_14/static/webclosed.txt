@@ -1,0 +1,17 @@
+</head>
+<body style="background-color: #FFFFFF;">
+<br />
+<p align="center">
+   <span style="font-size: 14px; font-family: Arial; font-weight: bold; color: red;">
+   Web Site closed  / Site Web ferm&eacute
+
+        <?php if (cur_charset=="utf-8") echo" / &#x901A;&#x5165;&#x88AB;&#x5426;&#x8BA4;"; ?>
+</span>
+<br />
+<br />
+<span style="font-size: 12px; font-family: Arial; font-weight: bold; color: black;">
+NPDS - Portal System
+</span>
+</p>
+</body>
+</html>

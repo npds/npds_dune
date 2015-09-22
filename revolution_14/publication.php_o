@@ -1,0 +1,189 @@
+<?php
+/************************************************************************/
+/* NPDS V : Net Portal Dynamic System .                                 */
+/* ===========================                                          */
+/*                                                                      */
+/* Sur une idée originale de PSTL                                       */
+/*                                                                      */
+/* This version name NPDS Copyright (c) 2001-2010 by Philippe Brunier   */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+
+function code_aff($subject, $story, $bodytext, $notes) {
+    global $local_user_language;
+    $subjectX=aff_code(preview_local_langue($local_user_language, $subject));
+    $storyX=aff_code(preview_local_langue($local_user_language, $story));
+    $bodytextX=aff_code(preview_local_langue($local_user_language, $bodytext));
+    $notesX=aff_code(preview_local_langue($local_user_language, $notes));
+    themepreview($subjectX, $storyX, $bodytextX, $notesX);
+}
+
+function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur) {
+     global $gmt;
+     echo "<hr noshade=\"noshade\" />";
+     opentable();
+     $today = getdate(time()+($gmt*3600));
+     if (!$deb_day) {
+        $deb_day = $today['mday'];
+        if ($deb_day < 10){
+           $deb_day = "0$deb_day";
+        }
+     }
+     if (!$deb_month) {
+        $deb_month = $today['mon'];
+        if ($deb_month < 10){
+           $deb_month = "0$deb_month";
+        }
+     }
+     if (!$deb_year) {
+        $deb_year = $today['year'];
+     }
+
+     if (!$deb_hour) {
+        $deb_hour = $today['hours'];
+        if ($deb_hour < 10){
+           $deb_hour = "0$deb_hour";
+        }
+     }
+     if (!$deb_min) {
+        $deb_min = $today['minutes'];
+        if ($deb_min < 10){
+           $deb_min = "0$deb_min";
+        }
+     }
+     echo translate(date("l")).date(" ".translate("dateinternal"),time()+($gmt*3600));
+     $day = 1;
+     echo "<table width=\"100%\">";
+     if ($deb_day!=-1 and $deb_month!=-1 and $deb_year!=-1 and $deb_hour!=-1 and $deb_min!=-1) {
+        echo "<tr><td><b>".translate("Start Date for this New")."</b></td><td>";
+        echo translate("Day")." : <select class=\"textbox_standard\" name=\"deb_day\">";
+        while ($day <= 31) {
+           if ($deb_day==$day) {
+              $sel = "selected=\"selected\"";
+           } else {
+              $sel = "";
+           }
+           echo "<option $sel>$day</option>";
+           $day++;
+        }
+        echo "</select>";
+        $month = 1;
+        echo "&nbsp;".translate("Month")." : <select class=\"textbox_standard\" name=\"deb_month\">";
+        while ($month <= 12) {
+           if ($deb_month==$month) {
+              $sel = "selected=\"selected\"";
+           } else {
+              $sel = "";
+           }
+           echo "<option $sel>$month</option>";
+           $month++;
+        }
+        echo "</select>";
+        echo " : <input class=\"textbox_standard\" type=\"text\" name=\"deb_year\" value=\"".$deb_year."\" size=\"5\" maxlength=\"4\" />";
+        echo "&nbsp;".translate("Hour")." : <select class=\"textbox_standard\" name=\"deb_hour\">";
+        $hour = 0;
+        while ($hour <= 23) {
+           if ($hour < 10) {
+              $hour = "0$hour";
+           }
+           if ($deb_hour==$hour) {
+              $sel="selected=\"selected\"";
+           } else {
+              $sel="";
+           }
+           echo "<option $sel>$hour</option>";
+           $hour++;
+        }
+        echo "</select>";
+        echo " : <select class=\"textbox_standard\" name=\"deb_min\">";
+        $min = 0;
+        while ($min <= 59) {
+           if ($min < 10) {
+              $min = "0$min";
+           }
+           if ($deb_min==$min) {
+              $sel="selected=\"selected\"";
+           } else {
+              $sel="";
+           }
+           echo "<option $sel>$min</option>";
+           $min++;
+        }
+        echo "</select>";
+        echo " : 00</td></tr>";
+     }
+     echo "<tr><td>";
+     echo "<b>".translate("End Date for this New")."</b></td><td>";
+     $day = 1;
+     echo translate("Day")." : <select class=\"textbox_standard\" name=\"fin_day\">";
+     while ($day <= 31) {
+        if ($fin_day==$day) {
+           $sel="selected=\"selected\"";
+        } else {
+          $sel="";
+        }
+        echo "<option $sel>$day</option>";
+        $day++;
+     }
+     echo "</select>";
+     $month = 1;
+     echo "&nbsp;".translate("Month")." : <select class=\"textbox_standard\" name=\"fin_month\">";
+     while ($month <= 12) {
+        if ($fin_month==$month) {
+           $sel="selected=\"selected\"";
+        } else {
+          $sel="";
+        }
+        echo "<option $sel>$month</option>";
+        $month++;
+     }
+     echo "</select>";
+     if (!$fin_year) $fin_year=$deb_year+99;
+     echo " : <input class=\"textbox_standard\" type=\"text\" name=\"fin_year\" value=\"".$fin_year."\" size=\"5\" maxlength=\"4\" />";
+     echo "&nbsp;".translate("Hour")." : <select class=\"textbox_standard\" name=\"fin_hour\">";
+     $hour = 0;
+     while ($hour <= 23) {
+        if ($hour < 10) {
+           $hour = "0$hour";
+        }
+        if ($fin_hour==$hour) {
+           $sel="selected=\"selected\"";
+        } else {
+           $sel="";
+        }
+        echo "<option $sel>$hour</option>";
+        $hour++;
+     }
+     echo "</select>";
+     echo " : <select class=\"textbox_standard\" name=\"fin_min\">";
+     $min = 0;
+     while ($min <= 59) {
+        if ($min <10) {
+           $min = "0$min";
+        }
+        if ($fin_min==$min) {
+           $sel="selected=\"selected\"";
+        } else {
+           $sel="";
+        }
+        echo "<option $sel>$min</option>";
+        $min = $min + 5;
+     }
+     echo "</select>";
+     echo " : 00";
+     echo "</td></tr></table>";
+
+     echo "<br /><b>".translate("Auto Delete the New at End Date")." ?</b>&nbsp;&nbsp;";
+     $sel1=""; $sel2="";
+     if (!$epur)
+        $sel2="checked=\"checked\"";
+     else
+        $sel1="checked=\"checked\"";
+     echo "<input type=\"radio\" name=\"epur\" value=\"1\" $sel1 />".translate("Yes")."&nbsp;";
+     echo "<input type=\"radio\" name=\"epur\" value=\"0\" $sel2 />".translate("No");
+     closetable();
+}
+?>

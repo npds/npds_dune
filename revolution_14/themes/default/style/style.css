@@ -1,0 +1,578 @@
+/* ----------------------------------------------------------------------
+   1. BASE MINIMUM
+---------------------------------------------------------------------- */
+body {
+   margin: 0px 0px 0px 0px;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   color: #682B1A;
+}
+td,tr,div {
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   color: #91847B;
+}
+form {
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 10px;
+   color: #682B1A;
+}
+/* ----------------------------------------------------------------------
+   2. LIENS - standard
+---------------------------------------------------------------------- */
+a, a:link {
+   color: #682B1A;
+   font-size: 11px;
+   font-family: Verdana, Helvetica;
+   text-decoration: none;
+   cursor: pointer;
+}
+a:visited {
+   color: #DBB489;
+   font-size: 11px;
+   font-family: Verdana, Helvetica;
+   text-decoration: none;
+}
+a:hover {
+   color: #B07A64;
+   font-size: 11px;
+   font-family: Verdana, Helvetica;
+   text-decoration: none;
+/* font-weight: bold;*/
+   cursor:  pointer;
+}
+a:active {
+   background-color: transparent;
+   color: #ff6502;
+   font-size: 11px;
+   font-family: Verdana, Helvetica;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   3. LIENS - de style noir.
+   => en général les actions « positives » quand se ne sont pas des boutons
+---------------------------------------------------------------------- */
+a.noir, a.noir:visited, a.noir:active {
+   color: #A9705A;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+   text-decoration: none;
+}
+a.noir:hover {
+   color: #682B1A;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   4 LIENS - de style rouge.
+   => en général les actions de type: annulation, suppression,
+---------------------------------------------------------------------- */
+.rouge, a.rouge, a.rouge:active {
+   color: #FF0000;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   font-weight: bold;
+   text-decoration: none;
+}
+a.rouge:visited {
+}
+a.rouge:hover {
+   color: #FF0000;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   font-weight: bold;
+   text-decoration: underline;
+}
+/* ----------------------------------------------------------------------
+   5 LIENS - de style box
+---------------------------------------------------------------------- */
+a.box, a.box:active, a.box:visited {
+   background-color: transparent;
+   color: #FFFFFF;
+   font-size: 10px;
+   font-family: Verdana, Helvetica;
+   text-decoration: none;
+}
+a.box:hover {
+   color: #9e5a42;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   text-decoration: underline overline;
+   font-size: 11px;
+}
+.BOX BR {
+   margin: -5px 0px 0px 10px;
+}
+.BOX UL {
+   padding: 8px;
+   margin: -5px 0px 0px 10px;
+   list-style-type: disc;
+}
+/* ----------------------------------------------------------------------
+   6 LIENS - de style heada
+   => administration, téléchargement, annuaire notamment
+---------------------------------------------------------------------- */
+a.heada, a.heada:visited, a.heada:active {
+   color: #864732;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   7 LIENS - de style ongl
+   => fortement utilisé par le CMS
+---------------------------------------------------------------------- */
+a.ongl {
+   border-bottom: #C3C2CB 1px solid;
+   color: #45445B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   font-weight: bold;
+   text-decoration: none;
+}
+a.ongl:visited {
+   background-color: #dddddd;
+   color: #45445B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   text-decoration: none;
+}
+a.ongl:active {
+   background-color: #dddddd;
+   color: #45445B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   text-decoration: none;
+}
+a.ongl:hover {
+   background-color: #3c6ea0;
+   font-family: Georgia, "Times New Roman", serif;
+   font-size: 11px;
+   font-weight: bold;
+   color: #FAFAFA;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   8 LES STYLES SUR DES BALISES DE BASES
+---------------------------------------------------------------------- */
+p {
+   background-color: transparent;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-weight: normal;
+   text-decoration: none;
+   font-size: 11px;
+   margin-top: 0px;
+   margin-bottom: 0px;
+   line-height: 1.4em;
+   padding-bottom: 0px;
+   padding-left: 0px;
+   padding-right: 0px;
+   padding-top: 0px;
+}
+li {
+   margin: 0px;
+   padding-left: 2px;
+}
+/* ----------------------------------------------------------------------
+   9 LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+.aide { /* articles, commentaires notamment */
+   background-color: transparent;
+   border-bottom: #C0C0C0 1px solid;
+   border-left: #C0C0C0 1px solid;
+   border-right: #C0C0C0 1px solid;
+   border-top: #C0C0C0 1px solid;
+   margin: 0px 5px;
+   padding-bottom: 5px;
+   padding-left: 5px;
+   padding-right: 5px;
+   padding-top: 5px;
+}
+.box { /* fortement utilisé avec les tableaux de type HEADER */
+   background-color: transparent;
+   color: #4A5768;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   margin-left: 5px;
+   margin-right: 5px;
+   font-weight: bold;
+}
+.boxb { /* Bloc sondage uniquement */
+   color: #000099;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 9px;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+.boxc { /* administration, articles, commentaires notamment */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 10px;
+   margin: 5px;
+   padding-bottom: 5px;
+   padding-left: 5px;
+   padding-right: 5px;
+   padding-top: 2px;
+}
+.boxmenu { /* Chat */
+   color: #C5BF3B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+/* ----------------------------------------------------------------------
+   9a. LES STYLES SUR LES TABLEAUX
+   => Utilisés par la fonction tablos(), permet d’alterner les couleurs des lignes de tableau
+---------------------------------------------------------------------- */
+.ligna {
+   background-color: #E0CBBA;
+   color: #45445B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   text-decoration: none;
+}
+.lignb {
+   background-color: #ECE3D7;
+   color: #45445B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   9b. LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+.ongl { /* Fortement utilisé pour les <TD> */
+   border-bottom: #C3C2CB 1px solid;
+   color: #45445B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 12px;
+   font-weight: bold;
+   text-decoration: none;
+}
+.opentable_theme {
+   border: dotted 1px #773826;
+   padding: 3 3 3 3;
+}
+.opentable_theme2 {
+   background-color: #FAFAFA;
+   border: dashed 1px #5c6e94;
+   padding: 3 3 3 3;
+}
+/* ----------------------------------------------------------------------
+   9c. LES STYLES SUR LES TABLEAUX
+   => Très fortement utilisé pour la grande majorité des entêtes de tableaux
+---------------------------------------------------------------------- */
+.header {
+   background-color: #DBB489;
+   font-family: Georgia, "Times New Roman", serif;
+   font-size: 11px;
+   font-weight: bold;
+   color: #f1f4fb;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   10 LIGNE DE SEPARATION (MENU ADMINISTRATION, MENU MEMBRE …)
+---------------------------------------------------------------------- */
+.separ {
+   background-image: url(../style/ligne.gif);
+   background-position: right 50%;
+   background-repeat: repeat-x;
+   color: #000000;
+   font-family: Tahoma, Verdana, sans-serif;
+   font-size: 5px;
+   height: 5px;
+   margin-bottom: 0px;
+   margin-top: 0px;
+   padding-bottom: 5px;
+   padding-left: 0px;
+   padding-right: 180px;
+   padding-top: 0px;
+}
+/* ----------------------------------------------------------------------
+   11 LES STYLES SUR LES CHAMPS DE FORMULAIRES
+---------------------------------------------------------------------- */
+.inputa { /* champ de saisie, LNL, moteur de recherche notamment */
+   background-color: #FDFDFD;
+   border-top: #864732 2px solid;
+   border-bottom: #D7B39B 2px solid;
+   border-left: #864732 2px solid;
+   border-right: #D7B39B 2px solid;
+   color: #682B1A;
+   font-size: 9px;
+   height: 15px;
+   vertical-align: middle;
+   width: 80px;
+}
+.textbox .textbox_no_mceEditor { /* Champs de formulaire */
+   width: 95%;
+   background-color: #FDFDFD;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   color: #682B1A;
+   font-size: 11px;
+   font-weight: bold;
+   text-decoration: none;
+   border-top: #B07A64 2px groove;
+   border-left: #B07A64 2px groove;
+   border-bottom: #682B1A 1px inset;
+   border-right: #682B1A 1px inset;
+}
+.textbox_standard { /* Champs de formulaire */
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   background-color: #FDFDFD;
+   border-bottom: #D7B39B 1px solid;
+   border-left: #D7B39B 1px solid;
+   border-right: #D7B39B 1px solid;
+   border-top: #D7B39B 1px solid;
+   color: #864732;
+   font-size: 11px;
+}
+.bouton_standard { /* Champs de formulaire */
+   margin-top: 3px;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   cursor: pointer;
+   background-color: #FDFDFD;
+   color: #682B1A;
+   font-size: 11px;
+   font-weight: bold;
+   text-decoration: none;
+   border-top: #D7B39B 2px solid;
+   border-bottom: #864732 2px solid;
+   border-left: #D7B39B 2px solid;
+   border-right: #864732 2px solid;
+}
+.titboxc { /* administration, commentaires, téléchargement notamment */
+   background-color: transparent;
+   color: #9e5a42;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+}
+.titboxcont { /* bloc administrateur, bloc message à un membre notamment */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+}
+.titre { /* Administration */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-size: 10px;
+   FONT-WEIGHT: bold;
+   font-family: Georgia, "Times New Roman", serif;
+}
+.titrea { /* sondages, commentaires, critiques, sections notamment */
+   background-color: transparent;
+   color: #682B1A;
+   font-family: Georgia, "Times New Roman", serif;
+   font-size: 15px;
+   font-weight: bold;
+   letter-spacing  : 1px;
+   text-indent     : 1px;
+   padding         : 2px;
+}
+.titreb { /* sondages */
+   background-color: transparent;
+   color: #91533D;
+   font-family: Georgia, "Times New Roman", serif;
+   font-size: 11px;
+   font-weight: bold;
+   text-decoration: none;
+}
+.titrec { /* bloc de Chat */
+   background-color: transparent;
+   color: #D5B199;
+   font-family: Georgia, "Times New Roman", serif;
+   font-size: 11px;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   12 STATS - Jireck' work
+---------------------------------------------------------------------- */
+.graph { 
+        position: relative; /* IE is dumb */ 
+        width: 200px; 
+        border: 1px solid #708090; 
+        padding: 2px; 
+    } 
+.graph .bar { 
+        display: block; 
+        position: relative; 
+        background: #682B1A; 
+        text-align: center; 
+        color: #FFFFFF; 
+        height: 1em; 
+        line-height: 1em; 
+    } 
+.graph .bar span { position: absolute; left: 1em; }
+/* ----------------------------------------------------------------------
+   13 THEME
+---------------------------------------------------------------------- */
+#editorial {
+   margin-bottom: 30px;
+}
+#editorial_logo{
+   background-image: url('../images/editorial.gif');
+   height: 24px;
+   margin: 5px 0px 0px 0px;
+   width: 112px;
+}
+#editorial span {
+   display: none;
+}
+div#box_article, div#box_poll {
+   background-color: #E0DFBB;
+   width: 150px;
+   float: right;
+   margin-bottom: 5px;
+   text-align: left;
+   display: block;
+   margin-right: 3px;
+}
+div#box_poll {
+   float: left;
+}
+div#box_article h3, div#box_poll h3 {
+   color: #404040;
+   font-weight: bold;
+   text-align: center;
+   font-size: 12px;
+   margin: 0px;
+   height: 23px;
+   line-height: 25px;
+}
+div#box_article ul, div#box_poll ul {
+   margin: 0; padding: 0;
+}
+div#box_article .bottom, div#box_poll .bottom {
+   width: 150px;
+   height: 11px;
+}
+div#box_article ul li, div#box_poll ul li {
+   padding-left: 20px;
+   list-style-type: none;
+}
+div#box_article .bloc_content1, div#box_poll .bloc_content1 {
+   padding-left: 4px;
+   padding-right: 4px;
+}
+div#box_article .bloc_content1 p, div#box_poll .bloc_content1 p {
+   margin-top: 5px;
+}
+div#box_article .bloc_content1 br {
+   margin: -5px 0px 0px 0px;
+} 
+div#box_article .bloc_content1 .noir {
+   margin-left: 4px;
+   padding-bottom: 2px;
+   font-size: 11px;
+   list-style: disc;
+   display: list-item;
+}
+div#box_article .bloc_content2, div#box_poll .bloc_content2 {
+   height: 5px;
+   background: #A9705A;
+}
+div#box_article .boxc, div#box_poll .boxc {
+   background: #ECE3D7;
+   color: #A9705A;
+   font-size: 11px;
+   margin: 0px 0px;
+}
+/* ----------------------------------------------------------------------
+   14  Liens Tooltip ==> Info Bulles                        
+---------------------------------------------------------------------- */
+a.tooltip {
+    border-bottom: 1px groove gray;
+}
+a.tooltip em {
+    display:none;
+}
+a.tooltip:hover {
+    border: 0;
+    position: relative;
+    z-index: 500;
+    text-decoration:none;
+}
+a.tooltip:hover em {
+    font-style: normal;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: -5px;
+    padding: 5px;
+    color: #000000;
+    border: 1px solid #404040;
+    background: #C2D7EB;
+	 width:170px;
+	text-align: left;	
+}
+/*------------------------------------------------>
+      CSS Complémentaire pour vos  Formulaires
+              ICI en Version Light
+-------------------------------------------------->*/
+form {  /* Délimitation de votre Formulaire*/
+  margin: 0;
+  width: 100%;
+}
+
+fieldset { /* Regroupe les différentes zones de votre Formulaire */
+  padding: 20px; /* padding in fieldset support spotty in IE */
+}
+
+legend { /* Titre pour identifier chaque fieldset */
+  font-size:1.1em;
+  color: #B80B36;
+  font-weight: bold;
+}
+
+label { /* Titre - Description des différents champs */
+  display: block;
+  float: left;
+  width: 200px;
+  margin-top: 5px ; /* set top margin same as form input - textarea etc. elements */
+  padding: 0; /* Intervient dans le user : la date */
+  text-align: left;
+}
+
+input[type=Submit], [type=Reset], [type=Return] {
+  margin-top: 3px;
+  font-family: Tahoma, Arial, Helvetica, FreeSans, sans-serif;
+  cursor: pointer;
+  background-color: #FDFDFD;
+  color: #682B1A;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  border-top: #D7B39B 2px solid;
+  border-bottom: #864732 2px solid;
+  border-left: #D7B39B 2px solid;
+  border-right: #864732 2px solid;
+}
+input[type=Submit], [type=Reset], [type=Return], [type=Password], [type=Text], [type=File], input[type=Radio], [type=Checkbox], textarea, select { /* Champs de Données */
+  border: #707070 1px solid;
+  color: #000000;
+  background-color: #F3F8FC;
+  margin: 5px 0 0 5px ; /* set top margin same as form input - textarea etc. elements */
+  padding: 0;
+}
+input[type=Radio] { 
+  background-color: transparent; 
+  border: 0;
+  vertical-align: text-bottom;
+} 
+textarea { /* Champs de Données */
+  width: 98%;
+}
+form label span {
+	color: red;
+}/* Utilisé dans user ! */
+form br {
+	clear:left;
+}

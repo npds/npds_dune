@@ -1,0 +1,9 @@
+<?php
+
+echo aff_langue("
+[french]<p>Les fichiers .zip sont d&eacute;compactables avec un logiciel comme 7zip.<br />Les fichiers .tgz ou tar.gz sont plus sp&eacute;cifiquement orient&eacute;s Linux (Gzip et Tar).</p>[/french]
+
+[english]<p>The .zip files are extractible with software like 7Zip, .tgz or tar.gz files are more for Linux world (Gzip & Tar).</p>[/english]
+");
+
+?>

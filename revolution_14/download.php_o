@@ -1,0 +1,435 @@
+<?php
+/************************************************************************/
+/* DUNE by NPDS                                                         */
+/* ===========================                                          */
+/*                                                                      */
+/* Based on PhpNuke 4.x source code                                     */
+/*                                                                      */
+/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+if (!function_exists("Mysql_Connexion")) {
+   include ("mainfile.php");
+}
+include_once("lib/file.class.php");
+include('functions.php');
+
+function geninfo($did) {
+  global $sitename;
+  global $NPDS_Prefix;
+
+  settype($did, 'integer');
+  $result = sql_query("select dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms from ".$NPDS_Prefix."downloads where did='$did'");
+  list($dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $dperm) = sql_fetch_row($result);
+  $okfile=autorisation($dperm);
+  if ($okfile) {
+     $title=$dfilename;
+     include("header.php");
+     opentable();
+     echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+     echo translate("File Information")." - ".$dfilename;
+     echo "</td></tr></table>\n";
+     echo "<br />
+     <b>".translate("File Size")." :</b> ";
+     $Fichier = new File($durl);
+     if ($dfilesize!=0) {
+        echo $Fichier->Pretty_Size($dfilesize);
+     } else {
+        echo $Fichier->Affiche_Size();
+     }
+     echo "<br /><br />\n";
+     echo "<b>".translate("Version")." :</b> $dver<br /><br />\n";
+     echo "<b>".translate("Upload Date")." :</b> ".convertdate($ddate)."<br /><br />\n";
+     echo "<b>".translate("Downloads")." :</b> ".wrh($dcounter)."<br /><br />\n";
+     echo "<b>".translate("Category")." :</b> ".aff_langue(stripslashes($dcategory))."<br /><br />\n
+     <b>".translate("Description")." :</b> ".aff_langue(stripslashes($ddescription))."<br /><br />\n
+     <b>".translate("Author")." :</b> $duser<br /><br />\n
+     <b>".translate("HomePage")." :</b> <a href=\"$dweb\" target=\"_blank\" class=\"noir\">$dweb</a><br /><br />\n";
+
+     echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr class=\"ligna\">";
+     echo "<td align=\"center\">";
+     echo "[ <a href=\"download.php?op=mydown&amp;did=$did\">".translate("Download This File Now!")."</a> ]";
+     echo "&nbsp;[ <a href=\"javascript:history.go(-1)\">".translate("Go Back")."</a> ]";
+     echo "</td></tr></table>\n";
+     closetable();
+     include("footer.php");
+  } else {
+     Header("Location: download.php");
+  }
+}
+
+function tlist() {
+  global $sortby, $dcategory, $download_cat;
+  global $NPDS_Prefix;
+
+  if ($dcategory == "") { $dcategory = addslashes($download_cat); }
+  $cate = stripslashes($dcategory);
+  echo "<span class=\"noir\">".translate("Select Category Folder")."</span>";
+  echo "<table width=\"100%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" class=\"titboxc\">";
+  echo "<tr><td width=\"20%\" nowrap=\"nowrap\">";
+  $acounter = sql_query("SELECT count(*) FROM ".$NPDS_Prefix."downloads");
+  list($acount) = sql_fetch_row($acounter);
+  if (($cate == translate("All")) OR ($cate == "")) {
+     echo "<img src=\"";
+     if ($ibid=theme_image("download/folder_open.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/folder_open.gif";}
+     echo "$imgtmp\" title=\"".translate("All")."\" alt=\"".translate("All")." ($acount)\" border=\"0\" style=\"vertical-align: middle;\" /> <b>".translate("All")." ($acount)</b>\n";
+  } else {
+     echo "<a href=\"download.php?dcategory=".translate("All")."&amp;sortby=$sortby\" class=\"noir\"><img src=\"";
+     if ($ibid=theme_image("download/folder.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/folder.gif";}
+     echo "$imgtmp\" title=\"".translate("All")."\" alt=\"".translate("All")." ($acount)\" border=\"0\"style=\"vertical-align: middle;\" /> ".translate("All")."</a> ($acount)\n";
+  }
+  $result = sql_query("select distinct dcategory, count(dcategory) from ".$NPDS_Prefix."downloads group by dcategory order by dcategory");
+  echo "</td>";
+  $rup=2;
+  while (list($category, $dcount) = sql_fetch_row($result)) {
+    $rup++;
+    $category=stripslashes($category);
+    echo "<td width=\"20%\" nowrap=\"nowrap\">";
+    if ($category == $cate) {
+        echo "<img src=\"";
+        if ($ibid=theme_image("download/folder_open.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/folder_open.gif";}
+        echo "$imgtmp\" title=\"".aff_langue($category)."\" alt=\"".aff_langue($category)." ($dcount)\" border=\"0\" style=\"vertical-align: middle;\" /><span class=\"noir\"> <b>".aff_langue($category)." ($dcount)</b></span> \n";
+    } else {
+        $category2 = urlencode($category);
+        echo "<a href=\"download.php?dcategory=$category2&amp;sortby=$sortby\" class=\"noir\"><img src=\"";
+        if ($ibid=theme_image("download/folder.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/folder.gif";}
+        echo "$imgtmp\" title=\"".aff_langue($category)."\" alt=\"".aff_langue($category)." ($dcount)\" border=\"0\" style=\"vertical-align: middle;\" /> ".aff_langue($category)."</a> ($dcount) \n";
+    }
+    echo "</td>";
+    if ($rup>=5) {
+       echo "</tr><tr>";
+       $rup=1;
+    }
+  }
+  echo "</tr></table>";
+}
+
+function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
+  echo "<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname\"><img src=\"";
+  if ($ibid=theme_image("download/up.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/up.gif";}
+  echo "$imgtmp\" alt=\"".translate("Sort Ascending")."\" border=\"0\" /></a> ";
+  echo translate("$englishname");
+  echo "<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname&amp;sortorder=DESC\"><img src=\"";
+  if ($ibid=theme_image("download/down.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/down.gif";}
+  echo "$imgtmp\" alt=\"".translate("Sort Descending")."\" border=\"0\" /></a>";
+}
+
+function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
+  echo "<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname\"><img src=\"";
+  if ($ibid=theme_image("download/up.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/up.gif";}
+  echo "$imgtmp\" alt=\"".translate("Sort Ascending")."\" border=\"0\" /></a> <a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname\" class=\"heada\"> ";
+  echo translate("$englishname");
+  echo "</a><a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname&amp;sortorder=DESC\"><img src=\"";
+  if ($ibid=theme_image("download/down.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/down.gif";}
+  echo "$imgtmp\" alt=\"".translate("Sort Descending")."\" border=\"0\" class=\"heada\" /></a>";
+}
+
+function dl_tableheader () {
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">";
+}
+
+function popuploader($did, $ddescription, $dcounter, $dfilename,$aff, $row_color) {
+  global $dcategory, $sortby;
+  if ($aff) {
+     echo  "<a name=\"$did\" href=\"download.php?op=geninfo&amp;did=$did\" class=\"tooltip\">";
+     echo "<img src=\"";
+     if ($ibid=theme_image("download/info.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/info.gif";}
+     echo "$imgtmp\" border=\"0\" title=\"\" alt=\"\" /><em>".aff_langue(stripslashes($ddescription))."</em></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+     echo "<a href=\"download.php?op=mydown&amp;did=$did\"><img src=\"";
+     if ($ibid=theme_image("download/download.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/download.gif";}
+     echo "$imgtmp\" border=\"0\" title=\"".translate("Download Now!")."\" alt=\"".translate("Download Now!")."\" /></a>";
+  }
+}
+
+function SortLinks($dcategory, $sortby) {
+  $dcategory=stripslashes($dcategory);
+  echo "<tr><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">".translate("Info")."</td><td class=\"ongl\" align=\"center\">".translate("Type")."</td><td class=\"ongl\" align=\"left\" nowrap=\"nowrap\">";
+  if ($sortby == "dfilename" OR !$sortby) {
+     act_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
+  } else {
+     inact_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
+  }
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">";
+  if ($sortby == "dfilesize") {
+     act_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
+  } else {
+     inact_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
+  }
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">";
+  if ($sortby == "dcategory") {
+     act_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
+  } else {
+     inact_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
+  }
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">";
+  if ($sortby == "ddate") {
+     act_dl_tableheader($dcategory, $sortby, "ddate", "Date");
+  } else {
+     inact_dl_tableheader($dcategory, $sortby, "ddate", "Date");
+  }
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">";
+  if ($sortby == "dver") {
+     act_dl_tableheader($dcategory, $sortby, "dver", "Version");
+  } else {
+     inact_dl_tableheader($dcategory, $sortby, "dver", "Version");
+  }
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">";
+  if ($sortby == "dcounter") {
+     act_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
+  } else {
+     inact_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
+  }
+  echo "</td><td class=\"ongl\" align=\"center\" nowrap=\"nowrap\">&nbsp;</td></tr>";
+}
+
+function listdownloads ($dcategory, $sortby, $sortorder) {
+  global $perpage, $page, $download_cat, $user;
+  global $NPDS_Prefix;
+
+  if ($dcategory == "") { $dcategory = addslashes($download_cat); }
+  if (!$sortby) { $sortby = "dfilename"; }
+  if (($sortorder!="ASC") && ($sortorder!="DESC")) {
+     $sortorder = "ASC";
+  }
+  echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\" align=\"center\">\n";
+  echo translate("Display filtered with")." <i>";
+  if ($dcategory==translate("All"))
+     echo translate("All");
+  else
+     echo aff_langue(stripslashes($dcategory));
+  echo "</i>&nbsp;&nbsp;".translate("sorted by")." ";
+
+  if ($sortorder=="ASC") {
+    echo "<i>".translate("Ascending")."</i>";
+  } else {
+    echo "<i>".translate("Descending")."</i>";
+  }
+
+  // Shiney SQL Injection 11/2011
+  $sortby2="";
+  if ($sortby == "dfilename") {
+    $sortby2 = translate("Name")."";
+  }
+  if ($sortby == "dfilesize") {
+    $sortby2 = translate("File Size")."";
+  }
+  if ($sortby == "dcategory") {
+    $sortby2 = translate("Category")."";
+  }
+  if ($sortby == "ddate") {
+    $sortby2 = translate("Creation Date")."";
+  }
+  if ($sortby == "dver") {
+    $sortby2 = translate("Version")."";
+  }
+  if ($sortby == "dcounter") {
+    $sortby2 = translate("Downloads")."";
+  }
+  // Shiney SQL Injection 11/2011
+  if ($sortby2=="") {
+     $sortby = "dfilename";
+  }
+
+  echo " ".translate("of")." <i>$sortby2</i>";
+  echo "</td></tr></table>\n";
+  echo"<br />";
+  echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">";
+  sortlinks($dcategory, $sortby);
+  if ($dcategory==translate("All")) {
+    $sql="SELECT count(*) FROM ".$NPDS_Prefix."downloads";
+  } else {
+    $sql="SELECT count(*) FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."'";
+  }
+  $result = sql_query($sql);
+  list($total) =  sql_fetch_row($result);
+  if ($total>$perpage) {
+    $pages=ceil($total/$perpage);
+    if ($page > $pages) { $page = $pages; }
+    if (!$page) { $page=1; }
+    $offset=($page-1)*$perpage;
+  } else {
+    $offset=0;
+    $pages=1;
+    $page=1;
+
+  }
+  settype($offset, "integer");
+  settype($perpage, "integer");
+  if ($dcategory==translate("All")) {
+    $sql="SELECT * FROM ".$NPDS_Prefix."downloads ORDER BY $sortby $sortorder limit $offset,$perpage";
+  } else {
+    $sql="SELECT * FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY $sortby $sortorder limit $offset,$perpage";
+  }
+
+   $result = sql_query($sql);
+   while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcat, $ddescription, $dperm) = sql_fetch_row($result)) {
+      $Fichier = new File($durl);
+      $row_color = tablos();
+      $okfile=autorisation($dperm);
+      echo "\n<tr $row_color><td align=\"center\">";
+      if ($okfile==true) {
+         echo popuploader($did, $ddescription, $dcounter, $dfilename,true, $row_color);
+      } else {
+         echo popuploader($did, $ddescription, $dcounter, $dfilename,false, $row_color);
+         echo "<span class=\"rouge\">".translate("Private")."</span>";
+      }
+      echo"</td><td align=\"center\"><img src=\"".$Fichier->Affiche_Extention()."\" alt=\"".$Fichier->Affiche_Extention()."\" border=\"0\" /></td>
+           <td align=\"left\">";
+      if ($okfile==true) {
+         echo "<a href=\"download.php?op=mydown&amp;did=$did\" class=\"noir\" target=\"_blank\">$dfilename</a>";
+      } else {
+         echo "...";
+      }
+      echo "</td>
+            <td valign=\"bottom\" align=\"center\">";
+            if ($dfilesize!=0) {
+               echo $Fichier->Pretty_Size($dfilesize);
+            } else {
+               echo $Fichier->Affiche_Size();
+            }
+            echo "</td>
+            <td valign=\"bottom\" align=\"center\">
+            ".aff_langue(stripslashes($dcat))."
+            </td>
+            <td valign=\"bottom\" align=\"center\">
+            &nbsp;".convertdate($ddate)."
+            </td>
+            <td valign=\"bottom\" align=\"center\">
+            &nbsp;$dver
+            </td>
+            <td valign=\"bottom\" align=\"center\">
+            ".wrh($dcounter)."
+            </td>
+            <td valign=\"bottom\" align=\"right\">";
+      if (($okfile==true) and $user) {
+         echo"<a href=\"download.php?op=broken&amp;did=$did\"><img src=\"";
+         if ($ibid=theme_image("download/broken-download.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/broken-download.gif";}
+         echo "$imgtmp\" border=\"0\" title=\"".translate("Report Broken Link")."\" alt=\"".translate("Report Broken Link")."\" /></a>";
+      }
+      echo "</td></tr>";
+   }
+   echo "</table>";
+   echo "<br /><hr noshade=\"noshade\" class=\"ongl\" />";
+   $dcategory = StripSlashes($dcategory);
+   if ($pages > 1) {
+      $pcnt=1;
+      echo "<table width=\"100%\" cellpadding=\"5\" cellspacing=\"0\" border=\"0\" class=\"ligna\"><tr><td align=\"center\">";
+      if ($page > 1) {
+          echo "<a href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=".($page-1)."\"><img src=\"";
+          if ($ibid=theme_image("download/left.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/left.gif";}
+          echo "$imgtmp\" alt=\"".translate("Previous Page")."\" border=\"0\" align=\"center\" /></a>&nbsp;";
+      }
+      while($pcnt < $page) {
+         echo "[ <a href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=$pcnt\" class=\"noir\">$pcnt</a> ]&nbsp;";
+         $pcnt++;
+      }
+      echo "[ <span class=\"rouge\">$page</span> ]&nbsp;";
+      $pcnt++;
+      while($pcnt <= $pages) {
+         echo "[ <a href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=$pcnt\" class=\"noir\">$pcnt</a> ]&nbsp;";
+         $pcnt++;
+      }
+      if ($page < $pages) {
+          echo "&nbsp;<a href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=".($page+1)."\"><img src=\"";
+          if ($ibid=theme_image("download/right.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/right.gif";}
+          echo "$imgtmp\" alt=\"".translate("Next Page")."\" border=\"0\" align=\"middle\" /></a>\n";
+      }
+      echo "</td></tr></table>";
+   }
+}
+
+function main() {
+  global $dcategory, $sortby, $sortorder, $sitename;
+  $dcategory  = removeHack(stripslashes(htmlspecialchars(urldecode($dcategory),ENT_QUOTES,cur_charset))); // electrobug
+  $dcategory=str_replace("&#039;","\'",$dcategory);
+  $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,cur_charset))); // electrobug
+
+  include("header.php");
+  echo "<div style=\"height: auto;\">";
+  echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+  echo $sitename." ".translate("Download Section");
+  echo "</td></tr></table>\n";
+  echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td align=\"center\">\n";
+  tlist();
+  echo "</td></tr></table>\n";
+  if ($dcategory!=translate("No category")) {
+     listdownloads($dcategory, $sortby, $sortorder);
+  }
+  if (file_exists("static/download.ban.txt")) {include("static/download.ban.txt");}
+  echo "</div>";
+  include("footer.php");
+}
+
+function transferfile($did) {
+  global $NPDS_Prefix;
+  
+  settype($did, 'integer');
+  $result = sql_query("select dcounter, durl, perms from ".$NPDS_Prefix."downloads where did='$did'");
+  list($dcounter, $durl, $dperm) = sql_fetch_row($result);
+  if (!$durl) {
+     include("header.php");
+     opentable();
+     echo "<p align=\"center\">$durl : ".translate("There is no such file...")."</p>\n";
+     closetable();
+     include("footer.php");
+  } else {
+     if (autorisation($dperm)) {
+        $dcounter++;
+        sql_query("update ".$NPDS_Prefix."downloads set dcounter='$dcounter' where did='$did'");
+        header("location: ".str_replace(basename($durl),rawurlencode(basename($durl)), $durl));
+     } else {
+        Header("Location: download.php");
+     }
+  }
+}
+
+function broken($did) {
+  global $user, $cookie;
+
+  settype($did, 'integer');  
+  if ($user) {
+     if ($did) {
+        global $notify_email, $notify_message, $notify_from;
+        settype ($did, "integer");
+        $message=translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
+        send_email($notify_email, translate("Report Broken Link"), $message, $notify_from , false, "text");
+        include("header.php");
+        opentable();
+        echo "<br /><p align=\"center\">".translate("For security reasons your user name and IP address will also be temporarily recorded.");
+        echo "<br /><br />".translate("Thanks for this information. We'll look into your request shortly.")."</p><br />";
+        closetable();
+        include("footer.php");
+     } else {
+        Header("Location: download.php");
+     }
+  } else {
+    Header("Location: download.php");
+  }
+}
+
+settype($op,'string');
+switch ($op) {
+  case "main":
+       main();
+       break;
+
+  case "mydown":
+       transferfile($did);
+       break;
+
+  case "geninfo":
+       geninfo($did);
+       break;
+
+  case "broken":
+       broken($did);
+       break;
+
+  default:
+       main();
+       break;
+}
+?>

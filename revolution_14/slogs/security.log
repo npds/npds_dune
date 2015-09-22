@@ -1,0 +1,1089 @@
+04/20/2015 17:46:57 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/20/2015 17:54:31 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+04/20/2015 17:56:27 admin.php=>MetaTagsave() by AID : root                       IP=>81.56.83.129
+04/20/2015 18:34:04 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+04/20/2015 20:41:41 admin.php=>ChangeLeftBlock(Sondage - 11) by AID : root       IP=>81.56.83.129
+04/20/2015 20:41:52 admin.php=>ChangeLeftBlock(Chat Box - 4) by AID : root       IP=>81.56.83.129
+04/20/2015 20:42:07 admin.php=>ChangeLeftBlock(Forums Infos - 5) by AID : root   IP=>81.56.83.129
+04/20/2015 20:42:19 admin.php=>ChangeLeftBlock(Les plus téléchargés - 6) by AID : root IP=>81.56.83.129
+04/20/2015 20:42:30 admin.php=>ChangeLeftBlock(Msg à un Membre - 3) by AID : root IP=>81.56.83.129
+04/20/2015 20:42:40 admin.php=>ChangeLeftBlock(Ephémérides - 8) by AID : root  IP=>81.56.83.129
+04/20/2015 20:42:49 admin.php=>ChangeLeftBlock(Activité du Site - 10) by AID : root IP=>81.56.83.129
+04/20/2015 20:42:57 admin.php=>ChangeLeftBlock(Un Bloc ... - 1) by AID : root    IP=>81.56.83.129
+04/20/2015 20:43:08 admin.php=>ChangeRightBlock(Information - 2) by AID : root   IP=>81.56.83.129
+04/20/2015 20:43:17 admin.php=>ChangeRightBlock(Catégories - 7) by AID : root   IP=>81.56.83.129
+04/20/2015 20:43:26 admin.php=>ChangeRightBlock(Article du Jour - 8) by AID : root IP=>81.56.83.129
+04/20/2015 20:43:41 admin.php=>ChangeRightBlock(Anciens Articles - 5) by AID : root IP=>81.56.83.129
+04/20/2015 20:43:52 admin.php=>ChangeRightBlock(Bloc membre - 3) by AID : root   IP=>81.56.83.129
+04/20/2015 20:44:00 admin.php=>ChangeRightBlock(Lettre d''information - 4) by AID : root IP=>81.56.83.129
+04/20/2015 20:44:10 admin.php=>ChangeRightBlock(Un Bloc ... - 1) by AID : root   IP=>81.56.83.129
+04/20/2015 21:07:50 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+04/20/2015 22:37:14 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+04/21/2015 21:15:41 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+04/21/2015 21:16:22 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+04/22/2015 11:48:06 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>92.144.242.167
+04/22/2015 11:48:21 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>92.144.242.167
+04/22/2015 11:48:34 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>92.144.242.167
+04/22/2015 11:48:57 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>92.144.242.167
+04/22/2015 16:22:33 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.242.167
+04/22/2015 17:00:33 admin.php=>UpdateForumCat(1, 1, Demo) by AID : Root          IP=>92.144.242.167
+04/22/2015 17:07:44 admin.php=>UpdateForumCat(1, 1, Travaux Revolution 15) by AID : Root IP=>81.56.83.129
+04/22/2015 17:09:27 admin.php=>UpdateForum(1, Infos d\'ordre général) by AID : Root IP=>81.56.83.129
+04/22/2015 17:10:39 admin.php=>UpdateForum(2, Modification de l\'admin) by AID : Root IP=>81.56.83.129
+04/22/2015 17:11:36 admin.php=>CreateGroupe(2, Team de développement) by AID : Root IP=>81.56.83.129
+04/22/2015 17:14:18 admin.php=>AddMemberToGroup(2, phr,jpb) by AID : Root        IP=>81.56.83.129
+04/22/2015 17:14:48 admin.php=>ArchiveWS(2) by AID : Root                        IP=>81.56.83.129
+04/22/2015 17:22:48 admin.php=>UpdateForum(2, Modification de l\'admin) by AID : Root IP=>81.56.83.129
+04/22/2015 17:23:29 admin.php=>UpdateForum(1, Infos d\'ordre général) by AID : Root IP=>81.56.83.129
+04/22/2015 17:49:18 admin.php=>UpdateForum(2, Modification de l\'admin) by AID : Root IP=>81.56.83.129
+04/22/2015 17:49:31 admin.php=>UpdateForum(1, Infos d\'ordre général) by AID : Root IP=>81.56.83.129
+04/22/2015 17:50:29 admin.php=>AddForum(Travaux sur les thèmes) by AID : Root   IP=>81.56.83.129
+04/22/2015 17:51:41 admin.php=>AddForum(Travaux sur le Core en dehors Admin) by AID : Root IP=>81.56.83.129
+04/22/2015 17:52:10 admin.php=>UpdateForum(2, Travaux sur admin NPDS) by AID : Root IP=>81.56.83.129
+04/22/2015 18:10:26 admin.php=>AddForumCat(Travaux sur les thèmes) by AID : Root IP=>81.56.83.129
+04/22/2015 18:10:52 admin.php=>UpdateForumCat(1, 1, Travaux sur l\'admin) by AID : Root IP=>81.56.83.129
+04/22/2015 18:11:19 admin.php=>AddForumCat(Travaux sur le core en dehors admin) by AID : Root IP=>81.56.83.129
+04/22/2015 18:12:34 admin.php=>AddForum(Theme B-Mag KNACSS) by AID : Root        IP=>81.56.83.129
+04/22/2015 18:16:53 admin.php=>UpdateForum(5, Anomalie thème KNACSS) by AID : Root IP=>81.56.83.129
+04/22/2015 18:19:01 admin.php=>UpdateForum(5, Anomalie thème KNACSS) by AID : Root IP=>81.56.83.129
+04/22/2015 18:21:32 admin.php=>AddForum(Anomalies thème Bootstrap) by AID : Root IP=>81.56.83.129
+04/22/2015 18:22:45 admin.php=>AddForumCat(Infos générales) by AID : Root      IP=>81.56.83.129
+04/22/2015 18:25:53 admin.php=>DeleteForum(3) by AID : Root                      IP=>81.56.83.129
+04/22/2015 18:26:23 admin.php=>UpdateForumCat(4, 1, Infos générales) by AID : Root IP=>81.56.83.129
+04/22/2015 18:30:12 admin.php=>AddForum(Anomalies) by AID : Root                 IP=>81.56.83.129
+04/22/2015 18:33:04 admin.php=>AddForum(Fonctionnement) by AID : Root            IP=>81.56.83.129
+04/22/2015 18:35:19 admin.php=>DeleteForum(1) by AID : Root                      IP=>81.56.83.129
+04/22/2015 18:35:43 admin.php=>DeleteForum(2) by AID : Root                      IP=>81.56.83.129
+04/22/2015 18:37:49 admin.php=>AddForum(Anomalies) by AID : Root                 IP=>81.56.83.129
+04/22/2015 18:39:54 admin.php=>UpdateForum(9, Anomalies core NPDS) by AID : Root IP=>81.56.83.129
+04/22/2015 18:42:54 admin.php=>DeleteForum(4) by AID : Root                      IP=>81.56.83.129
+04/22/2015 18:43:28 admin.php=>UpdateForumCat(1, 5, Travaux sur l\'admin) by AID : Root IP=>81.56.83.129
+04/22/2015 18:43:46 admin.php=>UpdateForumCat(4, 1, Infos générales) by AID : Root IP=>81.56.83.129
+04/22/2015 18:44:01 admin.php=>UpdateForumCat(3, 4, Travaux sur le core en dehors admin) by AID : Root IP=>81.56.83.129
+04/22/2015 18:44:18 admin.php=>UpdateForumCat(2, 3, Travaux sur les thèmes) by AID : Root IP=>81.56.83.129
+04/22/2015 18:44:32 admin.php=>UpdateForumCat(5, 2, Travaux sur l\'admin) by AID : Root IP=>81.56.83.129
+04/22/2015 18:48:18 admin.php=>UpdateForumCat(3, 5, Travaux sur les thèmes) by AID : Root IP=>81.56.83.129
+04/22/2015 18:48:32 admin.php=>UpdateForumCat(4, 3, Travaux sur le core en dehors admin) by AID : Root IP=>81.56.83.129
+04/22/2015 18:48:48 admin.php=>UpdateForumCat(5, 4, Travaux sur les thèmes) by AID : Root IP=>81.56.83.129
+04/22/2015 18:50:47 admin.php=>UpdateForum(8, Labo Pratique) by AID : Root       IP=>81.56.83.129
+04/22/2015 18:51:25 admin.php=>AddForum(Divers) by AID : Root                    IP=>81.56.83.129
+04/22/2015 18:52:39 admin.php=>UpdateForum(7, Anomalies de l\'administration du core) by AID : Root IP=>81.56.83.129
+04/22/2015 20:05:26 admin.php=>AddAuthor(toto) by AID : root                     IP=>81.56.83.129
+04/22/2015 20:09:13 admin.php=>AddAuthor(toto) by AID : root                     IP=>81.56.83.129
+04/22/2015 20:10:52 admin.php=>AddAuthor(phil) by AID : root                     IP=>81.56.83.129
+04/22/2015 20:17:50 admin.php=>AddAuthor(zebre) by AID : Root                    IP=>92.144.242.167
+04/22/2015 20:19:54 admin.php=>AddAuthor(toto) by AID : root                     IP=>81.56.83.129
+04/22/2015 20:26:45 admin.php=>AddAuthor(lascar) by AID : Root                   IP=>92.144.242.167
+04/22/2015 20:33:35 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+04/22/2015 21:52:57 admin.php=>AddAuthor(toto) by AID : root                     IP=>81.56.83.129
+04/22/2015 21:57:00 admin.php=>AddAuthor(pipo) by AID : root                     IP=>81.56.83.129
+04/22/2015 21:57:39 admin.php=>DeleteAuthor(toto) by AID : root                  IP=>81.56.83.129
+04/22/2015 21:57:58 admin.php=>DeleteAuthor(pipo) by AID : root                  IP=>81.56.83.129
+04/22/2015 22:04:55 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/users_private/phr/MA01151214.jpg
+04/22/2015 22:16:47 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/users_private/phr/SO01200415.jpg
+04/22/2015 22:16:59 admin.php=>postStory (pub_immediate, test upload) by AID : root IP=>81.56.83.129
+04/22/2015 22:16:59 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 22:17:41 admin.php=>postStory (pub_immediate, test upload) by AID : root IP=>81.56.83.129
+04/22/2015 22:17:42 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 22:19:10 admin.php=>postStory (pub_immediate, test upload) by AID : root IP=>81.56.83.129
+04/22/2015 22:19:10 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 22:19:44 admin.php=>postStory (pub_immediate, mon article) by AID : Root IP=>92.144.242.167
+04/22/2015 22:19:44 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>92.144.242.167
+04/22/2015 22:28:04 admin.php=>postStory (pub_immediate, test upload) by AID : root IP=>81.56.83.129
+04/22/2015 22:28:04 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 22:40:13 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/users_private/phr/SO01200415.jpg
+04/22/2015 22:40:27 admin.php=>postStory (pub_immediate, test upload) by AID : root IP=>81.56.83.129
+04/22/2015 22:40:27 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 22:43:42 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/users_private/phr/avion-et-mécanique.jpg
+04/22/2015 22:44:00 admin.php=>postStory (pub_immediate, et 5 avions) by AID : root IP=>81.56.83.129
+04/22/2015 22:44:00 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 22:50:12 admin.php=>removeStory (12, 1) by AID : Root                 IP=>81.56.83.129
+04/22/2015 22:50:40 admin.php=>removeStory (11, 1) by AID : Root                 IP=>81.56.83.129
+04/22/2015 22:54:34 admin.php=>removeStory (10, 1) by AID : root                 IP=>81.56.83.129
+04/22/2015 22:54:50 admin.php=>removeStory (9, 1) by AID : root                  IP=>81.56.83.129
+04/22/2015 22:55:11 admin.php=>removeStory (8, 1) by AID : root                  IP=>81.56.83.129
+04/22/2015 22:55:18 admin.php=>removeStory (7, 1) by AID : root                  IP=>81.56.83.129
+04/22/2015 22:55:47 admin.php=>removeStory (6, 1) by AID : root                  IP=>81.56.83.129
+04/22/2015 23:01:54 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload/SO03200415.jpg
+04/22/2015 23:02:08 admin.php=>postStory (pub_immediate, test article) by AID : root IP=>81.56.83.129
+04/22/2015 23:02:08 admin.php=>deleteStoryfromQueue() by AID : root              IP=>81.56.83.129
+04/22/2015 23:14:02 admin.php=>AddAuthor(toto) by AID : Root                     IP=>81.56.83.129
+04/22/2015 23:18:49 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/22/2015 23:20:45 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/22/2015 23:21:12 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/22/2015 23:22:01 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/22/2015 23:23:04 admin.php=>topicChange (modules, 2) by AID : Root            IP=>81.56.83.129
+04/23/2015 08:07:08 admin.php=>CreateGroupe(3, groupe theme) by AID : Root       IP=>81.56.83.129
+04/23/2015 08:07:44 admin.php=>AddMemberToGroup(3, jpb,phr,bmag) by AID : Root   IP=>81.56.83.129
+04/23/2015 08:08:54 admin.php=>UpdateForum(5, Anomalie thème KNACSS) by AID : Root IP=>81.56.83.129
+04/23/2015 08:09:12 admin.php=>UpdateForum(6, Anomalies thème Bootstrap) by AID : Root IP=>81.56.83.129
+04/23/2015 10:11:24 admin.php=>UpdateForum(6, Anomalies thème Bootstrap) by AID : Root IP=>81.56.83.129
+04/23/2015 10:53:52 admin.php=>DeleteAllMemberToGroup(3, 3) by AID : Root        IP=>81.56.83.129
+04/23/2015 10:53:52 admin.php=>DeleteAllMemberToGroup(3, 4) by AID : Root        IP=>81.56.83.129
+04/23/2015 10:53:52 admin.php=>DeleteAllMemberToGroup(3, 5) by AID : Root        IP=>81.56.83.129
+04/23/2015 10:54:01 admin.php=>DeleteForumWS() by AID : Root                     IP=>81.56.83.129
+04/23/2015 10:54:01 admin.php=>ArchiveWS(3) by AID : Root                        IP=>81.56.83.129
+04/23/2015 10:54:01 admin.php=>DeleteMnsWS(3) by AID : Root                      IP=>81.56.83.129
+04/23/2015 10:54:01 admin.php=>DeleteGroup(3) by AID : Root                      IP=>81.56.83.129
+04/23/2015 10:54:21 admin.php=>AddMemberToGroup(2, bmag) by AID : Root           IP=>81.56.83.129
+04/23/2015 10:55:34 admin.php=>UpdateForum(5, Anomalie thème KNACSS) by AID : Root IP=>81.56.83.129
+04/23/2015 10:55:59 admin.php=>UpdateForum(6, Anomalies thème Bootstrap) by AID : Root IP=>81.56.83.129
+04/23/2015 11:04:49 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/1.forum_npds.PHR2015-04-22.jpg
+04/23/2015 21:50:49 admin.php=>postStory (autonews, article en attente) by AID : Root IP=>92.144.242.167
+04/23/2015 21:50:49 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>92.144.242.167
+04/24/2015 12:06:55 admin.php=>ChangeRightBlock(Lettre d''information - 4) by AID : Root IP=>77.130.179.91
+04/24/2015 12:08:02 admin.php=>MakeLeftBlock(mon bloc) by AID : Root             IP=>92.144.104.174
+04/24/2015 12:08:59 admin.php=>DeleteLeftBlock(12) by AID : Root                 IP=>92.144.104.174
+04/24/2015 15:59:05 admin.php=>topicMake (cart.jpg) by AID : Root                IP=>92.144.104.174
+04/24/2015 16:04:15 admin.php=>topicMake (tout sur la cartographie) by AID : Root IP=>92.144.104.174
+04/24/2015 16:09:37 admin.php=>topicMake (cartographie) by AID : Root            IP=>92.144.104.174
+04/24/2015 16:12:34 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.104.174
+04/24/2015 16:15:59 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.104.174
+04/24/2015 16:22:20 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.104.174
+04/24/2015 17:37:05 admin.php=>ChangeRightBlock(Lettre d''information - 4) by AID : Root IP=>92.144.104.174
+04/24/2015 22:30:13 admin.php=>changeStory(13, test article, hometext..., bodytext..., 2, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>37.163.194.107
+04/24/2015 22:41:34 admin.php=>DeleteUser(2) by AID : Root                       IP=>37.163.194.107
+04/24/2015 23:02:13 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.104.174
+04/25/2015 01:15:25 admin.php=>ConfigSave() by AID : Root                        IP=>92.144.104.174
+04/25/2015 01:21:24 admin.php=>ConfigSave() by AID : Root                        IP=>92.144.104.174
+04/25/2015 01:23:27 admin.php=>ConfigSave() by AID : Root                        IP=>92.144.104.174
+04/25/2015 22:22:58 admin.php=>ConfigSave() by AID : Root                        IP=>37.160.24.108
+04/26/2015 11:35:24 modules.php=>Upload File(s) : 109.11.2.137                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/2.forum_npds.PHR2015-04-26.jpg
+04/26/2015 11:35:36 modules.php=>Upload File(s) : 109.11.2.137                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/3.forum_npds.PHR2015-04-26 (1).jpg
+04/26/2015 11:45:27 modules.php=>Upload File(s) : 109.11.2.137                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/4.forum_npds.PHR2015-04-26.jpg
+04/26/2015 18:08:47 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.54
+04/26/2015 22:25:02 admin.php=>ChangeRightBlock(Lettre d''information - 4) by AID : Root IP=>81.56.83.129
+04/27/2015 09:28:36 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 09:28:42 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 10:24:52 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 15:25:15 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 15:26:47 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 15:27:11 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>81.56.83.129
+04/27/2015 15:31:02 admin.php=>editoSave () by AID : toto                        IP=>81.56.83.129
+04/27/2015 15:31:52 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 17:47:13 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 17:47:20 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 17:48:59 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 22:07:33 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+04/27/2015 22:15:01 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 22:16:17 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 22:17:03 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 22:19:17 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 22:22:12 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 22:22:15 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 22:22:48 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 22:22:51 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 22:26:10 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 22:26:55 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 22:40:53 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 22:44:27 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 22:55:48 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/27/2015 23:16:56 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/27/2015 23:17:43 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/28/2015 00:19:06 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/28/2015 00:47:54 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/28/2015 00:50:19 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.104.174
+04/28/2015 09:06:01 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/28/2015 09:06:29 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/28/2015 11:08:45 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 11:14:48 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 11:23:52 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 11:24:37 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 11:25:53 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 11:57:07 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 11:57:35 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 12:12:30 admin.php=>MakeLeftBlock(Videos) by AID : Root               IP=>81.56.83.129
+04/28/2015 12:12:57 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 14:32:20 admin.php=>AddAuthor(robert) by AID : Root                   IP=>92.144.115.92
+04/28/2015 14:40:54 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.115.92
+04/28/2015 20:37:23 admin.php=>AddAuthor(raymond) by AID : Root                  IP=>92.144.115.92
+04/28/2015 20:58:40 admin.php=>AddForumCat(Travaux sur les modules) by AID : Root IP=>81.56.83.129
+04/28/2015 21:02:10 admin.php=>AddForum(video_yt) by AID : Root                  IP=>81.56.83.129
+04/28/2015 21:16:00 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/28/2015 21:16:46 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/28/2015 21:18:43 admin.php=>ExtractUserCSV() by AID : Root                    IP=>92.144.115.92
+04/28/2015 21:20:13 admin.php=>ExtractUserCSV() by AID : Root                    IP=>92.144.115.92
+04/28/2015 21:26:23 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+04/28/2015 21:34:24 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+04/28/2015 21:51:23 admin.php=>DeleteUser(6) by AID : Root                       IP=>81.56.83.129
+04/28/2015 23:05:04 admin.php=>ExtractUserCSV() by AID : Root                    IP=>92.144.115.92
+04/28/2015 23:17:13 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+04/29/2015 07:30:09 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+04/29/2015 07:30:25 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+04/29/2015 14:17:51 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+04/29/2015 16:16:13 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:16:41 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:17:47 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:18:22 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:26:17 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:26:59 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:28:06 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:34:27 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:35:32 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:37:15 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:39:38 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:43:32 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:45:11 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:47:32 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:48:25 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:50:17 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 16:51:34 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 17:17:36 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 17:29:19 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 17:58:46 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 18:00:36 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 18:01:02 admin.php=>OptiMySql() by AID : toto                         IP=>81.56.83.129
+04/29/2015 18:01:25 admin.php=>OptiMySql() by AID : toto                         IP=>81.56.83.129
+04/29/2015 18:03:36 admin.php=>OptiMySql() by AID : toto                         IP=>81.56.83.129
+04/29/2015 18:04:45 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 18:08:22 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 18:13:31 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 18:18:32 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 18:58:57 admin.php=>UpdateForum(8, Labo Pratique) by AID : Root       IP=>81.56.83.129
+04/29/2015 19:40:52 admin.php=>AddForum(TD-galerie) by AID : Root                IP=>81.56.83.129
+04/29/2015 19:44:26 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/29/2015 21:14:52 admin.php=>UpdateUser(3, phr) by AID : Root                  IP=>81.56.83.129
+04/29/2015 22:27:05 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+04/29/2015 22:42:53 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>92.144.234.194
+04/30/2015 07:35:51 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+04/30/2015 19:03:14 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+04/30/2015 19:10:15 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>92.144.234.194
+04/30/2015 19:17:56 admin.php=>AddAuthor(miarabelle) by AID : Root               IP=>81.56.83.129
+04/30/2015 19:18:54 admin.php=>DeleteAuthor(miarabelle data-toggle=) by AID : Root IP=>81.56.83.129
+04/30/2015 22:12:20 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+04/30/2015 22:13:50 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+04/30/2015 22:18:45 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+04/30/2015 22:21:18 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+04/30/2015 22:23:18 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+05/01/2015 09:29:23 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+05/01/2015 09:31:23 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.234.194
+05/01/2015 12:40:41 admin.php=>AddForum(Améliorations à voir) by AID : Root    IP=>81.56.83.129
+05/01/2015 12:42:02 admin.php=>AddForum(Améliorations à voir) by AID : Root    IP=>81.56.83.129
+05/01/2015 16:25:45 admin.php=>ChangeLeftBlock(Ephémérides - 8) by AID : Root  IP=>81.56.83.129
+05/01/2015 16:46:16 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.234.194
+05/01/2015 16:49:56 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>81.56.83.129
+05/01/2015 18:12:22 admin.php=>ModifyAuthor(toto) by AID : toto                  IP=>81.56.83.129
+05/01/2015 19:27:26 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.234.194
+05/01/2015 20:40:00 admin.php=>OptiMySql() by AID : Root                         IP=>81.56.83.129
+05/01/2015 20:53:39 admin.php=>postStory (autonews, mon article) by AID : Root   IP=>92.144.234.194
+05/01/2015 20:53:39 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>92.144.234.194
+05/01/2015 21:55:54 admin.php=>postStory (autonews, Un autre article) by AID : Root IP=>92.144.234.194
+05/01/2015 21:55:54 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>92.144.234.194
+05/01/2015 22:11:59 admin.php=>postStory (autonews, Nouveau) by AID : Root       IP=>92.144.234.194
+05/01/2015 22:11:59 admin.php=>deleteStoryfromQueue(1) by AID : Root             IP=>92.144.234.194
+05/02/2015 10:28:00 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.54
+05/02/2015 12:50:56 admin.php=>AddAuthor(bmag) by AID : Root                     IP=>92.144.234.194
+05/02/2015 13:03:16 admin.php=>ChangeLeftBlock(La blague du jour - 8) by AID : Root IP=>81.56.83.129
+05/02/2015 15:01:30 admin.php=>changeStory(13, test article, hometext..., bodytext..., 2, notes..., 1, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>81.56.83.129
+05/02/2015 15:02:38 admin.php=>changeStory(5, Vous cherchez des thèmes complémentaires, hometext..., bodytext..., 3, notes..., 1, 0, 0, , , , 2112-01-01 00:00:00,0,npds-boots) by AID : Root IP=>81.56.83.129
+05/02/2015 17:57:14 admin.php=>AddAuthor(Root) by AID : Root                     IP=>92.144.234.194
+05/02/2015 18:17:40 admin.php=>ConfigSave() by AID : Root                        IP=>92.144.234.194
+05/02/2015 18:54:27 admin.php=>ConfigSave() by AID : Root                        IP=>92.144.234.194
+05/03/2015 14:35:35 admin.php=>ExtractUserCSV() by AID : Root                    IP=>81.56.83.129
+05/03/2015 17:55:09 admin.php=>postStory (pub_immediate, test video) by AID : bmag IP=>83.155.165.54
+05/03/2015 17:55:09 admin.php=>deleteStoryfromQueue() by AID : bmag              IP=>83.155.165.54
+05/03/2015 17:59:51 admin.php=>changeStory(15, test video, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,1simplegris) by AID : bmag IP=>83.155.165.54
+05/03/2015 18:08:57 admin.php=>removeStory (15, 1) by AID : bmag                 IP=>83.155.165.54
+05/03/2015 18:14:23 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>81.56.83.129
+05/03/2015 19:05:47 admin.php=>ChangeMainBlock(Menu) by AID : bmag               IP=>83.155.165.54
+05/03/2015 19:08:17 admin.php=>AddLinks(Infocapagde) by AID : Root               IP=>81.56.83.129
+05/03/2015 20:43:18 admin.php=>MoveRightBlockToLeft(Lettre d''information - 4) by AID : Root IP=>81.56.83.129
+05/03/2015 20:45:59 admin.php=>OptiMySql() by AID : Root                         IP=>81.56.83.129
+05/03/2015 20:50:46 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>92.144.234.194
+05/03/2015 21:54:39 admin.php=>MetaTagsave() by AID : Root                       IP=>81.56.83.129
+05/03/2015 21:56:59 admin.php=>MetaTagsave() by AID : Root                       IP=>81.56.83.129
+05/04/2015 07:54:10 admin.php=>ChangeLeftBlock(Videos - 13) by AID : Root        IP=>81.56.83.129
+05/04/2015 15:40:57 admin.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : Root  / 20893f27fbd81b88c7f8a13bc318d36e IP=>92.144.234.194
+05/04/2015 17:55:01 admin.php=>CreateGroupe(5, Css team) by AID : Root           IP=>92.144.234.194
+05/04/2015 18:03:16 admin.php=>UpdateGroup(5) by AID : Root                      IP=>92.144.234.194
+05/04/2015 18:05:26 admin.php=>UpdateGroup(2) by AID : Root                      IP=>92.144.234.194
+05/04/2015 18:05:42 admin.php=>UpdateGroup(2) by AID : Root                      IP=>92.144.234.194
+05/04/2015 19:34:08 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.234.194
+05/04/2015 19:35:17 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.234.194
+05/04/2015 22:21:33 admin.php=>SaveConfigFile(extend-modules) by AID : Root      IP=>92.144.234.194
+05/05/2015 21:24:33 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/06/2015 15:17:41 admin.php=>ChangeRightBlock(Bloc membre - 3) by AID : bmag   IP=>83.155.165.54
+05/06/2015 15:19:15 admin.php=>ChangeRightBlock(Information - 2) by AID : bmag   IP=>83.155.165.54
+05/06/2015 15:19:39 admin.php=>ChangeRightBlock(Bloc membre - 3) by AID : bmag   IP=>83.155.165.54
+05/06/2015 19:38:37 viewtopic.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/06/2015 19:39:01 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/06/2015 19:39:12 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/07/2015 14:26:41 admin.php=>UpdateForumCat(1, 1, Infos généralissime) by AID : Root IP=>92.144.235.106
+05/07/2015 18:55:17 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/08/2015 08:47:32 admin.php=>ConfigSave() by AID : bmag                        IP=>83.155.165.54
+05/08/2015 08:48:33 admin.php=>ConfigSave() by AID : bmag                        IP=>83.155.165.54
+05/08/2015 10:36:53 admin.php=>deleteStoryfromQueue(2) by AID : Root             IP=>92.144.235.106
+05/08/2015 21:48:17 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/08/2015 22:07:51 admin.php=>MakeLeftBlock(bloc notes) by AID : Root           IP=>81.56.83.129
+05/09/2015 11:50:26 admin.php=>deleteStoryfromQueue(3) by AID : Root             IP=>92.144.235.106
+05/09/2015 19:09:14 admin.php=>ChangeLeftBlock(bloc notes - 16) by AID : Root    IP=>92.144.235.106
+05/09/2015 21:15:23 admin.php=>editoSave () by AID : Root                        IP=>92.144.235.106
+05/09/2015 22:10:28 admin.php=>ChangeMainBlock(Menu) by AID : Root               IP=>92.144.235.106
+05/09/2015 22:12:22 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.235.106
+05/09/2015 22:14:44 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.235.106
+05/09/2015 22:17:40 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.235.106
+05/09/2015 22:18:33 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.235.106
+05/09/2015 22:24:07 admin.php=>ChangeMainBlock(Menu) by AID : Root               IP=>92.144.235.106
+05/09/2015 22:25:33 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.235.106
+05/09/2015 23:54:19 admin.php=>OptiMySql() by AID : Root                         IP=>81.56.83.129
+05/10/2015 10:36:54 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:36:55 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:43:21 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:43:22 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:44:44 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:44:45 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:49:55 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:49:56 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:56:40 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 10:56:41 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 11:06:54 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 11:06:55 admin.php=>OptiMySql() by AID : Root                         IP=>92.144.235.106
+05/10/2015 20:57:02 admin.php=>SaveConfigFile(cache.config) by AID : Root        IP=>92.144.235.106
+05/10/2015 20:57:38 admin.php=>SaveConfigFile(cache.config) by AID : Root        IP=>92.144.235.106
+05/10/2015 22:15:25 admin.php=>SaveConfigFile(upload.conf) by AID : Root         IP=>81.56.83.129
+05/10/2015 22:15:44 admin.php=>SaveConfigFile(upload.conf) by AID : Root         IP=>81.56.83.129
+05/11/2015 08:16:27 admin.php=>SaveConfigFile(upload.conf) by AID : Root         IP=>81.56.83.129
+05/11/2015 08:16:53 admin.php=>SaveConfigFile(upload.conf) by AID : Root         IP=>81.56.83.129
+05/11/2015 08:18:20 admin.php=>SaveConfigFile(upload.conf) by AID : Root         IP=>81.56.83.129
+05/11/2015 08:20:39 admin.php=>SaveConfigFile(upload.conf) by AID : Root         IP=>81.56.83.129
+05/12/2015 15:50:19 admin.php=>AddMemberToGroup(5, jpb,bmag) by AID : Root       IP=>2.3.42.96
+05/12/2015 15:50:37 admin.php=>DeleteMemberToGroup(5, jpb) by AID : Root         IP=>2.3.42.96
+05/13/2015 16:11:06 admin.php=>AddUser(zebulon, zebulon) by AID : Root           IP=>2.3.42.96
+05/13/2015 16:11:59 admin.php=>AddUser(eric, eric) by AID : Root                 IP=>2.3.42.96
+05/13/2015 16:14:30 admin.php=>AddUser(alberto, alberto) by AID : Root           IP=>2.3.42.96
+05/13/2015 16:15:55 admin.php=>AddMemberToGroup(5, alberto,zebulon,eric) by AID : Root IP=>2.3.42.96
+05/13/2015 16:17:10 admin.php=>AddMemberToGroup(5, phr) by AID : Root            IP=>2.3.42.96
+05/13/2015 18:13:42 admin.php=>CreateGroupe(8, Ajax contributeurs) by AID : Root IP=>2.3.42.96
+05/13/2015 18:17:57 admin.php=>DeleteAllMemberToGroup(5, 3) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:17:57 admin.php=>DeleteAllMemberToGroup(5, 4) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:17:57 admin.php=>DeleteAllMemberToGroup(5, 5) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:18:29 admin.php=>DeleteAllMemberToGroup(5, 3) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:18:29 admin.php=>DeleteAllMemberToGroup(5, 4) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:18:29 admin.php=>DeleteAllMemberToGroup(5, 5) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:18:50 admin.php=>DeleteAllMemberToGroup(5, 7) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:18:50 admin.php=>DeleteAllMemberToGroup(5, 8) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:18:50 admin.php=>DeleteAllMemberToGroup(5, 9) by AID : Root        IP=>2.3.42.96
+05/13/2015 18:24:10 admin.php=>AddMemberToGroup(5, zebulon,phr,eric,bmag,alberto) by AID : Root IP=>2.3.42.96
+05/13/2015 18:37:40 admin.php=>AddMemberToGroup(5, j) by AID : Root              IP=>2.3.42.96
+05/13/2015 18:38:00 admin.php=>AddMemberToGroup(5, jpb) by AID : Root            IP=>2.3.42.96
+05/13/2015 22:54:43 admin.php=>CreateForumWS(5) by AID : Root                    IP=>2.3.42.96
+05/13/2015 23:37:11 admin.php=>DeleteMemberToGroup(5, bmag) by AID : Root        IP=>2.3.42.96
+05/14/2015 08:46:11 admin.php=>ChangeRightBlock(Information - 2) by AID : bmag   IP=>83.155.165.54
+05/14/2015 08:46:28 admin.php=>ChangeRightBlock(Bloc membre - 3) by AID : bmag   IP=>83.155.165.54
+05/14/2015 13:23:42 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>37.165.41.55
+05/14/2015 13:59:38 admin.php=>postStory (pub_immediate, Font Awesome) by AID : Root IP=>2.3.42.96
+05/14/2015 13:59:38 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>2.3.42.96
+05/14/2015 14:04:20 admin.php=>changeStory(16, Font Awesome, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>2.3.42.96
+05/14/2015 14:05:13 admin.php=>changeStory(16, Font Awesome, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>2.3.42.96
+05/14/2015 14:07:38 admin.php=>ConfigSave() by AID : Root                        IP=>2.3.42.96
+05/14/2015 14:09:49 admin.php=>changeStory(16, Font Awesome, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>2.3.42.96
+05/14/2015 18:59:17 admin.php=>UpdateUser(7, zebulon) by AID : Root              IP=>2.3.42.96
+05/15/2015 19:04:52 admin.php=>ModifyAuthor(toto) by AID : Root                  IP=>2.3.42.96
+05/15/2015 19:05:15 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : toto IP=>2.3.42.96
+05/15/2015 19:05:24 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : toto IP=>2.3.42.96
+05/15/2015 19:06:07 admin.php=>ModifyAuthor(robert) by AID : Root                IP=>2.3.42.96
+05/15/2015 19:06:31 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : robert IP=>2.3.42.96
+05/15/2015 19:06:46 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : robert IP=>2.3.42.96
+05/15/2015 19:07:55 admin.php=>ModifyAuthor(robert) by AID : root                IP=>2.3.42.96
+05/15/2015 20:20:03 admin.php=>ModifyAuthor(robert) by AID : root                IP=>2.3.42.96
+05/15/2015 22:33:31 admin.php=>OptiMySql() by AID : root                         IP=>2.3.42.96
+05/15/2015 22:33:32 admin.php=>OptiMySql() by AID : root                         IP=>2.3.42.96
+05/15/2015 22:38:15 admin.php=>OptiMySql() by AID : root                         IP=>2.3.42.96
+05/15/2015 22:38:16 admin.php=>OptiMySql() by AID : root                         IP=>2.3.42.96
+05/16/2015 10:33:38 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>2.3.42.96
+05/16/2015 10:38:04 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>2.3.42.96
+05/16/2015 10:38:31 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>2.3.42.96
+05/16/2015 10:49:36 admin.php=>UpdateForum(7, Anomalies de l\'administration du core) by AID : root IP=>2.3.42.96
+05/16/2015 13:34:34 admin.php=>UpdateGroup() by AID : root                       IP=>2.3.42.96
+05/16/2015 13:43:00 admin.php=>CreateGroupe(9, Responsive squad) by AID : root   IP=>2.3.42.96
+05/16/2015 13:47:53 admin.php=>DeleteMemberToGroup(2, phr) by AID : root         IP=>2.3.42.96
+05/16/2015 13:48:25 admin.php=>AddMemberToGroup(2, phr) by AID : root            IP=>2.3.42.96
+05/16/2015 13:54:04 admin.php=>CreateGroupe(10, ) by AID : root                  IP=>2.3.42.96
+05/16/2015 13:57:33 admin.php=>DeleteForumWS() by AID : root                     IP=>2.3.42.96
+05/16/2015 13:57:33 admin.php=>ArchiveWS(10) by AID : root                       IP=>2.3.42.96
+05/16/2015 13:57:33 admin.php=>DeleteMnsWS(10) by AID : root                     IP=>2.3.42.96
+05/16/2015 13:57:33 admin.php=>DeleteGroup(10) by AID : root                     IP=>2.3.42.96
+05/16/2015 14:40:30 admin.php=>UpdateGroup(2) by AID : root                      IP=>2.3.42.96
+05/17/2015 12:33:53 admin.php=>ChangeSuperCache(true, 300, 300, 300, 86400, 28800, 3600, 1800, 3600) by AID : root IP=>2.3.42.96
+05/17/2015 12:35:09 admin.php=>EmptySuperCache() by AID : root                   IP=>2.3.42.96
+05/17/2015 12:35:59 admin.php=>ChangeSuperCache(false, 300, 300, 300, 86400, 28800, 3600, 1800, 3600) by AID : root IP=>2.3.42.96
+05/17/2015 12:36:03 admin.php=>EmptySuperCache() by AID : root                   IP=>2.3.42.96
+05/17/2015 14:01:34 admin.php=>changeStory(16, Font Awesome, hometext..., bodytext..., 6, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>2.3.42.96
+05/17/2015 14:02:07 admin.php=>changeStory(16, Font Awesome, hometext..., bodytext..., 6, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>2.3.42.96
+05/17/2015 14:20:03 admin.php=>postStory (pub_immediate, Article) by AID : root  IP=>2.3.42.96
+05/17/2015 14:20:03 admin.php=>deleteStoryfromQueue() by AID : root              IP=>2.3.42.96
+05/17/2015 16:43:39 admin.php=>changeStory(17, Article, hometext..., bodytext..., 2, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : bmag IP=>83.155.165.54
+05/17/2015 16:45:27 admin.php=>changeStory(17, Article, hometext..., bodytext..., 2, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : bmag IP=>83.155.165.54
+05/17/2015 16:56:08 admin.php=>ConfigSave() by AID : bmag                        IP=>83.155.165.54
+05/17/2015 16:58:38 admin.php=>ConfigSave() by AID : bmag                        IP=>83.155.165.54
+05/17/2015 17:00:16 admin.php=>removeStory (17, 1) by AID : bmag                 IP=>83.155.165.54
+05/17/2015 17:01:05 admin.php=>postStory (pub_immediate, test article) by AID : bmag IP=>83.155.165.54
+05/17/2015 17:01:05 admin.php=>deleteStoryfromQueue() by AID : bmag              IP=>83.155.165.54
+05/17/2015 17:04:45 admin.php=>postStory (pub_immediate, ) by AID : bmag         IP=>83.155.165.54
+05/17/2015 17:04:45 admin.php=>deleteStoryfromQueue(7) by AID : bmag             IP=>83.155.165.54
+05/17/2015 17:05:59 admin.php=>removeStory (19, 1) by AID : bmag                 IP=>83.155.165.54
+05/17/2015 17:07:51 admin.php=>postStory (pub_immediate, Elsass Ipsum formulaire) by AID : bmag IP=>83.155.165.54
+05/17/2015 17:07:51 admin.php=>deleteStoryfromQueue() by AID : bmag              IP=>83.155.165.54
+05/17/2015 17:14:53 admin.php=>changeStory(18, Elsass Ipsum article, hometext..., bodytext..., 3, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : bmag IP=>83.155.165.54
+05/17/2015 17:17:06 admin.php=>changeStory(18, Elsass Ipsum article, hometext..., bodytext..., 3, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,1simplegris) by AID : bmag IP=>83.155.165.54
+05/17/2015 17:36:55 admin.php=>removeStory (20, 1) by AID : bmag                 IP=>83.155.165.54
+05/17/2015 17:39:37 admin.php=>postStory (pub_immediate, Elsass Ipsum formulaire) by AID : bmag IP=>83.155.165.54
+05/17/2015 17:39:37 admin.php=>deleteStoryfromQueue() by AID : bmag              IP=>83.155.165.54
+05/17/2015 23:37:40 admin.php=>MetaTagsave() by AID : root                       IP=>2.3.42.96
+05/18/2015 19:19:01 admin.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/18/2015 19:39:32 admin.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/19/2015 21:10:35 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/19/2015 22:01:03 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/19/2015 23:25:23 admin.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/20/2015 15:29:58 viewtopic.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/20/2015 16:14:38 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:31:35 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:40:17 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:40:43 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:41:09 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:41:39 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:42:09 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:42:34 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:45:32 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 16:51:36 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 18:00:16 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 18:02:08 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 18:02:59 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 18:03:37 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/20/2015 18:07:14 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:08:00 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:14:26 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:15:13 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:15:15 admin.php=>AddCatLinks() by AID : root                       IP=>92.144.235.5
+05/20/2015 18:15:56 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:16:00 admin.php=>DeleteCatLinks(2) by AID : root                   IP=>92.144.235.5
+05/20/2015 18:17:16 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:17:51 admin.php=>AddLinks(Mon grand site) by AID : root            IP=>92.144.235.5
+05/20/2015 18:18:18 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:19:33 admin.php=>AddLinks(Encore un tres grand site) by AID : root IP=>92.144.235.5
+05/20/2015 18:20:48 admin.php=>UpdateLinks(3, Encore un tres grand site) by AID : root IP=>92.144.235.5
+05/20/2015 18:33:10 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:35:07 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:35:45 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:37:24 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:44:00 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:45:03 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:45:41 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:46:22 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:55:33 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:55:53 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:56:10 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:56:31 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:59:26 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 18:59:45 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 19:00:23 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 19:00:57 admin.php=>ChangeLeftBlock(Sondage - 11) by AID : root       IP=>81.56.83.129
+05/20/2015 19:04:12 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 19:50:17 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 19:51:48 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 19:52:18 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/20/2015 19:58:31 admin.php=>AddLinks(un bon site) by AID : root               IP=>81.56.83.129
+05/20/2015 20:18:38 admin.php=>ConfigSave() by AID : root                        IP=>92.144.235.5
+05/20/2015 21:11:10 admin.php=>AddLinks(Validateur de form) by AID : root        IP=>92.144.235.5
+05/20/2015 21:13:24 admin.php=>ConfigSave() by AID : root                        IP=>92.144.235.5
+05/20/2015 21:58:51 admin.php=>AddCatLinks(web développement) by AID : root     IP=>92.144.235.5
+05/21/2015 11:24:23 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/21/2015 21:34:33 admin.php=>changeStory(14, Un autre article, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2014-05-02 12:25:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 12:53:55 admin.php=>postStory (pub_immediate, ) by AID : Root         IP=>81.56.83.129
+05/22/2015 12:53:55 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>81.56.83.129
+05/22/2015 13:38:09 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>81.56.83.129
+05/22/2015 13:41:26 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : Root IP=>81.56.83.129
+05/22/2015 13:44:21 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 13:45:49 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 13:49:15 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 13:51:24 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 13:51:56 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 13:52:13 admin.php=>changeStory(22, test bouton, hometext..., bodytext..., 1, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boots) by AID : root IP=>81.56.83.129
+05/22/2015 16:49:23 admin.php=>ChangeLeftBlock(bloc notes - 16) by AID : root    IP=>81.56.83.129
+05/22/2015 16:50:02 admin.php=>ChangeLeftBlock(Info Team - 16) by AID : root     IP=>81.56.83.129
+05/22/2015 17:18:55 admin.php=>ChangeLeftBlock(Bloc-notes - 16) by AID : root    IP=>81.56.83.129
+05/22/2015 21:47:46 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+05/22/2015 22:53:09 modules.php=>Forum Anti-Spam : forum=-2 / topic=6            IP=>81.56.83.129
+05/22/2015 23:02:38 admin.php=>ConfigSave() by AID : Root                        IP=>81.56.83.129
+05/22/2015 23:14:09 admin.php=>AddForum(Fichiers modifiés) by AID : Root        IP=>81.56.83.129
+05/23/2015 00:32:11 modules.php=>Forum Anti-Spam : forum=-2 / topic=11           IP=>81.56.83.129
+05/23/2015 15:58:07 modules.php=>Forum Anti-Spam : forum=-99 / topic=1           IP=>81.56.83.129
+05/23/2015 17:06:46 admin.php=>ConfigSave() by AID : RooT                        IP=>92.144.235.5
+05/23/2015 17:08:35 admin.php=>ConfigSave() by AID : RooT                        IP=>92.144.235.5
+05/23/2015 17:09:02 admin.php=>ConfigSave() by AID : RooT                        IP=>92.144.235.5
+05/24/2015 09:31:16 admin.php=>AddForumCat(test) by AID : Root                   IP=>81.56.83.129
+05/24/2015 09:32:29 admin.php=>AddForum(test phr) by AID : Root                  IP=>81.56.83.129
+05/24/2015 09:59:26 newtopic.php=>Forum Anti-Spam : forum=17 / topic_title=tttt  IP=>81.56.83.129
+05/24/2015 10:00:42 newtopic.php=>Forum Anti-Spam : forum=17 / topic_title=test  IP=>81.56.83.129
+05/24/2015 10:18:31 newtopic.php=>Forum Anti-Spam : forum=17 / topic_title=test  IP=>81.56.83.129
+05/24/2015 10:46:04 admin.php=>UpdateForum(17, Mise en responsivité des forums) by AID : Root IP=>81.56.83.129
+05/24/2015 15:50:40 newtopic.php=>Forum Anti-Spam : forum=17 / topic_title=saut en parachute IP=>81.56.83.129
+05/25/2015 08:57:22 admin.php=>UpdateForum(17, Mise en responsivité des forums) by AID : Root IP=>81.56.83.129
+05/25/2015 09:43:20 admin.php=>CreateSections(Présentation) by AID : bmag       IP=>83.155.165.54
+05/25/2015 09:43:50 admin.php=>CreateArticleSections(4, texte et paragraphe) by AID : bmag IP=>83.155.165.54
+05/25/2015 09:45:11 admin.php=>UpdateArticleSections(2, 4, Texte au kilometre) by AID : bmag IP=>83.155.165.54
+05/25/2015 13:40:25 admin.php=>CreateForumWS(2) by AID : RooT                    IP=>92.144.235.5
+05/25/2015 13:45:34 admin.php=>UpdateGroup(2) by AID : RooT                      IP=>92.144.235.5
+05/25/2015 13:47:44 admin.php=>CreatePadWS(2) by AID : RooT                      IP=>92.144.235.5
+05/25/2015 21:13:30 reply.php=>Forum Anti-Spam : forum=17 / topic=65             IP=>81.56.83.129
+05/25/2015 22:37:47 reply.php=>Forum Anti-Spam : forum=17 / topic=67             IP=>81.56.83.129
+05/25/2015 23:14:07 forum.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+05/26/2015 08:43:58 admin.php=>UpdateForum(17, Mise en responsivité des forums) by AID : Root IP=>81.56.83.129
+05/26/2015 08:48:00 admin.php=>ChangeRightBlock(Bloc membre - 3) by AID : bmag   IP=>83.155.165.54
+05/27/2015 01:23:48 admin.php=>ChangeLeftBlock(Menu - 2) by AID : RooT           IP=>2.3.44.227
+05/27/2015 01:24:37 admin.php=>ChangeLeftBlock(Menu - 2) by AID : RooT           IP=>2.3.44.227
+05/27/2015 01:26:27 admin.php=>ChangeLeftBlock(Menu - 2) by AID : RooT           IP=>2.3.44.227
+05/27/2015 10:00:34 admin.php=>ChangeLeftBlock(Menu - 2) by AID : RooT           IP=>2.3.171.168
+05/27/2015 10:00:54 admin.php=>ChangeLeftBlock(YUI loader - 17) by AID : RooT    IP=>2.3.171.168
+05/27/2015 10:01:18 admin.php=>ChangeLeftBlock(YUI loader - 17) by AID : RooT    IP=>2.3.171.168
+05/27/2015 22:09:48 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>81.56.83.129
+05/28/2015 00:09:34 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/5.forum_npds.maxresdefault.jpg
+05/28/2015 00:13:28 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/6.forum_npds.PR01120215.gif
+05/28/2015 14:58:05 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 14:59:06 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 15:11:13 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 15:12:59 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 15:19:07 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 15:24:23 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 15:27:19 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/28/2015 16:13:01 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/7.forum_npds.10929209_10204479551607850_560551991483478379_n.jpg
+05/28/2015 16:13:03 modules.php=>Upload File(s) : 2.3.171.168                    /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/8.forum_npds.resize.jpg
+05/28/2015 17:59:06 admin.php=>CreateMiniSite(phr) by AID : root                 IP=>81.56.83.129
+05/28/2015 17:59:06 admin.php=>UpdateUser(3, phr) by AID : root                  IP=>81.56.83.129
+05/28/2015 18:47:23 admin.php=>topicChange (cartographie, 6) by AID : root       IP=>2.3.171.168
+05/28/2015 18:49:17 admin.php=>topicChange (cartographie, 6) by AID : root       IP=>2.3.171.168
+05/28/2015 20:35:54 admin.php=>UpdateForum(9, Anomalies core NPDS) by AID : root IP=>2.3.171.168
+05/28/2015 21:31:35 admin.php=>UpdateForum(14, Améliorations à voir) by AID : root IP=>2.3.171.168
+05/28/2015 21:33:04 admin.php=>UpdateForum(14, Améliorations à voir) by AID : root IP=>2.3.171.168
+05/28/2015 23:07:42 admin.php=>AddForum(un forum de test) by AID : root          IP=>81.56.83.129
+05/28/2015 23:13:18 admin.php=>AddForum(test forum protégé) by AID : root      IP=>81.56.83.129
+05/29/2015 09:17:16 newtopic.php=>Forum Anti-Spam : forum=17 / topic_title=Test du fichier viewforum.php IP=>81.56.83.129
+05/29/2015 11:20:32 admin.php=>ConfigSave() by AID : Root                        IP=>194.199.172.35
+05/29/2015 15:57:15 admin.php=>UpdateForum(15, Css team) by AID : root           IP=>2.3.171.168
+05/29/2015 16:22:37 newtopic.php=>Forum Anti-Spam : forum=17 / topic_title=pour un essai IP=>81.56.83.129
+05/29/2015 18:26:39 admin.php=>UpdateForum(11, video_yt) by AID : root           IP=>81.56.83.129
+05/29/2015 19:39:41 admin.php=>OptiMySql() by AID : root                         IP=>2.3.171.168
+05/30/2015 13:09:18 admin.php=>AddForum(Road map développement admin) by AID : root IP=>2.3.171.168
+05/30/2015 13:09:58 admin.php=>UpdateForum(13, Améliorations à voir) by AID : root IP=>2.3.171.168
+05/30/2015 13:36:49 admin.php=>ActivateChatWS(2) by AID : root                   IP=>2.3.171.168
+05/30/2015 13:40:39 admin.php=>ChangeLeftBlock(Chat Box - 4) by AID : root       IP=>2.3.171.168
+05/30/2015 19:19:44 admin.php=>CreateArticleSections(4, Dossier avec pagination) by AID : bmag IP=>83.155.165.54
+05/30/2015 23:03:19 admin.php=>MakeLeftBlock(Skin change) by AID : root          IP=>2.3.171.168
+05/30/2015 23:05:07 admin.php=>MakeLeftBlock(Skin change) by AID : root          IP=>2.3.171.168
+05/30/2015 23:06:00 admin.php=>DeleteLeftBlock(19) by AID : root                 IP=>2.3.171.168
+05/30/2015 23:06:55 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>2.3.171.168
+05/31/2015 10:22:16 admin.php=>EmptySuperCache() by AID : root                   IP=>81.56.83.129
+05/31/2015 14:38:44 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>2.3.171.168
+05/31/2015 14:42:02 admin.php=>ChangeLeftBlock(Menu - 2) by AID : root           IP=>2.3.171.168
+05/31/2015 14:42:28 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>2.3.171.168
+06/01/2015 14:41:08 admin.php=>UpdateUser(3, phr) by AID : root                  IP=>81.56.83.129
+06/01/2015 16:16:40 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:24:26 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:25:33 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:25:40 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:25:53 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:28:28 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:33:32 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:34:23 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/01/2015 16:41:00 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/01/2015 18:22:09 minisite.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:22:30 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:22:36 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:22:50 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:22:54 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:23:01 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:23:02 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:23:03 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:23:04 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:23:07 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:23:50 user.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/01/2015 18:53:30 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>2.3.171.168
+06/02/2015 19:24:01 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:24:25 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:24:49 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:25:31 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:29:13 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:29:35 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:30:22 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:31:46 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:32:51 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:34:40 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:40:34 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:40:46 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:45:21 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:45:27 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 19:45:59 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 20:24:24 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 20:35:02 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 20:53:16 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 20:56:26 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 20:59:10 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 20:59:49 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 21:00:40 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 21:02:59 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 21:03:40 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/02/2015 21:04:18 user.php=>Lost_password_update OK : phr                      IP=>81.56.83.129
+06/02/2015 21:54:31 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 21:58:01 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:05:13 admin.php=>DeleteUser(11) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:05:32 admin.php=>DeleteUser(12) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:11:49 admin.php=>DeleteUser(14) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:11:52 admin.php=>DeleteUser() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:12:05 admin.php=>DeleteUser(13) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:12:46 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:21:19 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:22:27 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:30:53 admin.php=>UpdateUser(15, redaction) by AID : root           IP=>81.56.83.129
+06/02/2015 22:32:35 admin.php=>DeleteUser(15) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:33:21 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:36:47 admin.php=>DeleteUser(16) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:40:23 admin.php=>DeleteUser(17) by AID : root                      IP=>81.56.83.129
+06/02/2015 22:49:47 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/02/2015 22:50:01 admin.php=>DeleteUser(18) by AID : root                      IP=>81.56.83.129
+06/03/2015 12:30:20 user.php=>Lost_password_request : phr                        IP=>81.56.83.129
+06/03/2015 19:47:48 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/03/2015 19:49:21 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/03/2015 22:02:23 admin.php=>DeleteUser(19) by AID : root                      IP=>81.56.83.129
+06/03/2015 22:58:29 admin.php=>DeleteUser(21) by AID : root                      IP=>81.56.83.129
+06/03/2015 23:27:25 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/03/2015 23:27:47 admin.php=>DeleteUser(22) by AID : root                      IP=>81.56.83.129
+06/03/2015 23:47:24 admin.php=>DeleteUser(23) by AID : root                      IP=>81.56.83.129
+06/03/2015 23:48:18 admin.php=>DeleteUser(24) by AID : root                      IP=>81.56.83.129
+06/03/2015 23:48:43 admin.php=>DeleteUser(20) by AID : root                      IP=>81.56.83.129
+06/03/2015 23:55:19 admin.php=>DeleteUser(25) by AID : root                      IP=>81.56.83.129
+06/04/2015 00:05:17 admin.php=>DeleteUser(26) by AID : root                      IP=>81.56.83.129
+06/04/2015 00:05:57 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/04/2015 18:55:57 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>92.144.111.56
+06/04/2015 19:01:13 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>92.144.111.56
+06/04/2015 19:02:46 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>92.144.111.56
+06/05/2015 07:32:07 friend.php=>Friend Anti-Spam : name= / mail=                 IP=>81.56.83.129
+06/05/2015 09:01:28 friend.php=>Friend Anti-Spam : name= / mail=                 IP=>81.56.83.129
+06/05/2015 09:02:21 friend.php=>Friend Anti-Spam : name=reeee / mail=revilliod@  IP=>81.56.83.129
+06/05/2015 18:59:38 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 19:00:46 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 21:30:45 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 21:31:14 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 21:32:36 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 21:35:15 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 21:39:14 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:40:19 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:41:18 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:42:01 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:44:24 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:45:33 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:47:46 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:49:31 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:50:23 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:50:45 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:52:20 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:53:38 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 21:56:36 admin.php=>editoSave () by AID : root                        IP=>81.56.83.129
+06/05/2015 22:07:40 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:10:37 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:10:57 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:13:06 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:14:03 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:15:13 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:21:13 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:21:32 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:41:05 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:42:03 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:51:23 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:51:42 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:52:02 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:57:11 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 22:57:53 admin.php=>editoSave () by AID : root                        IP=>92.144.111.56
+06/05/2015 23:02:41 admin.php=>ConfigSave() by AID : root                        IP=>92.144.111.56
+06/05/2015 23:07:50 admin.php=>ConfigSave() by AID : root                        IP=>92.144.111.56
+06/05/2015 23:08:01 admin.php=>ConfigSave() by AID : root                        IP=>92.144.111.56
+06/06/2015 00:16:11 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/07/2015 10:52:17 admin.php=>UpdateRightsPubliSujet(lascar) by AID : root      IP=>92.144.111.56
+06/07/2015 10:57:30 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.111.56
+06/07/2015 11:26:11 admin.php=>UpdateRightsPubliSujet(lascar) by AID : root      IP=>92.144.111.56
+06/07/2015 18:43:38 admin.php=>CreateRubriques(MOn nom est rubrique) by AID : root IP=>92.144.111.56
+06/07/2015 19:18:08 admin.php=>CreateArticleSections(3, nouvelle par root) by AID : root IP=>92.144.111.56
+06/07/2015 19:28:04 admin.php=>DeleteRubriques(4) by AID : root                  IP=>92.144.111.56
+06/07/2015 19:28:38 admin.php=>DeleteArticlesSections(4) by AID : root           IP=>92.144.111.56
+06/07/2015 19:29:40 admin.php=>ConfigSave() by AID : root                        IP=>92.144.111.56
+06/07/2015 19:31:51 admin.php=>CreateArticleSections(3, une publi) by AID : root IP=>92.144.111.56
+06/08/2015 06:47:10 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+06/08/2015 06:47:41 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+06/09/2015 07:22:46 admin.php=>UpdateArticleSections(5, 3, une publication en exemple) by AID : root IP=>81.56.83.129
+06/09/2015 07:55:56 admin.php=>CreateArticleSections(3, Article en plus) by AID : root IP=>81.56.83.129
+06/09/2015 09:13:10 admin.php=>CreateArticleSections(1, La télévision) by AID : root IP=>81.56.83.129
+06/09/2015 09:26:43 admin.php=>UpdateArticleSections(2, 4, Texte au kilometre) by AID : root IP=>81.56.83.129
+06/09/2015 09:29:08 admin.php=>CreateRubriques(La rubrique qui tue) by AID : root IP=>81.56.83.129
+06/09/2015 09:32:06 admin.php=>UpdateRubriques(1, Divers) by AID : root          IP=>81.56.83.129
+06/09/2015 09:32:43 admin.php=>UpdateRubriques(1, Divers) by AID : root          IP=>81.56.83.129
+06/09/2015 09:32:56 admin.php=>UpdateRubriques(5, La rubrique qui tue) by AID : root IP=>81.56.83.129
+06/09/2015 09:48:37 admin.php=>CreateSections(Les chocolats) by AID : root       IP=>81.56.83.129
+06/09/2015 16:04:20 admin.php=>CreateArticleSections(5, le premier article de cette rubrique) by AID : root IP=>81.56.83.129
+06/09/2015 20:27:34 admin.php=>DeleteUser(27) by AID : root                      IP=>81.56.83.129
+06/10/2015 23:56:09 memberslist.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/10/2015 23:56:22 memberslist.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/11/2015 10:21:52 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/11/2015 15:00:25 admin.php=>CreateRubriques(ma rubrique) by AID : root        IP=>92.144.239.45
+06/11/2015 21:17:22 minisite.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/11/2015 21:17:25 minisite.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/12/2015 09:18:13 admin.php=>MetaTagsave() by AID : root                       IP=>81.56.83.129
+06/12/2015 09:18:29 admin.php=>MetaTagsave() by AID : root                       IP=>81.56.83.129
+06/12/2015 09:19:12 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/15/2015 21:07:40 admin.php=>UpdateForum(18, Team de développement) by AID : root IP=>92.144.239.45
+06/15/2015 21:09:31 admin.php=>UpdateForum(17, Mise en responsivité des forums) by AID : root IP=>92.144.239.45
+06/15/2015 21:10:25 admin.php=>UpdateForum(10, Divers) by AID : root             IP=>92.144.239.45
+06/15/2015 21:11:38 admin.php=>UpdateForum(12, TD-galerie) by AID : root         IP=>92.144.239.45
+06/15/2015 21:12:48 admin.php=>UpdateForum(5, Anomalie thème KNACSS) by AID : root IP=>92.144.239.45
+06/15/2015 21:13:20 admin.php=>UpdateForum(6, Anomalies thème Bootstrap) by AID : root IP=>92.144.239.45
+06/15/2015 21:13:53 admin.php=>UpdateForum(14, Améliorations à voir) by AID : root IP=>92.144.239.45
+06/15/2015 21:14:22 admin.php=>UpdateForum(16, Fichiers modifiés) by AID : root IP=>92.144.239.45
+06/15/2015 21:15:11 admin.php=>UpdateForum(21, Road map développement admin) by AID : root IP=>92.144.239.45
+06/15/2015 21:15:48 admin.php=>UpdateForum(13, Améliorations à voir) by AID : root IP=>92.144.239.45
+06/15/2015 21:27:27 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/15/2015 21:29:35 admin.php=>MetaTagsave() by AID : root                       IP=>81.56.83.129
+06/15/2015 21:38:44 admin.php=>UpdateGroup(9) by AID : root                      IP=>92.144.239.45
+06/15/2015 21:50:58 admin.php=>AddMemberToGroup(9, jpb) by AID : root            IP=>92.144.239.45
+06/15/2015 21:52:06 admin.php=>CreateForumWS(9) by AID : root                    IP=>92.144.239.45
+06/18/2015 07:12:14 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Bmag IP=>83.155.165.54
+06/18/2015 07:13:43 admin.php=>MakeRightBlock(test bloc bmag) by AID : bmag      IP=>83.155.165.54
+06/18/2015 07:15:16 admin.php=>ChangeRightBlock(test bloc bmag - 9) by AID : bmag IP=>83.155.165.54
+06/18/2015 14:30:04 admin.php=>OptiMySql() by AID : root                         IP=>92.144.225.97
+06/18/2015 14:31:00 admin.php=>OptiMySql() by AID : root                         IP=>92.144.225.97
+06/19/2015 11:32:42 admin.php=>SendEmailToUser(Essai message interne) by AID : root IP=>92.144.225.97
+06/19/2015 11:33:31 admin.php=>SendEmailToUser(Essai message interne) by AID : root IP=>92.144.225.97
+06/19/2015 15:23:15 admin.php=>AddForumCat(lfjskfjsflkdfjdlfkjdsflkdfjd) by AID : root IP=>92.144.225.97
+06/19/2015 16:59:59 admin.php=>ConfigSave() by AID : root                        IP=>92.144.225.97
+06/19/2015 17:03:13 admin.php=>postStory (pub_immediate, Mon article) by AID : root IP=>92.144.225.97
+06/19/2015 17:03:13 admin.php=>deleteStoryfromQueue() by AID : root              IP=>92.144.225.97
+06/19/2015 17:04:44 admin.php=>postStory (pub_immediate, test après mise en forme) by AID : root IP=>92.144.225.97
+06/19/2015 17:04:44 admin.php=>deleteStoryfromQueue(10) by AID : root            IP=>92.144.225.97
+06/20/2015 11:29:20 admin.php=>DeleteForumCat(8) by AID : root                   IP=>92.144.225.97
+06/20/2015 13:35:59 admin.php=>UpdateForum(15, Css team) by AID : root           IP=>92.144.225.97
+06/21/2015 10:40:11 admin.php=>UpdateCatLinks(1, Modéle) by AID : root          IP=>92.144.225.97
+06/21/2015 11:34:22 admin.php=>AddSubCatLinks(Framework) by AID : root           IP=>92.144.225.97
+06/21/2015 11:42:32 admin.php=>AddEditorialLinks(5, Valid or not Valid) by AID : root IP=>92.144.225.97
+06/21/2015 18:16:30 admin.php=>ModEditorialLinks(5, Valid or not Valid) by AID : root IP=>92.144.225.97
+06/21/2015 18:54:47 admin.php=>UpdateLinks(5, Validateur de form) by AID : root  IP=>92.144.225.97
+06/21/2015 18:55:14 admin.php=>UpdateLinks(5, Validateur de form) by AID : root  IP=>92.144.225.97
+06/21/2015 18:57:49 admin.php=>UpdateLinks(5, Validateur de form) by AID : root  IP=>92.144.225.97
+06/21/2015 18:59:35 admin.php=>UpdateLinks(5, Validateur de form) by AID : root  IP=>92.144.225.97
+06/21/2015 19:12:19 admin.php=>ModEditorialLinks(5, Valid or not Valid) by AID : root IP=>92.144.225.97
+06/21/2015 20:55:10 admin.php=>AddForum(Anomalies thème Rocssti2015) by AID : root IP=>92.144.225.97
+06/21/2015 21:13:00 admin.php=>UpdateLinks(1, Infocapagde) by AID : root         IP=>92.144.225.97
+06/21/2015 22:08:55 admin.php=>UpdateCatLinks(1, Modéle) by AID : root          IP=>92.144.225.97
+06/21/2015 22:56:44 admin.php=>UpdateSubCatLinks(3, Frameworks) by AID : root    IP=>92.144.225.97
+06/22/2015 08:39:17 admin.php=>editoSave () by AID : bmag                        IP=>83.155.165.54
+06/22/2015 08:41:01 admin.php=>editoSave () by AID : bmag                        IP=>83.155.165.54
+06/22/2015 11:12:25 admin.php=>AddLinks(mon lien) by AID : root                  IP=>92.144.225.97
+06/22/2015 13:09:40 admin.php=>UpdateCatLinks(1, Modéle) by AID : root          IP=>92.144.225.97
+06/22/2015 21:35:05 admin.php=>OptiMySql() by AID : root                         IP=>92.144.225.97
+06/23/2015 16:13:05 admin.php=>topicChange (cartographie, 6) by AID : root       IP=>92.144.225.97
+06/23/2015 16:54:25 admin.php=>topicChange (modules, 2) by AID : root            IP=>92.144.225.97
+06/23/2015 18:26:10 admin.php=>topicChange (modules, 2) by AID : root            IP=>92.144.225.97
+06/23/2015 21:34:58 admin.php=>AddUser(raoul, raoul) by AID : root               IP=>92.144.225.97
+06/23/2015 22:09:20 admin.php=>topicChange (cartographie, 6) by AID : root       IP=>92.144.225.97
+06/23/2015 22:17:32 admin.php=>postStory (pub_immediate, mon article a moi raoul) by AID : root IP=>92.144.225.97
+06/23/2015 22:17:32 admin.php=>deleteStoryfromQueue() by AID : root              IP=>92.144.225.97
+06/23/2015 22:21:39 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : raoul IP=>92.144.225.97
+06/23/2015 22:50:42 admin.php=>AddAuthor(Raoul) by AID : root                    IP=>92.144.225.97
+06/23/2015 22:51:37 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Raoul IP=>92.144.225.97
+06/23/2015 22:51:47 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Raoul IP=>92.144.225.97
+06/23/2015 22:52:21 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Raoul IP=>92.144.225.97
+06/23/2015 22:53:59 admin.php=>ModifyAuthor(Raoul) by AID : root                 IP=>92.144.225.97
+06/23/2015 23:04:01 admin.php=>topicChange (cartographie, 6) by AID : root       IP=>92.144.225.97
+06/23/2015 23:05:11 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Raoul IP=>92.144.225.97
+06/23/2015 23:45:25 admin.php=>ModifyAuthor(Raoul) by AID : root                 IP=>92.144.225.97
+06/24/2015 14:57:50 admin.php=>topicChange (cartographie, 6) by AID : root       IP=>92.144.225.97
+06/24/2015 19:42:02 admin.php=>topicMake (frameworks) by AID : root              IP=>92.144.225.97
+06/24/2015 20:15:12 admin.php=>topicChange (frameworks, 7) by AID : root         IP=>92.144.225.97
+06/25/2015 00:13:30 admin.php=>topicMake (éééééééééééééééééééé) by AID : root IP=>2.3.173.131
+06/25/2015 00:15:30 admin.php=>topicChange (éééééééééé, 8) by AID : root IP=>2.3.173.131
+06/26/2015 22:02:24 admin.php=>topicChange (éééééééééé, 8) by AID : root IP=>2.3.173.131
+06/29/2015 08:50:02 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+06/29/2015 08:52:56 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+06/30/2015 13:39:27 admin.php=>AddForum(mon) by AID : root                       IP=>92.144.230.111
+06/30/2015 13:39:42 admin.php=>DeleteForum(24) by AID : root                     IP=>92.144.230.111
+07/01/2015 17:22:16 admin.php=>OptiMySql() by AID : root                         IP=>92.144.230.111
+07/02/2015 12:33:39 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Raoul IP=>92.144.230.111
+07/02/2015 12:33:51 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Raoul IP=>92.144.230.111
+07/02/2015 12:34:51 admin.php=>ModifyAuthor(Raoul) by AID : root                 IP=>92.144.230.111
+07/02/2015 13:55:13 admin.php=>ModifyAuthor(Raoul) by AID : Root                 IP=>92.144.230.111
+07/02/2015 15:50:46 admin.php=>topicChange (éééééééééé, 8) by AID : Root IP=>92.144.230.111
+07/02/2015 15:54:24 admin.php=>topicChange (éééééééééé, 8) by AID : Root IP=>92.144.230.111
+07/02/2015 15:57:14 admin.php=>topicMake (unsujettest) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:03:29 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:03:29 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:03:29 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:03:29 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:03:49 admin.php=>topicMake (rrr) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:09:18 admin.php=>topicMake (ddd) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:11:04 admin.php=>topicMake (dddd) by AID : Root                    IP=>92.144.230.111
+07/02/2015 16:12:36 admin.php=>topicMake (sss) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:15:35 admin.php=>topicMake (wssss) by AID : Root                   IP=>92.144.230.111
+07/02/2015 16:17:12 admin.php=>topicMake (zzz) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:18:34 admin.php=>topicMake (reee) by AID : Root                    IP=>92.144.230.111
+07/02/2015 16:20:16 admin.php=>topicMake (dddd) by AID : Root                    IP=>92.144.230.111
+07/02/2015 16:23:30 admin.php=>topicMake (dddd) by AID : Root                    IP=>92.144.230.111
+07/02/2015 16:25:48 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:25:48 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:25:48 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:25:48 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:25:57 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:25:57 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:25:57 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:25:57 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:26:08 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:08 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:26:08 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:08 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:26:19 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:19 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:26:19 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:19 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:26:29 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:29 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:26:29 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:29 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:26:41 admin.php=>topicDelete (stories, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:41 admin.php=>topicDelete (topic, $topicid) by AID : Root       IP=>92.144.230.111
+07/02/2015 16:26:41 admin.php=>topicDelete (related, $topicid) by AID : Root     IP=>92.144.230.111
+07/02/2015 16:26:41 admin.php=>topicDelete (comments, $topicid) by AID : Root    IP=>92.144.230.111
+07/02/2015 16:28:22 admin.php=>topicDelete (stories, 11) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:22 admin.php=>topicDelete (topic, 11) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:28:22 admin.php=>topicDelete (related, 11) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:22 admin.php=>topicDelete (comments, 11) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:28:33 admin.php=>topicDelete (stories, 18) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:33 admin.php=>topicDelete (topic, 18) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:28:33 admin.php=>topicDelete (related, 18) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:33 admin.php=>topicDelete (comments, 18) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:28:46 admin.php=>topicDelete (stories, 13) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:46 admin.php=>topicDelete (topic, 13) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:28:46 admin.php=>topicDelete (related, 13) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:46 admin.php=>topicDelete (comments, 13) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:28:57 admin.php=>topicDelete (stories, 12) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:57 admin.php=>topicDelete (topic, 12) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:28:57 admin.php=>topicDelete (related, 12) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:28:57 admin.php=>topicDelete (comments, 12) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:29:18 admin.php=>topicDelete (stories, 17) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:29:18 admin.php=>topicDelete (topic, 17) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:29:18 admin.php=>topicDelete (related, 17) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:29:18 admin.php=>topicDelete (comments, 17) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:37:42 admin.php=>topicDelete (stories, 15) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:37:42 admin.php=>topicDelete (topic, 15) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:37:42 admin.php=>topicDelete (related, 15) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:37:42 admin.php=>topicDelete (comments, 15) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:37:53 admin.php=>topicDelete (stories, 10) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:37:53 admin.php=>topicDelete (topic, 10) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:37:53 admin.php=>topicDelete (related, 10) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:37:53 admin.php=>topicDelete (comments, 10) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:38:01 admin.php=>topicDelete (stories, 16) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:38:01 admin.php=>topicDelete (topic, 16) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:38:01 admin.php=>topicDelete (related, 16) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:38:01 admin.php=>topicDelete (comments, 16) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:38:21 admin.php=>topicDelete (stories, 9) by AID : Root            IP=>92.144.230.111
+07/02/2015 16:38:21 admin.php=>topicDelete (topic, 9) by AID : Root              IP=>92.144.230.111
+07/02/2015 16:38:21 admin.php=>topicDelete (related, 9) by AID : Root            IP=>92.144.230.111
+07/02/2015 16:38:21 admin.php=>topicDelete (comments, 9) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:38:42 admin.php=>topicDelete (stories, 14) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:38:42 admin.php=>topicDelete (topic, 14) by AID : Root             IP=>92.144.230.111
+07/02/2015 16:38:42 admin.php=>topicDelete (related, 14) by AID : Root           IP=>92.144.230.111
+07/02/2015 16:38:42 admin.php=>topicDelete (comments, 14) by AID : Root          IP=>92.144.230.111
+07/02/2015 16:39:19 admin.php=>topicMake (zer) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:48:32 admin.php=>topicMake (ttt) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:54:13 admin.php=>topicMake (ttt) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:54:48 admin.php=>topicMake (ttt) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:55:10 admin.php=>topicMake (ttt) by AID : Root                     IP=>92.144.230.111
+07/02/2015 16:55:37 admin.php=>topicMake (ttt) by AID : Root                     IP=>92.144.230.111
+07/02/2015 17:05:49 admin.php=>topicDelete (stories, 23) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:05:49 admin.php=>topicDelete (topic, 23) by AID : Root             IP=>92.144.230.111
+07/02/2015 17:05:49 admin.php=>topicDelete (related, 23) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:05:49 admin.php=>topicDelete (comments, 23) by AID : Root          IP=>92.144.230.111
+07/02/2015 17:05:59 admin.php=>topicDelete (stories, 20) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:05:59 admin.php=>topicDelete (topic, 20) by AID : Root             IP=>92.144.230.111
+07/02/2015 17:05:59 admin.php=>topicDelete (related, 20) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:05:59 admin.php=>topicDelete (comments, 20) by AID : Root          IP=>92.144.230.111
+07/02/2015 17:06:09 admin.php=>topicDelete (stories, 24) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:09 admin.php=>topicDelete (topic, 24) by AID : Root             IP=>92.144.230.111
+07/02/2015 17:06:09 admin.php=>topicDelete (related, 24) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:09 admin.php=>topicDelete (comments, 24) by AID : Root          IP=>92.144.230.111
+07/02/2015 17:06:21 admin.php=>topicDelete (stories, 19) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:21 admin.php=>topicDelete (topic, 19) by AID : Root             IP=>92.144.230.111
+07/02/2015 17:06:21 admin.php=>topicDelete (related, 19) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:21 admin.php=>topicDelete (comments, 19) by AID : Root          IP=>92.144.230.111
+07/02/2015 17:06:31 admin.php=>topicDelete (stories, 22) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:31 admin.php=>topicDelete (topic, 22) by AID : Root             IP=>92.144.230.111
+07/02/2015 17:06:31 admin.php=>topicDelete (related, 22) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:31 admin.php=>topicDelete (comments, 22) by AID : Root          IP=>92.144.230.111
+07/02/2015 17:06:44 admin.php=>topicDelete (stories, 21) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:44 admin.php=>topicDelete (topic, 21) by AID : Root             IP=>92.144.230.111
+07/02/2015 17:06:44 admin.php=>topicDelete (related, 21) by AID : Root           IP=>92.144.230.111
+07/02/2015 17:06:44 admin.php=>topicDelete (comments, 21) by AID : Root          IP=>92.144.230.111
+07/02/2015 21:31:47 admin.php=>topicChange (ééééééééé, 8) by AID : Root IP=>92.144.230.111
+07/02/2015 21:32:42 admin.php=>topicChange (ééé, 8) by AID : Root             IP=>92.144.230.111
+07/02/2015 21:36:40 admin.php=>topicChange (ééérrr, 8) by AID : Root          IP=>92.144.230.111
+07/02/2015 22:38:26 admin.php=>topicChange (ééérrrgg, 8) by AID : Root        IP=>92.144.230.111
+07/03/2015 00:02:17 admin.php=>topicChange (ééérrrgguu, 8) by AID : Root      IP=>92.144.230.111
+07/03/2015 00:09:40 admin.php=>topicChange (ééérrrgg, 8) by AID : Root        IP=>92.144.230.111
+07/03/2015 00:11:01 admin.php=>topicChange (ééérrr, 8) by AID : Root          IP=>92.144.230.111
+07/03/2015 00:42:52 admin.php=>topicChange (ééérrr, 8) by AID : Root          IP=>92.144.230.111
+07/03/2015 00:48:58 admin.php=>topicChange (ééérrr, 8) by AID : Root          IP=>92.144.230.111
+07/03/2015 00:49:03 admin.php=>topicChange (ééérrr, 8) by AID : Root          IP=>92.144.230.111
+07/03/2015 00:59:04 admin.php=>topicChange (ééérrr, 8) by AID : Root          IP=>92.144.230.111
+07/03/2015 01:00:54 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 12:04:33 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 12:05:48 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 12:13:19 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 12:14:13 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 12:15:20 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 12:16:18 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 12:21:19 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 12:21:54 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 13:20:29 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 13:22:50 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 13:25:49 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 13:26:31 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 13:27:30 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 13:28:54 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 18:28:58 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 18:49:15 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 18:50:22 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 18:53:13 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 18:56:31 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 18:58:59 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 19:00:23 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 19:05:48 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 19:08:14 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 19:09:10 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 19:10:38 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 21:05:23 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 21:08:29 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 21:09:54 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 21:10:52 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 21:11:55 admin.php=>topicChange (ééérrry, 8) by AID : Root         IP=>92.144.230.111
+07/03/2015 21:13:10 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 21:25:41 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.230.111
+07/03/2015 21:26:11 admin.php=>topicMake (ssss) by AID : Root                    IP=>92.144.230.111
+07/03/2015 21:28:57 admin.php=>topicMake (etetet) by AID : Root                  IP=>92.144.230.111
+07/03/2015 23:24:39 admin.php=>topicDelete (stories, 25) by AID : Root           IP=>92.144.230.111
+07/03/2015 23:24:39 admin.php=>topicDelete (topic, 25) by AID : Root             IP=>92.144.230.111
+07/03/2015 23:24:39 admin.php=>topicDelete (related, 25) by AID : Root           IP=>92.144.230.111
+07/03/2015 23:24:39 admin.php=>topicDelete (comments, 25) by AID : Root          IP=>92.144.230.111
+07/03/2015 23:24:50 admin.php=>topicDelete (stories, 26) by AID : Root           IP=>92.144.230.111
+07/03/2015 23:24:50 admin.php=>topicDelete (topic, 26) by AID : Root             IP=>92.144.230.111
+07/03/2015 23:24:50 admin.php=>topicDelete (related, 26) by AID : Root           IP=>92.144.230.111
+07/03/2015 23:24:50 admin.php=>topicDelete (comments, 26) by AID : Root          IP=>92.144.230.111
+07/03/2015 23:25:04 admin.php=>topicDelete (stories, 8) by AID : Root            IP=>92.144.230.111
+07/03/2015 23:25:05 admin.php=>topicDelete (topic, 8) by AID : Root              IP=>92.144.230.111
+07/03/2015 23:25:05 admin.php=>topicDelete (related, 8) by AID : Root            IP=>92.144.230.111
+07/03/2015 23:25:05 admin.php=>topicDelete (comments, 8) by AID : Root           IP=>92.144.230.111
+07/04/2015 22:20:39 admin.php=>topicMake (fff) by AID : Root                     IP=>92.144.235.111
+07/04/2015 22:22:19 admin.php=>topicChange (fff, 27) by AID : Root               IP=>92.144.235.111
+07/05/2015 00:00:44 admin.php=>topicChange (fff bbbb, 27) by AID : Root          IP=>92.144.235.111
+07/05/2015 18:40:34 admin.php=>ModifyAuthor(lascar) by AID : Root                IP=>92.144.235.111
+07/07/2015 18:48:34 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : Root IP=>92.144.235.111
+07/09/2015 16:14:56 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.235.111
+07/10/2015 22:40:22 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : lascar IP=>92.144.235.111
+07/10/2015 23:54:46 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.235.111
+07/11/2015 12:51:24 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.98.218
+07/12/2015 15:42:21 admin.php=>editoSave () by AID : root                        IP=>92.144.98.218
+07/12/2015 16:08:58 admin.php=>editoSave () by AID : root                        IP=>92.144.98.218
+07/12/2015 16:42:23 admin.php=>editoSave () by AID : root                        IP=>92.144.98.218
+07/13/2015 07:33:17 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+07/13/2015 07:33:38 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : bmag IP=>83.155.165.5
+07/17/2015 13:23:56 admin.php=>ConfigSave() by AID : root                        IP=>92.144.98.218
+07/20/2015 10:36:45 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+07/20/2015 10:37:20 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+07/20/2015 10:37:24 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+07/20/2015 10:37:42 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+07/20/2015 10:42:24 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+07/22/2015 07:58:13 user.php=>Lost_password_request : patrickrichard             IP=>2.1.0.26
+07/22/2015 08:02:32 user.php=>Lost_password_update OK : patrickrichard           IP=>2.1.0.26
+07/22/2015 17:24:42 admin.php=>ConfigSave() by AID : root                        IP=>81.56.83.129
+08/06/2015 14:29:14 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>37.164.54.249
+08/10/2015 20:31:06 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>37.163.180.102
+08/10/2015 20:31:19 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>37.163.180.102
+08/13/2015 14:43:33 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : root IP=>92.144.239.6
+08/13/2015 19:22:07 admin.php=>topicChange (frameworks, 7) by AID : Root         IP=>92.144.239.6
+08/13/2015 19:29:27 admin.php=>topicChange (frameworks, 7) by AID : Root         IP=>92.144.239.6
+08/13/2015 19:32:17 admin.php=>topicChange (cartog raphie, 6) by AID : Root      IP=>92.144.239.6
+08/13/2015 19:33:20 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/13/2015 22:44:28 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/13/2015 22:45:20 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/13/2015 23:06:52 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/13/2015 23:16:07 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/13/2015 23:16:41 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/13/2015 23:18:07 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/14/2015 12:45:00 admin.php=>topicChange (cartographie, 6) by AID : Root       IP=>92.144.239.6
+08/14/2015 15:46:15 admin.php=>topicMake () by AID : Root                        IP=>92.144.239.6
+08/14/2015 15:46:44 admin.php=>topicChange (, 28) by AID : Root                  IP=>92.144.239.6
+08/14/2015 15:49:32 admin.php=>topicChange (lesujetquifache, 28) by AID : Root   IP=>92.144.239.6
+08/21/2015 22:19:58 admin.php=>AddUser(pagestec, pagestec) by AID : root         IP=>92.144.111.203
+08/21/2015 22:20:52 admin.php=>AddMemberToGroup(2, pagestec) by AID : root       IP=>92.144.111.203
+08/22/2015 10:15:52 admin.php=>AddAuthor(pagestec) by AID : root                 IP=>92.144.111.203
+08/22/2015 17:30:20 admin.php=>OptiMySql() by AID : pagestec                     IP=>83.204.90.156
+08/23/2015 16:30:17 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>37.165.4.237
+08/23/2015 16:30:22 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>37.165.4.237
+08/23/2015 16:39:55 admin.php=>MoveRightBlockToLeft(Bloc membre - 3) by AID : root IP=>37.165.4.237
+08/23/2015 16:40:43 admin.php=>MoveLeftBlockToRight(Bloc membre - 21) by AID : root IP=>37.165.4.237
+08/23/2015 17:55:37 admin.php=>ConfigSave() by AID : root                        IP=>82.67.18.81
+08/23/2015 19:05:07 admin.php=>ConfigSave() by AID : root                        IP=>92.144.111.203
+08/26/2015 13:44:29 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.105.16
+08/26/2015 14:12:12 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.105.16
+08/26/2015 14:15:45 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.105.16
+08/26/2015 14:44:53 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.105.16
+08/26/2015 14:45:20 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.105.16
+08/26/2015 15:01:04 admin.php=>ModifyAuthor(lascar) by AID : root                IP=>92.144.105.16
+08/26/2015 15:47:21 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 15:54:40 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 15:58:58 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 16:02:19 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 16:27:49 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 16:29:29 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 16:33:48 admin.php=>ModifyAuthor(robert) by AID : root                IP=>92.144.105.16
+08/26/2015 17:34:05 admin.php=>DeleteUser(29) by AID : pagestec                  IP=>90.25.66.51
+08/26/2015 18:37:12 admin.php=>ModifyAuthor(fred) by AID : root                  IP=>92.144.105.16
+08/27/2015 20:48:43 admin.php=>ConfigSave() by AID : pagestec                    IP=>90.25.66.51
+08/28/2015 09:40:08 admin.php=>ModifyAuthor(Raoul) by AID : root                 IP=>92.144.105.16
+08/28/2015 09:57:48 admin.php=>ModifyAuthor(fred) by AID : root                  IP=>92.144.105.16
+08/28/2015 11:55:39 admin.php=>ConfigSave() by AID : pagestec                    IP=>90.25.66.51
+08/31/2015 07:48:26 admin.php=>CreateBlocnoteWS(2) by AID : pagestec             IP=>90.25.66.51
+08/31/2015 07:48:33 admin.php=>CreateWS(2) by AID : pagestec                     IP=>90.25.66.51
+08/31/2015 07:57:57 admin.php=>ExtractUserCSV() by AID : pagestec                IP=>90.25.66.51
+09/01/2015 22:13:01 admin.php=>auth.inc.php/Admin_alert : Passwd not in DB#1 : richardpatrick IP=>83.204.66.156
+09/05/2015 18:27:47 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : Root   IP=>92.144.247.158
+09/06/2015 08:38:59 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/9.forum_npds.PHR2015-09-06.png
+09/06/2015 09:56:45 modules.php=>Upload File(s) : 81.56.83.129                   /home/users/i/infocapagde/www/NPDS/labo/modules/upload/upload_forum/10.forum_npds.PHR2015-09-06 (1).png
+09/06/2015 10:02:49 admin.php=>topicMake () by AID : root                        IP=>81.56.83.129
+09/06/2015 21:18:16 admin.php=>ChangeLeftBlock(YUI loader - 17) by AID : Root    IP=>92.144.100.125
+09/07/2015 12:03:23 index.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+09/07/2015 20:41:03 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.100.125
+09/07/2015 20:47:21 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.100.125
+09/07/2015 20:48:37 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.100.125
+09/07/2015 20:49:39 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.100.125
+09/07/2015 23:25:03 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.100.125
+09/07/2015 23:26:11 admin.php=>ChangeAdminBlock() by AID : Root                  IP=>92.144.100.125
+09/07/2015 23:40:18 admin.php=>ConfigSave() by AID : pagestec                    IP=>83.204.72.154
+09/08/2015 10:13:07 admin.php=>changeStory(25, mon article a moi raoul, hometext..., bodytext..., 6, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boost) by AID : Root IP=>92.144.100.125
+09/08/2015 18:52:08 admin.php=>ChangeMainBlock(Menu) by AID : Root               IP=>92.144.100.125
+09/08/2015 18:58:33 admin.php=>ChangeMainBlock(Menu) by AID : Root               IP=>92.144.100.125
+09/09/2015 11:30:53 viewtopic.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+09/09/2015 13:19:25 admin.php=>topicChange (lesujetquifache, 28) by AID : Root   IP=>92.144.100.125
+09/09/2015 13:26:59 admin.php=>UpdateForum(13, Améliorations admin à voir) by AID : Root IP=>92.144.100.125
+09/09/2015 17:34:52 viewtopic.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+09/10/2015 19:01:48 admin.php=>CreateSections(rub dans divers) by AID : Root     IP=>92.144.100.125
+09/10/2015 19:05:23 admin.php=>CreateSections(sous rubrique de MA rubrique et combien de caract&egrave;re peut on mettre dans le titre d''une sous rubrique ????) by AID : Root IP=>92.144.100.125
+09/10/2015 19:37:51 admin.php=>ConfigSave() by AID : Root                        IP=>92.144.100.125
+09/10/2015 19:53:24 admin.php=>UpdateArticleSections(8, 5, le premier article de cette rubrique le premier article de cette   miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam miam mia) by AID : Root IP=>92.144.100.125
+09/11/2015 09:47:02 admin.php=>UpdateSections(6, rub dans divers) by AID : Root  IP=>92.144.100.125
+09/11/2015 17:39:44 admin.php=>CreateRubriques(une autre) by AID : Root          IP=>92.144.100.125
+09/11/2015 19:12:37 admin.php=>UpdateRubriques(1, Divers) by AID : Root          IP=>92.144.100.125
+09/11/2015 20:36:15 admin.php=>DeleteRubriques(7) by AID : Root                  IP=>92.144.100.125
+09/12/2015 23:35:52 admin.php=>CreateRubriques() by AID : Root                   IP=>92.144.100.125
+09/14/2015 22:06:18 admin.php=>postStory (pub_immediate, Octicons fonts) by AID : Root IP=>92.144.100.198
+09/14/2015 22:06:23 admin.php=>deleteStoryfromQueue() by AID : Root              IP=>92.144.100.198
+09/14/2015 22:23:30 admin.php=>changeStory(26, Octicons fonts, hometext..., bodytext..., 3, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boost) by AID : Root IP=>92.144.100.198
+09/15/2015 22:17:20 admin.php=>changeStory(26, Octicons fonts, hometext..., bodytext..., 3, notes..., 0, 0, 0, , , , 2114-01-01 00:00:00,0,npds-boost) by AID : Root IP=>92.144.100.198
+09/16/2015 06:22:59 admin.php=>ConfigSave() by AID : pagestec                    IP=>83.204.3.144
+09/16/2015 06:24:14 admin.php=>ConfigSave() by AID : pagestec                    IP=>83.204.3.144
+09/16/2015 07:39:04 viewtopic.php=>auth.inc.php/Admin_alert : Password in Cookies not Good #1 : redaction / 25ae8ae930434951b55ca692b06f4837 IP=>81.56.83.129
+09/18/2015 18:19:10 admin.php=>ChangeLeftBlock(Skin change - 20) by AID : root   IP=>92.144.100.198
+09/22/2015 14:06:22 admin.php=>ChangeLeftBlock(Msg à un Membre - 3) by AID : root IP=>92.144.225.77

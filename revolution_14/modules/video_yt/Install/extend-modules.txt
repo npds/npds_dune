@@ -1,0 +1,5 @@
+[module]
+   [nom]Video[/nom]
+   [ModPath]video_yt[/ModPath]
+   [ModStart]admin/video_yt_set[/ModStart]
+[/module]

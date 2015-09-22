@@ -1,0 +1,39 @@
+###################################################################################
+##
+## Nom:  IPBAN
+## Version:  2.0
+## Date:  01/01/08
+## Auteur: Dev 
+## 
+## Description:
+## Module qui assure la gestion des IP Bannies (relation avec Anti-Spam)
+## 
+## Niveau d'installation: Facile
+## Temps d'installation: 1 minute
+## Fichiers a éditer:  1
+##
+#######################################################################################
+##
+## INSTALLATION
+## 3. Ajouter les lignes suivante à votre fichier admin/extend-modules.txt
+##      [module]
+##        [nom]Gérer les IP[/nom]
+##        [ModPath]ipban[/ModPath]
+##        [ModStart]setban[/ModStart]
+##        [niveau]radminsuper[/niveau]
+##      [/module]
+##
+## CONFIGURATION
+## Aucune
+##
+## UTILISATION
+## Appel via Admin-Plugins dans l'admin de votre site
+##
+#######################################################################################
+##
+## Nom:  IPBAN
+## Version:  2.0
+## Date:  01/01/08
+## Auteur: Dev 
+##
+#######################################################################################

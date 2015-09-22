@@ -1,0 +1,108 @@
+###################################################################################
+##
+## Nom:  Bloc-notes
+## Version:  1.2
+## Date:  15/06/09
+## Auteur: Dev sur la base d'un script de alat (arnaud latourette)
+## 
+## Description:
+## Module qui vous permet de disposer d'un ensemble de bloc-notes 
+## 
+## Niveau d'installation: complexe
+## Temps d'installation: 5 minutes
+## Fichiers a éditer:  1
+##
+#######################################################################################
+##
+## INSTALLATION MANUELLE:
+## 1. Décompresser l'archive
+## 2. Créer un répertoire bloc-notes sous modules (modules/bloc-notes)
+## 2. Copier le contenu de l'archive dans ce dossier (modules/bloc-notes)
+## 3. CREER la nouvelle table blocnotes via le fichier blocnotes.sql ainsi que le nouveau meta-mot
+##
+## INSTALLATION AUTOMATIQUE:
+## 1. Exéctuez les étapes 1. et 2. de l'installation manuelle
+## 2. Rendez-vous dans la section "Gestion des modules" dans l'administration et cliquez sur "Installer le module" en face de "Bloc-note"
+##
+## CONFIGURATION
+## Via le système de bloc et la feuille de style
+##
+## UTILISATION
+## Le système de bloc-notes comporte deux mode différents :
+## - le mode bloc-notes partagé
+## - le mode bloc-notes contextuel 
+##
+## La base du paramètrage du bloc-notes est le système de blocs de NPDS :
+## - pour avoir un bloc-notes à gauche ... crée un bloc de gauche ... pour l'avoir à droite ...
+## - le temps de rétention doit-être à zéro
+## - le bloc-notes hérite de la configuration du bloc (admin, membre, groupe de membre ...) 
+##   mais ne peut-être Anonyme !
+##
+## la syntaxe de paramètrage d'un bloc est alors (dans la zone contenu d'un bloc) :
+##  include#modules/bloc-notes/bloc-notes.php
+##  function#blocnotes
+##  params#param1, param2, param3(optionnel), param4(optionnel), param5(optionnel)
+##   - param1 : shared OU context 
+##   - param2 : nom_du_bloc OU le texte : $username (dans ce cas : nom du bloc=nom du membre ou de l'admin)
+##   - param3 : largeur (en % ou en pixel), par défaut 100%
+##   - param4 : nb de ligne de la zone de saisie, par défaut 5
+##   - param5 : couleur du fond sous le GIF / couleur RVB (FFFFFF par exemple), par défaut transparent
+## 
+## Bloc-notes PARTAGES (SHARED)
+## par principe un bloc-notes "shared" est accessible sur l'ensemble du site, mais il y a deux formes de bloc-notes shared :
+##   params#shared,nom_du_bloc_note
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le même bloc-notes est partagé par tous ceux qui respectent les contraintes du BLOC NPDS
+##
+##   params#shared,$username
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le bloc-notes est affecté à un admin ou membre en fonction de son pseudo
+##
+## Bloc-notes CONTEXTUEL (CONTEXT)
+## Ce type bloc-notes DOIT quand à lui NECESSAIREMENT être :
+## => DEFINI dans un bloc de DROITE
+## => NON ACTIF
+## => Temps de cache à ZERO
+##   
+##   params#context,nom_du_bloc_note
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le même bloc-notes est partagé par tous ceux qui respectent les contraintes du BLOC NPDS
+##   
+##   params#context,$username
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le bloc-notes est affecté à un admin ou membre en fonction de son pseudo
+##   
+##   l'appel de ce bloc-notes se fait par un meta-mot !blocnote!ID donc partout ou les meta-mots sont opérationnels, bloc-notes l'est aussi !
+##   - ID étant l'ID du bloc de DROITE définit de type : CONTEXT
+##
+##   UN BLOC NPDS de ce Type peut servir à l'ensemble du site car il est lié au contexte d'éxécution (URI) !
+##   MAIS il faut choisir ou mettre son bloc-notes car en fonction de l'URI son contenu sera différent ...
+##
+## ----------
+## EXEMPLES :
+## ----------
+##   bloc-notes partagé et nommé :
+##     include#modules/bloc-notes/bloc-notes.php
+##     function#blocnotes
+##     params#shared,TNT,100%
+##
+##   bloc-notes partagé et associé à un utilisateur/admin :
+##     include#modules/bloc-notes/bloc-notes.php
+##     function#blocnotes
+##     params#shared,$username,100%,8,FFFFFF
+##
+##
+##   bloc-notes contextuel et nommé :
+##     include#modules/bloc-notes/bloc-notes.php
+##     function#blocnotes
+##     params#context,NPDS,100%
+##
+##   bloc-notes contextuel et associé à un utilisateur/admin :
+##     include#modules/bloc-notes/bloc-notes.php
+##     function#blocnotes
+##     params#shared,$username,100%,8,FFFFFF
+##
+#######################################################################################
+##
+## Nom:  Bloc-notes
+## Version:  1.2
+## Date:  15/06/09
+## Auteur: Dev sur la base d'un script de alat (arnaud latourette)
+##
+#######################################################################################

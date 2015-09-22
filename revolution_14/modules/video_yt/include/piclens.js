@@ -1,0 +1,2 @@
+<link rel="alternate" href="cache/cool_slide/slideshow_66249719704.rss" type="application/rss+xml" title="Grotte" id="gallery" />
+<script type="text/javascript" src="http://lite.piclens.com/current/piclens.js"></script>

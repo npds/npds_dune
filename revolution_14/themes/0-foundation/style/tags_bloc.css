@@ -1,0 +1,43 @@
+/************************************************************/
+/* NPDS : Net Portal Dynamic System                         */
+/* ==========================                               */
+/* Fichier : themes/vos_themes/style/tags_bloc.css          */
+/*                                                          */
+/* Module Tags                                              */
+/* Version 1.0 Beta                                         */
+/* Auteur Oim                                               */
+/*                                                          */
+/* Editeur utilise Gedit 2.24.2                             */
+/* Largeur des tabulations 3 espaces                        */
+/************************************************************/
+
+.tag_une
+{
+
+   background        : #e0f9d7;
+   color             : #000;
+   font-size         : 12px;
+   font-family       : Tahoma, Verdana, sans-serif;
+   font-weight       : bold;
+   text-align        : center;
+   text-decoration   : none;
+   padding           : 3px;
+   margin            : 0px;
+   border            : #97D52C 1px solid;
+
+}
+
+a{text-decoration:none}
+a:hover {font-weight:bold;font-family:Arial,Helvetica,sans-serif;text-decoration:underline;}
+a.level11 {font-size:11px;color:#668AA8;}
+a.level12 {font-size:12px;color:#47657B;}
+a.level13 {font-size:13px;color:#E76300;}
+a.level14 {font-size:14px;color:#685c65;}
+a.level15 {font-size:15px;color:#8c524d;}
+a.level16 {font-size:16px;color:#b44732;}
+a.level17 {font-size:17px;color:#e53a11;}
+a.level18 {font-size:18px;color:#E76300;font-weight: bold}
+a.level19 {font-size:19px;color:#FF3300;font-weight: bold}
+a.level20 {font-size:20px;color:#45b0fb;font-weight: bold}
+a.level21 {font-size:21px;color:#ee3ef9;font-weight: bold}
+a.level22 {font-size:22px;color:#6ccb10;font-weight: bold}

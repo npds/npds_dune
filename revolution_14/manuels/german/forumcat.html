@@ -1,0 +1,70 @@
+<html><head>
+<title>Edit Forums - NPDS V</title>
+</head>
+<body bgcolor="#FFFFFF">
+<font face=Verdana,Arial,Helvetica size=2> 
+<center>
+  <b>Foren editieren</b> 
+</center>
+<br />
+<br />
+Mit dieser Anwendung können Sie Ihre Foren editieren und administrieren..<br />
+Die erste Liste zeigt die Kategorien und die aktiven Foren <br />
+<br />
+<b>Foren editieren :</b><br />
+Die zweite Liste zeigt die Foren in den Kategorien<br />
+Sie können ein Forum hinzufügen :<br />
+- <b>Name des Forums</b><br />
+- Beschreibng (einfach und klar)<br />
+- Nickname(n) des/der Moderators(en) (Pflicht) : Wollen Sie mehrere Moderatoren angeben, machen Sie es bitte so : Nickname, Nickname1,Nickname7...<br />
+<br />
+- <b>Zugangsberechtigungen (schreiben)</b> :<br />
+=> Gastbeiträge erlauben<br />
+=> Nur für registrierte Benutzer<br />
+=> Nur für Moderatoren<br />
+=> Geschlossen ( Forum ist geschlossen )<br />
+<br />
+- <b>Forum Typ</b> : Öffentlich, Privat, PHP Script, erweiterter Text, Gruppen oder verborgen<br />
+=> Public = Jeder kann das Forum sehen<br />
+=> Private = Sie brauchen ein Passwort, um das Forum zu betreten<br />
+=> PHP Script = Das Forum erlaubt Scripte (php, perl, c, ...).<br />
+Warnung : einige Funktionen sind nicht verfügbar (Smilley, ...)<br />
+=> Erweiterter Text = Sie können ein SFORM diesem Forum zuordnen<br />
+=> Gruppen = Sie können das Forum nur Mitgliedern einer bestimmten Gruppe zugänglich machen<br />
+=> Verborgen = Nur Mitgliedern ist der Zugang gestattet<br />
+=> Das letzte Feld erfordert einige Eingaben :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;-> Password (für privates Forum )<br />
+&nbsp;&nbsp;&nbsp;&nbsp;-> Name des Formulars(für erweitertes Text Forum) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in Modulen/Sform/Forum (z.B. : form.php)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;-> Mitglieder Gruppen ID (für Gruppen Forum) (ID : 5,12,56 zum Beispiel)<br />
+<br />
+- <b>Forum Modi</b> : Standard oder Baum<br />
+=> Die Baumansicht ist detailierter, erfordert aber mehr Serverleistung <br />
+<br />
+- <b>Dateiupload</b> :<br />
+=> Wenn Sie den Dateiupload erlauben, können Sie hier einstellen für welche Foren das gilt.<br />
+<br />
+<b>Verlinken Sie ein externes Forum </b> geben Sie eine URL für den Forennamen ein!<br />
+<br />
+<b>Unterforum :</b><br />Ein Forum bleibt unsichtbar wenn es so beginnt &lt;!&gt;. Ein meta-Wort gibt Ihnen den Lesestatus für ein Forum : forum_subfolder(ID_of_forum).<br />
+=> Zeige ein Forum mit der ID = 3 und mit dem Namen : "&lt;!&gt;Only for NPDS" / Zeige den Kommentartext des Forums mit ID= 1 wie : forum_subfolder(3) &lt;a href="viewforum.php?forum=3"&gt;Only for NPDS&lt;/a&gt;<br />
+<br />
+<br />
+Sie können ein Forum editieren, aber auch löschen.<br />
+<br />
+<b>Kategorie hinzufügen :</b><br />
+Sie können eine Kategorie hinzufügen worin Sie dann Foren hinzufügen können. Klicken Sie auf "ADD". 
+<br />
+<br />
+<b>Edit (Kategorie) :</b><br />
+Sie können eine Kategorie editieren (den Titel und die ID (um die Kategorien zu sortieren). Klicken Sie dann auf OK. <br />
+<br />
+<b>Löschen (kategorie) :</b><br />
+Sie können eine Kategorie und alle darin enthaltenen Foren löschen <br />
+<br />
+<center>
+  <img src="../../images/admin/manuels.gif" border="0" /> 
+</center>
+</font> 
+</body>
+</html>

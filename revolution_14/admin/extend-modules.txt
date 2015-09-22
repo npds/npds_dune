@@ -1,0 +1,38 @@
+[module]
+
+   [nom]npds_twi[/nom]
+
+   [ModPath]npds_twi[/ModPath]
+
+   [ModStart]admin/npds_twi_set[/ModStart]
+
+   [niveau]radminsuper[/niveau]
+
+[/module]
+
+[module]
+
+   [nom]Video[/nom]
+
+   [ModPath]video_yt[/ModPath]
+
+   [ModStart]admin/video_yt_set[/ModStart]
+
+   [niveau]radminarticle[/niveau]
+
+[/module]
+
+[module]
+
+  [nom]td-galerie[/nom]
+
+  [ModPath]td-galerie[/ModPath]
+
+  [ModStart]admin/adm[/ModStart]
+
+  [niveau]radminsuper[/niveau]
+
+[/module]
+
+
+

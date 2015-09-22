@@ -1,0 +1,141 @@
+<?php
+/************************************************************************/
+/* DUNE by NPDS                                                         */
+/* ===========================                                          */
+/*                                                                      */
+/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
+   global $tiny_mce;
+
+   $content=""; $contentT="!l_new_pages!";
+   $blog_file=$blog_dir."news.txt";
+   if (!file_exists($blog_file)) {
+      $fp=fopen($blog_file,"w");
+      fclose($fp);
+   }
+   $xnews=file($blog_file);
+   $xnews=array_reverse($xnews);
+   $startpage-=1;
+   $ubound=count($xnews);
+   if ($startpage<0 || $startpage>=$ubound/$perpage) $startpage=0;
+   if ($ubound>$perpage) {
+      for ($j=1;$j<=ceil($ubound/$perpage);$j++) {
+          if ($j==$startpage+1)
+             $contentT.="<b>$j</b>&nbsp;";
+          else
+             $contentT.="<a href=\"minisite.php?op=$op&amp;startpage=$j\" class=\"blog_lien\">$j</a>&nbsp;";
+      }
+   }
+   if ($adminblog) {
+      // Suppression
+      if (substr($action,0,1)=="D") {
+         @copy ($blog_file,$blog_file.".bak");
+         $index=substr($action,1);
+         unset ($xnews[$index]);
+         $xnews=array_reverse($xnews);
+         $fp=fopen($blog_file,"w");
+         for ($j=0;$j<count($xnews);$j++) {
+             fwrite($fp,$xnews[$j]);
+         }
+         fclose($fp);
+         redirect_url("minisite.php?op=$op");
+      }
+      // Ajouter - Ecriture
+      if (substr($action,0,3)=="AOK") {
+         global $title, $story;
+         @copy ($blog_file,$blog_file.".bak");
+         $fp=fopen($blog_file,"a");
+         if (!$tiny_mce) {
+            $formatted=str_replace("\r\n","<br />",$story);
+            $formatted=str_replace("\n","<br />",$formatted);
+         } else {
+            $formatted=str_replace("\r\n","",$story);
+            $formatted=str_replace("\n","",$formatted);
+         }
+         $newsto=date("d m Y")."!;!".$title."!;!".$formatted;
+         fwrite($fp,StripSlashes($newsto)."\n");
+         fclose($fp);
+         redirect_url("minisite.php?op=$op");
+      }
+      // Ajouter
+      if (substr($action,0,1)=="A") {
+         $content.="<form name=\"adminForm\" method=\"post\" action=\"minisite.php?op=$op&action=AOK\">";
+         $content.="<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
+         $content.="<tr class=\"blog_new\"><td>".translate("Title")." :</td><td width=\"75%\"><input type=\"text\" name=\"title\" size=\"45\" class=\"blog_textbox\" /></td></tr>";
+         $content.="<tr class=\"blog_new\"><td>".translate("Full Text")." :</td><td width=\"75%\"><textarea name=\"story\" rows=\"25\" cols=\"70\" class=\"blog_textbox\" style=\"width: 100%;\"></textarea>";
+         $content.="&nbsp;!blog_editeur!";
+         $content.="<br /><input type=\"submit\" name=\"submit\" value=\"".translate("Submit")."\" class=\"blog_bouton\" />";
+         $content.="</td></tr></table></form>\n";
+      }
+      // Modifier - Ecriture
+      if (substr($action,0,3)=="MOK") {
+         global $title, $story, $index;
+         @copy ($blog_file,$blog_file.".bak");
+         if (!$tiny_mce) {
+            $formatted=str_replace("\r\n","<br />",$story);
+            $formatted=str_replace("\n","<br />",$formatted);
+         } else {
+            $formatted=str_replace("\r\n","",$story);
+            $formatted=str_replace("\n","",$formatted);
+         }
+         $newsto=date("d m Y")."!;!".$title."!;!".$formatted;
+         $xnews[$index]=StripSlashes($newsto)."\n";
+         $xnews=array_reverse($xnews);
+         $fp=fopen($blog_file,"w");
+         for ($j=0;$j<count($xnews);$j++) {
+             fwrite($fp,$xnews[$j]);
+         }
+         fclose($fp);
+         redirect_url("minisite.php?op=$op");
+      }
+      // Modifier
+      if (substr($action,0,1)=="M") {
+         $index=substr($action,1);
+         $crtsplit=explode("!;!",$xnews[$index]);
+         $content.="<form name=\"adminForm\" method=\"post\" action=\"minisite.php?op=$op&action=MOK&index=$index\">";
+         $content.="<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
+         $content.="<tr class=\"blog_new\"><td>".translate("Title")." :</td><td width=\"75%\"><input type=\"text\" name=\"title\" value=\"".$crtsplit[1]."\" size=\"45\" class=\"blog_textbox\" /></td></tr>";
+         $content.="<tr class=\"blog_new\" valign=\"top\"><td>".translate("Full Text")." :</td><td width=\"75%\"><textarea name=\"story\" rows=\"25\" cols=\"70\" class=\"blog_textbox\" style=\"width: 100%;\">".str_replace("\n","",$crtsplit[2])."</textarea>";
+         $content.="&nbsp;!blog_editeur!";
+         $content.="<br /><input type=\"submit\" name=\"submit\" value=\"".translate("Submit")."\" class=\"blog_bouton\" />";
+         $content.="</td></tr></table></form>\n";
+      }
+   }
+   if ($contentT!="") {$colspan=1;};
+   if ($adminblog) {
+      $colspan=$colspan+2;
+   } else {
+      $colspan=$colspan+1;
+   }
+
+   // Output
+   $new_pages=false;
+   $content.="!v_yt!<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
+   if ($adminblog) {
+      $content.="<tr class=\"blog_titre\"><td width=\"95%\" colspan=\"$colspan\" align=\"right\">!l_blog_ajouterOK!</td></tr>";
+   }
+   for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
+       $crtsplit="";
+       $crtsplit=explode("!;!",$xnews[$i]);
+       $actionM="<a href=\"minisite.php?op=$op&amp;action=M$i\" class=\"blog_lien\">".translate("Modify")."</a>";
+       $actionD="<a href=\"minisite.php?op=$op&amp;action=D$i\" class=\"blog_lien\">".translate("Delete")."</a>";
+       $content.="<tr class=\"blog_titre\"><td>".aff_langue($crtsplit[1])." - ".$crtsplit[0]."</td>";
+       if (substr($contentT,13)!="") {$content.="<td align=\"right\" nowrap=\"nowrap\" class=\"blog_new\">".substr($contentT,13)."</td>";};
+       if ($adminblog) {
+          $content.="<td nowrap=\"nowrap\" width=\"25%\" align=\"center\">$actionM&nbsp;&nbsp;$actionD</td></tr>";
+       } else {
+          $content.="</tr>";
+       }
+       $content.="<tr><td colspan=\"$colspan\" class=\"blog_new\">".convert_ressources($crtsplit[2])."</td></tr>";
+       $content.="<tr><td colspan=\"$colspan\">&nbsp;</td></tr>";
+   }
+   $content.="</table>\n";
+   if (!$new_pages) {$content.=$contentT;}
+   return ($content);
+}
+?>

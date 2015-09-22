@@ -1,0 +1,18 @@
+/* TEAM */
+  Core Dev:Developpeur
+  Contact:developpeur [at] npds.org
+  From:Lyon, Rhone, France
+
+  Core Dev:Jpb
+  Contact:jpb [at] npds.org
+  From:Lyon, Rhone, France
+
+  Html:Jireck
+
+  Themes:B-Mag 
+
+/* SITE */
+  Language:french
+  Doctype:xHtml with CSS
+  Tools:PHP
+  IDE:Notepad++

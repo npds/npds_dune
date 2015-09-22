@@ -1,0 +1,29 @@
+<html>
+<title>编辑/创建一个功能框 - NPDS V</title>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=STFangsong,Verdana,Arial,Helvetica size=3>
+<center><b>编辑/创建一个功能框</b></center>
+<br /><br />
+
+NPDS，允许在页面上显示一个或多个功能框。<br />
+NPDS，允许在几乎所有页面上显示功能框（对应的主题下）。<br /><br />
+<b>一个功能框可以保留显示，仅于管理员，或仅注册会员，或给N个组的会员，也可仅保留于匿名者，当然也可以公开显示于所有人。</b> <br /><br /> <b>修改一个功能框：</b><br />  在功能框中修改必要的信息，并选择期望的操作，然后点击 ok 按钮。<br /> 一次只能对一个功能框进行修改。 <br /><br /> <b>删除一个功能框：</b><br />  选中该功能框然后选择 删除一个功能框，最后点击 ok 按钮完成操作。一次只能删除一个功能框。 <br /><br />
+<b>创建一个功能框 (置左或置右)：</b><br /> 输入一个功能框的标题，索引（<b>index</b>, 允许按顺序显示），及框中的内容，最后点击 创建一个功能框 按钮。<br /> 系统默认为新建的功能框是被激活并有效的。 
+<br /><br />
+<hr width="80%">
+<b>缓存功能框 :</b><br />  &nbsp;- 功能框涉及“超级缓存”，可以在不影响相关主题的文件的情况下被激活或关闭。<br />   &nbsp;&nbsp;&nbsp; 缓存时间设置为0的功能框不被隐藏。<br />  &nbsp; - 在线帮助，可以去往“背景下帮助”功能，或使用PHP开发。 （如果您不确定，请保留该区域为空。） <br /><br /> <b>NPDS的强大的 功能框系统 可以显示或执行很多功能：</b><br /> - HTML (要显示支持HTML的功能框，请在创建时选择HTML选项。)<br /> - Javascript<br /> - PHP 和/或SSI编码 (包括服务器端)<br /> - PHP 和/或NPDS的功能 <br /><br /> 只有在遵守以下文法的情况下，才能包含有编码：<br /> . 关于PHP 和/或SSI编码:     &nbsp;&nbsp;&nbsp;&nbsp;<b>include#您的目录名/您的文件.php</b> (无以下符号 ' 或 " )<br />     &nbsp;&nbsp;&nbsp;&nbsp;该文件必须是php，而返程必须写在 <b>$content</b>。 <br /><br /> . 关于PHP功能 和/或NPDS的功能：<br />    &nbsp;&nbsp;&nbsp;&nbsp;<b> function#您设置的功能</b> => function#Xblock (无以下符号 ' 或 " 或 () 或 ; ) <br /><br />     &nbsp;&nbsp;&nbsp;&nbsp;如您设置的功能有以下参数：<br />      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>function#您设置的功能</b> => function#XNews (无以下符号 ' 或 " 或 () 或 ; )<br />     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>params#您设置的参数</b> => params#5,10,false (无以下符号 ' 或 " ，但是以逗号分隔 ) <br /><br />      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如：<br />      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function#category<br /><br />       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function#oldNews<br />      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;params#$storynum<br /><br />       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function#RecentForumPosts<br />      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;params#Forums Infos,15,0,false,10,false,-:&nbsp;   <br /><br /> 您也可以采取2步操作 :<br />     &nbsp;&nbsp;&nbsp;&nbsp;include#您的目录名/您的文件.php  (无以下符号 ' 或 " )<br />     &nbsp;&nbsp;&nbsp;&nbsp;然后<br />     &nbsp;&nbsp;&nbsp;&nbsp;function#您设置的功能 => function#XNews  (无以下符号 ' 或 " 或 () 或 ; )<br />     &nbsp;&nbsp;&nbsp;&nbsp;params#您设置的参数 => params#5,10,false (无以下符号 ' 或 " ，但是以逗号分隔 )<br />     &nbsp;&nbsp;&nbsp;&nbsp;=> 这样，您可以输入编码并执行之！ <br /><br /> <b>CSS 样式表单的功能框:</b><br />  &nbsp;某个式样设置的 <b>class-title#名称</b> 在您的CSS文件中.<br />  &nbsp;某个式样设置的 <b>class-content#名称</b> 在您的CSS文件中.<br />   &nbsp;=> 以上2行命令允许为每个功能框定义一个CSS样式 (标题和内容)！<br />    &nbsp;&nbsp;&nbsp;- 动态主题有2个新的标记代码(meta-mots) : B_class_title 和 B_class_content。后2者可以应用在bloc.html的代码中。<br />     &nbsp;&nbsp;&nbsp;- PHP主题则有2个新的变量 : $B_class_title 和 $B_class_content。后2者可以被“引进使用”在 themesidebox 功能中 (通过变量 ...)  <br /><br /> <b>URI功能框:<b> <br />  &nbsp;<b>uri#uris_以_空格_分隔</b> 用来显示注明的URI的功能框。<br />  &nbsp;在这种情况下，所维持时间的定义必须为0。<br />   &nbsp; 例如 : uri#index.php user.php forum.php static.php?op=statik.txt&npds=1<br />
+ &nbsp;该 uri# 标记允许使用* （即*可代替所有文字）: 例如： viewforum.php?forum=* 或 viewtopic.php?topic=*&forum=10<br />   &nbsp;=> 以上为系统唯一认可的文法！ 
+<br /><br />
+<b>Hidden Block</b> :<br />
+&nbsp;<b>hidden#...</b> to not show the theme of the blocks but load the content.<br />
+&nbsp;This allows to use the block system for 'load' of javascript, PHP files, CSS files, ...<br />
+&nbsp;Example : hidden#&lt;script type=&quot;text/javascript&quot; src=&quot;lib/yui/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+<br />&nbsp;=> This syntax is the only one which is supported !
+<br /><br />
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

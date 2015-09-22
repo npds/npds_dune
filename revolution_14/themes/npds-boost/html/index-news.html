@@ -1,0 +1,20 @@
+<div class="card">
+   <div class="card-img-top N_sujetsize"> !N_sujet! </div>
+   <div class="card-block">
+      <h3 class="card-title"> !N_titre! </h3>
+      <div class="card-text article_texte"> !N_texte! </div>
+<?php
+   if ($notes!="") {
+      echo '
+   <blockquote>'.$notes.'</blockquote>';
+   }
+?>
+      <p class="card-text"><small class="text-muted">Publi&eacute; le : !N_date! </small></p>
+   </div>
+   <div class="card-footer" id="pied_art">
+      <div class="row">
+         <div class="col-sm-6">!N_read_more! <small class="text-muted">!N_nb_carac!</small></div>
+         <div class="col-sm-6 text-right">!N_print! !N_friend! !N_link_comment! !N_nb_comment!</div>
+      </div>
+   </div>
+</div>

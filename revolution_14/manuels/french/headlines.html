@@ -1,0 +1,41 @@
+<html>
+<title>Canaux d'informations (Grands Titres) - NPDS V</title>
+<head>
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=Verdana,Arial,Helvetica size=2>
+<center><b>Canaux d'informations (Grands Titres)</b></center>
+<br /><br />
+Vous pouvez avec cette fonction activer ou d&eacute;sactiver les canaux d'information en provenance
+d'autres sites.<br />
+Les canaux sont des fichiers RDF/XML et non des fichiers texte.<br />
+Attention cependant, l'activation des canaux d'information va probablement ralentir le serveur.<br />
+Touts les canaux sont rafra&Oacute;chis une fois par heure et il n'est pas souhaitable de changer cette valeur
+car cela consomme de la bande passante.<br /><br />
+
+<b>Ajouter un canal d'information : </b><br />
+Remplissez les champs n&eacute;cessaires (Titre, URL, URL RDF/XML, statut).
+Si vous d&eacute;clarez un canal actif, un nouveau apparaîtra avec les informations
+s&eacute;lectionn&eacute;es. Les canaux inactifs ne sont pas affich&eacute;s.
+<br /><br />
+<b>Changer le statut d'un canal : </b><br />
+Simplement vous devez cliquer sur le lien <i>Editer</i> et s&eacute;lectionner sur la page suivante le statut
+d&eacute;sir&eacute;.
+<br /><br />
+Pour supprimer un canal, vous devez simplement cliquer sur le lien <i>Effacer</i>.
+<br /><br />
+Votre site est peut-&ecirc;tre derri&egrave;re un <b>Proxy Serveur</b>. Dans ce cas, configurez le fichier proxy.conf.php (dans la racine de votre site) pour permettre l'acc&egrave;s &agrave; un (ou plusieurs) canaux d'information.
+<br /><br />
+<b>Configuration des BLOCS int&eacute;grant des canaux : </b><br />
+Dans le gestionnaire de bloc (gauche ou droite), vous pouvez int&eacute;grer :<br />
+ - function#headlines<br />
+ => dans ce cas tous les canaux d&eacute;finis comme actif seront affich&eacute;s &agrave; la suite les uns des autres
+<br />OU<br />
+ - function#headlines<br />
+ - params#$ID_du_canal<br />
+ => dans ce cas seul le canal d'ID "ID_du_canal" sera affich&eacute;. Vous pouvez d&eacute;finir autant de blocs que vous le souhaitez ...
+<br /><br />
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</font>
+</body>
+</html>

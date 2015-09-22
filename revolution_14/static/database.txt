@@ -1,0 +1,27 @@
+</head>
+<body style="background-color: #FFFFFF;">
+<br />
+<p align="center">
+	<span style="font-size: 14px; font-family: Arial; font-weight: bold; color: red;">
+        Unable to select DataBase / Impossible d'acc&eacute;der &aacute; la Base de Donn&eacute;es
+        <?php
+        if (cur_charset=="utf-8") 
+           echo" / &#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x5230;&#x6570;&#x636E;&#x5E93;"; 
+        ?>
+        <br /><br />
+	Check config.php / V&eacute;rifiez le contenu de votre fichier config.php
+        <?php
+        if (cur_charset=="utf-8") 
+           echo" / &#x68C0;&#x67E5;config.php&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;<br />";
+
+         echo "<br />.: ".sql_error()." :.";
+         ?>    
+</span>
+<br />
+<br />
+<span style="font-size: 12px; font-family: Arial; font-weight: bold; color: black;">
+NPDS - Portal System
+</span>
+</p>
+</body>
+</html>

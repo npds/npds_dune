@@ -1,0 +1,50 @@
+<h2>[transl]Welcome to the TOP page for[/transl] !sitename!</h2>
+<table class="table">
+   <tr class="lead">
+      <td><?php echo $top; ?> [transl]most read stories[/transl]</td>
+      <td class="text-right">[transl]read:[/transl]</td>
+   </tr>
+top_stories(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most commented stories[/transl]</td><td class="text-right">[transl]comments:[/transl]</td></tr>
+top_commented_stories(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most active categories[/transl]</td><td class="text-right">[transl]read:[/transl]</td></tr>
+top_categories(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most read articles in special sections[/transl]</td><td class="text-right">[transl]Hits[/transl]</td></tr>
+top_sections(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most active news submitters[/transl]</td><td class="text-right">[transl]sent news:[/transl]</td></tr>
+top_storie_authors(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most voted polls[/transl]</td><td class="text-right">[transl]votes:[/transl]</td></tr>
+top_polls(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most active authors[/transl]</td><td class="text-right">[transl]news published:[/transl]</td></tr>
+top_authors(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most read reviews[/transl]</td><td class="text-right">[transl]read:[/transl]</td></tr>
+top_reviews(<?php echo $top; ?>)
+</table><br />
+
+<table class="table">
+<tr class="lead"><td><?php echo $top; ?> [transl]most downloaded[/transl]</td><td class="text-right">[transl]downloads[/transl]</td></tr>
+<?php echo topdownload_data("long","dcounter"); ?>
+</table><br />
+
+<p class="text-center"><a href="http://www.npds.org">http://www.npds.org</a></p>

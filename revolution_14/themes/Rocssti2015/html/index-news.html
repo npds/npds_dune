@@ -1,0 +1,19 @@
+
+<article  class="blackborder m1 p1"><!-- Bloc Global Englobant toute la News-->
+          <p class="alignright">!N_date!</p>
+          <p> !N_sujet! </p>
+
+	 <h3 class="h3-article ">!N_titre!</h3><!-- Le Titre de la News -->
+
+  	<div id="textearticle" class=" mtl">!N_texte!
+  	<?php
+  	if ($notes!="") {
+  		echo "<p class=\"note\">$notes</p>";
+  	}
+  	?>  </div>
+
+	<footer class=" p1 alignright smaller"><!-- Le Pied de la News -->
+		!N_suite!
+	</footer>
+
+</article><!-- Fin Bloc Global -->

@@ -1,0 +1,476 @@
+<?php
+/************************************************************************/
+/* DUNE by NPDS                                                         */
+/* ===========================                                          */
+/*                                                                      */
+/* Based on PhpNuke 4.x source code                                     */
+/*                                                                      */
+/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+if (!function_exists("Mysql_Connexion")) {
+   include ("mainfile.php");
+}
+
+function autorisation_section($userlevel) {
+   $okprint=false;
+   $tmp_auto=explode(",",$userlevel);
+   while (list(,$userlevel)=each($tmp_auto)) {
+      $okprint=autorisation($userlevel);
+      if ($okprint) break;
+   }
+   return ($okprint);
+}
+
+function listsections($rubric) {
+   global $sitename, $admin;
+   global $NPDS_Prefix;
+
+   include ('header.php');
+
+   if (file_exists("sections.config.php"))
+      include ("sections.config.php");
+   if ($togglesection)
+      include_once ("lib/togglediv.class.php");
+
+   global $SuperCache;
+   if ($SuperCache) {
+      $cache_obj = new cacheManager();
+      $cache_obj->startCachingPage();
+   } else {
+      $cache_obj = new SuperCacheEmpty();
+   }
+   if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+      opentable();
+      settype($rubric,"integer");
+      if ($rubric)
+         $sqladd="and rubid='".$rubric."'";
+      else
+         $sqladd="";
+      if ($admin) {
+         $result=sql_query("select rubid, rubname, intro from ".$NPDS_Prefix."rubriques where rubname<>'Divers' and rubname<>'Presse-papiers' $sqladd order by ordre");
+      } else {
+         $result=sql_query("select rubid, rubname, intro from ".$NPDS_Prefix."rubriques where enligne='1' and rubname<>'Divers' and rubname<>'Presse-papiers' $sqladd order by ordre");
+      }
+      $aff="";
+      if (sql_num_rows($result) > 0) {
+         while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
+            $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' order by ordre");
+            $nb_section=sql_num_rows($result2);
+            if ($togglesection) {
+               $toggle = new ToggleDiv($nb_section);
+               $aff.=$toggle->All();
+            }
+            $aff.="<table width=\"100%\" cellspacing=\"2\" cellpadding=\"4\" border=\"0\"><tr><td class=\"ongl\">\n";
+            $aff.="<a href=\"sections.php?rubric=$rubid\" class=\"noir\">".aff_langue($rubname)."</a>";
+            $aff.="</td></tr>\n";
+            if ($intro!="") {
+               $aff.="<tr><td>\n";
+               $aff.=aff_langue($intro);
+               $aff.="</td></tr>\n";
+            }
+            while (list($secid, $secname, $image, $userlevel, $intro) = sql_fetch_row($result2)) {
+               $okprintLV1=autorisation_section($userlevel);
+               $aff1=""; $aff2="";
+               if ($okprintLV1) {
+                  $rowcolor=tablos();
+                  $aff.="<tr $rowcolor><td>\n";
+                  if ($togglesection)
+                     $aff.=$toggle->Img();
+                  $aff.="<a href=\"sections.php?op=listarticles&amp;secid=$secid\" class=\"noir\">";
+                  if ($image!="") {
+                     if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
+                     $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
+                     if ($suffix!="swf") {
+                        $aff.="<img src=\"$imgtmp\" border=\"0\" alt=\"".aff_langue($secname)."\" /><br />";
+                     } else {
+                        $att_size=@getImageSize($image);
+                        $img_size=$att_size[3];
+                        $aff.="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4\,0\,2\,0\" $img_size><param name=\"quality\" value=\"high\"><param name=\"SRC\" value=\"$image\">
+                        <embed src=\"$image\" quality=\"high\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" $img_size></embed></object><br />";
+                     }
+                  }
+                  $aff1="<b>".aff_langue($secname)."</b></a>#NEW#";
+                  if ($intro!="") {
+                     $aff1.="<br />\n";
+                     $aff1.=aff_langue($intro);
+                     $aff1.="<br />\n";
+                  }
+                  if ($togglesection)
+                     $aff2=$toggle->Begin();
+                  else
+                     $aff2="";
+                  $result3 = sql_query("select artid, title, counter, userlevel, timestamp from ".$NPDS_Prefix."seccont where secid='$secid' order by ordre");
+                  $aff2.="<table width=\"100%\" border=\"0\" cellspacing=\"2\" cellpadding=\"0\">\n";
+                  $noartid=false;
+                  while (list($artid, $title, $counter, $userlevel, $timestamp) = sql_fetch_row($result3)) {
+                     $okprintLV2=autorisation_section($userlevel);
+                     if ($okprintLV2) {
+                        $noartid=true;
+                        $rowcolor=tablos();
+                        $nouveau="colspan=\"2\"";
+                        if ((time()-$timestamp)<(86400*7)) {
+                           $nouveau="";
+                        }
+                        $aff2.="<tr $rowcolor><td width=\"90%\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid\" class=\"noir\">".aff_langue($title)."</a></td><td width=\"5%\" align=\"left\" nowrap=\"nowrap\" $nouveau><span>".translate("read:")." $counter ".translate("times")."</span></td>\n";
+                        if ($nouveau=="") {
+                           if ($ibid=theme_image("sections/new.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/sections/new.gif";}
+                           $aff2.="<td width=\"2%\" align=\"center\"><img src=\"$imgtmp\" border=\"\" alt=\"".translate("New")."\" /></td>\n";
+                           if ($togglesection)
+                              $aff1=str_replace("#NEW#","&nbsp;<img src=\"$imgtmp\" border=\"\" align=\"center\" alt=\"".translate("New")."\" />",$aff1);
+                           else
+                              $aff1=str_replace("#NEW#","",$aff1);
+                        } else {
+                           $aff1=str_replace("#NEW#","",$aff1);
+                        }
+                        $aff2.="</tr>\n";
+                     }
+                  }
+                  if (!$noartid) $aff1=str_replace("#NEW#","",$aff1);
+                  $aff2.="</table></td>\n";
+                  if ($togglesection)
+                     $aff2.=$toggle->End();
+                  $aff2.="</tr><tr><td>&nbsp;</td></tr>\n";
+               }
+               $aff.=$aff1.$aff2;
+            }
+            $aff.="</table>\n";
+         }
+      }
+      echo $aff;
+      closetable();
+      if ($rubric) {
+         echo "<p align=\"center\">[ <a href=\"sections.php\" class=\"noir\">".translate("Return to Sections Index")."</a> ]</p>";
+      }
+      sql_free_result($result);
+   }
+   if ($SuperCache) {
+      $cache_obj->endCachingPage();
+   }
+   include ('footer.php');
+}
+
+function listarticles($secid) {
+   global $user, $prev;
+   global $NPDS_Prefix;
+
+   if (file_exists("sections.config.php"))
+      include ("sections.config.php");
+
+   $result = sql_query("select secname, rubid, image, intro, userlevel from ".$NPDS_Prefix."sections where secid='$secid'");
+   list($secname, $rubid, $image, $intro, $userlevel) = sql_fetch_row($result);
+   list($rubname) = sql_fetch_row(sql_query("select rubname from ".$NPDS_Prefix."rubriques where rubid='$rubid'"));
+   if ($sections_chemin) {
+      $title =  aff_langue($rubname)." - ".aff_langue($secname);
+   } else {
+      $title =  aff_langue($secname);
+   }
+   include ('header.php');
+
+   global $SuperCache;
+   if ($SuperCache) {
+      $cache_obj = new cacheManager();
+      $cache_obj->startCachingPage();
+   } else {
+      $cache_obj = new SuperCacheEmpty();
+   }
+   if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+      $okprint1=autorisation_section($userlevel);
+      if ($okprint1) {
+         if ($prev==1) {echo "<input class=\"bouton_standard\" type=\"button\" value=\"".translate("Back to console")."\" onclick=\"javascript:history.back()\" /><br /><br />";}
+         if (function_exists("themesection_title")) {
+            themesection_title($title);
+         } else {
+            opentable();
+            echo $title;
+            closetable();
+         }
+         opentable();
+         if ($intro!="") {
+            echo "<br />\n";
+            echo aff_langue($intro);
+            echo "<br /><br />\n";
+         }
+         if ($image!="") {
+            if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
+            $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
+            if ($suffix!="swf") {
+               echo "<p align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" /></p><br />";
+            } else {
+               $att_size=@getImageSize($image);
+               $img_size=$att_size[3];
+               echo "<p align=\"center\"><object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4\,0\,2\,0\" $img_size><param name=\"quality\" value=\"high\"><param name=\"SRC\" value=\"$image\">
+               <embed src=\"$image\" quality=\"high\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" $img_size></embed></object>
+               </p><br />";
+            }
+         } else {
+            echo "<br />";
+         }
+         echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"4\" border=\"0\"><tr><td colspan=\"4\" class=\"ongl\">".translate("Following are the articles published under this section.")."</td></tr>";
+         $result = sql_query("select artid, secid, title, content, userlevel, counter, timestamp from ".$NPDS_Prefix."seccont where secid='$secid' order by ordre");
+         while (list($artid, $secid, $title, $content, $userlevel, $counter, $timestamp) = sql_fetch_row($result)) {
+            $okprint2=autorisation_section($userlevel);
+            if ($okprint2) {
+               $rowcolor = tablos();
+               $nouveau="colspan=\"2\"";
+               if ((time()-$timestamp)<(86400*7)) {
+                  $nouveau="";
+               }
+               echo "<tr $rowcolor><td align=\"left\" width=\"98%\">
+               <a href=\"sections.php?op=viewarticle&amp;artid=$artid\" class=\"noir\">".aff_langue($title)."</a>
+               </td><td width=\"1%\" nowrap=\"nowrap\" align=\"left\" style=\"font-size: 10px;\">".translate("read:")."$counter ".translate("times")."</td><td width=\"1%\" nowrap=\"nowrap\" align=\"left\" $nouveau><a href=\"sections.php?op=printpage&amp;artid=$artid\"><img src=\"";
+               if ($ibid=theme_image("box/print.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/print.gif";}
+               echo "$imgtmp\" border=\"0\" title=\"".translate("Printer Friendly Page")."\" align=\"center\" /></a></td>";
+               if ($nouveau=="") {
+                  if ($ibid=theme_image("sections/new.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/sections/new.gif";}
+                  echo "<td width=\"2%\"><img src=\"$imgtmp\" border=\"\" alt=\"".translate("New")."\" /></td>";
+               }
+               echo "</tr>";
+            }
+         }
+         echo "</table><br /><br /><p align=\"center\">[ <a href=\"sections.php\" class=\"noir\">".translate("Return to Sections Index")."</a> ]</p>";
+         closetable();
+      } else {
+         redirect_url("sections.php");
+      }
+      sql_free_result($result);
+   }
+   if ($SuperCache) {
+      $cache_obj->endCachingPage();
+   }
+   include ('footer.php');
+}
+
+function viewarticle($artid, $page) {
+   global $NPDS_Prefix;
+   global $prev, $user;
+
+   if (file_exists("sections.config.php"))
+      include ("sections.config.php");
+
+   if ($page=="")
+      sql_query("update ".$NPDS_Prefix."seccont set counter=counter+1 where artid='$artid'");
+
+   $result_S = sql_query("select artid, secid, title, content, counter, userlevel from ".$NPDS_Prefix."seccont where artid='$artid'");
+   list($artid, $secid, $title, $Xcontent, $counter, $userlevel) = sql_fetch_row($result_S);
+   list($secid, $secname, $rubid) = sql_fetch_row(sql_query("select secid, secname, rubid from ".$NPDS_Prefix."sections where secid='$secid'"));
+   list($rubname) = sql_fetch_row(sql_query("select rubname from ".$NPDS_Prefix."rubriques where rubid='$rubid'"));
+   $tmp_auto=explode(",",$userlevel);
+   while (list(,$userlevel)=each($tmp_auto)) {
+      $okprint=autorisation_section($userlevel);
+      if ($okprint) break;
+   }
+   if ($okprint) {
+      $old_title=$title;
+         $pindex=substr($page,5,1);
+         if ($pindex!="") {$pindex=" - ".translate("Next Page")." ".$pindex;}
+         if ($sections_chemin) {
+            $title=aff_langue($rubname)." - ".aff_langue($secname)." - ".aff_langue($title)." ".$pindex;
+         } else {
+            $title=aff_langue($title)." ".$pindex;
+         }
+         include("header.php");
+      $title=aff_langue($old_title);
+
+      global $SuperCache;
+      if ($SuperCache) {
+         $cache_obj = new cacheManager();
+         $cache_obj->startCachingPage();
+      } else {
+         $cache_obj = new SuperCacheEmpty();
+      }
+      if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+         $words = sizeof(explode(" ", $Xcontent));
+         if ($prev==1) {echo "<input class=\"bouton_standard\" type=\"button\" value=\"".translate("Back to console")."\" onclick=\"javascript:history.back()\" /><br /><br />";}
+         if (function_exists("themesection_title")) {
+            themesection_title($title);
+         } else {
+            opentable();
+            echo $title;
+            closetable();
+         }
+         opentable();
+         echo "<p align=\"right\">($words ".translate("total words in this text)")."&nbsp;&nbsp;-&nbsp;&nbsp;
+         ".translate("read:")." $counter ".translate("times")."&nbsp;&nbsp;&nbsp;&nbsp;
+         <a href=\"sections.php?op=printpage&amp;artid=$artid\"><img src=\"";
+         if ($ibid=theme_image("box/print.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/print.gif";}
+         echo "$imgtmp\" border=\"0\" alt=\"" . translate("Printer Friendly Page")."\" align=\"center\" /></a></p>";
+         echo "<div class=\"separ\"></div>";
+
+         if ($page!="") {
+            $Xcontent=substr($Xcontent,strpos($Xcontent,$page)+7);
+            $multipage=true;
+         } else
+            $multipage=false;
+         $pos_page=strpos($Xcontent,"[page");
+         if ($pos_page) {
+            $pageS=substr($Xcontent,$pos_page,7);
+            $Xcontent=substr($Xcontent,0,$pos_page)."<br /><p align=\"center\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid&amp;page=$pageS\" class=\"noir\">".translate("Next Page")."</a></p>";
+         } else if($multipage) {
+            $Xcontent.="<br /><p align=\"center\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid\" class=\"noir\">".translate("Top of the article")."</a></p>";
+         }
+         $Xcontent=aff_code(aff_langue($Xcontent));
+         echo meta_lang($Xcontent);
+         echo "<br /><br />";
+         echo "<div class=\"separ\"></div>";
+         echo "<br />";
+
+         if ($togglesection)
+            include_once ("lib/togglediv.class.php");
+
+         $artidtempo=$artid;
+         if ($rubname!="Divers") {
+            $rowcolor=tablos();
+            $rowcolor=tablos();
+            echo "<span class=\"noir\"><b>".translate("Back to chapter:")."</b></span>";
+            echo "<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"1\" $rowcolor>
+            <tr><td><ul><li><a href=\"sections.php?op=listarticles&amp;secid=$secid\" class=\"noir\">".aff_langue($secname)."</a></li></ul></td></tr></table>";
+
+            $result3 = sql_query("select artid, secid, title, userlevel from ".$NPDS_Prefix."seccont where (artid<>'$artid' and secid='$secid') order by ordre");
+            $nb_article = sql_num_rows($result3);
+            if ($togglesection)
+               $toggle = new ToggleDiv(2);
+            if ($nb_article > 0) {
+               echo "<br />";
+               if ($togglesection)
+                  echo $toggle->Img();
+               echo "<span class=\"noir\"><b>".translate("Other courses in chapter:")."</b></span>";
+               if ($togglesection)
+                  echo $toggle->Begin();
+
+               echo "<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"1\" $rowcolor><tr><td><ul>";
+               while (list($artid, $secid, $title, $userlevel) = sql_fetch_row($result3)) {
+                  $okprint2=autorisation_section($userlevel);
+                  if ($okprint2) {
+                     echo "<li><a href=\"sections.php?op=viewarticle&amp;artid=$artid\" class=\"noir\">".aff_langue($title)."</a></li>";
+                  }
+              }
+              echo "</ul></td></tr></table>";
+              if ($togglesection)
+                 echo $toggle->End();
+            }
+         }
+         $artid=$artidtempo;
+         $resultconnexe = sql_query("select id2 from ".$NPDS_Prefix."compatsujet where id1='$artid'");
+         if (sql_num_rows($resultconnexe) > 0) {
+            echo "<br />";
+            if ($togglesection)
+               echo "<br />".$toggle->Img();
+            echo "<span class=\"noir\"><b>".translate("You may be interested in:")."</b></span>";
+            if ($togglesection)
+               echo $toggle->Begin();
+            echo "<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"1\" $rowcolor><tr><td><ul>";
+            while(list($connexe) = sql_fetch_row($resultconnexe)) {
+               $resultpdtcompat = sql_query("select artid, title, userlevel from ".$NPDS_Prefix."seccont where artid='$connexe'");
+               list($artid2, $title, $userlevel) = sql_fetch_row($resultpdtcompat);
+               $okprint2=autorisation_section($userlevel);
+               if ($okprint2) {
+                  echo "<li><a href=\"sections.php?op=viewarticle&amp;artid=$artid2\" class=\"noir\">".aff_langue($title)."</a></li>";
+               }
+            }
+            echo "</ul></td></tr></table>";
+            if ($togglesection)
+               echo $toggle->End();
+         }
+         closetable();
+      }
+      sql_free_result($result_S);
+      if ($SuperCache) {
+         $cache_obj->endCachingPage();
+      }
+      include ('footer.php');
+   } else {
+      header("Location: sections.php");
+   }
+}
+
+function PrintSecPage($artid) {
+   global $NPDS_Prefix;
+   global $user,$cookie, $theme,$Default_Theme, $site_logo, $sitename, $nuke_url, $language, $site_font, $Titlesitename;
+
+   include("meta/meta.php");
+   if (isset($user)) {
+      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      if (isset($theme)) $cookie[9]=$theme;
+      $tmp_theme=$cookie[9];
+      if (!$file=@opendir("themes/$cookie[9]")) {
+         $tmp_theme=$Default_Theme;
+      }
+   } else {
+      $tmp_theme=$Default_Theme;
+   }
+   echo import_css($tmp_theme, $language, $site_font, "","");
+   echo "</head>\n<body style=\"background-color: #FFFFFF; background-image: none;\">
+   <table border=\"0\"><tr><td>
+   <table border=\"0\" width=\"640\" cellpadding=\"0\" cellspacing=\"1\" style=\"background-color: #000000;\"><tr><td>
+   <table border=\"0\" width=\"640\" cellpadding=\"20\" cellspacing=\"1\" style=\"background-color: #FFFFFF;\"><tr><td>";
+   echo "<p align=\"center\">";
+   $pos = strpos($site_logo, "/");
+   if ($pos)
+      echo "<img src=\"$site_logo\" border=\"0\" alt=\"\" />";
+   else
+      echo "<img src=\"images/$site_logo\" border=\"0\" alt=\"\" />";
+
+   $result=sql_query("select title, content from ".$NPDS_Prefix."seccont where artid='$artid'");
+   list($title, $content) = sql_fetch_row($result);
+
+   echo "<br /><br /><b>".aff_langue($title)."</b><br /><br /></p>";
+   $content=aff_code(aff_langue($content));
+   $pos_page=strpos($content,"[page");
+   if ($pos_page) {
+      $content=str_replace("[page",str_repeat("-",80)."&nbsp;[page",$content);
+   }
+   echo meta_lang($content);
+   echo "</td></tr><tr><td><br /><br /><br /><hr noshade class=\"ongl\"><br />
+   <p align=\"center\">
+   ".translate("This article comes from")." $sitename<br /><br />
+   ".translate("The URL for this story is:")."
+   <a href=\"$nuke_url/sections.php?op=viewarticle&amp;artid=$artid\" class=\"noir\">$nuke_url/sections.php?op=viewarticle&amp;artid=$artid</a>
+   </p></td></tr></table></td></tr></table></td></tr></table>
+   </body>
+   </html>";
+}
+
+function verif_aff($artid) {
+   global $NPDS_Prefix;
+
+    $result = sql_query("select secid from ".$NPDS_Prefix."seccont where artid='$artid'");
+    list($secid) = sql_fetch_row($result);
+
+    $result = sql_query("select userlevel from ".$NPDS_Prefix."sections where secid='$secid'");
+    list($userlevel) = sql_fetch_row($result);
+    $okprint=false;
+    $okprint=autorisation_section($userlevel);
+    return ($okprint);
+}
+
+settype($op,'string');
+switch ($op) {
+    case "viewarticle":
+       if (verif_aff($artid)) {
+          settype($page,'string');
+          viewarticle($artid, $page);
+       } else
+          header ("location: sections.php");
+       break;
+
+    case "listarticles":
+       listarticles($secid);
+       break;
+
+    case "printpage":
+       if (verif_aff($artid))
+          PrintSecPage($artid);
+       else
+          header ("location: sections.php");
+       break;
+
+    default:
+       settype($rubric,'string');
+       listsections($rubric);
+       break;
+}
+?>

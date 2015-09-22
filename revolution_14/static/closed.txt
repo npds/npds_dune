@@ -1,0 +1,10 @@
+<p class="lead text-center">
+Le portail est momentan&eacute;ment <strong class="text-danger">FERME</strong> pour les nouvelles Inscriptions.
+<br />
+Toute l'Equipe oeuvre pour le bon fonctionnement, merci et &agrave; bient&ocirc;t.
+</p>
+<p class="lead text-center">
+Sorry, our Portal is momentaly <strong class="text-danger">CLOSED</strong> for all new member logins
+<br />
+Our Staff works hardly to re-activate this, thanks.
+</p>
