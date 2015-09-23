@@ -165,7 +165,7 @@ function GraphicAdmin($hlpfile) {
          }
       }
    }
-   //<== recuperation traitement des messages de NPDS
+   //<== recuperation traitement des messages de NPDS  
 
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider
