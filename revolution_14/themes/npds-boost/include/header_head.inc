@@ -10,19 +10,19 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-
 echo '
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
 <link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.min.css" />';
 echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha/css/bootstrap.min.css" />';//V4
 
 //echo '<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/default/bootstrap.css" />';//V3
 
 echo '
-<link rel="stylesheet" href="lib/formvalidation-dist-v0.6.2/dist/css/formValidation.min.css" />
+<link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />
 <link rel="stylesheet" href="lib/jquery-ui.css">
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
-<link rel="stylesheet" href="lib/formvalidation-dist-v0.6.2/dist/css/formValidation.min.css" />
+<link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
@@ -39,12 +39,12 @@ echo '
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.6.2/dist/js/formValidation.min.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.6.2/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.6.2/dist/js/framework/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/formValidation.min.js"></script>
+<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
+<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/framework/bootstrap.min.js"></script>
 <script type="text/javascript" src="lib/js.cookie.js"></script>
 <script type="text/javascript" src="lib/jquery-ui.js"></script>
-<script type="text/javascript" src="lib/bootstrap-3.3.4/js/bootbox.min.js"></script>
+<script type="text/javascript" src="lib/js/bootbox.min.js"></script>
 <script type="text/javascript" src="themes/'.$theme.'/js/checkfieldinp.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
