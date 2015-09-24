@@ -107,7 +107,7 @@
     <thead>
         <tr>
             <th data-sortable="true" align="center">'.adm_translate('Table').'</th>
-            <th data-sortable="true" align="center">'.adm_translate('Taille actuelle').'</th>
+            <th align="center">'.adm_translate('Taille actuelle').'</th>
             <th data-sortable="true" align="center">'.adm_translate('Etat').'</th>
             <th align="center">'.adm_translate('Gain réalisable').'</th>
         </tr>
@@ -124,7 +124,7 @@
     echo $li_tab_opti;
     echo '
     </tbody>
-    </table>'."\n";
+    </table>';
     adminfoot('','','','');
     global $aid; Ecr_Log("security", "OptiMySql() by AID : $aid", "");
 ?>
