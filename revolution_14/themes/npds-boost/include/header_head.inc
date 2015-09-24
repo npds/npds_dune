@@ -26,24 +26,24 @@ echo '
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/octicons.css" />
+<link rel="stylesheet" href="lib/css/octicons.css" />
 
 <link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />
 
-<script type="text/javascript" src="lib/jquery-2.1.3.min.js"></script>';
+<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
 //echo '<script type="text/javascript" src="lib/bootstrap-3.3.4/js/bootstrap.js"></script>';//V3
-echo '<script type="text/javascript" src="lib/tether.min.js"></script>';//V4
+echo '<script type="text/javascript" src="lib/js/tether.min.js"></script>';//V4
 echo '<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/js/bootstrap.js"></script>';//V4
 echo '
-<script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/formValidation.min.js"></script>
 <script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
 <script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/framework/bootstrap.min.js"></script>
-<script type="text/javascript" src="lib/js.cookie.js"></script>
-<script type="text/javascript" src="lib/jquery-ui.js"></script>
+<script type="text/javascript" src="lib/js/js.cookie.js"></script>
+<script type="text/javascript" src="lib/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="lib/js/bootbox.min.js"></script>
 <script type="text/javascript" src="themes/'.$theme.'/js/checkfieldinp.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
