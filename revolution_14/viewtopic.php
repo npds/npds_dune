@@ -153,7 +153,7 @@ include('header.php');
       echo $pages_rapide." ] </p>\n";
     } 
 //    echo "".translate("Author")."";	
-    echo "<h3>$topic_subject</h3>";
+    echo '<h3>'.$topic_subject.'</h3>';
     if ($Mmod) {
        $post_aff=" ";
     } else {
@@ -217,6 +217,18 @@ include('header.php');
     if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
 
     do {
+/*    
+    echo'
+   <div class="popover popover-right">
+    <div class="popover-arrow"></div>
+    <h3 class="popover-title">Popover right</h3>
+    <div class="popover-content">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>    
+    ';
+*/    
+    
 		echo '<div class="media">
 			<div class="media-left">';
       $posterdata = get_userdata_from_id($myrow['poster_id']);   
@@ -373,16 +385,16 @@ echo '<p>';
        $cache_obj->startCachingBlock($cache_clef);
     }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-
-		echo '<form class="form-horizontal" role="form" action="viewforum.php" method="post">';
-		echo '<div class="form-group">
-			<div class="col-sm-2">
-				<label class="control-label">'.translate("Jump To: ").'</label>
-            </div>
-            <div class="col-sm-4">
-				<select class="form-control" name="forum" onchange="submit();">
-					<option value="index">...</option>
-					<option value="index">'.translate("Forum Index").'</option>';
+      echo '
+<form class="" role="form" action="viewforum.php" method="post">
+   <div class="form-group">
+      <div class="col-sm-4">
+         <label class="form-control-label" for="forum">'.translate("Jump To: ").'</label>
+      </div>
+         <div class="col-sm-8">
+         <select class="form-control" name="forum" onchange="submit();">
+            <option value="index">...</option>
+            <option value="index">'.translate("Forum Index").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
        if ($res = sql_query($sub_sql)) {
           while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
@@ -396,35 +408,29 @@ echo '<p>';
              }
           }
        }
-       echo '</select></div></div>';
-       echo '</form>';
-    }	   
+       echo '
+            </select>
+         </div>
+      </div>
+   </div>
+</form>';
+    }
     if ($SuperCache) {
        $cache_obj->endCachingBlock($cache_clef);
     }
 
     if (($Mmod) and ($forum_access!=9)) {
-       echo '<p><strong>'.translate("Administration Tools").' :</strong></p>';
-
-		echo '<div class="row btn-group">';
-		if ($lock_state==0)
-			echo '<div class="col-md-1">
-				<a class="btn btn-xs btn-danger" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>
-				</div>';
-		else
-			echo '<div class="col-md-1">
-				<a class="btn btn-xs btn-danger" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-				</div>';  
-		echo '<div class="col-md-1">
-			<a class="btn btn-xs btn-primary" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-			</div>';
-		echo '<div class="col-md-1">
-			<a class="btn btn-xs btn-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-			</div>';
-		echo '<div class="col-md-1">
-			<a class="btn btn-xs btn-primary" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'"><span class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span></a>
-			</div>';
-		echo '</div>';
+       echo '<strong>'.translate("Administration Tools").' :</strong>';
+      if ($lock_state==0)
+         echo '
+         <a class="btn btn-xs btn-danger" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'"><i class="fa fa-lock" aria-hidden="true"></i></a>';
+      else
+         echo '
+         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'"><i class ="fa fa-unlock" aria-hidden="true"></i></a>';
+      echo '
+         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'"><i class="fa fa-share" aria-hidden="true"></i></a>
+         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'"><i class="fa fa-remove" aria-hidden="true"></i></a>
+         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'"><i class="fa fa-level-up" aria-hidden="true"></i></a>';
     }
 include("footer.php");
 ?>
