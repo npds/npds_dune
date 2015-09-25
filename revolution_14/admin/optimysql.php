@@ -54,7 +54,6 @@
     {
         while($row = sql_fetch_assoc($result))
     {
-    $rowcolor = tablos();
     $tot_data = $row['Data_length'];
     $tot_idx  = $row['Index_length'];
     $total = ($tot_data + $tot_idx);

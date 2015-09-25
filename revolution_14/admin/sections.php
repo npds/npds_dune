@@ -152,7 +152,7 @@ function sections() {
 
 
    if ($ibid=theme_image("sections/prev.gif")) {$imgprev=$ibid;} else {$imgprev="images/sections/prev.gif";}
-//   echo "&nbsp;&nbsp;( <img src=\"$imgprev\" border=\"0\" alt=\"\" /> ".adm_translate("Pour prÈvisualiser le contenu dans son environnement d'exploitation.")." )</td>";
+//   echo "&nbsp;&nbsp;( <img src=\"$imgprev\" border=\"0\" alt=\"\" /> ".adm_translate("Pour pr√àvisualiser le contenu dans son environnement d'exploitation.")." )</td>";
 echo '
 <ul class="nav nav-pills">
   <li><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus"></i>&nbsp;'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
@@ -177,13 +177,12 @@ echo'
       <table id="tad_rubri" data-toggle="table" data-striped="true" data-detail-view="true" data-show-toggle="true" data-icons-prefix="fa" data-icons="icons" >
          <thead>
             <tr>
-               <th data-sortable="true" class="col-sm-8">Rubrique</th>
-               <th data-sortable="true" class="col-sm-2">Etat</th>
-               <th class="col-sm-2">Fonctions</th>
+               <th data-sortable="true" class="">Rubrique</th>
+               <th data-sortable="true" class="">Etat</th>
+               <th class="">Fonctions</th>
             </tr>
          </thead>
-         <tbody>
-';
+         <tbody>';
 
       while (list($rubid, $rubname, $enligne, $ordre) = sql_fetch_row($result)) {$i++;
          if ($radminsuper==1) {
@@ -201,9 +200,7 @@ echo'
                <td>'.$rubname.'</td>
                <td>'.$online.'</td>
                <td>'.$href1.$href2.$href3.'</td>
-            </tr>
-';
-
+            </tr>';
 
          if ($radminsuper==1) {
             $result2 = sql_query("select distinct secid, secname from ".$NPDS_Prefix."sections where rubid='$rubid' order by ordre");
@@ -228,7 +225,7 @@ echo'
               $secname=aff_langue($secname);
                echo '
                <div class="list-group-item active">
-               <a class="btn btn-primary" href="#" title="'.adm_translate("DÈplier la liste").'" data-toggle="collapse" data-target="#lst_sect_'.$secid.'"><i class="fa fa-navicon" ></i></a>&nbsp;
+               <a class="btn btn-primary" href="#" title="'.adm_translate("D√àplier la liste").'" data-toggle="collapse" data-target="#lst_sect_'.$secid.'"><i class="fa fa-navicon" ></i></a>&nbsp;
                '.$secname.'&nbsp;
                <span class="btn btn-secondary pull-right">
                <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg"></i>&nbsp;</a>
@@ -236,7 +233,8 @@ echo'
               if (($droit_pub==7) or ($droit_pub==4)) {
                  echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" class="" title="'.adm_translate("Supprimer la sous rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
               }
-              echo '</span></div>';
+              echo '</span>
+              </div>';
 
                $result3 = sql_query("select artid, title from ".$NPDS_Prefix."seccont where secid='$secid' order by ordre");
                if (sql_num_rows($result3) > 0) {
@@ -272,7 +270,7 @@ echo'
       }
 
 //      if ($ibid=theme_image("sections/ordremodule.gif")) {$imgordmodule=$ibid;} else {$imgordmodule="images/sections/ordremodule.gif";}
-      // le super administrateur peut modifier l'ordre des rubriques elles-mÍmes
+      // le super administrateur peut modifier l'ordre des rubriques elles-m√çmes
 //      if ($radminsuper==1) { echo "<img src=\"$imgordmodule\" alt=\"\" />&nbsp;<a href=\"admin.php?op=ordremodule\">".adm_translate("Changer l'ordre")." ".adm_translate("des")." ".adm_translate("rubriques")."</a>"; }
 
       echo '
@@ -312,7 +310,7 @@ echo'
          echo '
          <input type="hidden" name="op" value="secarticleadd" />
          <input type="hidden" name="autho" value="'.$aid.'" />';
-         ################################# personnalisation des critËres ######################################
+         ################################# personnalisation des crit√ãres ######################################
          echo '
          <input type="hidden" name="crit1" value="" />
          <input type="hidden" name="crit2" value="" />
@@ -343,7 +341,7 @@ echo'
          </form>';
 
          if ($radminsuper!=1) {
-            echo '<p>'.adm_translate("Une fois que vous aurez validÈ cette publication, elle sera intÈgrÈe en base temporaire, et l'administrateur sera prÈvenu. Il visera cette publication et la mettra en ligne dans les meilleurs dÈlais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.").'</p>';
+            echo '<p>'.adm_translate("Une fois que vous aurez valid√à cette publication, elle sera int√àgr√àe en base temporaire, et l'administrateur sera pr√àvenu. Il visera cette publication et la mettra en ligne dans les meilleurs d√àlais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.").'</p>';
          }
       }
    }
@@ -371,8 +369,8 @@ echo'
          if (!$Xradminsuper) {
             echo '
             <tr>
-            <td width="50%"><i class="fa fa-user fa-lg"></i>&nbsp;&nbsp;'.$Xaid.'&nbsp;&nbsp;/&nbsp;&nbsp;'.$name.'</td>
-            <td align="right"><a href="admin.php?op=droitauteurs&amp;author='.$Xaid.'">'.adm_translate("Modifier l'information").'</a></td>
+               <td width="50%"><i class="fa fa-user fa-lg"></i>&nbsp;&nbsp;'.$Xaid.'&nbsp;&nbsp;/&nbsp;&nbsp;'.$name.'</td>
+               <td align="right"><a href="admin.php?op=droitauteurs&amp;author='.$Xaid.'">'.adm_translate("Modifier l'information").'</a></td>
             </tr>';
          }
       }
@@ -385,7 +383,7 @@ echo'
          $$togglesection = 0;
       }
       echo '
-      <h3>'.adm_translate("ParamËtres liÈs ‡ l'illustration").'</h3>
+      <h3>'.adm_translate("Param√ãtres li√às ‚Ä° l'illustration").'</h3>
       <form action="admin.php" method="post" name="form2">
          <div class="form-group">
             <div class="row">
@@ -442,16 +440,6 @@ echo'
    echo '
    <script type="text/javascript">
    //<![CDATA[
-
-
-    window.icons = {
-      refresh: "fa-refresh",
-      toggle: "fa-toggle-on fa-lg",
-      columns: "fa-th-list",
-      detailOpen: "fa-minus-square",
-      detailClose: "fa-plus-square"
-    };
-   
    $(document).ready(function() {
    var $table = $("#tad_rubri");
    $table.on("expand-row.bs.table", function (e, index, row, $detail) {
@@ -459,8 +447,6 @@ echo'
     $detail.html(res);
    });
    });
-   
-   
    //]]>
    </script>';
    adminfoot('','','','');
@@ -518,7 +504,7 @@ function new_rub_section($type) {
       <div class="form-group">
          <input type="hidden" name="op" value="sectionmake" />
          <button class="btn btn-primary col-sm-6 col-xs-12 col-md-4" type="submit" /><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
-         <button class="btn btn-secondary col-sm-6 col-xs-12 col-md-4" type="button" onclick="javascript:history.back()">'.adm_translate("Retour en arriËre").'</button>
+         <button class="btn btn-secondary col-sm-6 col-xs-12 col-md-4" type="button" onclick="javascript:history.back()">'.adm_translate("Retour en arri√ãre").'</button>
       </div>
       </form>';
    } else if ($type=="rub") {
@@ -540,7 +526,7 @@ function new_rub_section($type) {
             <div class="form-group">
                <input type="hidden" name="op" value="rubriquemake" />
                <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
-               <input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arriËre").'" />
+               <input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arri√ãre").'" />
             </div>
          </form>';
       } else {
@@ -619,7 +605,7 @@ function publishcompat($article) {
    echo "<br /><input type=\"hidden\" name=\"article\" value=\"$article\" />
          <input type=\"hidden\" name=\"op\" value=\"updatecompat\" />
          <input type=\"hidden\" name=\"idx\" value=\"$i\" />
-         <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Valider")."\" />&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"button\" onclick=\"javascript:history.back()\" value=\"".adm_translate("Retour en arriËre")."\" /></form>";
+         <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Valider")."\" />&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"button\" onclick=\"javascript:history.back()\" value=\"".adm_translate("Retour en arri√ãre")."\" /></form>";
    closetable();
    include("footer.php");
 }
@@ -660,7 +646,7 @@ function rubriquedit($rubid) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '<h3>'.adm_translate("Editer une Rubrique : ")." ".aff_langue($rubname).'</h3>';
    if ($number)
-      echo '<span class="text-danger">'.$number.' </span>'.adm_translate("sous-rubrique(s) attachÈe(s)");
+      echo '<span class="text-danger">'.$number.' </span>'.adm_translate("sous-rubrique(s) attach√àe(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group">
@@ -695,7 +681,7 @@ function rubriquedit($rubid) {
             <input type="hidden" name="rubid" value="'.$rubid.'" />
             <input type="hidden" name="op" value="rubriquechange" />
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Enregistrer").'</button>&nbsp;
-            <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arriËre").'" onclick="javascript:history.back()" />
+            <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arri√ãre").'" onclick="javascript:history.back()" />
          </div>
       </form>
       <script type="text/javascript">
@@ -738,61 +724,67 @@ function sectionedit($secid) {
    list($secid, $secname, $image, $userlevel, $rubref, $intro) = sql_fetch_row($result);
    $secname = stripslashes($secname);
    $intro = stripslashes($intro);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
 
-   opentable();
-   echo "<table><tr><td class=\"header\">\n";
-   echo adm_translate("sous-rubrique")." ".aff_langue($secname);
+   echo '<h3>'.adm_translate("Sous-rubrique").' : '.aff_langue($secname).'</h3>';
    $result2 = sql_query("select artid from ".$NPDS_Prefix."seccont where secid='$secid'");
    $number = sql_num_rows($result2);
    if ($number)
-      echo " / <span class=\"text-danger\">$number </span>".adm_translate("publication(s) attachÈe(s)");
-   echo "</td></tr></table>\n";
-
-   echo "<table border=\"0\" width=\"100%\" cellpadding=\"2\" cellspacing=\"1\">
-         <form action=\"admin.php\" method=\"post\" name=\"adminForm\">
-         <tr $rowcolor><td><b>".adm_translate("rubrique")." :</b></td>";
+      echo '<span class="label label-pill label-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attach√àe(s)");
+   echo '
+         <form action="admin.php" method="post" name="adminForm">
+         <div class="form-group">
+            <label class="control-label" for="rubref">'.adm_translate("Rubrique").'</label>';
    if ($radminsuper==1) {
-      echo "<td width=\"80%\"><select class=\"textbox\" name=\"rubref\">";
-         $result = sql_query("select rubid, rubname from ".$NPDS_Prefix."rubriques order by ordre");
+      echo '
+      <select class="form-control" name="rubref">';
+         $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
          while(list($rubid, $rubname) = sql_fetch_row($result)) {
-            if ($rubref==$rubid) {$sel="selected=\"selected\""; } else {$sel=""; }
-               echo "<option value=\"$rubid\" $sel>".aff_langue($rubname)."</option>";
+            if ($rubref==$rubid) {$sel='selected="selected"';} else {$sel='';}
+               echo '<option value="'.$rubid.'" '.$sel.'>'.aff_langue($rubname).'</option>';
             }
-      echo "</select></td>";
+      echo '
+      </select>
+      </div>';
    } else {
-      echo "<input type=\"hidden\" name=\"rubref\" value=\"$rubref\" />";
+      echo '<input type="hidden" name="rubref" value="'.$rubref.'" />';
       $result = sql_query("select rubname from ".$NPDS_Prefix."rubriques where rubid='$rubref'");
       list($rubname) = sql_fetch_row($result);
-      echo "<td width=\"80%\"><b>".aff_langue($rubname)."</b></tr>";
+      echo "".aff_langue($rubname)."";
    }
-   echo "</tr>
-         <tr $rowcolor>
-         <td><b>".adm_translate("sous-rubrique")." :</b></td>
-         <td><textarea class=\"textbox_no_mceEditor\" name=\"secname\" cols=\"60\" rows=\"2\">$secname</textarea></td>
-         </tr>
-         <tr $rowcolor>
-         <td><b>".adm_translate("images")." :</b></td>
-         <td width=\"80%\"><input type=\"text\" class=\"textbox\" name=\"image\" value=\"$image\" /></td>
-         </tr>
-         <tr $rowcolor>
-         <td><b>".adm_translate("Texte d'introduction")." :</b></td>
-         <td><textarea class=\"textbox\" name=\"introd\" cols=\"60\" rows=\"30\" style=\"width: 100%;\">$intro</textarea>";
+   echo '
+   <div class="form-group">
+      <label class="control-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
+      <textarea class="form-control textbox_no_mceEditor" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
+      <span class="help-block text-right"><span id="countcar_secname"></span></span>
+   </div>
+   <div class="form-group">
+      <label class="control-label" for="image">'.adm_translate("Images").'</label>
+      <input type="text" class="form-control" id="image" name="image" maxlength="255" value="'.$image.'" />
+      <span class="help-block text-right"><span id="countcar_image"></span></span>
+   </div>
+   <div class="form-group">
+      <label class="control-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
+      <textarea class="form-control textbox" id="introd" name="introd" rows="20">'.$intro.'</textarea>
+   </div>';
    echo aff_editeur("introd","false");
-   echo "</td></tr>";
    droits($userlevel);
-   echo "</td></tr>
-         <tr $rowcolor><td colspan=\"2\">";
    $droit_pub=droits_publication($secid);
    if ($droit_pub==3 or $droit_pub==7) {
-      echo "<input type=\"hidden\" name=\"secid\" value=\"$secid\" />
-            <input type=\"hidden\" name=\"op\" value=\"sectionchange\" />
-            <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Enregistrer")."\" />&nbsp;&nbsp;";
+      echo '<input type="hidden" name="secid" value="'.$secid.'" />
+            <input type="hidden" name="op" value="sectionchange" />
+            <button class="btn btn-primary" type="submit">'.adm_translate("Enregistrer").'</button>';
    }
-   echo "<input class=\"bouton_standard\" type=\"button\" value=\"".adm_translate("Retour en arriËre")."\" onclick=\"javascript:history.back()\" />";
-   echo "</td></tr></form>
-         </table>";
-   closetable();
-   include("footer.php");
+   echo '
+   <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arri√ãre").'" onclick="javascript:history.back()" />
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+         inpandfieldlen("secname",255);
+         inpandfieldlen("image",255);
+   //]]>
+   </script>';
+   adminfoot('fv','','','');
 }
 function sectionmake($secname, $image, $members, $Mmembers, $rubref, $introd) {
    global $NPDS_Prefix;
@@ -910,7 +902,7 @@ function secartedit($artid) {
    droits($userlevel);
    $droits_pub=droits_publication($secid);
    if ($droits_pub==3 or $droits_pub==7) { echo '<input class="btn btn-primary" type="submit" value="'.adm_translate("Enregistrer").'" />'; }
-   echo '&nbsp;<input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arriËre").'" onclick="javascript:history.back()" />
+   echo '&nbsp;<input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arri√ãre").'" onclick="javascript:history.back()" />
    </div>
    </form>';
    adminfoot('','','','');
@@ -926,23 +918,23 @@ function secartupdate($artid) {
    $testpubli = sql_query("select type from ".$NPDS_Prefix."publisujet where secid2='$secid' and aid='$aid' and type='1'");
    list($test_publi)=sql_fetch_row($testpubli);
    if ($test_publi==1) {
-      $debut = "<span class=\"text-danger\">".adm_translate("Vos droits de publications vous permettent de mettre ‡ jour ou de supprimer ce contenu mais pas de la mettre en ligne sur le site.")."<br /></span>";
+      $debut = "<span class=\"text-danger\">".adm_translate("Vos droits de publications vous permettent de mettre ‚Ä° jour ou de supprimer ce contenu mais pas de la mettre en ligne sur le site.")."<br /></span>";
       $fin = "<select class=\"textbox_standard form-control \" name=\"op\">
-      <option value=\"secartchangeup\" selected=\"selected\">".adm_translate("Mettre ‡ jour")."</option>
+      <option value=\"secartchangeup\" selected=\"selected\">".adm_translate("Mettre ‚Ä° jour")."</option>
       <option value=\"secartdelete2\">".adm_translate("Supprimer")."</option>
       </select>&nbsp;&nbsp;<input type=\"submit\" class=\"bouton_standard\" name=\"submit\" value=\"".adm_translate("Ok")."\" />";
    }
    $testpubli = sql_query("select type from ".$NPDS_Prefix."publisujet where secid2='$secid' and aid='$aid' and type='2'");
    list($test_publi)=sql_fetch_row($testpubli);
    if (($test_publi==2) or ($radminsuper==1))  {
-      $debut = "<span class=\"text-danger\">".adm_translate("Vos droits de publications vous permettent de mettre ‡ jour, de supprimer ou de le mettre en ligne sur le site ce contenu.")."<br /></span>";
+      $debut = "<span class=\"text-danger\">".adm_translate("Vos droits de publications vous permettent de mettre ‚Ä° jour, de supprimer ou de le mettre en ligne sur le site ce contenu.")."<br /></span>";
       $fin = "<select class=\"textbox_standard form-control\" name=\"op\">
-      <option value=\"secartchangeup\" selected=\"selected\">".adm_translate("Mettre ‡ jour")."</option>
+      <option value=\"secartchangeup\" selected=\"selected\">".adm_translate("Mettre ‚Ä° jour")."</option>
       <option value=\"secartdelete2\">".adm_translate("Supprimer")."</option>
       <option value=\"secartpublish\">".adm_translate("Publier")."</option>
       </select>&nbsp;&nbsp;<input type=\"submit\" class=\"bouton_standard\" name=\"submit\" value=\"".adm_translate("Ok")."\" />";
    }
-   $fin.="&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"button\" value=\"".adm_translate("Retour en arriËre")."\" onclick=\"javascript:history.back()\" />";
+   $fin.="&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"button\" value=\"".adm_translate("Retour en arri√ãre")."\" onclick=\"javascript:history.back()\" />";
    include("header.php");
    GraphicAdmin($hlpfile);
    opentable();
@@ -974,7 +966,7 @@ function secartupdate($artid) {
       echo "<tr $rowcolor><td><b>".adm_translate("Contenu")."</b></td>";
       echo "<td><textarea class=\"textbox\" name=\"content\" cols=\"60\" rows=\"30\" style=\"width: 100%;\">$content</textarea>";
       echo aff_editeur("content","false");
-      echo "</td></tr>";
+      echo '</td></tr>';
       echo "<input type=\"hidden\" name=\"crit1\" value=\"$crit1\" /><input type=\"hidden\" name=\"crit2\" value=\"$crit2\" />
             <input type=\"hidden\" name=\"crit3\" value=\"$crit3\" /><input type=\"hidden\" name=\"crit4\" value=\"$crit4\" />
             <input type=\"hidden\" name=\"crit5\" value=\"$crit5\" /><input type=\"hidden\" name=\"crit6\" value=\"$crit6\" />
@@ -1104,7 +1096,7 @@ function secartpublish($artid, $secid, $title, $content, $author, $members, $Mme
       $result = sql_query("select email from authors where aid='$author'");
       list($lemail) = sql_fetch_row($result);
       $sujet = adm_translate("Validation de votre publication");
-      $message = adm_translate("La publication que vous aviez en attente vient d'Ítre validÈe");
+      $message = adm_translate("La publication que vous aviez en attente vient d'√çtre valid√àe");
       global $notify_from;
       send_email($lemail, $sujet, $message, $notify_from, true, "html");
    }
@@ -1148,7 +1140,7 @@ function rubriquedelete($rubid, $ok=0) {
       list($rubname) = sql_fetch_row($result);
       opentable();
       echo "<p align=\"center\"><b>".adm_translate("Effacer la Rubrique : ").aff_langue($rubname)."</b><br /><br />
-      ".adm_translate("Etes-vous s˚r de vouloir effacer cette Rubrique ?")."<br /><br />
+      ".adm_translate("Etes-vous sÀör de vouloir effacer cette Rubrique ?")."<br /><br />
       [ <a href=\"admin.php?op=rubriquedelete&amp;rubid=$rubid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=sections\" class=\"noir\">".adm_translate("Non")."</a> ]<br /></p>";
       closetable();
       include("footer.php");
@@ -1183,7 +1175,7 @@ function sectiondelete($secid, $ok=0) {
       list($secname) = sql_fetch_row($result);
       opentable();
       echo "<p align=\"center\"<b>".adm_translate("Effacer la sous-rubrique : ").aff_langue($secname)."</b><br /><br />
-      ".adm_translate("Etes-vous s˚r de vouloir effacer cette sous-rubrique ?")."<br /><br />
+      ".adm_translate("Etes-vous sÀör de vouloir effacer cette sous-rubrique ?")."<br /><br />
       [ <a href=\"admin.php?op=sectiondelete&amp;secid=$secid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=sections\" class=\"noir\">".adm_translate("Non")."</a> ]<br /></p>";
       closetable();
       include("footer.php");
@@ -1254,15 +1246,14 @@ function ordremodule() {
    echo '
    <h3>'.adm_translate("Changer l'ordre")." ".adm_translate("des")." ".adm_translate("rubriques").'</h3>
    <form action="admin.php" method="post" name="adminForm">
-      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true">
-         <thead>
+      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+         <thead class="thead-inverse">
             <tr>
                <th data-sortable="true">'.adm_translate("Rubriques").'</th>
                <th data-sortable="true">'.adm_translate("Index").'</th>
             </tr>
          </thead>
          <tbody>';
-
    $result = sql_query("select rubid, rubname, ordre from ".$NPDS_Prefix."rubriques order by ordre");
    $i = 0;
    while(list($rubid, $rubname, $ordre) = sql_fetch_row($result)) {
@@ -1270,18 +1261,19 @@ function ordremodule() {
       echo '<tr>
                <td width="80%"><label for="ordre['.$i.']">'.aff_langue($rubname).'</label></td>
                <td width="20%"><input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
-               <input type="number" class="form-control" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" /></td>
+                  <input type="number" class="form-control" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
+               </td>
            </tr>';
       }
    echo '
          </tbody>
       </table>
       <br />
-      <input type="hidden" name="i" value="'.$i.'" />
-      <input type="hidden" name="op" value="majmodule" />
       <div class="form-group">
-         <input type="submit" class="btn btn-primary" value="'.adm_translate("Valider").'" />
-         <input type="button" class="btn btn-secondary" value="'.adm_translate("Retour en arriËre").'" onclick="javascript:history.back()" />
+         <input type="hidden" name="i" value="'.$i.'" />
+         <input type="hidden" name="op" value="majmodule" />
+         <button type="submit" class="btn btn-primary" ><i class="fa fa-check"></i>'.adm_translate("Valider").'</button>
+         <button class="btn btn-secondary" onclick="javascript:history.back()" >'.adm_translate("Retour en arri√ãre").'</button>
       </div>
    </form>';
    adminfoot('fv','','','');
@@ -1320,10 +1312,10 @@ function ordrechapitre() {
          </tbody>
       </table>
       <br />
-      <input type="hidden" name="op" value="majchapitre" />
       <div class="form-group">
+         <input type="hidden" name="op" value="majchapitre" />
          <input type="submit" class="btn btn-primary" value="'.adm_translate("Valider").'" />
-         <input type="button" class="btn btn-secondary" value="'.adm_translate("Retour en arriËre").'" onclick="javascript:history.back()" />
+         <button class="btn btn-secondary" onclick="javascript:history.back()" >'.adm_translate("Retour en arri√ãre").' </button>
       </div>
    </form>';
    adminfoot('fv','','','');
@@ -1364,7 +1356,7 @@ function ordrecours() {
    echo "</table>";
    echo "<input type=\"hidden\" name=\"op\" value=\"majcours\" />
          <br /><input type=\"submit\" class=\"btn btn-primary\" value=\"".adm_translate("Valider")."\" />
-         &nbsp;&nbsp;<input type=\"button\" class=\"bnt btn-secondary\" value=\"".adm_translate("Retour en arriËre")."\" onclick=\"javascript:history.back()\" />
+         &nbsp;&nbsp;<input type=\"button\" class=\"bnt btn-secondary\" value=\"".adm_translate("Retour en arri√ãre")."\" onclick=\"javascript:history.back()\" />
          </form>";
    closetable();
    include("footer.php");
@@ -1432,7 +1424,7 @@ function publishrights($author) {
             <td class=\"header\" width=\"40%\">";
             echo $toggle->Img();
             echo aff_langue($rubname)."</td>
-            <td class=\"header\"align=\"center\" width=\"15%\">".adm_translate("CrÈer")."</td>
+            <td class=\"header\"align=\"center\" width=\"15%\">".adm_translate("Cr√àer")."</td>
             <td class=\"header\"align=\"center\" width=\"15%\">".adm_translate("Publier")."</td>
             <td class=\"header\"align=\"center\" width=\"15%\">".adm_translate("Modifier")."</td>
             <td class=\"header\"align=\"center\" width=\"15%\">".adm_translate("Supprimer")."</td>
@@ -1470,7 +1462,7 @@ function publishrights($author) {
          <input type="hidden" name="op" value="updatedroitauteurs" />
          <input type="hidden" name="maxindex" value="'.$i.'" />
          <input class="btn btn-primary" type="submit" value="'.adm_translate("Valider").'" />&nbsp;&nbsp;
-         <input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arriËre").'" />
+         <input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arri√ãre").'" />
          </form>';
 
    closetable();

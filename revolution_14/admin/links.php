@@ -292,10 +292,10 @@ function links() {
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true">
       <thead>
          <tr>
-            <th data-sortable="true" class="col-sm-1">ID</th>
-            <th data-sortable="true" class="col-sm-4">'.adm_translate('Titre').'</th>
-            <th data-sortable="true" class="col-sm-4">URL</th>
-            <th class="col-sm-3">'.adm_translate('Fonctions').'</th>
+            <th data-sortable="true" class="">ID</th>
+            <th data-sortable="true" class="">'.adm_translate('Titre').'</th>
+            <th data-sortable="true" class="">URL</th>
+            <th class="">'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>
