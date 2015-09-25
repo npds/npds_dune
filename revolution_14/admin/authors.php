@@ -170,7 +170,7 @@ function displayadmins() {
    $result = sql_query("select aid, name, url, email from ".$NPDS_Prefix."authors");
    echo '
    <h3>'.adm_translate("Les administrateurs").'</h3>
-   <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-show-export="true">
+   <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true">'.adm_translate('Nom').'</th>
