@@ -34,36 +34,44 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
    <form id="archive_adm" class="form-horizontal" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
-            <label class="control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
-            <div class="col-sm-8">
-               <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
-               <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
+            <div class="row">
+               <label class="control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
+               <div class="col-sm-8">
+                  <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
+                  <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
+               </div>
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
-            <div class="col-sm-8">
-               <select class="form-control" name="arch">';
+            <div class="row">
+               <label class="control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
+               <div class="col-sm-8">
+                  <select class="form-control" name="arch">';
    if ($arch == 1) {
       $sel_a = 'selected="selected"';
    } else {
       $sel_i = 'selected="selected"';
    }
    echo '
-                  <option name="status" value="1" '.$sel_a.'>'.adm_translate("Les articles en archive").'</option>
-                  <option name="status" value="0" '.$sel_i.'>'.adm_translate("Les articles en ligne").'</option>
-               </select>
+                     <option name="status" value="1" '.$sel_a.'>'.adm_translate("Les articles en archive").'</option>
+                     <option name="status" value="0" '.$sel_i.'>'.adm_translate("Les articles en ligne").'</option>
+                  </select>
+               </div>
             </div>
          </div>
          <div class="form-group">
-             <label class="control-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
-             <div class="col-sm-8">
-                 <input id="maxcount" class="form-control" type="number" name="maxcount" value="'.$maxcount.'" min="0" max="500" placeholder="'.adm_translate("Surnom").'" required="required" />
-             </div>
+            <div class="row">
+                <label class="control-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
+                <div class="col-sm-8">
+                    <input id="maxcount" class="form-control" type="number" name="maxcount" value="'.$maxcount.'" min="0" max="500" required="required" />
+                </div>
+            </div>
          </div>
          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-8">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
+            <div class="row">
+               <div class="col-sm-offset-4 col-sm-8">
+                  <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
+               </div>
             </div>
          </div>
          <input type="hidden" name="op" value="Extend-Admin-SubModule" />
@@ -77,8 +85,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
    //<![CDATA[
       inpandfieldlen("arch_titre",400);
    //]]>
-   </script>
-   ';
+   </script>';
    adminfoot('fv','','','');
 }
 

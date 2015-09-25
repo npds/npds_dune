@@ -32,8 +32,18 @@ if (!function_exists("Mysql_Connexion")) {
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       opentable();
       if ($arch_titre) { echo $arch_titre; }
-      echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n";
-      echo "<tr class=\"header\" align=\"center\"><td>".translate("Articles")."&nbsp;</td><td>".translate("reads")."</td><td>".translate("Posted on")."</td><td>".translate("Author")."</td><td>&nbsp;</td></tr>";
+      echo '
+   <table id ="lst_art_arch" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <thead>
+         <tr>
+            <th data-sortable="true">'.translate("Articles").'</th>
+            <th data-sortable="true">'.translate("reads").'</th>
+            <th>'.translate("Posted on").'</th>
+            <th data-sortable="true">'.translate("Author").'</th>
+            <th>&nbsp;</th>
+         </tr>
+      </thead>
+      <tbody>';
 
       if (!isset($count)) {
          $result0 = Q_select("SELECT count(sid) as count FROM ".$NPDS_Prefix."stories WHERE archive='$arch'",3600);
@@ -52,7 +62,6 @@ if (!function_exists("Mysql_Connexion")) {
       if ($ibid=theme_image("box/print.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/print.gif";}
       if ($ibid=theme_image("box/friend.gif")) {$imgtmpF=$ibid;} else {$imgtmpF="images/friend.gif";}
       while (($story_limit<$maxcount) and ($story_limit<sizeof($xtab))) {
-        $rowcolor=tablos();
         list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
         $story_limit++;
         if ($catid!=0) {
@@ -72,7 +81,7 @@ if (!function_exists("Mysql_Connexion")) {
         if (cur_charset!="utf-8") {
            $datetime = ucfirst($datetime);
         }
-        echo "<tr align=\"center\" $rowcolor>
+        echo "<tr align=\"center\">
         <td align=\"left\" width=\"50%\"><a href=\"article.php?sid=$sid&amp;archive=$arch\" class=\"noir\">".aff_langue($title)."</a></td>
         <td align=\"center\">$counter</td>
         <td align=\"center\" width=\"25%\">$datetime</td>
@@ -80,7 +89,9 @@ if (!function_exists("Mysql_Connexion")) {
         <td align=\"center\">$printP&nbsp;$sendF</td>
         </tr>";
       }
-      echo "</table><br />";
+      echo '
+         </tbody>
+      </table><br />';
       $start=$start+$maxcount-1;
       if (($count-$start)>0) {
          if ($ibid=theme_image("box/right.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/right.gif";}
