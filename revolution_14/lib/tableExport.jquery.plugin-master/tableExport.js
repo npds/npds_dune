@@ -1,252 +1,270 @@
-/*The MIT License (MIT)
+/*
+ tableExport.jquery.plugin
 
-Original work Copyright (c) 2014 https://github.com/kayalshri/
-Modified work Copyright (c) 2015 https://github.com/hhurz/
+ Copyright (c) 2015 hhurz, https://github.com/hhurz/tableExport.jquery.plugin
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Original work Copyright (c) 2014 Giri Raj, https://github.com/kayalshri/
+ Licensed under the MIT License, http://opensource.org/licenses/mit-license
+*/
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.*/
-
-(function($){
+(function ($) {
   $.fn.extend({
-    tableExport: function(options) {
+    tableExport: function (options) {
       var defaults = {
-        csvSeparator: ',',
-        csvEnclosure: '"',
         consoleLog: false,
+        csvEnclosure: '"',
+        csvSeparator: ',',
+        csvUseBOM: true,
         displayTableName: false,
         escape: false,
-        excelstyles: [ 'border-bottom', 'border-top', 'border-left', 'border-right' ],
+        excelstyles: ['border-bottom', 'border-top', 'border-left', 'border-right'],
         fileName: 'tableExport',
         htmlContent: false,
         ignoreColumn: [],
-        jspdf: { orientation: 'p', 
-                 unit:'pt', 
-                 format:'a4',
-                 margins: { left: 20, right: 10, top: 10, bottom: 10 },
-                 autotable: { padding: 2,
-                              lineHeight: 12,
-                              fontSize: 8,
-                              tableExport: { onAfterAutotable: null,
-                                             onBeforeAutotable: null,
-                                             onTable: null
-                                           }
-                            }
+        ignoreRow:[],
+        jspdf: {orientation: 'p',
+                unit: 'pt',
+                format: 'a4', // jspdf page format or 'bestfit' for autmatic paper format selection
+                margins: {left: 20, right: 10, top: 10, bottom: 10},
+                autotable: {styles: {cellPadding: 2,
+                                     rowHeight: 12,
+                                     fontSize: 8,
+                                     fillColor: 255, // color value or 'inherit' to use css background-color from html table
+                                     textColor: 50,  // color value or 'inherit' to use css color from html table
+                                     fontStyle: 'normal',
+                                     overflow: 'ellipsize'
+                                    },
+                            headerStyles: {fillColor: [52, 73, 94],
+                                           textColor: 255,
+                                           fontStyle: 'bold'
+                                          },
+                            alternateRowStyles: {fillColor: 245
+                                                },
+                            tableExport: {onAfterAutotable: null,
+                                          onBeforeAutotable: null,
+                                          onTable: null
+                                         }
+                           }
                },
+        numbers: {html: {decimalMark: '.',
+                         thousandsSeparator: ','
+                        },
+                  output: {decimalMark: '.',
+                           thousandsSeparator: ','
+                          }
+                 },
         onCellData: null,
-        outputMode: 'file',  // file|string|base64
+        outputMode: 'file', // 'file', 'string' or 'base64'
         tbodySelector: 'tr',
         theadSelector: 'tr',
         tableName: 'myTableName',
-        type: 'csv',
+        type: 'csv', // 'csv', 'txt', 'sql', 'json', 'xml', 'excel', 'doc', 'png' or 'pdf'
         worksheetName: 'xlsWorksheetName'
       };
 
       var el = this;
       var DownloadEvt = null;
+      var rowIndex = 0;
       var rowspans = [];
+      var trData = '';
 
       $.extend(true, defaults, options);
 
-      if(defaults.type == 'csv' || defaults.type == 'txt'){
+      if (defaults.type == 'csv' || defaults.type == 'txt') {
 
         // Header
-        var tdData ="";
-        var rowIndex = 0;
-        $(el).find('thead').first().find(defaults.theadSelector).each(function() {
-          tdData += "\n";
+        var csvData = "";
+        rowIndex = 0;
+        $(el).find('thead').first().find(defaults.theadSelector).each(function () {
+          trData = "";
           ForEachVisibleCell(this, 'th,td', rowIndex,
-                             function(cell, row, col) {
-                               tdData += csvString(cell, row, col) + defaults.csvSeparator;
-                             });
+                  function (cell, row, col) {
+                    trData += csvString(cell, row, col) + defaults.csvSeparator;
+                  });
+          trData = $.trim(trData).substring(0, trData.length - 1);
+          if (trData.length > 0) {
+
+            if (csvData.length > 0)
+              csvData += "\n";
+
+            csvData += trData;
+          }
           rowIndex++;
-          tdData = $.trim(tdData);
-          tdData = $.trim(tdData).substring(0, tdData.length -1);
         });
 
         // Row vs Column
-        $(el).find('tbody').first().find(defaults.tbodySelector).each(function() {
+        $(el).find('tbody').first().find(defaults.tbodySelector).each(function () {
           trData = "";
           ForEachVisibleCell(this, 'td', rowIndex,
-                             function(cell, row, col) {
-                               trData += csvString(cell, row, col) + defaults.csvSeparator;
-                             });
-          if (trData.length > defaults.csvSeparator.length)
-            tdData += "\n" + trData;
+                  function (cell, row, col) {
+                    trData += csvString(cell, row, col) + defaults.csvSeparator;
+                  });
+          trData = $.trim(trData).substring(0, trData.length - 1);
+          if (trData.length > 0) {
+
+            if (csvData.length > 0)
+              csvData += "\n";
+
+            csvData += trData;
+          }
           rowIndex++;
-          //tdData = $.trim(tdData);
-          tdData = $.trim(tdData).substring(0, tdData.length -1);
         });
 
-        tdData += "\n";
+        csvData += "\n";
 
         //output
-        if(defaults.consoleLog === true)
-          console.log(tdData);
+        if (defaults.consoleLog === true)
+          console.log(csvData);
 
-        if(defaults.outputMode == 'string')
-          return tdData;
+        if (defaults.outputMode === 'string')
+          return csvData;
 
-        if(defaults.outputMode == 'base64')
-          return base64encode(tdData);
+        if (defaults.outputMode === 'base64')
+          return base64encode(csvData);
 
         try {
-          var blob = new Blob([(defaults.type == 'csv' ? '\ufeff' : '') + tdData], {type: "text/"+(defaults.type == 'csv' ? 'csv' : 'plain')+";charset=utf-8"});
-          saveAs (blob, defaults.fileName + '.' + defaults.type);
+          var blob = new Blob([((defaults.type == 'csv' && defaults.csvUseBOM)? '\ufeff' : '') + csvData], {type: "text/" + (defaults.type == 'csv' ? 'csv' : 'plain') + ";charset=utf-8"});
+          saveAs(blob, defaults.fileName + '.' + defaults.type);
         }
         catch (e) {
           downloadFile(defaults.fileName + '.' + defaults.type,
-                       'data:text/'+(defaults.type == 'csv' ? 'csv' : 'plain')+';charset=utf-8,' + (defaults.type == 'csv' ? '\ufeff' : '') +
-                       encodeURIComponent(tdData));
+                  'data:text/' + (defaults.type == 'csv' ? 'csv' : 'plain') + ';charset=utf-8,' + ((defaults.type == 'csv' && defaults.csvUseBOM )? '\ufeff' : '') +
+                  encodeURIComponent(csvData));
         }
 
-      }else if(defaults.type == 'sql'){
+      } else if (defaults.type == 'sql') {
 
         // Header
-        var rowIndex = 0;
-        var tdData ="INSERT INTO `"+defaults.tableName+"` (";
-        $(el).find('thead').first().find(defaults.theadSelector).each(function() {
+        rowIndex = 0;
+        var tdData = "INSERT INTO `" + defaults.tableName + "` (";
+        $(el).find('thead').first().find(defaults.theadSelector).each(function () {
 
           ForEachVisibleCell(this, 'th,td', rowIndex,
-                             function(cell, row, col) {
-                               tdData += "'" + parseString(cell, row, col) + "'," ;
-                             });
+                  function (cell, row, col) {
+                    tdData += "'" + parseString(cell, row, col) + "',";
+                  });
           rowIndex++;
           tdData = $.trim(tdData);
-          tdData = $.trim(tdData).substring(0, tdData.length -1);
+          tdData = $.trim(tdData).substring(0, tdData.length - 1);
         });
         tdData += ") VALUES ";
         // Row vs Column
-        $(el).find('tbody').first().find(defaults.tbodySelector).each(function() {
+        $(el).find('tbody').first().find(defaults.tbodySelector).each(function () {
           trData = "";
           ForEachVisibleCell(this, 'td', rowIndex,
-                             function(cell, row, col) {
-                               trData += "'" + parseString(cell, row, col) + "'," ;
-                             });
-          if (trData.length > 3){
+                  function (cell, row, col) {
+                    trData += "'" + parseString(cell, row, col) + "',";
+                  });
+          if (trData.length > 3) {
             tdData += "(" + trData;
-            tdData = $.trim(tdData).substring(0, tdData.length -1);
+            tdData = $.trim(tdData).substring(0, tdData.length - 1);
             tdData += "),";
           }
           rowIndex++;
         });
 
-        tdData = $.trim(tdData).substring(0, tdData.length -1);
+        tdData = $.trim(tdData).substring(0, tdData.length - 1);
         tdData += ";";
 
         //output
-        if(defaults.consoleLog === true)
+        if (defaults.consoleLog === true)
           console.log(tdData);
 
-        if(defaults.outputMode == 'string')
+        if (defaults.outputMode == 'string')
           return tdData;
 
-        if(defaults.outputMode == 'base64')
+        if (defaults.outputMode == 'base64')
           return base64encode(tdData);
 
         try {
           var blob = new Blob([tdData], {type: "text/plain;charset=utf-8"});
-          saveAs (blob, defaults.fileName + '.sql');
+          saveAs(blob, defaults.fileName + '.sql');
         }
         catch (e) {
-          downloadFile(defaults.fileName+'.sql', 'data:application/sql;charset=utf-8,' + encodeURIComponent(tdData));
+          downloadFile(defaults.fileName + '.sql', 'data:application/sql;charset=utf-8,' + encodeURIComponent(tdData));
         }
 
-      }else if(defaults.type == 'json'){
+      } else if (defaults.type == 'json') {
 
         var jsonHeaderArray = [];
-        $(el).find('thead').first().find(defaults.theadSelector).each(function() {
+        $(el).find('thead').first().find(defaults.theadSelector).each(function () {
           var jsonArrayTd = [];
 
           ForEachVisibleCell(this, 'th,td', rowIndex,
-                             function(cell, row, col) {
-                               jsonArrayTd.push(parseString(cell, row, col));
-                             });
+                  function (cell, row, col) {
+                    jsonArrayTd.push(parseString(cell, row, col));
+                  });
           jsonHeaderArray.push(jsonArrayTd);
         });
 
         var jsonArray = [];
-        $(el).find('tbody').first().find(defaults.tbodySelector).each(function() {
+        $(el).find('tbody').first().find(defaults.tbodySelector).each(function () {
           var jsonArrayTd = [];
 
           ForEachVisibleCell(this, 'td', rowIndex,
-                             function(cell, row, col) {
-                               jsonArrayTd.push(parseString(cell, row, col));
-                             });
+                  function (cell, row, col) {
+                    jsonArrayTd.push(parseString(cell, row, col));
+                  });
 
-          if (jsonArrayTd.length > 0 && (jsonArrayTd.length != 1 || jsonArrayTd[0] != "") )
+          if (jsonArrayTd.length > 0 && (jsonArrayTd.length != 1 || jsonArrayTd[0] != ""))
             jsonArray.push(jsonArrayTd);
 
           rowIndex++;
         });
 
-        var jsonExportArray =[];
-        jsonExportArray.push({header:jsonHeaderArray,data:jsonArray});
+        var jsonExportArray = [];
+        jsonExportArray.push({header: jsonHeaderArray, data: jsonArray});
 
         var sdata = JSON.stringify(jsonExportArray);
 
-        if(defaults.consoleLog === true)
+        if (defaults.consoleLog === true)
           console.log(sdata);
 
-        if(defaults.outputMode == 'string')
+        if (defaults.outputMode == 'string')
           return sdata;
 
         var base64data = base64encode(sdata);
 
-        if(defaults.outputMode == 'base64')
+        if (defaults.outputMode == 'base64')
           return base64data;
 
         try {
           var blob = new Blob([sdata], {type: "application/json;charset=utf-8"});
-          saveAs (blob, defaults.fileName + '.json');
+          saveAs(blob, defaults.fileName + '.json');
         }
         catch (e) {
-          downloadFile(defaults.fileName+'.json', 'data:application/json;charset=utf-8;base64,' + base64data);
+          downloadFile(defaults.fileName + '.json', 'data:application/json;charset=utf-8;base64,' + base64data);
         }
 
-      }else if(defaults.type == 'xml'){
+      } else if (defaults.type === 'xml') {
 
-        var rowIndex = 0;
+        rowIndex = 0;
         var xml = '<?xml version="1.0" encoding="utf-8"?>';
         xml += '<tabledata><fields>';
 
         // Header
-        $(el).find('thead').first().find(defaults.theadSelector).each(function() {
+        $(el).find('thead').first().find(defaults.theadSelector).each(function () {
 
           ForEachVisibleCell(this, 'th,td', rowIndex,
-                             function(cell, row, col) {
-                               xml += "<field>" + parseString(cell, row, col) + "</field>";
-                             });
+                  function (cell, row, col) {
+                    xml += "<field>" + parseString(cell, row, col) + "</field>";
+                  });
           rowIndex++;
         });
         xml += '</fields><data>';
 
         // Row Vs Column
-        var rowCount=1;
-        $(el).find('tbody').first().find(defaults.tbodySelector).each(function() {
-          var colCount=1;
-          var rxml="";
+        var rowCount = 1;
+        $(el).find('tbody').first().find(defaults.tbodySelector).each(function () {
+          var colCount = 1;
+          trData = "";
           ForEachVisibleCell(this, 'td', rowIndex,
-                             function(cell, row, col) {
-                               rxml += "<column-"+colCount+">"+parseString(cell, row, col)+"</column-"+colCount+">";
-                               colCount++;
-                             });
-          if (rxml != "<column-1></column-1>"){
-            xml += '<row id="'+rowCount+'">' + rxml + '</row>';
+                  function (cell, row, col) {
+                    trData += "<column-" + colCount + ">" + parseString(cell, row, col) + "</column-" + colCount + ">";
+                    colCount++;
+                  });
+          if (trData.length > 0 && trData != "<column-1></column-1>") {
+            xml += '<row id="' + rowCount + '">' + trData + '</row>';
             rowCount++;
           }
 
@@ -255,89 +273,89 @@ THE SOFTWARE.*/
         xml += '</data></tabledata>';
 
         //output
-        if(defaults.consoleLog === true)
+        if (defaults.consoleLog === true)
           console.log(xml);
 
-        if(defaults.outputMode == 'string')
+        if (defaults.outputMode == 'string')
           return xml;
 
         var base64data = base64encode(xml);
 
-        if(defaults.outputMode == 'base64')
+        if (defaults.outputMode == 'base64')
           return base64data;
 
         try {
           var blob = new Blob([xml], {type: "application/xml;charset=utf-8"});
-          saveAs (blob, defaults.fileName + '.xml');
+          saveAs(blob, defaults.fileName + '.xml');
         }
         catch (e) {
-          downloadFile(defaults.fileName+'.xml', 'data:application/xml;charset=utf-8;base64,' + base64data);
+          downloadFile(defaults.fileName + '.xml', 'data:application/xml;charset=utf-8;base64,' + base64data);
         }
 
-      }else if(defaults.type == 'excel' || defaults.type == 'doc'){
+      } else if (defaults.type == 'excel' || defaults.type == 'doc') {
         //console.log($(this).html());
 
-        var rowIndex = 0;
-        var excel="<table>";
+        rowIndex = 0;
+        var excelData = "<table>";
         // Header
-        $(el).find('thead').first().find(defaults.theadSelector).each(function() {
-          excel += "<tr>";
+        $(el).find('thead').first().find(defaults.theadSelector).each(function () {
+          trData = "";
           ForEachVisibleCell(this, 'th,td', rowIndex,
-                             function(cell, row, col) {
-                               if (cell != null) {
-                                 excel += "<td style='";
-                                 for( var styles in defaults.excelstyles ) {
-                                   if( defaults.excelstyles.hasOwnProperty(styles) ) {
-                                     excel += defaults.excelstyles[styles] + ": " + $(cell).css(defaults.excelstyles[styles]) + ";";
-                                   }
-                                 }
-                                 excel += "'>" + parseString(cell, row, col)+ "</td>";
-                               }
-                             });
+                  function (cell, row, col) {
+                    if (cell != null) {
+                      trData += "<td style='";
+                      for (var styles in defaults.excelstyles) {
+                        if (defaults.excelstyles.hasOwnProperty(styles)) {
+                          trData += defaults.excelstyles[styles] + ": " + $(cell).css(defaults.excelstyles[styles]) + ";";
+                        }
+                      }
+                      trData += "'>" + parseString(cell, row, col) + "</td>";
+                    }
+                  });
+          if (trData.length > 0)
+            excelData += "<tr>" + trData + '</tr>';
           rowIndex++;
-          excel += '</tr>';
         });
 
         // Row Vs Column
-        var rowCount=1;
-        $(el).find('tbody').first().find(defaults.tbodySelector).each(function() {
-          excel += "<tr>";
+        $(el).find('tbody').first().find(defaults.tbodySelector).each(function () {
+          trData = "";
           ForEachVisibleCell(this, 'td', rowIndex,
-                             function(cell, row, col) {
-                               if (cell != null) {
-                                 excel += "<td style='";
-                                 for( var styles in defaults.excelstyles ) {
-                                   if( defaults.excelstyles.hasOwnProperty(styles) ) {
-                                     excel += defaults.excelstyles[styles] + ": " + $(cell).css(defaults.excelstyles[styles]) + ";";
-                                   }
-                                 }
-                                 if ($(cell).is("[colspan]"))
-                                   excel += "' colspan='" + $(cell).attr('colspan');
-                                 if ($(cell).is("[rowspan]"))
-                                   excel += "' rowspan='" + $(cell).attr('rowspan');
-                                 excel += "'>" + parseString(cell, row, col) + "</td>";
-                               }
-                             });
-          rowCount++;
+                  function (cell, row, col) {
+                    if (cell != null) {
+                      trData += "<td style='";
+                      for (var styles in defaults.excelstyles) {
+                        if (defaults.excelstyles.hasOwnProperty(styles)) {
+                          trData += defaults.excelstyles[styles] + ": " + $(cell).css(defaults.excelstyles[styles]) + ";";
+                        }
+                      }
+                      if ($(cell).is("[colspan]"))
+                        trData += "' colspan='" + $(cell).attr('colspan');
+                      if ($(cell).is("[rowspan]"))
+                        trData += "' rowspan='" + $(cell).attr('rowspan');
+                      trData += "'>" + parseString(cell, row, col) + "</td>";
+                    }
+                  });
+          if (trData.length > 0)
+            excelData += "<tr>" + trData + '</tr>';
           rowIndex++;
-          excel += '</tr>';
         });
 
-        if(defaults.displayTableName)
-          excel +="<tr><td></td></tr><tr><td></td></tr><tr><td>" + parseString($('<p>' + defaults.tableName + '</p>')) + "</td></tr>";
+        if (defaults.displayTableName)
+          excelData += "<tr><td></td></tr><tr><td></td></tr><tr><td>" + parseString($('<p>' + defaults.tableName + '</p>')) + "</td></tr>";
 
-        excel += '</table>';
+        excelData += '</table>';
 
-        if(defaults.consoleLog === true)
-          console.log(excel);
+        if (defaults.consoleLog === true)
+          console.log(excelData);
 
-        var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:"+defaults.type+"' xmlns='http://www.w3.org/TR/REC-html40'>";
-        excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-'+defaults.type+'; charset=UTF-8">';
+        var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:" + defaults.type + "' xmlns='http://www.w3.org/TR/REC-html40'>";
+        excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-' + defaults.type + '; charset=UTF-8">';
         excelFile += '<meta http-equiv="content-type" content="application/';
-        excelFile += (defaults.type == 'excel')? 'vnd.ms-excel' : 'msword';
+        excelFile += (defaults.type === 'excel') ? 'vnd.ms-excel' : 'msword';
         excelFile += '; charset=UTF-8">';
         excelFile += "<head>";
-        if (defaults.type == 'excel') {
+        if (defaults.type === 'excel') {
           excelFile += "<!--[if gte mso 9]>";
           excelFile += "<xml>";
           excelFile += "<x:ExcelWorkbook>";
@@ -357,30 +375,30 @@ THE SOFTWARE.*/
         }
         excelFile += "</head>";
         excelFile += "<body>";
-        excelFile += excel;
+        excelFile += excelData;
         excelFile += "</body>";
         excelFile += "</html>";
 
-        if(defaults.outputMode == 'string')
+        if (defaults.outputMode == 'string')
           return excelFile;
 
         var base64data = base64encode(excelFile);
 
-        if(defaults.outputMode == 'base64')
+        if (defaults.outputMode === 'base64')
           return base64data;
 
-        var extension = (defaults.type == 'excel')? 'xls' : 'doc';
+        var extension = (defaults.type === 'excel') ? 'xls' : 'doc';
         try {
-          var blob = new Blob([excelFile], {type: 'application/vnd.ms-'+defaults.type});
-          saveAs (blob, defaults.fileName+'.'+extension);
+          var blob = new Blob([excelFile], {type: 'application/vnd.ms-' + defaults.type});
+          saveAs(blob, defaults.fileName + '.' + extension);
         }
         catch (e) {
-          downloadFile(defaults.fileName+'.'+extension, 'data:application/vnd.ms-'+defaults.type+';base64,' + base64data);
+          downloadFile(defaults.fileName + '.' + extension, 'data:application/vnd.ms-' + defaults.type + ';base64,' + base64data);
         }
 
-      }else if(defaults.type == 'png'){
+      } else if (defaults.type == 'png') {
         html2canvas($(el), {
-          onrendered: function(canvas) {
+          onrendered: function (canvas) {
 
             var image = canvas.toDataURL();
             image = image.substring(22); // remove data stuff
@@ -393,16 +411,16 @@ THE SOFTWARE.*/
               intArray[i] = byteString.charCodeAt(i);
 
             try {
-              var blob = new Blob([buffer], { type: "image/png" });
-              saveAs (blob, defaults.fileName + '.png');
+              var blob = new Blob([buffer], {type: "image/png"});
+              saveAs(blob, defaults.fileName + '.png');
             }
             catch (e) {
-              downloadFile(defaults.fileName+'.png', 'data:image/png;base64,' + image);
+              downloadFile(defaults.fileName + '.png', 'data:image/png;base64,' + image);
             }
           }
         });
 
-      }else if(defaults.type == 'pdf') {
+      } else if (defaults.type == 'pdf') {
         if (defaults.jspdf.autotable === false) {
           var addHtmlOptions = {
             dim: {
@@ -414,12 +432,12 @@ THE SOFTWARE.*/
 
           var doc = new jsPDF(defaults.jspdf.orientation, defaults.jspdf.unit, defaults.jspdf.format);
           doc.addHTML($(el).first(),
-              defaults.jspdf.margins.left,
-              defaults.jspdf.margins.top,
-              addHtmlOptions,
-              function () {
-                jsPdfOutput(doc);
-              });
+                  defaults.jspdf.margins.left,
+                  defaults.jspdf.margins.top,
+                  addHtmlOptions,
+                  function () {
+                    jsPdfOutput(doc);
+                  });
           //delete doc;
         }
         else {
@@ -430,8 +448,8 @@ THE SOFTWARE.*/
 
           // When setting jspdf.format to 'bestfit' tableExport tries to choose
           // the minimum required paper format and orientation in which the table
-          // (or tables in multitable mode) completely fit without column adjustment
-          if (typeof defaults.jspdf.format === 'string' && defaults.jspdf.format.toLowerCase() == 'bestfit') {
+          // (or tables in multitable mode) completely fits without column adjustment
+          if (typeof defaults.jspdf.format === 'string' && defaults.jspdf.format.toLowerCase() === 'bestfit') {
             var pageFormats = {
               'a0': [2383.94, 3370.39], 'a1': [1683.78, 2383.94],
               'a2': [1190.55, 1683.78], 'a3': [841.89, 1190.55],
@@ -468,22 +486,24 @@ THE SOFTWARE.*/
           }
 
           // The jsPDF doc object is stored in defaults.jspdf.autotable.tableExport,
-          // thus it can be accessed from any callback function from below
+          // thus it can be accessed from any callback function
           teOptions.doc = new jsPDF(defaults.jspdf.orientation,
-              defaults.jspdf.unit,
-              defaults.jspdf.format);
+                  defaults.jspdf.unit,
+                  defaults.jspdf.format);
 
           $(el).filter(':visible').each(function () {
             if ($(this).css('display') != 'none') {
+              var colKey;
               var rowIndex = 0;
               var atOptions = {};
 
               teOptions.columns = [];
               teOptions.rows = [];
+              teOptions.rowoptions = {};
 
               // onTable: optional callback function for every matching table that can be used
               // to modify the tableExport options or to skip the output of a particular table
-              // when the  table selector targets multiple tables
+              // if the table selector targets multiple tables
               if (typeof teOptions.onTable === 'function')
                 if (teOptions.onTable($(this), defaults) === false)
                   return true; // continue to next iteration step (table)
@@ -492,66 +512,93 @@ THE SOFTWARE.*/
               Object.keys(defaults.jspdf.autotable).forEach(function (key) {
                 atOptions[key] = defaults.jspdf.autotable[key];
               });
-              atOptions.margins = {};
-              $.extend(true, atOptions.margins, defaults.jspdf.margins);
+              atOptions.margin = {};
+              $.extend(true, atOptions.margin, defaults.jspdf.margins);
 
-              if (typeof atOptions.renderCell !== 'function') {
+              if (typeof atOptions.drawHeaderCell !== 'function') {
+                atOptions.createdHeaderCell = function (cell, data) {
 
-                // draw cell text with original <td> alignment
-                atOptions.renderCell = function (x, y, width, height, key, value, row, settings) {
-                  var doc = settings.tableExport.doc;
-                  var xoffset = 0;
-
-                  doc.setFillColor(row % 2 === 0 ? 245 : 255);
-                  doc.setTextColor(50);
-                  doc.rect(x, y, width, height, 'F');
-                  y += settings.lineHeight / 2 + doc.autoTableTextHeight() / 2 - 2.5;
-
-                  if (typeof settings.tableExport.columns [key] != 'undefined') {
-                    var col = settings.tableExport.columns [key];
-
-                    if (col.style.align == 'right')
-                      xoffset = width - doc.getStringUnitWidth(('' + value)) * doc.internal.getFontSize() - settings.padding;
-                    else if (col.style.align == 'center')
-                      xoffset = (width - doc.getStringUnitWidth(('' + value)) * doc.internal.getFontSize()) / 2;
+                  if (typeof teOptions.columns [data.column.dataKey] != 'undefined') {
+                    var col = teOptions.columns [data.column.dataKey];
+                    cell.styles.halign = col.style.align;
+                    if (atOptions.styles.fillColor === 'inherit')
+                      cell.styles.fillColor = col.style.bcolor;
+                    if (atOptions.styles.textColor === 'inherit')
+                      cell.styles.textColor = col.style.color;
                   }
+                }
+              }
 
-                  if (xoffset < settings.padding)
-                    xoffset = settings.padding;
+              if (typeof atOptions.drawCell !== 'function') {
+                // draw cell text with original <td> alignment
+                atOptions.createdCell = function (cell, data) {
+                  var rowopt = teOptions.rowoptions [data.row.index + ":" + data.column.dataKey];
 
-                  doc.text(value, x + xoffset, y);
+                  if ( typeof rowopt != 'undefined' ) {
+                    cell.styles.halign = rowopt.style.align;
+                    if (atOptions.styles.fillColor === 'inherit')
+                      cell.styles.fillColor = rowopt.style.bcolor;
+                    if (atOptions.styles.textColor === 'inherit')
+                      cell.styles.textColor = rowopt.style.color;
+                  }
                 }
               }
 
               // collect header and data rows
               $(this).find('thead').find(defaults.theadSelector).each(function () {
-                var colKey = 0;
+                colKey = 0;
 
                 ForEachVisibleCell(this, 'th,td', rowIndex,
-                    function (cell, row, col) {
-                      var obj = {
-                        title: parseString(cell, row, col),
-                        key: colKey++,
-                        style: {
-                          align: getStyle(cell, 'text-align'),
-                          bcolor: getStyle(cell, 'background-color')
-                        }
-                      };
-                      teOptions.columns.push(obj);
-                    });
+                        function (cell, row, col) {
+                          var a = getStyle(cell, 'text-align');
+                          if ( a == 'start' )
+                            a = getStyle(cell, 'direction') == 'rtl' ? 'right' : 'left';
+                          var obj = {
+                            title: parseString(cell, row, col),
+                            key: colKey++,
+                            style: {
+                              align: a,
+                              bcolor: rgb2array(getStyle(cell, 'background-color'), [255,255,255]),
+                              color: rgb2array(getStyle(cell, 'color'), [0,0,0])
+                            }
+                          };
+                          teOptions.columns.push(obj);
+                        });
                 rowIndex++;
-                colKey = 0;
               });
 
+              var rowCount = 0;
               $(this).find('tbody').find(defaults.tbodySelector).each(function () {
                 var rowData = [];
+                colKey = 0;
 
                 ForEachVisibleCell(this, 'td', rowIndex,
-                    function (cell, row, col) {
-                      rowData.push(parseString(cell, row, col));
-                    });
+                        function (cell, row, col) {
+                          if (cell !== null) {
+                            var a = getStyle(cell, 'text-align');
+                            if (a == 'start')
+                              a = getStyle(cell, 'direction') == 'rtl' ? 'right' : 'left';
+                            var obj = {
+                              style: {
+                                align: a,
+                                bcolor: rgb2array(getStyle(cell, 'background-color'), [255,255,255]),
+                                color: rgb2array(getStyle(cell, 'color'), [0,0,0])
+                              }
+                            };
+                            teOptions.rowoptions [rowCount + ":" + colKey++] = obj;
+                          }
+                          else {
+                            var obj = teOptions.rowoptions [rowCount + ":" + (colKey-1)];
+                            teOptions.rowoptions [rowCount + ":" + colKey++] = obj;
+                          }
+
+                          rowData.push(parseString(cell, row, col));
+                        });
+                if (rowData.length) {
+                  teOptions.rows.push(rowData);
+                  rowCount++
+                }
                 rowIndex++;
-                teOptions.rows.push(rowData);
               });
 
               // onBeforeAutotable: optional callback function before calling
@@ -567,7 +614,7 @@ THE SOFTWARE.*/
                 teOptions.onAfterAutotable($(this), atOptions);
 
               // set the start position for the next table (in case there is one)
-              defaults.jspdf.autotable.startY = teOptions.doc.autoTableEndPosY() + atOptions.margins.top;
+              defaults.jspdf.autotable.startY = teOptions.doc.autoTableEndPosY() + atOptions.margin.top;
             }
           });
 
@@ -581,96 +628,104 @@ THE SOFTWARE.*/
       }
 
       function ForEachVisibleCell(tableRow, selector, rowIndex, cellcallback) {
+        if (defaults.ignoreRow.indexOf(rowIndex) == -1) {
 
-        $(tableRow).filter(':visible').find(selector).each(function(colIndex) {
-          if ($(this).css('display') != 'none' &&
-              $(this).data("tableexport-display") != 'none') {
-            if(defaults.ignoreColumn.indexOf(colIndex) == -1) {
-              if (typeof(cellcallback) === "function") {
-                var cs = 0; // colspan value
+          $(tableRow).filter(function() {
+            return $(this).data("tableexport-display") != 'none' &&
+                   ($(this).is(':visible') ||
+                    $(this).data("tableexport-display") == 'always' ||
+                    $(this).closest('table').data("tableexport-display") == 'always');
+          }).find(selector).each(function (colIndex) {
+            if ($(this).data("tableexport-display") == 'always' ||
+                ($(this).css('display') != 'none' &&
+                 $(this).css('visibility') != 'hidden' &&
+                 $(this).data("tableexport-display") != 'none')) {
+              if (defaults.ignoreColumn.indexOf(colIndex) == -1) {
+                if (typeof (cellcallback) === "function") {
+                  var cs = 0; // colspan value
 
-                // handle previously detected rowspans
-                if (typeof rowspans[rowIndex] != 'undefined' && rowspans[rowIndex].length > 0) {
-                  for (c = 0; c <= colIndex; c++) {
-                    if (typeof rowspans[rowIndex][c] != 'undefined') {
-                      cellcallback(null, rowIndex, c);
-                      delete rowspans[rowIndex][c];
-                      colIndex++;
+                  // handle previously detected rowspans
+                  if (typeof rowspans[rowIndex] != 'undefined' && rowspans[rowIndex].length > 0) {
+                    for (c = 0; c <= colIndex; c++) {
+                      if (typeof rowspans[rowIndex][c] != 'undefined') {
+                        cellcallback(null, rowIndex, c);
+                        delete rowspans[rowIndex][c];
+                        colIndex++;
+                      }
+                    }
+                  }
+
+                  // output content of current cell
+                  cellcallback(this, rowIndex, colIndex);
+
+                  // handle colspan of current cell
+                  if ($(this).is("[colspan]")) {
+                    cs = $(this).attr('colspan');
+                    for (c = 0; c < cs - 1; c++)
+                      cellcallback(null, rowIndex, colIndex + c);
+                  }
+
+                  // store rowspan for following rows
+                  if ($(this).is("[rowspan]")) {
+                    var rs = parseInt($(this).attr('rowspan'));
+
+                    for (r = 1; r < rs; r++) {
+                      if (typeof rowspans[rowIndex + r] == 'undefined')
+                        rowspans[rowIndex + r] = [];
+                      rowspans[rowIndex + r][colIndex] = "";
+
+                      for (c = 1; c < cs; c++)
+                        rowspans[rowIndex + r][colIndex + c] = "";
                     }
                   }
                 }
-
-                // output content of current cell
-                cellcallback(this, rowIndex, colIndex);
-
-                // handle colspan of current cell
-                if ($(this).is("[colspan]")) {
-                  cs = $(this).attr('colspan');
-                  for (c = 0; c < cs - 1; c++)
-                    cellcallback(null, rowIndex, colIndex + c);
-                }
-
-                // store rowspan for following rows
-                if ($(this).is("[rowspan]")) {
-                  var rs = parseInt($(this).attr('rowspan'));
-
-                  for (r = 1; r < rs; r++) {
-                    if (typeof rowspans[rowIndex + r] == 'undefined')
-                      rowspans[rowIndex + r] = [];
-                    rowspans[rowIndex + r][colIndex] = "";
-
-                    for (c = 1; c < cs; c++)
-                      rowspans[rowIndex + r][colIndex + c] = "";
-                  }
-                }
-
               }
             }
-          }
-        });
+          });
+        }
       }
 
-      function jsPdfOutput(doc){
-        if(defaults.consoleLog === true)
+      function jsPdfOutput(doc) {
+        if (defaults.consoleLog === true)
           console.log(doc.output());
 
-        if(defaults.outputMode == 'string')
+        if (defaults.outputMode == 'string')
           return doc.output();
 
-        if(defaults.outputMode == 'base64')
+        if (defaults.outputMode == 'base64')
           return base64encode(doc.output());
 
         try {
           var blob = doc.output('blob');
-          saveAs (blob, defaults.fileName + '.pdf');
+          saveAs(blob, defaults.fileName + '.pdf');
         }
         catch (e) {
           downloadFile(defaults.fileName + '.pdf', 'data:application/pdf;base64,' + base64encode(doc.output()));
         }
       }
 
-      function escapeRegExp(string){
+      function escapeRegExp(string) {
         return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
       }
 
-      function replaceAll(string, find, replace){
+      function replaceAll(string, find, replace) {
         return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
       }
 
-      function csvString(cell, rowIndex, colIndex){
+      function csvString(cell, rowIndex, colIndex) {
         var result = '';
 
-        if (cell != null){
+        if (cell != null) {
           var dataString = parseString(cell, rowIndex, colIndex);
 
-          var csvValue = (dataString === null || dataString == '')? '' : dataString.toString();
+          var csvValue = (dataString === null || dataString == '') ? '' : dataString.toString();
 
-          if ( dataString instanceof Date )
+          if (dataString instanceof Date)
             result = defaults.csvEnclosure + dataString.toLocaleString() + defaults.csvEnclosure;
-          else{
-            result = replaceAll (csvValue, defaults.csvEnclosure, defaults.csvEnclosure + defaults.csvEnclosure);
+          else {
+            result = replaceAll(csvValue, defaults.csvEnclosure, defaults.csvEnclosure + defaults.csvEnclosure);
 
-            if ( result.indexOf (defaults.csvSeparator) >= 0 || /[\r\n ]/g.test(result) )
+            if (result.indexOf(defaults.csvSeparator) >= 0 || /[\r\n ]/g.test(result))
               result = defaults.csvEnclosure + result + defaults.csvEnclosure;
           }
         }
@@ -678,23 +733,49 @@ THE SOFTWARE.*/
         return result;
       }
 
-      function parseString(cell, rowIndex, colIndex){
+      function parseNumber(value) {
+        value = value || "0";
+        value = replaceAll(value, defaults.numbers.html.decimalMark, '.');
+        value = replaceAll(value, defaults.numbers.html.thousandsSeparator, '');
+
+        return typeof value === "number" || jQuery.isNumeric(value) !== false ? value : false;
+      }
+
+
+      function parseString(cell, rowIndex, colIndex) {
         var result = '';
 
-        if (cell != null){
+        if (cell != null) {
           var $cell = $(cell);
 
-          if(defaults.htmlContent === true){
+          if (defaults.htmlContent === true) {
             result = $cell.html().trim();
-          }else{
+          }
+          else {
             result = $cell.text().trim().replace(/\u00AD/g, ""); // remove soft hyphens
+
+            if (defaults.numbers.html.decimalMark != defaults.numbers.output.decimalMark ||
+                defaults.numbers.html.thousandsSeparator != defaults.numbers.output.thousandsSeparator) {
+              var number = parseNumber (result);
+
+              if ( number !== false ) {
+                var frac = ("" + number).split('.');
+                if ( frac.length == 1 )
+                  frac[1] = "";
+                var mod = frac[0].length > 3 ? frac[0].length % 3 : 0;
+
+                result = (number < 0 ? "-" : "") +
+                         (defaults.numbers.output.thousandsSeparator ? ((mod ? frac[0].substr(0, mod) + defaults.numbers.output.thousandsSeparator : "") + frac[0].substr(mod).replace(/(\d{3})(?=\d)/g, "$1" + defaults.numbers.output.thousandsSeparator)) : frac[0]) +
+                         (frac[1].length ? defaults.numbers.output.decimalMark + frac[1] : "");
+              }
+            }
           }
 
-          if(defaults.escape === true){
+          if (defaults.escape === true) {
             result = escape(result);
           }
 
-          if (typeof defaults.onCellData === 'function'){
+          if (typeof defaults.onCellData === 'function') {
             result = defaults.onCellData($cell, rowIndex, colIndex, result);
           }
         }
@@ -702,29 +783,43 @@ THE SOFTWARE.*/
         return result;
       }
 
-      function hyphenate (a, b, c){
+      function hyphenate(a, b, c) {
         return b + "-" + c.toLowerCase();
       }
 
-      // get computed style property
-      function getStyle (target, prop){
-        if(window.getComputedStyle){ // gecko and webkit
-          prop = prop.replace(/([a-z])([A-Z])/, hyphenate);  // requires hyphenated, not camel
-          return window.getComputedStyle(target, null).getPropertyValue(prop);
-        }
-        if(target.currentStyle){ // ie
-          return target.currentStyle[prop];
-        }
-        return target.style[prop];
+      function rgb2array(rgb_string, default_result) {
+        var re = /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/;
+        var bits = re.exec(rgb_string);
+        var result = default_result;
+        if (bits)
+          result = [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
+        return result;
       }
 
-      function getPropertyUnitValue (target, prop, unit){
+      // get computed style property
+      function getStyle(target, prop) {
+        try {
+          if (window.getComputedStyle) { // gecko and webkit
+            prop = prop.replace(/([a-z])([A-Z])/, hyphenate);  // requires hyphenated, not camel
+            return window.getComputedStyle(target, null).getPropertyValue(prop);
+          }
+          if (target.currentStyle) { // ie
+            return target.currentStyle[prop];
+          }
+          return target.style[prop];
+        }
+        catch (e) {
+        }
+        return "";
+      }
+
+      function getPropertyUnitValue(target, prop, unit) {
         var baseline = 100;  // any number serves
 
         var value = getStyle(target, prop);  // get the computed style value
 
         var numeric = value.match(/\d+/);  // get the numeric component
-        if(numeric !== null) {
+        if (numeric !== null) {
           numeric = numeric[0];  // get the string
 
           var temp = document.createElement("div");  // create temporary element
@@ -743,25 +838,25 @@ THE SOFTWARE.*/
         return 0;
       }
 
-      function downloadFile(filename, data){
+      function downloadFile(filename, data) {
         var DownloadLink = document.createElement('a');
 
-        if ( DownloadLink ){
+        if (DownloadLink) {
           document.body.appendChild(DownloadLink);
           DownloadLink.style = 'display: none';
           DownloadLink.download = filename;
           DownloadLink.href = data;
 
-          if ( document.createEvent ){
-            if ( DownloadEvt == null )
+          if (document.createEvent) {
+            if (DownloadEvt == null)
               DownloadEvt = document.createEvent('MouseEvents');
 
             DownloadEvt.initEvent('click', true, false);
             DownloadLink.dispatchEvent(DownloadEvt);
           }
-          else if ( document.createEventObject )
+          else if (document.createEventObject)
             DownloadLink.fireEvent('onclick');
-          else if (typeof DownloadLink.onclick == 'function' )
+          else if (typeof DownloadLink.onclick == 'function')
             DownloadLink.onclick();
 
           document.body.removeChild(DownloadLink);
@@ -776,7 +871,7 @@ THE SOFTWARE.*/
           if (c < 128) {
             utftext += String.fromCharCode(c);
           }
-          else if((c > 127) && (c < 2048)) {
+          else if ((c > 127) && (c < 2048)) {
             utftext += String.fromCharCode((c >> 6) | 192);
             utftext += String.fromCharCode((c & 63) | 128);
           }
@@ -809,12 +904,12 @@ THE SOFTWARE.*/
             enc4 = 64;
           }
           output = output +
-            keyStr.charAt(enc1) + keyStr.charAt(enc2) +
-            keyStr.charAt(enc3) + keyStr.charAt(enc4);
+                  keyStr.charAt(enc1) + keyStr.charAt(enc2) +
+                  keyStr.charAt(enc3) + keyStr.charAt(enc4);
         }
         return output;
       }
-    
+
       return this;
     }
   });
