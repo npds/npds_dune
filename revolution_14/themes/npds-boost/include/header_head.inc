@@ -49,7 +49,6 @@ echo '
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
 
-    <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-
+<script type="text/javascript" src="lib/tableExport.jquery.plugin-master/tableExport.js"></script>
 ';
 ?>
