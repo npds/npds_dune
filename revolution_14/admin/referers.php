@@ -37,7 +37,7 @@ function hreferer($filter) {
       <input type="hidden" name="op" value="hreferer" />
       <div class="form-group">
       <div class="row>">
-         <label class="control-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
+         <label class="form-control-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
          <div class="col-sm-4">
             <input type="number" class="form-control" name="filter" min="0" max="99999" value="'.$filter.'" />
          </div>
@@ -45,7 +45,7 @@ function hreferer($filter) {
       </div>
    </div>
    </form>
-   <table id ="tad_refe" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true">
+   <table id ="tad_refe" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
    <thead>
       <tr>
          <th data-sortable="true">Url</th>

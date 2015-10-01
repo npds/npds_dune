@@ -93,7 +93,7 @@ function autoStory() {
     GraphicAdmin($hlpfile);
     adminhead ($f_meta_nom, $f_titre, $adminimg);
     echo '<h3>'.adm_translate("Articles programmés").'</h3>
-    <table id="tab_adm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true">
+    <table id="tab_adm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
     <thead>
     <tr>
         <th data-sortable="true">'.adm_translate('Titre').'</th>

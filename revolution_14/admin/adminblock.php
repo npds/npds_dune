@@ -32,18 +32,18 @@ function ablock() {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
          <form id="fad_ablock" action="admin.php" method="post">
-            <div class="form-group row">
-                <label class="control-label" for="title">'.adm_translate("Titre").'</label>
+            <div class="form-group">
+                <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
                 <textarea class="form-control" type="text" name="title" id="title" maxlength="250">'.$title.'</textarea>
                 <span class="help-block text-right"><span id="countcar_title"></span></span>
             </div>
-            <div class="form-group row">
-                <label class="control-label" for="content">'.adm_translate("Contenu").'</label>
+            <div class="form-group">
+                <label class="form-control-label" for="content">'.adm_translate("Contenu").'</label>
                 <textarea class="form-control" type="text" rows="25" name="content" id="content">'.$content.'</textarea>
             </div>
             <input type="hidden" name="op" value="changeablock" />
-            <div class="form-group row">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class ="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+            <div class="form-group">
+               <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
             </div>
          </form>';
       }

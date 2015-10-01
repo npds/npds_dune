@@ -28,8 +28,7 @@ function FaqAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <h3>'.adm_translate("Liste des catégories").'</h3>
-   <table id="tad_faq" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa"
-               data-icons="icons">
+   <table id="tad_faq" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead class="thead-default">
          <tr>
             <th data-sortable="true" class="">'.adm_translate("Catégories").'</th>
@@ -53,7 +52,7 @@ function FaqAdmin() {
       <fieldset>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
+               <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" placeholder="'.adm_translate("Catégories").'" rows="3" required="required" ></textarea>
                   <span class="help-block text-right"><span id="countcar_categories"></span></span>
@@ -98,7 +97,7 @@ function FaqCatGo($id_cat) {
       <fieldset>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-12" for="question">'.adm_translate("Question").'</label>
+               <label class="form-control-label col-sm-12" for="question">'.adm_translate("Question").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="question" id="question" maxlength="255"></textarea>
                   <span class="help-block text-right"><span id="countcar_question"></span></span>
@@ -107,7 +106,7 @@ function FaqCatGo($id_cat) {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-12" for="answer">'.adm_translate("R&#xE9;ponse").'</label>
+               <label class="form-control-label col-sm-12" for="answer">'.adm_translate("R&#xE9;ponse").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" name="answer" rows="15"></textarea>
                </div>
@@ -169,7 +168,7 @@ function FaqCatEdit($id_cat) {
       <fieldset>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
+               <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" rows="3" required="required" >'.$categories.'</textarea>
                   <span class="help-block text-right"><span id="countcar_categories"></span></span>
@@ -227,7 +226,7 @@ function FaqCatGoEdit($id) {
       <fieldset>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-xs-12" for="question">'.adm_translate("Question").'</label>
+               <label class="form-control-label col-xs-12" for="question">'.adm_translate("Question").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="question" id="question" maxlength="255">'.$question.'</textarea>
                   <span class="help-block text-right"><span id="countcar_question"></span></span>
@@ -236,7 +235,7 @@ function FaqCatGoEdit($id) {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-xs-12" for="answer">'.adm_translate("Réponse").'</label>
+               <label class="form-control-label col-xs-12" for="answer">'.adm_translate("Réponse").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" name="answer" rows="15">'.$answer.'</textarea>
                </div>

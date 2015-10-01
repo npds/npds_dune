@@ -43,7 +43,8 @@ function groupe($groupe) {
    }
    if ($nbg>5) {$nbg=5;}
    return ('
-   <select multiple="multiple" class="form-control" name="Mmember[]" size="'.$nbg.'">'.$str.'
+   <select multiple="multiple" class="form-control" name="Mmember[]" size="'.$nbg.'">
+   '.$str.'
    </select>');
 }
 
@@ -164,16 +165,16 @@ function blocks() {
                      <fieldset>
                         <legend>'.adm_translate("Contenu").'</legend>
                         <div class="form-group">
-                           <label class="control-label" for="title">'.adm_translate("Titre").'</label>
+                           <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
                            <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" />
                         </div>
                         <div class="form-group">
-                           <label class="control-label" for="content">'.adm_translate("Contenu").'</label>
+                           <label class="form-control-label" for="content">'.adm_translate("Contenu").'</label>
                            <textarea class="form-control" rows="5" name="content">'.$content.'</textarea>
                            <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                         </div>
                         <div class="form-group">
-                           <label class="control-label" for="BLaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
+                           <label class="form-control-label" for="BLaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
                            <textarea class="form-control" rows="2" name="BLaide">'.$BLaide.'</textarea>
                         </div>
                      </fieldset>
@@ -194,13 +195,13 @@ function blocks() {
                      <fieldset>
                         <legend>'.adm_translate("Param&#xE8;tres").'</legend>
                         <div class="form-group">
-                           <label class="control-label" for="Lindex">Index</label>
+                           <label class="form-control-label" for="Lindex">Index</label>
                            <input class="form-control" type="number" name="Lindex" max="9999" value="'.$Lindex.'" />
                         </div>
                         <div class="form-group">
-                           <label class="control-label" for="Scache">'.adm_translate("Rétention").'</label>
+                           <label class="form-control-label" for="Scache">'.adm_translate("Rétention").'</label>
                            <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="'.$Scache.'" />
-                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'
+                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
                         </div>
                         <div class="form-group">
                            <label class="checkbox-inline" for="Sactif">
@@ -223,7 +224,7 @@ function blocks() {
                <div class="row">
                   <div class="col-xs-12"
                      <div class="form-group">
-                        <button class="btn btn-primary" type="submit">'.adm_translate("Ok").'</button>
+                        <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Ok").'</button>
                      </div>
                   </div>
                </div>
@@ -321,16 +322,16 @@ function blocks() {
                      <fieldset>
                         <legend>'.adm_translate("Contenu").'</legend>
                         <div class="form-group">
-                           <label class="control-label" for="title">'.adm_translate("Titre").'</label>
+                           <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
                            <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" />
                         </div>
                         <div class="form-group">
-                           <label class="control-label" for="content">'.adm_translate("Contenu").'</label>
+                           <label class="form-control-label" for="content">'.adm_translate("Contenu").'</label>
                            <textarea class="form-control" cols="70" rows="5" name="content">'.$content.'</textarea>
                            <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                         </div>
                         <div class="form-group">
-                           <label class="control-label" for="BRaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
+                           <label class="form-control-label" for="BRaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
                            <textarea class="form-control" rows="2" name="BRaide">'.$BRaide.'</textarea>
                         </div>
                      </fieldset>
@@ -351,13 +352,13 @@ function blocks() {
                      <fieldset>
                         <legend>'.adm_translate("Param&#xE8;tres").'</legend>
                         <div class="form-group">
-                           <label class="control-label" for="Rindex">Index</label>
+                           <label class="form-control-label" for="Rindex">Index</label>
                            <input class="form-control" type="number" name="Rindex" min="0" max="9999" value="'.$Rindex.'" />
                         </div>
                         <div class="form-group">
-                           <label class="control-label" for="Scache">'.adm_translate("Rétention").'</label>
+                           <label class="form-control-label" for="Scache">'.adm_translate("Rétention").'</label>
                            <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="'.$Scache.'" />
-                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera <b>pas caché (obligatoire pour le bloc function#adminblock).").'
+                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
                         </div>
                         <div class="form-group">
                            <label class="checkbox-inline" for="Sactif">
@@ -380,7 +381,7 @@ function blocks() {
                <div class="row">
                   <div class="col-xs-12"
                      <div class="form-group">
-                        <button id="" class="btn btn-primary col-xs-6" type="submit">'.adm_translate("Ok").'</button>
+                        <button id="" class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Ok").'</button>
                      </div>
                   </div>
                </div>
@@ -405,16 +406,16 @@ function blocks() {
             <fieldset>
                <legend>'.adm_translate("Contenu").'</legend>
                <div class="form-group">
-                  <label class="control-label" for="title">'.adm_translate("Titre").'</label>
+                  <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
                   <input class="form-control" type="text" name="title" id="title" maxlength="255" />
                </div>
                <div class="form-group">
-                  <label class="control-label" for="xtext">'.adm_translate("Contenu").'</label>
+                  <label class="form-control-label" for="xtext">'.adm_translate("Contenu").'</label>
                   <textarea class="form-control" name="xtext" id="xtext" rows="5"></textarea>
                   <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                </div>
                <div class="form-group">
-                  <label class="control-label" for="Baide">'.adm_translate("Aide en ligne").'</label>
+                  <label class="form-control-label" for="Baide">'.adm_translate("Aide en ligne").'</label>
                   <textarea class="form-control" rows="2" name="Baide" id="Baide"></textarea>
                </div>
             </fieldset>
@@ -424,7 +425,7 @@ function blocks() {
                echo '
             </fieldset>
             <div class="form-group">
-               <label class="control-label" for="op">'.adm_translate("Position").'</label>
+               <label class="form-control-label" for="op">'.adm_translate("Position").'</label>
                <div>
                   <label class="radio-inline">
                      <input type="radio" name="op" value="makelblock" checked="checked" />'.adm_translate("Créer un Bloc gauche").'
@@ -439,13 +440,13 @@ function blocks() {
             <fieldset>
                <legend>'.adm_translate("Param&#xE8;tres").'</legend>
                   <div class="form-group">
-                     <label class="control-label" for="index">Index</label>
+                     <label class="form-control-label" for="index">Index</label>
                      <input class="form-control" type="number" name="index" id="index" min="0" max="9999" />
                   </div>
                   <div class="form-group">
-                     <label class="control-label" for="Scache">'.adm_translate("Rétention").'</label>
+                     <label class="form-control-label" for="Scache">'.adm_translate("Rétention").'</label>
                      <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="60" />
-                     <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera <b>pas caché (obligatoire pour le bloc function#adminblock).").'
+                     <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
                   </div>
                   <div class="form-group">
                      <label class="checkbox-inline text-danger" for="SHTML">
@@ -459,7 +460,7 @@ function blocks() {
          </div>
       </div>
       <div class="form-group">
-         <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
+         <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
      </div>
    </form>';
   include("footer.php");

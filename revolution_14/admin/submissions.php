@@ -33,7 +33,7 @@ function submissions() {
     } else {
        echo '<h3>'.adm_translate("Nouveaux Articles postés").'&nbsp;<span class="label label-pill label-default">'.sql_num_rows($result).'</span></h3>';
        echo '
-       <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true">
+       <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
        <thead>
            <tr>
                <th data-sortable="true"><i class="fa fa-user fa-lg"></i></th>

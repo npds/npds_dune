@@ -27,7 +27,7 @@ function ConfigFiles($contents, $files) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    if ($contents=="") {
-      echo '<table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true">
+      echo '<table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
     <thead>
         <tr>
             <th>'.adm_translate('Nom').'</th>
@@ -123,19 +123,18 @@ function ConfigFiles($contents, $files) {
             <td><a href="admin.php?op=ConfigFiles_load&amp;files=humans"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a></td>
         </tr>
     </tbody>
-</table>'."\n";
+</table>';
    } else {
       echo 
       '<h3>'.adm_translate("Modification de").' : '.$files.'</h3>
       <form action="admin.php?op=ConfigFiles_save" method="post">
          <code><textarea class="form-control" name="Xtxt" rows="20" cols="70">'."\n";
       echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
-      //a revoir quand le fichier wemble corrompu caracteres  Si la chaîne d'entrée string contient une séquence de code invalide dans le paramètre encoding fourni, une chaîne vide sera retournée à moins que le drapeau ENT_IGNORE ou le drapeau ENT_SUBSTITUTE ne soit définie
       echo '</textarea></code>
          <input type="hidden" name="Xfiles" value="'.$files.'" />
          <div class="form-group">
             <button class="btn btn-primary" type="submit" name="confirm">'.adm_translate("Sauver les modifications").'</button> 
-            <a href="admin.php?op=ConfigFiles" class="btn btn-secondary">'.adm_translate("Abandonner").'</a>
+            <button href="admin.php?op=ConfigFiles" class="btn btn-secondary">'.adm_translate("Abandonner").'</button>
         </div>
       </form>';
    }
@@ -219,8 +218,9 @@ function delete_configfile($fileX) {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<div class="jumbotron">
-      <p>'.adm_translate("Supprimer le fichier").' '.$fileX.' ? <br /><br /><a class="btn btn-danger" href="admin.php?op=ConfigFiles_delete&amp;file='.$fileX.'" role="button">'.adm_translate("Oui").'</a>&nbsp;&nbsp;<a href="admin.php?op=ConfigFiles" class="btn btn-secondary" role="button">'.adm_translate("Non").'</a></p>
+   echo '
+   <div class="alert alert-danger" role="alert">
+      <p><strong>'.adm_translate("Supprimer le fichier").' '.$fileX.' ? </strong><br /><br /><button class="btn btn-danger btn-sm" href="admin.php?op=ConfigFiles_delete&amp;file='.$fileX.'">'.adm_translate("Oui").'</button>&nbsp;&nbsp;<button class="btn btn-secondary btn-sm" href="admin.php?op=ConfigFiles" >'.adm_translate("Non").'</button></p>
    </div>';
    adminfoot('','','','');
 }

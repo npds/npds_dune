@@ -162,7 +162,7 @@ Function Add_Body() {
       <fieldset>
          <div class="form-group">
             <div class="row">
-               <label class="control-label" for="html">'.adm_translate("Format de donn&#xE9;es").'</label>
+               <label class="form-control-label" for="html">'.adm_translate("Format de donn&#xE9;es").'</label>
                <div>
                   <input class="form-control" type="number" min="0" max="1" value="1" name="html" required="required" />
                   <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
@@ -171,7 +171,7 @@ Function Add_Body() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label" for="xtext">'.adm_translate("Texte").'</label>
+               <label class="form-control-label" for="xtext">'.adm_translate("Texte").'</label>
                <div>
                   <textarea class="form-control" rows="30" name="xtext" ></textarea>
                </div>
@@ -231,14 +231,14 @@ Function Add_Header_Footer($ibid) {
       <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group">
-               <label class="control-label" for="html">'.adm_translate("Format de donn&#xE9;es").'</label>
+               <label class="form-control-label" for="html">'.adm_translate("Format de donn&#xE9;es").'</label>
                <div>
                   <input class="form-control" type="number" min="0" max="1" value="1" name="html" required="required" />
                   <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
                </div>
             </div>
          <div class="form-group">
-               <label class="control-label" for="xtext">'.adm_translate("Texte").'</label>
+               <label class="form-control-label" for="xtext">'.adm_translate("Texte").'</label>
                <div>
                   <textarea class="form-control" rows="20" name="xtext" ></textarea>
                </div>
@@ -430,7 +430,7 @@ function lnl_user_list() {
    $result = sql_query("select email, date, status from ".$NPDS_Prefix."lnl_outside_users ORDER BY date");
    echo '
    <h3>'.adm_translate("Liste des prospects").'</h3>
-   <table id="tad_prospect" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true">
+   <table id="tad_prospect" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="col-md-6" data-sortable="true">'.adm_translate("E-mail").'</th>

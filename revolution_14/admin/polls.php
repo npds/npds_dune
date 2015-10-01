@@ -29,7 +29,7 @@ function poll_createPoll() {
 //   
         echo '
         <h3>'.adm_translate("Liste des Sondages").'</h3>
-        <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true">
+        <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
                <th data-sortable="true">ID</th>
@@ -64,7 +64,7 @@ function poll_createPoll() {
       <input type="hidden" name="op" value="createPosted" />
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
                <div class="col-sm-9 col-md-9">
                   <input class="form-control" type="text" id="pollTitle" name="pollTitle" maxlength="100" />
                   <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
@@ -75,7 +75,7 @@ function poll_createPoll() {
    echo '
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").'</label>
+               <label class="form-control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").'</label>
                <div class="col-sm-9 col-md-9">
                   <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
                </div>
@@ -135,7 +135,7 @@ function poll_removePoll() {
    echo '
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="removePosted" />
-      <table id="tad_delepool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true">
+      <table id="tad_delepool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
                <th></th>
@@ -199,7 +199,7 @@ function poll_editPoll() {
    <span class="help-block">'.adm_translate("S.V.P. Choisissez un sondage dans la liste suivante.").'</span>
    <form id="fad_editpool" action="admin.php" method="post">
       <input type="hidden" name="op" value="editpollPosted" />
-      <table id="tad_editpool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true">
+      <table id="tad_editpool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
                <th></th>
@@ -245,7 +245,7 @@ function poll_editPollPosted() {
       <input type="hidden" name="pollID" value="'.$id.'" />
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
             <div class="col-sm-9 col-md-9">
                <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" />
                <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
@@ -257,7 +257,7 @@ function poll_editPollPosted() {
          echo '
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
+            <label class="form-control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
             <div class="col-sm-9 col-md-9">
                <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" />
             </div>

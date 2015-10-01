@@ -64,7 +64,7 @@ global $language,$adminimg, $admf_ext;
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <h3>'.adm_translate("Les modules").'</h3>
-   <table id="tad_modu" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true">
+   <table id="tad_modu" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th><img class="adm_img" src="images/admin/module.png" alt="icon_module" /></th>

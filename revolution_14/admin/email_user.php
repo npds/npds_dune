@@ -34,7 +34,7 @@ function email_user() {
             <input type="hidden" name="op" value="send_email_to_user" />
             <div class="form-group">
                <div class="row">
-                  <label class="control-label col-sm-4" for="expediteur">'.adm_translate("Expédier en tant").'</label>
+                  <label class="form-control-label col-sm-4" for="expediteur">'.adm_translate("Expédier en tant").'</label>
                   <div class="col-sm-8">
                      <label class="radio-inline">
                         <input type="radio" name="expediteur" value="1" checked="checked">'.adm_translate("qu'administrateur").' / 
@@ -47,7 +47,7 @@ function email_user() {
             </div>
             <div class="form-group">
                <div class="row">
-                  <label class="control-label col-sm-4" for="username">'.adm_translate("Utilisateur").'</label>
+                  <label class="form-control-label col-sm-4" for="username">'.adm_translate("Utilisateur").'</label>
                   <div class="col-sm-8">
                      <input id="username" class="form-control" type="text" size="28" name="username" value="'.$uname.'" />
                   </div>
@@ -55,7 +55,7 @@ function email_user() {
             </div>
             <div class="form-group">
                <div class="row">
-                  <label class="control-label col-sm-4" for="groupe">'.adm_translate("Groupe").'</label>
+                  <label class="form-control-label col-sm-4" for="groupe">'.adm_translate("Groupe").'</label>
                   <div class="col-sm-8">
                      <select id="groupe" class="form-control" name="groupe" >
                         <option value="0" selected="selected">'.adm_translate("Choisir un groupe");
@@ -71,7 +71,7 @@ function email_user() {
             </div>
             <div class="form-group">
                <div class="row">
-                  <label class="control-label col-sm-4" for="all">'.adm_translate("Envoyer à tous les membres").'</label>
+                  <label class="form-control-label col-sm-4" for="all">'.adm_translate("Envoyer à tous les membres").'</label>
                   <div class="col-sm-8 checkbox">
                      <input id="all" type="checkbox" name="all" value="1" />
                   </div>
@@ -79,7 +79,7 @@ function email_user() {
             </div>
             <div class="form-group">
                <div class="row">
-                  <label class="control-label col-sm-4" for="subject">'.adm_translate("Sujet").'</label>
+                  <label class="form-control-label col-sm-4" for="subject">'.adm_translate("Sujet").'</label>
                   <div class="col-sm-8">
                      <input id="subject" class="form-control" type="text" size="100" name="subject" />
                   </div>

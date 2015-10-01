@@ -143,7 +143,7 @@ function List_Meta_Lang() {
    </div>
    <h3>META-MOT <small>'.$ibid.'</small></h3>
    <form name="admin_meta_lang" action="admin.php" method="post" onsubmit="return confirm(\''.adm_translate("Supprimer").' ?\')">
-   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" >
+   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true">'.adm_translate("Nom").'</th>
@@ -318,17 +318,17 @@ function Creat_Meta_Lang() {
 //   echo $type_meta;
    if ($type_meta) {
       echo '
-      <label class="control-label" for="def">META-MOT</label>
+      <label class="form-control-label" for="def">META-MOT</label>
       <input class="form-control" type="text" name="def" id="def" size="50" maxlength="50" />
       ';
       if ($type_meta != "smil") {
          echo '
-      <label class="control-label" for="desc">'.adm_translate("Description").'</label>
+      <label class="form-control-label" for="desc">'.adm_translate("Description").'</label>
       <textarea class="form-control" name="desc" id="desc" rows="7" style="width: 100%;">[french]...[/french][english]...[/english]</textarea>
          ';
       }
       if ($type_meta != "them") {
-         echo '<label class="control-label" for="content">'.adm_translate("Script").'</label>';
+         echo '<label class="form-control-label" for="content">'.adm_translate("Script").'</label>';
          if ($type_meta == "smil") {
             echo adm_translate("Chemin et nom de l'image du Smiley").'&nbsp;&nbsp;<span class="rouge">Ex. : forum/smilies/pafmur.gif</span>';
             echo '<input class="form-control" type="text" name="content" id="content" maxlength="255" />';

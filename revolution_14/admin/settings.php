@@ -33,7 +33,7 @@ function Configure() {
       <div id="info_gene" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label text-danger col-sm-4 col-md-4" for="xparse">Parse algo</label>
+               <label class="form-control-label text-danger col-sm-4 col-md-4" for="xparse">Parse algo</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($parse==0) {
@@ -59,7 +59,7 @@ function Configure() {
    echo '
          <div class="form-group">
             <div class="row">
-               <label class="control-label text-danger col-sm-4 col-md-4" for="xfilemanager">FileManager</label>
+               <label class="form-control-label text-danger col-sm-4 col-md-4" for="xfilemanager">FileManager</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
 
@@ -83,7 +83,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label text-danger col-sm-4 col-md-4" for="xadmin_cook_duration">'.adm_translate("Durée de vie du cookie Admin (en heure)").'</label>
+               <label class="form-control-label text-danger col-sm-4 col-md-4" for="xadmin_cook_duration">'.adm_translate("Durée de vie du cookie Admin (en heure)").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="number" name="xadmin_cook_duration" value="'.$admin_cook_duration.'" min="0" max="9999999999" />
                </div>
@@ -91,7 +91,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label text-danger col-sm-4 col-md-4" for="xuser_cook_duration">'.adm_translate("Durée de vie du cookie User (en heure)").'</label>
+               <label class="form-control-label text-danger col-sm-4 col-md-4" for="xuser_cook_duration">'.adm_translate("Durée de vie du cookie User (en heure)").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="number" name="xuser_cook_duration" value="'.$user_cook_duration.'" min="0" max="9999999999" />
                </div>
@@ -99,7 +99,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xsitename">'.adm_translate("Nom du site : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xsitename">'.adm_translate("Nom du site : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xsitename" value="'.$sitename.'" size="50" maxlength="100" />
                </div>
@@ -107,7 +107,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xTitlesitename">'.adm_translate("Nom du site pour la balise <b>Title</b> : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xTitlesitename">'.adm_translate("Nom du site pour la balise <b>Title</b> : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xTitlesitename" value="'.$Titlesitename.'" size="50" maxlength="100" />
                </div>
@@ -115,7 +115,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnuke_url">'.adm_translate("URL du site : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnuke_url">'.adm_translate("URL du site : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xnuke_url" value="'.$nuke_url.'" size="50" maxlength="200" />
                </div>
@@ -123,7 +123,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xsite_logo">'.adm_translate("Logo du site (pour les impressions) : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xsite_logo">'.adm_translate("Logo du site (pour les impressions) : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xsite_logo" value="'.$site_logo.'" size="50" maxlength="255" />
                </div>
@@ -131,7 +131,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xslogan">'.adm_translate("Slogan du site : ").'</label> 
+               <label class="form-control-label col-sm-4 col-md-4" for="xslogan">'.adm_translate("Slogan du site : ").'</label> 
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xslogan" value="'.$slogan.'" size="50" maxlength="100" />
                </div>
@@ -139,7 +139,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xstartdate">'.adm_translate("Date de démarrage du site : ").'</label> 
+               <label class="form-control-label col-sm-4 col-md-4" for="xstartdate">'.adm_translate("Date de démarrage du site : ").'</label> 
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xstartdate" value="'.$startdate.'" size="20" maxlength="30" />
                </div>
@@ -147,7 +147,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xtop">'.adm_translate("Nombre d'éléments dans la page <b>Top</b> : ").'</label> 
+               <label class="form-control-label col-sm-4 col-md-4" for="xtop">'.adm_translate("Nombre d'éléments dans la page <b>Top</b> : ").'</label> 
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="number" name="xtop" value="'.$top.'" size="5" maxlength="4" />
                </div>
@@ -155,7 +155,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xstoryhome">'.adm_translate("Nombre d'Articles en Page Principale : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xstoryhome">'.adm_translate("Nombre d'Articles en Page Principale : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="number" name="xstoryhome" value="'.$storyhome.'" min="0" max="9999" />
                </div>
@@ -163,7 +163,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xoldnum">'.adm_translate("Nombre d'Articles dans le Bloc des anciens Articles :").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xoldnum">'.adm_translate("Nombre d'Articles dans le Bloc des anciens Articles :").'</label>
                <div class="col-sm-8 col-md-8">
                    <input class="form-control" type="number" name="xoldnum" value="'.$oldnum.'" min="0" max="9999" />
                </div>
@@ -171,7 +171,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xanonymous">'.adm_translate("Nom par défaut de -anonyme- :").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xanonymous">'.adm_translate("Nom par défaut de -anonyme- :").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xanonymous" value="'.$anonymous.'" />
                </div>
@@ -179,7 +179,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xmod_admin_news">'.adm_translate("Autoriser la création de News pour").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xmod_admin_news">'.adm_translate("Autoriser la création de News pour").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($mod_admin_news==1) {
@@ -216,7 +216,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnot_admin_count">'.adm_translate("<b>Ne pas</b> enregistrer les 'Hits' des auteurs dans les statistiques ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnot_admin_count">'.adm_translate("<b>Ne pas</b> enregistrer les 'Hits' des auteurs dans les statistiques ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($not_admin_count==1) {
@@ -239,7 +239,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xDefault_Theme">';
    include("themes/list.php");
@@ -259,7 +259,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xstart_page" value="'.$Start_Page.'" size="50" maxlength="100" />
                </div>
@@ -267,7 +267,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xlanguage">';
     include("manuels/list.php");
@@ -287,7 +287,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xmulti_langue">'.adm_translate("Activer le Multi-Langue ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xmulti_langue">'.adm_translate("Activer le Multi-Langue ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($multi_langue==true) {
@@ -310,7 +310,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xlocale">'.adm_translate("Heure locale : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xlocale">'.adm_translate("Heure locale : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xlocale" value="'.$locale.'" size="20" maxlength="100" />
                </div>
@@ -321,7 +321,7 @@ function Configure() {
       echo '
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xlever" value="'.$lever.'" size="6" maxlength="5" /> (HH:MM)";
                </div>
@@ -329,7 +329,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xcoucher" value="'.$coucher.'" size="6" maxlength="5" /> (HH:MM)
                </div>
@@ -337,7 +337,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xgmt">GMT :</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xgmt">GMT :</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xgmt" value="'.$gmt.'" size="4" maxlength="3" /> (+- x)
                </div>
@@ -356,7 +356,7 @@ function Configure() {
       <div id="banner" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbanners">'.adm_translate("Options pour les Bannières").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbanners">'.adm_translate("Options pour les Bannières").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($banners==1) {
@@ -379,7 +379,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbanners">'.adm_translate("Votre adresse IP (= ne pas comptabiliser les hits qui en proviennent) :").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbanners">'.adm_translate("Votre adresse IP (= ne pas comptabiliser les hits qui en proviennent) :").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xmyIP" value="'.$myIP.'" />
                </div>
@@ -396,19 +396,19 @@ function Configure() {
    <legend><span class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-plus-square-o" ></i></span>&nbsp;'.adm_translate("Message de pied de page").'</legend>
       <div id="mes_ppage" class="adminsidefield" style="display:none;">
          <div class="form-group">
-            <label class="control-label" for="xfoot1">'.adm_translate("Ligne 1 : ").'</label>
+            <label class="form-control-label" for="xfoot1">'.adm_translate("Ligne 1 : ").'</label>
             <textarea class="form-control" name="xfoot1" rows="5">'.htmlentities(stripslashes($foot1),ENT_QUOTES,cur_charset).'</textarea>
          </div>
          <div class="form-group">
-            <label class="control-label" for="xfoot2">'.adm_translate("Ligne 2 : ").'</label>
+            <label class="form-control-label" for="xfoot2">'.adm_translate("Ligne 2 : ").'</label>
             <textarea class="form-control" name="xfoot2" rows="5">'.htmlentities(stripslashes($foot2),ENT_QUOTES,cur_charset).'</textarea>
          </div>
          <div class="form-group">
-            <label class="control-label" for="xfoot3">'.adm_translate("Ligne 3 : ").'</label>
+            <label class="form-control-label" for="xfoot3">'.adm_translate("Ligne 3 : ").'</label>
             <textarea class="form-control" name="xfoot3" rows="5">'.htmlentities(stripslashes($foot3),ENT_QUOTES,cur_charset).'</textarea>
          </div>
          <div class="form-group">
-            <label class="control-label" for="xfoot4">'.adm_translate("Ligne 4 : ").'</label>
+            <label class="form-control-label" for="xfoot4">'.adm_translate("Ligne 4 : ").'</label>
             <textarea class="form-control" name="xfoot4" rows="5">'.htmlentities(stripslashes($foot4),ENT_QUOTES,cur_charset).'</textarea>
          </div>
       </div>
@@ -423,7 +423,7 @@ function Configure() {
       <div id="bakend_rs" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbackend_title">'.adm_translate("Titre du Backend : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbackend_title">'.adm_translate("Titre du Backend : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xbackend_title" value="'.$backend_title.'" size="50" maxlength="100" />
                </div>
@@ -431,7 +431,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbackend_language">'.adm_translate("Langue du  Backend : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbackend_language">'.adm_translate("Langue du  Backend : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xbackend_language" value="'.$backend_language.'" size="11" maxlength="10" />
                </div>
@@ -439,7 +439,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbackend_image">'.adm_translate("URL de l'image du Backend : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbackend_image">'.adm_translate("URL de l'image du Backend : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xbackend_image" value="'.$backend_image.'" size="50" maxlength="200" />
                </div>
@@ -447,7 +447,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbackend_width">'.adm_translate("Largeur de l'image du Backend : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbackend_width">'.adm_translate("Largeur de l'image du Backend : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="number" name="xbackend_width" value="'.$backend_width.'" min="0" max="9999" />
                </div>
@@ -455,7 +455,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xbackend_height">'.adm_translate("Hauteur de l'image du Backend : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xbackend_height">'.adm_translate("Hauteur de l'image du Backend : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="number" name="xbackend_height" value="'.$backend_height.'" min="0" max="9999" />
                </div>
@@ -463,7 +463,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xultramode">'.adm_translate("Activer Export-News ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xultramode">'.adm_translate("Activer Export-News ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($ultramode==1) {
@@ -486,7 +486,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnpds_twi">'.adm_translate("Activer Twitter ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnpds_twi">'.adm_translate("Activer Twitter ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($npds_twi==1) {
@@ -509,7 +509,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnpds_fcb">'.adm_translate("Activer Facebook ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnpds_fcb">'.adm_translate("Activer Facebook ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($npds_fcb==1) {
@@ -543,7 +543,7 @@ function Configure() {
       <div id="lien_web" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xperpage">'.adm_translate("Nombre de liens par page : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xperpage">'.adm_translate("Nombre de liens par page : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xperpage">
                      <option  value="'.$perpage.'" selected="selected">'.$perpage.'</option>
@@ -559,7 +559,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xpopular">'.adm_translate("Nombre de Hits sur le Lien pour qu'il soit populaire : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xpopular">'.adm_translate("Nombre de Hits sur le Lien pour qu'il soit populaire : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xpopular">
                      <option value="'.$popular.'" selected="selected">'.$popular.'</option>
@@ -575,7 +575,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnewlinks">'.adm_translate("Nombre de Liens 'Nouveaux' : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnewlinks">'.adm_translate("Nombre de Liens 'Nouveaux' : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xnewlinks">
                      <option value="'.$newlinks.'" selected="selected">'.$newlinks.'</option>
@@ -591,7 +591,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xtoplinks">'.adm_translate("Nombre de Liens 'Meilleur' : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xtoplinks">'.adm_translate("Nombre de Liens 'Meilleur' : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xtoplinks">
                      <option value="'.$toplinks.'" selected="selected">'.$toplinks.'</option>
@@ -607,7 +607,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xlinksresults">'.adm_translate("Nombre de Liens dans les résultats des recherches : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xlinksresults">'.adm_translate("Nombre de Liens dans les résultats des recherches : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xlinksresults">
                      <option value="'.$linksresults.'" selected="selected">'.$linksresults.'</option>
@@ -623,7 +623,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xlinks_anonaddlinklock">'.adm_translate("Laisser les Utilisateurs anonymes poster de nouveaux Liens ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xlinks_anonaddlinklock">'.adm_translate("Laisser les Utilisateurs anonymes poster de nouveaux Liens ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($links_anonaddlinklock==0) {
@@ -646,7 +646,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xlinkmainlogo">'.adm_translate("Afficher le Logo sur la page Web Links ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xlinkmainlogo">'.adm_translate("Afficher le Logo sur la page Web Links ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($linkmainlogo==1) {
@@ -669,7 +669,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xOnCatNewLink">'.adm_translate("Activer l'icône [N]ouveau pour les Catégories ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xOnCatNewLink">'.adm_translate("Activer l'icône [N]ouveau pour les Catégories ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($OnCatNewLink==1) {
@@ -703,7 +703,7 @@ function Configure() {
       <div id="sys_mes" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'Administrateur : ").'</label> 
+               <label class="form-control-label col-sm-4 col-md-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'Administrateur : ").'</label> 
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xadminmail" value="'.$adminmail.'" size="50" maxlength="100" />
                </div>
@@ -711,7 +711,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="xmail_fonction">'.adm_translate("Quelle fonction Mail utilisée ?").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="xmail_fonction">'.adm_translate("Quelle fonction Mail utilisée ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">
    ';
@@ -738,12 +738,12 @@ function Configure() {
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label" for="xEmailFooter">'.adm_translate("Pied").' '.adm_translate("de").' Email :</label> 
+            <label class="form-control-label" for="xEmailFooter">'.adm_translate("Pied").' '.adm_translate("de").' Email :</label> 
             <textarea class="form-control" name="xEmailFooter" cols="45" rows="8">'.$message.'</textarea>
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnotify">'.adm_translate("Notifier les nouvelles contributions par E-mail ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnotify">'.adm_translate("Notifier les nouvelles contributions par E-mail ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
 
@@ -768,7 +768,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnotify_email">'.adm_translate("Adresse E-mail où envoyer le message : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnotify_email">'.adm_translate("Adresse E-mail où envoyer le message : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xnotify_email" value="'.$notify_email.'" size="50" maxlength="100" />
                </div>
@@ -776,7 +776,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnotify_subject">'.adm_translate("Sujet de l'E-mail : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnotify_subject">'.adm_translate("Sujet de l'E-mail : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xnotify_subject" value="'.$notify_subject.'" size="50" maxlength="100" />
                </div>
@@ -784,7 +784,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnotify_message">'.adm_translate("Message de l'E-mail : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnotify_message">'.adm_translate("Message de l'E-mail : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <textarea class="form-control" name="xnotify_message" cols="45" rows="8">'.$notify_message.'</textarea>
                </div>
@@ -792,7 +792,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xnotify_from">'.adm_translate("Compte E-mail (Provenance) : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xnotify_from">'.adm_translate("Compte E-mail (Provenance) : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xnotify_from" value="'.$notify_from.'" size="50" maxlength="100" />
                </div>
@@ -810,7 +810,7 @@ function Configure() {
       <div id="opt_comment" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-7 col-md-7" for="xmoderate">'.adm_translate("Type de modération : ").'</label>
+               <label class="form-control-label col-sm-7 col-md-7" for="xmoderate">'.adm_translate("Type de modération : ").'</label>
                <div class="col-sm-5 col-md-5">
                   <select class="form-control" name="xmoderate">';
    if ($moderate==1) {
@@ -836,7 +836,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-7 col-md-7" for="xanonpost">'.adm_translate("Autoriser les Commentaires anonymes ?").'</label>
+               <label class="form-control-label col-sm-7 col-md-7" for="xanonpost">'.adm_translate("Autoriser les Commentaires anonymes ?").'</label>
                <div class="col-sm-5 col-md-5">
                   <label class="radio-inline">';
 
@@ -860,7 +860,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-7 col-md-7" for="xtroll_limit">'.adm_translate("Nombre Maximum de Commentaire par utilisateur (24H) ?").'</label>
+               <label class="form-control-label col-sm-7 col-md-7" for="xtroll_limit">'.adm_translate("Nombre Maximum de Commentaire par utilisateur (24H) ?").'</label>
                <div class="col-sm-5 col-md-5">';
    if ($troll_limit=="") $troll_limit="6";
    echo '
@@ -880,7 +880,7 @@ function Configure() {
       <div id="opt_sond" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-5 col-md-5" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les Sondages : ").'</label>
+               <label class="form-control-label col-sm-5 col-md-5" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les Sondages : ").'</label>
                <div class="col-sm-7 col-md-7">
                   <select class="form-control" name="xmaxOptions">
                      <option value="'.$maxOptions.'">'.$maxOptions.'</option>
@@ -894,7 +894,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-5 col-md-5" for="xsetCookies">'.adm_translate("Autoriser les Utilisateurs à voter plusieurs fois ?").'</label>
+               <label class="form-control-label col-sm-5 col-md-5" for="xsetCookies">'.adm_translate("Autoriser les Utilisateurs à voter plusieurs fois ?").'</label>
                <div class="col-sm-7 col-md-7">
                   <label class="radio-inline">';
    if ($setCookies==0) {
@@ -917,7 +917,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-5 col-md-5" for="xpollcomm">'.adm_translate("Activer les Commentaires des Sondages ?").'</label>
+               <label class="form-control-label col-sm-5 col-md-5" for="xpollcomm">'.adm_translate("Activer les Commentaires des Sondages ?").'</label>
                <div class="col-sm-7 col-md-7">
                   <label class="radio-inline">';
 
@@ -951,7 +951,7 @@ function Configure() {
       <div id="para_illu" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xtipath">'.adm_translate("Chemin des images des Sujets : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xtipath">'.adm_translate("Chemin des images des Sujets : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xtipath" value="'.$tipath.'" size="50" maxlength="100" />
                </div>
@@ -959,7 +959,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...) : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...) : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xuserimg" value="'.$userimg.'" size="50" maxlength="100" />
                </div>
@@ -967,7 +967,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xadminimg">'.adm_translate("Chemin des images du Menu Administrateur : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xadminimg">'.adm_translate("Chemin des images du Menu Administrateur : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xadminimg" value="'.$adminimg.'" size="50" maxlength="100" />
                </div>
@@ -975,7 +975,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xadmingraphic">'.adm_translate("Activer les images dans le menu Administration ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xadmingraphic">'.adm_translate("Activer les images dans le menu Administration ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($admingraphic==1) {
@@ -1001,7 +1001,7 @@ function Configure() {
    echo '
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xadmf_ext">'.adm_translate("Extension des fichiers d'image").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xadmf_ext">'.adm_translate("Extension des fichiers d'image").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xadmf_ext" value="'.$admf_ext.'" size="4" maxlength="3" />
                </div>
@@ -1009,7 +1009,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xshort_menu_admin">'.adm_translate("Activer les Menus courts pour l'administration ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xshort_menu_admin">'.adm_translate("Activer les Menus courts pour l'administration ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
 
@@ -1033,7 +1033,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xsite_font">'.adm_translate("Polices du site : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xsite_font">'.adm_translate("Polices du site : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <input class="form-control" type="text" name="xsite_font" value="'.$site_font.'" size="50" maxlength="100" />
                </div>
@@ -1051,7 +1051,7 @@ function Configure() {
       <div id="divers" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xadmart">'.adm_translate("Nombres d'articles en mode Administration : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xadmart">'.adm_translate("Nombres d'articles en mode Administration : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xadmart">
                      <option value="'.$admart.'">'.$admart.'</option>
@@ -1066,7 +1066,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xminpass">'.adm_translate("Longueur minimum du Mot de Passe des Utilisateurs : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xminpass">'.adm_translate("Longueur minimum du Mot de Passe des Utilisateurs : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xminpass">
                      <option value="'.$minpass.'">'.$minpass.'</option>
@@ -1081,7 +1081,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xshow_user">'.adm_translate("Nombre d'Utilisateurs listés : ").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xshow_user">'.adm_translate("Nombre d'Utilisateurs listés : ").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xshow_user">
                      <option value="'.$show_user.'">'.$show_user.'</option>
@@ -1095,7 +1095,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xsmilies">'.adm_translate("Activer les Avatars ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xsmilies">'.adm_translate("Activer les Avatars ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($smilies==1) {
@@ -1118,7 +1118,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xavatar_size">'.adm_translate("Taille maximum des avatars personnels (largeur * hauteur / 60*80) en pixel ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xavatar_size">'.adm_translate("Taille maximum des avatars personnels (largeur * hauteur / 60*80) en pixel ?").'</label>
                <div class="col-sm-8 col-md-8">';
    if (!$avatar_size) {$avatar_size="60*80";}
    echo '
@@ -1128,7 +1128,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xshort_user">'.adm_translate("Activer la description simplifiée des Utilisateurs ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xshort_user">'.adm_translate("Activer la description simplifiée des Utilisateurs ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($short_user==1) {
@@ -1151,7 +1151,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xAutoRegUser">'.adm_translate("Autoriser la création automatique des membres ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xAutoRegUser">'.adm_translate("Autoriser la création automatique des membres ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if (($AutoRegUser=="") and ($AutoRegUser!=0)) {$AutoRegUser=1;}
@@ -1175,7 +1175,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xmemberpass">'.adm_translate("Autoriser les utilisateurs à choisir leur Mot de Passe ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xmemberpass">'.adm_translate("Autoriser les utilisateurs à choisir leur Mot de Passe ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if (($memberpass=="") and ($memberpass!=0)) {$memberpass=1;}
@@ -1199,7 +1199,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xsubscribe">'.adm_translate("Autoriser les Abonnements ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xsubscribe">'.adm_translate("Autoriser les Abonnements ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($subscribe==1) {
@@ -1222,7 +1222,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xmember_invisible">'.adm_translate("Autoriser les Membres Invisibles ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xmember_invisible">'.adm_translate("Autoriser les Membres Invisibles ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($member_invisible==1) {
@@ -1245,7 +1245,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xCloseRegUser">'.adm_translate("Fermer les Nouvelles Inscriptions ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xCloseRegUser">'.adm_translate("Fermer les Nouvelles Inscriptions ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if (($CloseRegUser=="") and ($CloseRegUser!=1)) {$AutoRegUser=0;}
@@ -1269,7 +1269,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xhttpref">'.adm_translate("Activer les référants HTTP ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xhttpref">'.adm_translate("Activer les référants HTTP ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($httpref==1) {
@@ -1292,7 +1292,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xhttprefmax">'.adm_translate("Combien de référants au maximum ?").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xhttprefmax">'.adm_translate("Combien de référants au maximum ?").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xhttprefmax">
                      <option value="'.$httprefmax.'">'.$httprefmax.'</option>
@@ -1309,7 +1309,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xmember_list">'.adm_translate("Liste des membres").' : '.adm_translate("Privé").' ?</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xmember_list">'.adm_translate("Liste des membres").' : '.adm_translate("Privé").' ?</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($member_list==1) {
@@ -1332,7 +1332,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xdownload_cat">'.adm_translate("Rubrique de téléchargement").'</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xdownload_cat">'.adm_translate("Rubrique de téléchargement").'</label>
                <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="xdownload_cat">
                      <option value="'.$download_cat.'">'.aff_langue($download_cat).'</option>';
@@ -1351,7 +1351,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="xshort_review">'.adm_translate("Critiques").' : '.adm_translate("courtes").' ?</label>
+               <label class="form-control-label col-sm-4 col-md-4" for="xshort_review">'.adm_translate("Critiques").' : '.adm_translate("courtes").' ?</label>
                <div class="col-sm-8 col-md-8">
                   <label class="radio-inline">';
    if ($short_review==1) {
@@ -1384,7 +1384,7 @@ function Configure() {
       <div id="divers_http" class="adminsidefield" style="display:none;">
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-8 col-md-8" for="xrss_host_verif">'.adm_translate("Pour les Grands Titres de sites de News, activer la vérification de l'existance d'un Web sur le Port 80 ?").'</label>
+               <label class="form-control-label col-sm-8 col-md-8" for="xrss_host_verif">'.adm_translate("Pour les Grands Titres de sites de News, activer la vérification de l'existance d'un Web sur le Port 80 ?").'</label>
                <div class="col-sm-4 col-md-4">
                   <label class="radio-inline">
     ';
@@ -1408,7 +1408,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-8 col-md-8" for="xcache_verif">'.adm_translate("Pour les pages HTML générées, activer les tags avancés de gestion du cache ?").'</label>
+               <label class="form-control-label col-sm-8 col-md-8" for="xcache_verif">'.adm_translate("Pour les pages HTML générées, activer les tags avancés de gestion du cache ?").'</label>
                <div class="col-sm-4 col-md-4">
                   <label class="radio-inline">';
     if ($cache_verif==true) {
@@ -1431,7 +1431,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-8 col-md-8" for="xdns_verif">'.adm_translate("Activer la résolution DNS pour les posts des forums, IP-Ban, ... ?").'</label>
+               <label class="form-control-label col-sm-8 col-md-8" for="xdns_verif">'.adm_translate("Activer la résolution DNS pour les posts des forums, IP-Ban, ... ?").'</label>
                <div class="col-sm-4 col-md-4">
                   <label class="radio-inline">';
     if ($dns_verif==true) {
@@ -1472,7 +1472,7 @@ function Configure() {
    echo '
    <div class="form-group">
       <div class="row">
-         <label class="control-label col-sm-4 col-md-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
+         <label class="form-control-label col-sm-4 col-md-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
          <div class="col-sm-8 col-md-8">
             <select class="form-control" name="xsavemysql_size">
                <option value="256" '.$sel_size256.'>256 Ko</option>
@@ -1492,7 +1492,7 @@ function Configure() {
    echo '
    <div class="form-group">
       <div class="row">
-         <label class="control-label col-sm-4 col-md-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
+         <label class="form-control-label col-sm-4 col-md-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
          <div class="col-sm-8 col-md-8">
             <select class="form-control" name="xsavemysql_mode">
                <option value="1" '.$type_save1.'>'.adm_translate("Toute tables. Fichier envoyé au navigateur. Pas de limite de taille").'</option>
@@ -1504,7 +1504,7 @@ function Configure() {
    </div>
    <div class="form-group">
       <div class="row">
-         <label class="control-label col-sm-4 col-md-4" for="xtiny_mce">'.adm_translate("Activer l'éditeur Tiny-Mce").'</label>
+         <label class="form-control-label col-sm-4 col-md-4" for="xtiny_mce">'.adm_translate("Activer l'éditeur Tiny-Mce").'</label>
          <div class="col-sm-8 col-md-8">
             <label class="radio-inline">';
    if ($tiny_mce) {

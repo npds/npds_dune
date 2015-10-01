@@ -30,7 +30,7 @@ function ForumAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <h3>'.adm_translate("Catégories de Forum").'</h3>
-   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true">
+   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true">'.adm_translate("Index").'&nbsp;</th>
@@ -59,7 +59,7 @@ function ForumAdmin() {
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="catagories">'.adm_translate("Nom").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="catagories">'.adm_translate("Nom").'</label>
             <div class="col-sm-8 col-md-8">
                <textarea class="form-control" type="text" name="catagories" id="catagories" rows="3" required="required"></textarea>
             </div>
@@ -88,7 +88,7 @@ function ForumGo($cat_id) {
    $ctg=StripSlashes($cat_title);
    echo '
    <h3>'.adm_translate("Forum classé en").' '.$ctg.'</h3>
-   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true">
+   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true">'.adm_translate("Index").'&nbsp;</th>
@@ -171,7 +171,7 @@ function ForumGo($cat_id) {
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="number" name="forum_index" max="9999" />
             </div>
@@ -179,7 +179,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="forum_name" />
                <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'</span>
@@ -188,7 +188,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
             <div class="col-sm-8 col-md-8">
                <textarea class="form-control" name="forum_desc" rows="5"></textarea>
             </div>
@@ -196,7 +196,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>
             <div class="col-sm-8 col-md-8">
                <input id="l_forum_mod" class="form-control" type="text" name="forum_mod" required="required"/>
             </div>
@@ -204,7 +204,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
             <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="forum_access">
                      <option value="0">'.adm_translate("Publication Anonyme autorisée").'</option>
@@ -217,7 +217,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="forum_type" id="forum_type">
                   <option value="0">'.adm_translate("Public").'</option>
@@ -233,7 +233,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group" id="the_multi_input_lol">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="forum_pass" id="forum_pass">
             </div>
@@ -241,7 +241,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="arbre">
                   <option value="0">'.adm_translate("Standard").'</option>
@@ -252,7 +252,7 @@ function ForumGo($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
             <div class="col-sm-8 col-md-8">
                   <select class="form-control" name="attachement">
                      <option value="0">'.adm_translate("Non").'</option>
@@ -280,7 +280,7 @@ function ForumGo($cat_id) {
       var htmh="",htmhe="",htmf="",lab="",inp_para="";
       htmh +=\'      <div class="form-group" id="the_multi_input_lol">\n\';
       htmh +=\'         <div class="row">\n\';
-      htmh +=\'            <label class="control-label col-sm-4 col-md-4" for="forum_pass">\'
+      htmh +=\'            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">\'
       htmhe +=\'</label>\n\';
       htmhe +=\'            <div class="col-sm-8 col-md-8">\n\';   
       htmf +=\'            </div>\n\';
@@ -329,7 +329,7 @@ function ForumGoEdit($forum_id, $ctg) {
    <input type="hidden" name="forum_id" value="'.$forum_id.'" />
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="number" name="forum_index" max="9999" value="'.$forum_index.'" />
             </div>
@@ -337,7 +337,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="forum_name" value="'.$forum_name.'" />
                <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'</span>
@@ -346,7 +346,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
             <div class="col-sm-8 col-md-8">
                <textarea class="form-control" name="forum_desc" rows="5">'.$forum_desc.'</textarea>
             </div>
@@ -354,7 +354,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>';
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>';
    $moderator=str_replace(" ",",",get_moderator($forum_mod));
    echo '
             <div class="col-sm-8 col-md-8">
@@ -365,7 +365,7 @@ function ForumGoEdit($forum_id, $ctg) {
    echo '
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="forum_access">';
    if ($forum_access == 0) { $sel0=' selected="selected"'; }
@@ -383,7 +383,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="cat_id">'.adm_translate("Changer les Catégories : ").' </label>
+            <label class="form-control-label col-sm-4 col-md-4" for="cat_id">'.adm_translate("Changer les Catégories : ").' </label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="cat_id">';
    $result = sql_query("select cat_id, cat_title from ".$NPDS_Prefix."catagories");
@@ -403,7 +403,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="forum_type">';
    if ($forum_type == 0) $sel0=' selected="selected"'; else $sel0='';
@@ -428,7 +428,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="arbre">';
    if ($arbre)
@@ -447,7 +447,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
             <div class="col-sm-8 col-md-8">
                <select class="form-control" name="attachement">';
    if ($attachement)
@@ -465,7 +465,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="forum_pass" value="'.$forum_pass.'" />
             </div>
@@ -497,7 +497,7 @@ function ForumCatEdit($cat_id) {
    <form class="" action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4" for="cat_id">ID</label>
+            <label class="form-control-label col-sm-4" for="cat_id">ID</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="cat_id" id="cat_id" value="'.$cat_id.'" required="required" />
             </div>
@@ -505,7 +505,7 @@ function ForumCatEdit($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="control-label col-sm-4" for="cat_title">'.adm_translate("Catégorie").'</label>
+            <label class="form-control-label col-sm-4" for="cat_title">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="cat_title" value="'.StripSlashes($cat_title).'" required="required"/>
             </div>

@@ -28,14 +28,14 @@ function HeadlinesAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo'<h3>'.adm_translate("Liste des Grands Titres de sites de News").'</h3>';
    echo'
-   <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true">
+   <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-           <th data-sortable="true" class="col-sm-1">'.adm_translate("ID").'</th>
-           <th data-sortable="true" class="col-sm-3">'.adm_translate("Nom du site").'</th>
-           <th data-sortable="true" class="col-sm-4">'.adm_translate("URL").'</th>
-           <th data-sortable="true" class="col-sm-2">'.adm_translate("Etat").'</th>
-           <th class="col-sm-2">'.adm_translate("Fonctions").'</th>
+           <th data-sortable="true" class="">'.adm_translate("ID").'</th>
+           <th data-sortable="true" class="">'.adm_translate("Nom du site").'</th>
+           <th data-sortable="true" class="">'.adm_translate("URL").'</th>
+           <th data-sortable="true" class="">'.adm_translate("Etat").'</th>
+           <th class="">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -64,31 +64,31 @@ function HeadlinesAdmin() {
       </tbody>
    </table>
    <h3>'.adm_translate("Nouveau Grand Titre").'</h3>
-   <form id="fad_newheadline" class="form-horizontal" action="admin.php" method="post">
+   <form id="fad_newheadline" class="" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="xsitename">'.adm_translate("Nom du site").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
+            <div class="col-sm-8">
                <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
             </div>
         </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+            <div class="col-sm-8">
                <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
                <span class="help-block text-right"><span id="countcar_url"></span></span>
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
+            <div class="col-sm-8">
                 <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
                 <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="status">'.adm_translate("Etat").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
+            <div class="col-sm-8">
                <select class="form-control" id="status" name="status">
                   <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
                   <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
@@ -141,7 +141,7 @@ function HeadlinesEdit($hid) {
          <input type="hidden" name="hid" value="'.$hid.'" />
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
+               <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
                <div class="col-sm-8">
                   <input class="form-control" type="text" name="xsitename" maxlength="30" value="'.$xsitename.'" required="required" />
                </div>
@@ -149,7 +149,7 @@ function HeadlinesEdit($hid) {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+               <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
                <div class="col-sm-8">
                   <div class="input-group">
                      <span class="input-group-btn">
@@ -163,7 +163,7 @@ function HeadlinesEdit($hid) {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
+               <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
                <div class="col-sm-8">
                   <div class="input-group">
                      <span class="input-group-btn">
@@ -176,7 +176,7 @@ function HeadlinesEdit($hid) {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
+               <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
                <div class="col-sm-8">
                   <select class="form-control" name="status">';
    if ($status == 1) {

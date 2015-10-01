@@ -31,7 +31,7 @@ function ForumMaintMarkTopics() {
    echo '<h3>'.adm_translate("Marquer tous les Topics comme lus").'</h3>';
 
    echo '
-   <table data-toggle="table" data-striped="true" data-mobile-responsive="true">
+   <table data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th>ID</th>
@@ -228,7 +228,7 @@ function MergeForum() {
    <form id="fad_mergeforum" class="form-horizontal" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
                <select class="form-control" name="oriforum">';
    $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id";
@@ -251,7 +251,7 @@ function MergeForum() {
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="destforum">'.adm_translate("Forum de destination").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
                <select class="form-control" name="destforum">';
     if ($result = sql_query($sql)) {
@@ -335,13 +335,13 @@ function ForumMaintAdmin() {
     <fieldset>
     <legend>'.adm_translate("Supprimer massivement les Topics").'</legend>
         <div class="form-group">
-            <label class="control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+            <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
             <div class="col-sm-8">
                <input type="text" class="form-control" name="forum_name" id="forum_name" size="20" maxlength="150" value="" />
            </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-4" for="before">'.adm_translate("Date").'</label>
+            <label class="form-control-label col-sm-4" for="before">'.adm_translate("Date").'</label>
             <div class="col-sm-8">
                <input type="text" class="form-control" name="before" id="before" value="" size="10" maxlength="11" placeholder="AAAA-MM-JJ" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
            </div>

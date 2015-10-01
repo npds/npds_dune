@@ -28,37 +28,37 @@ function MetaTagAdmin($saved = false) {
    echo '
    <form id="fad_metatags" action="admin.php" method="post">
    <div class="form-group">
-      <label class="control-label" for="newtag[author]">'.adm_translate("Auteur(s)").'</label>
+      <label class="form-control-label" for="newtag[author]">'.adm_translate("Auteur(s)").'</label>
       <input class="form-control" type="text" name="newtag[author]" value="'.$tags['author'].'" maxlength="100">
       <span class="help-block">'. adm_translate("(Ex. : nom du webmaster)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[owner]">'.adm_translate("Propriétaire").'</label>
+      <label class="form-control-label" for="newtag[owner]">'.adm_translate("Propriétaire").'</label>
       <input class="form-control" type="text" name="newtag[owner]" value="'.$tags['owner'].'" maxlength="100" />
       <span class="help-block">'.adm_translate("(Ex. : nom de votre compagnie/service)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[reply-to]">'.adm_translate("Adresse e-mail principale").'</label>
+      <label class="form-control-label" for="newtag[reply-to]">'.adm_translate("Adresse e-mail principale").'</label>
       <input class="form-control" type="email" name="newtag[reply-to]" value="'.$tags['reply-to'].'" maxlength="100" />
       <span class="help-block">'.adm_translate("(Ex. : l'adresse e-mail du webmaster)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[language]">'.adm_translate("Langue principale").'</label>
+      <label class="form-control-label" for="newtag[language]">'.adm_translate("Langue principale").'</label>
       <input class="form-control" type="text" name="newtag[language]" value="'.$tags['language'].'" size="6" maxlength="5" />
       <span class="help-block">'.adm_translate("(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[description]">'.adm_translate("Description").'</label>
+      <label class="form-control-label" for="newtag[description]">'.adm_translate("Description").'</label>
       <input class="form-control" type="text" name="newtag[description]" value="'.$tags['description'].'" maxlength="200" />
       <span class="help-block">'.adm_translate("(Brève description des centres d'intérêt du site. 200 caractères maxi.)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[keywords]">'.adm_translate("Mot(s) clé(s)").'</label>
+      <label class="form-control-label" for="newtag[keywords]">'.adm_translate("Mot(s) clé(s)").'</label>
       <input class="form-control" type="text" name="newtag[keywords]" value="'.$tags['keywords'].'" maxlength="1000" />
       <span class="help-block">'.adm_translate("(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi.<br />Remarques : une lettre accentuée équivaut le plus souvent à 8 caractères. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[rating]">'.adm_translate("Audience").'</label>
+      <label class="form-control-label" for="newtag[rating]">'.adm_translate("Audience").'</label>
       <select class="form-control" name="newtag[rating]">
          <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? ' selected="selected"' : '').'>'.adm_translate("Tout public").'</option>
          <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? ' selected="selected"' : '').'>'.adm_translate("Adulte").'</option>
@@ -68,19 +68,19 @@ function MetaTagAdmin($saved = false) {
       <span class="help-block">'.adm_translate("(Définissez le public intéressé par votre site)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[distribution]">'.adm_translate("Distribution").'</label>
+      <label class="form-control-label" for="newtag[distribution]">'.adm_translate("Distribution").'</label>
       <select class="form-control" name="newtag[distribution]">
          <option value="global"'.(!strcasecmp($tags['distribution'], 'global') ? ' selected="selected"' : '').'>'.adm_translate("Large").'</option>
          <option value="local"'.(!strcasecmp($tags['distribution'], 'local') ? ' selected="selected"' : '').'>'.adm_translate("Restreinte").'</option>
       </select>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[copyright]">'.adm_translate("Copyright").'</label>
+      <label class="form-control-label" for="newtag[copyright]">'.adm_translate("Copyright").'</label>
       <input class="form-control" type="text" name="newtag[copyright]" value="'.$tags['copyright'].'" maxlength="100" />
       <span class="help-block">'.adm_translate("(Informations légales)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[robots]">'.adm_translate("Robots/Spiders").'</label>
+      <label class="form-control-label" for="newtag[robots]">'.adm_translate("Robots/Spiders").'</label>
       <select class="form-control" name="newtag[robots]">
          <option value="all"'.(!strcasecmp($tags['robots'], 'all') ? ' selected="selected"' : '').'>'.adm_translate("Tout contenu (page/liens/etc)").'</option>
          <option value="none"'.(!strcasecmp($tags['robots'], 'none') ? ' selected="selected"' : '').'>'.adm_translate("Aucune indexation").'</option>
@@ -92,7 +92,7 @@ function MetaTagAdmin($saved = false) {
       <span class="help-block">'.adm_translate("(Définissez la méthode d'analyse que doivent adopter les robots des moteurs de recherche)").'</span>
    </div>
    <div class="form-group">
-      <label class="control-label" for="newtag[revisit-after]">'.adm_translate("Fréquence de visite des Robots/Spiders").'</label>
+      <label class="form-control-label" for="newtag[revisit-after]">'.adm_translate("Fréquence de visite des Robots/Spiders").'</label>
       <input class="form-control" type="text" name="newtag[revisit-after]" value="'.$tags['revisit-after'].'" maxlength="30" />
       <span class="help-block">'.adm_translate("(Ex. : 16 days. Remarque : ne définissez pas de fréquence inférieure à 14 jours !)").'</span>
    </div>';
@@ -100,7 +100,7 @@ function MetaTagAdmin($saved = false) {
    if (function_exists("utf8_encode")) {
       echo '
    <div class="form-group">
-      <label class="control-label" for="newtag[content-type]">'.adm_translate("Encodage").'</label>
+      <label class="form-control-label" for="newtag[content-type]">'.adm_translate("Encodage").'</label>
       <select class="form-control" name="newtag[content-type]">
          <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? ' selected="selected"' : '').'>charset=ISO-8859-1</option>
          <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['content-type'], 'text/html; charset=utf-8') and strcasecmp($tags['content-type'], 'text/html')) ? ' selected="selected"' : '').'>charset=UTF-8</option>
@@ -108,12 +108,12 @@ function MetaTagAdmin($saved = false) {
    </div>';
    } else {
       echo '
-      <label class="control-label" for="">'.adm_translate("Encodage").'</label>
+      <label class="form-control-label" for="">'.adm_translate("Encodage").'</label>
       <span class="text-danger">utf8_encode() '.adm_translate("non disponible").'</span>';
    }
    echo '
    <div class="form-group">
-      <label class="control-label" for="newtag[content-type]">DOCTYPE</label>
+      <label class="form-control-label" for="newtag[content-type]">DOCTYPE</label>
          <select class="form-control" name="newtag[doctype]">
             <option value="HTML 4.01 Transitional"'.(!strcasecmp(doctype, 'HTML 4.01 Transitional') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Transitional").' (deprecated)</option>
             <option value="HTML 4.01 Strict"'.(!strcasecmp(doctype, 'HTML 4.01 Strict') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Strict").' (deprecated)</option>

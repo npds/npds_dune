@@ -102,7 +102,7 @@
     echo adm_translate("Optimisation effectuée ").' : '.adm_translate("Gain total réalisé").' '.$total_gain.' Ko</br>';
     echo $last_opti;
     echo "<p>".adm_translate("A ce jour, vous avez effectué ")." ".$countopt." optimisation(s) ".adm_translate(" et réalisé un gain global de ")." ".$gainopt." Ko.</p>\n";
-    echo'<table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true">
+    echo'<table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
     <thead>
         <tr>
             <th data-sortable="true" align="center">'.adm_translate('Table').'</th>

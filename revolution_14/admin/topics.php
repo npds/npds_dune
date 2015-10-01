@@ -57,28 +57,28 @@ function topicsmanager() {
    <form class="form-horizontal" role="form" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="topicname">'.adm_translate("Intitulé").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="topicname">'.adm_translate("Intitulé").'</label>
             <div class="col-sm-8 col-md-8">
                <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="topictext">'.adm_translate("Texte").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8 col-md-8">
                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'" >'.$topictext.'</textarea>
                <span class="help-block infl">'.adm_translate("(description ou nom complet du Sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="topicimage">'.adm_translate("Image").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="topicimage">'.adm_translate("Image").'</label>
             <div class="col-sm-8 col-md-8">
                <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
                <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
             </div>
          </div>
          <div class="form-group">
-            <label class="control-label col-sm-4 col-md-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
             <div class="col-sm-8 col-md-8">
                <span class="help-block"><span id="countcar_topicadmin"></span></span>
                <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
@@ -241,7 +241,7 @@ function topicedit($topicid) {
     echo '<h3>'.adm_translate("Gérer les Liens Relatifs : ").' '.aff_langue($topictext).'</h3>';
     $res=sql_query("select rid, name, url from ".$NPDS_Prefix."related where tid='$topicid'");
     echo '
-    <table id="tad_linkrel" data-toggle="table" data-striped="true">
+    <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">
         <thead>
             <th class="col-md-5" data-sortable="true" >'.adm_translate('Nom').'</th>
             <th class="col-md-5" data-sortable="true">'.adm_translate('Url').'</th>
@@ -338,14 +338,14 @@ function relatededit($tid, $rid) {
    <form class="form-horizontal" action="admin.php" method="post">
        <fieldset>
        <div class="form-group">
-           <label class="control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom du site").'</label>
+           <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom du site").'</label>
            <div class="col-sm-8 col-md-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
               <span class="help-block text-right"><span id="countcar_name"></span></span>
            </div>
        </div>
        <div class="form-group">
-           <label class="control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL").'</label>
+           <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL").'</label>
            <div class="col-sm-8 col-md-8">
               <div class="input-group">
                  <span class="input-group-btn">
