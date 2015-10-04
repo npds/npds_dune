@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2014 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -26,7 +26,7 @@ function HeadlinesAdmin() {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo'<h3>'.adm_translate("Liste des Grands Titres de sites de News").'</h3>';
+   echo'<h3 class="m-t-md">'.adm_translate("Liste des Grands Titres de sites de News").'</h3>';
    echo'
    <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -63,48 +63,56 @@ function HeadlinesAdmin() {
       echo '
       </tbody>
    </table>
-   <h3>'.adm_translate("Nouveau Grand Titre").'</h3>
+   <h3 class="m-t-md">'.adm_translate("Nouveau Grand Titre").'</h3>
    <form id="fad_newheadline" class="" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
-            <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
-            <div class="col-sm-8">
-               <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
-            </div>
-        </div>
-         <div class="form-group">
-            <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8">
-               <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+            <div class="row">
+               <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
+               <div class="col-sm-8">
+                  <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
+               </div>
             </div>
          </div>
          <div class="form-group">
-            <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
-            <div class="col-sm-8">
-                <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
-                <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
+            <div class="row">
+               <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+               <div class="col-sm-8">
+                  <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
+                  <span class="help-block text-right"><span id="countcar_url"></span></span>
+               </div>
             </div>
          </div>
          <div class="form-group">
-            <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
-            <div class="col-sm-8">
-               <select class="form-control" id="status" name="status">
-                  <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
-                  <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
-               </select>
+            <div class="row">
+               <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
+               <div class="col-sm-8">
+                   <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
+                   <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
+               </div>
             </div>
          </div>
          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-8">
-               <button class="btn btn-primary col-sm-12" type="submit"><i class="fa fa-plus-square fa-lg">&nbsp;</i>'.adm_translate("Ajouter").'</button>
+            <div class="row">
+               <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
+               <div class="col-sm-8">
+                  <select class="form-control" id="status" name="status">
+                     <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
+                     <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="row">
+               <div class="col-sm-offset-4 col-sm-8">
+                  <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg">&nbsp;</i>'.adm_translate("Ajouter").'</button>
+               </div>
             </div>
          </div>
          <input type="hidden" name="op" value="HeadlinesAdd" />
       </fieldset>
    </form>';
-   
-   
    echo '
    <script type="text/javascript">
    //<![CDATA[
@@ -118,8 +126,6 @@ function HeadlinesAdmin() {
      console.log( $( "#fad_newheadline").serializeArray() );
    //]]>
    </script>';
-   
-   
    
    adminfieldinp($result);
    adminfoot('fv','','','');
@@ -135,7 +141,7 @@ function HeadlinesEdit($hid) {
    list($xsitename, $url, $headlinesurl, $status) = sql_fetch_row($result);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3>'.adm_translate("Editer paramètres Grand Titre").'</h3>
+   <h3 class="m-t-md">'.adm_translate("Editer paramètres Grand Titre").'</h3>
    <form action="admin.php" method="post">
       <fieldset>
          <input type="hidden" name="hid" value="'.$hid.'" />
@@ -202,28 +208,6 @@ function HeadlinesEdit($hid) {
       </fieldset>
    </form>';
    
-   $non_user_vars = ["_COOKIE", "_ENV", "_FILES", "_GET", "_POST", "_REQUEST", 
-                  "_SERVER", "_SESSION", "argc", "argv", "GLOBALS",
-                  "HTTP_RAW_POST_DATA", "http_response_header",
-                  "ignore", "php_errormsg"];
-
-
-//$all_vars = array_keys($GLOBALS);
-
-//$user_vars = array_diff($all_vars, $non_user_vars);
-
-// foreach($user_vars as $variable) {
-//     unset($GLOBALS[$variable]);
-// }
-   
-   
-   $vars = array_diff(get_defined_vars(),$vars);
-   echo '<pre>';
-   print_r ( $vars );
-   echo '</pre>';
-
-   
-   
    adminfieldinp($result);
    adminfoot('fv','','','');
 }
@@ -254,13 +238,11 @@ function HeadlinesDel($hid, $ok=0) {
        global $hlpfile;
        include("header.php");
        GraphicAdmin($hlpfile);
-       opentable();
        echo "<p align=\"center\"><br />";
        echo "<span class=\"rouge\">";
        echo "<b>".adm_translate("Etes-vous sûr de vouloir supprimer cette boîte de Titres ?")."</b><br /><br /></span>";
     }
     echo "[ <a href=\"admin.php?op=HeadlinesDel&amp;hid=$hid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=HeadlinesAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br />";
-    closetable();
     include("footer.php");
 }
 

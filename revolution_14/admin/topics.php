@@ -473,14 +473,14 @@ function topicdelete($topicid, $ok=0) {
    list($topicimage, $topictext) = sql_fetch_row($result2);
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3 class="text-danger">'.adm_translate("Effacer le Sujet").' : '.aff_langue($topictext).'</h3>';
+   <h3 class=""><span class="text-danger">'.adm_translate("Effacer le Sujet").' : </span>'.aff_langue($topictext).'</h3>';
+   echo'<div class="alert alert-danger lead" role="alert">';
    if ($topicimage!="") {echo '
    <div class="thumbnail">
       <img class="img-responsive" src="'.$tipath.$topicimage.'" alt="" />
    </div>';
    }
    echo'
-   <div class="alert alert-danger lead" role="alert">
       <p>'.adm_translate("Etes-vous sûr de vouloir effacer ce sujet ?").' : '.aff_langue($topictext).'</p>
       <p>'.adm_translate("Ceci effacera tous ses articles et ses commentaires !").'</p>
       <p><a class="btn btn-danger" href="admin.php?op=topicdelete&amp;topicid='.$topicid.'&amp;ok=1">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-primary"href="admin.php?op=topicsmanager">'.adm_translate("Non").'</a></p>
