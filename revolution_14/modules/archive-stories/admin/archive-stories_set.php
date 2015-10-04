@@ -35,7 +35,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
       <fieldset>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
+               <label class="form-control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
                <div class="col-sm-8">
                   <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
                   <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
@@ -44,7 +44,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
+               <label class="form-control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
                <div class="col-sm-8">
                   <select class="form-control" name="arch">';
    if ($arch == 1) {
@@ -61,7 +61,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
          </div>
          <div class="form-group">
             <div class="row">
-                <label class="control-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
+                <label class="form-control-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
                 <div class="col-sm-8">
                     <input id="maxcount" class="form-control" type="number" name="maxcount" value="'.$maxcount.'" min="0" max="500" required="required" />
                 </div>

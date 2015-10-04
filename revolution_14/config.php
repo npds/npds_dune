@@ -26,10 +26,10 @@
 # system_md5:  0 for NOT USED Authors' Password encryption / 1 for USED Author's Password Encryption
 ######################################################################
 
-$dbhost = "cl2-sql4";
-$dbuname = "infocapagde16";
-$dbpass = "miami31";
-$dbname = "infocapagde16";
+$dbhost = "";
+$dbuname = "";
+$dbpass = "";
+$dbname = "";
 $mysql_p = "1";
 # =======================
 $system = 0;
