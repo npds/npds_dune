@@ -5,7 +5,7 @@
 /*                                                                      */
 /* NEO - 2007                                                           */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2011 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,13 +14,11 @@
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='MetaLangAdmin';
 $f_titre = 'META-LANG';
-
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 global $language, $NPDS_Prefix;
 $hlpfile = "manuels/".$language."/meta_lang.html";
-
 
 function go_back($label) {
    if (!$label)
@@ -337,25 +335,32 @@ function Creat_Meta_Lang() {
             if ($type_meta=="meta") echo "function MM_XYZ (\$arg) {\n   global \$NPDS_Prefix;\n   \$arg = arg_filter(\$arg);\n\n   return(\$content);\n}";
             echo '</textarea>';
       }
-      echo adm_translate("Restriction").'
+      echo '
+      
+      <div class="form-group">
+      <label class="form-control-label" for="type_uri">'.adm_translate("Restriction").'</label>
       <select class="form-control" name="type_uri">
-      <option'.$sel.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
-      <option'.$sel.' value="plus">'.adm_translate("Seulement pour ...").'</option>
-      </select>'
-      .adm_translate("les URLs que vous aurez renseignés ci-après&nbsp;<i>(ne renseigner que la racine de l'URI)</i>").'
-      <br />'.adm_translate("Exemple").' : index.php user.php forum.php static.php
-      <br />'.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'<br />
-      <textarea class="form-control" name="uri" rows="7"></textarea>
-      <input type="hidden" name="type_meta" value="'.$type_meta.'" />
-      <input type="hidden" name="Maj_Bdd_ML" value="creat_meta" />
-      <input type="hidden" name="op" value="Valid_Meta_Lang" />
-      <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
+         <option'.$sel.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
+         <option'.$sel.' value="plus">'.adm_translate("Seulement pour ...").'</option>
+      </select>
+      </div>
+      <div class="form-group">
+         <span class="help-block">'.adm_translate("les URLs que vous aurez renseignés ci-après&nbsp;<i>(ne renseigner que la racine de l'URI)</i>").'<br />'.adm_translate("Exemple").' : index.php user.php forum.php static.php<br />'.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'</span>
+         <textarea class="form-control" name="uri" rows="7"></textarea>
+      </div>
+      <div class="form-group">
+         <input type="hidden" name="type_meta" value="'.$type_meta.'" />
+         <input type="hidden" name="Maj_Bdd_ML" value="creat_meta" />
+         <input type="hidden" name="op" value="Valid_Meta_Lang" />
+         <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
+      </div>
       ';
    }
    echo '
    </form>';
+   adminfoot('fv','','','');
 
-   include ("footer.php");
+//   include ("footer.php");
 }
 function kill_Meta_Lang($nbr, $action) {
    global $NPDS_Prefix;
