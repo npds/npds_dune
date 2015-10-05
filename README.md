@@ -14,4 +14,4 @@ votre contenu dynamique !
 Libre (Open-Source) et gratuit, NPDS est personnalisable grâce à de nombreux thèmes et modules et ne requiert que quelques compétences de base - essentiellement - issues des technologies du web. 
 Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa facilité de mise en œuvre et la qualité, la stabilité et la fiabilité de son fonctionnement.
 
-Revolution 13 apporte une stabilité de fonctionnement record ainsi que de nombreuses corrections et améliorations - le détail des travaux réalisés pour cette nouvelle version dans le fichier changelog-rev14.txt
+Revolution 14 apporte une nouvelle administration avec un système de droits étendu aux fonctions ainsi que de nombreuses corrections et améliorations - le détail des travaux réalisés pour cette nouvelle version dans le fichier changelog-rev14.txt
