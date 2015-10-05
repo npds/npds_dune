@@ -2,8 +2,10 @@
 revolution 14
 Labo of the next version of NPDS CMS.
 
-- utilisation framework BS4
 - nouvelle administration
+- utilisation framework BS4
+- abandon YUI pour jquery
+- thèmes responsives au choix (bs et rocsti)
 
 Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif. 
 Il s'agit d'un Content & Community Management System (CCMS) robuste, sécurisé, complet, performant et parlant vraiment français.
