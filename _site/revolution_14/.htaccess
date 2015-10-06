@@ -1,0 +1,12 @@
+#--------------------------------------------------
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine on
+
+#--------------------------------------------------
+# Règles de réécriture d'URL :
+#--------------------------------------------------
+
+RewriteRule ^index\.html$ /index.php?op=edito-nonews [L]
