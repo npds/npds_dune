@@ -70,7 +70,7 @@ if ($submitS) {
       $message = make_clickable($message);
       $message = aff_code($message);
       $message = str_replace("\n", "<br />", removeHack($message));
-      $message .= "<br /><p class=\"lignb\">".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600))."</p>";
+      $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600))."</div>";
    } else {
       $message .= "\n\n".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600));
    }
@@ -163,69 +163,104 @@ if ($submitS) {
       $message = stripslashes($message);
    }
    if ( (($Mmod) or ($userdata[0]==$myrow['uid'])) and ($forum_access!=9) ) {
-      echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-      echo "<form action=\"editpost.php\" method=\"post\" name=\"coolsus\">";
+      echo '
+      <h4>'.translate("Editing Post").' de '.$myrow['uname'].'</h4>';
+      echo '<form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
-         echo "<b>".translate("Editing Post")."</b> : <input class=\"textbox_standard\" type=\"text\" name=\"subject\" size=\"40\" maxlength=\"100\" value=\"".htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset)."\" /></td></tr>";
+         echo '
+         <div class="form-group row">
+            <div class="col-sm-3">
+               <label class="form-control-label" for="subject">'.translate("Title").'</label>
+            </div>
+            <div class="col-sm-9">
+               <input class="form-control textbox_standard" type="text" name="subject" size="40" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
+            </div>
+         </div>';
       else {
          echo "<b>".translate("Editing Post")."</b> : $title</td></tr>";
          echo "<input type=\"hidden\" name=\"subject\" value=\"".htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset)."\" />";
       }
-      echo "</td></tr></table>\n";
-      echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
-      echo "<tr>";
-      echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Author")." :<b></td>";
-      echo "<td class=\"lignb\">";
-      echo $userdata[1];
-      echo "</td></tr>";
    } else {
       forumerror('0036');
    }
    if ($smilies) {
-      echo "<tr align=\"left\" valign=\"top\">
-      <td class=\"lignb\" width=\"25%\"><b>".translate("Message Icon: ")."</b></td>
-      <td class=\"lignb\">";
-      echo emotion_add($image_subject);
-      echo "</td></tr>";
+      echo '
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label">'.translate("Message Icon: ").'</label>
+         </div>
+         <div class="col-sm-9">
+         '.emotion_add($image_subject).'
+         </div>
+      </div>';
    }
-   echo "<tr align=\"left\" valign=\"top\">";
-   echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Message: ")."</b><br /><br />";
-   echo "<span class=\"noir\">HTML : ";
+   echo '
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label">'.translate("Message: ").'</label>
+         </div>';
+   if ($allow_bbcode)
+      $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
+   echo '
+         <div class="col-sm-9">
+            <div class="card">
+               <div class="card-header">';
    if ($allow_html == 1) {
-      echo translate("On")."<br />";
-      echo HTML_Add();
+      echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
-      echo translate("Off")."<br />";
-   echo "</span></td>";
-   if ($allow_bbcode)
-      $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
-   echo "<td class=\"lignb\"><textarea class=\"textbox\" $xJava name=\"message\" rows=\"10\" cols=\"60\">$message</textarea><br />";
-   if ($allow_bbcode)
-      putitems();
-   echo "</td></tr><tr align=\"left\">";
-   echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Options: ")."</b></td>";
-   echo "<td class=\"lignb\">";
-   echo "<input type=\"checkbox\" name=\"delete\" />".translate("Delete this Post")."<br />";
+      echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+   echo '
+               </div>
+               <div class="card-block">
+                  <textarea class="form-control textbox" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
+               </div>
+               <div class="card-footer text-muted">';
+                 if ($allow_bbcode) putitems();
+   echo '
+               </div>
+            </div>
+         </div>
+      </div>';
    if (($allow_html==1) and ($forum_type!=6)) {
       if (isset($html)) {
-         $sethtml="checked=\"checked\"";
+         $sethtml='checked="checked"';
       } else {
-         $sethtml="";
+         $sethtml='';
       }
-      echo "<input type=\"checkbox\" name=\"html\" $sethtml />".translate("Disable HTML on this Post")."<br />";
+   echo '
+   <div class="form-group row">
+      <div class="col-sm-3">
+         <label class="form-control-label">'.translate("Options: ").'</label>
+      </div>
+      <div class="col-sm-9">
+         <div class="checkbox">
+            <label class="text-danger">
+               <input type="checkbox" name="delete" /> '.translate("Delete this Post").'
+            </label>
+         </div>
+         <div class="checkbox">
+            <label>
+               <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
+            </label>
+         </div>
+      </div>
+   </div>';
    }
-   echo "</td></tr><tr>";
-   echo "<td class=\"ligna\" colspan=\"2\" align=\"center\">";
-   echo "<input type=\"hidden\" name=\"post_id\" value=\"$post_id\" />";
-   echo "<input type=\"hidden\" name=\"forum\" value=\"$forum\" />";
-   echo "<input type=\"hidden\" name=\"topic_id\" value=\"$topic\" />";
-   echo "<input type=\"hidden\" name=\"topic\" value=\"$topic\" />";
-   echo "<input type=\"hidden\" name=\"user_sig\" value=\"".$myrow['user_sig']."\" />";
-   echo "<input type=\"hidden\" name=\"arbre\" value=\"$arbre\" />";
-   echo "<br /><input class=\"bouton_standard\" type=\"submit\" name=\"submitS\" value=\"".translate("Submit")."\" />&nbsp;";
-   echo "&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"submitP\" value=\"".translate("Preview")."\" />&nbsp;";
-   echo "&nbsp;<input class=\"bouton_standard\" type=\"reset\" name=\"clear\" value=\"".translate("Clear")."\" />";
-   echo "<br /><br /></td></tr></form></table>";
+   echo '
+      <input type="hidden" name="post_id" value="'.$post_id.'" />
+      <input type="hidden" name="forum" value="'.$forum.'" />
+      <input type="hidden" name="topic_id" value="'.$topic.'" />
+      <input type="hidden" name="topic" value="'.$topic.'" />
+      <input type="hidden" name="user_sig" value="'.$myrow["user_sig"].'" />
+      <input type="hidden" name="arbre" value="'.$arbre.'" />
+      <div class="form-group row">
+         <div class="col-sm-offset-3 col-sm-9">
+            <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" >'.translate("Submit").'</button>&nbsp;
+            <button class="btn btn-primary" type="submit" name="submitP" value="'.translate("Preview").'" >'.translate("Preview").'</button>&nbsp;
+            <button class="btn btn-secondary" type="reset" name="clear" value="'.translate("Clear").'" >'.translate("Clear").'</button>
+         </div>
+      </div>
+   </form>';
 }
 include("footer.php");
 ?>

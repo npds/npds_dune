@@ -294,7 +294,9 @@ function putitems_more() {
 }
 function putitems() {
    global $theme;
-   echo "<h4>".translate("Click on Smilies to insert it on your Message")." :</h4><span class =\"fond_emot\">&nbsp;";
+//   echo '   <a href="#" class="" title="'.translate("Click on Smilies to insert it on your Message").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i> + </a>';
+   
+   echo '<span class ="fond_emot">';
    if ($ibid=theme_image("forum/smilies/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/";} else {$imgtmp="images/forum/smilies/";}
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
@@ -306,34 +308,43 @@ function putitems() {
          }
       }
    }
-   echo "</span>";
+   echo '</span>';
+   
+   global $allow_bbcode;
+   if ($allow_bbcode) {
+      if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
+      if (file_exists($imgtmp."smilies.php"))
+         echo '<img src="'.$imgtmp.'/more.gif" />&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>++</a>';
+   }
 }
 
 function HTML_Add() {
-   $affich="<hr noshade=\"noshade\" class=\"ongl\" />"
-          ."<a href=\"javascript: addText('&lt;b&gt;','&lt;/b&gt;');\"><img src=\"images/editor_images/med_bold.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;i&gt;','&lt;/i&gt;');\"><img src=\"images/editor_images/med_italic.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;u&gt;','&lt;/u&gt;');\"><img src=\"images/editor_images/med_underline.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;p align=\'left\'&gt;','&lt;/p&gt;');\"><img src=\"images/editor_images/left.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;p align=\'center\'&gt;','&lt;/p&gt;');\"><img src=\"images/editor_images/centre.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;p align=\'right\'&gt;','&lt;/p&gt;');\"><img src=\"images/editor_images/right.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;p align=\'justify\'&gt;','&lt;/p&gt;');\"><img src=\"images/editor_images/justify.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<br /><br />"
-          ."<a href=\"javascript: addText('&lt;ul&gt;&lt;li&gt;','&lt;/li&gt;&lt;/ul&gt;');\"><img src=\"images/editor_images/para_bul.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;ol&gt;&lt;li&gt;','&lt;/li&gt;&lt;/ol&gt;');\"><img src=\"images/editor_images/para_num.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText(' http://www.','');\"><img src=\"images/editor_images/med_link.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'lignb\'&gt;&lt;tr&gt;&lt;td&gt;',' ... &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;');\"><img src=\"images/editor_images/med_table.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;";
+   $affich = '<div>'
+          .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol"></i></a>&nbsp;'
+          .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link"></i></a>&nbsp;'
 
-   $affich.="<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><img src=\"images/editor_images/med_spoiler.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('[code]','[/code]');\"><img src=\"images/editor_images/med_code.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('[video_yt]','[/video_yt]');\"><img src=\"images/editor_images/youtube.gif\" border=\"0\" alt=\"youtube\" title=\"ID youtube : [video_yt]_pnVFFgzlqc[/video_yt]\" width=\"18\" height=\"18\" /></a>&nbsp;";
-
+//          ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'lignb\'&gt;&lt;tr&gt;&lt;td&gt;',' ... &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;');\"><img src=\"images/editor_images/med_table.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
+         ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><i class=\"fa fa-table\"></i></a>&nbsp;"
+      //    ."<a href=\"javascript: addText('[code]','[/code]');\"><img src=\"images/editor_images/med_code.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
+          ."<a href=\"javascript: addText('[code]','[/code]');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+//          ."<a href=\"javascript: addText('[video_yt]','[/video_yt]');\"><img src=\"images/editor_images/youtube.gif\" border=\"0\" alt=\"youtube\" title=\"ID youtube : [video_yt]_pnVFFgzlqc[/video_yt]\" width=\"18\" height=\"18\" /></a>&nbsp;"
+          .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;</div>';
+/*
    global $allow_bbcode;
    if ($allow_bbcode) {
       if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
       if (file_exists($imgtmp."smilies.php"))
          $affich.="<hr noshade=\"noshade\" class=\"ongl\" /><img src=\"$imgtmp/more.gif\" />&nbsp;<a href=\"javascript:void(0);\" onclick=\"window.open('more_emoticon.php','EMOTICON','menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes');\">".translate("More smilies")."</a>";
    }
+   */
    return($affich);
 }
 
@@ -346,7 +357,7 @@ function emotion_add($image_subject) {
       $filelist[] = $file;
    }
    asort($filelist);
-   $count=1;
+//   $count=1;
    $temp="";
    while (list ($key, $file) = each ($filelist)) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
@@ -361,8 +372,8 @@ function emotion_add($image_subject) {
          $image_subject="no image";
       }
       $temp .= "<img src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
-      if ($count == 11) { $temp .= "<br />"; $count = 0; }
-      $count++;
+//      if ($count == 11) { $temp .= "<br />"; $count = 0; }
+//      $count++;
    }
    return $temp;
 }

@@ -2,13 +2,13 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* Dont modify this file is you dont know what you make                 */
+/* Dont modify this file iF you dont know what you make                 */
 /************************************************************************/
 global $NPDS_Prefix;
 
@@ -22,7 +22,7 @@ $m->add_field("referer","",basename($referer),'hidden',false);
 $m->add_field('add_uname', adm_translate("Surnom"),"$chng_uname",'text',true,25,"","");
 $m->add_field('add_name', adm_translate("Nom"),"$chng_name",'text',false,60,"","");
 $m->add_field('add_email', adm_translate("E-mail"),"$chng_email",'text',false,60,"","");
-$m->add_field('add_femail',adm_translate("Votre adresse E-mail masquée"),"$chng_femail",'text',false,60,"","");
+$m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),"$chng_femail",'text',false,60,"","");
 if ($op=="ModifyUser")
    $m->add_checkbox('raz_avatar',adm_translate("Revenir aux avatars standards"), 1, false, false);
 
@@ -88,7 +88,7 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 // LNL
 
 if ($chng_user_viewemail) {$checked=true;} else {$checked=false;}
-$m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres Utilisateurs à voir mon adresse E-mail ?"), 1, false, $checked);
+$m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres Utilisateurs à voir son adresse E-mail ?"), 1, false, $checked);
 
 $m->add_field('add_url',"URL","$chng_url",'text',false,100,"","");
 
@@ -99,21 +99,21 @@ if ($chng_is_visible==1) {$checked=false;} else {$checked=true;}
 $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $checked);
 // ---- SUBSCRIBE and INVISIBLE
 
-$m->add_field('add_user_icq', adm_translate("Votre adresse ICQ"),"$chng_user_icq",'text',false,15,"","");
-$m->add_field('add_user_aim', adm_translate("Votre référence AIM"),"$chng_user_aim",'text',false,18,"","");
-$m->add_field('add_user_yim', adm_translate("Votre référence YIM"),"$chng_user_yim",'text',false,50,"","");
-$m->add_field('add_user_msnm', adm_translate("Votre référence MSNM"),"$chng_user_msnm",'text',false,50,"","");
-$m->add_field('add_user_from', adm_translate("Votre situation géographique"),"$chng_user_from",'text',false,100,"","");
-$m->add_field('add_user_occ', adm_translate("Votre activité"),"$chng_user_occ",'text',false,100,"","");
-$m->add_field('add_user_intrest', adm_translate("Vos centres d'interêt"),"$chng_user_intrest",'text',false,150,"","");
+$m->add_field('add_user_icq', adm_translate("Adresse ICQ"),"$chng_user_icq",'text',false,15,"","");
+$m->add_field('add_user_aim', adm_translate("Référence AIM"),"$chng_user_aim",'text',false,18,"","");
+$m->add_field('add_user_yim', adm_translate("Référence YIM"),"$chng_user_yim",'text',false,50,"","");
+$m->add_field('add_user_msnm', adm_translate("Référence MSNM"),"$chng_user_msnm",'text',false,50,"","");
+$m->add_field('add_user_from', adm_translate("Situation géographique"),"$chng_user_from",'text',false,100,"","");
+$m->add_field('add_user_occ', adm_translate("Activité"),"$chng_user_occ",'text',false,100,"","");
+$m->add_field('add_user_intrest', adm_translate("Centres d'interêt"),"$chng_user_intrest",'text',false,150,"","");
 
 if ($attach==1) {$checked=true;} else {$checked=false;}
-$m->add_checkbox('attach',adm_translate("Afficher votre signature"), 1, false, $checked);
+$m->add_checkbox('attach',adm_translate("Afficher signature"), 1, false, $checked);
 $m->add_field('add_user_sig', adm_translate("Signature")."<br /><span style=\"font-size: 10px;\">".adm_translate("Description :  (255 caractères max)")."</span>","$chng_user_sig",'textarea',false,255,7,"","");
 $m->add_field('add_bio',adm_translate("Informations supplémentaires : ")."<br /><span style=\"font-size: 10px;\">".adm_translate("Description :  (255 caractères max)")."</span>","$chng_bio",'textarea',false,255,7,"","");
 $m->add_field('add_pass', adm_translate("Mot de Passe"),"",'password',false,40,"","");
 if ($op=="ModifyUser")
-   $m->add_field('add_pass2', adm_translate("Entrez à nouveau votre Mot de Passe")."&nbsp;<span style=\"font-size: 10px;\">".adm_translate("(seulement pour modifications)")."</span>","",'password',false,40,"","");
+   $m->add_field('add_pass2', adm_translate("Entrez à nouveau le Mot de Passe")."&nbsp;<span style=\"font-size: 10px;\">".adm_translate("(seulement pour modifications)")."</span>","",'password',false,40,"","");
 
 // --- EXTENDER
 if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
@@ -138,5 +138,7 @@ else
 $m->add_extra("<br />");
 // Submit bouton
 $m->add_field('Submit',"",adm_translate("Valider"),'submit',false);
+//$m->add_extra(adminfoot('fv','','',''));
+
 // ----------------------------------------------------------------
 ?>
