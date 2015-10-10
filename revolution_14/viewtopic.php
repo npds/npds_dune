@@ -293,8 +293,8 @@ include('header.php');
          echo $message; 
       }	  
       if ($allow_upload_forum and ($att>0)) {
-         $post_id=$myrow['post_id'];        
-         echo display_upload("forum_npds",$post_id,$Mmod);       
+         $post_id=$myrow['post_id'];
+         echo display_upload("forum_npds",$post_id,$Mmod);
       }	  
 	echo '</div>
 		</div>

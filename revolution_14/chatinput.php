@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -45,36 +45,39 @@ include("functions.php");
    include("meta/meta.php");
    echo import_css($tmp_theme, $language, $site_font, basename($_SERVER['PHP_SELF']), "");
    include("lib/formhelp.java.php");
-   echo "</head>";
+   echo '</head>';
 
    // cookie chat_info
    echo "\n<script type=\"text/javascript\" src=\"lib/cookies.js\"></script>\n";
-   echo "<body style=\"padding: 2px;\" onload=\"setCookie('chat_info', '1', '');\" onUnload=\"deleteCookie('chat_info');\">";
-
+   echo "
+      <body style=\"padding: 2px;\" onload=\"setCookie('chat_info', '1', '');\" onUnload=\"deleteCookie('chat_info');\">";
    putitems();
-   
-   echo "<form class=\"form\" role=\"form\" name=\"coolsus\" action=\"chatinput.php\" method=\"post\">
-			<input type=\"hidden\" name=\"op\" value=\"set\" />
-			<input type=\"hidden\" name=\"id\" value=\"$id\" />
-			<input type=\"hidden\" name=\"auto\" value=\"$auto\" />";
+   echo '
+         <form role="form" name="coolsus" action="chatinput.php" method="post">
+            <input type="hidden" name="op" value="set" />
+            <input type="hidden" name="id" value="'.$id.'" />
+            <input type="hidden" name="auto" value="'.$auto.'" />';
 
    if (!isset($cookie[1])) {
       $pseudo = ((isset($name))?($name):getip());
    } else {
       $pseudo = $cookie[1];
    }
-	echo ''.translate("You are logged in as").' <strong>'.$pseudo.'</strong>&nbsp;';
-	echo '<input type="hidden" name="name" value="'.$pseudo.'" />';
-	echo '<input class="btn btn-primary" type="submit" tabindex="1" value="'.translate("Submit").'" />';
    $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
 
-   echo '<input class="form-control" type="text" '.$xJava.' />';
-
-	echo "</form>";
-   
-	echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.coolsus.message.focus();\n//]]>\n</script>
-         </body>
-         </html>";
+   echo translate("You are logged in as").' <strong>'.$pseudo.'</strong>&nbsp;';
+   echo '
+            <input type="hidden" name="name" value="'.$pseudo.'" />
+            <textarea class="form-control" type="text" rows="2" '.$xJava.' ></textarea>
+            <input class="btn btn-primary" type="submit" tabindex="1" value="'.translate("Submit").'" />
+         </form>
+         <script type="text/javascript">
+         //<![CDATA[
+            document.coolsus.message.focus();
+         //]]>
+         </script>
+      </body>
+   </html>';
 
    settype($op,'string');
    switch ($op) {

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2013 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -187,9 +187,6 @@ if ($submitS) {
    if ($allow_bbcode) {
       include("lib/formhelp.java.php");
    }
-   
-   echo '
-		';	
    echo '<h3>'.translate("Moderated By: ").'';
    for ($i = 0; $i < count($moderator); $i++) {
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'">'.$moderator[$i].'</a></h3>';
@@ -213,30 +210,23 @@ if ($submitS) {
    $userX = base64_decode($user);
    $userdata = explode(":", $userX);
    if ($forum_access == 1) {
-      if (!isset($user)) {	  
-		  echo '
-         <fieldset>	 
-            <div class="form-group">
-			            <div class="row">
-               <label class="control-label col-sm-2 col-md-2" for="aid">'.translate("Nickname: ").'</label>
+      if (!isset($user)) {
+      echo '
+         <fieldset>
+            <div class="form-group row">
+               <label class="control-label col-sm-2" for="aid">'.translate("Nickname: ").'</label>
                <div class="col-sm-8 col-md-4">
                   <input class="form-control" type="text" name="username" placeholder="'.translate("Nickname").'" required="required" value="'.$username.'" />
-				  <span class="fa fa-check form-control-feedback"></span>
                </div>
-			   </div>
             </div>
-            <div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-2 col-md-2" for="password">'.translate("Password: ").'</label>
-               <div class="col-sm-8 col-md-4">
+            <div class="form-group row">
+               <label class="control-label col-sm-2" for="password">'.translate("Password: ").'</label>
+               <div class="col-sm-8">
                   <input class="form-control" type="password" name="password" placeholder="'.translate("Password").'" required="required" value="'.$password.'" />
-				  <span class="fa fa-check form-control-feedback"></span>
                </div>
-			   </div>
             </div>
-         </fieldset>
-	  ';
-         $allow_to_post = 1;	 
+         </fieldset>';
+         $allow_to_post = 1;
       } else {
          echo '<strong>'.translate("Author").' :</strong>';
          echo $userdata[1];
@@ -276,150 +266,140 @@ if ($submitS) {
       if ($myrow['forum_type']==8) {
          $formulaire=$myrow['forum_pass'];
          include ("modules/sform/forum/forum_extender.php");
-      } else {	  
-		  echo ' 
-            <div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-2 col-md-2" for="aid">'.translate("Subject: ").'</label>
-               <div class="col-sm-8 col-md-10">
-                  <input class="form-control" type="text" name="subject" placeholder="'.translate("Subject").'" required="required" value="'.$subject.'" />
-				  <span class="fa fa-check form-control-feedback"></span>
-               </div>
-			   </div>
+      } else {
+      echo ' 
+         <div class="form-group row">
+            <div class="col-sm-3">
+               <label class="form-control-label" for="subject">'.translate("Subject: ").'</label>
             </div>
-	  ';
-         if ($smilies) {		 
-		  echo '	 
-            <div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-2 col-md-2" for="aid">'.translate("Message Icon: ").'</label>
-               <div class="col-sm-8 col-md-10">';
-				settype($image_subject,'string');
-				echo emotion_add($image_subject);			   
-		  echo '			   
-               </div>
-			   </div>
+            <div class="col-sm-9">
+               <input class="form-control" type="text" name="subject" placeholder="'.translate("Subject").'" required="required" value="'.$subject.'" />
             </div>
-		';			 
+         </div>';
+         if ($smilies) {
+         echo '
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label">'.translate("Message Icon: ").'</label>
+               </div>
+               <div class="col-sm-9">';
+               settype($image_subject,'string');
+               echo emotion_add($image_subject);
+         echo '
+               </div>
+            </div>';
          }
         echo ' 
-            <div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-2 col-md-2" for="aid">';
-         echo "HTML : ";
-         if ($allow_html==1) {
-            echo translate("On")."<br />";
-            echo HTML_Add();
-         } else
-            echo translate("Off")."<br />";
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label" for="message">'.translate("Message: ").'</label>
+               </div>
+         ';
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';		
-		echo '
-			</label>
-            <div class="col-sm-10 col-md-10">		
-			<textarea class="form-control" '.$xJava.' name="message" rows="12">'.$message.'</textarea>
-			</div>
-			</div>
-			</div>
-			';
-			
-         if ($allow_bbcode)
-            putitems();
-		
+   echo '
+         <div class="col-sm-9">
+            <div class="card">
+               <div class="card-header">';
+   if ($allow_html==1) {
+      echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+   } else
+      echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
          echo '
-		 <h3>'.translate("Options: ").'</h3>	 
-		 ';
+               </div>
+               <div class="card-block">
+                  <textarea class="form-control" '.$xJava.' name="message" rows="12">'.$message.'</textarea>
+               </div>
+               <div class="card-footer text-muted">';
+                 if ($allow_bbcode) putitems();
+         echo '
+               </div>
+            </div>
+         </div>
+      </div>';
+
+         echo '
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label">'.translate("Options: ").'</label>
+         </div>
+         <div class="col-sm-9">';
 
          if (($allow_html==1) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
          if (isset($html)) {
-            $sethtml = "checked=\"checked\"";
+            $sethtml = 'checked="checked"';
          } else {
-            $sethtml = "";
+            $sethtml = '';
          }
-         echo '	 
-			<div class="form-group">
-		            <div class="row">
-               <label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Disable HTML on this Post").' :</label>
-               <div class="col-sm-1 col-md-1">
-                  <input class="form-control" type="checkbox" name="html" '.$sethtml.' />
-               </div>
-			   </div>
-            </div>
-		 ';
+         echo '
+            <div class="checkbox">
+               <label>
+                  <input class="" type="checkbox" name="html" '.$sethtml.' />&nbsp;'.translate("Disable HTML on this Post").'
+               </label>
+            </div>';
          }
          if ($user) {
             if ($allow_sig == 1||$sig == "on") {
                $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
                list($attachsig) = sql_fetch_row($asig);
                if ($attachsig == 1) {
-                  $s = "checked=\"checked\"";
+                  $s = 'checked="checked"';
                } else {
-                  $s = "";
+                  $s = '';
                }
                if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
-         echo '	 
-			<div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Show signature").' :</label>
-               <div class="col-sm-1 col-md-1">
-                  <input class="form-control" type="checkbox" name="html" '.$s.' />
-               </div>
-			   </div>
-            </div>
-		 ';
+         echo '
+            <div class="checkbox">
+               <label>
+                  <input class="" type="checkbox" name="html" '.$s.' />&nbsp;'.translate("Show signature").'
+               </label>
+            </div>';
                }
             }
             if ($allow_upload_forum) {
                if ($upload == "on") {
-                  $up = "checked=\"checked\"";
+                  $up = 'checked="checked"';
                }
-         echo '	 
-			<div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Upload file after send accepted").' :</label>
-               <div class="col-sm-1 col-md-1">
-                  <input class="form-control" type="checkbox" name="html" '.$up.' />
-               </div>
-			   </div>
-            </div>
-		 ';
+         echo '
+            <div class="checkbox">
+               <label>
+                  <input class="" type="checkbox" name="html" '.$up.' />&nbsp;'.translate("Upload file after send accepted").'
+               </label>
+            </div>';
             }
             if (isset($notify2)) {
-               $selnot="checked=\"checked\"";
+               $selnot='checked="checked"';
             } else {
-               $selnot="";
-            }			
-         echo '	 
-			<div class="form-group">
-			            <div class="row">			
-               <label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Notify by email when replies are posted").' :</label>
-               <div class="col-sm-1 col-md-1">
-                  <input class="form-control" type="checkbox" name="html" '.$selnot.' />
-               </div>
-			   </div>
-            </div>
-			';
+               $selnot='';
+            }
+         echo '
+            <div class="checkbox">
+               <label>
+                  <input class="" type="checkbox" name="html" '.$selnot.' />&nbsp;'.translate("Notify by email when replies are posted").'
+               </label>
+            </div>';
          }
+         echo '
+         </div>
+      </div>';
 
 		echo ''.Q_spambot().'';
-		 	 
+
 		echo'	
 			<fieldset>
 			<div class="btn-group-sm text-center" role="group">
-				<input type="hidden" name="forum" value="'.$forum.'" />			   
+				<input type="hidden" name="forum" value="'.$forum.'" />
 				<input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
-				<input class="btn btn-default" type="submit" name="submitP" value="'.translate("Preview").'" />
+				<input class="btn btn-secondary" type="submit" name="submitP" value="'.translate("Preview").'" />
 				<input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
-				<input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />			
+				<input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
 			</div>
 			</fieldset>			
-			';	 
+			';
       }
    }
    echo '
-		</div>
-		</form>
-		';
+		</form>';
 }
 include('footer.php');
 ?>
