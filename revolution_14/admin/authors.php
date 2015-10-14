@@ -202,35 +202,35 @@ function displayadmins() {
     <form id="nou_adm" class="form-horizontal" action="admin.php" method="post">
         <fieldset>
         <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" /> '.adm_translate("Informations").' </legend>
-        <br /><div class="form-group">
+        <br /><div class="form-group row">
             <label class="form-control-label col-sm-4" for="add_aid">'.adm_translate("Surnom").'</label>
             <div class="col-sm-8">
                 <input id="add_aid" class="form-control" type="text" name="add_aid" maxlength="30" placeholder="'.adm_translate("Surnom").'" required="required" />
                 <span class="help-block text-right"><span id="countcar_add_aid"></span></span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8 col-md-8">
                 <input id="add_name" class="form-control" type="text" name="add_name" maxlength="50" placeholder="'.adm_translate("Nom").'" required="required" />
                 <span class="help-block text-right"><span id="countcar_add_name"></span></span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8 col-md-8">
                 <input id="add_email" class="form-control" type="email" name="add_email" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
                 <span class="help-block text-right"><span id="countcar_add_email"></span></span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_url">'.adm_translate("URL").'</label>
             <div class="col-sm-8 col-md-8">
                 <input id="add_url" class="form-control" type="url" name="add_url" maxlength="60" placeholder="'.adm_translate("URL").'" />
                 <span class="help-block text-right"><span id="countcar_add_url"></span></span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_pwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8 col-md-8">
                <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
@@ -240,7 +240,7 @@ function displayadmins() {
                </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4 text-danger" for="cb_radminsuper" >'.adm_translate("Super administrateur").'</label>
             <div class="col-sm-8 col-md-8">
                 <input id="cb_radminsuper" class="form-control" type="checkbox" name="add_radminsuper" value="1" data-toggle="collapse" data-target="#adm_droi_f,#adm_droi_m" />'."\n".'
@@ -397,32 +397,32 @@ function modifyadmin($chng_aid) {
    //<== construction des check-box des droits
     
    echo '
-   <form id="mod_adm" class="form-horizontal" action="admin.php" method="post">
+   <form id="mod_adm" class="" action="admin.php" method="post">
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" title="'.$chng_aid.'" /> '.adm_translate("Informations").'</legend>
          <br />
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="chng_name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input id="chng_name" class="form-control" type="text" name="chng_name" value="'.$chng_name.'" maxlength="30" placeholder="'.adm_translate("Nom").'" required="required" />
                <span class="help-block text-right"><span id="countcar_chng_name"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="chng_email">'.adm_translate("E-mail").'</label>
-            <div class="col-sm-8>
+            <div class="col-sm-8">
                <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
                <span class="help-block text-right"><span id="countcar_chng_email"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="chng_url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
                <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="60" placeholder="'.adm_translate("URL").'" />
                <span class="help-block text-right"><span id="countcar_chng_url"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="chng_pwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
                <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
@@ -437,14 +437,14 @@ function modifyadmin($chng_aid) {
                
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="chng_pwd2">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
                <input id="chng_pwd2" class="form-control" type="password" name="chng_pwd2" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
                <span class="help-block text-right"><span id="countcar_chng_pwd2"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4 text-danger" for="chng_radminsuper" >'.adm_translate("Super administrateur").'</label>
             <div class="col-sm-8">
                <input id="cb_radminsuper" class="form-control" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' data-toggle="collapse" data-target="#adm_droi_f,#adm_droi_m" />
