@@ -1,6 +1,0 @@
-[module]
-   [nom]TD-Galerie[/nom]
-   [ModPath]td-galerie[/ModPath]
-   [ModStart]admin/adm[/ModStart]
-   [niveau]radminsuper[/niveau]
-[/module]
