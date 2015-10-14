@@ -1,3 +1,0 @@
-Enable and customize pic-manager / to remove pic-manager : just remove pic-manager.txt
-150
-3600

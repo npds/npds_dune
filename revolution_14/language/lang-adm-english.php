@@ -939,7 +939,6 @@ function adm_translate($phrase) {
    case "Créer le bloc WS": $tmp = "Create the block WS"; break;
    case "Groupe de travail": $tmp = "Workgroup"; break;
    // WS
-
    default: $tmp = "Need to be translated <b>[** $phrase **]</b>"; break;
  }
  if (cur_charset=="utf-8") {

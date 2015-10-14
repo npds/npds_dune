@@ -350,11 +350,11 @@ function translate_pass1($phrase) {
    case "You are not allowed to post in this forum": $tmp="Vous n'êtes pas autorisé à participer à ce forum"; break;
    case "back": $tmp="retour"; break;
    case "Subject: ": $tmp="Titre : "; break;
-   case "Message Icon: ": $tmp="Icone du message : "; break;
-   case "Message: ": $tmp="Message : "; break;
+   case "Message Icon: ": $tmp="Icone du message"; break;
+   case "Message: ": $tmp="Message"; break;
    case "On": $tmp="Activé"; break;
    case "Off": $tmp="Désactivé"; break;
-   case "Options: ": $tmp="Options : "; break;
+   case "Options: ": $tmp="Options"; break;
    case "Disable HTML on this Post": $tmp="Désactiver le html pour cet envoi"; break;
    case "This can be altered or added in your profile": $tmp="Cela peut être retiré ou ajouté dans vos paramètres personnels"; break;
    case "Notify by email when replies are posted": $tmp="Prévenir par mèl quand de nouvelles réponses sont postées"; break;
@@ -981,7 +981,7 @@ function translate_pass1($phrase) {
    case "Add to mailing list": $tmp = "Ajouter à la liste de diffusion"; break;
    case "Connection allowed": $tmp = "Connexion autorisée"; break;
    case "Connection not allowed": $tmp = "Connexion non autorisée"; break;
-   case "Connection": $tmp = "Connexion"; break;   
+   case "Connection": $tmp = "Connexion"; break;
    case "0": $tmp="zéro"; break;
    case "1": $tmp="un"; break;
    case "2": $tmp="deux"; break;
@@ -1003,7 +1003,27 @@ function translate_pass1($phrase) {
    case "New Topic": $tmp="Nouveau sujet"; break;
 
    case "Registration": $tmp="Inscription"; break;
+   case "Smilies": $tmp="Emoticons"; break;
+
+   case "Bold": $tmp="Gras"; break;
+   case "Italic": $tmp="Italique"; break;
+   case "Underline": $tmp="Soulign&#xE9;"; break;
+   case "Text align-left": $tmp="Text align&#xE9; &#xE0; droite"; break;
+   case "Text center": $tmp="Text centr&#xE9;"; break;
+   case "Text align-right": $tmp="Text align&#xE9; &#xE0; gauche"; break;
+   case "Text justified": $tmp="Text justifi&#xE9;"; break;
+   case "Unordered list": $tmp="Liste ordonnn&#xE9;e"; break;
+   case "Ordered list": $tmp="Liste non ordonnn&#xE9;e"; break;
+   case "Web link": $tmp="Lien web"; break;
+   case "Table": $tmp="Tableau"; break;
+   case "Code": $tmp="Code"; break;
+   case "Youtube video": $tmp="Vid&#xE9;o Youtube"; break;
    
+   case "Hide this post": $tmp = "Masquer ce post"; break;
+   case "Show this post": $tmp = "Afficher ce post"; break;
+
+
+      
    case "Print": $tmp="Imprimer"; break;
    default: $tmp = "Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }

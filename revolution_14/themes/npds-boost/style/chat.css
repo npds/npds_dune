@@ -1,4 +1,10 @@
 @import "../../../../lib/bootstrap-3.3.4/css/bootstrap.css"; 
+.smil {
+width:24px;
+height:24px;
+}
+
+
 /*
 body {
 background-color: #FFFFFF;
@@ -93,5 +99,5 @@ width: 98%;
 .fond_emot {
 background-color: #DBB489;
 width: 100%;
-}
 */
+}

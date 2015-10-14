@@ -1,0 +1,87 @@
+.header1{background-color:#f7f7f7;}
+#nav{background-color:#FFE667;}
+
+/* #decohead {background-color:#ff0;} */
+
+/* #corps{background-color:AliceBlue;} */
+
+.leftbloc{
+padding:0.15em;
+}
+
+
+.sidebox {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 18px;
+    margin-top: 28px;
+}
+
+#footer{background-color:#ECE8E1;}
+
+.redborder {border: 1px solid red;}
+
+.blackborderg {border-right: 1px solid black;}
+
+.beige {background-color:Beige;}
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+ .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/*------------------------------
+Pour rendre les vidéo youtube responsives
+*******************************************/
+    .videocontainer{
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .videocontainer iframe, .videocontainer embed, .videocontainer object{
+      width: 100%!important; height: 100%!important;
+      position: absolute;
+      top: 0; left: 0;
+    }
+    
+ /* Google Gmap3 bug fix on images */
+.gm-style img {
+  height: 100%;
+}
+:not(.gm-style) img {
+  height: auto;
+}
+.gm-style img,
+.gmnoscreen img,
+.gmnoprint img {
+  max-width: none !important;
+}
+
+/********************
+citation pour les forums
+*******************/
+.quote {
+    border: 1px dotted #000;
+    margin: 5px;
+    padding: 5px;
+    width: 90%;
+}
+
+/***********************
+Pour eviter que les images ne débordent
+***************************/
+.row {
+    width: 100%;
+}

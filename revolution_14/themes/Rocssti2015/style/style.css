@@ -1,0 +1,398 @@
+/* ----------------------------------------------------------------------
+   1. BASE MINIMUM
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   2. LIENS - standard
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   3. LIENS - de style noir.
+   => en général les actions « positives » quand se ne sont pas des boutons
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   4 LIENS - de style rouge.
+   => en général les actions de type: annulation, suppression,
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   5 LIENS - de style box
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   6 LIENS - de style heada
+   => administration, téléchargement, annuaire notamment
+---------------------------------------------------------------------- */
+a.heada, a.heada:visited, a.heada:active {/* Admin (haut et bas) - Download - Annuaire */
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   7 LIENS - de style ongl
+   => fortement utilisé par le CMS
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   8 LES STYLES SUR DES BALISES DE BASES
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9 LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9a. LES STYLES SUR LES TABLEAUX
+   => Utilisés par la fonction tablos(), permet d’alterner les couleurs des lignes de tableau
+---------------------------------------------------------------------- */
+/* .ligna {
+   background-color: #eee;
+   color: #45445B;}
+.lignb {
+   background-color: #f7f7f7;
+   color: #45445B;} */
+   
+table {
+    background: #FFF none repeat scroll 0% 0%;
+    border: 1px solid #DDD;
+    margin-bottom: 1.25rem;
+    table-layout: auto;
+    
+}
+
+table tr.even, table tr.alt, table tr:nth-of-type(2n) {
+    background: #F9F9F9 none repeat scroll 0% 0%;
+}
+/* ----------------------------------------------------------------------
+   9b. LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9c. LES STYLES SUR LES TABLEAUX
+   => Très fortement utilisé pour la grande majorité des entêtes de tableaux
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   10 LIGNE DE SEPARATION (MENU ADMINISTRATION, MENU MEMBRE …)
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   11 LES STYLES SUR LES CHAMPS DE FORMULAIRES
+---------------------------------------------------------------------- */
+.inputa { /* champ de saisie, LNL, moteur de recherche notamment */
+   background-color: #FDFDFD;
+   border-top: #864732 2px solid;
+   border-bottom: #D7B39B 2px solid;
+   border-left: #864732 2px solid;
+   border-right: #D7B39B 2px solid;
+   color: #682B1A;
+   height: 15px;
+   vertical-align: middle;
+   width: 80px;
+}
+.textbox .textbox_no_mceEditor { /* Champs de formulaire */
+   width: 95%;
+   background-color: #FDFDFD;
+   color: #682B1A;
+   font-weight: bold;
+   text-decoration: none;
+   border-top: #B07A64 2px groove;
+   border-left: #B07A64 2px groove;
+   border-bottom: #682B1A 1px inset;
+   border-right: #682B1A 1px inset;
+}
+.textbox_standard { /* Champs de formulaire */
+   background-color: #FDFDFD;
+   border-bottom: #D7B39B 1px solid;
+   border-left: #D7B39B 1px solid;
+   border-right: #D7B39B 1px solid;
+   border-top: #D7B39B 1px solid;
+   color: #864732;
+}
+.bouton_standard { /* Champs de formulaire */
+   margin-top: 3px;
+   cursor: pointer;
+   background-color: #FDFDFD;
+   color: #682B1A;
+   font-weight: bold;
+   text-decoration: none;
+   border-top: #D7B39B 2px solid;
+   border-bottom: #864732 2px solid;
+   border-left: #D7B39B 2px solid;
+   border-right: #864732 2px solid;
+}
+.titboxc { /* administration, commentaires, téléchargement notamment */
+   background-color:transparent;
+   color: #9e5a42;
+   font-weight: bold;
+}
+.titboxcont { /* bloc administrateur, bloc message à un membre notamment */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-weight: bold;
+}
+.titre { /* Administration */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-weight: bold;
+}
+.titrea { /* sondages, commentaires, critiques, sections notamment */
+   background-color: transparent;
+   color: #682B1A;
+   font-weight: bold;
+   letter-spacing  : 1px;
+   text-indent     : 1px;
+   padding         : 2px;
+}
+.titreb { /* sondages */
+   background-color: transparent;
+   color: #91533D;
+   font-weight: bold;
+   text-decoration: none;
+}
+.titrec { /* bloc de Chat */
+   background-color: transparent;
+   color: #D5B199;
+   font-family: Georgia, "Times New Roman", serif;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   12 STATS - Jireck' work
+---------------------------------------------------------------------- */
+.graph { 
+        position: relative; /* IE is dumb */ 
+        width: 200px; 
+        border: 1px solid #708090; 
+        padding: 2px; 
+    } 
+.graph .bar { 
+        display: block; 
+        position: relative; 
+        background: #682B1A; 
+        text-align: center; 
+        color: #FFFFFF; 
+        height: 1em; 
+        line-height: 1em; 
+    } 
+.graph .bar span { position: absolute; left: 1em; }
+/* ----------------------------------------------------------------------
+   13 THEME
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   14  Liens Tooltip ==> Info Bulles                        
+---------------------------------------------------------------------- */
+a.tooltip {
+    border-bottom: 1px groove gray;
+}
+a.tooltip em {
+    display:none;
+}
+a.tooltip:hover {
+    border: 0;
+    position: relative;
+    z-index: 500;
+    text-decoration:none;
+}
+a.tooltip:hover em {
+    font-style: normal;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: -5px;
+    padding: 5px;
+    color: #000000;
+    border: 1px solid #404040;
+    background: #ECE8E1;
+	 width:200px;
+	text-align: left;	
+}
+/*------------------------------------------------>
+      CSS Complémentaire pour vos  Formulaires
+              ICI en Version Light
+-------------------------------------------------->*/
+form {  /* Délimitation de votre Formulaire*/
+  margin: 0;
+  width: 100%;
+}
+
+fieldset { /* Regroupe les différentes zones de votre Formulaire */
+  padding: 20px; /* padding in fieldset support spotty in IE */
+}
+
+legend { /* Titre pour identifier chaque fieldset */
+  font-size:1.1em;
+  color: #B80B36;
+  font-weight: bold;
+}
+
+label { /* Titre - Description des différents champs */
+  display: block;
+  float: left;
+  width: 200px;
+  margin-top: 5px ; /* set top margin same as form input - textarea etc. elements */
+  padding: 0; /* Intervient dans le user : la date */
+  text-align: left;
+}
+
+input[type=Submit], [type=Reset], [type=Return] {
+  margin-top: 3px;
+  cursor: pointer;
+  background-color: #FDFDFD;
+  color: #682B1A;
+  font-weight: bold;
+  text-decoration: none;
+  border-top: #D7B39B 2px solid;
+  border-bottom: #864732 2px solid;
+  border-left: #D7B39B 2px solid;
+  border-right: #864732 2px solid;
+}
+
+input[type=Radio] { 
+  background-color: transparent; 
+  border: 0;
+  vertical-align: text-bottom;
+} 
+textarea { /* Champs de Données */
+  width: 98%;
+}
+form label span {
+	color: red;
+}/* Utilisé dans user ! */
+form br {
+	clear:left;
+}
+
+/*jmd work*/
+
+/************************************************************************
+Dimension du site 
+*************************************************************************/
+body {
+	text-align: center; /* pour corriger un bug de centrage IE */
+	padding: 0px;
+
+	background-image: url("../images/fond2.png");
+        background-repeat: repeat repeat;
+}
+
+
+#container {
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
+	  width:100%;
+
+}
+
+/************************************************************************
+La Partie HEADER de votre Site
+*************************************************************************/
+header { /* Le Header Complet */
+
+	width: 100%;
+	height: auto;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+
+/************************************************************************
+La Partie CENTRALE de votre Site     colonne (s) et partie centrale
+*************************************************************************/
+#centralcol{
+   padding:10px;
+}
+
+
+#corps, #decofoot,#decohead{  /* corps= entre header et footer */
+        max-width: 1344px;   /*   A changer si vous voulez divisible par 3 et par 4 */
+ 	margin-left:auto;
+	margin-right:auto;
+         }
+         
+#corps {background: #fff; }
+
+/************************************************************************
+Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
+*************************************************************************/
+/* #leftcol {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right:5px;
+} */
+
+.rightbloc, .leftbloc{
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right:5px;
+}
+
+/************************************************************************
+La Partie Footer de votre Site
+*************************************************************************/
+footer {
+	text-align: left;
+	padding-top: 0;
+	width: 100%;
+	clear: both;
+}
+
+#footer{background-color:AliceBlue;}
+/********************
+le  header   et son contenu ( sa taille est ds decoheader)
+**********************/
+.header1{
+       background: #f7f7f7;
+  	margin:0px;
+	padding: 5px;
+	height: auto;
+  }
+
+
+/* Menu de navigation */
+
+
+
+/**************
+image responsives?
+***********************/
+img{ 
+  max-width: 100%;
+  height: auto;
+  width:auto;
+  box-sizing:border-box;
+}
+
+.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+ .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
