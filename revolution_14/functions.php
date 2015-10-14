@@ -262,11 +262,17 @@ function aff_video_yt($ibid) {
    }
    return ($ibid);
 }
-
+// ne fonctionne pas dans tous les contextes car on a pas la variable du theme !!!!
 function putitems_more() {
-   global $theme;
+   global $theme,$tmp_theme;
+   if (stristr($_SERVER['PHP_SELF'],"more_emoticon.php")) $theme=$tmp_theme;
+   
    echo "<p class=\"noir\" align=\"center\">".translate("Click on Smilies to insert it on your Message")."</p>";
-   if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
+   if ($ibid=theme_image("forum/smilies/more/smilies.php"))
+   {$imgtmp="themes/$theme/images/forum/smilies/more/";} 
+   else 
+   {$imgtmp="images/forum/smilies/more/";}
+
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       $rowcolor = tablos();
@@ -275,7 +281,8 @@ function putitems_more() {
       foreach ($smilies AS $tab_smilies) {
          if ($tab_smilies[3]) {
             if ($i==0) echo "<tr $rowcolor>";
-            echo "<td width=\"20%\" align=\"center\"><a href=\"javascript: DoAdd('true','message',' ".$tab_smilies[0]." ');\"><img src=\"".$imgtmp.$tab_smilies[1]."\" border=\"0\" alt=\"$tab_smilies[2]";
+            echo "<td width=\"20%\" align=\"center\">
+            <a href=\"javascript: DoAdd('true','message',' ".$tab_smilies[0]." ');\"><img src=\"".$imgtmp.$tab_smilies[1]."\" width=\"32\" height=\"32\" border=\"0\" alt=\"$tab_smilies[2]";
             if ($tab_smilies[2]) echo " => ";
             echo $tab_smilies[0]."\" /></a></td>";
             $i++;
@@ -310,12 +317,16 @@ function putitems() {
    }
    echo '</span>';
    
-   global $allow_bbcode;
-   if ($allow_bbcode) {
-      if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
+//    global $allow_bbcode;
+//    if ($allow_bbcode) {
+      if ($ibid=theme_image("forum/smilies/more/smilies.php")) 
+      {$imgtmp="themes/$theme/images/forum/smilies/more/";} 
+      else 
+      {$imgtmp="images/forum/smilies/more/";}
+      
       if (file_exists($imgtmp."smilies.php"))
-         echo '<img src="'.$imgtmp.'/more.gif" />&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>++</a>';
-   }
+         echo '<img src="'.$imgtmp.'more.gif" />&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
+//   }
 }
 
 function HTML_Add() {
@@ -370,7 +381,7 @@ function emotion_add($image_subject) {
          $temp .= '<input type="radio" value="'.$file.'" name="image_subject" checked="checked" />&nbsp;';
          $image_subject='no image';
       }
-      $temp .= '<img src="'.$imgtmp.'/'.$file.'" border="0" alt="" />&nbsp;';
+      $temp .= '<img class="smil" src="'.$imgtmp.'/'.$file.'" border="0" alt="" />&nbsp;';
    }
    return $temp;
 }
@@ -402,10 +413,10 @@ function searchblock() {
 
 function member_qualif($poster, $posts, $rank) {
    global $anonymous;
-   $tmp="";
-   if ($ibid=theme_image("forum/rank/post.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/forum/rank/post.gif";}
-   if ($ibid=theme_image("forum/rank/level.gif")) {$imgtmpN=$ibid;} else {$imgtmpN="images/forum/rank/level.gif";}
-   $tmp="<img src=\"".$imgtmpP."\" border=\"0\" alt=\"\" />".$posts."&nbsp;&nbsp;";
+   $tmp='';
+   if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
+   if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
+   $tmp='<img class="smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'&nbsp;&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
       if ($posts>=10 and $posts<30) {$nux=1;}
