@@ -1,0 +1,57 @@
+body {
+  background: #ffffff;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  color: #1F274E;
+  font-weight: normal;
+  margin: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+}
+
+a, a:visited, a:link, a:hover, a:active {
+  font-family: Tahoma, Verdana, sans-serif;
+  color: #1F274E;
+  font-size: 11px;
+  text-decoration: underline;
+}
+a.blog_lien, a.blog_lien:visited, a.blog_lien:link, a.blog_lien:hover, a.blog_lien:active {
+  font-family: Tahoma, Verdana, sans-serif;
+  color: #1F274E;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
+.blog_titre {
+  color: #474F70;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.blog_new {
+  background-color: #FCFF98;
+  color: #1F274E;
+  font-size: 11px;
+  text-decoration: none;
+}
+.blog_textbox {
+  background-color: #FFFFFF;
+  border-bottom: #1F274E 1px solid;
+  border-left: #1F274E 1px solid;
+  border-right: #1F274E 1px solid;
+  border-top: #1F274E 1px solid;
+  color: #45445B;
+  font-size: 11px;
+  width: 90%;
+}
+.blog_bouton {
+  background-color: #D4D0C8;
+  border-bottom: #1F274E 1px solid;
+  border-left: #1F274E 1px solid;
+  border-right: #1F274E 1px solid;
+  border-top: #1F274E 1px solid;
+  color: #45445B;
+  font-size: 11px;
+}
