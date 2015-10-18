@@ -19,6 +19,8 @@
       detailOpen: 'fa-plus-square-o',
       detailClose: 'fa-minus-square-o'
    };
+   
+/*   
 (function(){
   $(window).scroll(function () {
       var top = $(document).scrollTop();
@@ -35,13 +37,13 @@
     e.preventDefault();
   });
 });
-
-
-
+*/
 
 $(document).ready(function(){
-   $(".article_texte img").addClass("img-responsive");
-   $("#ban img").addClass("img-responsive");
+   $(".article_texte img").addClass("img-fluid img-responsive");
+   $("#ban img").addClass("img-fluid img-responsive");
+   $(".fo-post-mes img").addClass("img-fluid img-responsive");//not sure if usefull to late ...
+
    
    $('[data-toggle="tooltip"]').tooltip();
    $('[data-toggle="popover"]').popover();

@@ -94,37 +94,44 @@ $original_poster=$myrow['topic_poster'];
 function aff_pub($lock_state, $topic, $forum,$mod) {
    global $language;
    if ($lock_state==0) {
-   echo '
-   <div class="col-sm-12">
-      <a class="btn btn-xs btn-primary" role="button" href="newtopic.php?forum='.$forum.'">'.translate("New Topic").'</a>
-      </div>
-';
+   echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square "></i></a>&nbsp;';
    }
 }
-
 function aff_pub_in($lock_state, $topic, $forum,$mod) {
    global $language;
    if ($lock_state==0) {
    echo '
-   <a class="" role="button" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-lg fa-reply"></i>&nbsp;</a>';
+   <a class="" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>&nbsp;';
    }
 }
 
 $title=$forum_name; $post=$topic_subject;
 include('header.php');
-
    echo '
    <p class="lead">
-   <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&nbsp;&raquo;&nbsp;
-   <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&nbsp;&raquo; '.$topic_subject.'
+      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
+      <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_subject.'
+   </p>
+   <p class="lead">';
+   echo '
    </p>
    <p>'.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'" class="box">'.$moderator[$i].'</a>&nbsp;';
+   $modera = get_userdata($moderator[$i]);
+             if ($modera['user_avatar'] != '') {
+             if (stristr($modera['user_avatar'],"users_private")) {
+                $imgtmp=$modera['user_avatar'];
+             } else {
+                if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+             }
+             }
+
+      echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" />';
+//      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'" class="box">'.$moderator[$i].'</a>&nbsp;';
    }
    echo '</p>';
-
-   if ($forum_access!=9) {
+       echo '<h3>';
+          if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
          $allow_to_post=true;
@@ -141,23 +148,53 @@ include('header.php');
          aff_pub($lock_state,$topic,$forum,$mod);
       }
    }
+
+       echo ''.$topic_subject.'<span class="text-muted">&nbsp;#'.$topic.'</span>';
+          if ($forum_access!=9) {
+      $allow_to_post=false;
+      if ($forum_access==0) {
+         $allow_to_post=true;
+      } elseif ($forum_access==1) {
+         if (isset($user)) {
+            $allow_to_post=true;
+         }
+      } elseif ($forum_access==2) {
+         if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
+            $allow_to_post=true;
+         }
+      }
+      if ($allow_to_post) {
+         aff_pub_in($lock_state,$topic,$forum,$mod);
+      }
+   }
+   echo '</h3></span>';
+       
+       
+       
+   
    if ($total > $posts_per_page) {
       $times = 1;
-      echo "<p>$pages ".translate("pages")." [ ";
-      $pages_rapide="";
+      echo '
+      <div id="fo-postpagi">
+         <ul class="pagination pagination-sm">
+            <li class="disabled">
+               <a href="#" aria-label="Posts Pages">'.$total.' '.translate("Posts").' '.$pages.' '.translate("pages").'</a>
+            </li>';
+      
+      $pages_rapide='';
       for ($x = 0; $x < $total; $x += $posts_per_page) {
-         if ($times != 1)
-            $pages_rapide.=" | ";
          if ($current_page!=$times)
-            $pages_rapide.="<a href=\"viewtopic.php?topic=$topic&amp;forum=$forum&amp;start=$x\"><b>$times</b></a>";
+            $pages_rapide.='<li><a href="viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start='.$x.'">'.$times.'</a></li>';
          else
-            $pages_rapide.='<strong class="text-danger">'.$times.'</strong>';
+            $pages_rapide.='<li class="active"><a href="#">'.$times.'</a></li>';
          $times++;
       }
-      echo $pages_rapide." ] </p>\n";
+      echo $pages_rapide.'
+      </ul>
+      </div>';
     } 
-//    echo "".translate("Author")."";	
-    echo '<h3>'.$topic_subject.'</h3>';
+//    echo "".translate("Author")."";
+
     if ($Mmod) {
        $post_aff=" ";
     } else {
@@ -167,9 +204,9 @@ include('header.php');
     settype($posts_per_page,"integer");
     if (isset($start)) {
        if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; }
-       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
+       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
     } else {
-       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
+       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
     }
     if (!$result = sql_query($sql))
        forumerror(0001);
@@ -178,9 +215,9 @@ include('header.php');
     $count = 0;
 
     if ($allow_upload_forum) {
-       $visible = "";
+       $visible = '';
        if (!$Mmod) {
-          $visible = " and visible = 1";
+          $visible = ' and visible = 1';
        }
        $sql = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
        $att = sql_num_rows(sql_query($sql));
@@ -231,11 +268,12 @@ include('header.php');
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
       echo '
-      <div class="row">
+      <div class="row">';
+/*       echo '
          <div class="col-xs-1">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '<a name="last-post"></a>';
-/*      
+     
       if ($smilies) {
           if ($posterdata['user_avatar'] != '') {
              if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -254,7 +292,6 @@ include('header.php');
       }
 */      
 
-//      echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
 
 
 /*
@@ -269,14 +306,15 @@ include('header.php');
             echo "&nbsp;&nbsp;<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" target=\"_blank\"><img src=\"$imgtmpMS\" alt=\"\" /></a>";
       }      
       
+      
+echo '</div>';
 */      
-      
-      
       echo '
-         </div>
-         <div class="col-xs-11">
-            <div class="card">
-               <div class="card-header">';
+         <div class="col-xs-2">
+         <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
+      if (($count+2)==$mycount) echo '
+         <a name="last-post"></a>';
+
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -284,17 +322,23 @@ include('header.php');
             } else {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
             }
-             echo '<img width="64" height="64" style="" class=" img-thumbnail " src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
+             echo '<img width="64" height="64" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
             }
          }
+      echo '<br />'.member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
+      echo '
+         </div>
+         <div class="col-xs-10">
+            <div class="card fo">
+               <div class="card-header">';
 
          echo '<img src="'.$imgtmpP.'" width="32" height="32" />';
          echo '<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-         echo '
+         echo '<br />
       
       
       
-      <span style="position:relative; bottom:-40px;" class=" pull-right usertool">';
+      <span class="pull-right fo-usertool">';
       if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
          echo '&nbsp<a href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-lg fa-user"></i></a>&nbsp;';
       }
@@ -338,7 +382,7 @@ include('header.php');
 echo '
                </div>
                <hr />
-               <div class="card-text">';
+               <div class="card-text fo-post-mes">';
                
 
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
@@ -423,9 +467,17 @@ echo '
     $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_views = topic_views + 1 WHERE topic_id = '$topic'";
     sql_query($sql);
     if ($total > $posts_per_page) {
-       echo "<p>".translate("Goto Page: ")." [ ";
-       echo $pages_rapide." ] </p>\n";
+       echo '
+       <nav>
+         <ul class="pagination pagination-sm">
+            <li class="disabled">
+               <a href="#">'.translate("Goto Page").'</a>
+            </li>';
+             echo $pages_rapide.'
+         </ul>
+      </nav>';
     }
+    
     if ($forum_access!=9) {
        if ($allow_to_post) {
           aff_pub($lock_state,$topic,$forum,$mod);
@@ -446,13 +498,13 @@ echo '
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
 <form class="" role="form" action="viewforum.php" method="post">
-   <div class="form-group">
-      <div class="col-sm-4">
-         <label class="form-control-label" for="forum">'.translate("Jump To: ").'</label>
+   <div class="form-group row">
+      <div class="col-sm-2">
+         <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
       </div>
-         <div class="col-sm-8">
+      <div class="col-sm-10">
          <select class="form-control" name="forum" onchange="submit();">
-            <option value="index">...</option>
+            <option value="index">'.translate("Jump To: ").'</option>
             <option value="index">'.translate("Forum Index").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
        if ($res = sql_query($sub_sql)) {
@@ -468,8 +520,7 @@ echo '
           }
        }
        echo '
-            </select>
-         </div>
+         </select>
       </div>
    </div>
 </form>';
@@ -479,17 +530,27 @@ echo '
     }
 
     if (($Mmod) and ($forum_access!=9)) {
-       echo '<strong>'.translate("Administration Tools").' :</strong>';
+       echo '
+       <div class="row">
+          <div class="col-xs-12">
+             <div class="card">
+                <div class="card-block">
+                   <strong>'.translate("Administration Tools").' :</strong>';
       if ($lock_state==0)
          echo '
-         <a class="btn btn-xs btn-danger" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'"><i class="fa fa-lock" aria-hidden="true"></i></a>';
+                  <a class="" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'" data-toggle="tooltip" ><i class="fa fa-lock fa-lg" aria-hidden="true"></i></a>';
       else
          echo '
-         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'"><i class ="fa fa-unlock" aria-hidden="true"></i></a>';
+                  <a class="" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"><i class ="fa fa-unlock fa-lg" aria-hidden="true"></i></a>';
       echo '
-         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'"><i class="fa fa-share" aria-hidden="true"></i></a>
-         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'"><i class="fa fa-remove" aria-hidden="true"></i></a>
-         <a class="btn btn-secondary" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'"><i class="fa fa-level-up" aria-hidden="true"></i></a>';
+                  <a class="" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'" data-toggle="tooltip"><i class="fa fa-share fa-lg" aria-hidden="true"></i></a>
+                  <a class="" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+                  <a class="" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"><i class="fa fa-level-up fa-lg" aria-hidden="true"></i></a>
+               </div>
+            </div>
+         </div>
+      </div>';
     }
+    echo '';
 include("footer.php");
 ?>
