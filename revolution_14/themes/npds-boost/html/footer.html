@@ -45,7 +45,7 @@ $(document).ready(function(){
    $(".fo-post-mes img").addClass("img-fluid img-responsive");//not sure if usefull to late ...
 
    
-   $('[data-toggle="tooltip"]').tooltip();
+   $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
    $('[data-toggle="popover"]').popover();
    $('table').on('all.bs.table', function (e, name, args) {
       $('[data-toggle="tooltip"]').tooltip();

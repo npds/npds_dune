@@ -4,6 +4,62 @@
 /* dès que son chargement se fera en dernière position                  */
 /* après celle des frameworks  ==> dev                                  */
 
+/* oublié dans la css BS4 remplacer par img-fluid */ 
+.img-responsive {
+max-width: 100%;
+height: auto;
+}
+
+/* adaptation menu */
+.dropdown-menu {
+margin: 8px 0 0;
+}
+
+
+/* forum deco des cadres */
+.card.fo:after, .card.fo:before {
+   right: 100%;
+   top: 31px;
+   border: solid transparent;
+   content: " ";
+   height: 0;
+   width: 0;
+   position: absolute;
+   pointer-events: none;
+}
+.card.fo:after {
+   border-color: rgba(245, 245, 245, 0);
+   border-right-color: #F5F5F5;
+   border-width: 17px;
+   margin-top: -17px;
+   }
+.card.fo:before {
+   border-color: rgba(229, 229, 229, 0);
+   border-right-color: #E5E5E5;
+   border-width: 18px;
+   margin-top: -18px;
+}
+
+.n-ava {
+/* 
+position:absolute;
+left:-86px;
+top:1,5px;
+ */
+max-width:64px;
+max-height:64px;
+}
+.card.fo .card-header {
+height:63px;
+}
+
+.fo-usertool {
+   position:relative;
+   bottom:10px;
+} 
+
+
+
 /* ==> toggle systeme identique au navbar mais pour les col */
 .col.navbar-toggler {
 position: relative;
