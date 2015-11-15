@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -122,7 +122,12 @@ function display_upload($apli,$post_id,$Mmod){
    $att = getAttachments ($apli,$post_id,0,$Mmod);
    if (is_array($att)) {
       $att_count = count($att);
-      $attachments = "\n<table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">\n<tr>";
+//      $attachments = "\n<table id=\"ooo\" class=\"fo-post-mes\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">\n<tr>";
+      $attachments = '
+      <div class="card-text">
+      <hr />
+      <div><img class="smil" src="themes/npds-boost/images/forum/subject/1F4CE.png" border="0" alt="icon_post" /></div> <span class="text-muted pull-right">Attachements</span></div>';
+
       $ncell = 0;
       for ($i=0; $i<$att_count; $i++) {
          $att_id        = $att[$i]["att_id"];
@@ -149,13 +154,15 @@ function display_upload($apli,$post_id,$Mmod){
             $ncell = $num_cells + 1;
             $td = "<td colspan=\"".$num_cells."\">";
          } else {
-            $td = "<td>";
+//            $td = "<td>";
          }
          $attachments .= $td.$att_link."</td>";
 
          $att_list[$att_id] = $att_name;
       }
-      $attachments .= "</tr></table>";
+//      $attachments .= "</tr></table>";
+//      $attachments .= '</div>';
+
       return $attachments;
    }
 }
@@ -221,7 +228,7 @@ function verifsize ($size) {
       $width = ceil(($width * $imageProp) / 100);
       $height = $height_max;
    }
-   return ("width=\"$width\" height=\"$height\"");
+   return ('width="'.$width.'" height="'.$height.'"');
 }
 /************************************************************************/
 /* Retourne l'attachement                                               */
@@ -236,7 +243,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    $att_name = substr(strstr (basename($att_name), '.'), 1);
    $att_path = $DOCUMENTROOT.$att_path;
    if (!is_file($att_path)) {
-       return "&nbsp;<span class=\"rouge\" style=\"font-size: 10px;\">".upload_translate("Fichier non trouvé")." : $att_name</span>";
+       return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvé").' : '.$att_name.'</span>';
    }
 
    if ($att_inline) {
@@ -257,13 +264,14 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    $att_url= "getfile.php?att_id=$att_id&amp;apli=$apli".$marqueurM."&amp;att_name=".rawurlencode($att_name);
 
    if ($visible!=1) {
-      $visible_wrn = "&nbsp;<span class=\"rouge\" style=\"font-size: 10px;\">".upload_translate("Fichier non visible")."</span>";
+      $visible_wrn = '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non visible").'</span>';
    }
 
    switch ($display_mode) {
       case ATT_DSP_IMG: // display as an embedded image
          $size = @getImageSize ("$att_path");
-         $img_size = verifsize( $size );
+//         $img_size = verifsize( $size );
+         $img_size = 'style="max-width: 100%; height:auto;"';
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_IMG]);
          eval ("\$ret=stripSlashes(\"$text\");");
          break;
