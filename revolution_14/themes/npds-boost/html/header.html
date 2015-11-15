@@ -6,9 +6,11 @@
    $ava='';
 
 if (!isset($powerpack)) {include ("powerpack.php");}
-   if (if_chat()) $cha= '<a href="#"><i class="fa fa-comments fa-lg"></i></a>';
+   if (if_chat()) $cha= '
+         <li class="navbar-divider"></li>
+         <li class="nav-item"><a class="nav-link faa-pulse animated faa-slow" href="#"><i class="fa fa-comments fa-lg "></i></a></li>';
    if (autorisation(-1)) {
-      $con = "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+      $con = '!nb_online! - <a href="user.php">Se connecter</a>';
       $btn_con = '<a class="dropdown-item" href="user.php"><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
       $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x"></i></a>';
    } elseif (autorisation(1)) {
@@ -84,6 +86,7 @@ if (!isset($powerpack)) {include ("powerpack.php");}
   <div class="collapse navbar-toggleable-xs" id="barnav">
     <a class="navbar-brand" href="#"><span>Labo jpb/phr</span></a>
     <ul class="nav navbar-nav">
+       <li class="navbar-divider"></li>
       <li class="nav-item dropdown">
          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
          <ul class="dropdown-menu" role="menu">
@@ -93,9 +96,10 @@ if (!isset($powerpack)) {include ("powerpack.php");}
             <li class="dropdown-divider"></li>
          </ul>
       </li>
+      <li class="navbar-divider"></li>
       <li class="nav-item dropdown">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="navbar-divider"></li>
       <li class="nav-item">
@@ -115,12 +119,13 @@ if (!isset($powerpack)) {include ("powerpack.php");}
          <ul class="dropdown-menu">
             <li><?php echo $ava; ?></li>
             <li class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> Profile</a></li>
             <li><?php echo $bal; ?></li>
             <li class="dropdown-divider"></li>
             <li><?php echo $btn_con; ?></li>
          </ul>
       </li>
+      <?php echo $cha; ?>
     </ul>
   </div>
 </nav>
