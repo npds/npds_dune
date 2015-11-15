@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : Dyna-boost (c) 2015 by jpb                                   */
+/* Theme : npds-boost 2015 by jpb                                       */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -62,8 +62,8 @@ switch ($pdst)
         break;
 }
 
-// ContainerGlobal permet de transmettre á Theme-Dynbamic un »l»ment de personnalisation aprÀs
-// le chargement de footer.html / Si vide alors rien de plus n'est affich» par TD
+// ContainerGlobal permet de transmettre √° Theme-Dynbamic un √©l√©ment de personnalisation apr√®s
+// le chargement de footer.html / Si vide alors rien de plus n'est affich√© par TD
 $ContainerGlobal="\n</div>\n";
 
 // Ne supprimez pas cette ligne / Don't remove this line
