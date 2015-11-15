@@ -1,96 +1,87 @@
-<footer id="footer" class="footer">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-sm-12 text-center">
-            <p>!sc_infos!
-            <br />!sc_infos_else!
-            <br />!msg_foot!</p>
-         </div>
-      </div>
-   </div>
-</footer>
-
-<script type="text/javascript">
-//<![CDATA[
-   window.icons = {
-      refresh: 'fa-refresh fa-lg',
-      toggle: 'fa-toggle-on fa-lg',
-      columns: 'fa-th-list fa-lg',
-      detailOpen: 'fa-plus-square-o',
-      detailClose: 'fa-minus-square-o'
-   };
+<footer id="footer" class="footer bg-faded text-center">
+   <div class="container">
+      <p>!sc_infos!
+         <br />!sc_infos_else!
+         <br />!msg_foot!
+      </p>
+      <script type="text/javascript">
+      //<![CDATA[
+         window.icons = {
+            refresh: 'fa-refresh fa-lg',
+            toggle: 'fa-toggle-on fa-lg',
+            columns: 'fa-th-list fa-lg',
+            detailOpen: 'fa-plus-square-o',
+            detailClose: 'fa-minus-square-o'
+         };
    
-/*   
-(function(){
-  $(window).scroll(function () {
-      var top = $(document).scrollTop();
-      $('.splash').css({
-        'background-position': '0px -'+(top/3).toFixed(2)+'px'
+      /*   
+      (function(){
+        $(window).scroll(function () {
+            var top = $(document).scrollTop();
+            $('.splash').css({
+              'background-position': '0px -'+(top/3).toFixed(2)+'px'
+            });
+            if(top > 50)
+              $('#container > .navbar').removeClass('navbar-transparent');
+            else
+              $('#container > .navbar').addClass('navbar-transparent');
+        });
+
+        $("a[href='#']").click(function(e) {
+          e.preventDefault();
+        });
       });
-      if(top > 50)
-        $('#container > .navbar').removeClass('navbar-transparent');
-      else
-        $('#container > .navbar').addClass('navbar-transparent');
-  });
+      */
 
-  $("a[href='#']").click(function(e) {
-    e.preventDefault();
-  });
-});
-*/
-
-$(document).ready(function(){
-   $(".article_texte img").addClass("img-fluid img-responsive");
-   $("#ban img").addClass("img-fluid img-responsive");
-   $(".fo-post-mes img").addClass("img-fluid img-responsive");//not sure if usefull to late ...
+      $(document).ready(function(){
+         $(".article_texte img").addClass("img-fluid img-responsive");
+         $("#ban img").addClass("img-fluid img-responsive");
+         $(".fo-post-mes img").addClass("img-fluid img-responsive");//not sure if usefull to late ...
 
    
-   $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
-   $('[data-toggle="popover"]').popover();
-   $('table').on('all.bs.table', function (e, name, args) {
-      $('[data-toggle="tooltip"]').tooltip();
-      $('[data-toggle="popover"]').popover();
+         $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
+         $('[data-toggle="popover"]').popover();
+         $('table').on('all.bs.table', function (e, name, args) {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
 
-//$('table').bootstrapTable({icons:'icons'});
-//$('table').bootstrapTable({'icons-prefix':'fa'});
+      //$('table').bootstrapTable({icons:'icons'});
+      //$('table').bootstrapTable({'icons-prefix':'fa'});
       
-//      $('[data-icons]').value("icons");
-//      $('[data-icons-prefix]').value("fa");
+      //      $('[data-icons]').value("icons");
+      //      $('[data-icons-prefix]').value("fa");
 
-   });
-});
+         });
+      });
 
-// change skin and make the json file for api
-$.get("http://labo.infocapagde.com/api/3.json", function (data) {
-  var themes = data.skins;
-  var select = $("#bthem");
-  select.show();
-  $(".alert").toggleClass("alert-info alert-success");
-  
-  themes.forEach(function(value, index){
-    select.append($("<option />")
-          .val(index)
-          .text(value.name));
-  });
-  
-  select.change(function(){
-    var theme = themes[$(this).val()];
-    $("#bsth").attr("href", theme.css);
-   var ooo=theme.name;
+      // change skin and make the json file for api
+      $.get("http://labo.infocapagde.com/api/3.json", function (data) {
+        var themes = data.skins;
+        var select = $("#bthem");
+        select.show();
+        $(".alert").toggleClass("alert-info alert-success");
 
-$.post( "more_them.php", { them: ooo })
-  .done(function( data ) {
-    bootbox.alert( "Theme en prévisualisation: " + data );
-      $("#prevskin").html('<a href="'+theme.preview+'">look @ me</a>');
+        themes.forEach(function(value, index){
+          select.append($("<option />")
+                .val(index)
+                .text(value.name));
+        });
 
-    
-  });
-  }).change();
+        select.change(function(){
+          var theme = themes[$(this).val()];
+          $("#bsth").attr("href", theme.css);
+         var ooo=theme.name;
 
-}, "json").fail(function(){
-    $(".alert").toggleClass("alert-info alert-danger");
-    $(".alert h4").text("Failure!");
-});
-   
-//]]>
-</script>
+      $.post( "more_them.php", { them: ooo })
+        .done(function( data ) {
+          bootbox.alert( "Theme en prévisualisation: " + data );
+            $("#prevskin").html('<a href="'+theme.preview+'">look @ me</a>');
+        });
+        }).change();
+
+      }, "json").fail(function(){
+          $(".alert").toggleClass("alert-info alert-danger");
+          $(".alert h4").text("Failure!");
+      });
+      //]]>
+      </script>
