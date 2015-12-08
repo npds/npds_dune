@@ -28,7 +28,7 @@ if (!isset($powerpack)) {include ("powerpack.php");}
       
       list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
-         $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg"></i> '.translate("Private Message").' <span class="label-pill label-default">'.$nbmes.'</span></a>';
+         $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="label-pill label-default">'.$nbmes.'</span></a>';
       
       $ava='<a class="dropdown-item" href="user.php"><img src="'.$imgtmp.'" width="64" height="64" /></a>';
       $btn_con = '<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
@@ -129,8 +129,6 @@ if (!isset($powerpack)) {include ("powerpack.php");}
     </ul>
   </div>
 </nav>
-   
-   
    <div class="page-header">
       <div class="row">
          <div id="logo_header" class="col-sm-8">
@@ -147,4 +145,3 @@ if (!isset($powerpack)) {include ("powerpack.php");}
       <span class="sr-only">Toggle colonne</span>
       </button>
    </div>
-   <div class="ribbon"><a href="#">#NousSommesUnis</a></div>

@@ -105,33 +105,21 @@ function aff_pub_in($lock_state, $topic, $forum,$mod) {
    }
 }
 
+$total_contributeurs = get_total_contributeurs($forum, $topic);
+$contributeurs = get_contributeurs($forum, $topic);
+$contributeurs=explode(" ",$contributeurs);
+
 $title=$forum_name; $post=$topic_subject;
 include('header.php');
    echo '
+   <a name="topofpage"></a>
    <p class="lead">
       <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_subject.'
-   </p>
-   <p class="lead">';
+   </p>';
    echo '
-   </p>
-   <p>'.translate("Moderated By: ");
-   for ($i = 0; $i < count($moderator); $i++) {
-   $modera = get_userdata($moderator[$i]);
-             if ($modera['user_avatar'] != '') {
-             if (stristr($modera['user_avatar'],"users_private")) {
-                $imgtmp=$modera['user_avatar'];
-             } else {
-                if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-             }
-             }
-
-      echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" />';
-//      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'" class="box">'.$moderator[$i].'</a>&nbsp;';
-   }
-   echo '</p>';
-       echo '<h3>';
-          if ($forum_access!=9) {
+   <h3>';
+   if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
          $allow_to_post=true;
@@ -149,8 +137,8 @@ include('header.php');
       }
    }
 
-       echo ''.$topic_subject.'<span class="text-muted">&nbsp;#'.$topic.'</span>';
-          if ($forum_access!=9) {
+   echo $topic_subject.'<span class="text-muted">&nbsp;#'.$topic.'</span>';
+   if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
          $allow_to_post=true;
@@ -167,20 +155,58 @@ include('header.php');
          aff_pub_in($lock_state,$topic,$forum,$mod);
       }
    }
-   echo '</h3></span>';
-       
-       
-       
+   echo '</h3>';
+   echo '
+      <div class="card">
+         <div class="card-block-small">
+   '.translate("Contributors").' : '.$total_contributeurs;
+
+   for ($i = 0; $i < count($contributeurs); $i++) {
+      $contri = get_userdata_from_id($contributeurs[$i]);
+      if ($contri['user_avatar'] != '') {
+         if (stristr($contri['user_avatar'],"users_private")) {
+            $imgtmp=$contri['user_avatar'];
+         } else {
+            if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
+         }
+      }
+      echo '<img width="48" height="48" class="img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
+   }
    
+   
+   
+      echo '<br />'.translate("Moderated By: ");
+   for ($i = 0; $i < count($moderator); $i++) {
+      $modera = get_userdata($moderator[$i]);
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],"users_private")) {
+          $imgtmp=$modera['user_avatar'];
+         } else {
+          if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+         }
+      }
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+   }
+   
+   echo '
+         </div>
+      </div>';
+
    if ($total > $posts_per_page) {
       $times = 1;
       echo '
       <div id="fo-postpagi">
          <ul class="pagination pagination-sm">
+            <li>
+               <a href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
+            </li>
             <li class="disabled">
-               <a href="#" aria-label="Posts Pages">'.$total.' '.translate("Posts").' '.$pages.' '.translate("pages").'</a>
-            </li>';
-      
+               <a href="#" aria-label="'.translate("Posts").'">'.$total.' '.translate("Posts").'</a>
+            </li>
+            <li class="disabled">
+               <a href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
+            </li>
+      ';
       $pages_rapide='';
       for ($x = 0; $x < $total; $x += $posts_per_page) {
          if ($current_page!=$times)
@@ -190,13 +216,12 @@ include('header.php');
          $times++;
       }
       echo $pages_rapide.'
-      </ul>
+         </ul>
       </div>';
     } 
-//    echo "".translate("Author")."";
 
     if ($Mmod) {
-       $post_aff=" ";
+       $post_aff=' ';
     } else {
        $post_aff=" and post_aff='1' ";
     }
@@ -242,27 +267,23 @@ include('header.php');
     }
     
     
-    
-    
-    
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
-    
-    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
-    if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
-    if ($ibid=theme_image("forum/icons/email.gif")) {$imgtmpEM=$ibid;} else {$imgtmpEM="images/forum/icons/email.gif";}
+   if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
+   if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
+   if ($ibid=theme_image("forum/icons/email.gif")) {$imgtmpEM=$ibid;} else {$imgtmpEM="images/forum/icons/email.gif";}
 //    if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmpWW=$ibid;} else {$imgtmpWW="images/forum/icons/www_icon.gif";}
-    if ($ibid=theme_image("forum/icons/icq_on.gif")) {$imgtmpIC=$ibid;} else {$imgtmpIC="images/forum/icons/icq_on.gif";}
-    if ($ibid=theme_image("forum/icons/aim.gif")) {$imgtmpAI=$ibid;} else {$imgtmpAI="images/forum/icons/aim.gif";}
-    if ($ibid=theme_image("forum/icons/yim.gif")) {$imgtmpYI=$ibid;} else {$imgtmpYI="images/forum/icons/yim.gif";}
-    if ($ibid=theme_image("forum/icons/msnm.gif")) {$imgtmpMS=$ibid;} else {$imgtmpMS="images/forum/icons/msnm.gif";}
+   if ($ibid=theme_image("forum/icons/icq_on.gif")) {$imgtmpIC=$ibid;} else {$imgtmpIC="images/forum/icons/icq_on.gif";}
+   if ($ibid=theme_image("forum/icons/aim.gif")) {$imgtmpAI=$ibid;} else {$imgtmpAI="images/forum/icons/aim.gif";}
+   if ($ibid=theme_image("forum/icons/yim.gif")) {$imgtmpYI=$ibid;} else {$imgtmpYI="images/forum/icons/yim.gif";}
+   if ($ibid=theme_image("forum/icons/msnm.gif")) {$imgtmpMS=$ibid;} else {$imgtmpMS="images/forum/icons/msnm.gif";}
 //    if ($ibid=theme_image("forum/icons/edit.gif")) {$imgtmpED=$ibid;} else {$imgtmpED="images/forum/icons/edit.gif";}
 //    if ($ibid=theme_image("forum/icons/quote.gif")) {$imgtmpQU=$ibid;} else {$imgtmpQU="images/forum/icons/quote.gif";}
 //    if ($ibid=theme_image("forum/icons/ip_logged.gif")) {$imgtmpIP=$ibid;} else {$imgtmpIP="images/forum/icons/ip_logged.gif";}
 //    if ($ibid=theme_image("forum/icons/unlock_post.gif")) {$imgtmpUP=$ibid;} else {$imgtmpUP="images/forum/icons/unlock_post.gif";}
 //    if ($ibid=theme_image("forum/icons/lock_post.gif")) {$imgtmpLP=$ibid;} else {$imgtmpLP="images/forum/icons/lock_post.gif";}
-    if ($ibid=theme_image("forum/icons/gf.gif")) {$imgtmpGF=$ibid;} else {$imgtmpGF="images/forum/icons/gf.gif";}
+   if ($ibid=theme_image("forum/icons/gf.gif")) {$imgtmpGF=$ibid;} else {$imgtmpGF="images/forum/icons/gf.gif";}
 //    if ($ibid=theme_image("forum/icons/print.gif")) {$imgtmpRN=$ibid;} else {$imgtmpRN="images/forum/icons/print.gif";}
-    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
+   if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
 
     do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
@@ -308,9 +329,31 @@ include('header.php');
       
       
 echo '</div>';
-*/      
+*/ 
+$useroutils = '';
+$useroutils .= '<hr />';
+
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
+         $useroutils .= '<a href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-lg fa-user"></i>&nbsp;'.translate("Profile").'</a>';
+      }
+      if ($posterdata['uname']!=$anonymous) {
+         $useroutils .= '<br /><a href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-lg fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
+      }
+      if ($posterdata['femail']!="") {
+         $useroutils .= '<br /><a href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-lg"></i>&nbsp;'.translate("Email").'</a>';
+      }
+      if ($posterdata['url']!="") {
+         if (strstr("http://", $posterdata['url']))
+            $posterdata['url'] = "http://" . $posterdata['url'];
+         $useroutils .= '<br /><a href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-lg fa-external-link"></i>&nbsp;'.translate("Visit this Website").'</a>';
+      }
+      if ($posterdata['mns']) {
+          $useroutils .= '<br /><a href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-lg fa-desktop"></i>&nbsp;'.translate("Visit the Mini Web Site !").'</a>';
+      }
+
+     
       echo '
-         <div class="col-xs-2">
+         <div class="col-xs-1">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '
          <a name="last-post"></a>';
@@ -322,23 +365,19 @@ echo '</div>';
             } else {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
             }
-             echo '<img width="64" height="64" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
+             echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'"  data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts, $posterdata['rank']).'<br />'.$useroutils.'\' />';
             }
          }
-      echo '<br />'.member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
+//      echo '<br />'.member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
       echo '
          </div>
-         <div class="col-xs-10">
+         <div class="col-xs-11">
             <div class="card fo">
-               <div class="card-header">';
-
-         echo '<img src="'.$imgtmpP.'" width="32" height="32" />';
-         echo '<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-         echo '<br />
-      
-      
-      
-      <span class="pull-right fo-usertool">';
+               <div class="card-header">
+                  <img src="'.$imgtmpP.'" width="32" height="32" />
+                  <span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>
+                  ';
+                  /*
       if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
          echo '&nbsp<a href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-lg fa-user"></i></a>&nbsp;';
       }
@@ -356,9 +395,8 @@ echo '</div>';
       if ($posterdata['mns']) {
           echo '<a href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-lg fa-desktop"></i></a>&nbsp;';
       }
-      
+      */
       echo '
-      </span>
                </div>';
       $message=stripslashes($myrow['post_text']);
 
@@ -367,23 +405,24 @@ echo '</div>';
                   <div class="card-text">';
       if ($myrow['image'] != "") {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="smil" src="'.$imgtmp.'" border="0" alt="icon_post" />';
+         echo '<img class="smil" src="'.$imgtmp.'" alt="icon_post" />';
       } else {
          echo '<img class="smil" src="'.$imgtmpPI.'" alt="icon_post" />';
       }
       $date_post=convertdateTOtimestamp($myrow['post_time']);
-      echo '&nbsp;&nbsp;<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
+      echo '<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!="" AND $last_read !="0" AND $userdata[0]!=$myrow['poster_id']) {
-            echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
+            echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />
+            
+            ';
          }
       }
 
-echo '
+      echo '
                </div>
                <hr />
-               <div class="card-text fo-post-mes">';
-               
+               <div class="card-text">';
 
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
          $message = smilie($message);
@@ -391,23 +430,28 @@ echo '
       }
       // <A href in the message
       if (stristr($message,"<a href")) {
-         $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
+         $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
       }
       $message=split_string_without_space($message, 80);
       if (($forum_type=="6") or ($forum_type=="5")) {
           highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
       } else {
          $message=str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
-         echo $message; 
+         echo '<div class="card-text fo-post-mes">';
+         echo $message;
+         echo '</div>';
+
       }
       if ($allow_upload_forum and ($att>0)) {
          $post_id=$myrow['post_id'];
+         echo '<div class="card-text">';
          echo display_upload("forum_npds",$post_id,$Mmod);
+         echo '</div>';
       }
    echo '
                </div>
-            </div>';
-   echo '<div class="card-footer">';
+            </div>
+         <div class="card-footer text-right">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -470,6 +514,9 @@ echo '
        echo '
        <nav>
          <ul class="pagination pagination-sm">
+            <li>
+               <a href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+            </li>
             <li class="disabled">
                <a href="#">'.translate("Goto Page").'</a>
             </li>';
@@ -479,9 +526,6 @@ echo '
     }
     
     if ($forum_access!=9) {
-       if ($allow_to_post) {
-          aff_pub($lock_state,$topic,$forum,$mod);
-       }
        // un anonyme ne peut pas mettre un topic en resolu
        if (!isset($userdata)) $userdata[0]=0;
        if ((($Mmod) or ($original_poster==$userdata[0])) and (!$lock_state)) {
@@ -523,7 +567,9 @@ echo '
          </select>
       </div>
    </div>
-</form>';
+</form>
+<a name="botofpage"></a>
+';
     }
     if ($SuperCache) {
        $cache_obj->endCachingBlock($cache_clef);
@@ -534,7 +580,7 @@ echo '
        <div class="row">
           <div class="col-xs-12">
              <div class="card">
-                <div class="card-block">
+                <div class="card-block card-block-small">
                    <strong>'.translate("Administration Tools").' :</strong>';
       if ($lock_state==0)
          echo '
@@ -544,13 +590,12 @@ echo '
                   <a class="" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"><i class ="fa fa-unlock fa-lg" aria-hidden="true"></i></a>';
       echo '
                   <a class="" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'" data-toggle="tooltip"><i class="fa fa-share fa-lg" aria-hidden="true"></i></a>
-                  <a class="" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
                   <a class="" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"><i class="fa fa-level-up fa-lg" aria-hidden="true"></i></a>
+                  <a class="text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
                </div>
             </div>
          </div>
       </div>';
     }
-    echo '';
-include("footer.php");
+   include("footer.php");
 ?>

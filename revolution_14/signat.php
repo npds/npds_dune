@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier
 #
 # This module is to configure Footer of Email send By NPDS
 #

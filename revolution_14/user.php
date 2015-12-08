@@ -303,7 +303,7 @@ function userinfo($uname) {
     }
     global $cookie;
     include("header.php");
-    include("functions.php");
+    include_once("functions.php");
 
     if ($uname == $cookie[1]) {
 	   echo '<h2>'.translate("User").'</h2>';

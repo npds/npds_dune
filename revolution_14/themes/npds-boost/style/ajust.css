@@ -12,12 +12,26 @@ height: auto;
 
 /* adaptation menu */
 .dropdown-menu {
-margin: 8px 0 0;
+/* 
+margin: 7px 0 0;
+ */
 color: #eceeef;
 background-color: #373a3c;
 }
 .dropdown-item {
 color: #eceeef;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.navbar {
+/* 
+
+padding: 0rem 1rem;
+
+ */
 }
 
 
@@ -46,11 +60,6 @@ color: #eceeef;
 }
 
 .n-ava {
-/* 
-position:absolute;
-left:-86px;
-top:1,5px;
- */
 max-width:64px;
 max-height:64px;
 }
@@ -117,6 +126,11 @@ padding-top: .9rem;
 .page-header {
 margin: 73px 0 20px;
 padding:15px;
+}
+
+
+.blockquote {
+font-size: 0.85rem;
 }
 
 body {}
@@ -1696,43 +1710,3 @@ a.tooltip_ws:hover em span {
   font-family: 'Oswald';
   color:white;
 }
-
-
-.ribbon {
-    background-color: #373a3c;
-    overflow: hidden;
-    white-space: nowrap;
-    /* top left corner */
-    position: fixed;
-    right: -60px;
-    top: 90px;
-    /* 45 deg ccw rotation */
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-    /* shadow */
-    -webkit-box-shadow: 0 0 10px #888;
-    -moz-box-shadow: 0 0 10px #888;
-    box-shadow: 0 0 10px #888;
-    z-index: 999;
-}
-
-.ribbon a {
-    border: 1px solid;
-    color: #fff;
-    display: block;
-    font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin: 1px 0;
-    padding: 10px 50px;
-    text-align: center;
-    text-decoration: none;
-    /* shadow */
-    text-shadow: 0 0 5px ;
-}
-
-
-
-
-

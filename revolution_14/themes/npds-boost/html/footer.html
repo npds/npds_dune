@@ -83,5 +83,13 @@
           $(".alert").toggleClass("alert-info alert-danger");
           $(".alert h4").text("Failure!");
       });
+hljs.configure({useBR: true});
+
+$('div.code').each(function(i, block) {
+  hljs.highlightBlock(block);
+});      
+      hljs.initHighlightingOnLoad();
+
+      
       //]]>
       </script>

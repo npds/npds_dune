@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -209,29 +209,54 @@ if ($submitS) {
    $moderator = get_moderator($mod);
    $moderator=explode(" ",$moderator);
    $Mmod=false;
+   
+   echo '
+   <p class="lead">
+      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
+      <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_title.'
+   </p>';
 
-   echo '<span class="lead">'.translate("Moderated By: ").'';
+   
+   
+
+   echo '
+         <div class="card">
+         <div class="card-block-small">
+            '.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
-      echo "<a href=\"user.php?op=userinfo&amp;uname=$moderator[$i]\" class=\"box\">$moderator[$i]</a></span>";
+    $modera = get_userdata($moderator[$i]);
+             if ($modera['user_avatar'] != '') {
+             if (stristr($modera['user_avatar'],"users_private")) {
+                $imgtmp=$modera['user_avatar'];
+             } else {
+                if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+             }
+             }
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+   
       if (isset($user))
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
+   echo '
+         </div>
+      </div>';
 
-   echo "<h4>".translate("Post Reply in Topic:")."</h4>";
-   echo "<p><a href=\"viewforum.php?forum=$forum\" class=\"noir\">".stripslashes($forum_name)."</a>&nbsp;&nbsp;|&nbsp;&nbsp;";
-   echo "<a href=\"forum.php\" class=\"noir\">".translate("Forum Index")."</a></p>\n";
-
+   echo '
+   </span><h4>'.translate("Post Reply in Topic:").'</h4>';
+   
+   
    echo '<form class="form" role="form" action="reply.php" method="post" name="coolsus">';
    echo '<div class="form-group">';
 
-   echo "<h4>".translate("About Posting:")."</h4>";
+   echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'</p>';
    if ($forum_access == 0) {
-      echo '<span class="text-warning">'.translate("Anonymous users can post new topics and replies in this forum.").'</span>';
+      echo translate("Anonymous users can post new topics and replies in this forum.");
    } else if($forum_access == 1) {
-      echo '<span class="text-warning">'.translate("All registered users can post new topics and replies to this forum.").'</span>';
+      echo translate("All registered users can post new topics and replies to this forum.");
    } else if($forum_access == 2) {
-      echo '<span class="text-warning">'.translate("Only Moderators can post new topics and replies in this forum.").'</span>';
+      echo translate("Only Moderators can post new topics and replies in this forum.");
    }
+   echo '</blockquote>';
 
    $allow_to_reply=false;
    if ($forum_access==0) {
@@ -261,32 +286,41 @@ if ($submitS) {
         $message="";
      }
 
-	echo '<br />';
+   echo '<br />';
      echo "<span class=\"lead\">".translate("Nickname: ")."";
   
      if (isset($user))
         echo ''.$userdata[1].'</span>';
      else
         echo ''.$anonymous.'</span>';
-  
-     if ($smilies) {
-        echo "<h4>".translate("Message Icon: ")."</h4>";
-        settype($image_subject,'string');
-        echo emotion_add($image_subject);
-     }
-  
-     echo "<h4>".translate("Message: ")."</h4>";
+
+   if ($smilies) {
+      echo '
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label">'.translate("Message Icon: ").'</label>
+         </div>
+         <div class="col-sm-9">
+         '.emotion_add($image_subject).'
+         </div>
+      </div>';
+   }
+   echo '
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label" for="message">'.translate("Message: ").'</label>
+         </div>
+         <div class="col-sm-9">
+            <div class="card">
+               <div class="card-header">';
+   if ($allow_html == 1) {
+      echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+   } else
+      echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+   echo '
+            </div>
+            <div class="card-block">';
  
-		echo '
-		<div class="form-group">
-			<div class="row">
-				<label class="control-label col-sm-2 col-md-2" for="aid">';	 
-     echo "HTML : ";
-     if ($allow_html==1) {
-        echo translate("On")."";
-        echo HTML_Add();
-     } else
-        echo translate("Off")."";
   
      if ($citation && !$submitP) {
         $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND p.poster_id = u.uid";
@@ -301,7 +335,7 @@ if ($submitS) {
            }
            $text = stripslashes($text);
            if ($m['post_time']!="" && $m['uname']!="") {
-              $reply = '<blockquote>'.translate("Quote").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
+              $reply = '<blockquote class="blockquote">'.translate("Quote").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
            } else {
               $reply = $text."\n";
            }
@@ -313,87 +347,72 @@ if ($submitS) {
      if (!isset($reply)) {$reply=$message;}
      if ($allow_bbcode)
         $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
-		echo '</label>
-			<div class="col-sm-10 col-md-10">
-			<textarea class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
-			</div>
-			</div>
-			</div>';
+      echo '
+                  <textarea class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
+               </div>
+               <div class="card-footer text-muted">';
      if ($allow_bbcode)
-        putitems();
-	
-	
-	
-	
-	
-	
-	
-  
-     echo "<h4>".translate("Options: ")."</h4>";
-  
+                  putitems();
+      echo '
+               </div>
+            </div>
+         </div>
+      </div>';
+   echo '
+   <div class="form-group row">
+      <div class="col-sm-3">
+         <label class="form-control-label">'.translate("Options: ").'</label>
+      </div>';
      if (($allow_html==1) and ($forum_type!="6") and ($forum_type!="5")) {
-        if (isset($html)) {
-           $sethtml = "checked";
-        } else {
-           $sethtml = "";
-        }
-		echo '
-		<div class="form-group">
-			<div class="row">
-			<label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Disable HTML on this Post").' :</label>
-			<div class="col-sm-1 col-md-1">
-			<input class="form-control" type="checkbox" name="html" '.$sethtml.' />
-			</div>
-			</div>
-			</div>';
-	 }
-     if ($user) {
-        if ($allow_sig == 1||$sig == "on") {
-           $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
-           list($attachsig) = sql_fetch_row($asig);
-           if ($attachsig == 1) {
-              $s = "checked=\"checked\"";
-           } else {
-              $s = "";
-           }
-           if (($forum_type!="6") and ($forum_type!="5")) {
-		echo '
-		<div class="form-group">
-			<div class="row">
-			<label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Show signature").' :<br /><small><em>'.translate("This can be altered or added in your profile").'</em></small></label>
-			<div class="col-sm-1 col-md-1">
-			<input class="form-control" type="checkbox" name="sig" '.sig.' />
-			</div>
-			</div>
-			</div>';
+        if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
+      echo '
+      <div class="col-sm-9">
+         <div class="checkbox">
+            <label class="">
+               <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
+            </label>
+         </div>';
+      }
+      if ($user) {
+         if ($allow_sig == 1||$sig == "on") {
+            $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
+            list($attachsig) = sql_fetch_row($asig);
+            if ($attachsig == 1) {$s = 'checked="checked"';} else {$s = '';}
+            if (($forum_type!="6") and ($forum_type!="5")) {
+               echo '
+         <div class="checkbox">
+            <label class="">
+               <input type="checkbox" name="sig" '.sig.' /> '.translate("Show signature").' :<br /><small><em>'.translate("This can be altered or added in your profile").'</em></small>
+            </label>
+         </div>';
            }
         }
         if ($allow_upload_forum) {
-           if ($upload == "on") {
-              $up = "checked=\"checked\"";
-           }
-		echo '
-		<div class="form-group">
-			<div class="row">
-			<label class="control-label col-sm-4 col-md-4" for="aid">'.translate("Upload file after send accepted").' :</label>
-			<div class="col-sm-1 col-md-1">
-			<input class="form-control" type="checkbox" name="upload" '.$up.' />
-			</div>
-			</div>
-			</div>';
+           if ($upload == 'on') {$up = 'checked="checked"';}
+         echo '
+         <div class="checkbox">
+            <label class="">
+               <input type="checkbox" name="upload" '.$up.' /> '.translate("Upload file after send accepted").'
+            </label>
+         </div>';
         }
      }
+     echo '
+     </div>
+     </div>';
   
-     echo "".Q_spambot().""; 
-		echo'
-			<div class="btn-group-sm text-center" role="group">
-				<input type="hidden" name="forum" value="'.$forum.'" />
-				<input type="hidden" name="topic" value="'.$topic.'" />
-				<button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'"><i class="fa fa-check fa-2x"></i></button>
-				<button class="btn btn-default" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'"><i class="fa fa-binoculars fa-2x"></i></button>			
-				<button class="btn btn-warning" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'"><i class="fa fa-trash-o fa-2x"></i></button>
-				<button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'"><i class="fa fa-close fa-2x"></i></button>
-			</div>';
+     echo "".Q_spambot()."";
+     
+     
+   echo'
+      <div class="btn-group-sm text-center" role="group">
+         <input type="hidden" name="forum" value="'.$forum.'" />
+         <input type="hidden" name="topic" value="'.$topic.'" />
+         <button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'" data-toggle="tooltip" ><i class="fa fa-check fa-lg"></i></button>
+         <button class="btn btn-secondary" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-binoculars fa-lg"></i></button>
+         <button class="btn btn-warning" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-trash-o fa-lg" ></i></button>
+         <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fa fa-close fa-lg"></i></button>
+      </div>';
    } else {
      echo '<h3 class="text-danger">'.translate("You are not allowed to reply in this forum").'</h3>';
    }
@@ -436,19 +455,26 @@ if ($submitS) {
             }
          }
       echo '</div>
-	  <div class="media-body">';
+            <div class="media-body">';
 
          if ($myrow['image'] != "") {
             if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo "<i class=\"fa fa-lg fa-file-text-o\"></i>";
+         echo '<img class="smil" src="'.$imgtmp.'" border="0" alt="" />';
          } 
-		 else {
+         else {
             if ($ibid=theme_image("forum/subject/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
-            echo "<p><img src=\"$imgtmp\" border=\"0\" alt=\"\" />";
+            echo '<img class="smil" src="'.$imgtmp.'" border="0" alt="" />';
          }
-         echo "&nbsp;".translate("Posted: ").convertdate($myrow['post_time']);
+         
+         
+         
+//               echo '&nbsp;&nbsp;<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
 
-		echo '</p>';
+         
+         
+         echo '&nbsp;&nbsp;<span class="text-muted pull-right small">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>';
+
+//		echo '</p>';
 		 echo '<div class="well">';		
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
