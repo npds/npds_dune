@@ -12,5 +12,5 @@
 
    $time_end = getmicrotime();
    $time = round($time_end - $time_start, 4);
-   echo "<p  id=\"pied\">".aff_langue(" [french]Temps :[/french][english]Time:[/english] $time [french]seconde(s)[/french][english]second(s)[/english] ")."</p>";
+   echo '<p id="pied">'.aff_langue(" [french]Temps :[/french][english]Time:[/english] $time [french]seconde(s)[/french][english]second(s)[/english] ").'</p>';
 ?>
