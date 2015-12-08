@@ -878,9 +878,9 @@ function prepa_aff_news($op,$catid,$marqeur) {
        $story_limit++;
 // trop brutal faut faire plus fin et laisser la possibilitŽ des images !!!!
 //       if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
-       $printP = "<a href=\"print.php?sid=$s_sid\" title=\"".translate("Printer Friendly Page")."\"><i class=\"fa fa-lg fa-print\"></i></a>&nbsp;";
+       $printP = '<a href="print.php?sid='.$s_sid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
 //       if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
-       $sendF = "<a href=\"friend.php?op=FriendSend&amp;sid=$s_sid\" title=\"".translate("Send this Story to a Friend")."\"><i class=\"fa fa-lg fa-envelope-o\"></i></a>";
+       $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-envelope-o"></i></a>';
        getTopics($s_sid);
        $title = aff_langue(stripslashes($title));
        $hometext = aff_langue(stripslashes($hometext));
@@ -909,7 +909,7 @@ function prepa_aff_news($op,$catid,$marqeur) {
        } else {
            $morelink[2]=$comments;
 //           $morelink[3]="<a href=\"article.php?sid=$s_sid\" class=\"noir\">".translate("comments")."</a>";
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="" ><i class="fa fa-comments-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="" ><span class="com fa-stack fa-3x"><i class="fa fa-comment-o fa-lg fa-stack-2x" title="'.translate("comments").'" data-toggle="tooltip"></i><strong class="fa-stack-1x-com fa-stack-text ">'.$comments.'</strong></span></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
@@ -1472,7 +1472,8 @@ function pollMain($pollID,$pollClose) {
       $pollID = 1;
    if (!isset($url))
       $url = sprintf("pollBooth.php?op=results&amp;pollID=%d", $pollID);
-   $boxContent = "<form class=\"form\" role=\"form\" action=\"pollBooth.php\" method=\"post\">\n
+   $boxContent = "
+   <form class=\"form\" role=\"form\" action=\"pollBooth.php\" method=\"post\">\n
    <input type=\"hidden\" name=\"pollID\" value=\"".$pollID."\" />\n
    <input type=\"hidden\" name=\"forwarder\" value=\"".$url."\" />\n";
    $result = sql_query("SELECT pollTitle, voters FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
@@ -1513,11 +1514,14 @@ function pollMain($pollID,$pollClose) {
       list($numcom) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."posts where forum_id='$forum' and topic_id='$pollID' and post_aff='1'"));
       $boxContent .= '
       <ul>
-      <li>'.translate("Votes: ").' <span class="label label-pill label-default pull-right">'.$sum.'</span></li>
-      <li>'.translate("comments:").' <span class="label label-pill label-default pull-right">'.$numcom.'</span></li>
+         <li>'.translate("Votes: ").' <span class="label label-pill label-default pull-right">'.$sum.'</span></li>
+         <li>'.translate("comments:").' <span class="label label-pill label-default pull-right">'.$numcom.'</span></li>
       </ul>';
    } else {
-      $boxContent .= "<ul>\n<li>".translate("Votes: ")." ".$sum."</li>\n</ul>\n";
+      $boxContent .= '
+      <ul>
+         <li>'.translate("Votes: ").' <span class="label label-pill label-default pull-right">'.$sum.'</span></li>
+      <ul>';
    }
    
    themesidebox($boxTitle, $boxContent);
@@ -1793,7 +1797,7 @@ function aff_editeur($Xzone, $Xactiv) {
             if (substr($tmp_Xzone,-1)==",")
                $tmp_Xzone=substr_replace($tmp_Xzone,"",-1);
             if ($tmp_Xzone) {
-/*               $tmp="<script type=\"text/javascript\">\n";
+               $tmp="<script type=\"text/javascript\">\n";
                $tmp.="//<![CDATA[\n";
                $tmp.="tinymce.init({\n";
                $tmp.="theme : \"advanced\",\n";
@@ -1806,9 +1810,9 @@ function aff_editeur($Xzone, $Xactiv) {
             }
          } else {
             $tmp.="<script type=\"text/javascript\" src=\"editeur/tiny_mce/tiny_mce.js\"></script>\n";
-         }*/
+         }
 	// début d'implémentation tiny brute phr 020515	 
-				$tmp="<script type=\"text/javascript\">\n";
+/*				$tmp="<script type=\"text/javascript\">\n";
 				$tmp.="//<![CDATA[\n";
 				$tmp.="tinymce.init({\n";
 				$tmp.="selector : \"textarea\",\n";
@@ -1831,7 +1835,7 @@ function aff_editeur($Xzone, $Xactiv) {
          } else {
             $tmp.="<script type=\"text/javascript\" src=\"editeur/tinymce/tinymce.min.js\"></script>\n";
          }		 
-//fin d'implémentation tiny brute phr 020515		 
+//fin d'implémentation tiny brute phr 020515		*/ 
 		 
       } else {
          if ($Xzone!="custom") {
@@ -2260,7 +2264,6 @@ function adminblock() {
    global $NPDS_Prefix;
    global $admin, $aid, $admingraphic, $adminimg, $admf_ext;
    if ($admin) {
-   
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    if ($Q['radminsuper']==1) {
       $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and f.fetat != '0' order by f.fcategorie");}
@@ -2296,6 +2299,7 @@ function adminblock() {
        $content .= '
        <ul id="adm_block">
        '.$bloc_foncts_A.'
+        <li><a href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK">'.translate("Clear Chat DB").'</a></li>
        </ul>
        <ul>
           <li><small class="text-muted"><i class="fa fa-user fa-lg"></i> '.$aid.'</small></li>
@@ -2715,18 +2719,18 @@ function bloc_rubrique() {
    global $NPDS_Prefix;
    global $language, $user;
    $result = sql_query("select rubid, rubname FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' and rubname<>'divers' ORDER BY ordre");
-   $boxstuff = "<ul>";
+   $boxstuff = '<ul>';
    while (list($rubid, $rubname) = sql_fetch_row($result)) {
       $title=aff_langue($rubname);
       $result2 = sql_query("SELECT secid, secname, userlevel FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
-      $boxstuff.="<li><b>$title</b></li>";
+      $boxstuff.='<li><strong>'.$title.'</strong></li>';
       $ibid++;
       while (list($secid, $secname, $userlevel) = sql_fetch_row($result2)) {
          $query3 = "SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'";
          $result3 = sql_query($query3);
          $nb_article = sql_num_rows($result3);
          if ($nb_article>0) {
-            $boxstuff.="<ul>";
+            $boxstuff.='<ul>';
             $tmp_auto=explode(",",$userlevel);
             while (list(,$userlevel)=each($tmp_auto)) {
                $okprintLV1=autorisation($userlevel);
@@ -2734,9 +2738,9 @@ function bloc_rubrique() {
             }
             if ($okprintLV1) {
                $sec=aff_langue($secname);
-               $boxstuff.= "<li><a href=\"sections.php?op=listarticles&amp;secid=$secid\">$sec</a></li>";
+               $boxstuff.= '<li><a href="sections.php?op=listarticles&amp;secid='.$secid.'">'.$sec.'</a></li>';
             }
-           $boxstuff.="</ul>";
+           $boxstuff.='</ul>';
          }
       }
    }
@@ -2813,18 +2817,17 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $content.= '<img src="images/admin/ws/groupe.gif" class="vam_bo_0" title="ID:'.$gr.'" alt="'.translate("Group").'" />  <span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
-      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png"  class="img-responsive" border="0" alt="'.translate("Group").'" />';
-   $content.='<ul class="ul_bloc_ws">'."\n";
+      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-responsive img-fluid center-block" border="0" alt="'.translate("Group").'" />';
+   $content.='<ul class="list-group ul_bloc_ws">'."\n";
 
    //=> liste des membres
    $li_mb='';
    $result = sql_query("select uid, groupe from ".$NPDS_Prefix."users_status where groupe regexp '[[:<:]]".$gr."[[:>:]]' order by uid ASC");
    $nb_mb=sql_num_rows ($result);
-   $li_mb='<li class="li_18"><span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-plus-square-o" ></i></span>&nbsp;<img src="images/admin/ws/user.gif" class="vam_bo_0" alt="'.translate("Group members list.").'" title="'.translate("Group members list.").'" />  <a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").' ['.$nb_mb.']</a>';
-//   $li_mb.='<span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-plus-square-o" ></i></span>';
+   $li_mb.='<li class=" list-group-item li_18"><span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-plus-square-o" ></i></span>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
   
-   $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class="ul_bloc_ws" style="display:none;">'."\n";
+   $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("select uname, user_avatar, mns, url from ".$NPDS_Prefix."users where uid='$uid'"));
       $conn= '<img src="images/admin/ws/disconnect.gif" class="vam_bo_0" title="'.$uname.' '.translate('is not connected !').'" alt="'.$uname.' '.translate('is not connected !').'" />';
@@ -2849,12 +2852,17 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       }
       
       $li_ic.='<img src="'.$imgtmp.'" style="vertical-align:middle;" height="24px" width="24px" alt="avatar" />&nbsp;';
-      $li_mb.= '<li class="li_mb"><div id="li_mb">'.$conn.'<a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws">'.$uname.'<em style="width:90px"><img src="'.$imgtmp.'" height="80px" width="80px" border="0" /></em></a></div><a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'"><img src="images/admin/ws/envelope.gif" class="vam_bo_0 dim_ima" alt="'.translate("Send internal Message").'" title="'.translate("Send internal Message").'" /></a>'."\n";
+      $li_mb.= '<li class="list-group-item li_mb">
+      <div id="li_mb">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80px" width="80px" border="0" /></em><img src="'.$imgtmp.'" style="vertical-align:middle;" height="24px" width="24px" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
+      </div>
+      <span class="pull-right">
+      <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";
       if ($url!='')
-         $li_mb.='<a href="'.$url.'" target="_blank"><img src="images/admin/ws/monitor.gif" class="vam_bo_0 dim_ima" alt="'.translate("Visit this Website").'" title="'.translate("Visit this Website").'" /></a>';
+         $li_mb.='&nbsp;<a href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-external-link"></i></a>';
       if ($mns==1)
-         $li_mb.='<a href="minisite.php?op='.$uname.'" target="_blank"><img src="images/admin/ws/application_user.gif" class="vam_bo_0 dim_ima" alt="'.translate("Visit the Mini Web Site !").'" title="'.translate("Visit the Mini Web Site !").'" /></a>';
-      $li_mb.='</li>';
+         $li_mb.='&nbsp;<a href="minisite.php?op='.$uname.'" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-desktop"></i></a>';
+      $li_mb.='
+      </span><span class="clearfix"></span></li>';
    }
    $li_mb.='<li style="clear:left;line-height:6px; background:none;">&nbsp;</li><li style="clear:left;line-height:24px;padding:6px; margin-top:0px; background:none; border-style: dotted; border-width: 1px; border-color: gray;">'.$li_ic.'</li> <li style="line-height:12px; background:none;">&nbsp;</li>';
    $li_mb.='</ul>'."\n".'</li>';
@@ -2874,9 +2882,9 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($nb_foru >= 1) {
          $lst_for_tog='<span class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-plus-square-o" ></i></span>';
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
-         $nb_for_gr='  ['.$nb_foru.']';
+         $nb_for_gr='  <span class="label label-pill label-default pull-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
-            $lst_for.='<li style="line-height:18px;margin-top:0; background:none; padding: 0px 1px 0px 14px;"><img src="images/admin/ws/world.gif" class="vam_bo_0" width="14" height="14" title="'.translate("Forum").'" /> <a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a>';
+            $lst_for.='<li style="line-height:18px;margin-top:0; background:none; padding: 0px 1px 0px 14px;"><a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a>';
             $lst_for.= '</li>';
          }
          $lst_for.='</ul>';
@@ -2886,32 +2894,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          //]]>
          </script>\n";
       }
-      $content.='<li class="li_18">'.$lst_for_tog.'&nbsp;<img src="images/admin/ws/world.gif" class="vam_bo_0" alt="'.translate("Group").$gr.': '.translate("forum").'." title="'.translate("Group").'('.$gr.'): '.translate("forum").'." />  <a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
+      $content.='<li class="list-group-item li_18">'.$lst_for_tog.'&nbsp;<i class="fa fa-list-alt fa-lg text-muted" title="'.translate("Group").'('.$gr.'): '.translate("forum").'."></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
    }
    //<= Forum
 
-   //=> Filemanager
-   if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
-      $content.='<li class="li_18"><img src="images/admin/ws/folder_folder.gif" class="vam_bo_0" alt="'.translate("Group file manager.").'" title="'.translate("Group file manager.").'" />  <a href="modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=groupe_'.$gr.'" >'.translate("File manager").'</a></li>'."\n";
-   }
-   //<= Filemanager
 
-   //=> Chat
-   if ($rsql['groupe_chat'] == 1) {
-      $PopUp = JavaPopUp("chat.php?id=$gr&amp;auto=".encrypt(serialize ($gr)),"chat".$gr,380,480);
-      if ($chat_info)
-         $chat_img='images/admin/ws/comment_reply.gif';
-      else
-         $chat_img='images/admin/ws/comment_user.gif';
-      $content.='<li class="li_18"><img src="'.$chat_img.'" class="vam_bo_0" alt="'.translate("Open a chat for the group.").'" title="'.translate("Open a chat for the group.").'" /> <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" >Chat</a></li>'."\n";
-   }
-   //<= Chat
-
-   //=> Minisite
-   if ($rsql['groupe_mns'] == 1) {
-      $content.='<li class="li_18"><img src="images/admin/ws/application_user.gif" class="vam_bo_0" alt="'.translate("Mini-Web site").'." title="'.translate("Mini-Web site").'." />  <a href="minisite.php?op=groupe/'.$gr.'" target="_blank" >'.translate("Mini-Web site").'</a></li>'."\n";
-   }
-   //<= Minisite
 
    //=> wspad
    if ($rsql['groupe_pad'] == 1) {
@@ -2925,8 +2912,8 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
          $lst_doc_tog ='<span class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-plus-square-o" ></i></span>';
-         $lst_doc.='<ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
-         $nb_doc_gr='  ['.$nb_doc.']';
+         $lst_doc.='<ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
+         $nb_doc_gr='  <span class="label label-pill label-default pull-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='<li style="line-height:14px;margin-top:0; background:none; padding: 0px 2px 0px 0px;"><div id="last_editor" title="'.translate("Last editor").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:12px; height:12px; margin-top:4px; background-color:'.$surlignage.'"></div><img src="images/admin/ws/document_edit.gif" class="vam_bo_0" alt="'.translate("Multi-writers document").'." title="'.translate("Multi-writers document").'." />  <a href="modules.php?ModPath=wspad&ModStart=wspad&op=relo&page='.$p.'&member='.$gr.'&ranq='.$r.'">'.$p.'</a>';
@@ -2939,24 +2926,57 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          //]]>
          </script>\n";
       }
-      $content.='<li class="li_18">'. $lst_doc_tog.'&nbsp;<img src="images/admin/ws/application_edit.gif" class="vam_bo_0" alt="'.translate("Co-writing").'." title="'.translate("Co-writing").'." />  <a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
+      $content.='<li class="list-group-item li_18">'. $lst_doc_tog.'&nbsp;<i class="fa fa-edit fa-lg text-muted" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
    }
    //<= wspad
    
-   $content.="\n".'</ul>'."\n";
-
+   
    //=> bloc-notes
    if ($rsql['groupe_blocnote'] == 1) {
+      settype($lst_blocnote_tog,'string');
+      settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $content.=blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
+      $lst_blocnote_tog ='<span class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-plus-square-o" ></i></span>&nbsp;<i class="fa fa-sticky-note-o fa-lg text-muted"></i>&nbsp; Bloc note';
+      $lst_blocnote ='<div id="lst_blocnote" class="m-t-md" style =" display:none; ">';
+      $lst_blocnote .= blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
+      $lst_blocnote .= '</div>';
+      $lst_blocnote.='<script type="text/javascript">
+      //<![CDATA[
+      tog("lst_blocnote","show_lst_blocnote","hide_lst_blocnote");
+      //]]>
+      </script>';
+      $content.='<li class="list-group-item li_18">'.$lst_blocnote_tog.$lst_blocnote.'</li>';
    }
    //=> bloc-notes
-
+   
+$content.='<li class="list-group-item li_18 text-center">';
+   //=> Filemanager
+   if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
+      $content.='&nbsp;<a href="modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-lg"></i></a>'."\n";
+   }
+   //<= Filemanager
+   //=> Minisite
+   if ($rsql['groupe_mns'] == 1) {
+      $content.='&nbsp;<a href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-lg"></i></a>';
+   }
+   //<= Minisite
+   //=> Chat
+   if ($rsql['groupe_chat'] == 1) {
+      $PopUp = JavaPopUp("chat.php?id=$gr&amp;auto=".encrypt(serialize ($gr)),"chat".$gr,380,480);
+      if ($chat_info)
+         $chat_img='images/admin/ws/comment_reply.gif';
+      else
+         $chat_img='images/admin/ws/comment_user.gif';
+      $content.='&nbsp;<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-lg"></i></a>';
+   }
+   //<= Chat
    //=> admin
    if (autorisation(-127)) {
-      $content.='<br /><img src="images/admin/ws/cog.gif" class="vam_bo_0" alt="'.translate("Groups setting.").'" title="'.translate("Groups setting.").'" />  <a href="admin.php?op=groupes">'.translate("Groups setting.").'</a>';
+      $content.='&nbsp;<a href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-lg"></i></a>';
    }
    //<= admin
+   
+   $content.="\n".'</li></ul>'."\n";
    $content.='</div>'."\n";
 
    return ($content);
@@ -3151,8 +3171,6 @@ function language_iso($l,$s,$c) {
     return ($ietf);
 }
 
-
-
 #autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>inutilisŽ,  $foo =='' ==> </div> et inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
 if ($fv=='fv') {
@@ -3207,16 +3225,16 @@ echo '
             $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
             break;
         case (score <= 0):
-            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress-bar progress-bar-danger");
+            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-danger");
             break;
         case (score > 0 && score <= 2):
-            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress-bar progress-bar-warning");
+            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-warning");
             break;
         case (score > 2 && score <= 4):
-            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress-bar progress-bar-info");
+            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-info");
             break;
         case (score > 4):
-            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress-bar progress-bar-success");
+            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-success");
             break;
         default:
             break;
