@@ -26,6 +26,30 @@ function get_total_topics($forum_id) {
    return($myrow['total']);
 }
 
+function get_total_contributeurs($fid, $tid) {
+   global $NPDS_Prefix;
+   $sql = "SELECT count(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' and forum_id='$fid'";
+   if (!$result = sql_query($sql))
+      return("ERROR");
+   if (!$myrow = sql_fetch_assoc($result))
+      return("ERROR");
+
+   sql_free_result($result);
+   return($myrow['total_contributeurs']);
+}
+
+function get_contributeurs($fid, $tid) {
+   global $NPDS_Prefix;
+   $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' and forum_id='$fid'",2);
+   $myrow['poster_id']="";
+   while(list(,$poster_id) = each($rowQ1)) {
+      $myrow['poster_id'].= $poster_id['poster_id']." ";
+   }
+   return(chop($myrow['poster_id']));
+}
+
+
+
 function get_total_posts($fid, $tid, $type, $Mmod) {
    global $NPDS_Prefix;
    if ($Mmod) {
@@ -345,7 +369,12 @@ function HTML_Add() {
 //          ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'lignb\'&gt;&lt;tr&gt;&lt;td&gt;',' ... &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;');\"><img src=\"images/editor_images/med_table.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
          ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><i class=\"fa fa-table\"></i></a>&nbsp;"
       //    ."<a href=\"javascript: addText('[code]','[/code]');\"><img src=\"images/editor_images/med_code.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          ."<a href=\"javascript: addText('[code]','[/code]');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+//          ."<a href=\"javascript: addText('&lt;pre&gt;&lt;code&gt;[code]','[/code]&lt;/code&gt;&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+//          ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+          ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+
+//          ."<a href=\"javascript: addText('[code]','[/code]');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+
 //          ."<a href=\"javascript: addText('[video_yt]','[/video_yt]');\"><img src=\"images/editor_images/youtube.gif\" border=\"0\" alt=\"youtube\" title=\"ID youtube : [video_yt]_pnVFFgzlqc[/video_yt]\" width=\"18\" height=\"18\" /></a>&nbsp;"
           .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;</div>';
 /*
@@ -410,7 +439,7 @@ function searchblock() {
    $ibid.="</td></tr></table></form>";
    return ($ibid);
 }
-
+/*
 function member_qualif($poster, $posts, $rank) {
    global $anonymous;
    $tmp='';
@@ -437,6 +466,37 @@ function member_qualif($poster, $posts, $rank) {
    }
    return ($tmp);
 }
+*/
+function member_qualif($poster, $posts, $rank) {
+   global $anonymous;
+   $tmp='';
+   if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
+   if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
+   $tmp='<img class="smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'<br />';
+   if ($poster!=$anonymous) {
+      $nux=0;
+      if ($posts>=10 and $posts<30) {$nux=1;}
+      if ($posts>=30 and $posts<100) {$nux=2;}
+      if ($posts>=100 and $posts<300) {$nux=3;}
+      if ($posts>=300 and $posts<1000) {$nux=4;}
+      if ($posts>=1000) {$nux=5;}
+      for ($i=0; $i<$nux; $i++) {
+//         $tmp.="<img src=\"".$imgtmpN."\" border=\"\" alt=\"\" />&nbsp;";
+         $tmp.='<i class="fa fa-star-o"></i>&nbsp;';
+
+      }
+
+      if ($rank) {
+         if ($ibid=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibid;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
+         $rank="rank".$rank;
+         global $$rank;
+         $tmp.="<br /><img src=\"".$imgtmpA."\" border=\"\" alt=\"\" />&nbsp;".aff_langue($$rank);
+      }
+   }
+   return ($tmp);
+}
+
+
 
 function forumerror($e_code) {
    global $sitename, $header;
