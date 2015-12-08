@@ -14,9 +14,11 @@ echo '
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.min.css" />';
-echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha/css/bootstrap.min.css" />';//V4
+//echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha/dist/css/bootstrap.css" />';//V4
+echo '<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">';
+//echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha/scss/bootstrap.scss" />';//V4
 
-//echo '<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/default/bootstrap.css" />';//V3
+//echo '<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/facebook/bootstrap.css" />';//V3
 
 echo '
 <link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />
@@ -26,14 +28,16 @@ echo '
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/css/octicons.css" />
+<link rel="stylesheet" href="lib/css/octicons.css" />';
 
-<link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />
+echo '<link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/1.5.0/assets/css/emojione.min.css" />';
+echo '<link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />
 
 <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
 //echo '<script type="text/javascript" src="lib/bootstrap-3.3.4/js/bootstrap.js"></script>';//V3
 echo '<script type="text/javascript" src="lib/js/tether.min.js"></script>';//V4
-echo '<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/js/bootstrap.js"></script>';//V4
+echo '<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/dist/js/bootstrap.js"></script>';//V4
+
 echo '
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js"></script>
@@ -51,4 +55,6 @@ echo '
 
 <script type="text/javascript" src="lib/tableExport.jquery.plugin-master/tableExport.js"></script>
 ';
+echo '<script src="//cdn.jsdelivr.net/emojione/1.5.0/lib/js/emojione.min.js"></script>';
+
 ?>
