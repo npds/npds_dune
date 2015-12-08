@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -268,6 +268,7 @@ function instant_members_message() {
 function makeChatBox() {
    global $user, $admin, $member_list, $long_chain;
    global $NPDS_Prefix;
+   include_once('functions.php');
 
    $auto=autorisation_block("makeChatBox");
    $dimauto=count($auto);
@@ -284,38 +285,41 @@ function makeChatBox() {
             if (isset($username)) {
                if ($dbname==1) {
                   if ((!$user) and ($member_list==1) and (!$admin)) {
-                     $thing.="<span class=\"titrec\">".substr($username,0,8).".</span>";
+                     $thing.='<span class="">'.substr($username,0,8).'.</span>';
                   } else {
                      $thing.="<a href=\"user.php?op=userinfo&amp;uname=$username\">".substr($username,0,8).".</a>";
                   }
                } else {
-                 $thing.="<span class=\"titrec\">".substr($username,0,8).".</span>";
+                 $thing.='<span class="">'.substr($username,0,8).'.</span>';
                }
             }
             $une_ligne=true;
             if (strlen($message)>$long_chain) {
-               $thing.="&gt;&nbsp;<span>".stripslashes(substr($message,0,$long_chain))." </span><br />\n";
+               $thing.="&gt;&nbsp;<span>".smilie(stripslashes(substr($message,0,$long_chain)))." </span><br />\n";
             } else {
-              $thing.="&gt;&nbsp;<span>".stripslashes($message)." </span><br />\n";
+              $thing.="&gt;&nbsp;<span>".smilie(stripslashes($message))." </span><br />\n";
             }
          }
       }
       $PopUp = JavaPopUp("chat.php?id=".$auto[0]."&amp;auto=".encrypt(serialize($auto[0])),"chat".$auto[0],380,480);
-      if ($une_ligne) {$thing.="<hr size=\"2\" width=\"90%\" class=\"boxmenu\" />";}
-      $thing.="<p align=\"center\"><a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">".translate("click here to open the chat window...")."</a></p>";
+      if ($une_ligne) {$thing.='<hr class="" />';}
+      
+//      $thing.='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip"><i class="fa fa-comments fa-2x "></i></a>';
 
       $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' and date >= ".(time()-(60*2))."");
       $numofchatters = sql_num_rows($result);
-
-      if ($numofchatters==1) {
-         $thing.="<p align=\"center\"><span class=\"titrec\">1</span> ".translate("person chatting right now.")."</p>";
-      } else {
-         $thing.="<p align=\"center\"><span class=\"titrec\">".$numofchatters."</span> ".translate("people chatting right now.")."</p>";
+      
+      
+      if ($numofchatters > 0) {
+         $thing.='<a class=" nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a><span class="label label-pill label-primary pull-right" title="'.translate("person chatting right now.").'" data-toggle="tooltip">'.$numofchatters.'</span> ';
+      }
+      else {
+         $thing.='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a>';
       }
    } else {
       if (count($auto)>1) {
          $numofchatters=0;
-         $thing.="<ul>";
+         $thing.='<ul>';
          foreach($auto as $autovalue) {
             $result=Q_select("SELECT groupe_id, groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$autovalue'",3600);
             list(,$autovalueX) = each ($result);
@@ -324,14 +328,14 @@ function makeChatBox() {
 
             $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$autovalueX['groupe_id']."' AND date >= ".(time()-(60*3))."");
             $numofchatters=sql_num_rows($result);
-            if ($numofchatters) $thing.="&nbsp;(<span class=\"rouge\"><b>".sql_num_rows($result)."</b></span>)";
-            echo "</li>";
+            if ($numofchatters) $thing.='&nbsp;(<span class="text-danger"><b>'.sql_num_rows($result).'</b></span>)';
+            echo '</li>';
          }
-         $thing.="</ul>";
+         $thing.='</ul>';
       }
    }
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $block_title=translate("Chat box");
    themesidebox($block_title, $thing);
    sql_free_result($result);
