@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -27,7 +27,7 @@ function footmsg() {
 }
 
 function foot() {
-   global $user, $Default_Theme;
+   global $user, $Default_Theme, $cookie9;
    if (isset($user)) {
       $user2 = base64_decode($user);
       $cookie = explode(":", $user2);
@@ -40,9 +40,10 @@ function foot() {
    } else {
       include("themes/$Default_Theme/footer.php");
    }
+   $cookie9 = $cookie[9];
 }
 
-   global $tiny_mce;
+   global $tiny_mce, $cookie9;
    if ($tiny_mce)
       echo aff_editeur("tiny_mce", "end");
 
@@ -50,8 +51,9 @@ function foot() {
    if (file_exists("modules/include/footer_before.inc")) {include ("modules/include/footer_before.inc");}
    foot();
    // include externe file from modules/themes include for functions, codes ...
+   if (file_exists("themes/$cookie9/include/footer_after.inc")) {include ("themes/$cookie9/include/footer_after.inc");} 
+   else
    if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
-   if (file_exists("themes/$cookie[9]/include/footer_after.inc")) {include ("themes/$cookie[9]/include/footer_after.inc");}
 
    echo "\n</body>\n</html>\n";
  
