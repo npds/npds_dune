@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -233,7 +233,7 @@ function MNSremoveHack($Xstring) {
      "'&#160;'i"=>'&nbsp;',
      "'.htaccess'i"=>"",
      "'!blog_editeur!'i"=>$blog_editor,
-     "'!l_blog_ajouterOK!'i"=>"<a class=\"btn btn-default\" href=\"minisite.php?op=$op&amp;action=A\" class=\"blog_lien\">".translate("Add articles")."</a>",
+     "'!l_blog_ajouterOK!'i"=>"<a class=\"btn btn-secondary\" href=\"minisite.php?op=$op&amp;action=A\" class=\"blog_lien\">".translate("Add articles")."</a>",
      "'\<\?php'i"=>"&lt;?php",
      "'\<\?'i"=>"&lt;?",
      "'\?\>'i"=>"?&gt;",
@@ -256,7 +256,8 @@ function convert_ressources ($Xcontent) {
    return (aff_langue($Xcontent));
 }
 
-
+   // NPDS copyright ... don't remove !
+   $copyright= '&nbsp;'.$sitename.'&nbsp;NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a></p>';
 
    // Troll Control for security
    $affich=false;
@@ -299,35 +300,26 @@ function convert_ressources ($Xcontent) {
       }
    }
    if ($affich) {
-      $fic=$dir."index.html";
+      $fic=$dir.'index.html';
       if (file_exists($fic)) {
          $Titlesitename="Minisite - $op";
-         $nuke_url=$nuke_url."/minisite.php?op=".$op;
+         $nuke_url=$nuke_url.'/minisite.php?op='.$op;
          include("meta/meta.php");
          echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
-		 
-		 echo '<link rel="stylesheet" href="lib/font-awesome-4.3.0/css/font-awesome.min.css" />
-<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/facebook/bootstrap.css" />
-
-
-<link rel="stylesheet" href="lib/jquery-ui.css">
-<link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
-<link rel="stylesheet" href="lib/formvalidation-dist-v0.6.2/dist/css/formValidation.min.css" />
-<link rel="stylesheet" href="lib/css/glyphicons.css" />
-<link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
-<link rel="stylesheet" href="themes/npds-boost/style/ajust.css" />
-';
-echo '<script type="text/javascript" src="lib/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap-3.3.4/js/bootstrap.js"></script>
-<script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script type="text/javascript" src="lib/js.cookie.js"></script>
-<script type="text/javascript" src="lib/jquery-ui.js"></script>
-';		 
-		 
+      // chargement sauvage lol ˆ voir
+         echo '
+         <link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.min.css" />
+         <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" />
+         <link rel="stylesheet" href="themes/npds-boost/style/ajust.css" />
+         <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
+         <script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/dist/js/bootstrap.js"></script>
+         ';
          echo "<style type=\"text/css\"> \n";
             readfile($dir."style.css");
          echo "</style>\n";
-         $Xcontent="</head>\n<body>\n";
+         $Xcontent='
+         </head>
+         <body>';
 
          $fp=fopen($fic,"r");
          if (filesize($fic)>0)
@@ -410,7 +402,9 @@ echo '<script type="text/javascript" src="lib/jquery-2.1.3.min.js"></script>
          echo substr($Xcontent, 0, $rupt);
          echo aff_video_yt(substr($Xcontent,$rupt+6));
 
-         echo "</body>\n</html>";
+         echo '
+            </body>
+         </html>';
       }
    }
 ?>
