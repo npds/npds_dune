@@ -583,17 +583,22 @@ function adminMain($deja_affiches) {
       echo '
          </tbody>
       </table>
-      <ul class="pagination">
+      <ul class="pagination pagination-sm">
       <li class="active"><a href="#">'.$nbre_articles.' Articles</a></li>
       <li><a href="admin.php?op=suite_articles&amp;deja_affiches=0" class="noir">'.adm_translate("Les plus rÈcents").'</a></li>';
 
 
-      if ($deja_affiches>=$admart) echo "<li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".($deja_affiches-$admart)."\" class=\"noir\">".adm_translate("PrÈcÈdent")."</a></li>";
+      if ($deja_affiches>=$admart) echo "
+      <li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".($deja_affiches-$admart)."\" >".adm_translate("PrÈcÈdent")."</a></li>";
       if (($deja_affiches + $i) < $nbre_articles) {
          $deja_affiches+=$admart;
-         echo " <li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".$deja_affiches."\" class=\"noir\">".adm_translate("Suivant")."</a></li></ul>";
+         echo "
+      <li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".$deja_affiches."\" >".adm_translate("Suivant")."</a></li>";
       }
-      echo '<form class="" action="admin.php" method="post">
+      echo '
+      </ul>';
+      echo '
+      <form class="" action="admin.php" method="post">
       <div class="form-group">
         <div class="row form-inline">
             <div class="col-xs-4">
