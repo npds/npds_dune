@@ -290,31 +290,6 @@ include('header.php');
       $posts = $posterdata['posts'];
       echo '
       <div class="row">';
-/*       echo '
-         <div class="col-xs-1">
-         <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
-      if (($count+2)==$mycount) echo '<a name="last-post"></a>';
-     
-      if ($smilies) {
-          if ($posterdata['user_avatar'] != '') {
-             if (stristr($posterdata['user_avatar'],"users_private")) {
-                $imgtmp=$posterdata['user_avatar'];
-             } else {
-                if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-             }
-             
-             
-             if ($posterdata['mns']) {
-                echo '<a href="minisite.php?op='.$posterdata['uname'].'" target="_blank"><img class="img-thumbnail" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
-          } else {
-                echo '<img class=" img-thumbnail" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
-             }
-          }
-      }
-*/      
-
-
-
 /*
       if (!$short_user) {
          if ($posterdata['user_icq']!="")
@@ -330,9 +305,8 @@ include('header.php');
       
 echo '</div>';
 */ 
-$useroutils = '';
-$useroutils .= '<hr />';
-
+   $useroutils = '';
+   $useroutils .= '<hr />';
       if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
          $useroutils .= '<a href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-lg fa-user"></i>&nbsp;'.translate("Profile").'</a>';
       }
@@ -351,13 +325,11 @@ $useroutils .= '<hr />';
           $useroutils .= '<br /><a href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-lg fa-desktop"></i>&nbsp;'.translate("Visit the Mini Web Site !").'</a>';
       }
 
-     
       echo '
          <div class="col-xs-1">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '
          <a name="last-post"></a>';
-
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -368,7 +340,6 @@ $useroutils .= '<hr />';
              echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'"  data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts, $posterdata['rank']).'<br />'.$useroutils.'\' />';
             }
          }
-//      echo '<br />'.member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
       echo '
          </div>
          <div class="col-xs-11">
@@ -543,10 +514,8 @@ $useroutils .= '<hr />';
       echo '
 <form class="" role="form" action="viewforum.php" method="post">
    <div class="form-group row">
-      <div class="col-sm-2">
+      <div class="col-xs-12">
          <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
-      </div>
-      <div class="col-sm-10">
          <select class="form-control" name="forum" onchange="submit();">
             <option value="index">'.translate("Jump To: ").'</option>
             <option value="index">'.translate("Forum Index").'</option>';
@@ -568,8 +537,7 @@ $useroutils .= '<hr />';
       </div>
    </div>
 </form>
-<a name="botofpage"></a>
-';
+<a name="botofpage"></a>';
     }
     if ($SuperCache) {
        $cache_obj->endCachingBlock($cache_clef);

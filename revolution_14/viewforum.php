@@ -93,26 +93,24 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
     $moderator_data=explode(" ",$moderator);
     for ($i = 0; $i < count($moderator_data); $i++) {
        $modera = get_userdata($moderator[$i]);
-             if ($modera['user_avatar'] != '') {
+          if ($modera['user_avatar'] != '') {
              if (stristr($modera['user_avatar'],"users_private")) {
                 $imgtmp=$modera['user_avatar'];
              } else {
                 if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
              }
-             }
-      echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" />';
-    
-    
-//       echo "<a href=\"user.php?op=userinfo&amp;uname=$moderator_data[$i]\">$moderator_data[$i]</a>&nbsp;";
+          }
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
     }
-	echo '</p>';
-	
-    echo "<p class=\"lead\"><a href=\"forum.php\" >".translate("Forum Index")."</a> &raquo; &raquo; ".stripslashes($forum_name);
-    echo "</p>\n";
-
+   echo '</p>';
     echo '
+   <p class="lead">
+      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
+   </p>';
+
+   echo '
       <form role="form" action="viewforum.php" method="post">
-         <div class="form-group has-warning">
+         <div class="form-group">
                <div class="text-center">
                <label class="control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
                </div>
@@ -122,11 +120,13 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                </div>
                </div>
             </div>
-            <input type="hidden" name="forum" value="'.$forum.'" />';	
-	echo '<div class="text-center">';	
+            <input type="hidden" name="forum" value="'.$forum.'" />
+            <div class="text-center">';
 	echo '<button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;';
 	echo '<button type="reset" class="btn btn-default" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>';
-    echo '</div></form>';
+    echo '
+         </div>
+      </form>';
 	} 
 	elseif (($Forum_passwd == $myrow['forum_pass'])) {
    if (($myrow['forum_type']== 9) and (!$user)) { header("location: forum.php"); }
@@ -157,30 +157,26 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
             }
          }
-   
       if ($user)
          if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
-         
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    echo '
          </div>
       </div>';
    
-   echo '<h3>';
+   echo '
+   <h3>';
    if ($forum_access!=9) {
       $allow_to_post = true;
       if ($forum_access==2)
          if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
       if ($allow_to_post) {
-         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'">';
-         echo '<i class="fa fa-plus-square "></i></a>&nbsp;';
+         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square "></i></a>&nbsp;';
       }
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
    </h3>';
- 
-   echo '<table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
    if ($solved) {
       if (isset($closoled)) {
          $closol="and topic_status='2'";
@@ -192,7 +188,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    } else {
       $closol=''; $mess_closoled='';
    }
+ 
    echo '
+   <h4>'.translate("Topics").'</h4>
+   <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th></th>
@@ -255,11 +254,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
             echo '<td class="">'.$image.'</td>';
-			
+
             if ($image_subject != "") {
                if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
                echo '<td><img class="smil" src="'.$imgtmp.'" border="0" alt="" /></td>';
-            } else echo '<td><img class="smil" src="'.$imgtmpP.'" border="0" alt="" /></td>';
+            } else 
+            echo '<td><img class="smil" src="'.$imgtmpP.'" border="0" alt="" /></td>';
 
             $topic_title = stripslashes($myrow['topic_title']);
             if (!stristr($topic_title,"<a href=")) {
@@ -305,14 +305,14 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       sql_free_result($result);
    } else {
       if ($forum_access!=9)
-         echo "<td colspan=\"7\">".translate("There are no topics for this forum. ")."<br /><a href=\"newtopic.php?forum=$forum\" >".translate("You can post one here.")."</a></td></tr>";
+         echo '<td colspan="7">'.translate("There are no topics for this forum. ")."<br /><a href=\"newtopic.php?forum=$forum\" >".translate("You can post one here.")."</a></td></tr>";
    }
    echo '
          </tbody>
       </table>';
 
    if ($user) {
-      echo '<p class="lead">'.translate("Mark all Topics to Read").'&nbsp;<button class="btn btn-xs btn-primary" href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-2x fa-check"></i></button></p>';
+      echo '<br /><p><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-lg fa-check-square-o"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
    }
    $sql = "SELECT count(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol";
    if (!$r = sql_query($sql))
@@ -320,29 +320,29 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    list($all_topics) = sql_fetch_row($r);
    sql_free_result($r);
    if (isset($closoled))
-      $closol="&amp;closoled=on";
+      $closol='&amp;closoled=on';
     else
-      $closol="";
+      $closol='';
    $count = 1;
    $next = $start + $topics_per_page;
-   echo '<div class="md-12">
+   echo '<div class="xs-12">
    <ul class="pagination pagination-sm">';
    if ($all_topics > $topics_per_page) {
-    if ($next >= $all_topics) {
-       echo "<li><a href=\"viewforum.php?forum=$forum&amp;start=".($next-2*$topics_per_page).$closol."\">".translate("Previous Page")."</a></li>";
-    }
-	else {
-       echo "<li><a href=\"viewforum.php?forum=$forum&amp;start=".$next.$closol."\">".translate("Next Page")."</a></li>";
-    }
+      if ($next >= $all_topics) {
+         echo '<li><a href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
+      }
+      else {
+          echo '<li><a href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
+      }
     for($x = 0; $x < $all_topics; $x++) {
       if (!($x % $topics_per_page)) {
          if ($x == $start)
             echo '<li class="active"><a href="#">'.$count.'</a></li>';
          else
-            echo "<li><a href=\"viewforum.php?forum=$forum&amp;start=".$x.$closol."\">$count</a></li>";
+            echo '<li><a href="viewforum.php?forum='.$forum.'&amp;start='.$x.$closol.'">'.$count.'</a></li>';
          if (($all_topics-($count*$topics_per_page))>0) {
             if (!($count % 20))
-         echo "<br />";
+         echo '<br />';
          }
          $count++;
       }
@@ -352,13 +352,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    </ul>
    </div>';
    searchblock();
-   echo '<div class="md-8"><i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'</div>';
-   
-   echo "<div class=\"md-8\"><i class=\"fa fa-file-text fa-lg\"></i> = ".translate("More than")." $hot_threshold ".translate("Posts");
-   echo '</div>';
-   echo '<div class="md-8"><i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'</div>';
-   echo "<div class=\"md-8\"><i class=\"fa fa-file fa-lg\"></i> = ".translate("More than")." $hot_threshold ".translate("Posts")."</div>";
-   echo '<div class="md-8"><i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'</div>';
+   echo '
+   <div class="md-8"><i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'</div>
+   <div class="md-8"><i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'</div>
+   <div class="md-8"><i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'</div>
+   <div class="md-8"><i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'</div>
+   <div class="md-8"><i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'</div>';
    if ($SuperCache) {
       $cache_clef="forum-jump-to";
       $CACHE_TIMINGS[$cache_clef]=3600;
@@ -373,7 +372,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          </div>
          <div class="col-sm-4">
             <select class="form-control" name="forum" onchange="submit();">
-               <option value="index">...</option>
+               <option value="index">'.translate("Jump To: ").'</option>
                <option value="index">'.translate("Forum Index").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
        if ($res = sql_query($sub_sql)) {
@@ -389,10 +388,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
           }
        }
        echo '
-	   </select>
-	   </div>
-	   </div>';
-       echo '</form>';  
+            </select>
+         </div>
+      </div>
+   </form>';
    }
    if ($SuperCache) {
       $cache_obj->endCachingBlock($cache_clef);
