@@ -26,8 +26,7 @@ function FriendSend($sid, $archive) {
    }
    include ("header.php");
 
-   echo '<h2><i class="fa fa-paper-plane"></i>&nbsp;'.translate("Send Story to a Friend").'</h2>';
-   echo "<br />";
+   echo '<h2>'.translate("Send Story to a Friend").'</h2>';
    echo '<p class="lead">'.translate("You will send the story").' <strong>'.aff_langue($title).'</strong> '.translate("to a specified friend:").'</p>
    <form class="form-horizontal" role="form" action="friend.php" method="post"><input type="hidden" name="'.sid.'" value="'.$sid.'" />';
    global $user;
@@ -38,7 +37,7 @@ function FriendSend($sid, $archive) {
    }
 	echo '<div class="form-group">
 			<div class="col-sm-4">
-				<label class="control-label">'.translate("Your Name: ").'</label>
+				<label class="form-control-label">'.translate("Your Name: ").'</label>
             </div>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="yname" value="'.$yn.'" />
@@ -46,7 +45,7 @@ function FriendSend($sid, $archive) {
 		</div>';
 	echo '<div class="form-group">
 			<div class="col-sm-4">
-				<label class="control-label">'.translate("Your Email: ").'</label>
+				<label class="form-control-label">'.translate("Your Email: ").'</label>
             </div>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="ymail" value="'.$ye.'" />
@@ -54,7 +53,7 @@ function FriendSend($sid, $archive) {
 		</div>';
 	echo '<div class="form-group">
 			<div class="col-sm-4">
-				<label class="control-label">'.translate("Friend Name: ").'</label>
+				<label class="form-control-label">'.translate("Friend Name: ").'</label>
             </div>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="fname" />
@@ -62,7 +61,7 @@ function FriendSend($sid, $archive) {
 		</div>';
 	echo '<div class="form-group">
 			<div class="col-sm-4">
-				<label class="control-label">'.translate("Friend Email: ").'</label>
+				<label class="form-control-label">'.translate("Friend Email: ").'</label>
             </div>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="fmail" />
@@ -139,11 +138,6 @@ function StorySent($title, $fname) {
 }
 
 function RecommendSite() {
-   include ("header.php");
-
-   echo '<h2><i class="fa fa-paper-plane"></i>&nbsp;'.translate("Recommend this Site to a Friend").'</h2>';
-   echo "<br />";
-   echo '<form class="form-horizontal" role="form" action="friend.php" method="post"><input type="hidden" name="op" value="SendSite" />';
    global $user;
    if ($user) {
       global $cookie;
@@ -151,49 +145,45 @@ function RecommendSite() {
       $result=sql_query("select name, email from ".$NPDS_Prefix."users where uname='$cookie[1]'");
       list($yn, $ye) = sql_fetch_row($result);
    } else {
-      $yn="";
-      $ye="";
+      $yn=''; $ye='';
    }
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Your Name: ").'</label>
-            </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="yname" value="'.$yn.'" />
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Your Email: ").'</label>
-            </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="ymail" value="'.$ye.'" />
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Friend Name: ").'</label>
-            </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="fname" />
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Friend Email: ").'</label>
-            </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="fmail" />
-			</div>
-		</div>';		
-	echo "".Q_spambot();
-	echo '<div class="form-group">
-			<div class="col-sm-offset-4 col-sm-8">
-				<button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i></button>
-			</div>
-		</div>';
-	echo '</form>';
-   
+   include ("header.php");
+   echo '
+   <h2>'.translate("Recommend this Site to a Friend").'</h2>
+   <form class="" role="form" action="friend.php" method="post">
+      <input type="hidden" name="op" value="SendSite" />
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name: ").'</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="yname" value="'.$yn.'" required="required" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email: ").'</label>
+         <div class="col-sm-8">
+            <input type="email" class="form-control" name="ymail" value="'.$ye.'" required="required" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name: ").'</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="fname" required="required" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email: ").'</label>
+         <div class="col-sm-8">
+            <input type="email" class="form-control" name="fmail" required="required" />
+         </div>
+      </div>
+      '.Q_spambot().'
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i></button>
+         </div>
+      </div>
+      </form>';
+
    include ('footer.php');
 }
 
@@ -236,8 +226,16 @@ function SiteSent($fname) {
    if ($fname=="") {
       echo '<span class="text-danger">'.translate("ERROR: Invalid email").'</span>';
    } else {
-      echo '<span class="text-success">'.translate("The reference to our site has been sent to").' '.$fname,'';
-      echo '<br /><br />'.translate("Thanks for recommend us!").'</span>';
+      echo '
+      <div class="alert alert-success" role="alert">
+      '.translate("The reference to our site has been sent to").' '.$fname.', <br />
+      <strong>'.translate("Thanks for recommend us!").'</strong>
+      </div>';
+   
+   
+   
+//       echo '<span class="text-success">'.translate("The reference to our site has been sent to").' '.$fname,'';
+//       echo '<br /><br />'.translate("Thanks for recommend us!").'</span>';
    }
    echo '</p>';
    
