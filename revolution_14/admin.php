@@ -517,7 +517,7 @@ function adminMain($deja_affiches) {
    $result = sql_query("select sid, title, hometext, topic, informant, time, archive from ".$NPDS_Prefix."stories order by time desc LIMIT $deja_affiches,$admart");
 
    if ($nbre_articles) {
-      echo '<table text-xs-right>
+      echo '<table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
                 <thead>
                     <tr>
                         <th data-sortable="true">ID</th>
