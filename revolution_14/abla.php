@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -45,63 +45,63 @@ if ($admin) {
     echo "<table class=\"table table-bordered\"><thead><tr class=\"info\"><th colspan=\"2\">".translate("General Stats")." - ".translate("Past Stat")." : $timex </th></tr></thead>";
     echo "<tbody><tr><td>".translate("Nb of Pages")." : </td><td>".wrh($totalz)." (";
     if ($totalz>$xtotalz)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($totalz<$xtotalz)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($totalz-$xtotalz)."</span>)</td></tr>";
 
     echo "<tr><td>".translate("Nb of members")." : </td><td>".wrh($membres)." (";
     if ($membres>$xmembres)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($membres<$xmembres)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($membres-$xmembres)."</span>)</td></tr>";
 
     echo "<tr><td>".translate("Nb of articles")." : </td><td>".wrh($totala)." (";
     if ($totala>$xtotala)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($totala<$xtotala)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($totala-$xtotala)."</span>)</td></tr>";
 
     echo "<tr><td>".translate("Nb of forums")." : </td><td>".wrh($totalc)." (";
     if ($totalc>$xtotalc)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($totalc<$xtotalc)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($totalc-$xtotalc)."</span>)</td></tr>";
 
     echo "<tr><td>".translate("Nb of topics")." : </td><td>".wrh($totald)." (";
     if ($totald>$xtotald)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($totald<$xtotald)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($totald-$xtotald)."</span>)</td></tr>";
 
     echo "<tr><td>".translate("Nb of reviews")." : </td><td>".wrh($totalb)." (";
     if ($totalb>$xtotalb)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($totalb<$xtotalb)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($totalb-$xtotalb)."</span>)</td></tr>";
 
     echo "<tr><td>".translate("Nb Outside Users for LNL")." : </td><td>".wrh($totalnl)." (";
     if ($totalnl>$xtotalnl)
-       echo "<span class=\"test-success\">+";
+       echo "<span class=\"text-success\">+";
     elseif ($totalnl<$xtotalnl)
-       echo "<span class=\"test-danger\">";
+       echo "<span class=\"text-danger\">";
     else
        echo "<span>";
     echo wrh($totalnl-$xtotalnl)."</span>)</td></tr>";
