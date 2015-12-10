@@ -193,7 +193,7 @@ if ($submitS) {
       redirect_url("viewforum.php?forum=$forum");
    } else {
   
-      echo "<p class=\"text-center\">".translate("You must type a message to post.")."<br /><br />";
+      echo "<p class=\"text-xs-center\">".translate("You must type a message to post.")."<br /><br />";
       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
   
    }
@@ -405,7 +405,7 @@ if ($submitS) {
      
      
    echo'
-      <div class="btn-group-sm text-center" role="group">
+      <div class="btn-group-sm text-xs-center" role="group">
          <input type="hidden" name="forum" value="'.$forum.'" />
          <input type="hidden" name="topic" value="'.$topic.'" />
          <button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'" data-toggle="tooltip" ><i class="fa fa-check fa-lg"></i></button>

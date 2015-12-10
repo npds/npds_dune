@@ -55,7 +55,7 @@ function FaqAdmin() {
                <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" placeholder="'.adm_translate("Catégories").'" rows="3" required="required" ></textarea>
-                  <span class="help-block text-right"><span id="countcar_categories"></span></span>
+                  <span class="help-block text-xs-right"><span id="countcar_categories"></span></span>
                </div>
             </div>
          </div>
@@ -100,7 +100,7 @@ function FaqCatGo($id_cat) {
                <label class="form-control-label col-sm-12" for="question">'.adm_translate("Question").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="question" id="question" maxlength="255"></textarea>
-                  <span class="help-block text-right"><span id="countcar_question"></span></span>
+                  <span class="help-block text-xs-right"><span id="countcar_question"></span></span>
                </div>
             </div>
          </div>
@@ -171,7 +171,7 @@ function FaqCatEdit($id_cat) {
                <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" rows="3" required="required" >'.$categories.'</textarea>
-                  <span class="help-block text-right"><span id="countcar_categories"></span></span>
+                  <span class="help-block text-xs-right"><span id="countcar_categories"></span></span>
                </div>
             </div>
          </div>
@@ -229,7 +229,7 @@ function FaqCatGoEdit($id) {
                <label class="form-control-label col-xs-12" for="question">'.adm_translate("Question").'</label>
                <div class="col-sm-12">
                   <textarea class="form-control" type="text" name="question" id="question" maxlength="255">'.$question.'</textarea>
-                  <span class="help-block text-right"><span id="countcar_question"></span></span>
+                  <span class="help-block text-xs-right"><span id="countcar_question"></span></span>
                </div>
             </div>
          </div>

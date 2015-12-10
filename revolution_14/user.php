@@ -19,12 +19,12 @@ if (!function_exists("Mysql_Connexion")) {
 function message_error($ibid,$op) {
     include("header.php");
 	   echo '<h2>'.translate("User").'</h2>';	
-    echo "<p class=\"lead text-warning text-center\">";
+    echo "<p class=\"lead text-warning text-xs-center\">";
     echo $ibid;
     if (($op=="only_newuser") or ($op=="new user") or ($op=="finish")) {
        hidden_form();
        echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\" />
-	   <p class=\"text-center\">
+	   <p class=\"text-xs-center\">
 	   <button class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Go Back")."\" /><i class=\"fa fa-lg fa-undo\"></i></button>
 	   </p>
 	   </form>";
@@ -118,7 +118,7 @@ function Only_NewUser() {
        showimage();
 	   
        if (!$memberpass) {
-		echo '<p class="lead text-info text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
+		echo '<p class="lead text-info text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
 		}
 	   echo '<h2>'.translate("User").'</h2>';
 		echo '<p class="text-info">'.translate("Notice").' :';
@@ -188,9 +188,9 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
     $stop=userCheck($uname, $email);
     if ($memberpass) {
        if ((isset($pass)) and ("$pass" != "$vpass")) {
-          $stop="<p class=\"text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."</p><br />";
+          $stop="<p class=\"text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."</p><br />";
        } elseif (strlen($pass) < $minpass) {
-          $stop="<p class=\"text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."</p><br />";
+          $stop="<p class=\"text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."</p><br />";
        }
     }
     if (!$stop) {
@@ -201,7 +201,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
           hidden_form();
           global $charte;
           if (!$charte) {
-             echo "<p class=\"lead text-warning text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
+             echo "<p class=\"lead text-warning text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
              echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\">
 				<input class=\"btn btn-default\" type=\"submit\" value=\"".translate("Go Back")."\" />
 				</form>";
@@ -385,9 +385,9 @@ function main($user) {
 	   
 	   echo '<h2>'.translate("User").'</h2>';	   
        if ($stop==99) {
-          echo '<p class="lead text-danger text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
+          echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
        } elseif ($stop)  {
-          echo '<p class="lead text-danger text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
+          echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
        }
        if (!$user) {
 
@@ -424,7 +424,7 @@ function main($user) {
 
           echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
           
-          echo '<p class="text-center">	  
+          echo '<p class="text-xs-center">	  
 		  <a class="btn btn-default" href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="glyphicons glyphicons-user-add"></i></a>
 			&nbsp;&nbsp;
 		  <a class="btn btn-default" href="user.php?op=forgetpassword" role="button" title="'.translate("Lost your Password?").'"><i class="glyphicons glyphicons-user-key"></i></a>
@@ -462,7 +462,7 @@ function logout() {
 function ForgetPassword() {
     include("header.php");
 	   echo '<h2>'.translate("User").'</h2>';
-    echo '<h3 class="lead text-warning text-center">'.translate("Lost your Password?").'</h3>';
+    echo '<h3 class="lead text-warning text-xs-center">'.translate("Lost your Password?").'</h3>';
 	
     echo '<p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>';
 	
@@ -519,7 +519,7 @@ function mail_password($uname, $code) {
 
        send_email($email, $subject, $message, "", true, "html");
 
-       message_pass('<p class="lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
+       message_pass('<p class="lead text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
 
        Ecr_Log("security", "Lost_password_request : ".$uname, "");
     }
@@ -593,7 +593,7 @@ function update_password ($code, $passwd) {
                    $cryptpass=$ibid[1];
                 }
                 sql_query("update ".$NPDS_Prefix."users set pass='$cryptpass' where uname='$uname'");
-                message_pass("<p class=\"lead text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate ("Password update, please re-connect you.")."</p>");
+                message_pass("<p class=\"lead text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate ("Password update, please re-connect you.")."</p>");
                 Ecr_Log("security", "Lost_password_update OK : ".$uname, "");
              } else {
                 message_pass(translate("Error"));

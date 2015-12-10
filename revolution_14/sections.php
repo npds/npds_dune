@@ -177,7 +177,7 @@ function listarticles($secid) {
          if ($image!="") {
             if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
             $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
-               echo "<p class=\"text-center\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" /></p>";
+               echo "<p class=\"text-xs-center\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" /></p>";
          } else {
          }
          echo "<p>".translate("Following are the articles published under this section.")."</p>";
@@ -271,9 +271,9 @@ function viewarticle($artid, $page) {
          $pos_page=strpos($Xcontent,"[page");
          if ($pos_page) {
             $pageS=substr($Xcontent,$pos_page,7);
-            $Xcontent=substr($Xcontent,0,$pos_page)."<br /><p class=\"text-center\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid&amp;page=$pageS\">".translate("Next Page")."</a></p>";
+            $Xcontent=substr($Xcontent,0,$pos_page)."<br /><p class=\"text-xs-center\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid&amp;page=$pageS\">".translate("Next Page")."</a></p>";
          } else if($multipage) {
-            $Xcontent.="<br /><p class=\"text-center\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid\">".translate("Top of the article")."</a></p>";
+            $Xcontent.="<br /><p class=\"text-xs-center\"><a href=\"sections.php?op=viewarticle&amp;artid=$artid\">".translate("Top of the article")."</a></p>";
          }
          $Xcontent=aff_code(aff_langue($Xcontent));
          echo meta_lang($Xcontent);
@@ -363,7 +363,7 @@ function PrintSecPage($artid) {
    }
    echo import_css($tmp_theme, $language, $site_font, "","");
    echo "</head>\n<body style=\"background-color: #FFFFFF; background-image: none;\">";
-   echo "<p class=\"text-center\">";
+   echo "<p class=\"text-xs-center\">";
    $pos = strpos($site_logo, "/");
    if ($pos)
       echo "<img src=\"$site_logo\" border=\"0\" alt=\"\" />";
@@ -381,7 +381,7 @@ function PrintSecPage($artid) {
    }
    echo meta_lang($content);
    echo "<hr />
-   <p class=\"text-center\">
+   <p class=\"text-xs-center\">
    ".translate("This article comes from")." $sitename<br /><br />
    ".translate("The URL for this story is:")."
    <a href=\"$nuke_url/sections.php?op=viewarticle&amp;artid=$artid\">$nuke_url/sections.php?op=viewarticle&amp;artid=$artid</a>

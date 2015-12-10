@@ -100,7 +100,7 @@ function reviews() {
             <label class="form-control-label col-sm-4 col-md-4" for="reviewer">'.adm_translate("Le critique").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="reviewer" value="'.$reviewer.'" maxlength="20" />
-               <span class="help-block text-right"><span id="countcar_reviewer"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_reviewer"></span></span>
             </div>
          </div>
       </div>
@@ -109,7 +109,7 @@ function reviews() {
             <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="30" />
-               <span class="help-block text-right"><span id="countcar_email"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
             </div>
          </div>
       </div>
@@ -128,7 +128,7 @@ function reviews() {
             <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("Liens relatifs").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" />
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
             </div>
          </div>
       </div>
@@ -137,7 +137,7 @@ function reviews() {
             <label class="form-control-label col-sm-4 col-md-4" for="url_title">'.adm_translate("Titre du lien").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" id="url_title" name="url_title" value="'.$url_title.'" maxlength="50" />
-               <span class="help-block text-right"><span id="countcar_url_title"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_url_title"></span></span>
             </div>
          </div>
       </div>';

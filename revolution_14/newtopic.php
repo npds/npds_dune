@@ -180,7 +180,7 @@ if ($submitS) {
       }
       redirect_url($hrefX."?forum=$forum&topic=$topic");
    } else {
-      echo '<p class=" lead text-center text-danger">'.translate("You must provide subject and message to post your topic.").'</p>';
+      echo '<p class=" lead text-xs-center text-danger">'.translate("You must provide subject and message to post your topic.").'</p>';
    }
 } else {
    include('header.php');
@@ -387,7 +387,7 @@ if ($submitS) {
 
 		echo'	
 			<fieldset>
-			<div class="btn-group-sm text-center" role="group">
+			<div class="btn-group-sm text-xs-center" role="group">
 				<input type="hidden" name="forum" value="'.$forum.'" />
 				<input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
 				<input class="btn btn-secondary" type="submit" name="submitP" value="'.translate("Preview").'" />

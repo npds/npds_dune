@@ -100,7 +100,7 @@ switch ($acc) {
    break;
 }
 
-      echo '<hr noshade="noshade" class="ongl" /><p class="lead text-center">'.translate("Preview").'</p>';
+      echo '<hr noshade="noshade" class="ongl" /><p class="lead text-xs-center">'.translate("Preview").'</p>';
 	  echo '
 			<div class="col-md-12">
 			<div class="well">

@@ -126,7 +126,7 @@ function StorySent($title, $fname) {
    
    $title = urldecode($title);
    $fname = urldecode($fname);
-   echo '<p class="lead text-center">';
+   echo '<p class="lead text-xs-center">';
    if ($fname=="") {
       echo '<span class="text-danger">'.translate("ERROR: Invalid email").'</span>';
    } else {
@@ -222,22 +222,21 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
 function SiteSent($fname) {
    include ('header.php');
    
-   echo '<p class=" lead text-center">';
+//   echo '<p class=" lead text-xs-center">';
    if ($fname=="") {
-      echo '<span class="text-danger">'.translate("ERROR: Invalid email").'</span>';
+      echo '
+         <div class="alert alert-danger lead" role="alert">
+            <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
+            '.translate("ERROR: Invalid email").'
+         </div>';
    } else {
       echo '
-      <div class="alert alert-success" role="alert">
-      '.translate("The reference to our site has been sent to").' '.$fname.', <br />
-      <strong>'.translate("Thanks for recommend us!").'</strong>
+      <div class="alert alert-success lead" role="alert">
+         <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
+         '.translate("The reference to our site has been sent to").' '.$fname.', <br />
+         <strong>'.translate("Thanks for recommend us!").'</strong>
       </div>';
-   
-   
-   
-//       echo '<span class="text-success">'.translate("The reference to our site has been sent to").' '.$fname,'';
-//       echo '<br /><br />'.translate("Thanks for recommend us!").'</span>';
    }
-   echo '</p>';
    
    include ('footer.php');
 }

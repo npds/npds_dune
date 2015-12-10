@@ -341,7 +341,7 @@ function relatededit($tid, $rid) {
            <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom du site").'</label>
            <div class="col-sm-8 col-md-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
-              <span class="help-block text-right"><span id="countcar_name"></span></span>
+              <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
            </div>
        </div>
        <div class="form-group">
@@ -353,7 +353,7 @@ function relatededit($tid, $rid) {
                  </span>
                  <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
                </div>
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
        </div>
        <input type="hidden" name="op" value="relatedsave" />
        <input type="hidden" name="tid" value="'.$tid.'" />

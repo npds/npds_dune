@@ -13,12 +13,14 @@
 echo '
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.min.css" />';
+<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />';
 //echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha/dist/css/bootstrap.css" />';//V4
-echo '<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">';
-//echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha/scss/bootstrap.scss" />';//V4
+//echo '<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">';
+echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css" />';//V4alpha2
 
-//echo '<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/journal/bootstrap.css" />';//V3
+//echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/scss/bootstrap.scss" />';//V4alpha2
+
+//echo '<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/coffee/bootstrap.css" />';//V3
 
 echo '
 <link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />
@@ -32,11 +34,13 @@ echo '
 
 echo '<link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/1.5.0/assets/css/emojione.min.css" />';
 echo '<link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />
-<link rel="stylesheet" href="themes/'.$theme.'/js/highlight/styles/github-gist.css" />
+<link id="sty_highlight" rel="stylesheet" href="lib/js/highlight-9.0.0/styles/github.css" />
 <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
 //echo '<script type="text/javascript" src="lib/bootstrap-3.3.4/js/bootstrap.js"></script>';//V3
+
 echo '<script type="text/javascript" src="lib/js/tether.min.js"></script>';//V4
-echo '<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/dist/js/bootstrap.js"></script>';//V4
+//echo '<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/dist/js/bootstrap.js"></script>';//V4
+echo '<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.js"></script>';//V4alpha2
 
 echo '
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
@@ -55,7 +59,7 @@ echo '
 
 <script type="text/javascript" src="lib/tableExport.jquery.plugin-master/tableExport.js"></script>
 
-<script type="text/javascript" src="themes/'.$theme.'/js/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>
 ';
 echo '<script src="//cdn.jsdelivr.net/emojione/1.5.0/lib/js/emojione.min.js"></script>';
 

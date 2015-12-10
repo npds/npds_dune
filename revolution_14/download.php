@@ -134,43 +134,43 @@ function popuploader($did, $ddescription, $dcounter, $dfilename,$aff) {
 
 function SortLinks($dcategory, $sortby) {
   $dcategory=stripslashes($dcategory);
-  echo "<thead><tr><th class=\"text-center\">".translate("Info")."</th><th class=\"text-center\">".translate("Type")."</th><th class=\"text-center\">";
+  echo "<thead><tr><th class=\"text-xs-center\">".translate("Info")."</th><th class=\"text-xs-center\">".translate("Type")."</th><th class=\"text-xs-center\">";
   if ($sortby == "dfilename" OR !$sortby) {
      act_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
   }
-  echo "</th><th class=\"text-center\">";
+  echo "</th><th class=\"text-xs-center\">";
   if ($sortby == "dfilesize") {
      act_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
   }
-  echo "</th><th class=\"text-center\">";
+  echo "</th><th class=\"text-xs-center\">";
   if ($sortby == "dcategory") {
      act_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
   }
-  echo "</th><th class=\"text-center\">";
+  echo "</th><th class=\"text-xs-center\">";
   if ($sortby == "ddate") {
      act_dl_tableheader($dcategory, $sortby, "ddate", "Date");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "ddate", "Date");
   }
-  echo "</th><th class=\"text-center\">";
+  echo "</th><th class=\"text-xs-center\">";
   if ($sortby == "dver") {
      act_dl_tableheader($dcategory, $sortby, "dver", "Version");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dver", "Version");
   }
-  echo "</th><th class=\"text-center\">";
+  echo "</th><th class=\"text-xs-center\">";
   if ($sortby == "dcounter") {
      act_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
   }
-  echo "</th><th class=\"text-center\">&nbsp;</th></tr></thead>";
+  echo "</th><th class=\"text-xs-center\">&nbsp;</th></tr></thead>";
 }
 
 function listdownloads ($dcategory, $sortby, $sortorder) {
@@ -250,14 +250,14 @@ echo '<p class="lead">';
       $Fichier = new File($durl);
       
       $okfile=autorisation($dperm);
-      echo "\n<tr><td class=\"text-center\">";
+      echo "\n<tr><td class=\"text-xs-center\">";
       if ($okfile==true) {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
       } else {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,false);
          echo "<span class=\"text-warning\">".translate("Private")."</span>";
       }
-      echo"</td><td class=\"text-center\"><img src=\"".$Fichier->Affiche_Extention()."\" alt=\"".$Fichier->Affiche_Extention()."\" border=\"0\" /></td>
+      echo"</td><td class=\"text-xs-center\"><img src=\"".$Fichier->Affiche_Extention()."\" alt=\"".$Fichier->Affiche_Extention()."\" border=\"0\" /></td>
            <td>";
       if ($okfile==true) {
          echo "<a href=\"download.php?op=mydown&amp;did=$did\" target=\"_blank\">$dfilename</a>";
@@ -278,10 +278,10 @@ echo '<p class="lead">';
             <td>
             ".convertdate($ddate)."
             </td>
-            <td class=\"text-center\">
+            <td class=\"text-xs-center\">
             $dver
             </td>
-            <td class=\"text-center\">
+            <td class=\"text-xs-center\">
             ".wrh($dcounter)."
             </td>
             <td>";
@@ -341,7 +341,7 @@ function transferfile($did) {
   list($dcounter, $durl, $dperm) = sql_fetch_row($result);
   if (!$durl) {
      include("header.php");     
-     echo "<p class=\"lead text-center\">$durl : ".translate("There is no such file...")."</p>\n";   
+     echo "<p class=\"lead text-xs-center\">$durl : ".translate("There is no such file...")."</p>\n";   
      include("footer.php");
   } else {
      if (autorisation($dperm)) {
@@ -365,7 +365,7 @@ function broken($did) {
         $message=translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
         send_email($notify_email, translate("Report Broken Link"), $message, $notify_from , false, "text");
         include("header.php");        
-        echo "<br /><p class=\"lead text-info text-center\">".translate("For security reasons your user name and IP address will also be temporarily recorded.");
+        echo "<br /><p class=\"lead text-info text-xs-center\">".translate("For security reasons your user name and IP address will also be temporarily recorded.");
         echo "<br /><br />".translate("Thanks for this information. We'll look into your request shortly.")."</p>";       
         include("footer.php");
      } else {

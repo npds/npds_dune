@@ -1940,15 +1940,16 @@ function Q_spambot() {
 //      $tmp.='<input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />';
 /*début remplacement phr*/
 
-	$tmp='<div class="form-group has-error">
-			<div class="col-sm-9">
-				<label class="control-label">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
-			</div>
-			<div class="col-sm-2 col-md-2 text-right">
-				<input class="form-control" type="text" name="asb_reponse" onclick="this.value" /><span class="fa fa-check form-control-feedback"></span>
-				<input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />				
-			</div>
-		</div>';
+   $tmp='
+      <div class="form-group">
+         <div class="col-sm-9">
+            <label class="control-label">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
+         </div>
+         <div class="col-sm-2 col-md-2 text-xs-right">
+            <input class="form-control" type="text" name="asb_reponse" onclick="this.value" />
+            <input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />
+         </div>
+      </div>';
 /*fin remplacement phr*/
    } else {
       $tmp='<input type="hidden" name="asb_question" value="" /><input type="hidden" name="asb_reponse" value="" />';
@@ -2949,7 +2950,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //=> bloc-notes
    
-$content.='<li class="list-group-item li_18 text-center">';
+$content.='<li class="list-group-item li_18 text-xs-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
       $content.='&nbsp;<a href="modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-lg"></i></a>'."\n";

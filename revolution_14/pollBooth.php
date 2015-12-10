@@ -82,8 +82,8 @@ function pollList() {
         $voters = $object['voters'];
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");       
         list ($sum) = sql_fetch_row($result2);
-        echo '<div class="col-md-8">'.aff_langue($pollTitle).'</div>';
-        echo '<div class="col-md-4 text-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
+        echo '<div class="col-sm-8">'.aff_langue($pollTitle).'</div>';
+        echo '<div class="col-sm-4 text-xs-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
      }
      echo '</div>';
 }
@@ -126,7 +126,7 @@ function pollResults($pollID) {
         }
      }
      echo '<br />';
-     echo '<p class="text-center"><b>'.translate("Total Votes: ").' '.$sum.'</b></p><br />';
+     echo '<p class="text-xs-center"><b>'.translate("Total Votes: ").' '.$sum.'</b></p><br />';
      if ($setCookies>0) {
         echo '<p class="text-danger">'.translate("We allow just one vote per poll.").'</p>';
      }
@@ -171,8 +171,7 @@ function pollboxbooth($pollID,$pollClose) {
    if (!$pollClose) {
       $inputvote = '
       <div class="col-sm-2">
-         <button class="btn btn-primary btn-sm btn-block" type="submit" title="Cliquer pour voter">Vote</button>
-      </div>';
+text-xs-right      </div>';
    }
    $boxContent .= '
    <br /><div class="row">'.$inputvote.'

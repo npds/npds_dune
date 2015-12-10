@@ -6,7 +6,7 @@
 <?php
    if ($notes!="") {
       echo '
-   <blockquote>'.$notes.'</blockquote>';
+   <blockquote class="blockquote">'.$notes.'</blockquote>';
    }
 ?>
       <p class="card-text"><small class="text-muted">Publi&eacute; le : !N_date! </small></p>
@@ -14,7 +14,7 @@
    <div class="card-footer" id="pied_art">
       <div class="row">
          <div class="col-sm-6">!N_read_more! <small class="text-muted">!N_nb_carac!</small></div>
-         <div class="col-sm-6 text-right">!N_print! !N_friend! !N_link_comment! !N_nb_comment!</div>
+         <div class="col-sm-6 text-xs-right">!N_print! !N_friend! !N_link_comment! !N_nb_comment!</div>
       </div>
    </div>
 </div>

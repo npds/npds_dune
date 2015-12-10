@@ -491,7 +491,7 @@ function new_rub_section($type) {
          <div class="form-group">
             <label class="form-control-label" for="secname">'.adm_translate("Titre").'</label>
             <textarea id="secname" class="form-control" name="secname" maxlength="255" rows="2" required="required"></textarea>
-            <span class="help-block text-right"><span id="countcar_secname"></span></span>
+            <span class="help-block text-xs-right"><span id="countcar_secname"></span></span>
          </div>
          <div class="form-group">
             <label class="form-control-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
@@ -515,7 +515,7 @@ function new_rub_section($type) {
             <div class="form-group">
                <label class="form-control-label" for="rubname">'.adm_translate("Nom de la Rubrique").'</label>
                <textarea id="rubname" class="textbox_no_mceEditor form-control" name="rubname" rows="2" maxlength="255" required="required"></textarea>
-               <span class="help-block text-right"><span id="countcar_rubname"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_rubname"></span></span>
             </div>
             <div class="form-group">
                <label class="form-control-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
@@ -652,7 +652,7 @@ function rubriquedit($rubid) {
          <div class="form-group">
             <label class="form-control-label" for="rubname">'.adm_translate("Rubrique").'</label>
             <textarea id="rubname" class="textbox_no_mceEditor form-control" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
-            <span class="help-block text-right"><span id="countcar_rubname"></span></span>
+            <span class="help-block text-xs-right"><span id="countcar_rubname"></span></span>
          </div>
          <div class="form-group">
             <label class="form-control-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
@@ -756,12 +756,12 @@ function sectionedit($secid) {
    <div class="form-group">
       <label class="form-control-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
       <textarea class="form-control textbox_no_mceEditor" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
-      <span class="help-block text-right"><span id="countcar_secname"></span></span>
+      <span class="help-block text-xs-right"><span id="countcar_secname"></span></span>
    </div>
    <div class="form-group">
       <label class="form-control-label" for="image">'.adm_translate("Images").'</label>
       <input type="text" class="form-control" id="image" name="image" maxlength="255" value="'.$image.'" />
-      <span class="help-block text-right"><span id="countcar_image"></span></span>
+      <span class="help-block text-xs-right"><span id="countcar_image"></span></span>
    </div>
    <div class="form-group">
       <label class="form-control-label" for="introd">'.adm_translate("Texte d'introduction").'</label>

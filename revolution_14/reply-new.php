@@ -191,7 +191,7 @@ if ($submitS) {
       }
       redirect_url("viewforum.php?forum=$forum");
    } else {
-      echo '<p class="text-center">'.translate("You must type a message to post.").'<br /><br />';
+      echo '<p class="text-xs-center">'.translate("You must type a message to post.").'<br /><br />';
       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
    }
 } else {
@@ -390,7 +390,7 @@ if ($submitS) {
 	 
 		echo'	
 			<fieldset>
-			<div class="btn-group-sm text-center" role="group">
+			<div class="btn-group-sm text-xs-center" role="group">
 				<input type="hidden" name="forum" value="'.$forum.'" />
 				<input type="hidden" name="topic" value="'.$topic.'" />				
 				<input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
@@ -411,7 +411,7 @@ if ($submitS) {
 	
    if ($allow_to_reply) {
 
-      echo '<h3 class="text-center">'.translate("Topic Review").'</h3>';
+      echo '<h3 class="text-xs-center">'.translate("Topic Review").'</h3>';
  	  
       if ($Mmod) {
          $post_aff="";

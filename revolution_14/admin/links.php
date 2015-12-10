@@ -99,7 +99,7 @@ function links() {
             <label class="form-control-label col-sm-4 col-md-4" for="title">'.adm_translate("Titre de la Page").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
-               <span class="help-block text-right"><span id="countcar_title"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
             </div>
          </div>
       </div>
@@ -108,7 +108,7 @@ function links() {
             <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL de la Page").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="url" name="url" id="url" maxlength="100" placeholder="http://" required="required" />
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
             </div>
          </div>
       </div>
@@ -148,7 +148,7 @@ function links() {
          <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="name" id="name" maxlength="60" />
-               <span class="help-block text-right"><span id="countcar_name"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
             </div>
          </div>
       </div>
@@ -157,7 +157,7 @@ function links() {
             <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="email" name="email" id="email" maxlength="60" />
-               <span class="help-block text-right"><span id="countcar_email"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
             </div>
          </div>
       </div>
@@ -364,7 +364,7 @@ function LinksModLink($lid) {
             <label class="form-control-label col-sm-4 col-md-4" for="title">'.adm_translate("Titre de la Page").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="title" id="title" value="'.$title.'" maxlength="100" required="required" />
-               <span class="help-block text-right"><span id="countcar_title"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
             </div>
          </div>
       </div>
@@ -378,7 +378,7 @@ function LinksModLink($lid) {
                   </span>
                   <input class="form-control" type="text" name="url" id="url" value="'.$url.'" maxlength="100" required="required" />
                 </div>
-                <span class="help-block text-right"><span id="countcar_url"></span></span>
+                <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
             </div>
          </div>
       </div>
@@ -397,7 +397,7 @@ function LinksModLink($lid) {
             <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="name" id="name" maxlength="100" value="'.$name.'" />
-               <span class="help-block text-right"><span id="countcar_name"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
             </div>
          </div>
       </div>
@@ -406,7 +406,7 @@ function LinksModLink($lid) {
             <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="email" name="email" id="email" maxlength="100" value="'.$email.'" />
-               <span class="help-block text-right"><span id="countcar_email"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
             </div>
          </div>
       </div>
@@ -470,7 +470,7 @@ function LinksModLink($lid) {
             <label class="form-control-label col-sm-4 col-md-4" for="editorialtitle">'.adm_translate("Titre").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" maxlength="100" />
-               <span class="help-block text-right"><span id="countcar_editorialtitle"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_editorialtitle"></span></span>
             </div>
          </div>
       </div>
@@ -506,7 +506,7 @@ function LinksModLink($lid) {
             <label class="form-control-label col-sm-4 col-md-4" for="editorialtitle">'.adm_translate("Titre").'</label>
             <div class="col-sm-8 col-md-8">
                <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" value="'.$editorialtitle.'" maxlength="100" />
-               <span class="help-block text-right"><span id="countcar_editorialtitle"></span></span>
+               <span class="help-block text-xs-right"><span id="countcar_editorialtitle"></span></span>
             </div>
          </div>
       </div>

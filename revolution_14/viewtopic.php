@@ -197,22 +197,22 @@ include('header.php');
       echo '
       <div id="fo-postpagi">
          <ul class="pagination pagination-sm">
-            <li>
-               <a href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
+            <li class="page-item">
+               <a class="page-link" href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
             </li>
-            <li class="disabled">
-               <a href="#" aria-label="'.translate("Posts").'">'.$total.' '.translate("Posts").'</a>
+            <li class="page-item disabled">
+               <a class="page-link" href="#" aria-label="'.translate("Posts").'">'.$total.' '.translate("Posts").'</a>
             </li>
-            <li class="disabled">
-               <a href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
+            <li class="page-item disabled">
+               <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
             </li>
       ';
       $pages_rapide='';
       for ($x = 0; $x < $total; $x += $posts_per_page) {
          if ($current_page!=$times)
-            $pages_rapide.='<li><a href="viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start='.$x.'">'.$times.'</a></li>';
+            $pages_rapide.='<li class="page-item"><a class="page-link"href="viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start='.$x.'">'.$times.'</a></li>';
          else
-            $pages_rapide.='<li class="active"><a href="#">'.$times.'</a></li>';
+            $pages_rapide.='<li class="page-item active"><a class="page-link" href="#">'.$times.'</a></li>';
          $times++;
       }
       echo $pages_rapide.'
@@ -326,11 +326,10 @@ echo '</div>';
       }
 
       echo '
-         <div class="col-xs-1">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '
          <a name="last-post"></a>';
-         if ($smilies) {
+/*         if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
                 $imgtmp=$posterdata['user_avatar'];
@@ -340,13 +339,33 @@ echo '</div>';
              echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'"  data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts, $posterdata['rank']).'<br />'.$useroutils.'\' />';
             }
          }
-      echo '
-         </div>
-         <div class="col-xs-11">
-            <div class="card fo">
-               <div class="card-header">
-                  <img src="'.$imgtmpP.'" width="32" height="32" />
-                  <span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>
+      */
+//      echo '                  <img src="'.$imgtmpP.'" width="32" height="32" />';
+echo '
+         <div class="col-xs-12">
+            <div class="card">
+               <div class="card-header">';
+               
+                        if ($smilies) {
+            if ($posterdata['user_avatar'] != '') {
+               if (stristr($posterdata['user_avatar'],"users_private")) {
+                $imgtmp=$posterdata['user_avatar'];
+            } else {
+                if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
+            }
+             echo '<img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'"  data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts, $posterdata['rank']).'<br />'.$useroutils.'\' />';
+            }
+         }
+               
+               
+               
+               
+               
+               
+               
+               
+               
+                  echo '&nbsp;<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>
                   ';
                   /*
       if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
@@ -422,7 +441,7 @@ echo '</div>';
    echo '
                </div>
             </div>
-         <div class="card-footer text-right">';
+         <div class="card-footer text-xs-right">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -485,11 +504,11 @@ echo '</div>';
        echo '
        <nav>
          <ul class="pagination pagination-sm">
-            <li>
-               <a href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+            <li class="page-item">
+               <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
             </li>
-            <li class="disabled">
-               <a href="#">'.translate("Goto Page").'</a>
+            <li class="page-item disabled">
+               <a class="page-link" href="#">'.translate("Goto Page").'</a>
             </li>';
              echo $pages_rapide.'
          </ul>

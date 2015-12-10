@@ -79,7 +79,7 @@ function HeadlinesAdmin() {
                <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
                <div class="col-sm-8">
                   <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
-                  <span class="help-block text-right"><span id="countcar_url"></span></span>
+                  <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
                </div>
             </div>
          </div>
@@ -88,7 +88,7 @@ function HeadlinesAdmin() {
                <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
                <div class="col-sm-8">
                    <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
-                   <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
+                   <span class="help-block text-xs-right"><span id="countcar_headlinesurl"></span></span>
                </div>
             </div>
          </div>
@@ -162,7 +162,7 @@ function HeadlinesEdit($hid) {
                        <button class="btn btn-secondary" ><a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></button>
                      </span>
                      <input class="form-control" type="url" name="url" maxlength="100" value="'.$url.'" required="required" />
-                     <span class="help-block text-right"><span id="countcar_url"></span></span>
+                     <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
                   </div>
                </div>
             </div>

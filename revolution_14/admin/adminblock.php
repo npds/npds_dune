@@ -35,7 +35,7 @@ function ablock() {
             <div class="form-group">
                 <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
                 <textarea class="form-control" type="text" name="title" id="title" maxlength="250">'.$title.'</textarea>
-                <span class="help-block text-right"><span id="countcar_title"></span></span>
+                <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
             </div>
             <div class="form-group">
                 <label class="form-control-label" for="content">'.adm_translate("Contenu").'</label>

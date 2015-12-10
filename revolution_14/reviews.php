@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,17 +23,17 @@ function display_score($score) {
 
    if ($score == 10) {
       for ($i=0; $i < 5; $i++)
-         echo "$full";
+         echo $full;
    } else if ($score % 2) {
       $score -= 1;
       $score /= 2;
       for ($i=0; $i < $score; $i++)
-         echo "$image";
-      echo "$halfimage";
+         echo $image;
+      echo $halfimage;
    } else {
       $score /= 2;
       for ($i=0; $i < $score; $i++)
-         echo "$image";
+         echo $image;
    }
 }
 
@@ -42,34 +42,34 @@ function write_review() {
    global $NPDS_Prefix;
 
    include ('header.php');
-   
-   echo '<h2>'.translate("Write a Review").'</h2>';
-   echo "<form class=\"form-horizontal\" role=\"form\" method=\"post\" action=\"reviews.php\">";   
-   echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Product Title").'</label>
-			</div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control"  name="title">
-			</div>
-		</div>';	
-   echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Text").'</label>
-			</div>
-			<div class="col-sm-8">
-				<textarea class="form-control"  name="text" rows="15"></textarea>			
-			</div>
-			<div class="col-sm-offset-4 col-sm-8">
-				<p class="help-block"><i>'.translate("Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.").'</i></p>
-			</div>
-		</div>';		
+   echo '
+   <h2>'.translate("Write a Review").'</h2>
+   <form class="" role="form" method="post" action="reviews.php">
+      <div class="form-group row">
+         <div class="col-sm-4">
+            <label class="control-label">'.translate("Product Title").'</label>
+         </div>
+         <div class="col-sm-8">
+            <input type="text" class="form-control"  name="title">
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-4">
+            <label class="control-label">'.translate("Text").'</label>
+         </div>
+         <div class="col-sm-8">
+            <textarea class="form-control"  name="text" rows="15"></textarea>			
+         </div>
+         <div class="col-sm-offset-4 col-sm-8">
+            <p class="help-block"><i>'.translate("Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.").'</i></p>
+         </div>
+      </div>';
   
    if ($user) {
       $result=sql_query("select uname, email from ".$NPDS_Prefix."users where uname='$cookie[1]'");
       list($uname, $email) = sql_fetch_row($result);
-	  
-	   echo '<div class="form-group">
+
+      echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Your name").'</label>
 				</div>
@@ -77,7 +77,7 @@ function write_review() {
 					<input type="text" class="form-control" name="reviewer" value="'.$uname.'" />
 				</div>
 			</div>';	  
-	   echo '<div class="form-group">
+      echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Your email").'</label>
 				</div>
@@ -86,7 +86,7 @@ function write_review() {
 				</div>
 			</div>';
    } else {	   
-		echo '<div class="form-group">
+      echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Your name").'</label>
 				</div>
@@ -94,7 +94,7 @@ function write_review() {
 					<input class="form-control" type="text" name="reviewer" value="'.$name.'">
 				</div>
 			</div>';
-		echo '<div class="form-group">
+      echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Your email").'</label>
 				</div>
@@ -103,7 +103,7 @@ function write_review() {
 				</div>
 			</div>';
    }
-		echo '<div class="form-group">
+      echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Score").'</label>
 				</div>
@@ -128,7 +128,7 @@ function write_review() {
 
    if (!$short_review) {
 	   
-		echo '<div class="form-group">
+		echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Related Link").'</label>
 				</div>
@@ -137,22 +137,22 @@ function write_review() {
 				</div>
 				<div class="col-sm-offset-4 col-sm-8">
 					<p class="help-block"><i>'.translate("Product Official Website. Make sure your URL starts by").' http(s)://</i></p>
-				</div>			
+				</div>
 			</div>';
-		echo '<div class="form-group">
+		echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Link title").'</label>
 				</div>
 				<div class="col-sm-8">
-					<input type="text" class="form-control"  name="url_title">
+					<input type="text" class="form-control" name="url_title">
 				</div>
 				<div class="col-sm-offset-4 col-sm-8">
 					<p class="help-block"><i>'.translate("Required if you have a related link, otherwise not required.").'</i></p>
-				</div>			
+				</div>
 			</div>';
 		
       if ($admin) {
-		echo '<div class="form-group">
+		echo '<div class="form-group row">
 				<div class="col-sm-4">
 					<label class="control-label">'.translate("Image filename").'</label>
 				</div>
@@ -161,11 +161,11 @@ function write_review() {
 				</div>
 				<div class="col-sm-offset-4 col-sm-8">
 					<p class="help-block"><i>'.translate("Name of the cover image, located in images/reviews/. Not required.").'</i></p>
-				</div>			
+				</div>
 			</div>';
       }
    }
-		echo '<div class="form-group">
+		echo '<div class="form-group row">
 				<div class="col-sm-12">
 					<input type="hidden" name="op" value="preview_review" />				
 					<button type="submit" class="btn btn-default" title="'.translate("Preview").'">'.translate("Preview").'</button>
@@ -189,8 +189,8 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    $url_title = stripslashes(strip_tags($url_title));
 
    include ('header.php');
-   echo '<h2>'.translate("Write a Review").'</h2>';   
-   echo "<form method=\"post\" action=\"reviews.php\">";
+   echo '<h2>'.translate("Write a Review").'</h2>';
+   echo '<form method="post" action="reviews.php">';
    if ($title == "") {
       $error = 1;
       echo '<p class="lead text-danger">'.translate("Invalid Title... can not be blank").'</p>';
@@ -225,8 +225,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    }
 
    if ($error == 1) {
-	echo '<button class="btn btn-default" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';	  
-	  
+   echo '<button class="btn btn-secondary" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';
    } else {
       global $gmt;
       $fdate=date(str_replace("%","",translate("linksdatestring")),time()+($gmt*3600));
@@ -293,8 +292,7 @@ function reversedate($myrow) {
 }
 
 function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse) {
-   global $admin, $user;
-   global $NPDS_Prefix;
+   global $admin, $user, $NPDS_Prefix;
 
    include ('header.php');
    $date=reversedate($date);
@@ -341,7 +339,7 @@ function reviews($field, $order) {
    list($title, $description) = sql_fetch_row($result);
    echo '<p>'.aff_langue($title).'</p>';
    echo '<p>'.aff_langue($description).'</p>';
-   echo "<p class=\"text-center\">";
+   echo "<p class=\"text-xs-center\">";
    echo "<a class=\"btn btn-default\" role=\"button\" href=\"reviews.php?op=write_review\">".translate("Write a Review")."</a></p>\n";
    if ($order!="ASC" and $order!="DESC") $order="ASC";
    switch ($field) {
@@ -367,7 +365,7 @@ function reviews($field, $order) {
    }
    $numresults = sql_num_rows($result);
    if ($numresults > 0) {
-      echo "<table class=\"table text-center\">
+      echo "<table class=\"table text-xs-center\">
             <tr>
             <td>
             <a href=\"reviews.php?op=sort&amp;field=date&amp;order=ASC\"><i class=\"fa fa-arrow-circle-up\"></i> Date <a href=\"reviews.php?op=sort&amp;field=date&amp;order=DESC\"><i class=\"fa fa-arrow-circle-down\"></i></a>
@@ -419,8 +417,7 @@ function f_date($xdate) {
 }
 
 function showcontent($id) {
-   global $admin;
-   global $NPDS_Prefix;
+   global $admin, $NPDS_Prefix;
    include ('header.php');
    
    settype($id,"integer");
@@ -430,7 +427,7 @@ function showcontent($id) {
    echo translate("Reviews")."<td align=\"right\">";
    echo "[ <a href=\"reviews.php\">".translate("Back to Reviews Index")."</a> ]";
 
-   echo "<br />";
+   echo '<br />';
    $myrow = sql_fetch_assoc($result);
    $id =  $myrow["id"];
    $fdate=f_date($myrow["date"]);
@@ -449,15 +446,15 @@ function showcontent($id) {
    if ($cover != "")
       echo "<img src=\"images/reviews/$cover\" align=\"right\" hspace=\"10\" vspace=\"10\" />";
    echo $text;
-   echo "<hr noshade=\"noshade\" />";
+   echo '<hr noshade="noshade" />';
    if ($admin)
-      echo "<p class=\"text-right\"><b>".translate("Admin:")."</b> [ <a href=\"reviews.php?op=mod_review&amp;id=$id\">".translate("Edit")."</a> | <a href=\"reviews.php?op=del_review&amp;id_del=$id\" class=\"rouge\">".translate("Delete")."</a> ]</p>";
+      echo "<p class=\"text-xs-right\"><b>".translate("Admin:")."</b> [ <a href=\"reviews.php?op=mod_review&amp;id=$id\">".translate("Edit")."</a> | <a href=\"reviews.php?op=del_review&amp;id_del=$id\" class=\"rouge\">".translate("Delete")."</a> ]</p>";
    if ($reviewer != "")
       echo "<b>".translate("Reviewer:")."</b> <a href=\"mailto:$email\" target=\"_blank\">$reviewer</a><br />";
-   if ($score != "")
+   if ($score != '')
       echo "<b>".translate("Score:")."</b> ";
    display_score($score);
-   if ($url != "")
+   if ($url != '')
       echo "<br /><b>".translate("Related Link:")."</b> <a href=\"$url\" target=\"_blank\">$url_title</a>";
    echo "<br /><b>".translate("Hits:")."</b> $hits";
    sql_free_result($result);
@@ -472,10 +469,8 @@ function showcontent($id) {
 }
 
 function mod_review($id) {
-   global $admin;
-   global $NPDS_Prefix;
+   global $admin, $NPDS_Prefix;
    include ('header.php');
-   
 
    settype($id,"integer");
    if (($id != 0) && ($admin)) {
@@ -538,8 +533,7 @@ function mod_review($id) {
 }
 
 function del_review($id_del) {
-   global $admin;
-   global $NPDS_Prefix;
+   global $admin, $NPDS_Prefix;
 
    settype($id_del,"integer");
    if ($admin) {
@@ -558,31 +552,24 @@ switch ($op) {
    case "showcontent":
         showcontent($id);
         break;
-
    case "write_review":
         write_review();
         break;
-
    case "preview_review":
         preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id);
         break;
-
    case "add_reviews":
         send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse);
         break;
-
    case "del_review":
         del_review($id_del);
         break;
-
    case "mod_review":
         mod_review($id);
         break;
-
    case "sort":
         reviews($field,$order);
         break;
-
    default:
         reviews("date","DESC");
         break;

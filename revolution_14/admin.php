@@ -91,7 +91,7 @@ function login() {
                   <label class="control-label col-sm-3 col-md-3" for="aid">'.adm_translate("Administrateur ID").'</label>
                   <div class="col-sm-8 col-md-8">
                      <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
-                     <span class="help-block text-right"><span id="countcar_aid"></span></span>
+                     <span class="help-block text-xs-right"><span id="countcar_aid"></span></span>
                   </div>
                </div>
             </div>
@@ -100,7 +100,7 @@ function login() {
                   <label class="control-label col-sm-3 col-md-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
                   <div class="col-sm-8 col-md-8">
                      <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-                     <span class="help-block text-right"><span id="countcar_pwd"></span></span>
+                     <span class="help-block text-xs-right"><span id="countcar_pwd"></span></span>
                   </div>
                </div>
             </div>
@@ -517,7 +517,7 @@ function adminMain($deja_affiches) {
    $result = sql_query("select sid, title, hometext, topic, informant, time, archive from ".$NPDS_Prefix."stories order by time desc LIMIT $deja_affiches,$admart");
 
    if ($nbre_articles) {
-      echo '<table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      echo '<table text-xs-right>
                 <thead>
                     <tr>
                         <th data-sortable="true">ID</th>

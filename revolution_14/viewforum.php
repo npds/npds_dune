@@ -111,7 +111,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    echo '
       <form role="form" action="viewforum.php" method="post">
          <div class="form-group">
-               <div class="text-center">
+               <div class="text-xs-center">
                <label class="control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
                </div>
                <div class="row">
@@ -121,7 +121,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                </div>
             </div>
             <input type="hidden" name="forum" value="'.$forum.'" />
-            <div class="text-center">';
+            <div class="text-xs-center">';
 	echo '<button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;';
 	echo '<button type="reset" class="btn btn-default" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>';
     echo '
@@ -197,9 +197,9 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                <th></th>
                <th></th>
                <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;'.$mess_closoled.'</th>
-               <th class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
-               <th class="text-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
-               <th class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
+               <th class="text-xs-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
+               <th class="text-xs-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
+               <th class="text-xs-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
                <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
             </tr>
          </thead>
@@ -329,17 +329,17 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    <ul class="pagination pagination-sm">';
    if ($all_topics > $topics_per_page) {
       if ($next >= $all_topics) {
-         echo '<li><a href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
+         echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
       }
       else {
-          echo '<li><a href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
+          echo '<li class="text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
       }
     for($x = 0; $x < $all_topics; $x++) {
       if (!($x % $topics_per_page)) {
          if ($x == $start)
-            echo '<li class="active"><a href="#">'.$count.'</a></li>';
+            echo '<li class="page-item active"><a class="page-link" href="#">'.$count.'</a></li>';
          else
-            echo '<li><a href="viewforum.php?forum='.$forum.'&amp;start='.$x.$closol.'">'.$count.'</a></li>';
+            echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$x.$closol.'">'.$count.'</a></li>';
          if (($all_topics-($count*$topics_per_page))>0) {
             if (!($count % 20))
          echo '<br />';

@@ -97,9 +97,9 @@ function maketree($rootcatid,$sql,$maxlevel){
    global $toggle;
    $resultX="";
    $toggle = new ToggleDiv(count(array_keys($table))-1);
-   echo "<p class=\"text-right\">",$toggle->All(),"</p>";
+   echo "<p class=\"text-xs-right\">",$toggle->All(),"</p>";
    $resultX.=makebranch($rootcatid,$table,0,$maxlevel,$max_post_id);
-   echo "<br /><p class=\"text-right\">",$toggle->All(),"</p>";
+   echo "<br /><p class=\"text-xs-right\">",$toggle->All(),"</p>";
 
    return ($resultX);
 }
@@ -440,7 +440,7 @@ include_once ("lib/togglediv.class.php");
 
    if (($Mmod) and ($forum_access!=9)) {
   
-       echo "<p class=\"text-center\"><b>".translate("Administration Tools")."</b><br />";
+       echo "<p class=\"text-xs-center\"><b>".translate("Administration Tools")."</b><br />";
        echo "-------------------------<br />";
        if ($ibid=theme_image("forum/icons/unlock_topic.gif")) {$imgtmpUT=$ibid;} else {$imgtmpUT="images/forum/icons/unlock_topic.gif";}
        if ($ibid=theme_image("forum/icons/move_topic.gif")) {$imgtmpMT=$ibid;} else {$imgtmpMT="images/forum/icons/move_topic.gif";}

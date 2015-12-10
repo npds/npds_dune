@@ -41,7 +41,7 @@ function nmig_copyright() {
       $clspin =' text-danger';
       }
    $display = '
-   <br /><div class="text-center">
+   <br /><div class="text-xs-center">
       <i class="fa fa-spinner fa-pulse '.$clspin.' "></i> NPDS Module Installer v2.0
    </div>';
    return $display;

@@ -1,4 +1,4 @@
-<footer id="footer" class="footer bg-faded text-center">
+<footer id="footer" class="footer bg-faded text-xs-center">
    <div class="container">
       <p>!sc_infos!
          <br />!sc_infos_else!
@@ -6,6 +6,7 @@
       </p>
       <script type="text/javascript">
       //<![CDATA[
+         // ==> choix icon boostraptable //
          window.icons = {
             refresh: 'fa-refresh fa-lg',
             toggle: 'fa-toggle-on fa-lg',
@@ -13,7 +14,7 @@
             detailOpen: 'fa-plus-square-o',
             detailClose: 'fa-minus-square-o'
          };
-   
+         // <== choix icon boostraptable //
       /*   
       (function(){
         $(window).scroll(function () {
@@ -38,23 +39,16 @@
          $("#ban img").addClass("img-fluid img-responsive");
          $(".fo-post-mes img").addClass("img-fluid img-responsive");//not sure if usefull to late ...
 
-   
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
          $('table').on('all.bs.table', function (e, name, args) {
             $('[data-toggle="tooltip"]').tooltip();
             $('[data-toggle="popover"]').popover();
 
-      //$('table').bootstrapTable({icons:'icons'});
-      //$('table').bootstrapTable({'icons-prefix':'fa'});
-      
-      //      $('[data-icons]').value("icons");
-      //      $('[data-icons-prefix]').value("fa");
-
          });
       });
 
-      // change skin and make the json file for api
+      // ==> change skin and make the json file for api //
       $.get("http://labo.infocapagde.com/api/3.json", function (data) {
         var themes = data.skins;
         var select = $("#bthem");
@@ -83,13 +77,15 @@
           $(".alert").toggleClass("alert-info alert-danger");
           $(".alert h4").text("Failure!");
       });
-hljs.configure({useBR: true});
+      // <== change skin and make the json file for api //
 
-$('div.code').each(function(i, block) {
-  hljs.highlightBlock(block);
-});      
+      // ==> colorisation syntaxique du code //
+      hljs.configure({useBR: true});
+      $('div.code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
       hljs.initHighlightingOnLoad();
-
+      // <== colorisation syntaxique du code //
       
       //]]>
       </script>
