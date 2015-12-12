@@ -51,9 +51,9 @@ function listsections($rubric) {
       else
          $sqladd="";
       if ($admin) {
-         $result=sql_query("select rubid, rubname, intro from ".$NPDS_Prefix."rubriques where rubname<>'Divers' and rubname<>'Presse-papiers' $sqladd order by ordre");
+         $result=sql_query("SELECT rubid, rubname, intro FROM ".$NPDS_Prefix."rubriques WHERE rubname<>'Divers' and rubname<>'Presse-papiers' $sqladd order by ordre");
       } else {
-         $result=sql_query("select rubid, rubname, intro from ".$NPDS_Prefix."rubriques where enligne='1' and rubname<>'Divers' and rubname<>'Presse-papiers' $sqladd order by ordre");
+         $result=sql_query("SELECT rubid, rubname, intro FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' and rubname<>'Divers' and rubname<>'Presse-papiers' $sqladd order by ordre");
       }
       $aff='<h2>'.translate("Sections").'</h2>';
       if (sql_num_rows($result) > 0) {
@@ -69,11 +69,12 @@ function listsections($rubric) {
                $aff1=""; $aff2="";
                if ($okprintLV1) {
 
-                  $aff.='<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingOne">
-									<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#'.$secid.'" aria-expanded="true" aria-controls="'.$secid.'">';
+                  $aff.='
+                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                     <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                           <h4 class="panel-title">
+                           <a data-toggle="collapse" data-parent="#accordion" href="#'.$secid.'" aria-expanded="true" aria-controls="'.$secid.'">';
                   if ($image!="") {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));

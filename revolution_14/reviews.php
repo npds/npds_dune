@@ -454,15 +454,21 @@ function showcontent($id) {
    echo $text;
    echo '<hr noshade="noshade" />';
    if ($admin)
-      echo "<p class=\"text-xs-right\"><b>".translate("Admin:")."</b> [ <a href=\"reviews.php?op=mod_review&amp;id=$id\">".translate("Edit")."</a> | <a href=\"reviews.php?op=del_review&amp;id_del=$id\" class=\"rouge\">".translate("Delete")."</a> ]</p>";
+      echo '
+      <p class="text-xs-right"><b>'.translate("Admin:").'</b>
+      <a href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-lg fa-edit"></i></a>&nbsp;
+       <a href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-lg fa-trash-o"></i></a>
+       </p>';
    if ($reviewer != "")
-      echo "<b>".translate("Reviewer:")."</b> <a href=\"mailto:$email\" target=\"_blank\">$reviewer</a><br />";
+      echo "<strong>".translate("Reviewer:")."</strong> <a href=\"mailto:$email\" target=\"_blank\">$reviewer</a><br />";
    if ($score != '')
-      echo "<b>".translate("Score:")."</b> ";
+      echo '<strong>'.translate("Score:").'</strong>';
+   echo '<span class="text-success">';
    display_score($score);
+   echo '</span>';
    if ($url != '')
-      echo "<br /><b>".translate("Related Link:")."</b> <a href=\"$url\" target=\"_blank\">$url_title</a>";
-   echo "<br /><b>".translate("Hits:")."</b> $hits";
+      echo "<br /><strong>".translate("Related Link:")."</strong> <a href=\"$url\" target=\"_blank\">$url_title</a>";
+   echo "<br /><strong>".translate("Hits:")."</strong> $hits";
    sql_free_result($result);
    
 
