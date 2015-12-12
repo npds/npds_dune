@@ -332,7 +332,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
       }
       else {
-          echo '<li class="text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
+          echo '<li class="page-item disabled text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
       }
     for($x = 0; $x < $all_topics; $x++) {
       if (!($x % $topics_per_page)) {
@@ -353,11 +353,14 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    </div>';
    searchblock();
    echo '
-   <div class="md-8"><i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'</div>
-   <div class="md-8"><i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'</div>
-   <div class="md-8"><i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'</div>
-   <div class="md-8"><i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'</div>
-   <div class="md-8"><i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'</div>';
+   <blockquote class="blockquote">
+   <i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'<br />
+   <i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+   <i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'<br />
+   <i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+   <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
+   </blockquote>
+   ';
    if ($SuperCache) {
       $cache_clef="forum-jump-to";
       $CACHE_TIMINGS[$cache_clef]=3600;
@@ -365,12 +368,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
-   <form class="form" role="form" action="viewforum.php" method="post">
-      <div class="form-group">
-         <div class="col-sm-2">
-            <label class="control-label">'.translate("Jump To: ").'</label>
-         </div>
-         <div class="col-sm-4">
+   <form class="" role="form" action="viewforum.php" method="post">
+      <div class="form-group row">
+         <div class="col-xs-12">
+            <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
             <select class="form-control" name="forum" onchange="submit();">
                <option value="index">'.translate("Jump To: ").'</option>
                <option value="index">'.translate("Forum Index").'</option>';
@@ -389,7 +390,6 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
        }
        echo '
             </select>
-         </div>
       </div>
    </form>';
    }

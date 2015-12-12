@@ -210,7 +210,7 @@ include('header.php');
       $pages_rapide='';
       for ($x = 0; $x < $total; $x += $posts_per_page) {
          if ($current_page!=$times)
-            $pages_rapide.='<li class="page-item"><a class="page-link"href="viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start='.$x.'">'.$times.'</a></li>';
+            $pages_rapide.='<li class="page-item"><a class="page-link" href="viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start='.$x.'">'.$times.'</a></li>';
          else
             $pages_rapide.='<li class="page-item active"><a class="page-link" href="#">'.$times.'</a></li>';
          $times++;
@@ -253,7 +253,7 @@ include('header.php');
     // Forum Read
     if (isset($user)) {
        $time_actu=time()+($gmt*3600);
-       $sqlR = "select last_read from ".$NPDS_Prefix."forum_read where forum_id='$forum' and uid='$userdata[0]' and topicid='$topic'";
+       $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
        $result_LR=sql_query($sqlR);
        $last_read="";
        if (sql_num_rows($result_LR)==0) {
@@ -327,8 +327,7 @@ echo '</div>';
 
       echo '
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
-      if (($count+2)==$mycount) echo '
-         <a name="last-post"></a>';
+      if (($count+2)==$mycount) echo '<a name="last-post"></a>';
 /*         if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -346,7 +345,7 @@ echo '
             <div class="card">
                <div class="card-header">';
                
-                        if ($smilies) {
+         if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
                 $imgtmp=$posterdata['user_avatar'];
@@ -357,16 +356,7 @@ echo '
             }
          }
                
-               
-               
-               
-               
-               
-               
-               
-               
-                  echo '&nbsp;<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>
-                  ';
+   echo '&nbsp;<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
                   /*
       if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
          echo '&nbsp<a href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-lg fa-user"></i></a>&nbsp;';
@@ -389,7 +379,6 @@ echo '
       echo '
                </div>';
       $message=stripslashes($myrow['post_text']);
-
       echo '
                <div class="card-block">
                   <div class="card-text">';
@@ -481,7 +470,7 @@ echo '
       }
       echo '&nbsp;<a href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-lg fa-print"></i></a>&nbsp;';
       if ($Mmod) {
-         echo "&nbsp;|&nbsp;";
+         echo '&nbsp;|&nbsp;';
          echo '<a href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-lg fa-laptop"></i></a>&nbsp;';
          if (!$myrow['post_aff']) {
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Show this post").'" data-toggle="tooltip"><i class="fa fa-lg fa-eye text-danger"></i></a>&nbsp;';
@@ -564,25 +553,33 @@ echo '
 
     if (($Mmod) and ($forum_access!=9)) {
        echo '
-       <div class="row">
-          <div class="col-xs-12">
-             <div class="card">
-                <div class="card-block card-block-small">
-                   <strong>'.translate("Administration Tools").' :</strong>';
+      <nav class="pull-xs-right">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+            </li>';
       if ($lock_state==0)
          echo '
-                  <a class="" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'" data-toggle="tooltip" ><i class="fa fa-lock fa-lg" aria-hidden="true"></i></a>';
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'" data-toggle="tooltip" ><i class="fa fa-lock fa-lg" aria-hidden="true"></i></a>
+            </li>';
       else
          echo '
-                  <a class="" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"><i class ="fa fa-unlock fa-lg" aria-hidden="true"></i></a>';
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"><i class ="fa fa-unlock fa-lg" aria-hidden="true"></i></a>
+            </li>';
       echo '
-                  <a class="" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'" data-toggle="tooltip"><i class="fa fa-share fa-lg" aria-hidden="true"></i></a>
-                  <a class="" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"><i class="fa fa-level-up fa-lg" aria-hidden="true"></i></a>
-                  <a class="text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
-               </div>
-            </div>
-         </div>
-      </div>';
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'" data-toggle="tooltip"><i class="fa fa-share fa-lg" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"><i class="fa fa-level-up fa-lg" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item">
+               <a class=" page-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+            </li>
+         </ul>
+      </nav>';
     }
    include("footer.php");
 ?>
