@@ -148,7 +148,7 @@ if (isset($submitS)) {
 
       redirect_url("$url_ret");
    } else {
-      echo '<p class="text-center">'.translate("You must type a message to post.").'<br /><br />';
+      echo '<p class="text-xs-center">'.translate("You must type a message to post.").'<br /><br />';
       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
    }
 } else {
@@ -267,9 +267,9 @@ if (isset($submitS)) {
 			<input type="hidden" name="archive" value="'.$archive.'" />';
 		
 		echo '
-			<!--<div class="form-group text-center">
+			<!--<div class="form-group text-xs-center">
 			<div class="col-sm-offset-2 col-sm-10">-->
-            <div class="btn-group-sm text-center">
+            <div class="btn-group-sm text-xs-center">
 			<br />
 			<input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" />
 			<input class="btn btn-default" type="submit" name="submitP" value="'.translate("Preview").'" />
