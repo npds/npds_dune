@@ -38,7 +38,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
                <label class="form-control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
                <div class="col-sm-8">
                   <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
-                  <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
+                  <span class="help-block text-xs-right"><span id="countcar_arch_titre"></span></span>
                </div>
             </div>
          </div>
@@ -119,7 +119,7 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $ModPath, $ModSta
    $content .= "?>";
    fwrite($file, $content);
    fclose($file);
-   @chmod("modules/$ModPath/archive-stories.conf.php.php",0666);
+   @chmod("modules/$ModPath/archive-stories.conf.php",0666);
 }
    switch ($subop) {
        case "SaveSetArchive_stories":
