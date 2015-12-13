@@ -29,7 +29,7 @@ $url_ret="reviews.php?op=showcontent&id=$topic";
 $formulaire="reviews.form.php";
 
 // $comments_per_page : Nombre de commentaire sur chaque page
-$comments_per_page=10;
+$comments_per_page=3;
 
 // Mise à jour de champ d'une table externe à la table des commentaires
 // $req_add = opération à effectuer lorsque je rajoute un commentaire
