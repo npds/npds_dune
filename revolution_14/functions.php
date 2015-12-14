@@ -431,14 +431,36 @@ function undo_htmlspecialchars($input) {
 }
 
 function searchblock() {
-   $ibid="<form action=\"searchbb.php\" method=\"post\" name=\"forum_search\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"4\" border=\"0\">
-   <tr><td nowrap=\"nowrap\" class=\"header\" align=\"center\">
-   <input type=\"hidden\" name=\"addterm\" value=\"any\" />
-   <input type=\"hidden\" name=\"sortby\" value=\"0\" />";
-   $ibid.="<b>".translate('Search')."</b>&nbsp;&nbsp;<input class=\"textbox_standard\" type=\"text\" name=\"term\" size=\"50\" />&nbsp;&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"submit\" value=\"".translate("Submit")."\" />";
-   $ibid.="</td></tr></table></form>";
+/*   $ibid='
+   <form id="searchblock" action="searchbb.php" method="post" name="forum_search">
+      <input type="hidden" name="addterm" value="any" />
+      <input type="hidden" name="sortby" value="0" />';
+   $ibid.='<b>'.translate('Search').'</b>&nbsp;&nbsp;
+   <input class="form-control" type="text" name="term" size="50" />&nbsp;&nbsp;
+   <button class="btn btn-primary" type="submit" name="submit" >'.translate("Submit").'</button>
+   </form>';
+*/   
+$ibid='
+<nav class="navbar navbar-light bg-faded">
+
+<form class="form-inline pull-xs-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
+   <input type="hidden" name="addterm" value="any" />
+   <input type="hidden" name="sortby" value="0" />
+   <div class="form-group">
+    <label class="sr-only" for="term">'.translate('Search').'</label>
+      <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
+  </div>
+  <button type="submit" class="btn btn-primary-outline">'.translate("Submit").'</button>
+</form>
+</nav>';
+   
    return ($ibid);
 }
+
+
+
+
+
 /*
 function member_qualif($poster, $posts, $rank) {
    global $anonymous;
@@ -481,9 +503,7 @@ function member_qualif($poster, $posts, $rank) {
       if ($posts>=300 and $posts<1000) {$nux=4;}
       if ($posts>=1000) {$nux=5;}
       for ($i=0; $i<$nux; $i++) {
-//         $tmp.="<img src=\"".$imgtmpN."\" border=\"\" alt=\"\" />&nbsp;";
          $tmp.='<i class="fa fa-star-o"></i>&nbsp;';
-
       }
 
       if ($rank) {
@@ -495,8 +515,6 @@ function member_qualif($poster, $posts, $rank) {
    }
    return ($tmp);
 }
-
-
 
 function forumerror($e_code) {
    global $sitename, $header;
