@@ -24,7 +24,7 @@ function topicsmanager() {
    global $hlpfile, $tipath, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include("header.php");
    GraphicAdmin($hlpfile);
-   $result = sql_query("select topicid, topicname, topicimage, topictext from ".$NPDS_Prefix."topics order by topicname");
+   $result = sql_query("SELECT topicid, topicname, topicimage, topictext FROM ".$NPDS_Prefix."topics ORDER BY topicname");
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    if (sql_num_rows($result) > 0) {
       echo '
@@ -56,35 +56,35 @@ function topicsmanager() {
    <h3>'.adm_translate("Ajouter un nouveau Sujet").'</h3>
    <form class="form-horizontal" role="form" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="topicname">'.adm_translate("Intitulé").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="topictext">'.adm_translate("Texte").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'" >'.$topictext.'</textarea>
                <span class="help-block infl">'.adm_translate("(description ou nom complet du Sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="topicimage">'.adm_translate("Image").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
                <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <span class="help-block"><span id="countcar_topicadmin"></span></span>
                <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="topicmake" />
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Ajouter un Sujet").'</button>
@@ -154,7 +154,7 @@ function topicedit($topicid) {
     global $hlpfile, $tipath, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $radminsuper;
     include("header.php");
     GraphicAdmin($hlpfile);
-    $result = sql_query("select topicid, topicname, topicimage, topictext, topicadmin from ".$NPDS_Prefix."topics where topicid='$topicid'");
+    $result = sql_query("SELECT topicid, topicname, topicimage, topictext, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topicid'");
     list($topicid, $topicname, $topicimage, $topictext, $topicadmin) = sql_fetch_row($result);
     adminhead ($f_meta_nom, $f_titre, $adminimg);
     echo '<h3>'.adm_translate("Editer le Sujet :").' '.aff_langue($topictext).'</h3>';
@@ -191,7 +191,7 @@ function topicedit($topicid) {
         
         <div class="form-group">
             <label class="col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du Sujet").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <div class="input-group">
                      <span class="input-group-btn">
                        <button class="btn btn-primary"><i class="fa fa-user fa-lg"></i></button>
@@ -320,9 +320,9 @@ function relatededit($tid, $rid) {
 
    include("header.php");
    GraphicAdmin($hlpfile);
-   $result=sql_query("select name, url from ".$NPDS_Prefix."related where rid='$rid'");
+   $result=sql_query("SELECT name, url FROM ".$NPDS_Prefix."related WHERE rid='$rid'");
    list($name, $url) = sql_fetch_row($result);
-   $result2=sql_query("select topictext, topicimage from ".$NPDS_Prefix."topics where topicid='$tid'");
+   $result2=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$tid'");
    list($topictext, $topicimage) = sql_fetch_row($result2);
 
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -339,14 +339,14 @@ function relatededit($tid, $rid) {
        <fieldset>
        <div class="form-group">
            <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom du site").'</label>
-           <div class="col-sm-8 col-md-8">
+           <div class="col-sm-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
               <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
            </div>
        </div>
        <div class="form-group">
            <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL").'</label>
-           <div class="col-sm-8 col-md-8">
+           <div class="col-sm-8">
               <div class="input-group">
                  <span class="input-group-btn">
                       <button class="btn"><a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></button>
@@ -372,7 +372,7 @@ function relatededit($tid, $rid) {
 function relatedsave($tid, $rid, $name, $url) {
     global $NPDS_Prefix;
 
-    sql_query("update ".$NPDS_Prefix."related set name='$name', url='$url' where rid='$rid'");
+    sql_query("UPDATE ".$NPDS_Prefix."related SET name='$name', url='$url' WHERE rid='$rid'");
     Header("Location: admin.php?op=topicedit&topicid=$tid");
 }
 
@@ -410,7 +410,7 @@ function topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin,
    array_pop($topicadminX);
 
 
-   $res = sql_query("SELECT * FROM ".$NPDS_Prefix."droits WHERE d_droits=11112 and d_fon_fid=2");
+   $res = sql_query("SELECT * FROM ".$NPDS_Prefix."droits WHERE d_droits=11112 AND d_fon_fid=2");
    $d=array();$topad=array();
    while ($d = sql_fetch_row($res)) {$topad[] = $d[0];}
 
@@ -427,7 +427,7 @@ function topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin,
       echo 'nb ligne'.$nbrow; //si > 1 il administre un autre sujet
       list($tid) = sql_fetch_row($resu);
       echo $tid.'$tid';
-      if( ($nbrow==1) and ($topicid==$tid) ) {sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_aut_aid='$value' and d_droits=11112 and d_fon_fid=2");echo 'zarma';}
+      if( ($nbrow==1) and ($topicid==$tid) ) {sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_aut_aid='$value' AND d_droits=11112 AND d_fon_fid=2");}
       }
    }
 
@@ -493,31 +493,24 @@ switch ($op) {
    case "topicsmanager":
         topicsmanager();
         break;
-
    case "topicedit":
         topicedit($topicid);
         break;
-
    case "topicmake":
         topicmake($topicname, $topicimage, $topictext, $topicadmin);
         break;
-
    case "topicdelete":
         topicdelete($topicid, $ok);
         break;
-
    case "topicchange":
         topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin, $name, $url);
         break;
-
    case "relatedsave":
         relatedsave($tid, $rid, $name, $url);
         break;
-
    case "relatededit":
         relatededit($tid, $rid);
         break;
-
    case "relateddelete":
         relateddelete($tid, $rid);
         break;

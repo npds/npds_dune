@@ -43,10 +43,9 @@ function displayUsers() {
     <form method="post" class="form-inline" action="admin.php">
         <fieldset>
             <div class="form-group">
-            <label for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
-            <input class="form-control" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
+               <label for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
+               <input class="form-control" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
             </div>
-
             <select class="form-control" name="op">
                 <option value="modifyUser">'.adm_translate("Modifier un utilisateur").'</option>
                 <option value="unsubUser">'.adm_translate("Désabonner un utilisateur").'</option>
