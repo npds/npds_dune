@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,64 +19,90 @@ function FriendSend($sid, $archive) {
    global $NPDS_Prefix;
    settype($sid,"integer");
    settype($archive, "integer");
-   $result=sql_query("select title, aid  from ".$NPDS_Prefix."stories where sid='$sid'");
+   $result=sql_query("SELECT title, aid FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
    list($title, $aid) = sql_fetch_row($result);
    if (!$aid) {
        header ("Location: index.php");
    }
    include ("header.php");
 
-   echo '<h2>'.translate("Send Story to a Friend").'</h2>';
-   echo '<p class="lead">'.translate("You will send the story").' <strong>'.aff_langue($title).'</strong> '.translate("to a specified friend:").'</p>
-   <form class="form-horizontal" role="form" action="friend.php" method="post"><input type="hidden" name="'.sid.'" value="'.$sid.'" />';
+   echo '
+   <h2>'.translate("Send Story to a Friend").'</h2>
+   <p class="lead">'.translate("You will send the story").' <strong>'.aff_langue($title).'</strong> '.translate("to a specified friend:").'</p>
+   <form class="" role="form" action="friend.php" method="post">
+      <input type="hidden" name="sid" value="'.$sid.'" />';
    global $user;
    if ($user) {
       global $cookie;
-      $result=sql_query("select name, email from ".$NPDS_Prefix."users where uname='$cookie[1]'");
+      $result=sql_query("SELECT name, email FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       list($yn, $ye) = sql_fetch_row($result);
    }
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="form-control-label">'.translate("Your Name: ").'</label>
+   echo '
+      <div class="form-group row">
+         <div class="col-sm-4">
+            <label class="form-control-label" for="yname">'.translate("Your Name").'</label>
+         </div>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="yname" value="'.$yn.'" maxlength="100" required="required" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-4">
+            <label class="form-control-label" for="ymail">'.translate("Your Email").'</label>
             </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="yname" value="'.$yn.'" />
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="form-control-label">'.translate("Your Email: ").'</label>
+         <div class="col-sm-8">
+            <input type="email" class="form-control" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-4">
+            <label class="form-control-label" for="fname">'.translate("Friend Name").'</label>
             </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="ymail" value="'.$ye.'" />
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="form-control-label">'.translate("Friend Name: ").'</label>
-            </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="fname" />
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="form-control-label">'.translate("Friend Email: ").'</label>
-            </div>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" name="fmail" />
-			</div>
-		</div>';
-	echo "".Q_spambot();
-	echo '<input type="hidden" name="archive" value="'.$archive.'" />';
-	echo '<input type="hidden" name="op" value="SendStory" />';  
-	echo '<div class="form-group">
-			<div class="col-sm-offset-4 col-sm-8">
-				<button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i></button>
-			</div>
-		</div>';
-	echo '</form>';
-	include ('footer.php');
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="fname" required="required" maxlength="100" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-4">
+            <label class="form-control-label" for="fmail">'.translate("Friend Email").'</label>
+         </div>
+         <div class="col-sm-8">
+            <input type="email" class="form-control" name="fmail" required="required" maxlength="100" />
+         </div>
+      </div>';
+   echo ''.Q_spambot();
+   echo '
+   <input type="hidden" name="archive" value="'.$archive.'" />
+   <input type="hidden" name="op" value="SendStory" />
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
+         </div>
+      </div>
+   </form>
+   
+      <script type="text/javascript">
+   //<![CDATA[
+      inpandfieldlen("yname",100);
+      inpandfieldlen("ymail",100);
+      inpandfieldlen("fname",100);
+      inpandfieldlen("fmail",100);
+   //]]>
+   </script>';
+   $fv_parametres = '
+   yname: {
+   },
+   ymail: {
+   },
+   fname: {
+   },
+   fmail: {
+   },
+   ';
+
+   adminfoot('fv',$fv_parametres,'',1);
+   
+   include ('footer.php');
 }
 
 function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question, $asb_reponse) {
@@ -113,8 +139,8 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    if (!$stop) {
       send_email($fmail, $subject, $message, $ymail, false,"html");
    } else {
-     $title="";
-     $fname="";
+     $title='';
+     $fname='';
    }
    $title = urlencode(aff_langue($title));
    $fname = urlencode($fname);
@@ -140,9 +166,8 @@ function StorySent($title, $fname) {
 function RecommendSite() {
    global $user;
    if ($user) {
-      global $cookie;
-      global $NPDS_Prefix;
-      $result=sql_query("select name, email from ".$NPDS_Prefix."users where uname='$cookie[1]'");
+      global $cookie, $NPDS_Prefix;
+      $result=sql_query("SELECT name, email FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       list($yn, $ye) = sql_fetch_row($result);
    } else {
       $yn=''; $ye='';
@@ -153,27 +178,27 @@ function RecommendSite() {
    <form class="" role="form" action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name: ").'</label>
+         <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="yname" value="'.$yn.'" required="required" />
+            <input type="text" class="form-control" name="yname" value="'.$yn.'" required="required" maxlength="100" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email: ").'</label>
+         <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="ymail" value="'.$ye.'" required="required" />
+            <input type="email" class="form-control" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name: ").'</label>
+         <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="fname" required="required" />
+            <input type="text" class="form-control" name="fname" required="required" maxlength="100" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email: ").'</label>
+         <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="fmail" required="required" />
+            <input type="email" class="form-control" name="fmail" required="required" maxlength="100" />
          </div>
       </div>
       '.Q_spambot().'
@@ -182,7 +207,27 @@ function RecommendSite() {
             <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i></button>
          </div>
       </div>
-      </form>';
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      inpandfieldlen("yname",100);
+      inpandfieldlen("ymail",100);
+      inpandfieldlen("fname",100);
+      inpandfieldlen("fmail",100);
+   //]]>
+   </script>';
+   $fv_parametres = '
+   yname: {
+   },
+   ymail: {
+   },
+   fname: {
+   },
+   fmail: {
+   },
+   ';
+
+   adminfoot('fv',$fv_parametres,'',1);
 
    include ('footer.php');
 }
@@ -214,16 +259,14 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    if (!$stop) {
       send_email($fmail, $subject, $message, $ymail, false,"html");
    } else {
-     $fname="";
+     $fname='';
    }
    Header("Location: friend.php?op=SiteSent&fname=$fname");
 }
 
 function SiteSent($fname) {
    include ('header.php');
-   
-//   echo '<p class=" lead text-xs-center">';
-   if ($fname=="") {
+   if ($fname=='') {
       echo '
          <div class="alert alert-danger lead" role="alert">
             <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
@@ -237,7 +280,6 @@ function SiteSent($fname) {
          <strong>'.translate("Thanks for recommend us!").'</strong>
       </div>';
    }
-   
    include ('footer.php');
 }
 
@@ -246,23 +288,18 @@ switch ($op) {
    case "FriendSend":
         FriendSend($sid, $archive);
         break;
-
    case "SendStory":
         SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question, $asb_reponse);
         break;
-
    case "StorySent":
         StorySent($title, $fname);
         break;
-
    case "SendSite":
         SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse);
         break;
-
    case "SiteSent":
         SiteSent($fname);
         break;
-
    default:
         RecommendSite();
         break;

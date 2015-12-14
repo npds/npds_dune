@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -36,20 +36,21 @@ function mapsections() {
                 }
              }	 
           }
-          $tmp.='</li>';		  
+          $tmp.='</li>';
        }
     }
     if ($tmp!="")
-		echo '<div class="row">
-				<div class="col-md-12">';
-		echo '<a class="btn btn-block btn-lg btn-default" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
-				<i class="fa fa-arrow-down"></i>&nbsp;'.translate("Sections").'
-			</a></div></div>
-			<div class="collapse" id="collapseSections">
-				<div class="well">
-					<ul>'.$tmp.'</ul>
-				</div>
-			</div>';   
+      echo '
+         <h3>
+            <a class="" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
+            <i class="fa fa-bars"></i>&nbsp;'.translate("Sections").'
+         </a>
+         </h3>
+      <div class="collapse in" id="collapseSections">
+         <div class="card">
+            <ul>'.$tmp.'</ul>
+         </div>
+      </div>';
 
     sql_free_result($result);
     sql_free_result($result2);
@@ -60,22 +61,23 @@ function mapforum() {
     $tmp="";
     $tmp.=RecentForumPosts_fab("", 10, 0, false, 50, false, "<li>", false);
     if ($tmp!="")
-		echo '<div class="row">
-				<div class="col-md-12">';		
-		echo '<a class="btn btn-block btn-lg btn-default" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums">
-				<i class="fa fa-arrow-down"></i>&nbsp;'.translate("Forums!").'
-			</a></div></div>
-			<div class="collapse" id="collapseForums">
-				<div class="well">
-					'.$tmp.'
-				</div>
-			</div>';
+      echo '
+      <h3>
+         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums">
+            <i class="fa fa-bars"></i>&nbsp;'.translate("Forums!").'
+         </a>
+      </h3>
+      <div class="collapse in" id="collapseForums">
+         <div class="card">
+            '.$tmp.'
+         </div>
+      </div>';
 }
 
 function maptopics() {
     global $NPDS_Prefix;
 
-    $lis_top="";
+    $lis_top='';
     $result = sql_query("select topicid, topictext ".$NPDS_Prefix."from topics order by topicname");
     while (list($topicid, $topictext) = sql_fetch_row($result)) {
        $result2 = sql_query("select sid from ".$NPDS_Prefix."stories where topic='$topicid'");
@@ -83,16 +85,17 @@ function maptopics() {
        $lis_top.="<li><a href=\"search.php?query=&amp;topic=$topicid\">".aff_langue($topictext)."</a>&nbsp;(".$nb_article.")</li>\n";
     }
     if ($lis_top!="")
-		echo '<div class="row">
-				<div class="col-md-12">';	
-		echo '<a class="btn btn-block btn-lg btn-default" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">
-				<i class="fa fa-arrow-down"></i>&nbsp;'.translate("Topics").'
-			</a></div></div>
-			<div class="collapse" id="collapseTopics">
-				<div class="well">
-					<ul>'.$lis_top.'</ul>
-				</div>
-			</div>';
+      echo '
+      <h3>
+         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">
+            <i class="fa fa-bars"></i>&nbsp;'.translate("Topics").'
+         </a>
+      </h3>
+      <div class="collapse in" id="collapseTopics">
+         <div class="card">
+            <ul>'.$lis_top.'</ul>
+         </div>
+      </div>';
     sql_free_result($result);
     sql_free_result($result2);
 }
@@ -108,13 +111,14 @@ function mapcategories() {
        $lis_cat.="<li><a href=\"index.php?op=newindex&amp;catid=$catid\">".aff_langue($title)."</a> (".$nb_article.") </li>\n";
     }
     if ($lis_cat!="")
-		echo '<div class="row">
-				<div class="col-md-12">';
-		echo '<a class="btn btn-block btn-lg btn-default" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
-				<i class="fa fa-arrow-down"></i>&nbsp;'.translate("Categories").'
-			</a></div></div>
-			<div class="collapse" id="collapseCategories">
-				<div class="well">
+		echo '
+		<h3>
+				<a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
+				<i class="fa fa-bars"></i>&nbsp;'.translate("Categories").'
+			</a>
+		</h3>
+			<div class="collapse in" id="collapseCategories">
+				<div class="card card-block">
 					<ul>'.$lis_cat.'</ul>
 				</div>
 			</div>';
@@ -125,23 +129,24 @@ function mapcategories() {
 function mapfaq() {
     global $NPDS_Prefix;
 
-    $lis_faq="";
+    $lis_faq='';
     $result = sql_query("select id_cat, categories from ".$NPDS_Prefix."faqcategories ORDER BY id_cat ASC");
     while (list($id_cat, $categories) = sql_fetch_row($result)) {
        $catname = aff_langue($categories);
        $lis_faq.="<li><a href=\"faq.php?id_cat=$id_cat&amp;myfaq=yes&amp;categories=".urlencode($catname)."\">".$catname."</a></li>\n";
     }
     if ($lis_faq!="")
-		echo '<div class="row">
-				<div class="col-md-12">';
-		echo '<a class="btn btn-block btn-lg btn-default" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq">
-				<i class="fa fa-arrow-down"></i>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
-			</a></div></div>
-			<div class="collapse" id="collapseFaq">
-				<div class="well">
-					<ul>'.$lis_faq.'</ul>
-				</div>
-			</div>';
+      echo '
+      <h3>
+         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq">
+            <i class="fa fa-bars"></i>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
+         </a>
+      </h3>
+      <div class="collapse in" id="collapseFaq">
+         <div class="card card-block">
+            <ul>'.$lis_faq.'</ul>
+         </div>
+      </div>';
     sql_free_result($result);
 }
 

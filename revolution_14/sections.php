@@ -60,8 +60,8 @@ function listsections($rubric) {
          while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
             $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' order by ordre");
             $nb_section=sql_num_rows($result2);
-            $aff.="<h3><a href=\"sections.php?rubric=$rubid\">".aff_langue($rubname)."</a></h3>";
-            if ($intro!="") {
+            $aff.='<h3><a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a></h3>';
+            if ($intro!='') {
                $aff.=aff_langue($intro);
             }
             while (list($secid, $secname, $image, $userlevel, $intro) = sql_fetch_row($result2)) {
@@ -85,18 +85,18 @@ function listsections($rubric) {
                      $aff1.='<small>'.aff_langue($intro).'</small>';
                   }
                      $aff1.='
-							</h4>
-							</div>';
-                     $aff2='<div id="'.$secid.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                           </h4>
+                        </div>';
+                     $aff2='<div id="'.$secid.'" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">';
-                  $result3 = sql_query("select artid, title, counter, userlevel, timestamp from ".$NPDS_Prefix."seccont where secid='$secid' order by ordre");
+                  $result3 = sql_query("SELECT artid, title, counter, userlevel, timestamp FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
 
                   $noartid=false;
                   while (list($artid, $title, $counter, $userlevel, $timestamp) = sql_fetch_row($result3)) {
                      $okprintLV2=autorisation_section($userlevel);
                      if ($okprintLV2) {
                         $noartid=true;
-                        $nouveau="colspan=\"2\"";
+                        $nouveau='';
                         if ((time()-$timestamp)<(86400*7)) {
                            $nouveau="";
                         }
@@ -116,7 +116,7 @@ function listsections($rubric) {
                   $aff2.="</div></div></div></div>\n";
                }
                $aff.=$aff1.$aff2;
-            $aff.='';		   
+            $aff.=''; 
             }
             $aff.='';
          }
@@ -124,7 +124,7 @@ function listsections($rubric) {
       echo $aff;
       
       if ($rubric) {
-         echo "<a class=\"btn btn-default\" href=\"sections.php\">".translate("Return to Sections Index")."</a>";
+         echo '<a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a>';
       }
       sql_free_result($result);
    }
@@ -134,11 +134,6 @@ function listsections($rubric) {
    include ('footer.php');
 }
 
-
-
-
-
-
 function listarticles($secid) {
    global $user, $prev;
    global $NPDS_Prefix;
@@ -146,9 +141,9 @@ function listarticles($secid) {
    if (file_exists("sections.config.php"))
       include ("sections.config.php");
 
-   $result = sql_query("select secname, rubid, image, intro, userlevel from ".$NPDS_Prefix."sections where secid='$secid'");
+   $result = sql_query("SELECT secname, rubid, image, intro, userlevel FROM ".$NPDS_Prefix."sections WHERE secid='$secid'");
    list($secname, $rubid, $image, $intro, $userlevel) = sql_fetch_row($result);
-   list($rubname) = sql_fetch_row(sql_query("select rubname from ".$NPDS_Prefix."rubriques where rubid='$rubid'"));
+   list($rubname) = sql_fetch_row(sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubid'"));
    if ($sections_chemin) {
       $title =  aff_langue($rubname)." - ".aff_langue($secname);
    } else {
