@@ -180,31 +180,35 @@ function RecommendSite() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="yname" value="'.$yn.'" required="required" maxlength="100" />
+            <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" required="required" maxlength="100" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
+            <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_ymail"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="fname" required="required" maxlength="100" />
+            <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="fmail" required="required" maxlength="100" />
+            <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_fmail"></span></span>
          </div>
       </div>
       '.Q_spambot().'
       <div class="form-group row">
          <div class="col-sm-offset-4 col-sm-8">
-            <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i></button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>
    </form>
