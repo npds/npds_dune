@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,7 +23,7 @@ if (!function_exists("Mysql_Connexion")) {
       } elseif (file_exists("themes/default/html/topics.html")) {
          $inclusion="themes/default/html/topics.html";
       } else {
-         echo "html/topics.html / not find !<br />";
+         echo 'html/topics.html / not find !<br />';
       }
       if ($inclusion) {
          ob_start();
@@ -36,13 +36,13 @@ if (!function_exists("Mysql_Connexion")) {
    } else {
       if ($subscribe) {
          if ($user) {
-            $result = sql_query("delete from ".$NPDS_Prefix."subscribe where uid='$cookie[0]' and topicid!='NULL'");
-            $result = sql_query("select topicid from ".$NPDS_Prefix."topics order by topicid");
+            $result = sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$cookie[0]' AND topicid!='NULL'");
+            $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics ORDER BY topicid");
             while(list($topicid) = sql_fetch_row($result)) {
                if (isset($Subtopicid)) {
                   if (array_key_exists($topicid,$Subtopicid)) {
                      if ($Subtopicid[$topicid]=="on") {
-                        $resultX = sql_query("insert into ".$NPDS_Prefix."subscribe (topicid, uid) values ('$topicid','$cookie[0]')");
+                        $resultX = sql_query("INSERT INTO ".$NPDS_Prefix."subscribe (topicid, uid) VALUES ('$topicid','$cookie[0]')");
                      }
                   }
                }
