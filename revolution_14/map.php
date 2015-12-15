@@ -111,17 +111,17 @@ function mapcategories() {
        $lis_cat.="<li><a href=\"index.php?op=newindex&amp;catid=$catid\">".aff_langue($title)."</a> (".$nb_article.") </li>\n";
     }
     if ($lis_cat!="")
-		echo '
-		<h3>
-				<a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
-				<i class="fa fa-bars"></i>&nbsp;'.translate("Categories").'
-			</a>
-		</h3>
-			<div class="collapse in" id="collapseCategories">
-				<div class="card card-block">
-					<ul>'.$lis_cat.'</ul>
-				</div>
-			</div>';
+      echo '
+      <h3>
+         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
+            <i class="fa fa-bars"></i>&nbsp;'.translate("Categories").'
+         </a>
+      </h3>
+      <div class="collapse in" id="collapseCategories">
+         <div class="card card-block">
+            <ul>'.$lis_cat.'</ul>
+         </div>
+      </div>';
     sql_free_result($result);
     sql_free_result($result2);
 }
