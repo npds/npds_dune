@@ -161,7 +161,7 @@ function topicedit($topicid) {
     if ($topicimage!="") {
         echo '
         <div class="thumbnail">
-            <img class="img-responsive " src="'.$tipath.$topicimage.'" alt="" />
+            <img class="img-fluid " src="'.$tipath.$topicimage.'" alt="" />
         </div>';
     }
     echo '
@@ -332,7 +332,7 @@ function relatededit($tid, $rid) {
    if ($topicimage!="") {
       echo '
    <div class="thumbnail">
-      <img class="img-responsive " src="'.$tipath.$topicimage.'" alt="'.$topictext.'" />
+      <img class="img-fluid " src="'.$tipath.$topicimage.'" alt="'.$topictext.'" />
    </div>';}
    echo'
    <form class="form-horizontal" action="admin.php" method="post">
@@ -477,7 +477,7 @@ function topicdelete($topicid, $ok=0) {
    echo'<div class="alert alert-danger lead" role="alert">';
    if ($topicimage!="") {echo '
    <div class="thumbnail">
-      <img class="img-responsive" src="'.$tipath.$topicimage.'" alt="" />
+      <img class="img-fluid" src="'.$tipath.$topicimage.'" alt="" />
    </div>';
    }
    echo'
