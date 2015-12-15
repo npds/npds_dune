@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2014 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -584,22 +584,20 @@ function adminMain($deja_affiches) {
          </tbody>
       </table>
       <ul class="pagination pagination-sm">
-      <li class="active"><a href="#">'.$nbre_articles.' Articles</a></li>
-      <li><a href="admin.php?op=suite_articles&amp;deja_affiches=0" class="noir">'.adm_translate("Les plus rÈcents").'</a></li>';
-
-
-      if ($deja_affiches>=$admart) echo "
-      <li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".($deja_affiches-$admart)."\" >".adm_translate("PrÈcÈdent")."</a></li>";
+         <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
+         <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches=0">'.adm_translate("Les plus récents").'</a></li>';
+      if ($deja_affiches>=$admart) echo '
+         <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches='.($deja_affiches-$admart).'" >'.adm_translate("Précédent").'</a></li>';
       if (($deja_affiches + $i) < $nbre_articles) {
          $deja_affiches+=$admart;
-         echo "
-      <li><a href=\"admin.php?op=suite_articles&amp;deja_affiches=".$deja_affiches."\" >".adm_translate("Suivant")."</a></li>";
+         echo '
+         <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches='.$deja_affiches.'" >'.adm_translate("Suivant").'</a></li>';
       }
       echo '
       </ul>';
       echo '
       <form class="" action="admin.php" method="post">
-      <div class="form-group">
+      <div class="form-group row">
         <div class="row form-inline">
             <div class="col-xs-4">
                 <label class="control-label">'.adm_translate("ID Article:").'</label>
