@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,7 +22,7 @@ if (($member_list==1) AND ($user=="") AND ($admin=="")) {
 if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
    settype($gr_from_ws, 'integer');
    $uid_from_ws="^(";
-   $re = sql_query("select uid, groupe from ".$NPDS_Prefix."users_status where groupe regexp '[[:<:]]".$gr_from_ws."[[:>:]]'");
+   $re = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe regexp '[[:<:]]".$gr_from_ws."[[:>:]]'");
    while (list($ws_uid) = sql_fetch_row($re)) {
       $uid_from_ws.= $ws_uid."|";
    }
@@ -214,14 +214,16 @@ function avatar($user_avatar) {
       $result = sql_query($select.$where.$and.$sort.$limit);
       echo "<br />";
       if ( $letter != "front" ) {
-//         echo '<table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true"><thead><tr>';
-echo '<table class="table"><thead><tr>';
-         echo "<th>&nbsp;</th>\n";
-         echo "<th data-sortable=\"true\">".translate("Nickname")."</th>\n";
-         echo "<th>&nbsp;</th>";
+         echo '
+         <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true">
+            <thead>
+               <tr>
+                  <th>&nbsp;</th>
+                  <th data-sortable="true">'.translate("Nickname").'</th>
+                  <th>&nbsp;</th>';
          echo "<th data-sortable=\"true\">".translate("Real Name")."</th>\n";
          if ($sortby!="user_from ASC") {
-            echo "<th data-sortable=\"true\">".translate("Email")."</th>\n";
+            echo '<th data-sortable="true">'.translate("Email").'</th>';
          } else {
             echo "<th data-sortable=\"true\">".translate("Location")."</th>\n";
          }
@@ -282,7 +284,7 @@ echo '<table class="table"><thead><tr>';
                   echo "&nbsp;<a href=\"admin.php?op=delUser&amp;chng_uid=".$temp_user['uid']."\" title=\"".translate("Delete")."\"><i class=\"fa fa-trash-o\"></i></a>";
                   $op_result = sql_query("select open from ".$NPDS_Prefix."users_status where uid='".$temp_user['uid']."'");
                   list($open_user) = sql_fetch_row($op_result);
-                  if ($open_user==1) {	 
+                  if ($open_user==1) {
                      echo "&nbsp;<i class=\"fa fa-chain\" title=\"".translate("Connection allowed")."\"></i>";
                   } else {
                      echo "&nbsp;<i class=\"fa fa-chain-broken\" title=\"".translate("Connection not allowed")."\"></i>"; 
@@ -313,49 +315,47 @@ echo '<table class="table"><thead><tr>';
             }		 
 		 
             if ( $num_rows_per_order > $pagesize ) {
-               echo "<p class=\"lead\">$num_rows_per_order ".translate("users found for")." <strong>$letter</strong> ($total_pages ".translate("pages").", $num_users ".translate("users shown").").</p>";				
-				echo '<ul class="pagination">';
+               echo "<p class=\"lead\">$num_rows_per_order ".translate("users found for")." <strong>$letter</strong> ($total_pages ".translate("pages").", $num_users ".translate("users shown").").</p>";
+               echo '
+               <ul class="pagination pagination-sm">';
                $total_pages = ceil($num_rows_per_order / $pagesize); // How many pages are we dealing with here ??
                $prev_page = $page - 1;
                if ( $prev_page > 0 ) {
-                  echo "<li><a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;list=$list&amp;page=$prev_page&amp;gr_from_ws=$gr_from_ws\">";
-                  echo "<i class=\"fa fa-arrow-left\"></i></a></li>";
+                  echo '<li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$prev_page.'&amp;gr_from_ws='.$gr_from_ws.'">';
+                  echo '<i class="fa fa-arrow-left"></i></a></li>';
                } else {
-                  echo "";
+                  echo '';
                }
-
                $next_page = $page + 1;
                if ( $next_page <= $total_pages ) {
-                  echo "<li><a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;list=$list&amp;page=$next_page&amp;gr_from_ws=$gr_from_ws\">";			  
-                  echo "<i class=\"fa fa-arrow-right\"></i></a></li>";
+                  echo '<li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$next_page.'&amp;gr_from_ws='.$gr_from_ws.'">';
+                  echo '<i class="fa fa-arrow-right"></i></a></li>';
                } else {
-                  echo "";
+                  echo '';
                }
                for($n=1; $n < $total_pages; $n++) {
                   if ($n == $page) {
-                     echo "<li class=\"active\"><a href=\"#\">$n</a></li>";
+                     echo '<li class="page-item active"><a class="page-link" href="#">'.$n.'</a></li>';
                   } else {
-                     echo "<li><a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;list=$list&amp;page=$n&amp;gr_from_ws=$gr_from_ws\">$n</a></li>";
+                     echo '<li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$n.'&amp;gr_from_ws='.$gr_from_ws.'">'.$n.'</a></li>';
                   }
                   if ($n >= 22) {  // if more than 20 pages are required, break it at 22.
                      $break = true;
                      break;
                   } else {
-                     echo "";
+                     echo '';
                   }
                }
                if (!isset($break)) {
                   if ($n == $page) {
-                     echo "<li class=\"active\"><a href=\"#\">$n</a></li>";
+                     echo '<li class="page-item active"><a class="page-link" href="#">'.$n.'</a></li>';
                   } else {
-                     echo "<li><a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;list=$list&amp;page=$total_pages&amp;gr_from_ws=$gr_from_ws\">$n</a></li>";
+                     echo '<li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$total_pages.'&amp;gr_from_ws='.$gr_from_ws.'">'.$n.'</a></li>';
                   }
                }
             } else {
-               echo "<br /><p class=\"lead\">$num_rows_per_order ".translate("users found").".</p>";
+               echo '<br /><p class="lead">'.$num_rows_per_order.' '.translate("users found").'</p>';
             }
       }
-
-   
    include("footer.php");
 ?>
