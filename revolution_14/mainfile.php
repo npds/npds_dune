@@ -1505,7 +1505,7 @@ function pollMain($pollID,$pollClose) {
    $boxContent .= '
    <div class="form-group">'.$inputvote.'</div>
    </form>';
-   $boxContent .= '<a  href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Results").'">'.translate("Results").'</a>';
+   $boxContent .= '<a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Results").'">'.translate("Results").'</a>';
    $boxContent .= "&nbsp;&nbsp;<a href=\"pollBooth.php\">".translate("Past Surveys")."</a>\n";
    if ($pollcomm) {
       if (file_exists("modules/comments/pollBoth.conf.php")) {
@@ -2700,7 +2700,7 @@ function PollNewest($id="") {
       settype($id, "integer");
       list($ibid,$pollClose)=pollSecur($id);
       if ($ibid) {pollMain($ibid,$pollClose);}
-   } elseif ($result = sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_data order BY pollID Desc limit 1")) {
+   } elseif ($result = sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_data ORDER BY pollID DESC limit 1")) {
       list($pollID)=sql_fetch_row($result);
       list($ibid,$pollClose)=pollSecur($pollID);
       if ($ibid) {pollMain($ibid,$pollClose);}
@@ -2719,7 +2719,7 @@ function bloc_langue() {
 function bloc_rubrique() {
    global $NPDS_Prefix;
    global $language, $user;
-   $result = sql_query("select rubid, rubname FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' and rubname<>'divers' ORDER BY ordre");
+   $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'divers' ORDER BY ordre");
    $boxstuff = '<ul>';
    while (list($rubid, $rubname) = sql_fetch_row($result)) {
       $title=aff_langue($rubname);
