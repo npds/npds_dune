@@ -390,47 +390,36 @@ function main($user) {
           echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
        }
        if (!$user) {
-
-          echo '<h3><i class="glyphicon glyphicon-user"></i>&nbsp;'.translate("Connection").'</h3>';   
-          echo '<form class="form-horizontal" role="form" action="user.php" method="post" name="userlogin">';
-		  
-			echo '<div class="form-group">
-					<div class="col-sm-3">
-						<label for="inputuser" class="control-label">'.translate("Nickname: ").'</label>
-					</div>
-					<div class="col-sm-5">
-						<input type="text" class="form-control"  name="uname" id="inputuser" placeholder="'.translate("Nickname").'">
-					</div>
-				</div>';
-		  
-			echo '<div class="form-group">
-					<div class="col-sm-3">
-						<label for="inputPassuser" class="control-label">'.translate("Password: ").'</label>
-					</div>
-					<div class="col-sm-5">
-						<input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'">
-					</div>
-                </div>';
-				
-			echo '<input type="hidden" name="op" value="login" />';
-		  
-			echo '<div class="form-group">
-					<div class="col-sm-offset-3 col-sm-1">
-						<button class="btn btn-primary" type="submit" title="'.translate("Submit").'"><i class="fa fa-lg fa-check"></i></button>
-					</div>
-				</div>';
-
-			echo '</form>';
+          echo '
+          <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i></a>&nbsp;'.translate("New User").'</h3>
+          <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
+          <form class="" role="form" action="user.php" method="post" name="userlogin">
+             <div class="form-group row">
+               <div class="col-sm-4">
+                  <label for="inputuser" class="form-control-label">'.translate("Nickname").'</label>
+               </div>
+               <div class="col-sm-7">
+                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'">
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-4">
+                  <label for="inputPassuser" class="form-control-label">'.translate("Password").'</label>
+               </div>
+               <div class="col-sm-7">
+                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'">
+                  <span class="help-block small"><a href="user.php?op=forgetpassword" role="button" title="'.translate("Lost your Password?").'">'.translate("Lost your Password?").'</a></span>
+               </div>
+            </div>
+            <input type="hidden" name="op" value="login" />
+            <div class="form-group row">
+               <div class="col-sm-offset-4 col-sm-7">
+                  <button class="btn btn-primary" type="submit" title="'.translate("Submit").'"><i class="fa fa-lg fa-check"></i>&nbsp;'.translate("Submit").'</button>
+               </div>
+            </div>
+         </form>';
 
           echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
-          
-          echo '<p class="text-xs-center">	  
-		  <a class="btn btn-default" href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="glyphicons glyphicons-user-add"></i></a>
-			&nbsp;&nbsp;
-		  <a class="btn btn-default" href="user.php?op=forgetpassword" role="button" title="'.translate("Lost your Password?").'"><i class="glyphicons glyphicons-user-key"></i></a>
-		  </p>';
-
-          
 
           // include externe file from modules/include for functions, codes ...
  /*         if (file_exists("modules/include/user.inc")) {
@@ -628,10 +617,10 @@ function login($uname, $pass) {
     global $NPDS_Prefix;
     global $setinfo, $system;
 
-    $result = sql_query("select pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue from ".$NPDS_Prefix."users where uname='$uname'");
+    $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
     if (sql_num_rows($result)==1) {
        $setinfo = sql_fetch_assoc($result);
-       $result = sql_query("select open from ".$NPDS_Prefix."users_status where uid='".$setinfo['uid']."'");
+       $result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$setinfo['uid']."'");
        list($open_user) = sql_fetch_row($result);
        if ($open_user==0) {
           Header("Location: user.php?stop=99");
@@ -672,9 +661,9 @@ function login($uname, $pass) {
        }
 
        $ip = getip();
-       $result = sql_query("SELECT * from ".$NPDS_Prefix."session WHERE host_addr='$ip' and guest='1'");
+       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
        if (sql_num_rows($result)==1) {
-          sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' and guest='1'");
+          sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
        }
 
        Header("Location: index.php");
@@ -914,7 +903,7 @@ echo '<br />';
 					<label class="control-label">'.translate("Select One Theme").'</label>
 				</div>
 			<div class="col-sm-3">
-				<select  class="form-control" name="theme">';
+				<select class="form-control" name="theme">';
     include("themes/list.php");
     $themelist = explode(" ", $themelist);
     for ($i=0; $i < sizeof($themelist); $i++) {
