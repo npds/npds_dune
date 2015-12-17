@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -72,34 +72,35 @@ function pollCollector($pollID, $voteID, $forwarder) {
 }
 
 function pollList() {
-     global $NPDS_Prefix;
-
-     echo '<div class="row">';
+   global $NPDS_Prefix;
+   echo '
+   <h2>'.translate("Survey").'</h2>
+   <div class="row">';
      $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
      while($object = sql_fetch_assoc($result)) {
         $id = $object['pollID'];
         $pollTitle = $object['pollTitle'];
         $voters = $object['voters'];
-        $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");       
+        $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");
         list ($sum) = sql_fetch_row($result2);
         echo '<div class="col-sm-8">'.aff_langue($pollTitle).'</div>';
         echo '<div class="col-sm-4 text-xs-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
      }
-     echo '</div>';
+     echo '
+     </div>';
 }
 
 function pollResults($pollID) {
-     global $NPDS_Prefix;
-     global $maxOptions, $setCookies;
-	 
-/*     if ($setCookies>0) {
-        echo '<p class="text-danger"><strong>'.translate("We allow just one vote per poll.").'</strong></p>';
-     }*/
-	 
-     if (!isset($pollID) OR empty($pollID)) $pollID = 1;
-     $result = sql_query("SELECT pollID, pollTitle, timeStamp FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
-     $holdtitle = sql_fetch_row($result);
-     echo '<span class="lead">'.aff_langue($holdtitle[1]).'</span><br /><br />';
+   global $NPDS_Prefix, $maxOptions, $setCookies;
+
+   if (!isset($pollID) OR empty($pollID)) $pollID = 1;
+   $result = sql_query("SELECT pollID, pollTitle, timeStamp FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
+   $holdtitle = sql_fetch_row($result);
+      list(,$pollTitle) = sql_fetch_row($result);
+
+   echo '
+   <h3>'.translate("Results").'</h3>
+   <h4> '.$pollTitle.'</h4>';
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
      for ($i = 1; $i <= $maxOptions; $i++) {
@@ -114,15 +115,17 @@ function pollResults($pollID) {
            } else {
               $percentInt = 0;
            }
-           echo '<div class="row"><div class="col-md-4">'.aff_langue($optionText).'</div>
-				<div class="col-md-7">
-				<div class="progress">
-				<div class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;">
-				&nbsp;'.$percentInt.'%
-				</div>
-				</div>
-				</div>
-				<div class="col-md-1">('.wrh($optionCount).')</div></div>';
+           echo '
+         <div class="row">
+            <div class="col-sm-4">'.aff_langue($optionText).'</div>
+            <div class="col-sm-7">
+               <progress class="progress  progress-striped" value="'.$percentInt.'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;">&nbsp;'.$percentInt.'%</span>
+                  </div>
+               </progress>
+            </div>
+            <div class="col-sm-1">('.wrh($optionCount).')</div></div>';
         }
      }
      echo '<br />';
@@ -134,17 +137,13 @@ function pollResults($pollID) {
 
 #autodoc pollboxbooth($pollID,$pollClose) : Construit le blocs sondages / code du mainfile avec autre présentation
 function pollboxbooth($pollID,$pollClose) {
-   global $NPDS_Prefix;
-   global $maxOptions, $boxTitle, $boxContent, $userimg, $language, $pollcomm;
-
-   if (!isset($pollID))
-      $pollID = 1;
-   if (!isset($url))
-      $url = sprintf("pollBooth.php?op=results&amp;pollID=%d", $pollID);
-   $boxContent = "<form action=\"pollBooth.php\" method=\"post\">\n
-      <div class=\"form-group\">
-   <input type=\"hidden\" name=\"pollID\" value=\"".$pollID."\" />\n
-   <input type=\"hidden\" name=\"forwarder\" value=\"".$url."\" />\n";
+   global $NPDS_Prefix, $maxOptions, $boxTitle, $boxContent, $userimg, $language, $pollcomm;
+   if (!isset($pollID)) $pollID = 1;
+   if (!isset($url)) $url = sprintf("pollBooth.php?op=results&amp;pollID=%d", $pollID);
+   $boxContent = '
+   <form action="pollBooth.php" method="post">
+         <input type="hidden" name="pollID" value="'.$pollID.'" />
+         <input type="hidden" name="forwarder" value="'.$url.'" />';
    $result = sql_query("SELECT pollTitle, voters FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
    list($pollTitle, $voters) = sql_fetch_row($result);
    global $block_title;
@@ -152,14 +151,19 @@ function pollboxbooth($pollID,$pollClose) {
       $boxTitle=translate("Survey");
    else
       $boxTitle=$block_title;
-   $boxContent .= "<p class=\"lead\">".aff_langue($pollTitle)."</p>\n";   
+   $boxContent .= '
+         <h4>'.aff_langue($pollTitle).'</h4>';
 
-   $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' and optionText<>'') order by voteID");
+   $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' and optionText<>'') ORDER BY voteID");
    $sum = 0;
    if (!$pollClose) {
       while($object=sql_fetch_assoc($result)) {
-         $boxContent .= '<div class="radio">
-                         <label class="radio"><input type="radio" name="voteID" value="'.$object['voteID'].'" />&nbsp;'.aff_langue($object['optionText']).'</label></div>';
+         $boxContent .= '
+         <div class="c-inputs-stacked">
+            <label class="c-input c-radio">
+               <input type="radio" name="voteID" value="'.$object['voteID'].'" />&nbsp;'.aff_langue($object['optionText']).'
+               <span class="c-indicator"></span>
+            </label>';
          $sum = $sum + $object['optionCount'];
       }
    } else {
@@ -171,7 +175,8 @@ function pollboxbooth($pollID,$pollClose) {
    if (!$pollClose) {
       $inputvote = '
       <div class="col-sm-2">
-text-xs-right      </div>';
+      <button class="btn btn-primary-outline btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>
+      </div>';
    }
    $boxContent .= '
    <br /><div class="row">'.$inputvote.'
@@ -185,19 +190,18 @@ text-xs-right      </div>';
       if (file_exists("modules/comments/pollBoth.conf.php")) {
          include ("modules/comments/pollBoth.conf.php");
       }
-      list($numcom) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."posts where forum_id='$forum' and topic_id='$pollID' and post_aff='1'"));
+      list($numcom) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$pollID' AND post_aff='1'"));
       $boxContent .= '<li>'.translate("Votes: ").' '.$sum.'</li><li>'.translate("comments:").' '.$numcom.'</li>';
    } else {
       $boxContent .= '<li>'.translate("Votes: ").' '.$sum.'</li>';
    }
       $boxContent .= '</ul>';
    echo '<div>'.$boxContent.'</div>'; 
-//   echo '<hr>';
 }
 
 function PollMain_aff($pollID) {
-   $boxContent = "<p align=\"center\"><b><a href=\"pollBooth.php\">";
-   $boxContent .= translate("Past Surveys")."</a></b></p>";
+   $boxContent = '<p align="center"><strong><a href="pollBooth.php">';
+   $boxContent .= translate("Past Surveys").'</a></strong></p>';
    echo $boxContent;
 }
 
@@ -216,18 +220,18 @@ if (isset($forwarder)) {
    list($ibid,$pollClose)=pollSecur($pollID);
    if ($pollID==$ibid) {
       include ("header.php");
-      echo "";
+      echo '<h2>'.translate("Survey").'</h2>';
       if (!$pollClose) {
-         $block_title="";
-         echo "";
+         $block_title= '<h3>'.translate("Vote").'</h3>';
+         echo $block_title;
         pollboxbooth($pollID,$pollClose);
-         echo "";
+         echo '';
       } else {
-         echo "";
+         echo '';
          PollMain_aff($pollID);
       }
       pollResults($pollID);
-      echo "";
+      echo '';
       if ($pollcomm) {
          if (file_exists("modules/comments/pollBoth.conf.php")) {
             include ("modules/comments/pollBoth.conf.php");
