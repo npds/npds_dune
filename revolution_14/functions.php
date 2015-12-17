@@ -277,8 +277,8 @@ function aff_video_yt($ibid) {
          $id_vid= substr($ibid,$pos_deb+10,($pos_fin-$pos_deb-10));
          $fragment = substr( $ibid, 0,$pos_deb);
          $fragment2 = substr( $ibid,($pos_fin+11));
-         $ibid_code = '<br /><!-- video_yt #'.$id_vid.'# --><object width="'.$w_video.'" height="'.$h_video.'">
-         <param name="movie" value="http://www.youtube.com/v/'.$id_vid.'=en&fs=1" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed src=http://www.youtube.com/v/'.$id_vid.'&fs=1 type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'.$w_video.'" height="'.$h_video.'" /></object><!-- /video_yt --><br />';
+         $ibid_code = '<br /><div class="embed-responsive embed-responsive-16by9"><!-- video_yt #'.$id_vid.'# --><object width="'.$w_video.'" height="'.$h_video.'">
+         <param name="movie" value="http://www.youtube.com/v/'.$id_vid.'=en&fs=1" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed class="embed-responsive-item" src=http://www.youtube.com/v/'.$id_vid.'&fs=1 type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'.$w_video.'" height="'.$h_video.'" /></object><!-- /video_yt --><br /></div>';
          $ibid= $fragment.$ibid_code.$fragment2;
       } else {
          $pasfin=false;
@@ -349,7 +349,7 @@ function putitems() {
       {$imgtmp="images/forum/smilies/more/";}
       
       if (file_exists($imgtmp."smilies.php"))
-         echo '<img src="'.$imgtmp.'more.gif" />&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
+         echo '&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
 //   }
 }
 
