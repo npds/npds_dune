@@ -130,7 +130,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    "'!N_id!'i"=>"$id",
    "'!N_previous_article!'i"=>"$prevArt",
    "'!N_next_article!'i"=>"$nextArt",
-   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img src=\"".$tipath.$topicimage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
+   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$tipath.$topicimage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
    "'!N_texte!'i"=>"$thetext",
    "'!N_nb_lecture!'i"=>"$counter"
    );
