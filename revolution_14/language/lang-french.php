@@ -106,8 +106,8 @@ function translate_pass1($phrase) {
    case "Page URL: ": $tmp="Url de la page : "; break;
    case "Category: ": $tmp="Catégorie : "; break;
    case "Description: (255 characters max)": $tmp="Description : (255 caractères max)"; break;
-   case "Your Name: ": $tmp="Votre nom : "; break;
-   case "Your Email: ": $tmp="Votre mèl : "; break;
+   case "Your Name": $tmp="Votre nom"; break;
+   case "Your Email": $tmp="Votre mèl"; break;
    case "Add URL": $tmp="Ajouter une url"; break;
    case "You are not a registered user or you have not logged in.": $tmp="Vous n'êtes pas (encore) enregistré ou vous n'êtes pas (encore) connecté."; break;
    case "If you were registered you could add links on this website.": $tmp="Si vous étiez enregistré, vous pourriez proposer des liens."; break;
@@ -407,7 +407,7 @@ function translate_pass1($phrase) {
    case "Survey": $tmp="Sondage"; break;
    case "Past Surveys": $tmp="Anciens sondages"; break;
    case "Votes: ": $tmp="Votes : "; break;
-   case "Vote": $tmp="Voter"; break;   
+   case "Vote": $tmp="Voter"; break;
    case "comments:": $tmp="Commentaire(s) : "; break;
    case "You already voted today!": $tmp="Vous avez déjà voté aujourd'hui"; break;
    case "Results": $tmp="Resultats"; break;
@@ -515,7 +515,7 @@ function translate_pass1($phrase) {
    case "Profile": $tmp="Profil"; break;
    case "Email": $tmp="Mèl"; break;
    case "Quote": $tmp="Citation"; break;
-   case "Goto Page: ": $tmp="Aller à la page : "; break;
+   case "Goto Page": $tmp="Aller à la page"; break;
    case "Jump To: ": $tmp="Sauter à : "; break;
    case "Administration Tools": $tmp="Outils administrateur"; break;
    case "Lock this Topic": $tmp="Fermer ce sujet"; break;
@@ -589,8 +589,8 @@ function translate_pass1($phrase) {
    case "Send Story to a Friend": $tmp="Envoi de l'article à un ami"; break;
    case "You will send the story": $tmp="Vous allez envoyer cet article"; break;
    case "to a specified friend:": $tmp="à cette personne : "; break;
-   case "Friend Name: ": $tmp="Nom du destinataire : "; break;
-   case "Friend Email: ": $tmp="Mèl du destinataire : "; break;
+   case "Friend Name": $tmp="Nom du destinataire"; break;
+   case "Friend Email": $tmp="Mèl du destinataire"; break;
    case "Send": $tmp="Envoyer"; break;
    case "Interesting Article at": $tmp="Article intéressant sur"; break;
    case "Your Friend": $tmp="Votre ami"; break;
@@ -1001,7 +1001,7 @@ function translate_pass1($phrase) {
    
    //responsivité
    case "New Topic": $tmp="Nouveau sujet"; break;
-
+   case "Destinataire": $tmp="Destinataire"; break;
    case "Registration": $tmp="Inscription"; break;
    case "Smilies": $tmp="Emoticons"; break;
 
@@ -1021,9 +1021,11 @@ function translate_pass1($phrase) {
    
    case "Hide this post": $tmp = "Masquer ce post"; break;
    case "Show this post": $tmp = "Afficher ce post"; break;
-
-
-      
+   
+   case "Private Messages": $tmp="Messages personnels"; break;
+   case "Contributors": $tmp="Contributeurs"; break;
+   case "Bottom page": $tmp="Bas de page"; break;
+   case "Topic status": $tmp="Etat du topic"; break;
    case "Print": $tmp="Imprimer"; break;
    default: $tmp = "Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }
