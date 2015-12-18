@@ -418,7 +418,8 @@ function emotion_add($image_subject) {
 function make_clickable($text) {
    $ret='';
    $ret = preg_replace('#(^|\s)(http|https|ftp|sftp)(://)([^\s]*)#i',' <a href="$2$3$4" target="_blank" class="noir">$2$3$4</a>',$text);
-   $ret = preg_replace('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#ei','preg_anti_spam("$1")',$ret);
+//   $ret = preg_replace('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#ei','preg_anti_spam("$1")',$ret);
+   $ret = preg_replace_callback('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#i',function (&$r) {return preg_anti_spam($r[1]);},$ret);//php7
    return($ret);
 }
 
