@@ -35,9 +35,12 @@
       */
 
       $(document).ready(function(){
-         $(".article_texte img").addClass("img-fluid img-responsive");
-         $("#ban img").addClass("img-fluid img-responsive");
-         $(".fo-post-mes img").addClass("img-fluid img-responsive");//not sure if usefull to late ...
+         $(".article_texte img").addClass("img-fluid");
+         $("#ban img").addClass("img-fluid");
+         
+//         $(".article_texte object").addClass("embed-responsive");
+         
+         $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
 
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
