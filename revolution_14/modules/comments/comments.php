@@ -19,11 +19,10 @@ include_once('functions.php');
 include_once('auth.php');
 
 settype($forum,"integer");
-if ($forum>=0)
-   die();
+if ($forum>=0) die();
 
 // gestion des params du 'forum' : type, accès, modérateur ...
-$forum_name = "comments";
+$forum_name = 'comments';
 $forum_type=0;
 $allow_to_post=false;
 if ($anonpost)
@@ -35,8 +34,8 @@ if (($moderate==1) and $admin)
    $Mmod=true;
 elseif ($moderate==2) {
    $userX=base64_decode($user);
-   $userdata=explode(":", $userX);
-   $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status where uid='".$userdata[0]."'");
+   $userdata=explode(':', $userX);
+   $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid='".$userdata[0]."'");
    list($level)=sql_fetch_row($result);
    if ($level>=2)
       $Mmod=true;
@@ -46,30 +45,29 @@ elseif ($moderate==2) {
 function Caff_pub($topic, $file_name, $archive) {
    global $language;
 //   if ($ibid=theme_image("menu/$language/comment.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/menu/$language/comment.gif";}
-   $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'"  class="btn btn-primary btn-sm" role="button">Commenter</a>';
+   $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">Commenter</a>';
    return ($tmp);
 }
-    if ($forum_access==0) {
-       $allow_to_post=true;
-    } else {
-       if ($user) {
-           $allow_to_post=true;
-       }
-    }
-    global $anonymous;
-    settype($archive,"integer");
-    if ($allow_to_post) {
-       echo '<nav class="pull-right">'.Caff_pub($topic,$file_name, $archive).'</nav>';
-    }
+   if ($forum_access==0) {
+      $allow_to_post=true;
+   } else {
+      if ($user) {
+         $allow_to_post=true;
+      }
+   }
+   global $anonymous;
+   settype($archive,"integer");
+   if ($allow_to_post) {
+      echo '<nav class="pull-right">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+   }
 
-
-    // Pagination
-    settype($C_start,"integer");
-    settype($comments_per_page,"integer");
-    $result=sql_query ("SELECT count(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' and topic_id='$topic' and post_aff='1'");
-    list($total)=sql_fetch_row($result);
-    if ($total > $comments_per_page) {
-       $times = 1; $current_page=0;
+   // Pagination
+   settype($C_start,"integer");
+   settype($comments_per_page,"integer");
+   $result=sql_query ("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic' AND post_aff='1'");
+   list($total)=sql_fetch_row($result);
+   if ($total > $comments_per_page) {
+      $times = 1; $current_page=0;
       echo '
       <div id="fo-postpagi">
          <ul class="pagination pagination-sm">
@@ -82,50 +80,47 @@ function Caff_pub($topic, $file_name, $archive) {
             <li class="page-item disabled">
                <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
             </li>';
-       
-       $pages_rapide="";
-       for ($x = 0; $x < $total; $x += $comments_per_page) {
-           if (($x>=$C_start) and ($current_page==0)) {
-              $current_page=$times;
-           }
-          if ($current_page!=$times)
-             $pages_rapide.='<li class="page-item"><a class="page-link" href="'.rawurldecode($url_ret).'&amp;C_start='.$x.'">'.$times.'</a></li>';
-          else
-             $pages_rapide.='<li class="page-item active"><a class="page-link" href="#">'.$times.'</li>';
-          $times++;
-       }
+       $pages_rapide='';
+      for ($x = 0; $x < $total; $x += $comments_per_page) {
+         if (($x>=$C_start) and ($current_page==0)) {
+            $current_page=$times;
+         }
+         if ($current_page!=$times)
+            $pages_rapide.='
+             <li class="page-item"><a class="page-link" href="'.rawurldecode($url_ret).'&amp;C_start='.$x.'">'.$times.'</a></li>';
+         else
+            $pages_rapide.='
+             <li class="page-item active"><a class="page-link" href="#">'.$times.'</li>';
+         $times++;
+      }
       echo $pages_rapide.'
          </ul>
       </div>';
-    }
+   }
 
-    if ($Mmod) {
-       $post_aff=" ";
-    } else {
-       $post_aff=" and post_aff='1' ";
-    }
-    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' and topic_id = '$topic'".$post_aff."ORDER BY post_id LIMIT $C_start, $comments_per_page";
-    if (!$result = sql_query($sql))
-       forumerror(0001);
-    $mycount = sql_num_rows($result);
-    $myrow = sql_fetch_assoc($result);
-    $count = 0;
+   if ($Mmod) {
+      $post_aff=' ';
+   } else {
+      $post_aff=" and post_aff='1' ";
+   }
+   $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id = '$topic'".$post_aff."ORDER BY post_id LIMIT $C_start, $comments_per_page";
+   if (!$result = sql_query($sql)) forumerror(0001);
+   $mycount = sql_num_rows($result);
+   $myrow = sql_fetch_assoc($result);
+   $count = 0;
 
 if ($mycount) {
+   if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
+   if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
+   if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmpWW=$ibid;} else {$imgtmpWW="images/forum/icons/www_icon.gif";}
+   if ($ibid=theme_image("forum/icons/quote.gif")) {$imgtmpQU=$ibid;} else {$imgtmpQU="images/forum/icons/quote.gif";}
+   if ($ibid=theme_image("forum/icons/ip_logged.gif")) {$imgtmpIP=$ibid;} else {$imgtmpIP="images/forum/icons/ip_logged.gif";}
+   if ($ibid=theme_image("forum/icons/unlock_post.gif")) {$imgtmpUP=$ibid;} else {$imgtmpUP="images/forum/icons/unlock_post.gif";}
+   if ($ibid=theme_image("forum/icons/lock_post.gif")) {$imgtmpLP=$ibid;} else {$imgtmpLP="images/forum/icons/lock_post.gif";}
 
-    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
-    if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
-    if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmpWW=$ibid;} else {$imgtmpWW="images/forum/icons/www_icon.gif";}
-    if ($ibid=theme_image("forum/icons/quote.gif")) {$imgtmpQU=$ibid;} else {$imgtmpQU="images/forum/icons/quote.gif";}
-    if ($ibid=theme_image("forum/icons/ip_logged.gif")) {$imgtmpIP=$ibid;} else {$imgtmpIP="images/forum/icons/ip_logged.gif";}
-    if ($ibid=theme_image("forum/icons/unlock_post.gif")) {$imgtmpUP=$ibid;} else {$imgtmpUP="images/forum/icons/unlock_post.gif";}
-    if ($ibid=theme_image("forum/icons/lock_post.gif")) {$imgtmpLP=$ibid;} else {$imgtmpLP="images/forum/icons/lock_post.gif";}
-
-    do {
+   do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
-      echo '
-      <div class="row">';
       
    $useroutils = '';
    $useroutils .= '<hr />';
@@ -146,9 +141,9 @@ if ($mycount) {
       if ($posterdata['mns']) {
           $useroutils .= '<br /><a href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-lg fa-desktop"></i>&nbsp;'.translate("Visit the Mini Web Site !").'</a>';
       }
-
       echo '
-      <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
+      <div class="row">
+         <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '<a name="last-post"></a>';
       echo '
          <div class="col-xs-12">
@@ -170,15 +165,12 @@ if ($mycount) {
       echo '
                </div>';
       $message=stripslashes($myrow['post_text']);
-      echo '
-         <div class="card-block">
-            <div class="card-text">
-            <img class="smil" src="'.$imgtmpPI.'" alt="" />';
-
       $date_post=convertdateTOtimestamp($myrow['post_time']);
-      echo '<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
-
       echo '
+               <div class="card-block">
+               <div class="card-text">
+                  <img class="smil" src="'.$imgtmpPI.'" alt="" />
+                  <span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>
                </div>
                <hr />
                <div class="card-text">';
@@ -201,16 +193,16 @@ if ($mycount) {
             </div>
          <div class="card-footer text-xs-right">';
 
-      if ($allow_to_post and $posterdata['uid']!="") {
-         if ($formulaire=="") {
+      if ($allow_to_post and $posterdata['uid']!='') {
+         if ($formulaire=='') {
             echo '&nbsp;<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>&nbsp;';
          } else
             echo '&nbsp;&nbsp;';
       }
 
       if ($Mmod) {
-         if ($formulaire=="")
-            echo "&nbsp;|&nbsp;";
+         if ($formulaire=='')
+            echo '&nbsp;|&nbsp;';
             
          echo '<a href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>&nbsp;';
          if (!$myrow['post_aff']) {
@@ -228,33 +220,39 @@ if ($mycount) {
     } while($myrow = sql_fetch_assoc($result));
     unset ($tmp_imp);
 
-    if ($total > $comments_per_page) {
+   if ($total > $comments_per_page) {
+      echo '
+   <nav>
+      <ul class="pagination pagination-sm">
+         <li class="page-item">
+            <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+         </li>
+         <li class="page-item disabled">
+            <a class="page-link" href="#">'.translate("Goto Page").'</a>
+         </li>';
+      echo $pages_rapide.'
+      </ul>
+   </nav>';
+   }
+
+   if ($ibid=theme_image("forum/icons/lock_topic.gif")) {$imgtmpLT=$ibid;} else {$imgtmpLT="images/forum/icons/lock_topic.gif";}
+   if ($allow_to_post) {
+      echo Caff_pub($topic,$file_name, $archive)."\n";
+   }
+   echo '<blockquote class="blockquote">'.translate("The comments are owned by the poster. We aren't responsible for their content.").'</blockquote>';
+
+   if ($Mmod) {
        echo '
-       <nav>
-         <ul class="pagination pagination-sm">
-            <li class="page-item">
-               <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
-            </li>
-            <li class="page-item disabled">
-               <a class="page-link" href="#">'.translate("Goto Page").'</a>
-            </li>';
-             echo $pages_rapide.'
-         </ul>
-      </nav>';
-    }
-
-
-    if ($ibid=theme_image("forum/icons/lock_topic.gif")) {$imgtmpLT=$ibid;} else {$imgtmpLT="images/forum/icons/lock_topic.gif";}
-    if ($allow_to_post) {
-       echo Caff_pub($topic,$file_name, $archive)."\n";
-    }
-    echo '<blockquote class="blockquote">'.translate("The comments are owned by the poster. We aren't responsible for their content.").'</blockquote>';
-
-    if ($Mmod) {
-       echo "<p align=\"center\"><b>".translate("Administration Tools")."</b><br />";
-       echo "-------------------------<br />";
-       if ($ibid=theme_image("forum/icons/del_topic.gif")) {$imgtmpDT=$ibid;} else {$imgtmpDT="images/forum/icons/del_topic.gif";}
-       echo "<a href=\"modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic=$topic&amp;file_name=$file_name&amp;archive=$archive\"><img src=\"$imgtmpDT\" alt=\"".translate("Delete this Topic")."\" border=\"0\" /></a></p>";
-    }
+   <nav class="pull-xs-right">
+      <ul class="pagination pagination-sm">
+         <li class="page-item disabled">
+            <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+         </li>
+         <li class="page-item">
+            <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+         </li>
+      </ul>
+   </nav>';
+   }
 }
 ?>
