@@ -5,11 +5,14 @@
 /* après celle des frameworks  ==> dev                                  */
 
 /* oublié dans la css BS4 remplacer par img-fluid */ 
+/* 
+
 .img-responsive {
 max-width: 100%;
 height: auto;
 }
 
+ */
 /* adaptation menu */
 .dropdown-menu {
 /* 
@@ -25,15 +28,6 @@ color: #eceeef;
 .dropdown:hover .dropdown-menu {
     display: block;
 }
-
-.navbar {
-/* 
-
-padding: 0rem 1rem;
-
- */
-}
-
 
 /* forum deco des cadres */
 .card.fo:after, .card.fo:before {
@@ -95,6 +89,8 @@ margin-bottom: 0px;
     width:100%;
   }
   
+  
+  
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
@@ -113,15 +109,6 @@ margin-bottom: 0px;
 list-style: none;
 padding-left:0px;
 }
-
-/* ==> ajustement utile pour V4 pour l'instant */
-.navbar-brand {
-/* 
-padding-top: .9rem;
- */
-}
-
-
 /* ==> a revoir et affiner utile pour V4 pour l'instant */
 .page-header {
 margin: 73px 0 20px;
@@ -153,6 +140,7 @@ box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 */
 
 a:hover {text-decoration:none;}
+
 .form-control-label {
 font-weight: 500;
 }
@@ -162,29 +150,6 @@ width:24px;
 height:24px;
 }
 
-/* ==> Personalisation des tooltips bootstrap V3*/
-  .tooltip > .tooltip-inner {
-      background-color: #484848; 
-      color: #FFFFFF; 
-      border: 1px solid ;
-      border: 1px solid;
-      border-color: #484848;
-      padding: 5px;
-      font-size: 14px;
-  }
-  .tooltip.top > .tooltip-arrow {
-      border-top: 5px solid #484848;
-  }
-  .tooltip.bottom > .tooltip-arrow {
-      border-bottom: 5px solid #484848;
-  }
-  .tooltip.left > .tooltip-arrow {
-      border-left: 5px solid #484848;
-  }
-  .tooltip.right > .tooltip-arrow {
-      border-right: 5px solid #484848;
-  }
-/* <== Personalisation des tooltips bootstrap V3*/ 
 
 /* ==> Personalisation des tooltips bootstrap V4*/
 .tooltip.tooltip-top .tooltip-arrow,
@@ -293,31 +258,55 @@ padding-top:15px;
 
 /*taille defaut des glyphicons font*/
 .glyphicons{font-size:24px;}
-/*ajustement des icones form validation*/
 
+/*ajustement des icones form validation*/
 .form-control-feedback {
 position: absolute;
 display: inline-block;
 top: 9px;
 right: 35px;
 }
+/*adaptation class has-danger(BS4) <= has-error(BS3) pour form validation*/
+.has-error .text-help,
+.has-error .form-control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label,
+.has-error small.help-block,
+.has-error span.help-block
+ {
+  color: #d9534f;
+}
+.has-error .form-control {
+  border-color: #d9534f;
+}
+.has-error .input-group-addon {
+  color: #d9534f;
+  background-color: #fdf7f7;
+  border-color: #d9534f;
+}
+.has-error .form-control-feedback {
+  color: #d9534f;
+}
+.has-error .form-control-error {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
+}
+
 
 /* plugins table bootstrap*/
 .fixed-table-footer, .fixed-table-header {
 height: 0px;
 }
 
-/* 
-a.btn {
-  line-height: 1.42857;
-}
- */
-
 #user_tools {
 position:absolute;
 top:0px;
 right:65px;
-
 }
 #user_tools.nav > li > a {
   position: relative;
