@@ -45,6 +45,8 @@ function MetaTagSave($filename, $tags) {
       $content.= "settype(\$meta_doctype,'string');\n";
       $content.= "settype(\$nuke_url,'string');\n";
       $content.= "settype(\$meta_op,'string');\n";
+      $content.= "settype(\$m_description,'string');\n";
+      $content.= "settype(\$m_keywords,'string');\n";
       $content.= "if (\$meta_doctype==\"\")\n";
       if (!empty($tags['doctype'])) {
          if ($tags['doctype']=="HTML 4.01 Transitional")
@@ -66,7 +68,7 @@ function MetaTagSave($filename, $tags) {
       $content.="   \$l_meta=\$meta_doctype.\"\\n<head><title>\\n\\n\";\n";
 
       if (!empty($tags['content-type'])) {
-         $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']));
+         $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $fp = fopen("meta/cur_charset.php", "w");
          if ($fp) {
             fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"".substr($tags['content-type'],strpos($tags['content-type'],"charset=")+8)."\");\n");
@@ -95,22 +97,22 @@ function MetaTagSave($filename, $tags) {
       $content .= MetaTagMakeSingleTag('cache-control', 'no-cache', 'http-equiv');
       $content .= MetaTagMakeSingleTag('identifier-url', '$nuke_url', 'http-equiv');
       if (!empty($tags['author'])) {
-         $tags['author'] = htmlspecialchars(stripslashes($tags['author']));
+         $tags['author'] = htmlspecialchars(stripslashes($tags['author']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('author', $tags['author']);
       }
 
       if (!empty($tags['owner'])) {
-         $tags['owner'] = htmlspecialchars(stripslashes($tags['owner']));
+         $tags['owner'] = htmlspecialchars(stripslashes($tags['owner']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('owner', $tags['owner']);
       }
       if (!empty($tags['reply-to'])) {
-         $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']));
+         $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('reply-to', $tags['reply-to']);
       } else {
          $content .= MetaTagMakeSingleTag('reply-to', $adminmail);
       }
       if (!empty($tags['language'])) {
-         $tags['language'] = htmlspecialchars(stripslashes($tags['language']));
+         $tags['language'] = htmlspecialchars(stripslashes($tags['language']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('language', $tags['language']);
          if ($tags['language'] == "fr") {
             $content .= MetaTagMakeSingleTag('content-language', 'fr, fr-be, fr-ca, fr-lu, fr-ch', 'http-equiv');
@@ -119,27 +121,33 @@ function MetaTagSave($filename, $tags) {
          }
       }
       if (!empty($tags['description'])) {
-         $tags['description'] = htmlspecialchars(stripslashes($tags['description']));
-         $content .= MetaTagMakeSingleTag('description', $tags['description']);
+         $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .="if (\$m_description!=\"\")\n";
+         $content .="   \$l_meta.=\"<meta name=\\\"description\\\" content=\\\"\$m_description\\\" />\\n\";\n";
+         $content .="else\n";
+         $content .= "   ".MetaTagMakeSingleTag('description', $tags['description']);
       }
       if (!empty($tags['keywords'])) {
-         $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']));
-         $content .= MetaTagMakeSingleTag('keywords', $tags['keywords']);
+         $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .="if (\$m_keywords!=\"\")\n";
+         $content .="   \$l_meta.=\"<meta name=\\\"keywords\\\" content=\\\"\$m_keywords\\\" />\\n\";\n";
+         $content .="else\n";
+         $content .= "   ".MetaTagMakeSingleTag('keywords', $tags['keywords']);
       }
       if (!empty($tags['rating'])) {
-         $tags['rating'] = htmlspecialchars(stripslashes($tags['rating']));
+         $tags['rating'] = htmlspecialchars(stripslashes($tags['rating']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('rating', $tags['rating']);
       }
       if (!empty($tags['distribution'])) {
-         $tags['distribution'] = htmlspecialchars(stripslashes($tags['distribution']));
+         $tags['distribution'] = htmlspecialchars(stripslashes($tags['distribution']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('distribution', $tags['distribution']);
       }
       if (!empty($tags['copyright'])) {
-         $tags['copyright'] = htmlspecialchars(stripslashes($tags['copyright']));
+         $tags['copyright'] = htmlspecialchars(stripslashes($tags['copyright']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('copyright', $tags['copyright']);
       }
       if (!empty($tags['revisit-after'])) {
-         $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']));
+         $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('revisit-after', $tags['revisit-after']);
       } else {
          $content .= MetaTagMakeSingleTag('revisit-after', "14 days");
@@ -212,14 +220,12 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
 
     if ($xparse==0) {
        $xnotify_subject = FixQuotes($xnotify_subject);
-       $xnotify_message = FixQuotes($xnotify_message);
        $xdownload_cat = FixQuotes($xdownload_cat);
     } else {
        $xnotify_subject = stripslashes($xnotify_subject);
-       $xnotify_message = stripslashes($xnotify_message);
        $xdownload_cat = stripslashes($xdownload_cat);
     }
-    $xnotify_message=htmlspecialchars(str_replace(chr(13).chr(10),"\n",$xnotify_message));
+    $xnotify_message=str_replace(chr(13).chr(10),"\n",$xnotify_message);
 
     $xnotify_from = FixQuotes($xnotify_from);
     $xanonymous = FixQuotes($xanonymous);
@@ -234,7 +240,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
     $content .= "# ===================================================\n";
     $content .= "#\n";
-    $content .= "# This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier\n";
+    $content .= "# This version name NPDS Copyright (c) 2001-2013 by Philippe Brunier\n";
     $content .= "#\n";
     $content .= "# This module is to configure the main options for your site\n";
     $content .= "#\n";
@@ -252,6 +258,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "# dbpass:      MySQL Password\n";
     $content .= "# dbname:      MySQL Database Name\n";
     $content .= "# mysql_p:     Persistent connection to MySQL Server (1) or Not (0)\n";
+    $content .= "# mysql_i:     Use MySQLi (1) instead of MySQL interface (0)\n";
     $content .= "# =======================\n";
     $content .= "# system:      0 for Unix/Linux, 1 for Windows\n";
     $content .= "# system_md5:  0 for NOT USED Authors' Password encryption / 1 for USED Author's Password Encryption\n";
@@ -262,7 +269,9 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$dbpass = \"$dbpass\";\n";
     $content .= "\$dbname = \"$dbname\";\n";
     if (!isset($mysql_p)) {$mysql_p=1;}
-    $content .= "\$mysql_p = \"$mysql_p\";\n";
+    $content .= "\$mysql_p = $mysql_p;\n";
+    if (!isset($mysql_i)) {$mysql_i=0;}
+    $content .= "\$mysql_i = $mysql_i;\n";
     $content .= "# =======================\n";
     $content .= "\$system = $system;\n";
     if (!$system_md5) {$system_md5=0;}
@@ -551,9 +560,9 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"11\";\n";
+    $content .= "\$Version_Num = \"13\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
-    $content .= "\$Version_Sub = \"REvolution WS\";\n";
+    $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";
     $content .= "?>";
     fwrite($file, $content);
@@ -569,19 +578,14 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     fwrite($file, $content);
     fclose($file);
 
-    if ($xparse==0) {
-       $xEmailFooter=FixQuotes($xEmailFooter);
-    } else {
-       $xEmailFooter=stripslashes($xEmailFooter);
-    }
-    $xEmailFooter=htmlspecialchars(str_replace(chr(13).chr(10),"\n",$xEmailFooter));
+    $xEmailFooter=str_replace(chr(13).chr(10),"\n",$xEmailFooter);
     $file = fopen("signat.php", "w");
     $content = "<?php\n";
     $content .= "$line";
     $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
     $content .= "# ===================================================\n";
     $content .= "#\n";
-    $content .= "# This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier\n";
+    $content .= "# This version name NPDS Copyright (c) 2001-2013 by Philippe Brunier\n";
     $content .= "#\n";
     $content .= "# This module is to configure Footer of Email send By NPDS\n";
     $content .= "#\n";
@@ -591,6 +595,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "$line";
     $content .= "\n";
     $content .= "\$message .= \"$xEmailFooter\";\n";
+
     $content .= "?>";
     fwrite($file, $content);
     fclose($file);
