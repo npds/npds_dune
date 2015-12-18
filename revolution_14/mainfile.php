@@ -2258,7 +2258,8 @@ function mainblock() {
    global $block_title;
    if ($title=="")
       $title=$block_title;
-   themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content))));
+//   themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content))));
+   themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)))); //php7
 }
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
@@ -2267,9 +2268,9 @@ function adminblock() {
    if ($admin) {
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    if ($Q['radminsuper']==1) {
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and f.fetat != '0' order by f.fcategorie");}
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");}
    else {
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 and fetat!=0 and d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' order by f.fcategorie");
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
    }
    while($SAQ=sql_fetch_assoc($R)) {
       $cat[]=$SAQ['fcategorie'];
@@ -2289,14 +2290,15 @@ function adminblock() {
       } 
    }
    
-       $result = sql_query("select title, content from ".$NPDS_Prefix."adminblock");
+       $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
        list($title, $content) = sql_fetch_row($result);
        global $block_title;
        if ($title=="")
           $title=$block_title;
        else
           $title=aff_langue($title);
-       $content = nl2br(aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content)));
+//       $content = nl2br(aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content)));
+       $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));
        $content .= '
        <ul id="adm_block">
        '.$bloc_foncts_A.'
@@ -2693,7 +2695,7 @@ function headlines($hid="", $block=true) {
 }
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe :
 #autodoc : function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage cr&eacute;&eacute;)
-function PollNewest($id="") {
+function PollNewest($id='') {
    global $NPDS_Prefix;
    // snipe : multi-poll evolution
    if ($id!=0) {
