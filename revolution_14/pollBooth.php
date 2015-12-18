@@ -41,7 +41,7 @@ function pollCollector($pollID, $voteID, $forwarder) {
         global $user;
         if ($user) {
            global $cookie;
-           $user_req="or al_uid='$cookie[0]'";
+           $user_req="OR al_uid='$cookie[0]'";
         } else {
            $cookie[0]="1";
            $user_req="";
@@ -49,10 +49,10 @@ function pollCollector($pollID, $voteID, $forwarder) {
         if ($setCookies=="1") {
            $ip=getip();
            if ($dns_verif)
-              $hostname="or al_hostname='".@gethostbyaddr($ip)."' ";
+              $hostname="OR al_hostname='".@gethostbyaddr($ip)."' ";
            else
               $hostname="";
-           $sql="select al_id from ".$NPDS_Prefix."appli_log where al_id='$al_id' and al_subid='$pollID' and (al_ip='$ip' ".$hostname.$user_req.")";
+           $sql="SELECT al_id FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' AND al_subid='$pollID' AND (al_ip='$ip' ".$hostname.$user_req.")";
            if ($result = sql_fetch_row(sql_query($sql))) {
               $voteValid="0";
            }
@@ -62,7 +62,7 @@ function pollCollector($pollID, $voteID, $forwarder) {
            if ($dns_verif)
               $hostname=@gethostbyaddr($ip);
            else
-              $hostname="";
+              $hostname='';
            sql_query("INSERT INTO ".$NPDS_Prefix."appli_log (al_id, al_name, al_subid, al_date, al_uid, al_data, al_ip, al_hostname) VALUES ('$al_id', '$al_nom', '$pollID', now(), '$cookie[0]', '$voteID', '$ip', '$hostname')");
            sql_query("UPDATE ".$NPDS_Prefix."poll_data SET optionCount=optionCount+1 WHERE (pollID='$pollID') AND (voteID='$voteID')");
            sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET voters=voters+1 WHERE pollID='$pollID'");
@@ -76,18 +76,19 @@ function pollList() {
    echo '
    <h2>'.translate("Survey").'</h2>
    <div class="row">';
-     $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
-     while($object = sql_fetch_assoc($result)) {
-        $id = $object['pollID'];
-        $pollTitle = $object['pollTitle'];
-        $voters = $object['voters'];
-        $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");
-        list ($sum) = sql_fetch_row($result2);
-        echo '<div class="col-sm-8">'.aff_langue($pollTitle).'</div>';
-        echo '<div class="col-sm-4 text-xs-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
-     }
-     echo '
-     </div>';
+   $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
+   while($object = sql_fetch_assoc($result)) {
+      $id = $object['pollID'];
+      $pollTitle = $object['pollTitle'];
+      $voters = $object['voters'];
+      $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");
+      list ($sum) = sql_fetch_row($result2);
+      echo '
+      <div class="col-sm-8">'.aff_langue($pollTitle).'</div>
+      <div class="col-sm-4 text-xs-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
+   }
+   echo '
+   </div>';
 }
 
 function pollResults($pollID) {
@@ -95,14 +96,16 @@ function pollResults($pollID) {
 
    if (!isset($pollID) OR empty($pollID)) $pollID = 1;
    $result = sql_query("SELECT pollID, pollTitle, timeStamp FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
-   $holdtitle = sql_fetch_row($result);
       list(,$pollTitle) = sql_fetch_row($result);
 
    echo '
-   <h3>'.translate("Results").'</h3>
-   <h4> '.$pollTitle.'</h4>';
+   <h3> '.$pollTitle.'</h3>';
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
+     echo '
+   <h4><span class="label label-default">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>
+
+   ';
      for ($i = 1; $i <= $maxOptions; $i++) {
         $result = sql_query("SELECT optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID') AND (voteID='$i')");
         $object = sql_fetch_assoc($result);
@@ -116,16 +119,17 @@ function pollResults($pollID) {
               $percentInt = 0;
            }
            echo '
-         <div class="row">
-            <div class="col-sm-4">'.aff_langue($optionText).'</div>
-            <div class="col-sm-7">
-               <progress class="progress  progress-striped" value="'.$percentInt.'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;">&nbsp;'.$percentInt.'%</span>
-                  </div>
-               </progress>
+   <div class="row">
+      <div class="col-sm-5">'.aff_langue($optionText).'</div>
+      <div class="col-sm-7">
+         <span class="label label-default text-xs-right">'.wrh($optionCount).'</span>
+         <progress class="progress  progress-striped" value="'.$percentInt.'" max="100" title="'.$percentInt.'%" data-toggle="tooltip">
+            <div class="progress">
+               <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" ></span>
             </div>
-            <div class="col-sm-1">('.wrh($optionCount).')</div></div>';
+         </progress>
+      </div>
+   </div>';
         }
      }
      echo '<br />';
@@ -142,8 +146,8 @@ function pollboxbooth($pollID,$pollClose) {
    if (!isset($url)) $url = sprintf("pollBooth.php?op=results&amp;pollID=%d", $pollID);
    $boxContent = '
    <form action="pollBooth.php" method="post">
-         <input type="hidden" name="pollID" value="'.$pollID.'" />
-         <input type="hidden" name="forwarder" value="'.$url.'" />';
+      <input type="hidden" name="pollID" value="'.$pollID.'" />
+      <input type="hidden" name="forwarder" value="'.$url.'" />';
    $result = sql_query("SELECT pollTitle, voters FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
    list($pollTitle, $voters) = sql_fetch_row($result);
    global $block_title;
@@ -157,15 +161,17 @@ function pollboxbooth($pollID,$pollClose) {
    $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' and optionText<>'') ORDER BY voteID");
    $sum = 0;
    if (!$pollClose) {
+      $boxContent .= '<div class="form-group">         <div class="c-inputs-stacked">
+';
       while($object=sql_fetch_assoc($result)) {
          $boxContent .= '
-         <div class="c-inputs-stacked">
             <label class="c-input c-radio">
                <input type="radio" name="voteID" value="'.$object['voteID'].'" />&nbsp;'.aff_langue($object['optionText']).'
                <span class="c-indicator"></span>
             </label>';
          $sum = $sum + $object['optionCount'];
       }
+      $boxContent .= '</div></div>';
    } else {
       while($object=sql_fetch_assoc($result)) {
          $boxContent .= "&nbsp;".aff_langue($object['optionText'])."<br />\n";
@@ -174,15 +180,10 @@ function pollboxbooth($pollID,$pollClose) {
    }
    if (!$pollClose) {
       $inputvote = '
-      <div class="col-sm-2">
-      <button class="btn btn-primary-outline btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>
-      </div>';
+         <button class="btn btn-primary btn-sm" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i>&nbsp;'.translate("Vote").'</button>';
    }
    $boxContent .= '
-   <br /><div class="row">'.$inputvote.'
-   <div class="col-sm-2"><button class="btn btn-secondary btn-sm btn-block" href="pollBooth.php?op=results&amp;pollID='.$pollID.'" >R&eacute;sultats</button>
-   </div>
-   </div>
+   <div class="form-group ">'.$inputvote.'
    </div>
    </form>';
    $boxContent .= '<ul><li><a href="pollBooth.php">'.translate("Past Surveys").'</a></li>';
@@ -200,7 +201,7 @@ function pollboxbooth($pollID,$pollClose) {
 }
 
 function PollMain_aff($pollID) {
-   $boxContent = '<p align="center"><strong><a href="pollBooth.php">';
+   $boxContent = '<p><strong><a href="pollBooth.php">';
    $boxContent .= translate("Past Surveys").'</a></strong></p>';
    echo $boxContent;
 }
