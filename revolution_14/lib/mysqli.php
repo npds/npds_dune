@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2015 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support - MysqlI                                      */
@@ -121,4 +121,20 @@ $sql_nbREQ=0;
    function sql_close($dblink) {
       return @mysqli_close($dblink);
    }
+   
+   
+   // Meta donnŽes d'un champ
+   function sql_fetch_field_direct ($q_id='',$i) {
+      if (empty($q_id)) {
+        global $query_id;
+        $q_id = $query_id;
+      }
+      return mysqli_fetch_field_direct($q_id,$i);
+   }
+
+   
+   
+   
+   
+   
 ?>
