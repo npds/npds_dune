@@ -248,7 +248,7 @@ if ($submitS) {
    echo '<form class="form" role="form" action="reply.php" method="post" name="coolsus">';
    echo '<div class="form-group">';
 
-   echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'</p>';
+   echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
    if ($forum_access == 0) {
       echo translate("Anonymous users can post new topics and replies in this forum.");
    } else if($forum_access == 1) {
@@ -256,7 +256,7 @@ if ($submitS) {
    } else if($forum_access == 2) {
       echo translate("Only Moderators can post new topics and replies in this forum.");
    }
-   echo '</blockquote>';
+   echo '</p></blockquote>';
 
    $allow_to_reply=false;
    if ($forum_access==0) {
@@ -277,13 +277,11 @@ if ($submitS) {
    settype($citation,'integer');
    if ($allow_to_reply) {
      if ($submitP) {
-        $acc = "reply";
+        $acc = 'reply';
         $message=stripslashes($message);
-     
         include ("preview.php");
-     
      } else {
-        $message="";
+        $message='';
      }
 
    echo '<br />';
@@ -367,21 +365,21 @@ if ($submitS) {
       echo '
       <div class="col-sm-9">
          <div class="checkbox">
-            <label class="">
+            <label class="" for="html">
                <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
             </label>
          </div>';
       }
       if ($user) {
          if ($allow_sig == 1||$sig == "on") {
-            $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
+            $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
             list($attachsig) = sql_fetch_row($asig);
             if ($attachsig == 1) {$s = 'checked="checked"';} else {$s = '';}
             if (($forum_type!="6") and ($forum_type!="5")) {
                echo '
          <div class="checkbox">
             <label class="">
-               <input type="checkbox" name="sig" '.sig.' /> '.translate("Show signature").' :<br /><small><em>'.translate("This can be altered or added in your profile").'</em></small>
+               <input type="checkbox" name="sig" '.$s.' /> '.translate("Show signature").' :<br /><small>'.translate("This can be altered or added in your profile").'</small>
             </label>
          </div>';
            }
@@ -402,7 +400,6 @@ if ($submitS) {
   
      echo "".Q_spambot()."";
      
-     
    echo'
       <div class="btn-group-sm text-xs-center" role="group">
          <input type="hidden" name="forum" value="'.$forum.'" />
@@ -415,34 +412,34 @@ if ($submitS) {
    } else {
      echo '<h3 class="text-danger">'.translate("You are not allowed to reply in this forum").'</h3>';
    }
-   echo '</div></form>';
+   echo '
+   </div>
+   </form>';
    if ($allow_to_reply) {
    
-      echo "<h4>".translate("Topic Review")."</h4>";
-      if ($Mmod) {
-         $post_aff="";
-      } else {
-         $post_aff=" and post_aff='1' ";
-      }
-      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and forum_id='$forum'".$post_aff."ORDER BY post_id DESC limit 0,10";
+      echo '<h4>'.translate("Topic Review").'</h4>';
+      if ($Mmod) $post_aff='';
+      else $post_aff=" AND post_aff='1' ";
+      
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id DESC limit 0,10";
       if (!$result = sql_query($sql))
          forumerror('0001');
       $myrow = sql_fetch_assoc($result);
       $count=0;
       do {
 		echo '<div class="media">
-			<div class="media-left">';         
+			<div class="media-left">';
          $posterdata = get_userdata_from_id($myrow['poster_id']);
          if ($posterdata['uname']!=$anonymous) {
             echo "<p><a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\" class=\"noir\">".$posterdata['uname']."</a>";
          } else {
             echo $posterdata['uname'];
          }
-         echo "</p>";
+         echo '</p>';
          $posts = $posterdata['posts'];
 		 echo '<p>';
          echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
-         echo "</p>";
+         echo '</p>';
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -465,16 +462,10 @@ if ($submitS) {
             echo '<img class="smil" src="'.$imgtmp.'" border="0" alt="" />';
          }
          
-         
-         
-//               echo '&nbsp;&nbsp;<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
 
-         
-         
          echo '&nbsp;&nbsp;<span class="text-muted pull-right small">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>';
 
-//		echo '</p>';
-		 echo '<div class="well">';		
+		 echo '<div class="well">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
             $message = smilie($message);
@@ -491,15 +482,12 @@ if ($submitS) {
             $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
             echo $message."</div>";
          }
- 		echo '</div>';
-
-		echo '<hr />';
-
-		echo '</div>';     
+   echo '</div>';
+   echo '<hr />';
+   echo '</div>';
       
          $count++;
       } while($myrow = sql_fetch_assoc($result));
-   
    }
 }
 include('footer.php');

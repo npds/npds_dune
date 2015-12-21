@@ -1943,7 +1943,7 @@ function Q_spambot() {
    $tmp='
       <div class="form-group">
          <div class="col-sm-9">
-            <label class="control-label">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
+            <label class="control-label text-danger" for="asb_reponse">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
          </div>
          <div class="col-sm-2 col-md-2 text-xs-right">
             <input class="form-control" type="text" name="asb_reponse" onclick="this.value" />
@@ -2217,7 +2217,7 @@ function lnlbox() {
       $boxstuff = '
          <form action="lnl.php" method="get">
             <div class="form-group">
-               <select name="op" class="form-control">
+               <select name="op" class=" c-select form-control">
                   <option value="subscribe">'.translate("Subscribe").'</option>
                   <option value="unsubscribe">'.translate("Unsubscribe").'</option>
                </select>
@@ -2235,7 +2235,7 @@ function lnlbox() {
                </div>
             </div>
          </form>'
-         .adminfoot($fv,'','','0');
+         .adminfoot('fv','','','0');
    themesidebox($title, $boxstuff);
 }
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
@@ -2293,16 +2293,13 @@ function adminblock() {
        $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
        list($title, $content) = sql_fetch_row($result);
        global $block_title;
-       if ($title=="")
-          $title=$block_title;
-       else
-          $title=aff_langue($title);
-//       $content = nl2br(aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content)));
+       if ($title=="") $title=$block_title;
+       else $title=aff_langue($title);
        $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));
        $content .= '
        <ul id="adm_block">
-       '.$bloc_foncts_A.'
-        <li><a href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK">'.translate("Clear Chat DB").'</a></li>
+          '.$bloc_foncts_A.'
+           <li><a href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK">'.translate("Clear Chat DB").'</a></li>
        </ul>
        <ul>
           <li><small class="text-muted"><i class="fa fa-user fa-lg"></i> '.$aid.'</small></li>
@@ -2759,21 +2756,19 @@ function bloc_rubrique() {
 #autodoc espace_groupe() : Bloc du WorkSpace <br />=> syntaxe :
 #autodoc : function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilis&eacute;
 function bloc_espace_groupe($gr, $i_gr) {
-   global $NPDS_Prefix;
-
-   global $block_title;
+   global $NPDS_Prefix, $block_title;
    if ($block_title=="") {
-      $rsql=sql_fetch_assoc(sql_query("select groupe_name from ".$NPDS_Prefix."groupes where groupe_id='$gr'"));
+      $rsql=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
       $title=$rsql['groupe_name'];
    } else
       $title=$block_title;
-
    themesidebox($title, fab_espace_groupe($gr, "0", $i_gr));
 }
+
 function fab_espace_groupe($gr, $t_gr, $i_gr) {
    global $NPDS_Prefix, $chat_info;
 
-   $rsql=sql_fetch_assoc(sql_query("select groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad from ".$NPDS_Prefix."groupes where groupe_id='$gr'"));
+   $rsql=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
 
    $content='<script type="text/javascript">
    //<![CDATA[
@@ -2825,7 +2820,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 
    //=> liste des membres
    $li_mb='';
-   $result = sql_query("select uid, groupe from ".$NPDS_Prefix."users_status where groupe regexp '[[:<:]]".$gr."[[:>:]]' order by uid ASC");
+   $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
    $li_mb.='<li class=" list-group-item li_18"><span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-plus-square-o" ></i></span>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
@@ -2911,7 +2906,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 
       include("modules/wspad/config.php");
 
-      $docs_gr=sql_query("SELECT page, editedby, modtime, ranq from ".$NPDS_Prefix."wspad WHERE (ws_id) IN (SELECT max(ws_id) FROM ".$NPDS_Prefix."wspad WHERE member='$gr' GROUP BY page) ORDER BY page ASC");
+      $docs_gr=sql_query("SELECT page, editedby, modtime, ranq FROM ".$NPDS_Prefix."wspad WHERE (ws_id) IN (SELECT MAX(ws_id) FROM ".$NPDS_Prefix."wspad WHERE member='$gr' GROUP BY page) ORDER BY page ASC");
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
          $lst_doc_tog ='<span class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-plus-square-o" ></i></span>';

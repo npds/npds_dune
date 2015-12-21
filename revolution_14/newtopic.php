@@ -38,11 +38,13 @@ list(,$myrow) = each($rowQ1);
 $forum_name = $myrow['forum_name'];
 $forum_access = $myrow['forum_access'];
 $moderator = get_moderator($myrow['forum_moderator']);
-$moderator=explode(" ",$moderator);
+$moderator=explode(' ',$moderator);
+$moderatorX = get_moderator($myrow['forum_moderator']);
+
 
 if (isset($user)) {
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
+   $userdata = explode(':', $userX);
    $Mmod=false;
    for ($i = 0; $i < count($moderator); $i++) {
        if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
@@ -57,7 +59,7 @@ if ($forum_access== 9) {
    header("Location: forum.php");
 }
 if (!does_exists($forum, "forum")) {
-   forumerror(0030);
+   forumerror('0030');
 }
 // Forum ARBRE
 if ($myrow['arbre'])
@@ -77,20 +79,20 @@ if ($submitS) {
    if (!isset($user)) {
       if ($forum_access == 0) {
          $userdata = array("uid" => 1);
-         $modo="";
+         $modo='';
          include('header.php');
       } else {
          if (($username=="") or ($password=="")) {
             forumerror('0027');
          } else {
-            $result = sql_query("select pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
+            $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
             if (!$system) {
                $passwd=crypt($password,$pass);
             } else {
               $passwd=$password;
             }
-            if ((strcmp($passwd,$pass)==0) and ($pass != "")) {
+            if ((strcmp($passwd,$pass)==0) and ($pass != '')) {
                $userdata = get_userdata($username);
                include('header.php');
             } else {
@@ -108,7 +110,7 @@ if ($submitS) {
       if ($dns_verif)
          $hostname=@gethostbyaddr($poster_ip);
       else
-         $hostname="";
+         $hostname='';
 
      // anti flood
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
@@ -153,21 +155,21 @@ if ($submitS) {
       } else {
          $sql .= ", '0'";
       }
-      $sql .= ")";
+      $sql .= ')';
       if(!$result = sql_query($sql)) {
-         forumerror(0020);
+         forumerror('0020');
       }
       $topic_id = sql_last_id();
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('$topic_id', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql)) {
-         forumerror(0020);
+         forumerror('0020');
       } else {
          $IdPost=sql_last_id();
       }
       $sql = "UPDATE ".$NPDS_Prefix."users_status SET posts=posts+1 WHERE (uid='".$userdata['uid']."')";
       $result = sql_query($sql);
       if (!$result) {
-         forumerror(0029);
+         forumerror('0029');
       }
       $topic = $topic_id;
       global $subscribe;
@@ -180,41 +182,63 @@ if ($submitS) {
       }
       redirect_url($hrefX."?forum=$forum&topic=$topic");
    } else {
-      echo '<p class=" lead text-xs-center text-danger">'.translate("You must provide subject and message to post your topic.").'</p>';
+      echo '
+      <div class="alert alert-danger lead" role="alert">
+         <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
+         '.translate("You must provide subject and message to post your topic.").'
+      </div>';
    }
 } else {
    include('header.php');
-   if ($allow_bbcode) {
-      include("lib/formhelp.java.php");
-   }
-   echo '<h3>'.translate("Moderated By: ").'';
-   for ($i = 0; $i < count($moderator); $i++) {
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'">'.$moderator[$i].'</a></h3>';
-   }
-   echo '<strong>'.translate("Post New Topic in:").'</strong>';
-   echo '&nbsp;<a href="viewforum.php?forum='.$forum.'">'.$forum_name.'</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
-   echo '<a href="forum.php">'.translate("Forum Index").'</a>';
-   echo '<br />'; 
-   if ($forum_access == 0) {
-      echo '<span class="text-warning">'.translate("Anonymous users can post new topics and replies in this forum.").'</span>';
-   } else if($forum_access == 1) {
-      echo '<span class="text-warning">'.translate("All registered users can post new topics and replies to this forum.").'</span>';
-   } else if($forum_access == 2) {
-      echo '<span class="text-warning">'.translate("Only Moderators can post new topics and replies in this forum.").'</span>';
-   }  
+   if ($allow_bbcode) include("lib/formhelp.java.php");
    echo '
-		<form class="form" role="form" action="newtopic.php" method="post" name="coolsus">';
-   echo '<div class="form-group">';
+   <p class="lead">
+      <a href="forum.php" >'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;<a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>
+   </p>
+      <div class="card">
+         <div class="card-block-small">
+         '.translate("Moderated By: ");
+   $moderator_data=explode(' ',$moderatorX);
+   for ($i = 0; $i < count($moderator_data); $i++) {
+      $modera = get_userdata($moderator_data[$i]);
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],"users_private")) {
+            $imgtmp=$modera['user_avatar'];
+         } else {
+            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+         }
+      }
+            echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      }
+   echo '
+         </div>
+      </div>';
+
+   echo '<h4>'.translate("Post New Topic in:").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>';
+
+   echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
+   if ($forum_access == 0) {
+      echo translate("Anonymous users can post new topics and replies in this forum.");
+   } else if($forum_access == 1) {
+      echo translate("All registered users can post new topics and replies to this forum.");
+   } else if($forum_access == 2) {
+      echo translate("Only Moderators can post new topics and replies in this forum.");
+   }
+   echo '</p></blockquote>';
+
+   echo '
+   <form id="new_top" class="" role="form" action="newtopic.php" method="post" name="coolsus">
+   <div class="form-group">';
 
    echo '<br />';
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
+   $userdata = explode(':', $userX);
    if ($forum_access == 1) {
       if (!isset($user)) {
       echo '
          <fieldset>
             <div class="form-group row">
-               <label class="control-label col-sm-2" for="aid">'.translate("Nickname: ").'</label>
+               <label class="control-label col-sm-2" for="username">'.translate("Nickname: ").'</label>
                <div class="col-sm-8 col-md-4">
                   <input class="form-control" type="text" name="username" placeholder="'.translate("Nickname").'" required="required" value="'.$username.'" />
                </div>
@@ -244,25 +268,25 @@ if ($submitS) {
    settype($submitP,'string');
    if ($allow_to_post) {
       if ($submitP) {
-         $acc = "newtopic";
+         $acc = 'newtopic';
          $subject=stripslashes($subject);
          $message=stripslashes($message);
          if (isset($username))
             $username=stripslashes($username);
          else
-            $username="";
+            $username='';
          if (isset($password))
             $password=stripslashes($password);
          else
-            $password="";
+            $password='';
          include ("preview.php");
       } else {
-        $username="";
-        $password="";
-        $subject="";
-        $message="";
+        $username='';
+        $password='';
+        $subject='';
+        $message='';
       }
-      echo "";
+      echo '';
       if ($myrow['forum_type']==8) {
          $formulaire=$myrow['forum_pass'];
          include ("modules/sform/forum/forum_extender.php");
@@ -270,7 +294,7 @@ if ($submitS) {
       echo ' 
          <div class="form-group row">
             <div class="col-sm-3">
-               <label class="form-control-label" for="subject">'.translate("Subject: ").'</label>
+               <label class="form-control-label" for="subject">'.translate("Subject").'</label>
             </div>
             <div class="col-sm-9">
                <input class="form-control" type="text" name="subject" placeholder="'.translate("Subject").'" required="required" value="'.$subject.'" />
@@ -293,8 +317,7 @@ if ($submitS) {
             <div class="form-group row">
                <div class="col-sm-3">
                   <label class="form-control-label" for="message">'.translate("Message: ").'</label>
-               </div>
-         ';
+               </div>';
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';		
    echo '
@@ -316,9 +339,7 @@ if ($submitS) {
                </div>
             </div>
          </div>
-      </div>';
-
-         echo '
+      </div>
       <div class="form-group row">
          <div class="col-sm-3">
             <label class="form-control-label">'.translate("Options: ").'</label>
@@ -385,7 +406,7 @@ if ($submitS) {
 
 		echo ''.Q_spambot().'';
 
-		echo'	
+		echo'
 			<fieldset>
 			<div class="btn-group-sm text-xs-center" role="group">
 				<input type="hidden" name="forum" value="'.$forum.'" />
@@ -394,12 +415,11 @@ if ($submitS) {
 				<input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
 				<input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
 			</div>
-			</fieldset>			
-			';
+			</fieldset>';
       }
    }
    echo '
-		</form>';
+      </form>';
 }
 include('footer.php');
 ?>

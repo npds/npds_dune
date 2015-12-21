@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2015 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
@@ -16,7 +16,7 @@
 
 function get_total_topics($forum_id) {
    global $NPDS_Prefix;
-   $sql = "SELECT count(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'";
+   $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'";
    if (!$result = sql_query($sql))
       return("ERROR");
    if (!$myrow = sql_fetch_assoc($result))
@@ -28,7 +28,7 @@ function get_total_topics($forum_id) {
 
 function get_total_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
-   $sql = "SELECT count(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' and forum_id='$fid'";
+   $sql = "SELECT count(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'";
    if (!$result = sql_query($sql))
       return("ERROR");
    if (!$myrow = sql_fetch_assoc($result))
@@ -40,7 +40,7 @@ function get_total_contributeurs($fid, $tid) {
 
 function get_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
-   $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' and forum_id='$fid'",2);
+   $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'",2);
    $myrow['poster_id']="";
    while(list(,$poster_id) = each($rowQ1)) {
       $myrow['poster_id'].= $poster_id['poster_id']." ";
@@ -48,22 +48,20 @@ function get_contributeurs($fid, $tid) {
    return(chop($myrow['poster_id']));
 }
 
-
-
 function get_total_posts($fid, $tid, $type, $Mmod) {
    global $NPDS_Prefix;
    if ($Mmod) {
-      $post_aff="";
+      $post_aff='';
    } else {
-      $post_aff=" and post_aff='1'";
+      $post_aff=" AND post_aff='1'";
    }
    switch($type) {
       case 'forum':
-           $sql = "SELECT count(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$fid'$post_aff";
+           $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$fid'$post_aff";
            break;
 
       case 'topic':
-           $sql = "SELECT count(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' and forum_id='$fid' $post_aff";
+           $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid' $post_aff";
            break;
 
       case 'user':
@@ -96,12 +94,12 @@ function get_last_post($id, $type, $cmd, $Mmod) {
    if (!$result = sql_query($sql1))
       return("ERROR");
 
-   if ($cmd=="infos") {
+   if ($cmd=='infos') {
       if (!$myrow = sql_fetch_row($result)) {
          $val=translate("No posts");
       } else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
-         $val=convertdate($myrow[0])."<br /><a href=\"user.php?op=userinfo&amp;uname=".$rowQ1[0]['uname']."\" style=\"font-size: 10px;\">".$rowQ1[0]['uname']."</a>";
+         $val=convertdate($myrow[0]).'<br /><a href="user.php?op=userinfo&amp;uname='.$rowQ1[0]['uname'].'" class="small">'.$rowQ1[0]['uname'].'</a>';
       }
    }
    sql_free_result($result);
@@ -153,8 +151,8 @@ function get_moderator($user_id) {
 
 function user_is_moderator($uidX,$passwordX,$forum_accessX) {
    global $NPDS_Prefix;
-   $result1=sql_query("SELECT pass FROM ".$NPDS_Prefix."users where uid = '$uidX'");
-   $result2=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status where uid = '$uidX'");
+   $result1=sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uid = '$uidX'");
+   $result2=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid = '$uidX'");
    $userX=sql_fetch_assoc($result1);
    $password = $userX['pass'];
    $userX=sql_fetch_assoc($result2);
@@ -354,37 +352,22 @@ function putitems() {
 }
 
 function HTML_Add() {
-   $affich = '<div>'
-          .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul"></i></a>&nbsp;'
+   $affich = '
+         <div>'
+         .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify"></i></a>&nbsp;'
+         .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul"></i></a>&nbsp;'
          .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol"></i></a>&nbsp;'
-          .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link"></i></a>&nbsp;'
-
-//          ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'lignb\'&gt;&lt;tr&gt;&lt;td&gt;',' ... &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;');\"><img src=\"images/editor_images/med_table.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
+         .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link"></i></a>&nbsp;'
          ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><i class=\"fa fa-table\"></i></a>&nbsp;"
-      //    ."<a href=\"javascript: addText('[code]','[/code]');\"><img src=\"images/editor_images/med_code.gif\" border=\"0\" alt=\"\" width=\"18\" height=\"18\" /></a>&nbsp;"
-//          ."<a href=\"javascript: addText('&lt;pre&gt;&lt;code&gt;[code]','[/code]&lt;/code&gt;&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
-//          ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
-          ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
-
-//          ."<a href=\"javascript: addText('[code]','[/code]');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
-
-//          ."<a href=\"javascript: addText('[video_yt]','[/video_yt]');\"><img src=\"images/editor_images/youtube.gif\" border=\"0\" alt=\"youtube\" title=\"ID youtube : [video_yt]_pnVFFgzlqc[/video_yt]\" width=\"18\" height=\"18\" /></a>&nbsp;"
-          .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;</div>';
-/*
-   global $allow_bbcode;
-   if ($allow_bbcode) {
-      if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
-      if (file_exists($imgtmp."smilies.php"))
-         $affich.="<hr noshade=\"noshade\" class=\"ongl\" /><img src=\"$imgtmp/more.gif\" />&nbsp;<a href=\"javascript:void(0);\" onclick=\"window.open('more_emoticon.php','EMOTICON','menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes');\">".translate("More smilies")."</a>";
-   }
-   */
+         ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
+         .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;
+          </div>';
    return($affich);
 }
 
@@ -418,7 +401,6 @@ function emotion_add($image_subject) {
 function make_clickable($text) {
    $ret='';
    $ret = preg_replace('#(^|\s)(http|https|ftp|sftp)(://)([^\s]*)#i',' <a href="$2$3$4" target="_blank" class="noir">$2$3$4</a>',$text);
-//   $ret = preg_replace('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#ei','preg_anti_spam("$1")',$ret);
    $ret = preg_replace_callback('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#i',function (&$r) {return preg_anti_spam($r[1]);},$ret);//php7
    return($ret);
 }
@@ -432,34 +414,20 @@ function undo_htmlspecialchars($input) {
 }
 
 function searchblock() {
-/*   $ibid='
-   <form id="searchblock" action="searchbb.php" method="post" name="forum_search">
-      <input type="hidden" name="addterm" value="any" />
-      <input type="hidden" name="sortby" value="0" />';
-   $ibid.='<b>'.translate('Search').'</b>&nbsp;&nbsp;
-   <input class="form-control" type="text" name="term" size="50" />&nbsp;&nbsp;
-   <button class="btn btn-primary" type="submit" name="submit" >'.translate("Submit").'</button>
-   </form>';
-*/   
-$ibid='
-<nav class="navbar navbar-light bg-faded">
-
-<form class="form-inline pull-xs-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
-   <input type="hidden" name="addterm" value="any" />
-   <input type="hidden" name="sortby" value="0" />
-   <div class="form-group">
-    <label class="sr-only" for="term">'.translate('Search').'</label>
-      <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
-  </div>
-  <button type="submit" class="btn btn-primary-outline">'.translate("Submit").'</button>
-</form>
-</nav>';
-   
+   $ibid='
+   <nav class="navbar navbar-light bg-faded">
+      <form class="form-inline pull-xs-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
+         <input type="hidden" name="addterm" value="any" />
+         <input type="hidden" name="sortby" value="0" />
+         <div class="form-group">
+            <label class="sr-only" for="term">'.translate('Search').'</label>
+            <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
+         </div>
+         <button type="submit" class="btn btn-primary-outline">'.translate("Submit").'</button>
+      </form>
+   </nav>';
    return ($ibid);
 }
-
-
-
 
 
 /*
@@ -509,7 +477,7 @@ function member_qualif($poster, $posts, $rank) {
 
       if ($rank) {
          if ($ibid=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibid;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
-         $rank="rank".$rank;
+         $rank='rank'.$rank;
          global $$rank;
          $tmp.="<br /><img src=\"".$imgtmpA."\" border=\"\" alt=\"\" />&nbsp;".aff_langue($$rank);
       }
@@ -639,8 +607,8 @@ function control_efface_post($apli,$post_id,$topic_id,$IdForum) {
    global $upload_table;
    global $NPDS_Prefix;
    include ("modules/upload/include_forum/upload.conf.forum.php");
-   $sql1= "SELECT att_id, att_name, att_path from ".$NPDS_Prefix."$upload_table WHERE apli='$apli' and";
-   $sql2= "DELETE FROM ".$NPDS_Prefix."$upload_table WHERE apli='$apli' and";
+   $sql1= "SELECT att_id, att_name, att_path from ".$NPDS_Prefix."$upload_table WHERE apli='$apli' AND";
+   $sql2= "DELETE FROM ".$NPDS_Prefix."$upload_table WHERE apli='$apli' AND";
    if ($IdForum!='') {
       $sql1.=" forum_id = '$IdForum'";
       $sql2.=" forum_id = '$IdForum'";
@@ -662,7 +630,7 @@ function control_efface_post($apli,$post_id,$topic_id,$IdForum) {
 function autorize() {
    global $apli,$IdPost,$IdTopic,$IdForum,$user;
    global $NPDS_Prefix;
-   list($poster_id)= sql_fetch_row(sql_query("SELECT poster_id FROM ".$NPDS_Prefix."posts WHERE post_id='$IdPost' and topic_id='$IdTopic'"));
+   list($poster_id)= sql_fetch_row(sql_query("SELECT poster_id FROM ".$NPDS_Prefix."posts WHERE post_id='$IdPost' AND topic_id='$IdTopic'"));
    $Mmod=false;
    if ($poster_id) {
       $myrow = sql_fetch_assoc(sql_query("SELECT forum_moderator FROM ".$NPDS_Prefix."forums WHERE (forum_id='$IdForum')"));
@@ -692,7 +660,7 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
    if (!array_key_exists('uname',$userdataX)) $compte=$anonymous; else $compte=$userdataX['uname'];
 
    if ((!$modoX) AND ($paramAFX>0)) {
-      $sql="SELECT count(poster_ip) as total FROM ".$NPDS_Prefix."posts WHERE post_time>'";
+      $sql="SELECT COUNT(poster_ip) AS total FROM ".$NPDS_Prefix."posts WHERE post_time>'";
       if ($userdataX['uid']!=1)
          $sql2="' AND (poster_ip='$poster_ipX' OR poster_id='".$userdataX['uid']."')";
       else
@@ -715,12 +683,11 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
 }
 
 function forum($rowQ1) {
-   global $user, $subscribe, $theme;
-   global $NPDS_Prefix;
+   global $user, $subscribe, $theme, $NPDS_Prefix;
 
    if ($user) {
       $userX = base64_decode($user);
-      $userR = explode(":", $userX);
+      $userR = explode(':', $userX);
       $tab_groupe=valid_group($user);
    }
 
@@ -730,11 +697,11 @@ function forum($rowQ1) {
    ." onmouseout=\"this.className='ligna';\"";
 
    // preparation de la gestion des folders
-   $result = sql_query("SELECT forum_id, count(topic_id) AS total FROM ".$NPDS_Prefix."forumtopics GROUP BY (forum_id)");
+   $result = sql_query("SELECT forum_id, COUNT(topic_id) AS total FROM ".$NPDS_Prefix."forumtopics GROUP BY (forum_id)");
    while (list($forumid, $total)=sql_fetch_row($result)) {
       $tab_folder[$forumid][0]=$total; // Topic
    }
-   $result = sql_query("SELECT forum_id, count(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' and topicid>'0' and status!='0' GROUP BY (forum_id)");
+   $result = sql_query("SELECT forum_id, COUNT(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' AND topicid>'0' AND status!='0' GROUP BY (forum_id)");
    while (list($forumid, $total)=sql_fetch_row($result)) {
       $tab_folder[$forumid][1]=$total; // Folder
    }
@@ -744,21 +711,21 @@ function forum($rowQ1) {
       $tab_subscribe[$forumid]=true;
    }
    // preparation du compteur total_post
-   $rowQ0=Q_Select ("SELECT forum_id, count(post_aff) AS total FROM ".$NPDS_Prefix."posts GROUP BY forum_id", 600);
+   $rowQ0=Q_Select ("SELECT forum_id, COUNT(post_aff) AS total FROM ".$NPDS_Prefix."posts GROUP BY forum_id", 600);
    while (list(,$row0)=each($rowQ0)) {
       $tab_total_post[$row0['forum_id']]=$row0['total'];
    }
 
    if (($subscribe) and ($user)) {
-      $colspanX=8;
-   } else {
       $colspanX=7;
+   } else {
+      $colspanX=6;
    }
-   $ibid="";
+   $ibid='';
    if ($rowQ1) {
       while (list(,$row) = each($rowQ1)) {
          $title_aff=true;
-         $rowQ2=Q_Select ("SELECT * FROM ".$NPDS_Prefix."forums WHERE cat_id = '".$row['cat_id']."' and SUBSTRING(forum_name,1,3)!='<!>' ORDER BY forum_index,forum_id", 21600);
+         $rowQ2=Q_Select ("SELECT * FROM ".$NPDS_Prefix."forums WHERE cat_id = '".$row['cat_id']."' AND SUBSTRING(forum_name,1,3)!='<!>' ORDER BY forum_index,forum_id", 21600);
          if ($rowQ2) {
             while(list(,$myrow) = each($rowQ2)) {
                // Gestion des Forums Cachés aux non-membres
@@ -772,10 +739,16 @@ function forum($rowQ1) {
                   if ($ok_affich) {
                      if ($title_aff) {
                         $title = stripslashes($row['cat_title']);
-                        if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html"))) {		
-                           $ibid.="<tr valign=\"top\"><td colspan=\"$colspanX\" class=\"lignb\"><a href=\"forum.php?catid=".$row['cat_id']."\">$title</a></td></tr>";
+                        if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html"))) {
+                           $ibid.='
+         <tr valign="top">
+            <td colspan="'.$colspanX.'" class="lignb"><a href="forum.php?catid='.$row['cat_id'].'">'.$title.'</a></td>
+         </tr>';
                         } else {
-                           $ibid.="<tr valign=\"top\"><td colspan=\"$colspanX\" class=\"lignb\">$title</td></tr>";
+                           $ibid.='
+         <tr valign="top">
+            <td colspan="'.$colspanX.'" class="lignb">'.$title.'</td>
+         </tr>';
                         }
                         $title_aff=false;
                      }
@@ -786,43 +759,54 @@ function forum($rowQ1) {
                      }
 
                      $last_post = get_last_post($myrow['forum_id'], "forum","infos",$Mmod);
-                     $ibid.="<tr align=\"left\" valign=\"top\">";
+                     $ibid.='
+         <tr align="left" valign="top">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)  {
-                        $ibid.="<td class=\"lignb\" align=\"center\" valign=\"middle\" width=\"5%\"><img src=\"$imgtmpR\" border=\"\" alt=\"\" /></td>";
+                        $ibid.='
+            <td class="lignb" align="center" valign="middle" width="5%"><img src="'.$imgtmpR.'" border="" alt="" /></td>';
                      } else {
-                        $ibid.="<td class=\"lignb\" align=\"center\" valign=\"middle\" width=\"5%\"><img src=\"$imgtmp\" border=\"\" alt=\"\" /></td>";
+                        $ibid.='
+            <td class="lignb" align="center" valign="middle" width="5%"><img src="'.$imgtmp.'" border="" alt="" /></td>';
                      }
                      $name = stripslashes($myrow['forum_name']);
                      $redirect=false;
                      if (strstr(strtoupper($name),"<a HREF")) {
-                        if ($colspanX==8)
-                           $ibid.="<td width=\"40%\" class=\"ligna\" $linked>$name";
+                        if ($colspanX==7)
+                           $ibid.='
+            <td width="40%" class="ligna" '.$linked.'>'.$name;
                         else
-                           $ibid.="<td width=\"45%\" class=\"ligna\" $linked>$name";
+                           $ibid.='
+            <td width="45%" class="ligna" '.$linked.'>'.$name;
                         $redirect=true;
                      } else {
-                        if ($colspanX==8)
-                           $ibid.="<td width=\"40%\" class=\"ligna\" $linked onclick=\"window.location.href='viewforum.php?forum=".$myrow['forum_id']."'\"><a href=\"viewforum.php?forum=".$myrow['forum_id']."\" class=\"noir\">$name</a>";
+                        if ($colspanX==7)
+                           $ibid.='
+            <td width="40%" class="ligna" '.$linked.' onclick=\'window.location.href="viewforum.php?forum='.$myrow['forum_id'].'"\'><a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
                         else
-                           $ibid.="<td width=\"45%\" class=\"ligna\" $linked onclick=\"window.location.href='viewforum.php?forum=".$myrow['forum_id']."'\"><a href=\"viewforum.php?forum=".$myrow['forum_id']."\" class=\"noir\">$name</a>";
+                           $ibid.='
+            <td width="45%" class="ligna" '.$linked.' onclick=\'window.location.href="viewforum.php?forum='.$myrow['forum_id'].'"\'><a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
                      }
                      $desc = stripslashes(meta_lang($myrow['forum_desc']));
-                     $ibid.="<br />$desc</td>";
+                     $ibid.='<br />'.$desc.'</td>';
 
-                     // Subcribe
+                     // Subscribe
                      if (($subscribe) and ($user)) {
                         if (!$redirect) {
                            if ($tab_subscribe[$myrow['forum_id']]) {
-                              $ibid.="<td class=\"lignb\" width=\"5%\" align=\"center\" valign=\"middle\"><input type=\"checkbox\" name=\"Subforumid[".$myrow['forum_id']."]\" checked=\"checked\" /></td>";
+                              $ibid.='
+            <td class="lignb" width="5%" align="center" valign="middle"><input type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" /></td>';
                            } else {
-                              $ibid.="<td class=\"lignb\" width=\"5%\" align=\"center\" valign=\"middle\"><input type=\"checkbox\" name=\"Subforumid[".$myrow['forum_id']."]\" /></td>";
+                              $ibid.='
+            <td class="lignb" width="5%" align="center" valign="middle"><input type="checkbox" name="Subforumid['.$myrow['forum_id'].']" /></td>';
                            }
                         } else {
-                           $ibid.="<td class=\"lignb\" width=\"5%\" align=\"center\" valign=\"middle\">&nbsp;</td>";
+                           $ibid.='
+            <td class="lignb" width="5%" align="center" valign="middle">&nbsp;</td>';
                         }
                      }
                      if (!$redirect) {
-                        $ibid.="<td width=\"15%\" align=\"center\" valign=\"middle\" class=\"ligna\">";
+                        $ibid.='
+            <td width="15%" align="center" valign="middle" class="ligna">';
                         if ($myrow['forum_access']=="0" && $myrow['forum_type']=="0")
                         $ibid.=translate("Free for All");
                         if ($myrow['forum_type'] == "1")
@@ -842,17 +826,19 @@ function forum($rowQ1) {
                         if ($myrow['forum_access']=="2" && $myrow['forum_type'] == "0")
                            $ibid.=translate("Moderator");
                         if ($myrow['forum_access']=="9")
-                           $ibid.=" <b>".translate("Closed")."</b>";
-                        $ibid.="</td>";
-                        $ibid.="<td width=\"10%\" align=\"center\" valign=\"middle\" class=\"lignb\">".$tab_folder[$myrow['forum_id']][0]."</td>";
-                        $ibid.="<td width=\"10%\" align=\"center\" valign=\"middle\" class=\"ligna\">".$tab_total_post[$myrow['forum_id']]."</td>";
-                        $ibid.="<td width=\"15%\" align=\"center\" valign=\"middle\" class=\"lignb\">$last_post</td>";
-                        $ibid.="</tr>";
+                           $ibid.=' <strong>'.translate("Closed").'</strong>';
+                        $ibid.='</td>
+            <td width="10%" align="center" valign="middle" class="lignb">'.$tab_folder[$myrow['forum_id']][0].'</td>
+            <td width="10%" align="center" valign="middle" class="ligna">'.$tab_total_post[$myrow['forum_id']].'</td>
+            <td width="15%" align="center" valign="middle" class="lignb">'.$last_post.'</td>
+         </tr>';
                      } else {
-                        $ibid.="<td width=\"15%\" align=\"center\" valign=\"middle\" class=\"ligna\">&nbsp;</td>";
-                        $ibid.="<td width=\"10%\" align=\"center\" valign=\"middle\" class=\"lignb\">&nbsp;</td>";
-                        $ibid.="<td width=\"10%\" align=\"center\" valign=\"middle\" class=\"ligna\">&nbsp;</td>";
-                        $ibid.="<td width=\"15%\" align=\"center\" valign=\"middle\" class=\"ligna\">&nbsp;</td></tr>";
+                        $ibid.='
+            <td width="15%" align="center" valign="middle" class="ligna">&nbsp;</td>
+            <td width="10%" align="center" valign="middle" class="lignb">&nbsp;</td>
+            <td width="10%" align="center" valign="middle" class="ligna">&nbsp;</td>
+            <td width="15%" align="center" valign="middle" class="ligna">&nbsp;</td>
+         </tr>';
                      }
                   }
                }
@@ -869,22 +855,22 @@ function sub_forum_folder($forum) {
 
    if ($user) {
       $userX = base64_decode($user);
-      $userR = explode(":", $userX);
+      $userR = explode(':', $userX);
    }
 
-   $result = sql_query("SELECT count(topic_id) AS total FROM ".$NPDS_Prefix."forumtopics where forum_id='$forum'");
+   $result = sql_query("SELECT COUNT(topic_id) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum'");
    list($totalT)=sql_fetch_row($result);
 
-   $result = sql_query("SELECT count(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' and topicid>'0' and status!='0' and forum_id='$forum'");
+   $result = sql_query("SELECT COUNT(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' AND topicid>'0' AND status!='0' AND forum_id='$forum'");
    list($totalF)=sql_fetch_row($result);
 
    if ($ibid=theme_image("forum/icons/red_sub_folder.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/red_sub_folder.gif";}
    if ($ibid=theme_image("forum/icons/sub_folder.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/sub_folder.gif";}
 
    if (($totalT-$totalF)>0)  {
-      $ibid="<img src=\"$imgtmpR\" border=\"\" alt=\"\" />";
+      $ibid='<img src="'.$imgtmpR.'" alt="" />';
    } else {
-      $ibid="<img src=\"$imgtmp\" border=\"\" alt=\"\" />";
+      $ibid='<img src="'.$imgtmp.'" alt="" />';
    }
    return ($ibid);
 }
