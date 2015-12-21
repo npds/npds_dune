@@ -48,7 +48,7 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
    $entete_adm ='<div id="adm_workarea" class="adm_workarea">'."\n".'   <h2><a '.$furlscript.' >'.$img_adm.'&nbsp;'.$f_titre.'</a></h2>';
    echo $entete_adm;
 }
-
+/*
 function adminfieldinp($result) {
    $fields = mysql_num_fields($result);
    $idle = array();
@@ -69,6 +69,35 @@ function adminfieldinp($result) {
    //]]>
    </script>';
 }
+*/
+
+function adminfieldinp($result) {};
+
+/*
+function adminfieldinp($result) {
+   $fields = sql_num_fields($result);
+   $idle = array();
+   for ($i=0; $i < $fields; $i++) {
+   $field_info = sql_fetch_field_direct($result, $i);
+//      if ($field_info->type == 'string') {
+         $idle[$field_info->name] = $field_info->length;
+//      }
+   }
+   echo '
+   <script type="text/javascript">
+   //<![CDATA[
+   ';
+   foreach ($idle as $k=>$v) {
+   echo $fields;
+      echo '
+      inpandfieldlen("'.$k.'",'.$v.')';
+   }
+   echo '
+   //]]>
+   </script>';
+}
+*/
+
 
 $filemanager=false;
 if (file_exists("filemanager.conf")) {
