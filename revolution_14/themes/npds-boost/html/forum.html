@@ -1,15 +1,19 @@
 <h2>Travaux Revolution 15</h2>
    forum_subscribeON() 
-   <table width="100%" cellspacing="1" cellpadding="2" border="0">
-   <tr>
-   <td colspan="2" width="45%">&nbsp;</td>
-   forum_bouton_subscribe() 
-   <td align="center" width="15%" class="header" style="text-align: center;">[transl]Type[/transl]</td>
-   <td align="center" width="10%" class="header" style="text-align: center;">[transl]Topics[/transl]</td>
-   <td align="center" width="5%" class="header" style="text-align: center;">[english]NB[/english][french]NB[/french]</td>
-   <td align="center" width="15%" class="header" style="text-align: center;">[transl]Last Posts[/transl]</td>
-   </tr>
-   forum_all()  
+   <table id="lesforums" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <thead>
+         <tr>
+            <th data-valign="middle" colspan="2" width="45%">&nbsp;</th>
+            forum_bouton_subscribe() 
+            <th data-valign="middle" align="center" width="15%" style="text-align: center;">[transl]Type[/transl]</th>
+            <th data-valign="middle" align="center" width="10%" style="text-align: center;">[transl]Topics[/transl]</th>
+            <th data-valign="middle" align="center" width="5%" style="text-align: center;">[english]NB[/english][french]NB[/french]</th>
+            <th data-valign="middle" align="center" width="15%" style="text-align: center;">[transl]Last Posts[/transl]</th>
+         </tr>
+      </thead>
+      <tbody>
+         forum_all()
+      </tbody>
    </table>
    forum_subscribeOFF()
 <br />
