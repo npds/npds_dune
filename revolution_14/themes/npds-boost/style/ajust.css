@@ -4,30 +4,49 @@
 /* dès que son chargement se fera en dernière position                  */
 /* après celle des frameworks  ==> dev                                  */
 
-/* oublié dans la css BS4 remplacer par img-fluid */ 
-/* 
-
-.img-responsive {
-max-width: 100%;
-height: auto;
+/* ==> adaptation menu */
+nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {
+padding-top: 0.1rem;
+padding-bottom: 0.1rem;
+}
+ul.nav.navbar-nav {
+line-height: 2.5rem;
+}
+a.navbar-brand {
+padding-top: 0.75rem;
+padding-bottom: 0.75rem;
+}
+@media (max-width: 34em) {
+   ul.nav.navbar-nav {
+   line-height: 1.5rem;
+   }
+   a.navbar-brand {
+   padding-top: 0.25rem;
+   padding-bottom: 0.25rem;
+   }
+   .navbar-toggler {float:left;}
+   .navbar-nav .nav-item {
+   clear: left;
+   margin-left: 1rem;
+   }
+   .navbar-divider {display:none;}
 }
 
- */
-/* adaptation menu */
 .dropdown-menu {
-/* 
-margin: 7px 0 0;
- */
 color: #eceeef;
 background-color: #373a3c;
 }
 .dropdown-item {
 color: #eceeef;
 }
-
 .dropdown:hover .dropdown-menu {
     display: block;
+    margin-top: 0;
 }
+ul.dropdown-menu {
+margin-top: 0;
+}
+/* <== adaptation menu */
 
 /* forum deco des cadres */
 .card.fo:after, .card.fo:before {
@@ -83,27 +102,13 @@ margin-top: 7px;
 margin-bottom: 0px;
 }
 
-
 @media (max-width: 48em) {
   #col_princ.col-sm-9,#col_princ.col-sm-6,#col_LB.col-sm-3,#col_RB.col-sm-3 {
     width:100%;
   }
-  
-  
-  
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
-/* <== navbar petit ecran */
-@media (max-width: 34em) {
-   .navbar-toggler {float:left;}
-   .navbar-nav .nav-item {
-   clear: left;
-   margin-left: 1rem;
-   }
-   .navbar-divider {display:none;}
-}
-/* <== navbar petit ecran */
 
 #col_LB ul, #col_RB ul{
 list-style: none;
