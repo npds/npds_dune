@@ -128,7 +128,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          </div>
       </form>';
 	} 
-	elseif (($Forum_passwd == $myrow['forum_pass'])) {
+   elseif (($Forum_passwd == $myrow['forum_pass'])) {
    if (($myrow['forum_type']== 9) and (!$user)) { header("location: forum.php"); }
    $title=$forum_name;
    include('header.php');
@@ -139,24 +139,24 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
 
    if ($user) {
       $userX = base64_decode($user);
-      $userR = explode(":", $userX);
+      $userR = explode(':', $userX);
    }
 
    echo '
       <div class="card">
          <div class="card-block-small">
-         '.translate("Moderated By: ").'';
+         '.translate("Moderated By: ");
    $Mmod=false;
-   $moderator_data=explode(" ",$moderator);
+   $moderator_data=explode(' ',$moderator);
    for ($i = 0; $i < count($moderator_data); $i++) {
       $modera = get_userdata($moderator_data[$i]);
-         if ($modera['user_avatar'] != '') {
-            if (stristr($modera['user_avatar'],"users_private")) {
-               $imgtmp=$modera['user_avatar'];
-            } else {
-               if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-            }
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],"users_private")) {
+            $imgtmp=$modera['user_avatar'];
+         } else {
+            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
+      }
       if ($user)
          if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
@@ -305,7 +305,8 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       sql_free_result($result);
    } else {
       if ($forum_access!=9)
-         echo '<td colspan="7">'.translate("There are no topics for this forum. ")."<br /><a href=\"newtopic.php?forum=$forum\" >".translate("You can post one here.")."</a></td></tr>";
+         echo '
+         <td colspan="7"><span class="text-danger">'.translate("There are no topics for this forum. ").'</span><br /><a href="newtopic.php?forum='.$forum.'" >'.translate("You can post one here.").'</a></td></tr>';
    }
    echo '
          </tbody>
@@ -354,13 +355,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    echo searchblock();
    echo '<br />
    <blockquote class="blockquote">
-   <i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'<br />
-   <i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-   <i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'<br />
-   <i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-   <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
-   </blockquote>
-   ';
+      <i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'<br />
+      <i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+      <i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'<br />
+      <i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+      <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
+   </blockquote>';
    if ($SuperCache) {
       $cache_clef="forum-jump-to";
       $CACHE_TIMINGS[$cache_clef]=3600;
