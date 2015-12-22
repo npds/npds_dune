@@ -16,6 +16,7 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
 include("powerpack_f.php");
+
 global $powerpack; $powerpack=true;
 
 settype($op,'string');
