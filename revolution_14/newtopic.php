@@ -228,7 +228,7 @@ if ($submitS) {
 
    echo '
    <form id="new_top" class="" role="form" action="newtopic.php" method="post" name="coolsus">
-   <div class="form-group">';
+   ';
 
    echo '<br />';
    $userX = base64_decode($user);
@@ -319,7 +319,7 @@ if ($submitS) {
                   <label class="form-control-label" for="message">'.translate("Message: ").'</label>
                </div>';
          if ($allow_bbcode)
-            $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';		
+            $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
    echo '
          <div class="col-sm-9">
             <div class="card">
@@ -404,18 +404,18 @@ if ($submitS) {
          </div>
       </div>';
 
-		echo ''.Q_spambot().'';
+   echo ''.Q_spambot().'';
 
-		echo'
-			<fieldset>
-			<div class="btn-group-sm text-xs-center" role="group">
-				<input type="hidden" name="forum" value="'.$forum.'" />
-				<input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
-				<input class="btn btn-secondary" type="submit" name="submitP" value="'.translate("Preview").'" />
-				<input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
-				<input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
-			</div>
-			</fieldset>';
+   echo'
+      <fieldset>
+      <div class="btn-group-sm text-xs-center" role="group">
+         <input type="hidden" name="forum" value="'.$forum.'" />
+         <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
+         <input class="btn btn-secondary" type="submit" name="submitP" value="'.translate("Preview").'" />
+         <input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
+         <input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
+      </div>
+      </fieldset>';
       }
    }
    echo '
