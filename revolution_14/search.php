@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,7 +14,7 @@
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
-   $offset=25;
+   $offset=3;//25 
    $limit_full_search=250;
 
    if (!isset($min)) $min=0;
@@ -33,62 +33,67 @@ if (!function_exists("Mysql_Connexion")) {
    }
    include("header.php");
    if ($topic>0) {
-      $result = sql_query("select topicimage, topictext from ".$NPDS_Prefix."topics where topicid='$topic'");
+      $result = sql_query("SELECT topicimage, topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
       list($topicimage, $topictext) = sql_fetch_row($result);
    } else {
       $topictext = translate("All Topics");
       $topicimage = "all-topics.gif";
    }
-   opentable();
    settype($type,'string');
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
    if ($type == "users") {
-      echo translate("Search in Users Database");
-   } elseif ($type == "sections") {
-      echo translate("Search in Sections");
-   } elseif ($type == "reviews") {
-      echo translate("Search in Reviews");
-   } elseif ($type == "archive") {
-      echo translate("Search in")." ".translate("Archives");
+      echo '<h2>'.translate("Search in Users Database").'</h2>';
+   } elseif ($type == 'sections') {
+      echo '<h2>'.translate("Search in Sections").'</h2>';
+   } elseif ($type == 'reviews') {
+      echo '<h2>'.translate("Search in Reviews").'</h2>';
+   } elseif ($type == 'archive') {
+      echo '<h2>'.translate("Search in")." ".translate("Archives").'</h2>';
    } else {
-      echo translate("Search in")." ".aff_langue($topictext);
+      echo '<h2>'.translate("Search in")." ".aff_langue($topictext).'</h2>';
    }
-   echo "</td></tr></table>\n";
-   echo "<br />\n";
-   echo "<form action=\"search.php\" method=\"get\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\"><tr><td>";
-   if (($type == "users") OR ($type == "sections") OR ($type == "reviews")) {
-      echo "<img src=\"".$tipath."all-topics.gif\" align=\"right\" border=\"0\" alt=\"\" />";
+   echo '
+   <form action="search.php" method="get">';
+   if (($type == 'users') OR ($type == 'sections') OR ($type == 'reviews')) {
+      echo "<img src=\"".$tipath."all-topics.gif\" align=\"left\" border=\"0\" alt=\"\" />";
    } else {
       if ((($topicimage) or ($topicimage!="")) and (file_exists("$tipath$topicimage"))) {
          echo "<img src=\"$tipath$topicimage\" align=\"right\" border=\"0\" alt=\"".aff_langue($topictext)."\" />";
       }
    }
-   echo "<input class=\"textbox_standard\" size=\"25\" type=\"text\" name=\"query\" value=\"".$query."\" /> ";
-   echo "<input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Search")."\" /><br /><br />";
-   $toplist = sql_query("select topicid, topictext from ".$NPDS_Prefix."topics order by topictext");
-   echo "<select class=\"textbox_standard\" name=\"topic\">";
-   echo "<option value=\"\">".translate("All Topics")."</option>\n";
-   $sel="";
+   echo '
+      <div class="form-group">
+         <input class="form-control" type="text" name="query" value="'.$query.'" />
+         <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+      </div>
+   ';
+
+   $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+   echo '
+   <select class="c-select form control" name="topic">
+      <option value="">'.translate("All Topics").'</option>';
+   $sel='';
    while(list($topicid, $topics) = sql_fetch_row($toplist)) {
-      if ($topicid==$topic) { $sel = "selected=\"selected\" "; }
-      echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
-      $sel = "";
+      if ($topicid==$topic) {$sel = 'selected="selected" ';}
+      echo '
+      <option '.$sel.' value="'.$topicid.'">'.substr_replace(aff_langue($topics),'...',25,-1).'</option>';
+      $sel ='';
    }
-   echo "</select>";
+   echo '
+   </select>';
 
    echo "<select class=\"textbox_standard\" name=\"category\">";
    echo "<option value=\"0\">".translate("Articles")."</option>\n";
-   $catlist = sql_query("select catid, title from ".$NPDS_Prefix."stories_cat order by title");
+   $catlist = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    settype($category,"integer");
-   $sel="";
+   $sel='';
    while (list($catid, $title) = sql_fetch_row($catlist)) {
       if ($catid==$category) { $sel = "selected=\"selected\" "; }
       echo "<option $sel value=\"$catid\">".aff_langue($title)."</option>\n";
-      $sel = "";
+      $sel = '';
    }
    echo "</select>";
 
-   $thing = sql_query("select aid from ".$NPDS_Prefix."authors order by aid");
+   $thing = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors ORDER BY aid");
    echo "<select class=\"textbox_standard\" name=\"author\">";
    echo "<option value=\"\">".translate("All Authors")."</option>\n";
    settype($author,'string');
@@ -114,38 +119,49 @@ if (!function_exists("Mysql_Connexion")) {
    } elseif ($days == "90") {
       $sel6 = "selected=\"selected\"";
    }
-   echo "<select class=\"textbox_standard\" name=\"days\">
-   <option $sel1 value=\"0\">".translate("All")."</option>
-   <option $sel2 value=\"7\">1 ".translate("week")."</option>
-   <option $sel3 value=\"14\">2 ".translate("weeks")."</option>
-   <option $sel4 value=\"30\">1 ".translate("month")."</option>
-   <option $sel5 value=\"60\">2 ".translate("months")."</option>
-   <option $sel6 value=\"90\">3 ".translate("months")."</option>
-   </select><br />";
+   echo '
+   <select class="c-select form-control" name="days">
+      <option '.$sel1.' value="0">'.translate("All").'</option>
+      <option '.$sel2.' value="7">1 '.translate("week").'</option>
+      <option '.$sel3.' value="14">2 '.translate("weeks").'</option>
+      <option '.$sel4.' value="30">1 '.translate("month").'</option>
+      <option '.$sel5.' value="60">2 '.translate("months").'</option>
+      <option '.$sel6.' value="90">3 '.translate("months").'</option>
+   </select>';
 
-   if (($type == "stories") or ($type=="")) {
-      $sel1 = "checked=\"checked\"";
-   } elseif ($type == "sections") {
-      $sel3 = "checked=\"checked\"";
-   } elseif ($type == "users") {
-      $sel4 = "checked=\"checked\"";
-   } elseif ($type == "reviews") {
-      $sel5 = "checked=\"checked\"";
-   } elseif ($type == "archive") {
-      $sel6 = "checked=\"checked\"";
+   if (($type == 'stories') or ($type=='')) {
+      $sel1 = 'checked="checked"';
+   } elseif ($type == 'sections') {
+      $sel3 = 'checked="checked"';
+   } elseif ($type == 'users') {
+      $sel4 = 'checked="checked"';
+   } elseif ($type == 'reviews') {
+      $sel5 = 'checked="checked"';
+   } elseif ($type == 'archive') {
+      $sel6 = 'checked="checked"';
    }
-   echo "<input type=\"radio\" name=\"type\" value=\"stories\" $sel1 /> ".translate("Stories")." ";
-   echo "<input type=\"radio\" name=\"type\" value=\"archive\" $sel6 /> ".translate("Archives");
-   echo "</td></tr>";
-   echo "<tr><td><div class=\"separ\"></div></td></tr>";
-   echo "<tr><td>";
-   echo "[ <input type=\"radio\" name=\"type\" value=\"sections\" $sel3 /> ".translate("Sections")." ";
-   echo "<input type=\"radio\" name=\"type\" value=\"users\" $sel4 /> ".translate("Users")." ";
-   echo "<input type=\"radio\" name=\"type\" value=\"reviews\" $sel5 /> ".translate("Reviews")." ]";
-   echo "</td></tr></table></form>";
+   echo '
+      <div class="form-group">
+         <label class="radio-inline">
+            <input type="radio" name="type" value="stories" '.$sel1.' /> '.translate("Stories").'
+         </label>
+         <label class="radio-inline">
+            <input type="radio" name="type" value="archive" '.$sel6.' /> '.translate("Archives").'
+         </label>
+      </div>
+      <div class="form-group">
+         <label class="radio-inline">
+            <input type="radio" name="type" value="sections" '.$sel3.' /> '.translate("Sections").'
+         </label>
+         </label class="radio-inline">
+            <input type="radio" name="type" value="users" '.$sel4.' /> '.translate("Users").' 
+         </label>
+         </label class="radio-inline">
+            <input type="radio" name="type" value="reviews" '.$sel5.' /> '.translate("Reviews").'
+         </label>
+      </div>
+   </form>';
 
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-   echo "&nbsp;</td></tr></table>\n";
 
    settype($min,"integer");
    settype($offset,"integer");
@@ -153,12 +169,12 @@ if (!function_exists("Mysql_Connexion")) {
       if ($category > 0) {
          $categ = "AND catid='$category' ";
       } elseif ($category == 0) {
-         $categ = "";
+         $categ = '';
       }
       if ($type=="stories" OR !$type) {
-         $q = "select s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome from ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a where s.archive='0' and s.aid=a.aid $categ";
+         $q = "SELECT s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome FROM ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a WHERE s.archive='0' AND s.aid=a.aid $categ";
       } else {
-         $q = "select s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome from ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a where s.archive='1' and s.aid=a.aid $categ";
+         $q = "SELECT s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome FROM ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a WHERE s.archive='1' AND s.aid=a.aid $categ";
       }
       if (isset($query)) $q .= "AND (s.title LIKE '%$query_title%' OR s.hometext LIKE '%$query_body%' OR s.bodytext LIKE '%$query_body%' OR s.notes LIKE '%$query_body%') ";
       // Membre OU Auteur
@@ -201,35 +217,46 @@ if (!function_exists("Mysql_Connexion")) {
       if ($SuperCache) {
          $cache_obj->endCachingObjet($cache_clef,$tab_sid);
       }
-      echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
+      echo '
+      <table id ="search_result" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+         <thead>
+            <tr>
+               <th data-sortable="true">'.translate("Results").'</th>
+            </tr>
+         </thead>
+      <tbody>';
       if ($x<$offset) {$increment=$x;}
       if (($min+$offset)<=$x) {$increment=$offset;}
       if (($x-$min)<$offset) {$increment=($x-$min);}
 
       for ($i=$min; $i<($increment+$min); $i++) {
-         $rowcolor = tablos();
-         $furl = "article.php?sid=".$tab_sid[$i]['sid'];
+         $furl = 'article.php?sid='.$tab_sid[$i]['sid'];
          if ($type=="archive") {$furl.="&amp;archive=1";}
          formatTimestamp($tab_sid[$i]['time']);
-         echo "<tr $rowcolor><td><span>[".($i+1)."]</span>&nbsp;".translate("Contributed by")." <a href=\"user.php?op=userinfo&amp;uname=".$tab_sid[$i]['informant']."\" class=\"noir\">".$tab_sid[$i]['informant']."</a> : <a href=\"$furl\" class=\"noir\">".aff_langue($tab_sid[$i]['title'])."</a><br /><span>".translate("Posted by ")."<a href=\"".$tab_sid[$i]['url']."\" class=\"noir\">".$tab_sid[$i]['aid']."</a></span>";
-         echo " ".translate("on")." $datetime <br /></td></tr>";
-         echo "<tr><td><hr noshade=\"noshade\" class=\"ongl\" /></td></tr>\n";
+         echo '
+            <tr>
+               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contributed by").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> : <a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a><br /><span>'.translate("Posted by ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("on").' '.$datetime.'</td>
+            </tr>';
       }
       if ($x==0) {
-         echo "<tr><td align=\"center\" class=\"rouge\">".translate("No matches found to your query")."<br />";
-         echo "</td></tr>";
+      echo '
+         <div class="alert alert-danger lead" role="alert">
+            <p class="lead"><i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;'.translate("No matches found to your query").' !</p>
+         </div>';
       }
-      echo "</table>";
+      echo '
+      <tbody>
+      </table>';
 
       $prev=($min-$offset);
-      echo "<br /><p align=\"right\">(".translate("Total")." : ".$x.")&nbsp;&nbsp;";
+      echo "<br /><p align=\"left\">(".translate("Total")." : ".$x.")&nbsp;&nbsp;";
       if ($prev>=0) {
-         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\" class=\"noir\">";
-         echo "$offset ".translate("previous matches")."</a>";
+         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\">";
+         echo $offset.' '.translate("previous matches").'</a>';
       }
       if ($min+$increment<$x) {
          if ($prev>=0) echo "&nbsp;|&nbsp;";
-         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\" class=\"noir\">";
+         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\">";
          echo translate("next matches")."</a>";
       }
       echo "</p>";
@@ -256,7 +283,7 @@ if (!function_exists("Mysql_Connexion")) {
       echo "</table>";
 
       $prev=$min-$offset;
-      echo "<br /><p align=\"right\">";
+      echo "<br /><p align=\"left\">";
       if ($prev>=0) {
          echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type\" class=\"noir\">";
          echo "<b>$offset ".translate("previous matches")."</b></a>";
@@ -352,6 +379,5 @@ if (!function_exists("Mysql_Connexion")) {
          echo "</p>";
       }
    }
-   closetable();
    include("footer.php");
 ?>
