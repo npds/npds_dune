@@ -71,17 +71,21 @@ function adminfieldinp($result) {
 }
 */
 
-function adminfieldinp($result) {};
+//function adminfieldinp($result) {};
 
-/*
+
 function adminfieldinp($result) {
    $fields = sql_num_fields($result);
    $idle = array();
    for ($i=0; $i < $fields; $i++) {
-   $field_info = sql_fetch_field_direct($result, $i);
-//      if ($field_info->type == 'string') {
-         $idle[$field_info->name] = $field_info->length;
-//      }
+//    $field_info = sql_fetch_field_direct($result, $i);
+//       if ($field_info->type == 'string') {
+//          $idle[$field_info->name] = $field_info->length;
+//       }
+
+          $idle['b'.$i] = 'a';
+
+
    }
    echo '
    <script type="text/javascript">
@@ -96,7 +100,7 @@ function adminfieldinp($result) {
    //]]>
    </script>';
 }
-*/
+
 
 
 $filemanager=false;
