@@ -16,9 +16,7 @@ if (!function_exists("Mysql_Connexion")) {
 #autodoc Form_instant_message($to_userid) : Ouvre la page d'envoi d'un MI (Message Interne)
 function Form_instant_message($to_userid) {
     include ("header.php");
-    opentable();
     write_short_private_message(removeHack($to_userid));
-    closetable();
     include ("footer.php");
 }
 
@@ -39,7 +37,7 @@ function online_members () {
    return $members_online;
 }
 
-#autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Ins&egrave;re un MI dans la base et le cas éch&eacute;ant envoi un mail
+#autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Ins&egrave;re un MI dans la base et le cas Ãˆch&eacute;ant envoi un mail
 function writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) {
     global $NPDS_Prefix;
 
@@ -79,37 +77,28 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
 
 #autodoc write_short_private_message($to_userid) : Formulaire d'&eacute;criture d'un MI
 function write_short_private_message($to_userid) {
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-   echo translate("Message to Member");
-   echo "</td></tr></table>\n";
-   echo "<br />";
-   echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
-   echo "<form action=\"powerpack.php\" method=\"post\">";
-   $rowcolor=tablos();
-   $rowcolor=tablos();
-   echo "<tr $rowcolor>";
-   echo "<td><b>".translate("To: ")."<b></td>";
-   echo "<td>$to_userid";
-   echo " - <input type=\"checkbox\" name=\"copie\" /> ".translate("Send a copy to me")."</td>";
-   echo "<input type=\"hidden\" name=\"to_userid\" value=\"$to_userid\" />";
-   echo "</tr>";
-
-   echo "<tr $rowcolor>";
-   echo "<td><b>".translate("Subject: ")."<b></td>";
-   echo "<td><input class=\"textbox\" type=\"text\" name=\"subject\" size=\"45\" maxlength=\"100\" value=\"\" /></td>";
-   echo "</tr>";
-
-   echo "<tr $rowcolor>";
-   echo "<td><b>".translate("Message: ")."</b></td>";
-   echo "<td><textarea class=\"textbox\" name=\"message\" rows=\"10\" cols=\"60\"></textarea></td>";
-   echo "</tr>";
-
-   echo "<tr><td></td>";
-   echo "<input type=\"hidden\" name=\"op\" value=\"write_instant_message\" />";
-   echo "<td><input class=\"bouton_standard\" type=\"submit\" name=\"submit\" value=\"".translate("Submit")."\" accesskey=\"s\" />&nbsp;<input class=\"bouton_standard\" type=\"reset\" value=\"".translate("Clear")."\" /></td>";
-   echo "</tr>";
-   echo "</form>";
-   echo "</table>";
+   echo '
+   <h2>'.translate("Message to Member").'</h2>
+   <h3><i class="fa fa-at"></i>&nbsp'.$to_userid.'</h3>
+   <form id="sh_priv_mess" action="powerpack.php" method="post">
+      <div class="form-group">
+         <label class="form-control-label" for="subject" >'.translate("Subject").'</label>
+         <input class="form-control" type="text" name="subject" maxlength="100" />
+      </div>
+      <div class="form-group">
+         <label class="form-control-label" for="message" >'.translate("Message: ").'</label>
+         <textarea class="form-control" name="message" rows="10"></textarea>
+      </div>
+      <div class="form-group">
+         <label><input type="checkbox" name="copie" /> '.translate("Send a copy to me").'</label>
+      </div>
+      <div class="form-group">
+         <input type="hidden" name="to_userid" value="'.$to_userid.'" />
+         <input type="hidden" name="op" value="write_instant_message" />
+         <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" accesskey="s" />&nbsp;
+         <button class="btn btn-secondary" type="reset">'.translate("Clear").'</button>
+      </div>
+   </form>';
 }
 
 #autodoc if_chat() : Retourne le nombre de connect&eacute; au Chat
