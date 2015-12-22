@@ -2235,19 +2235,20 @@ function lnlbox() {
                </div>
             </div>
          </form>'
-         .adminfoot('fv','','','0');
+         .adminfoot('','','','0');
    themesidebox($title, $boxstuff);
 }
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
 function searchbox() {
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Search");
    else
       $title=$block_title;
-   $content ="<form action=\"search.php\" method=\"get\">";
-   $content.="<br /><p align=\"center\"><input class=\"inputa\" style=\"width: 90%\" type=\"text\" name=\"query\" size=\"14\" /></p>";
-   $content.="</form>";
+   $content ='
+   <form action="search.php" method="get">
+      <input class="form-control" type="text" name="query" />
+   </form>';
    themesidebox($title, $content);
 }
 #autodoc mainblock() : Bloc principal <br />=> syntaxe : function#mainblock
