@@ -12,9 +12,9 @@
 /************************************************************************/
 
 global $NPDS_Prefix, $pdst;
-$blg_actif = sql_query("select * from ".$NPDS_Prefix."lblocks where actif ='1'");
+$blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'");
 $nb_blg_actif = sql_num_rows($blg_actif);
-$bld_actif = sql_query("select * from ".$NPDS_Prefix."rblocks where actif ='1'");
+$bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'");
 $nb_bld_actif = sql_num_rows($bld_actif);
 
 /*
