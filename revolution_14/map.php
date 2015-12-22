@@ -34,7 +34,7 @@ function mapsections() {
                    }
                    $tmp.='</li></ul>';
                 }
-             }	 
+             }
           }
           $tmp.='</li>';
        }
@@ -46,7 +46,7 @@ function mapsections() {
             <i class="fa fa-bars"></i>&nbsp;'.translate("Sections").'
          </a>
          </h3>
-      <div class="collapse in" id="collapseSections">
+      <div class="collapse" id="collapseSections">
          <div class="card">
             <ul>'.$tmp.'</ul>
          </div>
@@ -67,7 +67,7 @@ function mapforum() {
             <i class="fa fa-bars"></i>&nbsp;'.translate("Forums!").'
          </a>
       </h3>
-      <div class="collapse in" id="collapseForums">
+      <div class="collapse" id="collapseForums">
          <div class="card">
             '.$tmp.'
          </div>
@@ -91,7 +91,7 @@ function maptopics() {
             <i class="fa fa-bars"></i>&nbsp;'.translate("Topics").'
          </a>
       </h3>
-      <div class="collapse in" id="collapseTopics">
+      <div class="collapse" id="collapseTopics">
          <div class="card">
             <ul>'.$lis_top.'</ul>
          </div>
@@ -103,7 +103,7 @@ function maptopics() {
 function mapcategories() {
     global $NPDS_Prefix;
 
-    $lis_cat="";
+    $lis_cat='';
     $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
     while (list($catid, $title) = sql_fetch_row($result)) {
        $result2 = sql_query("select sid from stories where catid='$catid'");
@@ -117,7 +117,7 @@ function mapcategories() {
             <i class="fa fa-bars"></i>&nbsp;'.translate("Categories").'
          </a>
       </h3>
-      <div class="collapse in" id="collapseCategories">
+      <div class="collapse" id="collapseCategories">
          <div class="card card-block">
             <ul>'.$lis_cat.'</ul>
          </div>
@@ -142,7 +142,7 @@ function mapfaq() {
             <i class="fa fa-bars"></i>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
          </a>
       </h3>
-      <div class="collapse in" id="collapseFaq">
+      <div class="collapse" id="collapseFaq">
          <div class="card card-block">
             <ul>'.$lis_faq.'</ul>
          </div>
