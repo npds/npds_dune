@@ -22,9 +22,9 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
 
    // Modify the report level off PHP
    // error_reporting(0);// report NO ERROR
-   // error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); // Devel report
-   // error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
+   //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); // Devel report
+    error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
+    //error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
     function getip() {
        if (isset($_SERVER)) {
