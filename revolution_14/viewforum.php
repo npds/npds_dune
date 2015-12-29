@@ -228,12 +228,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          if ($replys>=0) {
             global $smilies;
             if ($smilies) {
-               $rowQ1=Q_Select ("SELECT image FROM ".$NPDS_Prefix."posts WHERE topic_id='".$myrow['topic_id']."' and forum_id='$forum' limit 0,1", 86400);
+               $rowQ1=Q_Select ("SELECT image FROM ".$NPDS_Prefix."posts WHERE topic_id='".$myrow['topic_id']."' AND forum_id='$forum' LIMIT 0,1", 86400);
                $image_subject=$rowQ1[0]['image'];
             }
 
             if ($user) {
-               $sqlR = "select rid from ".$NPDS_Prefix."forum_read where forum_id='$forum' and uid='$userR[0]' and topicid='".$myrow['topic_id']."' and status!='0'";
+               $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='".$myrow['topic_id']."' AND status!='0'";
                if ($replys >= $hot_threshold) {
                   if (sql_num_rows(sql_query($sqlR))==0)
                      $image = '<i class="fa fa-lg fa-file-text"></i>';
@@ -315,7 +315,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($user) {
       echo '<br /><p><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-lg fa-check-square-o"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
    }
-   $sql = "SELECT count(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol";
+   $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol";
    if (!$r = sql_query($sql))
       forumerror('0001');
    list($all_topics) = sql_fetch_row($r);
