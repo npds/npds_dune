@@ -259,8 +259,8 @@ echo '<p class="lead">';
 
    $result = sql_query($sql);
    while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcat, $ddescription, $dperm) = sql_fetch_row($result)) {
-      $Fichier = new File($durl);
-      $objZF    =    new FileManagement;// essai class
+      $Fichier = new File($durl);// keep for extension
+      $FichX = new FileManagement; // essai class
 
       
       $okfile=autorisation($dperm);
@@ -283,13 +283,11 @@ echo '<p class="lead">';
       echo '</td>
             <td>';
             if ($dfilesize!=0) {
-               echo $Fichier->Pretty_Size($dfilesize);
-                    echo $objZF->file_size_auto($durl, 2);
-
+//               echo $Fichier->Pretty_Size($dfilesize);
+               echo $FichX->file_size_auto($durl, 2);
             } else {
-               echo $Fichier->Affiche_Size();
-                    echo $objZF->file_size_auto($durl, 2);
-
+//               echo $Fichier->Affiche_Size();
+               echo $FichX->file_size_auto($durl, 2);
             }
             echo '</td>
             <td>'.aff_langue(stripslashes($dcat)).'</td>
