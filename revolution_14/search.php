@@ -19,17 +19,17 @@ if (!function_exists("Mysql_Connexion")) {
 
    if (!isset($min)) $min=0;
    if (!isset($max)) $max=$min+$offset;
-   if (!isset($member)) $member="";
+   if (!isset($member)) $member='';
    if (!isset($query)) {
-      $query_title="";
-      $query_body="";
+      $query_title='';
+      $query_body='';
       $query=$query_body;
       $limit=" LIMIT 0, $limit_full_search";
    } else {
       $query_title=removeHack(stripslashes(urldecode($query))); // electrobug
       $query_body=removeHack(stripslashes(htmlentities(urldecode($query),ENT_NOQUOTES,cur_charset))); // electrobug
       $query=$query_body;
-      $limit="";
+      $limit='';
    }
    include("header.php");
    if ($topic>0) {
@@ -53,6 +53,7 @@ if (!function_exists("Mysql_Connexion")) {
    }
    echo '
    <form action="search.php" method="get">';
+   /*
    if (($type == 'users') OR ($type == 'sections') OR ($type == 'reviews')) {
       echo "<img src=\"".$tipath."all-topics.gif\" align=\"left\" border=\"0\" alt=\"\" />";
    } else {
@@ -60,74 +61,86 @@ if (!function_exists("Mysql_Connexion")) {
          echo "<img src=\"$tipath$topicimage\" align=\"right\" border=\"0\" alt=\"".aff_langue($topictext)."\" />";
       }
    }
+   */
    echo '
       <div class="form-group">
          <input class="form-control" type="text" name="query" value="'.$query.'" />
-         <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
       </div>
    ';
 
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
-   <select class="c-select form control" name="topic">
-      <option value="">'.translate("All Topics").'</option>';
+   <div class="form-group">
+      <select class="c-select form-control" name="topic">
+         <option value="">'.translate("All Topics").'</option>';
    $sel='';
    while(list($topicid, $topics) = sql_fetch_row($toplist)) {
       if ($topicid==$topic) {$sel = 'selected="selected" ';}
       echo '
-      <option '.$sel.' value="'.$topicid.'">'.substr_replace(aff_langue($topics),'...',25,-1).'</option>';
+         <option '.$sel.' value="'.$topicid.'">'.substr_replace(aff_langue($topics),'...',25,-1).'</option>';
       $sel ='';
    }
    echo '
-   </select>';
-
-   echo "<select class=\"textbox_standard\" name=\"category\">";
-   echo "<option value=\"0\">".translate("Articles")."</option>\n";
+      </select>
+   </div>
+   <div class="form-group">
+      <select class="c-select form-control" name="category">
+         <option value="0">'.translate("Articles").'</option>';
    $catlist = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    settype($category,"integer");
    $sel='';
    while (list($catid, $title) = sql_fetch_row($catlist)) {
-      if ($catid==$category) { $sel = "selected=\"selected\" "; }
-      echo "<option $sel value=\"$catid\">".aff_langue($title)."</option>\n";
+      if ($catid==$category) { $sel = 'selected="selected" '; }
+      echo '
+         <option '.$sel.' value="'.$catid.'">'.aff_langue($title).'</option>';
       $sel = '';
    }
-   echo "</select>";
+   echo '
+      </select>
+   </div>';
 
    $thing = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors ORDER BY aid");
-   echo "<select class=\"textbox_standard\" name=\"author\">";
-   echo "<option value=\"\">".translate("All Authors")."</option>\n";
+   echo '
+   <div class="form-group">
+      <select class="c-select form-control" name="author">
+         <option value="">'.translate("All Authors").'</option>';
    settype($author,'string');
-   $sel="";
+   $sel='';
    while (list($authors) = sql_fetch_row($thing)) {
-         if ($authors==$author) { $sel = "selected=\"selected\" "; }
-         echo "<option $sel value=\"$authors\">$authors</option>\n";
-         $sel = "";
-   }
-   echo "</select>";
-   settype($days,'integer');
-   $sel1=""; $sel2=""; $sel3=""; $sel4=""; $sel5=""; $sel6="";
-   if ($days == "0") {
-      $sel1 = "selected=\"selected\"";
-   } elseif ($days == "7") {
-      $sel2 = "selected=\"selected\"";
-   } elseif ($days == "14") {
-      $sel3 = "selected=\"selected\"";
-   } elseif ($days == "30") {
-      $sel4 = "selected=\"selected\"";
-   } elseif ($days == "60") {
-      $sel5 = "selected=\"selected\"";
-   } elseif ($days == "90") {
-      $sel6 = "selected=\"selected\"";
+      if ($authors==$author) { $sel = 'selected="selected" '; }
+      echo '
+         <option '.$sel.' value="'.$authors.'">'.$authors.'</option>';
+      $sel = '';
    }
    echo '
-   <select class="c-select form-control" name="days">
-      <option '.$sel1.' value="0">'.translate("All").'</option>
-      <option '.$sel2.' value="7">1 '.translate("week").'</option>
-      <option '.$sel3.' value="14">2 '.translate("weeks").'</option>
-      <option '.$sel4.' value="30">1 '.translate("month").'</option>
-      <option '.$sel5.' value="60">2 '.translate("months").'</option>
-      <option '.$sel6.' value="90">3 '.translate("months").'</option>
-   </select>';
+      </select>
+   </div>';
+   settype($days,'integer');
+   $sel1=''; $sel2=''; $sel3=''; $sel4=''; $sel5=''; $sel6='';
+   if ($days == '0') {
+      $sel1 = 'selected="selected"';
+   } elseif ($days == "7") {
+      $sel2 = 'selected="selected"';
+   } elseif ($days == "14") {
+      $sel3 = 'selected="selected"';
+   } elseif ($days == "30") {
+      $sel4 = 'selected="selected"';
+   } elseif ($days == "60") {
+      $sel5 = 'selected="selected"';
+   } elseif ($days == "90") {
+      $sel6 = 'selected="selected"';
+   }
+   echo '
+      <div class="form-group">
+         <select class="c-select form-control" name="days">
+            <option '.$sel1.' value="0">'.translate("All").'</option>
+            <option '.$sel2.' value="7">1 '.translate("week").'</option>
+            <option '.$sel3.' value="14">2 '.translate("weeks").'</option>
+            <option '.$sel4.' value="30">1 '.translate("month").'</option>
+            <option '.$sel5.' value="60">2 '.translate("months").'</option>
+            <option '.$sel6.' value="90">3 '.translate("months").'</option>
+         </select>
+      </div>';
 
    if (($type == 'stories') or ($type=='')) {
       $sel1 = 'checked="checked"';
@@ -160,8 +173,10 @@ if (!function_exists("Mysql_Connexion")) {
             <input type="radio" name="type" value="reviews" '.$sel5.' /> '.translate("Reviews").'
          </label>
       </div>
+      <div class="form-group">
+         <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+      </div>
    </form>';
-
 
    settype($min,"integer");
    settype($offset,"integer");
@@ -224,34 +239,36 @@ if (!function_exists("Mysql_Connexion")) {
                <th data-sortable="true">'.translate("Results").'</th>
             </tr>
          </thead>
-      <tbody>';
+         <tbody>';
       if ($x<$offset) {$increment=$x;}
       if (($min+$offset)<=$x) {$increment=$offset;}
       if (($x-$min)<$offset) {$increment=($x-$min);}
 
       for ($i=$min; $i<($increment+$min); $i++) {
          $furl = 'article.php?sid='.$tab_sid[$i]['sid'];
-         if ($type=="archive") {$furl.="&amp;archive=1";}
+         if ($type=='archive') {$furl.='&amp;archive=1';}
          formatTimestamp($tab_sid[$i]['time']);
          echo '
             <tr>
                <td><span>['.($i+1).']</span>&nbsp;'.translate("Contributed by").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> : <a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a><br /><span>'.translate("Posted by ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("on").' '.$datetime.'</td>
             </tr>';
       }
-      if ($x==0) {
+      echo '
+         <tbody>
+      </table>';
+      
+            if ($x==0) {
       echo '
          <div class="alert alert-danger lead" role="alert">
             <p class="lead"><i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;'.translate("No matches found to your query").' !</p>
-         </div>';
+         </div>
+         ';
       }
-      echo '
-      <tbody>
-      </table>';
 
       $prev=($min-$offset);
-      echo "<br /><p align=\"left\">(".translate("Total")." : ".$x.")&nbsp;&nbsp;";
+      echo '<br /><p align="left">('.translate("Total").' : '.$x.')&nbsp;&nbsp;';
       if ($prev>=0) {
-         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\">";
+         echo '<a href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'&amp;category='.$category.'&amp;member='.$member.'&amp;days='.$days.'">';
          echo $offset.' '.translate("previous matches").'</a>';
       }
       if ($min+$increment<$x) {
@@ -260,43 +277,55 @@ if (!function_exists("Mysql_Connexion")) {
          echo translate("next matches")."</a>";
       }
       echo "</p>";
+
    // reviews
-   } elseif ($type=="reviews") {
-      $result = sql_query("select id, title, text, reviewer from ".$NPDS_Prefix."reviews where (title like '%$query_title%' OR text like '%$query_body%') order by date DESC limit $min,$offset");
+   } elseif ($type=='reviews') {
+      $result = sql_query("SELECT id, title, text, reviewer FROM ".$NPDS_Prefix."reviews WHERE (title LIKE '%$query_title%' OR text LIKE '%$query_body%') ORDER BY date DESC LIMIT $min,$offset");
       if ($result) {
          $nrows  = sql_num_rows($result);
       }
       $x=0;
-      echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
+      echo '
+      <table id ="search_result" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+         <thead>
+            <tr>
+               <th data-sortable="true">'.translate("Results").'</th>
+            </tr>
+         </thead>
+      <tbody>';
       if ($nrows>0) {
          while (list($id, $title, $text, $reviewer) = sql_fetch_row($result)) {
-            $rowcolor = tablos();
             $furl = "reviews.php?op=showcontent&amp;id=$id";
             echo "<tr $rowcolor><td><a href=\"$furl\" class=\"noir\">$title</a> ".translate("by")." $reviewer</td></tr>\n";
-            echo "<tr><td><hr noshade=\"noshade\" class=\"ongl\" /></td></tr>";
             $x++;
          }
       } else {
-         echo "<tr><td align=\"center\" class=\"rouge\">".translate("No matches found to your query")."<br />";
+         echo "<tr><td align=\"center\" class=\"text-danger\">".translate("No matches found to your query")."<br />";
          echo "</td></tr>";
       }
-      echo "</table>";
-
+      echo '
+         </tbody>
+      </table>';
       $prev=$min-$offset;
-      echo "<br /><p align=\"left\">";
+      echo '
+      <p align="left">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
       if ($prev>=0) {
-         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type\" class=\"noir\">";
-         echo "<b>$offset ".translate("previous matches")."</b></a>";
+         echo '
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'" >'.$offset.' '.translate("previous matches").'</a></li>';
       }
       if ($x>=($offset-1)) {
-         if ($prev>=0) echo "&nbsp;|&nbsp;";
-         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type\" class=\"noir\">";
-         echo "<b>".translate("next matches")."</b></a>";
+         echo '
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
       }
-      echo "</p>";
+      echo '
+         </ul>
+      </p>';
+      
    // sections
    } elseif ($type=="sections") {
-      $result = sql_query("select artid, secid, title, content from ".$NPDS_Prefix."seccont WHERE (title like '%$query_title%' OR content like '%$query_body%') ORDER BY artid DESC limit $min,$offset");
+      $result = sql_query("SELECT artid, secid, title, content FROM ".$NPDS_Prefix."seccont WHERE (title LIKE '%$query_title%' OR content LIKE '%$query_body%') ORDER BY artid DESC LIMIT $min,$offset");
       if ($result) {
          $nrows  = sql_num_rows($result);
       }

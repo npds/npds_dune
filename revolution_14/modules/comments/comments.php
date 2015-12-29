@@ -101,7 +101,7 @@ function Caff_pub($topic, $file_name, $archive) {
    if ($Mmod) {
       $post_aff=' ';
    } else {
-      $post_aff=" and post_aff='1' ";
+      $post_aff=" AND post_aff='1' ";
    }
    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id = '$topic'".$post_aff."ORDER BY post_id LIMIT $C_start, $comments_per_page";
    if (!$result = sql_query($sql)) forumerror(0001);

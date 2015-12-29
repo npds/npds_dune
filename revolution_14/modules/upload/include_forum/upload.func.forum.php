@@ -68,7 +68,7 @@ function getCheckBox ($name, $value=1, $current, $text="") {
 /************************************************************************/
 function getListBox ($name, $items, $selected="", $multiple=0, $onChange="") {
    $oc = empty ($onChange) ? "" : " onchange=\"$onChange\"";
-   $p = sprintf ("<select name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
+   $p = sprintf ("<select class=\"c-select form-control-sm\" name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
                 ($multiple == 1)?" multiple":"", $oc);
    if (is_array($items)) {
       reset ($items);
@@ -82,7 +82,7 @@ function getListBox ($name, $items, $selected="", $multiple=0, $onChange="") {
 /* Pour la class                                                        */
 /************************************************************************/
 /************************************************************************/
-/* Ajoute l'attachement dans la base de donnÈ                           */
+/* Ajoute l'attachement dans la base de donn√à                           */
 /************************************************************************/
 function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $inline="A", $size=0, $type="") {
    global $upload_table, $visible_forum;
@@ -97,7 +97,7 @@ function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $in
    return sql_last_id ();
 }
 /************************************************************************/
-/* Suprime l'attachement dans la base de donnÈ en cas d erreur d'upload */
+/* Suprime l'attachement dans la base de donn√à en cas d erreur d'upload */
 /************************************************************************/
 function deleteAttachment ($apli, $IdPost, $upload_dir, $id, $att_name){
    global $upload_table;
@@ -111,22 +111,25 @@ function deleteAttachment ($apli, $IdPost, $upload_dir, $id, $att_name){
 /* Fonction de snipe pour l'affichage des fichier uploader dans forums  */
 /************************************************************************/
 function display_upload($apli,$post_id,$Mmod){
-   $att_size = "";
-   $att_type = "";
-   $att_name = "";
-   $att_url = "";
-   $att_link = "";
-   $attachments = "";
-   $att_icon = "";
+   $att_size = '';
+   $att_type = '';
+   $att_name = '';
+   $att_url = '';
+   $att_link = '';
+   $attachments = '';
+   $att_icon = '';
    $num_cells = 5;
    $att = getAttachments ($apli,$post_id,0,$Mmod);
    if (is_array($att)) {
       $att_count = count($att);
 //      $attachments = "\n<table id=\"ooo\" class=\"fo-post-mes\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">\n<tr>";
       $attachments = '
-      <div class="card-text">
-      <hr />
-      <div><img class="smil" src="themes/npds-boost/images/forum/subject/1F4CE.png" border="0" alt="icon_post" /></div> <span class="text-muted pull-right">Attachements</span></div>';
+      <div class="list-group">
+         <div class="list-group-item">
+            <img class="smil" src="themes/npds-boost/images/forum/subject/1F4CE.png" border="0" alt="icon_post" />
+            <span class="text-muted">'.upload_translate("Pi√®ces jointes").'</span>
+            <span class="label label-default label-pill pull-right">'.$att_count.'</span>
+         </div>';
 
       $ncell = 0;
       for ($i=0; $i<$att_count; $i++) {
@@ -142,26 +145,26 @@ function display_upload($apli,$post_id,$Mmod){
          $att_link      = getAttachmentUrl ($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
          // check for full row
          if (++$ncell > $num_cells) {
-            $attachments .= "</tr>\n<tr>";
+//            $attachments .= "</tr>\n<tr>";
             $ncell = 1;
          }
          if (getAttDisplayMode($att_type, $att_inline) != ATT_DSP_LINK) {
             if ($ncell > 1)   {
                while ($ncell++ <= $num_cells)
-                  $attachments .= "<td>&nbsp;</td>";
+//                  $attachments .= "<td>&nbsp;</td>";
                $attachments .= "</tr>\n<tr>";
             }
             $ncell = $num_cells + 1;
-            $td = "<td colspan=\"".$num_cells."\">";
+//            $td = "<td colspan=\"".$num_cells."\">";
          } else {
 //            $td = "<td>";
          }
-         $attachments .= $td.$att_link."</td>";
-
+//         $attachments .= $td.$att_link."</td>";
+         $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
       }
 //      $attachments .= "</tr></table>";
-//      $attachments .= '</div>';
+      $attachments .= '</div>';
 
       return $attachments;
    }
@@ -243,7 +246,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    $att_name = substr(strstr (basename($att_name), '.'), 1);
    $att_path = $DOCUMENTROOT.$att_path;
    if (!is_file($att_path)) {
-       return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvÈ").' : '.$att_name.'</span>';
+       return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouv√à").' : '.$att_name.'</span>';
    }
 
    if ($att_inline) {
@@ -295,8 +298,10 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
          eval ("\$ret=stripSlashes(\"$text\");");
          break;
       default: // display as link
-         $Fichier = new File("");
-         $att_size = $Fichier->Pretty_Size($att_size);
+         $Fichier = new FileManagement; // essai class PHP7
+//         $Fichier = new File("");
+//         $att_size = $Fichier->Pretty_Size($att_size);
+         $att_size = $Fichier->file_size_format($att_size, 1);
          $att_icon = att_icon($att_name);
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_LINK]);
          eval ("\$ret=stripSlashes(\"$text\");");
@@ -363,7 +368,7 @@ function delete($del_att){
    $rep=$DOCUMENTROOT;
    if (is_array($del_att) ) {
       $del_att = implode ($del_att, ",");
-      $sql = "select att_id, att_name, att_path from $upload_table WHERE att_id IN ($del_att)";
+      $sql = "SELECT att_id, att_name, att_path from $upload_table WHERE att_id IN ($del_att)";
       $result=sql_query($sql);
       while(list($att_id, $att_name, $att_path)=sql_fetch_row($result)){
          @unlink($rep."$att_path/$att_id.$apli.$att_name");
@@ -387,7 +392,7 @@ function update_inline($inline_att) {
    }
 }
 /*****************************************************/
-/* Update la visibilitÈe                             */
+/* Update la visibilit√àe                             */
 /*****************************************************/
 function renomme_fichier($listeV, $listeU) {
    global $upload_table, $apli, $DOCUMENTROOT;

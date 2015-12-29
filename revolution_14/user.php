@@ -17,26 +17,26 @@ if (!function_exists("Mysql_Connexion")) {
 }
 // bootsrapped phr
 function message_error($ibid,$op) {
-    include("header.php");
-	   echo '<h2>'.translate("User").'</h2>';	
-    echo "<p class=\"lead text-warning text-xs-center\">";
-    echo $ibid;
-    if (($op=="only_newuser") or ($op=="new user") or ($op=="finish")) {
+   include("header.php");
+   echo '<h2>'.translate("User").'</h2>';	
+   echo "<p class=\"lead text-warning text-xs-center\">";
+   echo $ibid;
+   if (($op=="only_newuser") or ($op=="new user") or ($op=="finish")) {
        hidden_form();
-       echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\" />
-	   <p class=\"text-xs-center\">
-	   <button class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Go Back")."\" /><i class=\"fa fa-lg fa-undo\"></i></button>
-	   </p>
-	   </form>";
-    } else {
-       echo "<a class=\"btn btn-primary\" href=\"javascript:history.go(-1)\"title=".translate("Go Back")."><i class=\"fa fa-lg fa-undo\"></i></a>";
-    }
-    echo "</p>";   
-    include("footer.php");
+      echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\" />
+      <p class=\"text-xs-center\">
+      <button class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Go Back")."\" /><i class=\"fa fa-lg fa-undo\"></i></button>
+      </p>
+      </form>";
+   } else {
+      echo "<a class=\"btn btn-primary\" href=\"javascript:history.go(-1)\"title=".translate("Go Back")."><i class=\"fa fa-lg fa-undo\"></i></a>";
+   }
+   echo "</p>";   
+   include("footer.php");
 }
 // bootsrapped phr
 function message_pass($ibid) {
-    include("header.php");  
+    include("header.php");
     echo "<span class=\"text-success\">";
     echo ''.$ibid.'';
     echo "</span>";
@@ -44,19 +44,19 @@ function message_pass($ibid) {
 }
 // bootsrapped phr
 function nav($mns) {
-	echo '<ul class="nav nav-pills">';
-	echo '<li class="active"><a href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="glyphicons glyphicons-user"></i></a></li>';
-    echo '<li><a href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Edit Journal").'</a></li>';	
-    include ("modules/upload/upload.conf.php");
-    if (($mns) and ($autorise_upload_p)) {
-       include ("modules/blog/upload_minisite.php");
-       $PopUp=win_upload("popup");
-       echo '<li><a href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Manage my Mini-Web site").'</a></li>';
-    }
-    echo '<li><a href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Change the home").'</a></li>';
-    echo '<li><a href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Change Theme").'</a></li>';
-    echo '<li><a href="user.php?op=logout" title="'.translate("Logout").'">'.translate("Logout").'</a></li>';
-	echo '</ul>';
+   echo '<ul class="nav nav-pills">';
+   echo '<li class="active"><a href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="glyphicons glyphicons-user"></i></a></li>';
+   echo '<li><a href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Edit Journal").'</a></li>';	
+   include ("modules/upload/upload.conf.php");
+   if (($mns) and ($autorise_upload_p)) {
+      include ("modules/blog/upload_minisite.php");
+      $PopUp=win_upload("popup");
+      echo '<li><a href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Manage my Mini-Web site").'</a></li>';
+   }
+   echo '<li><a href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Change the home").'</a></li>';
+   echo '<li><a href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Change Theme").'</a></li>';
+   echo '<li><a href="user.php?op=logout" title="'.translate("Logout").'">'.translate("Logout").'</a></li>';
+   echo '</ul>';
 }
 // bootsrapped phr
 function userCheck($uname, $email) {
@@ -116,33 +116,33 @@ function Only_NewUser() {
        global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
        include("header.php");       
        showimage();
-	   
-       if (!$memberpass) {
-		echo '<p class="lead text-info text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
-		}
-	   echo '<h2>'.translate("User").'</h2>';
-		echo '<p class="text-info">'.translate("Notice").' :';
-		echo '<ul class="text-info"><li>'.translate("Account preferences are cookie based.").'</li>';	
-		echo '<li>'.translate("We don't sell/give to others your personal info.").'</li>';
-		echo '<li>'.translate("As a registered user you can").' : ';
-		echo '<a data-toggle="collapse" href="#collapseuser" aria-expanded="false" aria-controls="collapseuser"><i class="fa fa-lg fa-eye"></i></a>';   
-		echo '<div class="collapse" id="collapseuser">
-			<div class="well text-info">
-			<blockquote>
-				<li>'.translate("Post comments with your name").'</li>
-				<li>'.translate("Send news with your name").'</li>
-				<li>'.translate("Have a personal box in the Home").'</li>
-				<li>'.translate("Upload personal avatar").'</li>
-				<li>'.translate("Select how many news you want in the Home").'</li>
-				<li>'.translate("Customize the comments").'</li>
-				<li>'.translate("Select different themes").'</li>
-				<li>'.translate("some other cool stuff...").'</li>
-			</blockquote>
-			</div>
-		</div>';
-		echo '</li></ul></p>';
 
-       include ("modules/sform/extend-user/extend-user.php");       
+       if (!$memberpass) {
+      echo '<p class="lead text-info text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
+      }
+      echo '<h2>'.translate("User").'</h2>';
+      echo '<p class="text-info">'.translate("Notice").' :';
+      echo '<ul class="text-info"><li>'.translate("Account preferences are cookie based.").'</li>';
+      echo '<li>'.translate("We don't sell/give to others your personal info.").'</li>';
+      echo '<li>'.translate("As a registered user you can").' : ';
+      echo '<a data-toggle="collapse" href="#collapseuser" aria-expanded="false" aria-controls="collapseuser"><i class="fa fa-lg fa-eye"></i></a>';   
+      echo '<div class="collapse" id="collapseuser">
+         <div class="well text-info">
+         <blockquote>
+            <li>'.translate("Post comments with your name").'</li>
+            <li>'.translate("Send news with your name").'</li>
+            <li>'.translate("Have a personal box in the Home").'</li>
+            <li>'.translate("Upload personal avatar").'</li>
+            <li>'.translate("Select how many news you want in the Home").'</li>
+            <li>'.translate("Customize the comments").'</li>
+            <li>'.translate("Select different themes").'</li>
+            <li>'.translate("some other cool stuff...").'</li>
+         </blockquote>
+         </div>
+      </div>';
+      echo '</li></ul></p>';
+
+       include ("modules/sform/extend-user/extend-user.php");
        include("footer.php");
     } else {
       header("location: user.php");
@@ -195,7 +195,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
     }
     if (!$stop) {
        include("header.php");
-	   echo '<h2>'.translate("User").'</h2>';
+      echo '<h2>'.translate("User").'</h2>';
           echo '<h2><i class="fa fa-user"></i>&nbsp;Votre fiche d\'inscription</h2>';	   
           include ("modules/sform/extend-user/aff_extend-user.php");
           hidden_form();
@@ -203,13 +203,13 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
           if (!$charte) {
              echo "<p class=\"lead text-warning text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
              echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\">
-				<input class=\"btn btn-default\" type=\"submit\" value=\"".translate("Go Back")."\" />
-				</form>";
+            <input class=\"btn btn-default\" type=\"submit\" value=\"".translate("Go Back")."\" />
+            </form>";
           } else {
              echo "<input type=\"hidden\" name=\"op\" value=\"finish\">
-			 <input class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Finish")."\" />
-			 </form>";
-          }
+         <input class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Finish")."\" />
+         </form>";
+         }
        
        include("footer.php");
     } else {
@@ -259,8 +259,8 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
              include ("signat.php");
              $subject="".translate("User Password for")." $uname";
              send_email($email, $subject, $message, "", true, "html");
-			 
-	   echo '<h2>'.translate("User").'</h2>';
+
+      echo '<h2>'.translate("User").'</h2>';
           echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';	   
                 echo '<p class="lead text-info"><i class="fa fa-exclamation"></i>&nbsp;'.translate("You are now registered. You should receive your password at the email account you provided.").'</p>';
 
@@ -277,11 +277,11 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
           }
           //------------------------------------------------
 //modif debut envoyer un mèl à l'admin
-	send_email($adminmail,"Inscription sur $sitename","Infos :
-		Nom : $name
-		ID : $uname
-		Password : $makepass
-		Email : $email", false,"text");
+   send_email($adminmail,"Inscription sur $sitename","Infos :
+      Nom : $name
+      ID : $uname
+      Password : $makepass
+      Email : $email", false,"text");
 //modif pour envoyer un mèl	à l'admin	  
        }
        include("footer.php");
@@ -306,11 +306,11 @@ function userinfo($uname) {
     include_once("functions.php");
 
     if ($uname == $cookie[1]) {
-	   echo '<h2>'.translate("User").'</h2>';
-       echo '<h3>'.$uname.', '.translate("Welcome to").' '.$sitename.'</h3>';
+      echo '<h2>'.translate("User").'</h2>';
+      echo '<h3>'.$uname.', '.translate("Welcome to").' '.$sitename.'</h3>';
 
-       echo "<br />";
-       echo '<p class="lead">'.translate("This is your personal page").'</p>';
+      echo "<br />";
+      echo '<p class="lead">'.translate("This is your personal page").'</p>';
        nav($mns);
     }
     $email=removeHack($femail);
@@ -332,8 +332,8 @@ function userinfo($uname) {
     
     if ($mns) {
 
-       echo '<p class="lead">'.translate("Mini-Web site").'</p>';
-	   echo '<p><a class="btn btn-primary" href="minisite.php?op='.$uname.'" target="_blank"><strong>'.translate("the page").' '.translate("here").'</strong></a></p>';
+      echo '<p class="lead">'.translate("Mini-Web site").'</p>';
+      echo '<p><a class="btn btn-primary" href="minisite.php?op='.$uname.'" target="_blank"><strong>'.translate("the page").' '.translate("here").'</strong></a></p>';
     }
 
     echo '<p class="lead">'.translate("Online journal for").' '.$uname.' :</p>';
@@ -379,14 +379,13 @@ function userinfo($uname) {
 }
 
 function main($user) {
-    global $stop, $smilies;
-    if (!isset($user)) {
-       include("header.php");
-	   
-	   echo '<h2>'.translate("User").'</h2>';	   
+   global $stop, $smilies;
+   if (!isset($user)) {
+      include("header.php");
+      echo '<h2>'.translate("User").'</h2>';
        if ($stop==99) {
           echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
-       } elseif ($stop)  {
+       } elseif ($stop) {
           echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
        }
        if (!$user) {
@@ -450,38 +449,38 @@ function logout() {
 
 function ForgetPassword() {
     include("header.php");
-	   echo '<h2>'.translate("User").'</h2>';
-    echo '<h3 class="lead text-warning text-xs-center">'.translate("Lost your Password?").'</h3>';
-	
-    echo '<p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>';
-	
-    echo '<form class="form-horizontal" role="form" action="user.php" method="post">';
-	
-			echo '<div class="form-group">
-					<div class="col-sm-2">
-						<label for="inputuser" class="control-label">'.translate("Nickname: ").'</label>
-					</div>
-					<div class="col-sm-4">
-						<input type="text" class="form-control"  name="uname" id="inputuser" placeholder="'.translate("Nickname").'" />
-					</div>
-				</div>';
-				
-			echo '<div class="form-group">
-					<div class="col-sm-2">
-						<label for="inputPassuser" class="control-label">'.translate("Password: ").'</label>
-					</div>
-					<div class="col-sm-4">
-						<input type="password" class="form-control" name="code" id="inputPassuser" placeholder="'.translate("Password").'" />
-					</div>
-                </div>';	
-	
-			echo '<input type="hidden" name="op" value="mailpasswd" />';
-	
-			echo '<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-1">
-						<button class="btn btn-primary" type="submit" title="'.translate("Send").'"><i class="fa fa-paper-plane"></i></button>
-					</div>
-				</div>';
+      echo '<h2>'.translate("User").'</h2>';
+      echo '<h3 class="lead text-warning text-xs-center">'.translate("Lost your Password?").'</h3>';
+
+   echo '<p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>';
+
+   echo '<form class="form-horizontal" role="form" action="user.php" method="post">';
+
+         echo '<div class="form-group row">
+               <div class="col-sm-2">
+               <label for="inputuser" class="control-label">'.translate("Nickname: ").'</label>
+               </div>
+               <div class="col-sm-4">
+                  <input type="text" class="form-control"  name="uname" id="inputuser" placeholder="'.translate("Nickname").'" />
+               </div>
+            </div>';
+
+         echo '<div class="form-group row">
+               <div class="col-sm-2">
+                  <label for="inputPassuser" class="control-label">'.translate("Password: ").'</label>
+               </div>
+               <div class="col-sm-4">
+                  <input type="password" class="form-control" name="code" id="inputPassuser" placeholder="'.translate("Password").'" />
+               </div>
+               </div>';
+
+         echo '<input type="hidden" name="op" value="mailpasswd" />';
+
+         echo '<div class="form-group">
+               <div class="col-sm-offset-2 col-sm-1">
+                  <button class="btn btn-primary" type="submit" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i>&nbsp;'.translate("Send").'</button>
+               </div>
+            </div>';
     echo '</form>';
     
     include ("footer.php");
@@ -526,30 +525,29 @@ function valid_password ($code) {
           include("header.php");
           
 
-		echo '<p class="lead">'.translate("Lost your Password?").'</p>';
+      echo '<p class="lead">'.translate("Lost your Password?").'</p>';
 
-		echo '<p>'.translate("To valid your new password request, just re-type it.").'</p>';
-		echo '<form class="form-horizontal" role="form" action="user.php" method="post">';
-		echo '<div class="form-group">
-				<div class="col-sm-2">
-					<label class="control-label">'.translate("Password: ").'</label>
+      echo '<p>'.translate("To valid your new password request, just re-type it.").'</p>';
+      echo '<form class="form-horizontal" role="form" action="user.php" method="post">';
+      echo '<div class="form-group">
+            <div class="col-sm-2">
+               <label class="control-label">'.translate("Password: ").'</label>
+               </div>
+                  <div class="col-sm-2">
+               <input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'">
                 </div>
-                <div class="col-sm-2">
-					<input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'">
-                </div>
-			</div>';
+         </div>';
           echo '<input type="hidden" name="op" value="updatepasswd" />';
           echo '<input type="hidden" name="code" value="'.$code.'" />';
-		  
-			echo '<div class="form-group">
-					<div class="col-sm-1">
-						<input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
-					</div>
-				</div>';		  
-		  
+
+         echo '<div class="form-group">
+               <div class="col-sm-1">
+                  <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
+               </div>
+            </div>';
 
           echo '</form>';
-          
+
           include ("footer.php");
       } else {
           message_pass(translate("Error"));
@@ -692,7 +690,7 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
     global $user, $userinfo, $system, $minpass;
     $cookie=cookiedecode($user);
     $check = $cookie[1];
-    $result = sql_query("select uid, email from ".$NPDS_Prefix."users where uname='$check'");
+    $result = sql_query("SELECT uid, email FROM ".$NPDS_Prefix."users WHERE uname='$check'");
     list($vuid, $vemail) = sql_fetch_row($result);
     if (($check == $uname) AND ($uid == $vuid)) {
         if ((isset($pass)) && ("$pass" != "$vpass")) {
@@ -820,49 +818,49 @@ function edithome() {
     echo '<p class="lead">'.translate("Change the home").'</p>';
 
     echo '<form class="form-horizontal" role="form" action="user.php" method="post">';
-	
-	echo '<div class="form-group">
-			<div class="col-sm-5">
-				<label class="control-label">
-				'.translate("News number in the Home").' (max. 127) :
-				</label>
-			</div>
+
+   echo '<div class="form-group">
+         <div class="col-sm-5">
+            <label class="control-label">
+            '.translate("News number in the Home").' (max. 127) :
+            </label>
+         </div>
             <div class="col-sm-1">
-				<input class="form-control" type="text" name="storynum" value="'.$userinfo['storynum'].'" />';
-		  
+            <input class="form-control" type="text" name="storynum" value="'.$userinfo['storynum'].'" />';
+
     if ($userinfo['ublockon']==1) {
        $sel = "checked=\"checked\"";
     } else {
        $sel = "";
     }
-	echo '</div></div>';
+   echo '</div></div>';
 
-	echo '<div class="form-group">
-			<div class="col-sm-10">
-				<div class="checkbox">
+   echo '<div class="form-group">
+         <div class="col-sm-10">
+            <div class="checkbox">
                    <label>
-					<input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
-					</label>';
-		echo '</div></div></div>';	
+               <input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
+               </label>';
+      echo '</div></div></div>';	
     echo '<ul><li>'.translate("(Check this option and the following text will appear in the Home)").'</li>
         <li>'.translate("(You can use HTML code to put links, for example)").'</li></ul>';
 
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
-			</div>
-		</div>';		
+   echo '<div class="form-group">
+         <div class="col-sm-12">
+            <textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
+         </div>
+      </div>';
 
    echo "<input type=\"hidden\" name=\"theme\" value=\"".$userinfo['theme']."\" />
         <input type=\"hidden\" name=\"uname\" value=\"".$userinfo['uname']."\" />
         <input type=\"hidden\" name=\"uid\" value=\"".$userinfo['uid']."\" />
         <input type=\"hidden\" name=\"op\" value=\"savehome\" />";
-		
-	echo '<div class="form-group">
-			<div class="col-sm-1">
-				<input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
-			</div>
-		</div>';
+
+   echo '<div class="form-group">
+         <div class="col-sm-1">
+            <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+         </div>
+      </div>';
     echo '</form>';
     
     include ("footer.php");
@@ -890,20 +888,19 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
 }
 
 function chgtheme() {
-    global $user;
-    include ("header.php");
-    $userinfo=getusrinfo($user);
-    nav($userinfo['mns']);
-
-echo '<br />';
-    echo '<p class="lead">'.translate("Select One Theme").'';
-    echo '<form class="form-horizontal" role="form" action="user.php" method="post">
-			<div class="form-group">
-				<div class="col-sm-4">
-					<label class="control-label">'.translate("Select One Theme").'</label>
-				</div>
-			<div class="col-sm-3">
-				<select class="form-control" name="theme">';
+   global $user;
+   include ("header.php");
+   $userinfo=getusrinfo($user);
+   nav($userinfo['mns']);
+   echo '
+   <h2>'.translate("Change Theme").'</h2>
+   <form class="" role="form" action="user.php" method="post">
+   <div class="form-group row">
+      <div class="col-lg-5">
+         <label class="control-label" for="theme">'.translate("Select One Theme").'</label>
+      </div>
+   <div class="col-lg-7">
+      <select class="c-select form-control" name="theme">';
     include("themes/list.php");
     $themelist = explode(" ", $themelist);
     for ($i=0; $i < sizeof($themelist); $i++) {
@@ -913,27 +910,23 @@ echo '<br />';
              echo ">$themelist[$i]\n";
           }
     }
-    if ($userinfo['theme']=="") $userinfo['theme'] = "Default_Theme";
-    echo "</select>
-			</div>
-			</div>
-		<ul>
-			<li>".translate("This option will change the look for the whole site.")."</li>
-			<li>".translate("The changes will be valid only to you.")."</li>
-			<li>".translate("Each user can view the site with different theme.")."</li>
-			</ul>";
-
-    echo "<input type=\"hidden\" name=\"uname\" value=\"".$userinfo['uname']."\" />
-          <input type=\"hidden\" name=\"uid\" value=\"".$userinfo['uid']."\" />
-          <input type=\"hidden\" name=\"op\" value=\"savetheme\" />";
-		  
-			echo '<div class="form-group">
-					<div class="col-sm-1">
-						<input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
-					</div>
-				</div>';
-          echo '</form>';
-    
+    if ($userinfo['theme']=='') $userinfo['theme'] = 'Default_Theme';
+    echo '
+   </select>
+   <p class="help-block">
+   <span>'.translate("This option will change the look for the whole site.").'</span><br />
+   <span>'.translate("The changes will be valid only to you.").'</span><br />
+   <span>'.translate("Each user can view the site with different theme.").'</span>
+   </p>
+   </div>
+   </div>
+      <div class="form-group">
+         <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
+         <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
+         <input type="hidden" name="op" value="savetheme" />
+         <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+      </div>
+   </form>';
     include ("footer.php");
 }
 function savetheme($uid, $theme) {
@@ -963,29 +956,29 @@ function editjournal(){
     echo '<br />';
     echo '<p class="lead">'.translate("Edit your journal").'</p>';
     echo "<form  class=\"form-horizontal\" role=\"form\" action=\"user.php\" method=\"post\" name=\"adminForm\">";
-	
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<textarea class="form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>
-			</div>
-		</div>';
-    echo aff_editeur("journal", "true");
-    echo "<input type=\"hidden\" name=\"uname\" value=\"".$userinfo['uname']."\" />";
-    echo "<input type=\"hidden\" name=\"uid\" value=\"".$userinfo['uid']."\" />";
-    echo "<input type=\"hidden\" name=\"op\" value=\"savejournal\" />";	
-	echo '<div class="form-group">
-			<div class="col-sm-6">
-				<div class="checkbox">
-					<label>
-					<input type="checkbox" name="datetime" value="1" />'.translate("Add date and time stamp").'</label>
-				</div>
-			</div>
-		</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-1">
-				<input class="btn btn-primary" type="submit" value="'.translate("Save Journal").'" />
-			</div>
-		</div>';
+
+   echo '<div class="form-group">
+         <div class="col-sm-12">
+            <textarea class="form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>
+         </div>
+      </div>';
+   echo aff_editeur("journal", "true");
+   echo "<input type=\"hidden\" name=\"uname\" value=\"".$userinfo['uname']."\" />";
+   echo "<input type=\"hidden\" name=\"uid\" value=\"".$userinfo['uid']."\" />";
+   echo "<input type=\"hidden\" name=\"op\" value=\"savejournal\" />";	
+   echo '<div class="form-group">
+         <div class="col-sm-6">
+            <div class="checkbox">
+               <label>
+               <input type="checkbox" name="datetime" value="1" />'.translate("Add date and time stamp").'</label>
+            </div>
+         </div>
+      </div>';
+   echo '<div class="form-group">
+         <div class="col-sm-1">
+            <input class="btn btn-primary" type="submit" value="'.translate("Save Journal").'" />
+         </div>
+      </div>';
     echo "</form>";
 
     include("footer.php");

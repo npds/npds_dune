@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -37,13 +37,11 @@ if ($forum>=0)
    die();
 
 // gestion des params du 'forum' : type, accès, modérateur ...
-$forum_name = "comments";
+$forum_name = 'comments';
 $forum_type=0;
 $allow_to_post=false;
-if ($anonpost)
-   $forum_access=0;
-else
-   $forum_access=1;
+if ($anonpost) $forum_access=0;
+else $forum_access=1;
 
 global $user;
 if (($moderate==1) and $admin)
@@ -51,7 +49,7 @@ if (($moderate==1) and $admin)
 elseif ($moderate==2) {
    $userX=base64_decode($user);
    $userdata=explode(":", $userX);
-   $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status where uid='".$userdata[0]."'");
+   $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid='".$userdata[0]."'");
    list($level)=sql_fetch_row($result);
    if ($level>=2)
       $Mmod=true;
@@ -72,7 +70,7 @@ if (isset($submitS)) {
          if (($username=="") or ($password=="")) {
             forumerror('0027');
          } else {
-            $result = sql_query("select pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
+            $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
             if (!$system) {
                $passwd=crypt($password,$pass);
@@ -89,7 +87,7 @@ if (isset($submitS)) {
       }
    } else {
       $userX = base64_decode($user);
-      $userdata = explode(":", $userX);
+      $userdata = explode(':', $userX);
       $userdata = get_userdata($userdata[1]);
       include("header.php");
    }
@@ -113,12 +111,12 @@ if (isset($submitS)) {
          }
       }
 
-      if ($formulaire!="") {
+      if ($formulaire!='') {
          include ("modules/comments/comments_extender.php");
       }
 
       if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-      if (isset($sig) && $userdata['uid'] != 1) $message .= " [addsig]";
+      if (isset($sig) && $userdata['uid'] != 1) $message .= ' [addsig]';
       $message = aff_code($message);
       $message = str_replace("\n", "<br />", $message);
       if ($allow_bbcode) {
@@ -126,7 +124,7 @@ if (isset($submitS)) {
       }
       $message = make_clickable($message);
       $message = removeHack($message);
-      $image_subject="";
+      $image_subject='';
       $message = addslashes($message);
       $time = date("Y-m-d H:i:s",time()+($gmt*3600));
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
@@ -156,7 +154,7 @@ if (isset($submitS)) {
    if ($allow_bbcode==1) {
       include("lib/formhelp.java.php");
    }
-   if ($formulaire=="")
+   if ($formulaire=='')
       echo '
 			<div class="row">
 			<div class="col-md-12">
@@ -172,24 +170,21 @@ if (isset($submitS)) {
    }
    if ($allow_to_reply) {
      if (isset($submitP)) {
-        $acc = "reply";
-        $message=stripslashes($message);  
-        include ("preview.php");      
+        $acc = 'reply';
+        $message=stripslashes($message);
+        include ("preview.php");
      } else {
-        $message="";
+        $message='';
      }
-     if ($formulaire!="") {   
+     if ($formulaire!='') {
         include ("modules/comments/comments_extender.php");
      } else {
         if ($allow_bbcode)
            $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
 
-	   
         echo '<div class="col-sm-2">
               <label class="control-label">';
-        echo '<b>'.translate("Message: ").'</b><br />';									
-
-
+        echo '<b>'.translate("Message: ").'</b><br />';
 
         echo 'HTML : ';
         if ($allow_html==1) {
@@ -214,82 +209,86 @@ if (isset($submitS)) {
               $reply = translate("Error Connecting to DB")."\n";
            }
         }
-        if (!isset($reply)) {$reply=$message;}																	
-		
-		
-		
-		echo '
-			</label>
-			</div>
-		
-			<div class="col-sm-10">';
-		
-        echo '<textarea class="form-control" '.$xJava.' name="message" rows="12">'.$reply.'</textarea>';		
-		
-		echo '</div></div>';
-       
-        echo '
-			<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">';
+        if (!isset($reply)) {$reply=$message;}
+
+   echo '
+      </label>
+      </div>
+      <div class="col-sm-10">';
+     echo '<textarea class="form-control" '.$xJava.' name="message" rows="12">'.$reply.'</textarea>';
+   
+   echo '</div></div>';
+    
+     echo '
+      <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">';
         if ($allow_bbcode)
-           putitems();			
-			
-		echo '<br /><br /><strong>'.translate("Options: ").'</strong>';
-        
+           putitems();
+
+      echo '
+      <div class="form-group row">
+      <div class="col-sm-3">
+         <label class="form-control-label">'.translate("Options: ").'</label>
+      </div>';
         if ($allow_html==1) {
-           if (isset($html)) {
-              $sethtml = "checked=\"checked\"";
-           } else {
-              $sethtml = "";
-           }
+        if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
            echo '
-				<div class="checkbox"><label><input type="checkbox" name="html" '.$sethtml.' />'.translate("Disable HTML on this Post").'</label></div>';
+      <div class="col-sm-9">
+         <div class="checkbox">
+            <label class="" for="html">
+               <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
+            </label>
+         </div>';
         }
         if ($user) {
            if ($allow_sig == 1||isset($sig)) {
-              $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
+              $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
               list($attachsig) = sql_fetch_row($asig);
-              if ($attachsig == 1 or isset($sig)) {
-                 $s = "checked=\"checked\"";
-              } else
-                 $s="";
-              echo "<input type=\"checkbox\" name=\"sig\" $s />".translate("Show signature")." <span style=\"font-size: 10px;\">(".translate("This can be altered or added in your profile").")</span><br />";
+              if ($attachsig == 1 or isset($sig)) {$s = 'checked="checked"';} else $s='';
+               echo '
+         <div class="checkbox">
+            <label class="">
+               <input type="checkbox" name="sig" '.$s.' /> '.translate("Show signature").' :<br /><small>'.translate("This can be altered or added in your profile").'</small>
+            </label>
+         </div>';
            }
         }
-//		echo '</div></div>';
-		
+      echo '</div></div>';
+
         echo ''.Q_spambot().'';
         echo '
-			<input type="hidden" name="ModPath" value="comments" />
-			<input type="hidden" name="ModStart" value="reply" />
-			<input type="hidden" name="topic" value="'.$topic.'" />
-			<input type="hidden" name="file_name" value="'.$file_name.'" />
-			<input type="hidden" name="archive" value="'.$archive.'" />';
-		
-		echo '
-			<!--<div class="form-group text-xs-center">
-			<div class="col-sm-offset-2 col-sm-10">-->
+      <input type="hidden" name="ModPath" value="comments" />
+      <input type="hidden" name="ModStart" value="reply" />
+      <input type="hidden" name="topic" value="'.$topic.'" />
+      <input type="hidden" name="file_name" value="'.$file_name.'" />
+      <input type="hidden" name="archive" value="'.$archive.'" />';
+
+      echo '
+         <!--<div class="form-group text-xs-center">
+         <div class="col-sm-offset-2 col-sm-10">-->
             <div class="btn-group-sm text-xs-center">
-			<br />
-			<input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" />
-			<input class="btn btn-default" type="submit" name="submitP" value="'.translate("Preview").'" />
-			<input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
-			<input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
-			</div>		
-			</div>
-			</div>';		
+         <br />
+         <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" />
+         <input class="btn btn-default" type="submit" name="submitP" value="'.translate("Preview").'" />
+         <input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
+         <input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
+         </div>		
+         </div>
+         </div>';
      }
    } else {
      echo ''.translate("You are not allowed to reply in this forum").'';
    }
-   if ($formulaire=="")
-      echo '</form>
-			</div></div>';
+   if ($formulaire=='')
+      echo '
+      </form>
+   </div>
+   </div>';
    if ($allow_to_reply) {
       if ($Mmod) {
-         $post_aff="";
+         $post_aff='';
       } else {
-         $post_aff=" and post_aff='1' ";
+         $post_aff=" AND post_aff='1' ";
       }
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum='$forum' ORDER BY post_id DESC limit 0,10";
       $result = sql_query($sql);

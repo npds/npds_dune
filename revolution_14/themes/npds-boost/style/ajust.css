@@ -132,17 +132,8 @@ body {}
 text-align:center;
 }
 #col_princ{}
+#col_LB{}
 
-/*
-#col_LB{
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-border-radius: 4px;
--moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
--webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
-}
-*/
 
 a:hover {text-decoration:none;}
 
@@ -191,18 +182,6 @@ height:24px;
 }
 /* <== Personalisation des tooltips bootstrap V4*/
 
-/* jpb vspace pour boot*/
-
-.voffset  { margin-top: 2px; }
-.voffset1 { margin-top: 5px; }
-.voffset2 { margin-top: 10px; }
-.voffset3 { margin-top: 15px; }
-.voffset4 { margin-top: 30px; }
-.voffset5 { margin-top: 40px; }
-.voffset6 { margin-top: 60px; }
-.voffset7 { margin-top: 80px; }
-.voffset8 { margin-top: 100px; }
-.voffset9 { margin-top: 150px; }
 
 #adm_men a:hover
 {text-decoration: none;}
@@ -455,6 +434,7 @@ a.tooltip_ws:hover em span {
     
 /* réimpléméntation pour V4 */    
 .help-block {
+  font-size: .85rem;
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;

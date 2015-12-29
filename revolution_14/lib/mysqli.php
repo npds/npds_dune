@@ -122,8 +122,7 @@ $sql_nbREQ=0;
       return @mysqli_close($dblink);
    }
    
-   
-   // Meta donnŽes d'un champ
+   // Meta donnŽes d'un champ ==> to test on dev
    function sql_fetch_field_direct ($q_id='',$i) {
       if (empty($q_id)) {
         global $query_id;
@@ -132,9 +131,4 @@ $sql_nbREQ=0;
       return mysqli_fetch_field_direct($q_id,$i);
    }
 
-   
-   
-   
-   
-   
 ?>
