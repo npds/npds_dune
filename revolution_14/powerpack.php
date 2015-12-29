@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,7 +16,6 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
 include("powerpack_f.php");
-
 global $powerpack; $powerpack=true;
 
 settype($op,'string');
@@ -28,7 +27,7 @@ switch ($op) {
 
    case "write_instant_message":
         if ($user) {
-           $rowQ1=Q_Select("select uid from ".$NPDS_Prefix."users where uname='$cookie[1]'", 3600);
+           $rowQ1=Q_Select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'", 3600);
            list(,$uid)=each($rowQ1);
            $from_userid=$uid['uid'];
            if (($subject!="") or ($message!="")) {
