@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,9 +24,9 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    if ($gzhandler==1) {ob_start("ob_gzhandler");}
    include("themes/$tmp_theme/theme.php");
 
-   // Meta   
+   // Meta
    if (file_exists("meta/meta.php")) {
-      $meta_op="";
+      $meta_op='';
       include ("meta/meta.php");
    }
       
@@ -34,9 +34,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    if (file_exists("themes/$tmp_theme/images/favicon.ico")) {
       $favico="themes/$tmp_theme/images/favicon.ico";
    } else {
-      $favico="images/favicon.ico";
+      $favico='images/favicon.ico';
    }
-   echo "<link rel=\"shortcut icon\" href=\"$favico\" type=\"image/x-icon\" />\n";
+   echo '
+   <link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />';
 
    // Syndication RSS & autres
    global $sitename, $nuke_url;
@@ -46,11 +47,11 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    $uri = $REQUEST_URI;
    $drname=dirname($uri);
    if ($drname==".") {
-      $uri=$nuke_url."/".$uri;
-   } elseif($drname=="/") {
+      $uri=$nuke_url.'/'.$uri;
+   } elseif($drname=='/') {
       $uri=$nuke_url.$uri;
    } else {
-      $uri="http://".$_SERVER['SERVER_NAME'].$uri;
+      $uri='http://'.$_SERVER['SERVER_NAME'].$uri;
    }
    echo "<link rel=\"canonical\" href=\"".str_replace("&","&amp;",str_replace("&amp;","&",$uri))."\" />\n";
 
@@ -243,12 +244,12 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    
       // meta description
       settype($m_description, 'string');
-      if (array_key_exists('meta-description',$PAGES[$pages_ref]) and ($m_description=="")) {
+      if (array_key_exists('meta-description',$PAGES[$pages_ref]) and ($m_description=='')) {
          $m_description=aff_langue($PAGES[$pages_ref]['meta-description']);
       }
       // meta keywords
-      settype($m_keywords, 'string');      
-      if (array_key_exists('meta-keywords',$PAGES[$pages_ref]) and ($m_keywords=="")) {
+      settype($m_keywords, 'string');
+      if (array_key_exists('meta-keywords',$PAGES[$pages_ref]) and ($m_keywords=='')) {
          $m_keywords=aff_langue($PAGES[$pages_ref]['meta-keywords']);
       }
    }
@@ -281,24 +282,24 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
          $css_pages_ref=$pages_ref;
          $css=$PAGES[$pages_ref]['css'];
       } else {
-         $css_pages_ref="";
-         $css="";
+         $css_pages_ref='';
+         $css='';
       }
    } else {
-      $css_pages_ref="";
-      $css="";
+      $css_pages_ref='';
+      $css='';
    }
 
    // Mod by Jireck - Chargeur de JS via PAGES.PHP
    if (array_key_exists($pages_ref,$PAGES)) {
       if (array_key_exists('js',$PAGES[$pages_ref])) {
          $js=$PAGES[$pages_ref]['js'];
-         if ($js!="") { global $pages_js; $pages_js=$js; }
+         if ($js!='') { global $pages_js; $pages_js=$js; }
       } else {
-         $js="";
+         $js='';
       }
    } else {
-      $js="";
+      $js='';
    }
 
    head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords);
