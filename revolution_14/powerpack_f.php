@@ -352,12 +352,12 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
     if ($maxforums==0)
        $lim="";
     else
-       $lim=" limit $maxforums";
+       $lim=" LIMIT $maxforums";
 
     if ($user) {
-       $query = "Select * from ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim;
+       $query = "SELECT * FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim;
     } else {
-       $query = "Select * from ".$NPDS_Prefix."forums where forum_type!='9' and forum_type!='7' and forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
+       $query = "SELECT * FROM ".$NPDS_Prefix."forums WHERE forum_type!='9' AND forum_type!='7' AND forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
     }
     $result = sql_query($query);
 
