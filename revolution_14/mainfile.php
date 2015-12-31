@@ -1784,12 +1784,7 @@ function anti_spam($str, $highcode = 0) {
 #autodoc aff_editeur($Xzone, $Xactiv) : Charge l'éditeur ... ou non : $Xzone = nom du textarea / $Xactiv = deprecated <br /> si $Xzone="custom" on utilise $Xactiv pour passer des param&egrave;tres spécifiques
 function aff_editeur($Xzone, $Xactiv) {
    global $language, $tiny_mce,$tiny_mce_theme,$tiny_mce_relurl;
-   if ($language=="french") $tiny_lang="fr";
-   if ($language=="english") $tiny_lang="en";
-   if ($language=="chinese") $tiny_lang="zh-cn";
-   if ($language=="spanish") $tiny_lang="es";
-   if ($language=="german") $tiny_lang="de";
-   $tmp="";
+   $tmp='';
    if ($tiny_mce) {
       static $tmp_Xzone;
       if ($Xzone=="tiny_mce") {
@@ -1797,19 +1792,22 @@ function aff_editeur($Xzone, $Xactiv) {
             if (substr($tmp_Xzone,-1)==",")
                $tmp_Xzone=substr_replace($tmp_Xzone,"",-1);
             if ($tmp_Xzone) {
-               $tmp="<script type=\"text/javascript\">\n";
-               $tmp.="//<![CDATA[\n";
-               $tmp.="tinymce.init({\n";
-               $tmp.="theme : \"advanced\",\n";
-               $tmp.="language : \"".$tiny_lang."\",\n";
-               $tmp.="mode : \"specific_textareas\",\n";
+               $tmp="
+               <script type=\"text/javascript\">
+               //<![CDATA[
+               tinymce.init({
+                  selector: 'textarea.tin',
+                  height: 300,
+                  theme : 'modern',
+                  language : '".language_iso(1,_,1)."',\n";
                include ("editeur/tiny_mce/themes/advanced/npds.conf.php");
-               $tmp.="});\n";
-               $tmp.="//]]>\n";
-               $tmp.="</script>\n";
+               $tmp.="
+               });
+               //]]>
+               </script>";
             }
          } else {
-            $tmp.="<script type=\"text/javascript\" src=\"editeur/tiny_mce/tiny_mce.js\"></script>\n";
+            $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
          }
 	// début d'implémentation tiny brute phr 020515	 
 /*				$tmp="<script type=\"text/javascript\">\n";
@@ -2798,13 +2796,13 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".translate("Hide list")."');
-            i_id.attr('class','fa fa-minus-square-o');
+            i_id.attr('class','fa fa-caret-up');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
             btn_hide.attr('title','".translate("Show list")."');
-            i_id.attr('class','fa fa-plus-square-o');
+            i_id.attr('class','fa fa-caret-down');
         }
        });
    };
@@ -2823,7 +2821,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $li_mb='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
-   $li_mb.='<li class=" list-group-item li_18"><span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-plus-square-o" ></i></span>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
+   $li_mb.='<li class=" list-group-item li_18"><span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down" ></i></span>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
   
    $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
@@ -2879,7 +2877,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $res_forum=sql_query("select forum_id, forum_name from ".$NPDS_Prefix."forums where forum_pass regexp '$gr'");
       $nb_foru=sql_num_rows ($res_forum);
       if ($nb_foru >= 1) {
-         $lst_for_tog='<span class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-plus-square-o" ></i></span>';
+         $lst_for_tog='<span class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down" ></i></span>';
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
          $nb_for_gr='  <span class="label label-pill label-default pull-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
@@ -2910,7 +2908,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $docs_gr=sql_query("SELECT page, editedby, modtime, ranq FROM ".$NPDS_Prefix."wspad WHERE (ws_id) IN (SELECT MAX(ws_id) FROM ".$NPDS_Prefix."wspad WHERE member='$gr' GROUP BY page) ORDER BY page ASC");
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
-         $lst_doc_tog ='<span class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-plus-square-o" ></i></span>';
+         $lst_doc_tog ='<span class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down" ></i></span>';
          $lst_doc.='<ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
          $nb_doc_gr='  <span class="label label-pill label-default pull-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
@@ -2935,7 +2933,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<span class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-plus-square-o" ></i></span>&nbsp;<i class="fa fa-sticky-note-o fa-lg text-muted"></i>&nbsp; Bloc note';
+      $lst_blocnote_tog ='<span class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-caret-down" ></i></span>&nbsp;<i class="fa fa-sticky-note-o fa-lg text-muted"></i>&nbsp; Bloc note';
       $lst_blocnote ='<div id="lst_blocnote" class="m-t-md" style =" display:none; ">';
       $lst_blocnote .= blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
       $lst_blocnote .= '</div>';
@@ -3174,6 +3172,11 @@ function language_iso($l,$s,$c) {
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
 if ($fv=='fv') {
 echo '
+<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/formValidation.min.js"></script>
+<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
+<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/framework/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
+
 <script type="text/javascript">
 //<![CDATA[
 var diff;
