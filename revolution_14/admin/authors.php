@@ -113,7 +113,7 @@ global $modu,$fieldnames,$NPDS_Prefix;
    if (file_exists("admin/extend-modules.txt")) {
     // ==> tableau des droits de l'admin (le nom de la fonction(= champ) si droit est à 1) a little bit obsolete since lesradmin ne sont plus la a l'exception de fm et super
     $result=sql_query("select * from ".$NPDS_Prefix."authors where aid='$chng_moduadmin'");
-    $row = mysql_fetch_assoc ($result);
+    $row = sql_fetch_assoc ($result);
       $droit_adm_fonct=array();
       foreach ($fieldnames as $k =>$v) {
         if ($row[$v]==1) {$droit_adm_fonct[]=$v;}
