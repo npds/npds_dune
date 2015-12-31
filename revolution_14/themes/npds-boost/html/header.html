@@ -18,7 +18,7 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       list($user_avatar)=sql_fetch_row(sql_query("select user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
       if (!$user_avatar) {
-      $imgtmp="images/forum/avatar/blank.gif";
+      $imgtmp='images/forum/avatar/blank.gif';
        } else if (stristr($user_avatar,"users_private")) {
       $imgtmp=$user_avatar;
       } else {
