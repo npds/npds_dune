@@ -32,8 +32,6 @@ function listsections($rubric) {
 
    if (file_exists("sections.config.php"))
       include ("sections.config.php");
-/*   if ($togglesection)
-      include_once ("lib/togglediv.class.php");*/
 
    global $SuperCache;
    if ($SuperCache) {
@@ -60,7 +58,7 @@ function listsections($rubric) {
             $nb_section=sql_num_rows($result2);
             $aff.='
       <h3>
-         <a data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="fa fa-bars"></i></a>&nbsp;
+         <a class="arrow-toggle" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="fa fa-caret-down"></i></a>&nbsp;
          <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a>
       </h3>';
             if ($intro!='') {$aff.='<p class="text-muted">'.aff_langue($intro).'</p>';};
@@ -74,7 +72,7 @@ function listsections($rubric) {
                   $aff.='
          <div class="card card-block" id="rub_'.$rubid.'sec_'.$secid.'">
             <h4 class="">
-               <a data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="'.$secid.'"><i class="fa fa-bars"></i></a>&nbsp;';
+               <a class="arrow-toggle" data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="'.$secid.'"><i class="fa fa-caret-down"></i></a>&nbsp;';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
