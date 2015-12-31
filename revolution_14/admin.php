@@ -202,29 +202,29 @@ function GraphicAdmin($hlpfile) {
 
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider
-   $newsubs=sql_num_rows(sql_query("select qid from ".$NPDS_Prefix."queue"));
-   if($newsubs) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newsubs."' where fid='38'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='38'");
+   $newsubs=sql_num_rows(sql_query("SELECT qid FROM ".$NPDS_Prefix."queue"));
+   if($newsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newsubs."' WHERE fid='38'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='38'");
    //news auto
-   $newauto=sql_num_rows(sql_query("select anid from ".$NPDS_Prefix."autonews"));
-   if($newauto) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("articles sont programmés pour la publication.")."' where fid=37"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0',fretour_h='' where fid=37");
+   $newauto=sql_num_rows(sql_query("SELECT anid FROM ".$NPDS_Prefix."autonews"));
+   if($newauto) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("articles sont programmés pour la publication.")."' WHERE fid=37"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0',fretour_h='' WHERE fid=37");
    //etat filemanager
-   if ($filemanager) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1' where fid='27'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0' where fid='27'");
+   if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
    //version npds
-   if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1' where fid=36"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0' where fid='36'");
+   if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1' WHERE fid=36"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='36'");
    //referant à gérer
    if($httpref = 1) {
    $result=sql_fetch_assoc(sql_query("select count(*) as total from ".$NPDS_Prefix."referer"));
-   if ($result['total']>=$httprefmax) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' where fid='39'");else sql_query("update fonctions ".$NPDS_Prefix." set fetat='0' where fid='39'");
+   if ($result['total']>=$httprefmax) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' WHERE fid='39'");else sql_query("UPDATE fonctions ".$NPDS_Prefix." SET fetat='0' WHERE fid='39'");
    }
    //critique en attente
    $critsubs= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add"));
-   if($critsubs) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$critsubs."' where fid='35'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='35'");
+   if($critsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$critsubs."' WHERE fid='35'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='35'");
    //nouveau lien à valider
    $newlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_newlink"));
-   if($newlink) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$newlink."' where fid='41'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='41'");
+   if($newlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newlink."' WHERE fid='41'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='41'");
    //lien rompu à valider
    $brokenlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest where brokenlink='1'"));
-   if($brokenlink) sql_query("update ".$NPDS_Prefix."fonctions set fetat='1',fretour='".$brokenlink."' where fid='42'"); else sql_query("update ".$NPDS_Prefix."fonctions set fetat='0',fretour='0' where fid='42'");
+   if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
    //==> construction de la zone de téléchargement des versions de NPDS
@@ -310,9 +310,9 @@ function GraphicAdmin($hlpfile) {
 //   $Q = sql_fetch_assoc($Q);
    if ($Q['radminsuper']==1) {
    // on prend tout ce qui a une interface 
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and f.fetat != '0' order by f.fcategorie, f.fordre");}
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and f.fetat != '0' ORDER BY f.fcategorie, f.fordre");}
    else {
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 and fetat!=0 and d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' order by f.fcategorie, f.fordre");
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 and fetat!=0 and d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
    }
 
    $j=0;
@@ -550,7 +550,8 @@ function adminMain($deja_affiches) {
    $result = sql_query("select sid, title, hometext, topic, informant, time, archive from ".$NPDS_Prefix."stories order by time desc LIMIT $deja_affiches,$admart");
 
    if ($nbre_articles) {
-      echo '<table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      echo '
+      <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
                 <thead>
                     <tr>
                         <th data-sortable="true">ID</th>
@@ -559,7 +560,7 @@ function adminMain($deja_affiches) {
                         <th>'.adm_translate("Fonctions").'</th>
                     </tr>
                 </thead>
-                <tbody>'."\n";
+                <tbody>';
       $i=0;
       while( (list($sid, $title, $hometext, $topic, $informant, $time, $archive) = sql_fetch_row($result)) and ($i<$admart) ) {
          $affiche = false;
@@ -687,7 +688,7 @@ if ($admintest) {
              include("admin/reviews.php");
              break;
         case "deleteNotice":
-             sql_query("delete from ".$NPDS_Prefix."reviews_add WHERE id='$id'");
+             sql_query("DELETE FROM ".$NPDS_Prefix."reviews_add WHERE id='$id'");
              Header("Location: admin.php?op=$op_back");
              break;
         // CRITIQUES
