@@ -41,13 +41,10 @@ echo '
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script type="text/javascript" src="lib/tableExport.jquery.plugin-master/tableExport.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/formValidation.min.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/framework/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="lib/js/js.cookie.js"></script>
 <script type="text/javascript" src="lib/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="lib/js/bootbox.min.js"></script>
-<script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>';
