@@ -33,7 +33,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          <fieldset>
             <legend>'.adm_translate("Type d'&#xE9;ditorial").'</legend>
             <div class="form-group">
-               <select class="form-control" name="edito_type" onchange="submit()">
+               <select class="c-select form-control" name="edito_type" onchange="submit()">
                   <option value="0">'.adm_translate("Modifier l'Editorial").' ...</option>
                   <option value="G">'.adm_translate("Anonyme").'</option>
                   <option value="M">'.adm_translate("Membre").'</option>
@@ -61,7 +61,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             <label class="form-control-label" for="XeditoJ">'.adm_translate("Le jour").'</label>';
       echo aff_editeur("XeditoJ","false");
       echo '
-            <textarea class="textbox form-control" name="XeditoJ" rows="20" >';
+            <textarea class="tin form-control" name="XeditoJ" rows="20" >';
       echo htmlspecialchars($contentJ,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
       echo '</textarea>
          </div>
@@ -69,7 +69,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             <label class="form-control-label" for="XeditoN">'.adm_translate("La nuit").'</label>';
       echo aff_editeur("XeditoN","false");
       echo '
-            <textarea class="textbox form-control" name="XeditoN" rows="20">';
+            <textarea class="tin form-control" name="XeditoN" rows="20">';
       echo htmlspecialchars($contentN,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
       echo '</textarea>
          </div>
@@ -110,9 +110,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          </div>
       </div>
       </fieldset>
-      </form>
-
-      ';
+      </form>';
    }
    adminfoot('fv','','','');
 }
