@@ -31,6 +31,7 @@ function ablock() {
    if (sql_num_rows($result) > 0) {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
+         <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
          <form id="fad_ablock" action="admin.php" method="post">
             <div class="form-group">
                 <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
@@ -45,19 +46,23 @@ function ablock() {
             <div class="form-group">
                <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
             </div>
-         </form>';
+         </form>
+         <script type="text/javascript">
+         //<![CDATA[
+            inpandfieldlen("title",250);
+         //]]>
+         </script>';
       }
    }
-   adminfieldinp($result);
+//   adminfieldinp($result);//waiting for better mysqlilib
    adminfoot('fv','','','');
 }
 
 function changeablock($title, $content) {
    global $NPDS_Prefix;
-
    $title = stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
-   sql_query("update ".$NPDS_Prefix."adminblock set title='$title', content='$content'");
+   sql_query("UPDATE ".$NPDS_Prefix."adminblock SET title='$title', content='$content'");
    global $aid; Ecr_Log("security", "ChangeAdminBlock() by AID : $aid", "");
    Header("Location: admin.php?op=adminMain");
 }
@@ -66,7 +71,6 @@ switch ($op) {
    case "ablock":
         ablock();
         break;
-
    case "changeablock":
         changeablock($title, $content);
         break;
