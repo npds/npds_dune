@@ -220,18 +220,8 @@ function RecommendSite() {
       inpandfieldlen("fmail",100);
    //]]>
    </script>';
-   $fv_parametres = '
-   yname: {
-   },
-   ymail: {
-   },
-   fname: {
-   },
-   fmail: {
-   },
-   ';
 
-   adminfoot('fv',$fv_parametres,'',1);
+   adminfoot('fv','','',1);
 
    include ('footer.php');
 }
