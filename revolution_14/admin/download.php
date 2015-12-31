@@ -75,7 +75,7 @@ function DownloadAdmin() {
     opentable();
 
     echo "<form action=\"admin.php\" method=\"post\">";
-    $resultX = sql_query("select distinct dcategory from ".$NPDS_Prefix."downloads order by dcategory");
+    $resultX = sql_query("SELECT DISTINCT dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
     $num_row=sql_num_rows($resultX);
     $toggle = new ToggleDiv($num_row);
 
@@ -102,7 +102,7 @@ function DownloadAdmin() {
              <td class=\"ongl\" align=\"center\">".adm_translate("Date")."</td>
              <td class=\"ongl\" align=\"center\">".adm_translate("Fonctions")."</td>
           </tr>";
-       $result = sql_query("select did, dcounter, durl, dfilename, dfilesize, ddate, dver, perms from ".$NPDS_Prefix."downloads where dcategory='".addslashes($dcategory)."' order by did ASC");
+       $result = sql_query("SELECT did, dcounter, durl, dfilename, dfilesize, ddate, dver, perms FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY did ASC");
        while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dver, $dperm) = sql_fetch_row($result)) {
           $rowcolor = tablos();
           echo "<tr $rowcolor>
@@ -117,11 +117,14 @@ function DownloadAdmin() {
                 <td>$dfilename</td>
                 <td align=\"center\">&nbsp;$dver</td>
                 <td align=\"center\">";
-                $Fichier = new File($durl);
+                //$Fichier = new File($durl);
+                  $Fichier = new FileManagement; // essai class
                 if ($dfilesize!=0) {
-                   echo $Fichier->Pretty_Size($dfilesize);
+                   //echo $Fichier->Pretty_Size($dfilesize);
+               echo $Fichier->file_size_auto($durl, 2);
                 } else {
-                   echo $Fichier->Affiche_Size();
+                   //echo $Fichier->Affiche_Size();
+                echo $Fichier->file_size_auto($durl, 2);
                 }
                 echo "</td>
                 <td align=\"center\">$ddate</td>
@@ -174,7 +177,7 @@ function DownloadAdmin() {
        <td width=\"20%\">".adm_translate("Categorie : ")."</td>
        <td><input class=\"textbox_standard\" type=\"text\" name=\"dcategory\" size=\"35\" maxlength=\"250\" /> - ";
     echo "<select class=\"textbox_standard\" name=\"sdcategory\">";
-    $result = sql_query("select distinct dcategory from ".$NPDS_Prefix."downloads order by dcategory");
+    $result = sql_query("SELECT DISTINCT dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
     while (list($dcategory) = sql_fetch_row($result)) {
        $dcategory=stripslashes($dcategory);
        echo "<option $sel value=\"$dcategory\">".aff_langue($dcategory)."</option>";
@@ -288,9 +291,9 @@ function DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $du
     $description=addslashes($description);
     if ($ddate=="yes") {
        $time = date("Y-m-d");
-       sql_query("update ".$NPDS_Prefix."downloads set dcounter='$dcounter', durl='$durl', dfilename='$dfilename', dfilesize='$dfilesize', ddate='$time', dweb='$dweb', duser='$duser', dver='$dver', dcategory='$dcategory', ddescription='$description', perms='$privs' where did='$did'");
+       sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter', durl='$durl', dfilename='$dfilename', dfilesize='$dfilesize', ddate='$time', dweb='$dweb', duser='$duser', dver='$dver', dcategory='$dcategory', ddescription='$description', perms='$privs' WHERE did='$did'");
     } else {
-       sql_query("update ".$NPDS_Prefix."downloads set dcounter='$dcounter', durl='$durl', dfilename='$dfilename', dfilesize='$dfilesize', dweb='$dweb', duser='$duser', dver='$dver', dcategory='$dcategory', ddescription='$description', perms='$privs' where did='$did'");
+       sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter', durl='$durl', dfilename='$dfilename', dfilesize='$dfilesize', dweb='$dweb', duser='$duser', dver='$dver', dcategory='$dcategory', ddescription='$description', perms='$privs' WHERE did='$did'");
     }
     Header("Location: admin.php?op=DownloadAdmin");
 }
@@ -309,14 +312,14 @@ function DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $d
     $description=addslashes($description);
     $time = date("Y-m-d");
     if (($durl) and ($dfilename))
-       sql_query("insert into ".$NPDS_Prefix."downloads values (NULL, '$dcounter', '$durl', '$dfilename', '$dfilesize', '$time', '$dweb', '$duser', '$dver', '$dcategory', '$description', '$privs')");
+       sql_query("INSERT INTO ".$NPDS_Prefix."downloads VALUES (NULL, '$dcounter', '$durl', '$dfilename', '$dfilesize', '$time', '$dweb', '$duser', '$dver', '$dcategory', '$description', '$privs')");
     Header("Location: admin.php?op=DownloadAdmin");
 }
 
 function DownloadDel($did, $ok=0) {
     global $NPDS_Prefix;
    if ($ok==1) {
-       sql_query("delete from ".$NPDS_Prefix."downloads where did='$did'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
        Header("Location: admin.php?op=DownloadAdmin");
     } else {
        global $hlpfile;
