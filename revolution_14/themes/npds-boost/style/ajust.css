@@ -30,6 +30,10 @@ padding-bottom: 0.75rem;
    margin-left: 1rem;
    }
    .navbar-divider {display:none;}
+   
+   nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {padding-top:0.6rem;padding-bottom:0.6rem;};
+   
+   
 }
 
 .dropdown-menu {
@@ -47,6 +51,7 @@ ul.dropdown-menu {
 margin-top: 0;
 }
 /* <== adaptation menu */
+
 
 /* forum deco des cadres */
 .card.fo:after, .card.fo:before {
