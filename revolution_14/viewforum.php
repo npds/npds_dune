@@ -30,10 +30,10 @@ if (($op=="mark") and ($forum)) {
    if ($user) {
       $userX = base64_decode($user);
       $userR = explode(":", $userX);
-      $resultT=sql_query("select topic_id from ".$NPDS_Prefix."forumtopics where forum_id='$forum' order by topic_id ASC");
+      $resultT=sql_query("SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' ORDER BY topic_id ASC");
       $time_actu = time()+($gmt*3600);
       while (list($topic_id)=sql_fetch_row($resultT)) {
-         $r=sql_query("SELECT rid from ".$NPDS_Prefix."forum_read where forum_id='$forum' and uid='$userR[0]' and topicid='$topic_id'");
+         $r=sql_query("SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='$topic_id'");
          if ($r) {
             if (!list($rid)=sql_fetch_row($r)) {
                $r=sql_query("INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum', '$topic_id', '$userR[0]', $time_actu, '1')");
@@ -180,10 +180,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($solved) {
       if (isset($closoled)) {
          $closol="and topic_status='2'";
-         $mess_closoled="<a href=\"viewforum.php?forum=$forum\">".translate("Without")." ".translate("Solved")."</a>";
+         $mess_closoled='<a href="viewforum.php?forum='.$forum.'">'.translate("Without").' '.translate("Solved").'</a>';
       } else {
          $closol="and topic_status!='2'";
-         $mess_closoled="<a href=\"viewforum.php?forum=$forum&amp;closoled=on\">".translate("Only")." ".translate("Solved")."</a>";
+         $mess_closoled='<a href="viewforum.php?forum='.$forum.'&amp;closoled=on">'.translate("Only").' '.translate("Solved").'</a>';
       }
    } else {
       $closol=''; $mess_closoled='';
@@ -208,7 +208,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    settype($topics_per_page,"integer");
    $sql = "SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol ORDER BY topic_first,topic_time DESC LIMIT $start, $topics_per_page";
    if (!$result = sql_query($sql))
-        forumerror('0004');
+     forumerror('0004');
 
    if ($ibid=theme_image("forum/icons/hot_red_folder.gif")) {$imgtmpHR=$ibid;} else {$imgtmpHR="images/forum/icons/hot_red_folder.gif";}
    if ($ibid=theme_image("forum/icons/hot_folder.gif")) {$imgtmpH=$ibid;} else {$imgtmpH="images/forum/icons/hot_folder.gif";}
@@ -320,20 +320,21 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       forumerror('0001');
    list($all_topics) = sql_fetch_row($r);
    sql_free_result($r);
-   if (isset($closoled))
-      $closol='&amp;closoled=on';
-    else
-      $closol='';
+   if (isset($closoled)) $closol='&amp;closoled=on';
+   else $closol='';
    $count = 1;
    $next = $start + $topics_per_page;
-   echo '<div class="xs-12">
-   <ul class="pagination pagination-sm">';
+   echo '
+   <div class="xs-12">
+      <ul class="pagination pagination-sm">';
    if ($all_topics > $topics_per_page) {
       if ($next >= $all_topics) {
-         echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
+         echo '
+         <li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
       }
       else {
-          echo '<li class="page-item disabled text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
+          echo '
+          <li class="page-item disabled text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
       }
     for($x = 0; $x < $all_topics; $x++) {
       if (!($x % $topics_per_page)) {
@@ -350,7 +351,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
     }
    }
    echo '
-   </ul>
+      </ul>
    </div>';
    echo searchblock();
    echo '<br />
