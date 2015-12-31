@@ -57,28 +57,28 @@ function topicsmanager() {
    <form class="form-horizontal" role="form" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 col-md-4" for="topicname">'.adm_translate("Intitulé").'</label>
+            <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
             <div class="col-sm-8">
                <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 col-md-4" for="topictext">'.adm_translate("Texte").'</label>
+            <label class="form-control-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8">
                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'" >'.$topictext.'</textarea>
                <span class="help-block infl">'.adm_translate("(description ou nom complet du Sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 col-md-4" for="topicimage">'.adm_translate("Image").'</label>
+            <label class="form-control-label col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
             <div class="col-sm-8">
                <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
                <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 col-md-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
+            <label class="form-control-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
             <div class="col-sm-8">
                <span class="help-block"><span id="countcar_topicadmin"></span></span>
                <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
@@ -142,7 +142,7 @@ function topicsmanager() {
             message: "This must be a simple word without space."
          }
       }
-   },   
+   },
 ';
    echo auto_complete_multi('admin','aid','authors','topicadmin','');
    adminfieldinp($result);
@@ -239,7 +239,7 @@ function topicedit($topicid) {
    </form>';
 
     echo '<h3>'.adm_translate("Gérer les Liens Relatifs : ").' '.aff_langue($topictext).'</h3>';
-    $res=sql_query("select rid, name, url from ".$NPDS_Prefix."related where tid='$topicid'");
+    $res=sql_query("SELECT rid, name, url FROM ".$NPDS_Prefix."related WHERE tid='$topicid'");
     echo '
     <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">
         <thead>
@@ -264,13 +264,6 @@ function topicedit($topicid) {
     echo '
         </tbody>
     </table>';
-/*    
-   $vars = array_diff(get_defined_vars(),$vars);
-   echo '<pre>';
-   print_r ( $vars );
-   echo '</pre>';
-   */
-   
    $fv_parametres = '
    topicadmin: {
       validators: {
@@ -308,6 +301,7 @@ function topicedit($topicid) {
       }
    },
    ';
+$fields = sql_num_fields($result);
 
    echo auto_complete_multi('admin','aid','authors','topicadmin','');
    adminfieldinp($result);
