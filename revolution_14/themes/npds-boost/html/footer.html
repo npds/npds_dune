@@ -36,11 +36,19 @@
 
       $(document).ready(function(){
          $(".article_texte img").addClass("img-fluid");
-         $("#ban img").addClass("img-fluid");
+         $("#ban img,#art_preview img").addClass("img-fluid");
          
 //         $(".article_texte object").addClass("embed-responsive");
          
          $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
+
+
+$('a.arrow-toggle').on('click', function(e){
+$('a.arrow-toggle i').toggleClass('fa-caret-down , fa-caret-up', 6000);
+})
+
+
+
 
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
