@@ -43,8 +43,8 @@ function mapsections() {
       echo '
          <h3>
             <a class="" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
-            <i class="fa fa-bars"></i>&nbsp;'.translate("Sections").'
-         </a>
+            <i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Sections").'
+            <span class="label label-default pull-xs-right">'.sql_num_rows($result).'</span>
          </h3>
       <div class="collapse" id="collapseSections">
          <div class="card">
@@ -63,9 +63,7 @@ function mapforum() {
     if ($tmp!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums">
-            <i class="fa fa-bars"></i>&nbsp;'.translate("Forums!").'
-         </a>
+         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Forums!").'
       </h3>
       <div class="collapse" id="collapseForums">
          <div class="card">
@@ -82,14 +80,14 @@ function maptopics() {
     while (list($topicid, $topictext) = sql_fetch_row($result)) {
        $result2 = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories WHERE topic='$topicid'");
        $nb_article = sql_num_rows($result2);
-       $lis_top.="<li><a href=\"search.php?query=&amp;topic=$topicid\">".aff_langue($topictext)."</a>&nbsp;(".$nb_article.")</li>\n";
+       $lis_top.='
+       <li><a href="search.php?query=&amp;topic='.$topicid.'">'.aff_langue($topictext).'</a>&nbsp;<span class="">('.$nb_article.')</span></li>';
     }
     if ($lis_top!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">
-            <i class="fa fa-bars"></i>&nbsp;'.translate("Topics").'
-         </a>
+         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Topics").'
+         <span class="label label-default pull-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseTopics">
          <div class="card">
@@ -110,12 +108,11 @@ function mapcategories() {
        $nb_article = sql_num_rows($result2);
        $lis_cat.="<li><a href=\"index.php?op=newindex&amp;catid=$catid\">".aff_langue($title)."</a> (".$nb_article.") </li>\n";
     }
-    if ($lis_cat!="")
+    if ($lis_cat!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
-            <i class="fa fa-bars"></i>&nbsp;'.translate("Categories").'
-         </a>
+         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Categories").'
+         <span class="label label-default pull-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseCategories">
          <div class="card card-block">
@@ -138,9 +135,8 @@ function mapfaq() {
     if ($lis_faq!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq">
-            <i class="fa fa-bars"></i>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
-         </a>
+         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
+         <span class="label label-default pull-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseFaq">
          <div class="card card-block">
