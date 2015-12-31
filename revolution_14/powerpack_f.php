@@ -24,7 +24,7 @@ function Form_instant_message($to_userid) {
 function online_members () {
    global $NPDS_Prefix;
 
-   $result = sql_query("SELECT username, guest, time FROM ".$NPDS_Prefix."session where guest='0' order by username ASC");
+   $result = sql_query("SELECT username, guest, time FROM ".$NPDS_Prefix."session WHERE guest='0' ORDER BY username ASC");
    $i=0;
    $members_online[$i]=sql_num_rows($result);
    while ($session = sql_fetch_assoc($result)) {
@@ -110,7 +110,7 @@ function if_chat() {
    $numofchatters=0;
 
    if ($dimauto<=1) {
-      $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' and date >= ".(time()-(60*3))."");
+      $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' AND date >= ".(time()-(60*3))."");
       $numofchatters=sql_num_rows($result);
    }
    return ($numofchatters);
@@ -169,12 +169,12 @@ function instant_members_message() {
           global $member_invisible;
           if ($member_invisible) {
              if ($admin)
-                $and="";
+                $and='';
              else {
                 if ($ibid[$i]['username']==$cookie[1])
-                   $and="";
+                   $and='';
                 else
-                   $and="and is_visible=1";
+                   $and="AND is_visible=1";
              }
           } else {
              $and="";
@@ -335,8 +335,8 @@ function makeChatBox() {
 function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration="") {
     $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr);
     global $block_title;
-    if ($title=="") {
-       if ($block_title=="")
+    if ($title=='') {
+       if ($block_title=='')
           $title=translate("Forums infos");
        else
           $title=$block_title;
