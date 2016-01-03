@@ -23,11 +23,11 @@ function adm_translate($phrase) {
 
    default: $tmp = "$phrase"; break;
  }
-  if (cur_charset=="utf-8") {
-     return utf8_encode($tmp);
-  } else {
-//    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
-   return($tmp);
-  }
+//  if (cur_charset=="utf-8") {
+//     return utf8_encode($tmp);
+//  } else {
+    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
+//   return($tmp);
+//  }
 }
 ?>

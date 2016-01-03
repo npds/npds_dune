@@ -121,8 +121,8 @@ function login() {
          <fieldset>
             <div class="form-group ">
                <div class="row">
-                  <label class="control-label col-sm-3 col-md-3" for="aid">'.adm_translate("Administrateur ID").'</label>
-                  <div class="col-sm-8 col-md-8">
+                  <label class="control-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
+                  <div class="col-sm-8">
                      <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
                      <span class="help-block text-xs-right"><span id="countcar_aid"></span></span>
                   </div>
@@ -130,8 +130,8 @@ function login() {
             </div>
             <div class="form-group ">
                <div class="row">
-                  <label class="control-label col-sm-3 col-md-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
-                  <div class="col-sm-8 col-md-8">
+                  <label class="control-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
+                  <div class="col-sm-8">
                      <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
                      <span class="help-block text-xs-right"><span id="countcar_pwd"></span></span>
                   </div>
@@ -163,7 +163,7 @@ function GraphicAdmin($hlpfile) {
    $bloc_foncts_A ='';
 
    //==> recuperation traitement des messages de NPDS
-   $QM=sql_query("SELECT * from ".$NPDS_Prefix."fonctions where fnom REGEXP'mes_npds_[[:digit:]]'");
+   $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
    settype($f_mes, "array");
    while ($SQM=sql_fetch_assoc($QM)) {
    $f_mes[]=$SQM['fretour_h'];
@@ -189,7 +189,7 @@ function GraphicAdmin($hlpfile) {
          if (in_array ($mes_x[($i-1)][1],$f_mes,true)) {
             $k=(array_search ($mes_x[($i-1)][1], $f_mes)); unset ($f_mes[$k]);
          } else {
-         sql_query('REPLACE '.$NPDS_Prefix.'fonctions set fnom="mes_npds_'.$i.'",fretour_h="'.$mes_x[($i-1)]['1'].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
+         sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$mes_x[($i-1)]['1'].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
          };
       }
       if(count ($f_mes)!==0) {
@@ -258,12 +258,12 @@ function GraphicAdmin($hlpfile) {
        html += \'                    <b>\'+data.length+\'</b> '.adm_translate("Versions").'\n\';
        html += \'                </li>\n\';
        html += \'                <li class="yui3-u-1-2">\n\';
-       html += \'                    <b>1291</b> '.adm_translate("TÈlÈchargements").'\n\';
+       html += \'                    <b>1291</b> '.adm_translate("Téléchargements").'\n\';
        html += \'                </li>\n\';
        html += \'            </ul>\n\';
        html += \'        </div>\n\';
        html += \'   </div>\n\';
-       html += \'   <p class="yui3-u-1 versus_st">'.adm_translate("TÈlÈcharger une version courante.").'</p>\n\';
+       html += \'   <p class="yui3-u-1 versus_st">'.adm_translate("Télécharger une version courante.").'</p>\n\';
        html += \'   <ul class="yui3-g">\n\';
 
       for (i=0, l=data.length; i < l; ++i) {
@@ -273,7 +273,7 @@ function GraphicAdmin($hlpfile) {
        html += \'      </div>\n\';
        html += \'      <div class="versus_stats yui3-u-1-3">\n\';
        html += \'        <ul class="yui3-g">\n\';
-       html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dcounter + \'</b><span>'.adm_translate("TÈlÈchargements").'</span></li>\n\';
+       html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dcounter + \'</b><span>'.adm_translate("Téléchargements").'</span></li>\n\';
        html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dfilesize + \'</b><span>Mo</span></li>\n\';
        html += \'        </ul>\n\';
        html += \'      </div>\n\';
@@ -305,14 +305,14 @@ function GraphicAdmin($hlpfile) {
 }
    //<== construction de la zone de téléchargement des versions de NPDS
 
-   //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en possède les droits d'accès
+   //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accés
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
 //   $Q = sql_fetch_assoc($Q);
    if ($Q['radminsuper']==1) {
    // on prend tout ce qui a une interface 
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and f.fetat != '0' ORDER BY f.fcategorie, f.fordre");}
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");}
    else {
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 and fetat!=0 and d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
    }
 
    $j=0;
@@ -340,7 +340,7 @@ function GraphicAdmin($hlpfile) {
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><span class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-minus-square-o" ></i></span>&nbsp;'.$SAQ['fcategorie_nom'].'</h4>
+         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.$SAQ['fcategorie_nom'].'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
          <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate($SAQ['fnom_affich']).'"><a '.$SAQ['furlscript'].'>';
@@ -382,7 +382,7 @@ function GraphicAdmin($hlpfile) {
    echo "
    <script type=\"text/javascript\">
    //<![CDATA[
-   
+/* 
    $( document ).ready(function () {
       $( '#lst_men_main ul' ).each(function() {
          var idi= $(this).attr('id'),
@@ -392,8 +392,8 @@ function GraphicAdmin($hlpfile) {
               et= Cookies.get('et_'+idi);
          $('#i_'+idi).attr('class',eb);
          $(this).attr('style',eu);
-         $('span.tog[id$=\"'+idi+'\"]').attr('id',es);
-         $('span.tog[id$=\"'+idi+'\"]').attr('title',et);
+         $('a.tog[id$=\"'+idi+'\"]').attr('id',es);
+         $('a.tog[id$=\"'+idi+'\"]').attr('title',et);
       });
    });
    
@@ -402,8 +402,8 @@ function GraphicAdmin($hlpfile) {
       $( '#lst_men_main ul' ).each(function( index ) {
          var idi= $(this).attr('id'),
              sty= $(this).attr('style'),
-            idsp= $('span.tog[id$=\"'+idi+'\"]').attr('id'),
-            tisp= $('span.tog[id$=\"'+idi+'\"]').attr('title'),
+            idsp= $('a.tog[id$=\"'+idi+'\"]').attr('id'),
+            tisp= $('a.tog[id$=\"'+idi+'\"]').attr('title'),
              cla= $('#i_'+idi).attr('class');
          Cookies.set('et_'+idi,tisp);
          Cookies.set('es_'+idi,idsp);
@@ -411,15 +411,12 @@ function GraphicAdmin($hlpfile) {
          Cookies.set('eb_'+idi,cla);
        });
    });
-
+*/
    function openwindow(){
        window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");
     }
 
    $( document ).ready(function () {
-//       if($('[data-toggle=\"tooltip\"]').length) console.log('true'); 
-       
-//     $('body').tooltip({ selector: '[data-toggle=tooltip]' });// USEFUL FOR FF ???
        $('[data-toggle=\"tooltip\"]').tooltip();
        $('[data-toggle=\"popover\"]').popover();
        $('table').on('all.bs.table', function (e, name, args) {
@@ -455,7 +452,7 @@ function GraphicAdmin($hlpfile) {
    //<== date d'expiration connection admin
    
    tog = function(lst,sho,hid){
-      $('#adm_men, #adm_workarea').on('click', 'span.tog', function() {
+      $('#adm_men, #adm_workarea').on('click', 'a.tog', function() {
          var buttonID = $(this).attr('id');
          lst_id = $('#'+lst);
          i_id=$('#i_'+lst);
@@ -465,13 +462,13 @@ function GraphicAdmin($hlpfile) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".adm_translate("Replier la liste")."');
-            i_id.attr('class','fa fa-minus-square-o');
+            i_id.attr('class','fa fa-caret-up fa-lg');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
-            btn_hide.attr('title','".adm_translate("DÈplier la liste")."');
-            i_id.attr('class','fa fa-plus-square-o');
+            btn_hide.attr('title','".adm_translate("Déplier la liste")."');
+            i_id.attr('class','fa fa-caret-down fa-lg');
         }
        });
    };
@@ -492,10 +489,10 @@ function GraphicAdmin($hlpfile) {
          </div>
          <div id="adm_men_man" class="col-xs-9 men_man">
             <ul class="liste" id="lst_men_top">
-               <li class="btn btn-default" data-toggle="tooltip" title="'.adm_translate("DÈconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>'."\n";
+               <li class="btn btn-secondary" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
    if ($hlpfile) {
       $adm_ent .='
-              <li class="btn btn-default" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a href="javascript:openwindow();">&nbsp;<i class="fa fa-question-circle fa-2x text-info"></i></a></li>'."\n";
+              <li class="btn btn-secondary" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a href="javascript:openwindow();">&nbsp;<i class="fa fa-question-circle fa-2x text-primary"></i></a></li>';
    }
    $adm_ent .='
             </ul>
@@ -541,13 +538,13 @@ function adminMain($deja_affiches) {
    $radminsuper=GraphicAdmin($hlpfile);///????????
    
    echo '<div id="adm_men_art" class="adm_workarea">
-   <h2><img src="images/admin/submissions.'.$admf_ext.'" class="adm_img" title="'.adm_translate("Articles").'" alt="icon_'.adm_translate("Articles").'" />&nbsp;'.adm_translate("Derniers").' '.$admart.' '.adm_translate("Articles").'</h2>'."\n";
+   <h2><img src="images/admin/submissions.'.$admf_ext.'" class="adm_img" title="'.adm_translate("Articles").'" alt="icon_'.adm_translate("Articles").'" />&nbsp;'.adm_translate("Derniers").' '.$admart.' '.adm_translate("Articles").'</h2>';
 
-   $resul = sql_query("select sid from ".$NPDS_Prefix."stories");
+   $resul = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
    $nbre_articles = sql_num_rows($resul);
    settype($deja_affiches,"integer");
    settype($admart,"integer");
-   $result = sql_query("select sid, title, hometext, topic, informant, time, archive from ".$NPDS_Prefix."stories order by time desc LIMIT $deja_affiches,$admart");
+   $result = sql_query("SELECT sid, title, hometext, topic, informant, time, archive FROM ".$NPDS_Prefix."stories ORDER BY time DESC LIMIT $deja_affiches,$admart");
 
    if ($nbre_articles) {
       echo '
@@ -564,7 +561,7 @@ function adminMain($deja_affiches) {
       $i=0;
       while( (list($sid, $title, $hometext, $topic, $informant, $time, $archive) = sql_fetch_row($result)) and ($i<$admart) ) {
          $affiche = false;
-         $result2 = sql_query("select topicadmin, topictext, topicimage from ".$NPDS_Prefix."topics where topicid='$topic'");
+         $result2 = sql_query("SELECT topicadmin, topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
          list ($topicadmin, $topictext, $topicimage) = sql_fetch_row($result2);
          if ($radminsuper) {
             $affiche=true;
@@ -592,7 +589,7 @@ function adminMain($deja_affiches) {
                echo '<i>'.$title.'</i>';
             }
          }
-         if ($topictext=="") {
+         if ($topictext=='') {
             echo '</td>
             <td>';
          } else {
@@ -630,25 +627,21 @@ function adminMain($deja_affiches) {
       echo '
       </ul>';
       echo '
-      <form class="" action="admin.php" method="post">
-      <div class="form-group row">
-        <div class="row form-inline">
-            <div class="col-xs-4">
-                <label class="control-label">'.adm_translate("ID Article:").'</label>
-                <input class="form-control" type="number" name="sid" size="10" />
-            </div>
-            <div class="col-xs-4">
-                <select class="form-control" name="op">
-                    <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
-                    <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
-                </select>
-            </div>
-            <div class="col-xs-4">
-               <button class="btn btn-primary" type="submit">'.adm_translate("Ok").' </button>
-            </div>
-        </div>
-    </div>
-    </form>';
+      <form id="fad_articles" class="form-inline" action="admin.php" method="post">
+         <div class="form-group">
+            <label class="form-control-label">'.adm_translate("ID Article:").'</label>
+               <input class="form-control" type="number" name="sid" size="10" />
+         </div>
+         <div class="form-group">
+            <select class="c-select form-control" name="op">
+               <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
+               <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
+            </select>
+         </div>
+         <div class="form-group">
+            <button class="btn btn-primary" type="submit">'.adm_translate("Ok").' </button>
+         </div>
+      </form>';
    }
    echo "</div>\n";
    include("footer.php");

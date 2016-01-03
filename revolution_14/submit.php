@@ -42,179 +42,185 @@ function defaultDisplay() {
 
    include ('header.php');
    global $user, $anonymous;
-
-   echo '<h2>'.translate("Submit News").'</h2>';
-
    if (isset($user)) $userinfo=getusrinfo($user);
-   echo "<form class=\"form-horizontal\" rolr=\"form\" action=\"submit.php\" method=\"post\" name=\"adminForm\">";
+
+   echo '
+   <h2>'.translate("Submit News").'</h2>';
+
+   echo "<form class=\"form-horizontal\" role=\"form\" action=\"submit.php\" method=\"post\" name=\"adminForm\">";
    echo '<p class="lead"><strong>'.translate("Your Name").'</strong> : ';
    if ($user) {
       echo "<a href=\"user.php\">".$userinfo['name']."</a> [ <a href=\"user.php?op=logout\">".translate("Logout")."</a> ]</p>";
-      echo "<input type=\"hidden\" name=\"name\" value=\"".$userinfo['name']."\" />";
+      echo '<input type="hidden" name="name" value="'.$userinfo['name'].'" />';
    } else {
       echo "$anonymous [ <a href=\"user.php\">".translate("New User")."</a> ]</p>";
-      echo "<input type=\"hidden\" name=\"name\" value=\"$anonymous\" />";
+      echo '<input type="hidden" name="name" value="'.$anonymous.'" />';
    }
-	echo '<div class="form-group">
-			<div class="col-sm-3">
-				<label class="control-label"><strong>'.translate("Title").' </strong> ('.translate ("Be Descriptive, Clear and Simple").') : </label>
-			</div>
-			<div class="col-sm-9">
-				<input type="text" name="subject" class="form-control">
-			</div>
-				<div class="col-sm-offset-3 col-sm-9">
-					<p class="help-block"> '.translate("bad titles='Check This Out!' or 'An Article'.").'</p>
-                </div>
-			</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-3">
-				<label class="control-label"><strong>'.translate("Topic").'</strong> : </label>
-			</div>
-			<div class="col-sm-4">
-				<select class="form-control" name="topic">';
-	$toplist = sql_query("select topicid, topictext from ".$NPDS_Prefix."topics order by topictext");
-	echo "<option value=\"\">".translate("Select Topic")."</option>\n";
-	while (list($topicid, $topics) = sql_fetch_row($toplist)) {
-		if ($topicid==$topic) { $sel = "selected=\"selected\" "; }
-		echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
-		$sel = "";
-   }				  
-	echo '</select>
-			</div>
-		</div>'; 
-   
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<label class="control-label"><strong>'.translate("Intro Text").'</strong> ( '.translate("HTML is fine, but double check those URLs and HTML tags!").' ) :</label>
-			</div>
-			<div class="col-sm-12">
-				<textarea class="form-control" rows="25" name="story"></textarea>';
-	echo aff_editeur("story", "true");				  
-	echo '</div>
-			</div>';
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<label class="control-label"><strong>'.translate("Full Text").'</strong> :</label>
-			</div>
-			<div class="col-sm-12">
-				<textarea class="form-control" rows="25" name="bodytext"></textarea>';
-	echo aff_editeur("bodytext", "true");				  
-	echo '</div>
-			</div>';
+   echo '
+      <div class="form-group">
+         <div class="col-sm-3">
+            <label class="form-control-label">'.translate("Title").' ('.translate ("Be Descriptive, Clear and Simple").')</label>
+         </div>
+         <div class="col-sm-9">
+            <input type="text" name="subject" class="form-control">
+            <p class="help-block"> '.translate("bad titles='Check This Out!' or 'An Article'.").'</p>
+         </div>
+      </div>
+      <div class="form-group">
+         <div class="col-sm-3">
+            <label class="form-control-label">'.translate("Topic").'</label>
+         </div>
+         <div class="col-sm-9">
+            <select class="c-select form-control" name="topic">';
+   $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+   echo '
+               <option value="">'.translate("Select Topic").'</option>';
+   while (list($topicid, $topics) = sql_fetch_row($toplist)) {
+      if ($topicid==$topic) { $sel = "selected=\"selected\" "; }
+      echo '
+               <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+      $sel = '';
+   }
+   echo '
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <div class="col-sm-12">
+            <label class="form-control-label" for="story" >'.translate("Intro Text").'</strong> ( '.translate("HTML is fine, but double check those URLs and HTML tags!").' ) :</label>
+         </div>
+         <div class="col-sm-12">
+            <textarea class="tin form-control" rows="25" name="story"></textarea>';
+   echo aff_editeur("story", "true");
+   echo '</div>
+         </div>
+         <div class="form-group">
+         <div class="col-sm-12">
+            <label class="control-label"><strong>'.translate("Full Text").'</strong> :</label>
+         </div>
+         <div class="col-sm-12">
+            <textarea class="tin form-control" rows="25" name="bodytext"></textarea>';
+   echo aff_editeur("bodytext", "true");
+   echo '</div>
+         </div>';
 
 	publication(0,0,0,0,0, 0,0,0,0,0, 0);
 
-	echo "<hr />";
+   echo '<hr />';
 
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<input class="btn btn-default" type="submit" name="op" value="'.translate("Preview").'" />
-					'.translate("You must preview once before you can submit").'
-				</div>
-			</div>';
-	echo "</form>";
-	
+   echo '
+   <div class="form-group">
+   <div class="col-sm-12">
+      <input class="btn btn-default" type="submit" name="op" value="'.translate("Preview").'" />
+         '.translate("You must preview once before you can submit").'
+      </div>
+   </div>
+   </form>';
    include ('footer.php');
 }
 
 function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur) {
-	global $tipath, $NPDS_Prefix;
+   global $tipath, $NPDS_Prefix;
 
-	include ('header.php');
-	$subject = stripslashes(str_replace("\"","&quot;",(strip_tags($subject))));
-	$story = stripslashes($story);
-	$bodytext = stripslashes($bodytext);
+   include ('header.php');
+   $subject = stripslashes(str_replace("\"","&quot;",(strip_tags($subject))));
+   $story = stripslashes($story);
+   $bodytext = stripslashes($bodytext);
 
-	echo '<h2>'.translate("Submit News").'</h2>';
-	echo '<form class="form-horizontal" role="form" action="submit.php" method="post" name="adminForm">';
-	echo '<p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>';
-	echo "<input type=\"hidden\" name=\"name\" value=\"$name\" />";
+   echo '
+   <h2>'.translate("Submit News").'</h2>
+   <form class="" role="form" action="submit.php" method="post" name="adminForm">
+      <p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>
+      <input type="hidden" name="name" value="'.$name.'" />';
 
-	if ($topic=="") {
-		$topicimage="all-topics.gif";
-		$warning = '<strong>'.translate("Select Topic").'</strong>';
-	} else {
-		$warning = "";
-		$result = sql_query("select topictext, topicimage from ".$NPDS_Prefix."topics where topicid='$topic'");
-		list($topictext, $topicimage) = sql_fetch_row($result);
-	}
-	$no_img=false;
-	if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-      echo "<p class=\"col-sm-offset-10\"><img class=\"img-responsive\" src=\"".$tipath.$topicimage."\" alt=\"\" /></p>";
-	} else {
-		echo "";
-		$no_img=true;
-	}
-	$storyX=aff_code($story);
-	$bodytextX=aff_code($bodytext);
-	themepreview($subject, $storyX, $bodytextX);
-	if ($no_img) {
-		echo "<strong>".aff_langue($topictext)."</strong>";
-	}
-	echo "$warning";
-
-	echo '<div class="form-group">
-			<div class="col-sm-3">
-				<label class="control-label"><strong>'.translate("Title").' </strong> :</label>
-			</div>
-			<div class="col-sm-9">
-				<input type="text" name="subject" class="form-control" value="'.$subject.'" />
-			</div>
-		</div>';
-   
-	echo '<div class="form-group">
-			<div class="col-sm-3">
-				<label class="control-label"><strong>'.translate("Topic").'</strong> : </label>
-			</div>
-			<div class="col-sm-4">
-				<select class="form-control" name="topic">';
-	$toplist = sql_query("select topicid, topictext from ".$NPDS_Prefix."topics order by topictext");
-	echo "<option value=\"\">".translate("Select Topic")."</option>\n";
-	while (list($topicid, $topics) = sql_fetch_row($toplist)) {
-		if ($topicid==$topic) { $sel = "selected=\"selected\" "; }
-		echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
-		$sel = "";
-   }				  
-	echo '</select>
-			</div>
-		</div>';  
-
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<label class="control-label"><strong>'.translate("Intro Text").'</strong> ( '.translate("HTML is fine, but double check those URLs and HTML tags!").' ) :</label>
-			</div>
-			<div class="col-sm-12">
-				<textarea class="form-control" rows="25" name="story">'.$story.'</textarea>';
-	echo aff_editeur("story", "true");				  
-	echo '</div>
-			</div>';		
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<label class="control-label"><strong>'.translate("Full Text").'</strong> :</label>
-			</div>
-			<div class="col-sm-12">
-				<textarea class="form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>';
-	echo aff_editeur("bodytext", "true");				  
-	echo '</div>
-			</div>';		
+   if ($topic=='') {
+      $topicimage="all-topics.gif";
+      $warning = '<strong>'.translate("Select Topic").'</strong>';
+   } else {
+      $warning = '';
+      $result = sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+      list($topictext, $topicimage) = sql_fetch_row($result);
+   }
+   $no_img=false;
+   if ((file_exists("$tipath$topicimage")) and ($topicimage!='')) {
+      echo '<p class="col-sm-offset-10"><img class="img-fluid" src="'.$tipath.$topicimage.'" alt="" /></p>';
+   } else {
+      echo '';
+      $no_img=true;
+   }
+   $storyX=aff_code($story);
+   $bodytextX=aff_code($bodytext);
+   themepreview($subject, $storyX, $bodytextX);
+   if ($no_img) {
+      echo '<strong>'.aff_langue($topictext).'</strong>';
+   }
+   echo '
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label" for="subject">'.translate("Title").'</label>
+         </div>
+         <div class="col-sm-9">
+            <input type="text" name="subject" class="form-control" value="'.$subject.'" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-3">
+            <label class="form-control-label" for="topic">'.translate("Topic").'</label>
+         </div>
+         <div class="col-sm-9">
+            <select class="c-select form-control" name="topic">';
+   $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+   echo '
+               <option value="">'.translate("Select Topic").'</option>';
+   while (list($topicid, $topics) = sql_fetch_row($toplist)) {
+      if ($topicid==$topic) { $sel = 'selected="selected" '; }
+      echo '
+               <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+      $sel = '';
+   }
+   echo '
+            </select>
+            <span class="help-block text-danger">'.$warning.'</span>
+         </div>
+      </div>
+      <div class="form-group">
+         <div class="col-sm-12">
+            <label class="control-label" for="story"><strong>'.translate("Intro Text").'</strong> ( '.translate("HTML is fine, but double check those URLs and HTML tags!").' ) :</label>
+         </div>
+         <div class="col-sm-12">
+            <textarea class="tin form-control" rows="25" name="story">'.$story.'</textarea>';
+   echo aff_editeur("story", "true");
+   echo '</div>
+      </div>
+         <div class="form-group">
+            <div class="col-sm-12">
+               <label class="control-label"><strong>'.translate("Full Text").'</strong> :</label>
+            </div>
+            <div class="col-sm-12">
+               <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>';
+   echo aff_editeur("bodytext", "true");
+   echo '
+            </div>
+         </div>';
 
    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
-	echo '<br />';
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<input class="btn btn-default" type="submit" name="op" value="'.translate("Preview").'" />
-			</div>
-		</div>';
+   echo '
+         <div class="form-group">
+            <div class="col-sm-12">
+               <input class="btn btn-default" type="submit" name="op" value="'.translate("Preview").'" />
+            </div>
+      </div>';
 
-	echo ''.Q_spambot().'';
-	echo '<div class="form-group">
-			<div class="col-sm-12">
-				<input class="btn btn-primary" type="submit" name="op" value="Ok" />
-				</div>
-			</div>';
-	echo '</form>';
+   echo ''.Q_spambot().'';
+   echo '
+      <div class="form-group">
+         <div class="col-sm-12">
+            <input class="btn btn-primary" type="submit" name="op" value="Ok" />
+         </div>
+      </div>
+   </form>';
    
-	include ('footer.php');
+   include ('footer.php');
 }
 
 function submitStory($subject, $story, $bodytext, $topic, $date_debval,$date_finval,$epur, $asb_question, $asb_reponse) {

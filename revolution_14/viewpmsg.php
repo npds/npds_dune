@@ -95,7 +95,7 @@ include("auth.php");
          if ($smilies) {
             if ($myrow['msg_image']!="") {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
+               echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img class=\"smil\" src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
             } else {
                echo "<td valign=\"top\" width=\"5%' align=\"center\">&nbsp;</td>";
             }

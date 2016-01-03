@@ -22,7 +22,7 @@ else
    include("lib/mysql.php");
 include("modules/meta-lang/adv-meta_lang.php");
 
-#autodoc Mysql_Connexion() : Connexion plus dÈtaillÈe ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fontion
+#autodoc Mysql_Connexion() : Connexion plus d√àtaill√àe ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fontion
 function Mysql_Connexion() {
    $ret_p=sql_connect();
    if (!$ret_p) {
@@ -86,9 +86,9 @@ function NightDay() {
 function removeHack($Xstring) {
   if ($Xstring!="") {
      $npds_forbidden_words=array(
-     // NCRs 2 premiËres sÈquence = NCR (dec|hexa) correspondant aux caractËres latin de la table ascii (code ascii entre 33 et 126)
-     //      2 derniËres sÈquences = NCR (dec|hexa) correspondant aux caractËres latin du bloc unicode Halfwidth and Fullwidth Forms.
-     //        Leur signification est identique à celle des caractères latin de la table ascii dont le code ascii est entre 33 et 126.
+     // NCRs 2 premi√ãres s√àquence = NCR (dec|hexa) correspondant aux caract√ãres latin de la table ascii (code ascii entre 33 et 126)
+     //      2 derni√ãres s√àquences = NCR (dec|hexa) correspondant aux caract√ãres latin du bloc unicode Halfwidth and Fullwidth Forms.
+     //        Leur signification est identique √† celle des caract√®res latin de la table ascii dont le code ascii est entre 33 et 126.
      // JPB for NPDS 2005
      "'&#(33|x21|65281|xFF01);'i"=>chr(33),
      "'&#(34|x22|65282|xFF02);'i"=>chr(34),
@@ -310,7 +310,7 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
       $advance="X-Priority: 2\n";
    }
    if ($mime=="mixed") {
-      // dans $message se trouve le nom du fichier ‡ joindre (voir le module session-log pour un exemple)
+      // dans $message se trouve le nom du fichier ‚Ä° joindre (voir le module session-log pour un exemple)
       $boundary = "_".md5 (uniqid(mt_rand()));
       $attached_file = file_get_contents($message);
       $attached_file = chunk_split(base64_encode($attached_file));
@@ -696,7 +696,7 @@ function getusrinfo($user) {
    }
    return $userinfo;
 }
-#autodoc FixQuotes($what) : Quote une chaÓne contenant des '
+#autodoc FixQuotes($what) : Quote une cha√ìne contenant des '
 function FixQuotes($what = "") {
    $what = str_replace("&#39;","'",$what);
    $what = str_replace("'","''",$what);
@@ -705,11 +705,11 @@ function FixQuotes($what = "") {
    }
    return $what;
 }
-#autodoc check_html ($str, $strip) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilitÈ
+#autodoc check_html ($str, $strip) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilit√à
 function check_html ($str, $strip="nohtml") {
    return strip_tags($str);
 }
-#autodoc unhtmlentities($string) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilitÈ
+#autodoc unhtmlentities($string) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilit√à
 function unhtmlentities($string) {
    return html_entity_decode($string);
 }
@@ -777,7 +777,7 @@ function ctrl_aff($ihome, $catid=0) {
 #autodoc news_aff($type_req, $sel, $storynum, $oldnum) : Une des fonctions fondamentales de NPDS / assure la gestion de la selection des News en fonctions des crit&egrave;res de publication
 function news_aff($type_req, $sel, $storynum, $oldnum) {
    global $NPDS_Prefix;
-   // Astuce pour affichÈ le nb de News correct mÍme si certaines News ne sont pas visibles (membres, groupe de membres)
+   // Astuce pour affich√à le nb de News correct m√çme si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
    $row_Q2 = Q_select("select count(groupe_id) as total from ".$NPDS_Prefix."groupes",86400);
    list(,$NumG)=each($row_Q2);
@@ -838,7 +838,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    @sql_free_result($result);
    return ($tab);
 }
-#autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de pr&eacute;-visualiser la prÈsentation d'un NEW
+#autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de pr&eacute;-visualiser la pr√àsentation d'un NEW
 function themepreview($title, $hometext, $bodytext="", $notes="") {
    echo "<span class=\"titrea\">$title</span><br />".meta_lang($hometext)."<br />".meta_lang($bodytext)."<br />".meta_lang($notes);
 }
@@ -876,7 +876,7 @@ function prepa_aff_news($op,$catid,$marqeur) {
    while (($story_limit<$storynum) and ($story_limit<sizeof($xtab))) {
        list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
        $story_limit++;
-// trop brutal faut faire plus fin et laisser la possibilité des images !!!!
+// trop brutal faut faire plus fin et laisser la possibilit√© des images !!!!
 //       if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
        $printP = '<a href="print.php?sid='.$s_sid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
 //       if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
@@ -918,7 +918,7 @@ function prepa_aff_news($op,$catid,$marqeur) {
           $resultm = sql_query("select title from ".$NPDS_Prefix."stories_cat where catid='$catid'");
           list($title1) = sql_fetch_row($resultm);
           $title = "<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"noir\">".aff_langue($title1)."</a> : $title";
-          // Attention ‡ cela aussi
+          // Attention ‚Ä° cela aussi
           $morelink[6]="<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"noir\">".aff_langue($title1)."</a>";
        } else {
           $morelink[6]="";
@@ -1046,13 +1046,13 @@ function fab_block($title, $member, $content, $Xcache) {
    global $SuperCache, $CACHE_TIMINGS;
    // Multi-Langue
    $title=aff_langue($title);
-   // Bloc cachÈ
+   // Bloc cach√à
    $hidden=false;
    if (substr($content,0,7)=="hidden#") {
       $content=str_replace("hidden#","",$content);
       $hidden=true;
    }
-   // Si on cherche ‡ charger un JS qui a dÈj‡ ÈtÈ chargÈ par pages.php alors on ne le charge pas ...
+   // Si on cherche ‚Ä° charger un JS qui a d√àj‚Ä° √àt√à charg√à par pages.php alors on ne le charge pas ...
    global $pages_js;
    if ($pages_js!="") {
       preg_match('#src="([^"]*)#',$content,$jssrc);
@@ -1252,7 +1252,7 @@ function Pre_fab_block($Xid, $Xblock) {
     }
     sql_free_result($result);
 }
-#autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le paramËtre est le contenu du bloc (function#....)
+#autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le param√ãtre est le contenu du bloc (function#....)
 function niv_block($Xcontent) {
    global $NPDS_Prefix;
    $result = sql_query("select content, member, actif from ".$NPDS_Prefix."rblocks where (content like '%$Xcontent%')");
@@ -1272,7 +1272,7 @@ function autorisation_block($Xcontent) {
    $auto=explode(",", niv_block($Xcontent));
    // le dernier indice indique si le bloc est actif
    $actif=$auto[count($auto)-1];
-   // on dÈpile le dernier indice
+   // on d√àpile le dernier indice
    array_pop($auto);
    foreach($auto as $autovalue) {
       if (autorisation($autovalue))
@@ -1351,14 +1351,14 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
          $resultX=sql_query("select email, user_langue from ".$NPDS_Prefix."users where uid='$uid'");
          list($email, $user_langue)=sql_fetch_row($resultX);
          if ($Xtype=="topic") {
-            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous Ítes abonnÈ ‡ : ").translate_ml($user_langue, "Sujet")." => ".strip_tags($abo)."\n\n";
-            $resume=translate_ml($user_langue, "Le titre de la derniËre publication est")." => $Xresume\n\n";
+            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous √çtes abonn√à ‚Ä° : ").translate_ml($user_langue, "Sujet")." => ".strip_tags($abo)."\n\n";
+            $resume=translate_ml($user_langue, "Le titre de la derni√ãre publication est")." => $Xresume\n\n";
             $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/search.php?query=&topic=$Xtopic\">$nuke_url/search.php?query=&topic=$Xtopic</a>\n\n";
          }
          if ($Xtype=="forum") {
-            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous Ítes abonnÈ ‡ : ").translate_ml($user_langue, "Forum")." => ".strip_tags($abo)."\n\n";
+            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous √çtes abonn√à ‚Ä° : ").translate_ml($user_langue, "Forum")." => ".strip_tags($abo)."\n\n";
             $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999#last-post\">$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999</a>\n\n";
-            $resume=translate_ml($user_langue, "Le titre de la derniËre publication est")." => ";
+            $resume=translate_ml($user_langue, "Le titre de la derni√ãre publication est")." => ";
             if ($Xresume!="") {
                $resume.=$Xresume."\n\n";
             } else {
@@ -1374,7 +1374,7 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
       }
    }
 }
-#autodoc subscribe_query($Xuser,$Xtype, $Xclef) : Retourne true si le membre est abonn&egrave; ‡ un topic ou forum
+#autodoc subscribe_query($Xuser,$Xtype, $Xclef) : Retourne true si le membre est abonn&egrave; ‚Ä° un topic ou forum
 function subscribe_query($Xuser,$Xtype, $Xclef) {
    global $NPDS_Prefix;
    if ($Xtype=="topic") {
@@ -1584,7 +1584,7 @@ function fab_edito() {
 #autodoc aff_langue($ibid) : Analyse le contenu d'une chaine et converti la section correspondante ([langue] OU [!langue] ...[/langue]) &agrave; la langue / [transl] ... [/transl] permet de simuler un appel translate("xxxx")
 function aff_langue($ibid) {
    global $language, $tab_langue;
-   // copie du tabelau + rajout de transl pour gestion de l'appel ‡ translate(...); - Theme Dynamic
+   // copie du tabelau + rajout de transl pour gestion de l'appel ‚Ä° translate(...); - Theme Dynamic
    $tab_llangue=$tab_langue;
    $tab_llangue[]="transl";
    reset ($tab_llangue);
@@ -1642,13 +1642,20 @@ function make_tab_langue() {
 function aff_localzone_langue($ibid) {
    global $tab_langue;
    reset ($tab_langue);
-   $M_langue= "<ul><li><select name=\"$ibid\" class=\"form-control textbox_standard\">";
-   $M_langue.="<option value=\"\">".translate("Select a language")."</option>";
+   $M_langue= '
+   <div class="form-group">
+   <select name="'.$ibid.'" class="c-select form-control" onchange="this.form.submit()">
+      <option value="">'.translate("Select a language").'</option>';
    while (list($bidon, $langue)=each($tab_langue)) {
-      $M_langue.="<option value=\"$langue\">".$langue."</option>";
+      $M_langue.='
+      <option value="'.$langue.'">'.$langue.'</option>';
    }
-   $M_langue.="<option value=\"\">- ".translate("No language")."</option>";
-   $M_langue.="</select></li><li><input class=\"btn btn-primary\" type=\"submit\" name=\"local_sub\" value=\"".translate("Submit")."\" /></li></ul>";
+   $M_langue.='
+      <option value="">- '.translate("No language").'</option>
+      </select>
+      </div>
+      <noscript>
+      <input class="btn btn-primary" type="submit" name="local_sub" value="'.translate("Submit").'" /></noscript>';
    return ($M_langue);
 }
 #autodoc aff_local_langue($mess, $ibid_index, $ibid) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
@@ -1657,9 +1664,9 @@ function aff_local_langue($mess="" ,$ibid_index, $ibid) {
       global $REQUEST_URI;
       $ibid_index=$REQUEST_URI;
    }
-   $M_langue ="<form action=\"$ibid_index\" name=\"local_user_language\" method=\"post\">";
+   $M_langue ='<form action="'.$ibid_index.'" name="local_user_language" method="post">';
    $M_langue.=$mess.aff_localzone_langue($ibid);
-   $M_langue.="</form>";
+   $M_langue.='</form>';
    return($M_langue);
 }
 #autodoc preview_local_langue($local_user_language,$ibid) : appel la fonction aff_langue en modifiant temporairement la valeur de la langue
@@ -1713,7 +1720,7 @@ function is_user($xuser) {
       return (false);
    }
 }
-#autodoc split_string_without_space($msg, $split) : DÈcoupe la chaine en morceau de $slpit longueur si celle-ci ne contient pas d'espace / Snipe 2004
+#autodoc split_string_without_space($msg, $split) : D√àcoupe la chaine en morceau de $slpit longueur si celle-ci ne contient pas d'espace / Snipe 2004
 function split_string_without_space($msg, $split) {
    $Xmsg=explode(" ",$msg);
    array_walk($Xmsg,'wrapper_f', $split);
@@ -1748,9 +1755,9 @@ function preg_anti_spam($ibid) {
    // Adaptation - David MARTINET alias Boris (2011)
    return("<a href=\"mailto:".anti_spam($ibid, 1)."\" target=\"_blank\" class=\"noir\">".anti_spam($ibid, 0)."</a>");  
 }  
-#autodoc anti_spam($str [, $highcode]) : Encode une chaine en mÈlangeant caractËres normaux, codes dÈcimaux et hexa. Si $highcode == 1, utilise Ègalement le codage ASCII (compatible uniquement avec des mailto et des URL, pas pour affichage)
+#autodoc anti_spam($str [, $highcode]) : Encode une chaine en m√àlangeant caract√ãres normaux, codes d√àcimaux et hexa. Si $highcode == 1, utilise √àgalement le codage ASCII (compatible uniquement avec des mailto et des URL, pas pour affichage)
 function anti_spam($str, $highcode = 0) {
-   // IdÈe originale : Pomme (2004). Nouvelle version : David MARTINET alias Boris (2011)
+   // Id√àe originale : Pomme (2004). Nouvelle version : David MARTINET alias Boris (2011)
    $str_encoded = "";  
    mt_srand((double)microtime()*1000000);
    for($i = 0; $i < strlen($str); $i++) {
@@ -1781,7 +1788,7 @@ function anti_spam($str, $highcode = 0) {
    }
    return $str_encoded;
 }
-#autodoc aff_editeur($Xzone, $Xactiv) : Charge l'Èditeur ... ou non : $Xzone = nom du textarea / $Xactiv = deprecated <br /> si $Xzone="custom" on utilise $Xactiv pour passer des param&egrave;tres spÈcifiques
+#autodoc aff_editeur($Xzone, $Xactiv) : Charge l'√àditeur ... ou non : $Xzone = nom du textarea / $Xactiv = deprecated <br /> si $Xzone="custom" on utilise $Xactiv pour passer des param&egrave;tres sp√àcifiques
 function aff_editeur($Xzone, $Xactiv) {
    global $language, $tiny_mce,$tiny_mce_theme,$tiny_mce_relurl;
    $tmp='';
@@ -1809,32 +1816,6 @@ function aff_editeur($Xzone, $Xactiv) {
          } else {
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
          }
-	// dÈbut d'implÈmentation tiny brute phr 020515	 
-/*				$tmp="<script type=\"text/javascript\">\n";
-				$tmp.="//<![CDATA[\n";
-				$tmp.="tinymce.init({\n";
-				$tmp.="selector : \"textarea\",\n";
-				$tmp.="plugins: [
-				\"advlist autolink lists link image charmap print preview hr anchor pagebreak\",
-				\"searchreplace wordcount visualblocks visualchars code fullscreen\",
-				\"insertdatetime media nonbreaking save table contextmenu directionality\",
-				\"emoticons template paste textcolor colorpicker textpattern\"
-				],\n";
-	
-				$tmp.="toolbar1: \"insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image\",\n";
-				
-				$tmp.="toolbar2: \"print preview media | forecolor backcolor emoticons\",\n";
-				$tmp.="image_advtab: true\n";
-				
-				$tmp.="});\n";
-				$tmp.="//]]>\n";
-				$tmp.="</script>\n";
-            }
-         } else {
-            $tmp.="<script type=\"text/javascript\" src=\"editeur/tinymce/tinymce.min.js\"></script>\n";
-         }		 
-//fin d'implÈmentation tiny brute phr 020515		*/ 
-		 
       } else {
          if ($Xzone!="custom") {
             $tmp_Xzone.=$Xzone.",";
@@ -1843,7 +1824,7 @@ function aff_editeur($Xzone, $Xactiv) {
          }
       }
    } else {
-      $tmp="";
+      $tmp='';
    }
    return ($tmp);
 }
@@ -1870,9 +1851,9 @@ function wrh($ibid) {
    $tmp=str_replace(" ","&nbsp;",$tmp);
    return ($tmp);
 }
-#autodoc Q_spambot() : forge un champ de formulaire (champ de saisie : $asb_reponse / champ hidden : asb_question) permettant de dÈployer une fonction anti-spambot
+#autodoc Q_spambot() : forge un champ de formulaire (champ de saisie : $asb_reponse / champ hidden : asb_question) permettant de d√àployer une fonction anti-spambot
 function Q_spambot() {
-   // IdÈe originale, dÈveloppement et intÈgration - GÈrald MARINO alias neo-machine
+   // Id√àe originale, d√àveloppement et int√àgration - G√àrald MARINO alias neo-machine
    // Rajout brouillage anti_spam() : David MARTINET, alias Boris (2011)
    // Other stuff : Dev 2012
    global $user;
@@ -1936,7 +1917,7 @@ function Q_spambot() {
    if (!isset($user)) {
 //      $tmp='<span class="rouge">'.translate("Anti-Spam / Thank to reply to the question :").'</span> '.$aff.' <input class="textbox_standard" type="text" name="asb_reponse" size="3" maxlength="2" onclick="this.value" />';
 //      $tmp.='<input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />';
-/*dÈbut remplacement phr*/
+/*d√àbut remplacement phr*/
 
    $tmp='
       <div class="form-group">
@@ -2000,9 +1981,9 @@ function L_spambot($ip, $status) {
       fclose($file);
    }
 }
-#autodoc R_spambot($asb_question, $asb_reponse, $message) : valide le champ $asb_question avec la valeur de $asb_reponse (anti-spambot) et filtre le contenu de $message si nÈcessaire
+#autodoc R_spambot($asb_question, $asb_reponse, $message) : valide le champ $asb_question avec la valeur de $asb_reponse (anti-spambot) et filtre le contenu de $message si n√àcessaire
 function R_spambot($asb_question, $asb_reponse, $message="") {
-   // idÈe originale, dÈveloppement et intÈgration - GÈrald MARINO alias neo-machine
+   // id√àe originale, d√àveloppement et int√àgration - G√àrald MARINO alias neo-machine
    global $user;
    global $REQUEST_METHOD;
    if ($REQUEST_METHOD=="POST") {
@@ -2056,12 +2037,12 @@ function keyED($txt,$encrypt_key) {
    }
    return $tmp;
 }
-#autodoc encrypt($txt) : retourne une chaine encryptÈe en utilisant la valeur de $NPDS_Key
+#autodoc encrypt($txt) : retourne une chaine encrypt√àe en utilisant la valeur de $NPDS_Key
 function encrypt($txt) {
    global $NPDS_Key;
    return (encryptK($txt,$NPDS_Key));
 }
-#autodoc encryptK($txt, $C_key) : retourne une chaine encryptÈe en utilisant la clef : $C_key
+#autodoc encryptK($txt, $C_key) : retourne une chaine encrypt√àe en utilisant la clef : $C_key
 function encryptK($txt, $C_key) {
    srand( (double)microtime()*1000000);
    $encrypt_key = md5(rand(0,32000) );
@@ -2075,12 +2056,12 @@ function encryptK($txt, $C_key) {
    }
    return base64_encode(keyED($tmp,$C_key));
 }
-#autodoc decrypt($txt) : retourne une chaine dÈcryptÈe en utilisant la valeur de $NPDS_Key
+#autodoc decrypt($txt) : retourne une chaine d√àcrypt√àe en utilisant la valeur de $NPDS_Key
 function decrypt($txt) {
    global $NPDS_Key;
    return (decryptK($txt, $NPDS_Key));
 }
-#autodoc decryptK($txt, $C_key) : retourne une dÈcryptÈe en utilisant la clef de $C_Key
+#autodoc decryptK($txt, $C_key) : retourne une d√àcrypt√àe en utilisant la clef de $C_Key
 function decryptK($txt, $C_key) {
    $txt = keyED(base64_decode($txt),$C_key);
    $tmp = "";
@@ -2277,7 +2258,7 @@ function adminblock() {
       $fid_ar[]=$SAQ['fid'];
       $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9) {
-         //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
+         //==<euh je ne sais plus comment j'avais envisager l'arriv√©e des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
          $li_c ='<li class=" btn btn-secondary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          else 
@@ -2786,7 +2767,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    <script type=\"text/javascript\">
    //<![CDATA[
    tog = function(lst,sho,hid){
-      $(document).on('click', 'span.tog', function() {
+      $(document).on('click', 'a.tog', function() {
          var buttonID = $(this).attr('id');
          lst_id = $('#'+lst);
          i_id=$('#i_'+lst);
@@ -2796,13 +2777,13 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".translate("Hide list")."');
-            i_id.attr('class','fa fa-caret-up');
+            i_id.attr('class','fa fa-caret-up fa-lg');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
             btn_hide.attr('title','".translate("Show list")."');
-            i_id.attr('class','fa fa-caret-down');
+            i_id.attr('class','fa fa-caret-down fa-lg');
         }
        });
    };
@@ -2821,7 +2802,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $li_mb='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
-   $li_mb.='<li class=" list-group-item li_18"><span class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down" ></i></span>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
+   $li_mb.='<li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
   
    $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
@@ -2877,7 +2858,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $res_forum=sql_query("select forum_id, forum_name from ".$NPDS_Prefix."forums where forum_pass regexp '$gr'");
       $nb_foru=sql_num_rows ($res_forum);
       if ($nb_foru >= 1) {
-         $lst_for_tog='<span class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down" ></i></span>';
+         $lst_for_tog='<a class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>';
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
          $nb_for_gr='  <span class="label label-pill label-default pull-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
@@ -2908,7 +2889,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $docs_gr=sql_query("SELECT page, editedby, modtime, ranq FROM ".$NPDS_Prefix."wspad WHERE (ws_id) IN (SELECT MAX(ws_id) FROM ".$NPDS_Prefix."wspad WHERE member='$gr' GROUP BY page) ORDER BY page ASC");
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
-         $lst_doc_tog ='<span class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down" ></i></span>';
+         $lst_doc_tog ='<a class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>';
          $lst_doc.='<ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
          $nb_doc_gr='  <span class="label label-pill label-default pull-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
@@ -2933,7 +2914,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<span class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-caret-down" ></i></span>&nbsp;<i class="fa fa-sticky-note-o fa-lg text-muted"></i>&nbsp; Bloc note';
+      $lst_blocnote_tog ='<a class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;<i class="fa fa-sticky-note-o fa-lg text-muted"></i>&nbsp; Bloc note';
       $lst_blocnote ='<div id="lst_blocnote" class="m-t-md" style =" display:none; ">';
       $lst_blocnote .= blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
       $lst_blocnote .= '</div>';
@@ -2994,7 +2975,7 @@ function tablos() {
    }
    return ($colorvalue);
 }
-#autodoc theme_image($theme_img) : Retourne le chemin complet si l'image est trouv&eacute;e dans le rÈpertoire image du th&eacute;me sinon false
+#autodoc theme_image($theme_img) : Retourne le chemin complet si l'image est trouv&eacute;e dans le r√àpertoire image du th&eacute;me sinon false
 function theme_image($theme_img) {
     global $theme;
     if (@file_exists("themes/$theme/images/$theme_img")) {
@@ -3003,7 +2984,7 @@ function theme_image($theme_img) {
        return (false);
     }
 }
-#autodoc import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par d&eacute;efaut) / Charge la CSS complementaire / le HTML ne contient que de simple quote pour Ítre compatible avec javascript
+#autodoc import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par d&eacute;efaut) / Charge la CSS complementaire / le HTML ne contient que de simple quote pour √çtre compatible avec javascript
 function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref="", $css="") {
    // CSS standard 
    $tmp="";
@@ -3059,12 +3040,12 @@ function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref
    }
    return($tmp);
 }
-#autodoc import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css) : Fonctionnement identique ‡ import_css_javascript sauf que le code HTML en retour ne contient que de double quote
+#autodoc import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css) : Fonctionnement identique ‚Ä° import_css_javascript sauf que le code HTML en retour ne contient que de double quote
 function import_css ($tmp_theme, $language, $site_font, $css_pages_ref, $css) {
    return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css)));
 }
 
-#autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un pseudo array js ‡ partir de la requete sql et implente un auto complete pour l'input (dependence : jquery-2.1.3.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requete
+#autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un pseudo array js ‚Ä° partir de la requete sql et implente un auto complete pour l'input (dependence : jquery-2.1.3.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requete
 function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
    global $NPDS_Prefix;
 
@@ -3091,7 +3072,7 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    return ($scri_js);
 }
 
-#autodoc auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) : fabrique un pseudo array json ‡ partir de la requete sql et implente un auto complete pour le champ input (dependence : jquery-2.1.3.min.js ,jquery-ui.js)
+#autodoc auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) : fabrique un pseudo array json ‚Ä° partir de la requete sql et implente un auto complete pour le champ input (dependence : jquery-2.1.3.min.js ,jquery-ui.js)
 function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) {
    global $NPDS_Prefix;
 
@@ -3168,7 +3149,7 @@ function language_iso($l,$s,$c) {
     return ($ietf);
 }
 
-#autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>inutilisé,  $foo =='' ==> </div> et inclusion footer.php
+#autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>inutilis√©,  $foo =='' ==> </div> et inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
 if ($fv=='fv') {
 echo '
@@ -3220,23 +3201,32 @@ echo '
    // voir si on a plus de champs mot de passe : changer par un array de champs ...
    if ((data.field === "add_pwd" || data.field === "chng_pwd") && data.validator === "callback") {
       // Get the score
-      var score = data.result.score,
+      var score = data.result.score,$bar_cont=$("#passwordMeter_cont"),$pass_level=$("#pass-level"),
           $bar = $("#passwordMeter").find(".progress-bar");
       switch (true) {
         case (score === null):
             $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
+            $bar_cont.attr("value","0");
             break;
         case (score <= 0):
-            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-danger");
+            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-striped progress-danger");
+            $bar_cont.attr("value","25").removeClass().addClass("progress progress-striped progress-danger");
+            $pass_level.html("Tr&#xE8;s faible").addClass("text-danger");
             break;
         case (score > 0 && score <= 2):
-            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-warning");
+            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-striped progress-warning");
+            $bar_cont.attr("value","50").removeClass().addClass("progress progress-striped progress-warning");
+            $pass_level.html("Faible").addClass("text-warning");
             break;
         case (score > 2 && score <= 4):
-            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-info");
+            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-striped progress-info");
+            $bar_cont.attr("value","75").removeClass().addClass("progress progress-striped progress-info");
+            $pass_level.html("Moyen").addClass("text-info");
             break;
         case (score > 4):
-            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-success");
+            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-striped progress-success");
+            $bar_cont.attr("value","100").removeClass().addClass("progress progress-striped progress-success");
+            $pass_level.html("Fort").addClass("text-success");
             break;
         default:
             break;

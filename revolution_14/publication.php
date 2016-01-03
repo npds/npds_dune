@@ -53,14 +53,14 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          $deb_min = '0'.$deb_min.'';
       }
    }
-   echo '<p class="lead">';
+   echo '<p class="small text-xs-right">';
    echo translate(date("l")).date(" ".translate("dateinternal"),time()+($gmt*3600));
    echo '</p>';
    $day = 1;
 
    if ($deb_day!=-1 and $deb_month!=-1 and $deb_year!=-1 and $deb_hour!=-1 and $deb_min!=-1) {
       echo '
-   <h3>'.translate("Start Date for this New").'</h3>
+   <label>'.translate("Start Date for this New").'</label>
    <div class="form-group">
       <div class="col-sm-2">
       <label class="form-control-label" for="deb_day">'.translate("Day").'</label>
@@ -119,7 +119,7 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
       echo '
         </select></div>
         <div class="col-sm-2">
-        <label class="form-control-label">'.translate("Minut(s)").'</label>
+        <label class="form-control-label" for="deb_min">'.translate("Minut(s)").'</label>
         <select class="c-select form-control" name="deb_min">';
         $min = 0;
       while ($min <= 59) {
@@ -138,17 +138,18 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
       echo '
       </select>
       </div>
+        <div class="col-sm-2">
+</div>      
       </div>';
    }
+      $day = 1;
 
    echo '
-     <h3>'.translate("End Date for this New").'</h3>
-     <div class="form-group">';
-      $day = 1;
-        echo '
-        <div class="col-sm-2">
-        <label class="form-control-label" for="fin_day">'.translate("Day").'</label>
-        <select class="c-select form-control" name="fin_day">';
+      <label>'.translate("End Date for this New").'</label>
+      <div class="form-group-row">
+         <div class="col-sm-2">
+            <label class="form-control-label" for="fin_day">'.translate("Day").'</label>
+            <select class="c-select form-control" name="fin_day">';
       while ($day <= 31) {
          if ($fin_day==$day) {
             $sel='selected="selected"';
@@ -158,31 +159,36 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
         echo '<option '.$sel.'>'.$day.'</option>';
         $day++;
       }
-		echo '</select></div>';
-		$month = 1;
-		echo '<div class="col-sm-2">';	 
-		echo '<label class="form-control-label">'.translate("Month").'</label>';
-		echo '<select class="c-select form-control" name="fin_month">';
+   echo '
+            </select>
+         </div>';
+      $month = 1;
+   echo '
+         <div class="col-sm-2">
+            <label class="form-control-label" for="fin_month">'.translate("Month").'</label>
+            <select class="c-select form-control" name="fin_month">';
       while ($month <= 12) {
          if ($fin_month==$month) {
             $sel='selected="selected"';
          } else {
             $sel='';
          }
-         echo '<option '.$sel.'>'.$month.'</option>';
+         echo '
+               <option '.$sel.'>'.$month.'</option>';
          $month++;
       }
-		echo '</select></div>';
-	 
-        echo '<div class="col-sm-2">';
+   echo '
+            </select>
+         </div>
+         <div class="col-sm-2">';
       if (!$fin_year) $fin_year=$deb_year+99;
-      echo '
-      <label class="form-control-label">'.translate("Year").'</label>
-      <input class="form-control" type="text" name="fin_year" value="'.$fin_year.'" />';
-      echo '</div>';
-      echo '<div class="col-sm-2">';
-      echo '<label class="form-control-label">'.translate("Hour(s)").'</label>';
-      echo '<select class="c-select form-control" name="fin_hour">';
+   echo '
+            <label class="form-control-label" for="fin_year">'.translate("Year").'</label>
+            <input class="form-control" type="text" name="fin_year" value="'.$fin_year.'" />
+         </div>
+         <div class="col-sm-2">
+            <label class="form-control-label" for="fin_hour">'.translate("Hour(s)").'</label>
+            <select class="c-select form-control" name="fin_hour">';
       $hour = 0;
       while ($hour <= 23) {
          if ($hour < 10) {
@@ -191,35 +197,38 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
         if ($fin_hour==$hour) {
            $sel='selected="selected"';
         } else {
-           $sel="";
+           $sel='';
         }
-        echo '<option '.$sel.'>'.$hour.'</option>';
+        echo '
+               <option '.$sel.'>'.$hour.'</option>';
         $hour++;
-		}
-		echo '</select></div>';
-	 
-		echo '<div class="col-sm-2">';
-		echo '<label class="form-control-label">'.translate("Minut(s)").'</label>';
-		echo '<select class="c-select form-control" name="fin_min">';
-		$min = 0;
-		while ($min <= 59) {
-			if ($min <10) {
+      }
+   echo '
+            </select>
+         </div>
+         <div class="col-sm-2">
+            <label class="form-control-label" for="fin_min">'.translate("Minut(s)").'</label>
+            <select class="c-select form-control" name="fin_min">';
+      $min = 0;
+      while ($min <= 59) {
+         if ($min <10) {
            $min = "0$min";
         }
         if ($fin_min==$min) {
            $sel='selected="selected"';
         } else {
-           $sel="";
+           $sel='';
         }
         echo '<option '.$sel.'>'.$min.'</option>';
         $min = $min + 5;
-         }
-         echo '</select></div>';
-         echo '</div>';
-
-         echo '<div class="form-group">
-               <div class="col-sm-6">
-               <label class="control-label">'.translate("Auto Delete the New at End Date").' ?</strong></label>
+      }
+   echo '
+            </select>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-6">
+               <label class="form-control-label">'.translate("Auto Delete the New at End Date").' ?</label>
                </div>';
          $sel1='';
          $sel2='';
@@ -227,16 +236,17 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
             $sel2='checked="checked"';
          else
             $sel1='checked="checked"';
-         echo '<div class="col-sm-6">
-               <div class="radio">
+         echo '
+         <div class="col-sm-6">
+            <div class="radio">
                <label class="radio-inline">
-               <input type="radio" name="epur" value="1" '.$sel1.' />'.translate("Yes").'
+                  <input type="radio" name="epur" value="1" '.$sel1.' />&nbsp;'.translate("Yes").'
                </label>
                <label class="radio-inline">
-         <input type="radio" name="epur" value="0" '.$sel2.' />'.translate("No").'
-         </label>
-         </div>
+                  <input type="radio" name="epur" value="0" '.$sel2.' />&nbsp;'.translate("No").'
+               </label>
             </div>
-            </div>';
+         </div>
+      </div>';
 }
 ?>
