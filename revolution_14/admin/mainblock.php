@@ -33,17 +33,23 @@ function mblock() {
          <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
          <form id="fad_mblock" action="admin.php" method="post">
             <div class="form-group row">
-               <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
-               <textarea class="form-control" type="text" id="title" name="title" maxlength="255" placeholder="'.adm_translate("Titre :").'">'.$title.'</textarea>
-               <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
+               <label class="form-control-label col-xs-12" for="title">'.adm_translate("Titre").'</label>
+               <div class="col-xs-12">
+                  <textarea class="form-control" type="text" id="title" name="title" maxlength="255" placeholder="'.adm_translate("Titre :").'">'.$title.'</textarea>
+                  <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
+               </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label" for="content">'.adm_translate("Contenu").'</label>
-               <textarea class="form-control" rows="25" id="content" name="content">'.$content.'</textarea>
+               <label class="form-control-label col-xs-12" for="content">'.adm_translate("Contenu").'</label>
+               <div class="col-xs-12">
+                  <textarea class="form-control" rows="25" id="content" name="content">'.$content.'</textarea>
+               </div>
             </div>
             <input type="hidden" name="op" value="changemblock" />
             <div class="form-group row">
-               <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+               <div class="col-xs-12">
+                  <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+               </div>
             </div>
          </form>
          <script type="text/javascript">
@@ -59,11 +65,9 @@ function mblock() {
 
 function changemblock($title, $content) {
     global $NPDS_Prefix;
-
     $title = stripslashes(FixQuotes($title));
     $content = stripslashes(FixQuotes($content));
     sql_query("UPDATE ".$NPDS_Prefix."mainblock SET title='$title', content='$content'");
-
     global $aid; Ecr_Log("security", "ChangeMainBlock($title) by AID : $aid", "");
     Header("Location: admin.php?op=adminMain");
 }

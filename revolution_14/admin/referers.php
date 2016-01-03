@@ -14,7 +14,7 @@
 
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='hreferer';
-$f_titre = adm_translate("Sites R&#xE9;f&#xE9;rents");
+$f_titre = adm_translate("Sites RÃ©fÃ©rents");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -53,7 +53,7 @@ function hreferer($filter) {
       </tr>
    </thead>
    <tbody>';
-   $hresult = sql_query("select url, count(url) as TheCount, substring(url,1,$filter) as filter from ".$NPDS_Prefix."referer GROUP BY filter order by TheCount DESC");
+   $hresult = sql_query("SELECT url, COUNT(url) AS TheCount, substring(url,1,$filter) AS filter FROM ".$NPDS_Prefix."referer GROUP BY filter ORDER BY TheCount DESC");
    while(list($url, $TheCount) = sql_fetch_row($hresult)) {
       echo '
       <tr>
@@ -74,8 +74,8 @@ function hreferer($filter) {
    </table>
    <br />
    <ul class="nav nav-pills">
-      <li><a href="admin.php?op=delreferer" class="text-danger">'.adm_translate("Effacer les Référants").'</a></li>
-      <li><a href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate("Archiver les Référants").'</a></li>
+      <li><a href="admin.php?op=delreferer" class="text-danger">'.adm_translate("Effacer les RÃ©fÃ©rants").'</a></li>
+      <li><a href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate("Archiver les RÃ©fÃ©rants").'</a></li>
    </ul>';
    adminfoot('','','','');;
 }
@@ -83,7 +83,7 @@ function hreferer($filter) {
 function delreferer() {
     global $NPDS_Prefix;
 
-    sql_query("delete from ".$NPDS_Prefix."referer");
+    sql_query("DELETE FROM ".$NPDS_Prefix."referer");
     Header("Location: admin.php?op=AdminMain");
 }
 
@@ -94,7 +94,7 @@ function archreferer($filter) {
     $content = "===================================================\n";
     $content .="Date : ".date("d-m-Y")."-/- NPDS - HTTP Referers\n";
     $content .= "===================================================\n";
-    $result=sql_query("select url from ".$NPDS_Prefix."referer");
+    $result=sql_query("SELECT url FROM ".$NPDS_Prefix."referer");
     while(list($url)= sql_fetch_row($result)) {
        $content .= "$url\n";
     }

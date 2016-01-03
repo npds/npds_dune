@@ -25,7 +25,7 @@ $hlpfile = "manuels/$language/groupes.html";
 if ($al) {
    if (preg_match ('#^mod#',$al)) {
       $al=explode ('_',$al);
-      $mes=adm_translate("Vous ne pouvez pas exclure").' '.$al[1].' '.adm_translate("car il est modÈrateur unique de forum. Oter ses droits de modÈration puis retirer le du groupe.");
+      $mes=adm_translate("Vous ne pouvez pas exclure").' '.$al[1].' '.adm_translate("car il est mod√©rateur unique de forum. Oter ses droits de mod√©ration puis retirer le du groupe.");
    }
 }
 
@@ -34,7 +34,7 @@ function group_liste() {
 
    include ('header.php');
    GraphicAdmin($hlpfile);
-   $result = sql_query("select uid, groupe from ".$NPDS_Prefix."users_status where groupe!='' order by uid ASC");
+   $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe!='' ORDER BY uid ASC");
    $one_gp=false;
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       $one_gp=true;
@@ -60,7 +60,7 @@ function group_liste() {
    function choisir_mod_forum(gp,gn,ar_user,ar_uid) {
       var user_json = ar_user.split(",");
       var uid_json = ar_uid.split(",");
-      var choix_mod = prompt("'.adm_translate("Choisir un modÈrateur").' : \n"+user_json);
+      var choix_mod = prompt("'.adm_translate("Choisir un mod√©rateur").' : \n"+user_json);
       if (choix_mod) {
          for (i=0; i<user_json.length; i++) {
             if (user_json[i] == choix_mod) {var ind_uid=i;}
@@ -110,7 +110,7 @@ function group_liste() {
       <input type="hidden" name="op" value="groupe_add" />
       <input type="image" src="images/admin/ws/groupe_add.gif" title="'.adm_translate("Ajouter un groupe").'" style="background:none;vertical-align:middle;" border="0" alt="'.adm_translate("Ajouter un groupe").'" />
    </form>
-   <h3><span class="tog small" id="hide_lst_gr" title="'.adm_translate("Replier la liste").'" ><i id="i_lst_gr" class="fa fa-minus-square-o" ></i></span>&nbsp;'.adm_translate("Liste des groupes").'</h3>
+   <h3><a class="tog small" id="hide_lst_gr" title="'.adm_translate("Replier la liste").'" ><i id="i_lst_gr" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.adm_translate("Liste des groupes").'</h3>
    <table id="lst_gr" class="table table-striped">
       <thead>
          <tr>
@@ -125,7 +125,7 @@ function group_liste() {
       sort($tab_groupeIII);
       while (list($bidon,$gp)=each($tab_groupeIII)) {
          $lst_user_json='';
-         $result=sql_fetch_assoc(sql_query("select groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad from ".$NPDS_Prefix."groupes where groupe_id='$gp'"));
+         $result=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp'"));
          echo '
          <tr id="bloc_gr_'.$gp.'"'.$rowcolor.'>
             <td valign="top" align="left" width="5%">'.$gp.'</td>
@@ -138,7 +138,7 @@ function group_liste() {
          $tab_groupe=explode(" ",ltrim($tab_groupeII[$gp]));
          $nb_mb=(count($tab_groupe))-1;
          echo '
-               <span class="tog" id="show_lst_mb_'.$gp.'" title="'.adm_translate("DÈplier la liste").'"><i id="i_lst_mb_gr_'.$gp.'" class="fa fa-plus-square-o" ></i></span>&nbsp;&nbsp;
+               <a class="tog" id="show_lst_mb_'.$gp.'" title="'.adm_translate("D√©plier la liste").'"><i id="i_lst_mb_gr_'.$gp.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;&nbsp;
                <i class="glyphicons glyphicons-user x2 drop"></i> &nbsp;['.$nb_mb.']&nbsp;&nbsp;';
          $lst_uid_json='';
          $lst_uidna_json='';
@@ -146,7 +146,7 @@ function group_liste() {
          echo '<ul id="lst_mb_gr_'.$gp.'" style ="display:none; padding-left:19px;">';
          while (list($bidon,$uidX)=each($tab_groupe)) {
             if ($uidX) {
-               list($uname,$user_avatar)=sql_fetch_row(sql_query("select uname, user_avatar from ".$NPDS_Prefix."users where uid='$uidX'"));
+               list($uname,$user_avatar)=sql_fetch_row(sql_query("SELECT uname, user_avatar FROM ".$NPDS_Prefix."users WHERE uid='$uidX'"));
                $lst_user_json.= $uname.',';
                $lst_uid_json.= $uidX.',';
                $lst_gr_json.='\'mbgr_'.$gp.'\': { gp: \''.$gp.'\'},';
@@ -170,7 +170,7 @@ function group_liste() {
                //=>traitement moderateur
                if ($result['groupe_forum']==1) {
                   $pat='#\b'.$uidX.'\b#';
-                  $res=sql_query("select f.forum_id, f.forum_name, f.forum_moderator from ".$NPDS_Prefix."forums f where f.forum_pass='$gp'");
+                  $res=sql_query("SELECT f.forum_id, f.forum_name, f.forum_moderator FROM ".$NPDS_Prefix."forums f WHERE f.forum_pass='$gp'");
                   while ($row = sql_fetch_row($res)) {
                      $ar_moder = explode(',',$row[2]);
                      $tmp_moder=$ar_moder;
@@ -178,15 +178,15 @@ function group_liste() {
                         unset($tmp_moder[array_search($uidX, $tmp_moder)]);
                         $new_moder=implode ( ',',$tmp_moder );
                         if (count($tmp_moder)!= 0) {
-                           echo'&nbsp;<a href="admin.php?op=moderateur_update&amp;forum_id='.$row[0].'&amp;forum_moderator='.$new_moder.'" title="'.adm_translate("Oter").' '.$uname.' '.adm_translate("des modÈrateurs du forum").' '.$row[0].'" data-toggle="tooltip" data-placement="right"><i class="glyphicons glyphicons-user-flag text-danger"></i></a>';
+                           echo'&nbsp;<a href="admin.php?op=moderateur_update&amp;forum_id='.$row[0].'&amp;forum_moderator='.$new_moder.'" title="'.adm_translate("Oter").' '.$uname.' '.adm_translate("des mod√©rateurs du forum").' '.$row[0].'" data-toggle="tooltip" data-placement="right"><i class="glyphicons glyphicons-user-flag text-danger"></i></a>';
                         } else {
-                           echo'&nbsp;<i class="glyphicons glyphicons-user-flag" title="'.adm_translate("Ce modÈrateur")." (".$uname.") ".adm_translate("n'est pas modifiable tant qu'un autre n'est pas nommÈ pour ce forum").' '.$row[0].'" data-toggle="tooltip" data-placement="right" ></i>';
+                           echo'&nbsp;<i class="glyphicons glyphicons-user-flag" title="'.adm_translate("Ce mod√©rateur")." (".$uname.") ".adm_translate("n'est pas modifiable tant qu'un autre n'est pas nomm√© pour ce forum").' '.$row[0].'" data-toggle="tooltip" data-placement="right" ></i>';
                         }
                      } else {
                         $tmp_moder[]=$uidX;
                         asort ( $tmp_moder );
                         $new_moder=implode (',',$tmp_moder);
-                        echo'&nbsp;<a href="admin.php?op=moderateur_update&amp;forum_id='.$row[0].'&amp;forum_moderator='.$new_moder.'" title="'.adm_translate("Nommer").' '.$uname.' '.adm_translate("comme modÈrateur du forum").' '.$row[1].' ('.$row[0].')" data-toggle="tooltip" data-placement="right" ><i class="glyphicons glyphicons-user-flag"></i></a>';
+                        echo'&nbsp;<a href="admin.php?op=moderateur_update&amp;forum_id='.$row[0].'&amp;forum_moderator='.$new_moder.'" title="'.adm_translate("Nommer").' '.$uname.' '.adm_translate("comme mod√©rateur du forum").' '.$row[1].' ('.$row[0].')" data-toggle="tooltip" data-placement="right" ><i class="glyphicons glyphicons-user-flag"></i></a>';
                      }
                   }
                }
@@ -214,38 +214,38 @@ function group_liste() {
             <a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/pencil.gif" class="vam" border="0" alt="'.adm_translate("Editer").'" /></a>
             <a class="btn btn-secondary btn-sm" href="javascript:void(0);" onclick="bootbox.alert(\''.adm_translate("Avant de supprimer le groupe").' '.$gp.' '.adm_translate("vous devez supprimer TOUS ses membres !").'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/trash.gif" class="vam" border="0" alt="'.adm_translate("Supprimer groupe").'" /></a>
             <a class="btn btn-secondary btn-sm" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/user_add.gif" class="vam" border="0" alt="'.adm_translate("Ajouter un ou des membres au groupe").'" /></a>
-            <a class="btn btn-secondary btn-sm" href="admin.php?op=bloc_groupe_create&amp;groupe_id='.$gp.'" title="'.adm_translate("CrÈer le bloc WS").' ('.$gp.')" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/wrench.gif" class="vam" border="0" alt="'.adm_translate("CrÈer le bloc WS").'" /></a>';
+            <a class="btn btn-secondary btn-sm" href="admin.php?op=bloc_groupe_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Cr√©er le bloc WS").' ('.$gp.')" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/wrench.gif" class="vam" border="0" alt="'.adm_translate("Cr√©er le bloc WS").'" /></a>';
 
          if ($result['groupe_pad']==1) {
-            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=pad_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("DÈsactiver PAD du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/album_remove.gif" class="vam" border="0" alt="'.adm_translate("DÈsactiver PAD du groupe").' '.$gp.'" /></a>';
+            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=pad_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("D√©sactiver PAD du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/album_remove.gif" class="vam" border="0" alt="'.adm_translate("D√©sactiver PAD du groupe").' '.$gp.'" /></a>';
          } else {
             echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=pad_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer PAD du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/album_add.gif" class="vam" border="0" alt="'.adm_translate("Activer PAD du groupe").' '.$gp.'"   /></a>';
          }
          if ($result['groupe_blocnote']==1) {
-            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=note_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("DÈsactiver bloc-note du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/note_remove.gif" class="vam" border="0" alt="'.adm_translate("DÈsactiver bloc-note du groupe").' '.$gp.'" /></a>';
+            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=note_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("D√©sactiver bloc-note du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/note_remove.gif" class="vam" border="0" alt="'.adm_translate("D√©sactiver bloc-note du groupe").' '.$gp.'" /></a>';
          } else {
             echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=note_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer bloc-note du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/note_add.gif" class="vam" border="0" alt="'.adm_translate("Activer bloc-note du groupe").' '.$gp.'" /></a>';
          }
          
          if (file_exists('modules/f-manager/users/groupe_'.$gp.'.conf.php')) {
-            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=workspace_archive&amp;groupe_id='.$gp.'" title="'.adm_translate("DÈsactiver gestionnaire de fichiers du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/folder_remove.gif" class="vam" border="0" alt="'.adm_translate("DÈsactiver gestionnaire de fichiers du groupe").' '.$gp.'" /></a>';
+            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=workspace_archive&amp;groupe_id='.$gp.'" title="'.adm_translate("D√©sactiver gestionnaire de fichiers du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/folder_remove.gif" class="vam" border="0" alt="'.adm_translate("D√©sactiver gestionnaire de fichiers du groupe").' '.$gp.'" /></a>';
          } else {
             echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=workspace_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer gestionnaire de fichiers du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/folder_folder.gif" class="vam" border="0" alt="'.adm_translate("Activer gestionnaire de fichiers du groupe").' '.$gp.'" /></a>';
          }
          if ($result['groupe_forum']==1) {
             echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=forum_groupe_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("Supprimer forum du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/document_remove.gif" class="vam" border="0" alt="'.adm_translate("Supprimer forum du groupe").'" /></a>';
          } else {
-            echo'<a class="btn btn-secondary btn-sm" href="javascript:void(0);" onclick="javascript:choisir_mod_forum(\''.$gp.'\',\''.$result['groupe_name'].'\',\''.$lst_user_json.'\',\''.$lst_uid_json.'\');" title="'.adm_translate("CrÈer forum du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/document_add.gif" class="vam" border="0" alt="'.adm_translate("CrÈer forum du groupe").' '.$gp.'" /></a>';
+            echo'<a class="btn btn-secondary btn-sm" href="javascript:void(0);" onclick="javascript:choisir_mod_forum(\''.$gp.'\',\''.$result['groupe_name'].'\',\''.$lst_user_json.'\',\''.$lst_uid_json.'\');" title="'.adm_translate("Cr√©er forum du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/document_add.gif" class="vam" border="0" alt="'.adm_translate("Cr√©er forum du groupe").' '.$gp.'" /></a>';
          }
          if ($result['groupe_mns']==1) {
             echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_mns_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("Supprimer MiniSite du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/application_remove.gif" class="vam" border="0" alt="'.adm_translate("Supprimer MiniSite du groupe").'" /></a>';
          } else {
-            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_mns_create&amp;groupe_id='.$gp.'" title="'.adm_translate("CrÈer MiniSite du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/application_add.gif" class="vam" border="0" alt="'.adm_translate("CrÈer MiniSite du groupe").' '.$gp.'" /></a>';
+            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_mns_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Cr√©er MiniSite du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/application_add.gif" class="vam" border="0" alt="'.adm_translate("Cr√©er MiniSite du groupe").' '.$gp.'" /></a>';
          }
          if ($result['groupe_chat']==0) {
             echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_chat_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer chat du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/comment_add.gif" class="vam" border="0" alt="'.adm_translate("Activer chat du groupe").'" /></a>';
          } else {
-            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_chat_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("DÈsactiver chat du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/comment_remove.gif" class="vam" border="0" alt="'.adm_translate("DÈsactiver chat du groupe").'" /></a>';
+            echo'<a class="btn btn-secondary btn-sm" href="admin.php?op=groupe_chat_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("D√©sactiver chat du groupe").' '.$gp.'" data-toggle="tooltip" data-placement="left" ><img src="images/admin/ws/comment_remove.gif" class="vam" border="0" alt="'.adm_translate("D√©sactiver chat du groupe").'" /></a>';
          }
          echo '
             </td>
@@ -255,7 +255,7 @@ function group_liste() {
    }
 
    // groupes sans membre
-   $result=sql_query("select groupe_id, groupe_name, groupe_description from ".$NPDS_Prefix."groupes order by groupe_id ASC");
+   $result=sql_query("SELECT groupe_id, groupe_name, groupe_description FROM ".$NPDS_Prefix."groupes ORDER BY groupe_id ASC");
    while (list($gp, $gp_name, $gp_description)=sql_fetch_row($result)) {
       $gpA=true;
       if ($tab_groupeIII) {
@@ -320,7 +320,7 @@ function membre_add($gp) {
          </div>
       </fieldset>
    </form>';
-   echo auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid where users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'');
+   echo auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'');
    adminfoot('fv','','','');
 }
 function membre_add_finish($groupe_id, $luname) {
@@ -332,17 +332,17 @@ function membre_add_finish($groupe_id, $luname) {
    $list_membres=explode(",",$luname);
    $nbremembres=count($list_membres);
    $subject=adm_translate('Nouvelles du groupe');
-   $message=adm_translate('Vous faites dÈsormais partie des membres du groupe').' '.$groupe_id.'.';
+   $message=adm_translate('Vous faites d√©sormais partie des membres du groupe').' '.$groupe_id.'.';
    $copie='';
    $from_userid=1;
 
    for ($j=0;$j<$nbremembres;$j++) {
       $uname=$list_membres[$j];
-      $result1 = sql_query("select uid from ".$NPDS_Prefix."users where uname='$uname'");
+      $result1 = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
       $ibid=sql_fetch_assoc($result1);
       if ($ibid['uid']) {
          $to_userid=$uname;
-         $result2 = sql_query("select groupe from ".$NPDS_Prefix."users_status where uid='".$ibid['uid']."'");
+         $result2 = sql_query("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='".$ibid['uid']."'");
          $ibid2=sql_fetch_assoc($result2);
          $lesgroupes=explode(",",$ibid2['groupe']);
          $nbregroupes=count($lesgroupes);
@@ -354,7 +354,7 @@ function membre_add_finish($groupe_id, $luname) {
          if (!$groupeexistedeja) {
             if ($ibid2['groupe']) $groupesmodif=$ibid2['groupe'].",".$groupe_id;
             else $groupesmodif=$groupe_id;
-            $resultat = sql_query("update ".$NPDS_Prefix."users_status set groupe='$groupesmodif' where uid='".$ibid['uid']."'");
+            $resultat = sql_query("UPDATE ".$NPDS_Prefix."users_status SET groupe='$groupesmodif' WHERE uid='".$ibid['uid']."'");
          }
          writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie);
       }
@@ -370,7 +370,7 @@ function retiredugroupe($groupe_id, $uid, $uname) {
    $mes_sys='';
    $q='';
    $ok=0;
-   $res=sql_query("select f.forum_id, f.forum_name, f.forum_moderator from ".$NPDS_Prefix."forums f where f.forum_pass='$groupe_id' and cat_id='-1'");
+   $res=sql_query("SELECT f.forum_id, f.forum_name, f.forum_moderator FROM ".$NPDS_Prefix."forums f WHERE f.forum_pass='$groupe_id' and cat_id='-1'");
    while ($row = sql_fetch_row($res)) {
       if (preg_match($pat, $row[2])) {
          $mes_sys='mod_'.$uname;
@@ -381,13 +381,13 @@ function retiredugroupe($groupe_id, $uid, $uname) {
 
    if ($ok==0) {
       $pat='#\b'.$uid.'\b#';
-      $res=sql_query("select f.forum_id, f.forum_name, f.forum_moderator from ".$NPDS_Prefix."forums f where f.forum_pass='$groupe_id' and cat_id='-1'");
+      $res=sql_query("SELECT f.forum_id, f.forum_name, f.forum_moderator FROM ".$NPDS_Prefix."forums f WHERE f.forum_pass='$groupe_id' and cat_id='-1'");
       while ($r = sql_fetch_row($res)) {
          $new_moder=preg_replace('#,,#',',',trim(preg_replace ($pat,'',$r[2]),','));
-         sql_query("update ".$NPDS_Prefix."forums set forum_moderator='$new_moder' where forum_id='$r[0]'");
+         sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_moderator='$new_moder' WHERE forum_id='$r[0]'");
       };
    
-      $resultat=sql_query("select groupe from ".$NPDS_Prefix."users_status where uid='$uid'");
+      $resultat=sql_query("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$uid'");
       $subject=adm_translate('Nouvelles du groupe');
       $message=adm_translate('Vous ne faites plus partie des membres du groupe').' '.$groupe_id.'.';
       $copie='';
@@ -403,7 +403,7 @@ function retiredugroupe($groupe_id, $uid, $uname) {
             else $groupesmodif.=",".$lesgroupes[$i];
          }
       }
-      $resultat = sql_query("update ".$NPDS_Prefix."users_status set groupe='$groupesmodif' where uid='$uid'");
+      $resultat = sql_query("UPDATE ".$NPDS_Prefix."users_status SET groupe='$groupesmodif' WHERE uid='$uid'");
       writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie);
       global $aid; Ecr_Log("security", "DeleteMemberToGroup($groupe_id, $uname) by AID : $aid", "");
    }
@@ -414,8 +414,8 @@ function retiredugroupe_all($groupe_id,$tab_groupe) {
    $tab_groupe=explode ( ',', $tab_groupe );
    while (list($bidon,$uidZ)=each($tab_groupe)) {
       if ($uidZ) {
-         // a rajouter enlever modÈrateur forum
-         $resultat=sql_query("select groupe from ".$NPDS_Prefix."users_status where uid='$uidZ'");
+         // a rajouter enlever mod√©rateur forum
+         $resultat=sql_query("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$uidZ'");
          $valeurs=sql_fetch_assoc($resultat);
          $lesgroupes=explode(",",$valeurs['groupe']);
          $nbregroupes=count($lesgroupes);
@@ -426,7 +426,7 @@ function retiredugroupe_all($groupe_id,$tab_groupe) {
                else $groupesmodif.=",".$lesgroupes[$i];
             }
          }
-         $resultat = sql_query("update ".$NPDS_Prefix."users_status set groupe='$groupesmodif' where uid='$uidZ'");
+         $resultat = sql_query("UPDATE ".$NPDS_Prefix."users_status SET groupe='$groupesmodif' WHERE uid='$uidZ'");
          global $aid; Ecr_Log("security", "DeleteAllMemberToGroup($groupe_id, $uidZ) by AID : $aid", "");
       }
    }
@@ -444,7 +444,7 @@ function groupe_edit($groupe_id) {
    if ($groupe_id!="groupe_add")
       echo '<h3>'.adm_translate("Modifier le groupe").' : '.$groupe_id.'</h3>';
    else
-      echo '<h3>'.adm_translate("CrÈer un groupe.").'</h3>';
+      echo '<h3>'.adm_translate("Cr√©er un groupe.").'</h3>';
    echo '
    <form class="admform" id="form_aded_gr" action="admin.php" method="post">
       <fieldset>
@@ -485,11 +485,11 @@ function groupe_maj() {
    global $groupe_id, $groupe_name, $groupe_description, $sub_op;
 
    if ($sub_op==adm_translate("Sauver les modifications")) {
-      sql_query("update ".$NPDS_Prefix."groupes set groupe_name='$groupe_name', groupe_description='$groupe_description' where groupe_id='$groupe_id'");
+      sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_name='$groupe_name', groupe_description='$groupe_description' WHERE groupe_id='$groupe_id'");
       global $aid; Ecr_Log("security", "UpdateGroup($groupe_id) by AID : $aid", "");
    }
    if ($sub_op==adm_translate("Supprimer")) {
-      $result = sql_query("select uid, groupe from ".$NPDS_Prefix."users_status where groupe!='' order by uid ASC");
+      $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe!='' ORDER BY uid ASC");
       $maj_ok=true;
       while (list($to_userid, $groupeX) = sql_fetch_row($result)) {
          $tab_groupe=explode(",",$groupeX);
@@ -512,16 +512,16 @@ function groupe_delete($groupe_id) {
    global $hlpfile, $NPDS_Prefix;
    global $groupe_name, $groupe_description, $sub_op;
 
-   sql_query("delete from ".$NPDS_Prefix."lblocks where member='$groupe_id'");
-   sql_query("delete from ".$NPDS_Prefix."rblocks where member='$groupe_id'");
-   sql_query("delete from ".$NPDS_Prefix."groupes where groupe_id='$groupe_id'");
-   sql_query("delete FROM ".$NPDS_Prefix."blocnotes WHERE bnid='".md5("WS-BN".$groupe_id)."'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE member='$groupe_id'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE member='$groupe_id'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe_id'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."blocnotes WHERE bnid='".md5("WS-BN".$groupe_id)."'");
 
    forum_groupe_delete($groupe_id);
    workspace_archive($groupe_id);
    groupe_mns_delete($groupe_id);
 
-   //  todo - Supprimer YUI si plus de WorkSpace chargÈ - si YUI n'est utilisÈ que par WS ...
+   //  todo - Supprimer YUI si plus de WorkSpace charg√© - si YUI n'est utilis√© que par WS ...
 
    global $aid; Ecr_Log("security", "DeleteGroup($groupe_id) by AID : $aid", "");
 }
@@ -591,13 +591,13 @@ function workspace_create($groupe_id) {
 function pad_create($groupe_id) {
    global $NPDS_Prefix;
 
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_pad = '1' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_pad = '1' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "CreatePadWS($groupe_id) by AID : $aid", "");
 }
 function pad_remove($groupe_id) {
    global $NPDS_Prefix;
    
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_pad = '0' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_pad = '0' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "DeletePadWS($groupe_id) by AID : $aid", "");
 }
 
@@ -618,14 +618,14 @@ function note_create($groupe_id) {
       $sql.=" TYPE=MyISAM";
    sql_query($sql);
 
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_blocnote = '1' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_blocnote = '1' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "CreateBlocnoteWS($groupe_id) by AID : $aid", "");
 }
 function note_remove($groupe_id) {
    global $NPDS_Prefix;
    
-   sql_query("delete from ".$NPDS_Prefix."blocnotes where bnid='".md5("WS-BN".$groupe_id)."'");
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_blocnote = '0' where groupe_id = '$groupe_id';");
+   sql_query("DELETE FROM ".$NPDS_Prefix."blocnotes WHERE bnid='".md5("WS-BN".$groupe_id)."'");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_blocnote = '0' WHERE groupe_id = '$groupe_id';");
 
    global $aid; Ecr_Log("security", "DeleteBlocnoteWS($groupe_id) by AID : $aid", "");
 }
@@ -644,41 +644,41 @@ function forum_groupe_create($groupe_id,$groupe_name,$description,$moder) {
     global $NPDS_Prefix;
 
     // creation forum
-    // creation catÈgorie forum_groupe
-    $result=sql_query("select cat_id from ".$NPDS_Prefix."catagories where cat_id = -1;");
+    // creation cat√©gorie forum_groupe
+    $result=sql_query("SELECT cat_id FROM ".$NPDS_Prefix."catagories WHERE cat_id = -1;");
     list($cat_id)=sql_fetch_row($result);
     if (!$cat_id) {
-       sql_query("insert into ".$NPDS_Prefix."catagories values (-1, '".adm_translate("Groupe de travail")."')");
+       sql_query("INSERT INTO ".$NPDS_Prefix."catagories VALUES (-1, '".adm_translate("Groupe de travail")."')");
     };
     //==>creation forum
 
     echo "$groupe_id,$groupe_name,$description,$moder";
 
-    sql_query("insert into ".$NPDS_Prefix."forums values (NULL, '$groupe_name', '$description', '1', '$moder', '-1', '7', '$groupe_id', '0', '0', '0')");
+    sql_query("INSERT INTO ".$NPDS_Prefix."forums VALUES (NULL, '$groupe_name', '$description', '1', '$moder', '-1', '7', '$groupe_id', '0', '0', '0')");
     //=> ajout etat forum (1 ou 0) dans le groupe
-    sql_query("update ".$NPDS_Prefix."groupes set groupe_forum = '1' where groupe_id = '$groupe_id';");
+    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_forum = '1' WHERE groupe_id = '$groupe_id';");
     global $aid; Ecr_Log("security", "CreateForumWS($groupe_id) by AID : $aid", "");
 }
 
 function moderateur_update($forum_id,$forum_moderator) {
     global $NPDS_Prefix;
 
-    sql_query("update ".$NPDS_Prefix."forums set forum_moderator = '$forum_moderator' where forum_id='$forum_id'");
+    sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_moderator = '$forum_moderator' WHERE forum_id='$forum_id'");
 }
 function forum_groupe_delete($groupe_id) {
     global $NPDS_Prefix;
 
-    $result=sql_query("select forum_id from ".$NPDS_Prefix."forums where forum_pass='$groupe_id' and cat_id='-1'");
+    $result=sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums WHERE forum_pass='$groupe_id' and cat_id='-1'");
     list($forum_id) = sql_fetch_row($result);
     // suppression des topics
-    sql_query("delete from ".$NPDS_Prefix."forumtopics where forum_id='$forum_id'");
+    sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
     // maj table lecture
-    sql_query("delete from ".$NPDS_Prefix."forum_read where forum_id='$forum_id'");
+    sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
 
     //=> suppression du forum
-    sql_query("delete from ".$NPDS_Prefix."forums where forum_id='$forum_id'");
-    // =>remise ‡ 0 forum dans le groupe
-    sql_query("update ".$NPDS_Prefix."groupes set groupe_forum = '0' where groupe_id='$groupe_id'");
+    sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
+    // =>remise √† 0 forum dans le groupe
+    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_forum = '0' WHERE groupe_id='$groupe_id'");
     global $aid; Ecr_Log("security", "DeleteForumWS($forum_id) by AID : $aid", "");
 }
 
@@ -721,7 +721,7 @@ function groupe_mns_create($groupe_id) {
          fclose($fp);
       }
    }
-   // copie de la matrice par dÈfaut
+   // copie de la matrice par d√©faut
    $directory=$racine."/modules/groupe/matrice/mns_groupe";
    $handle=opendir($DOCUMENTROOT.$directory);
    while (false!==($file = readdir($handle))) $filelist[] = $file;
@@ -733,7 +733,7 @@ function groupe_mns_create($groupe_id) {
    }
    closedir($handle);
    unset ($filelist);
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_mns = '1' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_mns = '1' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "CreateMnsWS($groupe_id) by AID : $aid", "");
 }
 function groupe_mns_delete($groupe_id) {
@@ -761,7 +761,7 @@ function groupe_mns_delete($groupe_id) {
      closedir($dir);
      @rmdir($user_dir."/mns");
    }
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_mns = '0' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_mns = '0' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "DeleteMnsWS($groupe_id) by AID : $aid", "");
 }
 
@@ -769,47 +769,47 @@ function groupe_mns_delete($groupe_id) {
 function groupe_chat_create($groupe_id) {
    global $NPDS_Prefix;
 
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_chat = '1' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_chat = '1' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "ActivateChatWS($groupe_id) by AID : $aid", "");
 }
 function groupe_chat_delete($groupe_id) {
    global $NPDS_Prefix;
 
-   sql_query("update ".$NPDS_Prefix."groupes set groupe_chat = '0' where groupe_id = '$groupe_id';");
+   sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_chat = '0' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log("security", "DesactivateChatWS($groupe_id) by AID : $aid", "");
 }
 
 function bloc_groupe_create($groupe_id) {
    global $NPDS_Prefix;
 
-   // Creation bloc espace de travail user et du chargeur YUI (si nÈcessaire)
-   // On recherche si YUI est dÈj‡ installÈe via un bloc
+   // Creation bloc espace de travail user et du chargeur YUI (si n√©cessaire)
+   // On recherche si YUI est d√©j√† install√©e via un bloc
    $yui=false;
-   $row=sql_fetch_row(sql_query("SELECT count(id) FROM ".$NPDS_Prefix."lblocks WHERE content like '%yui-min.js%'"));
+   $row=sql_fetch_row(sql_query("SELECT COUNT(id) FROM ".$NPDS_Prefix."lblocks WHERE content like '%yui-min.js%'"));
    if ($row[0]==0) {
-      $row=sql_fetch_row(sql_query("SELECT count(id) FROM ".$NPDS_Prefix."rblocks WHERE content like '%yui-min.js%'"));
+      $row=sql_fetch_row(sql_query("SELECT COUNT(id) FROM ".$NPDS_Prefix."rblocks WHERE content like '%yui-min.js%'"));
       if ($row[0]<>0)
          $yui=true;
    } else {
       $yui=true;
    }
    if ($yui==false) {
-      sql_query("INSERT into ".$NPDS_Prefix."lblocks values (NULL, 'YUI loader', 'hidden#<script type=\"text/javascript\" src=\"lib/yui/build/yui/yui-min.js\"></script>', '0', '-99', '86400', '1', '0', 'Ce bloc charge YUI / This block load YUI')");
+      sql_query("INSERT into ".$NPDS_Prefix."lblocks VALUES (NULL, 'YUI loader', 'hidden#<script type=\"text/javascript\" src=\"lib/yui/build/yui/yui-min.js\"></script>', '0', '-99', '86400', '1', '0', 'Ce bloc charge YUI / This block load YUI')");
    }
 
-   // On crÈer le bloc s'il n'existe pas dÈj‡
+   // On cr√©er le bloc s'il n'existe pas d√©j√†
    $bloc=false;
    $menu_workspace="function#bloc_espace_groupe\r\nparams#$groupe_id,1";
-   $row=sql_fetch_row(sql_query("SELECT count(id) FROM ".$NPDS_Prefix."lblocks WHERE content='$menu_workspace'"));
+   $row=sql_fetch_row(sql_query("SELECT COUNT(id) FROM ".$NPDS_Prefix."lblocks WHERE content='$menu_workspace'"));
    if ($row[0]==0) {
-      $row=sql_fetch_row(sql_query("SELECT count(id) FROM ".$NPDS_Prefix."rblocks WHERE content='$menu_workspace'"));
+      $row=sql_fetch_row(sql_query("SELECT COUNT(id) FROM ".$NPDS_Prefix."rblocks WHERE content='$menu_workspace'"));
       if ($row[0]<>0)
          $bloc=true;
    } else {
       $bloc=true;
    }
    if ($bloc==false) {
-      sql_query("INSERT into ".$NPDS_Prefix."lblocks values (NULL, '', '$menu_workspace', '$groupe_id', '3', '0', '1', '0', NULL)");
+      sql_query("INSERT into ".$NPDS_Prefix."lblocks VALUES (NULL, '', '$menu_workspace', '$groupe_id', '3', '0', '1', '0', NULL)");
    }
 }
 
@@ -900,7 +900,7 @@ switch ($op) {
    case "groupe_add_finish":
         $ok_grp=false;
         if (($groupe_id=="") or ($groupe_id<2) or ($groupe_id>126)) {
-           $row=sql_fetch_row(sql_query("SELECT MAX(groupe_id) from ".$NPDS_Prefix."groupes"));      
+           $row=sql_fetch_row(sql_query("SELECT MAX(groupe_id) FROM ".$NPDS_Prefix."groupes"));      
            if ($row[0]<126) {
               if ($row[0]==0) $row[0]=1;
               $groupe_id=$row[0]+1;
@@ -910,7 +910,7 @@ switch ($op) {
            $ok_grp=true;
         }
         if ($ok_grp) {
-           sql_query("INSERT into ".$NPDS_Prefix."groupes values ('$groupe_id', '$groupe_name','$groupe_description','0','0','0','0','0')");
+           sql_query("INSERT into ".$NPDS_Prefix."groupes VALUES ('$groupe_id', '$groupe_name','$groupe_description','0','0','0','0','0')");
            @mkdir('users_private/groupe/'.$groupe_id);
            $fp=fopen ('users_private/groupe/'.$groupe_id.'/index.html','w');
            fclose($fp);

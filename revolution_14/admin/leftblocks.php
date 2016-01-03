@@ -52,7 +52,7 @@ function changelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scach
    if ($css){ $css=1;}else{$css=0;}
    $content = stripslashes(FixQuotes($content));
    $BLaide = stripslashes(FixQuotes($BLaide));
-   sql_query("update ".$NPDS_Prefix."lblocks set title='$title', content='$content', member='$members', Lindex='$Lindex', cache='$Scache', actif='$Sactif', aide='$BLaide', css='$css' where id='$id'");
+   sql_query("UPDATE ".$NPDS_Prefix."lblocks SET title='$title', content='$content', member='$members', Lindex='$Lindex', cache='$Scache', actif='$Sactif', aide='$BLaide', css='$css' WHERE id='$id'");
 
    global $aid; Ecr_Log("security", "ChangeLeftBlock($title - $id) by AID : $aid", "");
    Header("Location: admin.php?op=blocks");
@@ -72,7 +72,7 @@ function changedroitelblock($id, $title, $content, $members, $Mmember, $Lindex, 
    $content = stripslashes(FixQuotes($content));
    $BLaide = stripslashes(FixQuotes($BLaide));
    sql_query("INSERT INTO ".$NPDS_Prefix."rblocks VALUES (NULL,'$title','$content', '$members', '$Lindex', '$Scache', '$Sactif', '$css', '$BLaide')");
-   sql_query("delete from ".$NPDS_Prefix."lblocks where id='$id'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE id='$id'");
 
    global $aid; Ecr_Log("security", "MoveLeftBlockToRight($title - $id) by AID : $aid", "");
    Header("Location: admin.php?op=blocks");
@@ -80,9 +80,7 @@ function changedroitelblock($id, $title, $content, $members, $Mmember, $Lindex, 
 
 function deletelblock($id) {
    global $NPDS_Prefix;
-
-   sql_query("delete from ".$NPDS_Prefix."lblocks where id='$id'");
-
+   sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE id='$id'");
    global $aid; Ecr_Log("security", "DeleteLeftBlock($id) by AID : $aid", "");
    Header("Location: admin.php?op=blocks");
 }
@@ -91,15 +89,12 @@ switch ($op) {
    case "makelblock":
         makelblock($title, $xtext, $members, $Mmember, $index, $Scache, $Baide, $SHTML, $css);
         break;
-
    case "deletelblock":
         deletelblock($id);
         break;
-
    case "changelblock":
         changelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scache, $Sactif, $BLaide, $css);
         break;
-
    case "droitelblock":
         changedroitelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scache, $Sactif, $BLaide, $css);
         break;

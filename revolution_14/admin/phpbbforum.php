@@ -29,7 +29,7 @@ function ForumAdmin() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3>'.adm_translate("Catégories de Forum").'</h3>
+   <h3>'.adm_translate("CatÃ©gories de Forum").'</h3>
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -42,25 +42,25 @@ function ForumAdmin() {
       <tbody>';
    $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories ORDER BY cat_id");
    while (list($cat_id, $cat_title) = sql_fetch_row($result)) {
-      $gets = sql_query("SELECT count(*) as total FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
+      $gets = sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
       $numbers= sql_fetch_assoc($gets);
       echo '
          <tr>
             <td align="left">'.$cat_id.'</td>
             <td align="left">'.StripSlashes($cat_title).'</td>
-            <td align="center">'.$numbers['total'].' <a href="admin.php?op=ForumGo&amp;cat_id='.$cat_id.'"><i class="fa fa-eye fa-lg" title="'.adm_translate("Voir les forums de cette catégorie").': '.StripSlashes($cat_title).'." data-toggle="tooltip"></i></a></td>
+            <td align="center">'.$numbers['total'].' <a href="admin.php?op=ForumGo&amp;cat_id='.$cat_id.'"><i class="fa fa-eye fa-lg" title="'.adm_translate("Voir les forums de cette catÃ©gorie").': '.StripSlashes($cat_title).'." data-toggle="tooltip"></i></a></td>
             <td align="right"></a><a href="admin.php?op=ForumCatEdit&amp;cat_id='.$cat_id.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a> <a href="admin.php?op=ForumCatDel&amp;cat_id='.$cat_id.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
          </tr>';
    }
    echo '
        </tbody>
    </table>
-   <h3>'.adm_translate("Ajouter une Catégorie").'</h3>
+   <h3>'.adm_translate("Ajouter une CatÃ©gorie").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="catagories">'.adm_translate("Nom").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <textarea class="form-control" type="text" name="catagories" id="catagories" rows="3" required="required"></textarea>
             </div>
          </div>
@@ -69,7 +69,7 @@ function ForumAdmin() {
          <div class="row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="ForumCatAdd" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Catégorie").'</button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une CatÃ©gorie").'</button>
             </div>
          </div>
       </div>
@@ -83,18 +83,18 @@ function ForumGo($cat_id) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
-   $result = sql_query("select cat_title from ".$NPDS_Prefix."catagories where cat_id='$cat_id'");
+   $result = sql_query("SELECT cat_title FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
    list($cat_title) = sql_fetch_row($result);
    $ctg=StripSlashes($cat_title);
    echo '
-   <h3>'.adm_translate("Forum classé en").' '.$ctg.'</h3>
+   <h3>'.adm_translate("Forum classÃ© en").' '.$ctg.'</h3>
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true">'.adm_translate("Index").'&nbsp;</th>
             <th data-sortable="true">'.adm_translate("Nom").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Modérateur(s)").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Accès").'&nbsp;</th>
+            <th data-sortable="true">'.adm_translate("ModÃ©rateur(s)").'&nbsp;</th>
+            <th data-sortable="true">'.adm_translate("AccÃ©s").'&nbsp;</th>
             <th data-sortable="true">'.adm_translate("Type").'&nbsp;</th>
             <th data-sortable="true">'.adm_translate("Mode").'&nbsp;</th>
             <th data-sortable="true">'.adm_translate("Attachement").'&nbsp;</th>
@@ -102,7 +102,7 @@ function ForumGo($cat_id) {
          </tr>
       </thead>
       <tbody>';
-    $result = sql_query("select forum_id, forum_name, forum_access, forum_moderator, forum_type, arbre, attachement, forum_index from ".$NPDS_Prefix."forums where cat_id='$cat_id' order by forum_index,forum_id");
+    $result = sql_query("SELECT forum_id, forum_name, forum_access, forum_moderator, forum_type, arbre, attachement, forum_index FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id' ORDER BY forum_index,forum_id");
     while(list($forum_id, $forum_name, $forum_access, $forum_moderator, $forum_type, $arbre, $attachement, $forum_index) = sql_fetch_row($result)) {
         $moderator=str_replace(" ",", ",get_moderator($forum_moderator));
         echo '
@@ -113,19 +113,19 @@ function ForumGo($cat_id) {
         switch($forum_access) {
         case (0):
            echo '
-            <td>'.adm_translate("Publication Anonyme autorisée").'</td>';
+            <td>'.adm_translate("Publication Anonyme autorisÃ©e").'</td>';
            break;
         case (1):
            echo '
-            <td>'.adm_translate("Utilisateur enregistré").'</td>';
+            <td>'.adm_translate("Utilisateur enregistrÃ©").'</td>';
            break;
         case (2):
            echo '
-            <td>'.adm_translate("Modérateurs").'</td>';
+            <td>'.adm_translate("ModÃ©rateurs").'</td>';
            break;
         case (9):
            echo '
-            <td>Forum '.adm_translate("Fermé").'</td>';
+            <td>Forum '.adm_translate("FermÃ©").'</td>';
            break;
         }
         if ($forum_type==0) {
@@ -133,7 +133,7 @@ function ForumGo($cat_id) {
             <td>'.adm_translate("Public").'</td>';
         } elseif ($forum_type==1) {
         echo '
-            <td>'.adm_translate("Privé").'</td>';
+            <td>'.adm_translate("PrivÃ©").'</td>';
         } elseif ($forum_type==5) {
         echo '
             <td>PHP + '.adm_translate("Groupe").'</td>';
@@ -145,10 +145,10 @@ function ForumGo($cat_id) {
             <td>'.adm_translate("Groupe").'</td>';
         } elseif ($forum_type==8) {
         echo '
-            <td>'.adm_translate("Texte étendu").'</td>';
+            <td>'.adm_translate("Texte Ã©tendu").'</td>';
         } else {
         echo '
-            <td>'.adm_translate("Caché").'</td>';
+            <td>'.adm_translate("CachÃ©").'</td>';
         }
 
         if ($arbre)
@@ -172,7 +172,7 @@ function ForumGo($cat_id) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="number" name="forum_index" max="9999" />
             </div>
          </div>
@@ -180,7 +180,7 @@ function ForumGo($cat_id) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="forum_name" />
                <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'</span>
             </div>
@@ -189,28 +189,28 @@ function ForumGo($cat_id) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <textarea class="form-control" name="forum_desc" rows="5"></textarea>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("ModÃ©rateur(s)").'</label>
+            <div class="col-sm-8">
                <input id="l_forum_mod" class="form-control" type="text" name="forum_mod" required="required"/>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accÃ¨s").'</label>
+            <div class="col-sm-8">
                   <select class="form-control" name="forum_access">
-                     <option value="0">'.adm_translate("Publication Anonyme autorisée").'</option>
-                     <option value="1">'.adm_translate("Utilisateur enregistré uniquement").'</option>
-                     <option value="2">'.adm_translate("Modérateurs uniquement").'</option>
-                     <option value="9">'.adm_translate("Fermé").'</option>
+                     <option value="0">'.adm_translate("Publication Anonyme autorisÃ©e").'</option>
+                     <option value="1">'.adm_translate("Utilisateur enregistrÃ© uniquement").'</option>
+                     <option value="2">'.adm_translate("ModÃ©rateurs uniquement").'</option>
+                     <option value="9">'.adm_translate("FermÃ©").'</option>
                   </select>
             </div>
          </div>
@@ -218,23 +218,23 @@ function ForumGo($cat_id) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="forum_type" id="forum_type">
                   <option value="0">'.adm_translate("Public").'</option>
-                  <option value="1">'.adm_translate("Privé").'</option>
+                  <option value="1">'.adm_translate("PrivÃ©").'</option>
                   <option value="5">PHP Script + '.adm_translate("Groupe").'</option>
                   <option value="6">PHP Script</option>
                   <option value="7">'.adm_translate("Groupe").'</option>
-                  <option value="8">'.adm_translate("Texte étendu").'</option>
-                  <option value="9">'.adm_translate("Caché").'</option>
+                  <option value="8">'.adm_translate("Texte Ã©tendu").'</option>
+                  <option value="9">'.adm_translate("CachÃ©").'</option>
                </select>
             </div>
          </div>
       </div>
       <div class="form-group" id="the_multi_input_lol">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si PrivÃ©)<br />- Le nom du fichier de formulaire (si Texte Ã©tendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="forum_pass" id="forum_pass">
             </div>
          </div>
@@ -242,7 +242,7 @@ function ForumGo($cat_id) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="arbre">
                   <option value="0">'.adm_translate("Standard").'</option>
                   <option value="1">'.adm_translate("Arbre").'</option>
@@ -253,7 +253,7 @@ function ForumGo($cat_id) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                   <select class="form-control" name="attachement">
                      <option value="0">'.adm_translate("Non").'</option>
                      <option value="1">'.adm_translate("Oui").'</option>
@@ -272,7 +272,7 @@ function ForumGo($cat_id) {
          </div>
       </div>
     </form>';
-   echo auto_complete_multi ('modera','uname','users','l_forum_mod','where uid<>1');
+   echo auto_complete_multi ('modera','uname','users','l_forum_mod','WHERE uid<>1');
    echo'
    <script type="text/javascript">
    //<![CDATA[
@@ -282,7 +282,7 @@ function ForumGo($cat_id) {
       htmh +=\'         <div class="row">\n\';
       htmh +=\'            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">\'
       htmhe +=\'</label>\n\';
-      htmhe +=\'            <div class="col-sm-8 col-md-8">\n\';   
+      htmhe +=\'            <div class="col-sm-8">\n\';   
       htmf +=\'            </div>\n\';
       htmf +=\'         </div>\n\';
       htmf +=\'      </div>\n\';
@@ -319,7 +319,7 @@ function ForumGoEdit($forum_id, $ctg) {
    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
    GraphicAdmin($hlpfile);
-   $result = sql_query("select forum_id, forum_name, forum_desc, forum_access, forum_moderator, cat_id, forum_type, forum_pass, arbre, attachement, forum_index from ".$NPDS_Prefix."forums where forum_id='$forum_id'");
+   $result = sql_query("SELECT forum_id, forum_name, forum_desc, forum_access, forum_moderator, cat_id, forum_type, forum_pass, arbre, attachement, forum_index FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
    list($forum_id, $forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id_1, $forum_type, $forum_pass, $arbre, $attachement, $forum_index) = sql_fetch_row($result);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
@@ -330,7 +330,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="number" name="forum_index" max="9999" value="'.$forum_index.'" />
             </div>
          </div>
@@ -338,7 +338,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="forum_name" value="'.$forum_name.'" />
                <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'</span>
             </div>
@@ -347,17 +347,17 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <textarea class="form-control" name="forum_desc" rows="5">'.$forum_desc.'</textarea>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>';
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("ModÃ©rateur(s)").'</label>';
    $moderator=str_replace(" ",",",get_moderator($forum_mod));
    echo '
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input id="forum_mod" class="form-control" type="text" name="forum_mod" value="'.$moderator.'," />
             </div>
          </div>
@@ -365,28 +365,28 @@ function ForumGoEdit($forum_id, $ctg) {
    echo '
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accÃ¨s").'</label>
+            <div class="col-sm-8">
                <select class="form-control" name="forum_access">';
    if ($forum_access == 0) { $sel0=' selected="selected"'; }
    if ($forum_access == 1) { $sel1=' selected="selected"'; }
    if ($forum_access == 2) { $sel2=' selected="selected"'; }
    if ($forum_access == 9) { $sel9=' selected="selected"'; }
    echo '
-                  <option value="0"'.$sel0.'>'.adm_translate("Publication Anonyme autorisée").'</option>
-                  <option value="1"'.$sel1.'>'.adm_translate("Utilisateur enregistré uniquement").'</option>
-                  <option value="2"'.$sel2.'>'.adm_translate("Modérateurs uniquement").'</option>
-                  <option value="9"'.$sel9.'>'.adm_translate("Fermé").'</option>
+                  <option value="0"'.$sel0.'>'.adm_translate("Publication Anonyme autorisÃ©e").'</option>
+                  <option value="1"'.$sel1.'>'.adm_translate("Utilisateur enregistrÃ© uniquement").'</option>
+                  <option value="2"'.$sel2.'>'.adm_translate("ModÃ©rateurs uniquement").'</option>
+                  <option value="9"'.$sel9.'>'.adm_translate("FermÃ©").'</option>
                </select>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="cat_id">'.adm_translate("Changer les Catégories : ").' </label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4" for="cat_id">'.adm_translate("Changer les CatÃ©gories : ").' </label>
+            <div class="col-sm-8">
                <select class="form-control" name="cat_id">';
-   $result = sql_query("select cat_id, cat_title from ".$NPDS_Prefix."catagories");
+   $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories");
    while(list($cat_id, $cat_title) = sql_fetch_row($result)) {
       if ($cat_id == $cat_id_1) {
          echo '
@@ -404,7 +404,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="forum_type">';
    if ($forum_type == 0) $sel0=' selected="selected"'; else $sel0='';
    if ($forum_type == 1) $sel1=' selected="selected"'; else $sel1='';
@@ -416,12 +416,12 @@ function ForumGoEdit($forum_id, $ctg) {
 
    echo '
                   <option value="0"'.$sel0.'>'.adm_translate("Public").'</option>
-                  <option value="1"'.$sel1.'>'.adm_translate("Privé").'</option>
+                  <option value="1"'.$sel1.'>'.adm_translate("PrivÃ©").'</option>
                   <option value="5"'.$sel5.'>PHP Script + '.adm_translate("Groupe").'</option>
                   <option value="6"'.$sel6.'>PHP Script</option>
                   <option value="7"'.$sel7.'>'.adm_translate("Groupe").'</option>
-                  <option value="8"'.$sel8.'>'.adm_translate("Texte étendu").'</option>
-                  <option value="9"'.$sel9.'>'.adm_translate("Caché").'</option>
+                  <option value="8"'.$sel8.'>'.adm_translate("Texte Ã©tendu").'</option>
+                  <option value="9"'.$sel9.'>'.adm_translate("CachÃ©").'</option>
                </select>
             </div>
          </div>
@@ -429,7 +429,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="arbre">';
    if ($arbre)
       echo '
@@ -448,7 +448,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="attachement">';
    if ($attachement)
       echo '
@@ -465,8 +465,8 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si PrivÃ©)<br />- Le nom du fichier de formulaire (si Texte Ã©tendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="forum_pass" value="'.$forum_pass.'" />
             </div>
          </div>
@@ -481,7 +481,7 @@ function ForumGoEdit($forum_id, $ctg) {
          </div>
       </div>
    </form>';
-   echo auto_complete_multi ('modera','uname','users','forum_mod','where uid<>1');
+   echo auto_complete_multi ('modera','uname','users','forum_mod','WHERE uid<>1');
    adminfoot('fv','','','');
 }
 
@@ -490,10 +490,10 @@ function ForumCatEdit($cat_id) {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $result = sql_query("select cat_id, cat_title from ".$NPDS_Prefix."catagories where cat_id='$cat_id'");
+   $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
    list($cat_id, $cat_title) = sql_fetch_row($result);
    echo '
-   <h3>'.adm_translate("Editer les Catégories").'</h3>
+   <h3>'.adm_translate("Editer les CatÃ©gories").'</h3>
    <form class="" action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
@@ -505,7 +505,7 @@ function ForumCatEdit($cat_id) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4" for="cat_title">'.adm_translate("Catégorie").'</label>
+            <label class="form-control-label col-sm-4" for="cat_title">'.adm_translate("CatÃ©gorie").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="cat_title" value="'.StripSlashes($cat_title).'" required="required"/>
             </div>
@@ -527,9 +527,9 @@ function ForumCatEdit($cat_id) {
 function ForumCatSave($old_catid, $cat_id, $cat_title) {
     global $NPDS_Prefix;
 
-    $return=sql_query("update ".$NPDS_Prefix."catagories set cat_id='$cat_id', cat_title='".AddSlashes($cat_title)."' where cat_id='$old_catid'");
+    $return=sql_query("UPDATE ".$NPDS_Prefix."catagories SET cat_id='$cat_id', cat_title='".AddSlashes($cat_title)."' WHERE cat_id='$old_catid'");
     if ($return) {
-       sql_query("update ".$NPDS_Prefix."forums set cat_id='$cat_id' where cat_id='$old_catid'");
+       sql_query("UPDATE ".$NPDS_Prefix."forums SET cat_id='$cat_id' WHERE cat_id='$old_catid'");
     }
     Q_Clean();
 
@@ -541,18 +541,18 @@ function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_
     global $hlpfile;
     global $NPDS_Prefix;
 
-    // il faut supprimer le dernier , à cause de l'auto-complete
+    // il faut supprimer le dernier , Ã  cause de l'auto-complete
     $forum_mod=rtrim(chop($forum_mod),",");
     $moderator=explode(",",$forum_mod);
 
     $forum_mod="";
     $error_mod="";
     for ($i = 0; $i < count($moderator); $i++) {
-       $result = sql_query("select uid from ".$NPDS_Prefix."users where uname='".trim($moderator[$i])."'");
+       $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
        list($forum_moderator) = sql_fetch_row($result);
        if ($forum_moderator!="") {
           $forum_mod.=$forum_moderator." ";
-          sql_query("update ".$NPDS_Prefix."users_status set level='2' where uid='$forum_moderator'");
+          sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
        } else {
           $error_mod.=$moderator[$i]." ";
        }
@@ -561,8 +561,8 @@ function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_
        include ("header.php");
        GraphicAdmin($hlpfile);
        opentable();
-       echo "<p align=\"center\">".adm_translate("Le Modérateur sélectionné n'existe pas.")." : $error_mod<br />";
-       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arrière")."</a> ]</p>";
+       echo "<p align=\"center\">".adm_translate("Le ModÃ©rateur sÃ©lectionnÃ© n'existe pas.")." : $error_mod<br />";
+       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arriÃ©re")."</a> ]</p>";
        closetable();
        include("footer.php");
     } else {
@@ -570,9 +570,9 @@ function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_
        if ($arbre>1) $arbre=1;
        if ($forum_pass) {
           if (($forum_type==7) and ($forum_access==0) ) {$forum_access=1;}
-          sql_query("update ".$NPDS_Prefix."forums set forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='$forum_pass', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' where forum_id='$forum_id'");
+          sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='$forum_pass', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' WHERE forum_id='$forum_id'");
        } else {
-          sql_query("update ".$NPDS_Prefix."forums set forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' where forum_id='$forum_id'");
+          sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' WHERE forum_id='$forum_id'");
        }
        Q_Clean();
 
@@ -584,7 +584,7 @@ function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_
 function ForumCatAdd($catagories) {
     global $NPDS_Prefix;
 
-    sql_query("insert into ".$NPDS_Prefix."catagories values (NULL, '$catagories')");
+    sql_query("INSERT INTO ".$NPDS_Prefix."catagories VALUES (NULL, '$catagories')");
 
     global $aid; Ecr_Log("security", "AddForumCat($catagories) by AID : $aid", "");
     Header("Location: admin.php?op=ForumAdmin");
@@ -594,18 +594,18 @@ function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id
     global $hlpfile;
     global $NPDS_Prefix;
 
-    // il faut supprimer le dernier , à cause de l'auto-complete
+    // il faut supprimer le dernier , Ã  cause de l'auto-complete
     $forum_mod=rtrim(chop($forum_mod),",");
     $moderator=explode(",",$forum_mod);
 
     $forum_mod="";
     $error_mod="";
     for ($i = 0; $i < count($moderator); $i++) {
-       $result = sql_query("select uid from ".$NPDS_Prefix."users where uname='".trim($moderator[$i])."'");
+       $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
        list($forum_moderator) = sql_fetch_row($result);
        if ($forum_moderator!="") {
           $forum_mod.=$forum_moderator." ";
-          sql_query("update ".$NPDS_Prefix."users_status set level='2' where uid='$forum_moderator'");
+          sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
        } else {
           $error_mod.=$moderator[$i]." ";
        }
@@ -614,14 +614,14 @@ function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id
        include ("header.php");
        GraphicAdmin($hlpfile);
        opentable();
-       echo "<p align=\"center\">".adm_translate("Le Modérateur sélectionné n'existe pas.")." : $error_mod<br />";
-       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arrière")."</a> ]</p>";
+       echo "<p align=\"center\">".adm_translate("Le ModÃ©rateur sÃ©lectionnÃ© n'existe pas.")." : $error_mod<br />";
+       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arriÃ©re")."</a> ]</p>";
        closetable();
        include("footer.php");
     } else {
        if ($arbre>1) $arbre=1;
        $forum_mod=str_replace(" ",",",chop($forum_mod));
-       sql_query("insert into ".$NPDS_Prefix."forums values (NULL, '$forum_name', '$forum_desc', '$forum_access', '$forum_mod', '$cat_id', '$forum_type', '$forum_pass', '$arbre', '$attachement', '$forum_index')");
+       sql_query("INSERT INTO ".$NPDS_Prefix."forums VALUES (NULL, '$forum_name', '$forum_desc', '$forum_access', '$forum_mod', '$cat_id', '$forum_type', '$forum_pass', '$arbre', '$attachement', '$forum_index')");
        Q_Clean();
 
        global $aid; Ecr_Log("security", "AddForum($forum_name) by AID : $aid", "");
@@ -632,14 +632,14 @@ function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id
 function ForumCatDel($cat_id, $ok=0) {
     global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
     if ($ok==1) {
-       $result = sql_query("select forum_id from ".$NPDS_Prefix."forums where cat_id='$cat_id'");
+       $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
        while(list($forum_id) = sql_fetch_row($result)) {
-           sql_query("delete from ".$NPDS_Prefix."forumtopics where forum_id='$forum_id'");
-           sql_query("delete from ".$NPDS_Prefix."forum_read where forum_id='$forum_id'");
+           sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
+           sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
            control_efface_post("forum_npds","","",$forum_id);
        }
-       sql_query("delete from ".$NPDS_Prefix."forums where cat_id='$cat_id'");
-       sql_query("delete from ".$NPDS_Prefix."catagories where cat_id='$cat_id'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
        Q_Clean();
 
        global $aid; Ecr_Log("security", "DeleteForumCat($cat_id) by AID : $aid", "");
@@ -650,7 +650,7 @@ function ForumCatDel($cat_id, $ok=0) {
        adminhead ($f_meta_nom, $f_titre, $adminimg);
        echo '
        <div class="jumbotron">
-       <p class="text-danger">'.adm_translate("ATTENTION :  êtes-vous sûr de vouloir supprimer cette Catégorie, ses Forums et tous ses Sujets ?").'</p>';
+       <p class="text-danger">'.adm_translate("ATTENTION :  Ãªtes-vous sÃ»r de vouloir supprimer cette CatÃ©gorie, ses Forums et tous ses Sujets ?").'</p>';
     }
     echo '<a href="admin.php?op=ForumCatDel&amp;cat_id='.$cat_id.'&amp;ok=1" class="btn btn-danger ">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=ForumAdmin" class="btn btn-secondary">'.adm_translate("Non").'</a>';
    echo '</div>';
@@ -662,10 +662,10 @@ function ForumGoDel($forum_id, $ok=0) {
     global $NPDS_Prefix;
 
     if ($ok==1) {
-       sql_query("delete from ".$NPDS_Prefix."forumtopics where forum_id='$forum_id'");
-       sql_query("delete from ".$NPDS_Prefix."forum_read where forum_id='$forum_id'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
        control_efface_post("forum_npds","","",$forum_id);
-       sql_query("delete from ".$NPDS_Prefix."forums where forum_id='$forum_id'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
        Q_Clean();
 
        global $aid; Ecr_Log("security", "DeleteForum($forum_id) by AID : $aid", "");
@@ -674,7 +674,7 @@ function ForumGoDel($forum_id, $ok=0) {
        include("header.php");
        GraphicAdmin($hlpfile);
        opentable();
-       echo "<p align=\"center\" class=\"rouge\"><b>".adm_translate("ATTENTION :  êtes-vous certain de vouloir effacer ce Forum et tous ses Sujets ?")."</b><br /><br />";
+       echo "<p align=\"center\" class=\"rouge\"><b>".adm_translate("ATTENTION :  Ãªtes-vous certain de vouloir effacer ce Forum et tous ses Sujets ?")."</b><br /><br />";
     }
     echo "[ <a href=\"admin.php?op=ForumGoDel&amp;forum_id=$forum_id&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=ForumAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br />";
     closetable();

@@ -22,9 +22,9 @@ global $language;
 $hlpfile = "manuels/$language/blocks.html";
 
 function groupe($groupe) {
-   $les_groupes=explode(",",$groupe);
+   $les_groupes=explode(',',$groupe);
    $mX=liste_group();
-   $nbg=0; $str="";
+   $nbg=0; $str='';
    while (list($groupe_id, $groupe_name)=each($mX)) {
       $selectionne=0;
       if ($les_groupes) {
@@ -104,7 +104,7 @@ function blocks() {
 
    echo '
    <h3>'.adm_translate("Edition des Blocs de gauche").'</h3>';
-   $result = sql_query("select id, title, content, member, Lindex, cache, actif, aide, css from ".$NPDS_Prefix."lblocks order by Lindex ASC");
+   $result = sql_query("SELECT id, title, content, member, Lindex, cache, actif, aide, css FROM ".$NPDS_Prefix."lblocks ORDER BY Lindex ASC");
    $num_row=sql_num_rows($result);
    $toggle = new ToggleDiv($num_row);
    if ($num_row>0) {
@@ -112,10 +112,10 @@ function blocks() {
    <table id="tad_blocgauc" class="table table-hover table-striped" >
       <thead>
          <tr>
-            <th><span class="togxy"><i class="fa fa-navicon" title="'.adm_translate("DÈplier la liste la liste").'"></i></span>&nbsp;'.adm_translate("Titre").'</th>
+            <th><span class="togxy"><i class="fa fa-navicon" title="'.adm_translate("D√©plier la liste la liste").'"></i></span>&nbsp;'.adm_translate("Titre").'</th>
             <th>'.adm_translate("Actif").'</th>
             <th>Index</th>
-            <th>'.adm_translate("RÈtention").'</th>
+            <th>'.adm_translate("R√©tention").'</th>
             <th>ID</th>
          </tr>
       </thead>
@@ -144,7 +144,7 @@ function blocks() {
          <tr class="danger">';
          echo '
             <td align="left">';
-         echo '<span class="tog" id="show_bloga_'.$id.'" title="'.adm_translate("DÈplier la liste").'"><i id="i_bloga_'.$id.'" class="fa fa-plus-square-o" ></i></span>&nbsp;';
+         echo '<a class="tog" id="show_bloga_'.$id.'" title="'.adm_translate("D√©plier la liste").'"><i id="i_bloga_'.$id.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
@@ -187,21 +187,21 @@ function blocks() {
                         <select class="form-control" name="op">
                            <option value="changelblock" selected="selected">'.adm_translate("Modifier un Bloc gauche").'</option>
                            <option value="deletelblock">'.adm_translate("Effacer un Bloc gauche").'</option>
-                           <option value="droitelblock">'.adm_translate("TransfÈrer ‡ Droite").'</option>
+                           <option value="droitelblock">'.adm_translate("Transf√©rer √† Droite").'</option>
                         </select>
                      </div>
                   </div>
                   <div class="col-md-4">
                      <fieldset>
-                        <legend>'.adm_translate("Param&#xE8;tres").'</legend>
+                        <legend>'.adm_translate("Param√®tres").'</legend>
                         <div class="form-group">
                            <label class="form-control-label" for="Lindex">Index</label>
                            <input class="form-control" type="number" name="Lindex" max="9999" value="'.$Lindex.'" />
                         </div>
                         <div class="form-group">
-                           <label class="form-control-label" for="Scache">'.adm_translate("RÈtention").'</label>
+                           <label class="form-control-label" for="Scache">'.adm_translate("R√©tention").'</label>
                            <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="'.$Scache.'" />
-                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du dÈlai de rÈtention 0 indique que le bloc ne sera pas cachÈ (obligatoire pour le bloc function#adminblock).").'</span>
+                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du d√©lai de r√©tention 0 indique que le bloc ne sera pas cach√© (obligatoire pour le bloc function#adminblock).").'</span>
                         </div>
                         <div class="form-group">
                            <label class="checkbox-inline" for="Sactif">
@@ -244,7 +244,7 @@ function blocks() {
 
    echo '
    <h3>'.adm_translate("Edition des Blocs de droite").'</h3>';
-   $result = sql_query("select id, title, content, member, Rindex, cache, actif, aide, css  from ".$NPDS_Prefix."rblocks order by Rindex ASC");
+   $result = sql_query("SELECT id, title, content, member, Rindex, cache, actif, aide, css  FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
    $num_row=sql_num_rows($result);
    if ($num_row>0) {
       echo '
@@ -253,9 +253,9 @@ function blocks() {
          $("#adm_workarea").on("click", "span.togxy",function() {
             $(".fa.fa-navicon").attr("title","'.adm_translate("Replier la liste").'")
             $("#tad_blocdroi td.togx").attr("style","display: none")
-            $("#tad_blocdroi span.tog i").attr("class","fa fa-plus-square-o")
-            $("#tad_blocdroi span.tog").attr("title","'.adm_translate("DÈplier la liste").'")
-            $( "#tad_blocdroi span.tog" ).each(function( index ) {
+            $("#tad_blocdroi a.tog i").attr("class","fa fa-caret-down fa-lg")
+            $("#tad_blocdroi a.tog").attr("title","'.adm_translate("D√©plier la liste").'")
+            $( "#tad_blocdroi a.tog" ).each(function( index ) {
                var idi= $(this).attr("id")
                var idir = idi.replace("hide", "show");
                $(this).attr("id",idir)
@@ -269,10 +269,10 @@ function blocks() {
    <table id="tad_blocdroi" class="table table-hover table-striped" >
       <thead>
          <tr>
-            <th><span class="togxy"><i class="fa fa-navicon" title="'.adm_translate("DÈplier la liste la liste").'"></i></span>&nbsp;'.adm_translate("Titre").'</th>
+            <th><span class="togxy"><i class="fa fa-navicon" title="'.adm_translate("D√©plier la liste la liste").'"></i></span>&nbsp;'.adm_translate("Titre").'</th>
             <th>'.adm_translate("Actif").'</th>
             <th>Index</th>
-            <th>'.adm_translate("RÈtention").'</th>
+            <th>'.adm_translate("R√©tention").'</th>
             <th>ID</th>
          </tr>
       </thead>
@@ -301,7 +301,7 @@ function blocks() {
       <tr class="danger">';
          echo '
          <td align="left">';
-         echo '<span class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("DÈplier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-plus-square-o" ></i></span>&nbsp;';
+         echo '<a class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("D√©plier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
@@ -344,21 +344,21 @@ function blocks() {
                         <select class="form-control" name="op">
                            <option value="changerblock" selected="selected">'.adm_translate("Modifier un Bloc droit").'</option>
                            <option value="deleterblock">'.adm_translate("Effacer un Bloc droit").'</option>
-                           <option value="gaucherblock">'.adm_translate("TransfÈrer ‡ Gauche").'</option>
+                           <option value="gaucherblock">'.adm_translate("Transf√©rer √† Gauche").'</option>
                         </select>
                      </div>
                   </div>
                   <div class="col-md-4">
                      <fieldset>
-                        <legend>'.adm_translate("Param&#xE8;tres").'</legend>
+                        <legend>'.adm_translate("Param√®tres").'</legend>
                         <div class="form-group">
                            <label class="form-control-label" for="Rindex">Index</label>
                            <input class="form-control" type="number" name="Rindex" min="0" max="9999" value="'.$Rindex.'" />
                         </div>
                         <div class="form-group">
-                           <label class="form-control-label" for="Scache">'.adm_translate("RÈtention").'</label>
+                           <label class="form-control-label" for="Scache">'.adm_translate("R√©tention").'</label>
                            <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="'.$Scache.'" />
-                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du dÈlai de rÈtention 0 indique que le bloc ne sera pas cachÈ (obligatoire pour le bloc function#adminblock).").'</span>
+                           <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du d√©lai de r√©tention 0 indique que le bloc ne sera pas cach√© (obligatoire pour le bloc function#adminblock).").'</span>
                         </div>
                         <div class="form-group">
                            <label class="checkbox-inline" for="Sactif">
@@ -399,7 +399,7 @@ function blocks() {
    </table>';
    }
    echo '
-   <h3>'.adm_translate("CrÈer un nouveau Bloc").'</h3>
+   <h3>'.adm_translate("Cr√©er un nouveau Bloc").'</h3>
    <form id="fad_newblock" action="admin.php" method="post" name="adminForm">
       <div class="row">
          <div class="col-md-8">
@@ -428,25 +428,25 @@ function blocks() {
                <label class="form-control-label" for="op">'.adm_translate("Position").'</label>
                <div>
                   <label class="radio-inline">
-                     <input type="radio" name="op" value="makelblock" checked="checked" />'.adm_translate("CrÈer un Bloc gauche").'
+                     <input type="radio" name="op" value="makelblock" checked="checked" />'.adm_translate("Cr√©er un Bloc gauche").'
                   </label>
                   <label class="radio-inline">
-                     <input type="radio" name="op" value="makerblock" /> '.adm_translate("CrÈer un Bloc droite").'
+                     <input type="radio" name="op" value="makerblock" /> '.adm_translate("Cr√©er un Bloc droite").'
                   </label>
                </div>
             </div>
          </div>
          <div class="col-md-4">
             <fieldset>
-               <legend>'.adm_translate("Param&#xE8;tres").'</legend>
+               <legend>'.adm_translate("Param√®tres").'</legend>
                   <div class="form-group">
                      <label class="form-control-label" for="index">Index</label>
                      <input class="form-control" type="number" name="index" id="index" min="0" max="9999" />
                   </div>
                   <div class="form-group">
-                     <label class="form-control-label" for="Scache">'.adm_translate("RÈtention").'</label>
+                     <label class="form-control-label" for="Scache">'.adm_translate("R√©tention").'</label>
                      <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="60" />
-                     <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du dÈlai de rÈtention 0 indique que le bloc ne sera pas cachÈ (obligatoire pour le bloc function#adminblock).").'</span>
+                     <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du d√©lai de r√©tention 0 indique que le bloc ne sera pas cach√© (obligatoire pour le bloc function#adminblock).").'</span>
                   </div>
                   <div class="form-group">
                      <label class="checkbox-inline text-danger" for="SHTML">

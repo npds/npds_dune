@@ -13,12 +13,12 @@
 /************************************************************************/
 /* Module-Install Version 1.1 - Mai 2005                                */
 /* --------------------------                                           */
-/* Copyright (c) 2005 Boris L'Ordi-Dépanneur & Hotfirenet               */
+/* Copyright (c) 2005 Boris L'Ordi-DÃ©panneur & Hotfirenet               */
 /*                                                                      */
 /* Version 1.2 - 22 Avril 2009                                          */
 /* --------------------------                                           */
 /*                                                                      */
-/* Modifié par jpb et phr pour le rendre compatible avec Evolution      */
+/* ModifiÃ© par jpb et phr pour le rendre compatible avec Evolution      */
 /*                                                                      */
 /* --------------------------                                           */
 /* Version 2.0 - 30/08/2015 by jpb                                      */
@@ -78,7 +78,7 @@ function nmig_License($licence_file) {
    fclose($myfile);
    $display = '
    <div class="">
-      <p><strong>'.adm_translate("L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :").'</strong></p>
+      <p><strong>'.adm_translate("L'utilisation de NPDS et des modules est soumise Ã  l'acceptation des termes de la licence GNU/GPL :").'</strong></p>
       <div style="text-align: center;">
          <textarea class="form-control" name="licence" rows="12" readonly="readonly">'.htmlentities($licence_text).'</textarea>
          <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e3" class="btn btn-primary">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=modules" class="btn btn-danger">'.adm_translate("Non").'</a><br />
@@ -102,14 +102,14 @@ function nmig_AlertSql($sql,$tables) {
    }
    $display = '
    <div class="">
-      <p><strong>'.adm_translate("Le programme d'installation va maintenant exécuter le script SQL pour configurer la base de données MySql.").'</strong></p>
-      <p>'.adm_translate("Si vous le souhaitez, vous pouvez exécuter ce script vous même, si vous souhaitez par exemple l'exécuter sur une autre base que celle du site. Dans ce cas, pensez à reparamétrer le fichier de configuration du module.").'</p>
+      <p><strong>'.adm_translate("Le programme d'installation va maintenant exÃ©cuter le script SQL pour configurer la base de donnÃ©es MySql.").'</strong></p>
+      <p>'.adm_translate("Si vous le souhaitez, vous pouvez exÃ©cuter ce script vous mÃªme, si vous souhaitez par exemple l'exÃ©cuter sur une autre base que celle du site. Dans ce cas, pensez Ã  reparamÃ©trer le fichier de configuration du module.").'</p>
       <p>'.adm_translate("Voici le script SQL :").'</p>
    </div>
    '.$reqsql.'
    <br />
    <div style="text-align: center;">
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e4" class="btn btn-primary">'.adm_translate("Configurer MySql").'</a>&nbsp;<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-danger">'.adm_translate("Sauter cette étape").'</a><br />
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e4" class="btn btn-primary">'.adm_translate("Configurer MySql").'</a>&nbsp;<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-danger">'.adm_translate("Sauter cette Ã©tape").'</a><br />
    </div>
    <br />
    '.nmig_copyright();
@@ -134,9 +134,9 @@ function nmig_WriteSql($sql,$tables) {
    }
    if (isset($erreur)) {
       $display .= '
-      <p class="text-danger">'.adm_translate("Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :").'</p>
+      <p class="text-danger">'.adm_translate("Une erreur est survenue lors de l'exÃ©cution du script SQL. Mysql a rÃ©pondu :").'</p>
       <p><code>'.$erreur.'</code></p>
-      <p>'.adm_translate("Veuillez l'exécuter manuellement via phpMyAdmin.").'</p>
+      <p>'.adm_translate("Veuillez l'exÃ©cuter manuellement via phpMyAdmin.").'</p>
       <p>'.adm_translate("Voici le script SQL :").'</p>';
       for ($i = 0; $i < count($sql); $i++) {
          $reqsql.='<code>'.$sql[$i].'</code><br />';
@@ -144,7 +144,7 @@ function nmig_WriteSql($sql,$tables) {
       $display .= $reqsql;
       $display .= "<br />\n";
    } else {
-      $display .= '<p class="text-success"><strong>'.adm_translate("La configuration de la base de données MySql a réussie !").'</strong></p>';
+      $display .= '<p class="text-success"><strong>'.adm_translate("La configuration de la base de donnÃ©es MySql a rÃ©ussie !").'</strong></p>';
    }
    $display .= '
    </div><div style="text-align: center;">
@@ -193,7 +193,7 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
          $debut = strpos($list_fich[1][$i],"[nom]") + 5;
          $fin = strpos($list_fich[1][$i],"[/nom]");
          if (preg_match("#".substr($list_fich[1][$i],$debut,$fin-$debut)."#",$txtconfig)) {
-            $display .= adm_translate("Les paramètres sont déjà inscrits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
+            $display .= adm_translate("Les paramÃ¨tres sont dÃ©jÃ  inscrits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
          } else {
             if ($try_Chmod) {
                chmod($list_fich[0][$i], 666);
@@ -202,11 +202,11 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
             fread($file,filesize($list_fich[0][$i]));
             if (fwrite($file, $list_fich[1][$i])) {
                fclose($file);
-               $display .= adm_translate("Les paramètres ont été correctement écrits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
+               $display .= adm_translate("Les paramÃ¨tres ont Ã©tÃ© correctement Ã©crits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
             } else {
                $writeAllFiles = 0;
-               $display .= adm_translate("Impossible d'écrire dans le fichier \"").$list_fich[0][$i]."\". ".adm_translate("Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.")."<br /><br />\n";
-               $display .= adm_translate("Voici le code à taper dans le fichier :")."<br /><br />\n";
+               $display .= adm_translate("Impossible d'Ã©crire dans le fichier \"").$list_fich[0][$i]."\". ".adm_translate("Veuillez Ã©diter ce fichier manuellement ou rÃ©essayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernÃ©s.")."<br /><br />\n";
+               $display .= adm_translate("Voici le code Ã  taper dans le fichier :")."<br /><br />\n";
                $display .= "</div>\n";
                $display .= "<div class=\"code\">\n";
                ob_start();
@@ -233,11 +233,11 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
          fread($file,filesize($list_fich[0][$i]));
          if (fwrite($file, $txtconfig)) {
             fclose($file);
-            $display .= adm_translate("Les paramètres ont été correctement écrits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
+            $display .= adm_translate("Les paramÃ¨tres ont Ã©tÃ© correctement Ã©crits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
          } else {
             $writeAllFiles = 0;
-            $display .= adm_translate("Impossible d'écrire dans le fichier \"").$list_fich[0][$i]."\". ".adm_translate("Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.")."<br />\n";
-            $display .= adm_translate("Voici le code à taper dans le fichier :")."<br /><br />\n";
+            $display .= adm_translate("Impossible d'Ã©crire dans le fichier \"").$list_fich[0][$i]."\". ".adm_translate("Veuillez Ã©diter ce fichier manuellement ou rÃ©essayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernÃ©s.")."<br />\n";
+            $display .= adm_translate("Voici le code Ã  taper dans le fichier :")."<br /><br />\n";
             $display .= "</div>\n";
             $display .= "<div class=\"code\">\n";
             ob_start();
@@ -252,7 +252,7 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
    $display .= "<div style=\"text-align: center;\">\n";
    $display .= "[";
    if (!$writeAllFiles) {
-      $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6&amp;try_Chmod=1\" class=\"rouge\">".adm_translate("Réessayer avec chmod automatique")."</a>&nbsp;] | [";
+      $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6&amp;try_Chmod=1\" class=\"rouge\">".adm_translate("RÃ©essayer avec chmod automatique")."</a>&nbsp;] | [";
    }
    $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e7\"";
    if (!$writeAllFiles) {
@@ -272,9 +272,9 @@ function nmig_AlertBloc($blocs) {
    global $ModInstall, $display;
    $display = '
    <div class="">
-      <p>'.adm_translate("Vous pouvez choisir maintenant de créer automatiquement un(des) bloc(s) à droite ou à gauche. Cliquer sur \"Créer le(s) bloc(s) à gauche\" ou \"Créer le(s) bloc(s) à droite\" selon votre choix. (Vous pourrez changer leurs positions par la suite dans le panneau d'administration --> Blocs)").'</p>
-      <p>'.adm_translate("Si vous préférez créer vous même le(s) bloc(s), cliquez sur 'Sauter cette étape et afficher le code du(des) bloc(s)' pour visualiser le code à taper dans le(s) bloc(s).").'</p>
-      <p>'.adm_translate("Voici la description du(des) bloc(s) qui sera(seront) créé(s) :").'</p>
+      <p>'.adm_translate("Vous pouvez choisir maintenant de crÃ©er automatiquement un(des) bloc(s) Ã  droite ou Ã  gauche. Cliquer sur \"CrÃ©er le(s) bloc(s) Ã  gauche\" ou \"CrÃ©er le(s) bloc(s) Ã  droite\" selon votre choix. (Vous pourrez changer leurs positions par la suite dans le panneau d'administration --> Blocs)").'</p>
+      <p>'.adm_translate("Si vous prÃ©fÃ©rez crÃ©er vous mÃªme le(s) bloc(s), cliquez sur 'Sauter cette Ã©tape et afficher le code du(des) bloc(s)' pour visualiser le code Ã  taper dans le(s) bloc(s).").'</p>
+      <p>'.adm_translate("Voici la description du(des) bloc(s) qui sera(seront) crÃ©Ã©(s) :").'</p>
    </div>';
    ob_start();
    echo '<ul>';
@@ -287,9 +287,9 @@ function nmig_AlertBloc($blocs) {
    $display .= '
    <div class="">
       <br />
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=l" class="btn btn-primary col-xs-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à gauche").'</a>
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=r" class="btn btn-primary col-xs-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à droite").'</a>
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=0" class="btn btn-danger col-xs-12 col-md-4">'.adm_translate("Sauter cette étape").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=l" class="btn btn-primary col-xs-12 col-md-4">'.adm_translate("CrÃ©er le(s) bloc(s) Ã  gauche").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=r" class="btn btn-primary col-xs-12 col-md-4">'.adm_translate("CrÃ©er le(s) bloc(s) Ã  droite").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=0" class="btn btn-danger col-xs-12 col-md-4">'.adm_translate("Sauter cette Ã©tape").'</a>
    </div><br /><br />';
    $display .= nmig_copyright();
 }
@@ -316,7 +316,7 @@ function nmig_WriteBloc($blocs,$posbloc) {
          sql_query("INSERT INTO ".$NPDS_Prefix.$posbloc."blocks (`id`, `title`, `content`, `member`, `".$posblocM."index`, `cache`, `actif`, `aide`) VALUES ('', '".$blocs[0][$i]."', '".$blocs[1][$i]."', '".$blocs[2][$i]."', '".$blocs[4][$i]."', '".$blocs[5][$i]."', '".$blocs[6][$i]."', '".$blocs[7][$i]."');") or $erreur = sql_error();
       }
       if (isset($erreur)) {
-         $display .= adm_translate("Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :");
+         $display .= adm_translate("Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a rÃ©pondu :");
          ob_start();
          highlight_string($erreur);
          $display .= ob_get_contents();
@@ -332,7 +332,7 @@ function nmig_WriteBloc($blocs,$posbloc) {
          $display .= ob_get_contents();
          ob_end_clean();
       } else {
-         $display .= '<p class="text-success"><strong>'.adm_translate("La configuration du(des) bloc(s) a réussi !").'</strong></p>';
+         $display .= '<p class="text-success"><strong>'.adm_translate("La configuration du(des) bloc(s) a rÃ©ussi !").'</strong></p>';
          $display .= "<br />\n";
       }
    } else {
@@ -377,7 +377,7 @@ function nmig_End($name_module, $end_link) {
    sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='1' WHERE mnom='".$ModInstall."'");
    $display = ' 
    <div class="">
-      <p class="text-success"><strong>'.adm_translate("L'installation automatique du module").' "'.$name_module.'" '.adm_translate("est terminée !").'</strong></p>
+      <p class="text-success"><strong>'.adm_translate("L'installation automatique du module").' "'.$name_module.'" '.adm_translate("est terminÃ©e !").'</strong></p>
    </div>
    <div style="text-align: center;">
       <a href="'.$end_link.'" class="btn btn-primary">'.adm_translate("Ok").'</a>
@@ -387,7 +387,7 @@ function nmig_End($name_module, $end_link) {
 
 
 function nmig_clean($name_module) {
-//==> a complŽter
+//==> a complÃ©ter
 }
 
 // ************************
@@ -409,7 +409,7 @@ function nmig_clean($name_module) {
          echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
          echo adm_translate("Gestion, Installation Modules");
          echo "</td></tr></table>\n";
-         echo "<div style=\"text-align: center;\">".adm_translate("Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.")."<br /><br />[ <a href=\"JavaScript:history.go(-1)\" class=\"rouge\">".adm_translate("Retour en arrière")."</a> ]</div><br /><br />".nmig_copyright();
+         echo "<div style=\"text-align: center;\">".adm_translate("Fichier de configuration automatique absent. Installation/dÃ©sinstallation automatique impossible.")."<br /><br />[ <a href=\"JavaScript:history.go(-1)\" class=\"rouge\">".adm_translate("Retour en arriÃ©re")."</a> ]</div><br /><br />".nmig_copyright();
          include("footer.php");
          die();
       }
@@ -479,13 +479,13 @@ function nmig_clean($name_module) {
       include("header.php");
       $display = '
       <div style="text-align: left;">
-         <h4 class="text-danger">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>
-         <p><strong>'.adm_translate("La désinstallation automatique des modules n'est pas prise en charge à l'heure actuelle.").'</strong>
-         <p>'.adm_translate("Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.").'
-         <p>'.adm_translate("Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".").'</p>
+         <h4 class="text-danger">'.adm_translate("DÃ©sinstaller le module ").' '.$ModDesinstall.'.</h4>
+         <p><strong>'.adm_translate("La dÃ©sinstallation automatique des modules n'est pas prise en charge Ã  l'heure actuelle.").'</strong>
+         <p>'.adm_translate("Vous devez dÃ©sinstaller le module manuellement. Pour cela, rÃ©fÃ©rez vous au fichier install.txt de l'archive du module, et faites les opÃ©rations inverses de celles dÃ©crites dans la section \"Installation manuelle\", et en partant de la fin.").'
+         <p>'.adm_translate("Enfin, pour pouvoir rÃ©installer le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme dÃ©sinstallÃ©\".").'</p>
       </div>
       <div style="text-align: center;">
-      <a href="JavaScript:history.go(-1)" class="btn btn-primary col-xs-12 col-md-6">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger col-xs-12 col-md-6">'.adm_translate("Marquer le module comme désinstallé").'</a><br />
+      <a href="JavaScript:history.go(-1)" class="btn btn-primary col-xs-12 col-md-6">'.adm_translate("Retour en arriÃ©re").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger col-xs-12 col-md-6">'.adm_translate("Marquer le module comme dÃ©sinstallÃ©").'</a><br />
       </div>
       <br /><br />
       '.nmig_copyright();

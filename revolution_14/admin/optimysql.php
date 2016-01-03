@@ -14,7 +14,7 @@
 
     if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
     $f_meta_nom ='OptimySQL';
-    $f_titre = adm_translate("Optimisation de la base de donnÈes").' : '.$dbname;
+    $f_titre = adm_translate("Optimisation de la base de donn√©es").' : '.$dbname;
     //==> controle droit
     admindroits($aid,$f_meta_nom);
     //<== controle droit
@@ -25,22 +25,22 @@
     GraphicAdmin($hlpfile);
     global $dbname;
 
-    // CrÈation de la table optimy (si nÈcessaire)
+    // Cr√©ation de la table optimy (si n√©cessaire)
     $result = sql_query("CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."optimy (optid INT(11) NOT NULL auto_increment, optgain DECIMAL(10,3), optdate VARCHAR (11) DEFAULT '', opthour VARCHAR (8) DEFAULT '', optcount INT(11) DEFAULT '0', PRIMARY KEY (optid))");
-    // Insertion de valeurs d'initialisation de la table (si nÈcessaire)
+    // Insertion de valeurs d'initialisation de la table (si n√©cessaire)
     $result = sql_query("SELECT optid FROM ".$NPDS_Prefix."optimy");
     list($idopt) = sql_fetch_row($result);
     if(!$idopt OR ($idopt == ""))
     {
         $result = sql_query("INSERT INTO ".$NPDS_Prefix."optimy (optid, optgain, optdate, opthour, optcount) VALUES ('1', '', '', '', '0')");
     }
-    // Extraction de la date et de l'heure de la prÈcÈdente optimisation
+    // Extraction de la date et de l'heure de la pr√©c√©dente optimisation
     $last_opti='';
     $result = sql_query("SELECT optdate, opthour FROM ".$NPDS_Prefix."optimy WHERE optid='1'");
     list($dateopt, $houropt) = sql_fetch_row($result);
     if (!$dateopt OR ($dateopt == "") OR !$houropt OR ($houropt == "")) {
     } else {
-       $last_opti= adm_translate("DerniËre optimisation effectuÈe le ")." : ".$dateopt." ".adm_translate(" ‡ ")." ".$houropt."<br />\n";
+       $last_opti= adm_translate("Derni√©re optimisation effectu√©e le ")." : ".$dateopt." ".adm_translate(" √† ")." ".$houropt."<br />\n";
     }
     
     $tot_data = 0;
@@ -69,7 +69,7 @@
        <tr>
           <td align="right">'.$row['Name'].'</td>
           <td align="right">'.$total.' Ko</td>
-          <td align="center">'.adm_translate("optimisÈe").'</td>
+          <td align="center">'.adm_translate("optimis√©e").'</td>
           <td align="center"> -- </td>
        </tr>';
         } else {
@@ -77,7 +77,7 @@
         <tr>
            <td align="right">'.$row['Name'].'</td>
            <td align="right">'.$total.' Ko</td>
-           <td class="text-danger" align="center">'.adm_translate("non optimisÈe").'</td>
+           <td class="text-danger" align="center">'.adm_translate("non optimis√©e").'</td>
            <td align="right">'.$gain.' Ko</td>
         </tr>';
         }
@@ -86,36 +86,36 @@
     $total_gain = round($total_gain,3);
 
     // Historique des gains
-    // Extraction du nombre d'optimisation effectuÈe
+    // Extraction du nombre d'optimisation effectu√©e
     $result = sql_query("SELECT optgain, optcount FROM ".$NPDS_Prefix."optimy WHERE optid='1'");
     list($gainopt, $countopt) = sql_fetch_row($result);
     $newgain = ($gainopt + $total_gain);
     $newcount = ($countopt + 1);
     // Enregistrement du nouveau gain
     $result = sql_query("UPDATE ".$NPDS_Prefix."optimy SET optgain='$newgain', optdate='$date_opt', opthour='$heure_opt', optcount='$newcount' WHERE optid='1'");
-    // Lecture des gains prÈcÈdents et addition
+    // Lecture des gains pr√©c√©dents et addition
     $result = sql_query("SELECT optgain, optcount FROM ".$NPDS_Prefix."optimy WHERE optid='1'");
     list($gainopt, $countopt) = sql_fetch_row($result);
 
     // Affichage
     adminhead ($f_meta_nom, $f_titre, $adminimg);
-    echo adm_translate("Optimisation effectuÈe ").' : '.adm_translate("Gain total rÈalisÈ").' '.$total_gain.' Ko</br>';
+    echo adm_translate("Optimisation effectu√©e ").' : '.adm_translate("Gain total r√©alis√©").' '.$total_gain.' Ko</br>';
     echo $last_opti;
-    echo "<p>".adm_translate("A ce jour, vous avez effectuÈ ")." ".$countopt." optimisation(s) ".adm_translate(" et rÈalisÈ un gain global de ")." ".$gainopt." Ko.</p>\n";
+    echo "<p>".adm_translate("A ce jour, vous avez effectu√© ")." ".$countopt." optimisation(s) ".adm_translate(" et r√©alis√© un gain global de ")." ".$gainopt." Ko.</p>\n";
     echo'<table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
     <thead>
         <tr>
             <th data-sortable="true" align="center">'.adm_translate('Table').'</th>
             <th align="center">'.adm_translate('Taille actuelle').'</th>
             <th data-sortable="true" align="center">'.adm_translate('Etat').'</th>
-            <th align="center">'.adm_translate('Gain rÈalisable').'</th>
+            <th align="center">'.adm_translate('Gain r√©alisable').'</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <td></td>
             <td></td>
-            <td>'.adm_translate("Gain total rÈalisÈ").' : </td>
+            <td>'.adm_translate("Gain total r√©alis√©").' : </td>
             <td>'.$total_gain.' Ko</td>
         </tr>
     </tfoot>

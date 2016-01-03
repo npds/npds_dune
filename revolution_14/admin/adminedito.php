@@ -27,11 +27,11 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
-   if ($contents=="") {
+   if ($contents=='') {
       echo '
       <form id="fad_edi_choix" action="admin.php?op=Edito_load" method="post">
          <fieldset>
-            <legend>'.adm_translate("Type d'&#xE9;ditorial").'</legend>
+            <legend>'.adm_translate("Type d'éditorial").'</legend>
             <div class="form-group">
                <select class="c-select form-control" name="edito_type" onchange="submit()">
                   <option value="0">'.adm_translate("Modifier l'Editorial").' ...</option>
@@ -42,10 +42,10 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          </fieldset>
       </form>';
    } else {
-      if ($edito_type=="G") {
-         $edito_typeL=" ".adm_translate("Anonyme");
-      } elseif ($edito_type=="M") {
-         $edito_typeL=" ".adm_translate("Membre");;
+      if ($edito_type=='G') {
+         $edito_typeL=' '.adm_translate("Anonyme");
+      } elseif ($edito_type=='M') {
+         $edito_typeL=' '.adm_translate("Membre");;
       }
       if (strpos($contents,"[/jour]")>0) {
          $contentJ=substr($contents,strpos($contents,"[jour]")+6,strpos($contents,"[/jour]")-6);
@@ -84,10 +84,9 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             </div>
          </div>
       </div>
-                     <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-offset-4 col-sm-8">
 
          <div class="form-group">
-
                <label class="checkbox-inline">
                   <input type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' />'.adm_translate("Le jour").'
                </label> 
@@ -117,7 +116,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
 
 function edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, $aff_nuit) {
     if ($aff_jours<=0) {$aff_jours="999";}
-    if ($edito_type=="G") {
+    if ($edito_type=='G') {
        $fp=fopen("static/edito.txt","w");
        fputs($fp,"[jour]".str_replace("&quot;","\"",stripslashes($XeditoJ))."[/jour][nuit]".str_replace("&quot;","\"",stripslashes($XeditoN))."[/nuit]");
        fputs($fp,"aff_jours=".$aff_jours);
@@ -125,7 +124,7 @@ function edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, 
        fputs($fp,"&aff_nuit=".$aff_nuit);
        fputs($fp,"&aff_date=".time());
        fclose($fp);
-    }  elseif ($edito_type=="M") {
+    }  elseif ($edito_type=='M') {
        $fp=fopen("static/edito_membres.txt","w");
        fputs($fp,"[jour]".str_replace("&quot;","\"",stripslashes($XeditoJ))."[/jour][nuit]".str_replace("&quot;","\"",stripslashes($XeditoN))."[/nuit]");
        fputs($fp,"aff_jours=".$aff_jours);
@@ -145,14 +144,14 @@ switch ($op) {
         break;
 
     case "Edito_load":
-        if ($edito_type=="G") {
+        if ($edito_type=='G') {
            if (file_exists("static/edito.txt")) {
               $fp=fopen("static/edito.txt","r");
               if (filesize("static/edito.txt")>0)
                  $Xcontents=fread($fp,filesize("static/edito.txt"));
               fclose($fp);
            }
-        } elseif ($edito_type=="M") {
+        } elseif ($edito_type=='M') {
            if (file_exists("static/edito_membres.txt")) {
               $fp=fopen("static/edito_membres.txt","r");
               if (filesize("static/edito_membres.txt")>0)
@@ -161,7 +160,7 @@ switch ($op) {
            }
         }
         $Xcontents=preg_replace('#<!--|/-->#', '', $Xcontents);
-        if ($Xcontents=="") {
+        if ($Xcontents=='') {
            $Xcontents="Edito ...";
         } else {
            $ibid=strstr($Xcontents,"aff_jours");
@@ -176,7 +175,6 @@ switch ($op) {
         }
         edito($edito_type, $Xcontents, $aff_jours, $aff_jour, $aff_nuit);
         break;
-
     default:
         edito("","","","","");
         break;

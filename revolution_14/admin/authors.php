@@ -23,7 +23,7 @@ $listdroits='';$listdroitsmodulo='';
 $hlpfile = "manuels/$language/authors.html";
 
 // sélection des fonctions sauf les fonctions de type alerte 
-   $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and fcategorie < 7 order by f.fcategorie");
+   $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) { 
       if($fcategorie==6) {
          $listdroitsmodulo .= '
@@ -31,20 +31,30 @@ $hlpfile = "manuels/$language/authors.html";
             <label class="" for="ad_d_m_'.$fid.'">
                <input id="ad_d_m_'.$fnom.'" type="checkbox" name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
             </label>
-         </div>'."\n";
+         </div>';
       } else {
          $listdroits .='
          <div class="col-md-4">
             <label class="" for="ad_d_'.$fid.'">
                <input id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
             </label>
-         </div>'."\n";
+         </div>';
       }
    }
 
 $scri_check ='
 <script type="text/javascript">
     //<![CDATA[
+/*    
+    $(function () {
+            if($("#cb_radminsuper").prop("checked"))
+            {
+                $("#adm_droi_f,#adm_droi_m").collapse();
+            }
+        });
+*/    
+    
+    
     document.addEventListener("DOMContentLoaded", rtu, false)
             function rtu() {
             // bascule toutes les checkbox
@@ -105,14 +115,14 @@ $scri_check ='
             }, false);
             }
     //]]>
-    </script>'."\n";
+    </script>';
 
 function modulesadmin ($chng_moduadmin) {
 global $modu,$fieldnames,$NPDS_Prefix;
 // from plugins.php ... analyse extend-modules.txt, construction list des droits admin module
    if (file_exists("admin/extend-modules.txt")) {
     // ==> tableau des droits de l'admin (le nom de la fonction(= champ) si droit est à 1) a little bit obsolete since lesradmin ne sont plus la a l'exception de fm et super
-    $result=sql_query("select * from ".$NPDS_Prefix."authors where aid='$chng_moduadmin'");
+    $result=sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$chng_moduadmin'");
     $row = sql_fetch_assoc ($result);
       $droit_adm_fonct=array();
       foreach ($fieldnames as $k =>$v) {
@@ -127,7 +137,7 @@ global $modu,$fieldnames,$NPDS_Prefix;
       $tmp = explode("[/module]",$Xcontent);
       array_pop($tmp);
       $modu=array();
-// faut encore voir la contradiction entre les droits génériques (no right etc) et les droits individuels et comment on imbrique .. si on considère que extend est par défaut le paramétrage puis on récupère pour la base et faudra ensuite regénérer extend ?....donc ce serait les droits individuels (dans la bd...) + les droits généraux
+// faut encore voir la contradiction entre les droits génériques (no right etc) et les droits individuels et comment on imbrique .. si on considére que extend est par défaut le paramétrage puis on récupére pour la base et faudra ensuite regénérer extend ?....donc ce serait les droits individuels (dans la bd...) + les droits généraux
       foreach ($tmp as $ibid) {
          $Tnom=explode("[/nom]",$ibid);
          if ($ibid) {
@@ -139,7 +149,7 @@ global $modu,$fieldnames,$NPDS_Prefix;
                $modu[]=$chemin;
                // tableau des admins du modules (|aid|aid)
 
-               $result = sql_query("select madmin from ".$NPDS_Prefix."modules where mnom='$chemin'");
+               $result = sql_query("SELECT madmin FROM ".$NPDS_Prefix."modules WHERE mnom='$chemin'");
                
                
                list($radminmodule) = sql_fetch_row($result);
@@ -167,7 +177,7 @@ function displayadmins() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $result = sql_query("select aid, name, url, email from ".$NPDS_Prefix."authors");
+   $result = sql_query("SELECT aid, name, url, email FROM ".$NPDS_Prefix."authors");
    echo '
    <h3>'.adm_translate("Les administrateurs").'</h3>
    <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
@@ -211,28 +221,28 @@ function displayadmins() {
         </div>
         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_name">'.adm_translate("Nom").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                 <input id="add_name" class="form-control" type="text" name="add_name" maxlength="50" placeholder="'.adm_translate("Nom").'" required="required" />
                 <span class="help-block text-xs-right"><span id="countcar_add_name"></span></span>
             </div>
         </div>
         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_email">'.adm_translate("E-mail").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                 <input id="add_email" class="form-control" type="email" name="add_email" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
                 <span class="help-block text-xs-right"><span id="countcar_add_email"></span></span>
             </div>
         </div>
         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                 <input id="add_url" class="form-control" type="url" name="add_url" maxlength="60" placeholder="'.adm_translate("URL").'" />
                 <span class="help-block text-xs-right"><span id="countcar_add_url"></span></span>
             </div>
         </div>
         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4" for="add_pwd">'.adm_translate("Mot de Passe").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
                <span class="help-block text-xs-right"><span id="countcar_add_pwd"></span></span>
                <div class="progress password-meter" id="passwordMeter">
@@ -242,7 +252,7 @@ function displayadmins() {
         </div>
         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4 text-danger" for="cb_radminsuper" >'.adm_translate("Super administrateur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                 <input id="cb_radminsuper" class="form-control" type="checkbox" name="add_radminsuper" value="1" data-toggle="collapse" data-target="#adm_droi_f,#adm_droi_m" />'."\n".'
             </div>
         </div>
@@ -354,9 +364,11 @@ function modifyadmin($chng_aid) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3>'.adm_translate("Mise &#xE0; jour de l'administrateur").' : '.$chng_aid.'</h3>';
+   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
+
+   <h3>'.adm_translate("Mise à jour de l'administrateur").' : '.$chng_aid.'</h3>';
     
-   $result = sql_query("select aid, name, url, email, pwd, radminfilem, radminsuper from ".$NPDS_Prefix."authors where aid='$chng_aid'");
+   $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminfilem, $chng_radminsuper) = sql_fetch_row($result);
 
    if ($chng_radminsuper==1) {
@@ -374,24 +386,24 @@ function modifyadmin($chng_aid) {
    while ($data = sql_fetch_row($result3)) {
       $datas[] = $data[1];
    }
-   $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 and fcategorie < 7 order by f.fcategorie");
+   $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
       if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
       if($fcategorie==6) {
         $listdroitsmodulo .='
-        <div class="col-md-4">
-        <label class="" for="ad_d_m_'.$fid.'">
+      <div class="col-sm-4">
+         <label class="" for="ad_d_m_'.$fid.'">
             <input id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
-        </label>
-        </div>';
+         </label>
+      </div>';
       }
       else { 
          $listdroits .='
-    <div class="col-md-4">
-    <label class="" for="ad_d_'.$fid.'">
-        <input id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
-    </label>
-    </div>';
+      <div class="col-sm-4">
+         <label class="" for="ad_d_'.$fid.'">
+            <input id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
+         </label>
+      </div>';
       }
    } 
    //<== construction des check-box des droits
@@ -402,14 +414,14 @@ function modifyadmin($chng_aid) {
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" title="'.$chng_aid.'" /> '.adm_translate("Informations").'</legend>
          <br />
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="chng_name">'.adm_translate("Nom").'</label>
+            <label class="col-sm-4 form-control-label " for="chng_name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input id="chng_name" class="form-control" type="text" name="chng_name" value="'.$chng_name.'" maxlength="30" placeholder="'.adm_translate("Nom").'" required="required" />
                <span class="help-block text-xs-right"><span id="countcar_chng_name"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="chng_email">'.adm_translate("E-mail").'</label>
+            <label class="col-sm-4 form-control-label " for="chng_email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
                <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
                <span class="help-block text-xs-right"><span id="countcar_chng_email"></span></span>
@@ -427,14 +439,12 @@ function modifyadmin($chng_aid) {
             <div class="col-sm-8">
                <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
                <span class="help-block text-xs-right"><span id="countcar_chng_pwd"></span></span>
-               <progress class="progress password-meter" id="passwordMeter">
-                  <div class="progress-bar"></div>
+               <progress id="passwordMeter_cont" class="progress password-meter" value="0" max="100">
+                  <div class="progress">
+                     <span id="passwordMeter" class="progress-bar" style="width: 0%;"></span>
+                  </div>
                </progress>
-               
-
-               
-               
-               
+               <span id="pass-level" class="help-block text-xs-right"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -445,16 +455,22 @@ function modifyadmin($chng_aid) {
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 text-danger" for="chng_radminsuper" >'.adm_translate("Super administrateur").'</label>
+            <label class="col-sm-4 text-danger" for="chng_radminsuper" >'.adm_translate("Super administrateur").'</label>
             <div class="col-sm-8">
-               <input id="cb_radminsuper" class="form-control" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' data-toggle="collapse" data-target="#adm_droi_f,#adm_droi_m" />
-            </div>
+                  <div class="checkbox">
+
+            <label>
+               <input id="cb_radminsuper" class="" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
+            </label></div>
+            </div>';
+// <span data-toggle="collapse" data-target="#adm_droi_f" >           
+         echo '
          </div>
             <input type="hidden" name="chng_aid" value="'.$chng_aid.'" />
       </fieldset>
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
-         <div id="adm_droi_f" class="container-fluid collapse '.$ldvisi.' ">
+         <div id="adm_droi_f" class="container-fluid collapse in'.$ldvisi.' ">
             <div class="form-group"><a id="checkAllButton"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton"><i class="fa fa-square-o fa-lg"></i></a></div>';
    echo $listdroits;
    echo'
@@ -462,7 +478,7 @@ function modifyadmin($chng_aid) {
       </fieldset>
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits Modules").'" /> '.adm_translate("Droits Modules").' </legend>
-         <div id="adm_droi_m" class="container-fluid collapse '.$ldvisi.' ">
+         <div id="adm_droi_m" class="container-fluid collapse in'.$ldvisi.' ">
             <div class="form-group"><a id="checkAllButton_m"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton_m"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
    echo $listdroitsmodulo;
    echo'
@@ -489,12 +505,6 @@ function modifyadmin($chng_aid) {
    //]]>
    </script>';
    $fv_parametres = '
-   chng_name: {
-   },
-   chng_email: {
-   },
-   chng_url: {
-   },
    chng_pwd: {
       validators: {
          callback: {
@@ -565,7 +575,7 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 //    list ($listdroits_mod,$modu,$listradminmodule) = modulesadmin($chng_aid);
 
     // Gestion du fichier pour filemanager
-    $result=sql_query("select radminfilem,radminsuper from ".$NPDS_Prefix."authors where aid='$chng_aid'");
+    $result=sql_query("SELECT radminfilem,radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
     list($ori_radminfilem, $ori_radminsuper) = sql_fetch_row($result);
     if ($ori_radminsuper and !$chng_radminsuper)
        @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
@@ -577,12 +587,12 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
     if (!$ori_radminfilem and $chng_radminfilem)
        @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
 
-    if ($chng_pwd2 != "") {
+    if ($chng_pwd2 != '') {
        if($chng_pwd != $chng_pwd2) {
           global $hlpfile;
           include("header.php");
           GraphicAdmin($hlpfile);
-          echo error_handler(adm_translate("DÈsolÈ, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
+          echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
           include("footer.php");
           exit;
        }
@@ -611,8 +621,8 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 
 function error_handler($ibid) {
    opentable();
-   echo "<p class=\"errorhandler\" align=\"center\">".adm_translate("Merci d'entrer l'information en fonction des spÈcifications")."<br /><br />";
-   echo "$ibid<br /><a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Retour en arriËre")."</a></p>";
+   echo "<p class=\"errorhandler\" align=\"center\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
+   echo "$ibid<br /><a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Retour en arriére")."</a></p>";
    closetable();
 }
 
@@ -620,15 +630,12 @@ switch ($op) {
    case "mod_authors":
         displayadmins();
         break;
-
    case "modifyadmin":
         modifyadmin($chng_aid);
         break;
-
    case "UpdateAuthor":
         updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5);
         break;
-
    case "AddAuthor":
         if (!($add_aid && $add_name && $add_email && $add_pwd)) {
            global $hlpfile;
@@ -680,15 +687,14 @@ switch ($op) {
         echo "<div class=\"header\" style=\"font-size:100%; padding:3px\";>\n";
         echo adm_translate("Effacer l'Administrateur")." : $del_aid";
         echo "</div>\n";
-        echo "<p id=\"mes_delauthor\" align=\"center\"><span class=\"rouge\">".adm_translate("Etes-vous s˚r de vouloir effacer")." $del_aid ? </span><br /><br />";
+        echo "<p id=\"mes_delauthor\" align=\"center\"><span class=\"rouge\">".adm_translate("Etes-vous sûr de vouloir effacer")." $del_aid ? </span><br /><br />";
         echo "[ <a href=\"admin.php?op=deladminconf&amp;del_aid=$del_aid\" class=\"rouge\">".adm_translate("Oui")."</a>&nbsp;|&nbsp;<a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Non")."</a> ]</p>\n</div>";
         
         closetable();
         include("footer.php");
         break;
-
    case "deladminconf":
-        sql_query("delete from ".$NPDS_Prefix."authors where aid='$del_aid'");
+        sql_query("DELETE FROM ".$NPDS_Prefix."authors WHERE aid='$del_aid'");
         deletedroits($chng_aid=$del_aid);
         // Supression du fichier pour filemanager
         @unlink("modules/f-manager/users/".strtolower($del_aid).".conf.php");

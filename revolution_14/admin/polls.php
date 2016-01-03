@@ -33,7 +33,7 @@ function poll_createPoll() {
          <thead>
             <tr>
                <th data-sortable="true">ID</th>
-               <th data-sortable="true">'.adm_translate("Intitulé du Sondage").'</th>
+               <th data-sortable="true">'.adm_translate("IntitulÃ© du Sondage").'</th>
                <th data-sortable="true">'.adm_translate("Vote").'</th>
                <th>'.adm_translate("Fonctions").'</th>
             </tr>
@@ -59,12 +59,12 @@ function poll_createPoll() {
       </table>';
 
    echo 
-   '<h3>'.adm_translate("Créer un nouveau Sondage").'</h3>
+   '<h3>'.adm_translate("CrÃ©er un nouveau Sondage").'</h3>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="createPosted" />
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("IntitulÃ© du Sondage").'</label>
                <div class="col-sm-9 col-md-9">
                   <input class="form-control" type="text" id="pollTitle" name="pollTitle" maxlength="100" />
                   <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
@@ -95,7 +95,7 @@ function poll_createPoll() {
          <div class="form-group">
             <div class="row">
                <div class="col-sm-offset-3 col-sm-9">
-                  <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
+                  <button type="submit" class="btn btn-primary">'.adm_translate("CrÃ©er").'</button>
                </div>
             </div>
          </div>
@@ -130,7 +130,7 @@ function poll_removePoll() {
    echo '
    <h3>'.adm_translate("Retirer un Sondage existant").'</h3>
    <span class="help-block">'.adm_translate("S.V.P. Choisissez un sondage dans la liste suivante.").'</span>
-   <p align="center"><span class="text-danger">'.adm_translate("ATTENTION : Le Sondage choisi va être supprimé IMMEDIATEMENT de la base de données !").'</span></p>
+   <p align="center"><span class="text-danger">'.adm_translate("ATTENTION : Le Sondage choisi va Ãªtre supprimÃ© IMMEDIATEMENT de la base de donnÃ©es !").'</span></p>
    ';
    echo '
    <form action="admin.php" method="post">
@@ -139,7 +139,7 @@ function poll_removePoll() {
          <thead>
             <tr>
                <th></th>
-               <th data-sortable="true">'.adm_translate("Intitulé du Sondage").'</th>
+               <th data-sortable="true">'.adm_translate("IntitulÃ© du Sondage").'</th>
                <th data-sortable="true">ID</th>
             </tr>
          </thead>
@@ -177,7 +177,7 @@ function poll_removePosted() {
    $al_nom = "Poll";
    // ----------------------------------------------------------------------------
    if ($setCookies=="1"){
-      $sql="DELETE FROM ".$NPDS_Prefix."appli_log where al_id='$al_id' and al_subid='$id'";
+      $sql="DELETE FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' and al_subid='$id'";
       sql_query($sql);
    }
    sql_query("DELETE FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$id'");
@@ -203,7 +203,7 @@ function poll_editPoll() {
          <thead>
             <tr>
                <th></th>
-               <th data-sortable="true">'.adm_translate("Intitulé du Sondage").'</th>
+               <th data-sortable="true">'.adm_translate("IntitulÃ© du Sondage").'</th>
                <th data-sortable="true">ID</th>
             </tr>
          </thead>
@@ -237,7 +237,7 @@ function poll_editPollPosted() {
       adminhead ($f_meta_nom, $f_titre, $adminimg);
       $result = sql_query("SELECT pollID, pollTitle, timeStamp FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$id'");
       $holdtitle = sql_fetch_row($result);
-      $result = sql_query("SELECT optionText, voteID, pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id' order by voteID asc");
+      $result = sql_query("SELECT optionText, voteID, pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id' ORDER BY voteID ASC");
       echo '
    <h3>'.adm_translate("Edition des sondages").'</h3>
    <form method="post" action="admin.php">
@@ -245,7 +245,7 @@ function poll_editPollPosted() {
       <input type="hidden" name="pollID" value="'.$id.'" />
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("IntitulÃ© du Sondage").'</label>
             <div class="col-sm-9 col-md-9">
                <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" />
                <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
@@ -284,7 +284,7 @@ function poll_editPollPosted() {
                <label class="text-danger">
                   <input type="checkbox" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
-      echo ' />'.adm_translate("Vote fermé").'
+      echo ' />'.adm_translate("Vote fermÃ©").'
                </label>
             </div>
          </div>
@@ -307,12 +307,12 @@ function poll_SendEditPoll() {
    global $maxOptions, $pollTitle, $optionText, $poll_type, $pollID, $poll_close;
    global $NPDS_Prefix;
 
-   $result = sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET pollTitle='$pollTitle' where pollID='$pollID'");
+   $result = sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET pollTitle='$pollTitle' WHERE pollID='$pollID'");
    $poll_type = $poll_type + 128 * $poll_close;
    for ($i = 1; $i <= sizeof($optionText); $i++) {
       if ($optionText[$i] != "")
          $optionText[$i] = FixQuotes($optionText[$i]);
-      $result = sql_query("UPDATE ".$NPDS_Prefix."poll_data set optionText='$optionText[$i]', pollType='$poll_type' where pollID='$pollID' and voteID='$i'");
+      $result = sql_query("UPDATE ".$NPDS_Prefix."poll_data SET optionText='$optionText[$i]', pollType='$poll_type' WHERE pollID='$pollID' and voteID='$i'");
    }
    Header("Location: admin.php?op=create");
 }
@@ -321,27 +321,21 @@ switch ($op) {
    case "create":
         poll_createPoll();
         break;
-
    case "createPosted":
         poll_createPosted();
         break;
-
    case "remove":
         poll_removePoll();
         break;
-
    case "removePosted":
         poll_removePosted();
         break;
-
    case "editpoll":
         poll_editPoll();
         break;
-
    case "editpollPosted":
         poll_editPollPosted();
         break;
-
    case "SendEditPoll":
         poll_SendEditPoll();
         break;

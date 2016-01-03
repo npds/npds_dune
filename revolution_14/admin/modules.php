@@ -12,12 +12,12 @@
 /************************************************************************/
 /* Module-Install Version 1.1 - Mai 2005                                */
 /* --------------------------                                           */
-/* Copyright (c) 2005 Boris L'Ordi-Dépanneur & Hotfirenet               */
+/* Copyright (c) 2005 Boris L'Ordi-DÃ©panneur & Hotfirenet               */
 /*                                                                      */
 /* Version 1.2 - 22 Avril 2009                                          */
 /* --------------------------                                           */
 /*                                                                      */
-/* Modifié par jpb et phr pour le rendre compatible avec Evolution      */
+/* ModifiÃ© par jpb et phr pour le rendre compatible avec Evolution      */
 /*                                                                      */
 /************************************************************************/
 
@@ -45,7 +45,7 @@ global $language,$adminimg, $admf_ext;
 /*
    echo $modlist;//debug
    for ($i=0; $i<count($modlist); $i++) {
-            sql_query("insert into ".$NPDS_Prefix."modules values (NULL, '".$modlist[$i]."', '0','')");
+            sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$modlist[$i]."', '0','')");
 }
 */   
    closedir($handle);
@@ -53,11 +53,11 @@ global $language,$adminimg, $admf_ext;
    $modlist=explode(" ",rtrim($modlist));
    sort($modlist);
    for ($i=0; $i<count($modlist); $i++) {
-      $queryexiste=sql_query("select mnom from ".$NPDS_Prefix."modules where mnom='".$modlist[$i]."'");
+      $queryexiste=sql_query("SELECT mnom FROM ".$NPDS_Prefix."modules WHERE mnom='".$modlist[$i]."'");
       if ($queryexiste)
          $moexiste=sql_num_rows($queryexiste);
       if ((!empty($modlist[$i])) && ($moexiste!=1)) {
-         sql_query("insert into ".$NPDS_Prefix."modules values (NULL, '".$modlist[$i]."', '0','')");
+         sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$modlist[$i]."', '0','')");
       }
    }
    
@@ -87,10 +87,10 @@ global $language,$adminimg, $admf_ext;
           if (file_exists("modules/".$row["mnom"]."/install.conf.php")) {
              $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'" ><i class="fa fa-spinner fa-2x text-success" title="'.adm_translate("Installer le module").'" data-toggle="tooltip"></i></a>';
           } else {
-             $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'&amp;subop=install"><i class="fa fa-check-square-o fa-2x" title="'.adm_translate("Pas d'installeur disponible").' '.adm_translate("Marquer le module comme installé").'" data-toggle="tooltip"></i></a>';
+             $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'&amp;subop=install"><i class="fa fa-check-square-o fa-2x" title="'.adm_translate("Pas d'installeur disponible").' '.adm_translate("Marquer le module comme installÃ©").'" data-toggle="tooltip"></i></a>';
           }
        } else {
-          $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModDesinstall='.$row["mnom"].'" ><i class="fa fa-ban fa-2x text-danger" title="'.adm_translate("Désinstaller le module").'" data-toggle="tooltip"></i></a>';
+          $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModDesinstall='.$row["mnom"].'" ><i class="fa fa-ban fa-2x text-danger" title="'.adm_translate("DÃ©sinstaller le module").'" data-toggle="tooltip"></i></a>';
        }
        echo '
        <tr>

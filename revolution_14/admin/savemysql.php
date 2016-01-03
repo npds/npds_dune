@@ -147,15 +147,15 @@ admindroits($aid,$f_meta_nom);
       $num_tables = sql_num_rows($tables);
       if($num_tables == 0)
       {
-         echo "&nbsp;".adm_translate("Aucune table n'a été trouvée")."\n";
+         echo "&nbsp;".adm_translate("Aucune table n'a Ã©tÃ© trouvÃ©e")."\n";
       }
       else
       {
          $heure_jour = date("H:i");
          $data = "# ========================================================$crlf"
             ."# $crlf"
-            ."# ".adm_translate("Sauvegarde de la base de données")." : ".$dbname." $crlf"
-            ."# ".adm_translate("Effectuée le")." ".$date_jour." : ".$heure_jour." ".adm_translate("par")." ".$name." $crlf"
+            ."# ".adm_translate("Sauvegarde de la base de donnÃ©es")." : ".$dbname." $crlf"
+            ."# ".adm_translate("EffectuÃ©e le")." ".$date_jour." : ".$heure_jour." ".adm_translate("par")." ".$name." $crlf"
             ."# $crlf"
             ."# ========================================================$crlf";
          while($row = sql_fetch_row($tables))
@@ -190,7 +190,7 @@ admindroits($aid,$f_meta_nom);
       $num_tables = sql_num_rows($tables);
       if($num_tables == 0)
       {
-         echo "&nbsp;".adm_translate("Aucune table n'a été trouvée")."\n";
+         echo "&nbsp;".adm_translate("Aucune table n'a Ã©tÃ© trouvÃ©e")."\n";
       }
       else
       {
@@ -206,8 +206,8 @@ admindroits($aid,$f_meta_nom);
          $heure_jour = date("H:i");
          $data0 = "# ========================================================$crlf"
             ."# $crlf"
-            ."# Sauvegarde de la base de données : ".$dbname." $crlf"
-            ."# Effectuée le ".$date_jour." : ".$heure_jour." par ".$name." $crlf"
+            ."# Sauvegarde de la base de donnÃ©es : ".$dbname." $crlf"
+            ."# EffectuÃ©e le ".$date_jour." : ".$heure_jour." par ".$name." $crlf"
             ."# $crlf"
             ."# ========================================================$crlf";
          $data1="";
@@ -302,7 +302,7 @@ admindroits($aid,$f_meta_nom);
             dbSave_tofile("slogs",0, $savemysql_size);
             echo "<script type=\"text/javascript\">
                   //<![CDATA[
-                  alert('".adm_translate("Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs")."');
+                  alert('".adm_translate("Sauvegarde terminÃ©e. Les fichiers sont disponibles dans le repertoire /slogs")."');
                   //]]>
                   </script>";
             redirect_url("admin.php");
@@ -310,7 +310,7 @@ admindroits($aid,$f_meta_nom);
             dbSave_tofile("slogs",1, $savemysql_size);
             echo "<script type=\"text/javascript\">
                   //<![CDATA[
-                  alert('".adm_translate("Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs")."');
+                  alert('".adm_translate("Sauvegarde terminÃ©e. Les fichiers sont disponibles dans le repertoire /slogs")."');
                   //]]>
                   </script>";
             redirect_url("admin.php");

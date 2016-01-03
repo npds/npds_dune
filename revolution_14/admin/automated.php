@@ -14,7 +14,7 @@
 
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='autoStory';
-$f_titre = adm_translate("Articles programmés");
+$f_titre = adm_translate("Articles programmÃ©s");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -26,27 +26,27 @@ $hlpfile = "manuels/$language/automated.html";
 
 function puthome($ihome) {
     echo "<br /><b>".adm_translate("Publier dans la racine ?")."</b>&nbsp;&nbsp;";
-    $sel1 = "checked=\"checked\"";
-    $sel2 = "";
+    $sel1 = 'checked="checked"';
+    $sel2 = '';
     if ($ihome == 1) {
-        $sel1 = "";
-        $sel2 = "checked=\"checked\"";
+        $sel1 = '';
+        $sel2 = 'checked="checked"';
     }
     echo "<input type=\"radio\" name=\"ihome\" value=\"0\" $sel1 />".adm_translate("Oui")."&nbsp;";
     echo "<input type=\"radio\" name=\"ihome\" value=\"1\" $sel2 />".adm_translate("Non");
-    echo "&nbsp;&nbsp; <span class=\"noir\">[ ".adm_translate("Ne s'applique que si la catégorie : <b>'Articles'</b> n'est pas sélectionnée.")." ]</span><br /><br />";
+    echo "&nbsp;&nbsp; <span class=\"noir\">[ ".adm_translate("Ne s'applique que si la catÃ©gorie : <b>'Articles'</b> n'est pas sÃ©lectionnÃ©e.")." ]</span><br /><br />";
 
     $sel1 = "";
     $sel2 = "checked=\"checked\"";
     echo "<span class=\"rouge\"><b>".adm_translate("Seulement aux membres")."</b></span> :";
     if ($ihome<0) {
-       $sel1 = "checked=\"checked\"";
-       $sel2 = "";
+       $sel1 = 'checked="checked"';
+       $sel2 = '';
     }
     if (($ihome>1) and ($ihome<=127)) {
        $Mmembers=$ihome;
-       $sel1 = "checked=\"checked\"";
-       $sel2 = "";
+       $sel1 = 'checked="checked"';
+       $sel2 = '';
     }
     echo "<input type=\"radio\" name=\"members\" value=\"1\" $sel1 />".adm_translate("Oui")."&nbsp; /
     ".adm_translate("Groupe")." : ";
@@ -59,7 +59,7 @@ function puthome($ihome) {
        $tmp_groupe.="<option value=\"$groupe_id\" $sel3>$groupe_name</option>\n";
       $nbg++;
     }
-    echo "<select class=\"textbox_standard\" name=\"Mmembers\">".$tmp_groupe."</select>&nbsp;";
+    echo '<select class="c-select form-control" name="Mmembers">'.$tmp_groupe.'</select>&nbsp;';
     // ---- Groupes
     echo "<input type=\"radio\" name=\"members\" value=\"0\" $sel2 />".adm_translate("Non")."<br />";
 }
@@ -67,13 +67,13 @@ function puthome($ihome) {
 function SelectCategory($cat) {
     global $NPDS_Prefix;
 
-    $selcat = sql_query("select catid, title from ".$NPDS_Prefix."stories_cat");
-    echo " <b>".adm_translate("Catégorie")."</b> ";
+    $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
+    echo " <b>".adm_translate("CatÃ©gorie")."</b> ";
     echo "<select class=\"textbox_standard\" name=\"catid\">";
     if ($cat == 0) {
-       $sel = "selected=\"selected\"";
+       $sel = 'selected="selected"';
     } else {
-       $sel = "";
+       $sel = '';
     }
     echo "<option name=\"catid\" value=\"0\" $sel>".adm_translate("Articles")."</option>";
     while(list($catidX, $title) = sql_fetch_row($selcat)) {
@@ -92,7 +92,7 @@ function autoStory() {
     include ("header.php");
     GraphicAdmin($hlpfile);
     adminhead ($f_meta_nom, $f_titre, $adminimg);
-    echo '<h3>'.adm_translate("Articles programmés").'</h3>
+    echo '<h3>'.adm_translate("Articles programmÃ©s").'</h3>
     <table id="tab_adm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
     <thead>
     <tr>
@@ -103,11 +103,11 @@ function autoStory() {
     </thead>
     <tbody>'."\n";
 
-    $result = sql_query("select anid, title, date_debval, topic from ".$NPDS_Prefix."autonews order by date_debval ASC");
+    $result = sql_query("SELECT anid, title, date_debval, topic FROM ".$NPDS_Prefix."autonews order by date_debval ASC");
     while(list($anid, $title, $time, $topic) = sql_fetch_row($result)) {
         if ($anid != "") {
            $affiche=false;
-           $result2=sql_query("select topicadmin, topicname from ".$NPDS_Prefix."topics where topicid='$topic'");
+           $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
            list ($topicadmin, $topicname)=sql_fetch_row($result2);
            if ($radminsuper) {
               $affiche=true;
@@ -142,14 +142,14 @@ function autoStory() {
 function autoDelete($anid) {
     global $NPDS_Prefix;
 
-    sql_query("delete from ".$NPDS_Prefix."autonews where anid='$anid'");
+    sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
     Header("Location: admin.php?op=autoStory");
 }
 function autoEdit($anid) {
     global $aid, $hlpfile, $tipath, $radminsuper;
     global $NPDS_Prefix;
 
-    $result = sql_query("select catid, title, time, hometext, bodytext, topic, informant, notes, ihome, date_debval,date_finval,auto_epur from ".$NPDS_Prefix."autonews where anid='$anid'");
+    $result = sql_query("SELECT catid, title, time, hometext, bodytext, topic, informant, notes, ihome, date_debval,date_finval,auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
     list($catid, $title, $time, $hometext, $bodytext, $topic, $informant, $notes, $ihome, $date_debval,$date_finval,$epur) = sql_fetch_row($result);
     sql_free_result($result);
     $titre = stripslashes($title);
@@ -159,7 +159,7 @@ function autoEdit($anid) {
 
     if ($topic<1) {$topic = 1;}
     $affiche=false;
-    $result2=sql_query("select topictext, topicimage, topicadmin from ".$NPDS_Prefix."topics where topicid='$topic'");
+    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
     list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
     if ($radminsuper) {
        $affiche=true;
@@ -181,7 +181,7 @@ function autoEdit($anid) {
     echo "<table border=\"0\" width=\"85%\" cellpadding=\"0\" cellspacing=\"1\"><tr $rowcolor><td>";
     $rowcolor = tablos();
     echo "<table width=\"100%\" border=\"0\" cellpadding=\"8\" cellspacing=\"1\"><tr $rowcolor>";
-    echo "<td valign=\"top\">".aff_local_langue("<b>".adm_translate("Langue de Prévisualisation")."</b> : ","","local_user_language");
+    echo "<td valign=\"top\">".aff_local_langue("<b>".adm_translate("Langue de PrÃ©visualisation")."</b> : ","","local_user_language");
     $no_img=false;
     if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
       echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
@@ -200,7 +200,7 @@ function autoEdit($anid) {
     <b>".adm_translate("Titre")."</b>&nbsp;&nbsp;:
     <input class=\"textbox\" type=\"text\" name=\"title\" size=\"50\" value=\"$titre\" /><br />";
     echo "<b>".adm_translate("Sujet")."</b> : <select class=\"textbox_standard\" name=\"topic\">";
-    $toplist = sql_query("select topicid, topictext, topicadmin from ".$NPDS_Prefix."topics order by topictext");
+    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics order by topictext");
     if ($radminsuper) echo "<option value=\"\">".adm_translate("Tous les Sujets")."</option>\n";
     while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
        $affiche=false;
@@ -226,7 +226,7 @@ function autoEdit($anid) {
     echo "<br /><b>".adm_translate("Texte d'introduction")."</b> :<br />
     <textarea class=\"textbox\" cols=\"70\" rows=\"25\" name=\"hometext\" style=\"width: 100%;\">$hometext</textarea>";
     echo aff_editeur("hometext", "true");
-    echo "<br /><b>".adm_translate("Texte étendu")."</b> :<br />
+    echo "<br /><b>".adm_translate("Texte Ã©tendu")."</b> :<br />
     <textarea class=\"textbox\" cols=\"70\" rows=\"25\" name=\"bodytext\" style=\"width: 100%;\">$bodytext</textarea>";
     echo aff_editeur("bodytext", "true");
     if ($aid != $informant) {
@@ -266,7 +266,7 @@ function autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $cati
     if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
 
-    $result = sql_query("update ".$NPDS_Prefix."autonews set catid='$catid', title='$title', time=now(), hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_debval='$date_debval', date_finval='$date_finval', auto_epur='$epur' where anid='$anid'");
+    $result = sql_query("UPDATE ".$NPDS_Prefix."autonews SET catid='$catid', title='$title', time=now(), hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_debval='$date_debval', date_finval='$date_finval', auto_epur='$epur' WHERE anid='$anid'");
     if ($ultramode) {
        ultramode();
     }

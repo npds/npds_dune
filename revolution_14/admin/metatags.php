@@ -11,7 +11,7 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='MetaTagAdmin';
-$f_titre = adm_translate("Administration des MétaTags");
+$f_titre = adm_translate("Administration des MÃ©taTags");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -23,7 +23,7 @@ function MetaTagAdmin($saved = false) {
    GraphicAdmin($hlpfile);
     adminhead ($f_meta_nom, $f_titre, $adminimg);
    if ($saved){
-      echo '<p align="center " class="text-danger">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</p>';
+      echo '<p align="center " class="text-danger">'.adm_translate("Vos MÃ©taTags ont Ã©tÃ© modifiÃ©s avec succÃ©s !").'</p>';
    }
    echo '
    <form id="fad_metatags" action="admin.php" method="post">
@@ -33,7 +33,7 @@ function MetaTagAdmin($saved = false) {
       <span class="help-block">'. adm_translate("(Ex. : nom du webmaster)").'</span>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="newtag[owner]">'.adm_translate("Propriétaire").'</label>
+      <label class="form-control-label" for="newtag[owner]">'.adm_translate("PropriÃ©taire").'</label>
       <input class="form-control" type="text" name="newtag[owner]" value="'.$tags['owner'].'" maxlength="100" />
       <span class="help-block">'.adm_translate("(Ex. : nom de votre compagnie/service)").'</span>
    </div>
@@ -45,27 +45,27 @@ function MetaTagAdmin($saved = false) {
    <div class="form-group">
       <label class="form-control-label" for="newtag[language]">'.adm_translate("Langue principale").'</label>
       <input class="form-control" type="text" name="newtag[language]" value="'.$tags['language'].'" size="6" maxlength="5" />
-      <span class="help-block">'.adm_translate("(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)").'</span>
+      <span class="help-block">'.adm_translate("(Ex. : fr(FranÃ§ais), en(Anglais), en-us(AmÃ©ricain), de(Allemand), it(Italien), pt(Portugais), etc)").'</span>
    </div>
    <div class="form-group">
       <label class="form-control-label" for="newtag[description]">'.adm_translate("Description").'</label>
       <input class="form-control" type="text" name="newtag[description]" value="'.$tags['description'].'" maxlength="200" />
-      <span class="help-block">'.adm_translate("(Brève description des centres d'intérêt du site. 200 caractères maxi.)").'</span>
+      <span class="help-block">'.adm_translate("(BrÃ©ve description des centres d'intÃ©rÃªt du site. 200 caractÃ©res maxi.)").'</span>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="newtag[keywords]">'.adm_translate("Mot(s) clé(s)").'</label>
+      <label class="form-control-label" for="newtag[keywords]">'.adm_translate("Mot(s) clÃ©(s)").'</label>
       <input class="form-control" type="text" name="newtag[keywords]" value="'.$tags['keywords'].'" maxlength="1000" />
-      <span class="help-block">'.adm_translate("(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi.<br />Remarques : une lettre accentuée équivaut le plus souvent à 8 caractères. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)").'</span>
+      <span class="help-block">'.adm_translate("(DÃ©finissez un ou plusieurs mot(s) clÃ©(s). 1000 caractÃ©res maxi.<br />Remarques : une lettre accentuÃ©e Ã©quivaut le plus souvent Ã  8 caractÃ©res. La majoritÃ© des moteurs de recherche font la distinction minuscule/majuscule. SÃ©parez vos mots par une virgule)").'</span>
    </div>
    <div class="form-group">
       <label class="form-control-label" for="newtag[rating]">'.adm_translate("Audience").'</label>
       <select class="form-control" name="newtag[rating]">
          <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? ' selected="selected"' : '').'>'.adm_translate("Tout public").'</option>
          <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? ' selected="selected"' : '').'>'.adm_translate("Adulte").'</option>
-         <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? ' selected="selected"' : '').'>'.adm_translate("Accès restreint").'</option>
+         <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? ' selected="selected"' : '').'>'.adm_translate("AccÃ©s restreint").'</option>
          <option value="14 years"'.(!strcasecmp($tags['rating'], '14 years') ? ' selected="selected"' : '').'>'.adm_translate("14 ans").'</option>
       </select>
-      <span class="help-block">'.adm_translate("(Définissez le public intéressé par votre site)").'</span>
+      <span class="help-block">'.adm_translate("(DÃ©finissez le public intÃ©ressÃ© par votre site)").'</span>
    </div>
    <div class="form-group">
       <label class="form-control-label" for="newtag[distribution]">'.adm_translate("Distribution").'</label>
@@ -77,7 +77,7 @@ function MetaTagAdmin($saved = false) {
    <div class="form-group">
       <label class="form-control-label" for="newtag[copyright]">'.adm_translate("Copyright").'</label>
       <input class="form-control" type="text" name="newtag[copyright]" value="'.$tags['copyright'].'" maxlength="100" />
-      <span class="help-block">'.adm_translate("(Informations légales)").'</span>
+      <span class="help-block">'.adm_translate("(Informations lÃ©gales)").'</span>
    </div>
    <div class="form-group">
       <label class="form-control-label" for="newtag[robots]">'.adm_translate("Robots/Spiders").'</label>
@@ -89,12 +89,12 @@ function MetaTagAdmin($saved = false) {
          <option value="noarchive"'.(!strcasecmp($tags['robots'], 'noarchive') ? ' selected="selected"' : '').'>'.adm_translate("Pas d'affichage du cache").'</option>
          <option value="noodp,noydir"'.(!strcasecmp($tags['robots'], 'noodp,noydir') ? ' selected="selected"' : '').'>'.adm_translate("Pas d'utilisation des descriptions ODP ou YDIR").'</option>
       </select>
-      <span class="help-block">'.adm_translate("(Définissez la méthode d'analyse que doivent adopter les robots des moteurs de recherche)").'</span>
+      <span class="help-block">'.adm_translate("(DÃ©finissez la mÃ©thode d'analyse que doivent adopter les robots des moteurs de recherche)").'</span>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="newtag[revisit-after]">'.adm_translate("Fréquence de visite des Robots/Spiders").'</label>
+      <label class="form-control-label" for="newtag[revisit-after]">'.adm_translate("FrÃ©quence de visite des Robots/Spiders").'</label>
       <input class="form-control" type="text" name="newtag[revisit-after]" value="'.$tags['revisit-after'].'" maxlength="30" />
-      <span class="help-block">'.adm_translate("(Ex. : 16 days. Remarque : ne définissez pas de fréquence inférieure à 14 jours !)").'</span>
+      <span class="help-block">'.adm_translate("(Ex. : 16 days. Remarque : ne dÃ©finissez pas de frÃ©quence infÃ©rieure Ã  14 jours !)").'</span>
    </div>';
 
    if (function_exists("utf8_encode")) {
@@ -142,7 +142,6 @@ $hlpfile = "manuels/$language/metatags.html";
          $meta_saved = MetaTagSave("meta/meta.php", $newtag);
          header("location: admin.php?op=MetaTagAdmin");
          break;
-
        case "MetaTagAdmin":
          MetaTagAdmin($meta_saved);
          break;

@@ -22,7 +22,7 @@ $hlpfile = "manuels/".$language."/meta_lang.html";
 
 function go_back($label) {
    if (!$label)
-      $label = adm_translate("Retour en arriËre");
+      $label = adm_translate("Retour en arri√®re");
    echo '
    <script type="text/javascript">
    //<![CDATA[
@@ -41,14 +41,14 @@ function inc_head($title) {
 function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
 
-   $list = '<select class="form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">';
+   $list = '<select class="c-select form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">';
    $list .= '<option value="'.$url.'">META-MOT</option>';
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
    while ($resultat = sql_fetch_row($Q))  {
       if ($meta == $resultat[0]) { $sel = "selected=\"selected\""; }
       $list .= "<option ".$sel." value=\"admin.php?op=Meta-LangAdmin&amp;meta=".$resultat[0]."\">".$resultat[0]."</option>\n";
-      $sel = "";
+      $sel = '';
    }
    sql_free_result($Q);
    $list .= '</select>';
@@ -56,7 +56,7 @@ function list_meta($meta, $type_meta) {
 }
 function list_meta_type() {
    $list = '
-   <select class="form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="c-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="">Type</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=meta">meta</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=mot">mot</option>
@@ -74,7 +74,7 @@ function list_type_meta($type_meta) {
    while ($resultat = sql_fetch_row($Q))  {
       if ($type_meta == $resultat[0]) { $sel = "selected "; }
       $list .= '<option '.$sel.' value="admin.php?op=Meta-LangAdmin&amp;type_meta='.$resultat[0].'">'.$resultat[0].'</option>';
-      $sel = "";
+      $sel = '';
    }
    sql_free_result($Q);
    $list .= '</select>';
@@ -133,7 +133,7 @@ function List_Meta_Lang() {
    sql_free_result($Q);
    
    $tablmeta.= '
-   <a href="admin.php?op=Creat_Meta_Lang">'.adm_translate("CrÈer un nouveau").' META-MOT</a>
+   <a href="admin.php?op=Creat_Meta_Lang">'.adm_translate("Cr√©er un nouveau").' META-MOT</a>
    <h3>'. adm_translate("Recherche rapide").'</h3>
    <div class="row">
       <div class="col-sm-3">'.list_meta($meta, $type_meta).'</div>
@@ -186,7 +186,7 @@ function Edit_Meta_Lang() {
    <td>';
    echo "<table width=\"100%\" border=\"0\" cellpadding=\"8\" cellspacing=\"1\" class=\"lignb\">\n";
    echo "<tr>\n";
-   echo "<td colspan=\"2\" valign=\"top\"><b>".aff_local_langue("<b>".adm_translate("Langue de PrÈvisualisation")."</b> : ","","local_user_language")."<br /></td>\n";
+   echo "<td colspan=\"2\" valign=\"top\"><b>".aff_local_langue("<b>".adm_translate("Langue de Pr√©visualisation")."</b> : ","","local_user_language")."<br /></td>\n";
    echo "</tr>\n";
    echo "<tr>\n";
    echo "<td width=\"110\"><b>META</b> : </td><td>".$Q['def']."</td>\n";
@@ -274,7 +274,7 @@ function Edit_Meta_Lang() {
          <option'.$sel0.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
          <option'.$sel1.' value="plus">'.adm_translate("Seulement pour ...").'</option>
       </select>';
-      echo "&nbsp;...".adm_translate("les URLs que vous aurez renseignÈs ci-aprËs&nbsp;<i>(ne renseigner que la racine de l'URI)</i>")."";
+      echo "&nbsp;...".adm_translate("les URLs que vous aurez renseign√©s ci-apr√©s&nbsp;<i>(ne renseigner que la racine de l'URI)</i>")."";
       echo "<br />".adm_translate("Exemple")." : index.php user.php forum.php static.php\n";
       echo "<br />".adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction");
       echo "<br />\n";
@@ -308,7 +308,7 @@ function Creat_Meta_Lang() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3>'.adm_translate("CrÈer un nouveau").' META-MOT : <small>de type '.$type_meta.'</small></h3>
+   <h3>'.adm_translate("Cr√©er un nouveau").' META-MOT : <small>de type '.$type_meta.'</small></h3>
    <form name="creat_meta_lang" action="admin.php" method="post">';
    if (!$type_meta)
       echo adm_translate("Veuillez choisir un type de META-MOT")." ";
@@ -345,7 +345,7 @@ function Creat_Meta_Lang() {
       </select>
       </div>
       <div class="form-group">
-         <span class="help-block">'.adm_translate("les URLs que vous aurez renseignÈs ci-aprËs&nbsp;<i>(ne renseigner que la racine de l'URI)</i>").'<br />'.adm_translate("Exemple").' : index.php user.php forum.php static.php<br />'.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'</span>
+         <span class="help-block">'.adm_translate("les URLs que vous aurez renseign√©s ci-apr√©s&nbsp;<i>(ne renseigner que la racine de l'URI)</i>").'<br />'.adm_translate("Exemple").' : index.php user.php forum.php static.php<br />'.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'</span>
          <textarea class="form-control" name="uri" rows="7"></textarea>
       </div>
       <div class="form-group">
@@ -378,8 +378,8 @@ function meta_exist($def) {
     echo "<p align=\"center\"><br />";
     echo "<span class=\"rouge\"><b>";
     echo $def."</b></span><br /><br />";
-    echo adm_translate("Ce META-MOT existe dÈj‡");
-    echo "<br /><br />".adm_translate("Veuillez nommer diffÈrement ce nouveau META-MOT").".";
+    echo adm_translate("Ce META-MOT existe d√©j√†");
+    echo "<br /><br />".adm_translate("Veuillez nommer diff√©rement ce nouveau META-MOT").".";
     go_back("");
     
     include("footer.php");

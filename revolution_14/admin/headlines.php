@@ -39,7 +39,7 @@ function HeadlinesAdmin() {
          </tr>
       </thead>
       <tbody>';
-   $result = sql_query("select hid, sitename, url, headlinesurl, status from ".$NPDS_Prefix."headlines order by hid");
+   $result = sql_query("SELECT hid, sitename, url, headlinesurl, status FROM ".$NPDS_Prefix."headlines ORDER BY hid");
    while(list($hid, $sitename, $url, $headlinesurl, $status) = sql_fetch_row($result)) {
       echo '
          <tr>
@@ -96,7 +96,7 @@ function HeadlinesAdmin() {
             <div class="row">
                <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
                <div class="col-sm-8">
-                  <select class="form-control" id="status" name="status">
+                  <select class="c-select form-control" id="status" name="status">
                      <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
                      <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
                   </select>
@@ -137,11 +137,11 @@ function HeadlinesEdit($hid) {
    include ("header.php");
   $vars = get_defined_vars();
    GraphicAdmin($hlpfile);
-   $result = sql_query("select sitename, url, headlinesurl, status from ".$NPDS_Prefix."headlines where hid='$hid'");
+   $result = sql_query("SELECT sitename, url, headlinesurl, status FROM ".$NPDS_Prefix."headlines WHERE hid='$hid'");
    list($xsitename, $url, $headlinesurl, $status) = sql_fetch_row($result);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3 class="m-t-md">'.adm_translate("Editer paramètres Grand Titre").'</h3>
+   <h3 class="m-t-md">'.adm_translate("Editer paramÃ¨tres Grand Titre").'</h3>
    <form action="admin.php" method="post">
       <fieldset>
          <input type="hidden" name="hid" value="'.$hid.'" />
@@ -184,7 +184,7 @@ function HeadlinesEdit($hid) {
             <div class="row">
                <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
                <div class="col-sm-8">
-                  <select class="form-control" name="status">';
+                  <select class="c-select form-control" name="status">';
    if ($status == 1) {
       $sel_a = 'selected="selected"';
    } else {
@@ -216,7 +216,7 @@ function HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status) {
     global $NPDS_Prefix;
 
     $xsitename = str_replace(' ','',$xsitename);
-    sql_query("update ".$NPDS_Prefix."headlines set sitename='$xsitename', url='$url', headlinesurl='$headlinesurl', status='$status' where hid='$hid'");
+    sql_query("UPDATE ".$NPDS_Prefix."headlines SET sitename='$xsitename', url='$url', headlinesurl='$headlinesurl', status='$status' WHERE hid='$hid'");
     Header("Location: admin.php?op=HeadlinesAdmin");
 }
 
@@ -224,7 +224,7 @@ function HeadlinesAdd($xsitename, $url, $headlinesurl, $status) {
     global $NPDS_Prefix;
 
     $xsitename = str_replace(' ','',$xsitename);
-    sql_query("insert into ".$NPDS_Prefix."headlines values (NULL, '$xsitename', '$url', '$headlinesurl', '$status')");
+    sql_query("INSERT INTO ".$NPDS_Prefix."headlines VALUES (NULL, '$xsitename', '$url', '$headlinesurl', '$status')");
     Header("Location: admin.php?op=HeadlinesAdmin");
 }
 
@@ -232,7 +232,7 @@ function HeadlinesDel($hid, $ok=0) {
     global $NPDS_Prefix;
 
     if ($ok==1) {
-       sql_query("delete from ".$NPDS_Prefix."headlines where hid='$hid'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."headlines WHERE hid='$hid'");
        Header("Location: admin.php?op=HeadlinesAdmin");
     } else {
        global $hlpfile;
@@ -240,7 +240,7 @@ function HeadlinesDel($hid, $ok=0) {
        GraphicAdmin($hlpfile);
        echo "<p align=\"center\"><br />";
        echo "<span class=\"rouge\">";
-       echo "<b>".adm_translate("Etes-vous sûr de vouloir supprimer cette boîte de Titres ?")."</b><br /><br /></span>";
+       echo "<b>".adm_translate("Etes-vous sÃ»r de vouloir supprimer cette boÃ“te de Titres ?")."</b><br /><br /></span>";
     }
     echo "[ <a href=\"admin.php?op=HeadlinesDel&amp;hid=$hid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=HeadlinesAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br />";
     include("footer.php");

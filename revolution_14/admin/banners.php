@@ -13,7 +13,7 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='BannersAdmin';
-$f_titre = adm_translate("Administration des Bannières");
+$f_titre = adm_translate("Administration des BanniÃ¨res");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -27,7 +27,7 @@ function BannersAdmin() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo
-   '<h3>'.adm_translate("Bannières actives").'</h3>
+   '<h3>'.adm_translate("BanniÃ¨res actives").'</h3>
    <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-detail-view="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -51,7 +51,7 @@ function BannersAdmin() {
          $percent = substr(100 * $clicks / $impmade, 0, 5);
       }
       if ($imptotal==0) {
-         $left = "".adm_translate("Illimité")."";
+         $left = "".adm_translate("IllimitÃ©")."";
       } else {
          $left = $imptotal-$impmade;
       }
@@ -71,7 +71,7 @@ function BannersAdmin() {
    </table>';
 
    echo '
-   <h3>'.adm_translate("Bannières inactives").'</h3>
+   <h3>'.adm_translate("BanniÃ¨res inactives").'</h3>
    <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -87,7 +87,7 @@ function BannersAdmin() {
       <tbody>';
    $result = sql_query("SELECT bid, cid, imageurl, imptotal, impmade, clicks, date FROM ".$NPDS_Prefix."banner WHERE userlevel='9' order by bid");
    while (list($bid, $cid, $imageurl, $imptotal, $impmade, $clicks, $date) = sql_fetch_row($result)) {
-   $result2 = sql_query("select cid, name from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+   $result2 = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($cid, $name) = sql_fetch_row($result2);
    if ($impmade==0) {
    $percent = 0;
@@ -95,7 +95,7 @@ function BannersAdmin() {
    $percent = substr(100 * $clicks / $impmade, 0, 5);
    }
    if ($imptotal==0) {
-   $left = "".adm_translate("Illimité")."";
+   $left = "".adm_translate("IllimitÃ©")."";
    } else {
    $left = $imptotal-$impmade;
    }
@@ -113,7 +113,7 @@ function BannersAdmin() {
    echo '
       </tbody>
    </table>
-   <h3>'.adm_translate("Bannières terminées").'</h3>
+   <h3>'.adm_translate("BanniÃ¨res terminÃ©es").'</h3>
    <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -121,16 +121,16 @@ function BannersAdmin() {
             <th data-sortable="true">'.adm_translate("Imp.").'</th>
             <th data-sortable="true">'.adm_translate("Clics").'</th>
             <th data-sortable="true"> % '.adm_translate("Clics").'</th>
-            <th data-sortable="true">'.adm_translate("Date de début").'</th>
+            <th data-sortable="true">'.adm_translate("Date de dÃ©but").'</th>
             <th data-sortable="true">'.adm_translate("Date de fin").'</th>
             <th data-sortable="true">'.adm_translate("Nom de l'Annonceur").'</th>
             <th>'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
-   $result = sql_query("select bid, cid, impressions, clicks, datestart, dateend from ".$NPDS_Prefix."bannerfinish order by bid");
+   $result = sql_query("SELECT bid, cid, impressions, clicks, datestart, dateend FROM ".$NPDS_Prefix."bannerfinish order by bid");
    while (list($bid, $cid, $impressions, $clicks, $datestart, $dateend) = sql_fetch_row($result)) {
-   $result2 = sql_query("select cid, name from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+   $result2 = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($cid, $name) = sql_fetch_row($result2);
    if ($impressions==0) {$impressions=1;}
    $percent = substr(100 * $clicks / $impressions, 0, 5);
@@ -149,22 +149,22 @@ function BannersAdmin() {
    echo '
       </tbody>
    </table>
-   <h3>'.adm_translate("Annonceurs faisant de la publicité").'</h3>
+   <h3>'.adm_translate("Annonceurs faisant de la publicitÃ©").'</h3>
    <table id="tad_banannon" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true">'.adm_translate("ID").'</th>
             <th data-sortable="true">'.adm_translate("Nom de l'Annonceur").'</th>
-            <th data-sortable="true">'.adm_translate("Bannières actives").'</th>
+            <th data-sortable="true">'.adm_translate("BanniÃ¨res actives").'</th>
             <th data-sortable="true">'.adm_translate("Nom du Contact").'</th>
             <th data-sortable="true">'.adm_translate("E-mail").'</th>
             <th>'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
-   $result = sql_query("select cid, name, contact, email from ".$NPDS_Prefix."bannerclient order by cid");
+   $result = sql_query("SELECT cid, name, contact, email FROM ".$NPDS_Prefix."bannerclient order by cid");
    while (list($cid, $name, $contact, $email) = sql_fetch_row($result)) {
-   $result2 = sql_query("select cid from ".$NPDS_Prefix."banner where cid='$cid'");
+   $result2 = sql_query("SELECT cid FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
    $numrows = sql_num_rows($result2);
    echo '
          <tr>
@@ -180,20 +180,20 @@ function BannersAdmin() {
       </tbody>
    </table>';
    // Add Banner
-   $result = sql_query("select * from ".$NPDS_Prefix."bannerclient");
+   $result = sql_query("SELECT * FROM ".$NPDS_Prefix."bannerclient");
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
    echo '
-   <h3>'.adm_translate("Ajouter une nouvelle Bannière").'</h3>
-   <span class="help-block">'.adm_translate("Pour les Bannières Javascript, saisir seulement le code javascript dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
-   <span class="help-block">'.adm_translate("Pour les Bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier<b>.txt</b> (fichier de code php) dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
+   <h3>'.adm_translate("Ajouter une nouvelle BanniÃ©re").'</h3>
+   <span class="help-block">'.adm_translate("Pour les BanniÃ¨res Javascript, saisir seulement le code javascript dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
+   <span class="help-block">'.adm_translate("Pour les BanniÃ¨res encore plus complexes (Flash, ...), saisir simplement la rÃ©fÃ©rence Ã  votre_rÃ©pertoire/votre_fichier<b>.txt</b> (fichier de code php) dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
    <form id="fad_newbanner" action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="cid">';
-   $result = sql_query("select cid, name from ".$NPDS_Prefix."bannerclient");
+   $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient");
    while(list($cid, $name) = sql_fetch_row($result)) {
    echo '
                   <option value="'.$cid.'">'.$name.'</option>';
@@ -205,17 +205,17 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="imptotal">'.adm_translate("Impressions réservées").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="imptotal">'.adm_translate("Impressions rÃ©servÃ©es").'</label>
+            <div class="col-sm-8">
                <input class="form-control" type="number" name="imptotal" min="0" max="99999999999" required="required" />
-               <span class="help-block">0 = '.adm_translate("Illimité").'</span>
+               <span class="help-block">0 = '.adm_translate("IllimitÃ©").'</span>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="imageurl">'.adm_translate("URL de l'image").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="url" name="imageurl" maxlength="200" />
             </div>
          </div>
@@ -223,7 +223,7 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="clickurl">'.adm_translate("URL du Clic").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="clickurl" maxlength="200" required="required" />
             </div>
          </div>
@@ -231,17 +231,17 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="number" name="userlevel" min="0" max="9" value="0" required="required" /> 
-               <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
+               <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=DÃ©sactiver").'.</span>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <div class="col-sm-offset-4 col-sm-8 col-md-8">
+            <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="BannersAdd" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Bannière").' </button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une BanniÃ©re").' </button>
             </div>
          </div>
       </div>
@@ -254,7 +254,7 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom de l'Annonceur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="name" maxlength="60" required="required" />
             </div>
          </div>
@@ -262,7 +262,7 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="contact">'.adm_translate("Nom du Contact").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="contact" maxlength="60" required="required" />
             </div>
          </div>
@@ -270,7 +270,7 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="email" name="email" maxlength="60" required="required" />
             </div>
          </div>
@@ -278,7 +278,7 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="login">'.adm_translate("Identifiant").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="login" maxlength="10" required="required" />
             </div>
          </div>
@@ -286,22 +286,22 @@ function BannersAdmin() {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="passwd">'.adm_translate("Mot de Passe").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="password" name="passwd" maxlength="10" required="required" />
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="extrainfo">'.adm_translate("Informations supplÃ©mentaires").'</label>
+            <div class="col-sm-8">
                <textarea class="form-control" name="extrainfo" rows="10"></textarea>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <div class="col-sm-offset-4 col-sm-8 col-md-8">
+            <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="BannerAddClient" />
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un annonceur").'</button>
             </div>
@@ -313,36 +313,36 @@ function BannersAdmin() {
 
 function BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel) {
     global $NPDS_Prefix;
-    sql_query("insert into ".$NPDS_Prefix."banner values (NULL, '$cid', '$imptotal', '1', '0', '$imageurl', '$clickurl', '$userlevel', now())");
+    sql_query("INSERT INTO ".$NPDS_Prefix."banner VALUES (NULL, '$cid', '$imptotal', '1', '0', '$imageurl', '$clickurl', '$userlevel', now())");
     Header("Location: admin.php?op=BannersAdmin");
 }
 
 function BannerAddClient($name, $contact, $email, $login, $passwd, $extrainfo) {
     global $NPDS_Prefix;
-    sql_query("insert into ".$NPDS_Prefix."bannerclient values (NULL, '$name', '$contact', '$email', '$login', '$passwd', '$extrainfo')");
+    sql_query("INSERT INTO ".$NPDS_Prefix."bannerclient VALUES (NULL, '$name', '$contact', '$email', '$login', '$passwd', '$extrainfo')");
     Header("Location: admin.php?op=BannersAdmin");
 }
 
 function BannerFinishDelete($bid) {
     global $NPDS_Prefix;
-    sql_query("delete from ".$NPDS_Prefix."bannerfinish where bid='$bid'");
+    sql_query("DELETE FROM ".$NPDS_Prefix."bannerfinish WHERE bid='$bid'");
     Header("Location: admin.php?op=BannersAdmin");
 }
 
 function BannerDelete($bid, $ok=0) {
     global $NPDS_Prefix;
     if ($ok==1) {
-       sql_query("delete from ".$NPDS_Prefix."banner where bid='$bid'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
        Header("Location: admin.php?op=BannersAdmin");
     } else {
        global $hlpfile;
        include("header.php");
        GraphicAdmin($hlpfile);
-       $result=sql_query("select cid, imptotal, impmade, clicks, imageurl, clickurl from ".$NPDS_Prefix."banner where bid='$bid'");
+       $result=sql_query("SELECT cid, imptotal, impmade, clicks, imageurl, clickurl FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
        list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl) = sql_fetch_row($result);
        opentable();
        echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-       echo adm_translate("Effacer Bannière");
+       echo adm_translate("Effacer BanniÃ©re");
        echo "</td></tr></table>\n";
        if ($imageurl!="") {
           echo "<a href=\"".aff_langue($clickurl)."\"><img src=\"".aff_langue($imageurl)."\" alt=\"\" border=\"1\" /></a><br />";
@@ -359,7 +359,7 @@ function BannerDelete($bid, $ok=0) {
        <td data-sortable="true">% '.adm_translate("Clics").'</th>
        <th data-sortable="true">'.adm_translate("Nom de l'Annonceur").'</th>
        </tr>';
-       $result2 = sql_query("select cid, name from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+       $result2 = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
        list($cid, $name) = sql_fetch_row($result2);
        $percent = substr(100 * $clicks / $impmade, 0, 5);
        if ($imptotal==0) {
@@ -379,7 +379,7 @@ function BannerDelete($bid, $ok=0) {
     }
     echo "</table>
     <br />
-    <p align=\"center\">".adm_translate("Etes-vous sûr de vouloir effacer cette Bannière ?")." -
+    <p align=\"center\">".adm_translate("Etes-vous sÃ»r de vouloir effacer cette BanniÃ©re ?")." -
     [ <a href=\"admin.php?op=BannerDelete&amp;bid=$bid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=BannersAdmin\"  class=\"noir\">".adm_translate("Non")."</a> ]</p><br />";
     closetable();
     include("footer.php");
@@ -390,10 +390,10 @@ function BannerEdit($bid) {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $result=sql_query("select cid, imptotal, impmade, clicks, imageurl, clickurl, userlevel from ".$NPDS_Prefix."banner where bid='$bid'");
+   $result=sql_query("SELECT cid, imptotal, impmade, clicks, imageurl, clickurl, userlevel FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
    list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $userlevel) = sql_fetch_row($result);
    echo '
-   <h3>'.adm_translate("Edition Bannière").'</h3>';
+   <h3>'.adm_translate("Edition BanniÃ©re").'</h3>';
    if ($imageurl!="") {
    echo '<img class="img-responsive" src="'.aff_langue($imageurl).'" alt=\"banner\" /><br />';
    } else {
@@ -401,18 +401,18 @@ function BannerEdit($bid) {
    }
 //   echo '<ul>';
    echo '
-   <span class="help-block">'.adm_translate("Pour les Bannières Javascript, saisir seulement le code javascript dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
-   <span class="help-block">'.adm_translate("Pour les Bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier<b>.txt</b> (fichier de code php) dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
+   <span class="help-block">'.adm_translate("Pour les BanniÃ¨res Javascript, saisir seulement le code javascript dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
+   <span class="help-block">'.adm_translate("Pour les BanniÃ¨res encore plus complexes (Flash, ...), saisir simplement la rÃ©fÃ©rence Ã  votre_rÃ©pertoire/votre_fichier<b>.txt</b> (fichier de code php) dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <select class="form-control" name="cid">';
-   $result = sql_query("select cid, name from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+   $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($cid, $name) = sql_fetch_row($result);
    echo '<option value="'.$cid.'" selected="selected">'.$name.'</option>';
-   $result = sql_query("select cid, name from ".$NPDS_Prefix."bannerclient");
+   $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient");
    while (list($ccid, $name) = sql_fetch_row($result)) {
    if ($cid!=$ccid) {
    echo '
@@ -422,7 +422,7 @@ function BannerEdit($bid) {
    echo '
             </select>';
    if ($imptotal==0) {
-   $impressions = "".adm_translate("Illimité")."";
+   $impressions = "".adm_translate("IllimitÃ©")."";
    } else {
    $impressions = $imptotal;
    }
@@ -433,16 +433,16 @@ function BannerEdit($bid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="number" name="impadded" min="0" max="99999999999" required="required" />
-               <span class="help-block">'.adm_translate("Réservé : ").'<strong>'.$impressions.'</strong> '.adm_translate("Fait : ").'<strong>'.$impmade.'</strong></span>
+               <span class="help-block">'.adm_translate("RÃ©servÃ© : ").'<strong>'.$impressions.'</strong> '.adm_translate("Fait : ").'<strong>'.$impmade.'</strong></span>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="imageurl">'.adm_translate("URL de l'image").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="url" name="imageurl" size="50" maxlength="200" value="'.$imageurl.'" />
             </div>
          </div>
@@ -450,7 +450,7 @@ function BannerEdit($bid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="clickurl">'.adm_translate("URL du Clic").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="clickurl" size="50" maxlength="200" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
             </div>
          </div>
@@ -458,19 +458,19 @@ function BannerEdit($bid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="number" name="userlevel" min="0" max="9" value="'.$userlevel.'" required="required" />
-               <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
+               <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=DÃ©sactiver").'.</span>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <div class="col-sm-offset-4 col-sm-8 col-md-8">
+            <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="bid" value="'.$bid.'" />
                <input type="hidden" name="imptotal" value="'.$imptotal.'" />
                <input type="hidden" name="op" value="BannerChange" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Modifier la Bannière").'</button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Modifier la BanniÃ©re").'</button>
             </div>
          </div>
       </div>
@@ -482,32 +482,32 @@ function BannerEdit($bid) {
 function BannerChange($bid, $cid, $imptotal, $impadded, $imageurl, $clickurl, $userlevel) {
     global $NPDS_Prefix;
     $imp = $imptotal+$impadded;
-    sql_query("update ".$NPDS_Prefix."banner set cid='$cid', imptotal='$imp', imageurl='$imageurl', clickurl='$clickurl', userlevel='$userlevel' where bid='$bid'");
+    sql_query("UPDATE ".$NPDS_Prefix."banner SET cid='$cid', imptotal='$imp', imageurl='$imageurl', clickurl='$clickurl', userlevel='$userlevel' WHERE bid='$bid'");
     Header("Location: admin.php?op=BannersAdmin");
 }
 
 function BannerClientDelete($cid, $ok=0) {
     global $NPDS_Prefix, $sitename, $f_meta_nom, $f_titre, $adminimg;
     if ($ok==1) {
-       sql_query("delete from ".$NPDS_Prefix."banner where cid='$cid'");
-       sql_query("delete from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
+       sql_query("DELETE FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
        Header("Location: admin.php?op=BannersAdmin");
     } else {
        include("header.php");
        GraphicAdmin($hlpfile);
        adminhead ($f_meta_nom, $f_titre, $adminimg);
-       $result=sql_query("select cid, name from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+       $result=sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
        list($cid, $name) = sql_fetch_row($result);
        echo '<h3 class="text-danger">'.adm_translate("Supprimer l'Annonceur").'</h3>';
        echo "<br /><p align=\"center\">
-       ".adm_translate("Vous êtes sur le point de supprimer cet Annonceur : ")." <b>$name</b> ".adm_translate("et toutes ses Bannières !!!")."</p><br /><br />";
-       $result2 = sql_query("select imageurl, clickurl from ".$NPDS_Prefix."banner where cid='$cid'");
+       ".adm_translate("Vous Ãªtes sur le point de supprimer cet Annonceur : ")." <b>$name</b> ".adm_translate("et toutes ses BanniÃ¨res !!!")."</p><br /><br />";
+       $result2 = sql_query("SELECT imageurl, clickurl FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
        $numrows = sql_num_rows($result2);
        if ($numrows==0) {
-          echo adm_translate("Cet Annonceur n'a pas de Bannière active pour le moment.")."<br /><br />";
+          echo adm_translate("Cet Annonceur n'a pas de BanniÃ©re active pour le moment.")."<br /><br />";
        } else {
           echo "<span class=\"text-danger\"><b>".adm_translate("ATTENTION !!!")."</b></span><br /><br />
-          ".adm_translate("Cet Annonceur a les BANNIÈRES ACTIVES suivantes dans")." $sitename :<br /><br />";
+          ".adm_translate("Cet Annonceur a les BANNIÂ»RES ACTIVES suivantes dans")." $sitename :<br /><br />";
        }
        while (list($imageurl, $clickurl) = sql_fetch_row($result2)) {
           if ($imageurl!="") {
@@ -517,7 +517,7 @@ function BannerClientDelete($cid, $ok=0) {
           }
        }
     }
-    echo "<p align=\"center\">".adm_translate("Etes-vous sûr de vouloir effacer cet Annonceur et TOUTES ses Bannières ?")." -
+    echo "<p align=\"center\">".adm_translate("Etes-vous sÃ»r de vouloir effacer cet Annonceur et TOUTES ses BanniÃ¨res ?")." -
     [ <a href=\"admin.php?op=BannerClientDelete&amp;cid=$cid&amp;ok=1\" class=\"btn btn-danger\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=BannersAdmin\" class=\"btn btn-secondary\">".adm_translate("Non")."</a> ]</p><br /><br />";
     adminfoot('','','','');
 }
@@ -527,7 +527,7 @@ function BannerClientEdit($cid) {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $result = sql_query("select name, contact, email, login, passwd, extrainfo from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+   $result = sql_query("SELECT name, contact, email, login, passwd, extrainfo FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($name, $contact, $email, $login, $passwd, $extrainfo) = sql_fetch_row($result);
    echo '
    <h3>'.adm_translate("Editer l'Annonceur").'</h3>
@@ -535,7 +535,7 @@ function BannerClientEdit($cid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom de l'Annonceur").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="name" value="'.$name.'" maxlength="60" required="required" />
             </div>
          </div>
@@ -543,7 +543,7 @@ function BannerClientEdit($cid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="contact">'.adm_translate("Nom du Contact").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="contact" value="'.$contact.'" maxlength="60" required="required" />
             </div>
          </div>
@@ -551,7 +551,7 @@ function BannerClientEdit($cid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="text" name="email" size="30" maxlength="60" value="'.$email.'" required="required" />
             </div>
          </div>
@@ -559,7 +559,7 @@ function BannerClientEdit($cid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="login">'.adm_translate("Identifiant").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
             <input class="form-control" type="text" name="login" maxlength="10" value="'.$login.'" required="required" />
             </div>
          </div>
@@ -567,22 +567,22 @@ function BannerClientEdit($cid) {
       <div class="form-group">
          <div class="row">
             <label class="form-control-label col-sm-4 col-md-4" for="passwd">'.adm_translate("Mot de Passe").'</label>
-            <div class="col-sm-8 col-md-8">
+            <div class="col-sm-8">
                <input class="form-control" type="password" name="passwd" maxlength="10" value="'.$passwd.'" required="required" />
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
-            <div class="col-sm-8 col-md-8">
+            <label class="form-control-label col-sm-4 col-md-4" for="extrainfo">'.adm_translate("Informations supplÃ©mentaires").'</label>
+            <div class="col-sm-8">
                <textarea class="form-control" name="extrainfo" rows="10">'.$extrainfo.'</textarea>
             </div>
          </div>
       </div>
       <div class="form-group">
          <div class="row">
-            <div class="col-sm-offset-4 col-sm-8 col-md-8">
+            <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="cid" value="'.$cid.'" />
                <input type="hidden" name="op" value="BannerClientChange" />
                <input class="btn btn-primary" type="submit" value="'.adm_translate("Modifier Annonceur").'" />
@@ -595,7 +595,7 @@ function BannerClientEdit($cid) {
 
 function BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd, $extrainfo) {
     global $NPDS_Prefix;
-    sql_query("update ".$NPDS_Prefix."bannerclient set name='$name', contact='$contact', email='$email', login='$login', passwd='$passwd', extrainfo='$extrainfo' where cid='$cid'");
+    sql_query("UPDATE ".$NPDS_Prefix."bannerclient SET name='$name', contact='$contact', email='$email', login='$login', passwd='$passwd', extrainfo='$extrainfo' WHERE cid='$cid'");
     Header("Location: admin.php?op=BannersAdmin");
 }
 
@@ -603,39 +603,30 @@ switch ($op) {
     case "BannersAdmin":
          BannersAdmin();
          break;
-
     case "BannersAdd":
          BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel);
          break;
-
     case "BannerAddClient":
          BannerAddClient($name, $contact, $email, $login, $passwd, $extrainfo);
          break;
-
     case "BannerFinishDelete":
          BannerFinishDelete($bid);
          break;
-
     case "BannerDelete":
          BannerDelete($bid, $ok);
          break;
-
     case "BannerEdit":
          BannerEdit($bid);
          break;
-
     case "BannerChange":
          BannerChange($bid, $cid, $imptotal, $impadded, $imageurl, $clickurl, $userlevel);
          break;
-
     case "BannerClientDelete":
          BannerClientDelete($cid, $ok);
          break;
-
     case "BannerClientEdit":
          BannerClientEdit($cid);
          break;
-
     case "BannerClientChange":
          BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd, $extrainfo);
          break;

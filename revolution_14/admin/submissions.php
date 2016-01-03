@@ -29,9 +29,9 @@ function submissions() {
     adminhead ($f_meta_nom, $f_titre, $adminimg);
     $result = sql_query("SELECT qid, subject, timestamp, topic, uname FROM ".$NPDS_Prefix."queue ORDER BY timestamp");
     if (sql_num_rows($result) == 0) {
-       echo '<h3>'.adm_translate("Pas de nouveaux Articles postés").'</h3>';
+       echo '<h3>'.adm_translate("Pas de nouveaux Articles postÃ©s").'</h3>';
     } else {
-       echo '<h3>'.adm_translate("Nouveaux Articles postés").'&nbsp;<span class="label label-pill label-default">'.sql_num_rows($result).'</span></h3>';
+       echo '<h3>'.adm_translate("Nouveaux Articles postÃ©s").'&nbsp;<span class="label label-pill label-default">'.sql_num_rows($result).'</span></h3>';
        echo '
        <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
        <thead>
@@ -47,7 +47,7 @@ function submissions() {
        while (list($qid, $subject, $timestamp, $topic, $uname) = sql_fetch_row($result)) {
           if ($topic<1) {$topic = 1;}
           $affiche=false;
-          $result2=sql_query("select topicadmin, topictext, topicimage from ".$NPDS_Prefix."topics where topicid='$topic'");
+          $result2=sql_query("SELECT topicadmin, topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
           list ($topicadmin, $topictext, $topicimage)=sql_fetch_row($result2);
           if ($radminsuper) {
              $affiche=true;
@@ -82,7 +82,7 @@ function submissions() {
           $dummy++;
        }
        if ($dummy < 1) {
-          echo '<h3>'.adm_translate("Pas de nouveaux Articles postés").'</h3>';
+          echo '<h3>'.adm_translate("Pas de nouveaux Articles postÃ©s").'</h3>';
        } else {
           echo '</tbody>
         </table>';

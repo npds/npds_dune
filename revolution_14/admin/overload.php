@@ -116,7 +116,7 @@ function main() {
 
       echo '
       <fieldset>
-      <legend>'.adm_translate("Temps de Rétention en secondes").'</legend>
+      <legend>'.adm_translate("Temps de RÃ©tention en secondes").'</legend>
       <div class="form-group">
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12">
@@ -171,7 +171,7 @@ function main() {
          <div class="form-group">
             <div class="row">
                <div class="col-xs-12">
-                  <button class="btn btn-danger btn-block" type="submit"><i class="fa fa-trash-o fa-lg">&nbsp;</i>'.adm_translate("Vider le répertoire cache").'</button>
+                  <button class="btn btn-danger btn-block" type="submit"><i class="fa fa-trash-o fa-lg">&nbsp;</i>'.adm_translate("Vider le rÃ©pertoire cache").'</button>
                </div>
             </div>
          </div>
