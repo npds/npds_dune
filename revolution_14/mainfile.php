@@ -1807,11 +1807,11 @@ function aff_editeur($Xzone, $Xactiv) {
                   height: 300,
                   theme : 'modern',
                   language : '".language_iso(1,_,1)."',\n";
-               include ("editeur/tiny_mce/themes/advanced/npds.conf.php");
-               $tmp.="
+               include ("editeur/tinymce/themes/advanced/npds.conf.php");
+               $tmp.='
                });
                //]]>
-               </script>";
+               </script>';
             }
          } else {
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';

@@ -308,11 +308,8 @@ function convert_ressources ($Xcontent) {
          echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
       // chargement sauvage lol ˆ voir
          echo '
-         <link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.min.css" />
-         <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" />
-         <link rel="stylesheet" href="themes/npds-boost/style/ajust.css" />
          <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
-         <script type="text/javascript" src="lib/bootstrap-4.0.0-alpha/dist/js/bootstrap.js"></script>
+         <script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.min.js"></script>
          ';
          echo "<style type=\"text/css\"> \n";
             readfile($dir."style.css");

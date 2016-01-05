@@ -339,11 +339,19 @@ function GraphicAdmin($hlpfile) {
          array_pop($cat_n);
       } 
       else {
+//       $oo='';
+//        if (cur_charset=="utf-8") { $oo = adm_translate(utf8_encode($SAQ['fnom_affich']));
+//  } else {
+// $oo = adm_translate($SAQ['fnom_affich']);
+//  };
          $ul_o = '
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.$SAQ['fcategorie_nom'].'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-         <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate($SAQ['fnom_affich']).'"><a '.$SAQ['furlscript'].'>';
+         <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
+
+
+     
          if ($admingraphic==1) {
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          } else{
@@ -479,7 +487,7 @@ function GraphicAdmin($hlpfile) {
    $adm_ent .='
    <div id="adm_tit" class="row">
       <div id="adm_tit_l" class="col-xs-12">
-         <h1>'.adm_translate("Administration").'&nbsp;<!-- <span id="adm_connect_status" class="glyphicons glyphicons-unlock x2 drop" data-toggle="tooltip"> --></h1>
+         <h1>'.adm_translate("Administration").'</h1>
       </div>
    </div>
    <div id ="adm_men" class="row">
@@ -487,7 +495,7 @@ function GraphicAdmin($hlpfile) {
          <div class="col-xs-3 men_tit">
             <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
          </div>
-         <div id="adm_men_man" class="col-xs-9 men_man">
+         <div id="adm_men_man" class="col-xs-9 men_man text-xs-right">
             <ul class="liste" id="lst_men_top">
                <li class="btn btn-secondary" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
    if ($hlpfile) {
