@@ -46,7 +46,7 @@ if (!function_exists("Mysql_Connexion")) {
       <tbody>';
 
       if (!isset($count)) {
-         $result0 = Q_select("SELECT count(sid) as count FROM ".$NPDS_Prefix."stories WHERE archive='$arch'",3600);
+         $result0 = Q_select("SELECT COUNT(sid) AS count FROM ".$NPDS_Prefix."stories WHERE archive='$arch'",3600);
          list(,$count)=each($result0);
          $count=$count['count'];
       }

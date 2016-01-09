@@ -67,7 +67,7 @@ function topicsmanager() {
             <label class="form-control-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8">
                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'" >'.$topictext.'</textarea>
-               <span class="help-block infl">'.adm_translate("(description ou nom complet du Sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
+               <span class="help-block infl">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
          </div>
          <div class="form-group row">
@@ -171,14 +171,14 @@ function topicedit($topicid) {
             <label class="col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
             <div class="col-sm-8">
                 <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
-                <span class="help-block">'.adm_translate("(un simple nom sans espaces.)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
+                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8">
                 <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'">'.$topictext.'</textarea>
-                <span class="help-block">'.adm_translate("(description ou nom complet du Sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
+                <span class="help-block">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
         </div>
         <div class="form-group">
@@ -190,7 +190,7 @@ function topicedit($topicid) {
         </div>
         
         <div class="form-group">
-            <label class="col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du Sujet").'</label>
+            <label class="col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
             <div class="col-sm-8">
                <div class="input-group">
                      <span class="input-group-btn">
@@ -226,7 +226,7 @@ function topicedit($topicid) {
         <div class="col-sm-offset-4 col-sm-8">
          <div class="btn-group" role="group" aria-label="...">
         <button class="btn btn-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Sauver les modifications").'</button>
-        <button class="btn btn-default" onclick="javascript:document.location.href=\'admin.php?op=topicsmanager\'">'.adm_translate("Retour en arriére").'</button>
+        <button class="btn btn-default" onclick="javascript:document.location.href=\'admin.php?op=topicsmanager\'">'.adm_translate("Retour en arrière").'</button>
         <button class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Effacer le Sujet !").'</button>
          </div>
         </div>
@@ -331,15 +331,15 @@ function relatededit($tid, $rid) {
    echo'
    <form class="form-horizontal" action="admin.php" method="post">
        <fieldset>
-       <div class="form-group">
-           <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom du site").'</label>
+       <div class="form-group row">
+           <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
            <div class="col-sm-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
               <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
            </div>
        </div>
-       <div class="form-group">
-           <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL").'</label>
+       <div class="form-group row">
+           <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
            <div class="col-sm-8">
               <div class="input-group">
                  <span class="input-group-btn">
@@ -353,7 +353,7 @@ function relatededit($tid, $rid) {
        <input type="hidden" name="tid" value="'.$tid.'" />
        <input type="hidden" name="rid" value="'.$rid.'" />
        </fieldset>
-       <div class="form-group">
+       <div class="form-group row">
            <div class="col-sm-offset-4 col-sm-8">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
            </div>

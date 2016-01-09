@@ -128,7 +128,7 @@ function confirmSendFile(f) {
          $vizut='<th>'.upload_translate("Visible").'</th>';
       }
       $att_table='
-      <table class="table" border="0">
+      <table class="table table-striped table-hover" border="0">
          <thead>
             <tr>
                <th>&nbsp;</th>
@@ -174,9 +174,9 @@ function confirmSendFile(f) {
       $total_sz = $Fichier->file_size_format($tsz,1);
       
       echo '<input type="hidden" name="visible_list" value="'.$visible_list.'">';
-      $att_inline_button='<input type="button" class="btn btn-secondary btn-sm" value="'.upload_translate("Adapter").'" onclick="InlineType(this.form);" />';
+      $att_inline_button='<input type="button" class="btn btn-primary-outline btn-sm" value="'.upload_translate("Adapter").'" onclick="InlineType(this.form);" />';
       if ($Mmod) {
-         $visu_button='<input type="button" class="btn btn-secondary btn-sm" value="'.upload_translate("Adapter").'" onclick="visibleFile(this.form);" />';
+         $visu_button='<input type="button" class="btn btn-primary-outline btn-sm" value="'.upload_translate("Adapter").'" onclick="visibleFile(this.form);" />';
       }
       if ($ibid=theme_image("upload/arrow.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/upload/arrow.gif";}
       $att_table.='
@@ -194,7 +194,7 @@ function confirmSendFile(f) {
 
    $att_upload_table='
          <tr>
-            <td colspan="6" align="left">'.upload_translate("Fichier joint :").'&nbsp;<input type="file" class="textbox_standard" name="pcfile" width="260" size="30" onchange="confirmSendFile(this.form);" />&nbsp; '.$file_upload_button.'</td>
+            <td colspan="6" align="left">'.upload_translate("Fichier joint :").'&nbsp;<input type="file" class="" name="pcfile" width="260" size="30" onchange="confirmSendFile(this.form);" />&nbsp; '.$file_upload_button.'</td>
          </tr>
       </tbody>
    </table>';

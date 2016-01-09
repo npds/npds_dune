@@ -30,7 +30,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
       adminhead($f_meta_nom, $f_titre, $adminimg);
    echo'
    <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fa fa-external-link fa-lg" title="Voir le module en mode utilisation." data-toggle="tooltip" data-placement="right"></i></a>
-   <h3>'.adm_translate("Param&#xE8;tres").'</h3>
+   <h3>'.adm_translate("Paramètres").'</h3>
    <form id="archive_adm" class="form-horizontal" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
@@ -46,7 +46,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             <div class="row">
                <label class="form-control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
                <div class="col-sm-8">
-                  <select class="form-control" name="arch">';
+                  <select class="c-select form-control" name="arch">';
    if ($arch == 1) {
       $sel_a = 'selected="selected"';
    } else {

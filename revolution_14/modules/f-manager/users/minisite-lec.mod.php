@@ -15,13 +15,15 @@
 
 if (($obj->FieldView=="jpg") or ($obj->FieldView=="gif") or ($obj->FieldView=="png")) {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:window.opener.tinyMCE.execCommand('mceInsertContent',true,'<img src=getfile.php?att_id=$ibid&amp;apli=f-manager border=0 />');\"";
+//      $url_modifier="\"#\" onclick=\"javascript:window.opener.tinyMCE.execCommand('mceInsertContent',true,'<img src=getfile.php?att_id=$ibid&amp;apli=f-manager border=0 />');\"";
+      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('mceInsertContent',true,'<img src=getfile.php?att_id=$ibid&amp;apli=f-manager border=0 />');\"";
    else
       $url_modifier="\"#\"";
-
 } else {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:window.opener.tinyMCE.execCommand('mceInsertContent',true,'<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>');\"";
+//      $url_modifier="\"#\" onclick=\"javascript:window.opener.tinyMCE.execCommand('mceInsertContent',true,'<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>');\"";
+      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('mceInsertContent',true,'<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>');\"";
+
    else
       $url_modifier="\"getfile.php?att_id=$ibid&amp;apli=f-manager\"";
 }

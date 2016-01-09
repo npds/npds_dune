@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -21,7 +21,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 /*****************************************************/
 /* Entete                                            */
 /*****************************************************/
-   $Titlesitename=upload_translate("Télécharg.");
+   $Titlesitename=upload_translate("TÃ©lÃ©charg.");
    include("meta/meta.php");
    if ($url_upload_css) {
       $url_upload_cssX=str_replace("style.css","$language-style.css",$url_upload_css);
@@ -38,50 +38,56 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
          if ($ret!="") {
             $suffix=strtoLower(substr(strrchr($ret,'.'),1));
             if ($suffix=="gif" or  $suffix=="jpg" or $suffix=="png") {
-                echo  "<script type=\"text/javascript\">
-                //<![CDATA[
-                window.opener.tinyMCE.execCommand('mceInsertContent', false, '<img src=\"$ret\" alt=\"".basename($ret)."\" border=\"0\" />');
-                //]]>
-                </script>";
+            echo "
+            <script type=\"text/javascript\">
+            //<![CDATA[
+               parent.tinymce.activeEditor.selection.setContent('<img src=\"$ret\" alt=".basename($ret)." border=\"0\" />');
+            //]]>
+            </script>";
             } else {
-                echo  "<script type=\"text/javascript\">
+                echo "<script type=\"text/javascript\">
                 //<![CDATA[
-                window.opener.tinyMCE.execCommand('mceInsertContent', false, '<a href=\"$ret\" target=\"_blank\" class=\"noir\">".basename($ret)."</a>');
+                parent.tinymce.activeEditor.selection.setContent('<a href=\"$ret\" target=\"_blank\" class=\"noir\">".basename($ret)."</a>');
                 //]]>
                 </script>";
             }
          }
          echo "<script type=\"text/javascript\">
                //<![CDATA[
-               top.close();
+               top.tinymce.activeEditor.windowManager.close();
+//               top.close();
                //]]>
                </script>";
          die();
+//echo $suffix.$ret;
       break;
       }
    }
-   echo "\n<body topmargin=\"0\" leftmargin=\"0\" rightmargin=\"0\">";
-   echo "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" width=\"100%\">\n";
-   echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" enctype=\"multipart/form-data\" name=\"formEdit\">\n";
-   echo "<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />\n<input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />\n<input type=\"hidden\" name=\"apli\" value=\"$apli\" />\n";
+   echo '
+   <body topmargin="3" leftmargin="3" rightmargin="3">
+      <div class="card card-block">
+
+         <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="formEdit">
+            <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+            <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+            <input type="hidden" name="apli" value="'.$apli.'" />';
    if (isset($groupe)) {
-      echo "<input type=\"hidden\" name=\"groupe\" value=\"$groupe\" />\n";
+      echo '
+            <input type="hidden" name="groupe" value="'.$groupe.'" />';
    }
-   echo "<input type=\"hidden\" name=\"actiontype\" value=\"upload\" />\n";
-   echo "<tr><td align=\"left\" valign=\"middle\">
-         <b>".upload_translate("Télécharger un fichier sur le serveur")."</b> :<br /><br />
-         <table border=\"0\" cellpadding=\"4\" cellspacing=\"0\" width=\"100%\">
-         <tr>
-            <td>".upload_translate("Fichier :")."</td>
-            <td><input name=\"pcfile\" class=\"textbox_standard\" type=\"file\" id=\"pcfile\" value=\"\"><br /></td>
-         </tr>
-         <tr>
-            <td colspan=\"2\" align=\"center\"><br /><input type=\"submit\" class=\"bouton_standard\" name=\"insert\" value=\"".upload_translate("Joindre")."\" />
-            </td>
-         </tr>
-         </table></td></tr>
-         </table>";
-   echo "</form></body></html>";
+   echo '
+            <div class="form-group">
+               <input type="hidden" name="actiontype" value="upload" />
+               <label class="form-control-label">'.upload_translate("Fichier").'</label>
+               <input class="form-control" name="pcfile" type="file" id="pcfile" value="" />
+            </div>
+            <div class="form-group">
+               <input type="submit" class="btn btn-primary btn-sm" name="insert" value="'.upload_translate("Joindre").'" />
+            </div>
+         </form>
+      </div>
+   </body>
+</html>';
 
 /*****************************************************/
 /* Upload du fichier                                 */
@@ -103,7 +109,7 @@ function editeur_upload() {
 
    include "modules/upload/include/fileupload.php";
 
-   // Récupération des valeurs de PCFILE
+   // RÃˆcupÃˆration des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;
    if (!empty($HTTP_POST_FILES))
        $fic=$HTTP_POST_FILES;

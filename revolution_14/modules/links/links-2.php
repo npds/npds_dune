@@ -16,8 +16,7 @@
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 
 function NewLinksDate($selectdate) {
-    global $ModPath, $ModStart, $links_DB;
-    global $admin;
+    global $ModPath, $ModStart, $links_DB, $admin;
 
     $dateDB = (date("d-M-Y", $selectdate));
 
@@ -27,10 +26,10 @@ function NewLinksDate($selectdate) {
     $filen="modules/$ModPath/links.ban_01.php";
     if (file_exists($filen)) {include($filen);}
     $newlinkDB = Date("Y-m-d", $selectdate);
-    $result = sql_query("select lid FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
+    $result = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
     $totallinks = sql_num_rows($result);
-    $result=sql_query("select lid, url, title, description, date, hits, topicid_card, cid, sid from ".$links_DB."links_links where date LIKE '%$newlinkDB%' order by title ASC");
-    $link_fiche_detail="";
+    $result=sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%' ORDER BY title ASC");
+    $link_fiche_detail='';
     include_once("modules/$ModPath/links-view.php");
     closetable();
     include("footer.php");
@@ -39,7 +38,7 @@ function NewLinksDate($selectdate) {
 function NewLinks($newlinkshowdays) {
     global $ModPath, $ModStart, $links_DB;
     include("header.php");
-    opentable();
+
     mainheader();
     $counter = 0;
     $allweeklinks = 0;
@@ -48,7 +47,7 @@ function NewLinks($newlinkshowdays) {
        $newlinkday = date("d-M-Y", $newlinkdayRaw);
        $newlinkView = date("F d, Y", $newlinkdayRaw);
        $newlinkDB = Date("Y-m-d", $newlinkdayRaw);
-       $result = sql_query("select * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
+       $result = sql_query("SELECT * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
        $totallinks = sql_num_rows($result);
        $counter++;
        $allweeklinks = $allweeklinks + $totallinks;
@@ -59,14 +58,12 @@ function NewLinks($newlinkshowdays) {
     while ($counter <=30-1){
         $newlinkdayRaw = (time()-(86400 * $counter));
         $newlinkDB = Date("Y-m-d", $newlinkdayRaw);
-        $result = sql_query("select * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
+        $result = sql_query("SELECT * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
         $totallinks = sql_num_rows($result);
         $allmonthlinks = $allmonthlinks + $totallinks;
         $counter++;
     }
-    echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo translate("Total new links: Last week")." : $allweeklinks -/- ".translate("Last 30 days")." : $allmonthlinks";
-    echo "</td></tr></table>\n";
+    echo translate("Total new links: Last week").' : '.$allweeklinks.' -/- '.translate("Last 30 days").' : '.$allmonthlinks;
     echo "<br />\n";
 
     echo "<blockquote>".translate("Show:")." [<a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=7\" class=\"noir\">".translate("week")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=14\" class=\"noir\">2 ".translate("weeks")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=30\" class=\"noir\">30 ".translate("days")."</a>]</<blockquote>";
@@ -78,7 +75,7 @@ function NewLinks($newlinkshowdays) {
        $newlinkday = date("d-M-Y", $newlinkdayRaw);
        $newlinkView = date(str_replace("%","",translate("linksdatestring")), $newlinkdayRaw);
        $newlinkDB = Date("Y-m-d", $newlinkdayRaw);
-       $result = sql_query("select * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
+       $result = sql_query("SELECT * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
        $totallinks = sql_num_rows($result);
        $counter++;
        $allweeklinks = $allweeklinks + $totallinks;
@@ -88,8 +85,6 @@ function NewLinks($newlinkshowdays) {
     echo "</blockquote></ul>";
     $counter = 0;
     $allmonthlinks = 0;
-
-    closetable();
     include("footer.php");
 }
 ?>

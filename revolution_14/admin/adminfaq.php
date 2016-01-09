@@ -174,7 +174,7 @@ function FaqCatEdit($id_cat) {
    $result = sql_query("SELECT categories FROM ".$NPDS_Prefix."faqcategories WHERE id_cat='$id_cat'");
    list($categories) = sql_fetch_row($result);
    echo '
-   <h3>'.adm_translate("Editer la Catégorie").'</h3>
+   <h3>'.adm_translate("Editer la catégorie").'</h3>
    <h4><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'">'.$categories.'</a></h4>
    <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
    <form id="fad_faqcated" action="admin.php" method="post">

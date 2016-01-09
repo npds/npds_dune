@@ -34,6 +34,10 @@
    ==> un formulaire valide doit contenir au moins C1 ou M1 ou T1
 */
 
+if(!isset($C1)) $C1='';
+if(!isset($C2)) $C2='';
+if(!isset($T1)) $T1='';
+
 $m->add_comment("<p class=\"lignb\" align=\"center\"> .: Pour en savoir plus sur vous (facultatif) :. </p>");
 
 $m->add_field('C1', "Votre activit&#x00E9; professionnelle",$C1,'text',false,100,"","");

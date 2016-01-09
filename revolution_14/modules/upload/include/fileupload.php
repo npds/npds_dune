@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -58,22 +58,22 @@ function halt ($msg='') {
 
    switch ($this->errno) {
       case FILE_TOO_BIG:
-         $reason = upload_translate("La taille de ce fichier excède la taille maximum autorisée");
+         $reason = upload_translate("La taille de ce fichier excÃ¨de la taille maximum autorisÃ©e").'</div>';
          break;
       case INVALID_FILE_TYPE:
-         $reason = upload_translate("Ce type de fichier n'est pas autorisé");;
+         $reason = upload_translate("Ce type de fichier n'est pas autorisÃ©").'</div>';
          break;
       default;
          $reason = sprintf(upload_translate("Le code erreur est : %s"), $this->errno);
          break;
    }
    if ($this->Halt_On_Error == 'report') {
-      printf("&nbsp;<span class=\"rouge\">".upload_translate("Attention")."</span><span class=\"noir\"> : %s<br /><br />\n<p align=\"center\">-: %s :-</p></span>", $msg, $reason);
+      printf("&nbsp;<div class=\"alert alert-danger\" role=\"alert\"><strong>".upload_translate("Attention")."</strong> : %s<br />\n<p align=\"center\"> %s </p>", $msg, $reason);
    } else {
-      printf("&nbsp;<span class=\"rouge\">%s </span><span class=\"noir\"> : %s<br /><br />\n<p align=\"center\">-: %s :-</p></span>\n", "File management", $msg, $reason);
+      printf("&nbsp;<div class=\"alert alert-danger\" role=\"alert\"><span class=\"text-danger\">%s </span><span class=\"noir\"> : %s<br />\n<p align=\"center\">-: %s :-</p></span>\n", "File management", $msg, $reason);
    }
    if ($this->Halt_On_Error!='report')
-      die("&nbsp;".upload_translate("Session terminée."));
+      die("&nbsp;".upload_translate("Session terminÃ©e."));
 }
 
 /**
@@ -205,14 +205,14 @@ function getUploadedFiles ($IdPost,$IdTopic) {
    $att_count = 0;
    if (is_string($pcfile) && !empty($pcfile) && !empty($pcfile_name) ) {
       if ($pcfile == 'none') {
-         $errmsg = sprintf (upload_translate("Erreur de téléchargement du fichier <b>%s</b> (%s) - Le fichier n'a pas été sauvé"), $pcfile_name, $pcfile_type);
+         $errmsg = sprintf (upload_translate("Erreur de tÃ©lÃ©chargement du fichier %s (%s) - Le fichier n'a pas Ã©tÃ© sauvÃ©"), $pcfile_name, $pcfile_type);
          $this->errno = NO_FILE;
          $this->halt ($errmsg);
       } elseif ( $this->uploadFile ($IdPost, $IdTopic, $pcfile_name, $pcfile_size, $pcfile_type, $pcfile, DEFAULT_INLINE) ) {
          $att_size = $pcfile_size;
          $att_count = 1;
       } else {
-         $errmsg = sprintf (upload_translate("Erreur de téléchargement du fichier <b>%s</b> (%s) - Le fichier n'a pas été sauvé"), $pcfile_name, $pcfile_type);
+         $errmsg = sprintf (upload_translate("Erreur de tÃ©lÃ©chargement du fichier %s (%s) - Le fichier n'a pas Ã©tÃ© sauvÃ©"), $pcfile_name, $pcfile_type);
          $this->halt ($errmsg);
       }
    } elseif (is_array($pcfile)) {
@@ -223,7 +223,7 @@ function getUploadedFiles ($IdPost,$IdTopic) {
                $att_size += $pcfile_size[$i];
                $att_count++;
             } else {
-               $errmsg = sprintf (upload_translate("Erreur de téléchargement du fichier <b>%s</b> (%s) - Le fichier n'a pas été sauvé"), $pcfile_name[$i], $pcfile_type[$i]);
+               $errmsg = sprintf (upload_translate("Erreur de tÃ©lÃ©chargement du fichier %s (%s) - Le fichier n'a pas Ã©tÃ© sauvÃ©"), $pcfile_name[$i], $pcfile_type[$i]);
                $this->halt ($errmsg);
             }
          }

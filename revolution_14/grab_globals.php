@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2015 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
@@ -23,7 +23,7 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
    // Modify the report level off PHP
    // error_reporting(0);// report NO ERROR
    //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); // Devel report
-    error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
+   error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
     //error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
     function getip() {
@@ -99,6 +99,7 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
     function url_protect($arr,$key) {
        global $bad_uri_content;
        reset($bad_uri_content);
+       $ibid=true;
 
        // mieux faire face aux techniques d'évasion de code : base64_decode(utf8_decode(bin2hex($arr))));
        $arr=rawurldecode($arr);
@@ -106,8 +107,8 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
        $RQ_tmp_large=strtolower($key)."=".$RQ_tmp;
        
        while($uri_content=each($bad_uri_content)) {
-          $pos=strpos($RQ_tmp,$uri_content[1]);          
-          $pos_large=strpos($RQ_tmp_large,$uri_content[1]);          
+          $pos=strpos($RQ_tmp,$uri_content[1]);
+          $pos_large=strpos($RQ_tmp_large,$uri_content[1]);
           if (($pos!==false) OR ($pos_large!==false)) {
              access_denied();
           }
@@ -150,16 +151,19 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
        extract($HTTP_COOKIE_VARS, EXTR_OVERWRITE);
     }
     if (isset($user)) {
-       array_walk(explode(":",base64_decode($user)),'url_protect');
+       $ibid=explode(':',base64_decode($user));
+       array_walk($ibid,'url_protect');
        $user=base64_encode(str_replace("%3A",":", urlencode(base64_decode($user))));
     }
     if (isset($user_language)) {
-       array_walk(explode(":",$user_language),'url_protect');
+       $ibid=explode(':',$user_language);
+       array_walk($ibid,'url_protect');
        $user_language=str_replace("%3A",":", urlencode($user_language));
     }
     if (isset($admin)) {
-       array_walk(explode(":",base64_decode($admin)),'url_protect');
-       $admin=base64_encode(str_replace("%3A",":", urlencode(base64_decode($admin))));
+       $ibid=explode(':',base64_decode($admin));
+       array_walk($ibid,'url_protect');
+       $admin=base64_encode(str_replace('%3A',':', urlencode(base64_decode($admin))));
     }
     // Cookies - analyse et purge - shiney 07-11-2010
 

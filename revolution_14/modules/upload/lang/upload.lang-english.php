@@ -11,17 +11,17 @@ function upload_translate($phrase) {
  switch($phrase) {
    /////// fichier
    case 'x': $tmp='Attachments:'; break;
-   case 'Fichier': $tmp='File:'; break;
-   case 'Type': $tmp='Type:'; break;
-   case 'Taille': $tmp='Size:'; break;
-   case 'Affichage intégré': $tmp='Inline:'; break;
+   case 'Fichier': $tmp='File'; break;
+   case 'Type': $tmp='Type'; break;
+   case 'Taille': $tmp='Size'; break;
+   case 'Affichage intégré': $tmp='Inline'; break;
    case 'Oui': $tmp='Yes'; break;
    case 'Non': $tmp='No'; break;
-   case 'Supprimer les fichier sélectionnés': $tmp='Delete selected files'; break;
+   case 'Supprimer les fichiers sélectionnés': $tmp='Delete selected files'; break;
    case 'Fichier joint :': $tmp='Select a file to attach:'; break;
    case 'Joindre': $tmp='Send file'; break;
    case 'Adapter': $tmp='Update'; break;
-   case 'Visible': $tmp='Visibility:'; break;
+   case 'Visible': $tmp='Visibility'; break;
    case 'Total :': $tmp='Total:'; break;
    case 'Fichier non trouvé': $tmp='File not found'; break;
    case 'Fichier non visible': $tmp='File not visible'; break;
@@ -48,8 +48,8 @@ function upload_translate($phrase) {
    case "Le code erreur est : %s": $tmp="Error code was: %s"; break;
    case "Attention": $tmp="Warning"; break;
    case "Session terminée.": $tmp="Session halted."; break;
-   case "Erreur de téléchargement du fichier <b>%s</b> (%s) - Le fichier n'a pas ÈtÈ sauvÈ": $tmp="Error while uploading file <b>%s</b> (%s) - File not saved"; break;
-   case "<center><b>Fichier {NAME} bien recu ({SIZE} octets transfÈrÈs)</b></center>": $tmp="<center><b>file {NAME} uploaded ({SIZE} bytes transferred)</b></center>"; break;
+   case "Erreur de téléchargement du fichier %s (%s) - Le fichier n'a pas été sauvé": $tmp="Error while uploading file %s (%s) - File not saved"; break;
+   case "Fichier {NAME} bien reçu ({SIZE} octets transférés)": $tmp="file {NAME} uploaded ({SIZE} bytes transferred)"; break;
    case "Erreur de téléchargement du fichier - fichier non sauvegardé.": $tmp="Error while uploading file - File not saved"; break;
 
    // NPDS Sable
@@ -57,7 +57,7 @@ function upload_translate($phrase) {
    case "Modules Additionnels": $tmp="PlugIns"; break;
    // NPDS Sable
 
-   default: $tmp = "nécessite une traduction <b>[** $phrase **]</b>"; break;
+   default: $tmp = "nécessite une traduction [** $phrase **]"; break;
  }
 //  if (cur_charset=="utf-8") {
 //     return utf8_encode($tmp);
@@ -65,7 +65,7 @@ function upload_translate($phrase) {
 //     return ($tmp);
 //  }
  
- return (htmlentities ($tmp,ENT_XHTML)): 
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
  
 }
 ?>

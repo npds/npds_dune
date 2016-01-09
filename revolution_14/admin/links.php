@@ -42,7 +42,7 @@ function links() {
 
    $result = sql_query("SELECT lid, cid, sid, title, url, description, name, email, submitter FROM ".$NPDS_Prefix."links_newlink ORDER BY lid ASC LIMIT 0,1");
    $numrows = sql_num_rows($result);
-   $adminform="";
+   $adminform='';
    if ($numrows>0) {
     $adminform="adminForm";
     echo '<h3>'.adm_translate("Liens en attente de validation").'</h3>';
@@ -135,9 +135,9 @@ function links() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4" for="xtext">'.adm_translate("Description :  (255 caractéres max)").'</label>
+            <label class="form-control-label col-sm-4" for="xtext">'.adm_translate("Description").'</label>
             <div class="col-sm-8">
-               <textarea class="form-control" name="xtext" rows="6"></textarea>
+               <textarea class="tin form-control" name="xtext" rows="6"></textarea>
             </div>
          </div>
       </div>';
@@ -175,7 +175,7 @@ function links() {
    }
    // Add a Main category
    echo '
-   <h3>'.adm_translate("Ajouter une Catégorie").'</h3>
+   <h3>'.adm_translate("Ajouter une catégorie").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
@@ -197,7 +197,7 @@ function links() {
          <div class="row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="LinksAddCat">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Catégorie").'</button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
             </div>
          </div>
       </div>
@@ -276,7 +276,7 @@ function links() {
          <div class="row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="LinksModCat">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Editer une Catégorie").'</button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Editer une catégorie").'</button>
             </div>
          </div>
       </div>
@@ -287,7 +287,7 @@ function links() {
    $result=sql_query("SELECT lid FROM ".$NPDS_Prefix."links_links");
    $numrow=sql_num_rows($result);
    echo '
-   <h3>'.adm_translate("Liste des Liens").' ('.$numrow.')</h3>
+   <h3>'.adm_translate("Liste des liens").' ('.$numrow.')</h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -326,18 +326,16 @@ function links() {
    $deja_affiches_moin=$deja_affiches-$rupture;
    $precedent=false;
    echo '
-   <ul class="pagination">
-      <li class="active"><a href="#">'.$numrow.'</a></li>
-   ';
-   
+   <ul class="pagination pagination-sm">
+      <li class="page-item disabled"><a class="page-link" href="#">'.$numrow.'</a></li>';
    if ($deja_affiches>=$rupture) {
-    echo "
-      <li><a href=\"admin.php?op=suite_links&amp;deja_affiches=-".$deja_affiches_moin."\" >".adm_translate("Précédent")."</a></li>";
+    echo '
+      <li class="page-item"><a class="page-link" href="admin.php?op=suite_links&amp;deja_affiches=-'.$deja_affiches_moin.'" >'.adm_translate("Précédent").'</a></li>';
     $precedent=true;
    }
    if ($deja_affiches_plus<$numrow) {
-    if ($precedent) echo "&nbsp;|&nbsp;";
-    echo "<li><a href=\"admin.php?op=suite_links&amp;deja_affiches=".$deja_affiches_plus."\" >".adm_translate("Suivant")."</a></li>";
+//    if ($precedent) echo "&nbsp;|&nbsp;";
+    echo '<li class="page-item"><a class="page-link" href="admin.php?op=suite_links&amp;deja_affiches='.$deja_affiches_plus.'" >'.adm_translate("Suivant").'</a></li>';
    }
    echo '
    </ul>';

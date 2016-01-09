@@ -161,7 +161,7 @@ function HeadlinesEdit($hid) {
                      <span class="input-group-btn">
                        <button class="btn btn-secondary" ><a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></button>
                      </span>
-                     <input class="form-control" type="url" name="url" maxlength="100" value="'.$url.'" required="required" />
+                     <input class="form-control" type="url" id="url" name="url" maxlength="100" value="'.$url.'" required="required" />
                      <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
                   </div>
                </div>
@@ -250,19 +250,15 @@ switch ($op) {
     case "HeadlinesDel":
          HeadlinesDel($hid, $ok);
          break;
-
     case "HeadlinesAdd":
          HeadlinesAdd($xsitename, $url, $headlinesurl, $status);
          break;
-
     case "HeadlinesSave":
          HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status);
          break;
-
     case "HeadlinesAdmin":
          HeadlinesAdmin();
          break;
-
     case "HeadlinesEdit":
          HeadlinesEdit($hid);
          break;

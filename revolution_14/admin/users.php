@@ -103,7 +103,7 @@ function modifyUser($chng_user) {
    include("header.php");
    GraphicAdmin($hlpfile);
 
-   $result = sql_query("SELECT uid, uname, name, url, email, femail, user_icq, user_aim, user_yim, user_msnm, user_from, user_occ, user_intrest, user_viewemail, user_avatar, user_sig, bio, pass, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uid='$chng_user' or uname='$chng_user'");
+   $result = sql_query("SELECT uid, uname, name, url, email, femail, user_icq, user_aim, user_yim, user_msnm, user_from, user_occ, user_intrest, user_viewemail, user_avatar, user_sig, bio, pass, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uid='$chng_user' OR uname='$chng_user'");
    if (sql_num_rows($result) > 0) {
       list($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, $chng_femail, $chng_user_icq, $chng_user_aim, $chng_user_yim, $chng_user_msnm, $chng_user_from, $chng_user_occ, $chng_user_intrest, $chng_user_viewemail, $chng_avatar, $chng_user_sig, $chng_bio, $chng_pass, $chng_send_email, $chng_is_visible, $mns, $user_lnl) = sql_fetch_row($result);
       adminhead ($f_meta_nom, $f_titre, $adminimg);

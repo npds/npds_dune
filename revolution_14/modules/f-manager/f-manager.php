@@ -288,17 +288,19 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3]."/".$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd=fma_translate("Renommer un répertoire");
-               $rename_dir ="<form method=\"post\" action=\"modules.php\">";
-               $rename_dir.="<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />";
-               $rename_dir.="<input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />";
-               $rename_dir.="<input type=\"hidden\" name=\"FmaRep\" value=\"$FmaRep\" />";
-               $rename_dir.="<input type=\"hidden\" name=\"browse\" value=\"$browse\" />";
-               $rename_dir.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
-               $rename_dir.="<input type=\"hidden\" name=\"op\" value=\"renamedir-save\" />";
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x"></i>&nbsp;</span>'.fma_translate("Renommer un répertoire");
+               $rename_dir ='
+               <form method="post" action="modules.php">
+                  <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+                  <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+                  <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
+                  <input type="hidden" name="browse" value="'.$browse.'" />
+                  <input type="hidden" name="att_name" value="'.$att_name.'" />
+                  <input type="hidden" name="op" value="renamedir-save" />';
                $rename_dir.=extend_ascii($auto[2])."<b> >> </b>";
-               $rename_dir.="<input class=\"textbox_standard\" type=\"text\" name=\"renamefile\" value=\"".extend_ascii($auto[2])."\" />";
-               $rename_dir.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $rename_dir.='<input class="form-control" type="text" name="renamefile" value="'.extend_ascii($auto[2]).'" />
+               &nbsp;<input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
+               </form>';
             }
          } else {
             $Err=$auto[1];
@@ -344,7 +346,7 @@ switch ($op) {
                $remove_dir.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
                $remove_dir.="<input type=\"hidden\" name=\"op\" value=\"removedir-save\" />";
                $remove_dir.=fma_translate("Confirmez-vous la suppression de")." ".extend_ascii($auto[2])." : ";
-               $remove_dir.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $remove_dir.="&nbsp;<input class=\"btn btn-danger\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -387,7 +389,7 @@ switch ($op) {
                $chmod_dir.=extend_ascii($auto[2])." : ";
                $chmod_dir.="<select class=\"textbox_standard\" name=\"chmoddir\">";
                $chmod_dir.=chmod_pres($obj->GetPerms($auto[3]."/".$auto[2]),"chmoddir");
-               $chmod_dir.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $chmod_dir.="&nbsp;<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -444,8 +446,8 @@ switch ($op) {
                $rename_file.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
                $rename_file.="<input type=\"hidden\" name=\"op\" value=\"renamefile-save\" />";
                $rename_file.=extend_ascii($auto[2])."<b> >> </b>";
-               $rename_file.="<input class=\"textbox_standard\" type=\"text\" size=\"60\" name=\"renamefile\" value=\"".extend_ascii($auto[2])."\" />";
-               $rename_file.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $rename_file.="<input class=\"form-control\" type=\"text\" size=\"60\" name=\"renamefile\" value=\"".extend_ascii($auto[2])."\" />";
+               $rename_file.="&nbsp;<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -481,7 +483,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3]."/".$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd=fma_translate("Déplacer / Copier un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x"></i>&nbsp;</span>'.fma_translate("Déplacer / Copier un fichier");
                $move_file ="<form method=\"post\" action=\"modules.php\">";
                $move_file.="<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />";
                $move_file.="<input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />";
@@ -493,7 +495,7 @@ switch ($op) {
                $move_file.="<option value=\"copyfile-save\">".fma_translate("Copier")."</option>";
                $move_file.="</select>";
                $move_file.="&nbsp;&nbsp;".extend_ascii($auto[2])."<b> >> </b>";
-               $move_file.="<select class=\"textbox_standard\" name=\"movefile\">";
+               $move_file.="<select class=\"c-select form-control\" name=\"movefile\">";
                   $move_file.="<option value=\"\">/</option>";
                   $arb=explode("|",$obj->GetDirArbo($basedir_fma));
                   while (list(,$rep)=each($arb)) {
@@ -505,7 +507,7 @@ switch ($op) {
                      }
                   }
                $move_file.="</select>";
-               $move_file.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $move_file.="&nbsp;<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -553,7 +555,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists("$auto[3]/$auto[2]")) {
                $theme_fma=$themeC_fma;
-               $cmd=fma_translate("Supprimer un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x"></i>&nbsp;</span>'.fma_translate("Supprimer un fichier");
                $remove_file ="<form method=\"post\" action=\"modules.php\">";
                $remove_file.="<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />";
                $remove_file.="<input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />";
@@ -561,8 +563,8 @@ switch ($op) {
                $remove_file.="<input type=\"hidden\" name=\"browse\" value=\"$browse\" />";
                $remove_file.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
                $remove_file.="<input type=\"hidden\" name=\"op\" value=\"removefile-save\" />";
-               $remove_file.=fma_translate("Confirmez-vous la suppression de")." ".extend_ascii($auto[2])." : ";
-               $remove_file.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $remove_file.=fma_translate("Confirmez-vous la suppression de")." <code>".extend_ascii($auto[2])."</code>";
+               $remove_file.="&nbsp;<input class=\"btn btn-danger\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -600,9 +602,9 @@ switch ($op) {
                $chmod_file.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
                $chmod_file.="<input type=\"hidden\" name=\"op\" value=\"chmodfile-save\" />";
                $chmod_file.=extend_ascii($auto[2])." : ";
-               $chmod_file.="<select class=\"textbox_standard\" name=\"chmodfile\">";
+               $chmod_file.="<select class=\"c-select form-control\" name=\"chmodfile\">";
                $chmod_file.=chmod_pres($obj->GetPerms($auto[3]."/".$auto[2]),"chmodfile");
-               $chmod_file.="&nbsp;<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $chmod_file.="&nbsp;<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -649,14 +651,14 @@ switch ($op) {
                $edit_file.="<input type=\"hidden\" name=\"op\" value=\"editfile-save\" />";
                $edit_file.=extend_ascii($auto[2])." : <br />";
                settype($Fcontent, 'string');
-               $edit_file.="<textarea class=\"textbox\" name=\"editfile\" rows=\"30\" cols=\"70\" style=\"width: 100%;\">".htmlspecialchars($Fcontent,ENT_COMPAT|ENT_HTML401,cur_charset)."</textarea>";
+               $edit_file.="<textarea class=\"form-control\" name=\"editfile\" rows=\"30\" cols=\"70\" style=\"width: 100%;\">".htmlspecialchars($Fcontent,ENT_COMPAT|ENT_HTML401,cur_charset)."</textarea>";
 
                $tabW=explode(" ",$extension_Wysiwyg_fma);
                $suffix = strtoLower(substr(strrchr( $att_name, '.' ), 1 ));
                if (in_array($suffix,$tabW))
                   $edit_file.=aff_editeur("editfile", "true");
 
-               $edit_file.="<br /><input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+               $edit_file.="<br /><input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
          } else {
             $Err=$auto[1];
@@ -798,7 +800,9 @@ while (false!==($file = readdir($handle))) {
 closedir($handle);
 $att_icon_default="<img src=\"images/upload/file_types/unknown.gif\" border=\"0\" alt=\"\" />";
 $att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" border=\"0\" alt=\"\" />";
-$att_icon_dir="<img src=\"images/upload/file_types/dir.gif\" border=\"0\" alt=\"\" />";
+//$att_icon_dir="<img src=\"images/upload/file_types/dir.gif\" border=\"0\" alt=\"\" />";
+$att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
+
 $att_icon_search="<img src=\"images/upload/file_types/search.gif\" border=\"0\" alt=\"\" />";
 
 $suppM=fma_translate("Supprimer");
@@ -826,7 +830,7 @@ while ($obj->NextDir()) {
          $sizeofD=$obj->FieldSize;
          $sizeofDir=$sizeofDir+$sizeofD;
          $subdirs.="<td>".$obj->ConvertSize($sizeofDir)."</td>";
-      }
+      }else{$subdirs.="<td>#NA#</td>";}
       if ($dirpres_fma[4])
          $subdirs.="<td>".$obj->FieldPerms."</td>";
       // Traitements
@@ -871,10 +875,12 @@ $files=""; $sizeofFic=0;
 while ($obj->NextFile()) {
    if (fma_autorise("f", $obj->FieldName)) {
       $ibid=rawurlencode(encrypt($cur_nav_encrypt."#fma#".encrypt($obj->FieldName)));
-      $files.= "<tr class=\"lignb\" ".$linked.">";
+      $files.= "
+      <tr id=\"REPEREDEBUGG\" class=\"lignb\" ".$linked.">";
       if ($ficpres_fma[0]) {
          $ico_search=false;
-         $files.="<td width=\"3%\" align=\"center\">";
+         $files.="
+         <td width=\"3%\" align=\"center\">";
          if ($tab_search) {
             reset($tab_search);
             while ( (list($l,$fic_resp)=each($tab_search)) and (!$ico_search)) {
@@ -925,7 +931,7 @@ while ($obj->NextFile()) {
          $sizeofF=$obj->FieldSize;
          $sizeofFic=$sizeofFic+$sizeofF;
          $files.="<td>".$obj->ConvertSize($sizeofF)."</td>\n";
-      }
+      }  else $files.="<td>#NA#</td>";
       if ($ficpres_fma[4])
          $files.="<td>".$obj->FieldPerms."</td>\n";
       // Traitements
@@ -961,9 +967,9 @@ if (file_exists($infos_fma)) {
    $upload_file.="<input type=\"hidden\" name=\"FmaRep\" value=\"$FmaRep\" />";
    $upload_file.="<input type=\"hidden\" name=\"browse\" value=\"$browse\" />";
    $upload_file.="<input type=\"hidden\" name=\"op\" value=\"upload\" />";
-   $upload_file.="<input class=\"textbox_standard\" name=\"userfile\" type=\"file\" size=\"50\" value=\"\" /> - ";
-   $upload_file.="<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /><br />";
-   $upload_file.="<b>".fma_translate("Extensions autorisées : ")."</b>".$extension_fma."</form>";
+   $upload_file.="<div class=\"form-group\"><span class=\"help-block\"><b>".fma_translate("Extensions autorisées : ")."</b>".$extension_fma."</span><input class=\"form-control\" name=\"userfile\" type=\"file\" size=\"50\" value=\"\" /></div>";
+   $upload_file.="<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /><br />";
+   $upload_file.="</form>";
 
    $create_dir ="<form method=\"post\" action=\"modules.php\">";
    $create_dir.="<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />";
@@ -971,8 +977,8 @@ if (file_exists($infos_fma)) {
    $create_dir.="<input type=\"hidden\" name=\"FmaRep\" value=\"$FmaRep\" />";
    $create_dir.="<input type=\"hidden\" name=\"browse\" value=\"$browse\" />";
    $create_dir.="<input type=\"hidden\" name=\"op\" value=\"createdir\" />";
-   $create_dir.="<input class=\"textbox_standard\" name=\"userdir\" type=\"text\" size=\"50\" value=\"\" /> - ";
-   $create_dir.="<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+   $create_dir.="<div class=\"form-group\"><input class=\"form-control\" name=\"userdir\" type=\"text\" size=\"50\" value=\"\" /></div>";
+   $create_dir.="<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
 
    $create_file ="<form method=\"post\" action=\"modules.php\">";
    $create_file.="<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />";
@@ -980,8 +986,8 @@ if (file_exists($infos_fma)) {
    $create_file.="<input type=\"hidden\" name=\"FmaRep\" value=\"$FmaRep\" />";
    $create_file.="<input type=\"hidden\" name=\"browse\" value=\"$browse\" />";
    $create_file.="<input type=\"hidden\" name=\"op\" value=\"createfile\" />";
-   $create_file.="<input class=\"textbox_standard\" name=\"userfile\" type=\"text\" size=\"50\" value=\"\" /> - ";
-   $create_file.="<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
+   $create_file.="<div class=\"form-group\"><input class=\"form-control\" name=\"userfile\" type=\"text\" size=\"50\" value=\"\" /></div>";
+   $create_file.="<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
 
    $search_file ="<form method=\"post\" action=\"modules.php\">";
    $search_file.="<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\">";
@@ -989,8 +995,8 @@ if (file_exists($infos_fma)) {
    $search_file.="<input type=\"hidden\" name=\"FmaRep\" value=\"$FmaRep\">";
    $search_file.="<input type=\"hidden\" name=\"browse\" value=\"$browse\">";
    $search_file.="<input type=\"hidden\" name=\"op\" value=\"searchfile\">";
-   $search_file.="<input class=\"textbox_standard\" name=\"filesearch\" type=\"text\" size=\"50\" value=\"\"> - ";
-   $search_file.="<input class=\"bouton_standard\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\"></form>";
+   $search_file.="<div class=\"form-group\"><input class=\"form-control\" name=\"filesearch\" type=\"text\" size=\"50\" value=\"\"></div>";
+   $search_file.="<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\"></form>";
 
 chdir("$racine_fma/");
 // Génération de l'interface
@@ -1006,9 +1012,10 @@ if (file_exists("themes/$Default_Theme/html/modules/f-manager/$theme_fma")) {
 if ($inclusion) {
    $Xcontent=join("",file($inclusion));
    $Xcontent=str_replace("_back",extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace("_refresh","<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."$urlext_fma\">".fma_translate("Rafraichir")."</a>",$Xcontent);
-   if ($dirsize_fma)
+   $Xcontent=str_replace("_refresh","<a class=\"btn btn-primary-outline\" href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."$urlext_fma\"><i class=\"fa fa-refresh fa-spin\"></i>&nbsp;".fma_translate("Rafraichir")."</a>",$Xcontent);
+//   if ($dirsize_fma)
       $Xcontent=str_replace("_size",$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
+//   else $Xcontent=str_replace("_size",'-',$Xcontent);
    $Xcontent=str_replace("_nb_subdir",($obj->Count("d")-$dir_minuscptr),$Xcontent);
    $Xcontent=str_replace("_subdirs",$subdirs,$Xcontent);
    $Xcontent=str_replace("_nb_file",($obj->Count("f")-$fic_minuscptr),$Xcontent);

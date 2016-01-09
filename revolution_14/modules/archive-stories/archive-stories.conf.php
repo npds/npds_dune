@@ -18,7 +18,7 @@
 /* version 3.0 30/08/2015                                               */
 /************************************************************************/
 // Nombre de Stories par page 
-$maxcount = 5;
+$maxcount = 4;
 // Les news en ligne (0=0;) ou les archive (0=1;) ? 
 $arch = 0;
 // Titre de la liste des news (par exemple : "<h2>Les Archives</h2>") / si <h2>Les Nouvelles</h2> est vide rien ne sera affichÈ 

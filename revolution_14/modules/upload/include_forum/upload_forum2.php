@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -14,7 +14,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 
 global $Titlesitename;
 /*****************************************************/
-/* Include et definition                             */
+/* Include et d√©finition                             */
 /*****************************************************/
    $forum=$IdForum;
    include_once("auth.php");
@@ -35,7 +35,7 @@ global $Titlesitename;
 /* Entete                                            */
 /*****************************************************/
    ob_start();
-   $Titlesitename=upload_translate("TÈlÈcharg.");
+   $Titlesitename=upload_translate("T√©l√©charg.");
    include("meta/meta.php");
    $userX = base64_decode($user);
    $userdata = explode(":", $userX);
@@ -89,7 +89,7 @@ function forum_upload() {
    }
    include "modules/upload/include/fileupload.php";
 
-   // RÈcupÈration des valeurs de PCFILE
+   // R√àcup√àration des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;
    if (!empty($HTTP_POST_FILES))
        $fic=$HTTP_POST_FILES;
@@ -110,15 +110,15 @@ function forum_upload() {
 
    $attachments = $fu->getUploadedFiles($IdPost,$IdTopic);
    if (is_array ($attachments) ) {
-      $att_count = $attachments["att_count"];
-      $att_size = $attachments["att_size"];
+      $att_count = $attachments['att_count'];
+      $att_size = $attachments['att_size'];
       if (is_array($pcfile_name)) {
          reset ($pcfile_name);
-         $names = implode (", ", $pcfile_name);
+         $names = implode (', ', $pcfile_name);
          $pcfile_name = $names;
       }
       $pcfile_size = $att_size;
-      $thanks_msg .= str_replace ('{NAME}', $pcfile_name, str_replace('{SIZE}', $pcfile_size, upload_translate("<center><b>Fichier {NAME} bien recu ({SIZE} octets transfÈrÈs)</b></center>")));
+      $thanks_msg .= '<div class="alert alert-success" role="alert">'.str_replace ('{NAME}', '<strong>'.$pcfile_name.'</strong>', str_replace('{SIZE}', $pcfile_size, upload_translate("Fichier {NAME} bien re√ßu ({SIZE} octets transf√©r√©s)"))).'</div>';
       $total_att_count += $att_count;
       $total_att_size += $att_size;
    }

@@ -339,25 +339,19 @@ function GraphicAdmin($hlpfile) {
          array_pop($cat_n);
       } 
       else {
-//       $oo='';
-//        if (cur_charset=="utf-8") { $oo = adm_translate(utf8_encode($SAQ['fnom_affich']));
-//  } else {
-// $oo = adm_translate($SAQ['fnom_affich']);
-//  };
          $ul_o = '
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.$SAQ['fcategorie_nom'].'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
          <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
-
-
-     
          if ($admingraphic==1) {
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          } else{
             $li_c .= adm_translate($SAQ['fnom_affich']);
          }
          $li_c .='</a></li>';
+//          $X=$j-1;
+//          $catX=$cat_n[$X];
          $ul_f ='
          </ul>
          <script type="text/javascript">
@@ -368,10 +362,10 @@ function GraphicAdmin($hlpfile) {
          //]]>
          </script>'."\n";
 
-         if ($j==0) {
-            $bloc_foncts .= $ul_o.$li_c;} 
-         else { if ($j>0 and $cat[$j]>$cat[$j-1]) $bloc_foncts.=$ul_f.$ul_o.$li_c; else
-         $bloc_foncts .= $li_c;
+         if ($j==0) {$bloc_foncts .= $ul_o.$li_c;} 
+         else { 
+            if ($j>0 and $cat[$j]>$cat[$j-1]) $bloc_foncts.=$ul_f.$ul_o.$li_c; 
+            else $bloc_foncts .= $li_c;
          }
       }
       $j++;

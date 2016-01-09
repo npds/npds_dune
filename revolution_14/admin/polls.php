@@ -14,7 +14,7 @@
 
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='create';
-$f_titre = adm_translate("Les Sondages");
+$f_titre = adm_translate("Les sondages");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -28,7 +28,7 @@ function poll_createPoll() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 //   
         echo '
-        <h3>'.adm_translate("Liste des Sondages").'</h3>
+        <h3>'.adm_translate("Liste des sondages").'</h3>
         <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
@@ -47,8 +47,8 @@ function poll_createPoll() {
                <td>'.aff_langue($object["pollTitle"]).'</td>
                <td>'.$object["voters"].'</td>
                <td>
-                  <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce Sondage").'" data-toggle="tooltip"></i></a>
-                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer ce Sondage").'" data-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
                </td>
         </tr>';
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");

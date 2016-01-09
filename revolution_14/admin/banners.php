@@ -20,7 +20,6 @@ admindroits($aid,$f_meta_nom);
 global $language;
 $hlpfile = "manuels/$language/banners.html";
 
-
 function BannersAdmin() {
    global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
@@ -184,7 +183,7 @@ function BannersAdmin() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
    echo '
-   <h3>'.adm_translate("Ajouter une nouvelle Banniére").'</h3>
+   <h3>'.adm_translate("Ajouter une nouvelle Bannière").'</h3>
    <span class="help-block">'.adm_translate("Pour les Bannières Javascript, saisir seulement le code javascript dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
    <span class="help-block">'.adm_translate("Pour les Bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier<b>.txt</b> (fichier de code php) dans la zone <i>Url du Clik</i> et laisser la zone image vide.").'</span>
    <form id="fad_newbanner" action="admin.php" method="post">
@@ -342,7 +341,7 @@ function BannerDelete($bid, $ok=0) {
        list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl) = sql_fetch_row($result);
        opentable();
        echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-       echo adm_translate("Effacer Banniére");
+       echo adm_translate("Effacer Bannière");
        echo "</td></tr></table>\n";
        if ($imageurl!="") {
           echo "<a href=\"".aff_langue($clickurl)."\"><img src=\"".aff_langue($imageurl)."\" alt=\"\" border=\"1\" /></a><br />";
@@ -379,7 +378,7 @@ function BannerDelete($bid, $ok=0) {
     }
     echo "</table>
     <br />
-    <p align=\"center\">".adm_translate("Etes-vous sûr de vouloir effacer cette Banniére ?")." -
+    <p align=\"center\">".adm_translate("Etes-vous sûr de vouloir effacer cette Bannière ?")." -
     [ <a href=\"admin.php?op=BannerDelete&amp;bid=$bid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=BannersAdmin\"  class=\"noir\">".adm_translate("Non")."</a> ]</p><br />";
     closetable();
     include("footer.php");
@@ -393,9 +392,9 @@ function BannerEdit($bid) {
    $result=sql_query("SELECT cid, imptotal, impmade, clicks, imageurl, clickurl, userlevel FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
    list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $userlevel) = sql_fetch_row($result);
    echo '
-   <h3>'.adm_translate("Edition Banniére").'</h3>';
+   <h3>'.adm_translate("Edition Bannière").'</h3>';
    if ($imageurl!="") {
-   echo '<img class="img-responsive" src="'.aff_langue($imageurl).'" alt=\"banner\" /><br />';
+   echo '<img class="img-fluid" src="'.aff_langue($imageurl).'" alt="banner" /><br />';
    } else {
    echo $clickurl;
    }
@@ -470,7 +469,7 @@ function BannerEdit($bid) {
                <input type="hidden" name="bid" value="'.$bid.'" />
                <input type="hidden" name="imptotal" value="'.$imptotal.'" />
                <input type="hidden" name="op" value="BannerChange" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Modifier la Banniére").'</button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Modifier la Bannière").'</button>
             </div>
          </div>
       </div>
@@ -504,10 +503,10 @@ function BannerClientDelete($cid, $ok=0) {
        $result2 = sql_query("SELECT imageurl, clickurl FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
        $numrows = sql_num_rows($result2);
        if ($numrows==0) {
-          echo adm_translate("Cet Annonceur n'a pas de Banniére active pour le moment.")."<br /><br />";
+          echo adm_translate("Cet Annonceur n'a pas de Bannière active pour le moment.")."<br /><br />";
        } else {
           echo "<span class=\"text-danger\"><b>".adm_translate("ATTENTION !!!")."</b></span><br /><br />
-          ".adm_translate("Cet Annonceur a les BANNI»RES ACTIVES suivantes dans")." $sitename :<br /><br />";
+          ".adm_translate("Cet Annonceur a les BANNIERES ACTIVES suivantes dans")." $sitename :<br /><br />";
        }
        while (list($imageurl, $clickurl) = sql_fetch_row($result2)) {
           if ($imageurl!="") {

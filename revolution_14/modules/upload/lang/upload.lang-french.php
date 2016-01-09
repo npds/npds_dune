@@ -14,7 +14,10 @@ function upload_translate($phrase) {
 //     return ($phrase);
 //  }
 //     return ($phrase);
-     return (htmlspecialchars($phrase));
+      $tmp = $phrase;
+
+
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
 
 }
 ?>

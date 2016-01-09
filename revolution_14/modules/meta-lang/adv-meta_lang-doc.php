@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2010 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -29,30 +29,56 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
    echo import_css($tmp_theme, $language, $site_font, "","");
 
    global $NPDS_Prefix;
-   $Q = sql_query("SELECT def, content, type_meta, type_uri, uri, description FROM ".$NPDS_Prefix."metalang order by 'type_meta','def' ASC");
-   echo "<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"0\" class=\"ligna\"><tr><td>\n";
-   echo "<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"6\" class=\"lignb\"><tr><td>\n";
-   echo "<b>META</b><hr noshade=\"noshade\" class=\"ongl\" /></td><td><b>Type<hr noshade=\"noshade\" class=\"ongl\" /></b></td><td><b>Description<hr noshade=\"noshade\" class=\"ongl\" /></b></td></tr>";
-   $cur_type=""; $ibid=0;
+   $Q = sql_query("SELECT def, content, type_meta, type_uri, uri, description FROM ".$NPDS_Prefix."metalang ORDER BY 'type_meta','def' ASC");
+   echo '
+   <table class="table table-striped table-responsive table-hover table-sm" border="0" >
+      <thead class="thead-inverse">
+         <tr>
+            <th>META</th>
+            <th>Type</th>
+            <th>Description</th>
+         </tr>
+      </thead>';
+   $cur_type=''; $ibid=0;
    while (list($def, $content, $type_meta, $type_uri, $uri, $description)= sql_fetch_row($Q)) {
       if ($cur_type=="")
          $cur_type=$type_meta;
       if ($type_meta!=$cur_type) {
-         echo "</tr><tr><td colspan=\"3\"><hr noshade=\"noshade\" class=\"ongl\" /></td></tr>";
+         echo '
+         </tr>
+         <tr>
+            <td class="table-info" colspan="3"></td>
+         </tr>
+      <tbody>';
          $cur_type=$type_meta;
       }
-      $rowcolor=tablos();
-      echo "<tr $rowcolor><td valign=\"top\" align=\"left\"><b>$def</b></td>";
-      echo "<td valign=\"top\" align=\"left\">$type_meta</td>";
+         if ($tiny_mce)
+            $def_modifier="<a href=\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent(' ".$def." ');\" >$def</a>";
+         else 
+            $def_modifier=$def;
+      echo '
+         <tr>
+            <td valign="top" align="left"><strong>'.$def_modifier.'</strong></td>
+            <td class="table-info" valign="top" align="left">'.$type_meta.'</td>';
       if ($type_meta=="smil") {
          eval($content);
-         echo "<td valign=\"top\" align=\"left\">".$cmd."</td></tr>";
+         echo '
+            <td valign="top" align="left">'.$cmd.'</td>
+         </tr>';
       } else if ($type_meta=="mot")
-         echo "<td valign=\"top\" align=\"left\">$content</td></tr>";
+         echo '
+            <td valign="top" align="left">'.$content.'</td>
+         </tr>';
       else
-         echo "<td valign=\"top\" align=\"left\">".aff_langue($description)."</td></tr>";
+         echo '
+            <td valign="top" align="left">'.split_string_without_space(aff_langue($description), 15).'</td>
+         </tr>';
       $ibid++;
    }
-   echo "<tr><td colspan=\"3\" class=\"header\">Meta-lang pour <a href=\"http://www.npds.org\" class=\"noire\">NPDS</a> ==> $ibid META(s)";
-   echo "</td></tr></table></td></tr></table>\n";
+   echo '
+         <tr><td colspan="3" >Meta-lang pour <a href="http://www.npds.org" >NPDS</a> ==> '.$ibid.' META(s)
+            </td>
+         </tr>
+      </tbody>
+   </table>';
 ?>

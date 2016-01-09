@@ -13,21 +13,15 @@
 /************************************************************************/
 
 function adm_translate($phrase) {
- settype($englishname,'string');
- switch($phrase) {
-   case "$englishname": $tmp="$englishname"; break;
-   case "datestring": $tmp="%A %d %B %Y @ %H:%M:%S %Z"; break;
-   case "linksdatestring": $tmp="%d-%b-%Y"; break;
-   case "datestring2": $tmp="%A, %d %B"; break;
-   case "dateforop": $tmp="d-m-y"; break;
-
-   default: $tmp = "$phrase"; break;
- }
-//  if (cur_charset=="utf-8") {
-//     return utf8_encode($tmp);
-//  } else {
-    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
-//   return($tmp);
-//  }
+   settype($englishname,'string');
+   switch($phrase) {
+      case "$englishname": $tmp="$englishname"; break;
+      case "datestring": $tmp="%A %d %B %Y @ %H:%M:%S %Z"; break;
+      case "linksdatestring": $tmp="%d-%b-%Y"; break;
+      case "datestring2": $tmp="%A, %d %B"; break;
+      case "dateforop": $tmp="d-m-y"; break;
+      default: $tmp = $phrase; break;
+   }
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
 }
 ?>

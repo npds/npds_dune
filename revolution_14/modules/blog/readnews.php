@@ -29,9 +29,9 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          <ul class="pagination pagination-sm">';
       for ($j=1;$j<=ceil($ubound/$perpage);$j++) {
           if ($j==$startpage+1)
-             $contentT.='<li class="active"><a href="#">'.$j.'</a></li>';
+             $contentT.='<li class=" page-item active"><a class="page-link" href="#">'.$j.'</a></li>';
           else
-             $contentT.='<li><a href="minisite.php?op='.$op.'&amp;startpage='.$j.'" class="blog_lien">'.$j.'</a></li>';
+             $contentT.='<li class="page-item"><a href="minisite.php?op='.$op.'&amp;startpage='.$j.'" class="page-link blog_lien">'.$j.'</a></li>';
       }
        $contentT.='
          </ul>
@@ -58,11 +58,11 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $fp=fopen($blog_file,"a");
          if (!$tiny_mce) {
             $formatted=str_replace("\r\n","<br />",$story);
-            $formatted=str_replace("<img","<img class=\"img-responsive\"",$story);
+            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story);
             $formatted=str_replace("\n","<br />",$formatted);
          } else {
             $formatted=str_replace("\r\n","",$story);
-            $formatted=str_replace("<img","<img class=\"img-responsive\"",$story);
+            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story);
             $formatted=str_replace("\n","",$formatted);
          }
          $newsto=date("d m Y")."!;!".$title."!;!".$formatted;
@@ -80,7 +80,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             </div>
             <div class="form-group">
                <label class="form-control-label" for="story">'.translate("Full Text").' :</label>
-               <textarea class="form-control" name="story" rows="25"></textarea>';
+               <textarea class="tin form-control" name="story" rows="25"></textarea>';
             $content.="&nbsp;!blog_editeur!";
             $content.='
             </div>
@@ -96,11 +96,11 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          @copy ($blog_file,$blog_file.".bak");
          if (!$tiny_mce) {
             $formatted=str_replace("\r\n","<br />",$story);
-            $formatted=str_replace("<img","<img class=\"img-responsive\"",$story); // a revoir
+            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
             $formatted=str_replace("\n","<br />",$formatted);
          } else {
             $formatted=str_replace("\r\n","",$story);
-            $formatted=str_replace("<img","<img class=\"img-responsive\"",$story); // a revoir
+            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
             $formatted=str_replace("\n","",$formatted);
          }
          $newsto=date("d m Y")."!;!".$title."!;!".$formatted;
@@ -125,7 +125,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             </div>
             <div class="form-group">
                <label class="form-control-label" for="story" >'.translate("Full Text").'</label>
-               <textarea class="form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
+               <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
       $content.='</div>
             <div class="form-group">

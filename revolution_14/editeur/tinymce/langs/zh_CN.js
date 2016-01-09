@@ -193,5 +193,22 @@ tinymce.addI18n('zh_CN',{
 "Tools": "\u5de5\u5177",
 "View": "\u89c6\u56fe",
 "Table": "\u8868\u683c",
-"Format": "\u683c\u5f0f"
+"Format": "\u683c\u5f0f",
+"npds_img_desc": "Pictures bank",
+"npds_perso_desc": "Your pictures and documents",
+"npds_mns_desc": "MiniSite",
+"npds_upl_desc": "Download",
+"npds_metal_desc": "Meta-Lang",
+"npds_plug_desc": "Additional modules",
+"npds_what_desc": "Choose language",
+"npds_french_desc": "french",
+"npds_frenchonly_desc": "french only",
+"npds_english_desc": "english",
+"npds_englishonly_desc": "english only",
+"npds_spanish_desc": "Spanish",
+"npds_spanishonly_desc": "Only spanish",
+"npds_chinese_desc": "Chinese",
+"npds_chineseonly_desc": "Only chinese",
+"npds_german_desc": "German",
+"npds_germanonly_desc": "Only german"
 });

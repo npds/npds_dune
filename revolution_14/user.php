@@ -14,7 +14,6 @@
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
-// bootsrapped phr
 function message_error($ibid,$op) {
    include("header.php");
    echo '<h2>'.translate("User").'</h2>';
@@ -33,33 +32,30 @@ function message_error($ibid,$op) {
    echo "</p>";
    include("footer.php");
 }
-// bootsrapped phr
 function message_pass($ibid) {
-    include("header.php");
-    echo "<span class=\"text-success\">";
-    echo ''.$ibid.'';
-    echo "</span>";
-    include("footer.php");
+   include("header.php");
+   echo '<span class="text-success">'.$ibid.'</span>';
+   include("footer.php");
 }
-// bootsrapped phr
 function nav($mns) {
    echo '
-   <ul class="nav nav-pills">
-   <li class="active"><a href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i></a></li>';
-   echo '<li><a href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Edit Journal").'</a></li>';	
+   <ul class="nav nav-tabs"> 
+      <li class="nav-item active"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i> Vous</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Edit Journal").'</a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
-      echo '<li><a href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Manage my Mini-Web site").'</a></li>';
+      echo '
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Manage my Mini-Web site").'</a></li>';
    }
    echo '
-   <li><a href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Change the home").'</a></li>
-   <li><a href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Change Theme").'</a></li>
-   <li><a href="user.php?op=logout" title="'.translate("Logout").'">'.translate("Logout").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Change the home").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Change Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=logout" title="'.translate("Logout").'"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
    </ul>';
 }
-// bootsrapped phr
+
 function userCheck($uname, $email) {
     global $NPDS_Prefix;
     $stop="";
@@ -69,7 +65,7 @@ function userCheck($uname, $email) {
     if (strlen($uname) > 25) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Nickname is too long. It must be less than 25 characters.")."";
     if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname)) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Name is reserved.")."";
     if (strrpos($uname,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("There cannot be any spaces in the Nickname.")."";
-    if (sql_num_rows(sql_query("select uname from ".$NPDS_Prefix."users where uname='$uname'")) > 0) {
+    if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$uname'")) > 0) {
        $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Nickname taken")."";
     }
     if ($uname!="edituser") {
@@ -97,17 +93,18 @@ function makePass() {
 }
 
 function showimage() {
-   echo "<script type=\"text/javascript\">\n";
-   echo "//<![CDATA[\n";
-   echo "function showimage() {\n";
-   echo "if (!document.images)\n";
-   echo "   return\n";
-   echo "document.images.avatar.src=\n";
+   echo "
+   <script type=\"text/javascript\">
+   //<![CDATA[
+   function showimage() {
+   if (!document.images)
+      return
+      document.images.avatar.src=\n";
    if ($ibid=theme_image("forum/avatar/blank.gif")) {$imgtmp=substr($ibid,0,strrpos($ibid,"/")+1);} else {$imgtmp="images/forum/avatar/";}
    echo "'$imgtmp' + document.Register.user_avatar.options[document.Register.user_avatar.selectedIndex].value\n";
-   echo "}\n";
-   echo "//]]\n";
-   echo "</script>\n";
+   echo "}
+   //]]
+   </script>";
 }
 
 function Only_NewUser() {
@@ -204,7 +201,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
           if (!$charte) {
              echo "<p class=\"lead text-warning text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
              echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\">
-            <input class=\"btn btn-default\" type=\"submit\" value=\"".translate("Go Back")."\" />
+            <input class=\"btn btn-secondary\" type=\"submit\" value=\"".translate("Go Back")."\" />
             </form>";
           } else {
              echo "<input type=\"hidden\" name=\"op\" value=\"finish\">
@@ -307,11 +304,10 @@ function userinfo($uname) {
     include_once("functions.php");
 
     if ($uname == $cookie[1]) {
-      echo '<h2>'.translate("User").'</h2>';
-      echo '<h3>'.$uname.', '.translate("Welcome to").' '.$sitename.'</h3>';
-
-      echo "<br />";
-      echo '<p class="lead">'.translate("This is your personal page").'</p>';
+      echo '
+      <h2>'.translate("User").'</h2>
+      <h3>'.$uname.', '.translate("Welcome to").' '.$sitename.'</h3>
+      <p class="lead">'.translate("This is your personal page").'</p>';
        nav($mns);
     }
     $email=removeHack($femail);
@@ -328,18 +324,45 @@ function userinfo($uname) {
     $user_sig=nl2br(removeHack($user_sig));
     $user_journal=stripslashes(removeHack($user_journal));
     $op="userinfo";
-    include("modules/sform/extend-user/aff_extend-user.php");
-    echo "<br /><br />";
-    
-    if ($mns) {
+//    include("modules/sform/extend-user/aff_extend-user.php");// nul quel est l'intérêt d'afficher un form quui n'a pas la fonction de form ? mais une fonctions d'affichage désépérément figé dans la structure du form ????
 
-      echo '<p class="lead">'.translate("Mini-Web site").'</p>';
-      echo '<p><a class="btn btn-primary" href="minisite.php?op='.$uname.'" target="_blank"><strong>'.translate("the page").' '.translate("here").'</strong></a></p>';
-    }
+   if (stristr($user_avatar,"users_private")) {
+      $direktori="";
+   } else {
+      global $theme;
+      $direktori="images/forum/avatar/";
+      if (function_exists("theme_image")) {
+         if (theme_image("forum/avatar/blank.gif"))
+            $direktori="themes/$theme/images/forum/avatar/";
+      }
+   }
 
-    echo '<p class="lead">'.translate("Online journal for").' '.$uname.' :</p>';
-    echo ''.$user_journal.'';
-    $file="";
+   if ($uname == $cookie[1]) {
+   echo '
+   <div class="card text-xs-center">
+      <div class="card-header">
+         <img src="'.$direktori.$user_avatar.'" class="" />
+         <p class="card-text card-title "></p>
+      </div>
+      <div class="card-block">
+         <h3 class="card-title">'.$name.' <span class="text-muted">alias</span> '.$uname.'</h3>
+         <p class="card-text">You can contact me @ '.$email.' '.$user_icq.'</p>
+         <p class="card-text">Don not forget to visit <a href="'.$url.'" class="oo">my web-site</a>';
+   if ($mns) {echo ' OR my <a href="minisite.php?op='.$uname.'" target="_blank">'.translate("Mini-Web site").'</a>';}
+   echo '
+         </p>
+      </div>
+      <div class="card-footer text-muted">
+         '.$user_sig.'
+      </div>
+   </div>';
+   };
+   
+    echo "<br />";
+    echo '
+    <h4>'.translate("Online journal for").' '.$uname.'.</h4>
+    <div id="online_user_journal" class="card card-block">'.$user_journal.'</div>';
+    $file='';
     $handle=opendir('modules/comments');
     while (false!==($file = readdir($handle))) {
        if (!preg_match('#\.conf\.php$#i',$file)) continue;
@@ -349,33 +372,38 @@ function userinfo($uname) {
     }
     closedir($handle);
 
-    echo '<p class="lead">'.translate("Last 10 comments by").' '.$uname.' :</p>';
-
-    $url="";
-    $result=sql_query("select topic_id, forum_id, post_text, post_time from ".$NPDS_Prefix."posts where forum_id<0 and poster_id='$uid' order by post_time DESC limit 0,10");
+    echo '
+    <h4>'.translate("Last 10 comments by").' '.$uname.'.</h4>
+    <div id="last_ten_comment" class="card card-block">';
+    $url='';
+    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
     while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
        
        $url=str_replace("#topic#",$topic_id,$filelist[$forum_id]);
        echo "<p><a href=\"".$url."\">".translate("Posted: ").convertdate($post_time)."</a></p>";
        $message=smilie(stripslashes($post_text));
-       $message = str_replace("[video_yt]","http://www.youtube.com/watch?v=",$message);
-       $message = str_replace("[/video_yt]","",$message);
-
+       $message = aff_video_yt($message);
+       $message = str_replace('[addsig]','',$message);
        if (stristr($message,"<a href")) {
           $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
        }
-       echo $message;
+       echo $message.'<hr />';
     }
+    echo '</div>';
 
-    echo '<p class="lead">'.translate("Last 10 news submissions sent by").' '.$uname.' :</p>';
-    $xtab=news_aff("libre", "where informant='$uname' order by sid DESC limit 10", "", 10);
+    echo '
+    <h4>'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
+    <div id="last_ten_comment" class="card card-block">';
+    
+    $xtab=news_aff("libre", "WHERE informant='$uname' ORDER BY sid DESC LIMIT 10", "", 10);
     $story_limit=0;
     while (($story_limit<10) and ($story_limit<sizeof($xtab))) {
        
        list($sid, $catid, $aid, $title) = $xtab[$story_limit];
        $story_limit++;
        echo "<p><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a></p>";
-    }  
+    }
+    echo '</div>';
     include("footer.php");
 }
 
@@ -808,56 +836,50 @@ function edithome() {
    if ($userinfo['theme']=='') {
       $userinfo['theme'] = "$Default_Theme";
    }
-    echo '<br />';
-    echo '
-    <p class="lead">'.translate("Change the home").'</p>
-    <form class="form-horizontal" role="form" action="user.php" method="post">
-    <div class="form-group">
-         <div class="col-sm-5">
-            <label class="control-label">
-            '.translate("News number in the Home").' (max. 127) :
-            </label>
-         </div>
-            <div class="col-sm-1">
-            <input class="form-control" type="text" name="storynum" value="'.$userinfo['storynum'].'" />';
-
-    if ($userinfo['ublockon']==1) {
-       $sel = 'checked="checked"';
-    } else {
-       $sel = '';
-    }
    echo '
-   </div>
-   </div>
-      <div class="form-group">
-         <div class="col-sm-10">
-            <div class="checkbox">
-                   <label>
-               <input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
-               </label>';
-      echo '</div></div></div>';
-    echo '<ul><li>'.translate("(Check this option and the following text will appear in the Home)").'</li>
-        <li>'.translate("(You can use HTML code to put links, for example)").'</li></ul>';
-
-   echo '<div class="form-group">
-         <div class="col-sm-12">
-            <textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
-         </div>
-      </div>';
-
-   echo "<input type=\"hidden\" name=\"theme\" value=\"".$userinfo['theme']."\" />
-        <input type=\"hidden\" name=\"uname\" value=\"".$userinfo['uname']."\" />
-        <input type=\"hidden\" name=\"uid\" value=\"".$userinfo['uid']."\" />
-        <input type=\"hidden\" name=\"op\" value=\"savehome\" />";
-
-   echo '<div class="form-group">
-         <div class="col-sm-1">
-            <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
-         </div>
+   <h2>'.translate("Change the home").'</h2>
+   <form class="" role="form" action="user.php" method="post">
+   <div class="form-group row">
+      <label class="form-control-label col-sm-7">
+         '.translate("News number in the Home").' (max. 127) :
+      </label>
+      <div class="col-sm-5">
+         <input class="form-control" type="number" min="0" max="127" name="storynum" value="'.$userinfo['storynum'].'" />
       </div>
-      </form>';
-    
-    include ("footer.php");
+   </div>
+         ';
+
+   if ($userinfo['ublockon']==1) $sel = 'checked="checked"';
+   else $sel = '';
+   echo '
+   <div class="form-group row">
+      <div class="col-sm-10">
+         <div class="checkbox">
+                <label>
+            <input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
+            </label>
+            </div>
+            </div>
+            </div>';
+   echo '<ul><li>'.translate("(Check this option and the following text will appear in the Home)").'</li>
+     <li>'.translate("(You can use HTML code to put links, for example)").'</li></ul>';
+
+   echo '<div class="form-group">
+      <div class="col-sm-12">
+         <textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
+      </div>
+   </div>
+      <input type="hidden" name="theme" value="'.$userinfo['theme'].'" />
+     <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
+     <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
+     <input type="hidden" name="op" value="savehome" />
+     <div class="form-group">
+      <div class="col-sm-1">
+         <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+      </div>
+   </div>
+   </form>';
+   include ("footer.php");
 }
 function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
     global $NPDS_Prefix;
@@ -908,9 +930,9 @@ function chgtheme() {
     echo '
    </select>
    <p class="help-block">
-   <span>'.translate("This option will change the look for the whole site.").'</span><br />
-   <span>'.translate("The changes will be valid only to you.").'</span><br />
-   <span>'.translate("Each user can view the site with different theme.").'</span>
+      <span>'.translate("This option will change the look for the whole site.").'</span> 
+      <span>'.translate("The changes will be valid only to you.").'</span> 
+      <span>'.translate("Each user can view the site with different theme.").'</span>
    </p>
    </div>
    </div>
@@ -947,32 +969,31 @@ function editjournal(){
    include("header.php");
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
-   echo '<br />';
-   echo '<p class="lead">'.translate("Edit your journal").'</p>';
    echo '
-   <form class="form-horizontal" role="form" action="user.php" method="post" name="adminForm">
-      <div class="form-group">
+   <h2>'.translate("Edit your journal").'</h2>
+   <form class="" role="form" action="user.php" method="post" name="adminForm">
+      <div class="form-group row">
          <div class="col-sm-12">
-            <textarea class="form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>'
-         .aff_editeur("journal", "true").'
+            <textarea class="tin form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>'
+         .aff_editeur('journal', '').'
          </div>
-      </div>';
-   echo '
+      </div>
       <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
       <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
       <input type="hidden" name="op" value="savejournal" />
-      <div class="form-group">
-         <div class="col-sm-6">
+      <div class="form-group row">
+         <div class="col-xs-12">
             <div class="checkbox">
                <label>
-               <input type="checkbox" name="datetime" value="1" />'.translate("Add date and time stamp").'</label>
+               <input type="checkbox" name="datetime" value="1" />&nbsp;'.translate("Add date and time stamp").'
+               </label>
             </div>
          </div>
       </div>
-      <div class="form-group">
-         <div class="col-sm-1">
+      <div class="form-group row">
+         <div class="col-xs-12">
             <input class="btn btn-primary" type="submit" value="'.translate("Save Journal").'" />
-         </div>
+      </div>
       </div>
    </form>';
 

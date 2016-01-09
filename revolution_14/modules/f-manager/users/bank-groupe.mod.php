@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,13 +15,12 @@
 
 if (($obj->FieldView=="jpg") or ($obj->FieldView=="gif") or ($obj->FieldView=="png")) {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:window.opener.tinyMCE.execCommand('mceInsertContent',true,'<img src=getfile.php?att_id=$ibid&amp;apli=f-manager border=0 />');\"";
+         $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img src=getfile.php?att_id=$ibid&amp;apli=f-manager border=0 />');\"";
    else
       $url_modifier="\"#\"";
-
 } else {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:window.opener.tinyMCE.execCommand('mceInsertContent',true,'<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>');\"";
+      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>');\"";
    else
       $url_modifier="\"getfile.php?att_id=$ibid&amp;apli=f-manager\"";
 }

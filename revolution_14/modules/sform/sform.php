@@ -446,7 +446,7 @@ class form_handler {
                 </label>
              </div>
              <div class="col-sm-8">';
-			 $str.="<select class=\"form-control\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name'];
+          $str.="<select class=\"c-select form-control\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name'];
           $str.=($this->form_fields[$i]['multiple'])? "[]\" multiple" : "\"";
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['javas']." ";

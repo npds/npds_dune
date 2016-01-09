@@ -2243,8 +2243,8 @@ function mainblock() {
 }
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
-   global $NPDS_Prefix;
-   global $admin, $aid, $admingraphic, $adminimg, $admf_ext;
+   $bloc_foncts_A='';
+   global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext;
    if ($admin) {
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    if ($Q['radminsuper']==1) {
@@ -2318,11 +2318,11 @@ function adminblock() {
 }
 #autodoc ephemblock() : Bloc ephemerid <br />=> syntaxe : function#ephemblock
 function ephemblock() {
-   global $NPDS_Prefix;
-   global $gmt;
+   global $NPDS_Prefix, $gmt;
+   $cnt=0;
    $eday=date("d",time()+($gmt*3600));
    $emonth =date("m",time()+($gmt*3600));
-   $result = sql_query("select yid, content from ".$NPDS_Prefix."ephem where did='$eday' AND mid='$emonth' order by yid ASC");
+   $result = sql_query("SELECT yid, content FROM ".$NPDS_Prefix."ephem WHERE did='$eday' AND mid='$emonth' ORDER BY yid ASC");
    $boxstuff = "<div>".translate("One Day like Today...")."</div>";
    while (list($yid, $content) = sql_fetch_row($result)) {
       if ($cnt==1)
@@ -2333,7 +2333,7 @@ function ephemblock() {
    }
    $boxstuff .= "<br />\n";
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Ephemerids");
    else
       $title=$block_title;
@@ -2369,7 +2369,7 @@ function userblock() {
    global $NPDS_Prefix;
    global $user,$cookie;
    if (($user) AND ($cookie[8])) {
-      $getblock = Q_select("select ublock from ".$NPDS_Prefix."users where uid='$cookie[0]'",86400);
+      $getblock = Q_select("SELECT ublock FROM ".$NPDS_Prefix."users WHERE uid='$cookie[0]'",86400);
       list(,$ublock) = each($getblock);
       global $block_title;
       if ($block_title=="")
@@ -2799,7 +2799,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $content.='<ul class="list-group ul_bloc_ws">'."\n";
 
    //=> liste des membres
-   $li_mb='';
+   $li_mb=''; $li_ic='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
    $li_mb.='<li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
@@ -2854,6 +2854,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    //<== liste des membres
 
    //=> Forum
+   $lst_for='';
    if ($rsql['groupe_forum'] == 1) {
       $res_forum=sql_query("select forum_id, forum_name from ".$NPDS_Prefix."forums where forum_pass regexp '$gr'");
       $nb_foru=sql_num_rows ($res_forum);

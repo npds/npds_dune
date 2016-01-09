@@ -127,7 +127,7 @@ function group_liste() {
          $lst_user_json='';
          $result=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp'"));
          echo '
-         <tr id="bloc_gr_'.$gp.'"'.$rowcolor.'>
+         <tr id="bloc_gr_'.$gp.'">
             <td valign="top" align="left" width="5%">'.$gp.'</td>
             <td valign="top" align="left" width="20%"><i class="glyphicons glyphicons-group x2 drop"></i><br /><br /><b>'.aff_langue($result['groupe_name']).'</b><p>'.aff_langue($result['groupe_description']);
          if (file_exists ('users_private/groupe/'.$gp.'/groupe.png'))
@@ -142,7 +142,9 @@ function group_liste() {
                <i class="glyphicons glyphicons-user x2 drop"></i> &nbsp;['.$nb_mb.']&nbsp;&nbsp;';
          $lst_uid_json='';
          $lst_uidna_json='';
+         
          //==> liste membres du groupe
+         $lst_gr_json='';
          echo '<ul id="lst_mb_gr_'.$gp.'" style ="display:none; padding-left:19px;">';
          while (list($bidon,$uidX)=each($tab_groupe)) {
             if ($uidX) {

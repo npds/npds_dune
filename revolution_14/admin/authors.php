@@ -196,7 +196,7 @@ function displayadmins() {
             <td>'.$email.'</td>
             <td align="right" nowrap="nowrap">
                <a href="admin.php?op=modifyadmin&amp;chng_aid='.$a_aid.'" class=""><i class="fa fa-edit fa-lg" title="'.adm_translate("Modifier l'information").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a href="mailto:'.$email.'"><i class="fa fa-envelope-o fa-lg" title="'.adm_translate("Envoyer un courriel &#xE0;").' '.$a_aid.'" data-toggle="tooltip"></i></a>&nbsp;';
+               <a href="mailto:'.$email.'"><i class="fa fa-envelope-o fa-lg" title="'.adm_translate("Envoyer un courriel à").' '.$a_aid.'" data-toggle="tooltip"></i></a>&nbsp;';
       if($url!='')
          echo'
                <a href="'.$url.'"><i class="fa fa-external-link fa-lg" title="'.adm_translate("Visiter le site web").'" data-toggle="tooltip"></i></a>&nbsp;';
@@ -275,7 +275,7 @@ function displayadmins() {
     <br />
     <div class="form-group">
         <div class=" col-md-6 col-xs-12">
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate(" Ajouter un Administrateur ").'</button>
+            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un administrateur").'</button>
         </div>
     </div>
     <input type="hidden" name="op" value="AddAuthor" />
@@ -366,7 +366,7 @@ function modifyadmin($chng_aid) {
    echo '
    <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
 
-   <h3>'.adm_translate("Mise à jour de l'administrateur").' : '.$chng_aid.'</h3>';
+   <h3>'.adm_translate("Mise à jour de l'administrateur").' : <span class="text-muted">'.$chng_aid.'</span></h3>';
     
    $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminfilem, $chng_radminsuper) = sql_fetch_row($result);
@@ -388,6 +388,7 @@ function modifyadmin($chng_aid) {
    }
    $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
+   $fnom_affich= adm_translate(utf8_encode($fnom_affich));
       if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
       if($fcategorie==6) {
         $listdroitsmodulo .='
@@ -622,7 +623,7 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 function error_handler($ibid) {
    opentable();
    echo "<p class=\"errorhandler\" align=\"center\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
-   echo "$ibid<br /><a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Retour en arriére")."</a></p>";
+   echo "$ibid<br /><a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Retour en arrière")."</a></p>";
    closetable();
 }
 

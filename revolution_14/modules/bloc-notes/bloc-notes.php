@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,6 +17,7 @@
 #autodoc : function#blocnotes<br />params#shared,TNT,150 (blocnote partagé s'appelant TNT de largeur 150 pixel)
 function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $gifbgcolor="", $affiche=true) {
    global $REQUEST_URI;
+   $aff='';
    if ($typeBlocNote=="shared") {
       if ($nomBlocNote=="\$username") {
          global $cookie;
@@ -38,12 +39,12 @@ function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $n
          $bnid=md5($nomBlocNote.$REQUEST_URI);
       }
    } else {
-      $nomBlocNote="";
+      $nomBlocNote='';
    }
    if ($nomBlocNote) {
       global $theme;
 
-   if ($block_title=="")
+   if ($block_title=='')
       $title=$nomBlocNote;
    else
       $title=$block_title;
@@ -58,8 +59,8 @@ function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $n
                <input type="hidden" name="nomBlocNote" value="'.$nomBlocNote.'" />
                <div class="row">
                   <div class="col-xs-12">
-                     <button type="submit" name="okBlocNote" class="btn btn-primary-outline btn-sm btn-block" data-toggle="tooltip" data-placement="bottom" title="Valider la mise &agrave; jour du bloc-notes"><i class="fa fa-check"></i>&nbsp;Valider</button>
-                     <button type="submit" name="supBlocNote" class="btn btn-warning-outline btn-sm btn-block" data-toggle="tooltip" data-placement="bottom" title="Remise &agrave; z&eacute;ro du bloc-notes"><i class="fa fa-remove"></i>&nbsp; Effacer</button>
+                     <button type="submit" name="okBlocNote" class="btn btn-primary-outline btn-sm btn-block" <i class="fa fa-check"></i>&nbsp;Valider</button>
+                     <button type="submit" name="supBlocNote" class="btn btn-danger-outline btn-sm btn-block" value="RAZ"><i class="fa fa-remove"></i>&nbsp; Effacer</button>
                   </div>
                </div>
             </div>
