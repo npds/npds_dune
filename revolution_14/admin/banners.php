@@ -18,6 +18,7 @@ $f_titre = adm_translate("Administration des Bannières");
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 global $language;
+
 $hlpfile = "manuels/$language/banners.html";
 
 function BannersAdmin() {
@@ -127,7 +128,7 @@ function BannersAdmin() {
          </tr>
       </thead>
       <tbody>';
-   $result = sql_query("SELECT bid, cid, impressions, clicks, datestart, dateend FROM ".$NPDS_Prefix."bannerfinish order by bid");
+   $result = sql_query("SELECT bid, cid, impressions, clicks, datestart, dateend FROM ".$NPDS_Prefix."bannerfinish ORDER BY bid");
    while (list($bid, $cid, $impressions, $clicks, $datestart, $dateend) = sql_fetch_row($result)) {
    $result2 = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($cid, $name) = sql_fetch_row($result2);
@@ -161,7 +162,7 @@ function BannersAdmin() {
          </tr>
       </thead>
       <tbody>';
-   $result = sql_query("SELECT cid, name, contact, email FROM ".$NPDS_Prefix."bannerclient order by cid");
+   $result = sql_query("SELECT cid, name, contact, email FROM ".$NPDS_Prefix."bannerclient ORDER BY cid");
    while (list($cid, $name, $contact, $email) = sql_fetch_row($result)) {
    $result2 = sql_query("SELECT cid FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
    $numrows = sql_num_rows($result2);
@@ -189,9 +190,9 @@ function BannersAdmin() {
    <form id="fad_newbanner" action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
+            <label class="form-control-label col-sm-4 " for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
             <div class="col-sm-8">
-               <select class="form-control" name="cid">';
+               <select class="c-select form-control" name="cid">';
    $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient");
    while(list($cid, $name) = sql_fetch_row($result)) {
    echo '
@@ -204,7 +205,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="imptotal">'.adm_translate("Impressions réservées").'</label>
+            <label class="form-control-label col-sm-4 " for="imptotal">'.adm_translate("Impressions réservées").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="imptotal" min="0" max="99999999999" required="required" />
                <span class="help-block">0 = '.adm_translate("Illimité").'</span>
@@ -213,7 +214,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="imageurl">'.adm_translate("URL de l'image").'</label>
+            <label class="form-control-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="imageurl" maxlength="200" />
             </div>
@@ -221,7 +222,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="clickurl">'.adm_translate("URL du Clic").'</label>
+            <label class="form-control-label col-sm-4 " for="clickurl">'.adm_translate("URL du Clic").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="clickurl" maxlength="200" required="required" />
             </div>
@@ -229,7 +230,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
+            <label class="form-control-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="userlevel" min="0" max="9" value="0" required="required" /> 
                <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
@@ -240,7 +241,7 @@ function BannersAdmin() {
          <div class="row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="BannersAdd" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Banniére").' </button>
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Bannière").' </button>
             </div>
          </div>
       </div>
@@ -252,7 +253,7 @@ function BannersAdmin() {
    <form id="fad_bananno" action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom de l'Annonceur").'</label>
+            <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom de l'Annonceur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="name" maxlength="60" required="required" />
             </div>
@@ -260,7 +261,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="contact">'.adm_translate("Nom du Contact").'</label>
+            <label class="form-control-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="contact" maxlength="60" required="required" />
             </div>
@@ -268,7 +269,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
+            <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="email" maxlength="60" required="required" />
             </div>
@@ -276,7 +277,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="login">'.adm_translate("Identifiant").'</label>
+            <label class="form-control-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="login" maxlength="10" required="required" />
             </div>
@@ -284,7 +285,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="passwd">'.adm_translate("Mot de Passe").'</label>
+            <label class="form-control-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="password" name="passwd" maxlength="10" required="required" />
             </div>
@@ -292,7 +293,7 @@ function BannersAdmin() {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
+            <label class="form-control-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="extrainfo" rows="10"></textarea>
             </div>
@@ -309,25 +310,21 @@ function BannersAdmin() {
    </form>';
    adminfoot('fv','','','');
 }
-
 function BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel) {
     global $NPDS_Prefix;
     sql_query("INSERT INTO ".$NPDS_Prefix."banner VALUES (NULL, '$cid', '$imptotal', '1', '0', '$imageurl', '$clickurl', '$userlevel', now())");
     Header("Location: admin.php?op=BannersAdmin");
 }
-
 function BannerAddClient($name, $contact, $email, $login, $passwd, $extrainfo) {
     global $NPDS_Prefix;
     sql_query("INSERT INTO ".$NPDS_Prefix."bannerclient VALUES (NULL, '$name', '$contact', '$email', '$login', '$passwd', '$extrainfo')");
     Header("Location: admin.php?op=BannersAdmin");
 }
-
 function BannerFinishDelete($bid) {
     global $NPDS_Prefix;
     sql_query("DELETE FROM ".$NPDS_Prefix."bannerfinish WHERE bid='$bid'");
     Header("Location: admin.php?op=BannersAdmin");
 }
-
 function BannerDelete($bid, $ok=0) {
     global $NPDS_Prefix;
     if ($ok==1) {
@@ -362,7 +359,7 @@ function BannerDelete($bid, $ok=0) {
        list($cid, $name) = sql_fetch_row($result2);
        $percent = substr(100 * $clicks / $impmade, 0, 5);
        if ($imptotal==0) {
-          $left = unlimited;
+          $left = 'unlimited';// was with no quote ???
        } else {
           $left = $imptotal-$impmade;
        }
@@ -383,7 +380,6 @@ function BannerDelete($bid, $ok=0) {
     closetable();
     include("footer.php");
 }
-
 function BannerEdit($bid) {
    global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    include("header.php");
@@ -405,9 +401,9 @@ function BannerEdit($bid) {
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
+            <label class="form-control-label col-sm-4 " for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
             <div class="col-sm-8">
-               <select class="form-control" name="cid">';
+               <select class="c-select form-control" name="cid">';
    $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($cid, $name) = sql_fetch_row($result);
    echo '<option value="'.$cid.'" selected="selected">'.$name.'</option>';
@@ -431,7 +427,7 @@ function BannerEdit($bid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
+            <label class="form-control-label col-sm-4 " for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="impadded" min="0" max="99999999999" required="required" />
                <span class="help-block">'.adm_translate("Réservé : ").'<strong>'.$impressions.'</strong> '.adm_translate("Fait : ").'<strong>'.$impmade.'</strong></span>
@@ -440,7 +436,7 @@ function BannerEdit($bid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="imageurl">'.adm_translate("URL de l'image").'</label>
+            <label class="form-control-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="imageurl" size="50" maxlength="200" value="'.$imageurl.'" />
             </div>
@@ -448,15 +444,15 @@ function BannerEdit($bid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="clickurl">'.adm_translate("URL du Clic").'</label>
+            <label class="form-control-label col-sm-4 " for="clickurl">'.adm_translate("URL du Clic").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="clickurl" size="50" maxlength="200" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
             </div>
          </div>
       </div>
-      <div class="form-group">
+      <div class="form-group"> 
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
+            <label class="form-control-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="userlevel" min="0" max="9" value="'.$userlevel.'" required="required" />
                <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
@@ -476,15 +472,12 @@ function BannerEdit($bid) {
    </form>';
    adminfoot('fv','','','');
    }
-
-///////////////////////////////////
 function BannerChange($bid, $cid, $imptotal, $impadded, $imageurl, $clickurl, $userlevel) {
-    global $NPDS_Prefix;
-    $imp = $imptotal+$impadded;
-    sql_query("UPDATE ".$NPDS_Prefix."banner SET cid='$cid', imptotal='$imp', imageurl='$imageurl', clickurl='$clickurl', userlevel='$userlevel' WHERE bid='$bid'");
-    Header("Location: admin.php?op=BannersAdmin");
+   global $NPDS_Prefix;
+   $imp = $imptotal+$impadded;
+   sql_query("UPDATE ".$NPDS_Prefix."banner SET cid='$cid', imptotal='$imp', imageurl='$imageurl', clickurl='$clickurl', userlevel='$userlevel' WHERE bid='$bid'");
+   Header("Location: admin.php?op=BannersAdmin");
 }
-
 function BannerClientDelete($cid, $ok=0) {
     global $NPDS_Prefix, $sitename, $f_meta_nom, $f_titre, $adminimg;
     if ($ok==1) {
@@ -520,7 +513,6 @@ function BannerClientDelete($cid, $ok=0) {
     [ <a href=\"admin.php?op=BannerClientDelete&amp;cid=$cid&amp;ok=1\" class=\"btn btn-danger\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=BannersAdmin\" class=\"btn btn-secondary\">".adm_translate("Non")."</a> ]</p><br /><br />";
     adminfoot('','','','');
 }
-
 function BannerClientEdit($cid) {
    global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    include("header.php");
@@ -533,7 +525,7 @@ function BannerClientEdit($cid) {
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom de l'Annonceur").'</label>
+            <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom de l'Annonceur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="name" value="'.$name.'" maxlength="60" required="required" />
             </div>
@@ -541,7 +533,7 @@ function BannerClientEdit($cid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="contact">'.adm_translate("Nom du Contact").'</label>
+            <label class="form-control-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="contact" value="'.$contact.'" maxlength="60" required="required" />
             </div>
@@ -549,7 +541,7 @@ function BannerClientEdit($cid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
+            <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="email" size="30" maxlength="60" value="'.$email.'" required="required" />
             </div>
@@ -557,7 +549,7 @@ function BannerClientEdit($cid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="login">'.adm_translate("Identifiant").'</label>
+            <label class="form-control-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
             <div class="col-sm-8">
             <input class="form-control" type="text" name="login" maxlength="10" value="'.$login.'" required="required" />
             </div>
@@ -565,7 +557,7 @@ function BannerClientEdit($cid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="passwd">'.adm_translate("Mot de Passe").'</label>
+            <label class="form-control-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="password" name="passwd" maxlength="10" value="'.$passwd.'" required="required" />
             </div>
@@ -573,7 +565,7 @@ function BannerClientEdit($cid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
+            <label class="form-control-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="extrainfo" rows="10">'.$extrainfo.'</textarea>
             </div>
@@ -591,8 +583,7 @@ function BannerClientEdit($cid) {
    </form>';
    adminfoot('fv','','','');
 }
-
-function BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd, $extrainfo) {
+function BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd) {
     global $NPDS_Prefix;
     sql_query("UPDATE ".$NPDS_Prefix."bannerclient SET name='$name', contact='$contact', email='$email', login='$login', passwd='$passwd', extrainfo='$extrainfo' WHERE cid='$cid'");
     Header("Location: admin.php?op=BannersAdmin");
@@ -627,7 +618,8 @@ switch ($op) {
          BannerClientEdit($cid);
          break;
     case "BannerClientChange":
-         BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd, $extrainfo);
+         BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd);
          break;
+//         default:BannersAdmin();break;
 }
 ?>
