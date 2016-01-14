@@ -47,7 +47,7 @@ switch ($acc) {
    break;
 
    case "reply":
-      if (array_key_exists(1,$userdata))
+      if (array_key_exists(1,$userdata))// why make an error ?
          $userdata = get_userdata($userdata[1]);
       if ($allow_html == 0 || isset($html)) $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
       if (isset($sig) && $userdata['uid'] != 1) $messageP .= " [addsig]";
