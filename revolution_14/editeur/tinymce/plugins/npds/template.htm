@@ -1,10 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
    <title>NPDS_template</title>
-   <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
-   <link href="css/template.css" rel="stylesheet" type="text/css" />
 </head>
-<input type="image" name="bloc1" src="images/txt.gif" onClick="InsertTxt();">&nbsp;
+<input type="image" name="bloc1" src="images/col_un.jpg" onClick="InsertTxt();">&nbsp;
 <script type="text/javascript">
    //<![CDATA[
    function InsertTxt() {
@@ -18,7 +16,8 @@
    <script type="text/javascript">
    //<![CDATA[
    function InsertTxtTxt() {
-   var insert='<table width="100%" border="0"><tr><td width="50%" valign="top">texte &agrave; ins&eacute;rer dans la colonne 1</td><td>&nbsp;&nbsp;</td><td width="50%" valign="top">texte &agrave; ins&eacute;rer dans la colonne 2</td></tr></table>';
+   
+   var insert='<div class="row"><div class="col-xs-6">.col-xs-6<br >texte &agrave; ins&eacute;rer dans la colonne 1 <br />Hae duae provinciae bello quondam piratico catervis mixtae praedonum a Servilio pro consule missae sub iugum factae sunt vectigales. et hae quidem regiones velut in prominenti terrarum lingua positae ob orbe eoo monte Amano disparantur.</div><div class="col-xs-6">.col-xs-6<br />texte &agrave; ins&eacute;rer dans la colonne 2<br />Hae duae provinciae bello quondam piratico catervis mixtae praedonum a Servilio pro consule missae sub iugum factae sunt vectigales. et hae quidem regiones velut in prominenti terrarum lingua positae ob orbe eoo monte Amano disparantur.</div></div>';
    parent.tinymce.activeEditor.selection.setContent(insert);
    parent.tinymce.activeEditor.windowManager.close(this);
    }
