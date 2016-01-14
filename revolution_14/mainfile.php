@@ -352,7 +352,7 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
 #autodoc copy_to_email($to_userid,$sujet,$message) : Pour copier un subject+message dans un email ($to_userid)
 function copy_to_email($to_userid,$sujet,$message) {
    global $NPDS_Prefix;
-   $result = sql_query("select email,send_email from ".$NPDS_Prefix."users where uid='$to_userid'");
+   $result = sql_query("SELECT email,send_email FROM ".$NPDS_Prefix."users WHERE uid='$to_userid'");
    list($mail,$avertir_mail) = sql_fetch_row($result);
    if (($mail) and ($avertir_mail==1)) {
       send_email($mail,$sujet,$message, "", true, "html");
@@ -401,19 +401,19 @@ function SC_infos() {
 function req_stat() {
    global $NPDS_Prefix;
    // Les membres
-   $result = sql_query("select uid from ".$NPDS_Prefix."users");
+   $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
    if ($result) {$xtab[0]=sql_num_rows($result);} else {$xtab[0]="0";}
    // Les Nouvelles (News)
-   $result = sql_query("select sid from ".$NPDS_Prefix."stories");
+   $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
    if ($result) {$xtab[1]=sql_num_rows($result);} else {$xtab[1]="0";}
    // Les Critiques (Reviews))
-   $result = sql_query("select id from ".$NPDS_Prefix."reviews");
+   $result = sql_query("SELECT id FROM ".$NPDS_Prefix."reviews");
    if ($result) {$xtab[2]=sql_num_rows($result);} else {$xtab[2]="0";}
    // Les Forums
-   $result = sql_query("select forum_id from ".$NPDS_Prefix."forums");
+   $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums");
    if ($result) {$xtab[3]=sql_num_rows($result);} else {$xtab[3]="0";}
    // Les Sujets (topics)
-   $result = sql_query("select topicid from ".$NPDS_Prefix."topics");
+   $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics");
    if ($result) {$xtab[4]=sql_num_rows($result);} else {$xtab[4]="0";}
    // Nombre de pages vues
    $result = sql_query("SELECT count FROM ".$NPDS_Prefix."counter WHERE type='total'");
@@ -452,8 +452,8 @@ function Mess_Check_Mail_Sub($username, $class) {
    global $user;
    if ($username) {
       $userdata = explode(":", base64_decode($user));
-      $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' and type_msg='0'"));
-      $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND read_msg='0' and type_msg='0'"));
+      $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND type_msg='0'"));
+      $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND read_msg='0' AND type_msg='0'"));
       if ($total_messages > 0) {
          if ($new_messages > 0) {
             $Xcheck_Nmail=$new_messages;
@@ -504,7 +504,7 @@ function Site_Load() {
    global $who_online_num;
    $guest_online_num = 0;
    $member_online_num = 0;
-   $result = sql_query("SELECT count(username) as TheCount, guest FROM ".$NPDS_Prefix."session GROUP BY guest");
+   $result = sql_query("SELECT COUNT(username) AS TheCount, guest FROM ".$NPDS_Prefix."session GROUP BY guest");
    while ($TheResult = sql_fetch_assoc($result)) {
       if ($TheResult['guest']==0)
          $member_online_num = $TheResult['TheCount'];
@@ -526,7 +526,7 @@ function AutoReg() {
    if (!$AutoRegUser) {
       if (isset($user)) {
          $cookie = explode(":", base64_decode($user));
-         list($test) = sql_fetch_row(sql_query("select open from ".$NPDS_Prefix."users_status where uid='$cookie[0]'"));
+         list($test) = sql_fetch_row(sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'"));
          if (!$test) {
             setcookie("user","",0);
             return false;
@@ -625,12 +625,12 @@ function ultramode() {
    $file2 = fopen("$netTOzone", "w");
    fwrite($file, "General purpose self-explanatory file with news headlines\n");
    $storynum = $storyhome;
-   $xtab=news_aff("index","where ihome='0' and archive='0'",$storyhome,"");
+   $xtab=news_aff("index","WHERE ihome='0' AND archive='0'",$storyhome,"");
    $story_limit=0;
    while (($story_limit<$storynum) and ($story_limit<sizeof($xtab))) {
       list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
       $story_limit++;
-      $rfile2=sql_query("select topictext, topicimage from ".$NPDS_Prefix."topics where topicid='$topic'");
+      $rfile2=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
       list($topictext, $topicimage) = sql_fetch_row($rfile2);
       $hometext=meta_lang(strip_tags($hometext));
       fwrite($file, "%%\n$title\n$nuke_url/article.php?sid=$sid\n$time\n$aid\n$topictext\n$hometext\n$topicimage\n");
@@ -654,12 +654,12 @@ function cookiedecode($user) {
       $cookie = explode(":", base64_decode($user));
       settype($cookie[0],"integer");
       if (trim($cookie[1])!="") {
-         $result = sql_query("select pass, user_langue from ".$NPDS_Prefix."users where uname='$cookie[1]'");
+         $result = sql_query("SELECT pass, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
          if (sql_num_rows($result)==1) {
             list($pass, $user_langue) = sql_fetch_row($result);
             if (($cookie[2] == md5($pass)) AND ($pass != "")) {
                if ($language!=$user_langue) {
-                  sql_query("UPDATE ".$NPDS_Prefix."users set user_langue='$language' where uname='$cookie[1]'");
+                  sql_query("UPDATE ".$NPDS_Prefix."users SET user_langue='$language' WHERE uname='$cookie[1]'");
                }
                return $cookie;
             } else {
@@ -683,11 +683,11 @@ function cookiedecode($user) {
 function getusrinfo($user) {
    global $NPDS_Prefix;
    $cookie = explode(":", base64_decode($user));
-   $result = sql_query("select pass FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
+   $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($pass) = sql_fetch_row($result);
    $userinfos="";
    if (($cookie[2] == md5($pass)) AND ($pass != "")) {
-      $result = sql_query("select uid, name, uname, email, femail, url, user_avatar, user_icq, user_occ, user_from, user_intrest, user_sig, user_viewemail, user_theme, user_aim, user_yim, user_msnm, pass, storynum, umode, uorder, thold, noscore, bio, ublockon, ublock, theme, commentmax, user_journal, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
+      $result = sql_query("SELECT uid, name, uname, email, femail, url, user_avatar, user_icq, user_occ, user_from, user_intrest, user_sig, user_viewemail, user_theme, user_aim, user_yim, user_msnm, pass, storynum, umode, uorder, thold, noscore, bio, ublockon, ublock, theme, commentmax, user_journal, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       if (sql_num_rows($result)==1) {
          $userinfo = sql_fetch_assoc($result);
       } else {
@@ -733,7 +733,7 @@ function formatTimestamp($time) {
 #autodoc formatAidHeader($aid) : Affiche URL et Email d'un auteur
 function formatAidHeader($aid) {
    global $NPDS_Prefix;
-   $holder = sql_query("SELECT url, email FROM ".$NPDS_Prefix."authors where aid='$aid'");
+   $holder = sql_query("SELECT url, email FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
    if ($holder) {
       list($url, $email) = sql_fetch_row($holder);
       if (isset($url)) {
@@ -779,23 +779,23 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    global $NPDS_Prefix;
    // Astuce pour affichÈ le nb de News correct mÍme si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
-   $row_Q2 = Q_select("select count(groupe_id) as total from ".$NPDS_Prefix."groupes",86400);
+   $row_Q2 = Q_select("SELECT COUNT(groupe_id) AS total FROM ".$NPDS_Prefix."groupes",86400);
    list(,$NumG)=each($row_Q2);
    if ($NumG['total']<2) $coef=2; else $coef=$NumG['total'];
    settype($storynum,"integer");
    if ($type_req=="index") {
       $Xstorynum=$storynum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel order by sid DESC limit $Xstorynum",3600);
+      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY sid DESC LIMIT $Xstorynum",3600);
       $Znum=$storynum;
    }
    if ($type_req=="old_news") {
       $Xstorynum=$oldnum*$coef;
-      $result = Q_select("select sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel order by time DESC limit $storynum,$Xstorynum",3600);
+      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum,$Xstorynum",3600);
       $Znum=$oldnum;
    }
    if (($type_req=="big_story") or ($type_req=="big_topic")) {
       $Xstorynum=$oldnum*$coef;
-      $result = Q_select("select sid, catid, ihome from ".$NPDS_Prefix."stories $sel order by counter DESC limit $storynum,$Xstorynum",3600);
+      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum,$Xstorynum",3600);
       $Znum=$oldnum;
    }
    if ($type_req=="libre") {
@@ -818,16 +818,16 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
       if ($type_req=="archive") {$ihome=0;}
       if (ctrl_aff($ihome, $catid)) {
          if (($type_req=="index") or ($type_req=="libre")) {
-            $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories where sid='$s_sid' and archive='0'");
+            $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
          }
          if ($type_req=="archive") {
-            $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories where sid='$s_sid' and archive='1'");
+            $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='1'");
          }
          if ($type_req=="old_news") {
-            $result2 = sql_query("select sid, title, time, comments, counter from ".$NPDS_Prefix."stories where sid='$s_sid' and archive='0'");
+            $result2 = sql_query("SELECT sid, title, time, comments, counter FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
          }
          if (($type_req=="big_story") or ($type_req=="big_topic")) {
-            $result2 = sql_query("select sid, title from ".$NPDS_Prefix."stories where sid='$s_sid' and archive='0'");
+            $result2 = sql_query("SELECT sid, title FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
          }
          $tab[$ibid]=sql_fetch_row($result2);
          if (is_array($tab[$ibid])) {
@@ -852,25 +852,25 @@ function prepa_aff_news($op,$catid,$marqeur) {
        $storynum = $storyhome;
    }
    if ($op=="categories") {
-      sql_query("update ".$NPDS_Prefix."stories_cat set counter=counter+1 where catid='$catid'");
+      sql_query("UPDATE ".$NPDS_Prefix."stories_cat SET counter=counter+1 WHERE catid='$catid'");
       settype($marqeur, "integer");
       if (!isset($marqeur)) {$marqeur=0;}
-      $xtab=news_aff("libre","where catid='$catid' and archive='0' order by sid DESC limit $marqeur,$storynum","","-1");
+      $xtab=news_aff("libre","WHERE catid='$catid' AND archive='0' ORDER BY sid DESC LIMIT $marqeur,$storynum","","-1");
       $storynum=sizeof($xtab);
    } elseif ($op=="topics") {
       settype($marqeur, "integer");
       if (!isset($marqeur)) {$marqeur=0;}
-      $xtab=news_aff("libre","where topic='$catid' and archive='0' order by sid DESC limit $marqeur,$storynum","","-1");
+      $xtab=news_aff("libre","WHERE topic='$catid' AND archive='0' ORDER BY sid DESC LIMIT $marqeur,$storynum","","-1");
       $storynum=sizeof($xtab);
    } elseif ($op=="news") {
       settype($marqeur, "integer");
       if (!isset($marqeur)) {$marqeur=0;}
-      $xtab=news_aff("libre","where ihome!='1' and archive='0' order by sid DESC limit $marqeur,$storynum","","-1");
+      $xtab=news_aff("libre","WHERE ihome!='1' AND archive='0' ORDER BY sid DESC LIMIT $marqeur,$storynum","","-1");
       $storynum=sizeof($xtab);
    } elseif ($op=="article") {
-      $xtab=news_aff("index","where ihome!='1' and sid='$catid'",1,"");
+      $xtab=news_aff("index","WHERE ihome!='1' AND sid='$catid'",1,"");
    } else {
-      $xtab=news_aff("index","where ihome!='1' and archive='0'",$storynum,"");
+      $xtab=news_aff("index","WHERE ihome!='1' AND archive='0'",$storynum,"");
    }
    $story_limit=0;
    while (($story_limit<$storynum) and ($story_limit<sizeof($xtab))) {
@@ -889,39 +889,35 @@ function prepa_aff_news($op,$catid,$marqeur) {
        if ($bodycount > 0) {
           $bodycount = strlen(strip_tags(aff_langue($bodytext)));
           if ($bodycount > 0 )
-             $morelink[0]=wrh($bodycount)." ".translate("bytes more");
+             $morelink[0]=wrh($bodycount).' '.translate("bytes more");
           else
-             $morelink[0]=" ";
-          $morelink[1]=" <a href=\"article.php?sid=$s_sid\" class=\"noir\">".translate("Read More...")."</a>";
+             $morelink[0]=' ';
+          $morelink[1]=' <a href="article.php?sid='.$s_sid.'" >'.translate("Read More...").'</a>';
        } else {
-          $morelink[0]="";
-          $morelink[1]="";
+          $morelink[0]='';
+          $morelink[1]='';
        }
        if ($comments==0) {
            $morelink[2]=0;
-//           $morelink[3]="<a href=\"article.php?sid=$s_sid\" class=\"noir\">".translate("comments?")."</a>";
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="noir"><i class="fa fa-commenting-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
-
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class=""><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
        } elseif ($comments==1) {
            $morelink[2]=$comments;
-//           $morelink[3]="<a href=\"article.php?sid=$s_sid\" class=\"noir\">".translate("comment")."</a>";
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="noir"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class=""><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
        } else {
            $morelink[2]=$comments;
-//           $morelink[3]="<a href=\"article.php?sid=$s_sid\" class=\"noir\">".translate("comments")."</a>";
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="" ><span class="com fa-stack fa-3x"><i class="fa fa-comment-o fa-lg fa-stack-2x" title="'.translate("comments").'" data-toggle="tooltip"></i><strong class="fa-stack-1x-com fa-stack-text ">'.$comments.'</strong></span></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
        $sid = $s_sid;
        if ($catid != 0) {
-          $resultm = sql_query("select title from ".$NPDS_Prefix."stories_cat where catid='$catid'");
+          $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
           list($title1) = sql_fetch_row($resultm);
-          $title = "<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"noir\">".aff_langue($title1)."</a> : $title";
-          // Attention ‡ cela aussi
-          $morelink[6]="<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"noir\">".aff_langue($title1)."</a>";
+          $title = "<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"\">".aff_langue($title1)."</a> : $title";
+          // Attention à cela aussi
+          $morelink[6]="<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"\">".aff_langue($title1)."</a>";
        } else {
-          $morelink[6]="";
+          $morelink[6]='';
        }
        $news_tab[$story_limit]['aid']=serialize($aid);
        $news_tab[$story_limit]['informant']=serialize($informant);
@@ -944,7 +940,7 @@ function valid_group($xuser) {
    global $NPDS_Prefix;
    if ($xuser) {
       $userdata = explode(":",base64_decode($xuser));
-      $user_temp=Q_select("select groupe from ".$NPDS_Prefix."users_status where uid='$userdata[0]'",3600);
+      $user_temp=Q_select("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$userdata[0]'",3600);
       list(,$groupe) = each($user_temp);
       $tab_groupe=explode(",",$groupe['groupe']);
    } else {
@@ -1219,18 +1215,18 @@ function oneblock($Xid, $Xblock) {
 }
 #autodoc Pre_fab_block($Xid, $Xblock) : Assure la fabrication d'un ou de tous les blocs Gauche et Droite
 function Pre_fab_block($Xid, $Xblock) {
-    global $NPDS_Prefix;
+    global $NPDS_Prefix, $htvar; // modif Jireck
     if ($Xid) {
       if ($Xblock=="RB") {
-         $result = sql_query("select title, content, member, cache, actif, id, css from ".$NPDS_Prefix."rblocks where id='$Xid'");
+         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks WHERE id='$Xid'");
       } else {
-         $result = sql_query("select title, content, member, cache, actif, id, css from ".$NPDS_Prefix."lblocks where id='$Xid'");
+         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks WHERE id='$Xid'");
       }
     } else {
       if ($Xblock=="RB") {
-         $result = sql_query("select title, content, member, cache, actif, id, css from ".$NPDS_Prefix."rblocks order by Rindex ASC");
+         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
       } else {
-         $result = sql_query("select title, content, member, cache, actif, id, css from ".$NPDS_Prefix."lblocks order by Lindex ASC");
+         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks ORDER BY Lindex ASC");
       }
     }
     global $bloc_side;
@@ -1242,12 +1238,12 @@ function Pre_fab_block($Xid, $Xblock) {
     while (list($title, $content, $member, $cache, $actif, $id, $css)=sql_fetch_row($result)) {
       if (($actif) or ($Xid)) {
          if ($css==1){
-            echo "\n<div id=\"".$Xblock."_".$id."\">";
+            $htvar = "<div id=\"".$Xblock."_".$id."\">"; // modif Jireck
          } else {
-            echo "\n<div class=\"".strtolower($bloc_side)."bloc\">";
+            $htvar = "<div class=\"".strtolower($bloc_side)."bloc\">"; // modif Jireck
          }
          fab_block($title, $member, $content, $cache);
-         echo "\n</div>";
+         // echo "</div>"; // modif Jireck
       }
     }
     sql_free_result($result);
@@ -1255,12 +1251,12 @@ function Pre_fab_block($Xid, $Xblock) {
 #autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le paramËtre est le contenu du bloc (function#....)
 function niv_block($Xcontent) {
    global $NPDS_Prefix;
-   $result = sql_query("select content, member, actif from ".$NPDS_Prefix."rblocks where (content like '%$Xcontent%')");
+   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."rblocks WHERE (content like '%$Xcontent%')");
    if (sql_num_rows($result)) {
       list($content, $member, $actif) = sql_fetch_row($result);
       return ($member.",".$actif);
    }
-   $result = sql_query("select content, member, actif from ".$NPDS_Prefix."lblocks where (content like '%$Xcontent%')");
+   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."lblocks WHERE (content like '%$Xcontent%')");
    if (sql_num_rows($result)) {
       list($content, $member, $actif) = sql_fetch_row($result);
       return ($member.",".$actif);
@@ -1310,10 +1306,10 @@ function getTopics($s_sid) {
    global $NPDS_Prefix;
    global $topicname, $topicimage, $topictext;
    $sid = $s_sid;
-   $result=sql_query("SELECT topic FROM ".$NPDS_Prefix."stories where sid='$sid'");
+   $result=sql_query("SELECT topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
    if ($result) {
       list($topic) = sql_fetch_row($result);
-      $result=sql_query("SELECT topicid, topicname, topicimage, topictext FROM ".$NPDS_Prefix."topics where topicid='$topic'");
+      $result=sql_query("SELECT topicid, topicname, topicimage, topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
       if ($result) {
          list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result);
          return (true);
@@ -1326,16 +1322,16 @@ function getTopics($s_sid) {
 }
 #autodoc subscribe_mail($Xtype, $Xtopic,$Xforum, $Xresume, $Xsauf) : Assure l'envoi d'un mail pour un abonnement
 function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
-   // $Xtype : topic, forum ... / $Xtopic clause where / $Xforum id of forum / $Xresume Text passed / $Xsauf not this userid
+   // $Xtype : topic, forum ... / $Xtopic clause WHERE / $Xforum id of forum / $Xresume Text passed / $Xsauf not this userid
    global $NPDS_Prefix;
    global $sitename, $nuke_url;
    if ($Xtype=="topic") {
-      $result=sql_query("select topictext from ".$NPDS_Prefix."topics where topicid='$Xtopic'");
+      $result=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$Xtopic'");
       list($abo)=sql_fetch_row($result);
-      $result=sql_query("select uid from ".$NPDS_Prefix."subscribe where topicid='$Xtopic'");
+      $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."subscribe WHERE topicid='$Xtopic'");
    }
    if ($Xtype=="forum")  {
-      $result=sql_query("select forum_name, arbre from ".$NPDS_Prefix."forums where forum_id='$Xforum'");
+      $result=sql_query("SELECT forum_name, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id='$Xforum'");
       list($abo, $arbre)=sql_fetch_row($result);
       if ($arbre)
          $hrefX="viewtopicH.php";
@@ -1343,22 +1339,22 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
          $hrefX="viewtopic.php";
       $resultZ=sql_query("SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$Xtopic'");
       list($title_topic)=sql_fetch_row($resultZ);
-      $result=sql_query("select uid from ".$NPDS_Prefix."subscribe where forumid='$Xforum'");
+      $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."subscribe WHERE forumid='$Xforum'");
    }
    include_once("language/lang-multi.php");
    while(list($uid) = sql_fetch_row($result)) {
       if ($uid!=$Xsauf) {
-         $resultX=sql_query("select email, user_langue from ".$NPDS_Prefix."users where uid='$uid'");
+         $resultX=sql_query("SELECT email, user_langue FROM ".$NPDS_Prefix."users WHERE uid='$uid'");
          list($email, $user_langue)=sql_fetch_row($resultX);
          if ($Xtype=="topic") {
-            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous Ítes abonnÈ ‡ : ").translate_ml($user_langue, "Sujet")." => ".strip_tags($abo)."\n\n";
-            $resume=translate_ml($user_langue, "Le titre de la derniËre publication est")." => $Xresume\n\n";
+            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous êtes abonné à : ").translate_ml($user_langue, "Sujet")." => ".strip_tags($abo)."\n\n";
+            $resume=translate_ml($user_langue, "Le titre de la dernière publication est")." => $Xresume\n\n";
             $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/search.php?query=&topic=$Xtopic\">$nuke_url/search.php?query=&topic=$Xtopic</a>\n\n";
          }
          if ($Xtype=="forum") {
-            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous Ítes abonnÈ ‡ : ").translate_ml($user_langue, "Forum")." => ".strip_tags($abo)."\n\n";
+            $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous êtes abonné à : ").translate_ml($user_langue, "Forum")." => ".strip_tags($abo)."\n\n";
             $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999#last-post\">$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999</a>\n\n";
-            $resume=translate_ml($user_langue, "Le titre de la derniËre publication est")." => ";
+            $resume=translate_ml($user_langue, "Le titre de la dernière publication est")." => ";
             if ($Xresume!="") {
                $resume.=$Xresume."\n\n";
             } else {
@@ -1377,14 +1373,14 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
 #autodoc subscribe_query($Xuser,$Xtype, $Xclef) : Retourne true si le membre est abonn&egrave; ‡ un topic ou forum
 function subscribe_query($Xuser,$Xtype, $Xclef) {
    global $NPDS_Prefix;
-   if ($Xtype=="topic") {
-      $result=sql_query("select topicid from ".$NPDS_Prefix."subscribe where uid='$Xuser' and topicid='$Xclef'");
+   if ($Xtype=='topic') {
+      $result=sql_query("SELECT topicid FROM ".$NPDS_Prefix."subscribe WHERE uid='$Xuser' AND topicid='$Xclef'");
    }
-   if ($Xtype=="forum") {
-      $result=sql_query("select forumid from ".$NPDS_Prefix."subscribe where uid='$Xuser' and forumid='$Xclef'");
+   if ($Xtype=='forum') {
+      $result=sql_query("SELECT forumid FROM ".$NPDS_Prefix."subscribe WHERE uid='$Xuser' AND forumid='$Xclef'");
    }
    list($Xtemp) = sql_fetch_row($result);
-   if ($Xtemp!="") {
+   if ($Xtemp!='') {
       return (true);
    } else {
       return (false);
@@ -1395,7 +1391,7 @@ function pollSecur($pollID) {
    global $NPDS_Prefix;
    global $user;
    $pollIDX=false;
-   $result = sql_query("SELECT pollType FROM ".$NPDS_Prefix."poll_data where pollID='$pollID'");
+   $result = sql_query("SELECT pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
    if (sql_num_rows($result)) {
       list($pollType)=sql_fetch_row($result);
       $pollClose = (($pollType / 128) >= 1 ? 1 : 0);
@@ -1790,7 +1786,7 @@ function anti_spam($str, $highcode = 0) {
 }
 #autodoc aff_editeur($Xzone, $Xactiv) : Charge l'Èditeur ... ou non : $Xzone = nom du textarea / $Xactiv = deprecated <br /> si $Xzone="custom" on utilise $Xactiv pour passer des param&egrave;tres spÈcifiques
 function aff_editeur($Xzone, $Xactiv) {
-   global $language, $tiny_mce,$tiny_mce_theme,$tiny_mce_relurl;
+   global $language, $tmp_theme, $tiny_mce,$tiny_mce_theme,$tiny_mce_relurl;
    $tmp='';
    if ($tiny_mce) {
       static $tmp_Xzone;
@@ -1806,7 +1802,9 @@ function aff_editeur($Xzone, $Xactiv) {
                   selector: 'textarea.tin',
                   height: 300,
                   theme : 'modern',
+                  content_css : 'lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css',// should be the $tmp_theme
                   language : '".language_iso(1,_,1)."',\n";
+                  
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
                });
@@ -2141,18 +2139,18 @@ function online() {
    } else {
       sql_query("INSERT INTO ".$NPDS_Prefix."session (username, time, host_addr, guest) VALUES ('$username', '$ctime', '$ip', '$guest')");
    }
-   $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session where guest=1");
+   $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session WHERE guest=1");
    $guest_online_num = sql_num_rows($result);
-   $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session where guest=0");
+   $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session WHERE guest=0");
    $member_online_num = sql_num_rows($result);
    $who_online_num = $guest_online_num + $member_online_num;
    $who_online = "<p align=\"center\">".translate("There are currently,")." $guest_online_num ".translate("guest(s) and")." $member_online_num ".translate("member(s) that are online.")."<br />";
-   $content = "$who_online";
+   $content = $who_online;
    if ($user) {
       $content .= "<br />".translate("You are logged as")." <b>$username</b>.<br />";
-      $result = Q_select("select uid from ".$NPDS_Prefix."users where uname='$username'", 86400);
+      $result = Q_select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'", 86400);
       list(,$uid) = each($result);
-      $result2 = sql_query("select to_userid from ".$NPDS_Prefix."priv_msgs where to_userid='".$uid['uid']."' and type_msg='0'");
+      $result2 = sql_query("SELECT to_userid FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$uid['uid']."' AND type_msg='0'");
       $numrow = sql_num_rows($result2);
       $content .= translate("You have")." <a href=\"viewpmsg.php\">$numrow</a> ".translate("private message(s).")."</p>";
    } else {
@@ -2233,12 +2231,11 @@ function searchbox() {
 #autodoc mainblock() : Bloc principal <br />=> syntaxe : function#mainblock
 function mainblock() {
    global $NPDS_Prefix;
-   $result = sql_query("select title, content from ".$NPDS_Prefix."mainblock");
+   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."mainblock");
    list($title, $content) = sql_fetch_row($result);
    global $block_title;
    if ($title=="")
       $title=$block_title;
-//   themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content))));
    themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)))); //php7
 }
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
@@ -2275,7 +2272,7 @@ function adminblock() {
        global $block_title;
        if ($title=="") $title=$block_title;
        else $title=aff_langue($title);
-       $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));
+       $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));//php7
        $content .= '
        <ul id="adm_block">
           '.$bloc_foncts_A.'
@@ -2405,7 +2402,7 @@ function topdownload_data($form, $ordre) {
    global $top, $long_chain;
    if (!$long_chain) {$long_chain=13;}
    settype($top,"integer");
-   $result = sql_query("select did, dcounter, dfilename, dcategory, ddate, perms from ".$NPDS_Prefix."downloads order by '$ordre' DESC limit 0,$top");
+   $result = sql_query("SELECT did, dcounter, dfilename, dcategory, ddate, perms FROM ".$NPDS_Prefix."downloads ORDER BY '$ordre' DESC LIMIT 0,$top");
    $lugar=1; $ibid="";
    while(list($did, $dcounter, $dfilename, $dcategory, $ddate, $dperm) = sql_fetch_row($result)) {
       $rowcolor = tablos();
@@ -2517,7 +2514,7 @@ function bigstory() {
       $month = "0$month";
    $year = $today['year'];
    $tdate = "$year-$month-$day";
-   $xtab=news_aff("big_story","where (time LIKE '%$tdate%')",0,1);
+   $xtab=news_aff("big_story","WHERE (time LIKE '%$tdate%')",0,1);
    if (sizeof($xtab)) {
       list($fsid, $ftitle) = $xtab[0];
    } else {
@@ -2540,17 +2537,17 @@ function bigstory() {
 function category() {
    global $NPDS_Prefix;
    global $cat, $language;
-   $result = sql_query("select catid, title from ".$NPDS_Prefix."stories_cat order by title");
+   $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    $numrows = sql_num_rows($result);
    if ($numrows == 0) {
       return;
    } else {
       $boxstuff = "<ul>";
       while (list($catid, $title) = sql_fetch_row($result)) {
-         $result2 = sql_query("select sid from ".$NPDS_Prefix."stories where catid='$catid' limit 0,1");
+         $result2 = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories WHERE catid='$catid' LIMIT 0,1");
          $numrows = sql_num_rows($result2);
          if ($numrows > 0) {
-            $res = sql_query("select time from ".$NPDS_Prefix."stories where catid='$catid' order by sid DESC limit 0,1");
+            $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
             if ($cat == $catid) {
                $boxstuff .= "<li><b>".aff_langue($title)."</b></li>";
@@ -2578,9 +2575,9 @@ function headlines($hid="", $block=true) {
      include("proxy.conf.php");
   }
   if ($hid=="") {
-     $result = sql_query("select sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines where status=1");
+     $result = sql_query("SELECT sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines WHERE status=1");
   } else {
-     $result = sql_query("select sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines where hid='$hid' and status=1");
+     $result = sql_query("SELECT sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
   }
   while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
     $boxtitle     = "$sitename";
@@ -2679,7 +2676,7 @@ function PollNewest($id='') {
       settype($id, "integer");
       list($ibid,$pollClose)=pollSecur($id);
       if ($ibid) {pollMain($ibid,$pollClose);}
-   } elseif ($result = sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_data ORDER BY pollID DESC limit 1")) {
+   } elseif ($result = sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_data ORDER BY pollID DESC LIMIT 1")) {
       list($pollID)=sql_fetch_row($result);
       list($ibid,$pollClose)=pollSecur($pollID);
       if ($ibid) {pollMain($ibid,$pollClose);}
@@ -2724,9 +2721,9 @@ function bloc_rubrique() {
          }
       }
    }
-   $boxstuff .="</ul>";
+   $boxstuff .='</ul>';
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Sections");
    else
       $title=$block_title;
@@ -2737,7 +2734,7 @@ function bloc_rubrique() {
 #autodoc : function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilis&eacute;
 function bloc_espace_groupe($gr, $i_gr) {
    global $NPDS_Prefix, $block_title;
-   if ($block_title=="") {
+   if ($block_title=='') {
       $rsql=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
       $title=$rsql['groupe_name'];
    } else
@@ -2856,7 +2853,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    //=> Forum
    $lst_for='';
    if ($rsql['groupe_forum'] == 1) {
-      $res_forum=sql_query("select forum_id, forum_name from ".$NPDS_Prefix."forums where forum_pass regexp '$gr'");
+      $res_forum=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_pass REGEXP '$gr'");
       $nb_foru=sql_num_rows ($res_forum);
       if ($nb_foru >= 1) {
          $lst_for_tog='<a class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>';
@@ -2876,9 +2873,6 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $content.='<li class="list-group-item li_18">'.$lst_for_tog.'&nbsp;<i class="fa fa-list-alt fa-lg text-muted" title="'.translate("Group").'('.$gr.'): '.translate("forum").'."></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
    }
    //<= Forum
-
-
-
    //=> wspad
    if ($rsql['groupe_pad'] == 1) {
       settype($lst_doc,'string');
@@ -2908,7 +2902,6 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $content.='<li class="list-group-item li_18">'. $lst_doc_tog.'&nbsp;<i class="fa fa-edit fa-lg text-muted" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
    }
    //<= wspad
-   
    
    //=> bloc-notes
    if ($rsql['groupe_blocnote'] == 1) {
