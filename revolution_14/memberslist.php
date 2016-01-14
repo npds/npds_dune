@@ -197,17 +197,17 @@ function avatar($user_avatar) {
       global $member_invisible;
       if ($member_invisible) {
          if ($admin)
-            $and="";
+            $and='';
          else {
             if ($where)
-               $and="and is_visible=1 ";
+               $and='AND is_visible=1 ';
             else
-               $and="where is_visible=1 ";
+               $and='WHERE is_visible=1 ';
          }
       } else {
-         $and="";
+         $and='';
       }      
-      $sort = "order by $sortby";
+      $sort = "ORDER BY $sortby";
       $limit = " LIMIT ".$min.", ".$max;
       $count_result = sql_query($count.$where);
       list($num_rows_per_order) = sql_fetch_row($count_result);
@@ -215,34 +215,40 @@ function avatar($user_avatar) {
       echo "<br />";
       if ( $letter != "front" ) {
          echo '
-         <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true">
+         <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
             <thead>
                <tr>
                   <th>&nbsp;</th>
                   <th data-sortable="true">'.translate("Nickname").'</th>
-                  <th>&nbsp;</th>';
-         echo "<th data-sortable=\"true\">".translate("Real Name")."</th>\n";
+                  <th>&nbsp;</th>
+                  <th data-sortable="true">'.translate("Real Name").'</th>';
          if ($sortby!="user_from ASC") {
-            echo '<th data-sortable="true">'.translate("Email").'</th>';
+            echo '
+                  <th data-sortable="true">'.translate("Email").'</th>';
          } else {
-            echo "<th data-sortable=\"true\">".translate("Location")."</th>\n";
+            echo '
+                  <th data-sortable="true">'.translate("Location").'</th>';
          }
-         echo "<th>".translate("URL")."</th>\n";
+         echo '
+                  <th>'.translate("URL").'</th>';
          $cols = 6;
          if ($admin) {
             $cols = 7;
-            echo "<th>".translate("Functions")."</th>\n";
+            echo '<th>'.translate("Functions").'</th>';
          }
-         echo "</tr></thead><tbody>\n";
+         echo '
+               </tr>
+            </thead>
+            <tbody>';
          $a = 0;
          $num_users = sql_num_rows($result);
          if ( $num_rows_per_order > 0  ) {
             global $anonymous, $user;
             while($temp_user = sql_fetch_assoc($result) ) {
-               
-               if ($temp_user['mns']) {$mns="<a href=\"minisite.php?op=".$temp_user['uname']."\" title=\"".translate("Mini-Web site")."\" target=\"_blank\" title=\"".translate("Visit the Mini Web Site !")."\"><i class=\"fa fa-external-link\"></i></a>&nbsp;";} else {$mns="<img src=\"images/admin/ws/blank.gif\" border=\"0\" />";}
-               echo "<tr>\n";
-               echo "<td>";
+               if ($temp_user['mns']) {$mns="<a href=\"minisite.php?op=".$temp_user['uname']."\" title=\"".translate("Mini-Web site")."\" target=\"_blank\" title=\"".translate("Visit the Mini Web Site !")."\"><i class=\"fa fa-desktop fa-lg\"></i></a>&nbsp;";} else {$mns="<img src=\"images/admin/ws/blank.gif\" border=\"0\" />";}
+               echo '
+               <tr>
+                  <td>';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
                   echo "<img src=\"".$ibid_avatar."\" width=\"20\" height=\"20\" border=\"0\" alt=\"Avatar\" />";
                else
@@ -255,14 +261,17 @@ function avatar($user_avatar) {
 
                if ($temp_user['uname']!=$anonymous) {
                   if ($user) {
-                     echo "<td>$mns&nbsp;<a href=\"replypmsg.php?send=".urlencode($temp_user['uname'])."\" title=\"".translate("Send internal Message")."\"><i class=\"fa fa-envelope-o\"></i></a>";
-                     echo "&nbsp;<a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;list=$list".urlencode($temp_user['uname']).",&amp;page=$page&amp;gr_from_ws=$gr_from_ws\" title=\"".translate("Add to mailing list")."\">";
-                     echo "<i class=\"fa fa-plus-circle\"></i></a></td>\n";
+                     echo '
+                  <td>'.$mns.'&nbsp;<a href="replypmsg.php?send='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'"><i class="fa fa-envelope-o fa-lg"></i></a>';
+                     echo '&nbsp;<a href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" >';
+                     echo '<i class="fa fa-plus-circle fa-lg"></i></a></td>';
                   } else {
-                     echo "<td>$mns</td>\n";
+                     echo '
+                  <td>'.$mns.'</td>';
                   }
                } else {
-                  echo "<td>&nbsp;</td>\n";
+                  echo '
+                  <td>&nbsp;</td>';
                }
                echo "<td>".$temp_user['name']."</td>\n";
                if ($sortby!="user_from ASC") {
@@ -295,16 +304,19 @@ function avatar($user_avatar) {
                      echo "<img src=\"images/admin/ws/blank.gif\" border=\"0\" /></td>\n";
                   }
                }
-               echo "</tr>\n";
+               echo '
+            </tr>';
             }
-			
          } else {
-            echo '<tr><td colspan="'.$cols.'">';
-            echo "<strong>".translate("No Members Found for")." $letter</strong>\n";
-            echo "</td>\n</tr>\n";
+            echo '
+            <tr>
+               <td colspan="'.$cols.'"><strong>'.translate("No Members Found for").' '.$letter.'</strong></td>
+            </tr>';
          }
-         echo "</tbody>\n</table>\n";
-		 
+         echo '
+         </tbody>
+      </table>';
+
             if ($user) {
                echo '<br /><p class="lead">'.translate("Mailing list").' : '.urldecode($list).'&nbsp;';
                echo "<a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;page=$page&amp;gr_from_ws=$gr_from_ws\" title=\"".translate("RAZ member's list")."\"><i class=\"fa fa-lg fa-trash-o\"></i></a>";
