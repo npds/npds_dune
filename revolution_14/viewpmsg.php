@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -29,34 +29,34 @@ include("auth.php");
       include("header.php");
       opentable();
       $userX = base64_decode($user);
-      $userdata = explode(":", $userX);
+      $userdata = explode(':', $userX);
       $userdata = get_userdata($userdata[1]);
 
-      echo "<form action=\"viewpmsg.php\" method=\"post\">";
-      echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-      echo translate("Private Message")." - ".translate("Inbox")."&nbsp;&nbsp;-&nbsp;&nbsp;";
+      echo '
+      <h2>'.translate("Private Message")." - ".translate("Inbox").'</h2>
+      <form action="viewpmsg.php" method="post">';
       // Classement
-      $sqlT = "SELECT distinct dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' and dossier!='...' and type_msg='0' ORDER BY dossier";
+      $sqlT = "SELECT distinct dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND dossier!='...' AND type_msg='0' ORDER BY dossier";
       $resultT = sql_query($sqlT);
-      echo "&nbsp;&nbsp;<b>".translate("Topic")."</b> : <select class=\"textbox_standard\" name=\"dossier\">";
-      echo "<option value=\"...\">...</option>\n";
+      echo "&nbsp;&nbsp;<b>".translate("Topic")."</b> : <select class=\"c-select form-control\" name=\"dossier\">";
+      echo '
+      <option value="...">...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {
          if (AddSlashes($dossierX)==$dossier) {$sel="selected=\"selected\"";} else {$sel="";}
          echo "<option $sel value=\"$dossierX\">$dossierX</option>\n";
          $tempo[$dossierX]=0;
       }
-      if ($dossier=='All') {$sel="selected=\"selected\"";} else {$sel="";}
+      if ($dossier=='All') {$sel='selected="selected"';} else {$sel='';}
       echo "<option $sel value=\"All\">".translate("All Topics")."</option>\n";
-      echo "</select>";
-      echo "&nbsp;<input type=\"submit\" class=\"bouton_standard\" name=\"classe\" value=\"OK\" />";
-      echo "</td></tr></table>\n";
-      echo "</form>";
+      echo '</select>';
+      echo "&nbsp;<input type=\"submit\" class=\"btn btn-primary\" name=\"classe\" value=\"OK\" />";
+      echo '</form>';
 
       settype($dossier,'string');
-      if ($dossier=="All") {$ibid="";} else {$ibid="and dossier='$dossier'";}
+      if ($dossier=="All") {$ibid='';} else {$ibid="and dossier='$dossier'";}
       if (!$dossier) {$ibid="and dossier='...'";}
-      $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' and type_msg='0' $ibid ORDER BY msg_id DESC";
+      $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID) {
          forumerror(0005);
@@ -130,43 +130,49 @@ include("auth.php");
          echo "</form>";
       }
       echo "</table>";
-      echo "<br />";
 
-      echo "<br />";
-      echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-      echo translate("Private Message")." - ".translate("Outbox");
-      echo "</td></tr></table>\n";
-      echo "<br />";
-      $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid = '".$userdata['uid']."' and type_msg='1' ORDER BY msg_id DESC";
+      echo '
+      <h2>'.translate("Private Message")." - ".translate("Outbox").'</h2>';
+
+      $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid = '".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID) {
          forumerror(0005);
       }
-      echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
-      echo "<form name=\"prvmsgB\" method=\"get\" action=\"replypmsg.php\">";
-      echo "<tr>";
-      echo "<td class=\"header\" align=\"center\" valign=\"middle\"><input name=\"allbox\" onclick=\"CheckAllB();\" type=\"checkbox\" value=\"Check All\" /></td>";
-      echo "<td class=\"header\" align=\"center\" valign=\"middle\">";
+      echo '
+      <table class="table table-sm" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
+      <form name="prvmsgB" method="get" action="replypmsg.php">
+         <thead>
+            <tr>
+               <th data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>
+               <th align="center" valign="middle">';
       if ($ibid=theme_image("forum/download.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/download.gif";}
-      echo "<img src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
-      if ($smilies) { echo "<td class=\"header\" align=\"center\" valign=\"middle\">&nbsp;</td>"; }
-      echo "<td class=\"header\" align=\"center\">".translate("To")."</td>";
-      echo "<td class=\"header\" align=\"center\">".translate("Subject")."</td>";
-      echo "<td class=\"header\" align=\"center\">".translate("Date")."</td>";
-      echo "</tr>";
+      echo '<img src="'.$imgtmp.'" alt="" border="0" /></th>';
+      if ($smilies) { echo '<th class="header" align="center" valign="middle">&nbsp;</th>'; }
+      echo '
+               <th data-sortable="true" align="center">'.translate("To").'</th>
+               <th data-sortable="true" align="center">'.translate("Subject").'</th>
+               <th data-sortable="true" align="center">'.translate("Date").'</th>
+            </tr>
+         </thead>
+         <tbody>';
       if (!$total_messages = sql_num_rows($resultID)) {
          $display=0;
-         echo "<td colspan=\"6\" align=\"center\">".translate("You don't have any Messages.")."</td></tr>\n";
+         echo '
+            <tr>
+               <td colspan="6" align="center">'.translate("You don't have any Messages.").'</td>
+            </tr>';
       } else {
          $display=1;
       }
       $count=0;
       while ($myrow = sql_fetch_assoc($resultID)) {
-         $rowcolor=tablos();
-         echo "<tr $rowcolor>";
-         echo "<td valign=top width=\"2%\" align=\"center\"><input type=\"checkbox\" onclick=\"CheckCheckAllB();\" name=\"msg_id[$count]\" value=\"".$myrow['msg_id']."\" /></td>";
+         echo '
+            <tr>
+               <td valign=top width="2%" align="center"><input type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /></td>';
          if ($myrow['read_msg']=="1") {
-            echo "<td valign=\"top\" width=\"5%\" align=\"center\">&nbsp;</td>";
+            echo '
+               <td valign="top" width="5%" align="center">&nbsp;</td>';
          } else {
             if ($ibid=theme_image("forum/read.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/read.gif";}
             echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
@@ -174,9 +180,9 @@ include("auth.php");
          if ($smilies) {
             if ($myrow['msg_image']!="") {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
+               echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img class=\"smil\" src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
             } else {
-               echo "<td valign=\"top\" width=\"5%\" align=\"center\">&nbsp;</td>";
+               echo '<td valign="top" width="5%" align="center">&nbsp;</td>';
             }
          }
          $myrow['subject']=strip_tags($myrow['subject']);
@@ -187,13 +193,18 @@ include("auth.php");
          $count++;
       }
       if ($display) {
-         echo "<tr class=\"header\">";
+         echo '<tr class="header">';
          if ($ibid=theme_image("forum/icons/$language/delete.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/delete.gif";}
-         echo "<td colspan=\"6\"><input type=\"image\" src=\"$imgtmpD\" name=\"delete_messages\" value=\"delete_messages\" border=\"0\" /></td></tr>";
-         echo "<input type=\"hidden\" name=\"total_messages\" value=\"$total_messages\" />";
-         echo "<input type=\"hidden\" name=\"type\" value=\"outbox\" />";
+         echo '
+         <td colspan="6"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+         </tr>
+         <input type="hidden" name="total_messages" value="'.$total_messages.'" />
+         <input type="hidden" name="type" value="outbox" />';
       }
-      echo "</form></table>";
+      echo '
+         </form>
+         </tbody>
+      </table>';
       ?>
       <script type="text/javascript">
       //<![CDATA[
