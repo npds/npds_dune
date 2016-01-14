@@ -98,7 +98,7 @@ include('auth.php');
          if ($smilies) {
             if ($myrow['msg_image']!="") {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo "<img src=\"$imgtmp\" alt=\"\" />&nbsp;";
+               echo '<img class="smil" src="'.$imgtmp.'" alt="img_subject" />&nbsp;';
             }
          }
          echo translate("Sent")." : ".$myrow['msg_time']."&nbsp;&nbsp;&nbsp";
@@ -166,10 +166,14 @@ include('auth.php');
          }
          echo '
          <ul class="pagination pagination-sm">';
-         if ($previous >= 0) echo '<li><a href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" class="noir">'.translate("Previous Messages").'</a></li>';
-         else echo '<li class="disabled"><a href="#">'.translate("Previous Messages").'</a></li>';
-         if ($next < $total_messages) echo "<li><a href='readpmsg.php?start=$next&amp;total_messages=$total_messages$tmpx' class=\"noir\">".translate("Next Messages").'</a></li>';
-         else echo '<li class="disabled"><a href="#">'.translate("Next Messages").'</a></li>';
+         if ($previous >= 0) echo '
+            <li class="page-item"><a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >'.translate("Previous Messages").'</a></li>';
+         else echo '
+            <li class="page-item"><a class="page-link disabled" href="#">'.translate("Previous Messages").'</a></li>';
+         if ($next < $total_messages) echo '
+            <li class="page-item" ><a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >'.translate("Next Messages").'</a></li>';
+         else echo '
+            <li class="page-item"><a class="page-link disabled" href="#">'.translate("Next Messages").'</a></li>';
          echo '
          </ul>
          </td></tr>';
