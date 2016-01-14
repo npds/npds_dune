@@ -36,7 +36,7 @@ function links() {
    $result2 = sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink=0");
    $totalmodrequests = sql_num_rows($result2);
 
-   echo adm_translate("Il y a").' <b>'.$numrows.'</b> '.adm_translate("Liens");
+   echo adm_translate("Il y a").' <strong>'.$numrows.'</strong> '.adm_translate("Liens");
    echo '[ <a href="admin.php?op=LinksListBrokenLinks">'.adm_translate("Soumission de Liens brisés").' ('.$totalbrokenlinks.')</a> -
    <a href="admin.php?op=LinksListModRequests" class="noir">'.adm_translate("Proposition de modifications de Liens").' ('.$totalmodrequests.')</a> ]';
 
@@ -87,6 +87,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
+   <div class="card card-block">
    <h3>'.adm_translate("Ajouter un lien").'</h3>';
       if ($adminform=='') {
        echo '<form method="post" action="admin.php" name="adminForm">';
@@ -94,156 +95,134 @@ function links() {
        echo '<form method="post" action="admin.php">';
       }
     echo '
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="title">'.adm_translate("Titre de la Page").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
-               <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
+            <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL de la Page").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="url" name="url" id="url" maxlength="100" placeholder="http://" required="required" />
-               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="url" name="url" id="url" maxlength="100" placeholder="http://" required="required" />
+            <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">';
-
+      <div class="form-group row">';
     $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
-            <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="cat">';
+         <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
       echo '
-                  <option value="'.$cid.'">'.aff_langue($title).'</option>';
+               <option value="'.$cid.'">'.aff_langue($title).'</option>';
       $result2=sql_query("SELECT sid, title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' ORDER BY title");
       while(list($sid, $stitle) = sql_fetch_row($result2)) {
-         echo "<option value=\"$cid-$sid\">".aff_langue($title)." / ".aff_langue($stitle)."</option>";
+         echo '
+               <option value="'.$cid.'-'.$sid.'">'.aff_langue($title).' / '.aff_langue($stitle).'</option>';
       }
     }
    echo '
-               </select>
-            </div>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="xtext">'.adm_translate("Description").'</label>
-            <div class="col-sm-8">
-               <textarea class="tin form-control" name="xtext" rows="6"></textarea>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="xtext">'.adm_translate("Description").'</label>
+         <div class="col-sm-8">
+            <textarea class="tin form-control" name="xtext" rows="6"></textarea>
          </div>
       </div>';
-   if ($adminform=="") echo aff_editeur("xtext","false");  //what this ??
+   if ($adminform=='') echo aff_editeur('xtext','');
    echo '
-      <div class="form-group">
-         <div class="row">
+      <div class="form-group row">
          <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="name" id="name" maxlength="60" />
-               <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
-            </div>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="name" id="name" maxlength="60" />
+            <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="email" name="email" id="email" maxlength="60" />
-               <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="email" name="email" id="email" maxlength="60" />
+            <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <div class="col-sm-offset-4 col-sm-8">
-               <input type="hidden" name="op" value="LinksAddLink">
-               <input type="hidden" name="new" value="0">
-               <input type="hidden" name="lid" value="0">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une URL").'</button>
-            </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input type="hidden" name="op" value="LinksAddLink">
+            <input type="hidden" name="new" value="0">
+            <input type="hidden" name="lid" value="0">
+            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une URL").'</button>
          </div>
       </div>
-   </form>';
+   </form>
+   </div>';
    }
    // Add a Main category
    echo '
-   <h3>'.adm_translate("Ajouter une catégorie").'</h3>
-   <form action="admin.php" method="post">
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="title" >'.adm_translate("Nom").'</label>
+   <div class="card card-block">
+      <h3>'.adm_translate("Ajouter une catégorie").'</h3>
+      <form action="admin.php" method="post">
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4 " for="title" >'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" maxlength="100" required="required"/>
             </div>
          </div>
-      </div>
-      <div class="form-group">
-         <div class="row">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4 " for="cdescription">'.adm_translate("Description").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="cdescription" rows="7"></textarea>
             </div>
          </div>
-      </div>
-      <div class="form-group">
-         <div class="row">
+         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="LinksAddCat">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
             </div>
          </div>
-      </div>
-   </form>';
+      </form>
+   </div>';
 
    // Add a New Sub-Category
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."links_categories");
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
-    echo '
-    <h3>'.adm_translate("Ajouter une Sous-catégorie").'</h3>
-    <form method="post" action="admin.php">
-      <div class="form-group">
-         <div class="row">
+      echo '
+   <div class="card card-block">
+      <h3>'.adm_translate("Ajouter une Sous-catégorie").'</h3>
+      <form method="post" action="admin.php">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" maxlength="100">
             </div>
-         </div>
-      </div>';
-
-    $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
-    echo '
-      <div class="form-group">
-         <div class="row">
+         </div>';
+      $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
+      echo '
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cid">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
                <select class="c-select form-control" name="cid">';
-    while(list($ccid, $ctitle) = sql_fetch_row($result)) {
-       echo '
+      while(list($ccid, $ctitle) = sql_fetch_row($result)) {
+         echo '
                   <option value="'.$ccid.'">'.aff_langue($ctitle).'</option>';
-    }
-    echo '
+      }
+      echo '
                </select>
             </div>
          </div>
-      </div>
-      <div class="form-group">
-         <div class="row">
+         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="LinksAddSubCat">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Sous-catégorie").'</button>
             </div>
          </div>
-      </div>
-   </form>';
+      </form>
+   </div>';
    }
 
    // Modify Category
@@ -252,10 +231,10 @@ function links() {
    if ($numrows>0) {
     $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
-   <h3>'.adm_translate("Modifier la Catégorie").'</h3>
-   <form method="post" action="admin.php">
-      <div class="form-group">
-         <div class="row">
+   <div class="card card-block">
+      <h3>'.adm_translate("Modifier la Catégorie").'</h3>
+      <form method="post" action="admin.php">
+         <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
                <select class="c-select form-control" name="cat">';
@@ -264,23 +243,22 @@ function links() {
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
        $result2=sql_query("SELECT sid, title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' ORDER BY title");
        while(list($sid, $stitle) = sql_fetch_row($result2)) {
-          echo "<option value=\"$cid-$sid\">".aff_langue($title)." / ".aff_langue($stitle)."</option>";
+          echo '
+                  <option value="'.$cid.'-'.$sid.'">'.aff_langue($title).' / '.aff_langue($stitle).'</option>';
        }
     }
     echo '
-             </select>
+                </select>
+               </div>
             </div>
-         </div>
-      </div>
-      <div class="form-group">
-         <div class="row">
+         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="LinksModCat">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Editer une catégorie").'</button>
             </div>
          </div>
-      </div>
-   </form>';
+      </form>
+   </div>';
    }
 
    // Modify Links
@@ -294,7 +272,7 @@ function links() {
             <th data-sortable="true" class="">ID</th>
             <th data-sortable="true" class="">'.adm_translate('Titre').'</th>
             <th data-sortable="true" class="">URL</th>
-            <th class="">'.adm_translate('Fonctions').'</th>
+            <th>'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>
@@ -358,7 +336,7 @@ function LinksModLink($lid) {
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="title">'.adm_translate("Titre de la Page").'</label>
+            <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" id="title" value="'.$title.'" maxlength="100" required="required" />
                <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
@@ -367,7 +345,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("URL de la Page").'</label>
+            <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
             <div class="col-sm-8">
                <div class="input-group">
                   <span class="input-group-btn">
@@ -381,7 +359,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="xtext">'.adm_translate("Description").'</label>
+            <label class="form-control-label col-sm-4 " for="xtext">'.adm_translate("Description").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="xtext" rows="10">'.$xtext.'</textarea>
             </div>
@@ -391,7 +369,7 @@ function LinksModLink($lid) {
     echo '
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="name">'.adm_translate("Nom").'</label>
+            <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="name" id="name" maxlength="100" value="'.$name.'" />
                <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
@@ -400,7 +378,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
+            <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="email" id="email" maxlength="100" value="'.$email.'" />
                <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
@@ -409,7 +387,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="hits">'.adm_translate("Nombre de Hits").'</label>
+            <label class="form-control-label col-sm-4 " for="hits">'.adm_translate("Nombre de Hits").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="hits" value="'.$hits.'" min="0" max="99999999999" />
             </div>
@@ -420,7 +398,7 @@ function LinksModLink($lid) {
     $result2=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
             <input type="hidden" name="lid" value="'.$lid.'" />
-            <label class="form-control-label col-sm-4 col-md-4" for="hits">'.adm_translate("Catégorie").'</label>
+            <label class="form-control-label col-sm-4 " for="hits">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
                <select class="c-select form-control" name="cat">';
     while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
@@ -464,7 +442,7 @@ function LinksModLink($lid) {
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="editorialtitle">'.adm_translate("Titre").'</label>
+            <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" maxlength="100" />
                <span class="help-block text-xs-right"><span id="countcar_editorialtitle"></span></span>
@@ -473,7 +451,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="editorialtext">'.adm_translate("Texte complet").'</label>
+            <label class="form-control-label col-sm-4 " for="editorialtext">'.adm_translate("Texte complet").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="editorialtext" rows="10"></textarea>
             </div>
@@ -500,7 +478,7 @@ function LinksModLink($lid) {
    <form action="admin.php" method="post">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="editorialtitle">'.adm_translate("Titre").'</label>
+            <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" value="'.$editorialtitle.'" maxlength="100" />
                <span class="help-block text-xs-right"><span id="countcar_editorialtitle"></span></span>
@@ -509,7 +487,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="editorialtext">'.adm_translate("Texte complet").'</label>
+            <label class="form-control-label col-sm-4 " for="editorialtext">'.adm_translate("Texte complet").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="editorialtext" rows="10">'.$editorialtext.'</textarea>
             </div>
@@ -565,8 +543,7 @@ function LinksListBrokenLinks() {
             <th data-sortable="true" align=center>'.adm_translate("Effacer").'</th>
          </tr>
       </thead>
-      <tbody>
-   ';
+      <tbody>';
 
        while (list($requestid, $lid, $modifysubmitter)=sql_fetch_row($resultBrok)) {
           $result2 = sql_query("SELECT title, url, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
@@ -603,18 +580,17 @@ function LinksListBrokenLinks() {
 }
 
 function LinksDelBrokenLinks($lid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE lid='$lid'");
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
-
-    global $aid; Ecr_Log("security", "DeleteBrokensLinks($lid) by AID : $aid", "");
-    Header("Location: admin.php?op=LinksListBrokenLinks");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE lid='$lid'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
+   global $aid; Ecr_Log("security", "DeleteBrokensLinks($lid) by AID : $aid", "");
+   Header("Location: admin.php?op=LinksListBrokenLinks");
 }
 
 function LinksIgnoreBrokenLinks($lid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE lid='$lid' and brokenlink='1'");
-    Header("Location: admin.php?op=LinksListBrokenLinks");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE lid='$lid' AND brokenlink='1'");
+   Header("Location: admin.php?op=LinksListBrokenLinks");
 }
 
 function LinksListModRequests() {
@@ -635,9 +611,9 @@ function LinksListModRequests() {
        $result2 = sql_query("SELECT cid, sid, title, url, description, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
        list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner)=sql_fetch_row($result2);
        $result3 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
-       $result4 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' and sid='$sid'");
+       $result4 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' AND sid='$sid'");
        $result5 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$origcid'");
-       $result6 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$origcid' and sid='$origsid'");
+       $result6 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$origcid' AND sid='$origsid'");
        $result7 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
        $result8 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
        list($cidtitle)=sql_fetch_row($result3);
@@ -757,7 +733,7 @@ function LinksModCat($cat) {
    <form action="admin.php" method="get">
       <div class="form-group">
             <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="title">'.adm_translate("Nom").'</label>
+            <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="50" />
             </div>
@@ -765,7 +741,7 @@ function LinksModCat($cat) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="cdescription">'.adm_translate("Description").'</label>
+            <label class="form-control-label col-sm-4 " for="cdescription">'.adm_translate("Description").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="cdescription" rows="10" >'.$cdescription.'</textarea>
             </div>
@@ -794,7 +770,7 @@ function LinksModCat($cat) {
    <form action="admin.php" method="get">
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="title">'.adm_translate("Nom de la Sous-catégorie").'</label>
+            <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Nom de la Sous-catégorie").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" value="'.$stitle.'" maxlength="50">
             </div>
@@ -872,79 +848,69 @@ function LinksAddCat($title, $cdescription) {
 }
 
 function LinksAddSubCat($cid, $title) {
-    global $NPDS_Prefix;
-    $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_subcategories WHERE title='$title' AND cid='$cid'");
-    $numrows = sql_num_rows($result);
-    if ($numrows>0) {
-        message_error("<span class=\"rouge\"><b>".adm_translate("Erreur : La Sous-catégorie")." $title ".adm_translate("existe déjà !")."</b></span>");
-    } else {
-        sql_query("INSERT INTO ".$NPDS_Prefix."links_subcategories VALUES (NULL, '$cid', '$title')");
-
-        global $aid; Ecr_Log("security", "AddSubCatLinks($title) by AID : $aid", "");
-        Header("Location: admin.php?op=links");
-    }
+   global $NPDS_Prefix;
+   $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_subcategories WHERE title='$title' AND cid='$cid'");
+   $numrows = sql_num_rows($result);
+   if ($numrows>0) {
+      message_error("<span class=\"rouge\"><b>".adm_translate("Erreur : La Sous-catégorie")." $title ".adm_translate("existe déjà !")."</b></span>");
+   } else {
+      sql_query("INSERT INTO ".$NPDS_Prefix."links_subcategories VALUES (NULL, '$cid', '$title')");
+      global $aid; Ecr_Log("security", "AddSubCatLinks($title) by AID : $aid", "");
+      Header("Location: admin.php?op=links");
+   }
 }
 
 function LinksAddEditorial($linkid, $editorialtitle, $editorialtext) {
-    global $NPDS_Prefix;
-    global $aid;
-    $editorialtext = stripslashes(FixQuotes($editorialtext));
-    sql_query("INSERT INTO ".$NPDS_Prefix."links_editorials VALUES ('$linkid', '$aid', now(), '$editorialtext', '$editorialtitle')");
-
-    global $aid; Ecr_Log("security", "AddEditorialLinks($linkid, $editorialtitle) by AID : $aid", "");
-    message_error("<span class=\"noir\"><b>".adm_translate("Editorial ajouté à la base de données")."</b></span>");
+   global $NPDS_Prefix, $aid;
+   $editorialtext = stripslashes(FixQuotes($editorialtext));
+   sql_query("INSERT INTO ".$NPDS_Prefix."links_editorials VALUES ('$linkid', '$aid', now(), '$editorialtext', '$editorialtitle')");
+   Ecr_Log("security", "AddEditorialLinks($linkid, $editorialtitle) by AID : $aid", "");
+   message_error("<span class=\"noir\"><b>".adm_translate("Editorial ajouté à la base de données")."</b></span>");
 }
 
 function LinksModEditorial($linkid, $editorialtitle, $editorialtext) {
-    global $NPDS_Prefix;
-    $editorialtext = stripslashes(FixQuotes($editorialtext));
-    sql_query("UPDATE ".$NPDS_Prefix."links_editorials SET editorialtext='$editorialtext', editorialtitle='$editorialtitle' WHERE linkid='$linkid'");
-
-    global $aid; Ecr_Log("security", "ModEditorialLinks($linkid, $editorialtitle) by AID : $aid", "");
-    message_error("<span class=\"noir\"><b>".adm_translate("Editorial modifié")."</b></span>");
+   global $NPDS_Prefix;
+   $editorialtext = stripslashes(FixQuotes($editorialtext));
+   sql_query("UPDATE ".$NPDS_Prefix."links_editorials SET editorialtext='$editorialtext', editorialtitle='$editorialtitle' WHERE linkid='$linkid'");
+   global $aid; Ecr_Log("security", "ModEditorialLinks($linkid, $editorialtitle) by AID : $aid", "");
+   message_error("<span class=\"noir\"><b>".adm_translate("Editorial modifié")."</b></span>");
 }
 
 function LinksDelEditorial($linkid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_editorials WHERE linkid='$linkid'");
-
-    global $aid; Ecr_Log("security", "DeteteEditorialLinks($linkid) by AID : $aid", "");
-    message_error("<span class=\"noir\"><b>".adm_translate("Editorial supprimé de la base de données")."</b></span>");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_editorials WHERE linkid='$linkid'");
+   global $aid; Ecr_Log("security", "DeteteEditorialLinks($linkid) by AID : $aid", "");
+   message_error("<span class=\"noir\"><b>".adm_translate("Editorial supprimé de la base de données")."</b></span>");
 }
 
 function message_error($ibid) {
-    global $hlpfile;
-    include("header.php");
-    GraphicAdmin($hlpfile);
-    opentable();
-    echo "<p align=\"center\"><br />";
-    echo $ibid;
-    echo "<br /><br /><a href=\"admin.php?op=links\" class=\"noir\">".adm_translate("Retour en arriére")."</a>";
-    echo "<br /></p>";
-    closetable();
-    include("footer.php");
+   global $hlpfile;
+   include("header.php");
+   GraphicAdmin($hlpfile);
+   echo '<p align="center"><br />';
+   echo $ibid;
+   echo '<br /><a href="admin.php?op=links" class="btn btn-secondary">'.adm_translate("Retour en arrière").'</a>';
+   echo '<br /></p>';
+   include("footer.php");
 }
 
 function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter) {
-    global $NPDS_Prefix;
-    $result = sql_query("SELECT url FROM ".$NPDS_Prefix."links_links WHERE url='$url'");
-    $numrows = sql_num_rows($result);
+   global $NPDS_Prefix;
+   $result = sql_query("SELECT url FROM ".$NPDS_Prefix."links_links WHERE url='$url'");
+   $numrows = sql_num_rows($result);
     if ($numrows>0) {
         message_error("<span class=\"rouge\"><b>".adm_translate("Erreur : cette URL est déjà présente dans la base de données !")."</b></span>");
     } else {
-       // Check if Title exist
-       if ($title=="") {
+       if ($title=='') {
            message_error("<span class=\"rouge\"><b>".adm_translate("Erreur : vous devez saisir un TITRE pour votre Lien !")."</b></span>");
        }
-       // Check if URL exist
-       if ($url=="") {
+       if ($url=='') {
           message_error("<span class=\"rouge\"><b>".adm_translate("Erreur : vous devez saisir une URL pour votre Lien !")."</b></span>");
        }
-       // Check if Description exist
-       if ($xtext=="") {
+       if ($xtext=='') {
           message_error("<span class=\"rouge\"><b>".adm_translate("Erreur : vous devez saisir une DESCRIPTION pour votre Lien !")."</b></span>");
        }
-       $cat = explode("-", $cat);
+       $cat = explode('-', $cat);
        if (!array_key_exists(1,$cat)) {
           $cat[1] = 0;
        }
@@ -956,10 +922,10 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
        sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,'')");
        if ($new==1) {
           sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
-          if ($email!="") {
+          if ($email!='') {
              global $sitename, $nuke_url;
-             $subject = "".adm_translate("Votre Lien")." : $sitename";
-             $message = "".adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la Page : ")."$title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
+             $subject = adm_translate("Votre Lien")." : $sitename";
+             $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la Page : ")."$title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
              include("signat.php");
              send_email($email, $subject, $message, "", false, "html");
           }
@@ -970,85 +936,66 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
 }
 
 switch ($op) {
-    case "links":
-    case "suite_links":
-         links();
-         break;
-
-    case "LinksDelNew":
-         LinksDelNew($lid);
-         break;
-
-    case "LinksAddCat":
-         LinksAddCat($title, $cdescription);
-         break;
-
-    case "LinksAddSubCat":
-         LinksAddSubCat($cid, $title);
-         break;
-
-    case "LinksAddLink":
-         LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter);
-         break;
-
-    case "LinksAddEditorial":
-         LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
-         break;
-
-    case "LinksModEditorial":
-         LinksModEditorial($linkid, $editorialtitle, $editorialtext);
-         break;
-
-    case "LinksDelEditorial":
-         LinksDelEditorial($linkid);
-         break;
-
-    case "LinksListBrokenLinks":
-         LinksListBrokenLinks();
-         break;
-
-    case "LinksDelBrokenLinks":
-         LinksDelBrokenLinks($lid);
-         break;
-
-    case "LinksIgnoreBrokenLinks":
-         LinksIgnoreBrokenLinks($lid);
-         break;
-
-    case "LinksListModRequests":
-         LinksListModRequests();
-         break;
-
-    case "LinksChangeModRequests":
-         LinksChangeModRequests($requestid);
-         break;
-
-    case "LinksChangeIgnoreRequests":
-         LinksChangeIgnoreRequests($requestid);
-         break;
-
-    case "LinksDelCat":
-         LinksDelCat($cid, $sid, $sub, $ok);
-         break;
-
-    case "LinksModCat":
-         LinksModCat($cat);
-         break;
-
-    case "LinksModCatS":
-         LinksModCatS($cid, $sid, $sub, $title, $cdescription);
-         break;
-
-    case "LinksModLink":
-         LinksModLink($lid);
-         break;
-
-    case "LinksModLinkS":
-         LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat);
-         break;
-
-    case "LinksDelLink":
-         LinksDelLink($lid);
-         break;
+   case "links":
+   case "suite_links":
+        links();
+        break;
+   case "LinksDelNew":
+        LinksDelNew($lid);
+        break;
+   case "LinksAddCat":
+        LinksAddCat($title, $cdescription);
+        break;
+   case "LinksAddSubCat":
+        LinksAddSubCat($cid, $title);
+        break;
+   case "LinksAddLink":
+        LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter);
+        break;
+   case "LinksAddEditorial":
+        LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
+        break;
+   case "LinksModEditorial":
+        LinksModEditorial($linkid, $editorialtitle, $editorialtext);
+        break;
+   case "LinksDelEditorial":
+        LinksDelEditorial($linkid);
+        break;
+   case "LinksListBrokenLinks":
+        LinksListBrokenLinks();
+        break;
+   case "LinksDelBrokenLinks":
+        LinksDelBrokenLinks($lid);
+        break;
+   case "LinksIgnoreBrokenLinks":
+        LinksIgnoreBrokenLinks($lid);
+        break;
+   case "LinksListModRequests":
+        LinksListModRequests();
+        break;
+   case "LinksChangeModRequests":
+        LinksChangeModRequests($requestid);
+        break;
+   case "LinksChangeIgnoreRequests":
+        LinksChangeIgnoreRequests($requestid);
+        break;
+   case "LinksDelCat":
+        LinksDelCat($cid, $sid, $sub, $ok);
+        break;
+   case "LinksModCat":
+        LinksModCat($cat);
+        break;
+   case "LinksModCatS":
+        LinksModCatS($cid, $sid, $sub, $title, $cdescription);
+        break;
+   case "LinksModLink":
+        LinksModLink($lid);
+        break;
+   case "LinksModLinkS":
+        LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat);
+        break;
+   case "LinksDelLink":
+        LinksDelLink($lid);
+        break;
 }
 ?>
