@@ -165,10 +165,10 @@ if ($submitS) {
          include_once("language/lang-multi.php");
          $resultZ=sql_query("SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'");
          list($title_topic)=sql_fetch_row($resultZ);
-         $subject = strip_tags($forum_name)."/".$title_topic." : ".translate_ml($m['user_langue'], "Une réponse à votre dernier Commentaire a été posté.");
+         $subject = strip_tags($forum_name)."/".$title_topic." : ".translate_ml($m['user_langue'], "Une rÃ©ponse Ã  votre dernier Commentaire a Ã©tÃ© postÃ©.");
          $message = $m['uname']."\n\n";
-         $message .= translate_ml($m['user_langue'], "Vous recevez ce Mail car vous avez demandé à être informé lors de la publication d'une réponse.")."\n";
-         $message .= translate_ml($m['user_langue'], "Pour lire la réponse")." : ";
+         $message .= translate_ml($m['user_langue'], "Vous recevez ce Mail car vous avez demandÃ© Ã  Ãªtre informÃ© lors de la publication d'une rÃ©ponse.")."\n";
+         $message .= translate_ml($m['user_langue'], "Pour lire la rÃ©ponse")." : ";
          $message .= "<a href=\"$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999#last-post\">$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999</a>\n\n";
          include("signat.php");
          if (!$system) {
