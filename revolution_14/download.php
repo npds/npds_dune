@@ -348,7 +348,7 @@ function main() {
   $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,cur_charset))); // electrobug
 
   include("header.php");
-  echo '<h3>'.translate("Download Section").'</h3>';
+  echo '<h2>'.translate("Download Section").'</h2>';
   tlist();
   if ($dcategory!=translate("No category")) {
      listdownloads($dcategory, $sortby, $sortorder);
