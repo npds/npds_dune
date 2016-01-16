@@ -72,7 +72,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    "'!N_titre!'i"=>"$title",
    "'!N_texte!'i"=>"$thetext",
    "'!N_id!'i"=>"$id",
-   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-responsive\" src=\"".$tipath.$topicimage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
+   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$tipath.$topicimage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
    "'!N_note!'i"=>"$notes",
    "'!N_nb_lecture!'i"=>"$counter",
    "'!N_suite!'i"=>"$morel"
@@ -112,9 +112,8 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    $sendF = "<a href=\"friend.php?op=FriendSend&amp;sid=$id\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Send this Story to a Friend")."\" style=\"vertical-align: middle;\" /></a>";
 
    $npds_METALANG_words=array(
-   "'!N_publicateur!'i"=>"$aid",
-   "'!N_emetteur!'i"=>"<a href=\"user.php?op=userinfo&amp;uname=$informant\">$informant</a>",
-
+   "'!N_publicateur!'i"=>$aid,
+   "'!N_emetteur!'i"=>'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
    "'!N_date_m!'i"=>strftime("%B", mktime(0,0,0, substr($time,5,2),1,2000)),
@@ -122,22 +121,20 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    "'!N_date_h!'i"=>substr($time,11),
    "'!N_print!'i"=>$printP,
    "'!N_friend!'i"=>$sendF,
-
    "'!N_boxrel_title!'i"=>$boxtitle,
    "'!N_boxrel_stuff!'i"=>$boxstuff,
-
-   "'!N_titre!'i"=>"$title",
-   "'!N_id!'i"=>"$id",
-   "'!N_previous_article!'i"=>"$prevArt",
-   "'!N_next_article!'i"=>"$nextArt",
-   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$tipath.$topicimage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
-   "'!N_texte!'i"=>"$thetext",
-   "'!N_nb_lecture!'i"=>"$counter"
+   "'!N_titre!'i"=>$title,
+   "'!N_id!'i"=>$id,
+   "'!N_previous_article!'i"=>$prevArt,
+   "'!N_next_article!'i"=>$nextArt,
+   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$tipath.$topicimage.'" alt="'.translate("Search in").'&nbsp;'.$topictext.'" /></a>',
+   "'!N_texte!'i"=>$thetext,
+   "'!N_nb_lecture!'i"=>$counter
    );
    echo meta_lang(aff_langue(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent)));
 }
 function themesidebox($title, $content) {
-   global $theme, $B_class_title, $B_class_content, $bloc_side;
+   global $theme, $B_class_title, $B_class_content, $bloc_side, $htvar;
    $inclusion=false;
    if (file_exists("themes/".$theme."/html/bloc-right.html") and ($bloc_side=="RIGHT")) {$inclusion="themes/".$theme."/html/bloc-right.html";}
    if (file_exists("themes/".$theme."/html/bloc-left.html") and ($bloc_side=="LEFT")) {$inclusion="themes/".$theme."/html/bloc-left.html";}
@@ -163,7 +160,9 @@ function themesidebox($title, $content) {
    "'!B_class_content!'i"=>"$B_class_content",
    "'!B_content!'i"=>"$content"
    );
+   echo $htvar;
    echo meta_lang(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent));
+   echo '</div>';
 }
 function themedito($content) {
    global $theme;

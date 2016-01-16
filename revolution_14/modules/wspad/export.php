@@ -3,9 +3,9 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* Collab WS-Pad 1.0 by Developpeur                                     */
+/* Collab WS-Pad 1.44 by Developpeur and Jpb                            */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,20 +17,17 @@ if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script
    die();
 }
 global $NPDS_Prefix;
-
    $wspad=rawurldecode(decrypt($pad));
    $wspad=explode("#wspad#",$wspad);
-
    switch($type) {
      case "doc":
         include "lib/html2doc.php";
         $htmltodoc= new HTML_TO_DOC();
-        $row=sql_fetch_assoc(sql_query("SELECT content FROM ".$NPDS_Prefix."wspad WHERE page='".$wspad[0]."' and member='".$wspad[1]."' and ranq='".$wspad[2]."'"));
+        $row=sql_fetch_assoc(sql_query("SELECT content FROM ".$NPDS_Prefix."wspad WHERE page='".$wspad[0]."' AND member='".$wspad[1]."' AND ranq='".$wspad[2]."'"));
         // nettoyage des SPAN
         $tmp=preg_replace('#style="[^\"]*\"#',"",aff_langue($row['content']));
         $htmltodoc->createDoc($tmp,$wspad[0]."-".$wspad[2],true);
      break;
-
      default:
      break;
    }

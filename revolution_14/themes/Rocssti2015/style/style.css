@@ -212,57 +212,11 @@ a.tooltip:hover em {
       CSS Complémentaire pour vos  Formulaires
               ICI en Version Light
 -------------------------------------------------->*/
-form {  /* Délimitation de votre Formulaire*/
-  margin: 0;
-  width: 100%;
-}
+/*------------------------------------------------>
+      CSS Complémentaire pour vos  Formulaires
+              ICI en Version Light
+-------------------------------------------------->*/
 
-fieldset { /* Regroupe les différentes zones de votre Formulaire */
-  padding: 20px; /* padding in fieldset support spotty in IE */
-}
-
-legend { /* Titre pour identifier chaque fieldset */
-  font-size:1.1em;
-  color: #B80B36;
-  font-weight: bold;
-}
-
-label { /* Titre - Description des différents champs */
-  display: block;
-  float: left;
-  width: 200px;
-  margin-top: 5px ; /* set top margin same as form input - textarea etc. elements */
-  padding: 0; /* Intervient dans le user : la date */
-  text-align: left;
-}
-
-input[type=Submit], [type=Reset], [type=Return] {
-  margin-top: 3px;
-  cursor: pointer;
-  background-color: #FDFDFD;
-  color: #682B1A;
-  font-weight: bold;
-  text-decoration: none;
-  border-top: #D7B39B 2px solid;
-  border-bottom: #864732 2px solid;
-  border-left: #D7B39B 2px solid;
-  border-right: #864732 2px solid;
-}
-
-input[type=Radio] { 
-  background-color: transparent; 
-  border: 0;
-  vertical-align: text-bottom;
-} 
-textarea { /* Champs de Données */
-  width: 98%;
-}
-form label span {
-	color: red;
-}/* Utilisé dans user ! */
-form br {
-	clear:left;
-}
 
 /*jmd work*/
 
@@ -311,8 +265,9 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
         max-width: 1344px;   /*   A changer si vous voulez divisible par 3 et par 4 */
  	margin-left:auto;
 	margin-right:auto;
+	padding: 1em;
          }
-         
+
 #corps {background: #fff; }
 
 /************************************************************************
@@ -370,21 +325,7 @@ le  header   et son contenu ( sa taille est ds decoheader)
 
 
 
-/**************
-image responsives?
-***********************/
-img{ 
-  max-width: 100%;
-  height: auto;
-  width:auto;
-  box-sizing:border-box;
-}
 
-.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
 
 /*****************************************
 Adaptation des css au fil du test

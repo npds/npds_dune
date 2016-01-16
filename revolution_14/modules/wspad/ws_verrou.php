@@ -3,20 +3,21 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* Collab WS-Pad 1.0 by Developpeur                                     */
+/* Collab WS-Pad 1.44 by Developpeur and Jpb                            */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 include_once ("../../grab_globals.php");
+$enc = cur_charset;
 // For More security
 if (!stristr($_SERVER['HTTP_REFERER'],"modules.php?ModPath=wspad&ModStart=wspad")) { die(); }
 settype($verrou_groupe, 'integer');
-$verrou_page=stripslashes(htmlspecialchars(urldecode($verrou_page),ENT_QUOTES,cur_charset));
-$verrou_user=stripslashes(htmlspecialchars(urldecode($verrou_user),ENT_QUOTES,cur_charset));
+$verrou_page=stripslashes(htmlspecialchars(urldecode($verrou_page),ENT_QUOTES,$enc));
+$verrou_user=stripslashes(htmlspecialchars(urldecode($verrou_user),ENT_QUOTES,$enc));
 // For More security
 
 // For IE cache control

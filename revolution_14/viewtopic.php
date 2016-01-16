@@ -553,7 +553,7 @@ echo '
 
     if (($Mmod) and ($forum_access!=9)) {
        echo '
-      <nav class="pull-xs-right">
+      <nav class="text-xs-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>

@@ -52,5 +52,6 @@ $PAGES['admin.php?op=lnl_Add_Header']['blocs']="0";
 $PAGES['admin.php?op=lnl_Add_Body']['blocs']="0";
 $PAGES['admin.php?op=lnl_Add_Footer']['blocs']="0";
 
+$PAGES['user.php']['TinyMce']=1;
 
 ?>

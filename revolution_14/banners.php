@@ -16,7 +16,7 @@ include_once("mainfile.php");
 function viewbanner() {
    global $NPDS_Prefix;
    $okprint=false; $while_limit=3; $while_cpt=0;
-   $bresult = sql_query("select bid from ".$NPDS_Prefix."banner where userlevel!='9'");
+   $bresult = sql_query("SELECT bid FROM ".$NPDS_Prefix."banner WHERE userlevel!='9'");
    $numrows = sql_num_rows($bresult);
    while ((!$okprint) and ($while_cpt<$while_limit)) {
       // More efficient random stuff, thanks to Cristian Arroyo from http://www.planetalinux.com.ar
@@ -26,7 +26,7 @@ function viewbanner() {
       } else {
          break;
       }
-      $bresult2 = sql_query("select bid, userlevel from ".$NPDS_Prefix."banner where userlevel!='9' limit $bannum,1");
+      $bresult2 = sql_query("SELECT bid, userlevel FROM ".$NPDS_Prefix."banner WHERE userlevel!='9' LIMIT $bannum,1");
       list($bid, $userlevel) = sql_fetch_row($bresult2);
       if ($userlevel==0) {
          $okprint=true;
@@ -42,7 +42,7 @@ function viewbanner() {
    }
    // Le risque est de sortir sans un BID valide
    if (!isset($bid)) {
-      $rowQ1=Q_Select("select bid from ".$NPDS_Prefix."banner where userlevel='0' limit 0,1",86400);
+      $rowQ1=Q_Select("SELECT bid FROM ".$NPDS_Prefix."banner WHERE userlevel='0' LIMIT 0,1",86400);
       list(,$myrow)=each($rowQ1);
       $bid=$myrow['bid'];
       $okprint=true;
@@ -52,18 +52,18 @@ function viewbanner() {
       global $myIP;
       $myhost = getip();
       if ($myIP!=$myhost) {
-         sql_query("update ".$NPDS_Prefix."banner set impmade=impmade+1 where bid='$bid'");
+         sql_query("UPDATE ".$NPDS_Prefix."banner SET impmade=impmade+1 WHERE bid='$bid'");
       }
       if (($numrows>0) and ($bid)) {
          $aborrar = sql_query("select cid, imptotal, impmade, clicks, imageurl, clickurl, date from ".$NPDS_Prefix."banner where bid='$bid'");
          list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $date) = sql_fetch_row($aborrar);
          if ($imptotal==$impmade) {
-            sql_query("insert into ".$NPDS_Prefix."bannerfinish values (NULL, '$cid', '$impmade', '$clicks', '$date', now())");
-            sql_query("delete from ".$NPDS_Prefix."banner where bid='$bid'");
+            sql_query("INSERT INTO ".$NPDS_Prefix."bannerfinish VALUES (NULL, '$cid', '$impmade', '$clicks', '$date', now())");
+            sql_query("DELETE FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
          }
 
          if ($imageurl!="") {
-            echo"<a href=\"banners.php?op=click&amp;bid=$bid\" target=\"_blank\"><img src=\"".aff_langue($imageurl)."\" alt=\"\" border=\"0\" /></a>";
+            echo"<a href=\"banners.php?op=click&amp;bid=$bid\" target=\"_blank\"><img src=\"".aff_langue($imageurl)."\" alt=\"\" /></a>";
          } else {
             if (stristr($clickurl,'.txt')) {
                if (file_exists($clickurl)) {
@@ -79,9 +79,9 @@ function viewbanner() {
 
 function clickbanner($bid) {
     global $NPDS_Prefix;
-    $bresult = sql_query("select clickurl from ".$NPDS_Prefix."banner where bid='$bid'");
+    $bresult = sql_query("SELECT clickurl FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
     list($clickurl) = sql_fetch_row($bresult);
-    sql_query("update ".$NPDS_Prefix."banner set clicks=clicks+1 where bid='$bid'");
+    sql_query("UPDATE ".$NPDS_Prefix."banner SET clicks=clicks+1 WHERE bid='$bid'");
     sql_free_result($bresult);
     if ($clickurl=="") {
        global $nuke_url;
@@ -185,7 +185,7 @@ function bannerstats($login, $pass) {
                </tr>
             </thead>
             <tbody>';
-         $result = sql_query("select bid, imptotal, impmade, clicks, date from ".$NPDS_Prefix."banner where cid='$cid'");
+         $result = sql_query("SELECT bid, imptotal, impmade, clicks, date FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
          while (list($bid, $imptotal, $impmade, $clicks, $date) = sql_fetch_row($result)) {
             $rowcolor = tablos();
             if ($impmade==0) {
@@ -215,15 +215,15 @@ function bannerstats($login, $pass) {
             </tbody>
          </table>
          <a href="'.$nuke_url.'" class="header" target="_blank">'.$sitename.'</a>';
-         $result = sql_query("select bid, imageurl, clickurl from ".$NPDS_Prefix."banner where cid='$cid'");
+         $result = sql_query("SELECT bid, imageurl, clickurl FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
 
          while (list($bid, $imageurl, $clickurl) = sql_fetch_row($result)) {
             $numrows = sql_num_rows($result);
-            echo '<div class="well">';
+            echo '<div class="card">';
 
             if ($imageurl!="") {
                echo '
-               <p><img src="'.aff_langue($imageurl).'" class="img-responsive" />
+               <p><img src="'.aff_langue($imageurl).'" class="img-fluid" />
                ';//pourquoi aff_langue ??
             } else {
                echo '<p>';
@@ -232,7 +232,7 @@ function bannerstats($login, $pass) {
             echo '
             <h4>Banner ID : '.$bid.'</h4>';
             if ($imageurl!="") {
-               echo translate("This Banners points to").' : <a href="'.aff_langue($clickurl).'" target="_Blank" class="noir">[ URL ]</a>';
+               echo translate("This Banners points to").' : <a href="'.aff_langue($clickurl).'" target="_Blank" >[ URL ]</a>';
             }
             echo '
             <form action="banners.php" method="get">';
@@ -266,8 +266,7 @@ function bannerstats($login, $pass) {
             <input class="btn btn-primary" type="submit" name="op" value="'.translate("Change").'" /></td>
             </form>
             </p>
-            </div>
-            ';
+            </div>';
          }
          // Finnished Banners
          echo "<br />";
@@ -285,7 +284,7 @@ function bannerstats($login, $pass) {
                </tr>
             </thead>
             <tbody>';
-         $result = sql_query("select bid, impressions, clicks, datestart, dateend from ".$NPDS_Prefix."bannerfinish where cid='$cid'");
+         $result = sql_query("SELECT bid, impressions, clicks, datestart, dateend FROM ".$NPDS_Prefix."bannerfinish WHERE cid='$cid'");
          while (list($bid, $impressions, $clicks, $datestart, $dateend) = sql_fetch_row($result)) {
             $percent = substr(100 * $clicks / $impressions, 0, 5);
             echo '
@@ -311,10 +310,10 @@ function bannerstats($login, $pass) {
 
 function EmailStats($login, $cid, $bid) {
    global $NPDS_Prefix;
-   $result = sql_query("select login from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+   $result = sql_query("SELECT login FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($loginBD) = sql_fetch_row($result);
    if ($login==$loginBD) {
-      $result2 = sql_query("select name, email from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+      $result2 = sql_query("SELECT name, email FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
       list($name, $email) = sql_fetch_row($result2);
       if ($email=="") {
          header_page();
@@ -322,7 +321,7 @@ function EmailStats($login, $cid, $bid) {
             ".translate("there isn't an email associated with client")." $name<br /><br /><a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a></p>";
          footer_page();
       } else {
-         $result = sql_query("select bid, imptotal, impmade, clicks, imageurl, clickurl, date from ".$NPDS_Prefix."banner where bid='$bid' and cid='$cid'");
+         $result = sql_query("SELECT bid, imptotal, impmade, clicks, imageurl, clickurl, date FROM ".$NPDS_Prefix."banner WHERE bid='$bid' AND cid='$cid'");
          list($bid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $date) = sql_fetch_row($result);
          if ($impmade==0) {
             $percent = 0;
@@ -363,11 +362,11 @@ function EmailStats($login, $cid, $bid) {
 function change_banner_url_by_client($login, $pass, $cid, $bid, $url) {
     global $NPDS_Prefix;
     header_page();
-    $result = sql_query("select passwd from ".$NPDS_Prefix."bannerclient where cid='$cid'");
+    $result = sql_query("SELECT passwd FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
     list($passwd) = sql_fetch_row($result);
     if (!empty($pass) AND $pass==$passwd) {
-        sql_query("update ".$NPDS_Prefix."banner set clickurl='$url' where bid='$bid'");
-        sql_query("update ".$NPDS_Prefix."banner set clickurl='$url' where bid='$bid'");
+        sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
+        sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
         echo "<p align=\"center\"><br />".translate("You changed the URL")."<br /><br /><a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a></p>";
     } else {
         echo "<p align=\"center\"><br />".translate("Incorrect Login!")."<br /><br />".translate("Please")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("login again")."</a></p>";
@@ -379,23 +378,18 @@ switch ($op) {
    case "click":
         clickbanner($bid);
         break;
-
    case "login":
         clientlogin();
         break;
-
    case "Ok":
         bannerstats($login, $pass);
         break;
-
    case translate("Change"):
         change_banner_url_by_client($login, $pass, $cid, $bid, $url);
         break;
-
    case "EmailStats":
         EmailStats($login, $cid, $bid);
         break;
-
    default:
         if ($banners) {
            viewbanner();

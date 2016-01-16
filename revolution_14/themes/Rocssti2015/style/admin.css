@@ -262,9 +262,6 @@ vertical-align: top;
 }
 
 
-
-
-
 #adm_men_corps li {
 text-align: center;
 }
@@ -359,7 +356,6 @@ vertical-align: middle;
 list-style: none;
 display: block;
 opacity:1;
-list-style: none;
 text-align: right;
 padding:2px;
 margin:2px;
@@ -527,10 +523,12 @@ a.adm_tooltip em {
 a.adm_tooltip:hover {
     border: 0;
     position: relative;
-    z-index: 500;
+    z-index: 1070;
     text-decoration:none;
 }
 a.adm_tooltip:hover em {
+    z-index: 1070;
+
     font-style: normal;
     font-size: 11px;
     display: block;

@@ -1,31 +1,31 @@
 @charset "UTF-8";
-/* UTF-8 déclaré avant toute chose */
+/* UTF-8 dÃ©clarÃ© avant toute chose */
 
 /******************************************************************
  * ROCSSTI : une base CSS par Nicolas Hoffmann http://rocssti.net/
- * inspiré par http://www.knacss.com/
- *
- * ROCSSTI est sous licence CC-BY : http://creativecommons.org/licenses/by/3.0/fr/
+ * Builder : http://rocssti.net/builder-css
+ * inspirÃ© par http://www.knacss.com/
  * 
- * cette CSS est fournie telle quelle, sans aucune garantie d'aucun type, 
- * l'auteur ne saurait être tenu responsable de quoi que ce soit pour 
- * l'utilisation de RÖCSSTI.
+ * Une RÃ¶cssti-quote, juste pour le plaisir :
+ * Â« Ã€ propos, chÃ©rieke, tu nâ€™as jamais pensÃ© Ã  faire frire des RÃ¶cssti ? Â» â€” Gueuselambix 
  *
- * convention (à adapter si besoin)
+ * ROCSSTI est sous licence MIT : https://github.com/nico3333fr/ROCSSTI/blob/master/LICENSE
+ * 
+ * cette CSS est fournie telle quelle, sans aucune garantie dâ€™aucun type, 
+ * lâ€™auteur ne saurait Ãªtre tenu responsable de quoi que ce soit pour 
+ * lâ€™utilisation de RÃ–CSSTI.
+ *
+ * convention (Ã  adapter si besoin)
  *  .parent
  *  .parent__enfant
  *  .parent--modifieur  
+ *  
  * 
- * RTL = Right To Left => 
- * pour adapter un site dans une langue qui se lit de droite à gauche
- * prévu surtout pour sites multilingues avec LTR et RTL
- *
- * 
- * résumé
+ * rÃ©sumÃ©
  * 01 -- reset
  * 02 -- ainsi font font font + structure Hx
  * 03 -- classes utilitaires + fix typos + styles "balises fixes"
- * 04 -- liens + icônes
+ * 04 -- liens + icÃ´nes
  * 05 -- layout et modules
  * 06 -- structure (page / skip links / header / main content / footer)
  * 07 -- forms
@@ -37,12 +37,12 @@
  * 13 -- breakpoints mineurs tout petit mobile
  * 14 -- print
  * 15 -- fix viewport 
- * 16 -- règles d'état
+ * 16 -- rÃ¨gles dâ€™Ã©tat
  * 17 -- bonus : Fixes IE
  */
 
 
-         /*  ADAPTATION POUR LE THEME ROCSSTI2015 POUR NPDS BY JMD ALIAS BMAG*/
+
 
 /*
  *****************************************************************
@@ -50,12 +50,12 @@
  *****************************************************************
  */
 
-/* spécial HTML 5 */
+/* spÃ©cial HTML 5 */
 article, aside, datagrid, datalist, details, dialog, figure, footer, header, main, menu, nav, section { display: block; }
 audio, canvas, progress, video { display: inline-block; }
 abbr, eventsource, mark, meter, time, output, bb { display: inline; }
 
-/* à commenter/fallback si vous vous souciez d'IE<8 */
+/* Ã  commenter/fallback si vous vous souciez dâ€™IE<8 */
 html { box-sizing: border-box; }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -67,7 +67,7 @@ button { border: 0; }
 p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
   font-size: 1em; /* equiv 14px */
   line-height: 1.5;
-  margin: 0.5em 0;
+  margin: 1.5em 0;
 }
 
 /* fix display img/iframe */
@@ -81,27 +81,19 @@ ul, ol { padding-left: 2em; }
   list-style-type: none;
 }
 
-/* RTL */
-[dir="rtl"] ul, 
-[dir="rtl"] ol { 
-  padding-left: 0; 
-  padding-right: 2em;
-}
-
-
-/* la base correspond à 10px */
+/* la base correspond Ã  10px */
 html { 
   font-size: 62.5%;
   /* IE9-IE11 math fixing. Voir http://bit.ly/1g4X0bX */
-  /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
+  /* Merci Ã  @guardian, @victorbritopro, @eQRoeil & Knacss */
   font-size: calc(1em * 0.625);
 }
 body {
-
+  background: #fff;
   color: #333;
   font-family: Arial, sans-serif;
-  font-size: 1.4em; /* taille de base équiv à 14px */
-  line-height: 1.5; /* à corriger si besoin est */
+  font-size: 1.4em; /* taille de base Ã©quiv Ã  14px */
+  line-height: 1.5; /* Ã  corriger si besoin est */
 }
 
 
@@ -114,9 +106,10 @@ body {
  */ 
 
 /*@font-face {
+
 }*/
 
-/* calculées via http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
+/* calculÃ©es via http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
 
 h1,
 .h1 {
@@ -135,8 +128,8 @@ h2,
 h3,
 .h3 {
   display: block;
-  font-size: 1.57143em;  /* equiv 22px */
-  line-height: 1.00;
+  font-size: 1.57143em; /* equiv 22px */
+  line-height: 1.90909;
   margin: 0 0 .95455em 0;
 }
 h4,
@@ -149,14 +142,14 @@ h4,
 h5,
 .h5 {
   display: block;
-  font-size: 1.28571em;  /* equiv 18px */
+  font-size: 1.28571em; /* equiv 18px */
   line-height: 1.16667;
   margin: 0 0 1.16667em 0;
 }
 h6,
 .h6 {
   display: block;
-  font-size: 1.14286em;  /* equiv 16px */
+  font-size: 1.14286em; /* equiv 16px */
   line-height: 1.3125;
   margin: 0 0 1.3125em 0;
 }
@@ -205,14 +198,14 @@ h6,
 iframe { border: 0; }
 
 /* table {
-  table-layout: fixed;      je vire ici car me fiche le bordel avec les tableaux de npds
+  table-layout: fixed;      je vire ici car me fiche le bordel avec les tableaux de npds le contenu sort des cellules
 } */
 
 /*
  * repris de http://tinytypo.tetue.net/ de @tetue
- * tuné avec l'aide de http://www.nicolas-hoffmann.net/utilitaires/codes-hexas-ascii-unicode-utf8-caracteres-usuels.php
+ * tunÃ© avec lâ€™aide de http://www.nicolas-hoffmann.net/utilitaires/codes-hexas-ascii-unicode-utf8-caracteres-usuels.php
  *
- * voir http://en.wikipedia.org/wiki/International_variation_in_quotation_marks pour les références
+ * voir http://en.wikipedia.org/wiki/International_variation_in_quotation_marks pour les rÃ©fÃ©rences
  */
 q {
   quotes: "\201C" "\201D" "\2018" "\2019";
@@ -239,7 +232,7 @@ q:after {
   content: close-quote;
 }
 
-/* éviter interlignage disgracieux */
+/* Ã©viter interlignage disgracieux */
 sup,
 sub {
   vertical-align: 0;
@@ -252,7 +245,11 @@ sub {
   top: .5ex;
 }
 
-/* éviter marges supplémentaires sur éléments imbriqués */
+
+
+
+
+/* Ã©viter marges supplÃ©mentaires sur Ã©lÃ©ments imbriquÃ©s */
 li p,
 li ul {
   margin-bottom: 0;
@@ -276,7 +273,7 @@ p,*/
   -o-hyphens: auto;
   hyphens: auto;
 }
-/* pour supprimer la césure si besoin */
+/* pour supprimer la cÃ©sure si besoin */
 .nocut {
   word-wrap: normal;
   -webkit-hyphens: none;
@@ -302,14 +299,14 @@ kbd {
 }
 table {
   margin-bottom: 1.5em;
-  width: 100%;
 }
-/* j'y tiens, les abbr c'est bon pour la planète */
-/* seuls ceux ayant un title sont signalés */
+/* jâ€™y tiens, les abbr câ€™est bon pour la planÃ¨te */
+/* seuls ceux ayant un title sont signalÃ©s */
 abbr[title] {
   border-bottom: dotted 1px; 
   cursor: help;
-  /* couleur héritée du texte */
+  text-decoration: none;
+  /* couleur hÃ©ritÃ©e du texte */
 } 
 
 /* alignements de textes */
@@ -317,23 +314,18 @@ abbr[title] {
 .aligncenter { text-align: center; }
 .alignleft   { text-align: left; }
 
-/* RTL */
-[dir="rtl"] .alignright  { text-align: left; }
-[dir="rtl"] .alignleft   { text-align: right; }
-
-
 
 
 
 /*
  *****************************************************************
- * 04 -- liens + icônes
+ * 04 -- liens + icÃ´nes
  *****************************************************************
  */
 
 /* Liens */
 a {
-  color: #832119;
+  color: #2573be;
   cursor: pointer;
 }
 /* penser au focus */
@@ -342,35 +334,39 @@ a:hover,
 a:active {
   color: #000;
 }
-/* éviter la bordure sur une image comprise dans un lien + fix bordure image IE */
+/* Ã©viter la bordure sur une image comprise dans un lien + fix bordure image IE */
 a:link img,
 a:visited img, 
 img {
   border-style: none;
 }
 
-/* liens avec icônes, on peut utiliser les DATA-URI */
+/* liens avec icÃ´nes, on peut utiliser les DATA-URI */
 
 /* pour signaler liens externes */
 /*a[href^="http://"],
 a[href^="https://"] {
+
 }*/
-/* si URL complète sur un lien interne, virer signalement liens externes */
+/* si URL complÃ¨te sur un lien interne, virer signalement liens externes */
 /*a[href^="http://www.mondomaine.com"] {
+
 }*/
 /* contact, liens mailto */
 /*.mail,
 a[href^="mailto:"] {
+
 }*/
-/* dont l'URL se termine par .pdf ou ce que vous voulez comme extension */
+/* dont lâ€™URL se termine par .pdf ou ce que vous voulez comme extension */
 /*a[href$=".pdf"] {
+
 }*/
 
 /* facto icons */
 /*[class*=icon-30] {
-display: inline-block;
-width: 30px;
-height: 30px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
 }*/
 
 
@@ -388,7 +384,7 @@ height: 30px;
  */
 
 
-/* ça dépend, ça dépasse */
+/* Ã§a dÃ©pend, Ã§a dÃ©passe */
 img,
 table,
 td,
@@ -401,9 +397,9 @@ svg {
   height: auto;
   max-width: 100%;
 }
-/* pas de reset sur embed, object et video, ça fait foirer certains players */
+/* pas de reset sur embed, object et video, Ã§a fait foirer certains players */
 
-/* utile pour gérer les floattants */
+/* utile pour gÃ©rer les floattants */
 /* contient des floats */
 .mod { 
   overflow: auto;
@@ -445,32 +441,17 @@ svg {
   visibility: hidden;
 }
 
-/* RTL */
-[dir="rtl"] .left {
-  float: right;
-}
-[dir="rtl"] .right {
-  float: left;
-}
-
-[dir="rtl"] .clearleft {
-  clear: right;
-}
-[dir="rtl"] .clearright {
-  clear: left;
-}
 
 
-/* gouttière */
+/* gouttiÃ¨re */
 .gut {
   height: 1px;
 }
 
-/* gestion du table-design en CSS JMD ajust width à 100% sinon NPDS FOIRE!!*/
+/* gestion du table-design en CSS */
 .row {
   display: table;
   table-layout: fixed;
-  width: 100%;
 }
 .line {
   display: table-row;
@@ -499,7 +480,7 @@ svg {
   display: inline-block;
 }
 
-/* grid = élément d'une inline-grid */
+/* grid = Ã©lÃ©ment dâ€™une inline-grid */
 .grid {
   vertical-align: top;
 }
@@ -509,13 +490,13 @@ svg {
   position: relative;
 }
 
-/* bloc centré */
+/* bloc centrÃ© */
 .center {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* activation de l'accélération matérielle */
+/* activation de lâ€™accÃ©lÃ©ration matÃ©rielle */
 .hardware-accelerated {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -582,13 +563,7 @@ svg {
 .m01  { margin: 0.5em; }
 .m02  { margin: 0.75em; }
 
-/* RTL = attention, utiliser avec précaution */
-[dir="rtl"] .mr0 { margin-left: 0; }
-[dir="rtl"] .mr1 { margin-right: inherit; margin-left: 1em; }
-[dir="rtl"] .mr2 { margin-right: inherit; margin-left: 2em; }
-[dir="rtl"] .ml0 { margin-right: 0; }
-[dir="rtl"] .ml1 { margin-left: inherit; margin-right: 1em; }
-[dir="rtl"] .ml2 { margin-left: inherit; margin-right: 2em; }
+
 
 /* paddings */
 .pt0 { padding-top: 0; }
@@ -607,15 +582,9 @@ svg {
 .p1  { padding: 1em; }
 .p2  { padding: 2em; }
 
-/* RTL = attention, utiliser avec précaution */
-[dir="rtl"] .pr0 { padding-left: 0; }
-[dir="rtl"] .pr1 { padding-right: 0; padding-left: 1em; }
-[dir="rtl"] .pr2 { padding-right: 0; padding-left: 2em; }
-[dir="rtl"] .pl0 { padding-right: 0; }
-[dir="rtl"] .pl1 { padding-left: 0; padding-right: 1em; }
-[dir="rtl"] .pl2 { padding-left: 0; padding-right: 2em; }
 
-/* spécial hr de 1px de haut */
+
+/* spÃ©cial hr de 1px de haut */
 hr {
   background-color: #000;
   border: 0;
@@ -625,7 +594,7 @@ hr {
   padding: 0;
 }
 
-/* pour cacher du texte de manière accessible… toussââââ */
+/* pour cacher du texte de maniÃ¨re accessibleâ€¦ toussÃ¢Ã¢Ã¢Ã¢ */
 .invisible {
   border: 0;
   clip: rect(0 0 0 0);
@@ -637,11 +606,11 @@ hr {
   width: 1px;
 }
 
-.hidden    { display: none; } /* caché partout */
-.nodesktop { display: none; } /* caché sur desktop */
-/*.noprint   {} /* caché sur print */
-/*.notablet  {} /* caché sur tablettes */
-/*.nomobile  {} /* caché sur mobile */
+.hidden    { display: none; } /* cachÃ© partout */
+.nodesktop { display: none; } /* cachÃ© sur desktop */
+/*.noprint   {} /* cachÃ© sur print */
+/*.notablet  {} /* cachÃ© sur tablettes */
+/*.nomobile  {} /* cachÃ© sur mobile */
 
 
 /**
@@ -660,21 +629,21 @@ hr {
  */
 
 /* === page === */
-#page {
+.page {
   margin: 0 auto;
   position: relative;
 }
 
-/* === skip links = liens d'évitement === */
+/* === skip links = liens dâ€™Ã©vitement === */
 .skip {
 
 }
-/* skip__link = un lien d'évitement  */
-/* idéalement mettez-les visibles pas uniquement au focus */
+/* skip__link = un lien dâ€™Ã©vitement  */
+/* idÃ©alement mettez-les visibles pas uniquement au focus */
 .skip__link {
 
 }
-/* sinon pensez à les rendre visibles au focus */
+/* sinon pensez Ã  les rendre visibles au focus */
 .skip__link:focus,
 .skip__link:hover,
 .skip__link:active {
@@ -724,7 +693,7 @@ input[type="reset"] {
   cursor: pointer;
 }
 
-/* évite un resize potentiellement foireux */
+/* Ã©vite un resize potentiellement foireux */
 textarea {
   resize: vertical;
 }
@@ -736,14 +705,14 @@ select {
   vertical-align: middle;
 }
 
-/* à adapter selon le design voulu */
+/* Ã  adapter selon le design voulu */
 input,
 select,
 textarea {
   border: 1px solid #000;
   border-radius: 5px;
   padding: .5em;
-  width: auto;
+  width: 250px;
   /** fix typo inputs **/
   font-family: inherit;
   font-size: 1em;
@@ -754,7 +723,7 @@ textarea {
   display: inline-block;
 }
 
-/* à adapter selon le design voulu */
+/* Ã  adapter selon le design voulu */
 .button {
   background: #fff;
   border-radius: 5px;
@@ -764,8 +733,8 @@ textarea {
 }
 
 /* 
- * évite dimensionnement des radios, checkboxes et images
- * et un affichage différent sous IE 
+ * Ã©vite dimensionnement des radios, checkboxes et images
+ * et un affichage diffÃ©rent sous IE 
  */
 input[type="radio"],
 input[type="checkbox"],
@@ -780,7 +749,7 @@ input[type="image"] {
   width: auto;
 }
 
-/* messages d'erreur ou de confirmation */
+/* messages dâ€™erreur ou de confirmation */
 .alert,
 .alert input,
 .alert textarea,
@@ -788,7 +757,7 @@ input[type="image"] {
   color: #bf0000;
   font-weight: bold;
 }
-/* .redborder sert à débugger uniquement */
+/* .redborder sert Ã  dÃ©bugger uniquement */
 .alert input,
 .alert textarea,
 .alert select,
@@ -799,11 +768,12 @@ input[type="image"] {
   border: 0;
 }
 /*.ok {
+
 }*/
 
 /* 
- * peut être complété par les attributs HTML5 required
- * exemple avec une couleur, penser à ne pas uniquement transmettre l'info ainsi
+ * peut Ãªtre complÃ©tÃ© par les attributs HTML5 required
+ * exemple avec une couleur, penser Ã  ne pas uniquement transmettre lâ€™info ainsi
  */
 /*select:required:invalid,
 input:required:invalid,
@@ -813,6 +783,7 @@ textarea:focus:invalid {
   background: #fef6f6;
   -moz-box-shadow: none;
 }
+
 input:focus:required:valid,
 textarea:focus:required:valid,
 select:focus:required:valid {
@@ -825,7 +796,7 @@ select:focus:required:valid {
 
 /*
  *****************************************************************
- * 08 -- dans le contenu (contenus spécifiques aux pages)
+ * 08 -- dans le contenu (contenus spÃ©cifiques aux pages)
  *****************************************************************
  */
 
@@ -851,19 +822,19 @@ select:focus:required:valid {
  *****************************************************************
  */ 
 
-@media (max-width: 48em) { /* equiv 768px */
+@media (max-width: 47.9375em) { /* equiv 767px */
    
   /**
    * layout/modules
    */
 
-  /* affichage des éléments */
+  /* affichage des Ã©lÃ©ments */
   .nodesktop { display: block; }
 
-  /* cachage des éléments inutiles, chabitte ! */
+  /* cachage des Ã©lÃ©ments inutiles, chabitte ! */
   .notablet { display: none; }
   
-  /* linéarisation contenus flottants/table-layout */
+  /* linÃ©arisation contenus flottants/table-layout */
   .autotablet {
     float: none;
     display: block;
@@ -873,13 +844,11 @@ select:focus:required:valid {
   /**
    * adaptation structure globale (page / skip links / header / contenu principal / footer)
    */
-
+  
   
   /**
-   * dans le contenu (contenus spécifiques aux pages)
+   * dans le contenu (contenus spÃ©cifiques aux pages)
    */
-  .rightbloc{display: none;  }
-  
 
 }
 
@@ -909,13 +878,13 @@ select:focus:required:valid {
    * layout/modules
    */
 
-  /* affichage des éléments */
+  /* affichage des Ã©lÃ©ments */
   .notablet { display: block; }
 
-  /* cachage des éléments inutiles, chabitte ! */
+  /* cachage des Ã©lÃ©ments inutiles, chabitte ! */
   .nomobile { display: none; }
 
-  /* linéarisation contenus flottants/table-layout */
+  /* linÃ©arisation contenus flottants/table-layout */
   .automobile {
     float: none;
     display: block;
@@ -928,7 +897,7 @@ select:focus:required:valid {
   
   
   /**
-   * dans le contenu (contenus spécifiques aux pages)
+   * dans le contenu (contenus spÃ©cifiques aux pages)
    */
 
 }
@@ -954,8 +923,8 @@ select:focus:required:valid {
 
 @media print {
   /** 
-   * ajouter là-dedans les éléments qui ont besoin d'être
-   * resetés de manière très bourrine pour le print
+   * ajouter lÃ -dedans les Ã©lÃ©ments qui ont besoin dâ€™Ãªtre
+   * resetÃ©s de maniÃ¨re trÃ¨s bourrine pour le print
    */
   body,
   html,
@@ -970,7 +939,7 @@ select:focus:required:valid {
     height: auto;
     margin: 0;
     max-width: 100%;
-    min-height: auto;
+    min-height: 0;
     padding: 0;
     position: static;
     width: auto;
@@ -980,17 +949,17 @@ select:focus:required:valid {
     padding: .5em;
   }
 
-  /* cachage des éléments inutiles, chabitte ! */
+  /* cachage des Ã©lÃ©ments inutiles, chabitte ! */
   .noprint {
     display: none;
   }
   
-  /* affichage éléments spécifiques au print */
+  /* affichage Ã©lÃ©ments spÃ©cifiques au print */
   .onprint {
     display: block;
   }
   
-  /* éviter saut de page hasardeux */
+  /* Ã©viter saut de page hasardeux */
   blockquote, ul, ol {
     page-break-inside: avoid;
   }
@@ -999,8 +968,8 @@ select:focus:required:valid {
   }
   
   /* affichage des liens, sauf pour image contenue */
-  /* attention, penser à vérifier le résultat et penser 
-   * à limiter cette possibilité aux liens dans le contenu */
+  /* attention, penser Ã  vÃ©rifier le rÃ©sultat et penser 
+   * Ã  limiter cette possibilitÃ© aux liens dans le contenu */
   /*a:after {
     content: " (" attr(href) ") ";
   }
@@ -1008,7 +977,7 @@ select:focus:required:valid {
     content: "";
   }*/
 
-  /* ici fix propriétés particulières */
+  /* ici fix propriÃ©tÃ©s particuliÃ¨res */
 
 
 } /* end print */
@@ -1022,8 +991,8 @@ select:focus:required:valid {
  *****************************************************************
  */
 
-/* fix viewport pour Win8 (snap mode) et préparer le jour 
- * où le viewport sera supporté par tous les moteurs 
+/* fix viewport pour Win8 (snap mode) et prÃ©parer le jour 
+ * oÃ¹ le viewport sera supportÃ© par tous les moteurs 
  *  
  * Exemples : http://dev.opera.com/articles/view/an-introduction-to-meta-viewport-and-viewport/
  * width=device-width   => width: device-width;
@@ -1033,7 +1002,7 @@ select:focus:required:valid {
  * minimum-scale=0.5    => min-zoom: 0.5;
  * user-scalable=no     => user-zoom: fixed;
  * 
- * pour le snap mode de Win8 => seul width: device-width; fonctionne pour l'instant  
+ * pour le snap mode de Win8 => seul width: device-width; fonctionne pour lâ€™instant  
  */
 
 @-webkit-viewport {
@@ -1057,12 +1026,12 @@ select:focus:required:valid {
 
 /*
  *****************************************************************
- * 16 -- règles d'état
+ * 16 -- rÃ¨gles dâ€™Ã©tat
  *****************************************************************
  */
 
 /*
- * Règles d'état = mises en bas pour être prioritaires
+ * RÃ¨gles dâ€™Ã©tat = mises en bas pour Ãªtre prioritaires
  *
  */
 
@@ -1083,10 +1052,10 @@ select:focus:required:valid {
  */
 
 /*  
- * basé sur les classes conditionnelles sur l'élément HTML
+ * basÃ© sur les classes conditionnelles sur lâ€™Ã©lÃ©ment HTML
  *  
- * à utiliser seulement si peu de corrections et 
- * pas d'impact sur les perfs sur les autres navigateurs
+ * Ã  utiliser seulement si peu de corrections et 
+ * pas dâ€™impact sur les perfs sur les autres navigateurs
  *       
  */
 
@@ -1117,12 +1086,4 @@ select:focus:required:valid {
 .ie7 .row,
 .ie6 .row {
   overflow: auto;
-}
-
-/* RTL */
-[dir="rtl"] .ie7 .col,
-[dir="rtl"] .ie7 .col-noalign,
-[dir="rtl"] .ie6 .col,
-[dir="rtl"] .ie6 .col-noalign {
-  float: right;
 }

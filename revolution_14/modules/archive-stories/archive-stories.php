@@ -36,11 +36,11 @@ if (!function_exists("Mysql_Connexion")) {
    <table id ="lst_art_arch" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
-            <th data-sortable="true">'.translate("Articles").'</th>
-            <th data-sortable="true">'.translate("reads").'</th>
-            <th>'.translate("Posted on").'</th>
-            <th data-sortable="true">'.translate("Author").'</th>
-            <th>&nbsp;</th>
+            <th data-sortable="true" data-halign="center">'.translate("Articles").'</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.translate("reads").'</th>
+            <th data-halign="center" data-align="right">'.translate("Posted on").'</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.translate("Author").'</th>
+            <th data-halign="center" data-align="right">'.translate("Functions").'</th>
          </tr>
       </thead>
       <tbody>';

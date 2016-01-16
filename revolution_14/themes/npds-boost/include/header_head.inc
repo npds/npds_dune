@@ -14,8 +14,8 @@ echo '
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />';
-echo '
-<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css" />';
+ echo '
+ <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css" />';
 echo '
 <link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />
 <link rel="stylesheet" href="lib/jquery-ui.css">
@@ -23,11 +23,10 @@ echo '
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/css/octicons.css" />';
-echo '
-<link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />
-<link id="sty_highlight" rel="stylesheet" href="lib/js/highlight-9.0.0/styles/github.css" />
-<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
+<link rel="stylesheet" href="lib/css/octicons.css" />
+<link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />';
+
+echo '<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
 echo '
 <script type="text/javascript" src="lib/js/tether.min.js"></script>';
 echo '
@@ -45,5 +44,4 @@ echo '
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>';
-
 ?>

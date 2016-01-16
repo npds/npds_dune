@@ -1793,7 +1793,7 @@ function aff_editeur($Xzone, $Xactiv) {
       if ($Xzone=="tiny_mce") {
          if ($Xactiv=="end") {
             if (substr($tmp_Xzone,-1)==",")
-               $tmp_Xzone=substr_replace($tmp_Xzone,"",-1);
+               $tmp_Xzone=substr_replace($tmp_Xzone,'',-1);
             if ($tmp_Xzone) {
                $tmp="
                <script type=\"text/javascript\">
@@ -1803,7 +1803,7 @@ function aff_editeur($Xzone, $Xactiv) {
                   height: 300,
                   theme : 'modern',
                   content_css : 'lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css',// should be the $tmp_theme
-                  language : '".language_iso(1,_,1)."',\n";
+                  language : '".language_iso(1,'','')."',\n";
                   
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
@@ -2792,7 +2792,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $content.= '<img src="images/admin/ws/groupe.gif" class="vam_bo_0" title="ID:'.$gr.'" alt="'.translate("Group").'" />  <span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
-      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-responsive img-fluid center-block" border="0" alt="'.translate("Group").'" />';
+      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-responsive img-fluid center-block" alt="'.translate("Group").'" />';
    $content.='<ul class="list-group ul_bloc_ws">'."\n";
 
    //=> liste des membres
@@ -2826,9 +2826,10 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          $conn= '<img src="images/admin/ws/connect.gif" class="vam_bo_0" title="'.$uname.' '.translate('is connected !').'" alt="'.$uname.' '.translate('is connected !').'" />';
       }
       
-      $li_ic.='<img src="'.$imgtmp.'" style="vertical-align:middle;" height="24px" width="24px" alt="avatar" />&nbsp;';
-      $li_mb.= '<li class="list-group-item li_mb">
-      <div id="li_mb">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80px" width="80px" border="0" /></em><img src="'.$imgtmp.'" style="vertical-align:middle;" height="24px" width="24px" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
+      $li_ic.='<img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" />&nbsp;';
+      $li_mb.= '
+      <li class="list-group-item li_mb">
+      <div id="li_mb">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
       </div>
       <span class="pull-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";
@@ -2860,8 +2861,8 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
          $nb_for_gr='  <span class="label label-pill label-default pull-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
-            $lst_for.='<li style="line-height:18px;margin-top:0; background:none; padding: 0px 1px 0px 14px;"><a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a>';
-            $lst_for.= '</li>';
+            $lst_for.='
+            <li style="line-height:18px;margin-top:0; background:none; padding: 0px 1px 0px 14px;"><a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a></li>';
          }
          $lst_for.='</ul>';
          $lst_for.="\n<script type=\"text/javascript\">
@@ -2870,7 +2871,8 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          //]]>
          </script>\n";
       }
-      $content.='<li class="list-group-item li_18">'.$lst_for_tog.'&nbsp;<i class="fa fa-list-alt fa-lg text-muted" title="'.translate("Group").'('.$gr.'): '.translate("forum").'."></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
+      $content.='
+      <li class="list-group-item li_18">'.$lst_for_tog.'&nbsp;<i class="fa fa-list-alt fa-lg text-muted" title="'.translate("Group").'('.$gr.'): '.translate("forum").'."></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
    }
    //<= Forum
    //=> wspad
@@ -2924,7 +2926,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 $content.='<li class="list-group-item li_18 text-xs-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
-      $content.='&nbsp;<a href="modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-lg"></i></a>'."\n";
+      $content.='&nbsp;<a href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-lg"></i></a>'."\n";
    }
    //<= Filemanager
    //=> Minisite
@@ -2948,9 +2950,9 @@ $content.='<li class="list-group-item li_18 text-xs-center">';
    }
    //<= admin
    
-   $content.="\n".'</li></ul>'."\n";
-   $content.='</div>'."\n";
-
+   $content.='</li>
+      </ul>
+   </div>';
    return ($content);
 }
 

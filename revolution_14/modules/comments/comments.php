@@ -90,7 +90,7 @@ function Caff_pub($topic, $file_name, $archive) {
              <li class="page-item"><a class="page-link" href="'.rawurldecode($url_ret).'&amp;C_start='.$x.'">'.$times.'</a></li>';
          else
             $pages_rapide.='
-             <li class="page-item active"><a class="page-link" href="#">'.$times.'</li>';
+             <li class="page-item active"><a class="page-link" href="#">'.$times.'</a></li>';
          $times++;
       }
       echo $pages_rapide.'
@@ -168,12 +168,12 @@ if ($mycount) {
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo '
                <div class="card-block">
-               <div class="card-text">
-                  <img class="smil" src="'.$imgtmpPI.'" alt="" />
-                  <span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>
-               </div>
-               <hr />
-               <div class="card-text">';
+                  <div class="card-text">
+                     <img class="smil" src="'.$imgtmpPI.'" alt="" />
+                     <span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>
+                  </div>
+                  <hr />
+                  <div class="card-text">';
 
       if ($allow_bbcode) {
          $message = smilie($message);
@@ -243,7 +243,7 @@ if ($mycount) {
 
    if ($Mmod) {
        echo '
-   <nav class="pull-xs-right">
+   <nav class="text-xs-center">
       <ul class="pagination pagination-sm">
          <li class="page-item disabled">
             <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>

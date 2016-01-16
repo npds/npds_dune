@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -200,10 +200,10 @@ $PAGES['viewtopic.php']['run']="yes";
 $PAGES['viewtopicH.php']['title']="[french]Forum[/french][english]Forum[/english][spanish]Foro[/spanish][german]Forum[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese] : $title / $post+";
 $PAGES['viewtopicH.php']['run']="yes";
 
-$PAGES['reply.php']['title']="[french]R&eacute;pondre à un post sur le forum[/french][english]Forum : reply to a post[/english][spanish]Responder a un mensaje en el foro[/spanish][german]Antwort auf einen Beitrag im Forum[/german][chinese]&#x56DE;&#x590D;&#x8BBA;&#x575B;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5E16;&#x5B50;[/chinese]+";
+$PAGES['reply.php']['title']="[french]R&eacute;pondre &#xE0; un post sur le forum[/french][english]Forum : reply to a post[/english][spanish]Responder a un mensaje en el foro[/spanish][german]Antwort auf einen Beitrag im Forum[/german][chinese]&#x56DE;&#x590D;&#x8BBA;&#x575B;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5E16;&#x5B50;[/chinese]+";
 $PAGES['reply.php']['run']="yes";
 
-$PAGES['replyH.php']['title']="[french]R&eacute;pondre à un post sur le forum[/french][english]Forum : reply to a post[/english][spanish]Responder a un mensaje en el foro[/spanish][german]Antwort auf einen Beitrag im Forum[/german][chinese]&#x56DE;&#x590D;&#x8BBA;&#x575B;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5E16;&#x5B50;[/chinese]+";
+$PAGES['replyH.php']['title']="[french]R&eacute;pondre &#xE0; un post sur le forum[/french][english]Forum : reply to a post[/english][spanish]Responder a un mensaje en el foro[/spanish][german]Antwort auf einen Beitrag im Forum[/german][chinese]&#x56DE;&#x590D;&#x8BBA;&#x575B;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5E16;&#x5B50;[/chinese]+";
 $PAGES['replyH.php']['run']="yes";
 
 $PAGES['newtopic.php']['title']="[french]Poster un nouveau sujet[/french][english]Post a new topic[/english][spanish]Publicar nuevo tema[/spanish][german]Neues Thema eröffnen[/german][chinese]&#x5F20;&#x8D34;&#x4E00;&#x4E2A;&#x65B0;&#x4E3B;&#x9898;[/chinese]+";
@@ -241,7 +241,7 @@ $PAGES['pollBooth.php']['run']="yes";
 
 // Page static
 $PAGES['static.php?op=statik.txt']['title']="[french]Page de d&eacute;monstration[/french][english]Demo page[/english][spanish]Demostraci&oacute;n p&aacute;gina[/spanish][german]Demo-Seite[/german][chinese]Demo page[/chinese]+";
-$PAGES['static.php?op=statik.txt']['blocs']="1";
+$PAGES['static.php?op=statik.txt']['blocs']="0";
 $PAGES['static.php?op=statik.txt']['run']="yes";
 
 // Modules

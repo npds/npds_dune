@@ -55,7 +55,9 @@ function foot() {
    else
    if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
 
-   echo "\n</body>\n</html>\n";
+   echo '
+      </body>
+   </html>';
  
    include("sitemap.php");
    

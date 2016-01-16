@@ -14,7 +14,6 @@
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
-
 include("functions.php");
 if ($SuperCache) {
    $cache_obj = new cacheManager();
@@ -22,36 +21,37 @@ if ($SuperCache) {
    $cache_obj = new SuperCacheEmpty();
 }
 include("auth.php");
-
    if (!$user) {
       Header("Location: user.php");
    } else {
       include("header.php");
-      opentable();
       $userX = base64_decode($user);
       $userdata = explode(':', $userX);
       $userdata = get_userdata($userdata[1]);
-
-      echo '
-      <h2>'.translate("Private Message")." - ".translate("Inbox").'</h2>
-      <form action="viewpmsg.php" method="post">';
-      // Classement
       $sqlT = "SELECT distinct dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND dossier!='...' AND type_msg='0' ORDER BY dossier";
       $resultT = sql_query($sqlT);
-      echo "&nbsp;&nbsp;<b>".translate("Topic")."</b> : <select class=\"c-select form-control\" name=\"dossier\">";
+
       echo '
-      <option value="...">...</option>';
+      <div class="card card-block ">
+         <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit"></i></a>&nbsp;'.translate("Private Message")." - ".translate("Inbox").'</h2>
+         <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
+            <div class="form-group">
+               <label class="sr-only" for="dossier" >'.translate("Topic").'</label>
+               <select class="c-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
+                  <option value="...">'.translate("Choose a folder/topic").'...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {
-         if (AddSlashes($dossierX)==$dossier) {$sel="selected=\"selected\"";} else {$sel="";}
-         echo "<option $sel value=\"$dossierX\">$dossierX</option>\n";
+         if (AddSlashes($dossierX)==$dossier) {$sel='selected="selected"';} else {$sel='';}
+         echo '
+               <option '.$sel.' value="'.$dossierX.'">'.$dossierX.'</option>';
          $tempo[$dossierX]=0;
       }
       if ($dossier=='All') {$sel='selected="selected"';} else {$sel='';}
-      echo "<option $sel value=\"All\">".translate("All Topics")."</option>\n";
-      echo '</select>';
-      echo "&nbsp;<input type=\"submit\" class=\"btn btn-primary\" name=\"classe\" value=\"OK\" />";
-      echo '</form>';
+      echo '
+                  <option '.$sel.' value="All">'.translate("All Topics").'</option>
+               </select>
+            </div>
+         </form>';
 
       settype($dossier,'string');
       if ($dossier=="All") {$ibid='';} else {$ibid="and dossier='$dossier'";}
@@ -62,20 +62,27 @@ include("auth.php");
          forumerror(0005);
       }
 
-      echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
-      echo "<form name=\"prvmsg\" method=\"get\" action=\"replypmsg.php\">";
-      echo "<tr>";
-      echo "<td class=\"header\" align=\"center\" valign=\"middle\"><input name=\"allbox\" onclick=\"CheckAll();\" type=\"checkbox\" value=\"Check All\" /></td>";
-      echo "<td class=\"header\" align=\"center\" valign=\"middle\">";
-      if ($ibid=theme_image("forum/download.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/download.gif";}
-      echo "<img src=\"$imgtmp\" alt=\"\" border=\"\" /></td>";
-      if ($smilies) { echo "<td class=\"header\" align=\"center\" valign=\"middle\">&nbsp;</td>"; }
-      echo "<td class=\"header\" align=\"center\">".translate("From")."</td>";
-      echo "<td class=\"header\" align=\"center\">".translate("Subject")."</td>";
-      echo "<td class=\"header\" align=\"center\">".translate("Date")."</td>";
-      echo "</tr>";
+      echo '
+         <form name="prvmsg" method="get" action="replypmsg.php">
+            <table class="table table-hover table-striped table-sm" >
+               <thead class="thead-default">
+                  <tr>
+                     <th align="center" ><input name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /></th>
+                     <th align="center" ><i class="fa fa-long-arrow-down"></i></th>';
+      if ($smilies) { echo '
+                     <th align="center" >&nbsp;</th>'; }
+      echo '
+                     <th align="center">'.translate("From").'</th>
+                     <th align="center">'.translate("Subject").'</th>
+                     <th align="center">'.translate("Date").'</th>
+                  </tr>
+               </thead>
+               <tbody>';
       if (!$total_messages = sql_num_rows($resultID)) {
-         echo "<td colspan=\"6\" align=\"center\">".translate("You don't have any Messages.")."</td></tr>\n";
+         echo '
+                  <tr>
+                     <td colspan="6" align="center">'.translate("You don't have any Messages.").'</td>
+                  </tr>';
          $display=0;
       } else {
          $display=1;
@@ -83,56 +90,56 @@ include("auth.php");
 
       $count=0;
       while ($myrow = sql_fetch_assoc($resultID)) {
-         $rowcolor=tablos();
-         echo "<tr $rowcolor>";
-         echo "<td valign=\"top\" width=\"2%\" align=\"center\"><input type=\"checkbox\" onclick=\"CheckCheckAll();\" name=\"msg_id[$count]\" value=\"".$myrow['msg_id']."\" /></td>";
-         if ($myrow['read_msg'] == "1") {
-            echo "<td valign=\"top\" width=\"5%\" align=\"center\">&nbsp;</td>";
-         } else {
-            if ($ibid=theme_image("forum/read.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/read.gif";}
-            echo "<td valign=\"top\" width=\"5%' align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
-         }
-         if ($smilies) {
-            if ($myrow['msg_image']!="") {
-               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img class=\"smil\" src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
-            } else {
-               echo "<td valign=\"top\" width=\"5%' align=\"center\">&nbsp;</td>";
-            }
-         }
          $myrow['subject']=strip_tags($myrow['subject']);
          $posterdata = get_userdata_from_id($myrow['from_userid']);
          if ($dossier=="All") {$myrow['dossier']="All";}
          if (!array_key_exists($myrow['dossier'],$tempo)) {$tempo[$myrow['dossier']]=0;}
-         echo "<td valign=\"middle\" align=\"center\" width=\"10%\"><a href=\"readpmsg.php?start=".$tempo[$myrow['dossier']]."&amp;total_messages=$total_messages&amp;dossier=".urlencode($myrow['dossier'])."\" class=\"noir\">";
+         echo '
+                  <tr>
+                     <td width="2%" align="center"><label class="c-input c-checkbox"><input type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /><span class="c-indicator"></span></label></td>';
+         if ($myrow['read_msg'] == "1") {
+            echo '
+                     <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
+         } else {
+            echo '
+                     <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a></td>';
+         }
+         if ($smilies) {
+            if ($myrow['msg_image']!="") {
+               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
+               echo '
+                     <td width="5%" align="center"><img class="smil" src="'.$imgtmp.'" alt="" border="0" /></td>';
+            } else {
+               echo '
+                     <td width="5%" align="center">&nbsp;</td>';
+            }
+         }
+         echo '
+                     <td align="center" width="10%"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
          if ($posterdata['uid']<>1) {
             echo $posterdata['uname'];
          } else {
             echo $sitename;
          }
-         echo "</a></td>";
-         echo "<td valign=\"middle\">".aff_langue($myrow['subject'])."</td>";
-         echo "<td valign=\"middle\" align=\"center\" width=\"20%\">".$myrow['msg_time']."</td></tr>";
+         echo '
+         </a></td>
+                     <td>'.aff_langue($myrow['subject']).'</td>
+                     <td align="center" width="20%">'.$myrow['msg_time'].'</td>
+                  </tr>';
          $tempo[$myrow['dossier']]=$tempo[$myrow['dossier']]+1;
          $count++;
       }
-
-      if ($ibid=theme_image("forum/icons/$language/send.gif")) {$imgtmpS=$ibid;} else {$imgtmpS="images/forum/icons/$language/send.gif";}
-      if ($ibid=theme_image("forum/icons/$language/delete.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/delete.gif";}
       if ($display) {
-         echo "<tr class=\"header\">";
-         echo "<td colspan=\"6\" align=\"left\"><a href=\"replypmsg.php?send=1\"><img src=\"$imgtmpS\" alt=\"\" border=\"0\" /></a>&nbsp;<input type=\"image\" src=\"$imgtmpD\" name=\"delete_messages\" value=\"delete_messages\" border=\"0\" /></td></tr>";
-         echo "<input type=\"hidden\" name=\"total_messages\" value=\"$total_messages\">";
-         echo "</form>";
-      } else {
-         echo "<tr class=\"header\">";
-         echo "<td colspan=\"6\"><a href=\"replypmsg.php?send=1\"><img src=\"$imgtmpS\" alt=\"\" border=\"0\" /></a></td></tr>";
-         echo "</form>";
+         echo '
+                  <tr class="table-danger">
+                     <td colspan="6"><input type="hidden" name="total_messages" value="'.$total_messages.'"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+                  </tr>';
       }
-      echo "</table>";
-
       echo '
-      <h2>'.translate("Private Message")." - ".translate("Outbox").'</h2>';
+               <tbody>
+            </table>
+         </form>
+      </div>';
 
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid = '".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
@@ -140,15 +147,17 @@ include("auth.php");
          forumerror(0005);
       }
       echo '
-      <table class="table table-sm" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
-      <form name="prvmsgB" method="get" action="replypmsg.php">
-         <thead>
+      <div class="card card-block ">
+      <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit"></i></a>&nbsp;'.translate("Private Message")." - ".translate("Outbox").'</h2>
+      <form id="" name="prvmsgB" method="get" action="replypmsg.php">
+      <table class="table table-hover table-striped table-sm" >
+         <thead class="thead-default">
             <tr>
                <th data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>
-               <th align="center" valign="middle">';
-      if ($ibid=theme_image("forum/download.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/download.gif";}
-      echo '<img src="'.$imgtmp.'" alt="" border="0" /></th>';
-      if ($smilies) { echo '<th class="header" align="center" valign="middle">&nbsp;</th>'; }
+               <th align="center" ><i class="fa fa-long-arrow-down"></i></th>';
+      if ($smilies) { echo '
+               <th align="center" >&nbsp;</th>';
+      }
       echo '
                <th data-sortable="true" align="center">'.translate("To").'</th>
                <th data-sortable="true" align="center">'.translate("Subject").'</th>
@@ -169,77 +178,73 @@ include("auth.php");
       while ($myrow = sql_fetch_assoc($resultID)) {
          echo '
             <tr>
-               <td valign=top width="2%" align="center"><input type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /></td>';
+               <td width="2%" align="center"><input type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /></td>';
          if ($myrow['read_msg']=="1") {
             echo '
-               <td valign="top" width="5%" align="center">&nbsp;</td>';
+               <td  width="5%" align="center">&nbsp;</td>';
          } else {
             if ($ibid=theme_image("forum/read.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/read.gif";}
-            echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
+            echo "<td width=\"5%\" align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
          }
          if ($smilies) {
             if ($myrow['msg_image']!="") {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo "<td valign=\"top\" width=\"5%\" align=\"center\"><img class=\"smil\" src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
+               echo "<td width=\"5%\" align=\"center\"><img class=\"smil\" src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
             } else {
-               echo '<td valign="top" width="5%" align="center">&nbsp;</td>';
+               echo '<td width="5%" align="center">&nbsp;</td>';
             }
          }
          $myrow['subject']=strip_tags($myrow['subject']);
          $posterdata = get_userdata_from_id($myrow['to_userid']);
-         echo "<td valign=\"middle\" align=\"center\" width=\"10%\"><a href=\"readpmsg.php?start=$count&amp;total_messages=$total_messages&amp;type=outbox\" class=\"noir\">".$posterdata['uname']."</a></td>";
-         echo "<td valign=\"middle\">".aff_langue($myrow['subject'])."</td>";
-         echo "<td valign=\"middle\" align=\"center\" width=\"20%\">".$myrow['msg_time']."</td></tr>";
+         echo "<td align=\"center\" width=\"10%\"><a href=\"readpmsg.php?start=$count&amp;total_messages=$total_messages&amp;type=outbox\" class=\"noir\">".$posterdata['uname']."</a></td>";
+         echo "<td>".aff_langue($myrow['subject'])."</td>";
+         echo "<td align=\"center\" width=\"20%\">".$myrow['msg_time']."</td></tr>";
          $count++;
       }
       if ($display) {
-         echo '<tr class="header">';
-         if ($ibid=theme_image("forum/icons/$language/delete.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/delete.gif";}
          echo '
-         <td colspan="6"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+         <tr class="table-danger">
+            <td colspan="6"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
          </tr>
          <input type="hidden" name="total_messages" value="'.$total_messages.'" />
          <input type="hidden" name="type" value="outbox" />';
       }
       echo '
-         </form>
          </tbody>
-      </table>';
+         </table>
+      </form>
+      </div>';
       ?>
       <script type="text/javascript">
       //<![CDATA[
       function CheckAll() {
-
-        for (var i=0;i<document.prvmsg.elements.length;i++)
-        {
-                var e = document.prvmsg.elements[i];
-                if ((e.name != 'allbox') && (e.type=='checkbox'))
-                e.checked = document.prvmsg.allbox.checked;
-        }
+         for (var i=0;i<document.prvmsg.elements.length;i++)
+         {
+            var e = document.prvmsg.elements[i];
+            if ((e.name != 'allbox') && (e.type=='checkbox'))
+            e.checked = document.prvmsg.allbox.checked;
+         }
       }
       function CheckCheckAll() {
-        var TotalBoxes = 0;
-        var TotalOn = 0;
+        var TotalBoxes = 0, TotalOn = 0;
         for (var i=0;i<document.prvmsg.elements.length;i++)
         {
-                var e = document.prvmsg.elements[i];
-                if ((e.name != 'allbox') && (e.type=='checkbox'))
-                {
-                   TotalBoxes++;
-                   if (e.checked)
-                   {
-                      TotalOn++;
-                   }
-                }
+            var e = document.prvmsg.elements[i];
+            if ((e.name != 'allbox') && (e.type=='checkbox'))
+            {
+               TotalBoxes++;
+               if (e.checked)
+               {
+                  TotalOn++;
+               }
+            }
         }
         if (TotalBoxes==TotalOn)
         {document.prvmsg.allbox.checked=true;}
         else
         {document.prvmsg.allbox.checked=false;}
       }
-
       function CheckAllB() {
-
         for (var i=0;i<document.prvmsgB.elements.length;i++)
         {
                 var e = document.prvmsgB.elements[i];
@@ -247,10 +252,8 @@ include("auth.php");
                 e.checked = document.prvmsgB.allbox.checked;
         }
       }
-
       function CheckCheckAllB() {
-        var TotalBoxes = 0;
-        var TotalOn = 0;
+        var TotalBoxes = 0, TotalOn = 0;
         for (var i=0;i<document.prvmsgB.elements.length;i++)
         {
                 var e = document.prvmsgB.elements[i];
@@ -271,7 +274,6 @@ include("auth.php");
       //]]>
       </script>
       <?php
-      closetable();
       include('footer.php');
    }
 ?>

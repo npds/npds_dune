@@ -25,7 +25,7 @@ function get_total_topics($forum_id) {
    sql_free_result($result);
    return($myrow['total']);
 }
-
+// probablement ˆ supprimer lol il suffit de prendre le nombre de ligne  de getcontributeurs()
 function get_total_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
    $sql = "SELECT count(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'";
@@ -59,11 +59,9 @@ function get_total_posts($fid, $tid, $type, $Mmod) {
       case 'forum':
            $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$fid'$post_aff";
            break;
-
       case 'topic':
            $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid' $post_aff";
            break;
-
       case 'user':
            forumerror(0031);
    }

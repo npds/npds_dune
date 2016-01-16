@@ -3,9 +3,9 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* Collab WS-Pad 1.0 by Developpeur                                     */
+/* Collab WS-Pad 1.44 by Developpeur and Jpb                            */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -35,15 +35,19 @@ include_once("modules/$ModPath/lang/$language.php");
    include("meta/meta.php");
    echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
    global $site_font;
-   echo import_css($tmp_theme, $language, $site_font, "","");
+   echo import_css($tmp_theme, $language, $site_font, '','');
 
-   echo "</head>\n<body style=\"padding: 10px; background:#ffffff;\">";
+   echo '
+   </head>
+   <body style="padding: 10px; background:#ffffff;">';
       $wspad=rawurldecode(decrypt($pad));
       $wspad=explode("#wspad#",$wspad);
       $row=sql_fetch_assoc(sql_query("SELECT content, modtime, editedby, ranq  FROM ".$NPDS_Prefix."wspad WHERE page='".$wspad[0]."' and member='".$wspad[1]."' and ranq='".$wspad[2]."'"));
       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-      echo $wspad[0]."&nbsp;&nbsp;[ ".wspad_trans("révision")." : ".$row['ranq']." - ".$row['editedby']." / ".date(translate("dateinternal"),$row['modtime']+($gmt*3600))." ]";
+      echo $wspad[0]."&nbsp;&nbsp;[ ".wspad_trans("rÃˆvision")." : ".$row['ranq']." - ".$row['editedby']." / ".date(translate("dateinternal"),$row['modtime']+($gmt*3600))." ]";
       echo "</td></tr></table>\n";
       echo aff_langue($row['content']);
-   echo "</body></html>";
+   echo '
+   </body>
+</html>';
 ?>

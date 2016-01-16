@@ -12,6 +12,7 @@
 /************************************************************************/
 
 global $pdst;
+/* $pdst=2; */
 if(!$user){
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1' AND member ='0'");
@@ -83,7 +84,7 @@ $ContainerGlobal="\n<div id=\"container\">\n";
 /*           Si Aucune variable pdst dans pages.php                     */
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
-     echo '<section id="corps" class="row w100" role="main">';
+     echo '<section id="corps" class="row w100 automobile" role="main">';
 switch ($pdst) {
 case "-1":
      echo '<section id="centralcol" class="col w100 autotablet">';   /* la partie centrale */
@@ -134,7 +135,7 @@ default:
      echo '<aside id="leftcol" class="col w18 autotablet aside">';
         leftblocks();
      echo '</aside>';
-     echo '<section id="centralcol" class="col w64 autotablet content">';
+     echo '<section id="centralcol" class="col w82 autotablet content">';
 break;
 }
 ?>

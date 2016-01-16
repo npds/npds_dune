@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2009 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -30,15 +30,15 @@ if ($uriBlocNote) {
          $bnid=md5($nomBlocNote.urldecode($uriBlocNote));
       }
    } else {
-      $bnid="";
+      $bnid='';
    }
 
    if ($bnid) {
-      if ($supBlocNote=="RAZ") {
+      if ($supBlocNote=='RAZ') {
          sql_query("DELETE FROM ".$NPDS_Prefix."blocnotes WHERE bnid='$bnid'");
       } else {
          sql_query("LOCK TABLES ".$NPDS_Prefix."blocnotes WRITE");
-         $result = sql_query("select texte from ".$NPDS_Prefix."blocnotes where bnid='$bnid'");
+         $result = sql_query("SELECT texte FROM ".$NPDS_Prefix."blocnotes WHERE bnid='$bnid'");
          if (sql_num_rows($result) > 0) {
             if ($texteBlocNote!="") {
                 sql_query("UPDATE ".$NPDS_Prefix."blocnotes SET texte='".removeHack($texteBlocNote)."' WHERE bnid='$bnid'");

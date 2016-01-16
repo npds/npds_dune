@@ -1,9 +1,6 @@
 <?php
    global $cookie, $anonymous, $NPDS_Prefix;
-   $username = $cookie[1];
-   $con='';
-   $ava='';
-   $cha='';
+   $username = $cookie[1];$con='';$ava='';$cha='';
 
 if (!isset($powerpack)) {include_once ("powerpack.php");}
    if (if_chat()) $cha= '
@@ -15,7 +12,7 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x"></i></a>';
    } elseif (autorisation(1)) {
       settype($cookie[0], 'integer');
-      list($user_avatar)=sql_fetch_row(sql_query("select user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
+      list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
       if (!$user_avatar) {
       $imgtmp='images/forum/avatar/blank.gif';
@@ -26,7 +23,7 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
       
-      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
          $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="label-pill label-default">'.$nbmes.'</span></a>';
       

@@ -316,7 +316,7 @@ function translate_pass1($phrase) {
    case "This option will change the look for the whole site.": $tmp="Cette option changera l'aspect du site."; break;
    case "The changes will be valid only to you.": $tmp="Les modifications seront seulement valides pour vous."; break;
    case "Each user can view the site with different theme.": $tmp="Chaque utilisateur peut voir le site avec un thème graphique différent."; break;
-   case "Score": $tmp="Evaluation de la criticité"; break;
+   case "Score": $tmp="Evaluation"; break;
    case "Edit your journal": $tmp="Editer votre journal"; break;
    case "Add date and time stamp": $tmp="Ajouter la date et l'heure"; break;
    case "Save Journal": $tmp="Sauvez votre journal"; break;
@@ -672,7 +672,7 @@ function translate_pass1($phrase) {
    case "Your Full Name. Required.": $tmp="Votre nom complet. C'est indispensable."; break;
    case "Your E-mail address. Required.": $tmp="Votre adresse mèl est obligatoire"; break;
    case "Select from 1=poor to 10=excelent.": $tmp="Choisir entre 1 et 10 (1=nul 10=excellent)"; break;
-   case "Related Link": $tmp="Liens relatifs"; break;
+   case "Related Link": $tmp="Lien relatif"; break;
    case "Product Official Website. Make sure your URL starts by": $tmp="Site web officiel. Veillez à ce que votre url commence bien par"; break;
    case "Link title": $tmp="Titre du lien"; break;
    case "Required if you have a related link, otherwise not required.": $tmp="Obligatoire seulement si vous soumettez un lien relatif"; break;
@@ -687,8 +687,8 @@ function translate_pass1($phrase) {
    case "Invalid email (eg: you@hotmail.com)": $tmp="mèl non valide (ex.: prenom.nom@hotmail.com)"; break;
    case "You must enter BOTH a link title and a related link or leave both blank": $tmp="Vous devez entrer un titre de lien et une adresse relative, ou laisser les deux zones vides"; break;
    case "Added:": $tmp="Ajouté :"; break;
-   case "Reviewer:": $tmp="La critique : "; break;
-   case "Score:": $tmp="Note : "; break;
+   case "Reviewer": $tmp="Le critique"; break;
+   case "Score:": $tmp="Note"; break;
    case "Review ID": $tmp="ID de la critique"; break;
    case "Hits": $tmp="Nombre de hits"; break;
    case "Does this look right?": $tmp="Cela semble-t-il correct ?"; break;
@@ -720,7 +720,7 @@ function translate_pass1($phrase) {
    case "Email:": $tmp="Mèl : "; break;
    case "Link:": $tmp="Lien : "; break;
    case "Link title:": $tmp="Titre du lien : "; break;
-   case "Cover image:": $tmp="Image de garde : "; break;
+   case "Cover image": $tmp="Image de garde"; break;
    case "Preview Modifications": $tmp="Prévisualiser les modifications"; break;
    case "Cancel": $tmp="Annuler"; break;
    case "Total": $tmp="Total"; break;
@@ -1018,10 +1018,12 @@ function translate_pass1($phrase) {
    case "Table": $tmp="Tableau"; break;
    case "Code": $tmp="Code"; break;
    case "Youtube video": $tmp="Vid&#xE9;o Youtube"; break;
-   
    case "Hide this post": $tmp = "Masquer ce post"; break;
    case "Show this post": $tmp = "Afficher ce post"; break;
-   
+
+   case "Read": $tmp="Lu"; break;
+   case "Choose a folder/topic": $tmp="Choisir un dossier/sujet"; break;
+   case "Write a new Private Message": $tmp="Ecrire un nouveau message priv&#xE9;"; break;
    case "Private Messages": $tmp="Messages personnels"; break;
    case "Contributors": $tmp="Contributeurs"; break;
    case "Bottom page": $tmp="Bas de page"; break;
