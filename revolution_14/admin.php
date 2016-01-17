@@ -213,7 +213,7 @@ function GraphicAdmin($hlpfile) {
    if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1' WHERE fid=36"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='36'");
    //referant à gérer
    if($httpref = 1) {
-   $result=sql_fetch_assoc(sql_query("select count(*) as total from ".$NPDS_Prefix."referer"));
+   $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
    if ($result['total']>=$httprefmax) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' WHERE fid='39'");else sql_query("UPDATE fonctions ".$NPDS_Prefix." SET fetat='0' WHERE fid='39'");
    }
    //critique en attente
@@ -539,7 +539,8 @@ function adminMain($deja_affiches) {
    $short_menu_admin=false;
    $radminsuper=GraphicAdmin($hlpfile);///????????
    
-   echo '<div id="adm_men_art" class="adm_workarea">
+   echo '
+   <div id="adm_men_art" class="adm_workarea">
    <h2><img src="images/admin/submissions.'.$admf_ext.'" class="adm_img" title="'.adm_translate("Articles").'" alt="icon_'.adm_translate("Articles").'" />&nbsp;'.adm_translate("Derniers").' '.$admart.' '.adm_translate("Articles").'</h2>';
 
    $resul = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
@@ -553,10 +554,10 @@ function adminMain($deja_affiches) {
       <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
                 <thead>
                     <tr>
-                        <th data-sortable="true">ID</th>
-                        <th data-sortable="true">'.adm_translate("Titre").'</th>
-                        <th data-sortable="true">'.adm_translate("Sujet").'</th>
-                        <th>'.adm_translate("Fonctions").'</th>
+                        <th data-sortable="true" data-halign="center" data-align="right">ID</th>
+                        <th data-sortable="true" data-halign="center">'.adm_translate("Titre").'</th>
+                        <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
+                        <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
                     </tr>
                 </thead>
                 <tbody>';
