@@ -10,16 +10,9 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
+
+
 echo '
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" />
-<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />';
- echo '
- <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css" />';
-echo '
-<link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />
-<link rel="stylesheet" href="lib/jquery-ui.css">
-<link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />

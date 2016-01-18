@@ -44,7 +44,7 @@ include_once("modules/$ModPath/lang/$language.php");
       $wspad=explode("#wspad#",$wspad);
       $row=sql_fetch_assoc(sql_query("SELECT content, modtime, editedby, ranq  FROM ".$NPDS_Prefix."wspad WHERE page='".$wspad[0]."' and member='".$wspad[1]."' and ranq='".$wspad[2]."'"));
       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-      echo $wspad[0]."&nbsp;&nbsp;[ ".wspad_trans("rÈvision")." : ".$row['ranq']." - ".$row['editedby']." / ".date(translate("dateinternal"),$row['modtime']+($gmt*3600))." ]";
+      echo $wspad[0]."&nbsp;&nbsp;[ ".wspad_trans("révision")." : ".$row['ranq']." - ".$row['editedby']." / ".date(translate("dateinternal"),$row['modtime']+($gmt*3600))." ]";
       echo "</td></tr></table>\n";
       echo aff_langue($row['content']);
    echo '

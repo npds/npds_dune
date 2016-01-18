@@ -17,9 +17,8 @@
 
 global $surlignage, $font_size, $auteur, $groupe;
 $tmp.="
-gr : 'yo',//debug
 theme_advanced_path : false,
-toolbar : 'image | tablecontrols | insertdate inserttime | npds_img npds_gperso npds_gmns npds_gupl',
+toolbar : 'image | tablecontrols | npds_img npds_gperso npds_gmns npds_gupl',
 tiny_mce_groupe : '&groupe=$groupe',
 
 setup: function (ed) {
