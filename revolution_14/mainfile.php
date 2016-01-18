@@ -1803,7 +1803,7 @@ function aff_editeur($Xzone, $Xactiv) {
                   height: 300,
                   theme : 'modern',
                   content_css : 'lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css',// should be the $tmp_theme
-                  language : '".language_iso(1,'','')."',\n";
+                  language : '".language_iso(1,'','')."',";
                   
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
