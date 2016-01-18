@@ -210,7 +210,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
          echo "<img src=\"images/reviews/$cover\" align=\"right\" hspace=\"10\" vspace=\"10\">";
       echo $text;
       echo '<hr noshade="noshade" />';
-      echo "<strong>".translate("Reviewer:")."</strong> <a href=\"mailto:$email\" target=\"_blank\">$reviewer</a><br />";
+      echo "<strong>".translate("Reviewer")." :</strong> <a href=\"mailto:$email\" target=\"_blank\">$reviewer</a><br />";
       echo '<strong>'.translate("Score:").'</strong>
       <div class="text-success">'.display_score($score).'</div> <br />';
       if ($url != '')
@@ -374,7 +374,7 @@ function reviews($field, $order) {
             </tr>';
       }
       echo '
-         <tbody>
+         </tbody>
       </table>';
    }
    echo '<p class="label label-default">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
