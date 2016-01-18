@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -27,16 +27,14 @@ if ($links_DB=="") {
 }
 $hlpfile = "modules/".substr($ModPath,0,$pos)."/manual/$language/mod-weblinks.html";
 
-$result = sql_query("select radminlink, radminsuper from ".$NPDS_Prefix."authors where aid='$aid'");
-list($radminlink, $radminsuper) = sql_fetch_row($result);
-if (($radminlink!=1) and ($radminsuper!=1)) {
+$result = sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
+list($radminsuper) = sql_fetch_row($result);
+if ($radminsuper!=1) {//intégrer les droits nouveau système
    Access_Error();
 }
 
 function links() {
-    global $ModPath, $ModStart, $links_DB;
-    global $admin, $language, $hlpfile;
-    global $NPDS_Prefix;
+    global $ModPath, $ModStart, $links_DB, $admin, $language, $hlpfile, $NPDS_Prefix;
 
     include ("header.php");
 
@@ -782,12 +780,12 @@ function LinksChangeModRequests($Xrequestid) {
        $description = stripslashes($description);
        sql_query("UPDATE ".$links_DB."links_links SET cid=$cid, sid=$sid, title='$title', url='$url', description='$description', topicid_card='$topicid_card' WHERE lid='$lid'");
     }
-    sql_query("delete from ".$links_DB."links_modrequest where requestid='$Xrequestid'");
+    sql_query("DELETE FROM ".$links_DB."links_modrequest WHERE requestid='$Xrequestid'");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksListModRequests");
 }
 function LinksChangeIgnoreRequests($requestid) {
     global $ModPath, $ModStart, $links_DB;
-    sql_query("delete from ".$links_DB."links_modrequest where requestid='$requestid'");
+    sql_query("DELETE FROM ".$links_DB."links_modrequest WHERE requestid='$requestid'");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksListModRequests");
 }
 
@@ -796,83 +794,64 @@ switch ($op) {
        case "LinksDelNew":
           LinksDelNew($lid);
           break;
-
        case "LinksAddCat":
           LinksAddCat($title, $cdescription);
           break;
-
        case "LinksAddSubCat":
           LinksAddSubCat($cid, $title);
           break;
-
        case "LinksAddLink":
           if ($xtext=="") $xtext=$description;
           LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter, $topicL);
           break;
-
        case "LinksAddEditorial":
           LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
           break;
-
        case "LinksModEditorial":
           LinksModEditorial($linkid, $editorialtitle, $editorialtext);
           break;
-
        case "LinksDelEditorial":
           LinksDelEditorial($linkid);
           break;
-
        case "LinksListBrokenLinks":
           LinksListBrokenLinks();
           break;
-
        case "LinksDelBrokenLinks":
           LinksDelBrokenLinks($lid);
           break;
-
        case "LinksIgnoreBrokenLinks":
           LinksIgnoreBrokenLinks($lid);
           break;
-
        case "LinksListModRequests":
           LinksListModRequests();
           break;
-
        case "LinksChangeModRequests":
           LinksChangeModRequests($requestid);
           break;
-
        case "LinksChangeIgnoreRequests":
           LinksChangeIgnoreRequests($requestid);
           break;
-
        case "LinksDelCat":
           LinksDelCat($cid, $sid, $sub, $ok);
           break;
-
        case "LinksModCat":
           LinksModCat($cat);
           break;
-
        case "LinksModCatS":
           LinksModCatS($cid, $sid, $sub, $title, $cdescription);
           break;
-
        case "LinksModLink":
        case "modifylinkrequest":
           settype($modifylinkrequest_adv_infos,'string');
           LinksModLink($lid, $modifylinkrequest_adv_infos);
           break;
-
        case "LinksModLinkS":
           LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat, $topicL);
           break;
-
        case "LinksDelLink":
           LinksDelLink($lid);
           Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
           break;
-
        default:
           links();
           break;

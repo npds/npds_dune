@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2011 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,13 +16,11 @@
 /* or for advertising. Find No ?                                        */
 /************************************************************************/
 
-   // Le système de bannière
+// Le systÃ¨me de banniÃ¨re
    global $banners;
    if (($banners) and function_exists("viewbanner")) {
-      echo "<p align=\"center\">";
+      echo '<p align="center">';
          viewbanner();
-      echo "</p>";
-   } else {
-      echo "<br /><br />";
+      echo '</p>';
    }
 ?>

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2011 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -16,84 +16,90 @@
 if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
    die();
 }
-global $links_DB;
-global $NPDS_Prefix;
+global $links_DB, $NPDS_Prefix;
 
 include_once("modules/$ModPath/links.conf.php");
-if ($links_DB=="") {
-   $links_DB=$NPDS_Prefix;
-}
-//Menu bootstrapped phr
+if ($links_DB=='') $links_DB=$NPDS_Prefix;
+
 function menu($mainlink) {
    global $ModPath, $ModStart, $links_anonaddlinklock;
-	echo '<ul class="nav nav-pills">';
-   if ($mainlink>0) {
-      echo "<li><a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"box\">".translate("Links Main")."</a></li>";
-   }
-   if (autorisation($links_anonaddlinklock))
-      echo "<li><a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=AddLink\" class=\"box\">".translate("Add Link")."</a></li>";
-   echo "<li><a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=NewLinks\" class=\"box\">".translate("New links")."</a></li>";
-   echo '</ul>';
-}
-//recherche bootstrapped à affiner phr
-function SearchForm() {
-	global $ModPath, $ModStart;
-	global $NPDS_Prefix;
-	echo '<h3>Recherche</h3>';
-	echo '<form class="form-horizontal" role="form" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
+//$ad_l='';$ne_l='';
 
-	global $links_topic;
-	if ($links_topic) {   
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">Sélectionner un sujet</label>
-			</div>
-			<div class="col-sm-6">
-				<select class="form-control" name="topicL">';
-      $toplist = sql_query("select topicid, topictext from ".$NPDS_Prefix."topics order by topictext");
-		echo '<option value="">'.translate("All Topics").'</option>';
-		while (list($topicid, $topics) = sql_fetch_row($toplist)) {
-        echo '<option value="'.$topicid.'>'.$topics.'</option>';
+//if($op='NewLinks') {$ne_l='active';} else
+//if($op='AddLink') {$ad_l='active';}
+
+// if ($mainlink =='') {$in_l = 'active'; $ne_l =''; $ad_l ='';}
+// if ($mainlink =='ad_l') {$in_l = ''; $ad_l = 'active'; $ne_l ='';}
+// if ($mainlink =='ne_l') {$ne_l = 'active'; $ad_l ='';}
+   echo '
+   <ul class="nav nav-tabs">';
+//   if ($mainlink>0) {
+      echo '
+      <li class="nav-item"><a class="nav-link '.$in_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" >'.translate("Links Main").'</a></li>';
+//   }
+   if (autorisation($links_anonaddlinklock))
+      echo '
+      <li class="nav-item" ><a class="nav-link '.$ad_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=AddLink" >'.translate("Add Link").'</a></li>';
+   echo '
+      <li class="nav-item"><a class="nav-link '.$ne_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=NewLinks" >'.translate("New links").'</a></li>
+   </ul>
+   <div class="m-t-1"></div>';
+}
+
+function SearchForm() {
+   global $ModPath, $ModStart, $NPDS_Prefix, $links_topic;
+   echo '
+   <div class="card card-block">
+   <h3>'.translate("Search").'</h3>
+   <form class="" role="form" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
+   if ($links_topic) {
+      echo '
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="topicL" >Sélectionner un sujet</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="topicL">';
+      $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+      echo '
+               <option value="">'.translate("All Topics").'</option>';
+      while (list($topicid, $topics) = sql_fetch_row($toplist)) {
+        echo '
+               <option value="'.$topicid.'">'.$topics.'</option>';
       }
-      echo '</select>';
-	echo '</div>
-	  </div>';  
+      echo '
+            </select>
+         </div>
+     </div>';
    }
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">Votre demande</label>
-			</div>	
-			<div class="col-sm-6">
-				<input class="form-control" type="text" name="query" />
-			</div>
-		</div>';   
-   
-   
-	echo '<div class="form-group">
-			<div class="col-sm-offset-4 col-sm-1">
-				<input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
-			</div>
-		</div>';
-	echo '</form>';
+   echo '
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4">Votre demande</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="query" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+         </div>
+      </div>
+   </form>
+   </div>';
 }
 
 function mainheader() {
-   $mainlink = 1;
+//   $mainlink ='in_l';
    menu($mainlink);
    SearchForm();
 }
 
 function autorise_mod($lid,$aff) {
-   global $ModPath, $ModStart, $links_DB;
-   global $NPDS_Prefix;
-   global $user, $admin;
-
+   global $ModPath, $ModStart, $links_DB, $NPDS_Prefix, $user, $admin;
    if ($admin) {
       $Xadmin = base64_decode($admin);
       $Xadmin = explode(":", $Xadmin);
-      $result = sql_query("select radminlink, radminsuper from ".$NPDS_Prefix."authors where aid='$Xadmin[0]'");
-      list($radminlink, $radminsuper) = sql_fetch_row($result);
-      if (($radminlink==1) or ($radminsuper==1)) {
+      $result = sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors where aid='$Xadmin[0]'");
+      list($radminsuper) = sql_fetch_row($result);
+      if ($radminsuper==1) {// faut remettre le controle des droits probablement pour les admin qui ont le droit link ??!!
          if ($aff) {
             echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9"><span class="text-warning">'.translate("Modify").'</span></a>';
          }
@@ -101,13 +107,13 @@ function autorise_mod($lid,$aff) {
       } else {
          return(false);
       }
-   } elseif ($user!="") {
+   } elseif ($user!='') {
       global $cookie;
-      $resultX=sql_query("select submitter from ".$links_DB."links_links where submitter='$cookie[1]' and lid='$lid'");
+      $resultX=sql_query("SELECT submitter FROM ".$links_DB."links_links WHERE submitter='$cookie[1]' AND lid='$lid'");
       list($submitter) = sql_fetch_row($resultX);
       if ($submitter==$cookie[1]) {
          if ($aff) {
-            echo "<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=modifylinkrequest&amp;lid=$lid&amp;author=$cookie[1]\"><span style=\"font-size: 10px;\">".translate("Modify")."</span></a> ";
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid=$lid&amp;author='.$cookie[1].'"><span style="font-size: 10px;">'.translate("Modify").'</span></a> ';
          }
          return(true);
       } else {
@@ -132,62 +138,52 @@ function index() {
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       
-      $mainlink = 0;
+      $mainlink = 'in_l';
       menu($mainlink);
       SearchForm();
 
       $filen="modules/$ModPath/links.ban_01.php";
       if (file_exists($filen)) {include($filen);}
 
-      echo "<table class=\"table table-bordered\"><tr>";
-      $result=sql_query("select cid, title, cdescription from ".$links_DB."links_categories order by title");
+      echo '
+      <table class="table table-bordered table-striped table-hover">';
+      $result=sql_query("SELECT cid, title, cdescription FROM ".$links_DB."links_categories ORDER BY title");
       if ($result) {
-         $count = 0;
          while (list($cid, $title, $cdescription) = sql_fetch_row($result)) {
-            $cresult = sql_query("select lid from ".$links_DB."links_links where cid='$cid'");
+            $cresult = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE cid='$cid'");
             $cnumrows = sql_num_rows($cresult);
-            echo "<td valign=\"top\" width=\"200\" class=\"ongl\">
-            <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlink&amp;cid=$cid\">".aff_langue($title)."</a> <span style=\"font-size: 10px;\">[$cnumrows]</span>";
+            echo '
+         <tr>
+            <td>
+               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="label label-default pull-right">'.$cnumrows.'</span></h4>';
             categorynewlinkgraphic($cid);
-            if ($cdescription) {
-                echo "<br /><span style=\"font-size: 10px;\">".aff_langue($cdescription)."</span><br />";
-            } else {
-                echo "<br />";
-            }
-            $result2 = sql_query("select sid, title from ".$links_DB."links_subcategories where cid='$cid' order by title $subcat_limit");
-            $space = 0;
+            if ($cdescription)
+                echo '
+                <p>'.aff_langue($cdescription).'</p>';
+            $result2 = sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$cid' ORDER BY title $subcat_limit");
             while (list($sid, $stitle) = sql_fetch_row($result2)) {
-               if ($space>0) {
-                  echo "<br />";
-               }
-               $cresult3 = sql_query("select lid from ".$links_DB."links_links where sid='$sid'");
-               $cnumrows="-: ".sql_num_rows($cresult3);
-               if ($cnumrows=="-: 0") {$cnumrows="";}
-               echo "&nbsp;<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid\">".aff_langue($stitle)."</a> <span style=\"font-size: 10px;\">$cnumrows</span>";
-               $space++;
+               $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
+               $cnumrows= sql_num_rows($cresult3);
+               echo '
+               <h5><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="label label-default pull-right">'.$cnumrows.'</span></h5>';
             }
-            if ($count<1) {
-               echo "</td><td width=\"20\">&nbsp;</td>";
-            }
-            $count++;
-            if ($count==2) {
-               echo "</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr>";
-               $count = 0;
-            }
+            echo '
+            </td>
+         </tr>';
          }
       }
-      echo "</td></tr></table>";
-      $result=sql_query("select lid from ".$links_DB."links_links");
+      echo '
+      </table>';
+
+      $result=sql_query("SELECT lid from ".$links_DB."links_links");
       if ($result) {
          $numrows = sql_num_rows($result);
-         echo "<br /><br /><p align=\"center\"><span style=\"font-size: 10px;\">".translate("There are")." <b>$numrows</b> ".translate("Links in our Database")." -::- ";
-         if ($ibid=theme_image("links/newred.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/newred.gif";}
-         echo "<img src=\"$imgtmp\" alt=\"".translate("New Links in this Category Added Today")."\" border=\"0\" /> -:-";
-         if ($ibid=theme_image("links/newgreen.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/newgreen.gif";}
-         echo "<img src=\"$imgtmp\" alt=\"".translate("New Links in this Category Added in the last 3 days")."\" border=\"0\" /> -:-";
-         if ($ibid=theme_image("links/newblue.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/newblue.gif";}
-         echo "<img src=\"$imgtmp\" alt=\"".translate("New Links in this Category Added this week")."\" border=\"0\" />";
-         echo "</span></p>";
+         echo '
+         <p class="lead" align="center"><span>'.translate("There are").' <b>'.$numrows.'</b> '.translate("Links in our Database").'
+            <span class="btn btn-danger btn-sm" title="'.translate("New Links in this Category Added Today").'" data-toggle="tooltip" >N</span>&nbsp;
+            <span class="btn btn-success btn-sm" title="'.translate("New Links in this Category Added in the last 3 days").'" data-toggle="tooltip" >N</span>&nbsp;
+            <span class="btn btn-primary btn-sm" title="'.translate("New Links in this Category Added this week").'" data-toggle="tooltip" >N</span>
+         </p>';
       }
       
    }
@@ -196,20 +192,18 @@ function index() {
    }
    global $admin;
    if ($admin) {
-      
-      $result = sql_query("select requestid from ".$links_DB."links_modrequest where brokenlink=1");
+      $result = sql_query("SELECT requestid FROM ".$links_DB."links_modrequest WHERE brokenlink=1");
       if ($result) {
          $totalbrokenlinks = sql_num_rows($result);
-         $result2 = sql_query("select requestid from ".$links_DB."links_modrequest where brokenlink=0");
+         $result2 = sql_query("SELECT requestid FROM ".$links_DB."links_modrequest WHERE brokenlink=0");
          $totalmodrequests = sql_num_rows($result2);
-         $result = sql_query("select lid from ".$links_DB."links_newlink");
+         $result = sql_query("SELECT lid FROM ".$links_DB."links_newlink");
          $num = sql_num_rows($result);
          echo "<p align=\"center\"><span style=\"font-size: 10px;\">-: ".translate("Waiting Links")." : $num / $totalbrokenlinks / $totalmodrequests";
          echo " :: <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath/admin\">Admin</a> :: Ref Tables => <b>$links_DB</b> :-</span></p>";
       } else {
          echo "<p align=\"center\"><span style=\"font-size: 10px;\"> -: [ <a href=\"modules.php?ModStart=create_tables&amp;ModPath=$ModPath/admin/\">".translate("Create")."</a> Tables : $links_DB ] :-</span></p>";
       }
-      
    }
    include("footer.php");
 }
@@ -228,9 +222,7 @@ function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
 }
 
 function viewlink($cid, $min, $orderby, $show) {
-   global $ModPath, $ModStart, $links_DB;
-   global $admin, $perpage;
-
+   global $ModPath, $ModStart, $links_DB, $admin, $perpage;
    include("header.php");
    // Include cache manager
    global $SuperCache;
@@ -247,19 +239,19 @@ function viewlink($cid, $min, $orderby, $show) {
 
       $filen="modules/$ModPath/links.ban_02.php";
       if (file_exists($filen)) {include($filen);}
-      $result=sql_query("select title from ".$links_DB."links_categories where cid='$cid'");
+      $result=sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$cid'");
       list($title) = sql_fetch_row($result);
       echo "<table class=\"table table-bordered\"><tr><td class=\"header\">\n";
       echo aff_langue($title)." : ".translate("SubCategories");
       echo "</td></tr></table>\n";
 
-      $subresult=sql_query("select sid, title from ".$links_DB."links_subcategories where cid='$cid' order by title");
+      $subresult=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$cid' ORDER BY title");
       $numrows = sql_num_rows($subresult);
       if ($numrows != 0) {
          echo "<table class=\"table table-bordered\">";
          while(list($sid, $title) = sql_fetch_row($subresult)) {
             
-            $result2 = sql_query("select lid from ".$links_DB."links_links where sid='$sid'");
+            $result2 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
             $numrows="-: ".sql_num_rows($result2);
             if ($numrows=="-: 0") {$numrows="";}
             echo "<tr><td width=\"5%\">&nbsp;</td><td class=\"ongl\"><a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid\">".aff_langue($title)."</a> $numrows</td></tr>";
@@ -269,8 +261,8 @@ function viewlink($cid, $min, $orderby, $show) {
       $orderbyTrans = convertorderbytrans($orderby);
       settype($min,"integer");
       settype($perpage,"integer");
-      $result=sql_query("select lid, url, title, description, date, hits, topicid_card, cid, sid from ".$links_DB."links_links where cid='$cid' AND sid=0 order by $orderby limit $min,$perpage");
-      $fullcountresult=sql_query("select lid, title, description, date, hits from ".$links_DB."links_links where cid='$cid' AND sid=0");
+      $result=sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE cid='$cid' AND sid=0 ORDER BY $orderby LIMIT $min,$perpage");
+      $fullcountresult=sql_query("SELECT lid, title, description, date, hits FROM ".$links_DB."links_links WHERE cid='$cid' AND sid=0");
       $totalselectedlinks = sql_num_rows($fullcountresult);
       echo "<br />\n";
       $link_fiche_detail="";
@@ -317,8 +309,7 @@ function viewlink($cid, $min, $orderby, $show) {
 }
 
 function viewslink($sid, $min, $orderby, $show) {
-   global $ModPath, $ModStart, $links_DB;
-   global $admin, $perpage;
+   global $ModPath, $ModStart, $links_DB, $admin, $perpage;
 
    include("header.php");
    // Include cache manager
@@ -332,16 +323,14 @@ function viewslink($sid, $min, $orderby, $show) {
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       
       mainheader();
-
       $filen="modules/$ModPath/links.ban_03.php";
       if (file_exists($filen)) {include($filen);}
 
       if (!isset($max)) $max=$min+$perpage;
-
-      $result = sql_query("select cid, title from ".$links_DB."links_subcategories where sid='$sid'");
+      $result = sql_query("SELECT cid, title FROM ".$links_DB."links_subcategories WHERE sid='$sid'");
       list($cid, $stitle) = sql_fetch_row($result);
 
-      $result2 = sql_query("select cid, title from ".$links_DB."links_categories where cid='$cid'");
+      $result2 = sql_query("SELECT cid, title FROM ".$links_DB."links_categories WHERE cid='$cid'");
       list($cid, $title) = sql_fetch_row($result2);
 
       echo "<table class=\"table table-bordered\"><tr><td class=\"header\">\n";
@@ -351,8 +340,8 @@ function viewslink($sid, $min, $orderby, $show) {
       $orderbyTrans = convertorderbytrans($orderby);
       settype($min,"integer");
       settype($perpage,"integer");
-      $result=sql_query("select lid, url, title, description, date, hits, topicid_card, cid, sid from ".$links_DB."links_links where sid='$sid' order by $orderby limit $min,$perpage");
-      $fullcountresult=sql_query("select lid, title, description, date, hits from ".$links_DB."links_links where sid='$sid'");
+      $result=sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE sid='$sid' ORDER BY $orderby LIMIT $min,$perpage");
+      $fullcountresult=sql_query("SELECT lid, title, description, date, hits FROM ".$links_DB."links_links WHERE sid='$sid'");
       $totalselectedlinks = sql_num_rows($fullcountresult);
       echo "<br />\n";
       $link_fiche_detail="";
@@ -409,7 +398,6 @@ function fiche_detail ($Xlid) {
        $cache_obj = new SuperCacheEmpty();
     }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-       
        settype($xlid,'integer');
        $browse_key=$Xlid;
        $link_fiche_detail="fiche_detail";
@@ -424,27 +412,23 @@ function fiche_detail ($Xlid) {
 }
 
 function categorynewlinkgraphic($cat) {
-    global $OnCatNewLink, $locale, $links_DB;
-    if ($OnCatNewLink=="1") {
-       $newresult = sql_query("select date from ".$links_DB."links_links where cid='$cat' order by date desc limit 1");
-       list($time)=sql_fetch_row($newresult);
-       if (isset($ime)) {
-          setlocale (LC_TIME, aff_langue($locale));
-          preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-          $count = round((time()- mktime($datetime[4],$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]))/86400,0);
-          popgraphics($count);
-       }
-    }
+   global $OnCatNewLink, $locale, $links_DB;
+   if ($OnCatNewLink=="1") {
+      $newresult = sql_query("SELECT date FROM ".$links_DB."links_links WHERE cid='$cat' ORDER BY date DESC LIMIT 1");
+      list($time)=sql_fetch_row($newresult);
+      if (isset($ime)) {
+         setlocale (LC_TIME, aff_langue($locale));
+         preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
+         $count = round((time()- mktime($datetime[4],$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]))/86400,0);
+         popgraphics($count);
+      }
+   }
 }
 
 function popgraphics($count) {
-   echo "&nbsp;";
-   if ($ibid=theme_image("links/newred.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/newred.gif";}
-   if ($count<1) echo "<img src=\"$imgtmp\" alt=\"".translate("New Links in this Category Added Today")."\" border=\"0\" />";
-   if ($ibid=theme_image("links/newgreen.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/newgreen.gif";}
-   if ($count<=3 && $count>=1) echo "<img src=\"$imgtmp\" alt=\"".translate("New Links in this Category Added in the last 3 days")."\" border=\"0\" />";
-   if ($ibid=theme_image("links/newblue.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/newblue.gif";}
-   if ($count<=7 && $count>3) echo "<img src=\"$imgtmp\" alt=\"".translate("New Links in this Category Added this week")."\" border=\"0\" />";
+   if ($count<1) echo '<span class="btn btn-danger btn-sm pull-right" title="'.translate("New Links in this Category Added Today").'" data-toggle="tooltip" data-placement="left">N</span>';
+   if ($count<=3 && $count>=1) echo '<span class="btn btn-success btn-sm pull-right" title="'.translate("New Links in this Category Added in the last 3 days").'" data-toggle="tooltip" data-placement="left">N</span>';
+   if ($count<=7 && $count>3) echo '<span class="btn btn-infos btn-sm pull-right" title="'.translate("New Links in this Category Added this week").'" data-toggle="tooltip" data-placement="left">N</span>';
 }
 
 function newlinkgraphic($datetime, $time) {
@@ -457,82 +441,81 @@ function newlinkgraphic($datetime, $time) {
 
 function detecteditorial($lid, $ttitle) {
    global $ModPath, $ModStart, $links_DB;
-   $resulted2 = sql_query("select adminid from ".$links_DB."links_editorials where linkid='$lid'");
+   $resulted2 = sql_query("SELECT adminid FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
    $recordexist = sql_num_rows($resulted2);
-   if ($recordexist != 0) echo "<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlinkeditorial&amp;lid=$lid&amp;ttitle=$ttitle\">".translate("EDITO")."</a> ";
+   if ($recordexist != 0) echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'">'.translate("EDITO").'</a>';
 }
 
 //Reusable Link Sorting Functions
 function convertorderbyin($orderby) {
-    $orderbyIn = "title ASC";
-    if ($orderby == "titleA")                       $orderbyIn = "title ASC";
-    if ($orderby == "dateA")                        $orderbyIn = "date ASC";
-    if ($orderby == "titleD")                       $orderbyIn = "title DESC";
-    if ($orderby == "dateD")                        $orderbyIn = "date DESC";
-    return $orderbyIn;
+   $orderbyIn = 'title ASC';
+   if ($orderby == 'titleA')          $orderbyIn = 'title ASC';
+   if ($orderby == 'dateA')           $orderbyIn = 'date ASC';
+   if ($orderby == 'titleD')          $orderbyIn = 'title DESC';
+   if ($orderby == 'dateD')           $orderbyIn = 'date DESC';
+   return $orderbyIn;
 }
 
 function convertorderbytrans($orderby) {
-    $orderbyTrans = translate("Title (A to Z)");
-    if ($orderby == "title ASC")                    $orderbyTrans = translate("Title (A to Z)");
-    if ($orderby == "title DESC")                   $orderbyTrans = translate("Title (Z to A)");
-    if ($orderby == "date ASC")                     $orderbyTrans = translate("Date (Old Links Listed First)");
-    if ($orderby == "date DESC")                    $orderbyTrans = translate("Date (New Links Listed First)");
-    return $orderbyTrans;
+   $orderbyTrans = translate("Title (A to Z)");
+   if ($orderby == 'title ASC')       $orderbyTrans = translate("Title (A to Z)");
+   if ($orderby == 'title DESC')      $orderbyTrans = translate("Title (Z to A)");
+   if ($orderby == 'date ASC')        $orderbyTrans = translate("Date (Old Links Listed First)");
+   if ($orderby == 'date DESC')       $orderbyTrans = translate("Date (New Links Listed First)");
+   return $orderbyTrans;
 }
 
 function convertorderbyout($orderby) {
-    $orderbyOut = "titleA";
-    if ($orderby == "title ASC")                   $orderbyOut = "titleA";
-    if ($orderby == "date ASC")                    $orderbyOut = "dateA";
-    if ($orderby == "title DESC")                  $orderbyOut = "titleD";
-    if ($orderby == "date DESC")                   $orderbyOut = "dateD";
-    return $orderbyOut;
+   $orderbyOut = 'titleA';
+   if ($orderby == 'title ASC')       $orderbyOut = 'titleA';
+   if ($orderby == 'date ASC')        $orderbyOut = 'dateA';
+   if ($orderby == 'title DESC')      $orderbyOut = 'titleD';
+   if ($orderby == 'date DESC')       $orderbyOut = 'dateD';
+   return $orderbyOut;
 }
 
 function visit($lid) {
-    global $links_DB;
-    sql_query("update ".$links_DB."links_links set hits=hits+1 where lid='$lid'");
-    $result = sql_query("select url from ".$links_DB."links_links where lid='$lid'");
-    list($url) = sql_fetch_row($result);
-    Header("Location: $url");
+   global $links_DB;
+   sql_query("UPDATE ".$links_DB."links_links SET hits=hits+1 WHERE lid='$lid'");
+   $result = sql_query("SELECT url FROM ".$links_DB."links_links WHERE lid='$lid'");
+   list($url) = sql_fetch_row($result);
+   Header("Location: $url");
 }
 
 function viewlinkeditorial($lid, $ttitle) {
-    global $ModPath, $ModStart, $links_DB;
-    include("header.php");
-    
-    mainheader();
-
-    $result=sql_query("SELECT adminid, editorialtimestamp, editorialtext, editorialtitle FROM ".$links_DB."links_editorials WHERE linkid = '$lid'");
-    $recordexist = sql_num_rows($result);
-
-    $displaytitle = stripslashes($ttitle);
-    echo "<table class=\"table table-bordered\"><tr><td>\n";
-    echo translate("EDITO")." : ".aff_langue($displaytitle);
-    echo "</td></tr></table>\n";
-    echo "<br />\n";
-    if ($recordexist!= 0) {
-       while (list($adminid, $editorialtimestamp, $editorialtext, $editorialtitle)=sql_fetch_row($result)) {
-          $editorialtitle = stripslashes($editorialtitle); $editorialtext = stripslashes($editorialtext);
-          $formatted_date=formatTimestamp($editorialtimestamp);
-          echo "<table class=\"table table-bordered\">
-                <tr><td align=\"center\">
-                <b>'".aff_langue($editorialtitle)."'</b><br /><br />
-                ".translate("Editorial by")." $adminid - $formatted_date</td></tr>
-                <tr><td align=\"left\"><hr noshade=\"noshade\" class=\"ongl\" />".aff_langue($editorialtext)."</td></tr></table>";
-       }
-    } else {
-       echo "<br /><p align=\"center\">".translate("No editorial is currently available for this website.")."</p><br />";
-    }
-    echo "<br />";
-    $result = sql_query("select url from ".$links_DB."links_links where lid='$lid'");
-    list($url) = sql_fetch_row($result);
-    if ($url!="")
-       echo "<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=visit&amp;lid=$lid\" target=\"_blank\">".translate("Visit this Website")."</a>";
-    
-    sql_free_result();
-    include("footer.php");
+   global $ModPath, $ModStart, $links_DB;
+   include("header.php");
+   mainheader();
+   $result2 = sql_query("SELECT url FROM ".$links_DB."links_links WHERE lid='$lid'");
+   list($url) = sql_fetch_row($result2);
+   $result=sql_query("SELECT adminid, editorialtimestamp, editorialtext, editorialtitle FROM ".$links_DB."links_editorials WHERE linkid = '$lid'");
+   $recordexist = sql_num_rows($result);
+   $displaytitle = stripslashes($ttitle);
+   echo '
+   <div class="card card-block">
+   <h3>'.translate("EDITO").' : 
+      <span class="text-muted">'.aff_langue($displaytitle).'</span>';
+   if ($url!='')
+      echo '
+      <span class="pull-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-external-link"></i></a></span>';
+   echo '
+   </h3>';
+   if ($recordexist!= 0) {
+      while (list($adminid, $editorialtimestamp, $editorialtext, $editorialtitle)=sql_fetch_row($result)) {
+         $editorialtitle = stripslashes($editorialtitle); $editorialtext = stripslashes($editorialtext);
+         $formatted_date=formatTimestamp($editorialtimestamp);
+         echo '
+         <h4>'.aff_langue($editorialtitle).'</h4>
+         <p><span class="text-muted small">'.translate("Editorial by").' '.$adminid.' - '.$formatted_date.'</span></p>
+         <hr noshade="noshade" />'.aff_langue($editorialtext);
+      }
+   } else {
+       echo '<p align="center">'.translate("No editorial is currently available for this website.").'</p><br />';
+   }
+   echo '
+   </div>';
+   sql_free_result();
+   include("footer.php");
 }
 
 function formatTimestampShort($time) {
@@ -551,7 +534,6 @@ switch ($op) {
     case "menu":
         menu($mainlink);
         break;
-
     case "AddLink":
         include_once("modules/$ModPath/links-1.php");
         AddLink();
@@ -560,9 +542,8 @@ switch ($op) {
         include_once("modules/$ModPath/links-1.php");
         settype($asb_question,'string');
         settype($asb_reponse,'string');
-        Add($title, $url, $name, $cat, $xtext, $name, $email, $topicL, $asb_question, $asb_reponse);
+        Add($title, $url, $name, $cat, $xtext, $email, $topicL, $asb_question, $asb_reponse);
         break;
-
     case "NewLinks":
         include_once("modules/$ModPath/links-2.php");
         if (!isset($newlinkshowdays)) {$newlinkshowdays = 7;}
@@ -572,7 +553,6 @@ switch ($op) {
         include_once("modules/$ModPath/links-2.php");
         NewLinksDate($selectdate);
         break;
-
     case "viewlink":
         if (!isset($min)) $min=0;
         if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
@@ -585,7 +565,6 @@ switch ($op) {
         if (isset($show)) $perpage = $show; else $show=$perpage;
         viewslink($sid, $min, $orderby, $show);
         break;
-
     case "brokenlink":
         include_once("modules/$ModPath/links-3.php");
         brokenlink($lid);
@@ -594,7 +573,6 @@ switch ($op) {
         include_once("modules/$ModPath/links-3.php");
         brokenlinkS($lid, $modifysubmitter);
         break;
-
     case "modifylinkrequest":
         include_once("modules/$ModPath/links-3.php");
         settype($modifylinkrequest_adv_infos,'string');
@@ -604,11 +582,9 @@ switch ($op) {
         include_once("modules/$ModPath/links-3.php");
         modifylinkrequestS($lid, $cat, $title, $url, $xtext, $modifysubmitter, $topicL);
         break;
-
     case "visit":
         visit($lid);
         break;
-
     case "search":
         include_once("modules/$ModPath/links-1.php");
         $offset=10;
@@ -616,14 +592,12 @@ switch ($op) {
         if (!isset($max)) $max=$min+$offset;
         links_search($query, $topicL, $min, $max, $offset);
         break;
-
     case "viewlinkeditorial":
         viewlinkeditorial($lid, $ttitle);
         break;
     case "fiche_detail":
         fiche_detail ($lid);
         break;
-
     default:
         index();
         break;

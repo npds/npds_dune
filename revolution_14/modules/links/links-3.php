@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2010 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -16,46 +16,44 @@
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 
 function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
-   global $ModPath, $ModStart, $links_DB;
-   global $NPDS_Prefix;
+   global $ModPath, $ModStart, $links_DB, $NPDS_Prefix;
 
    if (autorise_mod($lid,false)) {
       if ($author=="-9") {
          Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath/admin&op=LinksModLink&lid=$lid");
       }
       include("header.php");
-      opentable();
       mainheader();
-      $result = sql_query("select cid, sid, title, url, description, topicid_card from ".$links_DB."links_links where lid='$lid'");
+      $result = sql_query("SELECT cid, sid, title, url, description, topicid_card FROM ".$links_DB."links_links WHERE lid='$lid'");
       list($cid, $sid, $title, $url, $description, $topicid_card) = sql_fetch_row($result);
       $title = stripslashes($title);
-      echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-      echo translate("Request Link Modification")." : ".$title;
-      echo "</td></tr></table>\n";
-      echo "<br />\n";
+      echo '
+      <h3>'.translate("Request Link Modification").' : '.$title.'</h3>';
       $description = stripslashes($description);
-      echo "<form action=\"modules.php\" method=\"post\" name=\"adminForm\">
-      <input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-      <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />";
+      echo '
+      <form action="modules.php" method="post" name="adminForm">
+         <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+         <input type="hidden" name="ModStart" value="'.$ModStart.'" />';
       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">";
       echo "<tr><td width=\"15%\">".translate("Title:")."</td><td><input class=\"textbox\" type=\"text\" name=\"title\" value=\"$title\" size=\"50\" maxlength=\"100\" /></td></tr>";
       global $links_url;
       if ($links_url)
          echo "<tr><td width=\"15%\">URL :</td><td><input class=\"textbox\" type=\"text\" name=\"url\" value=\"$url\" size=\"50\" maxlength=\"100\" /></td></tr>";
 
-      echo "<tr><td width=\"15%\">".translate("Category: ")."</td><td><select class=\"textbox_standard\" name=\"cat\">";
-      $result2=sql_query("select cid, title from ".$links_DB."links_categories order by title");
+      echo "<tr><td width=\"15%\">".translate("Category: ")."</td><td>
+      <select class=\"c-select form-control\" name=\"cat\">";
+      $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
       while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
-         $sel = "";
+         $sel = '';
          if ($cid==$ccid AND $sid==0) {
-            $sel = "selected";
+            $sel = 'selected';
          }
          echo "<option value=\"$ccid\" $sel>".aff_langue($ctitle)."</option>";
-         $result3=sql_query("select sid, title from ".$links_DB."links_subcategories where cid='$ccid' order by title");
+         $result3=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$ccid' ORDER BY title");
          while (list($ssid, $stitle) = sql_fetch_row($result3)) {
-            $sel = "";
+            $sel = '';
             if ($sid==$ssid) {
-               $sel = "selected=\"selected\"";
+               $sel = 'selected="selected"';
             }
             echo "<option value=\"$ccid-$ssid\" $sel>".aff_langue("$ctitle / $stitle")."</option>";
          }
@@ -100,45 +98,42 @@ function modifylinkrequestS($lid, $cat, $title, $url, $description, $modifysubmi
       $url = stripslashes(FixQuotes($url));
       $description = stripslashes(FixQuotes($description));
       if ($modifysubmitter==-9) {$modifysubmitter="";}
-      $result=sql_query("insert into ".$links_DB."links_modrequest values (NULL, $lid, $cat[0], $cat[1], '$title', '$url', '$description', '$modifysubmitter', '0', '$topicL')");
+      $result=sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, $cat[0], $cat[1], '$title', '$url', '$description', '$modifysubmitter', '0', '$topicL')");
 
       global $ModPath, $ModStart;
       include("header.php");
-      opentable();
       echo "<br /><p align=\"center\">".translate("Thanks for this information. We'll look into your request shortly.")."</p><br />";
-      closetable();
       include("footer.php");
    }
 }
 
 function brokenlink($lid) {
-    global $ModPath, $ModStart, $links_DB, $anonymous;
-    include("header.php");
-    opentable();
-    global $user;
-    if (isset($user)) {
-       global $cookie;
-       $ratinguser=$cookie[1];
-    } else {
-       $ratinguser=$anonymous;
-    }
-    mainheader();
-    echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo translate("Report Broken Link");
-    echo "</td></tr></table>\n";
-    echo "<br />\n";
-    echo "<form method=\"post\" action=\"modules.php\">
-          <input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-          <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />";
-    echo "<input type=\"hidden\" name=\"lid\" value=\"$lid\" />";
-    echo "<input type=\"hidden\" name=\"modifysubmitter\" value=\"$ratinguser\" />";
-    echo "<p align=\"center\">
-          ".translate("Thank you for helping to maintain this directory's integrity.")."
-          <br /><br />
-          ".translate("For security reasons your user name and IP address will also be temporarily recorded.")."
-          <br /><br />";
-    echo "<input type=\"hidden\" name=\"op\" value=\"brokenlinkS\" /><input type=\"submit\" class=\"bouton_standard\" value=\"".translate("Report Broken Link")."\" /></p></form>";
-    closetable();
+   global $ModPath, $ModStart, $links_DB, $anonymous;
+   include("header.php");
+   global $user;
+   if (isset($user)) {
+      global $cookie;
+      $ratinguser=$cookie[1];
+   } else {
+      $ratinguser=$anonymous;
+   }
+   mainheader();
+   echo '
+   <h3>'.translate("Report Broken Link").'</h3>
+   <p align="center">
+          '.translate("Thank you for helping to maintain this directory's integrity.").'
+          <br />
+          '.translate("For security reasons your user name and IP address will also be temporarily recorded.").'
+          <br />
+   </p>
+   <form method="post" action="modules.php">
+      <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+      <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+      <input type="hidden" name="lid" value="'.$lid.'" />
+      <input type="hidden" name="modifysubmitter" value="'.$ratinguser.'" />
+      <input type="hidden" name="op" value="brokenlinkS" />
+      <input type="submit" class="btn btn-primary" value="'.translate("Report Broken Link").'" />
+   </form>';
     include("footer.php");
 }
 
@@ -152,12 +147,10 @@ function brokenlinkS($lid, $modifysubmitter) {
     }
     if ($modifysubmitter==$ratinguser) {
        settype($lid,"integer");
-       sql_query("insert into ".$links_DB."links_modrequest values (NULL, $lid, 0, 0, '', '', '', '$ratinguser', 1,'')");
+       sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, 0, 0, '', '', '', '$ratinguser', 1,'')");
     }
     include("header.php");
-    opentable();
     echo "<br /><p align=\"center\">".translate("Thanks for this information. We'll look into your request shortly.")."</p><br />";
-    closetable();
     include("footer.php");
 }
 ?>
