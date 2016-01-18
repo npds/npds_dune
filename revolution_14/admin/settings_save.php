@@ -65,7 +65,7 @@ function MetaTagSave($filename, $tags) {
       }
 
       $content.="else\n";
-      $content.="   \$l_meta=\$meta_doctype.\"\\n<head><title>\\n\\n\";\n";
+      $content.="   \$l_meta=\$meta_doctype.\"\\n<html>\\n<head><title>\\n\\n\";\n";
 
       if (!empty($tags['content-type'])) {
          $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
@@ -89,6 +89,9 @@ function MetaTagSave($filename, $tags) {
          fclose($fp);
          $content .= MetaTagMakeSingleTag('content-type', "text/html; charset=iso-8859-1", 'http-equiv');
       }
+      
+      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1');//to do =>put in admin interface
+      $content .= MetaTagMakeSingleTag('x-ua-compatible', 'ie=edge', 'http-equiv');//to do =>put in admin interface
 
       $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
       $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
