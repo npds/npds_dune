@@ -155,7 +155,7 @@ function reviews() {
       <div class="form-group">
          <input type="hidden" name="op" value="add_review">
          <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter cette critique").'</button>
-         <a href="admin.php?op=deleteNotice&amp;id=$id&amp;op_back=reviews" class="btn btn-danger" role="button">'.adm_translate("Supprimer cette Critique").'</a>
+         <a href="admin.php?op=deleteNotice&amp;id='.$id.'&amp;op_back=reviews" class="btn btn-danger" role="button">'.adm_translate("Supprimer cette Critique").'</a>
       </div>
    </form>';
      }
