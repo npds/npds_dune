@@ -1,9 +1,10 @@
 # npds_dune
-revolution 14
+revolution 16
 Labo of the next version of NPDS CMS.
 
 - nouvelle administration
-- utilisation framework BS4
+- utilisation framework Bootstrap 4.0.0 alpha.2
+- utilisation fontawesome
 - abandon YUI pour jquery
 - thèmes responsives au choix (BS4 alpha et Rocssti)
 
@@ -16,4 +17,4 @@ votre contenu dynamique !
 Libre (Open-Source) et gratuit, NPDS est personnalisable grâce à de nombreux thèmes et modules et ne requiert que quelques compétences de base - essentiellement - issues des technologies du web. 
 Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa facilité de mise en œuvre et la qualité, la stabilité et la fiabilité de son fonctionnement.
 
-Revolution 14 apporte une nouvelle administration avec un système de droits étendu aux fonctions ainsi que de nombreuses corrections et améliorations - le détail des travaux réalisés pour cette nouvelle version dans le fichier changelog-rev14.txt
+Revolution 16 apporte une nouvelle administration avec un système de droits étendu aux fonctions ainsi que de nombreuses corrections et améliorations - le détail des travaux réalisés pour cette nouvelle version dans le fichier changelog-rev16.txt
