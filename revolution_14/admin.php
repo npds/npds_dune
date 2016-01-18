@@ -157,8 +157,7 @@ function login() {
 
 function GraphicAdmin($hlpfile) {
    global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax;
-   global $short_menu_admin, $admf_ext;
-   global $NPDS_Prefix, $adm_ent;
+   global $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
 
@@ -347,7 +346,7 @@ function GraphicAdmin($hlpfile) {
          if ($admingraphic==1) {
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          } else{
-            $li_c .= adm_translate($SAQ['fnom_affich']);
+            $li_c .= adm_translate(utf8_encode($SAQ['fnom_affich']));
          }
          $li_c .='</a></li>';
 //          $X=$j-1;
