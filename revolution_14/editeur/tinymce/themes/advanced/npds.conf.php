@@ -30,14 +30,12 @@ plugins: [
     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
     'insertdatetime media nonbreaking save table contextmenu directionality',
-    'emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome noneditable'
+    'emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome '
 ],
 
-        content_css: '//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
+content_css: '//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
 
-
-
- toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue fontawesome',";
+toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue fontawesome',";
 
 } else if ($tiny_mce_theme=="short") {
    // Short Theme
