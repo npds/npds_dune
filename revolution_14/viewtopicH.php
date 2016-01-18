@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -61,10 +61,10 @@ if (($forum_type==9) and (!$user)) {
 // Moderator
 if (isset($user)) {
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
+   $userdata = explode(':', $userX);
 }
 $moderator=get_moderator($mod);
-$moderator=explode(" ",$moderator);
+$moderator=explode(' ',$moderator);
 $Mmod=false;
 if (isset($user)) {
    for ($i = 0; $i < count($moderator); $i++) {
@@ -95,7 +95,7 @@ function maketree($rootcatid,$sql,$maxlevel){
       if ($max_post_id<$tempo['post_id']) {$max_post_id=$tempo['post_id'];}
    }
    global $toggle;
-   $resultX="";
+   $resultX='';
    $toggle = new ToggleDiv(count(array_keys($table))-1);
    echo "<p class=\"text-xs-right\">",$toggle->All(),"</p>";
    $resultX.=makebranch($rootcatid,$table,0,$maxlevel,$max_post_id);
@@ -114,7 +114,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
 
    $list=$table[$parcat];
    while(list($key,$val)=each($list)) {
-      $output="";
+      $output='';
       if ($level!="0") {
          if ($level==1) {
             $output="
@@ -138,8 +138,8 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
 
       $posterdata = get_userdata_from_id($myrow['poster_id']);
    
-      echo "<a name=\"".$forum.$topic.$myrow['post_id']."\"></a>";
-      if ($myrow['post_id']==$max_post_id) echo "<a name=\"last-post\"></a>";
+      echo '<a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
+      if ($myrow['post_id']==$max_post_id) echo '<a name="last-post"></a>';
       $posts = $posterdata['posts'];
       if ($posterdata['uname']!=$anonymous) {
          echo "<a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\" class=\"noir\">".$posterdata['uname']."</a>";
@@ -165,18 +165,16 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
       }
 
    
-   
-   
       if ($myrow['image'] != "") {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo "<img src=\"$imgtmp\" border=\"0\" alt=\"\" />";
+         echo '<img class="smil" src="'.$imgtmp.'" alt="" />';
       } else {
-         echo "<img src=\"$imgtmpPI\" border=\"0\" alt=\"\" />";
+         echo '<img class="smil" src="'.$imgtmpPI.'" alt="" />';
       }
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo "&nbsp;&nbsp;".translate("Posted: ").post_convertdate($date_post);
-      if ($last_read!="") {
-         if (($last_read <= $date_post) AND $userdata[3]!="" AND $last_read !="0" AND $userdata[0]!=$myrow['poster_id']) {
+      if ($last_read!='') {
+         if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !="0" AND $userdata[0]!=$myrow['poster_id']) {
             echo "&nbsp;<img src=\"$imgtmpNE\" border=\"0\" alt=\"\" />";
          }
       }
@@ -188,7 +186,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
       }
       // <a href in the message
       if (stristr($message,"<a href")) {
-         $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
+         $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
       }
       $message=split_string_without_space($message, 80);
       if (($forum_type=="6") or ($forum_type=="5")) {
@@ -204,10 +202,9 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
       
       }
    
-
    
       if ($forum_access!=9) {
-         if ($allow_to_post) {aff_pub($lock_state,$topic,$forum,$myrow['post_id'],1);}
+         if ($allow_to_post) {echo aff_pub_in($lock_state,$topic,$forum,$myrow['post_id'],1);}
       }
    
       if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
@@ -223,7 +220,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
             $posterdata['url'] = "http://" . $posterdata['url'];
          echo "&nbsp;&nbsp;<a href=\"".$posterdata['url']."\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmpWW\" border=\"0\" alt=\"\" /><span style=\"font-size: 10px;\">www</span></a>";
       }
-
+/*
       if (!$short_user) {
          if ($posterdata['user_icq']!="")
             echo "&nbsp;&nbsp;<a href=\"http://wwp.mirabilis.com/".$posterdata['icq']."\" target=\"_blank\" class=\"noir\"><img src=\"$imgtmpIC\" border=\"0\"\" alt=\"\" />&nbsp;<span style=\"font-size: 10px;\">icq</span></a>";
@@ -237,6 +234,8 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
          if ($posterdata['user_msnm'] != '')
             echo "&nbsp;&nbsp;<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" target=\"_blank\"><img src=\"$imgtmpMS\" border=\"0\" alt=\"\" /></a>";
       }
+      
+*/
       if ($forum_access!=9) {
          if (($Mmod) or ($posterdata['uid']==$userdata[0]) and (!$lock_state) and ($posterdata['uid']!="")) {
             echo "&nbsp;&nbsp;<a href=\"editpost.php?post_id=".$myrow['post_id']."&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\" class=\"noir\"><img src=\"$imgtmpED\" border=\"0\" alt=\"\" /><span style=\"font-size: 10px;\">".translate("Edit")."</span></a>\n";
@@ -276,30 +275,45 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
 
 function aff_pub($lock_state, $topic, $forum, $post, $bouton) {
    global $language;
+   $ibid='';
    if ($lock_state==0) {
-      if ($ibid=theme_image("forum/icons/$language/reply.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/$language/reply.gif";}
-      if ($ibid=theme_image("forum/icons/$language/new_topic.gif")) {$imgtmpN=$ibid;} else {$imgtmpN="images/forum/icons/$language/new_topic.gif";}
-      if (($bouton==1) or ($bouton==9))
-         echo "<a href=\"replyH.php?topic=$topic&amp;forum=$forum&amp;post=$post\"><img src=\"$imgtmpR\" border=\"0\" alt=\"\" /></a>&nbsp;&nbsp;";
+//      if ($ibid=theme_image("forum/icons/$language/reply.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/$language/reply.gif";}
+//      if ($ibid=theme_image("forum/icons/$language/new_topic.gif")) {$imgtmpN=$ibid;} else {$imgtmpN="images/forum/icons/$language/new_topic.gif";}
+//      if (($bouton==1) or ($bouton==9))
+//         echo "<a href=\"replyH.php?topic=$topic&amp;forum=$forum&amp;post=$post\"><img src=\"$imgtmpR\" border=\"0\" alt=\"\" /></a>&nbsp;&nbsp;";
+//         echo '<a class="" href="replyH.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$post.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>&nbsp;';
       if (($bouton==2) or ($bouton==9))
-         echo "<a href=\"newtopic.php?forum=$forum\"><img src=\"$imgtmpN\" border=\"0\" alt=\"\" /></a>";
+//         echo "<a href=\"newtopic.php?forum=$forum\"><img src=\"$imgtmpN\" border=\"0\" alt=\"\" /></a>";
+           $ibid = '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square "></i></a>&nbsp;';
    } else {
       if ($ibid=theme_image("forum/icons/$language/reply_locked.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/$language/reply_locked.gif";}
       echo "<img src=\"$imgtmp\" border=\"0\" alt=\"\" />";
    }
+   return $ibid;
+}
+
+function aff_pub_in($lock_state, $topic, $forum,$post, $bouton) {
+   global $language;
+   $ibid='';
+   if ($lock_state==0) {
+      if (($bouton==1) or ($bouton==9))
+         $ibid = '<a class="" href="replyH.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$post.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>&nbsp;';
+   }
+   return $ibid;
 }
 
 $title=$forum_name; $post=$topic_subject;
 include('header.php');
 include_once ("lib/togglediv.class.php");
-    echo '<p class="lead">'.translate("Moderated By: ").'';
-   for ($i = 0; $i < count($moderator); $i++) {
-      echo "<a href=\"user.php?op=userinfo&amp;uname=$moderator[$i]\" class=\"box\">$moderator[$i]</a>&nbsp;";
-   }
-   echo '</p>'; 
+$r_to='';$n_to='';
 
-   echo "<p><a href=\"forum.php\" class=\"noir\">".translate("Forum Index")."</a> &raquo; &raquo; ";
-   echo "<a href=\"viewforum.php?forum=$forum\" class=\"noir\">".stripslashes($forum_name)."</a> &raquo; &raquo; $topic_subject</p>";
+   echo '
+   <a name="topofpage"></a>
+   <p class="lead">
+      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
+      <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_subject.'
+   </p>
+   <h3>';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -315,20 +329,36 @@ include_once ("lib/togglediv.class.php");
          }
       }
       if ($allow_to_post) {
-         aff_pub($lock_state,$topic,$forum,0,9);
+         $n_to = aff_pub($lock_state,$topic,$forum,0,9);
+         $r_to = aff_pub_in($lock_state,$topic,$forum,0,9);
       }
    }
-
-
-
-   echo "<td class=\"header\" width=\"15%\">".translate("Author")."";
-   echo "$topic_subject
-         ";
+   echo $n_to.$topic_subject.' <span class="text-muted">&nbsp;#'.$topic.'</span> '.$r_to.'</h3>';
+   
+   
+   echo '
+      <div class="card">
+         <div class="card-block-small">
+         '.translate("Moderated By: ");
+   for ($i = 0; $i < count($moderator); $i++) {
+      $modera = get_userdata($moderator[$i]);
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],"users_private")) {
+          $imgtmp=$modera['user_avatar'];
+         } else {
+          if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+         }
+      }
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+   }   
+echo '
+         </div>
+      </div>';
 
    // Forum Read
    if (isset($user)) {
       $time_actu=time()+($gmt*3600);
-      $sqlR = "select last_read from ".$NPDS_Prefix."forum_read where forum_id='$forum' and uid='$userdata[0]' and topicid='$topic'";
+      $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
       $result_LR=sql_query($sqlR);
       $last_read="";
       if (sql_num_rows($result_LR)==0) {
@@ -361,20 +391,20 @@ include_once ("lib/togglediv.class.php");
    if ($Mmod) {
       $post_aff=" ";
    } else {
-      $post_aff=" and post_aff='1' ";
+      $post_aff=" AND post_aff='1' ";
    }
    settype($start,"integer");
    settype($posts_per_page,"integer");
    if (isset($start)) {
       if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; }
-      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and forum_id='$forum'".$post_aff."ORDER BY post_id";
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id";
    } else {
-      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and forum_id='$forum'".$post_aff."ORDER BY post_id";
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id";
    }
    if ($allow_upload_forum) {
       $visibility = "";
       if (!$Mmod) {
-         $visibility = " and visible = 1";
+         $visibility = " AND visible = 1";
       }
       $sql2 = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
       $att = sql_num_rows(sql_query($sql2));
@@ -399,7 +429,7 @@ include_once ("lib/togglediv.class.php");
    if ($forum_access!=9) {
       if ($ibid=theme_image("forum/icons/lock_topic.gif")) {$imgtmpLT=$ibid;} else {$imgtmpLT="images/forum/icons/lock_topic.gif";}
       if ($allow_to_post) {
-         aff_pub($lock_state,$topic,$forum,0,9);
+         echo aff_pub($lock_state,$topic,$forum,0,9);
       }
       // un anonyme ne peut pas mettre un topic en resolu
       if (!isset($userdata)) $userdata[0]=0;
@@ -416,9 +446,14 @@ include_once ("lib/togglediv.class.php");
       $cache_obj->startCachingBlock($cache_clef);
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      echo "<form action=\"viewforum.php\" method=\"post\">";
-      echo translate("Jump To: ")." <select class=\"textbox_standard\" name=\"forum\" onchange=\"submit();\"><option value=\"index\">...</option>";
-      echo "<option value=\"index\">".translate("Forum Index")."</option>";
+      echo '
+<form class="" action="viewforum.php" method="post">
+   <div class="form-group row">
+      <div class="col-xs-12">
+         <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
+         <select class="form-control c-select" name="forum" onchange="submit();">
+            <option value="index">'.translate("Jump To: ").'</option>
+            <option value="index">'.translate("Forum Index").'</option>';
       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
       if ($res = sql_query($sub_sql)) {
          while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
@@ -428,31 +463,69 @@ include_once ("lib/togglediv.class.php");
                } else {
                   $ok_affich=true;
                }
-               if ($ok_affich) echo "<option value=\"$forum_id\">&nbsp;&nbsp;".stripslashes($forum_name)."</option>\n";
+                if ($ok_affich) echo '
+            <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
             }
          }
       }
-      echo "</select></form>";
+       echo '
+         </select>
+      </div>
+   </div>
+</form>
+<a name="botofpage"></a>';
    }
    if ($SuperCache) {
       $cache_obj->endCachingBlock($cache_clef);
    }
 
-   if (($Mmod) and ($forum_access!=9)) {
+   if (($Mmod) and ($forum_access!=9)) {// et le super admin ??
+   
+      echo '
+      <nav class="text-xs-center">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+            </li>';
+      if ($lock_state==0)
+         echo '
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Lock this Topic").'" data-toggle="tooltip" ><i class="fa fa-lock fa-lg" aria-hidden="true"></i></a>
+            </li>';
+      else
+         echo '
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"><i class ="fa fa-unlock fa-lg" aria-hidden="true"></i></a>
+            </li>';
+      echo '
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Move this Topic").'" data-toggle="tooltip"><i class="fa fa-share fa-lg" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item">
+               <a class="page-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"><i class="fa fa-level-up fa-lg" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item">
+               <a class="page-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+            </li>
+         </ul>
+      </nav>';
+   
+   
+   
   
-       echo "<p class=\"text-xs-center\"><b>".translate("Administration Tools")."</b><br />";
-       echo "-------------------------<br />";
-       if ($ibid=theme_image("forum/icons/unlock_topic.gif")) {$imgtmpUT=$ibid;} else {$imgtmpUT="images/forum/icons/unlock_topic.gif";}
-       if ($ibid=theme_image("forum/icons/move_topic.gif")) {$imgtmpMT=$ibid;} else {$imgtmpMT="images/forum/icons/move_topic.gif";}
-       if ($ibid=theme_image("forum/icons/del_topic.gif")) {$imgtmpDT=$ibid;} else {$imgtmpDT="images/forum/icons/del_topic.gif";}
-       if ($ibid=theme_image("forum/icons/first_topic.gif")) {$imgtmpFT=$ibid;} else {$imgtmpFT="images/forum/icons/first_topic.gif";}
-       if ($lock_state==0)
-          echo "<a href=\"topicadmin.php?mode=lock&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpLT\" alt=\"".translate("Lock this Topic")."\" border=\"0\" /></a> ";
-       else
-          echo "<a href=\"topicadmin.php?mode=unlock&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpUT\" alt=\"".translate("Unlock this Topic")."\" border=\"0\" /></a> ";
-       echo "<a href=\"topicadmin.php?mode=move&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpMT\" alt=\"".translate("Move this Topic")."\" border=\"0\" /></a> ";
-       echo "<a href=\"topicadmin.php?mode=del&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpDT\" alt=\"".translate("Delete this Topic")."\" border=\"0\" /></a> ";
-       echo "<a href=\"topicadmin.php?mode=first&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpFT\" alt=\"".translate("Make this Topic the first one")."\" border=\"0\" /></a></p>\n";
+//        echo "<p class=\"text-xs-center\"><b>".translate("Administration Tools")."</b><br />";
+//        echo "-------------------------<br />";
+//        if ($ibid=theme_image("forum/icons/unlock_topic.gif")) {$imgtmpUT=$ibid;} else {$imgtmpUT="images/forum/icons/unlock_topic.gif";}
+//        if ($ibid=theme_image("forum/icons/move_topic.gif")) {$imgtmpMT=$ibid;} else {$imgtmpMT="images/forum/icons/move_topic.gif";}
+//        if ($ibid=theme_image("forum/icons/del_topic.gif")) {$imgtmpDT=$ibid;} else {$imgtmpDT="images/forum/icons/del_topic.gif";}
+//        if ($ibid=theme_image("forum/icons/first_topic.gif")) {$imgtmpFT=$ibid;} else {$imgtmpFT="images/forum/icons/first_topic.gif";}
+//        if ($lock_state==0)
+//           echo "<a href=\"topicadmin.php?mode=lock&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpLT\" alt=\"".translate("Lock this Topic")."\" border=\"0\" /></a> ";
+//        else
+//           echo "<a href=\"topicadmin.php?mode=unlock&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpUT\" alt=\"".translate("Unlock this Topic")."\" border=\"0\" /></a> ";
+//        echo "<a href=\"topicadmin.php?mode=move&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpMT\" alt=\"".translate("Move this Topic")."\" border=\"0\" /></a> ";
+//        echo "<a href=\"topicadmin.php?mode=del&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpDT\" alt=\"".translate("Delete this Topic")."\" border=\"0\" /></a> ";
+//        echo "<a href=\"topicadmin.php?mode=first&amp;topic=$topic&amp;forum=$forum&amp;arbre=1\"><img src=\"$imgtmpFT\" alt=\"".translate("Make this Topic the first one")."\" border=\"0\" /></a></p>\n";
   
    }
 include("footer.php");

@@ -520,7 +520,7 @@ echo '
     }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
-<form class="" role="form" action="viewforum.php" method="post">
+<form class="" action="viewforum.php" method="post">
    <div class="form-group row">
       <div class="col-xs-12">
          <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
@@ -536,7 +536,8 @@ echo '
                 } else {
                    $ok_affich=true;
                 }
-                if ($ok_affich) echo '<option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
+                if ($ok_affich) echo '
+            <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
              }
           }
        }
