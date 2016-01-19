@@ -6,7 +6,7 @@
       </p>
       <script type="text/javascript">
       //<![CDATA[
-         // ==> choix icon boostraptable //
+         // ==> choix icon boostrap table //
          window.icons = {
             refresh: 'fa-refresh fa-lg',
             toggle: 'fa-toggle-on fa-lg',
@@ -14,8 +14,41 @@
             detailOpen: 'fa-plus-square-o',
             detailClose: 'fa-minus-square-o'
          };
-         // <== choix icon boostraptable //
-      /*   
+         // <== choix icon boostrap table //
+
+      $(document).ready(function(){
+         $(".article_texte img").addClass("img-fluid");
+         $("#ban img,#art_preview img,#online_user_journal img").addClass("img-fluid");
+         
+//         $(".article_texte object").addClass("embed-responsive");
+         
+         $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
+
+
+         $('a.arrow-toggle').on('click', function(e){
+         $('a.arrow-toggle i').toggleClass('fa-caret-down , fa-caret-up', 6000);
+         })
+
+         $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
+         $('[data-toggle="popover"]').popover();
+         $('table').on('all.bs.table', function (e, name, args) {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+
+         });
+      });
+      
+      // ==> colorisation syntaxique du code //
+      hljs.configure({useBR: true});
+      $('div.code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+      hljs.initHighlightingOnLoad();
+      // <== colorisation syntaxique du code //
+      
+      
+      
+/*   
       (function(){
         $(window).scroll(function () {
             var top = $(document).scrollTop();
@@ -32,33 +65,9 @@
           e.preventDefault();
         });
       });
-      */
+*/
 
-      $(document).ready(function(){
-         $(".article_texte img").addClass("img-fluid");
-         $("#ban img,#art_preview img,#online_user_journal img").addClass("img-fluid");
-         
-//         $(".article_texte object").addClass("embed-responsive");
-         
-         $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
-
-
-$('a.arrow-toggle').on('click', function(e){
-$('a.arrow-toggle i').toggleClass('fa-caret-down , fa-caret-up', 6000);
-})
-
-
-
-
-         $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
-         $('[data-toggle="popover"]').popover();
-         $('table').on('all.bs.table', function (e, name, args) {
-            $('[data-toggle="tooltip"]').tooltip();
-            $('[data-toggle="popover"]').popover();
-
-         });
-      });
-
+/*
       // ==> change skin and make the json file for api //
       $.get("http://labo.infocapagde.com/api/3.json", function (data) {
         var themes = data.skins;
@@ -89,14 +98,7 @@ $('a.arrow-toggle i').toggleClass('fa-caret-down , fa-caret-up', 6000);
           $(".alert h4").text("Failure!");
       });
       // <== change skin and make the json file for api //
+*/
 
-      // ==> colorisation syntaxique du code //
-      hljs.configure({useBR: true});
-      $('div.code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-      hljs.initHighlightingOnLoad();
-      // <== colorisation syntaxique du code //
-      
       //]]>
       </script>

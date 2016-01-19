@@ -10,14 +10,11 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-
-
 echo '
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/css/octicons.css" />
-<link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css" />';
+<link rel="stylesheet" href="lib/css/octicons.css" />';
 
 echo '<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
 echo '

@@ -177,14 +177,31 @@ $PAGES['stats.php']['blocs']="1";
 $PAGES['stats.php']['run']="yes";
 $PAGES['stats.php']['sitemap']="0.5";
 
+// admin why charge the tiny on each admin page 360k !! ??
 $PAGES['admin.php']['title']=""; // obligatoirement à vide
 $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
 $PAGES['admin.php']['TinyMce']=1;
 $PAGES['admin.php']['TinyMce-theme']="full";
-$PAGES['admin.php']['js']=array("lib/yui/build/yui/yui-min.js");
+//$PAGES['admin.php']['js']=array("lib/yui/build/yui/yui-min.js");
 $PAGES['admin.php']['css']="admin.css+";
 $PAGES['admin.php']['TinyMceRelurl']="false";
+
+//$PAGES['admin.php?op=Edito']['title']=""; // obligatoirement à vide
+//$PAGES['admin.php?op=Edito']['blocs']="0";
+//$PAGES['admin.php?op=Edito']['run']="yes";
+// $PAGES['admin.php?op=Edito']['TinyMce']=1;
+// $PAGES['admin.php?op=Edito']['TinyMce-theme']="full";
+//$PAGES['admin.php?op=Edito']['css']="admin.css+";
+
+// $PAGES['admin.php?op=Edito_load']['title']=""; // obligatoirement à vide
+// $PAGES['admin.php?op=Edito_load']['blocs']="0";
+// $PAGES['admin.php?op=Edito_load']['run']="yes";
+// $PAGES['admin.php?op=Edito_load']['run']="yes";
+// $PAGES['admin.php?op=op=Edito_load']['TinyMce']=1;
+// $PAGES['admin.php?op=op=Edito_load']['TinyMce-theme']="full";
+// $PAGES['admin.php?op=op=Edito_load']['TinyMceRelurl']="false";
+// $PAGES['admin.php?op=op=Edito_load']['css']="admin.css+";
 
 $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]Forums[/english][spanish]Foros de discusi&oacute;n[/spanish][german]Diskussionsforen[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese]+";
 $PAGES['forum.php']['run']="yes";
