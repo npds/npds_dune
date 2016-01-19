@@ -72,7 +72,7 @@ function listsections($rubric) {
                   $aff.='
          <div class="card card-block" id="rub_'.$rubid.'sec_'.$secid.'">
             <h4 class="">
-               <a class="arrow-toggle" data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="'.$secid.'"><i class="fa fa-caret-down"></i></a>&nbsp;';
+               <a class="arrow-toggle" data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="fa fa-caret-down"></i></a>&nbsp;';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
@@ -100,7 +100,7 @@ function listsections($rubric) {
                         }
                         $aff2.='<span><a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a>&nbsp;<small>'.translate("read:").' '.$counter.' '.translate("times").'</small>';
                         if ($nouveau=='') {
-                           $aff2.='<i class="fa fa-star"></i></i>';
+                           $aff2.='<i class="fa fa-star"></i>';
 
                               $aff1=str_replace("#NEW#","",$aff1);
                         } else {
