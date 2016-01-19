@@ -90,9 +90,8 @@ function MetaTagSave($filename, $tags) {
          $content .= MetaTagMakeSingleTag('content-type', "text/html; charset=iso-8859-1", 'http-equiv');
       }
       
-      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1');//to do =>put in admin interface
+      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');//to do =>put in admin interface
       $content .= MetaTagMakeSingleTag('x-ua-compatible', 'ie=edge', 'http-equiv');//to do =>put in admin interface
-
       $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
       $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
       $content .= MetaTagMakeSingleTag('expires', '0', 'http-equiv');
