@@ -60,11 +60,11 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
 
    if ($deb_day!=-1 and $deb_month!=-1 and $deb_year!=-1 and $deb_hour!=-1 and $deb_min!=-1) {
       echo '
-   <label>'.translate("Start Date for this New").'</label>
-   <div class="form-group">
+   <label class="form-control-label">'.translate("Start Date for this New").'</label>
+   <div class="form-group row">
       <div class="col-sm-2">
-      <label class="form-control-label" for="deb_day">'.translate("Day").'</label>
-      <select class="c-select form-control" name="deb_day">';
+         <label class="form-control-label" for="deb_day">'.translate("Day").'</label>
+         <select class="c-select form-control" name="deb_day">';
       while ($day <= 31) {
          if ($deb_day==$day) {
             $sel = 'selected="selected"';
@@ -76,13 +76,13 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          $day++;
       }
       echo '
-        </select>
-        </div>';
+         </select>
+     </div>';
         $month = 1;
       echo '
-        <div class="col-sm-2">
+     <div class="col-sm-2">
         <label class="form-control-label" for="deb_month">'.translate("Month").'</label>
-        <select class="c-select form-control" name="deb_month">';
+           <select class="c-select form-control" name="deb_month">';
       while ($month <= 12) {
          if ($deb_month==$month) {
             $sel = 'selected="selected"';
@@ -94,13 +94,13 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          $month++;
       }
       echo '
-        </select>
-        </div>
-        <div class="col-sm-2">
+           </select>
+     </div>
+     <div class="col-sm-2">
         <label class="form-control-label" for="deb_year">'.translate("Year").'</label>
         <input class="form-control" type="text" name="deb_year" value="'.$deb_year.'" />
-        </div>
-        <div class="col-sm-2">
+     </div>
+     <div class="col-sm-2">
         <label class="form-control-label" for="deb_hour">'.translate("Hour(s)").'</label>
         <select class="c-select form-control" name="deb_hour">';
         $hour = 0;
@@ -117,10 +117,11 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          $hour++;
       }
       echo '
-        </select></div>
-        <div class="col-sm-2">
-        <label class="form-control-label" for="deb_min">'.translate("Minut(s)").'</label>
-        <select class="c-select form-control" name="deb_min">';
+        </select>
+      </div>
+      <div class="col-sm-2">
+         <label class="form-control-label" for="deb_min">'.translate("Minut(s)").'</label>
+         <select class="c-select form-control" name="deb_min">';
         $min = 0;
       while ($min <= 59) {
          if ($min < 10) {
@@ -136,17 +137,16 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          $min++;
       }
       echo '
-      </select>
+         </select>
       </div>
-        <div class="col-sm-2">
-</div>      
-      </div>';
+      <div class="col-sm-2"></div>
+   </div>';
    }
       $day = 1;
 
    echo '
-      <label>'.translate("End Date for this New").'</label>
-      <div class="form-group-row">
+      <label class="form-control-label">'.translate("End Date for this New").'</label>
+      <div class="form-group row">
          <div class="col-sm-2">
             <label class="form-control-label" for="fin_day">'.translate("Day").'</label>
             <select class="c-select form-control" name="fin_day">';
@@ -225,6 +225,7 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
    echo '
             </select>
          </div>
+         <div class="col-sm-2"></div>
       </div>
       <div class="form-group row">
          <div class="col-sm-6">
