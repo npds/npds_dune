@@ -1802,7 +1802,6 @@ function aff_editeur($Xzone, $Xactiv) {
                   selector: 'textarea.tin',
                   height: 300,
                   theme : 'modern',
-                  content_css : 'lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css',// should be the $tmp_theme
                   language : '".language_iso(1,'','')."',";
                   
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
@@ -2439,20 +2438,20 @@ function topdownload_data($form, $ordre) {
 }
 #autodoc oldNews($storynum) : Bloc Anciennes News <br />=> syntaxe
 #autodoc : function#oldNews<br />params#$storynum,lecture (affiche le NB de lecture) - facultatif
-function oldNews($storynum, $typ_aff="") {
+function oldNews($storynum, $typ_aff='') {
    global $locale, $oldnum, $storyhome, $categories, $cat;
    global $user,$cookie;
-   $boxstuff = "<ul>";
+   $boxstuff = '<ul>';
    if (isset($cookie[3])) {
       $storynum=$cookie[3];
    } else {
       $storynum=$storyhome;
    }
-   if (($categories==1) and ($cat!="")) {
+   if (($categories==1) and ($cat!='')) {
       if ($user) { $sel="WHERE catid='$cat'"; }
       else { $sel="WHERE catid='$cat' AND ihome=0"; }
    } else {
-      if ($user) { $sel=""; }
+      if ($user) { $sel=''; }
       else { $sel="WHERE ihome=0"; }
    }
    $vari=0;
@@ -2474,11 +2473,11 @@ function oldNews($storynum, $typ_aff="") {
          $boxstuff .= "<li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> ($comments)</li>\n";
       } else {
          if ($a==0) {
-            $boxstuff .= "<b>$datetime2</b><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> ($comments)</li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><b>$datetime2</b><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> ($comments)</li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
          }
       }
@@ -2490,13 +2489,13 @@ function oldNews($storynum, $typ_aff="") {
             $storynum = $storyhome;
          }
          $min = $oldnum + $storynum;
-         $boxstuff .= "<br /><p align=\"center\"><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><b>".translate("Older Articles")."</b></a></p>\n";
+         $boxstuff .= "<br /><p class=\"text-xs-center\" ><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><strong>".translate("Older Articles")."</strong></a></p>\n";
       }
    }
-   $boxstuff .="</ul>";
-   if ($boxstuff=="<ul></ul>") $boxstuff="";
+   $boxstuff .='</ul>';
+   if ($boxstuff=='<ul></ul>') $boxstuff='';
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $boxTitle=translate("Past Articles");
    else
       $boxTitle=$block_title;
