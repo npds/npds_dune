@@ -52,7 +52,6 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          $contentN=substr($contents,strpos($contents,"[nuit]")+6,strpos($contents,"[/nuit]")-19-strlen($contentJ));
       }
       if (!$contentJ and !$contentN and !strpos($contents,"[/jour]")) $contentJ=$contents;
-
       echo '
       <form id="fad_edi_mod" action="admin.php" method="post" name="adminForm">
       <fieldset>
