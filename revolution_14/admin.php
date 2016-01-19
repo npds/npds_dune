@@ -546,7 +546,7 @@ function adminMain($deja_affiches) {
    $nbre_articles = sql_num_rows($resul);
    settype($deja_affiches,"integer");
    settype($admart,"integer");
-   $result = sql_query("SELECT sid, title, hometext, topic, informant, time, archive FROM ".$NPDS_Prefix."stories ORDER BY time DESC LIMIT $deja_affiches,$admart");
+   $result = sql_query("SELECT sid, title, hometext, topic, informant, time, archive FROM ".$NPDS_Prefix."stories ORDER BY sid DESC LIMIT $deja_affiches,$admart");
 
    if ($nbre_articles) {
       echo '
