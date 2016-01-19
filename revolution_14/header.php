@@ -29,7 +29,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       $meta_op='';
       include ("meta/meta.php");
    }
-      
+
    // Favicon
    if (file_exists("themes/$tmp_theme/images/favicon.ico")) {
       $favico="themes/$tmp_theme/images/favicon.ico";
@@ -37,35 +37,37 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       $favico='images/favicon.ico';
    }
    echo '
-   <link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />';
+<link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />';
 
    // Syndication RSS & autres
-   global $sitename, $nuke_url;
-   global $REQUEST_URI;
+   global $sitename, $nuke_url, $REQUEST_URI;
 
    // Canonical
    $uri = $REQUEST_URI;
    $drname=dirname($uri);
-   if ($drname==".") {
+   if ($drname=='.') {
       $uri=$nuke_url.'/'.$uri;
    } elseif($drname=='/') {
       $uri=$nuke_url.$uri;
    } else {
       $uri='http://'.$_SERVER['SERVER_NAME'].$uri;
    }
-   echo "<link rel=\"canonical\" href=\"".str_replace("&","&amp;",str_replace("&amp;","&",$uri))."\" />\n";
+   echo '
+<link rel="canonical" href="'.str_replace('&','&amp;',str_replace('&amp;','&',$uri)).'" />';
 
    // humans.txt
    if (file_exists("humans.txt")) {
-      echo "<link type=\"text/plain\" rel=\"author\" href=\"$nuke_url/humans.txt\" />\n";
+      echo '
+<link type="text/plain" rel="author" href="'.$nuke_url.'/humans.txt" />';
    }
 
-   echo "<link href=\"backend.php?op=RSS0.91\" title=\"$sitename - RSS 0.91\" rel=\"alternate\" type=\"text/xml\" />\n";
-   echo "<link href=\"backend.php?op=RSS1.0\" title=\"$sitename - RSS 1.0\" rel=\"alternate\" type=\"text/xml\" />\n";
-   echo "<link href=\"backend.php?op=RSS2.0\" title=\"$sitename - RSS 2.0\" rel=\"alternate\" type=\"text/xml\" />\n";
-   echo "<link href=\"backend.php?op=ATOM\" title=\"$sitename - ATOM\" rel=\"alternate\" type=\"application/atom+xml\" />\n";
+   echo '
+<link href="backend.php?op=RSS0.91" title="'.$sitename.' - RSS 0.91" rel="alternate" type="text/xml" />
+<link href="backend.php?op=RSS1.0" title="'.$sitename.' - RSS 1.0" rel="alternate" type="text/xml" />
+<link href="backend.php?op=RSS2.0" title="'.$sitename.' - RSS 2.0" rel="alternate" type="text/xml" />
+<link href="backend.php?op=ATOM" title="'.$sitename.' - ATOM" rel="alternate" type="application/atom+xml" />';
    
-   echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);
+//   echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);//move down
 
    // Tiny_mce
    if ($tiny_mce_init)
@@ -92,6 +94,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    // include externe file from modules/include or themes/.../include for functions, codes ...
    if (file_exists("modules/include/header_head.inc")) {include ("modules/include/header_head.inc");}
    if (file_exists("themes/$tmp_theme/include/header_head.inc")) {include ("themes/$tmp_theme/include/header_head.inc");}
+
+   echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);
+
+
 
    // Mod by Jireck - Chargeur de JS via PAGES.PHP
    if ($js) {
@@ -303,7 +309,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    }
 
    head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords);
-
+/* no need in admin and block admin now
    global $httpref, $nuke_url, $httprefmax, $admin;
    global $NPDS_Prefix;
    if ($httpref==1) {
@@ -312,12 +318,13 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
          sql_query("insert into ".$NPDS_Prefix."referer values (NULL, '$referer')");
       }
       if ($admin) {
-         $result=sql_fetch_assoc(sql_query("select count(*) as total from ".$NPDS_Prefix."referer"));
+         $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
          if ($result['total']>=$httprefmax) {
             echo " <span class=\"rouge\">".translate("Referer max count limit : Save your referer via Admin function.")."</span>";
          }
       }
    }
+*/
    include("counter.php");
 
    // include externe file from modules/include for functions, codes ...
