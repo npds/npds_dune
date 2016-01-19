@@ -16,13 +16,11 @@
 if (!function_exists("Access_Error")) { die(""); }
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { Access_Error(); }
 
-global $language;
-global $links_DB;
-global $NPDS_Prefix;
+global $language, $links_DB, $NPDS_Prefix;
 
 $pos = strpos($ModPath, "/admin");
 include_once('modules/'.substr($ModPath,0,$pos).'/links.conf.php');
-if ($links_DB=="") {
+if ($links_DB=='') {
    $links_DB=$NPDS_Prefix;
 }
 $hlpfile = "modules/".substr($ModPath,0,$pos)."/manual/$language/mod-weblinks.html";
@@ -34,30 +32,30 @@ if ($radminsuper!=1) {//intégrer les droits nouveau système
 }
 
 function links() {
-    global $ModPath, $ModStart, $links_DB, $admin, $language, $hlpfile, $NPDS_Prefix;
+   global $ModPath, $ModStart, $links_DB, $admin, $language, $hlpfile, $NPDS_Prefix;
 
-    include ("header.php");
+   include ("header.php");
+   echo '
+   <script type="text/javascript">
+   //<![CDATA[
+   function openwindow(){
+      window.open ("'.$hlpfile.'","Help","toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400");
+   }
+   //]]>
+   </script>';
 
-    echo "<script type=\"text/javascript\">\n";
-    echo "//<![CDATA[\n";
-    echo "function openwindow(){\n";
-    echo " window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");\n";
-    echo "}\n";
-    echo "//]]>\n";
-    echo "</script>\n";
+   opentable();
+   $result=sql_query("SELECT * FROM ".$links_DB."links_links");
+   $numrows = sql_num_rows($result);
+   echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\"><tr class=\"header\"><td>\n";
+   echo "DB : $links_DB";
+   echo translate("There are")." <b>$numrows</b> ".translate("Links in our Database")." ";
+   echo "</td><td align=\"left\">[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"box\">".translate("Links Main")."</a> ]</td><td align=\"right\">[ <a href=\"javascript:openwindow();\" class=\"box\">".translate("Online Manual")."</a> ]";
+   echo "</td></tr></table>\n";
 
-    opentable();
-    $result=sql_query("select * from ".$links_DB."links_links");
-    $numrows = sql_num_rows($result);
-    echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\"><tr class=\"header\"><td>\n";
-    echo "DB : $links_DB";
-    echo translate("There are")." <b>$numrows</b> ".translate("Links in our Database")." ";
-    echo "</td><td align=\"left\">[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"box\">".translate("Links Main")."</a> ]</td><td align=\"right\">[ <a href=\"javascript:openwindow();\" class=\"box\">".translate("Online Manual")."</a> ]";
-    echo "</td></tr></table>\n";
-
-    $result = sql_query("select * from ".$links_DB."links_modrequest where brokenlink=1");
+    $result = sql_query("SELECT * FROM ".$links_DB."links_modrequest WHERE brokenlink=1");
     $totalbrokenlinks = sql_num_rows($result);
-    $result2 = sql_query("select * from ".$links_DB."links_modrequest where brokenlink=0");
+    $result2 = sql_query("SELECT * FROM ".$links_DB."links_modrequest WHERE brokenlink=0");
     $totalmodrequests = sql_num_rows($result2);
     echo "<br /><p align=\"center\">[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&op=LinksListBrokenLinks\" class=\"noir\">".translate("Broken Link Reports")." ($totalbrokenlinks)</a> - <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&op=LinksListModRequests\" class=\"noir\">".translate("Link Modification Requests")." ($totalmodrequests)</a> ]</p><br />";
 
@@ -71,13 +69,14 @@ function links() {
        echo "</td></tr></table>\n";
        list($lid, $cid, $sid, $title, $url, $description, $name, $email, $submitter, $topicid_card) = sql_fetch_row($result);
           // Le lien existe dÈja dans la table ?
-          $resultAE = sql_query("select url from ".$links_DB."links_links where url='$url'");
+          $resultAE = sql_query("SELECT url FROM ".$links_DB."links_links WHERE url='$url'");
           $numrowsAE = sql_num_rows($resultAE);
           $rowcolor = tablos();
           echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
-          echo "<form action=\"modules.php\" method=\"post\" name=\"$adminform\">
-          <input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-          <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" />";
+          echo '
+          <form action="modules.php" method="post" name="'.$adminform.'">
+          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+          <input type="hidden" name="ModStart" value="'.$ModStart.'" />';
           echo "<tr $rowcolor><td class=\"ongl\">".translate("Link ID: ")."<b>$lid</b>";
           if ($numrowsAE>0)
              echo "&nbsp;&nbsp;<span class=\"rouge\">".translate("ERROR: This URL is already listed in the Database!")."</span>";
@@ -87,25 +86,28 @@ function links() {
           global $links_url;
           if ($links_url)
              echo "URL :<br /><input class=\"textbox\" type=\"text\" name=\"url\" value=\"$url\" size=\"50\" maxlength=\"100\" /> [<a href=\"$url\" target=\"_blank\" class=\"noir\">".translate("Visit")."</a>]<br /><br />";
-          $result2=sql_query("select cid, title from ".$links_DB."links_categories order by title");
-          echo translate("Category: ")."<select class=\"textbox_standard\" name=\"cat\">";
+          $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
+          echo translate("Category: ").'
+          <select class="c-select form-control" name="cat">';
           while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
              $sel = "";
              if ($cid==$ccid AND $sid==0) {
-                $sel = "selected=\"selected\"";
+                $sel = 'selected="selected"';
              }
-             echo "<option value=\"$ccid\" $sel>".aff_langue($ctitle)."</option>";
-             $result3=sql_query("select sid, title from ".$links_DB."links_subcategories where cid='$ccid' order by title");
+             echo '
+             <option value="'.$ccid.'" '.$sel.'>'.aff_langue($ctitle).'</option>';
+             $result3=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$ccid' ORDER BY title");
              while (list($ssid, $stitle) = sql_fetch_row($result3)) {
                    $sel = "";
                 if ($sid==$ssid) {
-                   $sel = "selected=\"selected\"";
+                   $sel = 'selected="selected"';
                 }
                 echo "<option value=\"$ccid-$ssid\" $sel>".aff_langue($ctitle)." / ".aff_langue($stitle)."</option>";
              }
 
           }
-          echo "</select>";
+          echo '
+          </select>';
           global $links_topic;
           if ($links_topic) {
              echo "&nbsp;&nbsp;".translate("Topics")." : <select class=\"textbox_standard\" name=\"topicL\">";
@@ -114,9 +116,9 @@ function links() {
              while(list($topicid, $topics) = sql_fetch_row($toplist)) {
                if ($topicid==$topicid_card) { $sel = "selected=\"selected\" "; }
                echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
-               $sel = "";
+               $sel = '';
              }
-             echo "</select><br /><br />";
+             echo '</select>';
           }
           echo translate("Description: ")."<br /><textarea class=\"textbox\" name=\"xtext\" cols=\"60\" rows=\"10\" style=\"width: 100%;\">$description</textarea><br /><br />";
           echo aff_editeur("xtext","false");
@@ -133,120 +135,186 @@ function links() {
     }
 
     // Add a New Link to Database
-    $result = sql_query("select cid, title from ".$links_DB."links_categories");
-    $numrows = sql_num_rows($result);
-    if ($numrows>0) {
-       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-       echo translate("Add a New Link");
-       echo "</td></tr></table>\n
-       <table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
-       if ($adminform=="") {
-          echo "<form method=\"post\" action=\"modules.php\" name=\"adminForm\">";
+    $result = sql_query("SELECT cid, title FROM ".$links_DB."links_categories");
+   $numrows = sql_num_rows($result);
+   if ($numrows>0) {
+      echo '
+      <h3>'.translate("Add a New Link").'</h3>';
+       if ($adminform=='') {
+          echo '
+      <form method="post" action="modules.php" name="adminForm">';
        } else {
-          echo "<form method=\"post\" action=\"modules.php\">";
+          echo '
+      <form method="post" action="modules.php">';
        }
-       echo "<input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-       <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" /><tr><td class=\"ongl\">";
-       echo translate("Title:")."<br /><input class=\"textbox\" type=\"text\" name=\"title\" size=\"50\" maxlength=\"100\" /><br />";
+       echo '
+         <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+         <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="title">'.translate("Title").'</label>
+            <div class="col-sm-9">
+               <input class="form-control" type="text" name="title" maxlength="100" />
+            </div>
+         </div>';
+         
        global $links_url;
        if ($links_url)
-          echo "URL : <br /><input class=\"textbox\" type=\"text\" name=\"url\" size=\"50\" maxlength=\"100\" value=\"http://\" /><br /><br />";
-       $result=sql_query("select cid, title from ".$links_DB."links_categories order by title");
-       echo translate("Category: ")." <select class=\"textbox_standard\" name=\"cat\">";
+          echo ' 
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="url">URL</label>
+            <div class="col-sm-9">
+               <input class="form-control" type="url" name="url" size="50" maxlength="100" value="http://" />
+            </div>
+         </div>';
+       $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
+       echo '
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="cat">'.translate("Category: ").'</label>
+            <div class="col-sm-9">
+               <select class="c-select form-control" name="cat">';
        while (list($cid, $title) = sql_fetch_row($result)) {
-          echo "<option value=\"$cid\">".aff_langue($title)."</option>";
-          $result2=sql_query("select sid, title from ".$links_DB."links_subcategories where cid='$cid' order by title");
+          echo '
+                  <option value="'.$cid.'">'.aff_langue($title).'</option>';
+          $result2=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$cid' ORDER BY title");
           while (list($sid, $stitle) = sql_fetch_row($result2)) {
-             echo "<option value=\"$cid-$sid\">".aff_langue("$title / $stitle")."</option>";
+             echo '
+                  <option value="'.$cid.'-'.$sid.'">'.aff_langue($title.' / '.$stitle).'</option>';
           }
        }
-       echo "</select>";
+       echo '
+               </select>
+            </div>
+         </div>';
        global $links_topic;
        if ($links_topic) {
-          echo " ".translate("Topics")." : <select class=\"textbox_standard\" name=\"topicL\">";
-          $toplist = sql_query("select topicid, topictext from ".$NPDS_Prefix."topics order by topictext");
-          echo "<option valuer=\"\">".translate("All Topics")."</option>\n";
+         echo '
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
+            <div class="col-sm-9">
+               <select class="c-select form-control" name="topicL">';
+          $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+          echo '
+                  <option value="">'.translate("All Topics").'</option>';
           while(list($topicid, $topics) = sql_fetch_row($toplist)) {
-            echo "<option value=\"$topicid\">".aff_langue($topics)."</option>\n";
+            echo '
+                  <option value="'.$topicid.'">'.aff_langue($topics).'</option>';
           }
-          echo "</select>";
+          echo '
+               </select>
+            </div>
+         </div>';
        }
-       echo "<br /><br />".translate("Description: (255 characters max)")."<br /><textarea class=\"textbox\" name=\"xtext\" cols=\"60\" rows=\"10\" style=\"width: 100%;\"></textarea>";
-       if ($adminform=="")
+       echo '
+      <div class="form-group row">
+         <label class="form-control-label col-xs-12" for="xtext">'.translate("Description: (255 characters max)").'</label>
+         <div class="col-xs-12">
+            <textarea class="tin form-control" name="xtext" rows="10"></textarea>
+          </div>
+      </div>';
+       if ($adminform=='')
           echo aff_editeur("xtext","false");
-       echo translate("Name: ")."<input class=\"textbox_standard\" type=\"text\" name=\"name\" size=\"30\" maxlength=\"60\" />&nbsp;&nbsp;
-       ".translate("E-Mail: ")."<input class=\"textbox_standard\" type=\"text\" name=\"email\" size=\"30\" maxlength=\"60\" /><br />
-       <input type=\"hidden\" name=\"op\" value=\"LinksAddLink\" />
-       <input type=\"hidden\" name=\"new\" value=\"0\" />
-       <input type=\"hidden\" name=\"lid\" value=\"0\" />
-       <br /><input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Add URL")."\" />
-       </form></td></tr></table><br />";
-    }
+       echo '
+      <div class="form-group row">
+         <label class="form-control-label col-sm-3" for="name">'.translate("Name").'</label>
+         <div class="col-sm-9">
+            <input class="form-control" type="text" name="name" maxlength="60" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-3" for="email">'.translate("E-Mail : ").'</label>
+            <div class="col-sm-9">
+               <input class="form-control" type="email" name="email" maxlength="60" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="op" value="LinksAddLink" />
+            <input type="hidden" name="new" value="0" />
+            <input type="hidden" name="lid" value="0" />
+            <input class="btn btn-primary" type="submit" value="'.translate("Add URL").'" />
+         </div>
+      </div>
+   </form>';
+   }
+   // Add a New Main Category
+    echo '
+    <h3>'.translate("Add a MAIN Category").'</h3>
+    <form method="post" action="modules.php">
+    '.translate("Name: ").'<br />
+    <input class="form-control" type="text" name="title" size="30" maxlength="100" />
+    '.translate("Description: ").'
+    <textarea class="form-control" name="cdescription" rows="10" ></textarea>
+    <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+    <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+    <input type="hidden" name="op" value="LinksAddCat" />
+    <input class="btn btn-primary" type="submit" value="'.translate("Add").'" />
+    </form>';
 
-    // Add a New Main Category
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo translate("Add a MAIN Category");
-    echo "</td></tr></table>\n
-    <table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n
-    <form method=\"post\" action=\"modules.php\">
-    <input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-    <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" /><tr><td class=\"ongl\">".translate("Name: ")."<br /><input class=\"textbox\" type=\"text\" name=\"title\" size=\"30\" maxlength=\"100\" /><br />
-    ".translate("Description: ")."<br /><textarea class=\"textbox_no_mceEditor\" name=\"cdescription\" cols=\"60\" rows=\"10\" style=\"width: 100%;\"></textarea><br />
-    <input type=\"hidden\" name=\"op\" value=\"LinksAddCat\" />
-    <input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Add")."\" /><br /></td></tr>
-    </form></table><br />\n";
-
-
-    // Modify Category
-    $result = sql_query("select * from ".$links_DB."links_categories");
-    $numrows = sql_num_rows($result);
-    if ($numrows>0) {
-       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-       echo translate("Modify Category");
-       echo "</td></tr></table>\n
-       <table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
-       echo "<form method=\"post\" action=\"modules.php\">
-       <input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-       <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" /><tr><td class=\"ongl\">";
-       $result=sql_query("select cid, title from ".$links_DB."links_categories order by title");
-       echo translate("Category: ")." <select class=\"textbox_standard\" name=cat>";
+   // Modify Category
+   $result = sql_query("SELECT * FROM ".$links_DB."links_categories");
+   $numrows = sql_num_rows($result);
+   if ($numrows>0) {
+      echo '
+   <h3>'.translate("Modify Category").'</h3>
+   <form method="post" action="modules.php">
+      <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+      <input type="hidden" name="ModStart" value="'.$ModStart.'" />';
+      $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
+       echo 
+       translate("Category: ")." <select class=\"textbox_standard\" name=cat>";
        while(list($cid, $title) = sql_fetch_row($result)) {
-           echo "<option value=\"$cid\">".aff_langue($title)."</option>";
+           echo "
+           <option value=\"$cid\">".aff_langue($title)."</option>";
            $result2=sql_query("select sid, title from ".$links_DB."links_subcategories where cid='$cid' order by title");
            while(list($sid, $stitle) = sql_fetch_row($result2)) {
-              echo "<option value=\"$cid-$sid\">".aff_langue("$title / $stitle")."</option>";
+              echo "
+              <option value=\"$cid-$sid\">".aff_langue("$title / $stitle")."</option>";
            }
        }
-       echo "</select>
-       <input type=\"hidden\" name=\"op\" value=\"LinksModCat\" />&nbsp;
-       <input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Modify")."\" /><br /></td></tr>
-       </form></table><br />\n";
+       echo '
+   </select>
+   <input type="hidden" name="op" value="LinksModCat" />
+   <input class="btn btn-primary" type="submit" value="'.translate("Modify").'" />
+   </form>';
     }
 
-    // Add a New Sub-Category
-    $result = sql_query("select * from ".$links_DB."links_categories");
-    $numrows = sql_num_rows($result);
-    if ($numrows>0) {
-       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-       echo translate("Add a SUB-Category");
-       echo "</td></tr></table>\n
-       <table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
-       echo "<form method=\"post\" action=\"modules.php\">
-       <input type=\"hidden\" name=\"ModPath\" value=\"$ModPath\" />
-       <input type=\"hidden\" name=\"ModStart\" value=\"$ModStart\" /><tr><td class=\"ongl\">
-       ".translate("Name: ")."<input class=\"textbox_standard\" type=\"text\" name=\"title\" size=\"30\" maxlength=\"100\" style=\"width:70%;\" />&nbsp;".translate("in")."&nbsp;";
-
-       $result=sql_query("select cid, title from ".$links_DB."links_categories order by title");
-       echo "<select class=\"textbox_standard\" name=\"cid\">";
+   // Add a New Sub-Category
+   $result = sql_query("SELECT * FROM ".$links_DB."links_categories");
+   $numrows = sql_num_rows($result);
+   if ($numrows>0) {
+      echo '
+   <h3>'.translate("Add a SUB-Category").'</h3>
+   <form method="post" action="modules.php">
+      <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+      <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+      <div class="form-group row">
+         <label class="form-control-label col-sm-3" for="title">'.translate("Name").'</label>
+         <div class="col-sm-9">
+            <input class="textbox_standard" type="text" name="title" size="30" maxlength="100" />
+         </div>
+      </div>';
+       $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
+       echo '
+      <div class="form-group row">
+         <label class="form-control-label col-sm-3" for="cid">'.translate("in").'</label>
+         <div class="col-sm-9">
+            <select class="c-select form-control" name="cid">';
        while (list($ccid, $ctitle) = sql_fetch_row($result)) {
-          echo "<option value=\"$ccid\">".aff_langue($ctitle)."</option>";
+          echo '
+               <option value="'.$ccid.'">'.aff_langue($ctitle).'</option>';
        }
-       echo "</select>
-       <input type=\"hidden\" name=\"op\" value=\"LinksAddSubCat\" />&nbsp;
-       <input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Add")."\" /><br /></td></tr>
-       </form></table>\n";
-    }
-    closetable();
+       echo '
+            </select>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="op" value="LinksAddSubCat" />
+            <input class="btn btn-primary " type="submit" value="'.translate("Add").'" />
+         </div>
+      </div>
+   </form>';
+   }
     include ("footer.php");
 }
 
@@ -254,7 +322,7 @@ function links() {
 function LinksAddLink($new, $lid, $title, $url, $cat, $description, $name, $email, $submitter, $topicL) {
     global $ModPath, $ModStart, $links_DB;
     // Check if Title exist
-    if ($title=="") {
+    if ($title=='') {
        include("header.php");
        opentable();
        echo "<br /><span class=\"rouge\">".translate("ERROR: You need to type a TITLE for your URL!")."</span><br /><br />";
@@ -293,17 +361,13 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $description, $name, $emai
     $description = stripslashes(FixQuotes($description));
     $name = stripslashes(FixQuotes($name));
     $email = stripslashes(FixQuotes($email));
-    sql_query("insert into ".$links_DB."links_links values (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$description', now(), '$name', '$email', '0','$submitter',0,0,0,'$topicL')");
+    sql_query("INSERT INTO ".$links_DB."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$description', now(), '$name', '$email', '0','$submitter',0,0,0,'$topicL')");
     include("header.php");
-    opentable();
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
     echo translate("New Link added to the Database");
-    echo "</td></tr></table>\n";
     echo "<br />";
     echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("Go Back")."</a> ]<br />";
-    closetable();
     if ($new==1) {
-       sql_query("delete from ".$links_DB."links_newlink where lid='$lid'");
+       sql_query("DELETE FROM ".$links_DB."links_newlink WHERE lid='$lid'");
        if ($email!="") {
           global $sitename, $nuke_url;
           $subject = translate("Your Link at")." : $sitename";
@@ -352,7 +416,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
        $result2=sql_query("select cid, title from ".$links_DB."links_categories order by title");
        echo translate("Category: ")." <select class=\"textbox_standard\" name=\"cat\">";
        while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
-          $sel = "";
+          $sel = '';
           if ($cid==$ccid AND $sid==0) {
              $sel = "selected=\"selected\"";
           }
@@ -377,11 +441,11 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
               echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
               $sel = "";
           }
-          echo "</select>";
+          echo '</select>';
        }
        echo "&nbsp;&nbsp;".translate("Hits: ")."<input class=\"textbox_standard\" type=\"text\" name=\"hits\" value=\"$hits\" size=\"12\" maxlength=\"11\" /><br />";
        echo "<br /><br />";
-       echo translate("Description: ")."<br /><textarea class=\"textbox\" name=\"xtext\" cols=\"60\" rows=\"10\" style=\"width: 100%;\">$description</textarea>";
+       echo translate("Description: ")."<br /><textarea class=\"tin form-control\" name=\"xtext\" cols=\"60\" rows=\"10\" style=\"width: 100%;\">$description</textarea>";
        echo aff_editeur("xtext","false");
        echo "<br />";
 
@@ -433,7 +497,7 @@ function LinksModLinkS($lid, $title, $url, $description, $name, $email, $hits, $
     $description = stripslashes(FixQuotes($description));
     $name = stripslashes(FixQuotes($name));
     $email = stripslashes(FixQuotes($email));
-    sql_query("update ".$links_DB."links_links set cid='$cat[0]', sid='$cat[1]', title='$title', url='$url', description='$description', name='$name', email='$email', hits='$hits', submitter='$name', topicid_card='$topicL' where lid='$lid'");
+    sql_query("UPDATE ".$links_DB."links_links SET cid='$cat[0]', sid='$cat[1]', title='$title', url='$url', description='$description', name='$name', email='$email', hits='$hits', submitter='$name', topicid_card='$topicL' WHERE lid='$lid'");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksModLink&lid=$lid");
 }
 function LinksDelLink($lid) {
@@ -443,12 +507,12 @@ function LinksDelLink($lid) {
     include_once("modules/sform/".substr($ModPath,0,$pos)."/link_maj.php");
     // Cette fonction fait partie du formulaire de SFROM !
     Supprimer_function($lid);
-    sql_query("delete from ".$links_DB."links_editorials where linkid='$lid'");
-    sql_query("delete from ".$links_DB."links_links where lid='$lid'");
+    sql_query("delete FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
+    sql_query("delete FROM ".$links_DB."links_links WHERE lid='$lid'");
 }
 function LinksDelNew($lid) {
     global $ModPath, $ModStart, $links_DB;
-    sql_query("delete from ".$links_DB."links_newlink where lid='$lid'");
+    sql_query("DELETE FROM ".$links_DB."links_newlink WHERE lid='$lid'");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
 }
 
@@ -456,19 +520,19 @@ function LinksDelNew($lid) {
 function LinksModEditorial($linkid, $editorialtitle, $editorialtext) {
     global $ModPath, $ModStart, $links_DB;
     $editorialtext = stripslashes(FixQuotes($editorialtext));
-    sql_query("update ".$links_DB."links_editorials set editorialtext='$editorialtext', editorialtitle='$editorialtitle' where linkid='$linkid'");
+    sql_query("UPDATE ".$links_DB."links_editorials set editorialtext='$editorialtext', editorialtitle='$editorialtitle' WHERE linkid='$linkid'");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksModLink&lid=$linkid");
 }
 function LinksDelEditorial($linkid) {
     global $ModPath, $ModStart, $links_DB;
-    sql_query("delete from ".$links_DB."links_editorials where linkid='$linkid'");
+    sql_query("DELETE FROM ".$links_DB."links_editorials WHERE linkid='$linkid'");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksModLink&lid=$linkid");
 }
 function LinksAddEditorial($linkid, $editorialtitle, $editorialtext) {
     global $ModPath, $ModStart, $links_DB;
     $editorialtext = stripslashes(FixQuotes($editorialtext));
     global $aid;
-    sql_query("insert into ".$links_DB."links_editorials values ('$linkid', '$aid', now(), '$editorialtext', '$editorialtitle')");
+    sql_query("INSERT INTO ".$links_DB."links_editorials VALUES ('$linkid', '$aid', now(), '$editorialtext', '$editorialtitle')");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksModLink&lid=$linkid");
 }
 
@@ -480,12 +544,12 @@ function LinksAddSubCat($cid, $title) {
     if ($numrows>0) {
         include("header.php");
         opentable();
-        echo "<br /><span class=\"rouge\">".translate("ERROR: The SubCategory")." $title ".translate("already exist!")."</span><br /><br />";
+        echo "<br /><span class=\"text-danger\">".translate("ERROR: The SubCategory")." $title ".translate("already exist!")."</span><br /><br />";
         echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("Go Back")."</a>]<br />";
         closetable();
         include("footer.php");
     } else {
-        sql_query("insert into ".$links_DB."links_subcategories values (NULL, '$cid', '$title')");
+        sql_query("INSERT INTO ".$links_DB."links_subcategories VALUES (NULL, '$cid', '$title')");
         Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
     }
 }
@@ -497,13 +561,10 @@ function LinksModCat($cat) {
        $cat[1] = 0;
     }
     opentable();
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo translate("Modify Category");
-    echo "</td></tr></table>\n";
-    echo "<br />";
+    echo '<h3>'.translate("Modify Category").'</h3>';
 
     if ($cat[1]==0) {
-        $result=sql_query("select title, cdescription from ".$links_DB."links_categories where cid='$cat[0]'");
+        $result=sql_query("SELECT title, cdescription FROM ".$links_DB."links_categories WHERE cid='$cat[0]'");
         list($title,$cdescription) = sql_fetch_row($result);
         $cdescription = stripslashes($cdescription);
         echo "<form method=\"post\" action=\"modules.php\">
@@ -554,7 +615,7 @@ function LinksModCat($cat) {
 }
 function LinksAddCat($title, $cdescription) {
     global $ModPath, $ModStart, $links_DB;
-    $result = sql_query("select cid from ".$links_DB."links_categories where title='$title'");
+    $result = sql_query("SELECT cid FROM ".$links_DB."links_categories WHERE title='$title'");
     $numrows = sql_num_rows($result);
     if ($numrows>0) {
         include("header.php");
@@ -564,16 +625,16 @@ function LinksAddCat($title, $cdescription) {
         closetable();
         include("footer.php");
     } else {
-        sql_query("insert into ".$links_DB."links_categories values (NULL, '$title', '$cdescription')");
+        sql_query("INSERT INTO ".$links_DB."links_categories VALUES (NULL, '$title', '$cdescription')");
         Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
     }
 }
 function LinksModCatS($cid, $sid, $sub, $title, $cdescription) {
     global $ModPath, $ModStart, $links_DB;
     if ($sub==0) {
-        sql_query("update ".$links_DB."links_categories set title='$title', cdescription='$cdescription' where cid='$cid'");
+        sql_query("UPDATE ".$links_DB."links_categories set title='$title', cdescription='$cdescription' WHERE cid='$cid'");
     } else {
-        sql_query("update ".$links_DB."links_subcategories set title='$title' where sid='$sid'");
+        sql_query("UPDATE ".$links_DB."links_subcategories set title='$title' WHERE sid='$sid'");
     }
 
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
@@ -585,25 +646,25 @@ function LinksDelCat($cid, $sid, $sub, $ok=0) {
        $modifylinkrequest_adv_infos="Supprimer_MySql";
        include_once("modules/sform/".substr($ModPath,0,$pos)."/link_maj.php");
        if ($sub>0) {
-          $result=sql_query("select lid from ".$links_DB."links_links where sid='$sid'");
+          $result=sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
           while (list($lid)=sql_fetch_row($result)) {
              LinksDelLink($lid);
           }
-          sql_query("delete from ".$links_DB."links_subcategories where sid='$sid'");
-          sql_query("delete from ".$links_DB."links_links where sid='$sid'");
+          sql_query("DELETE FROM ".$links_DB."links_subcategories WHERE sid='$sid'");
+          sql_query("DELETE FROM ".$links_DB."links_links WHERE sid='$sid'");
        } else {
-          $result=sql_query("select lid from ".$links_DB."links_links where cid='$cid'");
+          $result=sql_query("SELECT lid FROM ".$links_DB."links_links WHERE cid='$cid'");
           while (list($lid)=sql_fetch_row($result)) {
              LinksDelLink($lid);
           }
-          sql_query("delete from ".$links_DB."links_categories where cid='$cid'");
-          sql_query("delete from ".$links_DB."links_subcategories where cid='$cid'");
+          sql_query("DELETE FROM ".$links_DB."links_categories WHERE cid='$cid'");
+          sql_query("DELETE FROM ".$links_DB."links_subcategories WHERE cid='$cid'");
        }
        Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
     } else {
        include("header.php");
        opentable();
-       echo "<br /><span class=\"rouge\">".translate("WARNING: Are you sure you want to delete this Category and ALL its Links?")."</span><br /><br />";
+       echo "<br /><span class=\"text-danger\">".translate("WARNING: Are you sure you want to delete this Category and ALL its Links?")."</span><br /><br />";
        echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&op=LinksDelCat&cid=$cid&sid=$sid&sub=$sub&ok=1\" class=\"rouge\">".translate("Yes")."</a> | <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("No")."</a> ]<br /><br />";
        closetable();
        include("footer.php");
@@ -615,7 +676,7 @@ function LinksListModRequests() {
     global $ModPath, $ModStart, $links_DB;
     global $NPDS_Prefix;
 
-    $resultX = sql_query("select requestid, lid, cid, sid, title, url, description, modifysubmitter, topicid_card from ".$links_DB."links_modrequest where brokenlink=0 order by requestid");
+    $resultX = sql_query("SELECT requestid, lid, cid, sid, title, url, description, modifysubmitter, topicid_card FROM ".$links_DB."links_modrequest WHERE brokenlink=0 ORDER BY requestid");
     $totalmodrequests = sql_num_rows($resultX);
     if ($totalmodrequests==0) {
        Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
@@ -629,16 +690,16 @@ function LinksListModRequests() {
     while (list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter, $topicid_card)=sql_fetch_row($resultX)) {
        $rowcolor = tablos();
        $rowcolor = tablos();
-       $result2 = sql_query("select cid, sid, title, url, description, submitter, topicid_card from ".$links_DB."links_links where lid='$lid'");
+       $result2 = sql_query("select cid, sid, title, url, description, submitter, topicid_card FROM ".$links_DB."links_links WHERE lid='$lid'");
        list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner, $oritopicid_card)=sql_fetch_row($result2);
-       $result3 = sql_query("select title from ".$links_DB."links_categories where cid='$cid'");
-       $result4 = sql_query("select title from ".$links_DB."links_subcategories where cid='$cid' and sid='$sid'");
-       $result5 = sql_query("select title from ".$links_DB."links_categories where cid='$origcid'");
-       $result6 = sql_query("select title from ".$links_DB."links_subcategories where cid='$origcid' and sid='$origsid'");
-       $result7 = sql_query("select email from ".$NPDS_Prefix."users where uname='$modifysubmitter'");
-       $result8 = sql_query("select email from ".$NPDS_Prefix."users where uname='$owner'");
-       $result9 = sql_query("select topictext from ".$NPDS_Prefix."topics where topicid='$oritopicid_card'");
-       $result9b = sql_query("select topictext from ".$NPDS_Prefix."topics where topicid='$topicid_card'");
+       $result3 = sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$cid'");
+       $result4 = sql_query("SELECT title FROM ".$links_DB."links_subcategories WHERE cid='$cid' AND sid='$sid'");
+       $result5 = sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$origcid'");
+       $result6 = sql_query("SELECT title FROM ".$links_DB."links_subcategories WHERE cid='$origcid' AND sid='$origsid'");
+       $result7 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
+       $result8 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
+       $result9 = sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$oritopicid_card'");
+       $result9b = sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topicid_card'");
        list($cidtitle)=sql_fetch_row($result3);
        list($sidtitle)=sql_fetch_row($result4);
        list($origcidtitle)=sql_fetch_row($result5);
@@ -649,9 +710,9 @@ function LinksListModRequests() {
        list($topic)=sql_fetch_row($result9b);
             $title = stripslashes($title);
             $description = stripslashes($description);
-            if ($owner=="") { $owner="administration"; }
-            if ($origsidtitle=="") { $origsidtitle= "-----"; }
-            if ($sidtitle=="") { $sidtitle= "-----"; }
+            if ($owner=='') { $owner="administration"; }
+            if ($origsidtitle=='') { $origsidtitle= "-----"; }
+            if ($sidtitle=='') { $sidtitle= "-----"; }
             echo "
             <table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
               <tr $rowcolor>
@@ -707,7 +768,7 @@ function LinksListBrokenLinks() {
     global $ModPath, $ModStart, $links_DB;
     global $NPDS_Prefix;
 
-    $resultBrok = sql_query("select requestid, lid, modifysubmitter from ".$links_DB."links_modrequest where brokenlink=1 order by requestid");
+    $resultBrok = sql_query("SELECT requestid, lid, modifysubmitter FROM ".$links_DB."links_modrequest WHERE brokenlink=1 ORDER BY requestid");
     $totalbrokenlinks = sql_num_rows($resultBrok);
     if ($totalbrokenlinks==0) {
        Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
@@ -730,13 +791,13 @@ function LinksListBrokenLinks() {
              </tr>";
        while (list($requestid, $lid, $modifysubmitter)=sql_fetch_row($resultBrok)) {
           $rowcolor = tablos();
-          $result2 = sql_query("select title, url, submitter from ".$links_DB."links_links where lid='$lid'");
+          $result2 = sql_query("SELECT title, url, submitter FROM ".$links_DB."links_links WHERE lid='$lid'");
           if ($modifysubmitter != '$anonymous') {
-             $result3 = sql_query("select email from ".$NPDS_Prefix."users where uname='$modifysubmitter'");
+             $result3 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
              list($email)=sql_fetch_row($result3);
           }
           list($title, $url, $owner)=sql_fetch_row($result2);
-          $result4 = sql_query("select email from ".$NPDS_Prefix."users where uname='$owner'");
+          $result4 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
           list($owneremail)=sql_fetch_row($result4);
           echo "<tr $rowcolor>
                 <td nowrap=\"nowrap\"><a href=\"$url\" class=\"noir\" target=\"_blank\">$title</a>
@@ -760,21 +821,21 @@ function LinksListBrokenLinks() {
 }
 function LinksDelBrokenLinks($lid) {
     global $ModPath, $ModStart, $links_DB;
-    sql_query("delete from ".$links_DB."links_modrequest where lid='$lid'");
+    sql_query("DELETE FROM ".$links_DB."links_modrequest WHERE lid='$lid'");
     LinksDelLink($lid);
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksListBrokenLinks");
 }
 
 function LinksIgnoreBrokenLinks($lid) {
     global $ModPath, $ModStart, $links_DB;
-    sql_query("delete from ".$links_DB."links_modrequest where lid='$lid' and brokenlink=1");
+    sql_query("DELETE FROM ".$links_DB."links_modrequest WHERE lid='$lid' AND brokenlink=1");
     Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath&op=LinksListBrokenLinks");
 }
 
 // ----- Change Links
 function LinksChangeModRequests($Xrequestid) {
     global $ModPath, $ModStart, $links_DB;
-    $result = sql_query("select requestid, lid, cid, sid, title, url, description, topicid_card from ".$links_DB."links_modrequest where requestid='$Xrequestid'");
+    $result = sql_query("SELECT requestid, lid, cid, sid, title, url, description, topicid_card FROM ".$links_DB."links_modrequest WHERE requestid='$Xrequestid'");
     while (list($requestid, $lid, $cid, $sid, $title, $url, $description, $topicid_card)=sql_fetch_row($result)) {
        $title = stripslashes($title);
        $description = stripslashes($description);
