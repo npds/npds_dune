@@ -45,7 +45,7 @@ function droits($member) {
    echo '
    <fieldset>
    <legend>'.adm_translate("Droits").'</legend>
-   <div class="form-group">
+   <div class="form-group row">
       <label class="radio-inline text-danger">';
    if ($member==-127) {$checked=' checked="checked"';} else {$checked='';}
       echo '
@@ -67,7 +67,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group">
-      <label for="Mmember[]">'.adm_translate("Groupes").'</label>';
+      <label class="form-control-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
    </div>';
    } else {
@@ -80,7 +80,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group">
-   <label for="Mmember[]">'.adm_translate("Groupes").'</label>';
+   <label class="form-control-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
    </div>
    </fielset>';
@@ -178,9 +178,9 @@ echo'
       <table id="tad_rubri" data-toggle="table" data-striped="true" data-detail-view="true" data-show-toggle="true" data-icons-prefix="fa" data-icons="icons" >
          <thead>
             <tr>
-               <th data-sortable="true" class="">'.adm_translate("Rubrique").'</th>
-               <th data-sortable="true" class="">'.adm_translate("Etat").'</th>
-               <th class="">'.adm_translate("Fonctions").'</th>
+               <th data-sortable="true">'.adm_translate("Rubrique").'</th>
+               <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate("Etat").'</th>
+               <th data-halign="center" data-align="right" >'.adm_translate("Fonctions").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -646,23 +646,26 @@ function rubriquedit($rubid) {
    $rubname = stripslashes($rubname);
    $intro = stripslashes($intro);
    adminhead($f_meta_nom, $f_titre, $adminimg);
-   echo '<h3>'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).'</span></h3>';
+   echo '<h3>'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
    if ($number)
-      echo '<span class="text-danger">'.$number.' </span>'.adm_translate("sous-rubrique(s) attachée(s)");
+      echo '<span class="label label-pill label-default">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
-         <div class="form-group">
-            <label class="form-control-label" for="rubname">'.adm_translate("Titre").'</label>
-            <textarea id="rubname" class="textbox_no_mceEditor form-control" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
-            <span class="help-block text-xs-right"><span id="countcar_rubname"></span></span>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="rubname">'.adm_translate("Titre").'</label>
+            <div class="col-sm-12">
+               <textarea id="rubname" class="form-control" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
+               <span class="help-block text-xs-right"><span id="countcar_rubname"></span></span>
+            </div>
          </div>
-         <div class="form-group">
-            <label class="form-control-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
-            <textarea name="introc" class="textbox form-control" rows="30" >'.$intro.'</textarea>
-         </div>';
-   echo aff_editeur("introc","false");
-   echo '
-         <div class="form-group">
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="introc">'.adm_translate("Texte d'introduction").'</label>
+            <div class="col-sm-12">
+               <textarea name="introc" class="tin form-control" rows="30" >'.$intro.'</textarea>
+            </div>
+         </div>
+         '.aff_editeur('introc','').'
+         <div class="form-group row">
             <label class="form-control-label" for="enligne">'.adm_translate("En Ligne").'</label>';
    if ($radminsuper==1) {
       if ($enligne==1) {
@@ -679,16 +682,20 @@ function rubriquedit($rubid) {
                <input type="radio" name="enligne" value="1" '.$sel1.' />'.adm_translate("Oui").'
             </label>
          </div>
-         <div class="form-group">
-            <input type="hidden" name="rubid" value="'.$rubid.'" />
-            <input type="hidden" name="op" value="rubriquechange" />
-            <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Enregistrer").'</button>&nbsp;
-            <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
+         <div class="form-group row">
+            <div class="col-sm-12">
+               <input type="hidden" name="rubid" value="'.$rubid.'" />
+               <input type="hidden" name="op" value="rubriquechange" />
+               <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Enregistrer").'</button>&nbsp;
+               <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
+            </div>
          </div>
       </form>
       <script type="text/javascript">
       //<![CDATA[
+         $(document).ready(function() {
             inpandfieldlen("rubname",255);
+         });
       //]]>
       </script>';
       adminfoot('fv','','','');
@@ -735,11 +742,11 @@ function sectionedit($secid) {
       echo '<span class="label label-pill label-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label" for="rubref">'.adm_translate("Rubriques").'</label>';
    if ($radminsuper==1) {
       echo '
-      <select class="form-control" name="rubref">';
+      <select class="c-select form-control" name="rubref">';
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
          while(list($rubid, $rubname) = sql_fetch_row($result)) {
             if ($rubref==$rubid) {$sel='selected="selected"';} else {$sel='';}
@@ -755,21 +762,21 @@ function sectionedit($secid) {
       echo "".aff_langue($rubname)."";
    }
    echo '
-   <div class="form-group">
+   <div class="form-group row">
       <label class="form-control-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
-      <textarea class="form-control textbox_no_mceEditor" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
+      <textarea class="form-control" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
       <span class="help-block text-xs-right"><span id="countcar_secname"></span></span>
    </div>
-   <div class="form-group">
+   <div class="form-group row">
       <label class="form-control-label" for="image">'.adm_translate("Image").'</label>
       <input type="text" class="form-control" id="image" name="image" maxlength="255" value="'.$image.'" />
       <span class="help-block text-xs-right"><span id="countcar_image"></span></span>
    </div>
-   <div class="form-group">
+   <div class="form-group row">
       <label class="form-control-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
-      <textarea class="form-control textbox" id="introd" name="introd" rows="20">'.$intro.'</textarea>
+      <textarea class="tin form-control" id="introd" name="introd" rows="20">'.$intro.'</textarea>
    </div>';
-   echo aff_editeur("introd","false");
+   echo aff_editeur('introd','');
    droits($userlevel);
    $droit_pub=droits_publication($secid);
    if ($droit_pub==3 or $droit_pub==7) {
@@ -782,8 +789,10 @@ function sectionedit($secid) {
    </form>
    <script type="text/javascript">
    //<![CDATA[
+      $(document).ready(function() {
          inpandfieldlen("secname",255);
          inpandfieldlen("image",255);
+      });
    //]]>
    </script>';
    adminfoot('fv','','','');
@@ -846,10 +855,9 @@ function secartedit($artid) {
       <form action="admin.php" method="post" name="adminForm">
          <input type="hidden" name="artid" value="'.$artid.'" />
          <input type="hidden" name="op" value="secartchange" />
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-4 col-md-4" for="secid">'.adm_translate("Sous-rubriques").'</label>
-               <div class="col-sm-8">';
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="secid">'.adm_translate("Sous-rubriques").'</label>
+            <div class="col-sm-8">';
 
    $tmp_autorise=sousrub_select($secid);
    if ($tmp_autorise) {
@@ -861,51 +869,57 @@ function secartedit($artid) {
       echo '<input type="hidden" name="secid" value="'.$secid.'" />';
    }
    echo '
-               </div>
             </div>
          </div>';
    if ($tmp_autorise)
       echo "<a href=\"admin.php?op=publishcompat&amp;article=$artid\" class=\"noir\">".adm_translate("Publications connexes")."</a>";
 
   echo'
-         <div class="form-group">
-            <label class="form-control-label" for="title">'.adm_translate("Titre").'</label>
-            <textarea class="textbox_no_mceEditor form-control" name="title" rows="2">'.$title.'</textarea>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
+            <div class="col-sm-12">
+               <textarea class="form-control" name="title" rows="2">'.$title.'</textarea>
+            </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <label class="form-control-label" for="content">'.adm_translate("Contenu").'</label>
-            <textarea class="textbox form-control" name="content" rows="30" >'.$content.'</textarea>
+            <div class="col-sm-12">
+               <textarea class="tin form-control" name="content" rows="30" >'.$content.'</textarea>
+            </div>
          </div>';
-   echo aff_editeur("content","false");
+   echo aff_editeur('content','');
    echo '
-   <input type="hidden" name="crit1" value="'.$crit1.'" />
-   <input type="hidden" name="crit2" value="'.$crit2.'" />
-   <input type="hidden" name="crit3" value="'.$crit3.'" />
-   <input type="hidden" name="crit4" value="'.$crit4.'" />
-   <input type="hidden" name="crit5" value="'.$crit5.'" />
-   <input type="hidden" name="crit6" value="'.$crit6.'" />
-   <input type="hidden" name="crit7" value="'.$crit7.'" />
-   <input type="hidden" name="crit8" value="'.$crit8.'" />
-   <input type="hidden" name="crit9" value="'.$crit9.'" />
-   <input type="hidden" name="crit10" value="'.$crit10.'" />
-   <input type="hidden" name="crit11" value="'.$crit11.'" />
-   <input type="hidden" name="crit12" value="'.$crit12.'" />
-   <input type="hidden" name="crit13" value="'.$crit13.'" />
-   <input type="hidden" name="crit14" value="'.$crit14.'" />
-   <input type="hidden" name="crit15" value="'.$crit15.'" />
-   <input type="hidden" name="crit16" value="'.$crit16.'" />
-   <input type="hidden" name="crit17" value="'.$crit17.'" />
-   <input type="hidden" name="crit18" value="'.$crit18.'" />
-   <input type="hidden" name="crit19" value="'.$crit19.'" />
-   <input type="hidden" name="crit20" value="'.$crit20.'" />
-   <div class="form-group">
-   ';
+         <input type="hidden" name="crit1" value="'.$crit1.'" />
+         <input type="hidden" name="crit2" value="'.$crit2.'" />
+         <input type="hidden" name="crit3" value="'.$crit3.'" />
+         <input type="hidden" name="crit4" value="'.$crit4.'" />
+         <input type="hidden" name="crit5" value="'.$crit5.'" />
+         <input type="hidden" name="crit6" value="'.$crit6.'" />
+         <input type="hidden" name="crit7" value="'.$crit7.'" />
+         <input type="hidden" name="crit8" value="'.$crit8.'" />
+         <input type="hidden" name="crit9" value="'.$crit9.'" />
+         <input type="hidden" name="crit10" value="'.$crit10.'" />
+         <input type="hidden" name="crit11" value="'.$crit11.'" />
+         <input type="hidden" name="crit12" value="'.$crit12.'" />
+         <input type="hidden" name="crit13" value="'.$crit13.'" />
+         <input type="hidden" name="crit14" value="'.$crit14.'" />
+         <input type="hidden" name="crit15" value="'.$crit15.'" />
+         <input type="hidden" name="crit16" value="'.$crit16.'" />
+         <input type="hidden" name="crit17" value="'.$crit17.'" />
+         <input type="hidden" name="crit18" value="'.$crit18.'" />
+         <input type="hidden" name="crit19" value="'.$crit19.'" />
+         <input type="hidden" name="crit20" value="'.$crit20.'" />
+         <div class="form-group row">
+         <div class="col-sm-12">';
 
    droits($userlevel);
    $droits_pub=droits_publication($secid);
-   if ($droits_pub==3 or $droits_pub==7) { echo '<input class="btn btn-primary" type="submit" value="'.adm_translate("Enregistrer").'" />'; }
-   echo '&nbsp;<input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
-   </div>
+   if ($droits_pub==3 or $droits_pub==7) { echo '
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Enregistrer").'" />&nbsp;'; }
+   echo '
+            <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
+         </div>
+      </div>
    </form>';
    adminfoot('','','','');
 }
