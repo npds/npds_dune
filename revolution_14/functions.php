@@ -681,7 +681,20 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
 }
 
 function forum($rowQ1) {
-   global $user, $subscribe, $theme, $NPDS_Prefix;
+   global $user, $subscribe, $theme, $NPDS_Prefix, $admin, $adminforum;
+
+//==> droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+   $adminforum=false;
+   if ($admin) {
+      $adminX = base64_decode($admin);
+      $adminR = explode(':', $adminX);
+      $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
+      if ($Q['radminsuper']==1) {$adminforum=1;} else {
+         $R = sql_query("SELECT fnom, fid, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$adminR[0]' and f.fid between 13 and 15");
+         if (sql_num_rows($R) >=1) $adminforum=1;
+      }
+   }
+//<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
 
    if ($user) {
       $userX = base64_decode($user);
@@ -729,8 +742,9 @@ function forum($rowQ1) {
                // Gestion des Forums Cachés aux non-membres
                if (($myrow['forum_type'] != "9") or ($userR)) {
                   // Gestion des Forums réservés à un groupe de membre
-                  if (($myrow['forum_type'] == "7") or ($myrow['forum_type'] == "5")) {
+                  if (($myrow['forum_type'] == "7") or ($myrow['forum_type'] == "5")){
                      $ok_affich=groupe_forum($myrow['forum_pass'], $tab_groupe);
+                     if ( (isset($admin)) and ($adminforum==1) ) $ok_affich=true;// to see when admin mais pas assez precis
                   } else {
                      $ok_affich=true;
                   }

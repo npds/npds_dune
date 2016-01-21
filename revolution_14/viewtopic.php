@@ -24,11 +24,26 @@ if ($SuperCache) {
    $cache_obj = new SuperCacheEmpty();
 }
 include('auth.php');
-global $NPDS_Prefix;
+global $NPDS_Prefix, $admin, $adminforum;
 
 if ($allow_upload_forum) {
    include("modules/upload/upload_forum.php");
 }
+
+//==> droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+   $adminforum=false;
+   if ($admin) {
+      $adminforum=0;
+      $adminX = base64_decode($admin);
+      $adminR = explode(':', $adminX);
+      $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
+      if ($Q['radminsuper']==1) {$adminforum=1;} else {
+         $R = sql_query("SELECT fnom, fid, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$adminR[0]' and f.fid between 13 and 15");
+         if (sql_num_rows($R) >=1) $adminforum=1;
+      }
+   }
+//<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+
 
 $rowQ1=Q_Select ("SELECT forum_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'", 3600);
 if (!$rowQ1)
@@ -51,7 +66,9 @@ if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
    $tab_groupe=valid_group($user);
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
-   if (!$ok_affiche) {
+   
+   //:: ici 
+   if ( (!$ok_affiche) and ($adminforum==0) ) {
       header("location: forum.php");
    }
 }
@@ -552,7 +569,7 @@ echo '
        $cache_obj->endCachingBlock($cache_clef);
     }
 
-    if (($Mmod) and ($forum_access!=9)) {
+    if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
        echo '
       <nav class="text-xs-center">
          <ul class="pagination pagination-sm">

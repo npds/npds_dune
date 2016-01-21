@@ -23,7 +23,21 @@ if ($SuperCache) {
    $cache_obj = new SuperCacheEmpty();
 }
 include('auth.php');
-global $NPDS_Prefix;
+global $NPDS_Prefix,$admin;
+
+//==> droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+   $adminforum=false;
+   if ($admin) {
+      $adminX = base64_decode($admin);
+      $adminR = explode(':', $adminX);
+      $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
+      if ($Q['radminsuper']==1) {$adminforum=1;} else {
+         $R = sql_query("SELECT fnom, fid, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$adminR[0]' and f.fid between 13 and 15");
+         if (sql_num_rows($R) >=1) $adminforum=1;
+      }
+   }
+//<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+
 
 settype($op,'string');
 if (($op=="mark") and ($forum)) {
@@ -56,7 +70,7 @@ list(,$myrow) = each($rowQ1);
 $forum_name = stripslashes($myrow['forum_name']);
 $moderator=get_moderator($myrow['forum_moderator']);
 $forum_access=$myrow['forum_access'];
-
+  
 if (($op=="solved") and ($topic_id) and ($forum) and ($sec_clef)) {
    if ($user) {
       $local_sec_clef=md5($forum.$topic_id.md5($NPDS_Key));
@@ -78,6 +92,7 @@ if (($myrow['forum_type'] == 5) or ($myrow['forum_type'] == 7)) {
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
    if ($ok_affiche) {$Forum_passwd=$myrow['forum_pass'];}
 }
+
 if ($myrow['forum_type'] == 8) {$Forum_passwd=$myrow['forum_pass'];} else {settype($Forum_passwd,'string');}
 
 // Forum ARBRE
@@ -110,25 +125,26 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
 
    echo '
       <form role="form" action="viewforum.php" method="post">
-         <div class="form-group">
-               <div class="text-xs-center">
-               <label class="control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
-               </div>
-               <div class="row">
-               <div class="col-md-4 col-md-offset-4">
-               <input class="form-control" type="password" name="Forum_passwd"  placeholder="'.translate("Password").'" />
-               </div>
-               </div>
-            </div>
-            <input type="hidden" name="forum" value="'.$forum.'" />
-            <div class="text-xs-center">';
-	echo '<button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;';
-	echo '<button type="reset" class="btn btn-default" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>';
-    echo '
-         </div>
+      <div class="form-group">
+      <div class="text-xs-center">
+      <label class="control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
+      </div>
+      <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+      <input class="form-control" type="password" name="Forum_passwd"  placeholder="'.translate("Password").'" />
+      </div>
+      </div>
+      </div>
+      <input type="hidden" name="forum" value="'.$forum.'" />
+      <div class="text-xs-center">
+      <button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;
+      <button type="reset" class="btn btn-default" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>
+      </div>
       </form>';
-	} 
-   elseif (($Forum_passwd == $myrow['forum_pass'])) {
+   }
+   
+   //::ICI 
+   elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    if (($myrow['forum_type']== 9) and (!$user)) { header("location: forum.php"); }
    $title=$forum_name;
    include('header.php');
@@ -334,7 +350,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       }
       else {
           echo '
-          <li class="page-item disabled text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
+         <li class="page-item disabled text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
       }
     for($x = 0; $x < $all_topics; $x++) {
       if (!($x % $topics_per_page)) {
