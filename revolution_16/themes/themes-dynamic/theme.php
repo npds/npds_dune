@@ -51,6 +51,9 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    if ($morelink[6]) $categorie=" : ".$morelink[6];
    $morel=$lire_la_suite.$commentaire.$morelink[4]." ".$morelink[5].$categorie;
 
+   if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+   $timage=$imgtmp;
+
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>"$aid",
    "'!N_emetteur!'i"=>"<a href=\"user.php?op=userinfo&amp;uname=$informant\">$informant</a>",
@@ -72,7 +75,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    "'!N_titre!'i"=>"$title",
    "'!N_texte!'i"=>"$thetext",
    "'!N_id!'i"=>"$id",
-   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$tipath.$topicimage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
+   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$timage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
    "'!N_note!'i"=>"$notes",
    "'!N_nb_lecture!'i"=>"$counter",
    "'!N_suite!'i"=>"$morel"
@@ -111,6 +114,9 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
    $sendF = "<a href=\"friend.php?op=FriendSend&amp;sid=$id\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Send this Story to a Friend")."\" style=\"vertical-align: middle;\" /></a>";
 
+   if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+   $timage=$imgtmp;
+
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
    "'!N_emetteur!'i"=>'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
@@ -127,7 +133,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    "'!N_id!'i"=>$id,
    "'!N_previous_article!'i"=>$prevArt,
    "'!N_next_article!'i"=>$nextArt,
-   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$tipath.$topicimage.'" alt="'.translate("Search in").'&nbsp;'.$topictext.'" /></a>',
+   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Search in").'&nbsp;'.$topictext.'" /></a>',
    "'!N_texte!'i"=>$thetext,
    "'!N_nb_lecture!'i"=>$counter
    );
@@ -160,9 +166,9 @@ function themesidebox($title, $content) {
    "'!B_class_content!'i"=>"$B_class_content",
    "'!B_content!'i"=>"$content"
    );
-   echo $htvar;
+   echo $htvar;// modif ji fantôme block
    echo meta_lang(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent));
-   echo '</div>';
+   echo '</div>';// modif ji fantôme block
 }
 function themedito($content) {
    global $theme;
