@@ -90,14 +90,14 @@ case "-1":
      echo '<section id="centralcol" class="col w100 autotablet">';   /* la partie centrale */
 break;
 case "0":
-     echo '<aside id="leftcol" class="col w18 autotablet aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
+     echo '<aside id="leftcol" class="col w18 notablet nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
         leftblocks();
      echo '</aside>';
      echo '<section id="centralcol" class="col w82 autotablet content">';
 break;
 
 case "1":
-     echo '<aside id="leftcol" class="col w18 autotablet aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
+     echo '<aside id="leftcol" class="col w18 notablet nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
         leftblocks();
      echo '</aside>';
      echo '<section id="centralcol" class="col  w64 autotablet">';
@@ -106,10 +106,10 @@ case "2":
      echo '<section id="centralcol" class="col w82 autotablet">';
 break;
 case "3":
-     echo '<aside id="leftcol" class="col w18 autotablet aside">';
+     echo '<aside id="leftcol" class="col w18 notablet nomobile  aside">';
         leftblocks();
      echo '</aside>';
-     echo '<aside  class="col w18 autotablet redborder aside">';    /* la colonne de droite qui aura les BLOCS de droites */
+     echo '<aside  class="col w18 notablet nomobile   aside">';    /* la colonne de droite qui aura les BLOCS de droites */
         rightblocks();
      echo '</aside>';
      echo '<section id="centralcol" class="col w64 autotablet content">';
@@ -119,7 +119,7 @@ case "4":
 break;
 
 case "5":
-     echo '<aside  class="col w18 autotablet redborder aside">';    /* la colonne de droite qui aura les BLOCS de droites */
+     echo '<aside  class="col w18 notablet nomobile   aside">';    /* la colonne de droite qui aura les BLOCS de droites */
         rightblocks();
      echo '</aside>';
      echo '<section id="centralcol" class="col w82 autotablet content">';
@@ -132,7 +132,7 @@ break;
 
 
 default:
-     echo '<aside id="leftcol" class="col w18 autotablet aside">';
+     echo '<aside id="leftcol" class="col w18 notablet nomobile  aside">';
         leftblocks();
      echo '</aside>';
      echo '<section id="centralcol" class="col w82 autotablet content">';

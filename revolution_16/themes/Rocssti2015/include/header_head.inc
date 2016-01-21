@@ -10,22 +10,18 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 echo '
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="themes/Rocssti2015/style/rocssti-fr.css">
 <link rel="stylesheet" href="themes/Rocssti2015/cssmenu/styles.css">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700)">
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
-<link rel="stylesheet" href="themes/Rocssti2015/style/responsiveslides.css">
+
 <link id="sty_highlight" rel="stylesheet" href="lib/js/highlight-9.0.0/styles/github.css" />
 <link rel="stylesheet" href="themes/'.$theme.'/style/ajust.css">
 
 <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="themes/Rocssti2015/cssmenu/script.js"></script>
-<script type="text/javascript" src="themes/Rocssti2015/js/responsiveslides.js"></script>
+
 <script type="text/javascript" src="lib/js/tether.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>

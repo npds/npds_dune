@@ -227,7 +227,6 @@ body {
 	text-align: center; /* pour corriger un bug de centrage IE */
 	padding: 0px;
 
-	background-image: url("../images/fond2.png");
         background-repeat: repeat repeat;
 }
 
@@ -236,6 +235,7 @@ body {
 	text-align:left;
 	margin-left:auto;
 	margin-right:auto;
+		background-image: url("../images/fond1.png");
 	  width:100%;
 
 }
@@ -314,7 +314,7 @@ footer {
 le  header   et son contenu ( sa taille est ds decoheader)
 **********************/
 .header1{
-       background: #f7f7f7;
+ /*       background: #f7f7f7; */
   	margin:0px;
 	padding: 5px;
 	height: auto;

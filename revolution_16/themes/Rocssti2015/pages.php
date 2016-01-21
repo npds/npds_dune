@@ -11,7 +11,15 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
+ $PAGES['index.php']['blocs']="0";
+ 
+ 
+ // CSS sur fichiers particuliers car n'utilisant pas header.php
+$PAGES['chatrafraich.php']['css']="chat.css-";
+$PAGES['chatinput.php']['css']="chat.css-";
 
-
+// CSS sur fichiers particuliers car n'utilisant pas header.php
+$PAGES['central.html']['css']="screen.css-";
+$PAGES['central.html']['css']="grid.css-";
 
 ?>
