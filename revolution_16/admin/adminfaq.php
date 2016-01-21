@@ -48,7 +48,6 @@ function FaqAdmin() {
       </tbody>
    </table>
    <h3>'.adm_translate("Ajouter une catégorie").'</h3>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
    <form id="fad_faqcatad" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
@@ -72,7 +71,9 @@ function FaqAdmin() {
    </form>
    <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("categories",255);
+      $(document).ready(function() {
+         inpandfieldlen("categories",255);
+      });
    //]]>
    </script>';
 //   adminfieldinp($result);
@@ -99,7 +100,6 @@ function FaqCatGo($id_cat) {
    echo '
    <h3>'.$faq_cat.'</h3>
    <h4>'.adm_translate("Ajouter une question réponse").'</h4>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
    <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group">
@@ -135,7 +135,9 @@ function FaqCatGo($id_cat) {
    </form>
    <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("question",255);
+      $(document).ready(function() {
+         inpandfieldlen("question",255);
+      });
    //]]>
    </script>
    <h4>'.adm_translate("Liste des questions réponses").'</h4>
@@ -176,7 +178,6 @@ function FaqCatEdit($id_cat) {
    echo '
    <h3>'.adm_translate("Editer la catégorie").'</h3>
    <h4><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'">'.$categories.'</a></h4>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
    <form id="fad_faqcated" action="admin.php" method="post">
       <fieldset>
          <div class="form-group">
@@ -202,7 +203,9 @@ function FaqCatEdit($id_cat) {
    </form>
    <script type="text/javascript">
    //<![CDATA[
+      $(document).ready(function() {
       inpandfieldlen("categories",255);
+      });
    //]]>
    </script>';
 //   adminfieldinp($result);
@@ -277,7 +280,9 @@ function FaqCatGoEdit($id) {
    </form>
    <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("question",255);
+      $(document).ready(function() {
+         inpandfieldlen("question",255);
+      });
    //]]>
    </script>';
 //   adminfieldinp($result);

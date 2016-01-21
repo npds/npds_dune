@@ -215,7 +215,6 @@ function DownloadAdmin() {
 
    echo '
    <h3>'.adm_translate("Ajouter un Téléchargement").'</h3>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
@@ -302,13 +301,15 @@ echo '                         <fieldset>
     </form>
     <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("durl",255);
-      inpandfieldlen("dfilename",255);
-      inpandfieldlen("dver",6);
-      inpandfieldlen("dfilesize",31);
-      inpandfieldlen("dweb",255);
-      inpandfieldlen("duser",30);
-      inpandfieldlen("dcategory",250);
+      $(document).ready(function() {
+         inpandfieldlen("durl",255);
+         inpandfieldlen("dfilename",255);
+         inpandfieldlen("dver",6);
+         inpandfieldlen("dfilesize",31);
+         inpandfieldlen("dweb",255);
+         inpandfieldlen("duser",30);
+         inpandfieldlen("dcategory",250);
+      });
    //]]>
    </script>';
    adminfoot('fv','','','');

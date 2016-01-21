@@ -288,11 +288,13 @@ function displayadmins() {
    echo '
    <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("add_aid",30);
-      inpandfieldlen("add_name",50);
-      inpandfieldlen("add_email",60);
-      inpandfieldlen("add_url",60);
-      inpandfieldlen("add_pwd",12);
+      $(document).ready(function() {
+         inpandfieldlen("add_aid",30);
+         inpandfieldlen("add_name",50);
+         inpandfieldlen("add_email",60);
+         inpandfieldlen("add_url",60);
+         inpandfieldlen("add_pwd",12);
+      });
    //]]>
    </script>';
    $fv_parametres = '
@@ -365,8 +367,6 @@ function modifyadmin($chng_aid) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
-
    <h3>'.adm_translate("Mise à jour de l'administrateur").' : <span class="text-muted">'.$chng_aid.'</span></h3>';
     
    $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
@@ -499,11 +499,13 @@ function modifyadmin($chng_aid) {
    echo '
    <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("chng_name",50);
-      inpandfieldlen("chng_email",60);
-      inpandfieldlen("chng_url",60);
-      inpandfieldlen("chng_pwd",12);
-      inpandfieldlen("chng_pwd2",12);
+      $(document).ready(function() {
+         inpandfieldlen("chng_name",50);
+         inpandfieldlen("chng_email",60);
+         inpandfieldlen("chng_url",60);
+         inpandfieldlen("chng_pwd",12);
+         inpandfieldlen("chng_pwd2",12);
+      });
    //]]>
    </script>';
    $fv_parametres = '

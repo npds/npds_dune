@@ -538,8 +538,10 @@ function new_rub_section($type) {
 echo '
       <script type="text/javascript">
       //<![CDATA[
-         inpandfieldlen("rubname",255);
-         inpandfieldlen("secname",255);
+         $(document).ready(function() {
+            inpandfieldlen("rubname",255);
+            inpandfieldlen("secname",255);
+         });
       //]]>
       </script>';
    adminfoot('fv','','','');

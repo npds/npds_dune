@@ -431,7 +431,7 @@ function Configure() {
          </div>
          <div class="form-group">
             <div class="row">
-               <label class="form-control-label col-sm-4" for="xbackend_language">'.adm_translate("Langue du  backend").'</label>
+               <label class="form-control-label col-sm-4" for="xbackend_language">'.adm_translate("Langue du backend").'</label>
                <div class="col-sm-8">
                   <input class="form-control" type="text" name="xbackend_language" value="'.$backend_language.'" size="11" maxlength="10" />
                </div>

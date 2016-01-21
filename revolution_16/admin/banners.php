@@ -337,10 +337,10 @@ function BannerDelete($bid, $ok=0) {
        $result=sql_query("SELECT cid, imptotal, impmade, clicks, imageurl, clickurl FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
        list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl) = sql_fetch_row($result);
        opentable();
-       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+
        echo adm_translate("Effacer Bannière");
-       echo "</td></tr></table>\n";
-       if ($imageurl!="") {
+
+       if ($imageurl!='') {
           echo "<a href=\"".aff_langue($clickurl)."\"><img src=\"".aff_langue($imageurl)."\" alt=\"\" border=\"1\" /></a><br />";
        } else {
           echo $clickurl;

@@ -37,7 +37,7 @@ function puthome($ihome) {
             <label class="radio-inline">
                <input type="radio" name="ihome" value="1" '.$sel2.' />'.adm_translate("Non").'
             </label>
-             <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : <b>'Articles'</b> n'est pas sélectionnée.").'</p>
+             <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
          </div>
       </div>';
    $sel1 = '';
@@ -113,7 +113,7 @@ function SelectCategory($cat) {
 function AddCategory () {
    global $NPDS_Prefix, $hlpfile, $language, $aid, $radminsuper,$adminimg;
    $f_meta_nom ='adminStory';
-   $f_titre = adm_translate("Ajouter une nouvelle Catégorie");
+   $f_titre = adm_translate("Articles");
    //==> controle droit
    admindroits($aid,$f_meta_nom);
    //<== controle droit
@@ -123,11 +123,13 @@ function AddCategory () {
 
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <h3>'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
    <form id="adm_ad_cat" action="admin.php" method="post">
       <div class="form-group row">
-         <label class="col-xs-12 form-control-label" for="title">'.adm_translate("Nom : ").'</label>
+         <label class="col-xs-12 form-control-label" for="title">'.adm_translate("Nom").'</label>
          <div class="col-xs-12">
-            <input class="form-control" type="text" name="title" maxlength="255" />
+            <input class="form-control" type="text" id="title" name="title" maxlength="255" required="required" />
+            <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <input type="hidden" name="op" value="SaveCategory" />
@@ -136,66 +138,106 @@ function AddCategory () {
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </div>
-   </form>';
-   adminfoot('','','','');
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("title",255);
+      });
+   //]]>
+   </script>';
+   adminfoot('fv','','','');
 }
 function SaveCategory($title) {
-    global $NPDS_Prefix;
+   global $NPDS_Prefix, $aid, $f_meta_nom, $adminimg;
+   
+   $f_meta_nom ='adminStory';
+   $f_titre = adm_translate("Articles");
+   //==> controle droit
+   admindroits($aid,$f_meta_nom);
+   //<== controle droit
 
-    $title = preg_replace('#"#', '', $title);
-    $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
-    if ($check) {
-        $what1 = adm_translate("Cette Catégorie existe déjà !");
-        $what2 = "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arriére, pour changer le Nom")."</a> ]";
-    } else {
-        $what1 = adm_translate("Nouvelle Catégorie ajoutée");
-        $what2 = "[ <a href=\"admin.php\" class=\"noir\">".adm_translate("Retour à l'index d'administration")."</a> ]";
-        $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories_cat VALUES (NULL, '$title', '0')");
-    }
-    include ("header.php");
-    GraphicAdmin('');
-    opentable();
-    echo "<p align=\"center\"><b>$what1</b><br /><br />";
-    echo "$what2</p><br />";
-    closetable();
-    include("footer.php");
+   $title = preg_replace('#"#', '', $title);
+   $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
+   if ($check) {
+      $what1 = '<div class="alert alert-danger" role="alert">'.adm_translate("Cette Catégorie existe déjà !").'</div>';
+      $what2 = '<a href="javascript:history.go(-1)" class="btn btn-danger-outline">'.adm_translate("Retour en arrière, pour changer le Nom").'</a>';
+   } else {
+   $what1 = '<div class="alert alert-success" role="alert">'.adm_translate("Nouvelle Catégorie ajoutée").'</div>';
+   $what2 = '<a href="admin.php" class="btn btn-secondary">'.adm_translate("Retour à l'index d'administration").'</a>';
+   $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories_cat VALUES (NULL, '$title', '0')");
+   }
+   include ("header.php");
+   GraphicAdmin('');
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+
+   echo '
+   <h3>'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
+
+    <p align="center">'.$what1.'<br />';
+
+   echo $what2.'</p>';
+   adminfoot('','','','');
 }
 
 function EditCategory($catid) {
-    global $NPDS_Prefix;
+   global $NPDS_Prefix,$hlpfile, $language, $aid, $radminsuper,$adminimg;
+   $f_meta_nom ='adminStory';
+   $f_titre = adm_translate("Articles");
+   //==> controle droit
+   admindroits($aid,$f_meta_nom);
+   //<== controle droit
+   include ("header.php");
+   GraphicAdmin('');
 
-    include ("header.php");
-    GraphicAdmin('');
-    opentable();
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo "".adm_translate("Edition des Catégories")."";
-    echo "</td></tr></table>\n";
-    $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
-    list($title) = sql_fetch_row($result);
-    if (!$catid) {
-        $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
-        echo "<form action=\"admin.php\" method=\"post\"><b>";
-        echo adm_translate("Sélectionner une Catégorie")." : </b>";
-        echo "<select class=\"textbox_standard\" name=\"catid\">";
-        echo "<option name=\"catid\" value=\"0\">".adm_translate("Articles")."</option>";
-        while(list($catid, $title) = sql_fetch_row($selcat)) {
-            echo "<option name=\"catid\" value=\"$catid\">".aff_langue($title)."</option>";
-        }
-        echo "</select>";
-        echo "<input type=\"hidden\" name=\"op\" value=\"EditCategory\" />";
-        echo " - <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Editer")."\" />";
-        echo "</form>";
-    } else {
-        echo "<form action=\"admin.php\" method=\"post\">";
-        echo "<b>".adm_translate("Nom : ")."</b> ";
-        echo "<input class=\"textbox_standard\" type=\"text\" name=\"title\" size=\"50\" maxlength=\"255\" value=\"$title\" /> ";
-        echo "<input type=\"hidden\" name=\"catid\" value=\"$catid\" />";
-        echo "<input type=\"hidden\" name=\"op\" value=\"SaveEditCategory\" />";
-        echo " - <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Sauver les modifications")."\" />";
-        echo "</form>";
-    }
-    closetable();
-    include("footer.php");
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   echo '<h3>'.adm_translate("Edition des Catégories").'</h3>';
+   $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
+   list($title) = sql_fetch_row($result);
+   if (!$catid) {
+      $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
+      echo '
+   <form action="admin.php" method="post">
+      <div class="form-group row">
+         <label class="form-control-label col-sm-12" for="catid">'.adm_translate("Sélectionner une Catégorie").'</label>
+         <div class="col-sm-12">
+            <select class="c-select form-control" name="catid">';
+      echo '
+               <option name="catid" value="0">'.adm_translate("Articles").'</option>';
+      while(list($catid, $title) = sql_fetch_row($selcat)) {
+         echo '
+               <option name="catid" value="'.$catid.'">'.aff_langue($title).'</option>';
+      }
+      echo '
+           </select>
+        </div>
+     </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="op" value="EditCategory" />
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Editer").'" />
+        </div>
+     </div>
+   </form>';
+   } else {
+      echo '
+   <form action="admin.php" method="post">
+      <div class="form-group row">
+      <label class="form-control-label col-sm-12" for="title">'.adm_translate("Nom").'</label>
+         <div class="col-sm-12">
+            <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" required="required"/>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="catid" value="'.$catid.'" />
+            <input type="hidden" name="op" value="SaveEditCategory" />
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
+        </div>
+     </div>
+   </form>';
+   }
+   include("footer.php");
 }
 function SaveEditCategory($catid, $title) {
     global $NPDS_Prefix;
@@ -204,62 +246,77 @@ function SaveEditCategory($catid, $title) {
     $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
     if ($check) {
         $what1 = adm_translate("Cette Catégorie existe déjà !");
-        $what2 = "[ <a href=\"javascript:history.go(-2)\" class=\"noir\">".adm_translate("Retour en arriére, pour changer le Nom")."</a> ]";
+        $what2 = '[ <a href="javascript:history.go(-2)" class="noir">'.adm_translate("Retour en arrière, pour changer le Nom").'</a> ]';
     } else {
         $what1 = adm_translate("Catégorie sauvegardée");
-        $what2 = "[ <a href=\"admin.php\" class=\"noir\">".adm_translate("Retour à l'index d'administration")."</a> ]";
+        $what2 = '[ <a href="admin.php" class="noir">'.adm_translate("Retour à l'index d'administration").'</a> ]';
         $result = sql_query("UPDATE ".$NPDS_Prefix."stories_cat SET title='$title' WHERE catid='$catid'");
         global $aid; Ecr_Log("security", "SaveEditCategory($catid, $title) by AID : $aid", "");
     }
     include ("header.php");
     GraphicAdmin("");
-    opentable();
-    echo "<p align=\"center\"><b>$what1</b><br /><br />";
-    echo "$what2</p><br />";
-    closetable();
+
+    echo '<p align="center"><b>'.$what1.'</b><br /><br />';
+    echo $what2.'</p><br />';
+
     include("footer.php");
 }
 
 function DelCategory($cat) {
-    global $NPDS_Prefix;
+   global $NPDS_Prefix,$hlpfile, $language, $aid, $radminsuper,$adminimg;
+   $f_meta_nom ='adminStory';
+   $f_titre = adm_translate("Articles");
+   //==> controle droit
+   admindroits($aid,$f_meta_nom);
+   //<== controle droit
+   include ("header.php");
+   GraphicAdmin('');
 
-    include ("header.php");
-    GraphicAdmin("");
-    opentable();
-    $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$cat'");
-    list($title) = sql_fetch_row($result);
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo adm_translate("Supprimer une Catégorie");
-    echo "</td></tr></table>\n";
+   $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$cat'");
+   list($title) = sql_fetch_row($result);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   echo '
+   <h3>'.adm_translate("Supprimer une Catégorie").'</h3>';
     if (!$cat) {
-        $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
-        echo "<form action=\"admin.php\" method=\"post\">";
-        echo "<b>".adm_translate("Sélectionner une Catégorie à supprimer")." : </b>";
-        echo "<select class=\"textbox_standard\" name=\"cat\">";
+      $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
+      echo '
+   <form action="admin.php" method="post">
+      <div class="form-group row">
+      <label class="form-control-label col-sm-12" for="cat">'.adm_translate("Sélectionner une Catégorie à supprimer").'</label>
+         <div class="col-sm-12">
+            <select class="c-select form-control" name="cat">';
         while(list($catid, $title) = sql_fetch_row($selcat)) {
-            echo "<option name=\"cat\" value=\"$catid\">".aff_langue($title)."</option>";
+            echo '
+               <option name="cat" value="'.$catid.'">'.aff_langue($title).'</option>';
         }
-        echo "</select>";
-        echo "<input type=\"hidden\" name=\"op\" value=\"DelCategory\" />";
-        echo " - <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Effacer")."\" />";
-        echo "</form>";
-    } else {
-        $result2 = sql_query("SELECT * FROM ".$NPDS_Prefix."stories WHERE catid='$cat'");
-        $numrows = sql_num_rows($result2);
-        if ($numrows == 0) {
-            sql_query("DELETE FROM ".$NPDS_Prefix."stories_cat WHERE catid='$cat'");
-            global $aid; Ecr_Log("security", "DelCategory($cat) by AID : $aid", "");
-            echo "<p align=\"center\"<br /><b><span class=\"noir\">".adm_translate("Suppression effectuée")."</span></b></p><br />";
-        } else {
-            echo "<span class=\"noir\"><br /><b>".adm_translate("Attention : ")."</b> ".adm_translate("la Catégorie")." <b>$title</b> ".adm_translate("a")." <b>$numrows</b> ".adm_translate("Articles !")."<br /><br />";
-            echo adm_translate("Vous pouvez supprimer la Catégorie, les Articles et Commentaires")." ";
-            echo adm_translate("ou les affecter à une autre Catégorie.")."<br /><br /></span>";
-            echo "<p align=\"center\" class=\"noir\">".adm_translate("Que voulez-vous faire ?")." - ";
-            echo "<b>[ <a href=\"admin.php?op=YesDelCategory&amp;catid=$cat\" class=\"rouge\">".adm_translate("Tout supprimer")."</a> | ";
-            echo "<a href=\"admin.php?op=NoMoveCategory&amp;catid=$cat\" class=\"noir\">".adm_translate("Affecter à une autre Catégorie")."</a> ]</b></p>";
+        echo '
+            </select>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="op" value="DelCategory" />
+            <input class="btn btn-danger" type="submit" value="'.adm_translate("Effacer").'" />
+         </div>
+      </div>
+   </form>';
+   } else {
+      $result2 = sql_query("SELECT * FROM ".$NPDS_Prefix."stories WHERE catid='$cat'");
+      $numrows = sql_num_rows($result2);
+      if ($numrows == 0) {
+         sql_query("DELETE FROM ".$NPDS_Prefix."stories_cat WHERE catid='$cat'");
+         global $aid; Ecr_Log("security", "DelCategory($cat) by AID : $aid", "");
+         echo '
+         <div class="alert alert-success" role="alert">'.adm_translate("Suppression effectuée").'</div>';
+      } else {
+            echo '<span class="noir"><br /><b>'.adm_translate("Attention : ").'</b> '.adm_translate("la Catégorie").' <b>'.$title.'</b> '.adm_translate("a").' <b>'.$numrows.'</b> '.adm_translate("Articles !").'<br /><br />';
+            echo adm_translate("Vous pouvez supprimer la Catégorie, les Articles et Commentaires").' ';
+            echo adm_translate("ou les affecter à une autre Catégorie.").'<br /><br /></span>';
+            echo '<p align="center" class="noir">'.adm_translate("Que voulez-vous faire ?").' - ';
+            echo '<b>[ <a href="admin.php?op=YesDelCategory&amp;catid='.$cat.'" class="text-danger">'.adm_translate("Tout supprimer").'</a> | ';
+            echo '<a href="admin.php?op=NoMoveCategory&amp;catid='.$cat.'" class="noir">'.adm_translate("Affecter à une autre Catégorie").'</a> ]</b></p>';
         }
     }
-    closetable();
     include("footer.php");
 }
 function YesDelCategory($catid) {
@@ -283,27 +340,28 @@ function NoMoveCategory($catid, $newcat) {
 
     include ("header.php");
     GraphicAdmin("");
-    opentable();
     $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
     list($title) = sql_fetch_row($result);
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+
     echo adm_translate("Affectation d'Articles vers une nouvelle Catégorie");
-    echo "</td></tr></table>\n";
+
     if (!$newcat) {
-        echo "<br />".adm_translate("Tous les Articles dans")." <b>".aff_langue($title)."</b> ".adm_translate("seront affectés à")."<br /><br />";
+        echo '<br />'.adm_translate("Tous les Articles dans").' <b>'.aff_langue($title).'</b> '.adm_translate("seront affectés à").'<br /><br />';
         $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
-        echo "<form action=\"admin.php\" method=\"post\">";
-        echo "<b>".adm_translate("Sélectionner la nouvelle Catégorie : ")."</b> ";
-        echo "<select class=\"textbox_standard\" name=\"newcat\">";
-        echo "<option name=\"newcat\" value=\"0\">".adm_translate("Articles")."</option>";
+        echo '
+        <form action="admin.php" method="post">
+        <b>'.adm_translate("Sélectionner la nouvelle Catégorie : ").'</b>
+        <select class="c-select form-control" name="newcat">
+           <option name="newcat" value="0">'.adm_translate("Articles").'</option>';
         while(list($newcat, $title) = sql_fetch_row($selcat)) {
-                echo "<option name=\"newcat\" value=\"$newcat\">".aff_langue($title)."</option>";
+                echo '
+                <option name="newcat" value="'.$newcat.'">'.aff_langue($title).'</option>';
         }
-        echo "</select>";
-        echo "<input type=\"hidden\" name=\"catid\" value=\"$catid\" />";
-        echo "<input type=\"hidden\" name=\"op\" value=\"NoMoveCategory\" />";
-        echo " - <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Affectation")."\" />";
-        echo "</form>";
+        echo '</select>
+        <input type="hidden" name="catid" value="'.$catid.'" />
+        <input type="hidden" name="op" value="NoMoveCategory" />
+         - <input class="btn btn-primary" type="submit" value="'.adm_translate("Affectation").'" />
+         </form>';
     } else {
         $resultm = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories WHERE catid='$catid'");
         while(list($sid) = sql_fetch_row($resultm)) {
@@ -311,9 +369,9 @@ function NoMoveCategory($catid, $newcat) {
         }
         sql_query("DELETE FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
         global $aid; Ecr_Log("security", "NoMoveCategory($catid, $newcat) by AID : $aid", "");
-        echo "<p align=\"center\"><br /><b class=\"noir\">".adm_translate("La ré-affectation est terminée !")."</b></p><br />";
+        echo '<p align="center"><br /><b class="noir">'.adm_translate("La ré-affectation est terminée !").'</b></p><br />';
     }
-    closetable();
+
     include("footer.php");
 }
 
@@ -350,12 +408,11 @@ function displayStory ($qid) {
    echo adm_translate("Prévisualiser l'Article");
 
    echo '
-   <form action="admin.php" method="post" name="adminForm">';
-
-    echo "<td valign=\"top\"><b>".adm_translate("Langue de Prévisualisation")."</b> : ".aff_localzone_langue("local_user_language")."<br /><br />";
+   <form action="admin.php" method="post" name="adminForm">
+   <td valign="top"><b>'.adm_translate("Langue de Prévisualisation").'</b> : '.aff_localzone_langue("local_user_language").'<br /><br />';
     $no_img=false;
-    if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-       echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
+    if ((file_exists("$tipath$topicimage")) and ($topicimage!='')) {
+       echo '<img src="$tipath$topicimage" border="0" align="right" alt="" />';
     } else {
        $no_img=true;
     }
@@ -363,9 +420,10 @@ function displayStory ($qid) {
     if ($no_img) {
        echo aff_langue($topictext);
     }
-    echo "<b>".adm_translate("Utilisateur")."</b> : <input class=\"textbox_standard\" type=\"text\" name=\"author\" size=\"50\" value=\"$uname\" />&nbsp;";
+    echo '<b>'.adm_translate("Utilisateur").'</b> : <input class="textbox_standard" type="text" name="author" size="50" value="'.$uname.'" />&nbsp;';
     if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
-    echo "<a href=\"replypmsg.php?send=".urlencode($uname)."\" target=\"_blank\"><img src=\"$imgtmp\" border=\"0\" alt=\"".adm_translate("Diffusion d'un Message Interne")."\" /></a><br /><br />";
+    echo '
+    <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank"><img src="'.$imgtmp.'" border="0" alt="'.adm_translate("Diffusion d'un Message Interne").'" /></a><br /><br />';
     echo '
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
@@ -443,7 +501,7 @@ function displayStory ($qid) {
     publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
    echo '
    <input type="hidden" name="qid" value="'.$qid.'" />
-   <input type="hidden" name=\"uid\" value="'.$uid.'" />
+   <input type="hidden" name="uid" value="'.$uid.'" />
    <select class="c-select form-control" name="op">
    <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
    <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
@@ -458,7 +516,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     global $NPDS_Prefix;
     global $tipath, $hlpfile, $language, $aid, $radminsuper;
     $hlpfile = "manuels/$language/newarticle.html";
-    $subject = stripslashes(str_replace("\"","&quot;",$subject));
+    $subject = stripslashes(str_replace('"','&quot;',$subject));
     $hometext = stripslashes($hometext);
     $bodytext = stripslashes($bodytext);
     $notes = stripslashes($notes);
@@ -470,7 +528,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     if ($radminsuper) {
        $affiche=true;
     } else {
-       $topicadminX=explode(",",$topicadmin);
+       $topicadminX=explode(',',$topicadmin);
        for ($i = 0; $i < count($topicadminX); $i++) {
           if (trim($topicadminX[$i])==$aid) $affiche=true;
        }
@@ -479,77 +537,85 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
 
     include ('header.php');
     GraphicAdmin($hlpfile);
-    opentable();
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo adm_translate("Prévisualiser l'Article");
-    echo "</td></tr></table>\n";
+
     global $local_user_language;
-    echo "<form action=\"admin.php\" method=\"post\" name=\"adminForm\">";
+
+    echo '
+    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
+    <form action="admin.php" method="post" name="adminForm">
+    
+    <table border="0" width="85%" cellpadding="0" cellspacing="1"><tr '.$rowcolor.'><td>';
     $rowcolor = tablos();
-    echo "<table border=\"0\" width=\"85%\" cellpadding=\"0\" cellspacing=\"1\"><tr $rowcolor><td>";
-    $rowcolor = tablos();
-    echo "<table width=\"100%\" border=\"0\" cellpadding=\"8\" cellspacing=\"1\"><tr $rowcolor>";
-    echo "<td valign=\"top\"><b>".adm_translate("Langue de Prévisualisation")."</b> : ".aff_localzone_langue("local_user_language")."<br /><br />";
+    echo '<table width="100%" border="0" cellpadding="8" cellspacing="1"><tr '.$rowcolor.'>
+    <td valign="top"><b>'.adm_translate("Langue de Prévisualisation").'</b> : '.aff_localzone_langue("local_user_language").'<br /><br />';
     $no_img=false;
-    if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-       echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
+    if ((file_exists("$tipath$topicimage")) and ($topicimage!='')) {
+       echo '<img src="'.$tipath.$topicimage.'" border="0" align="right" alt="" />';
     } else {
        $no_img=true;
     }
     code_aff($subject, meta_lang($hometext), meta_lang($bodytext), meta_lang($notes));
     if ($no_img) {
-       echo "</td><td width=\"10%\" align=\"center\" valign=\"middle\"><b>".aff_langue($topictext)."</b>";
+       echo '</td><td width="10%" align="center" valign="middle"><b>'.aff_langue($topictext).'</b>';
     }
-    echo "</td></tr></table></td></tr></table><br />";
+    echo '</td></tr></table></td></tr></table><br />';
     opentable2();
-    echo "<b>".adm_translate("Utilisateur")."</b> : <input class=\"textbox_standard\" type=\"text\" name=\"author\" size=\"50\" value=\"$author\" /><br /><br />";
-    echo "<b>".adm_translate("Titre")."</b>&nbsp;&nbsp;: <input class=\"textbox\" type=\"text\" name=\"subject\" size=\"50\" value=\"$subject\" /><br />";
-    echo "<b>".adm_translate("Sujet")."</b> : <select class=\"textbox_standard\" name=\"topic\">";
+    echo '
+    <label class="form-control-label col-sm-4">'.adm_translate("Utilisateur").'</label>
+    <input class="textbox_standard" type="text" name="author" size="50" value="'.$author.'" />
+    <label class="form-control-label col-sm-4">'.adm_translate("Titre").'</label>
+    <input class="textbox" type="text" name="subject" size="50" value="'.$subject.'" />
+    <label class="form-control-label col-sm-4">'.adm_translate("Sujet").'</label>
+    <select class="c-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
-    if ($radminsuper) echo "<option value=\"\">".adm_translate("Tous les Sujets")."</option>\n";
+    if ($radminsuper) echo '
+    <option value="">'.adm_translate("Tous les Sujets").'</option>';
     while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
        $affiche=false;
        if ($radminsuper) {
           $affiche=true;
        } else {
-          $topicadminX=explode(",",$topicadmin);
+          $topicadminX=explode(',',$topicadmin);
           for ($i = 0; $i < count($topicadminX); $i++) {
              if (trim($topicadminX[$i])==$aid) $affiche=true;
           }
        }
        if ($affiche) {
-          if ($topicid==$topic) { $sel = "selected=\"selected\" "; }
-          echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
-          $sel = "";
+          if ($topicid==$topic) { $sel = 'selected="selected" '; }
+          echo '
+          <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+          $sel = '';
        }
     }
-    echo "</select>";
+    echo '
+    </select>';
     SelectCategory($catid);
-    echo "<br />";
-    if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
+    echo '<br />';
+    if (($members==1) and ($Mmembers=='')) {$ihome="-127";}
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
     puthome($ihome);
     closetable2();
 
-    echo "<br /><b>".adm_translate("Texte d'introduction")."</b> :<br />
-    <textarea class=\"textbox\" cols=\"70\" rows=\"25\" name=\"hometext\" style=\"width: 100%;\">$hometext</textarea>";
-    echo aff_editeur("hometext", "true");
-    echo "<br /><b>".adm_translate("Texte étendu")."</b> :<br />
-    <textarea class=\"textbox\" cols=\"70\" rows=\"25\" name=\"bodytext\" style=\"width: 100%;\">$bodytext</textarea>";
-    echo aff_editeur("bodytext", "true");
-    echo "<br /><b>".adm_translate("Notes")."</b> :<br />
-    <textarea class=\"textbox\" cols=\"70\" rows=\"7\" name=\"notes\" style=\"width: 100%;\">$notes</textarea>";
-    echo aff_editeur("notes", "true");
+    echo '<br /><b>'.adm_translate("Texte d'introduction").'</b> :<br />
+    <textarea class="tin form-control" cols="70" rows="25" name="hometext" >'.$hometext.'</textarea>';
+    echo aff_editeur('hometext', '');
+    echo '<br /><b>'.adm_translate("Texte étendu").'</b> :<br />
+    <textarea class="tin form-control" cols="70" rows="25" name="bodytext" >'.$bodytext.'</textarea>';
+    echo aff_editeur('bodytext', '');
+    echo '<br /><b>'.adm_translate("Notes").'</b> :<br />
+    <textarea class="tin form-control" cols="70" rows="7" name="notes" >'.$notes.'</textarea>';
+    echo aff_editeur('notes', '');
 
     publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
-    echo "<input type=\"hidden\" name=\"qid\" value=\"$qid\" />
-    <input type=\"hidden\" name=\"uid\" value=\"$uid\" />
-    <br /><select class=\"textbox_standard\" name=\"op\">
-    <option value=\"DeleteStory\">".adm_translate(" Effacer l'Article ")."</option>
-    <option value=\"PreviewAgain\" selected=\"selected\">".adm_translate(" Re-prévisualiser ")."</option>
-    <option value=\"PostStory\">".adm_translate("Poster un Article ")."</option>
+    echo '
+    <input type="hidden" name="qid" value="'.$qid.'" />
+    <input type="hidden" name="uid" value="'.$uid.'" />
+    <br /><select class="c-select form-control" name="op">
+    <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
+    <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+    <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
     </select>
-    <input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Ok")."\" /></form>";
+    <input class="btn btn primary" type="submit" value="'.adm_translate("Ok").'" /></form>';
     closetable();
     include ('footer.php');
 }
@@ -559,7 +625,7 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
     global $aid, $ultramode;
     if ($uid == 1) $author = "";
     if ($hometext == $bodytext) $bodytext = "";
-    $subject = stripslashes(FixQuotes(str_replace("\"","&quot;",$subject)));
+    $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
     $hometext = stripslashes(FixQuotes($hometext));
     $bodytext = stripslashes(FixQuotes($bodytext));
     $notes = stripslashes(FixQuotes($notes));
@@ -618,7 +684,7 @@ function editStory ($sid) {
    $subject = stripslashes($subject);
    $hometext = stripslashes($hometext);
    if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
-   $hometext=str_replace("<img src=\"".$imgtmp."\" border=\"0\" align=\"center\" alt=\"\" /> :: ","",$hometext);
+   $hometext=str_replace('<img src="'.$imgtmp.'" border="0" align="center" alt="" /> :: ','',$hometext);
    $bodytext = stripslashes($bodytext);
    $notes = stripslashes($notes);
 
@@ -646,10 +712,10 @@ function editStory ($sid) {
    $result=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext, $topicimage) = sql_fetch_row($result);
 
-   echo aff_local_langue("<b>".adm_translate("Langue de Prévisualisation")."</b> : ","","local_user_language");
+   echo aff_local_langue('<b>'.adm_translate("Langue de Prévisualisation").'</b> : ','','local_user_language');
    $no_img=false;
    if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-      echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
+      echo '<img src="'.$tipath.$topicimage.'" border="0" align="right" alt="" />';
    } else {
       $no_img=true;
    }
@@ -816,10 +882,10 @@ function removeStory ($sid, $ok=0) {
        $hlpfile = "manuels/$language/newarticle.html";
        include ('header.php');
        GraphicAdmin($hlpfile);
-       opentable();
-       echo "<p align=\"center\"><span class=\"rouge\">".adm_translate("Etes-vous sûr de vouloir effacer l'Article N∞")." $sid ".adm_translate("et tous ses Commentaires ?")."</span>";
-       echo "<br /><br />[ <a href=\"admin.php?op=RemoveStory&amp;sid=$sid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php\" class=\"noir\">".adm_translate("Non")."</a> ]</p><br />";
-       closetable();
+
+       echo '<p align="center"><span class="text-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N∞").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</span>';
+       echo '<br /><br />[ <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="text-danger">'.adm_translate("Oui").'</a> | <a href="admin.php" >'.adm_translate("Non").'</a> ]</p><br />';
+
        include("footer.php");
     }
 }
@@ -827,7 +893,7 @@ function removeStory ($sid, $ok=0) {
 function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur,$theme) {
     global $NPDS_Prefix;
     global $aid, $ultramode;
-    $subject = stripslashes(FixQuotes(str_replace("\"","&quot;",$subject)));
+    $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
     $hometext = stripslashes(FixQuotes($hometext));
     $bodytext = stripslashes(FixQuotes($bodytext));
     $notes = stripslashes(FixQuotes($notes));
@@ -949,44 +1015,51 @@ function adminStory() {
 }
 
 function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,$epur) {
-    global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper;
-    $hlpfile = "manuels/$language/newarticle.html";
-    $subject = stripslashes(str_replace("\"","&quot;",$subject));
-    $hometext = stripslashes($hometext);
-    $bodytext = stripslashes($bodytext);
+   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper,$adminimg, $topicimage;
+   $hlpfile = "manuels/$language/newarticle.html";
+   $subject = stripslashes(str_replace('"','&quot;',$subject));
+   $hometext = stripslashes($hometext);
+   $bodytext = stripslashes($bodytext);
 
-    if ($topic<1) {$topic = 1;}
-    $affiche=false;
-    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-    list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
-    if ($radminsuper) {
-       $affiche=true;
-    } else {
-       $topicadminX=explode(",",$topicadmin);
-       for ($i = 0; $i < count($topicadminX); $i++) {
-          if (trim($topicadminX[$i])==$aid) $affiche=true;
-       }
-    }
-    if (!$affiche) { header("location: admin.php");}
+   if ($topic<1) {$topic = 1;}
+   $affiche=false;
+   $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+   list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
+   if ($radminsuper) {
+      $affiche=true;
+   } else {
+      $topicadminX=explode(',',$topicadmin);
+      for ($i = 0; $i < count($topicadminX); $i++) {
+         if (trim($topicadminX[$i])==$aid) $affiche=true;
+      }
+   }
+   if (!$affiche) { header("location: admin.php");}
 
-    include ('header.php');
-    GraphicAdmin($hlpfile);
-    echo adm_translate("Prévisualiser l'Article");
+   $f_meta_nom ='adminStory';
+   $f_titre = adm_translate("Nouvel Article");
+   //==> controle droit
+//   admindroits($aid,$f_meta_nom); // à voir l'intégrationavec les droits sur les topics ...
+   //<== controle droit
+   include ('header.php');
+   GraphicAdmin($hlpfile);
+   global $local_user_language;
 
-    global $local_user_language;
-    echo '<form action="admin.php" method="post" name="adminForm">';
-    echo "<td valign=\"top\"><b>".adm_translate("Langue de Prévisualisation")."</b> : ".aff_localzone_langue("local_user_language")."<br /><br />";
-    $no_img=false;
-    if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-       echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
-    } else {
-       $no_img=true;
-    }
-    code_aff($subject, $hometext, $bodytext, "");
-    if ($no_img) {
-       echo "</td><td width=\"10%\" align=\"center\" valign=\"middle\"><b>".aff_langue($topictext)."</b>";
-    }
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
+   <form action="admin.php" method="post" name="adminForm">
+   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> '.aff_localzone_langue("local_user_language");
+   echo '<div class="card card-block">';
+
+   if ($topicimage=='') { echo '<b>'.aff_langue($topictext).'</b>'; } else {
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+      $timage=$imgtmp;
+      echo '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
+   }
+    
+   code_aff('<h3>'.$subject.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
+   echo '
+   </div>
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
@@ -1039,7 +1112,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
          <div class="col-xs-12">
-            <textarea class="tin form-control"  rows="25" name="bodytext" >'.$bodytext.'</textarea>
+            <textarea class="tin form-control" rows="25" name="bodytext" >'.$bodytext.'</textarea>
          </div>
       </div>';
     echo aff_editeur("bodytext", "true");
@@ -1048,11 +1121,15 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
     echo '
       <div class="form-group row">
          <input type="hidden" name="author" value="'.$aid.'" />
-         <select class="c-select form-control" name="op">
-            <option value="PreviewAdminStory" selected>'.adm_translate("Prévisualiser").'</option>
-            <option value="PostStory">'.adm_translate("Poster un Article Admin").'</option>
-         </select>
-          <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
+         <div class="col-xs-7">
+            <select class="c-select form-control" name="op">
+               <option value="PreviewAdminStory" selected>'.adm_translate("Prévisualiser").'</option>
+               <option value="PostStory">'.adm_translate("Poster un Article Admin").'</option>
+            </select>
+         </div>
+         <div class="col-xs-5">
+             <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
+         </div>
       </div>
    </form>';
     include ('footer.php');
