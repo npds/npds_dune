@@ -26,12 +26,12 @@ if (!function_exists("Mysql_Connexion")) {
    if ($op=="maj_subscribe") {
       if ($user) {
          settype($cookie[0],"integer");
-         $result = sql_query("delete from ".$NPDS_Prefix."subscribe where uid='$cookie[0]' and forumid!='NULL'");
-         $result = sql_query("select forum_id from ".$NPDS_Prefix."forums order by forum_index,forum_id");
+         $result = sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$cookie[0]' AND forumid!='NULL'");
+         $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id");
          while(list($forumid) = sql_fetch_row($result)) {
             if (is_array($Subforumid)) {
                if (array_key_exists($forumid,$Subforumid)) {
-                  $resultX = sql_query("insert into ".$NPDS_Prefix."subscribe (forumid, uid) values ('$forumid','$cookie[0]')");
+                  $resultX = sql_query("INSERT INTO ".$NPDS_Prefix."subscribe (forumid, uid) VALUES ('$forumid','$cookie[0]')");
                }
             }
          }
