@@ -146,7 +146,7 @@ function translate_pass1($phrase) {
    case "Add a SUB-Category": $tmp="Ajouter une sous-catégorie"; break;
    case "in": $tmp="dans"; break;
    case "Add a New Link": $tmp="Ajouter un nouveau lien"; break;
-   case "E-Mail: ": $tmp="Mèl : "; break;
+   case "E-Mail": $tmp="Mèl"; break;
    case "New Link added to the Database": $tmp="Nouveau lien ajouté dans la base de données"; break;
    case "Your Link at": $tmp="Votre lien"; break;
    case "Hello": $tmp="Bonjour"; break;
