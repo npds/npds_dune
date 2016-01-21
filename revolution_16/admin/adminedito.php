@@ -84,27 +84,23 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          </div>
       </div>
          <div class="col-sm-offset-4 col-sm-8">
-
          <div class="form-group">
-               <label class="checkbox-inline">
-                  <input type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' />'.adm_translate("Le jour").'
-               </label> 
-               <label class="checkbox-inline">
-                  <input type="checkbox" name="aff_nuit" value="checked" '.$Xaff_nuit.' />'.adm_translate("La nuit").'
-               </label>
+            <label class="checkbox-inline">
+               <input type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' />'.adm_translate("Le jour").'
+            </label> 
+            <label class="checkbox-inline">
+               <input type="checkbox" name="aff_nuit" value="checked" '.$Xaff_nuit.' />'.adm_translate("La nuit").'
+            </label>
             </div>
          </div>
-      ';
-      echo '
       <input type="hidden" name="op" value="Edito_save" />
       <input type="hidden" name="edito_type" value="'.$edito_type.'" />
-      <div class="form-group">
-               <div class="row">
-
+      <div class="form-group row">
          <div class="col-sm-offset-4 col-sm-8">
             <button class="btn btn-primary col-xs-12" type="submit" name="edito_confirm"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").' </button>
-            <a href="admin.php?op=Edito" class="btn btn-secondary col-xs-12">'.adm_translate("Abandonner").'</a>
          </div>
+         <div class="col-sm-offset-4 col-sm-8">
+            <a href="admin.php?op=Edito" class="btn btn-secondary col-xs-12">'.adm_translate("Abandonner").'</a>
          </div>
       </div>
       </fieldset>

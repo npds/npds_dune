@@ -31,7 +31,6 @@ function ablock() {
    if (sql_num_rows($result) > 0) {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
-         <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
          <form id="fad_ablock" action="admin.php" method="post">
             <div class="form-group row">
                <label class="form-control-label col-xs-12" for="title">'.adm_translate("Titre").'</label>
@@ -55,7 +54,9 @@ function ablock() {
          </form>
          <script type="text/javascript">
          //<![CDATA[
-            inpandfieldlen("title",250);
+            $(document).ready(function() {
+               inpandfieldlen("title",250);
+            });
          //]]>
          </script>';
       }
