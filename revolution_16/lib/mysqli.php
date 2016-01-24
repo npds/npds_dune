@@ -17,7 +17,7 @@ $sql_nbREQ=0;
 
 // Escape string
    function SQL_escape_string ($arr) {
-  // pas bonnnnn car ne sert à rien !
+  // pas bonnnnn car ne sert Ã  rien !
       if (function_exists("mysqli_real_escape_string"))
          @mysqli_real_escape_string($arr);
       elseif (function_exists("mysqli_escape_string"))
@@ -26,10 +26,10 @@ $sql_nbREQ=0;
    }
 // Connexion
    function sql_connect() {
-      global $mysql_p, $dbhost, $dbuname, $dbpass, $dbname;
+      global $mysql_p, $dbhost, $dbuname, $dbpass, $dbname, $dblink;
 
       if (($mysql_p) or (!isset($mysql_p))) {
-         $dblink=@mysqli_connect($dbhost, $dbuname, $dbpass);
+         $dblink=@mysqli_connect('p:'.$dbhost, $dbuname, $dbpass);
       } else {
          $dblink=@mysqli_connect($dbhost, $dbuname, $dbpass);
       }
@@ -47,7 +47,7 @@ $sql_nbREQ=0;
    function sql_error() {
       return @mysqli_error();
    }
-// Exécution de requête
+// ExÃ©cution de requÃªte
    function sql_query($sql) {
       global $sql_nbREQ, $dblink;
       $sql_nbREQ++;
@@ -56,16 +56,16 @@ $sql_nbREQ=0;
       else
          return $query_id;
    }
-// Tableau Associatif du résultat
-   function sql_fetch_assoc($q_id="") {
+// Tableau Associatif du rÃ©sultat
+   function sql_fetch_assoc($q_id='') {
       if (empty($q_id)) {
          global $query_id;
          $q_id = $query_id;
       }
         return @mysqli_fetch_assoc($q_id);
    }
-// Tableau Numérique du résultat
-   function sql_fetch_row($q_id="") {
+// Tableau NumÃ©rique du rÃ©sultat
+   function sql_fetch_row($q_id='') {
       if (empty($q_id)) {
          global $query_id;
          $q_id = $query_id;
@@ -73,62 +73,52 @@ $sql_nbREQ=0;
       return @mysqli_fetch_row($q_id);
    }
 // Resultat sous forme d'objet
-   function sql_fetch_object($q_id="") {
+   function sql_fetch_object($q_id='') {
       if (empty($q_id)) {
          global $query_id;
          $q_id = $query_id;
       }
       return @mysqli_fetch_object($q_id);
    }
-// Nombre de lignes d'un résultat
-   function sql_num_rows($q_id="") {
+// Nombre de lignes d'un rÃ©sultat
+   function sql_num_rows($q_id='') {
       if (empty($q_id)) {
          global $query_id;
          $q_id = $query_id;
       }
       return @mysqli_num_rows($q_id);
    }
-// Nombre de champs d'une requête
-   function sql_num_fields($q_id="") {
+// Nombre de champs d'une requÃªte
+   function sql_num_fields($q_id='') {
       if (empty($q_id)) {
         global $query_id;
         $q_id = $query_id;
       }
       return @mysqli_field_count($q_id);
    }
-// Nombre de lignes affectées par les requêtes de type INSERT, UPDATE et DELETE
+// Nombre de lignes affectÃ©es par les requÃªtes de type INSERT, UPDATE et DELETE
    function sql_affected_rows() {
       return @mysqli_affected_rows();
    }
-// Le dernier identifiant généré par un champ de type AUTO_INCREMENT
+// Le dernier identifiant gÃ©nÃ©rÃ© par un champ de type AUTO_INCREMENT
    function sql_last_id() {
       global $dblink;
       return @mysqli_insert_id($dblink);
    }
 // Lister les tables
-   function sql_list_tables($dbnom="") {
+   function sql_list_tables($dbnom='') {
       if (empty($dbnom)) {
          global $dbname;
          $dbnom = $dbname;
       }
       return @sql_query("SHOW TABLES FROM $dbnom");
    }
-// Libère toute la mémoire et les ressources utilisées par la requête $query_id
-   function sql_free_result($q_id="") {
+// LibÃ¨re toute la mÃ©moire et les ressources utilisÃ©es par la requÃªte $query_id
+   function sql_free_result($q_id='') {
       return @mysqli_free_result($q_id);
    }
-// Ferme la connexion avec la Base de données
+// Ferme la connexion avec la Base de donnÃ©es
    function sql_close($dblink) {
       return @mysqli_close($dblink);
    }
-   
-   // Meta donnŽes d'un champ ==> to test on dev
-   function sql_fetch_field_direct ($q_id='',$i) {
-      if (empty($q_id)) {
-        global $query_id;
-        $q_id = $query_id;
-      }
-      return mysqli_fetch_field_direct($q_id,$i);
-   }
-
 ?>

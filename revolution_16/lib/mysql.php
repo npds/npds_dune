@@ -17,7 +17,7 @@ $sql_nbREQ=0;
 
 // Escape string
    function SQL_escape_string ($arr) {
-  // pas bonnnnn car ne sert à rien !
+  // pas bonnnnn car ne sert â€¡ rien !
       if (function_exists("mysql_real_escape_string"))
          @mysql_real_escape_string($arr);
       elseif (function_exists("mysql_escape_string"))
@@ -47,7 +47,7 @@ $sql_nbREQ=0;
    function sql_error() {
       return @mysql_error();
    }
-// Exécution de requête
+// ExÃ©cution de requÃªte
    function sql_query($sql) {
       global $sql_nbREQ;
       $sql_nbREQ++;
@@ -56,7 +56,7 @@ $sql_nbREQ=0;
       else
          return $query_id;
    }
-// Tableau Associatif du résultat
+// Tableau Associatif du rÃ©sultat
    function sql_fetch_assoc($q_id="") {
       if (empty($q_id)) {
          global $query_id;
@@ -64,7 +64,7 @@ $sql_nbREQ=0;
       }
         return @mysql_fetch_assoc($q_id);
    }
-// Tableau Numérique du résultat
+// Tableau NumÃ©rique du rÃ©sultat
    function sql_fetch_row($q_id="") {
       if (empty($q_id)) {
          global $query_id;
@@ -80,7 +80,7 @@ $sql_nbREQ=0;
       }
       return @mysql_fetch_object($q_id);
    }
-// Nombre de lignes d'un résultat
+// Nombre de lignes d'un rÃ©sultat
    function sql_num_rows($q_id="") {
       if (empty($q_id)) {
          global $query_id;
@@ -88,7 +88,7 @@ $sql_nbREQ=0;
       }
       return @mysql_num_rows($q_id);
    }
-// Nombre de champs d'une requête
+// Nombre de champs d'une requÃªte
    function sql_num_fields($q_id="") {
       if (empty($q_id)) {
         global $query_id;
@@ -96,11 +96,11 @@ $sql_nbREQ=0;
       }
       return @mysql_num_fields($q_id);
    }
-// Nombre de lignes affectées par les requêtes de type INSERT, UPDATE et DELETE
+// Nombre de lignes affectÃ©es par les requÃªtes de type INSERT, UPDATE et DELETE
    function sql_affected_rows() {
       return @mysql_affected_rows();
    }
-// Le dernier identifiant généré par un champ de type AUTO_INCREMENT
+// Le dernier identifiant gÃ©nÃ©rÃ© par un champ de type AUTO_INCREMENT
    function sql_last_id() {
       return @mysql_insert_id();
    }
@@ -112,11 +112,11 @@ $sql_nbREQ=0;
       }
       return @sql_query("SHOW TABLES FROM $dbnom");
    }
-// Libère toute la mémoire et les ressources utilisées par la requête $query_id
+// LibÃ¨re toute la mÃ©moire et les ressources utilisÃ©es par la requÃªte $query_id
    function sql_free_result($q_id="") {
       return @mysql_free_result($q_id);
    }
-// Ferme la connexion avec la Base de données
+// Ferme la connexion avec la Base de donnÃ©es
    function sql_close($dblink) {
       return @mysql_close($dblink);
    }
