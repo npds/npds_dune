@@ -17,7 +17,7 @@ if (!function_exists("Mysql_Connexion")) {
 
    include("header.php");
 
-   $dkn = sql_query("select type, var, count from ".$NPDS_Prefix."counter order by type desc");
+   $dkn = sql_query("SELECT type, var, count FROM ".$NPDS_Prefix."counter ORDER BY type DESC");
    while (list($type, $var, $count) = sql_fetch_row($dkn)) {
       if (($type == "total") && ($var == "hits")) {
          $total = $count;
@@ -88,35 +88,167 @@ if (!function_exists("Mysql_Connexion")) {
       }
    }
    opentable();
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-   echo translate("We received")." <b>".wrh($total)."</b> ".translate("views since")." $startdate";
-   echo "</td></tr></table>\n";
-   echo "<br />\n";
-
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\" colspan=\"3\">\n";
-   echo translate("Browsers")."</td></tr>";
+   
+   echo '
+   <h2>'.translate("Statistics").'</h2>
+   <div class="card card-block lead">
+   '.translate("We received").' <span class="label label-default">'.wrh($total).'</span> '.translate("views since").' '.$startdate.'
+   </div>
+   <h3>'.translate("Browsers").'</h3>
+   <table data-toggle="table" data-striped="true" >
+      <thead>
+         <tr>
+            <th data-sortable="true" ></th>
+            <th data-sortable="true" data-halign="center" data-align="right">%</th>
+            <th data-align="right"></th>
+         </tr>
+      </thead>
+      <tbody>';
    if ($ibid=theme_image("stats/explorer.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/explorer.gif";}
-     echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;MSIE : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $msie[1]%;\">$msie[1]%</strong></div></td><td align=\"left\">(".wrh($msie[0]).")</td></tr>\n";
+   echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />MSIE</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$msie[1].'%;">'.$msie[1].'%</strong></div>
+               <progress class="progress" value="'.$msie[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$msie[1].'%;">'.$msie[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td align="left">'.wrh($msie[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/netscape.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/firefox.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;Mozilla : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $netscape[1]%;\">$netscape[1]%</strong></div></td><td> (".wrh($netscape[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />Mozilla</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$netscape[1].'%;">'.$netscape[1].'%</strong></div>
+               <progress class="progress" value="'.$netscape[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$netscape[1].'%;">'.$netscape[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td> '.wrh($netscape[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/opera.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/opera.gif";}
-     echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;Opera : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $opera[1]%;\">$opera[1]%</strong></div></td><td>(".wrh($opera[0]).")</td></tr>\n";
+     echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />Opera</td>
+            <td>
+            <div class="graph"><strong class="bar" style="width: '.$opera[1].'%;">'.$opera[1].'%</strong></div>
+               <progress class="progress" value="'.$opera[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$opera[1].'%;">'.$opera[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($opera[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/chrome.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/chrome.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;Chrome : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $chrome[1]%;\">$chrome[1]%</strong></div></td><td>(".wrh($chrome[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />Chrome</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$chrome[1].'%;">'.$chrome[1].'%</strong></div>
+               <progress class="progress" value="'.$chrome[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$chrome[1].'%;">'.$chrome[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($chrome[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/safari.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/safari.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;Safari : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $safari[1]%;\">$safari[1]%</strong></div></td><td>(".wrh($safari[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />Safari</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$safari[1].'%;">'.$safari[1].'%</strong></div>
+               <progress class="progress" value="'.$safari[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$safari[1].'%;">'.$safari[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($safari[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/webtv.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/webtv.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;WebTV : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $webtv[1]%;\">$webtv[1]%</strong></div></td><td>(".wrh($webtv[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" border="0" alt="" />WebTV</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$webtv[1].'%;">'.$webtv[1].'%</strong></div>
+               <progress class="progress" value="'.$webtv[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$webtv[1].'%;">'.$webtv[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($webtv[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/konqueror.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/konqueror.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;Konqueror : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $konqueror[1]%;\">$konqueror[1]%</strong></div></td><td>(".wrh($konqueror[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />Konqueror</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$konqueror[1].'%;">'.$konqueror[1].'%</strong></div>
+               <progress class="progress" value="'.$konqueror[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$konqueror[1].'%;">'.$konqueror[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($konqueror[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/lynx.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/lynx.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;Lynx : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $lynx[1]%;\"> $lynx[1]%</strong></div></td><td>(".wrh($lynx[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />Lynx</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$lynx[1].'%;"> '.$lynx[1].'%</strong></div>
+               <progress class="progress" value="'.$lynx[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$lynx[1].'%;">'.$lynx[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($lynx[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/altavista.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/altavista.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;".translate("Search Engines")." : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $bot[1]%;\">$bot[1]%</strong></div></td><td>(".wrh($bot[0]).")</td></tr>\n";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" alt="" />'.translate("Search Engines").'</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$bot[1].'%;"> '.$bot[1].'%</strong></div>
+               <progress class="progress" value="'.$bot[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$bot[1].'%;">'.$bot[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($bot[0]).'</td>
+         </tr>';
    if ($ibid=theme_image("stats/question.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/question.gif";}
-      echo "<tr><td width=\"40%\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;".translate("Unknown")." : </td><td><div class=\"graph\"><strong class=\"bar\" style=\"width: $b_other[1]%;\">$b_other[1]%</strong></div></td><td>(".wrh($b_other[0]).")";
-   echo "</td></tr></table>";
-   echo "<br />";
+      echo '
+         <tr>
+            <td width="40%"><img src="'.$imgtmp.'" border="0" alt="" />'.translate("Unknown").'</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$b_other[1].'%;"> '.$b_other[1].'%</strong></div>
+               <progress class="progress" value="'.$b_other[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$b_other[1].'%;">'.$b_other[1].'%</span>
+                  </div>
+               </progress>
+               </td>
+            <td>'.wrh($b_other[0]).'</td>
+         </tr>
+      </tbody>
+   </table>
+   <br />';
+   
+   echo '<h3>'.translate("Operating Systems").'</h3>';
    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\" colspan=\"3\">\n";
    echo translate("Operating Systems")."</td></tr>";
    if ($ibid=theme_image("stats/windows.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/windows.gif";}
@@ -146,19 +278,19 @@ if (!function_exists("Mysql_Connexion")) {
    echo translate("Theme(s)")."</td></tr>";
    echo "<tr><td nowrap=\"nowrap\">&nbsp;</td><td align=\"center\">".translate("Number of users per theme")."</td><td>".translate("Status")."</td></tr>\n";
 
-   $resultX = sql_query("select distinct(theme) from ".$NPDS_Prefix."users");
+   $resultX = sql_query("SELECT DISTINCT(theme) FROM ".$NPDS_Prefix."users");
    global $Default_Theme;
    while(list($themelist)=sql_fetch_row($resultX)) {
       if ($themelist!="") {
          if (is_dir("themes/$themelist")) {$D_exist="";} else {$D_exist="<span class=\"rouge\">".translate("There is no such file...")."</span>";}
          if ($themelist==$Default_Theme) {
-            $result = sql_query("select uid from ".$NPDS_Prefix."users where theme='$themelist'");
+            $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
             if ($result) {$themeD1 = sql_num_rows($result);} else {$themeD1=0;}
-            $result = sql_query("select uid from ".$NPDS_Prefix."users where theme=''");
+            $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme=''");
             if ($result) {$themeD2 = sql_num_rows($result);}else {$themeD2=0;}
             echo "<tr><td nowrap=\"nowrap\">&nbsp;$themelist <b>(".translate("Default").")</b></td><td align=\"center\"><b>".wrh(($themeD1+$themeD2))."</b></td><td>$D_exist</td></tr>\n";
          } else {
-            $result = sql_query("select uid from ".$NPDS_Prefix."users where theme='$themelist'");
+            $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
             if ($result) {$themeU = sql_num_rows($result);} else {$themeU=0;}
             echo "<tr><td nowrap=\"nowrap\">&nbsp;$themelist :</td><td align=\"center\"><b>".wrh($themeU)."</b></td><td>$D_exist</td></tr>\n";
          }
@@ -167,31 +299,34 @@ if (!function_exists("Mysql_Connexion")) {
    echo "</table>";
    echo "<br />";
 
-   $result = sql_query("select uid from ".$NPDS_Prefix."users");
+   $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
    if ($result) {$unum = sql_num_rows($result)-1;} else {$unum=0;}
-   $result = sql_query("select sid from ".$NPDS_Prefix."stories");
+   $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
    if ($result) {$snum = sql_num_rows($result);} else {$snum=0;}
-   $result = sql_query("select aid from ".$NPDS_Prefix."authors");
+   $result = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors");
    if ($result) {$anum = sql_num_rows($result);} else {$anum=0;}
-   $result = sql_query("select post_id from ".$NPDS_Prefix."posts where forum_id<0");
+   $result = sql_query("SELECT post_id FROM ".$NPDS_Prefix."posts WHERE forum_id<0");
    if ($result) {$cnum = sql_num_rows($result);} else {$cnum=0;}
-   $result = sql_query("select secid from ".$NPDS_Prefix."sections");
+   $result = sql_query("SELECT secid FROM ".$NPDS_Prefix."sections");
    if ($result) {$secnum = sql_num_rows($result);} else {$secnum=0;}
-   $result = sql_query("select artid from ".$NPDS_Prefix."seccont");
+   $result = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont");
    if ($result) {$secanum = sql_num_rows($result);} else {$secanum=0;}
-   $result = sql_query("select gid from ".$NPDS_Prefix."queue");
+   $result = sql_query("SELECT gid FROM ".$NPDS_Prefix."queue");
    if ($result) {$subnum = sql_num_rows($result);} else {$subnum=0;}
-   $result = sql_query("select topicid from ".$NPDS_Prefix."topics");
+   $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics");
    if ($result) {$tnum = sql_num_rows($result);} else {$tnum=0;}
-   $result = sql_query("select lid from ".$NPDS_Prefix."links_links");
+   $result = sql_query("SELECT lid FROM ".$NPDS_Prefix."links_links");
    if ($result) {$links = sql_num_rows($result);} else {$links=0;}
-   $result = sql_query("select cid from ".$NPDS_Prefix."links_categories");
+   $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_categories");
    if ($result) {$cat1 = sql_num_rows($result);} else {$cat1=0;}
-   $result = sql_query("select sid from ".$NPDS_Prefix."links_subcategories");
+   $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."links_subcategories");
    if ($result) {$cat2 = sql_num_rows($result);} else {$cat2=0;}
    $cat = $cat1+$cat2;
 
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\" colspan=\"2\">\n";
+   echo '<h3>'.translate("Miscelaneous Stats").'</h3>';
+
+   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">
+   <tr><td class=\"header\" colspan=\"2\">\n";
    echo translate("Miscelaneous Stats");
    if ($ibid=theme_image("stats/users.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/users.gif";}
       echo "</td></tr><tr><td><img src=\"$imgtmp\" border=\"0\" alt=\"\" />&nbsp;".translate("Registered Users: ")."</td><td width=\"60%\" align=\"center\"><b>".wrh($unum)."</b></td></tr>\n";
