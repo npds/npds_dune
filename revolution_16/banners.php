@@ -63,7 +63,7 @@ function viewbanner() {
          }
 
          if ($imageurl!="") {
-            echo"<a href=\"banners.php?op=click&amp;bid=$bid\" target=\"_blank\"><img src=\"".aff_langue($imageurl)."\" alt=\"\" /></a>";
+            echo"<a href=\"banners.php?op=click&amp;bid=$bid\" target=\"_blank\"><img class=\"img-fluid\" src=\"".aff_langue($imageurl)."\" alt=\"\" /></a>";
          } else {
             if (stristr($clickurl,'.txt')) {
                if (file_exists($clickurl)) {
