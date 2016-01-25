@@ -81,18 +81,18 @@ function write_short_private_message($to_userid) {
    <h2>'.translate("Message to Member").'</h2>
    <h3><i class="fa fa-at"></i>&nbsp'.$to_userid.'</h3>
    <form id="sh_priv_mess" action="powerpack.php" method="post">
-      <div class="form-group">
+      <div class="form-group row">
          <label class="form-control-label" for="subject" >'.translate("Subject").'</label>
          <input class="form-control" type="text" name="subject" maxlength="100" />
       </div>
-      <div class="form-group">
+      <div class="form-group row">
          <label class="form-control-label" for="message" >'.translate("Message: ").'</label>
          <textarea class="form-control" name="message" rows="10"></textarea>
       </div>
-      <div class="form-group">
+      <div class="form-group row">
          <label><input type="checkbox" name="copie" /> '.translate("Send a copy to me").'</label>
       </div>
-      <div class="form-group">
+      <div class="form-group row">
          <input type="hidden" name="to_userid" value="'.$to_userid.'" />
          <input type="hidden" name="op" value="write_instant_message" />
          <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" accesskey="s" />&nbsp;
@@ -120,7 +120,7 @@ function if_chat() {
 function insertChat($username, $message, $dbname,$id) {
    global $NPDS_Prefix;
 
-   if ($message!="") {
+   if ($message!='') {
       $username = removeHack(stripslashes(FixQuotes(strip_tags(trim($username)))));
       $message =  removeHack(stripslashes(FixQuotes(strip_tags(trim($message)))));
       $ip = getip();
@@ -295,7 +295,7 @@ function makeChatBox() {
       
 //      $thing.='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip"><i class="fa fa-comments fa-2x "></i></a>';
 
-      $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' and date >= ".(time()-(60*2))."");
+      $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' AND date >= ".(time()-(60*2))."");
       $numofchatters = sql_num_rows($result);
       
       
