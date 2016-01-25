@@ -1,0 +1,31 @@
+----------------------
+- NPDS REvolution 16 -
+----------------------
+Corrections majeures impactant sur tout le portail :
+- intégration en backend d'un framework : Bootsrap 4
+   ayant pour conséquence :
+      intégration de Jquery 2.x
+      abandon de la librairie YUI
+      
+      
+       
+- intégration côté client d'un controle des form
+
+
+Corrections :
+
+Evolutions :
+
+- THEMES :
+
+- Minisites : 
+
+- Gestion des groupes :
+
+- WS PAD 1.44 : 
+
+- Support de PHP 7.x
+
+- TinyMCE : 
+
+
