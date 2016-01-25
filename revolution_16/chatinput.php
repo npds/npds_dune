@@ -69,7 +69,7 @@ include("functions.php");
    echo '
             <input type="hidden" name="name" value="'.$pseudo.'" />
             <textarea class="form-control" type="text" rows="2" '.$xJava.' ></textarea>
-            <input class="btn btn-primary" type="submit" tabindex="1" value="'.translate("Submit").'" />
+            <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Submit").'" />
          </form>
          <script type="text/javascript">
          //<![CDATA[
