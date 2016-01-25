@@ -2095,25 +2095,26 @@ function hexfromchr($txt) {
 function Site_Activ() {
    global $startdate, $top;
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
-   $who_online="<p align=\"center\">".translate("Pages showed since")." $startdate : ".wrh($totalz)."</p>\n
-   <ul>
-     <li>".translate("Nb of members")." : ".wrh($membres)."</li>\n
-     <li>".translate("Nb of articles")." : ".wrh($totala)."</li>\n
-     <li>".translate("Nb of forums")." : ".wrh($totalc)."</li>\n
-     <li>".translate("Nb of topics")." : ".wrh($totald)."</li>\n
-     <li>".translate("Nb of reviews")." : ".wrh($totalb)."</li>\n
-   </ul>\n";
+   $who_online='
+   <p align="center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
+   <ul id="site_active">
+     <li>'.translate("Nb of members").' <span class="label label-pill label-default pull-right">'.wrh($membres).'</span></li>
+     <li>'.translate("Nb of articles").' <span class="label label-pill label-default pull-right">'.wrh($totala).'</span></li>
+     <li>'.translate("Nb of forums").' <span class="label label-pill label-default pull-right">'.wrh($totalc).'</span></li>
+     <li>'.translate("Nb of topics").' <span class="label label-pill label-default pull-right">'.wrh($totald).'</span></li>
+     <li>'.translate("Nb of reviews").' <span class="label label-pill label-default pull-right">'.wrh($totalb).'</span></li>
+   </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
       $who_online .= "<p align=\"center\"><a href=\"top.php\"><img alt=\"".translate("Top")." $top\" src=\"$imgtmp\" border=\"0\" /></a>&nbsp;&nbsp;";
       if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
       $who_online .= "<a href=\"stats.php\"><img alt=\"".translate("Statistics")."\" src=\"$imgtmp\" border=\"0\" /></a></p>\n";
    } else {
-      $who_online .= "<p align=\"center\"><a href=\"top.php\" class=\"noir\">".translate("Top")." $top</a>&nbsp;&nbsp;";
-      $who_online .= "<a href=\"stats.php\" class=\"noir\">".translate("Statistics")."</a></p>\n";
+      $who_online .= "<p align=\"center\"><a href=\"top.php\" >".translate("Top")." $top</a>&nbsp;&nbsp;";
+      $who_online .= "<a href=\"stats.php\" >".translate("Statistics")."</a></p>\n";
    }
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Web Activity");
    else
       $title=$block_title;
