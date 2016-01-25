@@ -3,7 +3,7 @@
 /* NPDS V : Net Portal Dynamic System .                                 */
 /* ===========================                                          */
 /*                                                                      */
-/* Sur une idÈe originale de PSTL                                       */
+/* Sur une idée originale de PSTL                                       */
 /*                                                                      */
 /* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
