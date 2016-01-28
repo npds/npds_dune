@@ -2279,7 +2279,7 @@ function adminblock() {
            <li><a href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK">'.translate("Clear Chat DB").'</a></li>
        </ul>
        <ul>
-          <li><small class="text-muted"><i class="fa fa-user fa-lg"></i> '.$aid.'</small></li>
+          <li><small class="text-muted"><i class="fa fa-user fa-2x"></i> '.$aid.'</small></li>
        </ul>';
 
        /*
@@ -2774,13 +2774,13 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".translate("Hide list")."');
-            i_id.attr('class','fa fa-caret-up fa-lg');
+            i_id.attr('class','fa fa-caret-up fa-2x');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
             btn_hide.attr('title','".translate("Show list")."');
-            i_id.attr('class','fa fa-caret-down fa-lg');
+            i_id.attr('class','fa fa-caret-down fa-2x');
         }
        });
    };
@@ -2799,7 +2799,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $li_mb=''; $li_ic='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
-   $li_mb.='<li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;<i class="fa fa-users fa-lg text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
+   $li_mb.='<li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>&nbsp;<i class="fa fa-users fa-2x text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
   
    $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
@@ -2857,7 +2857,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $res_forum=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_pass REGEXP '$gr'");
       $nb_foru=sql_num_rows ($res_forum);
       if ($nb_foru >= 1) {
-         $lst_for_tog='<a class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>';
+         $lst_for_tog='<a class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
          $nb_for_gr='  <span class="label label-pill label-default pull-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
@@ -2872,7 +2872,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          </script>\n";
       }
       $content.='
-      <li class="list-group-item li_18">'.$lst_for_tog.'&nbsp;<i class="fa fa-list-alt fa-lg text-muted" title="'.translate("Group").'('.$gr.'): '.translate("forum").'."></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
+      <li class="list-group-item li_18">'.$lst_for_tog.'&nbsp;<i class="fa fa-list-alt fa-2x text-muted" title="'.translate("Group").'('.$gr.'): '.translate("forum").'."></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</li>'."\n";
    }
    //<= Forum
    //=> wspad
@@ -2886,7 +2886,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $docs_gr=sql_query("SELECT page, editedby, modtime, ranq FROM ".$NPDS_Prefix."wspad WHERE (ws_id) IN (SELECT MAX(ws_id) FROM ".$NPDS_Prefix."wspad WHERE member='$gr' GROUP BY page) ORDER BY page ASC");
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
-         $lst_doc_tog ='<a class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down fa-lg" ></i></a>';
+         $lst_doc_tog ='<a class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
          $lst_doc.='<ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
          $nb_doc_gr='  <span class="label label-pill label-default pull-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
@@ -2901,7 +2901,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          //]]>
          </script>\n";
       }
-      $content.='<li class="list-group-item li_18">'. $lst_doc_tog.'&nbsp;<i class="fa fa-edit fa-lg text-muted" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
+      $content.='<li class="list-group-item li_18">'. $lst_doc_tog.'&nbsp;<i class="fa fa-edit fa-2x text-muted" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
    }
    //<= wspad
    
@@ -2910,7 +2910,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<a class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;<i class="fa fa-sticky-note-o fa-lg text-muted"></i>&nbsp; Bloc note';
+      $lst_blocnote_tog ='<a class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-caret-down fa-2x" ></i></a>&nbsp;<i class="fa fa-sticky-note-o fa-2x text-muted"></i>&nbsp; Bloc note';
       $lst_blocnote ='<div id="lst_blocnote" class="m-t-md" style =" display:none; ">';
       $lst_blocnote .= blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
       $lst_blocnote .= '</div>';
@@ -2926,12 +2926,12 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 $content.='<li class="list-group-item li_18 text-xs-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
-      $content.='&nbsp;<a href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-lg"></i></a>'."\n";
+      $content.='&nbsp;<a href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
    }
    //<= Filemanager
    //=> Minisite
    if ($rsql['groupe_mns'] == 1) {
-      $content.='&nbsp;<a href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-lg"></i></a>';
+      $content.='&nbsp;<a href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
    }
    //<= Minisite
    //=> Chat
@@ -2941,12 +2941,12 @@ $content.='<li class="list-group-item li_18 text-xs-center">';
          $chat_img='images/admin/ws/comment_reply.gif';
       else
          $chat_img='images/admin/ws/comment_user.gif';
-      $content.='&nbsp;<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-lg"></i></a>';
+      $content.='&nbsp;<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x"></i></a>';
    }
    //<= Chat
    //=> admin
    if (autorisation(-127)) {
-      $content.='&nbsp;<a href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-lg"></i></a>';
+      $content.='&nbsp;<a href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-2x"></i></a>';
    }
    //<= admin
    
