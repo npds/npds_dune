@@ -416,7 +416,7 @@ function displayStory ($qid) {
       }
    }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-
+   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
     
@@ -424,22 +424,24 @@ function displayStory ($qid) {
 
    echo '
    <form action="admin.php" method="post" name="adminForm">
-   <td valign="top"><b>'.adm_translate("Langue de Prévisualisation").'</b> : '.aff_localzone_langue("local_user_language").'<br /><br />';
-    $no_img=false;
-    if ((file_exists("$tipath$topicimage")) and ($topicimage!='')) {
-       echo '<img src="$tipath$topicimage" border="0" align="right" alt="" />';
-    } else {
-       $no_img=true;
-    }
-    code_aff($subject, meta_lang($story), meta_lang($bodytext), "");
-    if ($no_img) {
-       echo aff_langue($topictext);
-    }
+   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>'.aff_localzone_langue("local_user_language").'<br /><br />';
+   echo '<div class="card card-block">';
+   if ($topicimage!=='') { 
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+      $timage=$imgtmp;
+      if (file_exists($imgtmp)) 
+      $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
+   }
+    code_aff('<h3>'.$subject.$topiclogo.'</h3>','<div class="text-muted">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
+//     if ($no_img) {
+//        echo aff_langue($topictext);
+//     }
     echo '<b>'.adm_translate("Utilisateur").'</b> : <input class="textbox_standard" type="text" name="author" size="50" value="'.$uname.'" />&nbsp;';
     if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
     echo '
     <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank"><img src="'.$imgtmp.'" border="0" alt="'.adm_translate("Diffusion d'un Message Interne").'" /></a><br /><br />';
     echo '
+    </div>
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
@@ -499,7 +501,7 @@ function displayStory ($qid) {
          <textarea class="tin form-control" rows="7" name="notes"></textarea>
       </div>
    </div>';
-   echo aff_editeur("notes", "true");
+   echo aff_editeur('notes', '');
 
     $deb_day=substr($date_debval,8,2);
     $deb_month=substr($date_debval,5,2);
@@ -518,9 +520,9 @@ function displayStory ($qid) {
    <input type="hidden" name="qid" value="'.$qid.'" />
    <input type="hidden" name="uid" value="'.$uid.'" />
    <select class="c-select form-control" name="op">
-   <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-   <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
-   <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
+      <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
+      <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+      <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
    </select>
    <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
@@ -548,7 +550,8 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
           if (trim($topicadminX[$i])==$aid) $affiche=true;
        }
     }
-    if (!$affiche) { header("location: admin.php?op=submissions");}
+   if (!$affiche) { header("location: admin.php?op=submissions");}
+   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
     include ('header.php');
     GraphicAdmin($hlpfile);
@@ -559,22 +562,16 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
     <form action="admin.php" method="post" name="adminForm">
     
-    <table border="0" width="85%" cellpadding="0" cellspacing="1"><tr '.$rowcolor.'><td>';
-    $rowcolor = tablos();
-    echo '<table width="100%" border="0" cellpadding="8" cellspacing="1"><tr '.$rowcolor.'>
-    <td valign="top"><b>'.adm_translate("Langue de Prévisualisation").'</b> : '.aff_localzone_langue("local_user_language").'<br /><br />';
-    $no_img=false;
-    if ((file_exists("$tipath$topicimage")) and ($topicimage!='')) {
-       echo '<img src="'.$tipath.$topicimage.'" border="0" align="right" alt="" />';
-    } else {
-       $no_img=true;
-    }
-    code_aff($subject, meta_lang($hometext), meta_lang($bodytext), meta_lang($notes));
-    if ($no_img) {
-       echo '</td><td width="10%" align="center" valign="middle"><b>'.aff_langue($topictext).'</b>';
-    }
-    echo '</td></tr></table></td></tr></table><br />';
-    opentable2();
+   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> : '.aff_localzone_langue("local_user_language");
+   echo '<div class="card card-block">';
+   if ($topicimage!=='') { 
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+      $timage=$imgtmp;
+      if (file_exists($imgtmp)) 
+      $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
+   }
+    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.meta_lang($hometext).'</div>', meta_lang($bodytext), meta_lang($notes));
+
     echo '
     <label class="form-control-label col-sm-4">'.adm_translate("Utilisateur").'</label>
     <input class="textbox_standard" type="text" name="author" size="50" value="'.$author.'" />
@@ -647,14 +644,14 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
     if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
 
-    if ($type_pub=="pub_immediate") {
+    if ($type_pub=='pub_immediate') {
        $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic','$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
        Ecr_Log("security", "postStory (pub_immediate, $subject) by AID : $aid", "");
     } else {
        $result = sql_query("INSERT INTO ".$NPDS_Prefix."autonews VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '$topic', '$author', '$notes', '$ihome','$date_debval','$date_finval','$epur')");
        Ecr_Log("security", "postStory (autonews, $subject) by AID : $aid", "");
     }
-    if (($uid!=1) and ($uid!="")) {
+    if (($uid!=1) and ($uid!='')) {
        sql_query("UPDATE ".$NPDS_Prefix."users SET counter=counter+1 WHERE uid='$uid'");
     }
     sql_query("UPDATE ".$NPDS_Prefix."authors SET counter=counter+1 WHERE aid='$aid'");
@@ -663,10 +660,10 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
     }
     deleteStory($qid);
 
-    if ($type_pub=="pub_immediate") {
+    if ($type_pub=='pub_immediate') {
        global $subscribe;
        if ($subscribe) {
-          subscribe_mail("topic",$topic,"",$subject,"");
+          subscribe_mail("topic",$topic,'',$subject,'');
        }
        // Cluster Paradise
        if (file_exists("modules/cluster-paradise/cluster-activate.php")) {include ("modules/cluster-paradise/cluster-activate.php");}
@@ -709,12 +706,13 @@ function editStory ($sid) {
    if ($radminsuper) {
       $affiche=true;
    } else {
-      $topicadminX=explode(",",$topicadmin);
+      $topicadminX=explode(',',$topicadmin);
       for ($i = 0; $i < count($topicadminX); $i++) {
          if (trim($topicadminX[$i])==$aid) $affiche=true;
       }
    }
    if (!$affiche) { header("location: admin.php");}
+   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -727,20 +725,17 @@ function editStory ($sid) {
    $result=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext, $topicimage) = sql_fetch_row($result);
 
-   echo aff_local_langue('<b>'.adm_translate("Langue de Prévisualisation").'</b> : ','','local_user_language');
-   $no_img=false;
-   if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-      echo '<img src="'.$tipath.$topicimage.'" border="0" align="right" alt="" />';
-   } else {
-      $no_img=true;
+   echo aff_local_langue('<b>'.adm_translate("Langue de Prévisualisation").'</b>','','local_user_language');
+   if ($topicimage!=='') { 
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+      $timage=$imgtmp;
+      if (file_exists($imgtmp)) 
+      $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
    }
    global $local_user_language;
    echo '
    <div id="art_preview" class="card card-block">';
-   echo code_aff($subject, $hometext, $bodytext, $notes);
-   if ($no_img) {
-      echo aff_langue($topictext);
-   }
+   echo code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
    echo '
    </div>';
 
@@ -898,8 +893,8 @@ function removeStory ($sid, $ok=0) {
        include ('header.php');
        GraphicAdmin($hlpfile);
 
-       echo '<p align="center"><span class="text-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N∞").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</span>';
-       echo '<br /><br />[ <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="text-danger">'.adm_translate("Oui").'</a> | <a href="admin.php" >'.adm_translate("Non").'</a> ]</p><br />';
+       echo '<br /><p class="text-xs-center text-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N°").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</p>';
+       echo '<p class="text-xs-center"><a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="btn btn-danger" >'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php" class="btn btn-primary" >'.adm_translate("Non").'</a></p>';
 
        include("footer.php");
     }
@@ -1055,7 +1050,8 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    //==> controle droit
 //   admindroits($aid,$f_meta_nom); // à voir l'intégrationavec les droits sur les topics ...
    //<== controle droit
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';   include ('header.php');
+   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   include ('header.php');
    GraphicAdmin($hlpfile);
    global $local_user_language;
 
@@ -1067,15 +1063,10 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    echo '<div class="card card-block">';
 
    if ($topicimage!=='') { 
-   
-//   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>'; } else {
-
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      
       $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
-//      else $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    }
     
    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
@@ -1084,7 +1075,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-         <input class="form-control" type="text" name="subject" value="'.$subject.'" />
+            <input class="form-control" type="text" name="subject" value="'.$subject.'" />
          </div>
       </div>
       <div class="form-group row">
@@ -1136,7 +1127,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
             <textarea class="tin form-control" rows="25" name="bodytext" >'.$bodytext.'</textarea>
          </div>
       </div>';
-    echo aff_editeur("bodytext", "true");
+    echo aff_editeur('bodytext', '');
 
     publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
     echo '
