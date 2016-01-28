@@ -44,7 +44,7 @@ if ($allow_upload_forum) {
    }
 }
 
-$rowQ1=Q_Select ("SELECT forum_pass FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum' and forum_type='1'", 3600);
+$rowQ1=Q_Select ("SELECT forum_pass FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum' AND forum_type='1'", 3600);
 if ($rowQ1) {
    if (isset($Forum_Priv[$forum])) {
       $Xpasswd=base64_decode($Forum_Priv[$forum]);
