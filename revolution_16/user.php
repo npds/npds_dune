@@ -419,7 +419,7 @@ function main($user) {
        }
        if (!$user) {
           echo '
-          <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i></a>&nbsp;'.translate("New User").'</h3>
+          <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
           <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
           <form class="" role="form" action="user.php" method="post" name="userlogin">
              <div class="form-group row">
