@@ -41,7 +41,7 @@ function online_members () {
 function writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) {
     global $NPDS_Prefix;
 
-    $res = sql_query("select uid, user_langue from ".$NPDS_Prefix."users where uname='$to_userid'");
+    $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_userid'");
     list($to_useridx, $user_languex) = sql_fetch_row($res);
 
     if ($to_useridx == "") {
@@ -212,7 +212,7 @@ function instant_members_message() {
                 $icon.="<img src=\"$imgtmp\" border=\"0\" alt=\"".translate("New")." : ".$new_messages."\" title=\"".translate("New")." : ".$new_messages."\" />";
                 if ($ibid[$i]['username']==$cookie[1]) {$icon.="</a>";}
              } else {
-                $messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND type_msg='0' and dossier='...'"));
+                $messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND type_msg='0' AND dossier='...'"));
                 if ($messages>0) {
                    $PopUp=JavaPopUp("readpmsg_imm.php?op=msg","IMM",600,500);
                    $PopUp="<a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">";
@@ -391,7 +391,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
              $forum_desc =  stripslashes($forum_desc);
           }
 
-          $res = sql_query("Select * from ".$NPDS_Prefix."forumtopics where forum_id = '$forumid' order by topic_time desc");
+          $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
           $boxstuff .= "<li><a href=\"viewforum.php?forum=$forumid\" title=\"".strip_tags($forum_desc)."\">$forumname</a> ($ibidx) </li>\n";
           
@@ -401,7 +401,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
               $tt = $topictitle = $topicrow[1];
               $date = $topicrow[3];
               $replies = 0;
-              $postquery = "Select count(*) as total from ".$NPDS_Prefix."posts where topic_id = '$topicid'";
+              $postquery = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topicid'";
               if ($pres = sql_query($postquery)) {
                  if ($myrow = sql_fetch_assoc($pres))
                     $replies = $myrow['total'];
@@ -413,7 +413,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
 
               if ($displayposter) {
                  $posterid = $topicrow[2];
-                 $RowQ1=Q_Select ("select uname from ".$NPDS_Prefix."users where uid = '$posterid'",3600);
+                 $RowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid = '$posterid'",3600);
                  list(,$myrow) = each($rowQ1);
                  $postername = $myrow['uname'];
               }
