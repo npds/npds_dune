@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,21 +20,21 @@ function PrintPage($oper, $DB, $nl, $sid) {
     global $NPDS_Prefix;
 
     $aff=true;
-    if ($oper=="news") {
+    if ($oper=='news') {
        $xtab=news_aff("libre","where sid='$sid'",1,1);
        list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
-       if ($topic!="") {
-          $result2=sql_query("select topictext from ".$NPDS_Prefix."topics where topicid='$topic'");
+       if ($topic!='') {
+          $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
           list($topictext) = sql_fetch_row($result2);
        } else {
           $aff=false;
        }
     }
-    if ($oper=="archive") {
-       $xtab=news_aff("archive","where sid='$sid'",1,1);
+    if ($oper=='archive') {
+       $xtab=news_aff("archive","WHERE sid='$sid'",1,1);
        list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
        if ($topic!="") {
-          $result2=sql_query("select topictext from ".$NPDS_Prefix."topics where topicid='$topic'");
+          $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
           list($topictext) = sql_fetch_row($result2);
        } else {
           $aff=false;
@@ -42,7 +42,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
     }
     if ($oper=="links") {
        $DB=removeHack(stripslashes(htmlentities(urldecode($DB),ENT_NOQUOTES,cur_charset)));
-       $result=sql_query("select url, title, description, date from ".$DB."links_links where lid='$sid'");
+       $result=sql_query("SELECT url, title, description, date FROM ".$DB."links_links WHERE lid='$sid'");
        list($url, $title, $description, $time)=sql_fetch_row($result);
        $title = stripslashes($title); $description = stripslashes($description);
     }   
@@ -82,7 +82,9 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $tmp_theme=$Default_Theme;
        }
        echo import_css($tmp_theme, $language, $site_font, "","");
-       echo "</head>\n<body style=\"background-color: #FFFFFF; background-image: none;\">
+       echo "
+       </head>
+       <body style=\"background-color: #FFFFFF; background-image: none;\">
        <table border=\"0\"><tr><td>
        <table border=\"0\" width=\"640\" cellpadding=\"0\" cellspacing=\"1\" style=\"background-color: #000000;\"><tr><td>
        <table border=\"0\" width=\"640\" cellpadding=\"20\" cellspacing=\"1\" style=\"background-color: #FFFFFF;\"><tr><td>";
@@ -99,7 +101,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $bodytext=meta_lang(aff_code(aff_langue($bodytext)));
           echo "<span style=\"font-size: 10px;\"><b>".translate("Date:")."</b> $datetime :: <b>".translate("Topic:")."</b> ".aff_langue($topictext)."<br /><br />
           </span></p>$hometext<br /><br />";
-          if ($bodytext!="") {
+          if ($bodytext!='') {
              echo "$bodytext<br /><br />";
           }
           echo meta_lang(aff_code(aff_langue($notes)));
