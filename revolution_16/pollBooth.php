@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* 2003 by snipe / vote unique, implémentation de la table appli_log    */
+/* 2003 by snipe / vote unique, implÃ©mentation de la table appli_log    */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
@@ -139,7 +139,7 @@ function pollResults($pollID) {
      }
 }
 
-#autodoc pollboxbooth($pollID,$pollClose) : Construit le blocs sondages / code du mainfile avec autre présentation
+#autodoc pollboxbooth($pollID,$pollClose) : Construit le blocs sondages / code du mainfile avec autre prÃ©sentation
 function pollboxbooth($pollID,$pollClose) {
    global $NPDS_Prefix, $maxOptions, $boxTitle, $boxContent, $userimg, $language, $pollcomm;
    if (!isset($pollID)) $pollID = 1;
@@ -158,7 +158,7 @@ function pollboxbooth($pollID,$pollClose) {
    $boxContent .= '
          <h4>'.aff_langue($pollTitle).'</h4>';
 
-   $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' and optionText<>'') ORDER BY voteID");
+   $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' AND optionText<>'') ORDER BY voteID");
    $sum = 0;
    if (!$pollClose) {
       $boxContent .= '<div class="form-group">         <div class="c-inputs-stacked">
