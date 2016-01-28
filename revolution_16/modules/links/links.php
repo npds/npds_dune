@@ -50,39 +50,39 @@ function SearchForm() {
    global $ModPath, $ModStart, $NPDS_Prefix, $links_topic;
    echo '
    <div class="card card-block">
-   <h3>'.translate("Search").'</h3>
-   <form class="" role="form" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
+      <h3>'.translate("Search").'</h3>
+      <form class="" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
    if ($links_topic) {
       echo '
-      <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="topicL" >Sélectionner un sujet</label>
-         <div class="col-sm-8">
-            <select class="c-select form-control" name="topicL">';
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="topicL" >'.translate("Select Topic").'</label>
+            <div class="col-sm-8">
+               <select class="c-select form-control" name="topicL">';
       $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
       echo '
-               <option value="">'.translate("All Topics").'</option>';
+                  <option value="">'.translate("All Topics").'</option>';
       while (list($topicid, $topics) = sql_fetch_row($toplist)) {
         echo '
-               <option value="'.$topicid.'">'.$topics.'</option>';
+                  <option value="'.$topicid.'">'.$topics.'</option>';
       }
       echo '
-            </select>
-         </div>
-     </div>';
+               </select>
+            </div>
+        </div>';
    }
    echo '
-      <div class="form-group row">
-         <label class="form-control-label col-sm-4">Votre demande</label>
-         <div class="col-sm-8">
-            <input class="form-control" type="text" name="query" />
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4">'.translate("Your request").'</label>
+            <div class="col-sm-8">
+               <input class="form-control" type="text" name="query" />
+            </div>
          </div>
-      </div>
-      <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
-            <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+         <div class="form-group row">
+            <div class="col-sm-offset-4 col-sm-8">
+               <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+            </div>
          </div>
-      </div>
-   </form>
+      </form>
    </div>';
 }
 
@@ -96,12 +96,12 @@ function autorise_mod($lid,$aff) {
    global $ModPath, $ModStart, $links_DB, $NPDS_Prefix, $user, $admin;
    if ($admin) {
       $Xadmin = base64_decode($admin);
-      $Xadmin = explode(":", $Xadmin);
+      $Xadmin = explode(':', $Xadmin);
       $result = sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors where aid='$Xadmin[0]'");
       list($radminsuper) = sql_fetch_row($result);
       if ($radminsuper==1) {// faut remettre le controle des droits probablement pour les admin qui ont le droit link ??!!
          if ($aff) {
-            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9"><span class="text-warning">'.translate("Modify").'</span></a>';
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          }
          return(true);
       } else {
@@ -113,7 +113,7 @@ function autorise_mod($lid,$aff) {
       list($submitter) = sql_fetch_row($resultX);
       if ($submitter==$cookie[1]) {
          if ($aff) {
-            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid=$lid&amp;author='.$cookie[1].'"><span style="font-size: 10px;">'.translate("Modify").'</span></a> ';
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
          }
          return(true);
       } else {
@@ -126,6 +126,7 @@ function autorise_mod($lid,$aff) {
 
 function index() {
    global $ModPath, $ModStart, $links_DB;
+   $lili=$links_DB;
    include ("modules/$ModPath/links.conf.php");
    include("header.php");
    // Include cache manager
@@ -145,7 +146,7 @@ function index() {
       $filen="modules/$ModPath/links.ban_01.php";
       if (file_exists($filen)) {include($filen);}
 
-      echo '
+      echo $lili.'
       <table class="table table-bordered table-striped table-hover">';
       $result=sql_query("SELECT cid, title, cdescription FROM ".$links_DB."links_categories ORDER BY title");
       if ($result) {
@@ -199,10 +200,18 @@ function index() {
          $totalmodrequests = sql_num_rows($result2);
          $result = sql_query("SELECT lid FROM ".$links_DB."links_newlink");
          $num = sql_num_rows($result);
-         echo "<p align=\"center\"><span style=\"font-size: 10px;\">-: ".translate("Waiting Links")." : $num / $totalbrokenlinks / $totalmodrequests";
-         echo " :: <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath/admin\">Admin</a> :: Ref Tables => <b>$links_DB</b> :-</span></p>";
+         echo '
+         <div class="card card-block">
+          <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x" title="Admin" data-toggle="tooltip"></i></a> '.translate("Waiting Links").' : 
+          <span class="label label-danger" title="'.translate("Links Waiting for Validation").'" data-toggle="tooltip">'.$num.'</span> 
+          <span class="label label-danger" title="'.translate("User Reported Broken Links").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
+          <span class="label label-danger" title="'.translate("Request Link Modification").'" data-toggle="tooltip">'.$totalmodrequests.'</span>
+         ';
+         if($links_DB!='') echo 'Ref Tables => <strong>'.$links_DB.'</strong>';
+         echo '
+         </div>';
       } else {
-         echo "<p align=\"center\"><span style=\"font-size: 10px;\"> -: [ <a href=\"modules.php?ModStart=create_tables&amp;ModPath=$ModPath/admin/\">".translate("Create")."</a> Tables : $links_DB ] :-</span></p>";
+         echo "<p align=\"center\"><span> -: [ <a href=\"modules.php?ModStart=create_tables&amp;ModPath=$ModPath/admin/\">".translate("Create")."</a> Tables : $links_DB ] :-</span></p>";
       }
    }
    include("footer.php");

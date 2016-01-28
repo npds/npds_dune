@@ -72,7 +72,7 @@ echo '
             if ($stitle=='') {$slash = '';}else{$slash = '/';}
             echo translate("Category: ")."<b>".aff_langue($ctitle)."</b> $slash <b>".aff_langue($stitle)."</b>";
          }
-            echo '<p>'.aff_langue($description).'</p>';
+            echo '<div class="ibid_descr">'.aff_langue($description).'</div>';
             global $links_topic;
             if ($links_topic and $topicid_card!=0) {
                list($topicLX)=sql_fetch_row(sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topicid_card'"));
@@ -99,7 +99,7 @@ echo '
 
             detecteditorial($lid, urlencode($title));
             echo '
-            <a href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print"></i></a>
+            <a href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>
             </td>
          </tr>';
         $x++;

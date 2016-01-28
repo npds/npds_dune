@@ -58,31 +58,38 @@ function NewLinks($newlinkshowdays) {
       $allmonthlinks = $allmonthlinks + $totallinks;
       $counter++;
    }
-   echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-   echo translate("Total new links: Last week")." : $allweeklinks -/- ".translate("Last 30 days")." : $allmonthlinks";
-   echo "</td></tr></table>\n";
+   echo '
+   
+   <div class="card card-block">
+   <h3>'.translate("New links").'</h3>
+   '.translate("Total new links: Last week").' : '.$allweeklinks.' -/- '.translate("Last 30 days").' : '.$allmonthlinks;
+
    echo "<br />\n";
 
     echo "<blockquote>".translate("Show:")." [<a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=7\" class=\"noir\">".translate("week")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=14\" class=\"noir\">2 ".translate("weeks")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=30\" class=\"noir\">30 ".translate("days")."</a>]</<blockquote>";
     $counter = 0;
     $allweeklinks = 0;
-    echo "<blockquote><ul>";
-    while ($counter <= $newlinkshowdays-1) {
-       $newlinkdayRaw = (time()-(86400 * $counter));
-       $newlinkday = date("d-M-Y", $newlinkdayRaw);
-       $newlinkView = date(str_replace("%","",translate("linksdatestring")), $newlinkdayRaw);
-       $newlinkDB = Date("Y-m-d", $newlinkdayRaw);
-       $result = sql_query("SELECT * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
-       $totallinks = sql_num_rows($result);
-       $counter++;
-       $allweeklinks = $allweeklinks + $totallinks;
-       if ($totallinks>0)
-          echo "<li><a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinksDate&selectdate=$newlinkdayRaw\" class=\"noir\">$newlinkView</a>&nbsp( $totallinks )</li>";
-    }
-    echo '</blockquote></ul>';
-    $counter = 0;
-    $allmonthlinks = 0;
-
-    include("footer.php");
+    echo '
+    <blockquote>
+    <ul>';
+   while ($counter <= $newlinkshowdays-1) {
+      $newlinkdayRaw = (time()-(86400 * $counter));
+      $newlinkday = date("d-M-Y", $newlinkdayRaw);
+      $newlinkView = date(str_replace("%","",translate("linksdatestring")), $newlinkdayRaw);
+      $newlinkDB = Date("Y-m-d", $newlinkdayRaw);
+      $result = sql_query("SELECT * FROM ".$links_DB."links_links WHERE date LIKE '%$newlinkDB%'");
+      $totallinks = sql_num_rows($result);
+      $counter++;
+      $allweeklinks = $allweeklinks + $totallinks;
+      if ($totallinks>0)
+      echo "<li><a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinksDate&selectdate=$newlinkdayRaw\">$newlinkView</a>&nbsp( $totallinks )</li>";
+   }
+    echo '
+    </blockquote>
+    </ul>
+    </div>';
+   $counter = 0;
+   $allmonthlinks = 0;
+   include("footer.php");
 }
 ?>

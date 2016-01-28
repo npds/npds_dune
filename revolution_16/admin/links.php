@@ -44,41 +44,85 @@ function links() {
    $numrows = sql_num_rows($result);
    $adminform='';
    if ($numrows>0) {
-    $adminform="adminForm";
-    echo '<h3>'.adm_translate("Liens en attente de validation").'</h3>';
-    list($lid, $cid, $sid, $title, $url, $xtext, $name, $email, $submitter) = sql_fetch_row($result);
-       echo "<form action=\"admin.php\" method=\"post\" name=\"$adminform\">";
-       echo adm_translate("Lien N∞ : ")."<b>$lid</b> - ".adm_translate("Auteur")." : $submitter <br /><br />";
-       echo adm_translate("Titre de la Page : ")."<br /><input class=\"textbox\" type=\"text\" name=\"title\" value=\"$title\" size=\"50\" maxlength=\"100\"><br /><br />";
-       echo adm_translate("URL de la Page : ")."<br /><input class=\"textbox\" type=\"text\" name=\"url\" value=\"$url\" size=\"50\" maxlength=\"100\"> - [ <a href=\"$url\" target=\"_blank\" class=\"noir\">".adm_translate("Visite")."</a> ]<br /><br />";
-       echo adm_translate("Description : ")."<br /><textarea class=\"textbox\" name=\"xtext\" cols=\"60\" rows=\"10\" style=\"width: 100%;\">$xtext</textarea><br /><br />";
-       echo aff_editeur("xtext","false");
-       echo adm_translate("Nom : ")."<input class=\"textbox_standard\" type=\"text\" name=\"name\" size=\"40\" maxlength=\"100\" value=\"$name\"> - ";
-       echo adm_translate("E-mail : ")."<input class=\"textbox_standard\" type=\"text\" name=\"email\" size=\"40\" maxlength=\"100\" value=\"$email\"><br />";
+      $adminform='adminForm';
+      echo '
+   <h3>'.adm_translate("Liens en attente de validation").'</h3>';
+       list($lid, $cid, $sid, $title, $url, $xtext, $name, $email, $submitter) = sql_fetch_row($result);
+       echo '
+   <form action="admin.php" method="post" name="'.$adminform.'">';
+       echo 
+       adm_translate("Lien N° : ").'<b>'.$lid.'</b> - '.adm_translate("Auteur").' : '.$submitter.' <br /><br />
+
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="100" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="url" value="'.$url.'" maxlength="100" /><a href="'.$url.'" target="_blank" >'.adm_translate("Visite").'</a>
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-12 " for="xtext">'.adm_translate("Description").'</label>
+         <div class="col-sm-12">
+            <textarea class="tin form-control" name="xtext" rows="10">'.$xtext.'</textarea>
+         </div>
+      </div>
+      '.aff_editeur('xtext','').'
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="name" maxlength="100" value="'.$name.'" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="email" maxlength="100" value="'.$email.'">
+         </div>
+      </div>';
        $result2=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
-       echo "<input type=\"hidden\" name=\"new\" value=\"1\">";
-       echo "<input type=\"hidden\" name=\"lid\" value=\"$lid\">";
-       echo "<input type=\"hidden\" name=\"submitter\" value=\"$submitter\">";
-       echo "<br />".adm_translate("Catégorie : ")."<select class=\"textbox_standard\" name=\"cat\">";
+       echo '
+      <input type="hidden" name="new" value="1">
+      <input type="hidden" name="lid" value="'.$lid.'">
+      <input type="hidden" name="submitter" value="'.$submitter.'">
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="cat">'.adm_translate("Catégorie").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="cat">';
        while(list($ccid, $ctitle) = sql_fetch_row($result2)) {
-          $sel = "";
+          $sel = '';
           if ($cid==$ccid AND $sid==0) {
-             $sel = "selected";
+             $sel = 'selected="selected" ';
           }
-          echo "<option value=\"$ccid\" $sel>".aff_langue($ctitle)."</option>";
+          echo '
+               <option value="'.$ccid.'" '.$sel.'>'.aff_langue($ctitle).'</option>';
           $result3=sql_query("SELECT sid, title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$ccid' ORDER BY title");
           while (list($ssid, $stitle) = sql_fetch_row($result3)) {
-             $sel = "";
+             $sel = '';
              if ($sid==$ssid) {
-                $sel = "selected";
+                $sel = 'selected="selected" ';
              }
-             echo "<option value=\"$ccid-$ssid\" $sel>".aff_langue($ctitle)." / ".aff_langue($stitle)."</option>";
+             echo '
+               <option value="'.$ccid.'-'.$ssid.'" '.$sel.'>'.aff_langue($ctitle).' / '.aff_langue($stitle).'</option>';
           }
        }
-       echo "<input type=\"hidden\" name=\"submitter\" value=\"$submitter\">";
-       echo "</select> - <input type=\"hidden\" name=\"op\" value=\"LinksAddLink\">
-       <input class=\"btn btn-primary\" type=\"submit\" value=".adm_translate("Ajouter")."> - [ <a href=\"admin.php?op=LinksDelNew&amp;lid=$lid\" class=\"rouge\">".adm_translate("Effacer")."</a> ]";
-       echo "</form>";
+       echo '
+            </select>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input type="hidden" name="submitter" value="'.$submitter.'">
+            <input type="hidden" name="op" value="LinksAddLink">
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />&nbsp;
+            <a class="btn btn-danger" href="admin.php?op=LinksDelNew&amp;lid='.$lid.'" >'.adm_translate("Effacer").'</a>
+         </div>
+      </div>
+   </form>';
     // Fin de List
    }
 
@@ -433,11 +477,11 @@ function LinksModLink($lid) {
       </div>
    </form>';
 
-    //Modify or Add Editorial
-    $resulted2 = sql_query("SELECT adminid, editorialtimestamp, editorialtext, editorialtitle FROM ".$NPDS_Prefix."links_editorials WHERE linkid='$lid'");
-    $recordexist = sql_num_rows($resulted2);
-    if ($recordexist == 0) {
-       echo '
+   //Modify or Add Editorial
+   $resulted2 = sql_query("SELECT adminid, editorialtimestamp, editorialtext, editorialtitle FROM ".$NPDS_Prefix."links_editorials WHERE linkid='$lid'");
+   $recordexist = sql_num_rows($resulted2);
+   if ($recordexist == 0) {
+      echo '
    <h3>'.adm_translate("Ajouter un Editorial").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group">
@@ -466,14 +510,13 @@ function LinksModLink($lid) {
             </div>
          </div>
       </div>';
-    } else {
+   } else {
       while(list($adminid, $editorialtimestamp, $editorialtext, $editorialtitle) = sql_fetch_row($resulted2)) {
          $editorialtitle = stripslashes($editorialtitle);
          $editorialtext = stripslashes($editorialtext);
 
          echo '
    <h3>'.adm_translate("Modifier l'Editorial").'</h3> - '.adm_translate("Auteur").' : '.$adminid.' : '.formatTimeStamp($editorialtimestamp);
-
          echo '
    <form action="admin.php" method="post">
       <div class="form-group">
@@ -505,7 +548,7 @@ function LinksModLink($lid) {
       </div>';
       }
     }
-    echo '
+   echo '
    </form>';
    adminfieldinp($result);
    adminfieldinp($resulted2);
@@ -524,55 +567,60 @@ function LinksListBrokenLinks() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
 
    echo '
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' ('.$totalbrokenlinks.')</h3>';
-
-   echo "- ".adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)")."<br />
-    - ".adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)");
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="label label-default pull-right">'.$totalbrokenlinks.'</span></h3>
+   - '.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
+    - '.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)");
 
    if ($totalbrokenlinks==0) {
-      echo "<br /><br /><p align=\"center\" class=\"text-danger\">".adm_translate("Aucun lien brisé rapporté.")."</span>";
+      echo '
+   <div class="alert alert-success"><strong>'.adm_translate("Aucun lien brisé rapporté.").'</strong></div>';
    } else {
       echo '
    <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" >'.adm_translate("Liens").'</th>
-            <th data-sortable="true" >'.adm_translate("Auteur").'</th>
-            <th data-sortable="true" ">'.adm_translate("Propriétaire").'</th>
-            <th data-sortable="true" align=center>'.adm_translate("Ignorer").'</th>
-            <th data-sortable="true" align=center>'.adm_translate("Effacer").'</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate("Liens").'</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate("Auteur").'</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate("Propriétaire").'</th>
+            <th data-halign="center" data-align="center" >'.adm_translate("Ignorer").'</th>
+            <th data-halign="center" data-align="center" >'.adm_translate("Effacer").'</th>
          </tr>
       </thead>
       <tbody>';
-
-       while (list($requestid, $lid, $modifysubmitter)=sql_fetch_row($resultBrok)) {
-          $result2 = sql_query("SELECT title, url, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
-          if ($modifysubmitter != $anonymous) {
-             $result3 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
-             list ($email)=sql_fetch_row($result3);
-          }
-          list ($title, $url, $owner)=sql_fetch_row($result2);
-          $result4 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
-          list($owneremail)=sql_fetch_row($result4);
-          echo "<tr><td><a href=$url target=\"_blank\" class=\"noir\">$title</a></td>";
-          if ($email=='') {
-             echo "<td>$modifysubmitter";
-          } else {
-             echo "<td><a href=\"mailto:$email\" class=\"noir\">$modifysubmitter</a>";
-          }
-          echo '</td>';
-          if ($owneremail=='') {
-             echo '<td>'.$owner;
-          } else {
-             echo '<td><a href="mailto:'.$owneremail.'">'.$owner.'</a>';
-          }
-          echo "
-          </td>
-               <td align=\"center\"><a href=\"admin.php?op=LinksIgnoreBrokenLinks&amp;lid=$lid\" class=\"noir\">X</a></td>
-               <td align=\"center\"><a href=admin.php?op=LinksDelBrokenLinks&amp;lid=$lid\" class=\"rouge\">X</a></td>
-               </tr>";
-       }
-    }
+      while (list($requestid, $lid, $modifysubmitter)=sql_fetch_row($resultBrok)) {
+         $result2 = sql_query("SELECT title, url, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
+         if ($modifysubmitter != $anonymous) {
+            $result3 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
+            list ($email)=sql_fetch_row($result3);
+         }
+         list ($title, $url, $owner)=sql_fetch_row($result2);
+         $result4 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
+         list($owneremail)=sql_fetch_row($result4);
+         echo '
+         <tr>
+            <td><a href="'.$url.'" target="_blank" >'.$title.'</a></td>';
+         if ($email=='') {
+            echo '
+            <td>'.$modifysubmitter;
+         } else {
+            echo '
+            <td><a href="mailto:'.$email.'" >'.$modifysubmitter.'</a>';
+         }
+         echo '</td>';
+         if ($owneremail=='') {
+            echo '
+             <td>'.$owner;
+         } else {
+            echo '
+             <td><a href="mailto:'.$owneremail.'">'.$owner.'</a>';
+         }
+         echo '
+            </td>
+            <td align="center"><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg"></i></a></td>
+            <td align="center"><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg"></i></a></td>
+         </tr>';
+      }
+   }
    echo '
       </tbody>
    </table>';
