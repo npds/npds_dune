@@ -21,7 +21,7 @@ if (file_exists("IZ-Xinstall.ok")) {
       echo "<html>\n<body>\n"
          ."<div style=\"text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #000000\"><br />NPDS IZ-Xinstall - Installation &amp; Configuration</div>"
          ."<div style=\"text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #FF0000\"><br />\n"
-         ."Vous devez supprimer le répertoire 'install' ET le fichier 'install.php' avant de poursuivre !<br /><br />\n"
+         ."Vous devez supprimer le rÃ©pertoire 'install' ET le fichier 'install.php' avant de poursuivre !<br /><br />\n"
          ."You must remove the directory 'install' as well as the file 'install.php before continuing!\n"
          ."</div>\n</body>\n</html>\n";
       die();
@@ -63,41 +63,41 @@ function automatednews() {
     $year = $today['year'];
     $hour = $today['hours'];
     $min = $today['minutes'];
-    $result = sql_query("select anid, date_debval from ".$NPDS_Prefix."autonews where date_debval like '$year-$month%'");
+    $result = sql_query("SELECT anid, date_debval FROM ".$NPDS_Prefix."autonews WHERE date_debval LIKE '$year-$month%'");
     while(list($anid, $date_debval) = sql_fetch_row($result)) {
        preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $date_debval, $date);
        if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) {
           if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min) OR (($day-$date[3])>=1)) {
-             $result2 = sql_query("select catid, aid, title, hometext, bodytext, topic, informant, notes, ihome, date_finval, auto_epur from ".$NPDS_Prefix."autonews where anid='$anid'");
+             $result2 = sql_query("SELECT catid, aid, title, hometext, bodytext, topic, informant, notes, ihome, date_finval, auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
              while (list($catid, $aid, $title, $hometext, $bodytext, $topic, $author, $notes, $ihome, $date_finval, $epur) = sql_fetch_row($result2)) {
                 $subject = stripslashes(FixQuotes($title));
                 $hometext = stripslashes(FixQuotes($hometext));
                 $bodytext = stripslashes(FixQuotes($bodytext));
                 $notes = stripslashes(FixQuotes($notes));
-                sql_query("insert into ".$NPDS_Prefix."stories values (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic', '$author', '$notes', '$ihome', '0', '$date_finval', '$epur')");
-                sql_query("delete from ".$NPDS_Prefix."autonews where anid='$anid'");
+                sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic', '$author', '$notes', '$ihome', '0', '$date_finval', '$epur')");
+                sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
                 global $subscribe;
                 if ($subscribe) {
                    subscribe_mail("topic",$topic,"",$subject,"");
                 }
-                // Réseaux sociaux
+                // RÃ©seaux sociaux
                 if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
                 if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-                // Réseaux sociaux
+                // RÃ©seaux sociaux
              }
           }
        }
     }
     // Purge automatique
-    $result = sql_query("select sid, date_finval, auto_epur from ".$NPDS_Prefix."stories where date_finval like '$year-$month%'");
+    $result = sql_query("SELECT sid, date_finval, auto_epur FROM ".$NPDS_Prefix."stories WHERE date_finval LIKE '$year-$month%'");
     while(list($sid, $date_finval, $epur) = sql_fetch_row($result)) {
        preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $date_finval, $date);
        if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) {
           if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min)) {
              if ($epur==1)
-                sql_query("delete from ".$NPDS_Prefix."stories where sid='$sid'");
+                sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
              else
-                sql_query("update ".$NPDS_Prefix."stories set archive='1' where sid='$sid'");
+                sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");
           }
        }
     }
