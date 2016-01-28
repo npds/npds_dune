@@ -53,9 +53,9 @@ function show_imm($op) {
       include("themes/$theme/theme.php");
       $userdata = get_userdata($userdata[1]);
       if ($op!="new_msg") {
-         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' and read_msg='1' and type_msg='0' and dossier='...' ORDER BY msg_id DESC";
+         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND read_msg='1' AND type_msg='0' AND dossier='...' ORDER BY msg_id DESC";
       } else {
-         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' and read_msg='0' and type_msg='0' ORDER BY msg_id ASC";
+         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND read_msg='0' AND type_msg='0' ORDER BY msg_id ASC";
       }
       $result = sql_query($sql);
       $pasfin=false;
