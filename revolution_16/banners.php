@@ -55,7 +55,7 @@ function viewbanner() {
          sql_query("UPDATE ".$NPDS_Prefix."banner SET impmade=impmade+1 WHERE bid='$bid'");
       }
       if (($numrows>0) and ($bid)) {
-         $aborrar = sql_query("select cid, imptotal, impmade, clicks, imageurl, clickurl, date from ".$NPDS_Prefix."banner where bid='$bid'");
+         $aborrar = sql_query("SELECT cid, imptotal, impmade, clicks, imageurl, clickurl, date FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
          list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $date) = sql_fetch_row($aborrar);
          if ($imptotal==$impmade) {
             sql_query("INSERT INTO ".$NPDS_Prefix."bannerfinish VALUES (NULL, '$cid', '$impmade', '$clicks', '$date', now())");
