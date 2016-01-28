@@ -21,12 +21,12 @@ function SuserCheck($email) {
     $stop="";
     if ((!$email) || ($email=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = translate("ERROR: Invalid email")."<br />";
     if (strrpos($email,' ') > 0) $stop = translate("ERROR: Email addresses do not contain spaces.")."<br />";
-    if (sql_num_rows(sql_query("select email from ".$NPDS_Prefix."users where email='$email'")) > 0) {
+    if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
        $stop = translate("ERROR: Email address already registered")."<br />";
     }
-    if (sql_num_rows(sql_query("select email from ".$NPDS_Prefix."lnl_outside_users where email='$email'")) > 0) {
-       if (sql_num_rows(sql_query("select email from ".$NPDS_Prefix."lnl_outside_users where email='$email' and status='NOK'")) >0) {
-          sql_query("delete FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'");
+    if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'")) > 0) {
+       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email' AND status='NOK'")) >0) {
+          sql_query("DELETE FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'");
        } else {
           $stop = translate("ERROR: Email address already registered")."<br />";
        }
@@ -70,9 +70,9 @@ function subscribe_ok($xemail) {
          $host_name=getip();
          $timeX=strftime("%Y-%m-%d %H:%M:%S",time());
          // Troll Control
-         list($troll) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."lnl_outside_users where (host_name='$host_name') and (to_days(now()) - to_days(date) < 3)"));
+         list($troll) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."lnl_outside_users WHERE (host_name='$host_name') AND (to_days(now()) - to_days(date) < 3)"));
          if ($troll < 6) {
-            sql_query("insert into ".$NPDS_Prefix."lnl_outside_users values ('$xemail', '$host_name', '$timeX', 'OK')");
+            sql_query("INSEERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
             // Email validation + url to unsubscribe
             global $sitename, $nuke_url;
             $subject = "".translate("NewsLetter")." / $sitename";
@@ -103,13 +103,13 @@ function unsubscribe($xemail) {
    if ($xemail!="") {
       if ((!$xemail) || ($xemail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$xemail))) header("location: index.php");
       if (strrpos($xemail,' ') > 0) header("location: index.php");
-      if (sql_num_rows(sql_query("select email from ".$NPDS_Prefix."lnl_outside_users where email='$xemail'")) > 0) {
+      if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$xemail'")) > 0) {
          $host_name=getip();
          $timeX=strftime("%Y-%m-%d %H:%M:%S",time());
          // Troll Control
-         list($troll) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."lnl_outside_users where (host_name='$host_name') and (to_days(now()) - to_days(date) < 3)"));
+         list($troll) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."lnl_outside_users WHERE (host_name='$host_name') AND (to_days(now()) - to_days(date) < 3)"));
          if ($troll < 6) {
-            sql_query("update ".$NPDS_Prefix."lnl_outside_users set status='NOK'  where email='$xemail'");
+            sql_query("UPDATE ".$NPDS_Prefix."lnl_outside_users SET status='NOK'  WHERE email='$xemail'");
             include("header.php");
             opentable();
             echo translate("Thanks!")."<br /><br />";
