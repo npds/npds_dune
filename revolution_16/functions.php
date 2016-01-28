@@ -25,10 +25,10 @@ function get_total_topics($forum_id) {
    sql_free_result($result);
    return($myrow['total']);
 }
-// probablement ˆ supprimer lol il suffit de prendre le nombre de ligne  de getcontributeurs()
+// probablement Ë† supprimer lol il suffit de prendre le nombre de ligne  de getcontributeurs()
 function get_total_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
-   $sql = "SELECT count(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'";
+   $sql = "SELECT COUNT(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'";
    if (!$result = sql_query($sql))
       return("ERROR");
    if (!$myrow = sql_fetch_assoc($result))
@@ -77,7 +77,7 @@ function get_total_posts($fid, $tid, $type, $Mmod) {
 
 function get_last_post($id, $type, $cmd, $Mmod) {
    global $NPDS_Prefix;
-   // $Mmod ne sert plus - maintenu pour compatibilité
+   // $Mmod ne sert plus - maintenu pour compatibilitÃ©
    switch($type) {
       case 'forum':
            $sql1 = "SELECT topic_time, current_poster FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$id' ORDER BY topic_time DESC LIMIT 0,1";
@@ -259,7 +259,7 @@ function smile($message) {
 }
 
 function aff_video_yt($ibid) {
-   // analyse et génére un tag video_yt à la volée - JPB 01-2011
+   // analyse et gÃ©nÃ©re un tag video_yt Ã  la volÃ©e - JPB 01-2011
    $w_video=320;
    $h_video=265;
    $pasfin=true;
@@ -605,7 +605,7 @@ function control_efface_post($apli,$post_id,$topic_id,$IdForum) {
    global $upload_table;
    global $NPDS_Prefix;
    include ("modules/upload/include_forum/upload.conf.forum.php");
-   $sql1= "SELECT att_id, att_name, att_path from ".$NPDS_Prefix."$upload_table WHERE apli='$apli' AND";
+   $sql1= "SELECT att_id, att_name, att_path FROM ".$NPDS_Prefix."$upload_table WHERE apli='$apli' AND";
    $sql2= "DELETE FROM ".$NPDS_Prefix."$upload_table WHERE apli='$apli' AND";
    if ($IdForum!='') {
       $sql1.=" forum_id = '$IdForum'";
@@ -651,8 +651,8 @@ function autorize() {
 }
 
 function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
-   // anti_flood : nd de post dans les 90 puis 30 dernières minutes / les modérateurs echappent à cette règle
-   // security.log est utilisée pour enregistrer les tentatives
+   // anti_flood : nd de post dans les 90 puis 30 derniÃ¨res minutes / les modÃ©rateurs echappent Ã  cette rÃ¨gle
+   // security.log est utilisÃ©e pour enregistrer les tentatives
    global $NPDS_Prefix;
    global $anonymous;
    if (!array_key_exists('uname',$userdataX)) $compte=$anonymous; else $compte=$userdataX['uname'];
@@ -690,7 +690,7 @@ function forum($rowQ1) {
       $adminR = explode(':', $adminX);
       $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
       if ($Q['radminsuper']==1) {$adminforum=1;} else {
-         $R = sql_query("SELECT fnom, fid, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$adminR[0]' and f.fid between 13 and 15");
+         $R = sql_query("SELECT fnom, fid, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$adminR[0]' AND f.fid BETWEEN 13 AND 15");
          if (sql_num_rows($R) >=1) $adminforum=1;
       }
    }
@@ -716,7 +716,7 @@ function forum($rowQ1) {
    while (list($forumid, $total)=sql_fetch_row($result)) {
       $tab_folder[$forumid][1]=$total; // Folder
    }
-   // préparation de la gestion des abonnements
+   // prÃ©paration de la gestion des abonnements
    $result = sql_query("SELECT forumid FROM ".$NPDS_Prefix."subscribe WHERE uid='$userR[0]'");
    while (list($forumid)=sql_fetch_row($result)) {
       $tab_subscribe[$forumid]=true;
@@ -739,9 +739,9 @@ function forum($rowQ1) {
          $rowQ2=Q_Select ("SELECT * FROM ".$NPDS_Prefix."forums WHERE cat_id = '".$row['cat_id']."' AND SUBSTRING(forum_name,1,3)!='<!>' ORDER BY forum_index,forum_id", 21600);
          if ($rowQ2) {
             while(list(,$myrow) = each($rowQ2)) {
-               // Gestion des Forums Cachés aux non-membres
+               // Gestion des Forums CachÃ©s aux non-membres
                if (($myrow['forum_type'] != "9") or ($userR)) {
-                  // Gestion des Forums réservés à un groupe de membre
+                  // Gestion des Forums rÃ©servÃ©s Ã  un groupe de membre
                   if (($myrow['forum_type'] == "7") or ($myrow['forum_type'] == "5")){
                      $ok_affich=groupe_forum($myrow['forum_pass'], $tab_groupe);
                      if ( (isset($admin)) and ($adminforum==1) ) $ok_affich=true;// to see when admin mais pas assez precis
@@ -861,7 +861,7 @@ function forum($rowQ1) {
    return ($ibid);
 }
 
-// fonction appelée par le meta-mot forum_subfolder()
+// fonction appelÃ©e par le meta-mot forum_subfolder()
 function sub_forum_folder($forum) {
    global $user, $NPDS_Prefix;
 
