@@ -25,7 +25,7 @@ if ($admin) {
     global $startdate;
     list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
     //LNL Email in outside table
-    $result=sql_query("select email from ".$NPDS_Prefix."lnl_outside_users");
+    $result=sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users");
     if ($result) {$totalnl = sql_num_rows($result);} else {$totalnl = "0";}
 
     echo '<h2>'.translate("Administration BlackBoard").'</h2>';
