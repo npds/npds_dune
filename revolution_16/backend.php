@@ -54,7 +54,7 @@ function fab_feed($type,$filename,$timeout) {
    $image->height=$backend_height;
    $rss->image = $image;
 
-   $xtab=news_aff("index","where ihome='0' and archive='0'",$storyhome,"");
+   $xtab=news_aff("index","WHERE ihome='0' AND archive='0'",$storyhome,"");
    $story_limit=0;
    while (($story_limit<$storyhome) and ($story_limit<sizeof($xtab))) {
       list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
