@@ -66,7 +66,7 @@ if (isset($admin) and ($admin!="")) {
    if ($aid=="" or $AIpwd=="") {
       Admin_Alert("Null Aid or Passwd");
    }
-   $result=sql_query("select pwd, radminsuper from ".$NPDS_Prefix."authors where aid='$aid'");
+   $result=sql_query("SELECT pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
    if (!$result) {
       Admin_Alert("DB not ready #2 : $aid / $AIpwd");
    } else {
