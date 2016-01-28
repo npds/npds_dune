@@ -88,7 +88,7 @@ if ($submitS) {
       $sql = "UPDATE ".$NPDS_Prefix."posts SET post_text = '$message', image='$image_subject' WHERE (post_id = '$post_id')";
       if (!$result = sql_query($sql))
          forumerror('0001');
-      $sql = "UPDATE ".$NPDS_Prefix."forum_read SET status='0' where topicid = '".$row['topic_id']."'";
+      $sql = "UPDATE ".$NPDS_Prefix."forum_read SET status='0' WHERE topicid = '".$row['topic_id']."'";
       if (!$r = sql_query($sql))
          forumerror('0001');
 
@@ -97,7 +97,7 @@ if ($submitS) {
          forumerror('0020');
       redirect_url("$hrefX?topic=".$row['topic_id']."&forum=$forum");
    } else {
-      $indice=sql_num_rows(sql_query("select post_id from ".$NPDS_Prefix."posts where post_idH='$post_id'"));
+      $indice=sql_num_rows(sql_query("SELECT post_id FROM ".$NPDS_Prefix."posts WHERE post_idH='$post_id'"));
       if (!$indice) {
          $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE post_id='$post_id'";
          if (!$r = sql_query($sql))
@@ -112,7 +112,7 @@ if ($submitS) {
             redirect_url("viewforum.php?forum=$forum");
             die();
          } else {
-            $result=sql_query("SELECT post_time, poster_id FROM ".$NPDS_Prefix."posts where topic_id='".$row['topic_id']."' ORDER BY post_id DESC limit 0,1");
+            $result=sql_query("SELECT post_time, poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='".$row['topic_id']."' ORDER BY post_id DESC LIMIT 0,1");
             $rowX=sql_fetch_row($result);
             $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_time = '$rowX[0]', current_poster='$rowX[1]' WHERE topic_id = '".$row['topic_id']."'";
             if (!$r = sql_query($sql))
@@ -136,7 +136,7 @@ if ($submitS) {
    }
    $myrow = sql_fetch_assoc($result);
    if ((!$Mmod) and ($userdata[0]!=$myrow['uid'])) { forumerror('0035'); }
-   if (!$result = sql_query("select topic_title, topic_status from ".$NPDS_Prefix."forumtopics where topic_id='".$myrow['topic_id']."'")) {
+   if (!$result = sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='".$myrow['topic_id']."'")) {
       forumerror('0001');
    } else {
       list($title, $topic_status) = sql_fetch_row($result);
