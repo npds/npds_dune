@@ -29,7 +29,7 @@ settype($forum,"integer");
 if ($forum>=0)
    die();
 
-// gestion des params du 'forum' : type, accès, modérateur ...
+// gestion des params du 'forum' : type, accÃ¨s, modÃ©rateur ...
 $forum_name = "comments";
 $forum_type=0;
 $allow_to_post=false;
@@ -44,21 +44,21 @@ if (($moderate==1) and $admin)
 elseif ($moderate==2) {
    $userX=base64_decode($user);
    $userdata=explode(":", $userX);
-   $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status where uid='".$userdata[0]."'");
+   $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid='".$userdata[0]."'");
    list($level)=sql_fetch_row($result);
    if ($level>=2)
       $Mmod=true;
 } else
    $Mmod=false;
-// gestion des params du 'forum' : type, accès, modérateur ...
+// gestion des params du 'forum' : type, accÃ¨s, modÃ©rateur ...
 
    if ($Mmod) {
       switch ($mode) {
             case 'del':
-               $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' and topic_id = '$topic'";
+               $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id = '$topic'";
                if (!$result = sql_query($sql))
                   forumerror('0009');
-               // ordre de mise à jour d'un champ externe ?
+               // ordre de mise Ã  jour d'un champ externe ?
                if ($comments_req_raz!="")
                   sql_query("UPDATE ".$NPDS_Prefix.$comments_req_raz);
                redirect_url("$url_ret");
@@ -93,7 +93,7 @@ elseif ($moderate==2) {
                $sql = "UPDATE ".$NPDS_Prefix."posts SET post_aff = '$ordre' WHERE post_id = '$post'";
                sql_query($sql);
 
-               // ordre de mise à jour d'un champ externe ?
+               // ordre de mise Ã  jour d'un champ externe ?
                if ($ordre) {
                   if ($comments_req_add!="")
                      sql_query("UPDATE ".$NPDS_Prefix.$comments_req_add);
