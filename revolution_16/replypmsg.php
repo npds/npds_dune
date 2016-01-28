@@ -222,9 +222,10 @@ include('auth.php');
          <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
          translate("All registered users can post private messages.").'</blockquote>';
          echo '
-         <form action="replypmsg.php" method="post" name="coolsus">';
+      <form action="replypmsg.php" method="post" name="coolsus">';
          if ($submitP) {
-            echo "<hr noshade=\"noshade\" class=\"ongl\" /><p align=\"center\" class=\"header\">".translate("Preview")."</p><table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">";
+            echo "<hr noshade=\"noshade\" class=\"ongl\" /><p align=\"center\" class=\"header\">".translate("Preview")."</p>
+            <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">";
             echo "<b>".StripSlashes($subject)."</b><br /><br />\n";
             $Xmessage=$message=StripSlashes($message);
             if ($allow_html == 0 || isset($html)) $Xmessage = htmlspecialchars($Xmessage,ENT_COMPAT|ENT_HTML401,cur_charset);
@@ -239,55 +240,47 @@ include('auth.php');
             }
             $Xmessage = make_clickable($Xmessage);
             echo $Xmessage;
-            echo"<hr noshade=\"noshade\" class=\"ongl\" /></td></tr></table>";
+            echo"<hr noshade=\"noshade\" class=\"ongl\" />";
          }
          echo '
-       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label" for="to_user">'.translate("Destinataire").'</label>
-         </div>
-      <div class="col-sm-9">';
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
+            <div class="col-sm-9">';
          if (!$reply) {
             $carnet=JavaPopUp("carnet.php","CARNET",300,350);
-            $carnet='&nbsp;<a href="javascript:void(0);" onclick="window.open('.$carnet.'); ">';
-            echo $carnet.'<span class="small">'.translate("Bookmark").'</a></span>';
+            $carnet='<a href="javascript:void(0);" onclick="window.open('.$carnet.'); ">';
+            echo $carnet.'<span class="small">'.translate("Bookmark").'</span></a>';
          }
          if ($reply) {
-            echo '<input type="hidden" name="to_user" value="'.$fromuserdata['uname'].'" />'.$fromuserdata['uname'];
+            echo '
+               <input type="hidden" name="to_user" value="'.$fromuserdata['uname'].'" />'.$fromuserdata['uname'];
          } else {
             if ($send!=1) { $Xto_user=$send;}
             if ($to_user) { $Xto_user=$to_user; }
-            echo '<input class="form-control" type="text" name="to_user" value="'.$Xto_user.'" maxlength="100" />';
+            echo '
+               <input class="form-control" type="text" name="to_user" value="'.$Xto_user.'" maxlength="100" />';
          }
          echo '
-         </div>
-      </div>';
-
+            </div>
+         </div>';
          if ($copie) {$checked='checked="checked"';} else {$checked='';}
          echo '
-      <div class="form-group row">
-         <input type="checkbox" name="copie" '.$checked.' /> '.translate("Send a copy to me").'</label>';
-
-         echo '
-      <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label" for="subject">'.translate("Subject: ").'</label>
+         <div class="form-group row">
+            <input type="checkbox" name="copie" '.$checked.' /> '.translate("Send a copy to me").'</label>
          </div>
-         <div class="col-sm-9">';
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="subject">'.translate("Subject").'</label>
+            <div class="col-sm-9">';
          if ($subject) {$tmp=StripSlashes($subject);} else {if ($reply) $tmp="Re: ".StripSlashes($row['subject']); else $tmp="";}
          echo '
-            <input class="form-control" type="text" name="subject" value="'.$tmp.'" maxlength="100" />
-         </div>
-      </div>';
-
+               <input class="form-control" type="text" name="subject" value="'.$tmp.'" maxlength="100" />
+            </div>
+         </div>';
          if ($smilies) {
             echo '
-      <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label">'.translate("Message Icon: ").'</label>
-         </div>
-         <div class="col-sm-9">
-         ';
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3">'.translate("Message Icon: ").'</label>
+            <div class="col-sm-9">';
             if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
             $handle=opendir($imgtmp);
             while (false!==($file=readdir($handle))) {
@@ -299,7 +292,7 @@ include('auth.php');
                if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
                settype($image,'string');
                if ($file==$image) {
-                  echo "<input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smile\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
+                  echo "<input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
                   $a++;
                } else if ($file==$row['msg_image'] && $row['msg_image']!="") {
                   echo "<input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
@@ -318,9 +311,7 @@ include('auth.php');
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label" for="message">'.translate("Message: ").'</label>
-         </div>
+         <label class="form-control-label col-sm-3" for="message">'.translate("Message: ").'</label>
          <div class="col-sm-9">
             <div class="card">
                <div class="card-header">';
@@ -371,16 +362,14 @@ include('auth.php');
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label">'.translate("Options: ").'</label>
-         </div>';
+         <label class="form-control-label col-sm-3">'.translate("Options: ").'</label>';
          if ($allow_html==1) {
             if ($html) {$checked="checked";} else {$checked="";}
             echo '
          <div class="col-sm-9">
             <div class="checkbox">
                <label class="">
-                  <input type="checkbox" name="html" '.$checked.'>'.translate("Disable HTML on this Post").'
+                  <input type="checkbox" name="html" '.$checked.' />'.translate("Disable HTML on this Post").'
                </label>
             </div>';
          }
@@ -395,7 +384,8 @@ include('auth.php');
             echo '
             <div class="checkbox">
                <label class="">
-                  <input type="checkbox" name="sig" '.$checked.' /> '.translate("Show signature").' :<br /><small>'.translate("This can be altered or added in your profile").'</small>
+                  <input type="checkbox" name="sig" '.$checked.' /> '.translate("Show signature").' :<br />
+                  <small>'.translate("This can be altered or added in your profile").'</small>
                </label>
             </div>';
          }
@@ -403,14 +393,17 @@ include('auth.php');
          echo '
          </div>
       </div>
-         
-              <input type="hidden" name="msg_id" value="'.$msg_id.'" />
-              <input type="hidden" name="full_interface" value="'.$full_interface.'" />';
+      <div class="form-group row">
+         <input type="hidden" name="msg_id" value="'.$msg_id.'" />
+         <input type="hidden" name="full_interface" value="'.$full_interface.'" />';
               if ($send==1)
-                 echo '<input type="hidden" name="send" value="1" />';
+                 echo '
+         <input type="hidden" name="send" value="1" />';
               if ($reply==1)
-                 echo '<input type="hidden" name="reply" value="1" />';
-              echo "<input class=\"btn btn-secondary\" type=\"submit\" name=\"submitS\" value=\"".translate("Submit")."\" accesskey=\"s\" />
+                 echo '
+         <input type="hidden" name="reply" value="1" />';
+              echo "
+         <input class=\"btn btn-secondary\" type=\"submit\" name=\"submitS\" value=\"".translate("Submit")."\" accesskey=\"s\" />
               &nbsp;<input class=\"btn btn-secondary\" type=\"submit\" name=\"submitP\" value=\"".translate("Preview")."\" />
               &nbsp;<input class=\"btn btn-secondary\" type=\"reset\" value=\"".translate("Clear")."\" />";
          if ($reply)
@@ -418,7 +411,9 @@ include('auth.php');
          else
             echo "&nbsp;<input class=\"btn btn-secondary\" type=\"submit\" name=\"cancel\" value=\"".translate("Cancel Send")."\" />";
 
-         echo '</form>';
+         echo '
+      </div>
+   </form>';
          if ($full_interface!="short") {
             include('footer.php');
          }
