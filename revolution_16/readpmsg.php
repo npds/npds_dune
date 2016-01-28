@@ -188,7 +188,7 @@ include('auth.php');
                echo '<a href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-reply fa-lg"></i></a>';
             echo '&nbsp;<a href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'"><img src="'.$imgtmpD.'" border="0" alt="" style="vertical-align: middle;" /></a>';
             // Classement
-            $sql = "SELECT distinct dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' and type_msg='0' ORDER BY dossier";
+            $sql = "SELECT DISTINCT dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' ORDER BY dossier";
             $result = sql_query($sql);
             echo '&nbsp;&nbsp;<strong>'.translate("Topic").'</strong> : <select class="form-control" name="dossier">';
             while (list($dossier)=sql_fetch_row($result)) {
