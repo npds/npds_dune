@@ -34,11 +34,11 @@ include('auth.php');
       settype($start,"integer");
       settype($type,"string");
       if ($type=="outbox") {
-         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid='".$userdata['uid']."' and type_msg='1' ORDER BY msg_id DESC LIMIT $start,1";
+         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid='".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC LIMIT $start,1";
       } else {
          if ($dossier=="All") {$ibid="";} else {$ibid="and dossier='$dossier'";}
          if (!$dossier) {$ibid="and dossier='...'";}
-         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' and type_msg='0' $ibid ORDER BY msg_id DESC LIMIT $start,1";
+         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC LIMIT $start,1";
       }
       $resultID = sql_query($sql);
       if (!$resultID) {
@@ -88,7 +88,7 @@ include('auth.php');
                } else {
                   if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
                }
-               echo '<img width="64" height="64" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
+               echo '<img class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
             }
          }
 
