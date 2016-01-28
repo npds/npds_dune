@@ -65,7 +65,7 @@ function reviews() {
         $title = stripslashes($title);
         $text = stripslashes($text);
         echo '
-   <h4>'.adm_translate("Ajouter la critique N∞ : ").' '.$id.'</h4>
+   <h4>'.adm_translate("Ajouter la critique N° : ").' '.$id.'</h4>
    <form id="fad_valreviews'.$id.'" action="admin.php" method="post">
    <input type="hidden" name="id" value="'.$id.'" />
       <div class="form-group">
@@ -121,7 +121,7 @@ function reviews() {
             </div>
          </div>
       </div>';
-         if ($url != "") {
+         if ($url != '') {
             echo '
       <div class="form-group">
          <div class="row">
