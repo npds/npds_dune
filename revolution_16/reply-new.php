@@ -65,7 +65,7 @@ if ($submitS) {
          if (($username=="") or ($password=="")) {
             forumerror('0027');
          } else {
-            $result = sql_query("select pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
+            $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
             if (!$system) {
                $passwd=crypt($password,$pass);
@@ -144,7 +144,7 @@ if ($submitS) {
       if (!$result = sql_query($sql)) {
          forumerror('0020');
       }
-      $sql = "UPDATE ".$NPDS_Prefix."forum_read SET status='0' where topicid = '$topic' and uid <> '".$userdata['uid']."'";
+      $sql = "UPDATE ".$NPDS_Prefix."forum_read SET status='0' WHERE topicid = '$topic' AND uid <> '".$userdata['uid']."'";
       if (!$r = sql_query($sql)) {
          forumerror('0001');
       }
@@ -200,7 +200,7 @@ if ($submitS) {
       include("lib/formhelp.java.php");
    }
 
-   list($topic_title, $topic_status) = sql_fetch_row(sql_query("select topic_title, topic_status from ".$NPDS_Prefix."forumtopics where topic_id='$topic'"));
+   list($topic_title, $topic_status) = sql_fetch_row(sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'"));
    $userX = base64_decode($user);
    $userdata = explode(":", $userX);
    $moderator = get_moderator($mod);
@@ -349,7 +349,7 @@ if ($submitS) {
      }
      if ($user) {
         if ($allow_sig == 1||$sig == "on") {
-           $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
+           $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
            list($attachsig) = sql_fetch_row($asig);
            if ($attachsig == 1) {
               $s = "checked=\"checked\"";
@@ -418,7 +418,7 @@ if ($submitS) {
       } else {
          $post_aff=" and post_aff='1' ";
       }
-      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and forum_id='$forum'".$post_aff."ORDER BY post_id DESC limit 0,10";
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id DESC LIMIT 0,10";
       if (!$result = sql_query($sql))
          forumerror('0001');
       $myrow = sql_fetch_assoc($result);
