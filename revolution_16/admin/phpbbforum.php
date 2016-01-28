@@ -465,7 +465,7 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
+            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé) - Le nom du fichier de formulaire (si Texte étendu) => modules/sform/forum - Les Groupes ID (si Groupe)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="forum_pass" value="'.$forum_pass.'" />
             </div>
