@@ -120,9 +120,9 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    global $NPDS_Prefix;
    settype($sid,"integer");
    settype($archive, "integer");
-   $result2=sql_query("select title, time, topic from ".$NPDS_Prefix."stories where sid='$sid'");
+   $result2=sql_query("SELECT title, time, topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
    list($title, $time, $topic) = sql_fetch_row($result2);
-   $result3=sql_query("select topictext from ".$NPDS_Prefix."topics where topicid='$topic'");
+   $result3=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext) = sql_fetch_row($result3);
    $subject = translate("Interesting Article at")." $sitename";
    $fname=removeHack($fname);
