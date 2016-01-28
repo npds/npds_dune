@@ -42,6 +42,6 @@ if ((!$admin) or ($not_admin_count!=1)) {
    else $os = "Other";
 
    global $NPDS_Prefix;
-   sql_query("update ".$NPDS_Prefix."counter set count=count+1 where (type='total' and var='hits') or (var='$browser' and type='browser') or (var='$os' and type='os')");
+   sql_query("UPDATE ".$NPDS_Prefix."counter SET count=count+1 WHERE (type='total' AND var='hits') OR (var='$browser' AND type='browser') OR (var='$os' AND type='os')");
 }
 ?>
