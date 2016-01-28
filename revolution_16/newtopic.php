@@ -361,7 +361,7 @@ if ($submitS) {
          }
          if ($user) {
             if ($allow_sig == 1||$sig == "on") {
-               $asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
+               $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
                list($attachsig) = sql_fetch_row($asig);
                if ($attachsig == 1) {
                   $s = 'checked="checked"';
