@@ -111,10 +111,10 @@ function defaultDisplay() {
 }
 
 function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur) {
-   global $tipath, $NPDS_Prefix;
-
+   global $tipath, $NPDS_Prefix, $topictext, $topicimage;
+   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
-   $subject = stripslashes(str_replace("\"","&quot;",(strip_tags($subject))));
+   $subject = stripslashes(str_replace('"','&quot;',(strip_tags($subject))));
    $story = stripslashes($story);
    $bodytext = stripslashes($bodytext);
 
@@ -123,29 +123,31 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
    <form class="" action="submit.php" method="post" name="adminForm">
       <p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>
       <input type="hidden" name="name" value="'.$name.'" />';
+   echo '<div class="card card-block">';
 
    if ($topic=='') {
-      $topicimage="all-topics.gif";
-      $warning = '<strong>'.translate("Select Topic").'</strong>';
+//      $topicimage='all-topics.gif';
+      $warning = '<strong class="text-danger">'.translate("Select Topic").'</strong>';
    } else {
       $warning = '';
       $result = sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
       list($topictext, $topicimage) = sql_fetch_row($result);
    }
-   $no_img=false;
-   if ((file_exists("$tipath$topicimage")) and ($topicimage!='')) {
-      echo '<p class="col-sm-offset-10"><img class="img-fluid" src="'.$tipath.$topicimage.'" alt="" /></p>';
-   } else {
-      echo '';
-      $no_img=true;
+   if ($topicimage!=='') { 
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+      $timage=$imgtmp;
+      if (file_exists($imgtmp)) 
+      $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
+
    $storyX=aff_code($story);
    $bodytextX=aff_code($bodytext);
-   themepreview($subject, $storyX, $bodytextX);
-   if ($no_img) {
-      echo '<strong>'.aff_langue($topictext).'</strong>';
-   }
+   themepreview('<h3>'.$subject.$topiclogo.'</h3>','<div class="text-muted">'.$storyX.'</div>', $bodytextX);
+//    if ($no_img) {
+//       echo '<strong>'.aff_langue($topictext).'</strong>';
+//    }
    echo '
+   </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="subject">'.translate("Title").'</label>
          <div class="col-sm-9">
@@ -203,7 +205,6 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
          </div>
       </div>
    </form>';
-   
    include ('footer.php');
 }
 
