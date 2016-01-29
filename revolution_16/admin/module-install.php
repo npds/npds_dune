@@ -422,47 +422,38 @@ function nmig_clean($name_module) {
          case "e2":
             nmig_License($licence_file);
             break;
-
          case "e3":
             if (isset($sql[0]) && $sql[0] != "") { nmig_AlertSql($sql,$tables); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>"; }
             break;   
-
          case "e4":
             if (isset($sql[0]) && $sql[0] != "") { nmig_WriteSql($sql,$tables); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>"; }
             break;
-
          case "e5":
             if (isset($list_fich) && count($list_fich[0]) && $list_fich[0][0] != "") { nmig_AlertConfig($list_fich); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>"; }
             break;
-
          case "e6":
             if (isset($list_fich) && count($list_fich[0])) { nmig_WriteConfig($list_fich, $try_Chmod); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>"; }
             break;
-
          case "e7":
             if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != "") { nmig_AlertBloc($blocs); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>"; }
             break;
-
          case "e8":
             if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != "") { nmig_WriteBloc($blocs, $posbloc); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>"; }
             break;
-
          case "e9":
             if (isset($txtfin) && $txtfin != "") { nmig_txt($txtfin); }
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e10\";\n//]]>\n</script>"; }
             break;
-
          case "e10":
             if (!isset($end_link) || $end_link == "") { $end_link = "admin.php?op=modules"; }
             nmig_End($name_module, $end_link);
             break;
-
          default:
             nmig_Start($name_module,$txtdeb);
             break;
