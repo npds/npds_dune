@@ -91,7 +91,8 @@ function nmig_License($licence_file) {
 function nmig_AlertSql($sql,$tables) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
-   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
+//   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
+   $type_engine=5;
    for ($i = 0; $i < count($sql); $i++) {
       for ($j = 0; $j < count($tables); $j++) {
          $sql[$i] = preg_replace("#$tables[$j]#i", $NPDS_Prefix.$tables[$j],$sql[$i]);
@@ -120,8 +121,8 @@ function nmig_AlertSql($sql,$tables) {
 function nmig_WriteSql($sql,$tables) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
-   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
-
+//   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
+$type_engine= 5;// à revoir
    $display = '
    <div class="">';
    for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
@@ -250,18 +251,17 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
    }
    $display .= "</div><br />\n";
    $display .= "<div style=\"text-align: center;\">\n";
-   $display .= "[";
    if (!$writeAllFiles) {
       $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6&amp;try_Chmod=1\" class=\"rouge\">".adm_translate("Réessayer avec chmod automatique")."</a>&nbsp;] | [";
    }
    $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e7\"";
    if (!$writeAllFiles) {
-      $display .= "class=\"noir\">";
+      $display .= 'class="btn btn-primary">';
    } else {
       $display .= "class=\"rouge\">";
    }
-   $display .= adm_translate("Etape suivante")."</a>&nbsp;]<br />\n";
-   $display .= "</div><br />\n";
+   $display .= adm_translate("Etape suivante").'</a><br />
+   </div><br />';
    $display .= nmig_copyright();
 }
 
