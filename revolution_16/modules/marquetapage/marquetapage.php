@@ -31,14 +31,14 @@ function marquetapage_add($uri, $topic, $action) {
       redirect_url($uri);
    }
    if (($action=="sp_tapage") and ($cookie[0])) {
-      $result = sql_query("select uri from ".$NPDS_Prefix."marquetapage where uid='$cookie[0]' and uri='$uri'");
+      $result = sql_query("SELECT uri FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]' and uri='$uri'");
       if (sql_num_rows($result) > 0) {
          sql_query("DELETE FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]' and uri='$uri'");
          redirect_url($uri);
       }
    }
    if (($action=="sp_tespages") and ($cookie[0])) {
-      $result = sql_query("select uri from ".$NPDS_Prefix."marquetapage where uid='$cookie[0]'");
+      $result = sql_query("SELECT uri FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]'");
       if (sql_num_rows($result) > 0) {
          sql_query("DELETE FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]'");
          redirect_url($uri);
@@ -52,10 +52,11 @@ function marquetapage() {
       global $REQUEST_URI, $title, $post, $NPDS_Prefix;
       if ($ibid=theme_image("modules/add.gif")) {$add=$ibid;} else {$add="modules/marquetapage/add.gif";}
       if ($ibid=theme_image("modules/addj.gif")) {$addj=$ibid;} else {$addj="modules/marquetapage/addj.gif";}
-      $result=sql_query("select uri, topic from ".$NPDS_Prefix."marquetapage where uid='$cookie[0]' order by topic ASC");
+      $result=sql_query("SELECT uri, topic FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]' ORDER BY topic ASC");
       if (sql_num_rows($result)) {
          $tmp_toggle='<span id="show_fav" title="'.translate("Show list").'"><img src="images/admin/ws/toggle_plus.gif" style="vertical-align:middle;" alt="'.translate("Show list").'" /></span>';
 
+// LIB YUI A Remplacer
          $content="<script type=\"text/javascript\" src=\"lib/yui/build/yui/yui-min.js\"></script>";
          $content.="<script type=\"text/javascript\">
          //<![CDATA[
