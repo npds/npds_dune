@@ -36,7 +36,7 @@ settype($forum,"integer");
 if ($forum>=0)
    die();
 
-// gestion des params du 'forum' : type, accès, modérateur ...
+// gestion des params du 'forum' : type, accÃ¨s, modÃ©rateur ...
 $forum_name = 'comments';
 $forum_type=0;
 $allow_to_post=false;
@@ -57,7 +57,7 @@ elseif ($moderate==2) {
       $Mmod=false;
 } else
    $Mmod=false;
-// gestion des params du 'forum' : type, accès, modérateur ...
+// gestion des params du 'forum' : type, accÃ¨s, modÃ©rateur ...
 
 if (isset($submitS)) {
    $stop=0;
@@ -140,7 +140,7 @@ if (isset($submitS)) {
          forumerror('0029');
       }
 
-      // ordre de mise à jour d'un champ externe ?
+      // ordre de mise Ã  jour d'un champ externe ?
       if ($comments_req_add!="")
          sql_query("UPDATE ".$NPDS_Prefix.$comments_req_add);
 
@@ -290,7 +290,7 @@ if (isset($submitS)) {
       } else {
          $post_aff=" AND post_aff='1' ";
       }
-      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum='$forum' ORDER BY post_id DESC limit 0,10";
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum='$forum' ORDER BY post_id DESC LIMIT 0,10";
       $result = sql_query($sql);
       if (sql_num_rows($result)) {
          echo "".translate("Topic Review")."";
