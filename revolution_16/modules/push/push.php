@@ -161,7 +161,7 @@ function push_faq() {
 
    echo "document.write('<a name=\"faq\"></a>');\n";
    echo "document.write('<li><b>Faqs</b></li><br />');\n";
-     $result = sql_query("select id_cat, categories FROM ".$NPDS_Prefix."faqcategories ORDER BY id_cat ASC");
+     $result = sql_query("SELECT id_cat, categories FROM ".$NPDS_Prefix."faqcategories ORDER BY id_cat ASC");
      while(list($id_cat, $categories) = sql_fetch_row($result)) {
         $categories=str_replace("'","\'",$categories);
         echo "document.write('&nbsp;-&nbsp;<a href=javascript:onclick=register(\"npds-push\",\"op=faq_show&id_cat=$id_cat\"); style=\"font-size: 11px;\">".aff_langue($categories)."</a><br />');\n";
@@ -174,12 +174,12 @@ function faq_show($id_cat) {
    global $NPDS_Prefix;
 
    push_header("suite");
-   $result = sql_query("select categories FROM ".$NPDS_Prefix."faqcategories where id_cat='$id_cat'");
+   $result = sql_query("SELECT categories FROM ".$NPDS_Prefix."faqcategories WHERE id_cat='$id_cat'");
    list($categories) = sql_fetch_row($result);
    $categories=str_replace("'","\'",$categories);
    echo "document.write('<p align=\"center\"><a name=\"$id\"></a><b>".aff_langue($categories)."</b></p>');\n";
 
-   $result = sql_query("select id, id_cat, question, answer from ".$NPDS_Prefix."faqanswer where id_cat='$id_cat'");
+   $result = sql_query("SELECT id, id_cat, question, answer FROM ".$NPDS_Prefix."faqanswer WHERE id_cat='$id_cat'");
    while(list($id, $id_cat, $question, $answer) = sql_fetch_row($result)) {
       $question=str_replace("'","\'",$question);
       echo"document.write('<b>".aff_langue($question)."</b>');\n";
@@ -204,7 +204,7 @@ function push_members () {
    $count_user=0;
    settype($page, "integer");
    settype($push_member_limit, "integer");
-   $result = sql_query("select uname FROM ".$NPDS_Prefix."users ORDER BY uname ASC LIMIT $page,$push_member_limit");
+   $result = sql_query("SELECT uname FROM ".$NPDS_Prefix."users ORDER BY uname ASC LIMIT $page,$push_member_limit");
    while(list($uname) = sql_fetch_row($result)) {
       $offset=$offset+1;
       if ($uname!=$anonymous) {
@@ -240,10 +240,10 @@ function push_links() {
    echo "document.write('<li><b>".push_translate("Web links")."</b></li><br />');\n";
 
    echo "document.write('<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>');\n";
-   $result=sql_query("select cid, title, cdescription FROM ".$NPDS_Prefix."links_categories order by $orderby");
+   $result=sql_query("SELECT cid, title, cdescription FROM ".$NPDS_Prefix."links_categories ORDER BY $orderby");
    $count = 0;
    while(list($cid, $title, $cdescription) = sql_fetch_row($result)) {
-      $cresult = sql_query("select * FROM ".$NPDS_Prefix."links_links where cid='$cid'");
+      $cresult = sql_query("SELECT * FROM ".$NPDS_Prefix."links_links WHERE cid='$cid'");
       $cnumrows = sql_num_rows($cresult);
       $title=str_replace("'","\'",$title);
       echo "document.write('<td width=\"49%\" valign=\"top\"><a href=javascript:onclick=register(\"npds-push\",\"op=viewlink&cid=$cid\"); style=\"font-size: 11px;\"><b>".aff_langue($title)."</b></a> ($cnumrows)');\n";
@@ -253,7 +253,7 @@ function push_links() {
       } else {
           echo "document.write('<br />');\n";
       }
-      $result2 = sql_query("select sid, title FROM ".$NPDS_Prefix."links_subcategories where cid='$cid' order by $orderby limit 0,3");
+      $result2 = sql_query("SELECT sid, title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' ORDER BY $orderby LIMIT 0,3");
       $space = 0;
       while(list($sid, $stitle) = sql_fetch_row($result2)) {
          if ($space>0) {
@@ -287,16 +287,16 @@ function viewlink_show($cid, $min) {
     $perpage = $push_view_perpage;
     $orderby = "title ".$push_orderby;
 
-    $result=sql_query("select title FROM ".$NPDS_Prefix."links_categories where cid='$cid'");
+    $result=sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
     list($title) = sql_fetch_row($result);
     $title=str_replace("'","\'",$title);
     echo "document.write('<span  style=\"font-size: 11px;\"><b>".aff_langue($title)."</b></span>');\n";
-    $subresult=sql_query("select sid, title FROM ".$NPDS_Prefix."links_subcategories where cid='$cid' order by $orderby");
+    $subresult=sql_query("SELECT sid, title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' ORDER BY $orderby");
     $numrows = sql_num_rows($subresult);
     if ($numrows != 0) {
         echo "document.write('<b> / Sub-Cat</b><br />');\n";
         while(list($sid, $title) = sql_fetch_row($subresult)) {
-           $result2 = sql_query("select * FROM ".$NPDS_Prefix."links_links where sid='$sid'");
+           $result2 = sql_query("SELECT * FROM ".$NPDS_Prefix."links_links WHERE sid='$sid'");
            $numrows = sql_num_rows($result2);
            $title=str_replace("'","\'",$title);
            echo "document.write('<li><a href=javascript:onclick=register(\"npds-push\",\"op=viewslink&sid=$sid\"); style=\"font-size: 11px;\">".aff_langue($title)."</a> ($numrows)</li>');\n";
@@ -308,8 +308,8 @@ function viewlink_show($cid, $min) {
     }
     settype($min, "integer");
     settype($perpage, "integer");
-    $result=sql_query("select lid, title FROM ".$NPDS_Prefix."links_links where cid='$cid' AND sid=0 order by $orderby limit $min,$perpage");
-    $fullcountresult=sql_query("select lid, title FROM ".$NPDS_Prefix."links_links where cid='$cid' AND sid=0");
+    $result=sql_query("SELECT lid, title FROM ".$NPDS_Prefix."links_links WHERE cid='$cid' AND sid=0 ORDER BY $orderby LIMIT $min,$perpage");
+    $fullcountresult=sql_query("SELECT lid, title FROM ".$NPDS_Prefix."links_links WHERE cid='$cid' AND sid=0");
     $totalselectedlinks = sql_num_rows($fullcountresult);
 
     while(list($lid, $title)=sql_fetch_row($result)) {
@@ -337,10 +337,10 @@ function viewslink_show($sid, $min) {
     $perpage = $push_view_perpage;
     $orderby = "title ".$push_orderby;
 
-    $result = sql_query("select cid, title FROM ".$NPDS_Prefix."links_subcategories where sid='$sid'");
+    $result = sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_subcategories WHERE sid='$sid'");
     list($cid, $stitle) = sql_fetch_row($result);
 
-    $result2 = sql_query("select cid, title FROM ".$NPDS_Prefix."links_categories where cid='$cid'");
+    $result2 = sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
     list($cid, $title) = sql_fetch_row($result2);
 
     $title=str_replace("'","\'",$title);
@@ -349,8 +349,8 @@ function viewslink_show($sid, $min) {
 
     settype($min, "integer");
     settype($perpage, "integer");
-    $result=sql_query("select lid, title FROM ".$NPDS_Prefix."links_links where cid='$cid' AND sid='$sid' order by $orderby limit $min,$perpage");
-    $fullcountresult=sql_query("select lid, title FROM ".$NPDS_Prefix."links_links where cid='$cid' AND sid='$sid'");
+    $result=sql_query("SELECT lid, title FROM ".$NPDS_Prefix."links_links WHERE cid='$cid' AND sid='$sid' ORDER BY $orderby LIMIT $min,$perpage");
+    $fullcountresult=sql_query("SELECT lid, title FROM ".$NPDS_Prefix."links_links WHERE cid='$cid' AND sid='$sid'");
     $totalselectedlinks = sql_num_rows($fullcountresult);
 
     echo "document.write('<br />');\n";
