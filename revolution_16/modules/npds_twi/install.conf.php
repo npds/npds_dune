@@ -1,60 +1,57 @@
 <?php
 /************************************************************************/
-/************************************************************************/
-/*                                                                      */
 /* NMIG : NPDS Module Installer Generator                               */
 /* --------------------------------------                               */
-/*                                                                      */
-/* Version 1.1 - 15 Mars 2005                                           */
+/* Version 2.0 - 2015                                                   */
 /* --------------------------                                           */
+/* GÃ©nÃ©rateur de fichier de configuration pour Module-Install 1.1       */
+/* DÃ©veloppÃ© par Boris - http://www.lordi-depanneur.com                 */
+/* Module-Install est un installeur inspirÃ© du programme d'installation */
+/* d'origine du module Hot-Projet dÃ©veloppÃ© par Hotfirenet              */
 /*                                                                      */
-/* Générateur de fichier de configuration pour Module-Install 1.1       */
+/* NPDS : Net Portal Dynamic System                                     */
 /*                                                                      */
-/* Développé par Boris - http://www.lordi-depanneur.com                 */
-/*                                                                      */#   N      N  M      M  IIIII     GGG
-/* Module-Install est un installeur inspiré du programme d'installation */#   NN     N  MM    MM    I     GG   GG
-/* d'origine du module Hot-Projet développé par Hotfirenet              */#   N N    N  M M  M M    I    G       G
-/*                                                                      */#   N  N   N  M  MM  M    I    G
-/************************************************************************/#   N   N  N  M      M    I    G   GGGGGG
-/*                                                                      */#   N    N N  M      M    I    G      GG
-/* NPDS : Net Portal Dynamic System                                     */#   N     NN  M      M    I     GG   GG
-/* ================================                                     */#   N      N  M      M  IIIII     GGG
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001 by Philippe Brunier        */
-/*                                                                      */
+/* v.2.0 for NPDS 16 jpb 2015                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /************************************************************************/
-/************************************************************************/
 
+global $ModInstall;
 #autodoc $name_module: Nom du module
-
 $name_module = "npds_twi";
 
+#autodoc $path_adm_module: chemin depuis $ModInstall #required si admin avec interface
+$path_adm_module = 'admin/npds_twi_set';
+
+$req_adm='';
+if ($path_adm_module!='')
+$req_adm="INSERT INTO fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES ('', '".$ModInstall."', 1, '', 1, 1, '', '', '".$name_module."', '".$ModInstall."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 6, 'Modules', 0);";
+
 #autodoc $list_fich : Modifications de fichiers: Dans le premier tableau, tapez le nom du fichier
-#autodoc et dans le deuxième, A LA MEME POSITION D'INDEX QUE LE PREMIER, tapez le code à insérer dans le fichier.
-#autodoc Si le fichier doit être créé, n'oubliez pas les < ? php et ? > !!! (sans espace!).
+#autodoc et dans le deuxiÃ¨me, A LA MEME POSITION D'INDEX QUE LE PREMIER, tapez le code Ã  insÃ©rer dans le fichier.
+#autodoc Si le fichier doit Ãªtre crÃ©Ã©, n'oubliez pas les < ? php et ? > !!! (sans espace!).
 #autodoc Synopsis: $list_fich = array(array("nom_fichier1","nom_fichier2"), array("contenu_fchier1","contenu_fichier2"));
 
 $list_fich = array(array("admin/extend-modules.txt"), array("".chr(13)."[module]".chr(13)."   [nom]npds_twi[/nom]".chr(13)."   [ModPath]npds_twi[/ModPath]".chr(13)."   [ModStart]admin/npds_twi_set[/ModStart]".chr(13)."[/module]".chr(13)));
 
-#autodoc $sql = array(""): Si votre module doit exécuter une ou plusieurs requêtes SQL, tapez vos requêtes ici.
-#autodoc Attention! UNE requête par élément de tableau!
-#autodoc Synopsis: $sql = array("requête_sql_1","requête_sql_2");
-//$sql = array("");
-
+#autodoc $sql = array(""): Si votre module doit exÃ©cuter une ou plusieurs requÃªtes SQL, tapez vos requÃªtes ici.
+#autodoc Attention! UNE requÃªte par Ã©lÃ©ment de tableau!
+#autodoc Synopsis: $sql = array("requÃªte_sql_1","requÃªte_sql_2");
+$sql = array("");
+if($path_adm_module!='') $sql[]=$req_adm;
 
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
-#autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
+#autodoc                titre      contenu    membre     groupe     index      rÃˆtention  actif      aide       description
 #autodoc Configuration des blocs
 
 //$blocs = array(array("[french]Twitter[/french][english]Twitter[/english][chinese]Twitter[/chinese]"), array("include#modules/npds_twi/twi_bloc.php"), array(""), array(""), array(""), array(""), array("1"), array(""), array("[french]Je tweet[/french][english]I tweet[/english][chinese]&#x6211; tweet[/chinese]"));
 
-
-#autodoc $txtdeb : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera au début de l'install
-#autodoc Si rien n'est mis, le texte par défaut sera automatiquement affiché
+#autodoc $txtdeb : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera au dÃˆbut de l'install
+#autodoc Si rien n'est mis, le texte par dÃˆfaut sera automatiquement affichÃˆ
 
 $txtdeb = "<img alt=\"logo module npds_twi\" src=\"modules/npds_twi/npds_twi.png\" style=\"float:left;\"/><p style=\"height:20px;\">[french]&nbsp;<strong>Installation semi_automatique du module npds_twi</strong></p>
 <br />
@@ -79,7 +76,7 @@ Proc&eacute;dure Twitter :<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cliquez sur \"Update this Twitter application's settings\" pour valider.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cliquez sur l'onglet \"Details\"<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cliquez sur \"Create my access token\". Si c'est d&eacute;j&agrave; le cas, cliquez sur \"Recreate my access token\"<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Attention! Cela va modifier les clefs \"Access token\". Si vous les avez déjà saisies précédemment dans npds_twi, il faut les ressaisir.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Attention! Cela va modifier les clefs \"Access token\". Si vous les avez dÃˆjâ€¡ saisies prÃˆcÃˆdemment dans npds_twi, il faut les ressaisir.<br />
 <br />
 &nbsp;&nbsp;&nbsp;3. R&eacute;cup&eacute;rez vos clefs et jetons (requis pour le paramr&eacute;trage de votre module).<br />
 <br />
@@ -91,7 +88,7 @@ Proc&eacute;dure Twitter :<br />
 <br />
 &nbsp;&nbsp;&nbsp;5. Continuez l'installation automatique de la passerelle.<br />
 <br />
-&nbsp;&nbsp;&nbsp;6. Une fois l'installation termin&eacute;e, rendez-vous dans les préférences de NPDS, et v&eacute;rifiez <br />
+&nbsp;&nbsp;&nbsp;6. Une fois l'installation termin&eacute;e, rendez-vous dans les prÃˆfÃˆrences de NPDS, et v&eacute;rifiez <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dans les r&eacute;glages de R&eacute;seaux Sociaux que twitter est bien activ&eacute;.<br />
 <br />
 Notes :<br /> 
@@ -141,11 +138,11 @@ If you want to use npds_twi on several NPDS sites, but with a single twitter acc
 for each NPDS site. This will allow you to properly inform the callback url and WebSite url each time.<br />
 <br />[/english]";
 
-#autodoc $txtfin : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera à la fin de l'install
+#autodoc $txtfin : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera â€¡ la fin de l'install
 
 $txtfin = "[french]Vous pouvez maintenant aller &#xE0; <a href= \"admin.php?op=Extend-Admin-SubModule&amp;ModPath=npds_twi&amp;ModStart=admin/npds_twi_set\"> l'administration </a> du module pour le param&#xE9;trer.[/french][english]Now you can go to the <a href= \"admin.php?op=Extend-Admin-SubModule&amp;ModPath=npds_twi&amp;ModStart=admin/npds_twi_set\">settings page</a> of this module.[/english]";
 
-#autodoc $link: Lien sur lequel sera redirigé l'utilisateur à la fin de l'install (si laissé vide, redirigé sur index.php)
+#autodoc $link: Lien sur lequel sera redirigÃˆ l'utilisateur â€¡ la fin de l'install (si laissÃˆ vide, redirigÃˆ sur index.php)
 #autodoc N'oubliez pas les '\' si vous utilisez des guillemets !!!
 
 $end_link = "admin.php?op=Extend-Admin-SubModule&amp;ModPath=npds_twi&amp;ModStart=admin/npds_twi_set";
