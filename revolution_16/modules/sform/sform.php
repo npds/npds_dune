@@ -12,7 +12,7 @@
 //
 // Mod by Didier (Jireck) Hoen Xhtml + form_id
 // Mod by Dev 2011 - Rajout d'un textarea de type 'textarea_no_mceEditor' pour pouvoir associer
-// dans un même FORMULAIRE des champs avec ET sans TinyMce / Rajout de l'anti_spambot
+// dans un mÃªme FORMULAIRE des champs avec ET sans TinyMce / Rajout de l'anti_spambot
 ################################################################################################
 // Constante
    define('CRLF', "\n", TRUE);
@@ -287,7 +287,7 @@ class form_handler {
   }
 
   /**************************************************************************************/
-  // print <form> into html output / IF no method (form_method) is affected : the <form> … </form> is not write (useful to insert SFORM in existing form)
+  // print <form> into html output / IF no method (form_method) is affected : the <form> Â… </form> is not write (useful to insert SFORM in existing form)
   // public string
   function print_form($bg) {
     if (isset($this->form_id)){
@@ -1076,7 +1076,7 @@ class form_handler {
 
      if ($clef!="") {
         $clef=urldecode($clef);
-        $result=sql_query("select content from ".$NPDS_Prefix."sform where id_form='".$this->form_title."' and id_key='".$this->form_key."' and key_value='".addslashes($clef)."' and passwd='".$this->form_password_access."' ORDER BY key_value ASC");
+        $result=sql_query("SELECT content FROM ".$NPDS_Prefix."sform WHERE id_form='".$this->form_title."' AND id_key='".$this->form_key."' AND key_value='".addslashes($clef)."' AND passwd='".$this->form_password_access."' ORDER BY key_value ASC");
         $tmp = sql_fetch_assoc($result);
         if ($tmp) {
            $ibid=explode("\n",$tmp['content']);
@@ -1106,7 +1106,7 @@ class form_handler {
   /**************************************************************************************/
   function sform_delete_mysql() {
      global $NPDS_Prefix;
-     $sql = "DELETE FROM ".$NPDS_Prefix."sform WHERE id_form='".$this->form_title."' and id_key='".$this->form_key."' and key_value='".$this->form_key_value."'";
+     $sql = "DELETE FROM ".$NPDS_Prefix."sform WHERE id_form='".$this->form_title."' AND id_key='".$this->form_key."' AND key_value='".$this->form_key_value."'";
      if (!$result = sql_query($sql)) {
         return ("Error Sform : Delete DB");
      }
@@ -1116,7 +1116,7 @@ class form_handler {
   function sform_modify_mysql($response) {
      global $NPDS_Prefix;
      $content=$this->write_sform_data($response);
-     $sql = "UPDATE ".$NPDS_Prefix."sform SET passwd='".$this->form_password_access."', content='$content' WHERE (id_form='".$this->form_title."' and id_key='".$this->form_key."' and key_value='".$this->form_key_value."')";
+     $sql = "UPDATE ".$NPDS_Prefix."sform SET passwd='".$this->form_password_access."', content='$content' WHERE (id_form='".$this->form_title."' AND id_key='".$this->form_key."' AND key_value='".$this->form_key_value."')";
      if (!$result = sql_query($sql)) {
         return ("Error Sform : Update DB");
      }
@@ -1128,7 +1128,7 @@ class form_handler {
 
     if ($clef!="") {
         $clef=urldecode($clef);
-        $result=sql_query("select content from ".$NPDS_Prefix."sform where id_form='".$this->form_title."' and id_key='".$this->form_key."' and key_value='$clef' and passwd='".$this->form_password_access."' ORDER BY key_value ASC");
+        $result=sql_query("SELECT content FROM ".$NPDS_Prefix."sform WHERE id_form='".$this->form_title."' AND id_key='".$this->form_key."' AND key_value='$clef' AND passwd='".$this->form_password_access."' ORDER BY key_value ASC");
         $tmp=sql_fetch_assoc($result);
 
         $analyseur_xml = xml_parser_create();
