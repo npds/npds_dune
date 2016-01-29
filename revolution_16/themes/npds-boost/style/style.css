@@ -1,19 +1,19 @@
 @charset "utf-8";
-/* CSS npds-boots pour NPDS Revolution */
 
-/* @import url("http://labo.infocapagde.com/lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css") */
-
+/* CSS npds-boots pour NPDS Revolution                                  */
 /* Theme : Dyna-boost (c) 2015 by jpb                                   */
 /* style.css                                                            */
 /* pour ajuster et modifier les css du framework                        */
+/* pour utiliser les classes spécifiques à NPDS                         */
 
-/*
+
+/* exemple de modification de tous les élément ayant la class btn (boutons, a, input) */
 .btn {
    -webkit-border-radius: 20px;
    -moz-border-radius: 20px;
    border-radius: 20px;
 }
-*/
+
 /* ==> adaptation menu */
 nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {
 padding-top: 0.1rem;
@@ -101,7 +101,6 @@ height:63px;
    bottom:10px;
 }
 
-
 /*des blocs avec moins de padding*/
 .card-block-small {
 padding:0.4rem;
@@ -166,7 +165,13 @@ font-weight: 500;
 width:24px;
 height:24px;
 }
+.N_sujetsize {
+max-width : 100px;
+height : auto;
+}
 
+/* ombre sur tout les icones */
+.fa {text-shadow:2px 2px 4px #d9d9d9;}
 
 /* ==> Personalisation des tooltips bootstrap V4*/
 .tooltip.tooltip-top .tooltip-arrow,
@@ -368,10 +373,7 @@ form .form-control-feedback:hover {
 
 
 
-.N_sujetsize {
-width : 80px;
-height : 80px
-}
+
 
 
 .splash {
