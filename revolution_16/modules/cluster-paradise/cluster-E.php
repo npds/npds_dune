@@ -35,29 +35,29 @@ function V_secur_cluster($Xkey) {
 
 if ($tmp=V_secur_cluster($key)) {
    if (($Xop=="NEWS") and ($tmp['SUBSCRIBE']=="NEWS") and ($tmp['OP']=="IMPORT")) {
-      // vérifie que le membre existe bien sur le site
+      // vÃ©rifie que le membre existe bien sur le site
       $author=decryptK(removeHack($Xauthor),$tmp['KEY']);
       $result = sql_query("SELECT name FROM ".$NPDS_Prefix."users WHERE uname='$author'");
       list($name) = sql_fetch_row($result);
       if ($name==$author) {$pasfinA=true;} else {$pasfinA=false;}
 
-      // vérifie que le l'auteur existe bien et ne dispose que des droits minimum
+      // vÃ©rifie que le l'auteur existe bien et ne dispose que des droits minimum
       $aid=decryptK(removeHack($Xaid),$tmp['KEY']);
-      $result = sql_query("select radminarticle from ".$NPDS_Prefix."authors where aid='$aid'");
+      $result = sql_query("SELECT radminarticle FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
       list($radminarticle) = sql_fetch_row($result);
       if ($radminarticle==1) {$pasfinB=true;} else {$pasfinB=false;}
 
-      // vérifie que la catégorie existe : sinon met la catégorie générique
+      // vÃ©rifie que la catÃ©gorie existe : sinon met la catÃ©gorie gÃ©nÃ©rique
       $catid=decryptK(removeHack($Xcatid),$tmp['KEY']);
-      $result = sql_query("select catid from ".$NPDS_Prefix."stories_cat where title='".addslashes($catid)."'");
+      $result = sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='".addslashes($catid)."'");
       list($catid) = sql_fetch_row($result);
 
-     // vérifie que le Topic existe : sinon met le Topic générique
+     // vÃ©rifie que le Topic existe : sinon met le Topic gÃ©nÃ©rique
       $topic=decryptK(removeHack($Xtopic),$tmp['KEY']);    
-      $result = sql_query("select topicid from ".$NPDS_Prefix."topics where topictext='".addslashes($topic)."'");
+      $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics WHERE topictext='".addslashes($topic)."'");
       list($topicid) = sql_fetch_row($result);
             
-      // OK on fait la mise à jour
+      // OK on fait la mise Ã  jour
       if ($pasfinA and $pasfinB) {
          $subject=decryptK(removeHack($Xsubject),$tmp['KEY']);
          $hometext=decryptK(removeHack($Xhometext),$tmp['KEY']);
@@ -70,19 +70,19 @@ if ($tmp=V_secur_cluster($key)) {
          // autonews ou pas ?
          $date_debval=decryptK(removeHack($Xdate_debval),$tmp['KEY']);
          if ($date_debval=="") {
-            $result = sql_query("insert into ".$NPDS_Prefix."stories values (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topicid', '$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
+            $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topicid', '$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
             Ecr_Log("security", "Cluster Paradise : insert_stories ($subject - $date_finval) by AID : $aid", "");
-            // Réseaux sociaux
+            // RÃ©seaux sociaux
             if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
             if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-            // Réseaux sociaux
+            // RÃ©seaux sociaux
          } else {
-            $result = sql_query("insert into ".$NPDS_Prefix."autonews values (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '$topicid', '$author', '$notes', '$ihome','$date_debval','$date_finval','$epur')");
+            $result = sql_query("INSERT INTO ".$NPDS_Prefix."autonews VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '$topicid', '$author', '$notes', '$ihome','$date_debval','$date_finval','$epur')");
             Ecr_Log("security", "Cluster Paradise : insert_autonews ($subject - $date_debval - $date_finval) by AID : $aid", "");
          }
          
-         sql_query("update ".$NPDS_Prefix."users set counter=counter+1 where uname='$author'");
-         sql_query("update ".$NPDS_Prefix."authors set counter=counter+1 where aid='$aid'");
+         sql_query("UPDATE ".$NPDS_Prefix."users SET counter=counter+1 WHERE uname='$author'");
+         sql_query("UPDATE ".$NPDS_Prefix."authors SET counter=counter+1 WHERE aid='$aid'");
       }
    }
 }
