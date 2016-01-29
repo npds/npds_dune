@@ -42,12 +42,12 @@ global $language,$adminimg, $admf_ext;
            $modlist.="$file ";
       }
    }
-/*
-   echo $modlist;//debug
-   for ($i=0; $i<count($modlist); $i++) {
-            sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$modlist[$i]."', '0','')");
-}
-*/   
+
+/*   echo $modlist;//debug*/
+      for ($i=0; $i<count($modlist); $i++) {
+         sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$modlist[$i]."', '0','')");
+   }
+  
    closedir($handle);
    
    $modlist=explode(" ",rtrim($modlist));
