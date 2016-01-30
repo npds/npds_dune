@@ -18,7 +18,7 @@
 /* --------------------------                                           */
 /*                                                                      */
 /* Modifié par jpb et phr pour le rendre compatible avec Evolution      */
-/*                                                                      */
+/* Version 1.3 - 2015                                                   */
 /************************************************************************/
 
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
@@ -35,32 +35,28 @@ global $language,$adminimg, $admf_ext;
    GraphicAdmin($hlpfile);
 
    $handle=opendir('modules');
-   $modlist="";
+   $modlist='';
    while (false!==($file=readdir($handle))) {
       if (!@file_exists("modules/$file/kernel")) {
-        if (is_dir("modules/$file") and ($file!=".") and ($file!=".."))
+        if (is_dir("modules/$file") and ($file!='.') and ($file!='..'))
            $modlist.="$file ";
       }
    }
-
-/*   echo $modlist;//debug*/
-      for ($i=0; $i<count($modlist); $i++) {
-         sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$modlist[$i]."', '0','')");
-   }
-  
    closedir($handle);
-   
-   $modlist=explode(" ",rtrim($modlist));
-   sort($modlist);
-   for ($i=0; $i<count($modlist); $i++) {
-      $queryexiste=sql_query("SELECT mnom FROM ".$NPDS_Prefix."modules WHERE mnom='".$modlist[$i]."'");
-      if ($queryexiste)
-         $moexiste=sql_num_rows($queryexiste);
-      if ((!empty($modlist[$i])) && ($moexiste!=1)) {
-         sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$modlist[$i]."', '0','')");
+   $modlist=explode(' ',rtrim($modlist));
+
+   $whatondb = sql_query("SELECT mnom FROM ".$NPDS_Prefix."modules" );
+   while ($row=sql_fetch_row($whatondb)) {
+      if(!in_array($row[0],$modlist)){sql_query("DELETE FROM ".$NPDS_Prefix."modules WHERE mnom='".$row[0]."'");};
+   }
+   foreach ($modlist as $value) {
+      $queryexiste=sql_query("SELECT mnom FROM ".$NPDS_Prefix."modules WHERE mnom='".$value."'");
+      $moexiste=sql_num_rows($queryexiste);
+      if ($moexiste!==1) {
+         sql_query("INSERT INTO ".$NPDS_Prefix."modules VALUES (NULL, '".$value."', '0')");
       }
    }
-   
+
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <h3>'.adm_translate("Les modules").'</h3>
@@ -77,7 +73,7 @@ global $language,$adminimg, $admf_ext;
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."modules ORDER BY mid");
    while ($row = sql_fetch_assoc($result)) {
    
-   $icomod="";
+   $icomod='';
    if (file_exists("modules/".$row["mnom"]."/".$row["mnom"].".png")) {
       $icomod='<img class="adm_img" src="modules/'.$row["mnom"].'/'.$row["mnom"].'.png" alt="icon_'.$row["mnom"].'" title="" />';
       }else
@@ -97,11 +93,10 @@ global $language,$adminimg, $admf_ext;
           <td align="center">'.$icomod.'</td>
           <td align="left">'.$row["mnom"].'</td>
           <td align="left">'.$status_chngac.'</td>
-       </tr>
-       ';
+       </tr>';
    }
    echo '
       </tbody>
-   </table>'."\n";
+   </table>';
    adminfoot('','','','');
 ?>
