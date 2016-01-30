@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier
 #
 # This module is to configure the main options for your site
 #
@@ -21,16 +21,18 @@
 # dbpass:      MySQL Password
 # dbname:      MySQL Database Name
 # mysql_p:     Persistent connection to MySQL Server (1) or Not (0)
+# mysql_i:     Use MySQLi (1) instead of MySQL interface (0)
 # =======================
 # system:      0 for Unix/Linux, 1 for Windows
 # system_md5:  0 for NOT USED Authors' Password encryption / 1 for USED Author's Password Encryption
 ######################################################################
 
-$dbhost = "";
-$dbuname = "";
+$dbhost = "localhost";
+$dbuname = "root";
 $dbpass = "";
-$dbname = "";
-$mysql_p = "1";
+$dbname = "revolution";
+$mysql_p = 1;
+$mysql_i = 0;
 # =======================
 $system = 0;
 $system_md5 = 1;
@@ -85,33 +87,32 @@ $parse = "1";
 $gzhandler = "0";
 $admin_cook_duration = "240";
 $user_cook_duration = "8000";
-$sitename = "JPB-PHR";
-$Titlesitename = "JPB-PHR";
-$nuke_url = "http://labo.infocapagde.com";
+$sitename = "NPDS REvolution 16";
+$Titlesitename = "NPDS - Gestion de Contenu et de Communauté - Open Source";
+$nuke_url = "http://localhost";
 $site_logo = "images/npds_p.gif";
-$slogan = "JPB-PHR";
-$startdate = "20/04/2015";
+$slogan = "NPDS REvolution 16";
+$startdate = "02/11/2015";
 $anonpost = 1;
 $troll_limit = 5;
-$moderate = 1;
+$moderate = 2;
 $mod_admin_news = 0;
-$not_admin_count = 0;
-$Default_Theme = "npds-boost";
+$not_admin_count = 1;
+$Default_Theme = "npds_boost";
 $Start_Page = "index.php?op=edito";
-$foot1 = "<a href=\"static.php?op=charte.html&amp;npds=1\">Charte</a>
-- <a href=\"modules.php?ModPath=contact&amp;ModStart=contact\">Contact</a>
-- <a href=\"admin.php\">Admin</a>
-- <a href=\"http://www.mozilla-europe.org/fr/products/firefox/\" target=\"_blank\"><img src=\"images/powered/getfirefox.png\" width=\"80\" height=\"15\" border=\"0\" align=\"top\" alt=\"Firefox\" title=\"get Firefox\" style=\"vertical-align:middle\" /></a>&nbsp;
-<a href=\"backend.php\" target=\"_blank\"><img src=\"images/syndication/rss10.gif\" border=\"0\" width=\"80\" height=\"15\" alt=\"RSS 1.0\" title=\"RSS 1.0\" style=\"vertical-align:middle\" /></a>
-<br />
-Tous les Logos et Marques sont d&eacute;pos&eacute;s, les commentaires sont sous la responsabilit&eacute; de ceux qui les ont publi&eacute;s, le reste &copy; NPDS REvolution 14";
-$foot2 = "";
+$foot1 = "<a href=\"admin.php\" title=\"Admin\" data-toggle=\"tooltip\"><i class=\"fa fa-cogs fa-2x\"></i></a>
+ <a href=\"http://www.mozilla-europe.org/fr/products/firefox/\" target=\"_blank\" title=\"get Firefox\" data-toggle=\"tooltip\"><i class=\"fa fa-firefox fa-2x\"></i></a>
+ <a href=\"static.php?op=charte.html&amp;npds=0\">Charte</a> 
+ - <a href=\"modules.php?ModPath=contact&amp;ModStart=contact\">Contact</a> 
+ <a href=\"backend.php\" target=\"_blank\" title=\"RSS 1.0\" data-toggle=\"tooltip\"><i class=\"fa fa-rss fa-2x\"></i></a>&nbsp;
+<a href=\"https://github.com/jipexu/npds_dune\" target=\"_blank\" title=\"NPDS Dune on Github ...\" data-toggle=\"tooltip\"><i class=\"fa fa-github fa-2x\"></i></a>";
+$foot2 = "Tous les Logos et Marques sont d&eacute;pos&eacute;s, les commentaires sont sous la responsabilit&eacute; de ceux qui les ont publi&eacute;s, le reste &copy; NPDS Revolution 16 [comme Louis]";
 $foot3 = "";
 $foot4 = "";
 $anonymous = "Visiteur";
 $site_font = "Verdana, Arial, Helvetica";
 $minpass = 5;
-$show_user = 5;
+$show_user = 20;
 
 ######################################################################
 # General Stories Options
@@ -169,7 +170,7 @@ $npds_fcb = 0;
 ######################################################################
 
 $language = "french";
-$multi_langue = true;
+$multi_langue = false;
 $locale = "fr_FR";
 $gmt = "";
 $lever = "08:00";
@@ -194,7 +195,7 @@ $newlinks = 10;
 $toplinks = 10;
 $linksresults = 10;
 $links_anonaddlinklock = 0;
-$linkmainlogo = 1;
+$linkmainlogo = 0;
 $OnCatNewLink = 1;
 
 ######################################################################
@@ -209,13 +210,13 @@ $OnCatNewLink = 1;
 # $notify_from:    account name to appear in From field of the Email
 ######################################################################
 
-$adminmail = "previlliod@yahoo.fr";
+$adminmail = "webmaster@site.fr";
 $mail_fonction = "1";
 $notify = 1;
-$notify_email = "previlliod@yahoo.fr";
+$notify_email = "webmaster@site.fr";
 $notify_subject = "Nouvelle soumission";
-$notify_message = "Le labo a recu une nouvelle proposition d'article";
-$notify_from = "previlliod@yahoo.fr";
+$notify_message = "Le site a recu une nouvelle soumission !";
+$notify_from = "";
 
 ######################################################################
 # Survey/Polls Config
@@ -226,7 +227,7 @@ $notify_from = "previlliod@yahoo.fr";
 ######################################################################
 
 $maxOptions = 12;
-$setCookies = 0;
+$setCookies = 1;
 $pollcomm = 1;
 
 ######################################################################
@@ -256,7 +257,7 @@ $admart = 10;
 ######################################################################
 
 $httpref = 1;
-$httprefmax = 8000;
+$httprefmax = 1000;
 
 ######################################################################
 # Miscelaneous Options
@@ -276,14 +277,14 @@ $httprefmax = 8000;
 
 $smilies = 1;
 $avatar_size = "80*100";
-$short_user = 0;
+$short_user = 1;
 $member_list = 1;
 $download_cat = "Tous";
 $AutoRegUser = 1;
 $short_review = 0;
 $subscribe = 1;
 $member_invisible = 0;
-$CloseRegUser = 1;
+$CloseRegUser = 0;
 $memberpass = 1;
 
 ######################################################################
@@ -294,9 +295,9 @@ $memberpass = 1;
 # $dns_verif:      Activate the DNS resolution for posts (forum ...), IP-Ban, ... (true=Yes false=No)
 ######################################################################
 
-$rss_host_verif = true;
-$cache_verif = false;
-$dns_verif = true;
+$rss_host_verif = false;
+$cache_verif = true;
+$dns_verif = false;
 
 ######################################################################
 # SYSTEM Miscelaneous Options
@@ -308,16 +309,16 @@ $dns_verif = true;
 
 $savemysql_size = 256;
 $savemysql_mode = 1;
-$tiny_mce = false;
+$tiny_mce = true;
 
 ######################################################################
 # Do not touch the following options !
 ######################################################################
 
 $NPDS_Prefix = "";
-$NPDS_Key = "55351f2f9b2a0";
-$Version_Num = "11";
+$NPDS_Key = "";
+$Version_Num = "16 alpha";
 $Version_Id = "NPDS";
-$Version_Sub = "REvolution WS";
+$Version_Sub = "REvolution";
 
 ?>
