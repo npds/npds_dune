@@ -15,7 +15,7 @@ if (!function_exists("Mysql_Connexion")) {
 
 // Make Member_list Private or not
 if (!AutoReg()) { unset($user); }
-if (($member_list==1) AND ($user=="") AND ($admin=="")) {
+if (($member_list==1) AND ($user=='') AND ($admin=='')) {
    Header("Location: index.php");
 }
 
@@ -28,7 +28,7 @@ if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
    }
    $uid_from_ws=substr($uid_from_ws,0,-1).")\$";
 } else
-   $uid_from_ws="";
+   $uid_from_ws='';
 
 function alpha() {
    global $sortby, $list, $gr_from_ws, $uid_from_ws;
@@ -40,24 +40,23 @@ function alpha() {
    $counter = 0;
    while (list(, $ltr) = each($alphabet)) {
       echo "<a href=\"memberslist.php?letter=$ltr&amp;sortby=$sortby&amp;list=$list&amp;gr_from_ws=$gr_from_ws\">$ltr</a>";
-	if ( $counter != $num ) {
-         echo "&nbsp;|&nbsp;";
+   if ( $counter != $num ) {
+         echo ' | ';
       }
       $counter++;
    }
-	echo '<br /><br />';
-	echo '<form class="form-horizontal" role="form" action="memberslist.php" method="post">';  
-	echo '<div class="form-group">
-			<div class="col-sm-4">
-				<label class="control-label">'.translate("Search").' : </label>
-                </div>
-                <div class="col-sm-8">
-                  <input id="mblst_search" class="form-control" type="input" name="letter" />';
-	echo '<input type="hidden" name="list" value="'.urldecode($list).'" />';
-	echo '<input type="hidden" name="gr_from_ws" value="'.$gr_from_ws.'" />';
-    echo '</div>
-            </div>';
-	echo '</form>';
+   echo '
+   <br /><br />
+   <form action="memberslist.php" method="post">
+      <div class="form-group">
+         <label class="form-control-label col-sm-4" for="letter">'.translate("Search").' : </label>
+         <div class="col-sm-8">
+            <input id="mblst_search" class="form-control" type="input" name="letter" />
+            <input type="hidden" name="list" value="'.urldecode($list).'" />
+            <input type="hidden" name="gr_from_ws" value="'.$gr_from_ws.'" />
+         </div>
+      </div>
+   </form>';
 }
 
 function unique($ibid) {
@@ -151,7 +150,7 @@ function avatar($user_avatar) {
    include("header.php");
    $pagesize = $show_user;
 
-   if (!isset($letter) or ($letter=="")) { $letter = translate("All"); }
+   if (!isset($letter) or ($letter=='')) { $letter = translate("All"); }
    $letter=removeHack(stripslashes(htmlspecialchars($letter,ENT_QUOTES,cur_charset)));
    if (!isset($sortby)) { $sortby = "uid DESC"; }
    $sortby=removeHack($sortby);
@@ -162,7 +161,7 @@ function avatar($user_avatar) {
       $list=urlencode(implode(",",$tempo));
    }
 
-   $result = sql_query("select uname from ".$NPDS_Prefix."users order by uid DESC limit 0,1");
+   $result = sql_query("SELECT uname FROM ".$NPDS_Prefix."users ORDER BY uid DESC limit 0,1");
    list($lastuser) = sql_fetch_row($result);
    
    echo'<h2><img src="images/admin/users.png" border="0" alt="'.translate("Members List").'" />'.translate("Members List");
@@ -175,22 +174,21 @@ function avatar($user_avatar) {
    
       alpha();
       echo "<br />";
-	  	  
-      SortLinks($letter);
 
+      SortLinks($letter);
       $min = $pagesize * ($page - 1);
       $max = $pagesize;
       $ws_req="";
-      if (isset($uid_from_ws) and ($uid_from_ws!="")) $ws_req= 'where uid regexp \''.$uid_from_ws.'\' ';
+      if (isset($uid_from_ws) and ($uid_from_ws!="")) $ws_req= 'WHERE uid REGEXP \''.$uid_from_ws.'\' ';
       $count = "SELECT COUNT(uid) AS total FROM ".$NPDS_Prefix."users ";
-      $select = "select uid, name, uname, femail, url, user_regdate, user_from, email, is_visible, user_viewemail, user_avatar, mns, user_lastvisit from ".$NPDS_Prefix."users ";
+      $select = "SELECT uid, name, uname, femail, url, user_regdate, user_from, email, is_visible, user_viewemail, user_avatar, mns, user_lastvisit FROM ".$NPDS_Prefix."users ";
       if (($letter != translate("Other")) AND ($letter != translate("All"))) {
          if ($admin and (preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$letter))) 
-            $where = "where uname like '".$letter."%' or email like '%".strtolower($letter)."%'".str_replace ( 'where',' and',$ws_req );
+            $where = "WHERE uname LIKE '".$letter."%' OR email LIKE '%".strtolower($letter)."%'".str_replace ( 'WHERE',' AND',$ws_req );
          else
-            $where = "where uname like '".$letter."%'".str_replace ( 'where',' and',$ws_req );         
+            $where = "WHERE uname LIKE '".$letter."%'".str_replace ( 'WHERE',' AND',$ws_req );
       } else if (($letter == translate("Other")) AND ($letter != translate("All"))) {
-         $where = "where uname REGEXP \"^\[1-9]\" ".str_replace ( 'where',' and',$ws_req );
+         $where = "WHERE uname REGEXP \"^\[1-9]\" ".str_replace ( 'WHERE',' AND',$ws_req );
       } else {
          $where = "$ws_req";
       }
@@ -250,7 +248,7 @@ function avatar($user_avatar) {
                <tr>
                   <td>';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
-                  echo "<img src=\"".$ibid_avatar."\" width=\"20\" height=\"20\" border=\"0\" alt=\"Avatar\" />";
+                  echo '<img src="'.$ibid_avatar.'" class="n-ava img-thumbnail" alt="avatar" />';
                else
                   echo "&nbsp;";
                echo "</td>\n";
@@ -323,9 +321,9 @@ function avatar($user_avatar) {
                if ($list) {
                   echo "<a href=\"replypmsg.php?send=".substr($list,0,strlen($list)-3)."\" title=\"".translate("Write to the list")."\"><i class=\"fa fa-large fa-envelope\"></i></a>";
                }
-			   echo '</p>';
-            }		 
-		 
+               echo '</p>';
+            }
+
             if ( $num_rows_per_order > $pagesize ) {
                echo "<p class=\"lead\">$num_rows_per_order ".translate("users found for")." <strong>$letter</strong> ($total_pages ".translate("pages").", $num_users ".translate("users shown").").</p>";
                echo '
@@ -335,15 +333,11 @@ function avatar($user_avatar) {
                if ( $prev_page > 0 ) {
                   echo '<li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$prev_page.'&amp;gr_from_ws='.$gr_from_ws.'">';
                   echo '<i class="fa fa-arrow-left"></i></a></li>';
-               } else {
-                  echo '';
                }
                $next_page = $page + 1;
                if ( $next_page <= $total_pages ) {
                   echo '<li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$next_page.'&amp;gr_from_ws='.$gr_from_ws.'">';
                   echo '<i class="fa fa-arrow-right"></i></a></li>';
-               } else {
-                  echo '';
                }
                for($n=1; $n < $total_pages; $n++) {
                   if ($n == $page) {
@@ -354,8 +348,6 @@ function avatar($user_avatar) {
                   if ($n >= 22) {  // if more than 20 pages are required, break it at 22.
                      $break = true;
                      break;
-                  } else {
-                     echo '';
                   }
                }
                if (!isset($break)) {
