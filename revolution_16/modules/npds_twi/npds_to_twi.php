@@ -9,7 +9,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module npds_twi version beta 1.0                                     */
+/* module npds_twi version 1.0                                          */
 /* npds_to_twi.php file 2013 by Jean Pierre Barbary jpb                 */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion")) {
@@ -19,14 +19,14 @@ if (!function_exists("Mysql_Connexion")) {
 // Initialisation
 global $nuke_url, $npds_twi;
 if (!isset($sid)) {
-   $result = sql_query("select max(sid) from ".$NPDS_Prefix."stories");
+   $result = sql_query("SELECT max(sid) FROM ".$NPDS_Prefix."stories");
    list ($sid)=sql_fetch_row($result);
 }
 
 if ($npds_twi===1) {
    require_once('modules/npds_twi/include/ab-twitteroauth/twitteroauth/twitteroauth.php');
    require_once('modules/npds_twi/twi_conf.php');
-   /*CrÈe un objet TwitterOauth*/
+   /*Cr√©e un objet TwitterOauth*/
    $connection = new TwitterOAuth($consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret);
    $connection->host = "https://api.twitter.com/1.1/";
    
@@ -38,12 +38,14 @@ if ($npds_twi===1) {
 
    if ($npds_twi_arti===1) {
       $query_art_short='s';
-      /* prÈparation du contenu du tweet */
+      /* pr√©paration du contenu du tweet */
       $subj_twi=strip_tags($subject);
+      if(cur_charset!=='utf-8')      
       $subj_twi=utf8_encode ($subj_twi);
       $subj_twi=preg_replace ( "#''#", '\'', $subj_twi);
       $text_twi=strip_tags($hometext);
       $text_twi=html_entity_decode ($text_twi);
+      if(cur_charset!=='utf-8')
       $text_twi=utf8_encode ($text_twi);
       $text_twi=preg_replace ( "#''#", '\'', $text_twi);
       $text_twi=preg_replace ( "#yt_video\(([^,]*),([^,]*),([^\)]*)\)#", 'Voir la vid√©o...', $text_twi);
