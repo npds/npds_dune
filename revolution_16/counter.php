@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,6 +21,7 @@ if ((!$admin) or ($not_admin_count!=1)) {
 
    if((stristr($user_agent,"Nav")) || (stristr($user_agent,"Gold")) || (stristr($user_agent,"X11")) || (stristr($user_agent,"Mozilla")) || (stristr($user_agent,"Netscape")) AND (!stristr($user_agent,"MSIE")) AND (!stristr($user_agent,"SAFARI")) AND (!stristr($user_agent,"IPHONE")) AND (!stristr($user_agent,"IPOD")) AND (!stristr($user_agent,"IPAD")) AND (!stristr($user_agent,"ANDROID"))) $browser = "Netscape";
    elseif(stristr($user_agent,"MSIE")) $browser = "MSIE";
+   elseif(stristr($user_agent,"Trident")) $browser = "MSIE";
    elseif(stristr($user_agent,"Lynx")) $browser = "Lynx";
    elseif(stristr($user_agent,"Opera")) $browser = "Opera";
    elseif(stristr($user_agent,"WebTV")) $browser = "WebTV";
