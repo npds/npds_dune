@@ -1,7 +1,10 @@
 /* ----------------------------------------------------------------------
    1. BASE MINIMUM
 ---------------------------------------------------------------------- */
+body {
 
+    background: transparent -moz-linear-gradient(center top , #E7E3CF 0.1em, transparent 0.1em) repeat scroll 0% 0% / 100% 1.5em;
+}
 /* ----------------------------------------------------------------------
    2. LIENS - standard
 ---------------------------------------------------------------------- */
@@ -161,20 +164,16 @@ table tr.even, table tr.alt, table tr:nth-of-type(2n) {
    12 STATS - Jireck' work
 ---------------------------------------------------------------------- */
 .graph { 
-        position: relative; /* IE is dumb */ 
-        width: 200px; 
-        border: 1px solid #708090; 
-        padding: 2px; 
-    } 
-.graph .bar { 
-        display: block; 
-        position: relative; 
-        background: #682B1A; 
-        text-align: center; 
-        color: #FFFFFF; 
-        height: 1em; 
-        line-height: 1em; 
-    } 
+    }
+.graph .bar {
+    display: block;
+    position: relative;
+    background: #ECE8E1 none repeat scroll 0% 0%;
+    text-align: center;
+    color: #333;
+    height: 1em;
+    line-height: 1em;
+}
 .graph .bar span { position: absolute; left: 1em; }
 /* ----------------------------------------------------------------------
    13 THEME
@@ -212,6 +211,11 @@ a.tooltip:hover em {
       CSS ComplÈmentaire pour vos  Formulaires
               ICI en Version Light
 -------------------------------------------------->*/
+
+ form {
+    padding-left: 0.525rem
+ }
+
 /*------------------------------------------------>
       CSS ComplÈmentaire pour vos  Formulaires
               ICI en Version Light
@@ -235,7 +239,7 @@ body {
 	text-align:left;
 	margin-left:auto;
 	margin-right:auto;
-		background-image: url("../images/fond1.png");
+/* 		background-image: url("../images/fond1.png"); */
 	  width:100%;
 
 }
@@ -268,7 +272,7 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 	padding: 1em;
          }
 
-#corps {background: #fff; }
+/* #corps {background: #fff; } */
 
 /************************************************************************
 Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
@@ -309,7 +313,7 @@ footer {
 	clear: both;
 }
 
-#footer{background-color:AliceBlue;}
+/* #footer{background-color:AliceBlue;} */
 /********************
 le  header   et son contenu ( sa taille est ds decoheader)
 **********************/
@@ -337,3 +341,359 @@ Adaptation des css au fil du test
 }
 
 
+
+ /* texte et alignements*/
+ 
+h2, .h2 {
+    background: antiquewhite;
+    padding: 0px 5px 0px 5px;}
+h3, .h3 {
+    background: aliceblue;
+    padding: 0px 5px 0px 5px;}
+
+.header1{
+/*   background-color:#fff; */
+  z-index: 500;}
+
+#nav{background-color:#FFE667;}
+
+/* #decohead {background-color:#ff0;} */
+
+/* #corps{background-color:AliceBlue;} */
+
+.leftbloc{
+padding:0.15em;
+}
+
+
+.sidebox {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 18px;
+    margin-top: 28px;
+}
+
+
+.redborder {border: 1px solid red;}
+
+.blackborderg {border-right: 1px solid black;}
+.blackborder {border: 1px dotted black;}
+
+.beige {background-color:Beige;}
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+ .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+ 
+/*------------------------------
+Pour rendre les vidÈo youtube responsives
+*******************************************/
+    .videocontainer{
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .videocontainer iframe, .videocontainer embed, .videocontainer object{
+      width: 100%!important; height: 100%!important;
+      position: absolute;
+      top: 0; left: 0;
+    }
+    
+ /* Google Gmap3 bug fix on images */
+.gm-style img {
+  height: 100%;
+}
+:not(.gm-style) img {
+  height: auto;
+}
+.gm-style img,
+.gmnoscreen img,
+.gmnoprint img {
+  max-width: none !important;
+}
+
+/********************
+citation pour les forums
+*******************/
+.blockquote {
+    border: 1px dotted #000;
+    margin: 5px;
+    padding: 5px;
+    width: 90%;
+}
+
+/***********************
+Pour eviter que les images ne dÈbordent
+***************************/
+.row {
+    width: 100%;
+    margin-right: 0rem;
+    margin-left: 0rem;
+}
+/*********************
+pour les formulaires*/
+input, select, textarea {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 0.5em;
+    width: auto;
+    font-family: inherit;
+    font-size: 1em;
+}
+/* 
+label { /* Titre - Description des diffÈrents champs */
+  display: block;
+  float: left;
+  margin-top: 5px ; /* set top margin same as form input - textarea etc. elements */
+  padding: 0; /* Intervient dans le user : la date */
+  text-align: left;
+}
+ */
+
+legend { /* Titre pour identifier chaque fieldset */
+  font-size:1.1em;
+  color: #B80B36;
+  font-weight: bold;
+}
+
+.bouton_standard {
+    margin-top: 3px;
+    cursor: pointer;
+    background-color: #FDFDFD;
+    color: #682B1A;
+    font-weight: bold;
+    text-decoration: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #D5B199 #864732 #864732 #D5B199;
+}
+
+input[type=Submit], [type=Reset], [type=Return] {
+  margin-top: 3px;
+  cursor: pointer;
+  background-color: #FDFDFD;
+  color: #682B1A;
+  font-weight: bold;
+  text-decoration: none;
+  border-top: #d5b199 2px solid;
+  border-bottom: #864732 2px solid;
+  border-left: #d5b199 2px solid;
+  border-right: #864732 2px solid;
+}
+
+/*******Pour les police des formulaires  et deco jmd  */
+.form-control {
+    font-size: 1.4rem;  
+    background-color: #FDFDFD;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #D5B199;
+    color: #864732;
+ }
+
+.checkbox label input:only-child, .radio label input:only-child {
+    position: absolute;
+}
+/* ==> add by jpb */
+ol {
+list-style-type: decimal;}
+#leftcol ul {
+list-style-type:none;
+}
+
+
+/* ==> class de NPDS dans le core */
+/* tailles des emoticones et autre petites images subject forum etc*/
+.smil {
+width:24px;
+height:24px;
+}
+/* tailles max des avatars*/
+.n-ava {
+max-width:64px;
+max-height:64px;
+}
+#adm_block li{
+width: 80px;
+margin: 3px;
+padding: 3px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+-webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+/*bloc ws*/
+a.tooltip_ws em {
+   display:none;
+   width:90px;
+}
+a.tooltip_ws:hover {
+    border: 0;
+    position: relative;
+    z-index: 1070;
+    text-decoration:none;
+}
+ a.tooltip_ws:hover em {
+   z-index: 1070;
+   font-style: normal;
+   font-size: 11px;
+   display: block;
+   top: 20px;
+   left: -10px;
+   padding: 5px;
+   color: #000;
+   border: 1px solid #999999;
+   background: #F8F8F8;
+   width:200px;
+   text-align: left;
+   position: absolute; left: 2em; top: 2em;
+   border-radius: 5px;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
+   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+}
+a.tooltip_ws:hover em span {
+    position: absolute;
+    top: -7px;
+    left: 15px;
+    height: 7px;
+    width: 11px;
+    margin:0;
+    padding: 0;
+    border: 0;
+    }
+
+
+
+
+
+/*<== class de NPDS dans le core */
+
+/* ==> class de BS dans le core */
+/* réimpléméntation pour V4.00 et 02 */
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #626262;
+} 
+.form-control-feedback {
+position: absolute;
+display: inline-block;
+top: 9px;
+right: 35px;
+}
+/*adaptation class has-danger(BS4) <= has-error(BS3) pour form validation*/
+.has-error .text-help,
+.has-error .form-control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label,
+.has-error small.help-block,
+.has-error span.help-block
+ {
+  color: #d9534f;
+}
+.has-error .form-control {
+  border-color: #d9534f;
+}
+.has-error .input-group-addon {
+  color: #d9534f;
+  background-color: #fdf7f7;
+  border-color: #d9534f;
+}
+.has-error .form-control-feedback {
+  color: #d9534f;
+}
+.has-error .form-control-error {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
+}
+/* <== class de BS dans le core */
+
+/* <== add by jpb */
+
+img, table, td, blockquote, code, pre, textarea, input, svg {
+    height: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    padding-left: 0.250em;
+}
+
+/*****jmd* pour dÈcoler le texte des bordures de Table*/
+  
+
+    .img-fluid1{
+            float: left;
+            margin-right: 10px;
+}
+
+td, th {
+    padding: 5px;
+}
+
+
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
+    position: absolute;
+    margin-top: 0.5rem;/*jpb 30/01*/
+    margin-left: -1.7rem;/*jpb 30/01*/
+}
+
+ol li:nth-child(2n+1){background-color:#f9f9f9;}
+/* pour une liste */
+
+/*************
+pagination*/
+.pagination-sm .page-link {
+  padding: 0.275rem 0.75rem;
+  font-size: 1.250rem;
+  line-height: 1.5; }
+  
+/* Boutons*/ 
+
+
+.btn-sm {width: auto;}
+
+
+.btn-block {
+    display: block;
+    width: auto;
+}
+
+
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.250rem;
+  line-height: 1.5;
+  border-radius: 0.2rem; }
+
+.btn-primary-outline {
+    color: #0275D8;
+    font-size: 1.250rem;
+    background-color: transparent;
+    background-image: none;
+    border-color: #0275D8;
+}

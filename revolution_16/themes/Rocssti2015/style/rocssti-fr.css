@@ -64,11 +64,13 @@ html { box-sizing: border-box; }
 /* reset minimum */
 html, body, blockquote, ul, ol, form, button { margin: 0; padding: 0; }
 button { border: 0; }
-p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
+p, ul, ol, dl, blockquote, pre, td, th,  textarea {
   font-size: 1em; /* equiv 14px */
   line-height: 1.5;
   margin: 1.5em 0;
 }
+
+/*label,*/
 
 /* fix display img/iframe */
 img,
@@ -131,6 +133,7 @@ h3,
   font-size: 1.57143em; /* equiv 22px */
   line-height: 1.90909;
   margin: 0 0 .95455em 0;
+  
 }
 h4,
 .h4 {
