@@ -387,12 +387,12 @@ function redirect_url($urlx) {
 #autodoc SC_infos() : Indique le status de SuperCache
 function SC_infos() {
    global $SuperCache, $npds_sc;
-   $infos="";
+   $infos='';
    if ($SuperCache) {
       if ($npds_sc) {
-         $infos="<span style=\"font-size: .75em;\">".translate(".:Page &lt;&lt; Super-Cache:.")."</span>";
+         $infos='<span class="small">'.translate(".:Page >> Super-Cache:.").'</span>';
       } else {
-         $infos="<span style=\"font-size: .75em;\">".translate(".:Page &gt;&gt; Super-Cache:.")."</span>";
+         $infos='<span class="small">'.translate(".:Page >> Super-Cache:.").'</span>';
       }
    }
    return $infos;
@@ -425,7 +425,7 @@ function req_stat() {
 }
 #autodoc Mess_Check_Mail($username) : Appel la fonction d'affichage du groupe check_mail (theme principal de NPDS) sans class
 function Mess_Check_Mail($username) {
-   Mess_Check_Mail_interface($username, "");
+   Mess_Check_Mail_interface($username, '');
 }
 #autodoc Mess_Check_Mail_interface($username, $class) : Affiche le groupe check_mail (theme principal de NPDS)
 function Mess_Check_Mail_interface($username, $class) {
@@ -682,7 +682,7 @@ function cookiedecode($user) {
 #autodoc getusrinfo($user) : Renvoi le contenu de la table users pour le user uname
 function getusrinfo($user) {
    global $NPDS_Prefix;
-   $cookie = explode(":", base64_decode($user));
+   $cookie = explode(':', base64_decode($user));
    $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($pass) = sql_fetch_row($result);
    $userinfos="";
@@ -691,13 +691,13 @@ function getusrinfo($user) {
       if (sql_num_rows($result)==1) {
          $userinfo = sql_fetch_assoc($result);
       } else {
-         echo "<b>".translate("A problem ocurred").".</b><br />";
+         echo '<strong>'.translate("A problem ocurred").'.</strong>';
       }
    }
    return $userinfo;
 }
 #autodoc FixQuotes($what) : Quote une chaÓne contenant des '
-function FixQuotes($what = "") {
+function FixQuotes($what = '') {
    $what = str_replace("&#39;","'",$what);
    $what = str_replace("'","''",$what);
    while (preg_match("#\\\\'#", $what)) {
@@ -705,11 +705,11 @@ function FixQuotes($what = "") {
    }
    return $what;
 }
-#autodoc check_html ($str, $strip) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilitÈ
-function check_html ($str, $strip="nohtml") {
+#autodoc check_html ($str, $strip) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilité
+function check_html ($str, $strip='nohtml') {
    return strip_tags($str);
 }
-#autodoc unhtmlentities($string) : Fonction obsol&egrave;te / maintenue pour des raisons de compatibilitÈ
+#autodoc unhtmlentities($string) : Fonction obsolète / maintenue pour des raisons de compatibilité
 function unhtmlentities($string) {
    return html_entity_decode($string);
 }
@@ -718,17 +718,13 @@ function formatTimestamp($time) {
    global $datetime, $locale, $gmt;
    $local_gmt=$gmt;
    setlocale (LC_TIME, aff_langue($locale));
-   if (substr($time,0,5)=="nogmt") {
+   if (substr($time,0,5)=='nogmt') {
       $time=substr($time,5);
       $local_gmt=0;
    }
-
    preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
    $datetime = strftime(translate("datestring"), mktime($datetime[4]+$local_gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-   if (cur_charset=="utf-8") {
-      $datetime = utf8_encode($datetime);
-   }
-   return(ucfirst($datetime));
+   return (ucfirst(htmlentities($datetime,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset)));
 }
 #autodoc formatAidHeader($aid) : Affiche URL et Email d'un auteur
 function formatAidHeader($aid) {
@@ -737,9 +733,9 @@ function formatAidHeader($aid) {
    if ($holder) {
       list($url, $email) = sql_fetch_row($holder);
       if (isset($url)) {
-         echo "<a href=\"$url\" class=\"noir\">$aid</a>";
+         echo '<a href="'.$url.'" >'.$aid.'</a>';
       } elseif (isset($email)) {
-         echo "<a href=\"mailto:$email\" class=\"noir\">$aid</a>";
+         echo '<a href="mailto:'.$email.'" >'.$aid.'</a>';
       } else {
          echo $aid;
       }
@@ -774,36 +770,36 @@ function ctrl_aff($ihome, $catid=0) {
    }
    return ($affich);
 }
-#autodoc news_aff($type_req, $sel, $storynum, $oldnum) : Une des fonctions fondamentales de NPDS / assure la gestion de la selection des News en fonctions des crit&egrave;res de publication
+#autodoc news_aff($type_req, $sel, $storynum, $oldnum) : Une des fonctions fondamentales de NPDS / assure la gestion de la selection des News en fonctions des critères de publication
 function news_aff($type_req, $sel, $storynum, $oldnum) {
    global $NPDS_Prefix;
-   // Astuce pour affichÈ le nb de News correct mÍme si certaines News ne sont pas visibles (membres, groupe de membres)
+   // Astuce pour affiché le nb de News correct même si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
    $row_Q2 = Q_select("SELECT COUNT(groupe_id) AS total FROM ".$NPDS_Prefix."groupes",86400);
    list(,$NumG)=each($row_Q2);
    if ($NumG['total']<2) $coef=2; else $coef=$NumG['total'];
    settype($storynum,"integer");
-   if ($type_req=="index") {
+   if ($type_req=='index') {
       $Xstorynum=$storynum*$coef;
       $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY sid DESC LIMIT $Xstorynum",3600);
       $Znum=$storynum;
    }
-   if ($type_req=="old_news") {
+   if ($type_req=='old_news') {
       $Xstorynum=$oldnum*$coef;
       $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum,$Xstorynum",3600);
       $Znum=$oldnum;
    }
-   if (($type_req=="big_story") or ($type_req=="big_topic")) {
+   if (($type_req=='big_story') or ($type_req=='big_topic')) {
       $Xstorynum=$oldnum*$coef;
       $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum,$Xstorynum",3600);
       $Znum=$oldnum;
    }
-   if ($type_req=="libre") {
+   if ($type_req=='libre') {
       $Xstorynum=$oldnum*$coef;
       $result=Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
    }
-   if ($type_req=="archive") {
+   if ($type_req=='archive') {
       $Xstorynum=$oldnum*$coef;
       $result=Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
@@ -2098,11 +2094,11 @@ function Site_Activ() {
    $who_online='
    <p align="center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul id="site_active">
-     <li>'.translate("Nb of members").' <span class="label label-pill label-default pull-right">'.wrh($membres).'</span></li>
-     <li>'.translate("Nb of articles").' <span class="label label-pill label-default pull-right">'.wrh($totala).'</span></li>
-     <li>'.translate("Nb of forums").' <span class="label label-pill label-default pull-right">'.wrh($totalc).'</span></li>
-     <li>'.translate("Nb of topics").' <span class="label label-pill label-default pull-right">'.wrh($totald).'</span></li>
-     <li>'.translate("Nb of reviews").' <span class="label label-pill label-default pull-right">'.wrh($totalb).'</span></li>
+     <li>'.translate("Nb of members").' <span class="label label-pill label-default pull-xs-right">'.wrh($membres).'</span></li>
+     <li>'.translate("Nb of articles").' <span class="label label-pill label-default pull-xs-right">'.wrh($totala).'</span></li>
+     <li>'.translate("Nb of forums").' <span class="label label-pill label-default pull-xs-right">'.wrh($totalc).'</span></li>
+     <li>'.translate("Nb of topics").' <span class="label label-pill label-default pull-xs-right">'.wrh($totald).'</span></li>
+     <li>'.translate("Nb of reviews").' <span class="label label-pill label-default pull-xs-right">'.wrh($totalb).'</span></li>
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
