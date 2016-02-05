@@ -352,19 +352,19 @@ function putitems() {
 function HTML_Add() {
    $affich = '
          <div>'
-         .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol"></i></a>&nbsp;'
-         .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link"></i></a>&nbsp;'
-         ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><i class=\"fa fa-table\"></i></a>&nbsp;"
-         ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;"
-         .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;
+         .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link fa-lg"></i></a>&nbsp;  '
+         ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><i class=\"fa fa-table fa-lg\"></i></a>&nbsp;  "
+         ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;  "
+         .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;  
           </div>';
    return($affich);
 }
