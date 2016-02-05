@@ -15,7 +15,7 @@
 
 if (($obj->FieldView=="jpg") or ($obj->FieldView=="gif") or ($obj->FieldView=="png")) {
    if ($tiny_mce)
-       $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img src=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." border />');\"";
+       $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img class=img-fluid src=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." border />');\"";
    else
       $url_modifier="\"#\"";
 } else {
