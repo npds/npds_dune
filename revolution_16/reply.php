@@ -60,20 +60,20 @@ if ($submitS) {
    if (!isset($user)) {
       if ($forum_access==0) {
          $userdata = array("uid" => 1);
-         $modo="";;
+         $modo='';;
          include("header.php");
       } else {
-         if (($username=="") or ($password=="")) {
+         if (($username=='') or ($password=='')) {
             forumerror('0027');
          } else {
-            $result = sql_query("select pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
+            $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
             if (!$system) {
                $passwd=crypt($password,$pass);
             } else {
                $passwd=$password;
             }
-            if ((strcmp($passwd,$pass)==0) and ($pass != "")) {
+            if ((strcmp($passwd,$pass)==0) and ($pass != '')) {
                $userdata = get_userdata($username);
                if ($userdata['uid']==1)
                   forumerror('0027');
@@ -107,7 +107,7 @@ if ($submitS) {
       if ($dns_verif)
          $hostname=@gethostbyaddr($poster_ip);
       else
-         $hostname="";
+         $hostname='';
 
       // anti flood
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
@@ -173,7 +173,7 @@ if ($submitS) {
          $message .= "<a href=\"$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999#last-post\">$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999</a>\n\n";
          include("signat.php");
          if (!$system) {
-            send_email($m['email'], $subject, $message, "", true, "html");
+            send_email($m['email'], $subject, $message, '', true, "html");
             $sauf=$m['uid'];
          }
       }
@@ -182,7 +182,7 @@ if ($submitS) {
          if (subscribe_query($userdata['uid'],"forum",$forum)) {
             $sauf=$userdata['uid'];
          }
-         subscribe_mail("forum",$topic,$forum,"",$sauf);
+         subscribe_mail("forum",$topic,$forum,'',$sauf);
       }
       if (isset($upload)) {
          include("modules/upload/upload_forum.php");
@@ -203,7 +203,7 @@ if ($submitS) {
       include("lib/formhelp.java.php");
    }
 
-   list($topic_title, $topic_status) = sql_fetch_row(sql_query("select topic_title, topic_status from ".$NPDS_Prefix."forumtopics where topic_id='$topic'"));
+   list($topic_title, $topic_status) = sql_fetch_row(sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'"));
    $userX = base64_decode($user);
    $userdata = explode(":", $userX);
    $moderator = get_moderator($mod);
@@ -214,14 +214,9 @@ if ($submitS) {
    <p class="lead">
       <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_title.'
-   </p>';
-
-   
-   
-
-   echo '
-         <div class="card">
-         <div class="card-block-small">
+   </p>
+   <div class="card">
+      <div class="card-block-small">
             '.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
     $modera = get_userdata($moderator[$i]);
@@ -238,8 +233,8 @@ if ($submitS) {
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
    echo '
-         </div>
-      </div>';
+      </div>
+   </div>';
 
    echo '
    </span><h4>'.translate("Post Reply in Topic:").'</h4>';
@@ -295,9 +290,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label">'.translate("Message Icon: ").'</label>
-         </div>
+         <label class="form-control-label col-sm-3">'.translate("Message Icon: ").'</label>
          <div class="col-sm-9">
          '.emotion_add($image_subject).'
          </div>
@@ -305,9 +298,7 @@ if ($submitS) {
    }
    echo '
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label" for="message">'.translate("Message: ").'</label>
-         </div>
+         <label class="form-control-label col-sm-3" for="message">'.translate("Message: ").'</label>
          <div class="col-sm-9">
             <div class="card">
                <div class="card-header">';
@@ -318,8 +309,7 @@ if ($submitS) {
    echo '
             </div>
             <div class="card-block">';
- 
-  
+
      if ($citation && !$submitP) {
         $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND p.poster_id = u.uid";
         if ($r = sql_query($sql)) {
@@ -357,9 +347,7 @@ if ($submitS) {
          </div>
       </div>
    <div class="form-group row">
-      <div class="col-sm-3">
-         <label class="form-control-label">'.translate("Options: ").'</label>
-      </div>';
+      <label class="form-control-label col-sm-3">'.translate("Options: ").'</label>';
      if (($allow_html==1) and ($forum_type!="6") and ($forum_type!="5")) {
         if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
       echo '
@@ -410,14 +398,14 @@ if ($submitS) {
          <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fa fa-close fa-lg"></i></button>
       </div>';
    } else {
-     echo '<h3 class="text-danger">'.translate("You are not allowed to reply in this forum").'</h3>';
+     echo '<div class="alert alert-danger">'.translate("You are not allowed to reply in this forum").'</div>';
    }
    echo '
    </div>
    </form>';
    if ($allow_to_reply) {
-   
-      echo '<h4>'.translate("Topic Review").'</h4>';
+      echo '
+      <h4>'.translate("Topic Review").'</h4>';
       if ($Mmod) $post_aff='';
       else $post_aff=" AND post_aff='1' ";
       
@@ -480,11 +468,12 @@ if ($submitS) {
             highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
          } else {
             $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
-            echo $message."</div>";
+            echo $message.'</div>';
          }
-   echo '</div>';
-   echo '<hr />';
-   echo '</div>';
+   echo '
+      </div>
+   <hr />
+   </div>';
       
          $count++;
       } while($myrow = sql_fetch_assoc($result));
