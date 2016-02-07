@@ -40,7 +40,7 @@ function ShowHeader() {
       $rowcolor = tablos();
       if (strlen($text)>100) {$text=substr($text,0,100)."<span class=\"rouge\"> .....</span>";};
       if ($html==1) {$html="htm";} else {$html="txt";}
-      echo "<tr $rowcolor><td width=\"5%\" align=\"center\">$ref</td><td width=\"85%\">$text&nbsp;</td><td align=\"center\" nowrap=\"nowrap\">[ $html ]</td>";
+      echo "<tr><td width=\"5%\" >$ref</td><td width=\"85%\">$text&nbsp;</td><td align=\"center\" nowrap=\"nowrap\">[ $html ]</td>";
       echo "<td nowrap=\"nowrap\"><a href=\"admin.php?op=lnl_Shw_Header&amp;Headerid=$ref\" class=\"noir\">".adm_translate("Editer")."</a> | <a href=\"admin.php?op=lnl_Sup_Header&amp;Headerid=$ref\" class=\"rouge\">".adm_translate("Effacer")."</a></td></tr>";
    }
    echo "</table>";
@@ -52,7 +52,6 @@ function Detail_Header_Footer($ibid, $type) {
 
    include ("header.php");
    GraphicAdmin($hlpfile);
-   opentable();
    // $type = HED or FOT
    $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='$type' and ref='$ibid'");
    $tmp=sql_fetch_row($result);
@@ -88,10 +87,9 @@ function Detail_Header_Footer($ibid, $type) {
       echo "<input type=\"hidden\" name=\"op\" value=\"lnl_Add_Footer_Mod\" />";
    }
    echo "<input type=\"hidden\" name=\"ref\" value=\"$ibid\" />";
-   echo "<input class=\"bouton_standard\" type=\"submit\" value=\"".adm_translate("Valider")."\"> - ";
-   echo "[ <a href=\"admin.php?op=lnl\" class=\"noir\">".adm_translate("Retour en arriére")."</a> ]";
+   echo "<input class=\"btn btn-primary\" type=\"submit\" value=\"".adm_translate("Valider")."\"> - ";
+   echo "[ <a href=\"admin.php?op=lnl\" >".adm_translate("Retour en arriére")."</a> ]";
    echo "</form>";
-   closetable();
    include ("footer.php");
 }
 function ShowBody() {
@@ -312,7 +310,7 @@ function main() {
          if ($groupe_id=="0") {$groupe_id="";}
          $tmp_groupe.="<option value=\"$groupe_id\" $sel3>$groupe_name</option>\n";
       }
-      echo '<select class="form-control" name="Xgroupe">'.$tmp_groupe.'</select>';
+      echo '<select class="c-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>';
       // ---- Groupes
       echo "<input type=\"radio\" value=\"Out\" name=\"Xtype\" /> ".adm_translate("Seulement aux prospects")." - ";
       echo '
@@ -343,11 +341,11 @@ function Test($Yheader, $Ybody, $Yfooter) {
    GraphicAdmin($hlpfile);
    opentable();
    // $type = HED or FOT
-   $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' and ref='$Yheader'");
+   $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' AND ref='$Yheader'");
    $Xheader=sql_fetch_row($result);
-   $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE html='$Xheader[1]' and ref='$Ybody'");
+   $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE html='$Xheader[1]' AND ref='$Ybody'");
    $Xbody=sql_fetch_row($result);
-   $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' and html='$Xheader[1]' and ref='$Yfooter'");
+   $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Xheader[1]' AND ref='$Yfooter'");
    $Xfooter=sql_fetch_row($result);
    // For Meta-Lang
    global $cookie;
@@ -391,18 +389,18 @@ function lnl_list() {
    echo "</td></tr></table>\n";
    echo "<br /><table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">";
    echo "<tr>";
-   echo "<td class=\"ongl\">Num.</td>";
-   echo "<td class=\"ongl\">".adm_translate("Entête")."</td>";
-   echo "<td class=\"ongl\">".adm_translate("Corps")."</td>";
-   echo "<td class=\"ongl\">".adm_translate("Pied")."</td>";
-   echo "<td class=\"ongl\">".adm_translate("Nbre d'envois effectués")."</td>";
-   echo "<td class=\"ongl\">".adm_translate("Type")."</td>";
-   echo "<td class=\"ongl\">Date</td>";
-   echo "<td class=\"ongl\">Status</td>";
+   echo "<td>Num.</td>";
+   echo "<td>".adm_translate("Entête")."</td>";
+   echo "<td>".adm_translate("Corps")."</td>";
+   echo "<td>".adm_translate("Pied")."</td>";
+   echo "<td>".adm_translate("Nbre d'envois effectués")."</td>";
+   echo "<td>".adm_translate("Type")."</td>";
+   echo "<td>Date</td>";
+   echo "<td>Status</td>";
    echo "</tr>";
    while (list($ref, $header, $body, $footer, $number_send, $type_send, $date, $status) = sql_fetch_row($result)) {
          $rowcolor = tablos();
-         echo "<tr $rowcolor>";
+         echo "<tr>";
          echo "<td>$ref</td>";
          echo "<td>$header</td>";
          echo "<td>$body</td>";
@@ -556,11 +554,11 @@ switch ($op) {
          if (!isset($number_send)) $number_send=0;
 
          global $nuke_url;
-         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' and ref='$Xheader'");
+         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' AND ref='$Xheader'");
          $Yheader=sql_fetch_row($result);
-         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE html='$Yheader[1]' and ref='$Xbody'");
+         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE html='$Yheader[1]' AND ref='$Xbody'");
          $Ybody=sql_fetch_row($result);
-         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' and html='$Yheader[1]' and ref='$Xfooter'");
+         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Yheader[1]' AND ref='$Xfooter'");
          $Yfooter=sql_fetch_row($result);
 
          $subject=stripslashes($Xsubject);
@@ -603,11 +601,11 @@ switch ($op) {
          }
          // NPDS Users
          if ($Xtype=="Mbr") {
-            if ($Xgroupe!="") {
-               $result="";
-               $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' and u.uid=s.uid and u.email!='' and (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') and u.user_lnl='1'");
+            if ($Xgroupe!='') {
+               $result='';
+               $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1'");
                $nrows=sql_num_rows($mysql_result);
-               $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' and u.uid=s.uid and u.email!='' and (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') and u.user_lnl='1' ORDER BY u.email limit $debut,$limit");
+               $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1' ORDER BY u.email LIMIT $debut,$limit");
                while(list($email, $uid, $groupe) = sql_fetch_row($resultGP)) {
                   $tab_groupe=explode(",",$groupe);
                   if ($tab_groupe) {
@@ -621,17 +619,17 @@ switch ($op) {
                $fonction="each";
                if (is_array($result)) {$boucle=true;} else {$boucle=false;}
             } else {
-               $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' and u.uid=s.uid and u.email!='' and u.user_lnl='1'");
+               $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND u.user_lnl='1'");
                $nrows=sql_num_rows($mysql_result);
-               $result = sql_query("SELECT u.uid, u.email FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' and u.uid=s.uid and u.user_lnl='1' ORDER BY email limit $debut,$limit");
+               $result = sql_query("SELECT u.uid, u.email FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.user_lnl='1' ORDER BY email LIMIT $debut,$limit");
                $fonction="sql_fetch_row";
                $boucle=true;
             }
             if ($boucle) {
                while (list($bidon, $email) = $fonction($result)) {
                   if (($email!="Anonyme") or ($email!="Anonymous")) {
-                     if ($email!="") {
-                        if (($message!="") and ($subject!="")) {
+                     if ($email!='') {
+                        if (($message!='') and ($subject!='')) {
                            send_email($email, $subject, meta_lang($message), "", true, $Xmime);
                            $number_send++;
                         }
