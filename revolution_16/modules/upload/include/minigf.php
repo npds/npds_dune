@@ -140,13 +140,10 @@ function confirmSendFile(f) {
             </tr>
          </thead>
          <tbody>';
-
-      //$Fichier = new File("");
       $Fichier = new FileManagement; // essai class PHP7
       for ($i=0; $i<$att_count; $i++) {
          $id=$att[$i]['att_id'];
          $tsz+=$att[$i]['att_size'];
-//         $sz = $Fichier->Pretty_Size($att[$i]['att_size']);
 
          $sz = $Fichier->file_size_format($att[$i]['att_size'],2);
          if (getAttDisplayMode ($att[$i]['att_type'], 'A') == ATT_DSP_LINK) {
