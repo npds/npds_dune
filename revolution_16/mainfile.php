@@ -2467,14 +2467,15 @@ function oldNews($storynum, $typ_aff='') {
       if ($typ_aff=="lecture") $comments=$counter;
 
       if ($time2==$datetime2) {
-         $boxstuff .= "<li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> ($comments)</li>\n";
+         $boxstuff .= '
+         <li><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="label label-pill label-default pull-xs-right">'.$comments.'</span></li>';
       } else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-right\">($comments)</span></li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-xs-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-right\">($comments)</span></li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-xs-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
          }
       }
