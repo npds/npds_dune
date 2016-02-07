@@ -48,8 +48,11 @@ global $Titlesitename;
    } else {
       $theme=$Default_Theme;
    }
+   echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css">';//hardcoded lol
    echo import_css($theme, $language, $site_font, "","");
-   echo "</head>\n<body>";
+   echo '
+   </head>
+   <body>';
 
    // Moderator
    global $NPDS_Prefix;
