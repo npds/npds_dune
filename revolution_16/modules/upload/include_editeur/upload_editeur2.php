@@ -35,13 +35,13 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
       switch ($actiontype) {
       case 'upload' :
          $ret=editeur_upload();
-         if ($ret!="") {
+         if ($ret!='') {
             $suffix=strtoLower(substr(strrchr($ret,'.'),1));
-            if ($suffix=="gif" or  $suffix=="jpg" or $suffix=="png") {
+            if ($suffix=='gif' or  $suffix=='jpg' or $suffix=='png') {
             echo "
             <script type=\"text/javascript\">
             //<![CDATA[
-               parent.tinymce.activeEditor.selection.setContent('<img src=\"$ret\" alt=".basename($ret)." border=\"0\" />');
+               parent.tinymce.activeEditor.selection.setContent('<img class=\"img-fluid\" src=\"$ret\" alt=".basename($ret)." />');
             //]]>
             </script>";
             } else {
@@ -59,14 +59,12 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
                //]]>
                </script>";
          die();
-//echo $suffix.$ret;
       break;
       }
    }
    echo '
    <body topmargin="3" leftmargin="3" rightmargin="3">
       <div class="card card-block">
-
          <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="formEdit">
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />
@@ -76,12 +74,12 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
             <input type="hidden" name="groupe" value="'.$groupe.'" />';
    }
    echo '
-            <div class="form-group">
+            <div class="form-group row">
                <input type="hidden" name="actiontype" value="upload" />
                <label class="form-control-label">'.upload_translate("Fichier").'</label>
                <input class="form-control" name="pcfile" type="file" id="pcfile" value="" />
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                <input type="submit" class="btn btn-primary btn-sm" name="insert" value="'.upload_translate("Joindre").'" />
             </div>
          </form>
@@ -129,12 +127,12 @@ function editeur_upload() {
       $att_size = $attachments["att_size"];
       if (is_array($pcfile_name)) {
          reset ($pcfile_name);
-         $names = implode (", ", $pcfile_name);
+         $names = implode (', ', $pcfile_name);
          $pcfile_name = $names;
       }
       return ($path_upload_editeur.$pcfile_name);
    } else {
-      return ("");
+      return ('');
    }
 }
 ?>
