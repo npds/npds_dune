@@ -31,11 +31,11 @@ function HeadlinesAdmin() {
    <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-           <th data-sortable="true" class="">'.adm_translate("ID").'</th>
-           <th data-sortable="true" class="">'.adm_translate("Nom du site").'</th>
-           <th data-sortable="true" class="">'.adm_translate("URL").'</th>
-           <th data-sortable="true" class="">'.adm_translate("Etat").'</th>
-           <th class="">'.adm_translate("Fonctions").'</th>
+           <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
+           <th data-sortable="true" data-halign="center" >'.adm_translate("Nom du site").'</th>
+           <th data-sortable="true" data-halign="center" >'.adm_translate("URL").'</th>
+           <th data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("Etat").'</th>
+           <th data-align="right" data-halign="center" >'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -66,48 +66,38 @@ function HeadlinesAdmin() {
    <h3 class="m-t-md">'.adm_translate("Nouveau Grand Titre").'</h3>
    <form id="fad_newheadline" class="" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
-               <div class="col-sm-8">
-                  <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
-               </div>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
+            <div class="col-sm-8">
+               <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
             </div>
          </div>
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
-               <div class="col-sm-8">
-                  <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
-                  <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
-               </div>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+            <div class="col-sm-8">
+               <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
+               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
             </div>
          </div>
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
-               <div class="col-sm-8">
-                   <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
-                   <span class="help-block text-xs-right"><span id="countcar_headlinesurl"></span></span>
-               </div>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
+            <div class="col-sm-8">
+                <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
+                <span class="help-block text-xs-right"><span id="countcar_headlinesurl"></span></span>
             </div>
          </div>
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
-               <div class="col-sm-8">
-                  <select class="c-select form-control" id="status" name="status">
-                     <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
-                     <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
-                  </select>
-               </div>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
+            <div class="col-sm-8">
+               <select class="c-select form-control" id="status" name="status">
+                  <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
+                  <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
+               </select>
             </div>
          </div>
-         <div class="form-group">
-            <div class="row">
-               <div class="col-sm-offset-4 col-sm-8">
-                  <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg">&nbsp;</i>'.adm_translate("Ajouter").'</button>
-               </div>
+         <div class="form-group row">
+            <div class="col-sm-offset-4 col-sm-8">
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg">&nbsp;</i>'.adm_translate("Ajouter").'</button>
             </div>
          </div>
          <input type="hidden" name="op" value="HeadlinesAdd" />
@@ -173,7 +163,7 @@ function HeadlinesEdit($hid) {
                <div class="col-sm-8">
                   <div class="input-group">
                      <span class="input-group-btn">
-                       <button class="btn btn-secondary" ><a href="'.$headlinesurl.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></button>
+                       <button class="btn btn-secondary" ><a href="'.$headlinesurl.'" target="_blank"><i class="fa fa-external-link "></i></a></button>
                      </span>
                      <input class="form-control" type="url" name="headlinesurl" maxlength="200" value="'.$headlinesurl.'" required="required" />
                   </div>
@@ -247,20 +237,20 @@ function HeadlinesDel($hid, $ok=0) {
 }
 
 switch ($op) {
-    case "HeadlinesDel":
-         HeadlinesDel($hid, $ok);
-         break;
-    case "HeadlinesAdd":
-         HeadlinesAdd($xsitename, $url, $headlinesurl, $status);
-         break;
-    case "HeadlinesSave":
-         HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status);
-         break;
-    case "HeadlinesAdmin":
-         HeadlinesAdmin();
-         break;
-    case "HeadlinesEdit":
-         HeadlinesEdit($hid);
-         break;
+   case "HeadlinesDel":
+      HeadlinesDel($hid, $ok);
+      break;
+   case "HeadlinesAdd":
+      HeadlinesAdd($xsitename, $url, $headlinesurl, $status);
+      break;
+   case "HeadlinesSave":
+      HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status);
+      break;
+   case "HeadlinesAdmin":
+      HeadlinesAdmin();
+      break;
+   case "HeadlinesEdit":
+      HeadlinesEdit($hid);
+      break;
 }
 ?>
