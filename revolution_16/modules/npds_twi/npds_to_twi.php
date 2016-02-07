@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module npds_twi version 1.0                                          */
-/* npds_to_twi.php file 2013 by Jean Pierre Barbary jpb                 */
+/* npds_to_twi.php file 2015 by Jean Pierre Barbary jpb                 */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion")) {
    die();
@@ -40,7 +40,7 @@ if ($npds_twi===1) {
       $query_art_short='s';
       /* préparation du contenu du tweet */
       $subj_twi=strip_tags($subject);
-      if(cur_charset!=='utf-8')      
+      if(cur_charset!=='utf-8')
       $subj_twi=utf8_encode ($subj_twi);
       $subj_twi=preg_replace ( "#''#", '\'', $subj_twi);
       $text_twi=strip_tags($hometext);
