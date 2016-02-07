@@ -26,22 +26,21 @@ function poll_createPoll() {
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-//   
-        echo '
+   echo '
         <h3>'.adm_translate("Liste des sondages").'</h3>
         <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
-               <th data-sortable="true">ID</th>
-               <th data-sortable="true">'.adm_translate("Intitulé du Sondage").'</th>
-               <th data-sortable="true">'.adm_translate("Vote").'</th>
-               <th>'.adm_translate("Fonctions").'</th>
+               <th data-sortable="true" data-halign="center" data-align="right">ID</th>
+               <th data-sortable="true" data-halign="center">'.adm_translate("Intitulé du Sondage").'</th>
+               <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Vote").'</th>
+               <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
             </tr>
          </thead>
          <tbody>';
-     $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
-     while($object = sql_fetch_assoc($result)) {
-        echo '
+   $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
+   while($object = sql_fetch_assoc($result)) {
+      echo '
             <tr>
                <td>'.$object["pollID"].'</td>
                <td>'.aff_langue($object["pollTitle"]).'</td>
@@ -50,63 +49,60 @@ function poll_createPoll() {
                   <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-toggle="tooltip"></i></a>
                   <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
                </td>
-        </tr>';
+            </tr>';
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");
         list ($sum) = sql_fetch_row($result2);
-     }
-     echo '
-         </tbody>
-      </table>';
-
-   echo 
-   '<h3>'.adm_translate("Créer un nouveau Sondage").'</h3>
-   <form action="admin.php" method="post">
-      <input type="hidden" name="op" value="createPosted" />
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
-               <div class="col-sm-9 col-md-9">
-                  <input class="form-control" type="text" id="pollTitle" name="pollTitle" maxlength="100" />
-                  <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-               </div>
-            </div>
-         </div>';
-   for ($i = 1; $i <= $maxOptions; $i++) {
-   echo '
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").'</label>
-               <div class="col-sm-9 col-md-9">
-                  <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
-               </div>
-            </div>
-         </div>';
    }
    echo '
-         <div class="checkbox">
-            <div class="row">
-               <div class="col-sm-offset-3 col-sm-9">
-                  <label>
-                     <input type="checkbox" name="poll_type" value="1" />'.adm_translate("Seulement aux membres").'
-                  </label>
-               </div>
-            </div>
-         </div>
+         </tbody>
+      </table>
+      <h3>'.adm_translate("Créer un nouveau Sondage").'</h3>
+      <form action="admin.php" method="post">
+         <input type="hidden" name="op" value="createPosted" />
          <div class="form-group">
             <div class="row">
-               <div class="col-sm-offset-3 col-sm-9">
-                  <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
+               <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+                  <div class="col-sm-9 col-md-9">
+                     <input class="form-control" type="text" id="pollTitle" name="pollTitle" maxlength="100" />
+                     <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
+                  </div>
+               </div>
+            </div>';
+   for ($i = 1; $i <= $maxOptions; $i++) {
+      echo '
+            <div class="form-group">
+               <div class="row">
+                  <label class="form-control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").'</label>
+                  <div class="col-sm-9 col-md-9">
+                     <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
+                  </div>
+               </div>
+            </div>';
+   }
+   echo '
+            <div class="checkbox">
+               <div class="row">
+                  <div class="col-sm-offset-3 col-sm-9">
+                     <label>
+                        <input type="checkbox" name="poll_type" value="1" />'.adm_translate("Seulement aux membres").'
+                     </label>
+                  </div>
                </div>
             </div>
-         </div>
-      </fieldset>
-   </form>';
-adminfoot('fv','','','');
+            <div class="form-group">
+               <div class="row">
+                  <div class="col-sm-offset-3 col-sm-9">
+                     <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
+                  </div>
+               </div>
+            </div>
+         </fieldset>
+      </form>';
+   adminfoot('fv','','','');
 }
 
 function poll_createPosted() {
-   global $maxOptions, $pollTitle, $optionText, $poll_type;
-   global $NPDS_Prefix;
+   global $maxOptions, $pollTitle, $optionText, $poll_type, $NPDS_Prefix;
 
    $timeStamp = time();
    $pollTitle = FixQuotes($pollTitle);
@@ -114,7 +110,7 @@ function poll_createPosted() {
    $object = sql_fetch_assoc(sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_desc WHERE pollTitle='$pollTitle'"));
    $id = $object['pollID'];
    for ($i = 1; $i <= sizeof($optionText); $i++) {
-      if ($optionText[$i] != "")
+      if ($optionText[$i] != '')
          $optionText[$i] = FixQuotes($optionText[$i]);
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."poll_data (pollID, optionText, optionCount, voteID, pollType) VALUES ('$id', '$optionText[$i]', 0, '$i', '$poll_type')");
    }
@@ -144,8 +140,6 @@ function poll_removePoll() {
             </tr>
          </thead>
          <tbody>';
-   
-   echo '';
    $result = sql_query("SELECT pollID, pollTitle FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
    while ($object = sql_fetch_assoc($result)) {
       $rowcolor=tablos();
