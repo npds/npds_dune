@@ -33,10 +33,10 @@ function ForumAdmin() {
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true">'.adm_translate("Index").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Nom").'&nbsp;</th>
-            <th>'.adm_translate("Nombre de Forum(s)").'&nbsp;</th>
-            <th>'.adm_translate("Fonctions").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Index").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center" data-align="">'.adm_translate("Nom").'&nbsp;</th>
+            <th data-halign="center" data-align="right">'.adm_translate("Nombre de Forum(s)").'&nbsp;</th>
+            <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'&nbsp;</th>
          </tr>
       </thead>
       <tbody>';
