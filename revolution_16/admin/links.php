@@ -313,14 +313,13 @@ function links() {
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" class="">ID</th>
-            <th data-sortable="true" class="">'.adm_translate('Titre').'</th>
-            <th data-sortable="true" class="">URL</th>
-            <th>'.adm_translate('Fonctions').'</th>
+            <th data-sortable="true" data-halign="center" data-align="right">ID</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate('Titre').'</th>
+            <th data-sortable="true" data-halign="center" >URL</th>
+            <th data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
-      <tbody>
-   ';
+      <tbody>';
    global $rupture,$deja_affiches;
    settype ($deja_affiches, "integer");
    if ($deja_affiches<0) {$sens=-1;} else {$sens=+1;}
