@@ -5,14 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/*                      Revision 22/12/2015                             */
-/************************************************************************/
+
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
@@ -20,28 +19,27 @@ include_once("lib/file.class.php");
 include('functions.php');
 
 function geninfo($did) {
-  global $sitename;
-  global $NPDS_Prefix;
+   global $sitename;
+   global $NPDS_Prefix;
 
-  settype($did, 'integer');
-  $result = sql_query("SELECT dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
-  list($dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $dperm) = sql_fetch_row($result);
-  $okfile=autorisation($dperm);
-  if ($okfile) {
-     $title=$dfilename;
-
-     echo '<p><strong>'.translate("File Size").' : </strong>';
-     $Fichier = new File($durl);
-     $objZF    =    new FileManagement;
-     if ($dfilesize!=0) {
-     echo $objZF->file_size_auto($durl, 2);
-        echo $Fichier->Pretty_Size($dfilesize);
-     } else {
-        echo $Fichier->Affiche_Size();
-             echo $objZF->file_size_auto($durl, 2);
-
-     }
-   echo '
+   settype($did, 'integer');
+   $result = sql_query("SELECT dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
+   list($dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $dperm) = sql_fetch_row($result);
+   $okfile=autorisation($dperm);
+   if ($okfile) {
+      $title=$dfilename;
+      echo '
+   <p><strong>'.translate("File Size").' : </strong>';
+      $Fichier = new File($durl);
+      $objZF    =    new FileManagement;
+      if ($dfilesize!=0) {
+         echo $objZF->file_size_auto($durl, 2);
+         echo $Fichier->Pretty_Size($dfilesize);
+      } else {
+         echo $Fichier->Affiche_Size();
+         echo $objZF->file_size_auto($durl, 2);
+      }
+      echo '
    </p>
    <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
    <p><strong>'.translate("Upload Date").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
@@ -50,15 +48,15 @@ function geninfo($did) {
    <p><strong>'.translate("Description").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($ddescription)).'</p>
    <strong>'.translate("Author").'&nbsp;:</strong>&nbsp;'.$duser.'</p>
    <strong>'.translate("HomePage").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
-  } else {
-     Header("Location: download.php");
-  }
+   } else {
+      Header("Location: download.php");
+   }
 }
 
 function tlist() {
    global $sortby, $dcategory, $download_cat;
    global $NPDS_Prefix;
-   if ($dcategory == "") { $dcategory = addslashes($download_cat); }
+   if ($dcategory == '') { $dcategory = addslashes($download_cat); }
    $cate = stripslashes($dcategory);
    echo '
    <p class="lead">'.translate("Select Category Folder").'</p>
@@ -66,10 +64,10 @@ function tlist() {
       <div class="col-sm-3">';
    $acounter = sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads");
    list($acount) = sql_fetch_row($acounter);
-   if (($cate == translate("All")) OR ($cate == "")) {
-     echo "<i class=\"fa fa-2x fa-folder-open\"></i><strong>".translate("All")."&nbsp;($acount)</strong>\n";
+   if (($cate == translate("All")) OR ($cate == '')) {
+     echo '<i class="fa fa-folder-open fa-2x text-muted"></i><strong>'.translate("All").'&nbsp;('.$acount.')</strong>';
    } else {
-     echo "<a href=\"download.php?dcategory=".translate("All")."&amp;sortby=$sortby\"><i class=\"fa fa-2x fa-folder\"></i>&nbsp;".translate("All")."</a>&nbsp;($acount)\n";
+     echo '<a href="download.php?dcategory='.translate("All").'&amp;sortby='.$sortby.'"><i class="fa fa-2x fa-folder"></i>&nbsp;'.translate("All").'</a>&nbsp;('.$acount.')';
    }
   $result = sql_query("SELECT DISTINCT dcategory, COUNT(dcategory) FROM ".$NPDS_Prefix."downloads GROUP BY dcategory ORDER BY dcategory");
 echo '</div>';
@@ -79,10 +77,10 @@ echo '</div>';
     $category=stripslashes($category);
   echo '<div class="col-sm-3">';
     if ($category == $cate) {
-        echo "<i class=\"fa fa-2x fa-folder-open\"></i>&nbsp;<strong>".aff_langue($category)."&nbsp;($dcount)</strong>\n";
+        echo '<i class="fa fa-folder-open fa-2x text-muted"></i>&nbsp;<strong>'.aff_langue($category).'&nbsp;('.$dcount.')</strong>';
     } else {
         $category2 = urlencode($category);
-        echo "<a href=\"download.php?dcategory=$category2&amp;sortby=$sortby\"><i class=\"fa fa-2x fa-folder\"></i>&nbsp;".aff_langue($category)."</a>&nbsp;($dcount)\n";
+        echo '<a href="download.php?dcategory='.$category2.'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x"></i>&nbsp;'.aff_langue($category).'</a>&nbsp;('.$dcount.')';
     }
       echo '</div>';
 
@@ -96,15 +94,17 @@ echo '
 }
 
 function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
-  echo "<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname\" title=\"".translate("Ascending")."\"><i class=\"fa fa-sort-amount-asc\"></i></a>&nbsp;";
-  echo translate("$englishname");
-  echo "&nbsp;<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname&amp;sortorder=DESC\" title=\"".translate("Descending")."\"><i class=\"fa fa-sort-amount-desc\"></i></a>";
+   echo '
+         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-asc"></i></a>&nbsp;
+         '.translate("$englishname").'&nbsp;
+         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-desc"></i></a>';
 }
 
 function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
-  echo "<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname\"><i class=\"fa fa-sort-amount-asc\"  title=\"".translate("Ascending")."\"></i></a>&nbsp;";
-  echo translate("$englishname");  
-  echo "&nbsp;<a href=\"download.php?dcategory=$dcategory&amp;sortby=$fieldname&amp;sortorder=DESC\"><i class=\"fa fa-sort-amount-desc\" title=\"".translate("Descending")."\"></i></a>";
+     echo '
+         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-asc" ></i></a>&nbsp;
+         '.translate("$englishname").'&nbsp;
+         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-desc" ></i></a>';
 }
 
 function dl_tableheader () {
@@ -143,7 +143,7 @@ function SortLinks($dcategory, $sortby) {
   echo '
       <thead>
          <tr>
-            <th class="text-xs-center">'.translate("Info").'</th>
+            <th class="text-xs-center">'.translate("Functions").'</th>
             <th class="text-xs-center">'.translate("Type").'</th>
             <th class="text-xs-center">';
   if ($sortby == 'dfilename' OR !$sortby) {
@@ -229,7 +229,8 @@ echo '<p class="lead">';
   echo '&nbsp;'.translate("of").'&nbsp;<i>'.$sortby2.'</i>
   </p>';
  
-  echo '<table class="table table-hover" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
+  echo '<table class="table table-hover" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
+data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
   sortlinks($dcategory, $sortby);
   echo '<tbody>';
   if ($dcategory==translate("All")) {
@@ -261,8 +262,6 @@ echo '<p class="lead">';
    while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcat, $ddescription, $dperm) = sql_fetch_row($result)) {
       $Fichier = new File($durl);// keep for extension
       $FichX = new FileManagement; // essai class
-
-      
       $okfile=autorisation($dperm);
       echo '
          <tr>
@@ -271,22 +270,21 @@ echo '<p class="lead">';
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
       } else {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,false);
-         echo '<span class="text-warning">'.translate("Private").'</span>';
+         echo '<span class="text-danger">'.translate("Private").'</span>';
       }
-      echo"</td><td class=\"text-xs-center\"><img src=\"".$Fichier->Affiche_Extention()."\" alt=\"".$Fichier->Affiche_Extention()."\" border=\"0\" /></td>
-           <td>";
+      echo '</td>
+            <td class="text-xs-center"><img src="'.$Fichier->Affiche_Extention().'" alt="'.$Fichier->Affiche_Extention().'" /></td>
+            <td>';
       if ($okfile==true) {
-         echo "<a href=\"download.php?op=mydown&amp;did=$did\" target=\"_blank\">$dfilename</a>";
+         echo '<a href="download.php?op=mydown&amp;did='.$did.'" target="_blank">'.$dfilename.'</a>';
       } else {
          echo '...';
       }
       echo '</td>
             <td>';
             if ($dfilesize!=0) {
-//               echo $Fichier->Pretty_Size($dfilesize);
                echo $FichX->file_size_auto($durl, 2);
             } else {
-//               echo $Fichier->Affiche_Size();
                echo $FichX->file_size_auto($durl, 2);
             }
             echo '</td>
@@ -296,7 +294,7 @@ echo '<p class="lead">';
             <td class="text-xs-center">'.wrh($dcounter).'</td>
             <td>';
       if (($okfile==true) and $user) {
-         echo"<a href=\"download.php?op=broken&amp;did=$did\" title=\"".translate("Report Broken Link")."\"><i class=\"fa fa-lg fa-chain-broken\"></i></a>";
+         echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'"><i class="fa fa-lg fa-chain-broken"></i></a>';
       }
       echo '
             </td>
@@ -403,16 +401,16 @@ function broken($did) {
 
 settype($op,'string');
 switch ($op) {
-  case "main":
+  case 'main':
        main();
        break;
-  case "mydown":
+  case 'mydown':
        transferfile($did);
        break;
-  case "geninfo":
+  case 'geninfo':
        geninfo($did);
        break;
-  case "broken":
+  case 'broken':
        broken($did);
        break;
   default:
