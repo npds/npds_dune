@@ -14,7 +14,7 @@
 /************************************************************************/
 
 // Taille maxi des fichiers en octets
-$max_size = 300000;
+$max_size = 100000000;// for debug pagetec smartphone
 
 // Si votre variable $DOCUMENT_ROOT n'est pas bonne (notamment en cas de redirection)
 // vous pouvez en spécifier une ici (c'est le chemin physique d'accès à la racine de votre site en partant de / ou C:\)
@@ -44,14 +44,15 @@ $url_upload = 'http://labo.infocapagde.com';
 
 global $cookie, $user, $Default_Theme, $theme;
 if (isset($user)) {
-   if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+   if ($cookie[9]=='') $cookie[9]=$Default_Theme;
    if (isset($theme)) $cookie[9]=$theme;
    $tmp_theme=$cookie[9];
    if (!$file=@opendir("themes/$cookie[9]")) $tmp_theme=$Default_Theme;
 } else {
    $tmp_theme=$Default_Theme;
 }
-$url_upload_css = $racine.'/themes/'.$tmp_theme.'/style/style.css';
+$url_upload_css = $racine.'/lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css';
+
 
 /* -------------- DIVERS -------------- */
 // Gére l'affichage de la Banque Images et Documents : "0000" => rien / "1111" => tous
@@ -73,5 +74,5 @@ $width_max=50;
 $height_max=50;
 
 // Limite de l'espace disque alloué pour l'upload (en octects)
-$quota=3000000;
+$quota=300000000;// for debug pagetec smartphone
 ?>
