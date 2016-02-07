@@ -16,7 +16,6 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
    include("header.php");
-
    $dkn = sql_query("SELECT type, var, count FROM ".$NPDS_Prefix."counter ORDER BY type DESC");
    while (list($type, $var, $count) = sql_fetch_row($dkn)) {
       if (($type == "total") && ($var == "hits")) {
@@ -81,7 +80,16 @@ if (!function_exists("Mysql_Connexion")) {
          } elseif($var == "AIX") {
             $aix[] = $count;
             $aix[] =  substr(sprintf('%f', 100 * $count / $total), 0, 5);
-         } elseif(($type == "os") && ($var == "Other")) {
+         } elseif($var == "Android") {
+            $andro[] = $count;
+            $andro[] =  substr(sprintf('%f', 100 * $count / $total), 0, 5);
+         } elseif($var == "iOS") {
+            $ios[] = $count;
+            $ios[] =  substr(sprintf('%f', 100 * $count / $total), 0, 5);
+         }
+         
+         
+         elseif(($type == "os") && ($var == "Other")) {
             $os_other[] = $count;
             $os_other[] =  substr(sprintf('%f', 100 * $count / $total), 0, 5);
          }
@@ -94,19 +102,19 @@ if (!function_exists("Mysql_Connexion")) {
    '.translate("We received").' <span class="label label-default">'.wrh($total).'</span> '.translate("views since").' '.$startdate.'
    </div>
    <h3>'.translate("Browsers").'</h3>
-   <table data-toggle="table" data-striped="true" >
+   <table data-toggle="table" data-striped="true" data-mobile-responsive="true">
       <thead>
          <tr>
-            <th data-sortable="true" >'.translate("Browsers").'</th>
-            <th data-sortable="true" data-halign="center" data-align="right">%</th>
-            <th data-align="right"></th>
+            <th class="col-sm-3" data-sortable="true" data-align="right" >'.translate("Browsers").'</th>
+            <th class="col-sm-6" data-sortable="true" data-halign="center" data-align="right" >%</th>
+            <th class="col-sm-3" data-align="right" >-</th>
          </tr>
       </thead>
       <tbody>';
    if ($ibid=theme_image("stats/explorer.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/explorer.gif";}
    echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" />MSIE</td>
+            <td > MSIE <img src="'.$imgtmp.'" alt="MSIE_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$msie[1].'%;">'.$msie[1].'%</strong></div>
                <progress class="progress" value="'.$msie[1].'" max="100">
@@ -115,12 +123,12 @@ if (!function_exists("Mysql_Connexion")) {
                   </div>
                </progress>
             </td>
-            <td align="left">'.wrh($msie[0]).'</td>
+            <td>'.wrh($msie[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/firefox.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/firefox.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" /> Mozilla</td>
+            <td> Mozilla <img src="'.$imgtmp.'" alt="Mozilla_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$netscape[1].'%;">'.$netscape[1].'%</strong></div>
                <progress class="progress" value="'.$netscape[1].'" max="100">
@@ -134,7 +142,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/opera.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/opera.gif";}
      echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" /> Opera</td>
+            <td> Opera <img src="'.$imgtmp.'" alt="Opera_ico" /></td>
             <td>
             <div class="graph"><strong class="bar" style="width: '.$opera[1].'%;">'.$opera[1].'%</strong></div>
                <progress class="progress" value="'.$opera[1].'" max="100">
@@ -148,7 +156,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/chrome.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/chrome.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" /> Chrome</td>
+            <td> Chrome <img src="'.$imgtmp.'" alt="Chrome_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$chrome[1].'%;">'.$chrome[1].'%</strong></div>
                <progress class="progress" value="'.$chrome[1].'" max="100">
@@ -162,7 +170,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/safari.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/safari.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" /> Safari</td>
+            <td> Safari <img src="'.$imgtmp.'" alt="Safari_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$safari[1].'%;">'.$safari[1].'%</strong></div>
                <progress class="progress" value="'.$safari[1].'" max="100">
@@ -176,7 +184,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/webtv.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/webtv.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />WebTV</td>
+            <td> WebTV <img src="'.$imgtmp.'"  alt="WebTV_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$webtv[1].'%;">'.$webtv[1].'%</strong></div>
                <progress class="progress" value="'.$webtv[1].'" max="100">
@@ -190,7 +198,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/konqueror.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/konqueror.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" />Konqueror</td>
+            <td> Konqueror <img src="'.$imgtmp.'" alt="Konqueror_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$konqueror[1].'%;">'.$konqueror[1].'%</strong></div>
                <progress class="progress" value="'.$konqueror[1].'" max="100">
@@ -204,7 +212,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/lynx.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/lynx.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" />Lynx</td>
+            <td> Lynx <img src="'.$imgtmp.'" alt="Lynx_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$lynx[1].'%;"> '.$lynx[1].'%</strong></div>
                <progress class="progress" value="'.$lynx[1].'" max="100">
@@ -218,7 +226,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/altavista.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/altavista.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'" alt="" />'.translate("Search Engines").'</td>
+            <td> '.translate("Search Engines").' <img src="'.$imgtmp.'" alt="'.translate("Search Engines").'_ico" /></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$bot[1].'%;"> '.$bot[1].'%</strong></div>
                <progress class="progress" value="'.$bot[1].'" max="100">
@@ -230,7 +238,7 @@ if (!function_exists("Mysql_Connexion")) {
             <td>'.wrh($bot[0]).'</td>
          </tr>
          <tr>
-            <td width="40%"><i class="fa fa-question fa-3x"></i>&nbsp;'.translate("Unknown").'</td>
+            <td> '.translate("Unknown").' <i class="fa fa-question fa-3x"></i></td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$b_other[1].'%;"> '.$b_other[1].'%</strong></div>
                <progress class="progress" value="'.$b_other[1].'" max="100">
@@ -238,13 +246,12 @@ if (!function_exists("Mysql_Connexion")) {
                      <span class="progress-bar" style="width:'.$b_other[1].'%;">'.$b_other[1].'%</span>
                   </div>
                </progress>
-               </td>
+            </td>
             <td>'.wrh($b_other[0]).'</td>
          </tr>
       </tbody>
    </table>
-   <br />';
-   echo '
+   <br />
    <h3>'.translate("Operating Systems").'</h3>
    <table data-toggle="table" data-striped="true" >
       <thead>
@@ -258,7 +265,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/windows.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/windows.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;Windows</td>
+            <td ><img src="'.$imgtmp.'"  alt="" />&nbsp;Windows</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$windows[1].'%;">'.$windows[1].'%</strong></div>
                <progress class="progress" value="'.$windows[1].'" max="100">
@@ -272,7 +279,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/linux.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/linux.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;Linux</td>
+            <td ><img src="'.$imgtmp.'"  alt="" />&nbsp;Linux</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$linux[1].'%;">'.$linux[1].'%</strong></div>
                <progress class="progress" value="'.$linux[1].'" max="100">
@@ -286,7 +293,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/mac.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/mac.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;Mac/PPC</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;Mac/PPC</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$mac[1].'%;">'.$mac[1].'%</strong></div>
                <progress class="progress" value="'.$mac[1].'" max="100">
@@ -300,7 +307,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/bsd.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/bsd.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;FreeBSD</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;FreeBSD</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$freebsd[1].'%;">'.$freebsd[1].'%</strong></div>
                <progress class="progress" value="'.$freebsd[1].'" max="100">
@@ -314,7 +321,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/sun.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/sun.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;SunOS</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;SunOS</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$sunos[1].'%;">'.$sunos[1].'%</strong></div>
                <progress class="progress" value="'.$sunos[1].'" max="100">
@@ -328,7 +335,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/irix.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/irix.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;IRIX</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;IRIX</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$irix[1].'%;">'.$irix[1].'%</strong></div>
                <progress class="progress" value="'.$irix[1].'" max="100">
@@ -342,7 +349,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/be.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/be.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;BeOS</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;BeOS</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$beos[1].'%;">'.$beos[1].'%</strong></div>
                <progress class="progress" value="'.$beos[1].'" max="100">
@@ -356,7 +363,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/os2.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/os2.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;OS/2</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;OS/2</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$os2[1].'%;">'.$os2[1].'%</strong></div>
                <progress class="progress" value="'.$os2[1].'" max="100">
@@ -370,7 +377,7 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/aix.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/aix.gif";}
       echo '
          <tr>
-            <td width="40%"><img src="'.$imgtmp.'"  alt="" />&nbsp;AIX</td>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;AIX</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$aix[1].'%;">'.$aix[1].'%</strong></div>
                <progress class="progress" value="'.$aix[1].'" max="100">
@@ -380,9 +387,37 @@ if (!function_exists("Mysql_Connexion")) {
                </progress>
             </td>
             <td>'.wrh($aix[0]).'</td>
+         </tr>';
+   if ($ibid=theme_image("stats/android.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/android.gif";}
+      echo '
+         <tr>
+            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;Android</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$andro[1].'%;">'.$andro[1].'%</strong></div>
+               <progress class="progress" value="'.$andro[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$andro[1].'%;">'.$andro[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($andro[0]).'</td>
+         </tr>';
+   if ($ibid=theme_image("stats/ios.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/ios.gif";}
+      echo '
+         <tr>
+            <td><img src="'.$imgtmp.'"  alt="" /> Ios</td>
+            <td>
+               <div class="graph"><strong class="bar" style="width: '.$ios[1].'%;">'.$ios[1].'%</strong></div>
+               <progress class="progress" value="'.$ios[1].'" max="100">
+                  <div class="progress">
+                     <span class="progress-bar" style="width:'.$ios[1].'%;">'.$ios[1].'%</span>
+                  </div>
+               </progress>
+            </td>
+            <td>'.wrh($ios[0]).'</td>
          </tr>
          <tr>
-            <td width="40%"><i class="fa fa-question fa-3x"></i>&nbsp;'.translate("Unknown").'</td>
+            <td><i class="fa fa-question fa-3x"></i>&nbsp;'.translate("Unknown").'</td>
             <td>
                <div class="graph"><strong class="bar" style="width: '.$os_other[1].'%;">'.$os_other[1].'%</strong></div>
                <progress class="progress" value="'.$os_other[1].'" max="100">
