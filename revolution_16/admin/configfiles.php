@@ -26,16 +26,17 @@ function ConfigFiles($contents, $files) {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   if ($contents=="") {
-      echo '<table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
-    <thead>
-        <tr>
-            <th>'.adm_translate('Nom').'</th>
-            <th>'.adm_translate('Description').'</th>
-            <th>'.adm_translate('Fonctions').'</th>
-        </tr>
-    </thead>
-    <tbody>
+   if ($contents=='') {
+      echo '
+   <table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
+      <thead>
+         <tr>
+            <th data-halign="center" data-align="center" >'.adm_translate('Nom').'</th>
+            <th data-halign="center" >'.adm_translate('Description').'</th>
+            <th data-halign="center" data-align="right" >'.adm_translate('Fonctions').'</th>
+         </tr>
+      </thead>
+      <tbody>
         <tr>
             <td colspan="3"><span><b>/modules/include</b></span></td>
         </tr>
