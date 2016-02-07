@@ -392,8 +392,10 @@ function NoMoveCategory($catid, $newcat) {
 
 // NEWS
 function displayStory ($qid) {
-   global $NPDS_Prefix;
-   global $tipath, $hlpfile, $language, $aid, $radminsuper;
+   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper,$adminimg;
+
+   $f_meta_nom ='adminStory';
+   $f_titre = adm_translate("Articles");
    $hlpfile = "manuels/$language/newarticle.html";
 
    $result = sql_query("SELECT qid, uid, uname, subject, story, bodytext, topic, date_debval,date_finval,auto_epur FROM ".$NPDS_Prefix."queue WHERE qid='$qid'");
@@ -410,7 +412,7 @@ function displayStory ($qid) {
    if ($radminsuper) {
       $affiche=true;
    } else {
-      $topicadminX=explode(",",$topicadmin);
+      $topicadminX=explode(',',$topicadmin);
       for ($i = 0; $i < count($topicadminX); $i++) {
          if (trim($topicadminX[$i])==$aid) $affiche=true;
       }
@@ -419,29 +421,32 @@ function displayStory ($qid) {
    $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
-    
-   echo adm_translate("Prévisualiser l'Article");
-
+   
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
    <form action="admin.php" method="post" name="adminForm">
-   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>'.aff_localzone_langue("local_user_language").'<br /><br />';
-   echo '<div class="card card-block">';
+      <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>
+      '.aff_localzone_langue("local_user_language").'
+      <div class="card card-block">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
       $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
-    code_aff('<h3>'.$subject.$topiclogo.'</h3>','<div class="text-muted">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
-//     if ($no_img) {
-//        echo aff_langue($topictext);
-//     }
-    echo '<b>'.adm_translate("Utilisateur").'</b> : <input class="textbox_standard" type="text" name="author" size="50" value="'.$uname.'" />&nbsp;';
-    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
+    code_aff('<h4>'.$subject.$topiclogo.'</h4>','<div class="text-muted">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
+
     echo '
-    <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank"><img src="'.$imgtmp.'" border="0" alt="'.adm_translate("Diffusion d'un Message Interne").'" /></a><br /><br />';
-    echo '
-    </div>
+      </div>
+      <div class="form-group row">
+         <label class="col-sm-4 form-control-label" for="author">'.adm_translate("Utilisateur").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="author" value="'.$uname.'" />
+            <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank" title="'.adm_translate("Diffusion d'un Message Interne").'" data-toggle="tooltip"><i class="fa fa-envelope-o fa-lg"></i></a>
+         </div>
+      </div>
+
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
@@ -485,7 +490,7 @@ function displayStory ($qid) {
          <textarea class="tin form-control" rows="25" name="hometext">'.$story.'</textarea>
       </div>
    </div>';
-   echo aff_editeur("hometext", "true");
+   echo aff_editeur('hometext', '');
    echo '
    <div class="form-group row">
       <label class="form-control-label col-xs-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
@@ -493,7 +498,7 @@ function displayStory ($qid) {
          <textarea class="tin form-control" rows="25" name="bodytext" >'.$bodytext.'</textarea>
       </div>
    </div>';
-   echo aff_editeur("bodytext", "true");
+   echo aff_editeur('bodytext', '');
    echo '
    <div class="form-group row">
       <label class="form-control-label col-xs-12" for="notes">'.adm_translate("Notes").'</label>
@@ -526,7 +531,7 @@ function displayStory ($qid) {
    </select>
    <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
-    include ('footer.php');
+   adminfoot('fv','','','');
 }
 
 function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,  $epur) {
@@ -951,49 +956,51 @@ function adminStory() {
    admindroits($aid,$f_meta_nom);
    //<== controle droit
 
-    $hlpfile = "manuels/$language/newarticle.html";
-    include ('header.php');
-    GraphicAdmin($hlpfile);
-    adminhead ($f_meta_nom, $f_titre, $adminimg);
-    
+   $hlpfile = "manuels/$language/newarticle.html";
+   include ('header.php');
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+
    echo '
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-         <input class="form-control" type="text" name="subject" value="" />
+            <input class="form-control" type="text" name="subject" id="subject" value="" maxlength="255" required="required" />
+            <span class="help-block text-xs-right"><span id="countcar_subject"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
          <select class="c-select form-control" name="topic">';
-    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+   $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
 //probablement ici aussi mettre les droits pour les gestionnaires de topics ??
-    if ($radminsuper) echo '
+   if ($radminsuper) echo '
             <option value="">'.adm_translate("Sélectionner un Sujet").'</option>';
-    while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
-       $affiche=false;
-       if ($radminsuper) {
-          $affiche=true;
-       } else {
-          $topicadminX=explode(",",$topicadmin);
-          for ($i = 0; $i < count($topicadminX); $i++) {
-             if (trim($topicadminX[$i])==$aid) $affiche=true;
-          }
-       }
-       if ($affiche) {
-          if ($topicid==$topic) { $sel = 'selected="selected"'; }
-          echo '<option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
-          $sel = '';
-       }
-    }
-    echo '</select>
+   while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
+      $affiche=false;
+      if ($radminsuper) {
+         $affiche=true;
+      } else {
+         $topicadminX=explode(",",$topicadmin);
+         for ($i = 0; $i < count($topicadminX); $i++) {
+            if (trim($topicadminX[$i])==$aid) $affiche=true;
+         }
+      }
+      if ($affiche) {
+         if ($topicid==$topic) { $sel = 'selected="selected"'; }
+            echo '<option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+            $sel = '';
+         }
+      }
+   echo '
+            </select>
          </div>
       </div>';
-    $cat = 0;  
-    SelectCategory($cat);
-    puthome($ihome);
+   $cat = 0;
+   SelectCategory($cat);
+   puthome($ihome);
    echo '
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
@@ -1001,27 +1008,33 @@ function adminStory() {
             <textarea class="tin form-control" rows="25" name="hometext">'.$hometext.'</textarea>
          </div>
       </div>';
-    echo aff_editeur("hometext", "true");
-    echo '
+   echo aff_editeur('hometext', '');
+   echo '
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
          <div class="col-xs-12">
             <textarea class="tin form-control"  rows="25" name="bodytext" >'.$bodytext.'</textarea>
          </div>
       </div>';
-    echo aff_editeur("bodytext", "true");
-    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
-    echo '
+   echo aff_editeur('bodytext', '');
+   publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
+   echo '
       <input type="hidden" name="author" value="'.$aid.'" />
       <input type="hidden" name="op" value="PreviewAdminStory" />
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-12">
              <input class="btn btn-primary" type="submit" name="submit" value="'.adm_translate("Prévisualiser").'" />
          </div>
       </div>
-      </fieldset>
-   </form>';
-   adminfoot('','','','');
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("subject",255);
+      });
+   //]]>
+   </script>';
+   adminfoot('fv','','','');
 }
 
 function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,$epur) {
@@ -1048,7 +1061,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Nouvel Article");
    //==> controle droit
-//   admindroits($aid,$f_meta_nom); // à voir l'intégrationavec les droits sur les topics ...
+//   admindroits($aid,$f_meta_nom); // à voir l'intégration avec les droits sur les topics ...
    //<== controle droit
    $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
@@ -1075,7 +1088,8 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="subject" value="'.$subject.'" />
+            <input class="form-control" type="text" name="subject" id="subject" value="'.$subject.'" maxlength="255" required="required" />
+            <span class="help-block text-xs-right"><span id="countcar_subject"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -1108,7 +1122,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       </div>';
     $cat = $catid;
     SelectCategory($catid);
-    echo "<br />";
+    echo '<br />';
     if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
     puthome($ihome);
@@ -1143,8 +1157,15 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
              <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
          </div>
       </div>
-   </form>';
-    include ('footer.php');
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("subject",255);
+      });
+   //]]>
+   </script>';
+   adminfoot('fv','','','');
 }
 
 switch ($op) {
