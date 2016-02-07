@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,7 +21,7 @@
 /* static.php?op=test.txt&npds=-1&metalang=1&nl=1                       */
 /*                                                                      */
 /* PARAMS :                                                             */
-/* op : nom du fichier qui sera chargé                                  */
+/* op : nom du fichier qui sera chargÃ©                                  */
 /*                                                                      */
 /* npds :                                                               */
 /*    -1 : pas de blocs de Gauche ET pas de blocs de Droite (no blocks) */
@@ -29,14 +29,13 @@
 /*     1 : blocs de Gauche ET blocs de Droite (the two)                 */
 /*     2 : pas de blocs Gauche ET blocs de Droite (no left blocks)      */
 /*                                                                      */
-/* metalang (0=inactif - défaut | 1=actif) :                            */
-/*    l'interprétation meta-lang, [code] ... [/code] et Multi-langue    */
-/*    sera  réalisée                                                    */
+/* metalang (0=inactif - dÃ©faut | 1=actif) :                            */
+/*    l'interprÃ©tation meta-lang, [code] ... [/code] et Multi-langue    */
+/*    sera  rÃ©alisÃ©e                                                    */
 /*                                                                      */
-/* nl (0=inactif - défaut | 1=actif)                                    */
+/* nl (0=inactif - dÃ©faut | 1=actif)                                    */
 /*    execute nl2br(str_replace(" ","&nbsp;",htmlentities($remp)))      */
 /*    avant d'afficher le fichier                                       */
-/* Revu phr 31/05/2015                                                  */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
@@ -47,10 +46,10 @@ if (!function_exists("Mysql_Connexion")) {
    settype($metalang,'integer');
    settype($nl,'integer');
    $pdst=$npds;
-   $remp="";
+   $remp='';
    include ("header.php");
 
-   if (($op!="") and ($op)) {
+   if (($op!='') and ($op)) {
       // Troll Control for security
       if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta"))  {
          if (file_exists("static/$op")) {
@@ -64,7 +63,7 @@ if (!function_exists("Mysql_Connexion")) {
                if ($metalang)
                   $remp=meta_lang(aff_code(aff_langue($remp)));
                if ($nl)
-                  $remp=nl2br(str_replace(" ","&nbsp;",htmlentities($remp,ENT_QUOTES,cur_charset)));
+                  $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,cur_charset)));
                echo $remp;
             }
             if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
