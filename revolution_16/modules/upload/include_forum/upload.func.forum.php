@@ -97,7 +97,7 @@ function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $in
    return sql_last_id ();
 }
 /************************************************************************/
-/* Suprime l'attachement dans la base de donnÈ en cas d erreur d'upload */
+/* Suprime l'attachement dans la base de donné en cas d erreur d'upload */
 /************************************************************************/
 function deleteAttachment ($apli, $IdPost, $upload_dir, $id, $att_name){
    global $upload_table;
@@ -141,7 +141,7 @@ function display_upload($apli,$post_id,$Mmod){
          $compteur      = $att[$i]["compteur"];
          $visible       = $att[$i]["visible"];
          $att_inline    = $att[$i]["inline"];
-         if (!$visible) {$marqueurV="@";} else {$marqueurV="";}
+         if (!$visible) {$marqueurV="@";} else {$marqueurV='';}
          $att_link      = getAttachmentUrl ($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
          // check for full row
          if (++$ncell > $num_cells) {
@@ -298,9 +298,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
          eval ("\$ret=stripSlashes(\"$text\");");
          break;
       default: // display as link
-         $Fichier = new FileManagement; // essai class PHP7
-//         $Fichier = new File("");
-//         $att_size = $Fichier->Pretty_Size($att_size);
+         $Fichier = new FileManagement;
          $att_size = $Fichier->file_size_format($att_size, 1);
          $att_icon = att_icon($att_name);
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_LINK]);
@@ -414,7 +412,7 @@ function renomme_fichier($listeV, $listeU) {
 function update_visibilite($visible_att,$visible_list) {
    global $upload_table;
    if (is_array ($visible_att) ) {
-      $visible = implode ($visible_att, ",");
+      $visible = implode ($visible_att, ',');
       $sql = "UPDATE $upload_table SET visible='1' WHERE att_id in ($visible)";
       sql_query($sql);
 
