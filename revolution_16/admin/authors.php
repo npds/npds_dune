@@ -17,6 +17,8 @@ $f_titre = adm_translate("Gestion des Administrateurs");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
+if($radminsuper!=1) { Access_Error(); }
+
 
 global $language, $adminimg, $admf_ext;
 $listdroits='';$listdroitsmodulo='';
@@ -184,9 +186,9 @@ function displayadmins() {
    <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true">'.adm_translate('Nom').'</th>
-            <th data-sortable="true">'.adm_translate('Email').'</th>
-            <th>'.adm_translate('Fonctions').'</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate('Nom').'</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate('Email').'</th>
+            <th data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>';
