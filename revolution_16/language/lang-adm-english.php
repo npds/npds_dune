@@ -20,7 +20,6 @@ switch($phrase) {
   case "linksdatestring": $tmp="%d-%b-%Y"; break;
   case "datestring2": $tmp="%A, %B %d"; break;
   case "dateforop": $tmp="m-d-y"; break;
-
   case "Editer le Bloc Administration": $tmp="Edit Admin Block"; break;
   case "Titre :": $tmp="Title:"; break;
   case "Contenu :": $tmp="Content:"; break;
@@ -184,7 +183,7 @@ switch($phrase) {
   case "Anonyme": $tmp="Anonymous"; break;
   case "Editer un Téléchargement": $tmp="Edit Download"; break;
   case "Changer la date ? : ": $tmp="Change Date? : "; break;
-  case "Changer les priviléges ? :": $tmp="Change Privileges? :"; break;
+  case "Changer les privilèges ? :": $tmp="Change Privileges? :"; break;
   case "ATTENTION :  êtes-vous sûr de vouloir supprimer ce fichier téléchargeable ?": $tmp="WARNING: Are you sure you want to delete this Download file?"; break;
   case "Ajouter un Ephéméride : ": $tmp="Add Ephemerid:"; break;
   case "Description de l'Ephéméride : ": $tmp="Ephemerid Description:"; break;
@@ -201,15 +200,14 @@ switch($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL for the RDF/XML file"; break;
   case "Etat : ": $tmp="Status:"; break;
   case "Editer paramètres Grand Titre": $tmp="Edit Headline"; break;
-  case "Etes-vous sûr de vouloir supprimer cette boÓte de Titres ?": $tmp="WARNING: Are you sure you want to delete this Headline?"; break;
+  case "Etes-vous sûr de vouloir supprimer cette boîte de Titres ?": $tmp="WARNING: Are you sure you want to delete this Headline?"; break;
   case "Edition des Blocs de gauche": $tmp="Edit Left Blocks"; break;
   case "Modifier un Bloc gauche": $tmp="Change left Block"; break;
   case "Effacer un Bloc gauche": $tmp="Delete left Block"; break;
   case "Créer un Bloc gauche": $tmp="Make left Block"; break;
   case "Il y a": $tmp="There are"; break;
-  case "Liens": $tmp="Links in our Database"; break;
   case "Liens en attente de validation": $tmp="Links Waiting for Validation"; break;
-  case "Lien N∞ : ": $tmp="Link ID: "; break;
+  case "Lien N° : ": $tmp="Link ID: "; break;
   case "Auteur": $tmp="Author"; break;
   case "Titre de la Page": $tmp="Page Title"; break;
   case "URL de la Page": $tmp="Page URL"; break;
@@ -226,7 +224,6 @@ switch($phrase) {
   case "Ajouter un nouveau Lien": $tmp="Add a New Link"; break;
   case "Ajouter un lien": $tmp="Add a link"; break;
   case "Description :  (255 caractères max)": $tmp="Description: (255 characters max)"; break;
-  case "E-mail : ": $tmp="E-Mail: "; break;
   case "Ajouter une URL": $tmp="Add URL"; break;
   case "Modifier la Catégorie": $tmp="Modify Category"; break;
   case "Modifier": $tmp="Modify"; break;
@@ -299,7 +296,7 @@ switch($phrase) {
   case "Niveau d'accès": $tmp="Access Level"; break;
   case "Utilisateur enregistré uniquement": $tmp="Registered users only"; break;
   case "Type :": $tmp="Type:"; break;
-  case "- Mot de Passe (si Privé) - Le nom du fichier de formulaire (si Texte étendu) <span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span> - Les Groupes ID (si Groupe)":    $tmp="- Password (if Private) - Form file name (if Extended Text) in modules/sform/forum<br />- Groups ID (if Group)"; break;
+  case "- Mot de Passe (si Privé) - Le nom du fichier de formulaire (si Texte étendu) => modules/sform/forum - Les Groupes ID (si Groupe)":    $tmp="- Password (if Private) - Form file name (if Extended Text) in modules/sform/forum<br />- Groups ID (if Group)"; break;
   case "Changer les Catégories : ": $tmp="Change Categories:"; break;
   case "Le Modérateur sélectionné n'existe pas.": $tmp="The selected Moderator doesn't exist in the database."; break;
   case "ATTENTION :  êtes-vous sûr de vouloir supprimer cette Catégorie, ses Forums et tous ses Sujets ?": $tmp="WARNING: Are you sure you want to delete this Category, Forums and all its Topics?"; break;
@@ -428,7 +425,7 @@ switch($phrase) {
   case "Editer une Rubrique : ": $tmp="Edit Section:"; break;
   case "Cette Rubrique a": $tmp="(This Section has)"; break;
   case "Article(s) attaché(s)": $tmp="articles attached"; break;
-  case "(255 caractéres Max.)": $tmp="(255 characters Max.)"; break;
+  case "(255 caractères Max.)": $tmp="(255 characters Max.)"; break;
   case "Effacer une Rubrique": $tmp="Delete Section!"; break;
   case "Effacer la Rubrique : ": $tmp="Delete Section: "; break;
   case "Etes-vous sûr de vouloir effacer cette Rubrique ?": $tmp="Are you sure you want to delete section"; break;
@@ -459,12 +456,12 @@ switch($phrase) {
   case "Affectation": $tmp="Move!"; break;
   case "La ré-affectation est terminée !": $tmp="Congratulations! The Move has been completed!"; break;
   case "Cette Catégorie existe déjà !": $tmp="This Category already exists!"; break;
-  case "Retour en arriére, pour changer le Nom": $tmp="Go Back to Change the Name"; break;
+  case "Retour en arrière, pour changer le Nom": $tmp="Go Back to Change the Name"; break;
   case "Catégorie sauvegardée": $tmp="Category Saved!"; break;
   case "Retour à l'index d'administration": $tmp="Go to Admin Section"; break;
   case "Nouvelle Catégorie ajoutée": $tmp="New Category Added!"; break;
   case " Modifier l'Article": $tmp="ChangeStory"; break;
-  case "Etes-vous sûr de vouloir effacer l'Article N∞": $tmp="Are you sure you want to remove Story ID #"; break;
+  case "Etes-vous sûr de vouloir effacer l'Article N°": $tmp="Are you sure you want to remove Story ID #"; break;
   case "et tous ses Commentaires ?": $tmp="and all it's comments?"; break;
   case "Nouvel Article": $tmp="New Article"; break;
   case "Prévisualiser l'Article": $tmp="Preview Story"; break;
@@ -493,7 +490,7 @@ switch($phrase) {
   case "Sujets actifs": $tmp="Current Active Topics"; break;
   case "Ajouter un nouveau Sujet": $tmp="Add a New Topic"; break;
   case "Intitulé du Sujet :": $tmp="Topic Name:"; break;
-  case "(un simple nom sans espaces - 20 caractéres max.)": $tmp="(just a name without spaces - max: 20 characters)"; break;
+  case "(un simple nom sans espaces - 20 caractères max.)": $tmp="(just a name without spaces - max: 20 characters)"; break;
   case "cesiteestgénial": $tmp="thiswebsiteisamazing"; break;
   case "Texte du Sujet :": $tmp="Topic Text:"; break;
   case "(description ou nom complet du Sujet - max : 40 caractéres)": $tmp="(the full topic text or description - max: 40 characters)"; break;
@@ -532,7 +529,7 @@ switch($phrase) {
   case "Titre de la Page des Critiques": $tmp="Reviews Page Title"; break;
   case "Description de la Page des Critiques : ": $tmp="Reviews Page Description:"; break;
   case "Critiques en attente de validation": $tmp="Reviews Waiting for Validation"; break;
-  case "Ajouter la critique N∞ : ": $tmp="Reviews_Add ID:"; break;
+  case "Ajouter la critique N° : ": $tmp="Reviews_Add ID:"; break;
   case "Date :": $tmp="Date:"; break;
   case "Nom du produit :": $tmp="Product Title:"; break;
   case "Texte : ": $tmp="Text:"; break;
@@ -580,42 +577,42 @@ switch($phrase) {
   case "Maintenance des Forums": $tmp="Forum Maintenance"; break;
   case "Supprimer massivement les Topics": $tmp="Massive Topics delete"; break;
   case "Administration des MétaTags": $tmp="MetaTags administration"; break;
-  case "Vos MétaTags ont été modifiés avec succés !": $tmp="Your metatags has been successfully modified !"; break;
+  case "Vos MétaTags ont été modifiés avec succès !": $tmp="Your metatags has been successfully modified !"; break;
   case "Auteur(s)": $tmp="Author(s)"; break;
-  case "Propriétaire": $tmp = "Owner"; break;
+  case "Propriétaire": $tmp="Owner"; break;
   case "(Ex. : nom du webmaster)": $tmp="(Ex. : name of the webmaster)"; break;
-  case "(Ex. : nom de votre compagnie/service)": $tmp = "(Ex. : name of your Cie/Service)"; break;
+  case "(Ex. : nom de votre compagnie/service)": $tmp="(Ex. : name of your Cie/Service)"; break;
   case "Adresse e-mail principale": $tmp="Main E-mail address"; break;
   case "(Ex. : l'adresse e-mail du webmaster)": $tmp="(Ex. : E-mail address of the webmaster)"; break;
-  case "Langue principale": $tmp = "Main language"; break;
-  case "(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)": $tmp = "(Ex. : fr(French), en(English), en-us(American), de(Deutch), it(Italian), pt(Portuges), etc)"; break;
-  case "(Bréve description des centres d'intérêt du site. 200 caractères maxi.)": $tmp="(Light description of the interest center of your website. 200 caracters max.)"; break;
+  case "Langue principale": $tmp="Main language"; break;
+  case "(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)": $tmp="(Ex. : fr(French), en(English), en-us(American), de(Deutch), it(Italian), pt(Portuges), etc)"; break;
+  case "(Brève description des centres d'intérêt du site. 200 caractères maxi.)": $tmp="(Light description of the interest center of your website. 200 caracters max.)"; break;
   case "Mot(s) clé(s)": $tmp="Keyword(s)"; break;
   case "(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi. Remarques : une lettre accentuée équivaut le plus souvent à 8 caractéres. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)": $tmp="(Give one or several keyword(s). 1000 caracters max. Notes : a accentued letter in general count like 8 caracters. More search engines make the difference between min/upper letter. Separate words with , )"; break;
   case "Audience": $tmp="Rating"; break;
-  case "Tout public": $tmp = "All public"; break;
-  case "Adulte": $tmp = "Adult"; break;
-  case "Accés restreint": $tmp = "Restricted access"; break;
-  case "14 ans": $tmp = "14 years"; break;
-  case "(Définissez le public intéressé par votre site)": $tmp = "(Public interested by your website)"; break;
-  case "Distribution": $tmp = "Distribution"; break;
-  case "Large": $tmp = "Global"; break;
-  case "Restreinte": $tmp = "Local"; break;
+  case "Tout public": $tmp="All public"; break;
+  case "Adulte": $tmp="Adult"; break;
+  case "Accès restreint": $tmp="Restricted access"; break;
+  case "14 ans": $tmp="14 years"; break;
+  case "(Définissez le public intéressé par votre site)": $tmp="(Public interested by your website)"; break;
+  case "Distribution": $tmp="Distribution"; break;
+  case "Large": $tmp="Global"; break;
+  case "Restreinte": $tmp="Local"; break;
   case "Copyright": $tmp="Copyright"; break;
   case "(Informations légales)": $tmp="(Legals informations)"; break;
   case "Robots/Spiders": $tmp="Robots/Spiders"; break;
-  case "Tout contenu (page/liens/etc)": $tmp = "All content"; break;
-  case "Aucune indexation": $tmp = "No indexation"; break;
-  case "Pas d'affichage du cache": $tmp = "No use of cache"; break;
-  case "Page courante sans liens locaux": $tmp = "Index without links"; break;
-  case "Liens locaux sauf page courante": $tmp = "Links but no index"; break;
-  case "Pas d'utilisation des descriptions ODP ou YDIR": $tmp = "No use of ODP or YDIR descriptions"; break;
+  case "Tout contenu (page/liens/etc)": $tmp="All content"; break;
+  case "Aucune indexation": $tmp="No indexation"; break;
+  case "Pas d'affichage du cache": $tmp="No use of cache"; break;
+  case "Page courante sans liens locaux": $tmp="Index without links"; break;
+  case "Liens locaux sauf page courante": $tmp="Links but no index"; break;
+  case "Pas d'utilisation des descriptions ODP ou YDIR": $tmp="No use of ODP or YDIR descriptions"; break;
   case "(Définissez la méthode d'analyse que doivent adopter les robots des moteurs de recherche)": $tmp="(Choose the method for the search engines analises)"; break;
   case "Fréquence de visite des Robots/Spiders": $tmp="Robots/Spiders visit frequency"; break;
   case "(Ex. : 16 days. Remarque : ne définissez pas de fréquence inférieure à 14 jours !)": $tmp="(Ex. : 16 days. Note : not give a frequency < 14 days !)"; break;
   case "Enregistrer": $tmp="Save"; break;
   case "Le répertoire courant est : ": $tmp="Current Directory is:"; break;
-  case "RafraÓchir": $tmp="Refresh"; break;
+  case "Rafraîchir": $tmp="Refresh"; break;
   case "Retour à la racine": $tmp="Back to root"; break;
   case "Administrateur ID": $tmp="AdminID"; break;
   case "Identifiant ": $tmp="Login"; break;
@@ -641,7 +638,6 @@ switch($phrase) {
   case "Taille": $tmp="Size"; break;
   case "Modifié": $tmp="Modified"; break;
   case "Action": $tmp="Action"; break;
-  case "Créer": $tmp="Create"; break;
   case "Créé": $tmp="Created"; break;
   case "Création": $tmp="Creating"; break;
   case "Effacé": $tmp="Deleted"; break;
@@ -652,11 +648,8 @@ switch($phrase) {
   case "Edition": $tmp="Editing"; break;
   case "Affichage": $tmp="Displaying"; break;
   case "Le répertoire": $tmp="The directory"; break;
-
   case "Sans titre": $tmp="Untitled"; break;
-  case "Remettre cet article en premiére position ? : ": $tmp="Put again this New in first position? : "; break;
-
-  // 4.8 P3
+  case "Remettre cet article en première position ? : ": $tmp="Put again this New in first position? : "; break;
   case "Autoriser les utilisateurs à choisir leur Mot de Passe ?": $tmp="Allow user to choose the member' PassWord?"; break;
   case "Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).": $tmp="Each block can used SuperCache. The value 0 indicate that no cache is made (mandatory for function#adminblock)."; break;
   case "Activer le Bloc": $tmp="Activate the Block"; break;
@@ -669,11 +662,7 @@ switch($phrase) {
   case "jour(s)": $tmp="day(s)"; break;
   case "Afficher pendant": $tmp="Showed for"; break;
   case "Pour supprimer votre abonnement à notre Lettre, suivez ce lien": $tmp="For Unsubscribe, please goto here"; break;
-  // Termes modifiés
   case "Activer Export-News ?": $tmp="Activate Export-News?"; break;
-  // 4.8 P3
-
-  // 4.8 P4
   case "Modérateurs": $tmp="Moderators"; break;
   case "Modérateurs uniquement": $tmp="Moderators only"; break;
   case "Fermé": $tmp="Closed"; break;
@@ -691,14 +680,10 @@ switch($phrase) {
   case "Liste des groupes": $tmp="Groups List"; break;
   case "Editer les Sondages": $tmp="Edit Polls"; break;
   case "Edition des sondages": $tmp="Polls Edit"; break;
-
   case "Editer ce sondage": $tmp="Edit this Poll"; break;
   case "Effacer ce sondage": $tmp="Delete this Poll"; break;
   case "Les sondages": $tmp="The Polls"; break;
   case "Liste des sondages": $tmp="Polls list"; break;
-  // 4.8 P4
-
-  // 5.0
   case "Afficher votre signature": $tmp="Show signature"; break;
   case "Créer le fichier": $tmp="Created the file"; break;
   case "Visualiser": $tmp="View"; break;
@@ -712,9 +697,6 @@ switch($phrase) {
   case "Parcourir": $tmp="Browse"; break;
   case "Revenir aux avatars standards": $tmp="Re-activate the standard'avatars"; break;
   case "Taille maximum des avatars personnels (largeur * hauteur / 60*80) en pixel ?": $tmp="Maximum size in pixel for uploaded avatars (Width * Height / 60*80)?"; break;
-  // 5.0
-
-  // 5.0 P1
   case "Activer l'upload dans les forums ?": $tmp="Activate forum's upload?"; break;
   case "Activer les textes cachés": $tmp="Activate hide text"; break;
   case "Attachement": $tmp="Attachment"; break;
@@ -733,14 +715,8 @@ switch($phrase) {
   case "Ajouter un groupe": $tmp="Add group"; break;
   case "Choisir un groupe": $tmp="Choice one group"; break;
   case "Editer les forums": $tmp="Edit forums"; break;
-  // 5.0 P1
-
-  // 5.0 P1.1
   case "Administrateur(s) du Sujet :": $tmp="Administrator(s) of the topic:"; break;
   case "Administrateur(s) de la rubrique :": $tmp="Administrator(s) of the section:"; break;
-  // 5.0 P1.1
-
-  // 5.0 NARVAL
   case "Droits": $tmp="Perms"; break;
   case "Aucune catégorie": $tmp="No category"; break;
   case "Le jour commence à": $tmp="Day become at"; break;
@@ -761,9 +737,6 @@ switch($phrase) {
   case "Toute tables. Fichier envoyé au navigateur. Pas de limite de taille": $tmp="All tables. file send to navigator. no size limit"; break;
   case "Fichiers dans /slogs. table par table, tables non scindées : limite": $tmp=" Files in /slogs. table by table, tables complete : limit"; break;
   case "Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite": $tmp=" Files in /slogs. table by table, row by row, tables fragmented : limit"; break;
-  // 5.0 NARVAL
-
-  // SABLE
   case "Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)": $tmp="Maximum number of post per IP and per 30' period (0=system off)"; break;
   case "Groupes": $tmp="Groups"; break;
   case "Activer l'éditeur Tiny-Mce": $tmp="Activate Tiny-Mce editor"; break;
@@ -824,8 +797,7 @@ switch($phrase) {
   case "Ajouter une nouvelle Sous-Rubrique": $tmp="Add a new Sub-Section"; break;
   case "Nom de la Sous-Rubrique : ": $tmp="Sub-Section Name:"; break;
   case "Image pour la Sous-Rubrique": $tmp="Sub-Section Image"; break;
-  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.":
-  $tmp="Once that you will have validated this publication, it will be integrated in temporary base, and the administrator will be warned. He will aim this publication.<br/> It is normal than for the moment, this publication does not appear in the tree structure."; break;
+  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Once that you will have validated this publication, it will be integrated in temporary base, and the administrator will be warned. He will aim this publication.<br/> It is normal than for the moment, this publication does not appear in the tree structure."; break;
   case "Mettre à jour": $tmp="Update"; break;
   case "Publier": $tmp="Publish"; break;
   case "Vos droits de publications vous permettent de mettre à jour, de supprimer ou de le mettre en ligne sur le site ce contenu.": $tmp="Your rights of publications enable you to update, to remove or to put on line this content."; break;
@@ -833,12 +805,8 @@ switch($phrase) {
   case "Validation de votre publication": $tmp="Validation of your publication"; break;
   case "La publication que vous aviez en attente vient d'être validée.": $tmp="The publication that you had on standby has been just validated."; break;
   case "Droits des auteurs": $tmp="Authors' rights"; break;
-
   case "Afficher le chemin dans le titre de la page :": $tmp="Show path in the title of the webpage:"; break;
   case "Activer Toggle-Div :": $tmp="Activate Toggle-Div:"; break;
-  // SABLE
-
-  // DUNE
   case "Meta obligatoire, ne pas le modifier ou le supprimer": $tmp="Compulsory Meta, not to modify it or to suppress it"; break;
   case "Restriction": $tmp="Limitation"; break;
   case "les URLs que vous aurez renseignés ci-aprés&nbsp;<i>(ne renseigner que la racine de l'URI)</i>": $tmp="The URL that you will have informed below&nbsp;<i>(Inform only the root of the URI)</i>"; break;
@@ -861,142 +829,134 @@ switch($phrase) {
   case "qu'administrateur": $tmp="administrator"; break;
   case "que membre": $tmp="member"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
-  // DUNE
-
-  // Fusion MIG
-  case "Bonjour et bienvenue dans l'installation automatique du module": $tmp = "Hello and welcome on the automatic installation of the module"; break;
-  case "Cliquez sur \"Etape suivante\" pour continuer.": $tmp = "Click on \"Following stage\" to continue."; break;
-  case "Etape suivante": $tmp = "Following stage"; break;
-  case "L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :": $tmp = "The use of NPDS and the modules is submissive with the acceptance of the terms of licence GNU/GPL:"; break;
-  case "Les paramètres ont été correctement écrits dans le fichier \"": $tmp = "Parameters are correctly written in the file \""; break;
-  case "Les paramètres sont déjà inscrits dans le fichier \"": $tmp = "Parameters are already written in the file \""; break;
-  case "Modifier le(s) fichier(s)": $tmp = "Alter the file(s)"; break;
-  case "Voici le script SQL :": $tmp = "Here is the SQL script:"; break;
-  case "Sauter cette étape": $tmp = "Skip this stage"; break;
-  case "Réessayer avec chmod automatique": $tmp = "Retry with auto chmod"; break;
-  case "Configurer MySql (Recommandé)": $tmp = "Configure MySql (Recommended)"; break;
-  case "Ce programme d'installation va configurer votre site internet pour utiliser ce module.": $tmp = "This installer is going to configure your website to use this module."; break;
-  case "Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :": $tmp = "The installer is now going to modify the following file(s) :"; break;
-  case "Impossible d'écrire dans le fichier \"": $tmp = "Impossible to write in the file \""; break;
-  case "Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.": $tmp = "Please edit this file manually or retry by trying to make an automatic chmod on the file(s) concerned."; break;
-  case "Voici le code à taper dans le fichier :": $tmp = "Here is the code to type in the file:"; break;
-  case "Le programme d'installation va maintenant exécuter le script SQL pour configurer la base de données MySql.": $tmp = "The installer is now going to run the SQL script to configure MySql."; break;
-  case "Si vous le souhaitez, vous pouvez exécuter ce script vous même, si vous souhaitez par exemple l'exécuter sur une autre base que celle du site. Dans ce cas, pensez à reparamétrer le fichier de configuration du module.": $tmp = "If you wish it, you can run this script you even, if you wish for example to run it on another base than that of the site. In that case, think of re-setting the file of configuration of the module."; break;
-  case "Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :": $tmp = "An error arose during the run of the SQL script. Mysql answered:"; break;
-  case "Veuillez l'exécuter manuellement via phpMyAdmin.": $tmp = "Please run it manually in phpMyAdmin."; break;
-  case "La configuration de la base de données MySql a réussie !": $tmp = "The configuration of the MySql database succeeded!"; break;
-  case "L'installation automatique du module": $tmp = "The automatic installation of the module"; break;
-  case "est terminée !": $tmp = "is ended!"; break;
-  case "Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.": $tmp = "Missing configuration file. Impossible installation/uninstallation."; break;
-  case "Vous pouvez choisir maintenant de créer automatiquement un(des) bloc(s) à droite ou à gauche. Cliquer sur \"Créer le(s) bloc(s) à gauche\" ou \"Créer le(s) bloc(s) à droite\" selon votre choix. (Vous pourrez changer leurs positions par la suite dans le panneau d'administration --> Blocs)": $tmp = "You can choose now to create automatically one or many blocks to the right or to the left. Click on \"Create (the) block(s) to the left \" or \"Create (the) block(s) to the right\" according to your choice. (You will be able to change their positions thereafter in the panel of administration --> Blocs)"; break;
-  case "Si vous préférez créer vous même le(s) bloc(s), cliquez sur 'Sauter cette étape et afficher le code du(des) bloc(s)' pour visualiser le code à taper dans le(s) bloc(s).": $tmp = "If you prefer to create you even (the) block(s), click on 'Jump this stage and display the code of (the) block(s)' to show the code to be typed in (the) block(s)."; break;
-  case "Voici la description du(des) bloc(s) qui sera(seront) créé(s) :": $tmp = "Here is the description of (the) block(s) which will be created:"; break;
-  case "Créer le(s) bloc(s) à gauche": $tmp = "Create (the) block(s) to the left"; break;
-  case "Créer le(s) bloc(s) à droite": $tmp = "Create (the) block(s) to the right"; break;
-  case "Sauter cette étape et afficher le code du(des) bloc(s)": $tmp = "Jump this stage and display (the) code of the block(s)"; break;
-  case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp = "An error arose during the configuration of (the) block(s). Mysql answered:"; break;
-  case "Veuillez configurer manuellement le(s) bloc(s).": $tmp = "Please configure manually the block(s)."; break;
-  case "Voici le code des bloc(s) :": $tmp = "Here is the code of block(s):"; break;
-  case "La configuration du(des) bloc(s) a réussi !": $tmp = "The configuration of (the) block(s) succeeded!"; break;
-  case "Vous avez choisi de configurer manuellement vos blocs. Voici le contenu de ceux-ci :": $tmp = "You chose to configure manually your blocks. Here is the contents of these:"; break;
-  case "Module installé": $tmp = "Module installed"; break;
-  case "Désinstaller le module ": $tmp = "Uninstall the module "; break;
-  case "La désinstallation des modules n'est pas prise en charge de façon automatique à l'heure actuelle.": $tmp = "The desinstallation of the addons is not dealt with automatic of way at the present time."; break;
-  case "Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.": $tmp = "You owe to uninstall manually the addon. For that, refer to the file install.txt of the file of the addon, and make the operations opposite of those described in the section \"Installation manual\", and on the basis of the end."; break;
-  case "Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".": $tmp = "Lastly, to be able to reinstall the addon with Module-Install thereafter, click on the button \"Mark the addon as uninstalled\"."; break;
-  case "Marquer le module comme désinstallé": $tmp = "Mark the addon as uninstalled"; break;
-  // Fusion MIG
-
-  // WS
-  case "Modifier le groupe": $tmp = "Modify the group"; break;
-  case "Créer un groupe.": $tmp = "Create a group"; break;
-  case "Infos Groupe": $tmp = "Group Information"; break;
-  case "Editer groupe": $tmp = "Edit group"; break;
-  case "Supprimer groupe": $tmp = "Delete group"; break;
-  case "Ajouter membres": $tmp = "Add Members"; break;
-  case "Ajouter un ou des membres au groupe": $tmp = "Add one or several members to the group"; break;
-  case "Activer PAD du groupe": $tmp = "Enable PAD of the group"; break;
-  case "Désactiver PAD du groupe": $tmp = "Disable PAD of the group"; break;
-  case "Activer bloc-note du groupe": $tmp = "Enable notepad of the group"; break;
-  case "Désactiver bloc-note du groupe": $tmp = "Disable notepad of the group"; break;
-  case "Activer gestionnaire de fichiers du groupe": $tmp = "Enable File manager of the group"; break;
-  case "Désactiver gestionnaire de fichiers du groupe": $tmp = "Disable File manager of the group"; break;
-  case "Supprimer forum du groupe": $tmp = "Delete forum of the group"; break;
-  case "Créer forum du groupe": $tmp = "Create forum for the group"; break;
-  case "Créer MiniSite du groupe": $tmp = "Create mini Web site for the group"; break;
-  case "Supprimer MiniSite du groupe": $tmp = "Delete mini Web site for the group"; break;
-  case "Activer chat du groupe": $tmp = "Enable Chat for the group"; break;
-  case "Désactiver chat du groupe": $tmp = "Disable Chat for the group"; break;
-  case "Vous allez exclure TOUS les membres du groupe": $tmp = "You will exclude ALL members from the group"; break;
-  case "Vous allez supprimer le groupe": $tmp = "You will delete the group"; break;
-  case "Exclure TOUS les membres du groupe": $tmp = "Exclude ALL members from the group"; break;
-  case "Exclure": $tmp = "Exclude"; break;
-  case "du groupe": $tmp = "from the group"; break;
-  case "Modérateur": $tmp = "Moderator"; break;
-  case "Editer les informations concernant": $tmp = "Edit the informations about"; break;
-  case "comme modérateur du forum": $tmp = "as forum moderator"; break;
-  case "Nommer": $tmp = "Nominate"; break;
-  case "Replier la liste": $tmp = "Hide list"; break;
-  case "Déplier la liste": $tmp = "Show list"; break;
-  case "Oter": $tmp = "Remove"; break;
-  case "des modérateurs du forum": $tmp = "from the forum moderator"; break;
-  case "Choisir un modérateur": $tmp = "Choose one moderator."; break;
-  case "Ce modérateur": $tmp = "This moderator"; break;
-  case "n'est pas modifiable tant qu'un autre n'est pas nommé pour ce forum": $tmp = "can not be changed until another is named for this forum"; break;
-  case "Vous ne pouvez pas exclure": $tmp = "You can not exclude"; break;
-  case "car il est modérateur unique de forum. Oter ses droits de modération puis retirer le du groupe.": $tmp = "Because it is unique for a forum moderator.Modify his moderator rights and remove it from the group.";
-  case "Nouvelles du groupe": $tmp = "Group news."; break;
-  case "Vous faites désormais partie des membres du groupe": $tmp = "From now you are member of the group"; break;
-  case "Vous ne faites plus partie des membres du groupe": $tmp = "You are no more member of the group"; break;
-  case "Avant de supprimer le groupe": $tmp = "Before to delete the group"; break;
-  case "vous devez supprimer TOUS ses membres !": $tmp = "you must exclude ALL of this members !"; break;
-  case "Créer le bloc WS": $tmp = "Create the block WS"; break;
-  case "Groupe de travail": $tmp = "Workgroup"; break;
-  // WS
-  case "Paramètres": $tmp = "Parameters"; break;
-  case "Type d'éditorial": $tmp = "Type of editorial"; break;
-  case "Liste des questions réponses": $tmp = "Questions Answers list"; break;
-  case "Supprimer la question réponse": $tmp = "Delete the Question Answer"; break;
-  case "Editer la question réponse": $tmp = "Edit the Question Answer"; break;
-  case "Format de données": $tmp = "Data format"; break;
-  //REV 14
-  case 'Administration': $tmp = 'Administration'; break;
-  case 'Menu': $tmp = 'Menu'; break;
-  case 'Module': $tmp = 'Module'; break;
-  case 'Titre de la page': $tmp = 'Page title'; break;
-  case "Nombre d'article par page": $tmp = 'Administration'; break;
-  case 'Sauver': $tmp = 'Save'; break;
-  case 'Les articles en ligne': $tmp = 'Online articles'; break;
-  case 'Administration': $tmp = 'Administration'; break;
-  case 'FAQ': $tmp = 'FAQ'; break;
-  case 'Message Interne': $tmp = 'Private message'; break;
-  case 'Bannières': $tmp = 'Banners'; break;
-  case 'Fichiers configurations': $tmp = 'Setting files'; break;
-  case 'Gestionnaire Fichiers': $tmp = 'Files Manager'; break;
-  case 'IP': $tmp = 'IP'; break;
-  case 'META-LANG': $tmp = 'META-LANG'; break;
-  case 'Logs': $tmp = 'Logs'; break;
-  case 'Gestion modules': $tmp = 'Modules management'; break;
-  case 'Liste des catégories': $tmp = 'Categories list'; break;
-  case 'Ajouter une catégorie': $tmp = 'Add a category'; break;
-  case 'Editer la catégorie': $tmp = 'Edit the category'; break;
-  case 'Editer une catégorie': $tmp = 'Edit a category'; break;
-  case 'Question': $tmp = 'Question'; break;
-  case 'Ajouter un éphémérides': $tmp = 'Add ephemerid'; break;
-  case 'Intitulé': $tmp = 'Title'; break;
-  case 'Texte': $tmp = 'Text'; break;
-  case 'Image': $tmp = 'Image'; break;
-  case 'Administrateur(s)': $tmp = 'Administrator(s)'; break;
-  case 'Gestion des sujets': $tmp = 'Topics management'; break;
-  case '(un simple nom sans espaces)': $tmp = '(a single word without space)'; break;
-  case '(description ou nom complet du sujet)': $tmp = '(description or full name topic)'; break;
-  case 'max caractères': $tmp = 'max character'; break;
-  case 'Administrateur(s) du sujet': $tmp = 'Topic administrator(s)'; break;
-  case 'Url': $tmp = 'Url'; break;
-  case 'Retour en arrière': $tmp = 'Back'; break;
-  case 'Publication(s) en attente de validation': $tmp = 'Publication(s) waiting for publication'; break;
-  case 'Liste des rubriques': $tmp = 'Sections list'; break;
-  case 'Sous-rubrique': $tmp = 'Sub-section'; break;
+  case "Bonjour et bienvenue dans l'installation automatique du module": $tmp="Hello and welcome on the automatic installation of the module"; break;
+  case "Cliquez sur \"Etape suivante\" pour continuer.": $tmp="Click on \"Following stage\" to continue."; break;
+  case "Etape suivante": $tmp="Following stage"; break;
+  case "L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :": $tmp="The use of NPDS and the modules is submissive with the acceptance of the terms of licence GNU/GPL:"; break;
+  case "Les paramètres ont été correctement écrits dans le fichier \"": $tmp="Parameters are correctly written in the file \""; break;
+  case "Les paramètres sont déjà inscrits dans le fichier \"": $tmp="Parameters are already written in the file \""; break;
+  case "Modifier le(s) fichier(s)": $tmp="Alter the file(s)"; break;
+  case "Voici le script SQL :": $tmp="Here is the SQL script:"; break;
+  case "Sauter cette étape": $tmp="Skip this stage"; break;
+  case "Réessayer avec chmod automatique": $tmp="Retry with auto chmod"; break;
+  case "Configurer MySql (Recommandé)": $tmp="Configure MySql (Recommended)"; break;
+  case "Ce programme d'installation va configurer votre site internet pour utiliser ce module.": $tmp="This installer is going to configure your website to use this module."; break;
+  case "Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :": $tmp="The installer is now going to modify the following file(s) :"; break;
+  case "Impossible d'écrire dans le fichier \"": $tmp="Impossible to write in the file \""; break;
+  case "Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.": $tmp="Please edit this file manually or retry by trying to make an automatic chmod on the file(s) concerned."; break;
+  case "Voici le code à taper dans le fichier :": $tmp="Here is the code to type in the file:"; break;
+  case "Le programme d'installation va maintenant exécuter le script SQL pour configurer la base de données MySql.": $tmp="The installer is now going to run the SQL script to configure MySql."; break;
+  case "Si vous le souhaitez, vous pouvez exécuter ce script vous même, si vous souhaitez par exemple l'exécuter sur une autre base que celle du site. Dans ce cas, pensez à reparamétrer le fichier de configuration du module.": $tmp="If you wish it, you can run this script you even, if you wish for example to run it on another base than that of the site. In that case, think of re-setting the file of configuration of the module."; break;
+  case "Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :": $tmp="An error arose during the run of the SQL script. Mysql answered:"; break;
+  case "Veuillez l'exécuter manuellement via phpMyAdmin.": $tmp="Please run it manually in phpMyAdmin."; break;
+  case "La configuration de la base de données MySql a réussie !": $tmp="The configuration of the MySql database succeeded!"; break;
+  case "L'installation automatique du module": $tmp="The automatic installation of the module"; break;
+  case "est terminée !": $tmp="is ended!"; break;
+  case "Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.": $tmp="Missing configuration file. Impossible installation/uninstallation."; break;
+  case "Vous pouvez choisir maintenant de créer automatiquement un(des) bloc(s) à droite ou à gauche. Cliquer sur \"Créer le(s) bloc(s) à gauche\" ou \"Créer le(s) bloc(s) à droite\" selon votre choix. (Vous pourrez changer leurs positions par la suite dans le panneau d'administration --> Blocs)": $tmp="You can choose now to create automatically one or many blocks to the right or to the left. Click on \"Create (the) block(s) to the left \" or \"Create (the) block(s) to the right\" according to your choice. (You will be able to change their positions thereafter in the panel of administration --> Blocs)"; break;
+  case "Si vous préférez créer vous même le(s) bloc(s), cliquez sur 'Sauter cette étape et afficher le code du(des) bloc(s)' pour visualiser le code à taper dans le(s) bloc(s).": $tmp="If you prefer to create you even (the) block(s), click on 'Jump this stage and display the code of (the) block(s)' to show the code to be typed in (the) block(s)."; break;
+  case "Voici la description du(des) bloc(s) qui sera(seront) créé(s) :": $tmp="Here is the description of (the) block(s) which will be created:"; break;
+  case "Créer le(s) bloc(s) à gauche": $tmp="Create (the) block(s) to the left"; break;
+  case "Créer le(s) bloc(s) à droite": $tmp="Create (the) block(s) to the right"; break;
+  case "Sauter cette étape et afficher le code du(des) bloc(s)": $tmp="Jump this stage and display (the) code of the block(s)"; break;
+  case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp="An error arose during the configuration of (the) block(s). Mysql answered:"; break;
+  case "Veuillez configurer manuellement le(s) bloc(s).": $tmp="Please configure manually the block(s)."; break;
+  case "Voici le code des bloc(s) :": $tmp="Here is the code of block(s):"; break;
+  case "La configuration du(des) bloc(s) a réussi !": $tmp="The configuration of (the) block(s) succeeded!"; break;
+  case "Vous avez choisi de configurer manuellement vos blocs. Voici le contenu de ceux-ci :": $tmp="You chose to configure manually your blocks. Here is the contents of these:"; break;
+  case "Module installé": $tmp="Module installed"; break;
+  case "Désinstaller le module ": $tmp="Uninstall the module "; break;
+  case "La désinstallation des modules n'est pas prise en charge de façon automatique à l'heure actuelle.": $tmp="The desinstallation of the addons is not dealt with automatic of way at the present time."; break;
+  case "Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.": $tmp="You owe to uninstall manually the addon. For that, refer to the file install.txt of the file of the addon, and make the operations opposite of those described in the section \"Installation manual\", and on the basis of the end."; break;
+  case "Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".": $tmp="Lastly, to be able to reinstall the addon with Module-Install thereafter, click on the button \"Mark the addon as uninstalled\"."; break;
+  case "Marquer le module comme désinstallé": $tmp="Mark the addon as uninstalled"; break;
+  case "Modifier le groupe": $tmp="Modify the group"; break;
+  case "Créer un groupe.": $tmp="Create a group"; break;
+  case "Infos Groupe": $tmp="Group Information"; break;
+  case "Editer groupe": $tmp="Edit group"; break;
+  case "Supprimer groupe": $tmp="Delete group"; break;
+  case "Ajouter membres": $tmp="Add Members"; break;
+  case "Ajouter un ou des membres au groupe": $tmp="Add one or several members to the group"; break;
+  case "Activer PAD du groupe": $tmp="Enable PAD of the group"; break;
+  case "Désactiver PAD du groupe": $tmp="Disable PAD of the group"; break;
+  case "Activer bloc-note du groupe": $tmp="Enable notepad of the group"; break;
+  case "Désactiver bloc-note du groupe": $tmp="Disable notepad of the group"; break;
+  case "Activer gestionnaire de fichiers du groupe": $tmp="Enable File manager of the group"; break;
+  case "Désactiver gestionnaire de fichiers du groupe": $tmp="Disable File manager of the group"; break;
+  case "Supprimer forum du groupe": $tmp="Delete forum of the group"; break;
+  case "Créer forum du groupe": $tmp="Create forum for the group"; break;
+  case "Créer MiniSite du groupe": $tmp="Create mini Web site for the group"; break;
+  case "Supprimer MiniSite du groupe": $tmp="Delete mini Web site for the group"; break;
+  case "Activer chat du groupe": $tmp="Enable Chat for the group"; break;
+  case "Désactiver chat du groupe": $tmp="Disable Chat for the group"; break;
+  case "Vous allez exclure TOUS les membres du groupe": $tmp="You will exclude ALL members from the group"; break;
+  case "Vous allez supprimer le groupe": $tmp="You will delete the group"; break;
+  case "Exclure TOUS les membres du groupe": $tmp="Exclude ALL members from the group"; break;
+  case "Exclure": $tmp="Exclude"; break;
+  case "du groupe": $tmp="from the group"; break;
+  case "Modérateur": $tmp="Moderator"; break;
+  case "Editer les informations concernant": $tmp="Edit the informations about"; break;
+  case "comme modérateur du forum": $tmp="as forum moderator"; break;
+  case "Nommer": $tmp="Nominate"; break;
+  case "Replier la liste": $tmp="Hide list"; break;
+  case "Déplier la liste": $tmp="Show list"; break;
+  case "Oter": $tmp="Remove"; break;
+  case "des modérateurs du forum": $tmp="from the forum moderator"; break;
+  case "Choisir un modérateur": $tmp="Choose one moderator."; break;
+  case "Ce modérateur": $tmp="This moderator"; break;
+  case "n'est pas modifiable tant qu'un autre n'est pas nommé pour ce forum": $tmp="can not be changed until another is named for this forum"; break;
+  case "Vous ne pouvez pas exclure": $tmp="You can not exclude"; break;
+  case "car il est modérateur unique de forum. Oter ses droits de modération puis retirer le du groupe.": $tmp="Because it is unique for a forum moderator.Modify his moderator rights and remove it from the group."; break;
+  case "Nouvelles du groupe": $tmp="Group news."; break;
+  case "Vous faites désormais partie des membres du groupe": $tmp="From now you are member of the group"; break;
+  case "Vous ne faites plus partie des membres du groupe": $tmp="You are no more member of the group"; break;
+  case "Avant de supprimer le groupe": $tmp="Before to delete the group"; break;
+  case "vous devez supprimer TOUS ses membres !": $tmp="you must exclude ALL of this members !"; break;
+  case "Créer le bloc WS": $tmp="Create the block WS"; break;
+  case "Groupe de travail": $tmp="Workgroup"; break;
+  case "Paramètres": $tmp="Parameters"; break;
+  case "Type d'éditorial": $tmp="Type of editorial"; break;
+  case "Liste des questions réponses": $tmp="Questions Answers list"; break;
+  case "Supprimer la question réponse": $tmp="Delete the Question Answer"; break;
+  case "Editer la question réponse": $tmp="Edit the Question Answer"; break;
+  case "Format de données": $tmp="Data format"; break;
+  case 'Administration': $tmp='Administration'; break;
+  case 'Menu': $tmp='Menu'; break;
+  case 'Module': $tmp='Module'; break;
+  case 'Titre de la page': $tmp='Page title'; break;
+  case "Nombre d'article par page": $tmp='Administration'; break;
+  case 'Sauver': $tmp='Save'; break;
+  case 'Les articles en ligne': $tmp='Online articles'; break;
+  case 'Administration': $tmp='Administration'; break;
+  case 'FAQ': $tmp='FAQ'; break;
+  case 'Message Interne': $tmp='Private message'; break;
+  case 'Bannières': $tmp='Banners'; break;
+  case 'Fichiers configurations': $tmp='Setting files'; break;
+  case 'Gestionnaire Fichiers': $tmp='Files Manager'; break;
+  case 'IP': $tmp='IP'; break;
+  case 'META-LANG': $tmp='META-LANG'; break;
+  case 'Logs': $tmp='Logs'; break;
+  case 'Gestion modules': $tmp='Modules management'; break;
+  case 'Liste des catégories': $tmp='Categories list'; break;
+  case 'Ajouter une catégorie': $tmp='Add a category'; break;
+  case 'Editer la catégorie': $tmp='Edit the category'; break;
+  case 'Editer une catégorie': $tmp='Edit a category'; break;
+  case 'Question': $tmp='Question'; break;
+  case 'Ajouter un éphémérides': $tmp='Add ephemerid'; break;
+  case 'Intitulé': $tmp='Title'; break;
+  case 'Texte': $tmp='Text'; break;
+  case 'Image': $tmp='Image'; break;
+  case 'Administrateur(s)': $tmp='Administrator(s)'; break;
+  case 'Gestion des sujets': $tmp='Topics management'; break;
+  case '(un simple nom sans espaces)': $tmp='(a single word without space)'; break;
+  case '(description ou nom complet du sujet)': $tmp='(description or full name topic)'; break;
+  case 'max caractères': $tmp='max character'; break;
+  case 'Administrateur(s) du sujet': $tmp='Topic administrator(s)'; break;
+  case 'Url': $tmp='Url'; break;
+  case 'Retour en arrière': $tmp='Back'; break;
+  case 'Publication(s) en attente de validation': $tmp='Publication(s) waiting for publication'; break;
+  case 'Liste des rubriques': $tmp='Sections list'; break;
+  case 'Sous-rubrique': $tmp='Sub-section'; break;
   case "Rubrique": $tmp="Section"; break;
   case "Editer la sous-rubrique": $tmp="Edit the sub-section"; break;
   case "Supprimer la sous-rubrique": $tmp="Delete the sub-section"; break;
@@ -1005,11 +965,9 @@ switch($phrase) {
   case "Liste des liens": $tmp="Links list"; break;
   case "Gestion des forums": $tmp="Forums management"; break;
   case "Voir les forums de cette catégorie": $tmp="Show the forums of this category"; break;
-  
   case "Maintenance Forums": $tmp="Forums Maintenance"; break;
   case "Configuration Forums": $tmp="Forums Configuration"; break;
   case "Edition Forums": $tmp="Forums Edition"; break;
-  case "Archives articles": $tmp="Articles archives"; break;
   case "Archives articles": $tmp="Articles archives"; break;
   case "Message": $tmp="Message"; break;
   case "Vote": $tmp="Vote"; break;
@@ -1018,13 +976,12 @@ switch($phrase) {
   case "Actif": $tmp="Activate"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
   case "Position": $tmp="Position"; break;
-  
-   default: $tmp = "Need to be translated <b>[** $phrase **]</b>"; break;
- }
- if (cur_charset=="utf-8") {
-    return utf8_encode($tmp);
- } else {
-    return ($tmp);
- }
+  case "Date prévu de publication": $tmp="Date of publication"; break;
+  case "Liste des articles": $tmp="Articles list"; break;
+  case "Article en attente de validation": $tmp="Waiting stories for publication"; break;
+
+  default: $tmp="Need to be translated [** $phrase **]"; break;
+  }
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>
