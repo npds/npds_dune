@@ -182,6 +182,7 @@ function displayadmins() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $result = sql_query("SELECT aid, name, url, email FROM ".$NPDS_Prefix."authors");
    echo '
+   <hr />
    <h3>'.adm_translate("Les administrateurs").'</h3>
    <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -211,6 +212,7 @@ function displayadmins() {
    echo '
       </tbody>
    </table>
+   <hr />
     <h3>'.adm_translate("Nouvel administrateur").'</h3>
     <form id="nou_adm" class="form-horizontal" action="admin.php" method="post">
         <fieldset>
