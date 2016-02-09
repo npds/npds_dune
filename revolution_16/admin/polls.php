@@ -27,6 +27,7 @@ function poll_createPoll() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+      <hr />
         <h3>'.adm_translate("Liste des sondages").'</h3>
         <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
@@ -56,26 +57,25 @@ function poll_createPoll() {
    echo '
          </tbody>
       </table>
+      <hr />
       <h3>'.adm_translate("Créer un nouveau Sondage").'</h3>
       <form action="admin.php" method="post">
          <input type="hidden" name="op" value="createPosted" />
-         <div class="form-group">
-            <div class="row">
-               <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
-                  <div class="col-sm-9 col-md-9">
-                     <input class="form-control" type="text" id="pollTitle" name="pollTitle" maxlength="100" />
-                     <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-                  </div>
-               </div>
-            </div>';
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3 " for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+            <div class="col-sm-9 ">
+               <input class="form-control" type="text" id="pollTitle" name="pollTitle" id="pollTitle" maxlength="100" required="required" />
+               <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
+               <span class="help-block text-xs-right"><span id="countcar_pollTitle"></span></span>
+            </div>
+         </div>';
    for ($i = 1; $i <= $maxOptions; $i++) {
       echo '
-            <div class="form-group">
-               <div class="row">
-                  <label class="form-control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").'</label>
-                  <div class="col-sm-9 col-md-9">
-                     <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
-                  </div>
+            <div class="form-group row">
+               <label class="form-control-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
+               <div class="col-sm-9" >
+                  <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
+                  <span class="help-block text-xs-right"><span id="countcar_optionText'.$i.'"></span></span>
                </div>
             </div>';
    }
@@ -84,20 +84,30 @@ function poll_createPoll() {
                <div class="row">
                   <div class="col-sm-offset-3 col-sm-9">
                      <label>
-                        <input type="checkbox" name="poll_type" value="1" />'.adm_translate("Seulement aux membres").'
+                        <input type="checkbox" name="poll_type" value="1" />&nbsp;'.adm_translate("Seulement aux membres").'
                      </label>
                   </div>
                </div>
             </div>
-            <div class="form-group">
-               <div class="row">
-                  <div class="col-sm-offset-3 col-sm-9">
-                     <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
-                  </div>
+            <div class="form-group row">
+               <div class="col-sm-offset-3 col-sm-9">
+                  <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
                </div>
             </div>
          </fieldset>
-      </form>';
+      </form>
+      <script type="text/javascript">
+      //<![CDATA[
+         $(document).ready(function() {
+            inpandfieldlen("pollTitle",100)';
+            for ($i = 1; $i <= $maxOptions; $i++) {
+            echo '
+            inpandfieldlen("optionText'.$i.'",255)';
+            }
+            echo '
+         });
+      //]]>
+      </script>';
    adminfoot('fv','','','');
 }
 
@@ -118,12 +128,12 @@ function poll_createPosted() {
 }
 
 function poll_removePoll() {
-   global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-   global $NPDS_Prefix;
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix;
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Retirer un Sondage existant").'</h3>
    <span class="help-block">'.adm_translate("S.V.P. Choisissez un sondage dans la liste suivante.").'</span>
    <p align="center"><span class="text-danger">'.adm_translate("ATTENTION : Le Sondage choisi va être supprimé IMMEDIATEMENT de la base de données !").'</span></p>
@@ -163,33 +173,32 @@ function poll_removePoll() {
 }
 
 function poll_removePosted() {
-   global $id, $setCookies;
-   global $NPDS_Prefix;
+   global $id, $setCookies, $NPDS_Prefix;
    // ----------------------------------------------------------------------------
    // Specified the index and the name off the application for the table appli_log
    $al_id = 1;
-   $al_nom = "Poll";
+   $al_nom = 'Poll';
    // ----------------------------------------------------------------------------
-   if ($setCookies=="1"){
-      $sql="DELETE FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' and al_subid='$id'";
+   if ($setCookies=='1'){
+      $sql="DELETE FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' AND al_subid='$id'";
       sql_query($sql);
    }
    sql_query("DELETE FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$id'");
    sql_query("DELETE FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");
    include ('modules/comments/pollBoth.conf.php');
-   sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id='$id' and forum_id='$forum'");
+   sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id='$id' AND forum_id='$forum'");
    Header("Location: admin.php?op=create");
 }
 
 function poll_editPoll() {
-   global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-   global $NPDS_Prefix;
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix;
    include ('header.php');
    $result = sql_query("SELECT pollID, pollTitle, timeStamp FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo 
-   '<h3>'.adm_translate("Edition des sondages").'</h3>
+   echo '
+   <hr />
+   <h3>'.adm_translate("Edition des sondages").'</h3>
    <span class="help-block">'.adm_translate("S.V.P. Choisissez un sondage dans la liste suivante.").'</span>
    <form id="fad_editpool" action="admin.php" method="post">
       <input type="hidden" name="op" value="editpollPosted" />
@@ -233,28 +242,27 @@ function poll_editPollPosted() {
       $holdtitle = sql_fetch_row($result);
       $result = sql_query("SELECT optionText, voteID, pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id' ORDER BY voteID ASC");
       echo '
+   <hr />
    <h3>'.adm_translate("Edition des sondages").'</h3>
    <form method="post" action="admin.php">
       <input type="hidden" name="op" value="SendEditPoll">
       <input type="hidden" name="pollID" value="'.$id.'" />
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-3 col-md-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
-            <div class="col-sm-9 col-md-9">
-               <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" />
-               <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+         <div class="col-sm-9">
+            <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" />
+            <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
+            <span class="help-block text-xs-right"><span id="countcar_pollTitle'.$i.'"></span></span>
          </div>
       </div>';
          for ($i = 1; $i <= $maxOptions; $i++) {
          list($optionText, $voteID, $pollType) = sql_fetch_row($result);
          echo '
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-3 col-md-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
-            <div class="col-sm-9 col-md-9">
-               <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
+         <div class="col-sm-9 ">
+            <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" />
+            <span class="help-block text-xs-right"><span id="countcar_optionText'.$i.'"></span></span>
          </div>
       </div>';
       }
@@ -267,7 +275,7 @@ function poll_editPollPosted() {
                <label>
                   <input type="checkbox" name="poll_type" value="1"';
       if ($pollType == "1") echo ' checked="checked"';
-      echo ' />'.adm_translate("Seulement aux membres").'
+      echo ' />&nbsp;'.adm_translate("Seulement aux membres").'
                </label>
             </div>
          </div>
@@ -278,33 +286,41 @@ function poll_editPollPosted() {
                <label class="text-danger">
                   <input type="checkbox" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
-      echo ' />'.adm_translate("Vote fermé").'
+      echo ' />&nbsp;'.adm_translate("Vote fermé").'
                </label>
             </div>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <div class="col-sm-offset-3 col-sm-9">
-               <button class="btn btn-primary" type="submit">Ok</button>
-            </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-3 col-sm-9">
+            <button class="btn btn-primary" type="submit">Ok</button>
          </div>
       </div>
-   </form>';
-      adminfoot('fv','','','');
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("pollTitle",100)';
+         for ($i = 1; $i <= $maxOptions; $i++) {
+         echo '
+         inpandfieldlen("optionText'.$i.'",255)';
+         }
+         echo '
+      });
+   //]]>
+   </script>';
+   adminfoot('fv','','','');
    } else {
       header("location: admin.php?op=editpoll");
    }
 }
 
 function poll_SendEditPoll() {
-   global $maxOptions, $pollTitle, $optionText, $poll_type, $pollID, $poll_close;
-   global $NPDS_Prefix;
-
+   global $maxOptions, $pollTitle, $optionText, $poll_type, $pollID, $poll_close, $NPDS_Prefix;
    $result = sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET pollTitle='$pollTitle' WHERE pollID='$pollID'");
    $poll_type = $poll_type + 128 * $poll_close;
    for ($i = 1; $i <= sizeof($optionText); $i++) {
-      if ($optionText[$i] != "")
+      if ($optionText[$i] != '')
          $optionText[$i] = FixQuotes($optionText[$i]);
       $result = sql_query("UPDATE ".$NPDS_Prefix."poll_data SET optionText='$optionText[$i]', pollType='$poll_type' WHERE pollID='$pollID' and voteID='$i'");
    }
@@ -312,25 +328,25 @@ function poll_SendEditPoll() {
 }
 
 switch ($op) {
-   case "create":
+   case 'create':
         poll_createPoll();
         break;
-   case "createPosted":
+   case 'createPosted':
         poll_createPosted();
         break;
-   case "remove":
+   case 'remove':
         poll_removePoll();
         break;
-   case "removePosted":
+   case 'removePosted':
         poll_removePosted();
         break;
-   case "editpoll":
+   case 'editpoll':
         poll_editPoll();
         break;
-   case "editpollPosted":
+   case 'editpollPosted':
         poll_editPollPosted();
         break;
-   case "SendEditPoll":
+   case 'SendEditPoll':
         poll_SendEditPoll();
         break;
 }
