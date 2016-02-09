@@ -1023,7 +1023,7 @@ function adminStory() {
       <input type="hidden" name="op" value="PreviewAdminStory" />
       <div class="form-group row">
          <div class="col-sm-12">
-             <input class="btn btn-primary" type="submit" name="submit" value="'.adm_translate("Prévisualiser").'" />
+             <input class="btn btn-primary" type="submit" name="preview" value="'.adm_translate("Prévisualiser").'" />
          </div>
       </div>
    </form>
