@@ -58,7 +58,7 @@ function ConfigFiles($contents, $files) {
         </tr>
         <tr>
             <td><code>body_onload.inc</code></td>
-            <td>'.adm_translate("Ce fichier est appelé dans l'évement ONLOAD de la balise BODY => JAVASCRIPT").'</td>
+            <td>'.adm_translate("Ce fichier est appelé dans l'évèment ONLOAD de la balise BODY => JAVASCRIPT").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=body_onload"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
                 <a href="admin.php?op=delete_configfile&amp;file=body_onload"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
@@ -66,7 +66,7 @@ function ConfigFiles($contents, $files) {
         </tr>
         <tr>
             <td><code>header_after.inc</code></td>
-            <td>'.adm_translate("Ce fichier est appelé à la fin du header du théme").'</td>
+            <td>'.adm_translate("Ce fichier est appelé à la fin du header du thème").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=header_after"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
                 <a href="admin.php?op=delete_configfile&amp;file=header_after"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
@@ -74,14 +74,14 @@ function ConfigFiles($contents, $files) {
         </tr>
         <tr>
             <td><code>footer_before.inc</code></td>
-            <td>'.adm_translate("Ce fichier est appelé avant le début du footer du théme").'</td>
+            <td>'.adm_translate("Ce fichier est appelé avant le début du footer du thème").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=footer_before"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
                 <a href="admin.php?op=delete_configfile&amp;file=footer_before"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a></td>
         </tr>
         <tr>
             <td><code>footer_after.inc</code></td>
-            <td>'.adm_translate("Ce fichier est appelé aprés la fin de la génération de la page HTML").'</td>
+            <td>'.adm_translate("Ce fichier est appelé après la fin de la génération de la page HTML").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=footer_after"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
                 <a href="admin.php?op=delete_configfile&amp;file=footer_after"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
@@ -126,10 +126,11 @@ function ConfigFiles($contents, $files) {
     </tbody>
 </table>';
    } else {
-      echo 
-      '<h3>'.adm_translate("Modification de").' : '.$files.'</h3>
+      echo '
+      <hr />
+      <h3>'.adm_translate("Modification de").' : <span class="text-muted">'.$files.'</span></h3>
       <form action="admin.php?op=ConfigFiles_save" method="post">
-         <code><textarea class="form-control" name="Xtxt" rows="20" cols="70">'."\n";
+         <code><textarea class="form-control" name="Xtxt" rows="20" cols="70">';
       echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
       echo '</textarea></code>
          <input type="hidden" name="Xfiles" value="'.$files.'" />
@@ -137,7 +138,8 @@ function ConfigFiles($contents, $files) {
             <button class="btn btn-primary" type="submit" name="confirm">'.adm_translate("Sauver les modifications").'</button> 
             <button href="admin.php?op=ConfigFiles" class="btn btn-secondary">'.adm_translate("Abandonner").'</button>
         </div>
-      </form>';
+      </form>
+      ';
    }
     adminfoot('','','','');
 }
@@ -184,11 +186,6 @@ function ConfigFiles_save($Xtxt, $Xfiles) {
       fputs($fp,stripslashes($Xtxt));
       fclose($fp);
    }
-   elseif ($Xfiles == "extend-modules") {
-      $fp=fopen("admin/extend-modules.txt","w");
-      fputs($fp,stripslashes($Xtxt));
-      fclose($fp);
-   }
    elseif ($Xfiles == "cache.config") {
       $fp=fopen("cache.config.php","w");
       fputs($fp,stripslashes($Xtxt));
@@ -210,7 +207,7 @@ function ConfigFiles_save($Xtxt, $Xfiles) {
       fclose($fp);
    }
 
-   global $aid; Ecr_Log("security", "SaveConfigFile($Xfiles) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "SaveConfigFile($Xfiles) by AID : $aid", '');
    header("location: admin.php?op=ConfigFiles");
 }
 
@@ -226,25 +223,25 @@ function delete_configfile($fileX) {
    adminfoot('','','','');
 }
 function ConfigFiles_delete($modele) {
-   if ($modele=="header_before") {
+   if ($modele=='header_before') {
       @unlink("modules/include/header_before.inc");
-   } elseif ($modele=="header_head")  {
+   } elseif ($modele=='header_head')  {
       @unlink("modules/include/header_head.inc");
-   } elseif ($modele=="body_onload")  {
+   } elseif ($modele=='body_onload')  {
       @unlink("modules/include/body_onload.inc");
-   } elseif ($modele=="header_after")  {
+   } elseif ($modele=='header_after')  {
       @unlink("modules/include/header_after.inc");
-   } elseif ($modele=="footer_before")  {
+   } elseif ($modele=='footer_before')  {
       @unlink("modules/include/footer_before.inc");
-   } elseif ($modele=="footer_after")  {
+   } elseif ($modele=='footer_after')  {
       @unlink("modules/include/footer_after.inc");
-   } elseif ($modele=="new_user")  {
+   } elseif ($modele=='new_user')  {
       @unlink("modules/include/new_user.inc");
-   } elseif ($modele=="user")  {
+   } elseif ($modele=='user')  {
       @unlink("modules/include/user.inc");
    }
 
-   global $aid; Ecr_Log("security", "DeleteConfigFile($modele) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "DeleteConfigFile($modele) by AID : $aid", '');
    header("location: admin.php?op=ConfigFiles");
 }
 
@@ -253,8 +250,10 @@ function copy_sample($fileX) {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<div class="jumbotron">
-       <p>'.adm_translate("Créer le fichier en utilisant le modéle").' ? <br /><br /><a class="btn btn-primary" href="admin.php?op=ConfigFiles_create&amp;modele='.$fileX.'" role="button">'.adm_translate("Oui").'</a>&nbsp;&nbsp;<a class="btn btn-secondary" href="admin.php?op=ConfigFiles" role="button">'.adm_translate("Non").'</a></p>
+   echo '
+   <hr />
+   <div class="card card-block">
+       <p>'.adm_translate("Créer le fichier en utilisant le modèle").' ? <br /><br /><a class="btn btn-primary" href="admin.php?op=ConfigFiles_create&amp;modele='.$fileX.'" >'.adm_translate("Oui").'</a>&nbsp;&nbsp;<a class="btn btn-secondary" href="admin.php?op=ConfigFiles" >'.adm_translate("Non").'</a></p>
    </div>';
    adminfoot('','','','');
 }
@@ -286,13 +285,13 @@ function ConfigFiles_create($modele) {
       @chmod("modules/include/user.inc",0766);
    }
 
-   global $aid; Ecr_Log("security", "CreateConfigFile($modele) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "CreateConfigFile($modele) by AID : $aid", '');
    header("location: admin.php?op=ConfigFiles");
 }
 
 switch ($op) {
-    case "ConfigFiles_load":
-       if ($files == "header_before") {
+    case 'ConfigFiles_load':
+       if ($files == 'header_before') {
           if (file_exists("modules/include/header_before.inc")) {
              $fp=fopen("modules/include/header_before.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/header_before.inc"));
@@ -301,7 +300,7 @@ switch ($op) {
              copy_sample($files);
           }
        }
-       elseif ($files == "header_head") {
+       elseif ($files == 'header_head') {
           if (file_exists("modules/include/header_head.inc")) {
              $fp=fopen("modules/include/header_head.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/header_head.inc"));
@@ -310,7 +309,7 @@ switch ($op) {
              copy_sample($files);
           }
        }
-       elseif ($files == "body_onload") {
+       elseif ($files == 'body_onload') {
          if (file_exists("modules/include/body_onload.inc")) {
             $fp=fopen("modules/include/body_onload.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/body_onload.inc"));
@@ -319,7 +318,7 @@ switch ($op) {
              copy_sample($files);
           }
        }
-       elseif ($files == "header_after") {
+       elseif ($files == 'header_after') {
           if (file_exists("modules/include/header_after.inc")) {
              $fp=fopen("modules/include/header_after.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/header_after.inc"));
@@ -328,7 +327,7 @@ switch ($op) {
              copy_sample($files);
           }
        }
-       elseif ($files == "footer_before") {
+       elseif ($files == 'footer_before') {
           if (file_exists("modules/include/footer_before.inc")) {
              $fp=fopen("modules/include/footer_before.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/footer_before.inc"));
@@ -337,7 +336,7 @@ switch ($op) {
              copy_sample($files);
           }
        }
-       elseif ($files == "footer_after") {
+       elseif ($files == 'footer_after') {
           if (file_exists("modules/include/footer_after.inc")) {
              $fp=fopen("modules/include/footer_after.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/footer_after.inc"));
@@ -347,7 +346,7 @@ switch ($op) {
           }
        }
 
-       elseif ($files == "new_user") {
+       elseif ($files == 'new_user') {
           if (file_exists("modules/include/new_user.inc")) {
              $fp=fopen("modules/include/new_user.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/new_user.inc"));
@@ -356,7 +355,7 @@ switch ($op) {
              copy_sample($files);
           }
        }
-       elseif ($files == "user") {
+       elseif ($files == 'user') {
           if (file_exists("modules/include/user.inc")) {
              $fp=fopen("modules/include/user.inc","r");
              $Xcontents=fread($fp,filesize("modules/include/user.inc"));
@@ -366,35 +365,28 @@ switch ($op) {
           }
        }
 
-       elseif ($files == "extend-modules") {
-          if (file_exists("admin/extend-modules.txt")) {
-             $fp=fopen("admin/extend-modules.txt","r");
-             $Xcontents=fread($fp,filesize("admin/extend-modules.txt"));
-             fclose($fp);
-          }
-       }
-       elseif ($files == "cache.config") {
+       elseif ($files == 'cache.config') {
           if (file_exists("cache.config.php")) {
              $fp=fopen("cache.config.php","r");
              $Xcontents=fread($fp,filesize("cache.config.php"));
              fclose($fp);
           }
        }
-       elseif ($files == "upload.conf") {
+       elseif ($files == 'upload.conf') {
           if (file_exists("modules/upload/upload.conf.php")) {
              $fp=fopen("modules/upload/upload.conf.php","r");
              $Xcontents=fread($fp,filesize("modules/upload/upload.conf.php"));
              fclose($fp);
           }
        }
-       elseif ($files == "robots") {
+       elseif ($files == 'robots') {
           if (file_exists("robots.txt")) {
              $fp=fopen("robots.txt","r");
              $Xcontents=fread($fp,filesize("robots.txt"));
              fclose($fp);
           }
        }
-       elseif ($files == "humans") {
+       elseif ($files == 'humans') {
           if (file_exists("humans.txt")) {
              $fp=fopen("humans.txt","r");
              $Xcontents=fread($fp,filesize("humans.txt"));
@@ -405,23 +397,20 @@ switch ($op) {
        ConfigFiles($Xcontents, $files);
        break;
 
-    case "ConfigFiles_save":
+    case 'ConfigFiles_save':
         ConfigFiles_save($Xtxt, $Xfiles);
         break;
-
-    case "ConfigFiles_create":
+    case 'ConfigFiles_create':
         ConfigFiles_create($modele);
         break;
-
-    case "delete_configfile":
+    case 'delete_configfile':
         delete_configfile($file);
         break;
-    case "ConfigFiles_delete":
+    case 'ConfigFiles_delete':
         ConfigFiles_delete($file);
         break;
-
     default:
-        ConfigFiles("", "");
+        ConfigFiles('', '');
         break;
 }
 ?>
