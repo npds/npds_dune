@@ -27,6 +27,7 @@ function displayUsers() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
     <h3>'.adm_translate("Extraire l'annuaire").'</h3>
     <form method="post" class="form-inline" action="admin.php">
         <fieldset>
@@ -39,6 +40,7 @@ function displayUsers() {
             <button class="btn btn-primary" type="submit">'.adm_translate("Ok").' </button>
         </fieldset>
     </form>
+    <hr />
     <h3>'.adm_translate("Rechercher utilisateur").'</h3>
     <form method="post" class="form-inline" action="admin.php">
         <fieldset>
@@ -54,10 +56,11 @@ function displayUsers() {
             <button class="btn btn-primary" type="submit" >'.adm_translate("Ok").' </button>
         </fieldset>
     </form>';
-
     $chng_is_visible=1;
-    echo '<h3>'.adm_translate("Créer utilisateur").'</h3>';
-   $op="displayUsers";
+    echo '
+    <hr />
+    <h3>'.adm_translate("Créer utilisateur").'</h3>';
+   $op='displayUsers';
    include ("modules/sform/extend-user/adm_extend-user.php");
    echo auto_complete ('membre','uname','users','chng_uid','86400');
    adminfoot('','','','');
@@ -107,7 +110,9 @@ function modifyUser($chng_user) {
    if (sql_num_rows($result) > 0) {
       list($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, $chng_femail, $chng_user_icq, $chng_user_aim, $chng_user_yim, $chng_user_msnm, $chng_user_from, $chng_user_occ, $chng_user_intrest, $chng_user_viewemail, $chng_avatar, $chng_user_sig, $chng_bio, $chng_pass, $chng_send_email, $chng_is_visible, $mns, $user_lnl) = sql_fetch_row($result);
       adminhead ($f_meta_nom, $f_titre, $adminimg);
-      echo '<h3>'.adm_translate("Modifier un utilisateur").' : '.$chng_uname.' / '.$chng_uid.'</h3>';
+      echo '
+      <hr />
+      <h3>'.adm_translate("Modifier un utilisateur").' : '.$chng_uname.' / '.$chng_uid.'</h3>';
       $op="ModifyUser";
       $result = sql_query("SELECT level, open, groupe, attachsig, rank FROM ".$NPDS_Prefix."users_status WHERE uid='$chng_uid'");
       list ($chng_level, $open_user, $groupe, $attach, $chng_rank) = sql_fetch_row($result);
