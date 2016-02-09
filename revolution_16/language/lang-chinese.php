@@ -177,8 +177,8 @@ function translate_pass1($phrase) {
    case "Ignore": $tmp="&#x5FFD;&#x7565;"; break;
    case "Accept": $tmp="&#x63A5;&#x53D7;"; break;
    case "User Reported Broken Links": $tmp="&#x7528;&#x6237;&#x62A5;&#x544A;&#x65E0;&#x6548;&#x94FE;&#x63A5;"; break;
-   case "Ignore (Deletes all <b>requests</b> for a given link)": $tmp="&#x5FFD;&#x7565; (&#x5220;&#x9664;&#x6240;&#x6709;<b>&#x94FE;&#x63A5;&#x8BF7;&#x6C42;</b>)"; break;
-   case "Delete (Deletes <b>broken link</b> and <b>requests</b> for a given link)": $tmp="&#x5220;&#x9664; (&#x5220;&#x9664;<b>&#x65E0;&#x6548;&#x94FE;&#x63A5;</b>&#x548C;<b><i>&#x8BF7;&#x6C42;</i></b>)"; break;
+   case "Ignore (Deletes all requests for a given link)": $tmp="&#x5FFD;&#x7565; (&#x5220;&#x9664;&#x6240;&#x6709;&#x94FE;&#x63A5;&#x8BF7;&#x6C42;)"; break;
+   case "Delete (Deletes broken link and requests for a given link)": $tmp="&#x5220;&#x9664; (&#x5220;&#x9664;&#x65E0;&#x6548;&#x94FE;&#x63A5;&#x548C;&#x8BF7;&#x6C42;)"; break;
    case "Links": $tmp="&#x94FE;&#x63A5;"; break;
    case "Welcome to": $tmp="&#x6B22;&#x8FCE;&#x60A8;&#x5728;"; break;
    case "Welcome": $tmp="&#x6B22;&#x8FCE;"; break;
@@ -884,7 +884,10 @@ function translate_pass1($phrase) {
    case "Upload file after send accepted": $tmp="&#x5728;&#x53D1;&#x9001;&#x88AB;&#x63A5;&#x53D7;&#x540E;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;"; break;
    case "Avatar": $tmp="&#x5934;&#x50CF;"; break;
    case "Files": $tmp="&#x6587;&#x4EF6;"; break;
-   case "You can upload a file <b>carnet.txt</b> in your Mini-Web site.<br /><br />the data structure of any line :<br />&nbsp;&nbsp;<b>name_of_the_member;email;comments</b>"; $tmp="&#x60A8;&#x53EF;&#x4EE5;&#x5728;&#x60A8;&#x7684;&#x5C0F;&#x578B;&#x7F51;&#x7AD9;&#x4E2D;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;<b>carnet.txt</b>&#x3002;<br /><br /> &#x8BE5;&#x6587;&#x4EF6;&#x7684;&#x884C;&#x683C;&#x5F0F;: <br />&nbsp;&nbsp;<b>&#x4F1A;&#x5458;&#x540D;;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;; &#x7B80;&#x8BC4;</b>"; break;
+   
+   case "You can upload a file carnet.txt in your Mini-Web site": $tmp="&#x60A8;&#x53EF;&#x4EE5;&#x5728;&#x60A8;&#x7684;&#x5C0F;&#x578B;&#x7F51;&#x7AD9;&#x4E2D;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;carnet.txt&#x3002;"; break;
+   case "The data structure of any line : name_of_the_member;email;comments": $tmp="&#x8BE5;&#x6587;&#x4EF6;&#x7684;&#x884C;&#x683C;&#x5F0F;: &nbsp;&nbsp;&#x4F1A;&#x5458;&#x540D;;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;; &#x7B80;&#x8BC4;"; break;   
+   
    case "Pages showed since"; $tmp="&#x9875;&#x9762;&#x8BBF;&#x95EE;&#x91CF;&#x81EA;&#x4ECE;"; break;
    case "Statistics"; $tmp="&#x884C;&#x7EDF;&#x8BA1;"; break;
    case "Top"; $tmp="&#x9875;&#x9762;&#x9876;&#x90E8;"; break;

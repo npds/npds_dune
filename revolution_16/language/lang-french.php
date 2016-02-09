@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -30,8 +30,8 @@ function translate_pass1($phrase) {
    case "datestring": $tmp="%A %d %B %Y @ %H:%M:%S"; break;
    case "datestring2": $tmp="%A, %d %B"; break;
    case "linksdatestring": $tmp="%d-%m-%Y"; break;
-   case "dateinternal": $tmp = "d-m-Y H:i"; break;
-   case "Chatdate": $tmp = "G:i d-m"; break;
+   case "dateinternal": $tmp="d-m-Y H:i"; break;
+   case "Chatdate": $tmp="G:i d-m"; break;
    case "Monday": $tmp="Lundi"; break;
    case "Tuesday": $tmp="Mardi"; break;
    case "Wednesday": $tmp="Mercredi"; break;
@@ -51,7 +51,6 @@ function translate_pass1($phrase) {
    case "October": $tmp="Octobre"; break;
    case "November": $tmp="Novembre"; break;
    case "December": $tmp="Décembre"; break;
-
    case "Printer Friendly Page": $tmp="Page spéciale pour impression"; break;
    case "Send this Story to a Friend": $tmp="Envoyer cet article à un ami"; break;
    case "next matches": $tmp="réponses suivantes"; break;
@@ -179,8 +178,8 @@ function translate_pass1($phrase) {
    case "Ignore": $tmp="Ignorer"; break;
    case "Accept": $tmp="Accepter"; break;
    case "User Reported Broken Links": $tmp="Liens cassés rapportés par un ou plusieurs utilisateurs"; break;
-   case "Ignore (Deletes all <strong>requests</strong> for a given link)": $tmp="Ignorer (Efface toutes les <strong>demandes</strong> pour un lien donné)"; break;
-   case "Delete (Deletes <strong>broken link</strong> and <strong>requests</strong> for a given link)": $tmp="Effacer (Efface les <strong>liens cassés</strong> et <strong>les avis</strong> pour un lien donné)"; break;
+   case "Ignore (Deletes all requests for a given link)": $tmp="Ignorer (Efface toutes les demandes pour un lien donné)"; break;
+   case "Delete (Deletes broken link and requests for a given link)": $tmp="Effacer (Efface les liens cassés et les avis pour un lien donné)"; break;
    case "Links": $tmp="Liens"; break;
    case "Welcome to": $tmp="Bienvenue sur"; break;
    case "Welcome": $tmp="Bonjour"; break;
@@ -214,6 +213,7 @@ function translate_pass1($phrase) {
    case "ERROR: Email address already registered": $tmp="Erreur : adresse mèl déjà utilisée"; break;
    case "User ID": $tmp="ID utilisateur (pseudo)"; break;
    case "Real Name": $tmp="Votre véritable identité"; break;
+   case "Identity": $tmp="Identité"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Website: ": $tmp="Site web : "; break;
    case "Your ICQ": $tmp="Votre adresse ICQ"; break;
@@ -257,10 +257,8 @@ function translate_pass1($phrase) {
    case "Option: ": $tmp="Option : "; break;
    case "Allow other users to view my email address": $tmp="Autoriser les autres utilisateurs à voir mon mèl"; break;
    case "Password will be sent to the email address you enter.": $tmp="Le mot de passe vous sera envoyé à l'adresse mèl indiquée."; break;
-   case "Notice": $tmp="Notes"; break;   
-   case "Account preferences are cookie based.": $tmp="Les préférences de compte fonctionnent sur la base des <i>cookies</i>."; break;
-   
-   
+   case "Notice": $tmp="Notes"; break;
+   case "Account preferences are cookie based.": $tmp="Les préférences de compte fonctionnent sur la base des cookies."; break;
    case "As a registered user you can": $tmp="En tant qu'utilisateur enregistré vous pouvez"; break;
    case "Post comments with your name": $tmp="Poster des commentaires signés"; break;
    case "Send news with your name": $tmp="Proposer des articles en votre nom"; break;
@@ -275,7 +273,6 @@ function translate_pass1($phrase) {
    case "Sorry, no corresponding user info was found": $tmp="Désolé, aucune information correspondante pour cet utlilisateur n'a été trouvée"; break;
    case "The user account": $tmp="Le compte utilisateur"; break;
    case "at": $tmp="de"; break;
-
    case "has this email associated with it.": $tmp="est associé à votre mèl."; break;
    case "A web user from": $tmp="Un utilisateur web ayant l'adresse IP "; break;
    case "Password update, please re-connect you.": $tmp="Mot de passe mis à jour. Merci de vous re-connecter"; break;
@@ -366,8 +363,8 @@ function translate_pass1($phrase) {
    case "Your post has NOT been deleted because one or more posts is already attached (TREE forum).": $tmp="Votre contribution n'a pas été supprimée car au moins un post est encore rattaché (forum arbre)."; break;
    case "Editing Post": $tmp="Edition de la soumission"; break;
    case "Delete this Post": $tmp="Supprimer ce message"; break;
-   case ".:Page &gt;&gt; Super-Cache:.": $tmp=".:Page &gt;&gt; Super-Cache:."; break;
-   case ".:Page &lt;&lt; Super-Cache:.": $tmp=".:Page &lt;&lt; Super-Cache:."; break;
+   case ".:Page >> Super-Cache:.": $tmp=".:Page >> Super-Cache:."; break;
+   case ".:Page >> Super-Cache:.": $tmp=".:Page >> Super-Cache:."; break;
    case "Web Activity": $tmp="Activité du site"; break;
    case "guest(s) and": $tmp="visiteur(s) et"; break;
    case "member(s) that are online.": $tmp="membre(s) en ligne."; break;
@@ -556,7 +553,7 @@ function translate_pass1($phrase) {
    case "Allowed HTML:": $tmp="Code html autorisé : "; break;
    case "Preview": $tmp="Prévisualiser"; break;
    case " on...": $tmp=" le..."; break;
-   case "This account or IP has been temporarily disabled. This means that either this IP, or user account has been moderated down more than x times in the last few hours. If you think this is unfair, you should contact the admin.": $tmp="Compte ou adresse IP désactivée. Cet émetteur a <i>participé</i> plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage."; break;
+   case "This account or IP has been temporarily disabled. This means that either this IP, or user account has been moderated down more than x times in the last few hours. If you think this is unfair, you should contact the admin.": $tmp="Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage."; break;
    case "File Information": $tmp="Information sur le fichier"; break;
    case "Program Name": $tmp="Nom du programme"; break;
    case "File Size": $tmp="Taille du fichier"; break;
@@ -690,7 +687,7 @@ function translate_pass1($phrase) {
    case "Reviewer": $tmp="Le critique"; break;
    case "Score:": $tmp="Note"; break;
    case "Review ID": $tmp="ID de la critique"; break;
-   case "Hits": $tmp="Nombre de hits"; break;
+   case "Hits": $tmp="Hits"; break;
    case "Does this look right?": $tmp="Cela semble-t-il correct ?"; break;
    case "modified": $tmp="modifié"; break;
    case "added": $tmp="ajouté"; break;
@@ -780,7 +777,7 @@ function translate_pass1($phrase) {
    case "Room": $tmp="Salle"; break;
    case "SubCategory": $tmp="Sous-catégorie"; break;
    case "Add articles": $tmp="Ajouter un article"; break;
-   case "stb = Request in standby": $tmp="stb = Demande en attente de validation"; break;
+   case "stb=Request in standby": $tmp="stb=Demande en attente de validation"; break;
    case "Price": $tmp="Prix"; break;
    case "To use this application you must be": $tmp="Pour utiliser cette application, vous devez être"; break;
    case "Advance User": $tmp="Utilisateur avancé"; break;
@@ -831,7 +828,7 @@ function translate_pass1($phrase) {
    case "most active news submitters": $tmp="Auteurs de news les plus regardées"; break;
    case "sent news:": $tmp="Articles envoyés : "; break;
    case "most voted polls": $tmp="sondages avec le meilleur taux de participation"; break;
-   case "votes:": $tmp="votes :"; break;
+   case "Votes": $tmp="Votes"; break;
    case "most active authors": $tmp="Auteurs les plus actifs"; break;
    case "news published:": $tmp="Articles publiés : "; break;
    case "most read reviews": $tmp="Critiques les plus lues"; break;
@@ -845,14 +842,9 @@ function translate_pass1($phrase) {
    case "Back to": $tmp="Retour vers"; break;
    case "Sections Index": $tmp="Index des rubriques"; break;
    case "Counter": $tmp="Compteur"; break;
-
-   // NPDS 4.8 P3
    case "Submission in progress. After Uploading your files, please click on the OK button to finish.": $tmp="Soumission en cours. Une fois vos fichiers chargés, cliquer sur le bouton OK pour finir."; break;
    case "Join us ! As a registered user, cool stuff like : forum'subscribing, special forums (hidden, members ...), post and read status, ... are avaliable.": $tmp="Devenez membre et vous disposerez de fonctions spécifiques : abonnements, forums spéciaux (cachés, membres, ..), statut de lecture, ..."; break;
    case "Unsubscribe": $tmp="Désabonnement"; break;
-   // NPDS 4.8 P3
-
-   // NPDS 4.8 P4
    case "Closed": $tmp="Fermé"; break;
    case "Only Moderators can post new topics and replies in this forum.": $tmp="Seuls les modérateurs peuvent poster de nouveaux sujets et répondre dans ce forum."; break;
    case "Normal post": $tmp="Post affiché"; break;
@@ -872,45 +864,31 @@ function translate_pass1($phrase) {
    case "Auto Delete the New at End Date": $tmp="Epuration de la new à la fin de sa date de validité"; break;
    case "Make this Topic the first one": $tmp="Mettre ce sujet en premier"; break;
    case "We allow just one vote per poll.": $tmp="Un seul vote par sondage."; break;
-   // NPDS 4.8 P4
-
-   // NPDS 5.0
    case "* for mandatory field": $tmp="* Désigne un champ obligatoire"; break;
    case "Retype Password": $tmp="Entrez à nouveau votre mot de Passe"; break;
    case "Re-activate the standard'avatars": $tmp="Revenir aux avatars standards"; break;
    case "the page": $tmp="la page"; break;
-   // NPDS 5.0
-
-   // NPDS 5.0 P1
    case "Bookmark": $tmp="Carnet d'adresses"; break;
    case "Upload file after send accepted": $tmp="Charger un fichier une fois l'envoi accepté"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Files": $tmp="Fichiers"; break;
-   case "You can upload a file <strong>carnet.txt</strong> in your Mini-Web site.<br /><br />the data structure of any line :<br />&nbsp;&nbsp;<strong>name_of_the_member;email;comments</strong>"; $tmp="Vous pouvez charger un fichier <strong>carnet.txt</strong> dans votre miniSite.<br /><br />La structure de chaque ligne de ce fichier :<br />&nbsp;&nbsp;<strong>nom_du_membre; adresse email; commentaires</strong>"; break;
+   case "You can upload a file carnet.txt in your Mini-Web site": $tmp="Vous pouvez charger un fichier carnet.txt dans votre miniSite"; break;
+   case "The data structure of any line : name_of_the_member;email;comments": $tmp="La structure de chaque ligne de ce fichier : nom_du_membre; adresse email; commentaires"; break;
    case "Pages showed since"; $tmp="Pages vues depuis"; break;
    case "Statistics"; $tmp="Statistiques"; break;
    case "Top"; $tmp="Top"; break;
    case "Mini-Web site"; $tmp="MiniSite"; break;
    case "Manage my Mini-Web site"; $tmp="Gérer votre miniSite"; break;
    case "Your account": $tmp="Votre compte"; break;
-   // NPDS 5.0 P1
-
-   // NPDS 5.0 Runner
    case "Question": $tmp="Question"; break;
    case "EDITO": $tmp="EDITO"; break;
    case "Top of the article": $tmp="Début de l'article"; break;
-   // NPDS 5.0 Runner
-
-   // NPDS 5.0 Narval
    case "No category": $tmp="Aucune catégorie"; break;
    case "Select a language": $tmp="Choisir une langue"; break;
    case "No language": $tmp="Aucune langue"; break;
    case "Login box": $tmp="Se connecter"; break;
    case "More smilies": $tmp="Plus d'émoticons"; break;
    case "favourite": $tmp="favori"; break;
-   // NPDS 5.0 Narval
-
-   // NPDS Sable
    case "All to develop": $tmp="Tout développer"; break;
    case "All to gather": $tmp="Tout regrouper"; break;
    case "Site map": $tmp="Plan du site"; break;
@@ -922,7 +900,7 @@ function translate_pass1($phrase) {
    case "Without": $tmp="Sans"; break;
    case "or": $tmp="ou"; break;
    case "Your IP is recorded": $tmp="Votre adresse Ip est enregistrée"; break;
-   case "daydate": $tmp="%A %d %B %Y"; break; // meta-lang !date!
+   case "daydate": $tmp="%A %d %B %Y"; break;
    case "Register to web site' mailing list" : $tmp="S'inscrire à la liste de diffusion du site"; break;
    case "Update": $tmp="Mise à jour"; break;
    case "Theme(s)": $tmp="Thème(s)"; break;
@@ -933,55 +911,45 @@ function translate_pass1($phrase) {
    case "Back to console": $tmp="Retour à l'administration"; break;
    case "in the sub-section": $tmp="dans la sous-rubrique"; break;
    case "Search in Sections": $tmp="Rechercher dans les rubriques"; break;
-   // NPDS Sable
-
-   // NPDS Dune
    case "Ok": $tmp="Ok"; break;
    case "Anti-Spam / Thank to reply to the question :": $tmp="Anti-Spam / Merci de répondre à la question suivante : "; break;
    case "Guest": $tmp="Visiteur"; break;
    case "Last articles": $tmp="Derniers articles"; break;
-
-   // Phrases modifiées :
    case "Check a forum and click on button for receive an Email when a new submission is made in it.": $tmp="Cochez un forum et cliquez sur le bouton pour recevoir un mèl lors d'une nouvelle soumission dans celui-ci."; break;
    case "Error": $tmp="Erreur"; break;
-   // NPDS Dune
-
-   // Fusion PP_translate
-   case "You are logged in as": $tmp = "Vous êtes connecté en tant que :"; break;
-   case "person chatting right now.": $tmp = "personne connectée."; break;
-   case "people chatting right now.": $tmp = "personnes connectées."; break;
-   case "Clear Chat DB": $tmp = "Vider la table chatBox"; break;
-   case "Message to Member": $tmp = "Message à un membre"; break;
-   case "M2M box": $tmp = "M2M bloc"; break;
-   case "click here to open the chat window...": $tmp = "Cliquez ici pour entrer"; break;
-   case "Chat box": $tmp = "Bloc Chat"; break;
-   case "Forums infos": $tmp = "Forums infos"; break;
-
-   // WS
-   case "Groups setting.": $tmp = "Gestion des groupes."; break;
-   case "Group blog.": $tmp = "Blog du groupe."; break;
-   case "File manager": $tmp = "Gestionnaire fichiers"; break;
-   case "Group forum.": $tmp = "Forum du groupe."; break;
-   case "forum": $tmp = "forum"; break;
-   case "Group file manager.": $tmp = "File manager du groupe."; break;
-   case "Group chat.": $tmp = "Chat du groupe."; break;
-   case "Group members list.": $tmp = "Liste des membres du groupe."; break;
-   case "Members": $tmp = "Membres"; break;
-   case "is connected !": $tmp = "est connecté"; break;
-   case "is not connected !": $tmp = "n'est pas connecté"; break;
-   case "Visit the Mini Web Site !": $tmp = "Visitez le minisite"; break;
-   case "Co-writing": $tmp = "Co-rédaction"; break;
-   case "Hide list": $tmp = "Replier la liste"; break;
-   case "Show list": $tmp = "Déplier la liste"; break;
-   case "Multi-writers document": $tmp = "Document co-rédigé"; break;
-   case "Open a chat for the group.": $tmp = "Ouvrir un salon de chat pour le groupe."; break;
-   case "Last editor": $tmp = "Dernier éditeur"; break;
-   case "for group": $tmp = "pour le groupe"; break;
-   case "Mailing list": $tmp = "Liste de diffusion"; break;
-   case "Add to mailing list": $tmp = "Ajouter à la liste de diffusion"; break;
-   case "Connection allowed": $tmp = "Connexion autorisée"; break;
-   case "Connection not allowed": $tmp = "Connexion non autorisée"; break;
-   case "Connection": $tmp = "Connexion"; break;
+   case "You are logged in as": $tmp="Vous êtes connecté en tant que :"; break;
+   case "person chatting right now.": $tmp="personne connectée."; break;
+   case "people chatting right now.": $tmp="personnes connectées."; break;
+   case "Clear Chat DB": $tmp="Vider la table chatBox"; break;
+   case "Message to Member": $tmp="Message à un membre"; break;
+   case "M2M box": $tmp="M2M bloc"; break;
+   case "click here to open the chat window...": $tmp="Cliquez ici pour entrer"; break;
+   case "Chat box": $tmp="Bloc Chat"; break;
+   case "Forums infos": $tmp="Forums infos"; break;
+   case "Groups setting.": $tmp="Gestion des groupes."; break;
+   case "Group blog.": $tmp="Blog du groupe."; break;
+   case "File manager": $tmp="Gestionnaire fichiers"; break;
+   case "Group forum.": $tmp="Forum du groupe."; break;
+   case "forum": $tmp="forum"; break;
+   case "Group file manager.": $tmp="File manager du groupe."; break;
+   case "Group chat.": $tmp="Chat du groupe."; break;
+   case "Group members list.": $tmp="Liste des membres du groupe."; break;
+   case "Members": $tmp="Membres"; break;
+   case "is connected !": $tmp="est connecté"; break;
+   case "is not connected !": $tmp="n'est pas connecté"; break;
+   case "Visit the Mini Web Site !": $tmp="Visitez le minisite"; break;
+   case "Co-writing": $tmp="Co-rédaction"; break;
+   case "Hide list": $tmp="Replier la liste"; break;
+   case "Show list": $tmp="Déplier la liste"; break;
+   case "Multi-writers document": $tmp="Document co-rédigé"; break;
+   case "Open a chat for the group.": $tmp="Ouvrir un salon de chat pour le groupe."; break;
+   case "Last editor": $tmp="Dernier éditeur"; break;
+   case "for group": $tmp="pour le groupe"; break;
+   case "Mailing list": $tmp="Liste de diffusion"; break;
+   case "Add to mailing list": $tmp="Ajouter à la liste de diffusion"; break;
+   case "Connection allowed": $tmp="Connexion autorisée"; break;
+   case "Connection not allowed": $tmp="Connexion non autorisée"; break;
+   case "Connection": $tmp="Connexion"; break;
    case "0": $tmp="zéro"; break;
    case "1": $tmp="un"; break;
    case "2": $tmp="deux"; break;
@@ -997,39 +965,35 @@ function translate_pass1($phrase) {
    case "/": $tmp="divisé par"; break;
    case "*": $tmp="multiplié par"; break;
    case "Ban this @IP": $tmp="Bannir cette @Ip"; break;
-   // WS
-   
-   //responsivité
    case "New Topic": $tmp="Nouveau sujet"; break;
    case "Destinataire": $tmp="Destinataire"; break;
    case "Registration": $tmp="Inscription"; break;
    case "Smilies": $tmp="Emoticons"; break;
-
    case "Bold": $tmp="Gras"; break;
    case "Italic": $tmp="Italique"; break;
-   case "Underline": $tmp="Soulign&#xE9;"; break;
-   case "Text align-left": $tmp="Text align&#xE9; &#xE0; droite"; break;
-   case "Text center": $tmp="Text centr&#xE9;"; break;
-   case "Text align-right": $tmp="Text align&#xE9; &#xE0; gauche"; break;
-   case "Text justified": $tmp="Text justifi&#xE9;"; break;
-   case "Unordered list": $tmp="Liste ordonnn&#xE9;e"; break;
-   case "Ordered list": $tmp="Liste non ordonnn&#xE9;e"; break;
+   case "Underline": $tmp="Souligné"; break;
+   case "Text align-left": $tmp="Text aligné à droite"; break;
+   case "Text center": $tmp="Text centré"; break;
+   case "Text align-right": $tmp="Text aligné à gauche"; break;
+   case "Text justified": $tmp="Text justifié"; break;
+   case "Unordered list": $tmp="Liste ordonnnée"; break;
+   case "Ordered list": $tmp="Liste non ordonnnée"; break;
    case "Web link": $tmp="Lien web"; break;
    case "Table": $tmp="Tableau"; break;
    case "Code": $tmp="Code"; break;
-   case "Youtube video": $tmp="Vid&#xE9;o Youtube"; break;
-   case "Hide this post": $tmp = "Masquer ce post"; break;
-   case "Show this post": $tmp = "Afficher ce post"; break;
-
+   case "Youtube video": $tmp="Vidéo Youtube"; break;
+   case "Hide this post": $tmp="Masquer ce post"; break;
+   case "Show this post": $tmp="Afficher ce post"; break;
    case "Read": $tmp="Lu"; break;
    case "Choose a folder/topic": $tmp="Choisir un dossier/sujet"; break;
-   case "Write a new Private Message": $tmp="Ecrire un nouveau message priv&#xE9;"; break;
+   case "Write a new Private Message": $tmp="Ecrire un nouveau message privé;"; break;
    case "Private Messages": $tmp="Messages personnels"; break;
    case "Contributors": $tmp="Contributeurs"; break;
    case "Bottom page": $tmp="Bas de page"; break;
    case "Topic status": $tmp="Etat du topic"; break;
    case "Print": $tmp="Imprimer"; break;
-   default: $tmp = "Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
+   case "Your request": $tmp="Votre requête"; break;
+   default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }
  return $tmp;
 }

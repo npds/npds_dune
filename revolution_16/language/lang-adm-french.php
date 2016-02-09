@@ -22,6 +22,6 @@ function adm_translate($phrase) {
       case "dateforop": $tmp="d-m-y"; break;
       default: $tmp = $phrase; break;
    }
-   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>

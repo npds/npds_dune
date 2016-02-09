@@ -23,7 +23,7 @@ switch($phrase) {
    // case "Submit":   $tmp="\"Yo, submit Man\""; break;
    
     case "One Day like Today...": $tmp=""; break;  
-   
+   case "février": $tmp="février";
    
    
    case "Your account":

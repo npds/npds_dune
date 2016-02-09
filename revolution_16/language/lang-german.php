@@ -179,8 +179,8 @@ function translate_pass1($phrase) {
    case "Ignore": $tmp="Ignoriere"; break;
    case "Accept": $tmp="Akzeptiere"; break;
    case "User Reported Broken Links": $tmp="Defekte Links, die von einem oder mehreren Usern gemeldet wurden"; break;
-   case "Ignore (Deletes all <b>requests</b> for a given link)": $tmp="Ignoriere (Lösche alle <b>Anfragen</b> für einen gemeldeten Link)"; break;
-   case "Delete (Deletes <b>broken link</b> and <b>requests</b> for a given link)": $tmp="Lösche (Lösche <b>Defekte Links</b> und <b>die Beschreibungen</b> die zum Link gehören)"; break;
+   case "Ignore (Deletes all requests for a given link)": $tmp="Ignoriere (Lösche alle Anfragen für einen gemeldeten Link)"; break;
+   case "Delete (Deletes broken link and requests for a given link)": $tmp="Lösche (Lösche Defekte Links und die Beschreibungen die zum Link gehören)"; break;
    case "Links": $tmp="Links"; break;
    case "Welcome to": $tmp="Willkommen bei"; break;
    case "Welcome": $tmp="Willkommen"; break;
@@ -880,7 +880,8 @@ function translate_pass1($phrase) {
    case "Upload file after send accepted": $tmp="Datei hochladen, nachdem sie akzeptiert wurde"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Files": $tmp="Dateien"; break;
-   case "You can upload a file <b>carnet.txt</b> in your Mini-Web site.<br /><br />the data structure of any line :<br />&nbsp;&nbsp;<b>name_of_the_member;email;comments</b>"; $tmp="Sie können eine Datei hochladen <b>carnet.txt</b> in Ihre Mini Seite.<br /><br />Die Datenstruktur der Zielen :<br />&nbsp;&nbsp;<b>Name des Users;E-mail Adresse;Kommentare</b>"; break;
+   case "You can upload a file carnet.txt in your Mini-Web site": $tmp="Sie können eine Datei hochladen carnet.txt in Ihre Mini Seite"; break;
+   case "The data structure of any line : name_of_the_member;email;comments": $tmp="Die Datenstruktur der Zielen : Name des Users;E-mail Adresse;Kommentare"; break;  
    case "Pages showed since"; $tmp="Seiten angezeigt seit"; break;
    case "Statistics"; $tmp="Statistiken"; break;
    case "Top"; $tmp="Nach oben"; break;

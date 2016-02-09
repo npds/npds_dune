@@ -179,8 +179,8 @@ function translate_pass1($phrase) {
    case "Ignore": $tmp="No hacer caso"; break;
    case "Accept": $tmp="Aceptar"; break;
    case "User Reported Broken Links": $tmp="V&iacute;nculos rotos se&ntilde;alados por los usuarios"; break;
-   case "Ignore (Deletes all <b>requests</b> for a given link)": $tmp="No hacer caso (Borra todas las <b>demandas</b> por un vinculo dado)"; break;
-   case "Delete (Deletes <b>broken link</b> and <b>requests</b> for a given link)": $tmp="Borrar (Borra los <b>v&iacute;nculos rotos</b> y <b>los avisos</b> por un vinculo dado)"; break;
+   case "Ignore (Deletes all requests for a given link)": $tmp="No hacer caso (Borra todas las demandas por un vinculo dado)"; break;
+   case "Delete (Deletes broken link and requests for a given link)": $tmp="Borrar (Borra los v&iacute;nculos rotos y los avisos por un vinculo dado)"; break;
    case "Links": $tmp="V&iacute;nculos"; break;
    case "Welcome to": $tmp="Bienvenidos a"; break;
    case "Welcome": $tmp="Buenos d&iacute;as"; break;
@@ -257,7 +257,7 @@ function translate_pass1($phrase) {
    case "Option: ": $tmp="Opci&oacute;n : "; break;
    case "Allow other users to view my email address": $tmp="Autorizar los otros usuarios a ver mi E-mail"; break;
    case "(Password will be sent to the email address you enter.)": $tmp="(La contrase&ntilde;a le sera enviada a la direcci&oacute;n E-mail que dio.)"; break;
-   case "Notice: Account preferences are cookie based.": $tmp="Nota : Las preferencias del usuario funcionan con <i>Cookies</i>."; break;
+   case "Notice: Account preferences are cookie based.": $tmp="Nota : Las preferencias del usuario funcionan con Cookies."; break;
    case "As a registered user you can:": $tmp="En tanto que nuevo usuario usted puede :"; break;
    case "Post comments with your name": $tmp="A&ntilde;adir comentarios firmados"; break;
    case "Send news with your name": $tmp="Proponer noticias en su nombre"; break;
@@ -551,7 +551,7 @@ function translate_pass1($phrase) {
    case "Allowed HTML:": $tmp="HTML Autorizado : "; break;
    case "Preview": $tmp="Pre visualizar"; break;
    case " on...": $tmp=" el..."; break;
-   case "This account or IP has been temporarily disabled. This means that either this IP, or user account has been moderated down more than x times in the last few hours. If you think this is unfair, you should contact the admin.": $tmp="Cuenta o direcci&oacute;n IP desactivada. Este usuario <i>participo</i> mas x veces en las ultimas horas ! Contacte el Webmaster del sitio web."; break;
+   case "This account or IP has been temporarily disabled. This means that either this IP, or user account has been moderated down more than x times in the last few hours. If you think this is unfair, you should contact the admin.": $tmp="Cuenta o direcci&oacute;n IP desactivada. Este usuario participo mas x veces en las ultimas horas ! Contacte el Webmaster del sitio web."; break;
    case "File Information": $tmp="Informaci&oacute;n del fichero"; break;
    case "Program Name": $tmp="Nombre del programa"; break;
    case "File Size": $tmp="Dimensiones del fichero"; break;
@@ -883,7 +883,8 @@ function translate_pass1($phrase) {
    case "Upload file after send accepted": $tmp="Descargar un fichero una vez el env&iacute;o aceptado"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Files": $tmp="Ficheros"; break;
-   case "You can upload a file <b>carnet.txt</b> in your Mini-Web site.<br /><br />the data structure of any line :<br />&nbsp;&nbsp;<b>name_of_the_member;email;comments</b>"; $tmp="Usted puede descargar un fichero <b>carnet.txt</b> en su mini-p&aacute;gina  Web.<br /><br />La estructura de cada linea del fichero :<br />&nbsp;&nbsp;<b>nombre_del_miembro; email;comentarios</b>"; break;
+   case "You can upload a file carnet.txt in your Mini-Web site": $tmp="Usted puede descargar un fichero carnet.txt en su mini-pagina  Web"; break;
+   case "The data structure of any line : name_of_the_member;email;comments": $tmp="La estructura de cada linea del fichero : nombre_del_miembro; email;comentarios"; break;
    case "Pages showed since"; $tmp="P&aacute;gina s vistas desde el"; break;
    case "Statistics"; $tmp="Estad&iacute;sticas"; break;
    case "Top"; $tmp="Top"; break;
