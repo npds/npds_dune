@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
-$f_meta_nom ='blocks';// a voir si on réimplémente les droits spécifique droit et gauche
+$f_meta_nom ='blocks';// à voir si on réimplémente les droits spécifique droit et gauche
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -24,17 +24,17 @@ function makerblock($title, $content, $members, $Mmember, $Rindex, $Scache, $BRa
    global $NPDS_Prefix;
 
    if (is_array($Mmember) and ($members==1)) {
-      $members=implode(",",$Mmember);
+      $members=implode(',',$Mmember);
       if ($members==0) $members=1;
    }
    if (empty($Rindex)) {$Rindex=0;}
    $title=stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
-   if ($SHTML!="ON")
-      $content = strip_tags(str_replace("<br />","\n",$content));
+   if ($SHTML!='ON')
+      $content = strip_tags(str_replace('<br />','\n',$content));
    sql_query("INSERT INTO ".$NPDS_Prefix."rblocks VALUES (NULL,'$title','$content', '$members', '$Rindex', '$Scache', '1', '$css', '$BRaide')");
 
-   global $aid; Ecr_Log("security", "MakeRightBlock($title) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "MakeRightBlock($title) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
@@ -47,11 +47,11 @@ function changerblock($id, $title, $content, $members, $Mmember, $Rindex, $Scach
    }
    if (empty($Rindex)) {$Rindex=0;}
    $title=stripslashes(FixQuotes($title));
-   if ($Sactif=="ON") {$Sactif=1;} else {$Sactif=0;}
+   if ($Sactif=='ON') {$Sactif=1;} else {$Sactif=0;}
    $content = stripslashes(FixQuotes($content));
    sql_query("UPDATE ".$NPDS_Prefix."rblocks SET title='$title', content='$content', member='$members', Rindex='$Rindex', cache='$Scache', actif='$Sactif', css='$css', aide='$BRaide' WHERE id='$id'");
 
-   global $aid; Ecr_Log("security", "ChangeRightBlock($title - $id) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "ChangeRightBlock($title - $id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
@@ -59,17 +59,17 @@ function changegaucherblock($id, $title, $content, $members, $Mmember, $Rindex, 
    global $NPDS_Prefix;
 
    if (is_array($Mmember) and ($members==1)) {
-      $members=implode(",",$Mmember);
+      $members=implode(',',$Mmember);
       if ($members==0) $members=1;
    }
    if (empty($Rindex)) {$Rindex=0;}
    $title=stripslashes(FixQuotes($title));
-   if ($Sactif=="ON") {$Sactif=1;} else {$Sactif=0;}
+   if ($Sactif=='ON') {$Sactif=1;} else {$Sactif=0;}
    $content = stripslashes(FixQuotes($content));
    sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL,'$title','$content','$members', '$Rindex', '$Scache', '$Sactif', '$css', '$BRaide')");
    sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE id='$id'");
 
-   global $aid; Ecr_Log("security", "MoveRightBlockToLeft($title - $id) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "MoveRightBlockToLeft($title - $id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
@@ -77,21 +77,21 @@ function deleterblock($id) {
    global $NPDS_Prefix;
 
    sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE id='$id'");
-   global $aid; Ecr_Log("security", "DeleteRightBlock($id) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "DeleteRightBlock($id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
 switch ($op) {
-   case "makerblock":
+   case 'makerblock':
          makerblock($title, $xtext, $members, $Mmember, $index, $Scache, $Baide, $SHTML, $css);
          break;
-   case "deleterblock":
+   case 'deleterblock':
          deleterblock($id);
          break;
-   case "changerblock":
+   case 'changerblock':
          changerblock($id, $title, $content, $members, $Mmember, $Rindex, $Scache, $Sactif, $BRaide, $css);
          break;
-   case "gaucherblock":
+   case 'gaucherblock':
          changegaucherblock($id, $title, $content, $members, $Mmember, $Rindex, $Scache, $Sactif, $BRaide, $css);
          break;
 }
