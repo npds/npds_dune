@@ -30,9 +30,11 @@ function submissions() {
    $result = sql_query("SELECT qid, subject, timestamp, topic, uname FROM ".$NPDS_Prefix."queue ORDER BY timestamp");
    if (sql_num_rows($result) == 0) {
       echo '
+   <hr />
    <h3>'.adm_translate("Pas de nouveaux Articles postés").'</h3>';
    } else {
       echo '
+   <hr />
    <h3>'.adm_translate("Nouveaux Articles postés").'&nbsp;<span class="label label-pill label-default">'.sql_num_rows($result).'</span></h3>
    <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -62,7 +64,7 @@ function submissions() {
          <tr>
             <td>'.$uname.'</td>
             <td>';
-         if ($subject=="") { $subject=adm_translate("Aucun Sujet");}
+         if ($subject=='') { $subject=adm_translate("Aucun Sujet");}
          $subject= aff_langue($subject);
          if ($affiche) {
             echo '<img class=" " src="images/topics/'.$topicimage.'" height="30" width="30" alt="avatar" />&nbsp;<a href="admin.php?op=topicedit&amp;topicid='.$topic.'" class="adm_tooltip">'.aff_langue($topictext).'</a></td>
