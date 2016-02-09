@@ -27,74 +27,88 @@ function Ephemerids() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $nday = '1';
    echo '
-   <h3>'.adm_translate("Ajouter un Ephéméride").'</h3>
+   <hr />
+   <h3>'.adm_translate("Ajouter un éphéméride").'</h3>
    <form action="admin.php" method="post">
-      <div class="form-group">
-      <div class="row">
-      <div class="col-xs-4">
-      <label class="form-control-label" for="did">'.adm_translate("Jour : ").'</label>
-      <select class="c-select form-control" id="did" name="did">';
+      <div class="form-group row">
+         <div class="col-xs-4">
+            <label class="form-control-label" for="did">'.adm_translate("Jour").'</label>
+            <select class="c-select form-control" id="did" name="did">';
    while ($nday<=31) {
-      echo '<option name="did">'.$nday.'</option>';
+      echo '
+               <option name="did">'.$nday.'</option>';
       $nday++;
    }
    echo '
-      </select>
-   </div>';
+            </select>
+         </div>';
     $nmonth = "1";
     echo '
-    <div class="col-xs-4">
-    <label class="form-control-label" for="mid">'.adm_translate("Mois : ").'</label>
-    <select class="c-select form-control" id="mid" name="mid">';
+         <div class="col-xs-4">
+            <label class="form-control-label" for="mid">'.adm_translate("Mois").'</label>
+            <select class="c-select form-control" id="mid" name="mid">';
     while ($nmonth<=12) {
-       echo '<option name="mid">'.$nmonth.'</option>';
+       echo '
+               <option name="mid">'.$nmonth.'</option>';
        $nmonth++;
     }
     echo '
-    </select>
-    </div>
-    <div class="col-xs-4">
-        <label class="form-control-label" for="yid">'.adm_translate("Année : ").'</label>
-        <input class="form-control" type="number" id="yid" name="yid" maxlength="4" size="5" />
-    </div>
-    </div>
-    
-    <div class="form-group">
-        <label class="form-control-label" for="content">'.adm_translate("Description de l'Ephéméride : ").'</label>
-        <textarea name="content" class="form-control" cols="55" rows="10"></textarea>
-    </div>
-    <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
-    <input type="hidden" name="op" value="Ephemeridsadd" />
-    </form>
-    <h3>'.adm_translate("Maintenance des Ephémérides (Editer/Effacer)").'</h3>
-    <form action="admin.php" method="post">';
-    $nday = "1";
+            </select>
+         </div>
+         <div class="col-xs-4">
+            <label class="form-control-label" for="yid">'.adm_translate("Année").'</label>
+            <input class="form-control" type="number" id="yid" name="yid" maxlength="4" size="5" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
+         <div class="col-sm-12">
+            <textarea name="content" class="form-control" cols="55" rows="10"></textarea>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
+            <input type="hidden" name="op" value="Ephemeridsadd" />
+         </div>
+      </div>
+   </form>
+   <hr />
+   <h3>'.adm_translate("Maintenance des Ephémérides (Editer/Effacer)").'</h3>
+   <form action="admin.php" method="post">';
+   $nday = "1";
+   echo '
+      <div class="form-group row">
+         <div class="col-xs-4">
+            <label class="form-control-label" for="did">'.adm_translate("Jour").'</label>
+            <select class="c-select form-control" id="did" name="did">';
+   while ($nday<=31) {
+      echo '
+               <option name="did">'.$nday.'</option>';
+      $nday++;
+   }
     echo '
-    <div class="form-group">
-        <div class="row">
-            <div class="col-xs-4">
-                <label class="form-control-label" for="did">'.adm_translate("Jour : ").'</label>
-                <select class="c-select form-control" id="did" name="did">';
-    while ($nday<=31) {
-       echo '<option name="did">'.$nday.'</option>';
-       $nday++;
-    }
-    echo '
-    </select>
-    </div>';
+            </select>
+         </div>';
     $nmonth = "1";
     echo '
-    <div class="col-xs-4">
-        <label class="form-control-label" for="mid">'.adm_translate("Mois : ").'</label>
-        <select class="c-select form-control" id="mid" name="mid">';
+         <div class="col-xs-4">
+            <label class="form-control-label" for="mid">'.adm_translate("Mois").'</label>
+            <select class="c-select form-control" id="mid" name="mid">';
     while ($nmonth<=12) {
-       echo '<option name="mid">'.$nmonth.'</option>';
+       echo '
+               <option name="mid">'.$nmonth.'</option>';
        $nmonth++;
     }
-    echo '</select></div></div></div>
-      <input type="hidden" name="op" value="Ephemeridsmaintenance" />
-      <div class="form-group">
-         <button class="btn btn-primary" type="submit">'.adm_translate("Editer").'</button>
+    echo '
+            </select>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="op" value="Ephemeridsmaintenance" />
+            <button class="btn btn-primary" type="submit">'.adm_translate("Editer").'</button>
+         </div>
       </div>
    </form>';
     adminfoot('','','','');
@@ -115,25 +129,27 @@ function Ephemeridsmaintenance($did, $mid) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-    <h3>'.adm_translate("Maintenance des Ephémérides").'</h3>
-    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
-        <thead>
-        <tr>
-            <th data-sortable="true">'.adm_translate('Année').'</th>
-            <th>'.adm_translate('Description').'</th>
-            <th>'.adm_translate('Fonctions').'</th>
-        </tr>
-        </thead>
-        <tbody>'."\n";
+   <hr />
+   <h3>'.adm_translate("Maintenance des Ephémérides").'</h3>
+   <table data-toggle="table" data-striped="true" data-mobile-responsive="true" data-search="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
+      <thead>
+         <tr>
+            <th data-sortable="true" data-halign="center" data-align="right" >'.adm_translate('Année').'</th>
+            <th data-halign="center" >'.adm_translate('Description').'</th>
+            <th data-halign="center" data-align="right" >'.adm_translate('Fonctions').'</th>
+         </tr>
+      </thead>
+      <tbody>';
 
-    while(list($eid, $did, $mid, $yid, $content) = sql_fetch_row($resultX)) {
-       echo '<tr>
+   while(list($eid, $did, $mid, $yid, $content) = sql_fetch_row($resultX)) {
+      echo '
+         <tr>
             <td>'.$yid.'</td>
             <td>'.aff_langue($content).'</td>
-            <td align="right">[ <a href="admin.php?op=Ephemeridsedit&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" class="noir">'.adm_translate("Editer").'</a> | <a href="admin.php?op=Ephemeridsdel&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" class="rouge">'.adm_translate("Effacer").'</a> ]<br />
-       </tr>';
-    }
-    echo '
+            <td><a href="admin.php?op=Ephemeridsedit&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a href="admin.php?op=Ephemeridsdel&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+         </tr>';
+   }
+   echo '
         </tbody>
     </table>';
     adminfoot('','','','');
@@ -153,50 +169,59 @@ function Ephemeridsedit($eid, $did, $mid) {
    $result=sql_query("SELECT yid, content FROM ".$NPDS_Prefix."ephem WHERE eid='$eid'");
    list($yid, $content) = sql_fetch_row($result);
    echo '
-   <h3>'.adm_translate("Editer Ephéméride").'</h3>
+   <hr />
+   <h3>'.adm_translate("Editer éphéméride").'</h3>
    <form action="admin.php" method="post">
-      <div class="form-group">
-          <label class="form-control-label" for="yid">'.adm_translate("Année : ").'</label>
-          <input class="form-control" type="number" name="yid" value="'.$yid.'" max="2500" />
+      <div class="form-group row">
+          <label class="form-control-label col-sm-3" for="yid">'.adm_translate("Année").'</label>
+          <div class="col-sm-9">
+             <input class="form-control" type="number" name="yid" value="'.$yid.'" max="2500" />
+         </div>
       </div>
-      <div class="form-group">
-         <label class="form-control-label" for="content">'.adm_translate("Description de l'Ephéméride : ").'</label>
-         <textarea name="content" id="content" cols="55" class="textbox" rows="10">'.$content.'</textarea>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
+         <div class="col-sm-12">
+            <textarea name="content" id="content" class="form-control" rows="10">'.$content.'</textarea>
+         </div>
       </div>
-      <input type="hidden" name="did" value="'.$did.'" />
-      <input type="hidden" name="mid" value="'.$mid.'" />
-      <input type="hidden" name="eid" value="'.$eid.'" />
-      <input type="hidden" name="op" value="Ephemeridschange" />
-      <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="did" value="'.$did.'" />
+            <input type="hidden" name="mid" value="'.$mid.'" />
+            <input type="hidden" name="eid" value="'.$eid.'" />
+            <input type="hidden" name="op" value="Ephemeridschange" />
+            <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
+         </div>
+      </div>
    </form>';
-   include ('footer.php');
+   adminfoot('','','','');
 }
 
 function Ephemeridschange($eid, $did, $mid, $yid, $content) {
-    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
-    $content = stripslashes(FixQuotes($content)."");
-    sql_query("UPDATE ".$NPDS_Prefix."ephem SET yid='$yid', content='$content' WHERE eid='$eid'");
-    Header("Location: admin.php?op=Ephemeridsmaintenance&did=$did&mid=$mid");
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   $content = stripslashes(FixQuotes($content)."");
+   sql_query("UPDATE ".$NPDS_Prefix."ephem SET yid='$yid', content='$content' WHERE eid='$eid'");
+   Header("Location: admin.php?op=Ephemeridsmaintenance&did=$did&mid=$mid");
 }
 
 switch ($op) {
-    case "Ephemeridsedit":
-         Ephemeridsedit($eid, $did, $mid);
-         break;
-    case "Ephemeridschange":
-         Ephemeridschange($eid, $did, $mid, $yid, $content);
-         break;
-    case "Ephemeridsdel":
-         Ephemeridsdel($eid, $did, $mid);
-         break;
-    case "Ephemeridsmaintenance":
-         Ephemeridsmaintenance($did, $mid);
-         break;
-    case "Ephemeridsadd":
-         Ephemeridsadd($did, $mid, $yid, $content);
-         break;
-    case "Ephemerids":
-         Ephemerids();
-         break;
+   case "Ephemeridsedit":
+        Ephemeridsedit($eid, $did, $mid);
+        break;
+   case "Ephemeridschange":
+        Ephemeridschange($eid, $did, $mid, $yid, $content);
+        break;
+   case "Ephemeridsdel":
+        Ephemeridsdel($eid, $did, $mid);
+        break;
+   case "Ephemeridsmaintenance":
+        Ephemeridsmaintenance($did, $mid);
+        break;
+   case "Ephemeridsadd":
+        Ephemeridsadd($did, $mid, $yid, $content);
+        break;
+   case "Ephemerids":
+        Ephemerids();
+        break;
 }
 ?>
