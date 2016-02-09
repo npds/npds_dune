@@ -13,7 +13,7 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='DownloadAdmin';
-$f_titre = adm_translate('Téléchargement');
+$f_titre = adm_translate('Téléchargements');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -72,9 +72,11 @@ function droits($member) {
          <input type="radio" name="privs" value="0" />'.adm_translate("Tous").'
       </label>
    </div>
-   <div class="form-group">
-      <label for="Mmember[]">'.adm_translate("Groupes").'</label>';
-      echo groupe($member).'
+   <div class="form-group row">
+      <label class="form-control-label col-sm-12" for="Mmember[]">'.adm_translate("Groupes").'</label>
+      <div class="col-sm-12">';
+         echo groupe($member).'
+      </div>
    </div>';
    } else {
       if ($member==0) {$checked=' checked="checked"';} else {$checked='';}
@@ -85,9 +87,11 @@ function droits($member) {
          <input type="radio" name="privs" value="0"'.$checked.' />'.adm_translate("Tous").'
       </label>
    </div>
-   <div class="form-group">
-   <label for="Mmember[]">'.adm_translate("Groupes").'</label>';
-      echo groupe($member).'
+   <div class="form-group row">
+      <label class="form-control-label col-sm-12" for="Mmember[]">'.adm_translate("Groupes").'</label>
+      <div class="col-sm-12">';
+         echo groupe($member).'
+      </div>
    </div>';
    }
 }
@@ -95,17 +99,13 @@ function droits($member) {
 function DownloadAdmin() {
    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
-   include_once ("lib/togglediv.class.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-
-//   echo "<form action=\"admin.php\" method=\"post\">";
    $resultX = sql_query("SELECT DISTINCT dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
    $num_row=sql_num_rows($resultX);
 
-   $toggle = new ToggleDiv($num_row);
-
    echo '
+   <hr />
    <h3>'.adm_translate("Catégories").'</h3>';
    $pseudocatid ='';
    while(list($dcategory) = sql_fetch_row($resultX)) {
@@ -164,7 +164,7 @@ function DownloadAdmin() {
       </tbody>
    </table>
    </div>';
-    echo '
+   echo '
    <script type="text/javascript">
       //<![CDATA[
          $( document ).ready(function() {
@@ -173,14 +173,14 @@ function DownloadAdmin() {
       //]]>
    </script>';
    }
-
    echo '
+   <hr />
    <h3>'.adm_translate("Ajouter un Téléchargement").'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="url" id="durl" name="durl" maxlength="255" required="required" />
+            <input class="form-control" type="text" id="durl" name="durl" maxlength="255" required="required" />
    &nbsp;<a href="javascript:void(0);" onclick="window.open(\'admin.php?op=FileManagerDisplay\', \'wdir\', \'width=650, height=450, menubar=no, location=no, directories=no, status=no, copyhistory=no, toolbar=no, scrollbars=yes, resizable=yes\');">
    <span class="">['.adm_translate("Parcourir").']</span></a>
             <span class="help-block text-xs-right"><span id="countcar_durl"></span></span>
@@ -195,14 +195,15 @@ function DownloadAdmin() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" id="dfilename" name="dfilename" maxlength="255" />
+               <input class="form-control" type="text" id="dfilename" name="dfilename" maxlength="255" required="required" />
                <span class="help-block text-xs-right"><span id="countcar_dfilename"></span></span>
             </div>
          </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="dver" maxlength="6" />
+            <input class="form-control" type="text" name="dver" id="dver" maxlength="6" />
+            <span class="help-block text-xs-right"><span id="countcar_dver"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -255,10 +256,12 @@ function DownloadAdmin() {
       </fieldset>
       <input type="hidden" name="op" value="DownloadAdd" />
       <div class="form-group row">
-         <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />
+         <div class="col-sm-12">
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />
+         </div>
       </div>
-    </form>
-    <script type="text/javascript">
+   </form>
+   <script type="text/javascript">
    //<![CDATA[
       $(document).ready(function() {
          inpandfieldlen("durl",255);
@@ -277,39 +280,35 @@ function DownloadAdmin() {
 function DownloadEdit($did) {
    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
-    GraphicAdmin($hlpfile);
-    adminhead ($f_meta_nom, $f_titre, $adminimg);
-
-    $result = sql_query("SELECT did, dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
-    list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $privs) = sql_fetch_row($result);
-
-    $ddescription=stripslashes($ddescription);
-
-
-
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   $result = sql_query("SELECT did, dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
+   list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $privs) = sql_fetch_row($result);
+   $ddescription=stripslashes($ddescription);
    echo '
    <h3>'.adm_translate("Editer un Téléchargement").'</h3>
    <form action="admin.php" method="post" name="adminForm">
-               <input type="hidden" name="did" value="'.$did.'" />
-               <input type="hidden" name="dcounter" value="'.$dcounter.'" />
+      <input type="hidden" name="did" value="'.$did.'" />
+      <input type="hidden" name="dcounter" value="'.$dcounter.'" />
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="url" id="durl" name="durl" value="'.$durl.'" maxlength="255" required="required" />
+            <input class="form-control" type="text" id="durl" name="durl" value="'.$durl.'" maxlength="255" required="required" />
             <span class="help-block text-xs-right"><span id="countcar_durl"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="dfilename" name="dfilename" value="'.$dfilename.'" maxlength="255" />
+            <input class="form-control" type="text" id="dfilename" name="dfilename" id="dfilename" value="'.$dfilename.'" maxlength="255" required="required" />
             <span class="help-block text-xs-right"><span id="countcar_dfilename"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="dver" value="'.$dver.'" maxlength="6" />
+            <input class="form-control" type="text" name="dver" id="dver" value="'.$dver.'" maxlength="6" />
+            <span class="help-block text-xs-right"><span id="countcar_dver"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -376,7 +375,20 @@ function DownloadEdit($did) {
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </div>
-   </form>';
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("durl",255);
+         inpandfieldlen("dfilename",255);
+         inpandfieldlen("dver",6);
+         inpandfieldlen("dfilesize",31);
+         inpandfieldlen("dweb",255);
+         inpandfieldlen("duser",30);
+         inpandfieldlen("dcategory",250);
+      });
+   //]]>
+   </script>';
    adminfoot('fv','','','');
 }
 
@@ -420,19 +432,23 @@ function DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $d
 }
 
 function DownloadDel($did, $ok=0) {
-    global $NPDS_Prefix;
+global $NPDS_Prefix;
    if ($ok==1) {
-       sql_query("DELETE FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
-       Header("Location: admin.php?op=DownloadAdmin");
-    } else {
-       global $hlpfile;
-       include("header.php");
-       GraphicAdmin($hlpfile);
-       echo "<br /><p align=\"center\">";
-       echo "<span class=\"rouge\">";
-       echo "<b>".adm_translate("ATTENTION :  êtes-vous sûr de vouloir supprimer ce fichier téléchargeable ?")."</b></span><br /><br />";
-       echo "[ <a href=\"admin.php?op=DownloadDel&amp;did=$did&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=DownloadAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]</p><br /><br />";
-       include("footer.php");
-    }
+      sql_query("DELETE FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
+      Header("Location: admin.php?op=DownloadAdmin");
+   } else {
+   global $hlpfile, $f_titre, $adminimg;
+   include("header.php");
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+
+   echo' 
+       <div class="alert alert-danger">
+           <button class="close" data-dismiss="alert">×</button>
+           <strong>'.adm_translate("ATTENTION : êtes-vous sûr de vouloir supprimer ce fichier téléchargeable ?").'</strong>
+       </div>
+       <a class="btn btn-danger" href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=1" >'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary" href="admin.php?op=DownloadAdmin" >'.adm_translate("Non").'</a>';
+   adminfoot('','','','');
+   }
 }
 ?>
