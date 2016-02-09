@@ -25,7 +25,9 @@ function mblock() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<h3>'.adm_translate("Edition du Bloc Principal").'</h3>';
+   echo '
+   <hr />
+   <h3>'.adm_translate("Edition du Bloc Principal").'</h3>';
    $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."mainblock");
    if (sql_num_rows($result) > 0) {
       while(list($title, $content) = sql_fetch_row($result)) {
@@ -60,7 +62,6 @@ function mblock() {
          </script>';
       }
    }
-//   adminfieldinp($result);//waiting for better mysqlilib
    adminfoot('fv','','','');
 }
 
