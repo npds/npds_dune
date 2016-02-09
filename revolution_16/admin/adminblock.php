@@ -26,6 +26,7 @@ function ablock() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+      <hr />
       <h3>'.adm_translate("Editer le Bloc Administration").'</h3>';
    $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
    if (sql_num_rows($result) > 0) {
@@ -61,7 +62,6 @@ function ablock() {
          </script>';
       }
    }
-//   adminfieldinp($result);//waiting for better mysqlilib
    adminfoot('fv','','','');
 }
 
