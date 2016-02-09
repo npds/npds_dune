@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Session and log Viewer Copyright (c) 2004 - Tribal-Dolphin           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,7 +17,7 @@ function SessionLog_translate($phrase) {
    case "Liste des Sessions" : $tmp = "Sessions List"; break;
    case "Nom" : $tmp = "Name"; break;
    case "@ IP" : $tmp = "@IP"; break;
-   case "@ IP résolue" : $tmp = "Resolved @IP"; break;
+   case "@ IP rÃ©solue" : $tmp = "Resolved @IP"; break;
    case "Infos" : $tmp = "Infos"; break;
    case "Liste des Logs" : $tmp = "Logs List"; break;
    case "SECURITE" : $tmp = "SECURITY"; break;
@@ -29,10 +29,9 @@ function SessionLog_translate($phrase) {
    case "Recevoir le fichier par mail" : $tmp = "Send file by email"; break;
    case "Effacer les fichiers temporaires" : $tmp = "Erase temporary files"; break;
    case "Fichier de Log de" : $tmp = "Log File for"; break;
-   case "" : $tmp = ""; break;
 
-   default: $tmp = "Translation error <b>[** $phrase **]</b>"; break;
+   default: $tmp = "Translation error [** $phrase **]"; break;
  }
- return $tmp;
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>
