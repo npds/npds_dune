@@ -22,7 +22,7 @@ admindroits($aid,$f_meta_nom);
 global $language, $ModPath, $ModStart;
 $old_language=$language;
 include_once("modules/upload/upload.conf.php");
-if ($DOCUMENTROOT=="") {
+if ($DOCUMENTROOT=='') {
    global $DOCUMENT_ROOT;
    if ($DOCUMENT_ROOT) {
       $DOCUMENTROOT=$DOCUMENT_ROOT;
@@ -30,7 +30,7 @@ if ($DOCUMENTROOT=="") {
       $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
    }
 }
-$FileSecure = $DOCUMENTROOT.$racine."/slogs/security.log";
+$FileSecure = $DOCUMENTROOT.$racine.'/slogs/security.log';
 $FileUpload = $DOCUMENTROOT.$rep_log;
 $RepTempFil = $DOCUMENT_ROOT.$rep_cache;
 
@@ -59,15 +59,16 @@ echo '
    }
 
    // Voir les sessions
-   if ($subop=="session") {
+   if ($subop=='session') {
       echo '
+      <br />
       <h3>'.SessionLog_translate("Liste des Sessions").'</h3>
       <table id="tad_ses" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th data-sortable="true">'.SessionLog_translate("Nom").'</th>
                <th data-sortable="true">'.SessionLog_translate("@ IP").'</th>
-               <th data-sortable="true">'.SessionLog_translate("@ IP rÈsolue").'</th>
+               <th data-sortable="true">'.SessionLog_translate("@ IP résolue").'</th>
                <th data-sortable="true">'.SessionLog_translate("URI").'</th>
                <th data-sortable="true">'.SessionLog_translate("Agent").'</th>
             </tr>
@@ -92,44 +93,50 @@ echo '
       </table>';
    }
 
-   // DÈtails @IP
-   if ($subop=="info") {
-      echo '<h3>'.SessionLog_translate("Informations sur l'IP").'</h3>';
+   // Détails @IP
+   if ($subop=='info') {
+      echo '
+      <br />
+      <h3>'.SessionLog_translate("Informations sur l'IP").'</h3>';
       $hostname = gethostbyaddr($theip);
       if ($theip != $hostname) {
-         $domfai = explode(".",$hostname);
+         $domfai = explode('.',$hostname);
          $prov = $domfai[count($domfai)-2].'.'.$domfai[count($domfai)-1];
-         if ($prov == "co.jp" or $prov == "co.uk" ) {
-            $provider = $domfai[sizeof($domfai)-3].".".$prov;
+         if ($prov == 'co.jp' or $prov == 'co.uk' ) {
+            $provider = $domfai[sizeof($domfai)-3].'.'.$prov;
          } else {
             $provider = $prov;
          }
       } else {
          $hostname = $theip;
       }
-      echo "<p align=\"center\">";
-      echo "<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"1\">\n";
-      echo "<tr><td align=\"center\">".SessionLog_translate("@ IP")."</td>";
-      echo "<td align=\"center\">".SessionLog_translate("@ IP rÈsolue")."</td>";
-      echo "<td align=\"center\">".SessionLog_translate("Fournisseur")."</td>";
-      echo "</tr><tr>";
-      echo "<td align=\"center\">".$theip."</td>";
-      echo "<td align=\"center\">".$hostname."</td>";
-      echo "<td align=\"center\">".$provider;
-      echo "</tr></table>";
+      echo '
+      <div class="card card-block">
+         <div class="row">
+           <div class="col-sm-3 text-muted">'.SessionLog_translate("@ IP").'</div>
+           <div class="col-sm-9">'.$theip.'</div>
+         </div>
+         <div class="row">
+           <div class="col-sm-3 text-muted">'.SessionLog_translate("@ IP résolue").'</div>
+           <div class="col-sm-9">'.$hostname.'</div>
+         </div>
+         <div class="row">
+           <div class="col-sm-3 text-muted">'.SessionLog_translate("Fournisseur").'</div>
+           <div class="col-sm-9">'.$provider.'</div>
+         </div>
+      </div>';
       $subop="security";
-      echo "</p><br />";
    }
 
    // Vider les Logs
-   if ($subop=="vidlog") {
-      if ($log=="security") {
+   if ($subop=='vidlog') {
+      if ($log=='security') {
          if (file_exists($FileSecure)) {
             @fopen($FileSecure, "w");
             @fclose($FileSecure);
          }
       }
-      if ($log=="upload") {
+      if ($log=='upload') {
          if (file_exists($FileUpload)) {
             @fopen($FileUpload, "w");
             @fclose($FileUpload);
@@ -138,23 +145,23 @@ echo '
    }
 
    // Email du contenu des Logs
-   if ($subop=="mailog") {
+   if ($subop=='mailog') {
       if ($log=="security") {
          if (file_exists($FileSecure)) {
             $Mylog=$FileSecure;
          }
       }
-      if ($log=="upload") {
+      if ($log=='upload') {
          if (file_exists($FileUpload)) {
             $Mylog=$FileUpload;
          }
       }
       $subject = SessionLog_translate("Fichier de Log de")." ".$sitename;
-      send_email($adminmail, $subject, $Mylog, "", true, "mixed");
+      send_email($adminmail, $subject, $Mylog, '', true, 'mixed');
    }
 
-   // Vider le rÈpertoire temporaire
-   if ($subop=="vidtemp") {
+   // Vider le répertoire temporaire
+   if ($subop=='vidtemp') {
       if (is_dir($RepTempFil)) {
          $dh = opendir($RepTempFil);
          $i = 0;
@@ -166,7 +173,7 @@ echo '
    }
 
    // Voir le contenu du fichier security.log
-   if ($subop=="security") {
+   if ($subop=='security') {
       if (file_exists($FileSecure)) {
          if (filesize($FileSecure) != 0) {
             $fd = fopen($FileSecure, "r");
@@ -229,7 +236,9 @@ echo '
                $fd = @fopen($FileUpload, "r");
                while (!feof ($fd)) {
                   $buffer = fgets($fd, 4096);
-                  $UpLog.="<tr><td style=\"font-size:10px;\">".$buffer."</td></tr>";
+                  $UpLog.='
+                  <tr>
+                  <td style="font-size:0.65rem;">'.$buffer.'</td></tr>';
                }
                @fclose($fd);
             }
