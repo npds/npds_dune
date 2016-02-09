@@ -1651,8 +1651,8 @@ function aff_localzone_langue($ibid) {
    return ($M_langue);
 }
 #autodoc aff_local_langue($mess, $ibid_index, $ibid) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
-function aff_local_langue($mess="" ,$ibid_index, $ibid) {
-   if ($ibid_index=="") {
+function aff_local_langue($mess='' ,$ibid_index, $ibid) {
+   if ($ibid_index=='') {
       global $REQUEST_URI;
       $ibid_index=$REQUEST_URI;
    }
@@ -1844,9 +1844,9 @@ function wrh($ibid) {
    $tmp=str_replace(" ","&nbsp;",$tmp);
    return ($tmp);
 }
-#autodoc Q_spambot() : forge un champ de formulaire (champ de saisie : $asb_reponse / champ hidden : asb_question) permettant de dÈployer une fonction anti-spambot
+#autodoc Q_spambot() : forge un champ de formulaire (champ de saisie : $asb_reponse / champ hidden : asb_question) permettant de déployer une fonction anti-spambot
 function Q_spambot() {
-   // IdÈe originale, dÈveloppement et intÈgration - GÈrald MARINO alias neo-machine
+   // Idée originale, développement et intégration - Gérald MARINO alias neo-machine
    // Rajout brouillage anti_spam() : David MARTINET, alias Boris (2011)
    // Other stuff : Dev 2012
    global $user;
@@ -1890,39 +1890,34 @@ function Q_spambot() {
       $aff = $ibid[$asb_index];
 
       // translate
-      $tab=explode(" ", str_replace(")","",str_replace("(","",$aff))); 
+      $tab=explode(' ', str_replace(')','',str_replace('(','',$aff))); 
       $al1=mt_rand(0,count($tab)-1);
       $aff=str_replace($tab[$al1],translate($tab[$al1]),$aff);
       
       // mis en majuscule
       if ($asb_index%2)
          $aff = ucfirst($aff);
-   // END ALEA   
-   
+   // END ALEA
+
    //Captcha - si GD
    if (function_exists("imagepng")) {
       $aff="<img src=\"getfile.php?att_id=".rawurlencode(encrypt($aff." = "))."&amp;apli=captcha\" style=\"vertical-align: middle;\" />";
    } else {
       $aff="".anti_spam($aff." = ",0)."";
    }
-   
-   $tmp="";
-   if (!isset($user)) {
-//      $tmp='<span class="rouge">'.translate("Anti-Spam / Thank to reply to the question :").'</span> '.$aff.' <input class="textbox_standard" type="text" name="asb_reponse" size="3" maxlength="2" onclick="this.value" />';
-//      $tmp.='<input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />';
-/*dÈbut remplacement phr*/
 
-   $tmp='
-      <div class="form-group">
+   $tmp='';
+   if (!isset($user)) {
+      $tmp='
+      <div class="form-group row">
          <div class="col-sm-9">
-            <label class="control-label text-danger" for="asb_reponse">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
+            <label class="form-control-label text-danger" for="asb_reponse">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
          </div>
          <div class="col-sm-2 col-md-2 text-xs-right">
-            <input class="form-control" type="text" name="asb_reponse" onclick="this.value" />
+            <input class="form-control" type="text" name="asb_reponse" maxlength="2" onclick="this.value" />
             <input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />
          </div>
       </div>';
-/*fin remplacement phr*/
    } else {
       $tmp='<input type="hidden" name="asb_question" value="" /><input type="hidden" name="asb_reponse" value="" />';
    }
@@ -3159,15 +3154,15 @@ $(document).ready(function() {
    .attr("autocomplete", "off")
    
    .on("init.field.fv", function(e, data) {
-            var $parent = data.element.parents(".form-group"),
-                $icon   = $parent.find(\'.form-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
-            $icon.on("click.clearing", function() {
-                if ($icon.hasClass("fa fa-ban fa-lg")) {
-                    data.fv.resetField(data.element);
-                }
-            })   
-            })   
-            
+      var $parent = data.element.parents(".form-group"),
+       $icon   = $parent.find(\'.form-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
+      $icon.on("click.clearing", function() {
+          if ($icon.hasClass("fa fa-ban fa-lg")) {
+              data.fv.resetField(data.element);
+          }
+      })
+   })
+
    .formValidation({
       locale: "'.language_iso(1,"_",1).'",
       framework: "bootstrap",
@@ -3188,7 +3183,7 @@ echo '
          }
       }
    })
-   
+
    .on("success.validator.fv", function(e, data) {
    // The password passes the callback validator
    // voir si on a plus de champs mot de passe : changer par un array de champs ...
@@ -3226,7 +3221,7 @@ echo '
       }
       }
    });
-   
+
 })
 
 //]]>
