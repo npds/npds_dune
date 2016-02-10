@@ -32,14 +32,14 @@ $hlpfile = "manuels/$language/authors.html";
          $listdroitsmodulo .= '
          <div class="col-md-4">
             <label class="" for="ad_d_m_'.$fid.'">
-               <input id="ad_d_m_'.$fnom.'" type="checkbox" name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
+               <input class="ckbm" id="ad_d_m_'.$fnom.'" type="checkbox" name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
             </label>
          </div>';
       } else {
          $listdroits .='
          <div class="col-md-4">
             <label class="" for="ad_d_'.$fid.'">
-               <input id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
+               <input class="ckbf" id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
             </label>
          </div>';
       }
@@ -47,78 +47,31 @@ $hlpfile = "manuels/$language/authors.html";
 
 $scri_check ='
 <script type="text/javascript">
-    //<![CDATA[
-/*    
-    $(function () {
-            if($("#cb_radminsuper").prop("checked"))
-            {
-                $("#adm_droi_f,#adm_droi_m").collapse();
-            }
-        });
-*/    
-    
-    
-    document.addEventListener("DOMContentLoaded", rtu, false)
-            function rtu() {
-            // bascule toutes les checkbox
-            var checkUncheck = document.getElementById("cb_radminsuper");
-            var admdroits = document.getElementById("adm_droi_f");
-            checkUncheck.addEventListener("click", function() {
-                var inputs = adm_droi_f.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length ; i++) {
-                        if (inputs[i].type == "checkbox") {
-                        inputs[i].checked = checkUncheck.checked;
-                        inputs[i].disabled = checkUncheck.checked;
-                    }
-                }
-                var inputs_m = adm_droi_m.getElementsByTagName("input");
-                for (var i = 0; i < inputs_m.length ; i++) {
-                        if (inputs_m[i].type == "checkbox") {
-                        inputs_m[i].checked = checkUncheck.checked;
-                        inputs_m[i].disabled = checkUncheck.checked;
-                    }
-                }
-            }, false);
-            
-            // coche toutes les checkbox des droits admin
-            document.getElementById("checkAllButton").addEventListener("click", function() {
-                var inputs = adm_droi_f.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length ; i++) {
-                    if (inputs[i].type == "checkbox") {
-                        inputs[i].checked = true;
-                    }
-                }
-            }, false);
-            // décoche toutes les checkbox des droits admin
-            document.getElementById("uncheckAllButton").addEventListener("click", function() {
-                var inputs = adm_droi_f.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length ; i++) {
-                    if (inputs[i].type == "checkbox") {
-                        inputs[i].checked = false;
-                    }
-                }
-            }, false);
-            // coche toutes les checkbox des droits modules
-            document.getElementById("checkAllButton_m").addEventListener("click", function() {
-                var inputs = adm_droi_m.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length ; i++) {
-                    if (inputs[i].type == "checkbox") {
-                        inputs[i].checked = true;
-                    }
-                }
-            }, false);
-            // décoche toutes les checkbox des droits modules
-            document.getElementById("uncheckAllButton_m").addEventListener("click", function() {
-                var inputs = adm_droi_m.getElementsByTagName("input");
-                for (var i = 0; i < inputs.length ; i++) {
-                    if (inputs[i].type == "checkbox") {
-                        inputs[i].checked = false;
-                    }
-                }
-            }, false);
-            }
-    //]]>
-    </script>';
+   //<![CDATA[
+   $(function () {
+      check = $("#cb_radminsuper").is(":checked");
+      if(check) {
+         $("#adm_droi_f, #adm_droi_m").addClass("collapse");
+      }
+   });
+   $("#cb_radminsuper").on("click", function(){
+      check = $("#cb_radminsuper").is(":checked");
+      if(check) {
+         $("#adm_droi_f, #adm_droi_m").toggleClass("collapse","collapse in");
+      } else {
+         $("#adm_droi_f, #adm_droi_m").toggleClass("collapse","collapse in");
+      }
+   }); 
+   $(document).ready(function(){ 
+      $("#ckball_f").change(function(){
+         $(".ckbf").prop("checked", $(this).prop("checked"));
+      });
+      $("#ckball_m").change(function(){
+         $(".ckbm").prop("checked", $(this).prop("checked"));
+      });
+   });
+   //]]>
+</script>';
 
 function modulesadmin ($chng_moduadmin) {
 global $modu,$fieldnames,$NPDS_Prefix;
@@ -180,7 +133,7 @@ function displayadmins() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $result = sql_query("SELECT aid, name, url, email FROM ".$NPDS_Prefix."authors");
+   $result = sql_query("SELECT aid, name, url, email, radminsuper FROM ".$NPDS_Prefix."authors");
    echo '
    <hr />
    <h3>'.adm_translate("Les administrateurs").'</h3>
@@ -193,9 +146,11 @@ function displayadmins() {
          </tr>
       </thead>
       <tbody>';
-   while(list($a_aid, $name, $url, $email) = sql_fetch_row($result)) {
+   while(list($a_aid, $name, $url, $email, $supadm) = sql_fetch_row($result)) {
+if ($supadm==1) echo'
+         <tr class="table-info">'; else echo'
+         <tr>';
       echo '
-         <tr>
             <td>'.$a_aid.'</td>
             <td>'.$email.'</td>
             <td align="right" nowrap="nowrap">
@@ -250,22 +205,26 @@ function displayadmins() {
             <div class="col-sm-8">
                <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
                <span class="help-block text-xs-right"><span id="countcar_add_pwd"></span></span>
-               <div class="progress password-meter" id="passwordMeter">
-                  <div class="progress-bar"></div>
-               </div>
+               <progress id="passwordMeter_cont" class="progress password-meter" value="0" max="100">
+                  <div class="progress">
+                     <span id="passwordMeter" class="progress-bar" style="width: 0%;"></span>
+                  </div>
+               </progress>
+               <span id="pass-level" class="help-block text-xs-right"></span>
             </div>
         </div>
         <div class="form-group row">
             <label class="form-control-label col-sm-4 col-md-4 text-danger" for="cb_radminsuper" >'.adm_translate("Super administrateur").'</label>
             <div class="col-sm-8">
-                <input id="cb_radminsuper" class="form-control" type="checkbox" name="add_radminsuper" value="1" data-toggle="collapse" data-target="#adm_droi_f,#adm_droi_m" />'."\n".'
+                <input id="cb_radminsuper" class="" type="checkbox" name="add_radminsuper" value="1" />'."\n".'
             </div>
         </div>
     </fieldset>
     <fieldset>
     <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
-    <div id="adm_droi_f" class="container-fluid collapse in">
-        <div class="form-group"><a id="checkAllButton"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
+    <div id="adm_droi_f" class="container-fluid ">
+        <div class="form-group">
+        <input type="checkbox" id="ckball_f" /><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
     echo $listdroits."\n";
     echo'
     </div>
@@ -273,7 +232,8 @@ function displayadmins() {
     <fieldset>
     <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits Modules").'" /> '.adm_translate("Droits Modules").' </legend>
     <div id="adm_droi_m" class="container-fluid collapse in">
-        <div class="form-group"><a id="checkAllButton_m"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp<a id="uncheckAllButton_m"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
+        <div class="form-group">
+        <input type="checkbox" id="ckball_m" /><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp<a id="uncheckAllButton_m"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
     echo $listdroitsmodulo;
     echo'
     </div>
@@ -287,8 +247,7 @@ function displayadmins() {
     </fieldset>
     </form>
     </div>';
-    echo $scri_check;
-    
+   echo $scri_check;
    echo '
    <script type="text/javascript">
    //<![CDATA[
@@ -367,10 +326,10 @@ function displayadmins() {
 function modifyadmin($chng_aid) {
    global $hlpfile, $aid, $NPDS_Prefix, $admf_ext, $f_meta_nom, $f_titre, $adminimg, $scri_check, $fv_parametres;
    include("header.php");
-//   list ($listdroits_mod,$modu) = modulesadmin($chng_aid);
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Mise à jour de l'administrateur").' : <span class="text-muted">'.$chng_aid.'</span></h3>';
     
    $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
@@ -378,10 +337,10 @@ function modifyadmin($chng_aid) {
 
    if ($chng_radminsuper==1) {
       $supadm_inp = ' checked="checked"';
-      $ldvisi = '';
+//      $ldvisi = '';
    } else {
       $supadm_inp ='';
-      $ldvisi = ' in';
+//      $ldvisi = ' in';
    };
     
    //==> construction des check-box des droits
@@ -399,7 +358,7 @@ function modifyadmin($chng_aid) {
         $listdroitsmodulo .='
       <div class="col-sm-4">
          <label class="" for="ad_d_m_'.$fid.'">
-            <input id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
+            <input class="ckbm" id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
          </label>
       </div>';
       }
@@ -407,7 +366,7 @@ function modifyadmin($chng_aid) {
          $listdroits .='
       <div class="col-sm-4">
          <label class="" for="ad_d_'.$fid.'">
-            <input id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
+            <input class="ckbf" id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
          </label>
       </div>';
       }
@@ -463,29 +422,27 @@ function modifyadmin($chng_aid) {
          <div class="form-group row">
             <label class="col-sm-4 text-danger" for="chng_radminsuper" >'.adm_translate("Super administrateur").'</label>
             <div class="col-sm-8">
-                  <div class="checkbox">
-
-            <label>
-               <input id="cb_radminsuper" class="" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
-            </label></div>
-            </div>';
-// <span data-toggle="collapse" data-target="#adm_droi_f" >           
-         echo '
+               <div class="checkbox">
+                  <label>
+                     <input id="cb_radminsuper" class="" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
+                  </label>
+               </div>
+            </div>
          </div>
-            <input type="hidden" name="chng_aid" value="'.$chng_aid.'" />
+         <input type="hidden" name="chng_aid" value="'.$chng_aid.'" />
       </fieldset>
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
-         <div id="adm_droi_f" class="container-fluid collapse in'.$ldvisi.' ">
-            <div class="form-group"><a id="checkAllButton"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton"><i class="fa fa-square-o fa-lg"></i></a></div>';
+         <div id="adm_droi_f" class="container-fluid ">
+            <div class="form-group"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton"><i class="fa fa-square-o fa-lg"></i></a></div>';
    echo $listdroits;
    echo'
         </div>
       </fieldset>
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits Modules").'" /> '.adm_translate("Droits Modules").' </legend>
-         <div id="adm_droi_m" class="container-fluid collapse in'.$ldvisi.' ">
-            <div class="form-group"><a id="checkAllButton_m"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton_m"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
+         <div id="adm_droi_m" class="container-fluid ">
+            <div class="form-group"><i class="fa fa-check-square-o fa-lg"></i></a>&nbsp;<a id="uncheckAllButton_m"><i class="fa fa-square-o fa-lg"></i></a></div>'."\n";
    echo $listdroitsmodulo;
    echo'
          </div>
@@ -623,7 +580,7 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
           updatedroits($chng_aid);
        }
     }
-    global $aid; Ecr_Log("security", "ModifyAuthor($chng_name) by AID : $aid", "");
+    global $aid; Ecr_Log('security', "ModifyAuthor($chng_name) by AID : $aid", '');
     Header("Location: admin.php?op=mod_authors");
 }
 
@@ -635,16 +592,16 @@ function error_handler($ibid) {
 }
 
 switch ($op) {
-   case "mod_authors":
+   case 'mod_authors':
         displayadmins();
         break;
-   case "modifyadmin":
+   case 'modifyadmin':
         modifyadmin($chng_aid);
         break;
-   case "UpdateAuthor":
+   case 'UpdateAuthor':
         updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5);
         break;
-   case "AddAuthor":
+   case 'AddAuthor':
         if (!($add_aid && $add_name && $add_email && $add_pwd)) {
            global $hlpfile;
            include("header.php");
@@ -657,11 +614,12 @@ switch ($op) {
            $add_pwdX=crypt($add_pwd,$add_pwdX);
         }
         
-        list ($listdroits_mod,$modu,$listradminmodule) = modulesadmin($add_aid);
+//        list ($listdroits_mod,$modu,$listradminmodule) = modulesadmin($add_aid);
         
         $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','$add_radminfilem', '$add_radminsuper')");
         addroits($add_aid);
 
+/*
             
           //==> maj des droits admin modules
           $i=0;$upd='';
@@ -677,6 +635,7 @@ switch ($op) {
           }
           //==> maj des droits admin modules
 
+*/
 
         // Copie du fichier pour filemanager
         if ($add_radminsuper or $add_radminfilem)
@@ -686,22 +645,21 @@ switch ($op) {
         Header("Location: admin.php?op=mod_authors");
         break;
 
-   case "deladmin":
-        global $hlpfile, $entete_au;
+   case 'deladmin':
+        global $hlpfile;
         include("header.php");
         GraphicAdmin($hlpfile);
-        opentable();
-        echo $entete_au;
-        echo "<div class=\"header\" style=\"font-size:100%; padding:3px\";>\n";
-        echo adm_translate("Effacer l'Administrateur")." : $del_aid";
-        echo "</div>\n";
-        echo "<p id=\"mes_delauthor\" align=\"center\"><span class=\"rouge\">".adm_translate("Etes-vous sûr de vouloir effacer")." $del_aid ? </span><br /><br />";
-        echo "[ <a href=\"admin.php?op=deladminconf&amp;del_aid=$del_aid\" class=\"rouge\">".adm_translate("Oui")."</a>&nbsp;|&nbsp;<a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Non")."</a> ]</p>\n</div>";
-        
-        closetable();
-        include("footer.php");
+        adminhead ($f_meta_nom, $f_titre, $adminimg);
+        echo '
+        <hr />
+        <h3>'.adm_translate("Effacer l'Administrateur").' : <span class="text-muted">'.$del_aid.'</span></h3>
+        <div class="alert alert-danger">
+           <p><strong>'.adm_translate("Etes-vous sûr de vouloir effacer").' '.$del_aid.' ? </strong></p>
+        </div>
+        <a href="admin.php?op=deladminconf&amp;del_aid='.$del_aid.'" class="btn btn-danger">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=mod_authors" class="btn btn-secondary">'.adm_translate("Non").'</a>';
+        adminfoot('','','','');
         break;
-   case "deladminconf":
+   case 'deladminconf':
         sql_query("DELETE FROM ".$NPDS_Prefix."authors WHERE aid='$del_aid'");
         deletedroits($chng_aid=$del_aid);
         // Supression du fichier pour filemanager
