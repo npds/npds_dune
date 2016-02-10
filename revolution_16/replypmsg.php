@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,7 +24,7 @@ if ($SuperCache) {
 include('auth.php');
 
    if ($cancel) {
-      if ($full_interface!="short") {
+      if ($full_interface!='short') {
          header("Location: viewpmsg.php");
       } else {
          header("Location: readpmsg_imm.php?op=new_msg");
@@ -36,7 +36,7 @@ include('auth.php');
       Header("Location: user.php");
    } else {
       $userX = base64_decode($user);
-      $userdataX = explode(":", $userX);
+      $userdataX = explode(':', $userX);
       $userdata = get_userdata($userdataX[1]);
 
       if ($submitS) {
@@ -57,10 +57,10 @@ include('auth.php');
 
          if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
          if ($sig) {
-            $message .= "<br /><br />".$userdata['user_sig'];
+            $message .= '<br /><br />'.$userdata['user_sig'];
          }
          $message = aff_code($message);
-         $message = str_replace("\n", "<br />", $message);
+         $message = str_replace('\n', '<br />', $message);
          if ($allow_bbcode) {
             $message = smile($message);
          }
@@ -69,8 +69,8 @@ include('auth.php');
          $time = date(translate("dateinternal"),time()+($gmt*3600));
 
          include_once("language/lang-multi.php");
-         if (strstr($to_user,",")) {
-            $tempo=explode(",",$to_user);
+         if (strstr($to_user,',')) {
+            $tempo=explode(',',$to_user);
             while (list(,$to_user) = each($tempo)) {
                $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_user'");
                list($to_userid, $user_langue) = sql_fetch_row($res);
@@ -102,7 +102,7 @@ include('auth.php');
             $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_user'");
             list($to_userid, $user_langue) = sql_fetch_row($res);
 
-            if (($to_userid == "") or ($to_userid == 1)) {
+            if (($to_userid == '') or ($to_userid == 1)) {
                forumerror('0016');
             } else {
                $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
@@ -119,7 +119,7 @@ include('auth.php');
                }
                global $nuke_url, $subscribe;
                if ($subscribe) {
-                  $sujet=translate_ml($user_langue, "Vous avez un nouveau message.");
+                  $sujet=translate_ml($user_langue, 'Vous avez un nouveau message.');
                   $message=translate_ml($user_langue, "Bonjour").",<br /><br /><a href=\"$nuke_url/viewpmsg.php\">".translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.")."</a><br /><br />";
                   include("signat.php");
                   copy_to_email($to_userid,$sujet,$message);
@@ -127,7 +127,7 @@ include('auth.php');
             }
          }
          unset($message);unset($sujet);
-         if ($full_interface!="short") {
+         if ($full_interface!='short') {
             header("Location: viewpmsg.php");
          } else {
             header("Location: readpmsg_imm.php?op=new_msg");
@@ -136,7 +136,7 @@ include('auth.php');
 
       if ($delete_messages.x && $delete_messages.y) {
          for ($i=0;$i<$total_messages;$i++) {
-            if ($type=="outbox") {
+            if ($type=='outbox') {
                $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id[$i]' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
             } else {
                $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id[$i]' AND to_userid='".$userdata['uid']."'";
@@ -153,7 +153,7 @@ include('auth.php');
       }
 
       if ($delete) {
-         if ($type=="outbox") {
+         if ($type=='outbox') {
             $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
          } else {
             $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
@@ -171,14 +171,14 @@ include('auth.php');
          $sql = "UPDATE ".$NPDS_Prefix."priv_msgs SET dossier='$dossier' WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
          $result = sql_query($sql);
          if (!$result) {
-            forumerror(0005);
+            forumerror('0005');
          }
          header("Location: viewpmsg.php");
       }
 
       // Interface
-      if ($full_interface=="short") {
-         if ($userdataX[9]!="") {
+      if ($full_interface=='short') {
+         if ($userdataX[9]!='') {
             if (!$file=@opendir("themes/$userdataX[9]")) {
                $tmp_theme=$Default_Theme;
             } else {
@@ -189,8 +189,10 @@ include('auth.php');
          }
          include("themes/$tmp_theme/theme.php");
          include("meta/meta.php");
-         echo import_css($tmp_theme, $language, $site_font, "","");
-         echo "</head>\n<body topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";
+         echo import_css($tmp_theme, $language, $site_font, '','');
+         echo '
+         </head>
+         <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">';
       } else {
          include('header.php');
       }
@@ -213,15 +215,15 @@ include('auth.php');
                forumerror('0101');
             }
             $touserdata = get_userdata_from_id($row['to_userid']);
-
             if (($user) and ($userdata['uid']!=$touserdata['uid'])) {
                forumerror('0024');
             }
          }
          echo '
-         <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
-         translate("All registered users can post private messages.").'</blockquote>';
-         echo '
+      <h3>'.translate("Private Message").'</h3>
+      <hr />
+      <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
+         translate("All registered users can post private messages.").'</blockquote>
       <form action="replypmsg.php" method="post" name="coolsus">';
          if ($submitP) {
             echo "<hr noshade=\"noshade\" class=\"ongl\" /><p align=\"center\" class=\"header\">".translate("Preview")."</p>
@@ -244,7 +246,7 @@ include('auth.php');
          }
          echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
+            <label class="form-control-label col-sm-3" for="to_user">'.translate("Recipient").'</label>
             <div class="col-sm-9">';
          if (!$reply) {
             $carnet=JavaPopUp("carnet.php","CARNET",300,350);
@@ -269,8 +271,8 @@ include('auth.php');
             <input type="checkbox" name="copie" '.$checked.' /> '.translate("Send a copy to me").'</label>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="subject">'.translate("Subject").'</label>
-            <div class="col-sm-9">';
+            <label class="form-control-label col-sm-12" for="subject">'.translate("Subject").'</label>
+            <div class="col-sm-12">';
          if ($subject) {$tmp=StripSlashes($subject);} else {if ($reply) $tmp="Re: ".StripSlashes($row['subject']); else $tmp="";}
          echo '
                <input class="form-control" type="text" name="subject" value="'.$tmp.'" maxlength="100" />
@@ -279,8 +281,9 @@ include('auth.php');
          if ($smilies) {
             echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-3">'.translate("Message Icon: ").'</label>
-            <div class="col-sm-9">';
+            <label class="form-control-label col-sm-12">'.translate("Message Icon: ").'</label>
+            <div class="col-sm-12">
+               <div class="card card-block">';
             if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
             $handle=opendir($imgtmp);
             while (false!==($file=readdir($handle))) {
@@ -292,27 +295,31 @@ include('auth.php');
                if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
                settype($image,'string');
                if ($file==$image) {
-                  echo "<input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
+                  echo "
+                  <input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
                   $a++;
                } else if ($file==$row['msg_image'] && $row['msg_image']!="") {
-                  echo "<input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
+                  echo "
+                  <input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
                } else {
                   if ($a==1 && $row['msg_image']=="") {
                      $sel='checked="checked"';
                   } else {
                      $sel='';
                   }
-                  echo '<input type="radio" name="image" value="'.$file.'" '.$sel.' /> <img class="smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
+                  echo '
+                  <input type="radio" name="image" value="'.$file.'" '.$sel.' /> <img class="smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
                   $a++;
                }
            }
          }
          echo '
+            </div>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="message">'.translate("Message: ").'</label>
-         <div class="col-sm-9">
+         <label class="form-control-label col-sm-12" for="message">'.translate("Message: ").'</label>
+         <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
          if ($allow_html == 1) {
