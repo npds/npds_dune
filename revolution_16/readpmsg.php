@@ -24,20 +24,20 @@ if ($SuperCache) {
 include('auth.php');
 
    if (!$user) {
-      Header("Location: user.php");
+      Header('Location: user.php');
    } else {
       include('header.php');
       $userX = base64_decode($user);
-      $userdata = explode(":", $userX);
+      $userdata = explode(':', $userX);
       $userdata = get_userdata($userdata[1]);
 
-      settype($start,"integer");
-      settype($type,"string");
-      if ($type=="outbox") {
+      settype($start,'integer');
+      settype($type,'string');
+      if ($type=='outbox') {
          $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid='".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC LIMIT $start,1";
       } else {
-         if ($dossier=="All") {$ibid="";} else {$ibid="and dossier='$dossier'";}
-         if (!$dossier) {$ibid="and dossier='...'";}
+         if ($dossier=='All') {$ibid='';} else {$ibid="AND dossier='$dossier'";}
+         if (!$dossier) {$ibid="AND dossier='...'";}
          $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC LIMIT $start,1";
       }
       $resultID = sql_query($sql);
@@ -45,7 +45,7 @@ include('auth.php');
          forumerror(0005);
       } else {
          $myrow = sql_fetch_assoc($resultID);
-         if ($myrow['read_msg']!="1") {
+         if ($myrow['read_msg']!='1') {
             $sql = "UPDATE ".$NPDS_Prefix."priv_msgs SET read_msg='1' WHERE msg_id='".$myrow['msg_id']."'";
             $result = sql_query($sql);
             if (!$result) {
@@ -54,35 +54,37 @@ include('auth.php');
          }
       }
       $myrow['subject']=strip_tags($myrow['subject']);
-      opentable();
-      echo '<h3>';
-      if ($dossier=="All") {$Xdossier=translate("All Topics");} else {$Xdossier=StripSlashes($dossier);}
+      echo '
+      <h3>';
+      if ($dossier=='All') {$Xdossier=translate("All Topics");} else {$Xdossier=StripSlashes($dossier);}
       echo translate("Private Message");
-      echo '</h3>
-         <p class="lead">
-         <a href="viewpmsg.php">'.translate("Private Messages").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
-         </p>';
-      echo "<table border=\"0\" cellpadding=\"3\" cellspacing=\"1\" width=\"100%\">";
-      if ($type=="outbox") {
+      echo '
+      </h3>
+      <hr />
+      <p class="lead">
+      <a href="viewpmsg.php">'.translate("Private Messages").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
+      </p>
+      <div class="card">
+         <div class="card-header">';
+      if ($type=='outbox') {
          $posterdata = get_userdata_from_id($myrow['to_userid']);
-         echo "<tr><td colspan=\"2\" class=\"ongl\">".translate("To")."</td></tr>";
+         echo translate("Recipient");
       } else {
          $posterdata = get_userdata_from_id($myrow['from_userid']);
-         echo "<tr><td colspan=\"2\" class=\"ongl\">".translate("From");
-         if ($posterdata['uid']==1) echo "&nbsp;".$sitename;
-         echo "</td></tr>";
+         echo translate("Sender");
+         if ($posterdata['uid']==1) echo ' : <span class="text-muted"><strong>'.$sitename.'</strong></span></div>';
       }
       if (!sql_num_rows($resultID)) {
-         echo "<tr><td colspan=\"2\" align=\"center\">".translate("You don't have any Messages.");
+         echo ''.translate("You don't have any Messages.").'</div>';//à traiter
       } else {
-         echo "<tr class=\"ligna\">";
-         echo "<td valign=\"top\" style=\"width: 15%;\"><b>";
-         if ($posterdata['uid']<>1) echo $posterdata['uname']."</b><br />";
+         if ($posterdata['uid']<>1) echo ' : <span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span></div>';
+echo '<div class="card-block">';
+
          $posts = $posterdata['posts'];
          if ($posterdata['uid']<>1) echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
-         echo "<br /><br />";
+         echo '<br />';
          if ($smilies) {
-            if ($posterdata['user_avatar']!="") {
+            if ($posterdata['user_avatar']!='') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
                   $imgtmp=$posterdata['user_avatar'];
                } else {
@@ -92,28 +94,25 @@ include('auth.php');
             }
          }
 
-         echo "</td><td valign=\"top\" style=\"width: 85%;\" height=\"100%\">";
-         echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"height: 100%; width: 100%;\">";
-         echo "<tr><td valign=\"top\" width=\"100%\" height=\"100%\">";
          if ($smilies) {
-            if ($myrow['msg_image']!="") {
+            if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
                echo '<img class="smil" src="'.$imgtmp.'" alt="img_subject" />&nbsp;';
             }
          }
          echo translate("Sent")." : ".$myrow['msg_time']."&nbsp;&nbsp;&nbsp";
-         echo "<hr noshade=\"noshade\" class=\"ongl\" /><b>".aff_langue($myrow['subject'])."</b><br /><br />";
+         echo "<hr noshade=\"noshade\" class=\"ongl\" /><b>".aff_langue($myrow['subject'])."</b><br />";
          $message = stripslashes($myrow['msg_text']);
          if ($allow_bbcode) {
             $message = smilie($message);
             $message = aff_video_yt($message);
          }
-         $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), aff_langue($message));
+         $message = str_replace("[addsig]", '<br />' . nl2br($posterdata['user_sig']), aff_langue($message));
          echo $message;
-         echo "</td></tr><tr><td valign=\"bottom\">";
+         echo '</div></div>';
 
          if ($posterdata['uid']<>1) {
-            echo "<hr noshade=\"noshade\" class=\"ongl\" />";
+            echo '<hr />';
             if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/profile.gif";}
             echo "&nbsp;&nbsp<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />".translate("Profile")."</a>";
 
@@ -151,21 +150,23 @@ include('auth.php');
                }
             }
          }
-         echo '
-         </td></tr>
-         </table>
-         </td></tr>';
+         echo '';
 
-         echo "<tr class=\"lignb\"><td colspan=\"2\" align=\"right\">";
+         echo '';
          $previous = $start-1;
          $next = $start+1;
-         if ($type=="outbox") {
-            $tmpx="&amp;type=outbox";
+         if ($type=='outbox') {
+            $tmpx='&amp;type=outbox';
          } else {
-            $tmpx="&amp;dossier=".urlencode(StripSlashes($dossier));
+            $tmpx='&amp;dossier='.urlencode(StripSlashes($dossier));
          }
          echo '
-         <ul class="pagination pagination-sm">';
+         <ul class="pagination ">';
+         if ($type!='outbox') {
+            if ($posterdata['uid']<>1)
+            echo '
+            <li class="page-item"><a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-reply fa-lg"></i></a></li>';
+         }
          if ($previous >= 0) echo '
             <li class="page-item"><a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >'.translate("Previous Messages").'</a></li>';
          else echo '
@@ -174,40 +175,50 @@ include('auth.php');
             <li class="page-item" ><a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >'.translate("Next Messages").'</a></li>';
          else echo '
             <li class="page-item"><a class="page-link disabled" href="#">'.translate("Next Messages").'</a></li>';
-         echo '
-         </ul>
-         </td></tr>';
-
-         echo "<tr><td colspan=\"2\" align=\"left\">";
-         if ($ibid=theme_image("forum/icons/$language/reply.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/$language/reply.gif";}
-         if ($ibid=theme_image("forum/icons/$language/delete.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/delete.gif";}
-         if ($type!="outbox") {
+         if ($type!='outbox') {
             echo '
-            <form action="replypmsg.php" method="post">';
-            if ($posterdata['uid']<>1) 
-               echo '<a href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-reply fa-lg"></i></a>';
-            echo '&nbsp;<a href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'"><img src="'.$imgtmpD.'" border="0" alt="" style="vertical-align: middle;" /></a>';
-            // Classement
+            <li class="page-item" ><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
+         }
+         else{
+         echo '
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
+         }
+         echo '
+         </ul>';
+
+         if ($type!='outbox') {
             $sql = "SELECT DISTINCT dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' ORDER BY dossier";
             $result = sql_query($sql);
-            echo '&nbsp;&nbsp;<strong>'.translate("Topic").'</strong> : <select class="form-control" name="dossier">';
+            echo '
+      <form action="replypmsg.php" method="post">
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="dossier">'.translate("Topic").'</label>
+            <div class="col-sm-9">
+               <select class="c-select form-control" name="dossier">';
             while (list($dossier)=sql_fetch_row($result)) {
                echo '
-               <option value="'.$dossier.'">'.$dossier.'</option>';
+                  <option value="'.$dossier.'">'.$dossier.'</option>';
             }
-            echo '</select>
-            <input type="submit" class="btn-primary" name="classe" value="OK" />';
-            echo "&nbsp;<input type=\"texte\" class=\"form-control\" name=\"nouveau_dossier\" value=\"\" size=\"24\" />";
             echo '
-            <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
-            <input type="hidden" name="classement" value="1" />
-            </form>';
-         } else {
-            echo "&nbsp;<a href=\"replypmsg.php?delete=1&amp;msg_id=".$myrow['msg_id']."&amp;type=outbox\"><img src=\"$imgtmpD\" border=\"0\" alt=\"\" /></a>";
+               </select>
+            </div>
+         </div>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-3" for="dossier"></label>
+            <div class="col-sm-9">
+               <input type="texte" class="form-control" name="nouveau_dossier" value="" size="24" />
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-sm-12">
+               <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
+               <input type="hidden" name="classement" value="1" />
+               <input type="submit" class="btn btn-primary" name="classe" value="OK" />
+            </div>
+         </div>
+      </form>';
          }
       }
-      echo '</td></tr></table>';
-      closetable();
       include('footer.php');
    }
 ?>
