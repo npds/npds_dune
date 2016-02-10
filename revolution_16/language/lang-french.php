@@ -966,7 +966,7 @@ function translate_pass1($phrase) {
    case "*": $tmp="multiplié par"; break;
    case "Ban this @IP": $tmp="Bannir cette @Ip"; break;
    case "New Topic": $tmp="Nouveau sujet"; break;
-   case "Destinataire": $tmp="Destinataire"; break;
+   case "Recipient": $tmp="Destinataire"; break;
    case "Registration": $tmp="Inscription"; break;
    case "Smilies": $tmp="Emoticons"; break;
    case "Bold": $tmp="Gras"; break;
@@ -993,6 +993,8 @@ function translate_pass1($phrase) {
    case "Topic status": $tmp="Etat du topic"; break;
    case "Print": $tmp="Imprimer"; break;
    case "Your request": $tmp="Votre requête"; break;
+   case "Sender": $tmp="Expéditeur"; break;
+
    default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }
  return $tmp;

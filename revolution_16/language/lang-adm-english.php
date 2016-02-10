@@ -98,10 +98,10 @@ switch($phrase) {
   case "Sélectionner un Sujet": $tmp="Select Topic"; break;
   case "Texte d'introduction": $tmp="Intro Text"; break;
   case "Texte étendu": $tmp="Extended Text"; break;
-  case "Jour : ": $tmp="Day:"; break;
-  case "Mois : ": $tmp="Month:"; break;
-  case "Année : ": $tmp="Year:"; break;
-  case "Heure : ": $tmp="Hour:"; break;
+  case "Jour": $tmp="Day"; break;
+  case "Mois": $tmp="Month"; break;
+  case "Année": $tmp="Year"; break;
+  case "Heure": $tmp="Hour"; break;
   case "Prévisualiser": $tmp="Preview Admin Story"; break;
   case "Poster un Article Admin": $tmp="Post Admin Story"; break;
   case "Ok": $tmp="Go!"; break;
@@ -182,11 +182,11 @@ switch($phrase) {
   case "Choisir les priviléges ? :": $tmp="Set Privileges? :"; break;
   case "Anonyme": $tmp="Anonymous"; break;
   case "Editer un Téléchargement": $tmp="Edit Download"; break;
-  case "Changer la date ? : ": $tmp="Change Date? : "; break;
+  case "Changer la date": $tmp="Change Date"; break;
   case "Changer les privilèges ? :": $tmp="Change Privileges? :"; break;
-  case "ATTENTION :  êtes-vous sûr de vouloir supprimer ce fichier téléchargeable ?": $tmp="WARNING: Are you sure you want to delete this Download file?"; break;
+  case "ATTENTION : êtes-vous sûr de vouloir supprimer ce fichier téléchargeable ?": $tmp="WARNING: Are you sure you want to delete this Download file?"; break;
   case "Ajouter un Ephéméride : ": $tmp="Add Ephemerid:"; break;
-  case "Description de l'Ephéméride : ": $tmp="Ephemerid Description:"; break;
+  case "Description de l'éphéméride": $tmp="Ephemerid Description"; break;
   case "Envoyer": $tmp="Send"; break;
   case "Maintenance des Ephémérides (Editer/Effacer)": $tmp="Ephemerid Maintenance (Edit/Delete):"; break;
   case "Maintenance des Ephémérides": $tmp="Ephemerids Maintenance"; break;
@@ -746,17 +746,17 @@ switch($phrase) {
   case "Les fichiers de configuration": $tmp="The configuration files"; break;
   case "Ce fichier est appelé avant que de commencer la génération de la page HTML": $tmp="This file is called before HTML generation"; break;
   case "Ce fichier est appelé entre le HEAD et /HEAD lors de la génération de la page HTML": $tmp="This file is called between HEAD and /HEAD tags"; break;
-  case "Ce fichier est appelé dans l'évement ONLOAD de la balise BODY => JAVASCRIPT": $tmp="This file is called in the ONLOAD event of the BODY tag"; break;
-  case "Ce fichier est appelé à la fin du header du théme": $tmp="This file is called at the end of the theme' header"; break;
-  case "Ce fichier est appelé avant le début du footer du théme": $tmp="This file is called at the begining of the theme'footer"; break;
-  case "Ce fichier est appelé aprés la fin de la génération de la page HTML": $tmp="This file is called at the end of HTML generation"; break;
+  case "Ce fichier est appelé dans l'évèment ONLOAD de la balise BODY => JAVASCRIPT": $tmp="This file is called in the ONLOAD event of the BODY tag"; break;
+  case "Ce fichier est appelé à la fin du header du thème": $tmp="This file is called at the end of the theme' header"; break;
+  case "Ce fichier est appelé avant le début du footer du thème": $tmp="This file is called at the begining of the theme'footer"; break;
+  case "Ce fichier est appelé après la fin de la génération de la page HTML": $tmp="This file is called at the end of HTML generation"; break;
   case "Ce fichier permet d'envoyer un MI personnalisé lorsqu'un nouveau membre s'inscrit": $tmp="This file allow you to send a specific MI in the 'new member' process"; break;
   case "Ce fichier permet l'affichage d'informations complémentaires dans la page de login": $tmp="This file allow you to customize the login page"; break;
   case "Ce fichier permet la configuration des modules complémentaires de l'administration": $tmp="This file allow you to manage the admin'plugins"; break;
   case "Ce fichier permet la configuration technique de SuperCache": $tmp="This file allow you to configure SuperCache technical points"; break;
   case "Ce fichier permet la configuration des fonctions d'upload": $tmp="This file allow you to configure Upload"; break;
   case "Modification de": $tmp="Modification of"; break;
-  case "Créer le fichier en utilisant le modéle": $tmp="Create the file with the template"; break;
+  case "Créer le fichier en utilisant le modèle": $tmp="Create the file with the template"; break;
   case "Supprimer le fichier": $tmp="Delete the file"; break;
   case "Encodage": $tmp="Charset encoding"; break;
   case "non disponible": $tmp="not present"; break;
@@ -942,7 +942,7 @@ switch($phrase) {
   case 'Editer la catégorie': $tmp='Edit the category'; break;
   case 'Editer une catégorie': $tmp='Edit a category'; break;
   case 'Question': $tmp='Question'; break;
-  case 'Ajouter un éphémérides': $tmp='Add ephemerid'; break;
+  case 'Ajouter un éphéméride': $tmp='Add ephemerid'; break;
   case 'Intitulé': $tmp='Title'; break;
   case 'Texte': $tmp='Text'; break;
   case 'Image': $tmp='Image'; break;
@@ -973,13 +973,15 @@ switch($phrase) {
   case "Vote": $tmp="Vote"; break;
   case "Filtre": $tmp="Filter"; break;
   case "Rétention": $tmp="Retention"; break;
+  case "Temps de rétention en secondes": $tmp="Retention time in seconds"; break;
   case "Actif": $tmp="Activate"; break;
+  case "Activation": $tmp="Activation"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
   case "Position": $tmp="Position"; break;
   case "Date prévu de publication": $tmp="Date of publication"; break;
   case "Liste des articles": $tmp="Articles list"; break;
   case "Article en attente de validation": $tmp="Waiting stories for publication"; break;
-
+  case "Visiter": $tmp="Visit"; break;
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
