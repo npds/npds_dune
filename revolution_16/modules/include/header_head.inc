@@ -11,7 +11,6 @@
 /************************************************************************/
 // since NPDS Rev 16 this ressources are required dont remove //
 
-
 echo '
 <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />'; // web font
 echo '
@@ -22,5 +21,4 @@ echo '
 <link rel="stylesheet" href="lib/jquery-ui.css">';
 echo '
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />'; // table
-
 ?>
