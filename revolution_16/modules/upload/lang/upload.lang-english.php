@@ -51,21 +51,13 @@ function upload_translate($phrase) {
    case "Erreur de téléchargement du fichier %s (%s) - Le fichier n'a pas été sauvé": $tmp="Error while uploading file %s (%s) - File not saved"; break;
    case "Fichier {NAME} bien reçu ({SIZE} octets transférés)": $tmp="file {NAME} uploaded ({SIZE} bytes transferred)"; break;
    case "Erreur de téléchargement du fichier - fichier non sauvegardé.": $tmp="Error while uploading file - File not saved"; break;
-
    // NPDS Sable
    case "Images & Documents": $tmp="Images & Documents"; break;
    case "Modules Additionnels": $tmp="PlugIns"; break;
-   // NPDS Sable
+   case "Pièces jointes": $tmp="Attached documents"; break;
 
    default: $tmp = "nécessite une traduction [** $phrase **]"; break;
  }
-//  if (cur_charset=="utf-8") {
-//     return utf8_encode($tmp);
-//  } else {
-//     return ($tmp);
-//  }
- 
-   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401));
- 
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>
