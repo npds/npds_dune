@@ -1,13 +1,13 @@
 ----------------------------------------------------------------------
 Installation : Page-Time
 ----------------------------------------------------------------------
- - Copier le fichier header_before.inc (ou rajouter la ligne si ce fichier existe dËj‡)
-   dans le rÈpertoire modules/include
- - Copier le fichier footer_after.inc (ou rajouter les lignes si ce fichier existe dËj‡)
-   dans le rÈpertoire modules/include
+ - Copier le fichier header_before.inc (ou rajouter la ligne [13] si ce fichier existe d√©j√†)
+   dans le r√©pertoire modules/include
+ - Copier le fichier footer_after.inc (ou rajouter les lignes [13,14,15] si ce fichier existe d√©j√†)
+   dans le r√©pertoire modules/include
 ----------------------------------------------------------------------
-Permet de calculer le temps de "fabrication" des Pages de NPDS et d'afficher le rÈsultat
-‡ la fin de la page (en bas)
+Permet de calculer le temps de "fabrication" des Pages de NPDS et d'afficher le r√©sultat
+√† la fin de la page (en bas)
 
 Remarque : Page-Time n'est pas vraimment un module
 
