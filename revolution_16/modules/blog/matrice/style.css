@@ -1,8 +1,6 @@
 @charset "utf-8";
-
 @import url("lib/font-awesome-4.5.0/css/font-awesome.min.css");
 @import url("lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css");
-@import url("themes/npds-boost/style/ajust.css");
 
 body {
   background: #ffffff;
@@ -90,10 +88,6 @@ a.blog_lien, a.blog_lien:visited, a.blog_lien:link, a.blog_lien:hover, a.blog_li
   font-size: 1rem;
 }
 
-
-
-
-
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -112,3 +106,58 @@ body {
   height: 60px;
   padding: 2.5rem 0;
 }
+
+
+.page-header {
+margin: 73px 0 20px;
+padding:15px;
+}
+
+/* ==> adaptation menu */
+nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {
+padding-top: 0.1rem;
+padding-bottom: 0.1rem;
+}
+ul.nav.navbar-nav {
+line-height: 2.5rem;
+}
+a.navbar-brand {
+padding-top: 0.75rem;
+padding-bottom: 0.75rem;
+}
+@media (max-width: 34em) {
+   ul.nav.navbar-nav {
+   line-height: 1.5rem;
+   }
+   a.navbar-brand {
+   padding-top: 0.25rem;
+   padding-bottom: 0.25rem;
+   }
+   .navbar-toggler {float:left;}
+   .navbar-nav .nav-item {
+   clear: left;
+   margin-left: 1rem;
+   }
+   .navbar-divider {display:none;}
+   
+   nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {padding-top:0.6rem;padding-bottom:0.6rem;}
+}
+
+.dropdown-menu {
+color: #eceeef;
+background-color: #373a3c;
+}
+.dropdown-item {
+color: #eceeef;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+ul.dropdown-menu {
+margin-top: 0;
+}
+/* <== adaptation menu */
+
+
+
