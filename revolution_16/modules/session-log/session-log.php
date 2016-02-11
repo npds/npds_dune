@@ -74,7 +74,6 @@ echo '
             </tr>
          </thead>
          <tbody>';
-//      echo "<td width=\"10%\" style=\"font-size: 10px;\">".SessionLog_translate("Nom")."</td><td width=\"5%\" style=\"font-size: 10px;\">".SessionLog_translate("@ IP")."</td><td width=\"15%\" style=\"font-size: 10px;\">".SessionLog_translate("@ IP rÈsolue")."</td><td style=\"font-size: 10px;\">URI</td><td style=\"font-size: 10px;\">Agent</td></tr>";
       $result=sql_query("SELECT username, host_addr, guest, uri, agent FROM ".$NPDS_Prefix."session");
       while (list($username, $host_addr, $guest, $uri, $agent)=sql_fetch_row($result)) {
          if ($username==$host_addr) {global $anonymous; $username=$anonymous;}
