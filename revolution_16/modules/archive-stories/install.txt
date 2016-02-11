@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------
 Installation : archive-stories
 ----------------------------------------------------------------------
- - Créer un sous répertoire [archive-stories] dans le répertoire modules
+ - Aucune
 ----------------------------------------------------------------------
 
 Vous pouvez configurer le module
