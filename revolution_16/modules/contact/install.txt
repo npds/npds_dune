@@ -2,11 +2,11 @@
 Installation : contact (Formulaire de contact (ou autre)    
 ----------------------------------------------------------------------
 
-Ce module dÈmontre les possibilitÈs de SFORM :
+Ce module d√©montre les possibilit√©s de SFORM :
  - fabrication simple d'un formulaire
  - utilisation des fonctions de NPDS (en l'occurence send_email)
-   => c'est l'email qui est configurÈe dans les prÈfÈrences / Section :
-      "Envoyer par E-mail les nouveaux articles ‡ l'administrateur'
+   => c'est l'email qui est configur√©e dans les pr√©f√©rences / Section :
+      "Envoyer par E-mail les nouveaux articles √† l'administrateur'
 
 ----------------------------------------------------------------------
 Lancement :
@@ -17,10 +17,9 @@ Lancement :
 Personnalisation :
 ----------------------------------------------------------------------
 1 - Le contenu du formulaire est modifiable : sform/contact/formulaire.php
-2 - vous pouvez crÈer d'autres formulaires en copiant le premier et en changeant de nom
+2 - vous pouvez cr√©er d'autres formulaires en copiant le premier et en changeant de nom
     du formulaire (par ex : contact2.php) et en modifiant le lancement (ModStart=contact2)
-3 - vous pouvez gÈrer certains paramËtres de ce modules via pages.php
+3 - vous pouvez g√©rer certains param√®tres de ce modules via pages.php
   $PAGES['modules.php?ModPath=ModPath=contact&ModStart=contact*'][title]="[french]Contactez-nous[/french][english]Contact us[/english][chinese]Contact us[/chinese]+|$title+";
   $PAGES['modules.php?ModPath=contact&ModStart=contact*'][run]="yes";
   $PAGES['modules.php?ModPath=contact&ModStart=contact*'][blocs]="0";
-
