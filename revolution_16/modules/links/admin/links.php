@@ -927,8 +927,8 @@ function LinksListBrokenLinks() {
       echo '
    <h3>'.translate("User Reported Broken Links").' <span class="label label-default pull-right"> '.$totalbrokenlinks.'</span></h3>';
        echo "<br />
-       ".translate("Ignore (Deletes all <strong>requests</strong> for a given link)")."<br /><br />
-       ".translate("Delete (Deletes <strong>broken link</strong> and <strong>requests</strong> for a given link)")."<br /><br />";
+       ".translate("Ignore (Deletes all requests for a given link)")."<br /><br />
+       ".translate("Delete (Deletes broken link and requests for a given link)")."<br /><br />";
        echo '
    <table data-toggle="table" >
       <thead>
