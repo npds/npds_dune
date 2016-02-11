@@ -13,7 +13,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 
    global $user, $Default_Theme, $language, $site_font;
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
+   $userdata = explode(':', $userX);
    if (isset($userdata[9])) {
       if (!$file=@opendir("themes/$userdata[9]")) {
          $tmp_theme=$Default_Theme;
@@ -26,13 +26,13 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
    include("themes/$tmp_theme/theme.php");
    $Titlesitename="META-LANG";
    include("meta/meta.php");
-   echo import_css($tmp_theme, $language, $site_font, "","");
-
+//   echo import_css($tmp_theme, $language, $site_font, "","");
+echo '<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css">';// en dur lol en attendant
    global $NPDS_Prefix;
    $Q = sql_query("SELECT def, content, type_meta, type_uri, uri, description FROM ".$NPDS_Prefix."metalang ORDER BY 'type_meta','def' ASC");
    echo '
    <table class="table table-striped table-responsive table-hover table-sm" border="0" >
-      <thead class="thead-inverse">
+      <thead class="thead-default">
          <tr>
             <th>META</th>
             <th>Type</th>
