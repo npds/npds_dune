@@ -246,7 +246,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    $att_name = substr(strstr (basename($att_name), '.'), 1);
    $att_path = $DOCUMENTROOT.$att_path;
    if (!is_file($att_path)) {
-       return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvÈ").' : '.$att_name.'</span>';
+       return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvé").' : '.$att_name.'</span>';
    }
 
    if ($att_inline) {
