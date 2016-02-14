@@ -496,31 +496,31 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Reviewer:").'</label>
+         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Reviewer").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="reviewer" value="'.$reviewer.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="email">'.translate("Email:").'</label>
+         <label class="form-control-label col-sm-4" for="email">'.translate("Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" name="email" value="'.$email.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="score">'.translate("Score:").'</label>
+         <label class="form-control-label col-sm-4" for="score">'.translate("Score").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="score" value="'.$score.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url">'.translate("Link:").'</label>
+         <label class="form-control-label col-sm-4" for="url">'.translate("Link").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="url" value="'.$url.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url_title">'.translate("Link title:").'</label>
+         <label class="form-control-label col-sm-4" for="url_title">'.translate("Link title").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="url_title" value="'.$url_title.'" />
          </div>
