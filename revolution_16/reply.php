@@ -322,7 +322,7 @@ if ($submitS) {
               $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
            }
            $text = stripslashes($text);
-           if ($m['post_time']!="" && $m['uname']!="") {
+           if ($m['post_time']!='' && $m['uname']!='') {
               $reply = '<blockquote class="blockquote">'.translate("Quote").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
            } else {
               $reply = $text."\n";
