@@ -17,12 +17,12 @@ if (!function_exists("Mysql_Connexion")) {
 
 function footmsg() {
     global $foot1, $foot2, $foot3, $foot4;
-    $foot="<p align=\"center\">";
-    if ($foot1) $foot.=stripslashes($foot1)."<br />";
-    if ($foot2) $foot.=stripslashes($foot2)."<br />";
-    if ($foot3) $foot.=stripslashes($foot3)."<br />";
+    $foot='<p align="center">';
+    if ($foot1) $foot.=stripslashes($foot1).'<br />';
+    if ($foot2) $foot.=stripslashes($foot2).'<br />';
+    if ($foot3) $foot.=stripslashes($foot3).'<br />';
     if ($foot4) $foot.=stripslashes($foot4);
-    $foot.="</p>";
+    $foot.='</p>';
     echo aff_langue($foot);
 }
 
@@ -30,8 +30,8 @@ function foot() {
    global $user, $Default_Theme, $cookie9;
    if (isset($user)) {
       $user2 = base64_decode($user);
-      $cookie = explode(":", $user2);
-      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      $cookie = explode(':', $user2);
+      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (!$file=@opendir("themes/$cookie[9]")) {
          include("themes/$Default_Theme/footer.php");
       } else {
@@ -45,7 +45,7 @@ function foot() {
 
    global $tiny_mce, $cookie9;
    if ($tiny_mce)
-      echo aff_editeur("tiny_mce", "end");
+      echo aff_editeur('tiny_mce', 'end');
 
    // include externe file from modules/include for functions, codes ...
    if (file_exists("modules/include/footer_before.inc")) {include ("modules/include/footer_before.inc");}
@@ -58,9 +58,9 @@ function foot() {
    echo '
       </body>
    </html>';
- 
+
    include("sitemap.php");
-   
+
    global $mysql_p, $dblink;
    if (!$mysql_p) {sql_close($dblink);}
 ?>
