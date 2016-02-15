@@ -34,24 +34,23 @@ function go_back($label) {
    </script>';
 }
 
-function inc_head($title) {
-   echo $title." META-MOT\n";
-}
-
 function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
 
-   $list = '<select class="c-select form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">';
-   $list .= '<option value="'.$url.'">META-MOT</option>';
+   $list = '
+   <select class="c-select form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+      <option value="'.$url.'">META-MOT</option>';
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
    while ($resultat = sql_fetch_row($Q))  {
-      if ($meta == $resultat[0]) { $sel = "selected=\"selected\""; }
-      $list .= "<option ".$sel." value=\"admin.php?op=Meta-LangAdmin&amp;meta=".$resultat[0]."\">".$resultat[0]."</option>\n";
+      if ($meta == $resultat[0]) { $sel = 'selected="selected"'; }
+      $list .= '
+      <option '.$sel.' value="admin.php?op=Meta-LangAdmin&amp;meta='.$resultat[0].'">'.$resultat[0].'</option>';
       $sel = '';
    }
    sql_free_result($Q);
-   $list .= '</select>';
+   $list .= '
+   </select>';
    return ($list);
 }
 function list_meta_type() {
@@ -68,7 +67,7 @@ function list_meta_type() {
 function list_type_meta($type_meta) {
    global $NPDS_Prefix;
    $list = '
-   <select class="form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="c-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">Type</option>';
    $Q = sql_query("SELECT type_meta FROM ".$NPDS_Prefix."metalang GROUP BY type_meta ORDER BY 'type_meta' ASC");
    while ($resultat = sql_fetch_row($Q))  {
@@ -89,9 +88,9 @@ function List_Meta_Lang() {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $tablmeta=''; $tablmeta_c=''; $cur_type=""; $ibid=0;
+   $tablmeta=''; $tablmeta_c=''; $cur_type=''; $ibid=0;
    while (list($def, $content, $type_meta, $type_uri, $uri, $description, $obligatoire)= sql_fetch_row($Q)) {
-      if ($cur_type=="")
+      if ($cur_type=='')
          $cur_type=$type_meta;
 /*      if ($type_meta!=$cur_type) {
          echo '
@@ -103,29 +102,29 @@ function List_Meta_Lang() {
 */
       $tablmeta_c.= '
          <tr>
+            <td>
+               <input type="hidden" name="nbr" value="'.$ibid.'" />';
+      if ($obligatoire == false) 
+      $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fa fa-trash-o fa-lg text-danger" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
+      else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>      ';
+      $tablmeta_c.='
+            </td>
             <td><code>'.$def.'</code></td>
             <td>'.$type_meta.'</td>';
-      if ($type_meta=="smil") {
+      if ($type_meta=='smil') {
          eval($content);
          $tablmeta_c.= '
             <td>'.$cmd.'</td>';
       }
-      else if ($type_meta=="mot") {
+      else if ($type_meta=='mot') {
          $tablmeta_c.= '
          <td>'.$content.'</td>';
       }
       else {
          $tablmeta_c.= '
-         <td>'.aff_langue($description).'</td>';
+         <td>'.split_string_without_space(aff_langue($description),29).'</td>';
       }
       $tablmeta_c.='
-         <td>
-            <input type="hidden" name="nbr" value="'.$ibid.'" />';
-      if ($obligatoire == false) 
-      $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fa fa-trash-o fa-lg text-danger" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
-      else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>      ';
-      $tablmeta_c.='
-         </td>
       </tr>';
       
       $ibid++;
@@ -133,21 +132,24 @@ function List_Meta_Lang() {
    sql_free_result($Q);
    
    $tablmeta.= '
-   <a href="admin.php?op=Creat_Meta_Lang">'.adm_translate("Créer un nouveau").' META-MOT</a>
+   <hr />
+   <h3><a href="admin.php?op=Creat_Meta_Lang"><i class="fa fa-plus-square"></i></a>&nbsp;'.adm_translate("Créer un nouveau").' META-MOT</h3>
+   <hr />
    <h3>'. adm_translate("Recherche rapide").'</h3>
    <div class="row">
       <div class="col-sm-3">'.list_meta($meta, $type_meta).'</div>
       <div class="col-sm-3">'.list_type_meta($type_meta).'</div>
    </div>
+   <hr />
    <h3>META-MOT <small>'.$ibid.'</small></h3>
    <form name="admin_meta_lang" action="admin.php" method="post" onsubmit="return confirm(\''.adm_translate("Supprimer").' ?\')">
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true">'.adm_translate("Nom").'</th>
-            <th data-sortable="true">'.adm_translate("Type").'</th>
-            <th data-sortable="true">'.adm_translate("Description").'</th>
-            <th data-sortable="true">'.adm_translate("Fonction").'</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Fonction").'</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate("Nom").'</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate("Type").'</th>
+            <th data-sortable="true" data-halign="center" >'.adm_translate("Description").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -161,7 +163,7 @@ function List_Meta_Lang() {
          </tr>
       </tbody>
    </table>
-   </form>'."\n";
+   </form>';
    
    echo $tablmeta;
 //   adminfoot('','','','');
@@ -175,92 +177,69 @@ function Edit_Meta_Lang() {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-
+   echo '<hr />';
    if ($Q['obligatoire'] != true) 
-   echo '<h3>'.adm_translate("Modifier un ").' META-MOT</h3>';
-//   inc_head($title);
-   
    echo '
-   <table border="0" width="100%" cellpadding="0" cellspacing="1" class="header">
-   <tr>
-   <td>';
-   echo "<table width=\"100%\" border=\"0\" cellpadding=\"8\" cellspacing=\"1\" class=\"lignb\">\n";
-   echo "<tr>\n";
-   echo "<td colspan=\"2\" valign=\"top\"><b>".aff_local_langue("<b>".adm_translate("Langue de Prévisualisation")."</b> : ","","local_user_language")."<br /></td>\n";
-   echo "</tr>\n";
-   echo "<tr>\n";
-   echo "<td width=\"110\"><b>META</b> : </td><td>".$Q['def']."</td>\n";
-   echo "</tr>\n";
-   echo "<tr>\n";
-   echo "<td><b>Type</b> :</td><td>".$Q['type_meta']."</td>\n";
-   echo "</tr>\n";
-   echo "<tr>\n";
-   echo "<td><b>".adm_translate("Description")."</b></td>\n";
+   <h3>'.adm_translate("Modifier un ").' META-MOT</h3>';
+   
+   echo aff_local_langue("<b>".adm_translate("Langue de Prévisualisation")."</b> : ","","local_user_language")."<br />\n";
+
+   echo '
+   <div class="row">
+      <div class="text-muted col-sm-3">META</div>
+      <div class="col-sm-9">'.$Q['def'].'</div>
+   </div>
+   <div class="row">
+      <div class="text-muted col-sm-3">Type</div>
+      <div class="col-sm-9">'.$Q['type_meta'].'</div>
+   </div>
+   <div class="row">
+      <div class="text-muted col-sm-3">'.adm_translate("Description").'</div>
+      <div class="col-sm-9">';
    if ($Q['type_meta']=="smil") {
       eval($Q['content']);
-      echo "<td>".$cmd."</td>\n";
+      echo $cmd;
    }
    else {
-      echo '<td>'.preview_local_langue($local_user_language, aff_langue($Q['description'])).'</td>'."\n";
+      echo preview_local_langue($local_user_language, aff_langue($Q['description']));
    }
-   echo "</tr>\n";
-   if ($Q['type_meta']!="docu" and $Q['type_meta']!="them") {
-      echo "<tr ".$rowcolor.">\n";
-      echo "<td valign=\"top\"><b>".adm_translate("Script")."</b> :</td>\n";
-      echo "<td>";
-      echo "<textarea name=\"content\" class=\"textbox_standard\" rows=\"20\" style=\"width: 100%;\" readonly=\"readonly\">\n";
-      echo $Q['content'];
-      echo "</textarea>";
-      echo '</td>
-      </tr>';
+      echo '
+      </div>
+   </div>';
+   if ($Q['type_meta']!='docu' and $Q['type_meta']!='them') {
+      echo '
+   <div class="row">
+      <div class="text-muted col-sm-12">'.adm_translate("Script").'</div>
+      <div class=" card col-sm-12" style="overflow-x:scroll;">
+         <pre><code>'.$Q['content'].'</code></pre>
+      </div>
+   </div>';
    }
-   echo '
-   </table>
-   </td>
-   </tr>
-   </table>'."\n";
 
    if ($Q['obligatoire'] != true) {
-      opentable();
-      echo "<table width=\"100%\" border=\"0\" cellpadding=\"8\" cellspacing=\"1\">\n";
       echo "<form name=\"edit_meta_lang\" action=\"admin.php\" method=\"post\">\n";
-      echo "<tr>\n";
       echo "<td width=\"110\"><b>META</b> : </td>\n";
-      echo "<td>";
       echo "<input class=\"textbox_standard\" type=\"text\" name=\"def\" value=\"".$Q['def']."\" size=\"50\" readonly=\"readonly\" /></td>\n";
-      echo "</tr>\n";
-      echo "<tr>\n";
       echo "<td><b>".adm_translate("Type")."</b> :</td>\n";
-      echo "<td>";
       echo "<input class=\"textbox_standard\" type=\"text\" name=\"type_meta\" value=\"".$Q['type_meta']."\" size=\"10\" maxlength=\"10\" readonly=\"readonly\" />";
-      echo "</td>\n";
-      echo "</tr>\n";
-      echo "<tr>\n";
       echo "<td><b>".adm_translate("Description")."</b> :</td>\n";
       if ($Q['type_meta']=="smil") {
           eval($Q['content']);
           echo "<td>".$cmd."</td>\n";
       } else {
-         echo "<td>";
          echo "<textarea class=\"textbox_standard\" name=\"desc\" rows=\"7\" style=\"width: 100%;\" >";
          echo $Q['description'];
          echo "</textarea>";
-         echo "</td>\n";
       }
-      echo "</tr>\n";
+
       if ($Q['type_meta']!="docu" and $Q['type_meta']!="them") {
-         echo "<tr>\n";
          echo "<td valign=\"top\"><b>".adm_translate("Script")."</b> : </td>\n";
-         echo "<td>";
          echo "<textarea class=\"textbox_standard\" name=\"content\" rows=\"20\" style=\"width: 100%;\" >\n";
          echo $Q['content'];
          echo "</textarea>";
-         echo "</td>\n";
-         echo "</tr>\n";
       }
-      echo "<tr>\n";
       echo "<td><b>".adm_translate("Restriction")." :</b></td>\n";
-      echo "<td>";
+
       if ($Q['type_uri'] == "+") {
          if ($Q['obligatoire'] == true) {$sel1 = "selected=\"selected\"";}
          else  {$sel1 = " selected";}
@@ -281,22 +260,14 @@ function Edit_Meta_Lang() {
       echo "<textarea class=\"textbox_standard\" name=\"uri\" rows=\"7\" style=\"width: 100%;\" >";
       echo $Q['uri']."</textarea>";
       echo '
-         </td>
-      </tr>
-      <tr>
-         <td width="100%" colspan="2" align="center">
             <input type="hidden" name="Maj_Bdd_ML" value="edit_meta" />
             <input type="hidden" name="op" value="Valid_Meta_Lang" />
             <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
-         </td>
-      </tr>
-      </table>
+
       </form>'."\n";
-      closetable();
    } else {
       go_back("");
    }
-   closetable();
    include ("footer.php");
 }
 
