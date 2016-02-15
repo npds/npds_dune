@@ -287,7 +287,7 @@ class form_handler {
   }
 
   /**************************************************************************************/
-  // print <form> into html output / IF no method (form_method) is affected : the <form>  </form> is not write (useful to insert SFORM in existing form)
+  // print <form> into html output / IF no method (form_method) is affected : the <form>  </form> is not write (useful to insert SFORM in existing form)
   // public string
   function print_form($bg) {
     if (isset($this->form_id)){
@@ -297,9 +297,9 @@ class form_handler {
     }
     $str="";
     if ($this->form_method!="") {
-	   $str.="<form class=\"\" action=\"".$this->url."\" ".$id_form."  method=\"".$this->form_method."\" name=\"".$this->form_title."\" enctype=\"multipart/form-data\"";
+      $str.="\n<form action=\"".$this->url."\" ".$id_form."  method=\"".$this->form_method."\" name=\"".$this->form_title."\" enctype=\"multipart/form-data\"";
        if ($this->form_check=="true") {
-           $str.="onsubmit='return check();'>\n";
+           $str.=" onsubmit='return check();'>\n";
        } else {
            $str.=">\n";
        }
@@ -512,9 +512,9 @@ class form_handler {
         case 'submit':
          $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
          $str.='
-         <div class="form-group">
+         <div class="form-group row">
             <div class="col-sm-12 btn-block">
-               <button class="btn btn-primary" id="'.$this->form_fields[$i]['name'].'" type="submit" name="'.$this->form_fields[$i]['name'].'"><i class="fa fa-check fa-lg"></i> '.$this->form_fields[$i]['value'].' </button>
+               <button class="btn btn-primary" id="'.$this->form_fields[$i]['name'].'" type="submit" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"><i class="fa fa-check fa-lg"></i> '.$this->form_fields[$i]['value'].' </button>
             </div>
          </div>';
           break;
@@ -522,8 +522,8 @@ class form_handler {
         case 'reset':
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
           $str.=$this->form_fields[$i]['en'];
-		  $str.="<div class=\"form-group\">";
-          $str.="<div class=\"col-sm-12 btn-block\"><input class=\"btn btn-warning\" id=\"".$this->form_fields[$i]['name']."\" type=\"reset\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" /></div></div>\n";
+          $str.="<div class=\"form-group row\">";
+          $str.="<div class=\"col-sm-12 btn-block\"><input class=\"btn btn-secondary\" id=\"".$this->form_fields[$i]['name']."\" type=\"reset\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" /></div></div>\n";
           break;
 
         case 'stamp':
