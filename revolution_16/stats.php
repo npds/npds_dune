@@ -105,9 +105,9 @@ if (!function_exists("Mysql_Connexion")) {
    <table data-toggle="table" data-striped="true" data-mobile-responsive="true">
       <thead>
          <tr>
-            <th class="col-sm-3" data-sortable="true" data-align="right" >'.translate("Browsers").'</th>
-            <th class="col-sm-6" data-sortable="true" data-halign="center" data-align="right" >%</th>
-            <th class="col-sm-3" data-align="right" >-</th>
+            <th data-sortable="true" data-align="right" >'.translate("Browsers").'</th>
+            <th data-sortable="true" data-halign="center" data-align="right" >%</th>
+            <th data-align="right" ></th>
          </tr>
       </thead>
       <tbody>';
