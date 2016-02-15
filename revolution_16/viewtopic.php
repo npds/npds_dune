@@ -189,9 +189,6 @@ include('header.php');
       }
       echo '<img width="48" height="48" class="img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
-   
-   
-   
       echo '<br />'.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
@@ -222,8 +219,7 @@ include('header.php');
             </li>
             <li class="page-item disabled">
                <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
-            </li>
-      ';
+            </li>';
       $pages_rapide='';
       for ($x = 0; $x < $total; $x += $posts_per_page) {
          if ($current_page!=$times)
@@ -240,7 +236,7 @@ include('header.php');
     if ($Mmod) {
        $post_aff=' ';
     } else {
-       $post_aff=" and post_aff='1' ";
+       $post_aff=" AND post_aff='1' ";
     }
     settype($start,"integer");
     settype($posts_per_page,"integer");
@@ -259,7 +255,7 @@ include('header.php');
     if ($allow_upload_forum) {
        $visible = '';
        if (!$Mmod) {
-          $visible = ' and visible = 1';
+          $visible = ' AND visible = 1';
        }
        $sql = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
        $att = sql_num_rows(sql_query($sql));
