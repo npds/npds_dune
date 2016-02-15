@@ -205,22 +205,22 @@ function Ephemeridschange($eid, $did, $mid, $yid, $content) {
 }
 
 switch ($op) {
-   case "Ephemeridsedit":
+   case 'Ephemeridsedit':
         Ephemeridsedit($eid, $did, $mid);
         break;
-   case "Ephemeridschange":
+   case 'Ephemeridschange':
         Ephemeridschange($eid, $did, $mid, $yid, $content);
         break;
-   case "Ephemeridsdel":
+   case 'Ephemeridsdel':
         Ephemeridsdel($eid, $did, $mid);
         break;
-   case "Ephemeridsmaintenance":
+   case 'Ephemeridsmaintenance':
         Ephemeridsmaintenance($did, $mid);
         break;
-   case "Ephemeridsadd":
+   case 'Ephemeridsadd':
         Ephemeridsadd($did, $mid, $yid, $content);
         break;
-   case "Ephemerids":
+   case 'Ephemerids':
         Ephemerids();
         break;
 }
