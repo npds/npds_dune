@@ -610,7 +610,7 @@ function sub_closetable2() {
    }
    return ($content);
 }
-#autodoc closetable2() : Fermeture de tableaux pour le th&egrave;me : echo
+#autodoc closetable2() : Fermeture de tableaux pour le thème : echo
 function closetable2() {
    echo sub_closetable2();
 }
@@ -1636,18 +1636,19 @@ function aff_localzone_langue($ibid) {
    reset ($tab_langue);
    $M_langue= '
    <div class="form-group">
-   <select name="'.$ibid.'" class="c-select form-control" onchange="this.form.submit()">
-      <option value="">'.translate("Select a language").'</option>';
+      <select name="'.$ibid.'" class="c-select form-control" onchange="this.form.submit()">
+         <option value="">'.translate("Select a language").'</option>';
    while (list($bidon, $langue)=each($tab_langue)) {
       $M_langue.='
-      <option value="'.$langue.'">'.$langue.'</option>';
+            <option value="'.$langue.'">'.$langue.'</option>';
    }
    $M_langue.='
-      <option value="">- '.translate("No language").'</option>
-      </select>
+            <option value="">- '.translate("No language").'</option>
+         </select>
       </div>
       <noscript>
-      <input class="btn btn-primary" type="submit" name="local_sub" value="'.translate("Submit").'" /></noscript>';
+         <input class="btn btn-primary" type="submit" name="local_sub" value="'.translate("Submit").'" />
+      </noscript>';
    return ($M_langue);
 }
 #autodoc aff_local_langue($mess, $ibid_index, $ibid) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
@@ -1697,7 +1698,7 @@ function aff_code($ibid) {
 #autodoc is_admin($xadmin) : Phpnuke compatibility functions
 function is_admin($xadmin) {
    global $admin;
-   if (isset($admin) and ($admin!="")) {
+   if (isset($admin) and ($admin!='')) {
       return (true);
    } else {
       return (false);
@@ -1706,22 +1707,22 @@ function is_admin($xadmin) {
 #autodoc is_user($xuser) : Phpnuke compatibility functions
 function is_user($xuser) {
    global $user;
-   if (isset($user) and ($user!="")) {
+   if (isset($user) and ($user!='')) {
       return (true);
    } else {
       return (false);
    }
 }
-#autodoc split_string_without_space($msg, $split) : DÈcoupe la chaine en morceau de $slpit longueur si celle-ci ne contient pas d'espace / Snipe 2004
+#autodoc split_string_without_space($msg, $split) : Découpe la chaine en morceau de $slpit longueur si celle-ci ne contient pas d'espace / Snipe 2004
 function split_string_without_space($msg, $split) {
-   $Xmsg=explode(" ",$msg);
+   $Xmsg=explode(' ',$msg);
    array_walk($Xmsg,'wrapper_f', $split);
-   $Xmsg=implode(" ",$Xmsg);
+   $Xmsg=implode(' ',$Xmsg);
    return ($Xmsg);
 }
 #autodoc wrapper_f (&$string, $key, $cols) : Fonction Wrapper pour split_string_without_space / Snipe 2004
 function wrapper_f (&$string, $key, $cols) {
-   if (!(stristr($string,'IMG src=') or stristr($string,'A href=') or stristr($string,'HTTP:') or stristr($string,'HTTPS:') or stristr($string,'MAILTO:') or stristr($string,'[CODE]'))) {
+//   if (!(stristr($string,'IMG src=') or stristr($string,'A href=') or stristr($string,'HTTP:') or stristr($string,'HTTPS:') or stristr($string,'MAILTO:') or stristr($string,'[CODE]'))) {
       $outlines = '';
       if (strlen($string) > $cols) {
          while(strlen($string) > $cols) {
@@ -1735,12 +1736,12 @@ function wrapper_f (&$string, $key, $cols) {
                   $num = 0;
                }
             }
-            $outlines .= " ";
+            $outlines .= '<i class="fa fa-cut fa-lg"> </i>';
             $string = substr($string, $cur_pos, (strlen($string)-$cur_pos));
          }
          $string=$outlines.$string;
       }
-   }
+//   }
 }
 #autodoc preg_anti_spam($str) : Permet l'utilisation de la fonction anti_spam via preg_replace
 function preg_anti_spam($ibid) {
@@ -1786,9 +1787,9 @@ function aff_editeur($Xzone, $Xactiv) {
    $tmp='';
    if ($tiny_mce) {
       static $tmp_Xzone;
-      if ($Xzone=="tiny_mce") {
-         if ($Xactiv=="end") {
-            if (substr($tmp_Xzone,-1)==",")
+      if ($Xzone=='tiny_mce') {
+         if ($Xactiv=='end') {
+            if (substr($tmp_Xzone,-1)==',')
                $tmp_Xzone=substr_replace($tmp_Xzone,'',-1);
             if ($tmp_Xzone) {
                $tmp="
@@ -1810,10 +1811,10 @@ function aff_editeur($Xzone, $Xactiv) {
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
          }
       } else {
-         if ($Xzone!="custom") {
-            $tmp_Xzone.=$Xzone.",";
+         if ($Xzone!='custom') {
+            $tmp_Xzone.=$Xzone.',';
          } else {
-            $tmp_Xzone.=$Xactiv.",";
+            $tmp_Xzone.=$Xactiv.',';
          }
       }
    } else {
@@ -1824,15 +1825,15 @@ function aff_editeur($Xzone, $Xactiv) {
 #autodoc utf8_java($ibid) : Encode une chaine UF8 au format javascript - JPB 2005
 function utf8_java($ibid) {
    // UTF8 = &#x4EB4;&#x6B63;&#7578; / javascript = \u4EB4\u6B63\u.dechex(7578)
-   $tmp=explode ("&#",$ibid);
+   $tmp=explode ('&#',$ibid);
    while(list(,$bidon)=each($tmp)) {
       if ($bidon) {
          $bidon=substr($bidon,0,strpos($bidon,";"));
-         $hex=strpos($bidon,"x");
+         $hex=strpos($bidon,'x');
          if ($hex===false) {
-            $ibid=str_replace("&#".$bidon.";","\\u".dechex($bidon),$ibid);
+            $ibid=str_replace('&#'.$bidon.';','\\u'.dechex($bidon),$ibid);
          } else {
-            $ibid=str_replace("&#".$bidon.";","\\u".substr($bidon,1),$ibid);
+            $ibid=str_replace('&#'.$bidon.';','\\u'.substr($bidon,1),$ibid);
          }
       }
    }
@@ -1971,7 +1972,7 @@ function L_spambot($ip, $status) {
 }
 #autodoc R_spambot($asb_question, $asb_reponse, $message) : valide le champ $asb_question avec la valeur de $asb_reponse (anti-spambot) et filtre le contenu de $message si nÈcessaire
 function R_spambot($asb_question, $asb_reponse, $message="") {
-   // idÈe originale, dÈveloppement et intÈgration - GÈrald MARINO alias neo-machine
+   // idée originale, développement et intégration - Gérald MARINO alias neo-machine
    global $user;
    global $REQUEST_METHOD;
    if ($REQUEST_METHOD=="POST") {
@@ -2017,7 +2018,7 @@ function R_spambot($asb_question, $asb_reponse, $message="") {
 function keyED($txt,$encrypt_key) {
    $encrypt_key = md5($encrypt_key);
    $ctr=0;
-   $tmp = "";
+   $tmp = '';
    for ($i=0;$i<strlen($txt);$i++) {
        if ($ctr==strlen($encrypt_key) ) $ctr=0;
        $tmp.= substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1);
@@ -2025,17 +2026,17 @@ function keyED($txt,$encrypt_key) {
    }
    return $tmp;
 }
-#autodoc encrypt($txt) : retourne une chaine encryptÈe en utilisant la valeur de $NPDS_Key
+#autodoc encrypt($txt) : retourne une chaine encryptée en utilisant la valeur de $NPDS_Key
 function encrypt($txt) {
    global $NPDS_Key;
    return (encryptK($txt,$NPDS_Key));
 }
-#autodoc encryptK($txt, $C_key) : retourne une chaine encryptÈe en utilisant la clef : $C_key
+#autodoc encryptK($txt, $C_key) : retourne une chaine encryptée en utilisant la clef : $C_key
 function encryptK($txt, $C_key) {
    srand( (double)microtime()*1000000);
    $encrypt_key = md5(rand(0,32000) );
    $ctr=0;
-   $tmp = "";
+   $tmp = '';
    for ($i=0;$i<strlen($txt);$i++) {
        if ($ctr==strlen($encrypt_key) ) $ctr=0;
        $tmp.= substr($encrypt_key,$ctr,1) .
@@ -2052,7 +2053,7 @@ function decrypt($txt) {
 #autodoc decryptK($txt, $C_key) : retourne une dÈcryptÈe en utilisant la clef de $C_Key
 function decryptK($txt, $C_key) {
    $txt = keyED(base64_decode($txt),$C_key);
-   $tmp = "";
+   $tmp = '';
    for ($i=0;$i<strlen($txt);$i++) {
        $md5 = substr($txt,$i,1);
        $i++;
@@ -2069,7 +2070,7 @@ function conv2br($txt) {
    $Xcontent=str_replace("<BR>","<br />",$Xcontent);
    return ($Xcontent);
 }
-#autodoc hexfromchr($txt) : Les 8 premiers caracteres sont converties en UNE valeur Hexa unique 
+#autodoc hexfromchr($txt) : Les 8 premiers caractères sont converties en UNE valeur Hexa unique 
 function hexfromchr($txt) {
    $surlignage=substr(md5($txt),0,8);
    $tmp=0;
@@ -2154,36 +2155,16 @@ function online() {
       $title=$block_title;
    themesidebox($title, $content);
 }
-#autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox
-/*function lnlbox() {
-   global $block_title;
-   if ($block_title=="")
-      $title=translate("NewsLetter");
-   else
-      $title=$block_title;
-   $boxstuff  = "<form action=\"lnl.php\" method=\"get\">\n
-   <p align=\"center\">\n
-   <select name=\"op\" class=\"inputa\" style=\"width: 80%\">\n<option value=\"subscribe\">".translate("Subscribe")."</option>\n
-   <option value=\"unsubscribe\">".translate("Unsubscribe")."</option>\n
-   </select>\n<br />\n
-   ".translate("Your email")."<br />\n
-   <input type=\"text\" name=\"email\" size=\"12\" maxlength=\"60\" class=\"inputa\" style=\"width: 90%\" />\n
-   <br /><br />\n
-   <input type=\"submit\" class=\"bouton_standard\" value=\"".translate("Submit")."\" /><br />\n
-   <strong>".translate("Sign up now to receive our lastest infos.")."</strong>\n</p>\n
-   </form>\n";
-   themesidebox($title, $boxstuff);
-}*/
 
-#autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox revu phr mai 2015/revu jpb09/15
+#autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox
 function lnlbox() {
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("NewsLetter");
    else
       $title=$block_title;
       $boxstuff = '
-         <form action="lnl.php" method="get">
+         <form id="lnlblock" action="lnl.php" method="get">
             <div class="form-group">
                <select name="op" class=" c-select form-control">
                   <option value="subscribe">'.translate("Subscribe").'</option>
@@ -2195,11 +2176,9 @@ function lnlbox() {
                <input type="email" name="email" maxlength="60" class="form-control" />
             </div>
             <p><span class="help-block">'.translate("Sign up now to receive our lastest infos.").'</span></p>
-            <div class="form-group">
-               <div class="row">
-                  <div class="col-sm-12">
-                     <button type="submit" class="btn btn-primary-outline btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Submit").'</button>
-                  </div>
+            <div class="form-group row">
+               <div class="col-sm-12">
+                  <button type="submit" class="btn btn-primary-outline btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Submit").'</button>
                </div>
             </div>
          </form>'
@@ -2214,7 +2193,7 @@ function searchbox() {
    else
       $title=$block_title;
    $content ='
-   <form action="search.php" method="get">
+   <form id="searchblock" action="search.php" method="get">
       <input class="form-control" type="text" name="query" />
    </form>';
    themesidebox($title, $content);
@@ -2225,7 +2204,7 @@ function mainblock() {
    $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."mainblock");
    list($title, $content) = sql_fetch_row($result);
    global $block_title;
-   if ($title=="")
+   if ($title=='')
       $title=$block_title;
    themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)))); //php7
 }
@@ -2261,7 +2240,7 @@ function adminblock() {
        $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
        list($title, $content) = sql_fetch_row($result);
        global $block_title;
-       if ($title=="") $title=$block_title;
+       if ($title=='') $title=$block_title;
        else $title=aff_langue($title);
        $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));//php7
        $content .= '
@@ -2447,7 +2426,7 @@ function oldNews($storynum, $typ_aff='') {
       else { $sel="WHERE ihome=0"; }
    }
    $vari=0;
-   $xtab=news_aff("old_news", $sel, $storynum, $oldnum);
+   $xtab=news_aff('old_news', $sel, $storynum, $oldnum);
    $story_limit=0; $time2=0; $a=0;
    while (($story_limit<$oldnum) and ($story_limit<sizeof($xtab))) {
       list($sid, $title, $time, $comments, $counter) = $xtab[$story_limit];
@@ -2459,7 +2438,7 @@ function oldNews($storynum, $typ_aff='') {
          $datetime2 = ucfirst($datetime2);
       }
 
-      if ($typ_aff=="lecture") $comments=$counter;
+      if ($typ_aff=='lecture') $comments=$counter;
 
       if ($time2==$datetime2) {
          $boxstuff .= '
@@ -2796,7 +2775,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
   
    $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
-      list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("select uname, user_avatar, mns, url from ".$NPDS_Prefix."users where uid='$uid'"));
+      list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
       $conn= '<img src="images/admin/ws/disconnect.gif" class="vam_bo_0" title="'.$uname.' '.translate('is not connected !').'" alt="'.$uname.' '.translate('is not connected !').'" />';
       if (!$user_avatar) {
          $imgtmp="images/forum/avatar/blank.gif";
@@ -2821,7 +2800,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_ic.='<img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" />&nbsp;';
       $li_mb.= '
       <li class="list-group-item li_mb">
-      <div id="li_mb">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
+      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
       </div>
       <span class="pull-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";
@@ -2879,21 +2858,26 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
          $lst_doc_tog ='<a class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
-         $lst_doc.='<ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
+         $lst_doc.='
+         <ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
          $nb_doc_gr='  <span class="label label-pill label-default pull-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
-            $lst_doc.='<li style="line-height:14px;margin-top:0; background:none; padding: 0px 2px 0px 0px;"><div id="last_editor" title="'.translate("Last editor").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:12px; height:12px; margin-top:4px; background-color:'.$surlignage.'"></div><img src="images/admin/ws/document_edit.gif" class="vam_bo_0" alt="'.translate("Multi-writers document").'." title="'.translate("Multi-writers document").'." />  <a href="modules.php?ModPath=wspad&ModStart=wspad&op=relo&page='.$p.'&member='.$gr.'&ranq='.$r.'">'.$p.'</a>';
+            $lst_doc.='
+            <li style="line-height:14px;margin-top:0; background:none; padding: 0px 2px 0px 0px;"><div id="last_editor_'.$p.'" title="'.translate("Last editor").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:12px; height:12px; margin-top:4px; background-color:'.$surlignage.'"></div><img src="images/admin/ws/document_edit.gif" class="vam_bo_0" alt="'.translate("Multi-writers document").'." title="'.translate("Multi-writers document").'." />  <a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a>';
             $lst_doc.= '</li>';
          }
-         $lst_doc.='</ul>';
-         $lst_doc.="<script type=\"text/javascript\">
+         $lst_doc.='
+         </ul>';
+         $lst_doc.='
+         <script type="text/javascript">
          //<![CDATA[
-         tog('lst_doc_gr_".$gr."','show_lst_doc_".$gr."','hide_lst_doc".$gr."');
+         tog("lst_doc_gr_'.$gr.'","show_lst_doc_'.$gr.'","hide_lst_doc'.$gr.'");
          //]]>
-         </script>\n";
+         </script>';
       }
-      $content.='<li class="list-group-item li_18">'. $lst_doc_tog.'&nbsp;<i class="fa fa-edit fa-2x text-muted" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
+      $content.='
+      <li class="list-group-item li_18">'. $lst_doc_tog.'&nbsp;<i class="fa fa-edit fa-2x text-muted" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</li>'."\n";
    }
    //<= wspad
    
