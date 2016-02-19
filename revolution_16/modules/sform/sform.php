@@ -539,7 +539,7 @@ class form_handler {
          $str.='
           <div class="form-group row">
              <div class="col-sm-4">';
-		  $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
+         $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
           if ($this->form_fields[$i]['obligation']){
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
              $str.="&nbsp;<span class=\"text-danger\">*</span></label></div>";
