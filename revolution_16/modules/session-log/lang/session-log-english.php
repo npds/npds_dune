@@ -29,7 +29,8 @@ function SessionLog_translate($phrase) {
    case "Recevoir le fichier par mail" : $tmp = "Send file by email"; break;
    case "Effacer les fichiers temporaires" : $tmp = "Erase temporary files"; break;
    case "Fichier de Log de" : $tmp = "Log File for"; break;
-
+   case "Agent utilisateur" : $tmp = "User agent"; break;
+   case "Agent" : $tmp = "Agent"; break;
    default: $tmp = "Translation error [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
