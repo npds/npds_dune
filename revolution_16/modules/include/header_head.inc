@@ -9,10 +9,11 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-// since NPDS Rev 16 this ressources are required dont remove //
 
+// since NPDS Rev 16 this ressources are required dont remove //
 echo '
-<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />'; // web font
+<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/font-awesome-4.5.0/fa-snapchat.css">'; // web font
 echo '
 <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css" />'; // framework
 echo '
