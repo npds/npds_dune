@@ -23,8 +23,8 @@ $rs = [
 ['facebook','https://facebook.com/','facebook'],
 ['twitter','https://twitter.com/','twitter'],
 ['skype','ddddd','skype'],
-['linkedin','https://www.linkedin.com/','linkedin-square'],
 ['google+','https://plus.google.com/','google-plus'],
-['Snapchat','https://www.snapchat.com/','snapchat']
+['snapchat','https://www.snapchat.com/','snapchat'],
+['linkedin','https://www.linkedin.com/in/','linkedin-square']
 ];
 ?>
