@@ -41,17 +41,18 @@ function nav($mns) {
    echo '
    <ul class="nav nav-tabs"> 
       <li class="nav-item active"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i> Vous</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Edit Journal").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Journal").'</a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Manage my Mini-Web site").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Mini-Web site").'</a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link" href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Change the home").'</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Change Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Home").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'">'.translate("Social networks").'</a></li>
       <li class="nav-item"><a class="nav-link" href="user.php?op=logout" title="'.translate("Logout").'"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
    </ul>';
 }
@@ -182,7 +183,7 @@ function hidden_form() {
 function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $smilies, $short_user, $minpass, $memberpass;
     $uname=strip_tags($uname);
-    if ($user_viewemail!=1) {$user_viewemail="0";}
+    if ($user_viewemail!=1) {$user_viewemail='0';}
     $stop=userCheck($uname, $email);
     if ($memberpass) {
        if ((isset($pass)) and ("$pass" != "$vpass")) {
@@ -204,9 +205,10 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
             <input class=\"btn btn-secondary\" type=\"submit\" value=\"".translate("Go Back")."\" />
             </form>";
           } else {
-             echo "<input type=\"hidden\" name=\"op\" value=\"finish\">
-         <input class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Finish")."\" />
-         </form>";
+             echo '
+            <input type="hidden" name="op" value="finish">
+            <input class="btn btn-primary" type="submit" value="'.translate("Finish").'" />
+         </form>';
          }
        
        include("footer.php");
@@ -248,7 +250,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
        if ($result) {
           if (($system==1) or ($memberpass)) {
 	   echo '<h2>'.translate("User").'</h2>';
-          echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';             
+          echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';
                 echo "<p class=\"lead\">".translate("Your Password is: ")."<strong>$makepass</strong></p>";
                 echo "<p class=\"lead\">".translate("You can change it after you login at")." : <a href=\"user.php?op=login&uname=$uname&pass=$makepass\"><strong>$sitename</strong></a></p>";
              
