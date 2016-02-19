@@ -715,8 +715,8 @@ function translate_pass1($phrase) {
    case "Hits:": $tmp="Hits : "; break;
    case "Review Modification": $tmp="Modification d'une critique"; break;
    case "Email:": $tmp="Mèl : "; break;
-   case "Link:": $tmp="Lien : "; break;
-   case "Link title:": $tmp="Titre du lien : "; break;
+   case "Link": $tmp="Lien"; break;
+   case "Link title": $tmp="Titre du lien"; break;
    case "Cover image": $tmp="Image de garde"; break;
    case "Preview Modifications": $tmp="Prévisualiser les modifications"; break;
    case "Cancel": $tmp="Annuler"; break;

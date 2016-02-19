@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,7 +23,6 @@ switch($phrase) {
    // case "Submit":   $tmp="\"Yo, submit Man\""; break;
    
     case "One Day like Today...": $tmp=""; break;  
-   case "février": $tmp="février";
    
    
    case "Your account":
