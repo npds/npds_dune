@@ -32,7 +32,7 @@ CREATE TABLE appli_log (
 
 INSERT INTO appli_log VALUES (1, 'Poll', 2, '2012-07-15 13:35:32', 1, '2', '1.1.76.115', '');
 
-CREATE TABLE `authors` (
+CREATE TABLE authors (
   aid varchar(30) NOT NULL DEFAULT '',
   `name` varchar(50) DEFAULT NULL,
   url varchar(60) DEFAULT NULL,
