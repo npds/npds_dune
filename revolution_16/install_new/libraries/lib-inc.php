@@ -130,12 +130,12 @@ function write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slo
 
 function msg_erreur($message) {
    echo '<html>
-        <body bgcolor="white"><br />
-        <div style="text-align: center; font-weight: bold">
-        <div style="font-face: arial; font-size: 22px; color: #ff0000">'.ins_translate($message).'</div>
-        </div>
-        </body>
-        </html>';
+   <body bgcolor="white"><br />
+      <div style="text-align: center; font-weight: bold">
+         <div style="font-face: arial; font-size: 22px; color: #ff0000">'.ins_translate($message).'</div>
+      </div>
+      </body>
+</html>';
    die();
 }
 function mysql_connex() {
