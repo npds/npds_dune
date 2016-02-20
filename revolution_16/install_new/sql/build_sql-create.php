@@ -19,7 +19,7 @@
 
 function build_sql_create($NPDS_Prefix) {
 
-$filename='sql/revolution.sql';
+$filename='sql/revolution_16.sql';
 $handle=fopen($filename,'r');
 $sql_contents=fread($handle, filesize ($filename));
 fclose ($handle);
