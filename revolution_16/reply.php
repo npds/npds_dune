@@ -317,7 +317,7 @@ if ($submitS) {
            $text = $m['post_text'];
            if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
               $text = smile($text);
-              $text = str_replace('<br />', '\n', $text);
+              $text = str_replace("<br />", "\n", $text);
            } else {
               $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
            }
