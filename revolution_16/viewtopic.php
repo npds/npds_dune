@@ -102,7 +102,7 @@ if ($total > $posts_per_page) {
 }
 
 if (!$result = sql_query($sql))
-   forumerror(0001);
+   forumerror('0001');
 $myrow = sql_fetch_assoc($result);
 $topic_subject = stripslashes($myrow['topic_title']);
 $lock_state = $myrow['topic_status'];
@@ -268,7 +268,7 @@ include('header.php');
        $time_actu=time()+($gmt*3600);
        $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
        $result_LR=sql_query($sqlR);
-       $last_read="";
+       $last_read='';
        if (sql_num_rows($result_LR)==0) {
           $sqlR = "INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum', '$topic', '$userdata[0]', '$time_actu', '1')";
           $resultR = sql_query($sqlR);
@@ -291,26 +291,20 @@ include('header.php');
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
       $my_rsos=array();
     do {
-      $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
-      echo '
-      <div class="row">';
-      
+
+      $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
       if (!$short_user) {
          $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
-//         echo $myrow['poster_id'];
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
          if ($posterdata_extend['M2']!='') {
-//            $i=0;
             $socialnetworks= explode(';',$posterdata_extend['M2']);
             foreach ($socialnetworks as $socialnetwork) {
                $res_id[] = explode('|',$socialnetwork);
             }
-//print_r($res_id);
             $i=0;
             foreach ($rs as $v1) {
-//            $my_rs='';
                if ($res_id[$i]) {
                   $k = array_search($v1[0], $res_id[$i]);
                   if (false !== $k) {
@@ -324,29 +318,29 @@ include('header.php');
          }
          else $my_rsos[]='';
       }
-//print_r($my_rsos);
-//echo $my_rs;
+
    $useroutils = '';
    $useroutils .= '<hr />';
-      if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i>&nbsp;'.translate("Profile").'</a>';
       }
       if ($posterdata['uname']!=$anonymous) {
          $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
       }
-      if ($posterdata['femail']!="") {
+      if ($posterdata['femail']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i>&nbsp;'.translate("Email").'</a>';
       }
-      if ($posterdata['url']!="") {
-         if (strstr("http://", $posterdata['url']))
-            $posterdata['url'] = "http://" . $posterdata['url'];
+      if ($posterdata['url']!='') {
+         if (strstr('http://', $posterdata['url']))
+            $posterdata['url'] = 'http://' . $posterdata['url'];
          $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i>&nbsp;'.translate("Visit this Website").'</a>';
       }
       if ($posterdata['mns']) {
           $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i>&nbsp;'.translate("Visit the Mini Web Site !").'</a>';
       }
-
+      
       echo '
+      <div class="row">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '<a name="last-post"></a>';
       echo '
@@ -360,7 +354,8 @@ include('header.php');
             } else {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
             }
-             echo '<a tabindex="0" data-toggle="popover" data-trigger="" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><i class="fa fa-share-alt fa-lg"></i>&nbsp;<img class=" btn-primary-outline img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+             echo '
+             <a tabindex="0" data-toggle="popover" data-trigger="" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><i class="fa fa-share-alt fa-lg"></i>&nbsp;<img class=" btn-primary-outline img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
             }
          }
                
