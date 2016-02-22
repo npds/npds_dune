@@ -43,18 +43,23 @@ function foot() {
    $cookie9 = $cookie[9];
 }
 
-   global $tiny_mce, $cookie9;
+   global $tiny_mce, $cookie9, $Default_Theme;
    if ($tiny_mce)
       echo aff_editeur('tiny_mce', 'end');
-
    // include externe file from modules/include for functions, codes ...
    if (file_exists("modules/include/footer_before.inc")) {include ("modules/include/footer_before.inc");}
    foot();
    // include externe file from modules/themes include for functions, codes ...
-   if (file_exists("themes/$cookie9/include/footer_after.inc")) {include ("themes/$cookie9/include/footer_after.inc");} 
-   else
-   if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
-
+      if (isset($user)) {
+         if (file_exists("themes/$cookie9/include/footer_after.inc")) {include ("themes/$cookie9/include/footer_after.inc");} 
+         else
+         if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
+      }
+         else {
+            if (file_exists("themes/$Default_Theme/include/footer_after.inc")) {include ("themes/$Default_Theme/include/footer_after.inc");} 
+         else
+            if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
+      }
    echo '
       </body>
    </html>';
