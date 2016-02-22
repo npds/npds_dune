@@ -8,7 +8,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* Dont modify this file if you dont know what you make                 */
+/* Dont modify this file if you dont know what you do                   */
 /************************************************************************/
 $m->add_title(translate("Registration"));
 $m->add_mess(translate("* for mandatory field"));
@@ -16,7 +16,8 @@ $m->add_form_field_size(50);
 
 $m->add_field('uname', translate("User ID"),$uname,'text',true,25,"","");
 $m->add_field('name', translate("Real Name"),$name,'text',false,60,"","");
-$m->add_field('email', translate("Real Email")."<br /><span style=\"font-size: 10px;\">".translate("(This Email will not be public but is required, will be used to send your password if you lost it)")."</span>",$email,'text',true,60,"","");
+$m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
+$m->add_extra('<div class="row"><div class="col-sm-offset-4 col-sm-8"><span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span></div></div>');
 
 // ---- AVATAR
 if ($smilies) {
@@ -33,14 +34,14 @@ if ($smilies) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
          $tmp_tempo[$file]['en']=$file;
          $tmp_tempo[$file]['selected']=false;
-         if ($file=="blank.gif") {$tmp_tempo[$file]['selected']=true;}
+         if ($file=='blank.gif') {$tmp_tempo[$file]['selected']=true;}
    }
    $m->add_select("user_avatar", translate("Your Avatar"), $tmp_tempo, false, "", false);
    $m->add_extender("user_avatar", "onkeyup=\"showimage();\" onchange=\"showimage();\"", "&nbsp;&nbsp;<img src=\"$direktori/blank.gif\" name=\"avatar\" align=\"top\" title=\"\" />");
-   $m->add_field('B1',"B1","",'hidden',false);
+   $m->add_field('B1',"B1",'','hidden',false);
 }
 // ---- AVATAR
-
+/*
 // ---- SHORT-USER
 if ($short_user=="yes") {
    $m->add_field('user_icq', translate("Your ICQ"),StripSlashes($user_icq),'text',false,15,"","");
@@ -54,6 +55,7 @@ if ($short_user=="yes") {
    $m->add_field('user_msnm',"user_msnm","",'hidden',false);
 }
 // ---- SHORT-USER
+*/
 
 $m->add_field('user_from', translate("Your Location"),StripSlashes($user_from),'text',false,100,"","");
 $m->add_field('user_occ', translate("Your Occupation"),StripSlashes($user_occ),'text',false,100,"","");
@@ -63,7 +65,8 @@ $m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textar
 
 // --- MEMBER-PASS
 if ($memberpass) {
-   $m->add_field('pass', translate("Password"),"",'password',true,40,"","");
+   $m->add_field('pass', translate("Password"),'','password',true,40,'','');
+   $m->add_extra('<div class="form-group row"><div class="col-sm-offset-4 col-sm-8" ><progress id="passwordMeter_cont" class="progress password-meter" value="0" max="100"><div class="progress"><span id="passwordMeter" class="progress-bar" style="width: 0%;"></span></div></progress></div></div>');
    $m->add_field('vpass', translate("Retype Password"),"",'password',true,40,"","");
 }
 // --- MEMBER-PASS
@@ -82,14 +85,12 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 // ----------------------------------------------------------------
 // CES CHAMPS sont indispensables --- Don't remove these fields
 // Champ Hidden
-// $m->add_field("op","","new user",'hidden',false);
-$m->add_field("op","","new user",'hidden',false);
+$m->add_field('op','','new user','hidden',false);
+$m->add_extra('<div class="form group row"><div class="col-sm-offset-4 col-sm-8" >');
+$m->add_field('Submit','',translate("Submit"),'submit',false);
+$m->add_extra("&nbsp;");
+$m->add_field('Reset','',translate("Cancel"),'reset',false);
+$m->add_extra('</div></div><br />');
 
-$m->add_extra("<br />");
-// Reset bouton
-$m->add_field('Reset',"",translate("Cancel"),'reset',false);
-$m->add_extra("&nbsp;&nbsp;&nbsp;");
-// Submit bouton
-$m->add_field('Submit',"",translate("Submit"),'submit',false);
 // ----------------------------------------------------------------
 ?>

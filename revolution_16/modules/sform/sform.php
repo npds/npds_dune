@@ -293,9 +293,9 @@ class form_handler {
     if (isset($this->form_id)){
         $id_form = "id=\"".$this->form_id."\"";
     } else {
-        $id_form = "";
+        $id_form = '';
     }
-    $str="";
+    $str='';
     if ($this->form_method!="") {
       $str.="\n<form action=\"".$this->url."\" ".$id_form."  method=\"".$this->form_method."\" name=\"".$this->form_title."\" enctype=\"multipart/form-data\"";
        if ($this->form_check=="true") {
@@ -323,34 +323,35 @@ class form_handler {
         case 'text':
          $str.='
          <div class="form-group row">
-            <div class="col-sm-4">';
-		  $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
+            <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
-
+          $requi='';
           if ($this->form_fields[$i]['obligation']){
+             $requi= 'required="required"';
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
-             $str.="&nbsp;<span class=\"text-danger\">*</span></label></div>\n";
-          } else $str.="&nbsp;</label></div>\n";
-
+             $str.='&nbsp;<span class="text-danger">*</span>';
+          }
+         $str.='</label>
+         <div class="col-sm-8">';
           // Charge la valeur et analyse la clef
           if ($this->form_fields[$i]['name']==$this->form_key) {
              $this->form_key_value=$this->form_fields[$i]['value'];
-             if ($this->form_key_status=="close") {
-                $str.="<div class=\"col-sm-8\">\n";
-				$str.="<input class=\"form-control\" readonly type=\"".$this->form_fields[$i]['type']."\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" size=\"".$csize."\" maxlength=\"".$this->form_fields[$i]['size']."\"";
+             if ($this->form_key_status=='close') {
+                $str.='
+                <input class="form-control" readonly="readonly" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" ';
              } else {
-                $str.="<div class=\"col-sm-8\">\n";
-				$str.="<input class=\"form-control\" type=\"".$this->form_fields[$i]['type']."\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" size=\"".$csize."\" maxlength=\"".$this->form_fields[$i]['size']."\"";
+                $str.='
+                <input class="form-control" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" '.$requi;
              }
           } else {
-             $str.="<div class=\"col-sm-8\">\n";
-			 $str.="<input class=\"form-control\" type=\"".$this->form_fields[$i]['type']."\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" size=\"".$csize."\" maxlength=\"".$this->form_fields[$i]['size']."\"";
+             $str.='
+             <input class="form-control" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" '.$requi;
           }
-          if ($num_extender!="no") {
-             $str.=" ".$this->form_fields[$num_extender]['javas'].">";
+          if ($num_extender!='no') {
+             $str.=' '.$this->form_fields[$num_extender]['javas'].'>';
              $str.=$this->form_fields[$num_extender]['html'];
           } else {
-             $str.=" /> ";
+             $str.=' /> ';
           }
           $str.='
             </div>
@@ -363,14 +364,13 @@ class form_handler {
         case 'password':
          $str.='
           <div class="form-group row">
-             <div class="col-sm-4">';
-         $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
+            <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
 
           if ($this->form_fields[$i]['obligation']){
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
-             $str.="&nbsp;<span class=\"text-danger\">*</span></label></div>\n";
-          } else $str.="</label></div>\n";
+             $str.="&nbsp;<span class=\"text-danger\">*</span></label>\n";
+          } else $str.="</label>\n";
          $str.="<div class=\"col-sm-8\">\n";
          $str.="<input class=\"form-control\" type=\"".$this->form_fields[$i]['type']."\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" size=\"".$csize."\" maxlength=\"".$this->form_fields[$i]['size']."\" />";
           if ($num_extender!="no") {
@@ -383,10 +383,9 @@ class form_handler {
 
       case 'checkbox':
          $str.='
-          <div class="checkbox row">
-             <div class="col-sm-4">';
-         $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
-         $str.=($this->form_fields[$i]['obligation'])? "&nbsp;<span class=\"text-danger\">*</span></label>\n" : "</label></div>\n";
+          <div class="form-group row">';
+         $str.="<label class=\"form-control-label col-sm-4 \" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
+         $str.=($this->form_fields[$i]['obligation'])? "&nbsp;<span class=\"text-danger\">*</span></label>\n" : "</label>\n";
          $str.="<div class=\"col-sm-8\">\n";
          $str.="<input class=\"form-control\" type=\"checkbox\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\"";
          $str.=" value=\"".$this->form_fields[$i]['value']."\"";
@@ -402,16 +401,15 @@ class form_handler {
       case 'textarea':
       case 'textarea_no_mceEditor':
          $str.='
-          <div class="form-group row">
-             <div class="col-sm-4">';
-         $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en']."\n";
+          <div class="form-group row">';
+         $str.="<label class=\"form-control-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en']."\n";
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
 
           if ($this->form_fields[$i]['obligation']){
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
              $str.="&nbsp;<span class=\"text-danger\">*</span>";
           }
-          $str.='</label></div>';
+          $str.='</label>';
           $txt_row=$this->form_fields[$i]['diviseur'];
           $txt_col=( ($this->form_fields[$i]['size'] - ($this->form_fields[$i]['size'] % $txt_row)) / $txt_row);
           $str.="<div class=\"col-sm-8\"><textarea class=\"form-control\" name=\"".$this->form_fields[$i]['name']."\"";
@@ -440,16 +438,14 @@ class form_handler {
       case 'select':
          $str.='
           <div class="form-group row">
-             <div class="col-sm-4">
-                <label class="form-control-label" for="'.$this->form_fields[$i]['name'].'">
-                '.$this->form_fields[$i]['en'].'
-                </label>
-             </div>
+             <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">
+             '.$this->form_fields[$i]['en'].'
+             </label>
              <div class="col-sm-8">';
           $str.="<select class=\"c-select form-control\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name'];
           $str.=($this->form_fields[$i]['multiple'])? "[]\" multiple" : "\"";
-          if ($num_extender!="no") {
-             $str.=" ".$this->form_fields[$num_extender]['javas']." ";
+          if ($num_extender!='no') {
+             $str.=' '.$this->form_fields[$num_extender]['javas'].' ';
           }
           $str.=($this->form_fields[$i]['size'] > 1)? " size=\"".$this->form_fields[$i]['size']."\">" : ">";
           while(list($key,$val)=each($this->form_fields[$i]['value']) ){
@@ -458,7 +454,7 @@ class form_handler {
             $str.=str_replace('\'','&#039;',$val['en'])."</option>";
           }
           $str.='</select>';
-          if ($num_extender!="no") {
+          if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];
           }
           $str.='
@@ -511,23 +507,17 @@ class form_handler {
 
         case 'submit':
          $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
-         $str.='
-         <div class="form-group row">
-            <div class="col-sm-12 btn-block">
-               <button class="btn btn-primary" id="'.$this->form_fields[$i]['name'].'" type="submit" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"><i class="fa fa-check fa-lg"></i> '.$this->form_fields[$i]['value'].' </button>
-            </div>
-         </div>';
+         $str.='<button class="btn btn-primary" id="'.$this->form_fields[$i]['name'].'" type="submit" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"><i class="fa fa-check fa-lg"></i> '.$this->form_fields[$i]['value'].' </button>';
           break;
 
         case 'reset':
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
           $str.=$this->form_fields[$i]['en'];
-          $str.="<div class=\"form-group row\">";
-          $str.="<div class=\"col-sm-12 btn-block\"><input class=\"btn btn-secondary\" id=\"".$this->form_fields[$i]['name']."\" type=\"reset\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" /></div></div>\n";
+          $str.='<input class="btn btn-secondary" id="'.$this->form_fields[$i]['name'].'" type="reset" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" />';
           break;
 
         case 'stamp':
-          if ($this->form_fields[$i]['value']=="") $this->form_fields[$i]['value']=strtotime("now");
+          if ($this->form_fields[$i]['value']=='') $this->form_fields[$i]['value']=strtotime("now");
           if ($this->form_fields[$i]['name']==$this->form_key) {
              $this->form_key_value=$this->form_fields[$i]['value'];
           }
@@ -537,16 +527,15 @@ class form_handler {
         case 'date':
           if ($this->form_fields[$i]['value']=="") $this->form_fields[$i]['value']=date($this->form_fields[$i]['model']);
          $str.='
-          <div class="form-group row">
-             <div class="col-sm-4">';
-         $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
+          <div class="form-group row">';
+         $str.="<label class=\"form-control-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
           if ($this->form_fields[$i]['obligation']){
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
-             $str.="&nbsp;<span class=\"text-danger\">*</span></label></div>";
-          } else $str.="</label></div>";
+             $str.="&nbsp;<span class=\"text-danger\">*</span></label>";
+          } else $str.='</label>';
           if ($this->form_fields[$i]['name']==$this->form_key) {
              $this->form_key_value=$this->form_fields[$i]['value'];
-             if ($this->form_key_status=="close") {
+             if ($this->form_key_status=='close') {
                 $str.="<input type=\"hidden\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" />";
                 $str.="<b>".$this->form_fields[$i]['value']."</b>";
              } else {
@@ -557,7 +546,7 @@ class form_handler {
             $str.="<div class=\"col-sm-8\">\n";
             $str.="<input class=\"form-control\" id=\"".$this->form_fields[$i]['name']."\" type=\"text\" name=\"".$this->form_fields[$i]['name']."\" value=\"".$this->form_fields[$i]['value']."\" size=\"".$csize."\" maxlength=\"".$this->form_fields[$i]['size']."\" />";
           }
-          if ($num_extender!="no") {
+          if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];
           }
           $str.='
