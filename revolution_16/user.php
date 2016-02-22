@@ -59,10 +59,10 @@ function nav($mns) {
 
 function userCheck($uname, $email) {
     global $NPDS_Prefix;
-    $stop="";
-    if ((!$email) || ($email=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid email")."";
+    $stop='';
+    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid email")."";
     if (strrpos($email,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Email addresses do not contain spaces.")."";
-    if ((!$uname) || ($uname=="") || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid Nickname")."";
+    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid Nickname")."";
     if (strlen($uname) > 25) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Nickname is too long. It must be less than 25 characters.")."";
     if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname)) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Name is reserved.")."";
     if (strrpos($uname,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("There cannot be any spaces in the Nickname.")."";
@@ -109,24 +109,19 @@ function showimage() {
 }
 
 function Only_NewUser() {
-    global $user, $memberpass;
-    if (!$user) {
-       global $smilies, $short_user, $memberpass;
-       global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
-       include("header.php");       
-       showimage();
-
-       if (!$memberpass) {
-      echo '<p class="lead text-info text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
-      }
-      echo '<h2>'.translate("User").'</h2>';
-      echo '<p class="text-info">'.translate("Notice").' :';
-      echo '<ul class="text-info"><li>'.translate("Account preferences are cookie based.").'</li>';
-      echo '<li>'.translate("We don't sell/give to others your personal info.").'</li>';
-      echo '<li>'.translate("As a registered user you can").' : ';
-      echo '<a data-toggle="collapse" href="#collapseuser" aria-expanded="false" aria-controls="collapseuser"><i class="fa fa-lg fa-eye"></i></a>';   
-      echo '<div class="collapse" id="collapseuser">
-         <div class="well text-info">
+   global $user, $memberpass;
+   if (!$user) {
+      global $smilies, $short_user, $memberpass;
+      global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
+      include("header.php");
+      showimage();
+      echo '
+   <h2>'.translate("User").'</h2>
+   <div class="card card-block">
+      <h3>'.translate("Notice").'</h3>
+      <p>
+      '.translate("Account preferences are cookie based.").' '.translate("We don't sell/give to others your personal info.").' '.translate("As a registered user you can").' : 
+         <ul>
          <blockquote>
             <li>'.translate("Post comments with your name").'</li>
             <li>'.translate("Send news with your name").'</li>
@@ -137,15 +132,84 @@ function Only_NewUser() {
             <li>'.translate("Select different themes").'</li>
             <li>'.translate("some other cool stuff...").'</li>
          </blockquote>
-         </div>
-      </div>';
-      echo '</li></ul></p>';
+         </ul>
+      </p>';
+      if (!$memberpass) {
+         echo '
+      <p class="lead text-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
+      }
+      echo '
+   </div>';
+      include ("modules/sform/extend-user/extend-user.php");
+//      include("footer.php");
 
-       include ("modules/sform/extend-user/extend-user.php");
-       include("footer.php");
-    } else {
+   $fv_parametres = '
+   add_aid: {
+      validators: {
+         callback: {
+            message: "Ce surnom n\'est pas disponible",
+            callback: function(value, validator, $field) {
+            return $.inArray(value, admin) == -1;
+            }
+         }
+      }
+   },
+   add_name: {
+      validators: {
+         callback: {
+            message: "Ce nom n\'est pas disponible",
+            callback: function(value, validator, $field) {
+               return $.inArray(value, adminname) == -1;
+            }
+         }
+      }
+   },
+   add_email: {
+   },
+   add_url: {
+   },
+   pass: {
+      validators: {
+         notEmpty: {
+            message: "The password is required and cannot be empty"
+         },
+         callback: {
+            callback: function(value, validator, $field) {
+               var score = 0;
+               if (value === "") {
+                  return {
+                     valid: true,
+                     score: null
+                  };
+               }
+               // Check the password strength
+               score += ((value.length >= 8) ? 1 : -1);
+               // The password contains uppercase character
+               if (/[A-Z]/.test(value)) {score += 1;}
+               // The password contains uppercase character
+               if (/[a-z]/.test(value)) {score += 1;}
+               // The password contains number
+               if (/[0-9]/.test(value)) {score += 1;}
+               // The password contains special characters
+               if (/[!#$%&^~*_]/.test(value)) {score += 1;}
+               return {
+               valid: true,
+               score: score    // We will get the score later
+               };
+            }
+         }
+      }
+   },
+   ';
+
+
+
+
+
+   adminfoot('fv',$fv_parametres,'','1');
+   } else {
       header("location: user.php");
-    }
+   }
 }
 function hidden_form() {
     global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
