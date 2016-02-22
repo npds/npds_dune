@@ -3171,7 +3171,7 @@ echo '
    .on("success.validator.fv", function(e, data) {
    // The password passes the callback validator
    // voir si on a plus de champs mot de passe : changer par un array de champs ...
-   if ((data.field === "add_pwd" || data.field === "chng_pwd") && data.validator === "callback") {
+   if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass") && data.validator === "callback") {
       // Get the score
       var score = data.result.score,$bar_cont=$("#passwordMeter_cont"),$pass_level=$("#pass-level"),
           $bar = $("#passwordMeter").find(".progress-bar");
