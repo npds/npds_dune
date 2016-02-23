@@ -141,7 +141,6 @@ function Only_NewUser() {
       echo '
    </div>';
       include ("modules/sform/extend-user/extend-user.php");
-//      include("footer.php");
 
    $fv_parametres = '
    add_aid: {
@@ -201,10 +200,6 @@ function Only_NewUser() {
       }
    },
    ';
-
-
-
-
 
    adminfoot('fv',$fv_parametres,'','1');
    } else {
