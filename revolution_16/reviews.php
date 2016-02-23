@@ -198,21 +198,24 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    echo '<button class="btn btn-secondary" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';
    } else {
       global $gmt;
-      $fdate=date(str_replace("%","",translate("linksdatestring")),time()+($gmt*3600));
-   
+      $fdate=date(str_replace('%','',translate("linksdatestring")),time()+($gmt*3600));
+
       echo ''.translate("Waiting Reviews").'';
-   
+
       echo '
       <br />'.translate("Added:").' '.$fdate.'
       <hr noshade="noshade" />
-      <span>'.$title.'</span><br />';
+      <h3>'.$title.'</h3>';
       if ($cover != '')
-         echo "<img src=\"images/reviews/$cover\" align=\"right\" hspace=\"10\" vspace=\"10\">";
+         echo '<img class="img-fluid" src="images/reviews/'.$cover.'" alt="img_" />';
       echo $text;
-      echo '<hr noshade="noshade" />';
-      echo "<strong>".translate("Reviewer")." :</strong> <a href=\"mailto:$email\" target=\"_blank\">$reviewer</a><br />";
-      echo '<strong>'.translate("Score:").'</strong>
-      <div class="text-success">'.display_score($score).'</div> <br />';
+      echo '
+      <hr noshade="noshade" />
+      <strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" target="_blank">'.$reviewer.'</a><br />
+      <strong>'.translate("Score:").'</strong>
+      <span class="text-success">';
+      display_score($score); 
+      echo'</span>';
       if ($url != '')
          echo "<br /><b>".translate("Related Link")." :</b> <a href=\"$url\" target=\"_blank\">$url_title</a>";
       if ($id != 0) {
@@ -236,12 +239,17 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
             <br />'.translate("Does this look right?").'&nbsp;&nbsp;';
       if (!$admin) echo Q_spambot();
       echo '
-      <input class="btn btn-primary" type="submit" value="'.translate("Yes").'" />&nbsp;
-      <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("No").'" />';
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input class="btn btn-primary" type="submit" value="'.translate("Yes").'" />&nbsp;
+            <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("No").'" />
+         </div>
+      </div>';
       if ($id != 0) $word = translate("modified");
       else $word = translate("added");
       if ($admin)
-         echo "<br /><b>".translate("Note:")."</b> ".translate("Currently logged in as admin... this review will be")." $word ".translate("immediately").".";
+         echo '
+         <div class="alert alert-success"><strong>'.translate("Note:").'</strong> '.translate("Currently logged in as admin... this review will be").' '.$word.' '.translate("immediately").'.</div>';
    }
    echo '</form>';
    include ("footer.php");
@@ -278,12 +286,12 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
    }
    echo '
    <h2>'.translate("Write a Review").'</h2>
-   <br /><p class="lead text-danger">'.translate("Thanks for submitting this review").'';
+   <div class="alert alert-success">'.translate("Thanks for submitting this review").'';
    if ($id != 0)
       echo " ".translate("modification")."";
    else
       echo ", $reviewer";
-   echo '<br /><br />';
+   echo '<br />';
    if (($admin) && ($id == 0)) {
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
       echo translate("It is now available in the reviews database.");
@@ -294,7 +302,7 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews_add VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$url', '$url_title')");
       echo translate("The editors will look at your submission. It should be available soon!");
    }
-   echo '</p><a class="btn btn-default" role="button" href="reviews.php" title="'.translate("Back to Reviews Index").'"><i class="fa fa-lg fa-undo"></i>
+   echo '</div><a class="btn btn-secondary" role="button" href="reviews.php" title="'.translate("Back to Reviews Index").'"><i class="fa fa-lg fa-undo"></i>
 </a>';
    include ("footer.php");
 }
@@ -394,56 +402,67 @@ function f_date($xdate) {
 function showcontent($id) {
    global $admin, $NPDS_Prefix;
    include ('header.php');
-
-   settype($id,"integer");
+   settype($id,'integer');
    sql_query("UPDATE ".$NPDS_Prefix."reviews SET hits=hits+1 WHERE id='$id'");
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews WHERE id='$id'");
-
-   echo '<h2>'.translate("Reviews").'</h2>';
-   echo '[ <a href="reviews.php">'.translate("Back to Reviews Index").'</a> ]';
-
-   echo '<div class="card card-block">';
    $myrow = sql_fetch_assoc($result);
-   $id =  $myrow["id"];
-   $fdate=f_date($myrow["date"]);
-   $title = $myrow["title"];
-   $text = $myrow["text"];
-   $cover = $myrow["cover"];
-   $reviewer = $myrow["reviewer"];
-   $email = $myrow["email"];
-   $hits = $myrow["hits"];
-   $url = $myrow["url"];
-   $url_title = $myrow["url_title"];
-   $score = $myrow["score"];
+   $id =  $myrow['id'];
+   $fdate=f_date($myrow['date']);
+   $title = $myrow['title'];
+   $text = $myrow['text'];
+   $cover = $myrow['cover'];
+   $reviewer = $myrow['reviewer'];
+   $email = $myrow['email'];
+   $hits = $myrow['hits'];
+   $url = $myrow['url'];
+   $url_title = $myrow['url_title'];
+   $score = $myrow['score'];
+
    echo '
-   <div class="card-text text-muted text-xs-right small">
+   <h2>'.translate("Reviews").'</h2>
+   <a href="reviews.php">'.translate("Back to Reviews Index").'</a>
+   <div class="card card-block">
+      <div class="card-text text-muted text-xs-right small">
    '.translate("Added:").' '.$fdate.'<br />
-   </div>
+      </div>
+   <hr />  
    <h3>'.$title.'</h3><br />';
    if ($cover != '')
-      echo '<img class="img-fluid" src="images/reviews/'.$cover.'" align="right" hspace="10" vspace="10" />';
+      echo '<img class="img-fluid" src="images/reviews/'.$cover.'" />';
    echo $text;
-   echo '<hr noshade="noshade" />';
-   if ($admin)
-      echo '
-      <p class="text-xs-right"><b>'.translate("Admin:").'</b>
-         <a href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-lg fa-edit"></i></a>&nbsp;
-         <a href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-lg fa-trash-o"></i></a>
-      </p>';
+
+   echo '
+      <br /><br />
+      <div class="card card-block">';
    if ($reviewer != '')
       echo '<strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" >'.$reviewer.'</a><br />';
    if ($score != '')
-      echo '<strong>'.translate("Score:").'</strong>';
+      echo '<strong>'.translate("Score:").' : </strong>';
    echo '<span class="text-success">';
    display_score($score);
    echo '</span>';
    if ($url != '')
-      echo "<br /><strong>".translate("Related Link")." :</strong> <a href=\"$url\" target=\"_blank\">$url_title</a>";
+      echo '<br /><strong>'.translate("Related Link").' : </strong> <a href="$url" target="_blank">'.$url_title.'</a>';
    echo '<br /><strong>'.translate("Hits:").'</strong><span class="label label-pill label-default">'.$hits.'</span>
-   </div>';
-   
+      </div>';
+   if ($admin)
+      echo '
+      <nav class="text-xs-center">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+            </li>
+            <li class="page-item">
+               <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
+            </li>
+            <li class="page-item">
+               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Delete").'" data-toggle="tooltip" ><i class="fa fa-lg fa-trash-o" ></i></a>
+            </li>
+         </ul>
+      </nav>';
+   echo '</div>';
+
    sql_free_result($result);
-   
 
    global $anonpost, $moderate, $user;
    if (file_exists("modules/comments/reviews.conf.php")) {
@@ -457,22 +476,22 @@ function mod_review($id) {
    global $admin, $NPDS_Prefix;
    include ('header.php');
 
-   settype($id,"integer");
+   settype($id,'integer');
    if (($id != 0) && ($admin)) {
-      $result = sql_query("select * from ".$NPDS_Prefix."reviews where id = '$id'");
+      $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews WHERE id = '$id'");
       $myrow =  sql_fetch_assoc($result);
-      $id =  $myrow["id"];
-      $date = $myrow["date"];
-      $title = $myrow["title"];
-      $text = str_replace("<br />","\r\n",$myrow["text"]);
-      $cover = $myrow["cover"];
-      $reviewer = $myrow["reviewer"];
-      $email = $myrow["email"];
-      $hits = $myrow["hits"];
-      $url = $myrow["url"];
-      $url_title = $myrow["url_title"];
-      $score = $myrow["score"];
-   
+      $id =  $myrow['id'];
+      $date = $myrow['date'];
+      $title = $myrow['title'];
+      $text = str_replace('<br />','\r\n',$myrow['text']);
+      $cover = $myrow['cover'];
+      $reviewer = $myrow['reviewer'];
+      $email = $myrow['email'];
+      $hits = $myrow['hits'];
+      $url = $myrow['url'];
+      $url_title = $myrow['url_title'];
+      $score = $myrow['score'];
+
    echo '
    <h2>'.translate("Review Modification").'</h2>
    <form class="" method="post" action="reviews.php?op=preview_review">
@@ -496,31 +515,31 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Reviewer:").'</label>
+         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Reviewer").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="reviewer" value="'.$reviewer.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="email">'.translate("Email:").'</label>
+         <label class="form-control-label col-sm-4" for="email">'.translate("Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" name="email" value="'.$email.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="score">'.translate("Score:").'</label>
+         <label class="form-control-label col-sm-4" for="score">'.translate("Score").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="score" value="'.$score.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url">'.translate("Link:").'</label>
+         <label class="form-control-label col-sm-4" for="url">'.translate("Link").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="url" value="'.$url.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url_title">'.translate("Link title:").'</label>
+         <label class="form-control-label col-sm-4" for="url_title">'.translate("Link title").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="url_title" value="'.$url_title.'" />
          </div>
@@ -567,29 +586,29 @@ function del_review($id_del) {
 
 settype($op,'string');
 switch ($op) {
-   case "showcontent":
+   case 'showcontent':
         showcontent($id);
         break;
-   case "write_review":
+   case 'write_review':
         write_review();
         break;
-   case "preview_review":
+   case 'preview_review':
         preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id);
         break;
-   case "add_reviews":
+   case 'add_reviews':
         send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse);
         break;
-   case "del_review":
+   case 'del_review':
         del_review($id_del);
         break;
-   case "mod_review":
+   case 'mod_review':
         mod_review($id);
         break;
-   case "sort":
+   case 'sort':
         reviews($field,$order);
         break;
    default:
-        reviews("date","DESC");
+        reviews('date','DESC');
         break;
 }
 ?>

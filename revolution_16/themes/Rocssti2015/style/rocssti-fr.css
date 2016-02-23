@@ -2,12 +2,12 @@
 /* UTF-8 déclaré avant toute chose */
 
 /******************************************************************
- * ROCSSTI : une base CSS par Nicolas Hoffmann http://rocssti.net/
- * Builder : http://rocssti.net/builder-css
+ * ROCSSTI : une base CSS par Nicolas Hoffmann https://rocssti.net/
+ * Builder : https://rocssti.net/builder-css
  * inspiré par http://www.knacss.com/
  * 
  * Une Röcssti-quote, juste pour le plaisir :
- * « À propos, chérieke, tu n’as jamais pensé à faire frire des Röcssti ? » — Gueuselambix 
+ * « Merci pour ce moment… d’intégration. » — Valérie Trierweiler 
  *
  * ROCSSTI est sous licence MIT : https://github.com/nico3333fr/ROCSSTI/blob/master/LICENSE
  * 
@@ -19,6 +19,11 @@
  *  .parent
  *  .parent__enfant
  *  .parent--modifieur  
+ * 
+ *
+ * RTL = Right To Left => 
+ * pour adapter un site dans une langue qui se lit de droite à gauche
+ * prévu surtout pour sites multilingues avec LTR et RTL 
  *  
  * 
  * résumé
@@ -64,13 +69,11 @@ html { box-sizing: border-box; }
 /* reset minimum */
 html, body, blockquote, ul, ol, form, button { margin: 0; padding: 0; }
 button { border: 0; }
-p, ul, ol, dl, blockquote, pre, td, th,  textarea {
+p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
   font-size: 1em; /* equiv 14px */
   line-height: 1.5;
   margin: 1.5em 0;
 }
-
-/*label,*/
 
 /* fix display img/iframe */
 img,
@@ -81,6 +84,14 @@ ul, ol { padding-left: 2em; }
 .unstyled {
   padding-left: 0;
   list-style-type: none;
+}
+[dir="rtl"] ul, 
+[dir="rtl"] ol { 
+  padding-left: 0; 
+  padding-right: 2em;
+}
+[dir="rtl"] .unstyled {
+  padding-right: 0;
 }
 
 /* la base correspond à 10px */
@@ -118,43 +129,42 @@ h1,
   display: block;
   font-size: 1.85714em; /* equiv 26px */
   line-height: 1.61538;
-  margin: 0 0 .80769em 0;
+  margin: 1.61538em 0 .80769em 0;
 }
 h2,
 .h2 {
   display: block;
   font-size: 1.71429em; /* equiv 24px */
   line-height: 1.75;
-  margin: 0 0 .875em 0;
+  margin: 1.75em 0 .875em 0;
 }
 h3,
 .h3 {
   display: block;
   font-size: 1.57143em; /* equiv 22px */
   line-height: 1.90909;
-  margin: 0 0 .95455em 0;
-  
+  margin: 1.90909em 0 .95455em 0;
 }
 h4,
 .h4 {
   display: block;
   font-size: 1.42857em; /* equiv 20px */
   line-height: 1.05;
-  margin: 0 0 1.05em 0;
+  margin: 2.1em 0 1.05em 0;
 }
 h5,
 .h5 {
   display: block;
   font-size: 1.28571em; /* equiv 18px */
   line-height: 1.16667;
-  margin: 0 0 1.16667em 0;
+  margin: 2.33333em 0 1.16667em 0;
 }
 h6,
 .h6 {
   display: block;
   font-size: 1.14286em; /* equiv 16px */
   line-height: 1.3125;
-  margin: 0 0 1.3125em 0;
+  margin: 2.625em 0 1.3125em 0;
 }
 
 .uppercase {
@@ -167,11 +177,11 @@ h6,
   line-height: 2.1;
   margin: 2.1em 0;
 }
-.small {
+/* .small {
   font-size: .85714em; /* equiv 12px */
   line-height: 1.75;
   margin: 1.75em 0;
-}
+} */
 .big {
   font-size: 1.14286em; /* equiv 16px */
   line-height: 1.3125;
@@ -200,9 +210,9 @@ h6,
 .noborder,
 iframe { border: 0; }
 
-/* table {
-  table-layout: fixed;      je vire ici car me fiche le bordel avec les tableaux de npds le contenu sort des cellules
-} */
+table {
+  table-layout: fixed;
+}
 
 /*
  * repris de http://tinytypo.tetue.net/ de @tetue
@@ -249,6 +259,27 @@ sub {
 }
 
 
+/* éviter problèmes de margin */
+h1:first-child, .h1:first-child,
+h2:first-child, .h2:first-child,
+h3:first-child, .h3:first-child,
+h4:first-child, .h4:first-child,
+h5:first-child, .h5:first-child,
+h6:first-child, .h6:first-child {
+  margin-top: 0;
+}
+
+/* virer marge basse sur dernier enfant */
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+blockquote:last-child,
+pre:last-child,
+table:last-child {
+  margin-bottom: 0;
+}
+
 
 
 
@@ -259,7 +290,7 @@ li ul {
   margin-top: 0;
 }
 /* Vous ne passerez PAS (Gandalf) */
-/*textarea,
+textarea,
 table,
 td,
 th,
@@ -267,7 +298,7 @@ code,
 pre,
 samp,
 div,
-p,*/
+p,
 .cut {
   word-wrap: break-word;
   -webkit-hyphens: auto;
@@ -317,6 +348,10 @@ abbr[title] {
 .aligncenter { text-align: center; }
 .alignleft   { text-align: left; }
 
+/* RTL */
+[dir="rtl"] .alignright  { text-align: left; }
+[dir="rtl"] .alignleft   { text-align: right; }
+
 
 
 
@@ -335,7 +370,7 @@ a {
 a:focus,
 a:hover,
 a:active {
-  color: #000;
+  color: #a65300;
 }
 /* éviter la bordure sur une image comprise dans un lien + fix bordure image IE */
 a:link img,
@@ -407,7 +442,8 @@ svg {
 .mod { 
   overflow: auto;
 }
-.mod--hidden { 
+.mod--hidden,
+.no-scroll { 
   overflow: hidden;
 }
 
@@ -442,6 +478,21 @@ svg {
   height: 0;
   clear: both;
   visibility: hidden;
+}
+
+/* RTL */
+[dir="rtl"] .left {
+  float: right;
+}
+[dir="rtl"] .right {
+  float: left;
+}
+
+[dir="rtl"] .clearleft {
+  clear: right;
+}
+[dir="rtl"] .clearright {
+  clear: left;
 }
 
 
@@ -564,8 +615,16 @@ svg {
 .m1  { margin: 1em; }
 .m2  { margin: 2em; }
 .m01  { margin: 0.5em; }
-.m02  { margin: 0.75em; }
+.m02  { margin: 0.725em; }
 
+
+/* RTL = attention, utiliser avec précaution */
+[dir="rtl"] .mr0 { margin-left: 0; }
+[dir="rtl"] .mr1 { margin-right: inherit; margin-left: 1em; }
+[dir="rtl"] .mr2 { margin-right: inherit; margin-left: 2em; }
+[dir="rtl"] .ml0 { margin-right: 0; }
+[dir="rtl"] .ml1 { margin-left: inherit; margin-right: 1em; }
+[dir="rtl"] .ml2 { margin-left: inherit; margin-right: 2em; }
 
 
 /* paddings */
@@ -585,6 +644,14 @@ svg {
 .p1  { padding: 1em; }
 .p2  { padding: 2em; }
 
+
+/* RTL = attention, utiliser avec précaution */
+[dir="rtl"] .pr0 { padding-left: 0; }
+[dir="rtl"] .pr1 { padding-right: 0; padding-left: 1em; }
+[dir="rtl"] .pr2 { padding-right: 0; padding-left: 2em; }
+[dir="rtl"] .pl0 { padding-right: 0; }
+[dir="rtl"] .pl1 { padding-left: 0; padding-right: 1em; }
+[dir="rtl"] .pl2 { padding-left: 0; padding-right: 2em; }
 
 
 /* spécial hr de 1px de haut */
@@ -708,22 +775,34 @@ select {
   vertical-align: middle;
 }
 
+/** fix typo inputs **/
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+  font-size: 1em;
+}
+
 /* à adapter selon le design voulu */
 input,
 select,
 textarea {
-  border: 1px solid #000;
+  border: 1px solid #804000;
   border-radius: 5px;
   padding: .5em;
   width: 250px;
-  /** fix typo inputs **/
-  font-family: inherit;
-  font-size: 1em;
 }
 
 /* pour les textes des champs */
 .label {
   display: inline-block;
+}
+
+ label, textarea {
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 0px;
 }
 
 /* à adapter selon le design voulu */
@@ -1089,4 +1168,12 @@ select:focus:required:valid {
 .ie7 .row,
 .ie6 .row {
   overflow: auto;
+}
+
+/* RTL */
+[dir="rtl"] .ie7 .col,
+[dir="rtl"] .ie7 .col-noalign,
+[dir="rtl"] .ie6 .col,
+[dir="rtl"] .ie6 .col-noalign {
+  float: right;
 }

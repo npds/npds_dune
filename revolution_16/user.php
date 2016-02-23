@@ -41,27 +41,28 @@ function nav($mns) {
    echo '
    <ul class="nav nav-tabs"> 
       <li class="nav-item active"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i> Vous</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Edit Journal").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Journal").'</a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Manage my Mini-Web site").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Mini-Web site").'</a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link" href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Change the home").'</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Change Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Home").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'">'.translate("Social networks").'</a></li>
       <li class="nav-item"><a class="nav-link" href="user.php?op=logout" title="'.translate("Logout").'"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
    </ul>';
 }
 
 function userCheck($uname, $email) {
     global $NPDS_Prefix;
-    $stop="";
-    if ((!$email) || ($email=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid email")."";
+    $stop='';
+    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid email")."";
     if (strrpos($email,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Email addresses do not contain spaces.")."";
-    if ((!$uname) || ($uname=="") || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid Nickname")."";
+    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid Nickname")."";
     if (strlen($uname) > 25) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Nickname is too long. It must be less than 25 characters.")."";
     if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname)) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Name is reserved.")."";
     if (strrpos($uname,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("There cannot be any spaces in the Nickname.")."";
@@ -69,7 +70,7 @@ function userCheck($uname, $email) {
        $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Nickname taken")."";
     }
     if ($uname!="edituser") {
-       if (sql_num_rows(sql_query("select email from ".$NPDS_Prefix."users where email='$email'")) > 0) {
+       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
           $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Email address already registered")."";
        }
     }
@@ -108,24 +109,19 @@ function showimage() {
 }
 
 function Only_NewUser() {
-    global $user, $memberpass;
-    if (!$user) {
-       global $smilies, $short_user, $memberpass;
-       global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
-       include("header.php");       
-       showimage();
-
-       if (!$memberpass) {
-      echo '<p class="lead text-info text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
-      }
-      echo '<h2>'.translate("User").'</h2>';
-      echo '<p class="text-info">'.translate("Notice").' :';
-      echo '<ul class="text-info"><li>'.translate("Account preferences are cookie based.").'</li>';
-      echo '<li>'.translate("We don't sell/give to others your personal info.").'</li>';
-      echo '<li>'.translate("As a registered user you can").' : ';
-      echo '<a data-toggle="collapse" href="#collapseuser" aria-expanded="false" aria-controls="collapseuser"><i class="fa fa-lg fa-eye"></i></a>';   
-      echo '<div class="collapse" id="collapseuser">
-         <div class="well text-info">
+   global $user, $memberpass;
+   if (!$user) {
+      global $smilies, $short_user, $memberpass;
+      global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
+      include("header.php");
+      showimage();
+      echo '
+   <h2>'.translate("User").'</h2>
+   <div class="card card-block">
+      <h3>'.translate("Notice").'</h3>
+      <p>
+      '.translate("Account preferences are cookie based.").' '.translate("We don't sell/give to others your personal info.").' '.translate("As a registered user you can").' : 
+         <ul>
          <blockquote>
             <li>'.translate("Post comments with your name").'</li>
             <li>'.translate("Send news with your name").'</li>
@@ -136,15 +132,84 @@ function Only_NewUser() {
             <li>'.translate("Select different themes").'</li>
             <li>'.translate("some other cool stuff...").'</li>
          </blockquote>
-         </div>
-      </div>';
-      echo '</li></ul></p>';
+         </ul>
+      </p>';
+      if (!$memberpass) {
+         echo '
+      <p class="lead text-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
+      }
+      echo '
+   </div>';
+      include ("modules/sform/extend-user/extend-user.php");
+//      include("footer.php");
 
-       include ("modules/sform/extend-user/extend-user.php");
-       include("footer.php");
-    } else {
+   $fv_parametres = '
+   add_aid: {
+      validators: {
+         callback: {
+            message: "Ce surnom n\'est pas disponible",
+            callback: function(value, validator, $field) {
+            return $.inArray(value, admin) == -1;
+            }
+         }
+      }
+   },
+   add_name: {
+      validators: {
+         callback: {
+            message: "Ce nom n\'est pas disponible",
+            callback: function(value, validator, $field) {
+               return $.inArray(value, adminname) == -1;
+            }
+         }
+      }
+   },
+   add_email: {
+   },
+   add_url: {
+   },
+   pass: {
+      validators: {
+         notEmpty: {
+            message: "The password is required and cannot be empty"
+         },
+         callback: {
+            callback: function(value, validator, $field) {
+               var score = 0;
+               if (value === "") {
+                  return {
+                     valid: true,
+                     score: null
+                  };
+               }
+               // Check the password strength
+               score += ((value.length >= 8) ? 1 : -1);
+               // The password contains uppercase character
+               if (/[A-Z]/.test(value)) {score += 1;}
+               // The password contains uppercase character
+               if (/[a-z]/.test(value)) {score += 1;}
+               // The password contains number
+               if (/[0-9]/.test(value)) {score += 1;}
+               // The password contains special characters
+               if (/[!#$%&^~*_]/.test(value)) {score += 1;}
+               return {
+               valid: true,
+               score: score    // We will get the score later
+               };
+            }
+         }
+      }
+   },
+   ';
+
+
+
+
+
+   adminfoot('fv',$fv_parametres,'','1');
+   } else {
       header("location: user.php");
-    }
+   }
 }
 function hidden_form() {
     global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
@@ -182,7 +247,7 @@ function hidden_form() {
 function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $smilies, $short_user, $minpass, $memberpass;
     $uname=strip_tags($uname);
-    if ($user_viewemail!=1) {$user_viewemail="0";}
+    if ($user_viewemail!=1) {$user_viewemail='0';}
     $stop=userCheck($uname, $email);
     if ($memberpass) {
        if ((isset($pass)) and ("$pass" != "$vpass")) {
@@ -204,9 +269,10 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
             <input class=\"btn btn-secondary\" type=\"submit\" value=\"".translate("Go Back")."\" />
             </form>";
           } else {
-             echo "<input type=\"hidden\" name=\"op\" value=\"finish\">
-         <input class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Finish")."\" />
-         </form>";
+             echo '
+            <input type="hidden" name="op" value="finish">
+            <input class="btn btn-primary" type="submit" value="'.translate("Finish").'" />
+         </form>';
          }
        
        include("footer.php");
@@ -248,7 +314,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
        if ($result) {
           if (($system==1) or ($memberpass)) {
 	   echo '<h2>'.translate("User").'</h2>';
-          echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';             
+          echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';
                 echo "<p class=\"lead\">".translate("Your Password is: ")."<strong>$makepass</strong></p>";
                 echo "<p class=\"lead\">".translate("You can change it after you login at")." : <a href=\"user.php?op=login&uname=$uname&pass=$makepass\"><strong>$sitename</strong></a></p>";
              
@@ -421,31 +487,29 @@ function main($user) {
           echo '
           <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
           <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
+          <div class="card card-block">
           <form class="" role="form" action="user.php" method="post" name="userlogin">
              <div class="form-group row">
-               <div class="col-sm-4">
-                  <label for="inputuser" class="form-control-label">'.translate("Nickname").'</label>
-               </div>
-               <div class="col-sm-7">
+               <label for="inputuser" class="form-control-label col-sm-4">'.translate("Nickname").'</label>
+               <div class="col-sm-8">
                   <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'">
                </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-4">
-                  <label for="inputPassuser" class="form-control-label">'.translate("Password").'</label>
-               </div>
-               <div class="col-sm-7">
+               <label for="inputPassuser" class="form-control-label col-sm-4">'.translate("Password").'</label>
+               <div class="col-sm-8">
                   <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'">
                   <span class="help-block small"><a href="user.php?op=forgetpassword" role="button" title="'.translate("Lost your Password?").'">'.translate("Lost your Password?").'</a></span>
                </div>
             </div>
             <input type="hidden" name="op" value="login" />
             <div class="form-group row">
-               <div class="col-sm-offset-4 col-sm-7">
+               <div class="col-sm-offset-4 col-sm-8">
                   <button class="btn btn-primary" type="submit" title="'.translate("Submit").'"><i class="fa fa-lg fa-check"></i>&nbsp;'.translate("Submit").'</button>
                </div>
             </div>
-         </form>';
+         </form>
+         </div>';
 
           echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
 
@@ -543,41 +607,38 @@ function valid_password ($code) {
    $ibid=explode("#fpwd#",$code);
    $result = sql_query("SELECT email,pass FROM ".$NPDS_Prefix."users WHERE uname='".decrypt($ibid[0])."'");
    list($email, $pass) = sql_fetch_row($result);
-    if ($email!="") {
-       $ibid=explode("#fpwd#",decryptK($ibid[1],$pass));
-       if ($email==$ibid[0]) {
-          include("header.php");
-          
-
-      echo '<p class="lead">'.translate("Lost your Password?").'</p>';
-
-      echo '<p>'.translate("To valid your new password request, just re-type it.").'</p>';
-      echo '<form class="form-horizontal" role="form" action="user.php" method="post">';
-      echo '<div class="form-group">
-            <div class="col-sm-2">
-               <label class="control-label">'.translate("Password: ").'</label>
-               </div>
-                  <div class="col-sm-2">
-               <input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'">
-                </div>
+   if ($email!="") {
+      $ibid=explode("#fpwd#",decryptK($ibid[1],$pass));
+      if ($email==$ibid[0]) {
+         include("header.php");
+         echo '
+      <p class="lead">'.translate("Lost your Password?").'</p>
+      <p>'.translate("To valid your new password request, just re-type it.").'</p>
+      <form action="user.php" method="post">
+         <div class="form-group">
+         <div class="col-sm-2">
+         <label class="form-control-label">'.translate("Password: ").'</label>
+         </div>
+         <div class="col-sm-2">
+         <input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'">
+         </div>
          </div>
          <input type="hidden" name="op" value="updatepasswd" />
-          <input type="hidden" name="code" value="'.$code.'" />
-          <div class="form-group">
-               <div class="col-sm-1">
-                  <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
-               </div>
-            </div>
-            </form>';
-
-          include ("footer.php");
+         <input type="hidden" name="code" value="'.$code.'" />
+         <div class="form-group">
+         <div class="col-sm-1">
+         <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
+         </div>
+         </div>
+      </form>';
+         include ("footer.php");
       } else {
-          message_pass(translate("Error"));
-          Ecr_Log("security", "Lost_password_valid NOK Mail not match : ".$ibid[0], "");
+         message_pass(translate("Error"));
+         Ecr_Log("security", "Lost_password_valid NOK Mail not match : ".$ibid[0], "");
       }
    } else {
-       message_pass(translate("Error"));
-       Ecr_Log("security", "Lost_password_valid NOK Bad hash : ".$ibid[0], "");
+      message_pass(translate("Error"));
+      Ecr_Log("security", "Lost_password_valid NOK Bad hash : ".$ibid[0], "");
    }
 }
 
@@ -589,10 +650,10 @@ function update_password ($code, $passwd) {
     $uname=urlencode(decrypt($ibid[0]));
     $result = sql_query("SELECT email,pass FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
     list($email, $pass) = sql_fetch_row($result);
-    if ($email!="") {
+    if ($email!='') {
        $ibid=explode("#fpwd#",decryptK($ibid[1],$pass));
        if ($email==$ibid[0]) {
-          // Le lien doit avoir ÈtÈ gÈnÈrÈ dans les 24H00
+          // Le lien doit avoir été généré dans les 24H00
           if ((time()-$ibid[2])<86400) {
              // le mot de passe est-il identique
              if ($ibid[1]==$passwd) {
@@ -628,8 +689,8 @@ function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuor
     if ($user_cook_duration<=0) {$user_cook_duration=1;}
     $timeX=time()+(3600*$user_cook_duration);
     setcookie("user","$info",$timeX);
-    if ($user_langue!="") {
-       setcookie("user_language","$user_langue",$timeX);
+    if ($user_langue!='') {
+       setcookie('user_language',"$user_langue",$timeX);
     }
 }
 
@@ -717,10 +778,10 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
     if (($check == $uname) AND ($uid == $vuid)) {
         if ((isset($pass)) && ("$pass" != "$vpass")) {
            message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."<br /><br />","");
-        } elseif (($pass != "") && (strlen($pass) < $minpass)) {
+        } elseif (($pass != '') && (strlen($pass) < $minpass)) {
            message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."<br /><br />","");
         } else {
-           $stop=userCheck("edituser", $email);
+           $stop=userCheck('edituser', $email);
            if (!$stop)  {
               if ($bio) { $bio=FixQuotes(strip_tags($bio)); }
               if ($attach) {$t = 1;} else {$t = 0;}
@@ -729,15 +790,15 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
               if ($uis_visible) {$v = 0;} else {$v = 1;}
               if ($user_lnl) {$w = 1;} else {$w = 0;}
               if ($url!="") {
-                 if (!substr_count($url,"http://")) {$url="http://".$url;}
-                 if (trim($url)=="http://") {$url="";}
+                 if (!substr_count($url,'http://')) {$url='http://'.$url;}
+                 if (trim($url)=='http://') {$url='';}
               }
 
               include_once("modules/upload/upload.conf.php");
               global $avatar_size;
-              if (!$avatar_size) {$avatar_size="80*100";}
+              if (!$avatar_size) {$avatar_size='80*100';}
               $avatar_limit=explode("*",$avatar_size);
-              if ($DOCUMENTROOT!="") {
+              if ($DOCUMENTROOT!='') {
                  $rep=$DOCUMENTROOT;
               } else {
                  global $DOCUMENT_ROOT;
@@ -747,7 +808,7 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                     $rep=$_SERVER['DOCUMENT_ROOT'];
                  }
               }
-              if ($B1!="none") {
+              if ($B1!='none') {
                  global $language;
                  include_once("modules/upload/lang/upload.lang-$language.php");
                  include_once("modules/upload/clsUpload.php");
@@ -756,27 +817,27 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                  $upload->maxupload_size=$MAX_FILE_SIZE;
                  $field1_filename = trim($upload->getFileName("B1"));
                  $suffix = strtoLower(substr(strrchr($field1_filename,'.'),1));
-                 if (($suffix=="gif") or ($suffix=="jpg") or ($suffix=="png")) {
+                 if (($suffix=='gif') or ($suffix=='jpg') or ($suffix=='png')) {
                     $field1_filename=removeHack(preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($field1_filename)));
                     $field1_filename=preg_replace('#\.{2}|config.php|/etc#i','', $field1_filename);
                     if ($field1_filename) {
                        if ($autorise_upload_p) {
-                          $user_dir=$racine."/users_private/".$uname."/";
+                          $user_dir=$racine.'/users_private/'.$uname.'/';
                           if (!is_dir($rep.$user_dir)) {
                              @umask("0000");
                              if (@mkdir($rep.$user_dir,0777)) {
-                                $fp = fopen($rep.$user_dir."index.html", 'w');
+                                $fp = fopen($rep.$user_dir.'index.html', 'w');
                                 fclose($fp);
                              } else {
-                                $user_dir=$racine."/users_private/";
+                                $user_dir=$racine.'/users_private/';
                              }
                           }
                        } else {
-                          $user_dir=$racine."/users_private/";
+                          $user_dir=$racine.'/users_private/';
                        }
-                       if ($upload->saveAs($uname.".".$suffix ,$rep.$user_dir, "B1",true)) {
+                       if ($upload->saveAs($uname.'.'.$suffix ,$rep.$user_dir, 'B1',true)) {
                           $old_user_avatar=$user_avatar;
-                          $user_avatar=$user_dir.$uname.".".$suffix;
+                          $user_avatar=$user_dir.$uname.'.'.$suffix;
                           $img_size = @getimagesize($rep.$user_avatar);
                           if (($img_size[0]>$avatar_limit[0]) or ($img_size[1]>$avatar_limit[1])) {
                              $raz_avatar=true;
@@ -787,11 +848,11 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                  }
               }
               if ($raz_avatar) {
-                 if (strstr($user_avatar,"/users_private")) {
+                 if (strstr($user_avatar,'/users_private')) {
                     @unlink($rep.$user_avatar);
                     @unlink($rep.$old_user_avatar);
                  }
-                 $user_avatar="blank.gif";
+                 $user_avatar='blank.gif';
               }
 
               if ($pass!='') {
@@ -814,13 +875,13 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
               } else {
                  $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$uid','".removeHack($C1)."', '".removeHack($C2)."', '".removeHack($C3)."', '".removeHack($C4)."', '".removeHack($C5)."', '".removeHack($C6)."', '".removeHack($C7)."', '".removeHack($C8)."', '".removeHack($M1)."', '".removeHack($M2)."', '".removeHack($T1)."', '".removeHack($T2)."', '$B1')");
               }
-              if ($pass!="") {
+              if ($pass!='') {
                  logout();
               } else {
                  header("location: user.php?op=edituser");
               }
            } else {
-               message_error($stop, "");
+               message_error($stop, '');
            }
         }
     } else {

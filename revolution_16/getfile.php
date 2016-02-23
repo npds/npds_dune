@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2015 by Philippe Brunier                     */
 /* =========================                                            */
 /* Snipe 2003                                                           */
 /*                                                                      */
@@ -15,38 +15,38 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
 switch($apli) {
-   case "f-manager":
+   case 'f-manager':
       $fma=rawurldecode(decrypt($att_id));
-      $fma=explode("#fma#",$fma);
+      $fma=explode('#fma#',$fma);
       $att_id=decrypt($fma[0]);
       $att_name=decrypt($fma[1]);
-   case "forum_npds":
+   case 'forum_npds':
       $userX=base64_decode($user);
-      $userdata=explode(":", $userX);
+      $userdata=explode(':', $userX);
       $marqueurM=substr($userdata[2],8,6);
-   case "minisite":
-   case "getfile":
+   case 'minisite':
+   case 'getfile':
       $att_name=StripSlashes(str_replace("\"","",rawurldecode($att_name)));
       if ((preg_match('#^[a-z0-9_\.-]#i',$att_name) or ($Mmod==$marqueurM)) and !stristr($att_name,".*://") and !stristr($att_name,"..") and !stristr($att_name,"../") and !stristr($att_name, "script") and !stristr($att_name, "cookie") and !stristr($att_name, "iframe") and  !stristr($att_name, "applet") and !stristr($att_name, "object")) {
          if (preg_match('#^[a-z0-9_/\.-]#i',$att_id) and !stristr($att_id,".*://") and !stristr($att_id,"..") and !stristr($att_id,"../") and !stristr($att_id, "script") and !stristr($att_id, "cookie") and !stristr($att_id, "iframe") and  !stristr($att_id, "applet") and !stristr($att_id, "object")) {
-            $fic="";
+            $fic='';
             switch($apli) {
                // Forum
-               case "forum_npds":
+               case 'forum_npds':
                   $fic="modules/upload/upload_forum/$att_id.$apli.$att_name";
                   break;
                // MiniSite
-               case "minisite":
+               case 'minisite':
                   $fic="users_private/$att_id/mns/$att_name";
                   break;
-               // Application générique : la présence de getfile.conf.php est nécessaire
-               case "getfile":
+               // Application gÃ©nÃ©rique : la prÃ©sence de getfile.conf.php est nÃ©cessaire
+               case 'getfile':
                   if (file_exists("$att_id/getfile.conf.php") or file_exists("$att_id/.getfile.conf.php"))
                      $fic="$att_id/$att_name";
                   else
                      header("location: index.php");
                   break;
-               case "f-manager";
+               case 'f-manager';
                   $fic="$att_id/$att_name";
                   break;
             }
@@ -63,8 +63,8 @@ switch($apli) {
             $att_type = $type;
             $att_size = @filesize ($fic);
             if (file_exists ($fic)) {
-               if ($apli=="forum_npds") {
-                  include ("auth.php");
+               if ($apli=='forum_npds') {
+                  include ('auth.php');
                   $sql="UPDATE $upload_table SET compteur = compteur+1 WHERE att_id = '$att_id'";
                   sql_query($sql);
                }
@@ -73,12 +73,14 @@ switch($apli) {
                header('Cache-Control: max-age=60, must-revalidate');
 
                // work with mimetypes.php for showing source'code
-               if ($att_type=="text/source") {
-                  include ("meta/meta.php");
-                  echo import_css($Default_Theme, $language, $site_font, "","");
+               if ($att_type=='text/source') {
+                  include ('meta/meta.php');
+                  echo import_css($Default_Theme, $language, $site_font, '','');
                   echo "</head>\n<body>";
                      show_source($fic);
-                  echo "</body></html>";
+                  echo '
+                  </body>
+                  </html>';
                   die();
                }
 
@@ -101,15 +103,15 @@ switch($apli) {
       }
       break;
 
-   case "captcha":
+   case 'captcha':
       $mot=rawurldecode(decrypt($att_id));
       
       $font=2;
       $width=imagefontwidth($font)* strlen($mot);
       $height=imagefontheight($font);
       $img=imagecreate($width+2, $height+2);
-	   $blanc=imagecolorallocate($img, 255, 255, 255);
-	   $noir=imagecolorallocate($img, 0, 0, 0);
+      $blanc=imagecolorallocate($img, 255, 255, 255);
+      $noir=imagecolorallocate($img, 0, 0, 0);
       imagecolortransparent($img, $blanc);
 
       if (cur_charset=="utf-8") {
@@ -117,13 +119,13 @@ switch($apli) {
       }
       
       imagestring($img, $font, 1 , 1, $mot, $noir);
-   	imagepng($img);
-	   imagedestroy($img);
-      header("Content-type: image/png");
+      imagepng($img);
+      imagedestroy($img);
+      header('Content-type: image/png');
       break;
    
    default:
-      header("location: index.php");
+      header('location: index.php');
       break;
 }
 ?>

@@ -286,7 +286,7 @@ function viewarticle($artid, $page) {
             $Xcontent.='<br /><br /><p class=""><a href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;page=[page0]">'.translate("Top of the article").'</a></p>';
          }
          $Xcontent=aff_code(aff_langue($Xcontent));
-         echo meta_lang($Xcontent);
+         echo '<div id="art_sect">'.meta_lang($Xcontent).'</div>';
 
          $artidtempo=$artid;
          if ($rubname!="Divers") {

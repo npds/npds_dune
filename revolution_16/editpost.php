@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2013 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -34,8 +34,8 @@ $forum_access = $myrow['forum_access'];
 $moderator = get_moderator($myrow['forum_moderator']);
 if (isset($user)) {
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
-   $moderator=explode(" ",$moderator);
+   $userdata = explode(':', $userX);
+   $moderator=explode(' ',$moderator);
    $Mmod=false;
    for ($i = 0; $i < count($moderator); $i++) {
        if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
@@ -63,7 +63,7 @@ if ($submitS) {
       $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
    }
 
-   if (($allow_bbcode==1) and ($forum_type!="6") and ($forum_type!="5")) {
+   if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5')) {
       $message = smile($message);
    }
    if (($forum_type!=6) and ($forum_type!=5)) {
@@ -76,13 +76,13 @@ if ($submitS) {
    }
    $message = addslashes($message);
 
-   if ($subject=="") {$subject=translate("Untitled");}
+   if ($subject=='') {$subject=translate("Untitled");}
 
    // Forum ARBRE
    if ($arbre)
-      $hrefX="viewtopicH.php";
+      $hrefX='viewtopicH.php';
    else
-      $hrefX="viewtopic.php";
+      $hrefX='viewtopic.php';
 
    if (!isset($delete)) {
       $sql = "UPDATE ".$NPDS_Prefix."posts SET post_text = '$message', image='$image_subject' WHERE (post_id = '$post_id')";
@@ -141,7 +141,7 @@ if ($submitS) {
    } else {
       list($title, $topic_status) = sql_fetch_row($result);
       if (($topic_status!=0) and !$Mmod)
-         forumerror("0025");
+         forumerror('0025');
    }
    settype($submitP,'string');
    if ($submitP) {
@@ -164,8 +164,8 @@ if ($submitS) {
    }
    if ( (($Mmod) or ($userdata[0]==$myrow['uid'])) and ($forum_access!=9) ) {
       echo '
-      <h4>'.translate("Editing Post").' de '.$myrow['uname'].'</h4>';
-      echo '<form action="editpost.php" method="post" name="coolsus">';
+      <h4>'.translate("Editing Post").' de '.$myrow['uname'].'</h4>
+      <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
          echo '
          <div class="form-group row">

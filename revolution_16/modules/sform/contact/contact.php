@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS SABLE Contact Example .                      */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2011                                               */
+/* P. Brunier 2002 - 2015                                               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,22 +13,22 @@
 /************************************************************************/
 
 global $ModPath, $ModStart;
-$sform_path="modules/sform/";
-include_once($sform_path."sform.php");
+$sform_path='modules/sform/';
+include_once($sform_path.'sform.php');
 global $m;
 $m=new form_handler();
 //********************
-$m->add_form_title("CONTACT");
-$m->add_form_method("post");
-$m->add_form_check("true");
+$m->add_form_title('CONTACT');
+$m->add_form_method('post');
+$m->add_form_check('true');
 $m->add_mess(utf8_java("[french] * d&#x00E9;signe un champ obligatoire [/french][english] * indicate an obligatory field [/english]"));
-$m->add_submit_value("ok");
-$m->add_url("modules.php");
-$m->add_field("ModStart","",$ModStart,'hidden',false);
-$m->add_field("ModPath","",$ModPath,'hidden',false);
+$m->add_submit_value('ok');
+$m->add_url('modules.php');
+$m->add_field('ModStart','',$ModStart,'hidden',false);
+$m->add_field('ModPath','',$ModPath,'hidden',false);
 
 /************************************************/
-include($sform_path."contact/formulaire.php");
+include($sform_path.'contact/formulaire.php');
 /************************************************/
 // Manage the <form>
 switch($ok) {
@@ -39,8 +39,8 @@ switch($ok) {
          $m->make_response();
          //anti_spambot
          if (!R_spambot($asb_question, $asb_reponse, $message)) {
-            Ecr_Log("security", "Contact", "");
-            $ok="";
+            Ecr_Log('security', 'Contact', '');
+            $ok='';
          } else {
             $message=$m->aff_response("class=\"ligna\"","not_echo","");
             global $notify_email;
@@ -55,7 +55,7 @@ switch($ok) {
       }
 
    default:
-      echo aff_langue($m->print_form("class=\"ligna\""));
+      echo aff_langue($m->print_form('class="ligna"'));
       break;
 }
 ?>

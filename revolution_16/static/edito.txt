@@ -1,4 +1,4 @@
-[jour]<p><img class="img-responsive" style="display: block; margin-left: auto; margin-right: auto;" src="http://labo.infocapagde.com/images/banners/ban_rev_16.png" alt="REvolution 2013"></p>
+[jour]<p><img class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" src="images/banners/ban_rev_16.png" alt="REvolution 2016"></p>
 
 <p>Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif. <br>Il s'agit d'un <span class="rouge"><strong>C</strong></span>ontent &amp; <span class="rouge"><strong>C</strong></span>ommunity <span class="rouge"><strong>M</strong></span>anagement <span class="rouge"><strong>S</strong></span>ystem (CCMS) robuste, sécurisé, complet, performant et parlant vraiment français.</p>
 
@@ -16,7 +16,7 @@
 
 <li style="text-align: left;"><strong>une nouvelle administration interface et fonctionnement permettant une gestion des droits sur les fonctions,</strong></li>
 
-<li style="text-align: left;"><strong>une stabilité de fonctionnement record ainsi que de nombreuses corrections et améliorations - </strong>le détail des travaux réalisés pour cette nouvelle version dans le fichier <a title="Changelog REvolution 13" href="http://labo.infocapagde.com/static.php?op=changelog-rev13.txt&amp;npds=0&amp;ml=1">changelog-rev16.txt</a></li>
+<li style="text-align: left;"><strong>une stabilité de fonctionnement record ainsi que de nombreuses corrections et améliorations - </strong>le détail des travaux réalisés pour cette nouvelle version dans le fichier <a title="Changelog REvolution 13" href="static.php?op=changelog-rev16.txt&amp;npds=0&amp;ml=1">changelog-rev16.txt</a></li>
 
 </ul>
 
@@ -40,4 +40,4 @@
 
 </ul>
 
-<p>comment_system(edito,1)</p>[/jour][nuit]<p>rien</p>[/nuit]aff_jours=100&aff_jour=checked&aff_nuit=checked&aff_date=1453638184
+<p>comment_system(edito,1)</p>[/jour][nuit]<p>rien</p>[/nuit]aff_jours=100&aff_jour=checked&aff_nuit=checked&aff_date=1455382949

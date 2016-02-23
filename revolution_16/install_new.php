@@ -16,32 +16,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/*
- _________o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o
- ________o$$$$$$$$$_$$$$$$$$$$$$$$$$$_$$$$$$$$$$$o
- _______o$$$$$$$$$____$$$$$$$$$$$$$____$$$$$$$$$$o
- _____$$$$$$$$$$$______$$$$$$$$$$$______$$$$$$$$$$$$$
- ____$$$$$$$$$$$$$____$$$$$$$$$$$$$____$$$$$$$$$$$$$$
- ___$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
- __$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
- __$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
- ___$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"_"$$$$$
- ___$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$___o$$$$
- ___$$$___$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$_____$$$$$
- ____$$____"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"______o$$$
- _____"$$$o_____"""$$$$$$$$$$$$$$$$$$"$$"_________$$$
- _______$$$o__________"$$""$$$$$$""""___________o$$$
- _______$$$$o________________________________o$$$"
- ________"$$$$o_____o$$$$$$o"$$$$o________o$$$$
- _________-"$$$$$oo_____""$$$$o$$$$$o___o$$$$""
- ____________""$$$$$oooo__"$$$o$$$$$$$$$"""
- _______________""$$$$$$$oo $$$$$$$$$$
- __________________________$$$$$$$$$$$
- __________________________$$$$$$$$$$$
- __________________________"$$$$$$$$$$"
- ___________________________"$$$$$$$$
- 
- */
+
 // Bloque le lancement de l'install si IZ-Xinstall.ok existe
 if (file_exists('IZ-Xinstall.ok')) {
    include('admin/die.php');
@@ -324,7 +299,6 @@ if($stage == 6) {
         
         require('install/sql/build_sql-create.php');
         build_sql_create($NPDS_Prefix);
-//        mysql_connex();
         sql_connect();
         require('install/sql/sql-create.php');
         write_database();
@@ -414,8 +388,8 @@ if($stage == 7) {
                       <input type="submit" class="btn btn-secondary" value="'.ins_translate(" Etape suivante ").'" />
                       ';
                 }
-                echo '</form></div>
-             ';
+                echo '</form>
+                </div>';
              unset($stage7_ok);
           }
        }
@@ -458,7 +432,6 @@ if($stage == 8) {
     case 'write_upload':
        global $stage, $langue, $stage8_ok;
        include('config.php');
-//       mysql_connex();
        write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
        echo '
        <h3>'.ins_translate("Configuration du module UPload").'</h3>';
@@ -477,8 +450,9 @@ if($stage == 8) {
                 <br /><br />
                 <input type="submit" class="btn btn-secondary" value="'.ins_translate(" Etape suivante ").'" />';
           }
-          echo '</form></div>
-          ';
+          echo '
+            </form>
+          </div>';
        unset($stage8_ok);
        break;
     case 'etape_8':

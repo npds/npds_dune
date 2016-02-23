@@ -9,16 +9,29 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-  $Titlesitename="NPDS";
-  if (file_exists("meta/meta.php"))
-     include ("meta/meta.php");
-  if (file_exists("meta/cur_charset.php"))
-     include ("meta/cur_charset.php");
-  echo "</head><body style=\"background-color: #FFFFFF;\"><br /><p align=\"center\"><span style=\"font-size: 14px; font-family: Arial; font-weight: bold; color: red;\">";
-  echo "Access Denied / Acc&egrave;s Refus&eacute;";
-  if (cur_charset=="utf-8") echo" / &#x901A;&#x5165;&#x88AB;&#x5426;&#x8BA4;";
-  echo "</span>";
-  echo "<br /><br /><span style=\"font-size: 12px; font-family: Arial; font-weight: bold; color: black;\">NPDS - Portal System";
-  echo "</span></p></body></html>";
-  die();
+   $Titlesitename='NPDS';
+   if (file_exists("meta/meta.php"))
+   include ("meta/meta.php");
+   echo '
+   </head>
+   <body>
+      <br />
+      <br />
+      <p style="text-align:center">
+         <span style="font-size: 24px; font-family: Courier New, Courier, Liberation Mono, monospace; font-weight: bold; color: red;">
+            Acc&egrave;s Refus&eacute; ! <br />
+            Access Denied ! <br />
+            Zugriff verweigert ! <br />
+            &#x901A;&#x5165;&#x88AB;&#x5426;&#x8BA4; ! <br />
+            Acceso denegado ! <br />
+         </span>
+         <br />
+         <br />
+         <span style="font-size: 18px; font-family: Courier New, Courier, Liberation Mono, monospace; font-weight: bold; color: black;">
+            NPDS - Portal System
+         </span>
+      </p>
+   </body>
+</html>';
+   die();
 ?>

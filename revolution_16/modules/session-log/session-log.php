@@ -14,7 +14,6 @@
 
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
 $f_meta_nom ='session_log';
-$f_titre = adm_translate("Gestion des Logs");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -37,18 +36,20 @@ $RepTempFil = $DOCUMENT_ROOT.$rep_cache;
 $language=$old_language;
 include ("modules/$ModPath/lang/session-log-$language.php");
 $ThisFile="admin.php?op=Extend-Admin-SubModule&amp;ModPath=".$ModPath."&amp;ModStart=".$ModStart;
+$f_titre = SessionLog_translate("Gestion des Logs");
 
 function action_log($ThisFile,$classe) {
    echo '<p align="center"><br />
    <a class="btn btn-danger btn-sm" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$classe.'" >'.SessionLog_translate("Vider le fichier").'</a>
    <a class="btn btn-primary btn-sm" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$classe.'">'.SessionLog_translate("Recevoir le fichier par mail").'</a>
-   <a class="btn btn-danger" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
+   <a class="btn btn-danger btn-sm" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
    </p>';
 }
     adminhead ($f_meta_nom, $f_titre, $adminimg);
     $cl_a_ses=''; if ($subop=="session") $cl_a_ses='active';
     $cl_a_sec=''; if ($subop=="security") $cl_a_sec='active';
 echo '
+<hr />
 <ul class="nav nav-tabs">
   <li class="nav-item"><a href="'.$ThisFile.'&subop=session" class="nav-link '.$cl_a_ses.'">'.SessionLog_translate("Liste des Sessions").'</a></li>
   <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").' : '.SessionLog_translate("SECURITE").'</a></li>
@@ -67,9 +68,9 @@ echo '
          <thead>
             <tr>
                <th data-sortable="true">'.SessionLog_translate("Nom").'</th>
-               <th data-sortable="true">'.SessionLog_translate("@ IP").'</th>
+               <th data-sortable="true">@ IP</th>
                <th data-sortable="true">'.SessionLog_translate("@ IP résolue").'</th>
-               <th data-sortable="true">'.SessionLog_translate("URI").'</th>
+               <th data-sortable="true">URI</th>
                <th data-sortable="true">'.SessionLog_translate("Agent").'</th>
             </tr>
          </thead>
@@ -195,6 +196,7 @@ echo '
          }
       }
       echo '
+      <hr />
       <h3><a class="btn" data-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="fa fa-bars fa-lg"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <i>security.log</i></h3>
       <div id="tog_tad_slog" class="collapse">
          <table id="tad_slog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true">
@@ -213,17 +215,17 @@ echo '
       <h3><a class="btn" data-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="fa fa-bars fa-lg"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <i>security.log</i></h3>
       <div id="tog_tad_tlog" class="collapse">
          <table id="tad_tlog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
-         <thead>
-            <tr>
-               <th>Logs</th>
-            </tr>
-         </thead>
-         <tbody>'."\n";
+            <thead>
+               <tr>
+                  <th>Logs</th>
+               </tr>
+            </thead>
+            <tbody>';
       echo $UpLog;
       echo '
-         </tbody>
+            </tbody>
          </table>
-      </div>'."\n";
+      </div>';
       action_log($ThisFile,"security");
    }
 

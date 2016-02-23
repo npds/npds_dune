@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------
    1. BASE MINIMUM
 ---------------------------------------------------------------------- */
-body {
+/* body {
 
     background: transparent -moz-linear-gradient(center top , #E7E3CF 0.1em, transparent 0.1em) repeat scroll 0% 0% / 100% 1.5em;
-}
+} */
 /* ----------------------------------------------------------------------
    2. LIENS - standard
 ---------------------------------------------------------------------- */
@@ -49,12 +49,7 @@ a.heada, a.heada:visited, a.heada:active {/* Admin (haut et bas) - Download - An
    9a. LES STYLES SUR LES TABLEAUX
    => Utilisés par la fonction tablos(), permet d’alterner les couleurs des lignes de tableau
 ---------------------------------------------------------------------- */
-/* .ligna {
-   background-color: #eee;
-   color: #45445B;}
-.lignb {
-   background-color: #f7f7f7;
-   color: #45445B;} */
+
    
 table {
     background: #FFF none repeat scroll 0% 0%;
@@ -163,18 +158,13 @@ table tr.even, table tr.alt, table tr:nth-of-type(2n) {
 /* ----------------------------------------------------------------------
    12 STATS - Jireck' work
 ---------------------------------------------------------------------- */
-.graph { 
-    }
-.graph .bar {
-    display: block;
-    position: relative;
-    background: #ECE8E1 none repeat scroll 0% 0%;
-    text-align: center;
-    color: #333;
-    height: 1em;
-    line-height: 1em;
+
+.graph .bar span { 
+  position: absolute; 
+  left: 1em;
+
 }
-.graph .bar span { position: absolute; left: 1em; }
+.graph{ text-align: left;}
 /* ----------------------------------------------------------------------
    13 THEME
 ---------------------------------------------------------------------- */
@@ -239,7 +229,7 @@ body {
 	text-align:left;
 	margin-left:auto;
 	margin-right:auto;
-/* 		background-image: url("../images/fond1.png"); */
+        background-image: url("../images/fond1.png");
 	  width:100%;
 
 }
@@ -272,23 +262,11 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 	padding: 1em;
          }
 
-/* #corps {background: #fff; } */
+#corps {background: #fff; }
 
 /************************************************************************
 Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 *************************************************************************/
-/* #leftcol {
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
-    background-color: #FAFAFA;
-    color: #333;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #FFF;
-    border-radius: 3px;
-    padding: 10px;
-    margin-top: 10px;
-    margin-right:5px;
-} */
 
 .rightbloc, .leftbloc{
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
@@ -303,6 +281,9 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
     margin-right:5px;
 }
 
+.leftbloc{
+padding:0.15em;
+}
 /************************************************************************
 La Partie Footer de votre Site
 *************************************************************************/
@@ -313,22 +294,16 @@ footer {
 	clear: both;
 }
 
-/* #footer{background-color:AliceBlue;} */
+#footer{background-color:AliceBlue;}
 /********************
 le  header   et son contenu ( sa taille est ds decoheader)
 **********************/
 .header1{
- /*       background: #f7f7f7; */
+        background: #fff; 
   	margin:0px;
 	padding: 5px;
 	height: auto;
   }
-
-
-/* Menu de navigation */
-
-
-
 
 
 /*****************************************
@@ -351,19 +326,9 @@ h3, .h3 {
     background: aliceblue;
     padding: 0px 5px 0px 5px;}
 
-.header1{
-/*   background-color:#fff; */
-  z-index: 500;}
+
 
 #nav{background-color:#FFE667;}
-
-/* #decohead {background-color:#ff0;} */
-
-/* #corps{background-color:AliceBlue;} */
-
-.leftbloc{
-padding:0.15em;
-}
 
 
 .sidebox {
@@ -453,15 +418,8 @@ input, select, textarea {
     font-family: inherit;
     font-size: 1em;
 }
-/* 
-label { /* Titre - Description des différents champs */
-  display: block;
-  float: left;
-  margin-top: 5px ; /* set top margin same as form input - textarea etc. elements */
-  padding: 0; /* Intervient dans le user : la date */
-  text-align: left;
-}
- */
+
+
 
 legend { /* Titre pour identifier chaque fieldset */
   font-size:1.1em;
@@ -481,21 +439,11 @@ legend { /* Titre pour identifier chaque fieldset */
     border-color: #D5B199 #864732 #864732 #D5B199;
 }
 
-input[type=Submit], [type=Reset], [type=Return] {
-  margin-top: 3px;
-  cursor: pointer;
-  background-color: #FDFDFD;
-  color: #682B1A;
-  font-weight: bold;
-  text-decoration: none;
-  border-top: #d5b199 2px solid;
-  border-bottom: #864732 2px solid;
-  border-left: #d5b199 2px solid;
-  border-right: #864732 2px solid;
-}
+
 
 /*******Pour les police des formulaires  et deco jmd  */
 .form-control {
+    max-width: 98%;
     font-size: 1.4rem;  
     background-color: #FDFDFD;
     border-width: 1px;
@@ -514,6 +462,17 @@ list-style-type: decimal;}
 list-style-type:none;
 }
 
+input[type="Submit"], [type="Reset"], [type="Return"] {
+    margin-top: 3px;
+    cursor: pointer;
+    background-color: #FDFDFD;
+    color: #682B1A;
+    font-weight: bold;
+    text-decoration: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #D5B199 #864732 #864732 #D5B199;
+}
 
 /* ==> class de NPDS dans le core */
 /* tailles des emoticones et autre petites images subject forum etc*/
@@ -646,7 +605,7 @@ img, table, td, blockquote, code, pre, textarea, input, svg {
 /*****jmd* pour décoler le texte des bordures de Table*/
   
 
-    .img-fluid1{
+.img-fluid1{
             float: left;
             margin-right: 10px;
 }
@@ -675,13 +634,9 @@ pagination*/
 /* Boutons*/ 
 
 
-.btn-sm {width: auto;}
 
+.btn-sm, .btn {width: auto;}
 
-.btn-block {
-    display: block;
-    width: auto;
-}
 
 
 .btn-sm, .btn-group-sm > .btn {
@@ -696,4 +651,23 @@ pagination*/
     background-color: transparent;
     background-image: none;
     border-color: #0275D8;
+}
+
+/* ajustement bmag*/
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-feature-settings: normal;
+    font-language-override: normal;
+    font-kerning: auto;
+    font-synthesis: weight style;
+    font-variant: normal;
+    font-size: inherit;
+    text-rendering: auto;
+    padding-right: 1rem;
 }

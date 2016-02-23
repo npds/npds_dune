@@ -88,7 +88,7 @@ $lock_state = $myrow['topic_status'];
    }
    include("meta/meta.php");
    global $site_font;
-   echo import_css($tmp_theme, $language, $site_font, "","");
+   echo import_css($tmp_theme, $language, $site_font, '','');
    echo "</head>\n<body style=\"background-color: #FFFFFF; background-image: none;\">
    <table border=\"0\"><tr><td>
    <table border=\"0\" width=\"640\" cellpadding=\"0\" cellspacing=\"1\" style=\"background-color: #000000;\"><tr><td>
@@ -108,7 +108,7 @@ $lock_state = $myrow['topic_status'];
    echo "<td width=\"15%\"><hr noshade=\"noshade\" class=\"ongl\" />".translate("Author")."</td>";
    echo "<td><hr noshade=\"noshade\" class=\"ongl\" />$topic_subject</td></tr>";
    if ($Mmod) {
-      $post_aff=" ";
+      $post_aff=' ';
    } else {
       $post_aff=" and post_aff='1' ";
    }
@@ -118,9 +118,9 @@ $lock_state = $myrow['topic_status'];
    $myrow = sql_fetch_assoc($result);
 
    if ($allow_upload_forum) {
-      $visible = "";
+      $visible = '';
       if (!$Mmod) {
-         $visible = " and visible = 1";
+         $visible = ' AND visible = 1';
       }
       $sql = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
       $att = sql_num_rows(sql_query($sql));

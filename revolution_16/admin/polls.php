@@ -250,7 +250,7 @@ function poll_editPollPosted() {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
          <div class="col-sm-9">
-            <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" />
+            <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" required="required" />
             <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
             <span class="help-block text-xs-right"><span id="countcar_pollTitle'.$i.'"></span></span>
          </div>

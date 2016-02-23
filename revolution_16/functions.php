@@ -174,6 +174,30 @@ function get_userdata_from_id($userid) {
    return($myrow);
 }
 
+function get_userdata_extend_from_id($userid) {
+   global $NPDS_Prefix;
+   $sql1 = "SELECT * FROM ".$NPDS_Prefix."users_extend WHERE uid='$userid'";
+/*   $sql2 = "SELECT * FROM ".$NPDS_Prefix."users_status WHERE uid='$userid'";
+
+   if (!$result = sql_query($sql1))  
+      forumerror('0016');
+
+   if (!$myrow = sql_fetch_assoc($result))
+      $myrow = array( "uid" => 1);
+   else
+      $myrow=array_merge($myrow,(array)sql_fetch_assoc(sql_query($sql1)));
+ */  
+$myrow= (array)sql_fetch_assoc(sql_query($sql1));
+ 
+ return($myrow);
+}
+
+
+
+
+
+
+
 function get_userdata($username) {
    global $NPDS_Prefix;
    $sql = "SELECT * FROM ".$NPDS_Prefix."users WHERE uname='$username'";

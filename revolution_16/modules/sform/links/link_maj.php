@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2010 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -42,14 +42,14 @@ include_once($sform_path.$ModPathX."/formulaire.php");
 function interface_function($browse_key) {
       global $m;
       if ($m->sform_read_mysql($browse_key)) {
-         $m->add_field("","",translate("Update"),'submit',false);
-         $m->add_extra(" - ");
-         $m->add_field("","",translate("Delete"),'submit',false);
+         $m->add_field('','',translate("Update"),'submit',false);
+         $m->add_extra(' - ');
+         $m->add_field('','',translate("Delete"),'submit',false);
       } else {
-         $m->add_field("","",translate("Add"),'submit',false);
+         $m->add_field('','',translate("Add"),'submit',false);
       }
-      $m->key_lock("close");
-      echo $m->print_form("class=\"ligna\"");
+      $m->key_lock('close');
+      echo $m->print_form('class="ligna"');
 }
 
 function Supprimer_function($browse_key) {
@@ -60,29 +60,24 @@ function Supprimer_function($browse_key) {
 }
 
 switch($modifylinkrequest_adv_infos) {
-
    case translate("Add"):
       $m->make_response();
       $m->sform_insert_mysql($m->answer);
       interface_function($browse_key);
       break;
-
    case translate("Delete"):
       $m->make_response();
       $m->sform_delete_mysql();
       interface_function($browse_key);
       break;
-
    case 'Supprimer_MySql':
       // C'est normal que ce case soit vide !
       break;
-
    case translate("Update"):
       $m->make_response();
       $m->sform_modify_mysql($m->answer);
       interface_function($browse_key);
       break;
-
    default:
       interface_function($browse_key);
       break;
