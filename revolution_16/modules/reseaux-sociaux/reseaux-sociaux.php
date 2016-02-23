@@ -54,7 +54,7 @@ function ListReseaux($ModPath, $ModStart) {
             <td>'.$v1[0].'</td>
             <td><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></td>
             <td>
-               <a href="modules.php?&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux&amp;rs_id='.urlencode($v1[0]).'" ><i class="fa fa-edit fa-lg" title="'.rs_translate("Editer").'" data-toggle="tooltip"></i></a>
+               <a href="modules.php?&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux" ><i class="fa fa-edit fa-lg" title="'.rs_translate("Editer").'" data-toggle="tooltip"></i></a>
             </td>
         </tr>';
    }
@@ -64,7 +64,7 @@ function ListReseaux($ModPath, $ModStart) {
    adminfoot('','','','');
 }
 
-function EditReseaux($ModPath, $ModStart, $rs_id, $rs_uid) {
+function EditReseaux($ModPath, $ModStart) {
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
    include("header.php");
@@ -165,7 +165,7 @@ function SaveSetReseaux($ModPath, $ModStart) {
        case "SaveSetReseaux":
        SaveSetReseaux($ModPath, $ModStart);break;
        case "EditReseaux":
-       EditReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);break;
+       EditReseaux($ModPath, $ModStart);break;
        default:
        ListReseaux($ModPath, $ModStart);
     break;
