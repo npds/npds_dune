@@ -290,7 +290,7 @@ if ($submitS) {
       <div class="form-group row">
          <label class="form-control-label col-sm-12">'.translate("Message Icon: ").'</label>
          <div class="col-sm-12">
-            <div class="card card-block"
+            <div class="card card-block fond_subject">
             '.emotion_add($image_subject).'
             </div>
          </div>
@@ -445,7 +445,7 @@ if ($submitS) {
 
          if ($myrow['image'] != "") {
             if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="smil" src="'.$imgtmp.'" border="0" alt="" />';
+         echo '<img class="smil" src="'.$imgtmp.'"  alt="" />';
          } 
          else {
             if ($ibid=theme_image("forum/subject/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
@@ -462,9 +462,9 @@ if ($submitS) {
          }
          // <a href in the message
          if (stristr($message,"<a href")) {
-            $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
+            $message=preg_replace('#_blank(")#i','_blank\1 class=\1 \1',$message);
          }
-         $message=split_string_without_space($message, 80);
+//         $message=split_string_without_space($message, 80);
          if (($forum_type=="6") or ($forum_type=="5")) {
             highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
          } else {
