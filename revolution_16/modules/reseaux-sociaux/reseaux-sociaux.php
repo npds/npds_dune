@@ -35,7 +35,7 @@ function ListReseaux($ModPath, $ModStart) {
    echo '
    <h3>'.rs_translate("Réseaux sociaux").'</h3>
    <hr />
-   <h3><a href="modules.php?&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux"><i class="fa fa-edit fa-lg"></i></a>&nbsp;'.rs_translate("Editer").'</h3>
+   <h3><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux"><i class="fa fa-edit fa-lg"></i></a>&nbsp;'.rs_translate("Editer").'</h3>
 '.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'
 
    <table id ="lst_res_soc" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
@@ -47,68 +47,71 @@ function ListReseaux($ModPath, $ModStart) {
          </tr>
       </thead>
       <tbody>';
-      
    foreach ($rs as $v1) {
         echo '
          <tr>
             <td>'.$v1[0].'</td>
             <td><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></td>
             <td>
-               <a href="modules.php?&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux" ><i class="fa fa-edit fa-lg" title="'.rs_translate("Editer").'" data-toggle="tooltip"></i></a>
+               <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux" ><i class="fa fa-edit fa-lg" title="'.rs_translate("Editer").'" data-toggle="tooltip"></i></a>
             </td>
         </tr>';
    }
    echo '
       </tbody>
    </table>';
-   adminfoot('','','','');
+   include("footer.php");
 }
 
 function EditReseaux($ModPath, $ModStart) {
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
+   include_once ("functions.php");
    include("header.php");
-
    global $cookie;
-      $posterdata_extend = get_userdata_extend_from_id($cookie[0]);
-         if ($posterdata_extend['M2']!='') {
-            $i=0;
-            $socialnetworks= explode(';',$posterdata_extend['M2']);
-            foreach ($socialnetworks as $socialnetwork) {
-               $res_id[] = explode('|',$socialnetwork);
-            }
+   $posterdata_extend = get_userdata_extend_from_id($cookie[0]);
+      if ($posterdata_extend['M2']!='') {
+         $i=0;
+         $socialnetworks= explode(';',$posterdata_extend['M2']);
+         foreach ($socialnetworks as $socialnetwork) {
+            $res_id[] = explode('|',$socialnetwork);
          }
+      }
 /*
-   echo'
-   <div class="row">
-   <div class="col-sm-6">
-   <pre> From db
-   ';
-   print_r($res_id);
-   echo'</pre></div>
-   <div class="col-sm-6">
-   <pre> From file conf
-   ';
-   print_r($rs);
-   echo'</pre></div></div>';
+print_r($res_id);//debug
+      sort($res_id);//debug
+echo '<br />';      
+print_r($res_id);//debug
+echo '<br />';      
+
+print_r($rs);//debug
+      sort($rs);//debug
+      echo '<br />';      
+
+print_r($rs);//debug
 */
 
-
-   echo '<h3>'.rs_translate("Réseaux sociaux").'</h3>';
-   echo'
+   echo '
+   <h3>'.rs_translate("Réseaux sociaux").'</h3>
+   <div>
    <hr />
    <form id="reseaux_user" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=SaveSetReseaux" method="post">';
    $i=0;
+   sort($res_id);
+   sort($rs);
+
+   $ident='';
    foreach ($rs as $v1) {
-      $ident='';
-      if ($res_id[$i]) {
-         $k = array_search($v1[0], $res_id[$i]);
+      foreach($res_id as $y1){
+         $k = array_search( $y1[0],$v1);
          if (false !== $k) {
-         $ident=$res_id[$i][1];
+            $ident=$y1[1];
+            break;
          } 
-         else{$ident='';}
+         else $ident='';
       }
-      if($i==0) echo'
+
+      if($i==0) echo '
    <div class="row">';
    echo '
    <div class="col-sm-6">
@@ -129,7 +132,7 @@ function EditReseaux($ModPath, $ModStart) {
    <div class="row">';
    $i++;
    }
-echo'
+echo '
    </div>
       <div class="form-group row">
          <div class="col-sm-offset-6 col-sm-6">
@@ -144,10 +147,6 @@ echo'
 }
 
 function SaveSetReseaux($ModPath, $ModStart) {
-/*
-   if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
-      include ("modules/$ModPath/reseaux-sociaux.conf.php");
-*/
    global $cookie;
    $li_rs='';
    foreach ($_POST['rs'] as $v1){
@@ -161,13 +160,13 @@ function SaveSetReseaux($ModPath, $ModStart) {
 
 }
 
-   switch ($op) {
-       case "SaveSetReseaux":
-       SaveSetReseaux($ModPath, $ModStart);break;
-       case "EditReseaux":
-       EditReseaux($ModPath, $ModStart);break;
-       default:
-       ListReseaux($ModPath, $ModStart);
-    break;
-   }
+switch ($op) {
+   case 'SaveSetReseaux':
+      SaveSetReseaux($ModPath, $ModStart);break;
+   case 'EditReseaux':
+      EditReseaux($ModPath, $ModStart);break;
+   default:
+      ListReseaux($ModPath, $ModStart);
+   break;
+}
 ?>
