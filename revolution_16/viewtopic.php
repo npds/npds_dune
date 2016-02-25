@@ -187,7 +187,7 @@ include('header.php');
             if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
          }
       }
-      echo '<img class="img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
+      echo '<img class="img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
       echo '<br />'.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
@@ -199,7 +199,7 @@ include('header.php');
           if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    
    echo '
@@ -283,10 +283,12 @@ include('header.php');
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
    if ($ibid=theme_image("forum/icons/email.gif")) {$imgtmpEM=$ibid;} else {$imgtmpEM="images/forum/icons/email.gif";}
+/*
    if ($ibid=theme_image("forum/icons/icq_on.gif")) {$imgtmpIC=$ibid;} else {$imgtmpIC="images/forum/icons/icq_on.gif";}
    if ($ibid=theme_image("forum/icons/aim.gif")) {$imgtmpAI=$ibid;} else {$imgtmpAI="images/forum/icons/aim.gif";}
    if ($ibid=theme_image("forum/icons/yim.gif")) {$imgtmpYI=$ibid;} else {$imgtmpYI="images/forum/icons/yim.gif";}
    if ($ibid=theme_image("forum/icons/msnm.gif")) {$imgtmpMS=$ibid;} else {$imgtmpMS="images/forum/icons/msnm.gif";}
+*/
    if ($ibid=theme_image("forum/icons/gf.gif")) {$imgtmpGF=$ibid;} else {$imgtmpGF="images/forum/icons/gf.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
       $my_rsos=array();
@@ -303,16 +305,17 @@ include('header.php');
             foreach ($socialnetworks as $socialnetwork) {
                $res_id[] = explode('|',$socialnetwork);
             }
-            $i=0;
+            sort($res_id);
+            sort($rs);
             foreach ($rs as $v1) {
-               if ($res_id[$i]) {
-                  $k = array_search($v1[0], $res_id[$i]);
+               foreach($res_id as $y1) {
+                  $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                  $my_rs.='<a href="'.$v1[1].$res_id[$i][1].'"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a>&nbsp;';
+                     $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a>&nbsp;';
+                     break;
                   } 
-                  else{$my_rs.='';}
+                  else $my_rs.='';
                }
-               $i++;
             }
             $my_rsos[]=$my_rs;
          }
@@ -395,7 +398,7 @@ include('header.php');
       if (stristr($message,"<a href")) {
          $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
       }
-      $message=split_string_without_space($message, 80);
+//      $message=split_string_without_space($message, 80);
       if (($forum_type=="6") or ($forum_type=="5")) {
           highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
       } else {
@@ -449,7 +452,7 @@ include('header.php');
             echo '&nbsp;<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>&nbsp;';
          }
       }
-      if ($allow_to_post and !$lock_state and $posterdata['uid']!="") {
+      if ($allow_to_post and !$lock_state and $posterdata['uid']!='') {
          echo '&nbsp;<a href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>&nbsp;';
       }
       echo '&nbsp;<a href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>&nbsp;';
@@ -493,7 +496,8 @@ include('header.php');
        if (!isset($userdata)) $userdata[0]=0;
        if ((($Mmod) or ($original_poster==$userdata[0])) and (!$lock_state)) {
           $sec_clef=md5($forum.$topic.md5($NPDS_Key));
-          echo "&nbsp;&nbsp;<p><a href=\"viewforum.php?forum=$forum&amp;topic_id=$topic&amp;topic_title=".rawurlencode($topic_subject)."&amp;op=solved&amp;sec_clef=$sec_clef\"><i class=\"fa fa-lg fa-lock\"></i>&nbsp;".translate("Solved")."</a></p>\n";
+          echo '
+          <p><a href="viewforum.php?forum='.$forum.'&amp;topic_id='.$topic.'&amp;topic_title='.rawurlencode($topic_subject).'&amp;op=solved&amp;sec_clef='.$sec_clef.'"><i class="fa fa-lock fa-2x"></i>&nbsp;'.translate("Solved").'</a></p>';
           unset($sec_clef);
        }
     }   
