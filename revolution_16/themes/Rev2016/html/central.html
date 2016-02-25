@@ -33,17 +33,38 @@
 			</div>
 
 			<h3 class="ombre">Une dernière chose</h3>
-			<p>Cum sociis natoque penatibus et m. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et m. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+			<p>Comme indiqué plus haut, Bootstrap est integré dans le core de Npds, il faudra donc apprendre à manier cet outil trés puissant.<br />
+			  Voici un lien qui peut vous être utile si cet outil vous est complètement inconnu : <a href="http://bootstrap-doc.prauds.fr/index.php" target="_blank">http://bootstrap-doc.prauds.fr</a>  ( avantage c'est en français)<br />
+		    Il vous montre rapidement avec le code source correspondant, les principaux éléments et ce qu'ils donnent avec les classes BS.</p>
+			<p>Attention vous êtes parti pour 5 heures de lecture............</p>
+			<p>&nbsp;</p>
 		</div>
 
 		<div class="col w40 p1 autotablet intro ">
-			<h2 class="ombre">Télécharger: Rev 2016</h2>
+			<h2 class="ombre aligncenter "><a href="#">Télécharger: Rev 2016</a></h2>
 			<img class="left" src="themes/Rev2016/images/logohead2.png" >
 
 			<div class="row pt1">
 				<div class="col w50 p1 autotablet feature">
-					<h4>Gestion Membre</h4>
-					<p>date: dateL</p>
+					<h4>Gestion Membre</h4> 
+                                         <p>date: dateL</p>
+<?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   if (autorisation(-1)) {
+      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+   } elseif (autorisation(1)) {
+      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
+      settype($cookie[0], 'integer');
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
+      else
+         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
+      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
+   } ?>
+					
 					<p> !whoim!</p>
                                         <p> !member!</p> !search!
 				</div>
@@ -56,9 +77,7 @@
 			</div>
 
 			<p class="automobile">
-				<iframe src="http://ghbtns.com/github-btn.html?user=mourner&amp;repo=dead-simple-grid&amp;type=watch&amp;count=true" width="84" height="20"></iframe>
-  				<iframe src="http://ghbtns.com/github-btn.html?user=mourner&amp;repo=dead-simple-grid&amp;type=fork&amp;count=true" width="84" height="20"></iframe>
-  				<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://github.com/mourner/dead-simple-grid" data-text="Dead Simple Grid — a 250-byte responsive CSS grid framework that is just that. Dead simple." data-related="LeafletJS">Tweet</a>
+				Une petite place pour les reseaux sociaux
   			</p>
 		</div>
 	</div>
