@@ -511,7 +511,7 @@ function GraphicAdmin($hlpfile) {
                 <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="car" class="car"></span>
             </div>
         </div>';
-//<img style="float:left" src="'.$adminimg.'message_npds.'.$admf_ext.'" width="32" height="32" title="'.adm_translate("Nouvelle version !").'" alt="icon_'.adm_translate("logo_npds").'" />
+// <img style="float:left" src="'.$adminimg.'message_npds.'.$admf_ext.'" width="32" height="32" title="'.adm_translate("Nouvelle version !").'" alt="icon_'.adm_translate("logo_npds").'" />
 //<li id ="mes_perm" ><img style="float:left" src="'.$adminimg.'message_npds.'.$admf_ext.'" width="32" height="32" title="'.adm_translate("Nouvelle version !").'" alt="icon_'.adm_translate("logo_npds").'" /><span class="car">'.$Version_Sub.' '.$Version_Num.'<br />'.$aid.'<br /></span><span id="car" class="car" ></span></li>
 
       echo $adm_ent;
