@@ -62,8 +62,8 @@ switch ($pdst)
         break;
 }
 
-// ContainerGlobal permet de transmettre á Theme-Dynbamic un élément de personnalisation après
-// le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
+// ContainerGlobal permet de transmettre Â· Theme-Dynbamic un ÃˆlÃˆment de personnalisation aprÃ‹s
+// le chargement de footer.html / Si vide alors rien de plus n'est affichÃˆ par TD
 $ContainerGlobal="\n</div>\n";
 
 // Ne supprimez pas cette ligne / Don't remove this line
