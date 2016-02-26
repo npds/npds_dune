@@ -186,19 +186,17 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label">'.translate("Message Icon: ").'</label>
-         </div>
+         <label class="form-control-label col-sm-3">'.translate("Message Icon: ").'</label>
          <div class="col-sm-9">
+         <div class=" card card-block fond_subject">
          '.emotion_add($image_subject).'
+         </div>
          </div>
       </div>';
    }
    echo '
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label" for="message">'.translate("Message: ").'</label>
-         </div>';
+         <label class="form-control-label col-sm-3" for="message">'.translate("Message: ").'</label>';
    if ($allow_bbcode)
       $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
    echo '

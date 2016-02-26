@@ -141,7 +141,6 @@ function Only_NewUser() {
       echo '
    </div>';
       include ("modules/sform/extend-user/extend-user.php");
-//      include("footer.php");
 
    $fv_parametres = '
    add_aid: {
@@ -201,10 +200,6 @@ function Only_NewUser() {
       }
    },
    ';
-
-
-
-
 
    adminfoot('fv',$fv_parametres,'','1');
    } else {
@@ -899,46 +894,43 @@ function edithome() {
    }
    echo '
    <h2>'.translate("Change the home").'</h2>
-   <form class="" role="form" action="user.php" method="post">
+   <form action="user.php" method="post">
    <div class="form-group row">
-      <label class="form-control-label col-sm-7">
-         '.translate("News number in the Home").' (max. 127) :
-      </label>
+      <label class="form-control-label col-sm-7" for="storynum">'.translate("News number in the Home").' (max. 127) :</label>
       <div class="col-sm-5">
          <input class="form-control" type="number" min="0" max="127" name="storynum" value="'.$userinfo['storynum'].'" />
       </div>
-   </div>
-         ';
-
+   </div>';
    if ($userinfo['ublockon']==1) $sel = 'checked="checked"';
    else $sel = '';
    echo '
    <div class="form-group row">
       <div class="col-sm-10">
          <div class="checkbox">
-                <label>
-            <input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
+            <label>
+               <input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
             </label>
-            </div>
-            </div>
-            </div>';
-   echo '<ul><li>'.translate("(Check this option and the following text will appear in the Home)").'</li>
-     <li>'.translate("(You can use HTML code to put links, for example)").'</li></ul>';
-
-   echo '<div class="form-group">
+         </div>
+      </div>
+   </div>
+   <ul>
+      <li>'.translate("(Check this option and the following text will appear in the Home)").'</li>
+      <li>'.translate("(You can use HTML code to put links, for example)").'</li>
+   </ul>
+   <div class="form-group row">
       <div class="col-sm-12">
          <textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
       </div>
    </div>
-      <input type="hidden" name="theme" value="'.$userinfo['theme'].'" />
-     <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
-     <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
-     <input type="hidden" name="op" value="savehome" />
-     <div class="form-group">
-      <div class="col-sm-1">
-         <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+      <div class="form-group row">
+         <input type="hidden" name="theme" value="'.$userinfo['theme'].'" />
+         <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
+         <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
+         <input type="hidden" name="op" value="savehome" />
+         <div class="col-sm-12">
+            <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+         </div>
       </div>
-   </div>
    </form>';
    include ("footer.php");
 }
@@ -1054,7 +1046,7 @@ function editjournal(){
       <div class="form-group row">
          <div class="col-xs-12">
             <input class="btn btn-primary" type="submit" value="'.translate("Save Journal").'" />
-      </div>
+         </div>
       </div>
    </form>';
 

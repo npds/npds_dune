@@ -38,25 +38,33 @@ function reviews() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $resultrm = sql_query("SELECT title, description FROM ".$NPDS_Prefix."reviews_main");
    list($title, $description) = sql_fetch_row($resultrm);
-         
+
    echo '
+   <hr />
    <h3>'.adm_translate("Configuration de la page").'</h3>
    <form id="fad_pagereviews" class="" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group">
-            <label for="tit_cri">'.adm_translate("Titre de la Page des Critiques").'</label>
-            <input id="tit_cri" type="text" class="form-control" name="title" value="'.$title.'" maxlength="100" />
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="tit_cri">'.adm_translate("Titre de la Page des Critiques").'</label>
+            <div class="col-sm-12">
+               <input id="tit_cri" type="text" class="form-control" name="title" value="'.$title.'" maxlength="100" />
+            </div>
          </div>
-         <div class="form-group">
-            <label for="description">'.adm_translate("Description de la Page des Critiques").'</label>
-            <textarea id="description" class="form-control" name="description" rows="10">'.$description.'</textarea>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="description">'.adm_translate("Description de la Page des Critiques").'</label>
+            <div class="col-sm-12">
+               <textarea id="description" class="form-control" name="description" rows="10">'.$description.'</textarea>
+            </div>
          </div>
-         <div class="form-group">
-            <input type="hidden" name="op" value="mod_main" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+         <div class="form-group row">
+            <div class="col-sm-12">
+               <input type="hidden" name="op" value="mod_main" />
+               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+            </div>
          </div>
       </fieldset>
    </form>
+   <hr />
    <h3>'.adm_translate("Critiques en attente de validation").'</h3>';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add ORDER BY id");
    $numrows = sql_num_rows($result);
@@ -68,88 +76,70 @@ function reviews() {
    <h4>'.adm_translate("Ajouter la critique N° : ").' '.$id.'</h4>
    <form id="fad_valreviews'.$id.'" action="admin.php" method="post">
    <input type="hidden" name="id" value="'.$id.'" />
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="date">'.adm_translate("Date").'</label>
-            <div class="col-sm-8">
-               <div class="input-group input-append date" id="datePicker">
-                  <input class="form-control" type="text" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd"  data-date-language="'.language_iso(1,'','').'" />
-                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-               </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="date">'.adm_translate("Date").'</label>
+         <div class="col-sm-8">
+            <div class="input-group input-append date" id="datePicker">
+               <input class="form-control" type="text" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd"  data-date-language="'.language_iso(1,'','').'" />
+               <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom du produit").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="40" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom du produit").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="40" />
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="text'.$id.'">'.adm_translate("Texte").'</label>
-            <div class="col-sm-8">
-               <textarea class="form-control" name="text" rows="6">'.$text.'</textarea>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="text'.$id.'">'.adm_translate("Texte").'</label>
+         <div class="col-sm-8">
+            <textarea class="form-control" name="text" rows="6">'.$text.'</textarea>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="reviewer">'.adm_translate("Le critique").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="reviewer" value="'.$reviewer.'" maxlength="20" />
-               <span class="help-block text-xs-right"><span id="countcar_reviewer"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="reviewer">'.adm_translate("Le critique").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="reviewer" value="'.$reviewer.'" maxlength="20" />
+            <span class="help-block text-xs-right"><span id="countcar_reviewer"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="email">'.adm_translate("E-mail").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="30" />
-               <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="30" />
+            <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="score">'.adm_translate("Note").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" id="score" name="score" value="'.$score.'"  min="1" max="10" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="score">'.adm_translate("Note").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" id="score" name="score" value="'.$score.'"  min="1" max="10" />
          </div>
       </div>';
          if ($url != '') {
             echo '
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="url">'.adm_translate("Liens relatifs").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" />
-               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("Liens relatifs").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" />
+            <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="url_title">'.adm_translate("Titre du lien").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" id="url_title" name="url_title" value="'.$url_title.'" maxlength="50" />
-               <span class="help-block text-xs-right"><span id="countcar_url_title"></span></span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 " for="url_title">'.adm_translate("Titre du lien").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="url_title" name="url_title" value="'.$url_title.'" maxlength="50" />
+            <span class="help-block text-xs-right"><span id="countcar_url_title"></span></span>
          </div>
       </div>';
         }
          echo '
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="cover">'.adm_translate("Image de garde").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" id="cover" name="cover" maxlength="100" />
-               <span class="help-block">150*150 pixel => images/covers</span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="cover">'.adm_translate("Image de garde").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="cover" name="cover" maxlength="100" />
+            <span class="help-block">150*150 pixel => images/covers</span>
          </div>
       </div>
       <div class="form-group">
@@ -185,13 +175,13 @@ function add_review($id, $date, $title, $text, $reviewer, $email, $score, $cover
 }
 
 switch ($op){
-    case "reviews":
+    case 'reviews':
          reviews();
          break;
-    case "add_review":
+    case 'add_review':
          add_review($id, $date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title);
          break;
-    case "mod_main":
+    case 'mod_main':
          mod_main($title, $description);
          break;
 }

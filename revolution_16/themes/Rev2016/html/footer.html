@@ -1,15 +1,30 @@
 <footer id="footer" role="contentinfo" class="row w100 p1 automobile">
    <div id="decofoot">
-     
-      <div class="grid w25 p1 automobile notablet">
+
+      <div class="grid w25  automobile notablet">
         blocID(L24)
-     </div><!----><div class="grid w25 p1 automobile">
+     </div><!----><div class="grid w25  automobile">
          blocID(R5)
-         </div><!----><div class="grid w25 p1 automobile">
+         </div><!----><div class="grid w25  automobile">
          blocID(L10)
       </div><!----><div class="grid w25 p1 automobile">
-         <h5 class="footitle">QUATRIEME</h5>
-         petit bonus, il sera possible suivant la r&eacute;solution de l'&eacute;cran de faire disparaitre ou non une grid qui ne serait pas pertinante
+         <h5 class="footitle">BLOC MEMBRE</h5>
+              <?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   if (autorisation(-1)) {
+      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+   } elseif (autorisation(1)) {
+      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
+      settype($cookie[0], 'integer');
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
+      else
+         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
+      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
+   } ?>
       </div>
       <p class="aligncenter"> !msg_foot! !sc_infos! !sc_infos_else!   </p>
    </div><!-- #decofoot -->

@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 $userdatat=$userdata;
-$messageP=split_string_without_space($message, 80);
+//$messageP=split_string_without_space($message, 80);
 $time=date(translate("dateinternal"),time()+($gmt*3600));
 
 switch ($acc) {
@@ -47,7 +47,7 @@ switch ($acc) {
    break;
 
    case "reply":
-      if (array_key_exists(1,$userdata))// why make an error ?
+      if (array_key_exists(1,$userdata))// why make an error ? car le tableau est déclaré après le array key exist ...
          $userdata = get_userdata($userdata[1]);
       if ($allow_html == 0 || isset($html)) $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
       if (isset($sig) && $userdata['uid'] != 1) $messageP .= " [addsig]";
@@ -101,17 +101,17 @@ switch ($acc) {
 }
 
       echo '<hr noshade="noshade" class="ongl" /><p class="lead text-xs-center">'.translate("Preview").'</p>';
-	  echo '
-			<div class="col-md-12">
-			<div class="well">
-			';
+     echo '
+      <div class="col-md-12">
+      <div class="well">
+      ';
       if (($forum_type=="6") or ($forum_type=="5"))
       if (isset($image_subject)) {
          if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
-         echo '<img src="'.$imgtmp.'" border="0" alt="" />';
+         echo '<img src="'.$imgtmp.'" alt="" />';
       } else {
          if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/forum/icons/posticon.gif";}
-         echo '<img src="'.$imgtmpP.'" border="0" alt="" />';
+         echo '<img src="'.$imgtmpP.'" alt="" />';
       }
       echo ''.translate("Posted: ").''.$time.'';
       echo '<br /><br />';
@@ -120,14 +120,13 @@ switch ($acc) {
          highlight_string(stripslashes($messageP));
       } else {
          if ($allow_bbcode) $messageP=smilie($messageP);
-         $messageP=str_replace("[addsig]", "", $messageP);
+         $messageP=str_replace("[addsig]", '', $messageP);
          echo $messageP;
       }
       echo '
-			</div>
-			</div>	  
-			';
-    echo '<hr noshade="noshade" class="ongl" />';
+         </div>
+      </div>';
+    echo '<hr />';
 
 if ($acc=="reply"||$acc=="editpost")
    $userdata=$userdatat;

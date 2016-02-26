@@ -15,8 +15,9 @@ echo '
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
 <link rel="stylesheet" href="lib/css/octicons.css" />
-';
-echo '<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
+<link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />';
+echo '
+<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
 echo '
 <script type="text/javascript" src="lib/js/tether.min.js"></script>';
 echo '
@@ -32,6 +33,5 @@ echo '
 <script type="text/javascript" src="lib/js/bootbox.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
-<script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>
-';
+<script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>';
 ?>
