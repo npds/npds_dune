@@ -24,23 +24,21 @@ $f_titre = adm_translate("Module").' : '.$ModPath;
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 $ModStart='admin/reseaux-sociaux_set';
+GraphicAdmin($hlpfile);
 
 function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
    adminhead($f_meta_nom, $f_titre, $adminimg);
-
    echo '
    <hr />
    <h3><a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=AddReseaux"><i class="fa fa-plus-square"></i></a>&nbsp;'.adm_translate("Ajouter").'</h3>
-   
-   
-   <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+   <table id ="lst_rs_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
             <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Nom").'</th>
             <th data-sortable="true" data-halign="center">'.adm_translate("URL").'</th>
-            <th data-halign="center" data-align="center">'.adm_translate("Icone").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("Icône").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
@@ -70,30 +68,30 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
    adminhead($f_meta_nom, $f_titre, $adminimg);
    if($subop=='AddReseaux')
       echo '
-   <h3>'.adm_translate("Ajouter").'</h3>'; 
+   <hr /><h3>'.adm_translate("Ajouter").'</h3>'; 
    else 
-   echo '<h3>'.adm_translate("Editer").'</h3>';
-   echo'
-   <hr />
+   echo '
+   <hr /><h3>'.adm_translate("Editer").'</h3>';
+   echo '
    <form id="reseaux_adm" action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="rs_id">'.adm_translate("Nom").'</label>
          <div class="col-sm-9">
-            <input id="rs_id" class="form-control" type="text" name="rs_id"  maxlength="50"  placeholder="'.adm_translate("").'" value="'.urldecode($rs_id).'"/>
+            <input id="rs_id" class="form-control" type="text" name="rs_id"  maxlength="50"  placeholder="'.adm_translate("").'" value="'.urldecode($rs_id).'" required="required" />
             <span class="help-block text-xs-right"><span id="countcar_rs_id"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
          <div class="col-sm-9">
-            <input id="rs_url" class="form-control" type="text" name="rs_url"  maxlength="400" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'"/>
+            <input id="rs_url" class="form-control" type="url" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
             <span class="help-block text-xs-right"><span id="countcar_rs_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="rs_ico">'.adm_translate("Icone").'</label>
+         <label class="form-control-label col-sm-3" for="rs_ico">'.adm_translate("Icône").'</label>
          <div class="col-sm-9">
-            <input id="rs_ico" class="form-control" type="text" name="rs_ico"  maxlength="400" placeholder="'.adm_translate("").'" value="'.stripcslashes(urldecode($rs_ico)).'"/>
+            <input id="rs_ico" class="form-control" type="text" name="rs_ico"  maxlength="40" placeholder="'.adm_translate("").'" value="'.stripcslashes(urldecode($rs_ico)).'" required="required" />
             <span class="help-block text-xs-right"><span id="countcar_rs_ico"></span></span>
          </div>
       </div>
@@ -110,7 +108,11 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
    </form>
    <script type="text/javascript">
    //<![CDATA[
-      inpandfieldlen("rs-id",50);
+   $(document).ready(function() {
+      inpandfieldlen("rs_id",50);
+      inpandfieldlen("rs_url",100);
+      inpandfieldlen("rs_ico",40);
+   })
    //]]>
    </script>';
    adminfoot('fv','','','');
@@ -125,10 +127,6 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
       if(!in_array($rs_id,$v1,true)) $newrs[]=$v1;
    }
    if($subop!=='DeleteReseaux') $newrs[]=$newar;
-
-echo '<pre>';
-print_r($newrs);
-echo '</pre>';
 
    $file = fopen("modules/$ModPath/reseaux-sociaux.conf.php", "w");
    $content = "<?php \n";
@@ -164,21 +162,26 @@ echo '</pre>';
    fwrite($file, $content);
    fclose($file);
    @chmod("modules/$ModPath/reseaux-sociaux.conf.php",0666);
-
-
 }
 
    switch ($subop) {
-       case "SaveSetReseaux":
-       SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);break;
-       case "DeleteReseaux":
-       SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);break;
-       case "AddReseaux":
-       EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);break;
-       case "EditReseaux":
-       EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);break;
-       default:
-       ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      case "SaveSetReseaux":
+      SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
+      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      break;
+      case "DeleteReseaux":
+      SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
+      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      break;
+      case "AddReseaux":
+      EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);
+//      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      break;
+      case "EditReseaux":
+      EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);break;
+      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      default:
+      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
     break;
    }
 ?>
