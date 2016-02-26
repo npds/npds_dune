@@ -44,8 +44,8 @@ function alpha() {
    <br />
    <form action="memberslist.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="letter">'.translate("Search").' : </label>
-         <div class="col-sm-8">
+         <label class="form-control-label col-sm-3" for="letter">'.translate("Search").'</label>
+         <div class="col-sm-9">
             <input id="mblst_search" class="form-control" type="input" name="letter" />
             <input type="hidden" name="list" value="'.urldecode($list).'" />
             <input type="hidden" name="gr_from_ws" value="'.$gr_from_ws.'" />
@@ -156,18 +156,33 @@ function avatar($user_avatar) {
       $list=urlencode(implode(',',$tempo));
    }
 
-   $result = sql_query("SELECT uname FROM ".$NPDS_Prefix."users ORDER BY uid DESC limit 0,1");
-   list($lastuser) = sql_fetch_row($result);
+   $result = sql_query("SELECT uname, user_avatar FROM ".$NPDS_Prefix."users ORDER BY uid DESC limit 0,1");
+   list($lastuser,$lastava) = sql_fetch_row($result);
    
    echo '
    <h2><img src="images/admin/users.png" alt="'.translate("Members List").'" />'.translate("Members List");
    if (isset ($uid_from_ws) and ($uid_from_ws!='')) echo '<span class="text-muted" '.translate("for group").' #'.$gr_from_ws.'</span>';
-   echo '</h2>';
+   echo '</h2>
+   <hr />';
 
-   if (!isset($gr_from_ws))
+   if (!isset($gr_from_ws)) {
       echo '
-      <p>'.translate("Greetings to our latest registered user:").' <a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></p>';
+      <div class="media">';
+      if ($ibid_avatar=avatar($lastava))
+         echo '
+         <div class="media-left media-middle">
+            <img src="'.$ibid_avatar.'" class=" media-object n-ava img-thumbnail" alt="avatar" />
+         </div>';
+      echo '
+         <div class="media-body"><br />
+         '.translate("Greetings to our latest registered user:").' <br /><h4 class="media-heading"><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
+         </div>
+      </div>
+      <hr />';
+      }
+      echo '<p>';
       alpha();
+      echo '</p>';
 
       SortLinks($letter);
       $min = $pagesize * ($page - 1);
@@ -242,7 +257,7 @@ function avatar($user_avatar) {
                <tr>
                   <td>';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
-                  echo '<img src="'.$ibid_avatar.'" class="n-ava img-thumbnail" alt="avatar" />';
+                  echo '<img src="'.$ibid_avatar.'" class="n-ava-small img-thumbnail" alt="avatar" />';
                echo '</td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
                if ($admin) 
@@ -287,14 +302,14 @@ function avatar($user_avatar) {
                if ($admin) {
                   echo '
                   <td>
-                     <a href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" title="'.translate("Edit").'"><i class="fa fa-edit fa-lg"></i></a> 
-                     <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" title="'.translate("Delete").'"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
+                     <a href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-toggle="tooltip"></i></a> 
+                     <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
                   $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
                   list($open_user) = sql_fetch_row($op_result);
                   if ($open_user==1) {
-                     echo "&nbsp;<i class=\"fa fa-chain\" title=\"".translate("Connection allowed")."\"></i>";
+                     echo "&nbsp;<i class=\"fa fa-chain fa-lg\" title=\"".translate("Connection allowed")."\"></i>";
                   } else {
-                     echo "&nbsp;<i class=\"fa fa-chain-broken\" title=\"".translate("Connection not allowed")."\"></i>"; 
+                     echo "&nbsp;<i class=\"fa fa-chain-broken fa-lg\" title=\"".translate("Connection not allowed")."\"></i>"; 
                   }
                   if (!$temp_user['is_visible']) {
                      echo "<img src=\"images/admin/ws/user_invisible.gif\" border=\"0\" alt=\"".translate("Invisible' member")."\" title=\"".translate("Invisible' member")." \" /></td>\n";
