@@ -134,7 +134,7 @@ switch($phrase) {
   case "Nom du Contact": $tmp="Contact Name"; break;
   case "E-mail": $tmp="Contact Email"; break;
   case "Ajouter une nouvelle Bannière": $tmp="Add a New Banner"; break;
-  case "Pour les Bannières Javascript, saisir seulement le code javascript dans la zone <i>Url du Clik</i> et laisser la zone image vide.": $tmp="For Javascript Banners with no Image Url : just put the javascript code in ClickUrl TextBox."; break;
+  case "Pour les Bannières Javascript, saisir seulement le code javascript dans la zone Url du Clik et laisser la zone image vide.": $tmp="For Javascript Banners with no Image Url : just put the javascript code in ClickUrl TextBox."; break;
   case "Pour les Bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier.txt (fichier de code php) dans la zone Url du Clik et laisser la zone image vide.": $tmp="For more complexe Banners (Flash, ...) : just put the ref to your_dir/your_file .txt in ClickUrl TextBox."; break;
   case "Nom de l'Annonceur : ": $tmp="Client Name: "; break;
   case "Impressions réservées : ": $tmp="Impressions Purchased: "; break;
@@ -528,7 +528,7 @@ switch($phrase) {
   case "Seulement aux prospects": $tmp="Only to outside users"; break;
   case "Nbre d'envois effectués": $tmp="Number of Mail"; break;
   case "Titre de la Page des Critiques": $tmp="Reviews Page Title"; break;
-  case "Description de la Page des Critiques : ": $tmp="Reviews Page Description:"; break;
+  case "Description de la Page des Critiques": $tmp="Reviews Page Description"; break;
   case "Critiques en attente de validation": $tmp="Reviews Waiting for Validation"; break;
   case "Ajouter la critique N° : ": $tmp="Reviews_Add ID:"; break;
   case "Date :": $tmp="Date:"; break;
@@ -993,6 +993,10 @@ switch($phrase) {
   case "Visiter le site web": $tmp="Visit the web site"; break;
   case "Tout cocher": $tmp="Check all"; break;
   case "Tout décocher": $tmp="Uncheck all"; break;
+  case "Réseaux sociaux": $tmp="Social networks"; break;
+  case "Icône": $tmp="Icon"; break;
+  case "Configuration de la page": $tmp="Page setting"; break;
+  
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

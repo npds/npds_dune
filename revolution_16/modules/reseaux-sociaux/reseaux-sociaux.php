@@ -77,19 +77,6 @@ function EditReseaux($ModPath, $ModStart) {
             $res_id[] = explode('|',$socialnetwork);
          }
       }
-/*
-print_r($res_id);//debug
-      sort($res_id);//debug
-echo '<br />';      
-print_r($res_id);//debug
-echo '<br />';      
-
-print_r($rs);//debug
-      sort($rs);//debug
-      echo '<br />';      
-
-print_r($rs);//debug
-*/
 
    echo '
    <h3>'.rs_translate("Réseaux sociaux").'</h3>
@@ -99,18 +86,16 @@ print_r($rs);//debug
    $i=0;
    sort($res_id);
    sort($rs);
-
    $ident='';
    foreach ($rs as $v1) {
-      foreach($res_id as $y1){
+      foreach($res_id as $y1) {
          $k = array_search( $y1[0],$v1);
          if (false !== $k) {
             $ident=$y1[1];
             break;
-         } 
+         }
          else $ident='';
       }
-
       if($i==0) echo '
    <div class="row">';
    echo '

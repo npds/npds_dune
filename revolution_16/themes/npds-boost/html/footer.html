@@ -17,33 +17,34 @@
          // <== choix icon boostrap table //
 
       $(document).ready(function(){
+         // responsive old data
          $(".article_texte img,.ibid_descr img").addClass("img-fluid");
-         $("#ban img,#art_preview img,#online_user_journal img").addClass("img-fluid");
-         
-//         $(".article_texte object").addClass("embed-responsive");
-         
+         $("#ban img,#art_preview img,#online_user_journal img,#art_sect img").addClass("img-fluid");
          $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
-
 
          $('a.arrow-toggle').on('click', function(e){
          $('a.arrow-toggle i').toggleClass('fa-caret-down , fa-caret-up', 6000);
          })
 
+         $('.popover-dismiss').popover({
+           trigger: 'focus'
+         })
+
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
+         // fix bug tooltip in table
          $('table').on('all.bs.table', function (e, name, args) {
             $('[data-toggle="tooltip"]').tooltip();
             $('[data-toggle="popover"]').popover();
-
          });
       });
       
       // ==> colorisation syntaxique du code //
       hljs.configure({useBR: true});
-      $('div.code').each(function(i, block) {
+      $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
       });
-      hljs.initHighlightingOnLoad();
+//      hljs.initHighlightingOnLoad();
       // <== colorisation syntaxique du code //
       
       

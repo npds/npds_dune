@@ -26,7 +26,6 @@
 //   Les titres supportent le Multi-langue comme par exemple :
 //   $PAGES['index.php']['title']="[french]Index[/french][english]Home[/english]+";
 
-
 // $PAGES['index.php']['blocs']="valeur d'affichage des blocs";
 //   => -1 : pas de blocs de Gauche ET pas de blocs de Droite
 //   =>  0 : blocs de Gauche ET pas de blocs Droite
@@ -178,7 +177,7 @@ $PAGES['stats.php']['run']="yes";
 $PAGES['stats.php']['sitemap']="0.5";
 
 // admin why charge the tiny on each admin page 360k !! ??
-$PAGES['admin.php']['title']=""; // obligatoirement ‡ vide
+$PAGES['admin.php']['title']=""; // obligatoirement à vide
 $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
 $PAGES['admin.php']['TinyMce']=1;
@@ -186,14 +185,14 @@ $PAGES['admin.php']['TinyMce-theme']="full";
 $PAGES['admin.php']['css']="admin.css+";
 $PAGES['admin.php']['TinyMceRelurl']="false";
 
-//$PAGES['admin.php?op=Edito']['title']=""; // obligatoirement ‡ vide
+//$PAGES['admin.php?op=Edito']['title']=""; // obligatoirement à vide
 //$PAGES['admin.php?op=Edito']['blocs']="0";
 //$PAGES['admin.php?op=Edito']['run']="yes";
 // $PAGES['admin.php?op=Edito']['TinyMce']=1;
 // $PAGES['admin.php?op=Edito']['TinyMce-theme']="full";
 //$PAGES['admin.php?op=Edito']['css']="admin.css+";
 
-// $PAGES['admin.php?op=Edito_load']['title']=""; // obligatoirement ‡ vide
+// $PAGES['admin.php?op=Edito_load']['title']=""; // obligatoirement à vide
 // $PAGES['admin.php?op=Edito_load']['blocs']="0";
 // $PAGES['admin.php?op=Edito_load']['run']="yes";
 // $PAGES['admin.php?op=Edito_load']['run']="yes";
@@ -252,7 +251,7 @@ $PAGES['map.php']['blocs']="1";
 $PAGES['map.php']['run']="yes";
 
 $PAGES['pollBooth.php']['title']="[french]Les Sondages[/french][english]Opinion poll[/english][spanish]las encuestas[/spanish][german]die Umfragen[/german][chinese]Opinion poll[/chinese]";
-$PAGES['pollBooth.php']['blocs']="1";
+$PAGES['pollBooth.php']['blocs']="2";
 $PAGES['pollBooth.php']['run']="yes";
 
 // Page static
@@ -261,9 +260,9 @@ $PAGES['static.php?op=statik.txt']['blocs']="0";
 $PAGES['static.php?op=statik.txt']['run']="yes";
 
 // Modules
-// Pour les modules il existe deux forme d'Ècriture :
+// Pour les modules il existe deux forme d'écriture :
 // la syntaxe : modules.php?ModPath=links&ModStart=links ==> qui permet d'affecter un titre, un run et un type de bloc pour chaque 'sous-url' du module
-// la syntaxe : mdoules.php?ModPath=links&ModStart=links* (rajout d'une * ‡ la fin) ==> qui permet de faire la mÍme chose mais en indiquant que TOUTES les pages du module seront traitÈes de la mÍme maniËre
+// la syntaxe : mdoules.php?ModPath=links&ModStart=links* (rajout d'une * à la fin) ==> qui permet de faire la même chose mais en indiquant que TOUTES les pages du module seront traitÈes de la même manière
 $PAGES['modules.php?ModPath=links&ModStart=links*']['title']="[french]Liens et annuaires[/french][english]Web Links[/english][spanish]Enlaces y Directorios[/spanish][german]Links und Verzeichnisse[/german][chinese]&#x7F51;&#x7AD9;&#x94FE;&#x63A5;[/chinese]+|$title+";
 $PAGES['modules.php?ModPath=links&ModStart=links*']['run']="yes";
 $PAGES['modules.php?ModPath=links&ModStart=links*']['blocs']="2";
@@ -296,7 +295,7 @@ $PAGES['modules.php?ModPath=archive-stories&ModStart=archive-stories*']['title']
 $PAGES['modules.php?ModPath=archive-stories&ModStart=archive-stories*']['run']="yes";
 $PAGES['modules.php?ModPath=archive-stories&ModStart=archive-stories*']['blocs']="0";
 
-$PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['title']="[french]Afficheur de fichiers multimÈdia[/french][english]Multimedia files viewer[/english][spanish]Visualizaci&oacute;n de Ficheros multimedia[/spanish][german]Anzeige von Multimedia-Dateien[/german][chinese]Multimedia files viewer[/chinese]";
+$PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['title']="[french]Afficheur de fichiers multim&eacute;dia[/french][english]Multimedia files viewer[/english][spanish]Visualizaci&oacute;n de Ficheros multimedia[/spanish][german]Anzeige von Multimedia-Dateien[/german][chinese]Multimedia files viewer[/chinese]";
 $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['run']="yes";
 $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="0";
 
@@ -304,13 +303,9 @@ $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="0";
 $PAGES['chatrafraich.php']['css']="chat.css-";
 $PAGES['chatinput.php']['css']="chat.css-";
 
-
-
-$PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['title']="[french]Reseaux Sociaux[/french][english]Social Networks[/english]";
+$PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['title']="[french]R&eacute;seaux Sociaux[/french][english]Social Networks[/english]";
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['run']="yes";
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']="0";
-
-
 
 // Filtre sur l'URI
 // $PAGES['forum=1']['title']="forum.php";

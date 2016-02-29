@@ -45,14 +45,17 @@ function action_log($ThisFile,$classe) {
    <a class="btn btn-danger btn-sm" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
    </p>';
 }
-    adminhead ($f_meta_nom, $f_titre, $adminimg);
-    $cl_a_ses=''; if ($subop=="session") $cl_a_ses='active';
-    $cl_a_sec=''; if ($subop=="security") $cl_a_sec='active';
+
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   $cl_a_ses=''; if ($subop=="session") $cl_a_ses='active';
+   $cl_a_sec=''; if ($subop=="security") $cl_a_sec='active';
+   
 echo '
 <hr />
 <ul class="nav nav-tabs">
-  <li class="nav-item"><a href="'.$ThisFile.'&subop=session" class="nav-link '.$cl_a_ses.'">'.SessionLog_translate("Liste des Sessions").'</a></li>
-  <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").' : '.SessionLog_translate("SECURITE").'</a></li>
+   <li class="nav-item"><a href="'.$ThisFile.'&subop=session" class="nav-link '.$cl_a_ses.'">'.SessionLog_translate("Liste des Sessions").'</a></li>
+   <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").' : '.SessionLog_translate("SECURITE").'</a></li>
 </ul>';
 
    if ($FileUpload!=$FileSecure) {

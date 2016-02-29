@@ -317,6 +317,7 @@ function translate_pass1($phrase) {
    case "Edit your journal": $tmp="Editer votre journal"; break;
    case "Add date and time stamp": $tmp="Ajouter la date et l'heure"; break;
    case "Save Journal": $tmp="Sauvez votre journal"; break;
+   case "Journal": $tmp="Journal"; break;
    case "Moderated By: ": $tmp="Modéré par : "; break;
    case "Forum Index": $tmp="Index du forum"; break;
    case "This is a Private Forum. Please enter the password to gain access": $tmp="Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder"; break;
@@ -769,7 +770,7 @@ function translate_pass1($phrase) {
    case "Inbox": $tmp="Boîte de réception"; break;
    case "Not Read": $tmp="Non lu"; break;
    case "Outbox": $tmp="Boîte d'émission"; break;
-   case "Home": $tmp="Origine"; break;
+   case "Home": $tmp="Home"; break;
    case "Internal": $tmp="Interne"; break;
    case "All registered users can post private messages.": $tmp="Tous les utilisateurs enregistrés peuvent poster des messages privés."; break;
    case "Cancel Reply": $tmp="Annuler la réponse"; break;
@@ -904,6 +905,7 @@ function translate_pass1($phrase) {
    case "Register to web site' mailing list" : $tmp="S'inscrire à la liste de diffusion du site"; break;
    case "Update": $tmp="Mise à jour"; break;
    case "Theme(s)": $tmp="Thème(s)"; break;
+   case "Theme": $tmp="Thème"; break;
    case "Status": $tmp="Status"; break;
    case "You may be interested in:": $tmp="Cela pourrait vous intéresser :"; break;
    case "Back to chapter:": $tmp="Retour à la sous-rubrique :"; break;
@@ -994,6 +996,11 @@ function translate_pass1($phrase) {
    case "Print": $tmp="Imprimer"; break;
    case "Your request": $tmp="Votre requête"; break;
    case "Sender": $tmp="Expéditeur"; break;
+   case "Delete comments.": $tmp="Effacer les commentaires."; break;
+   case "Hide this comment": $tmp="Masquer ce commentaire"; break;
+   case "Show this comment": $tmp="Afficher ce commentaire"; break;
+   case "Icon": $tmp="Icone"; break;
+   case "Social networks": $tmp="Réseaux sociaux"; break;
 
    default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }

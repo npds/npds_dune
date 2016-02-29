@@ -5,7 +5,7 @@
 /*                                                                      */
 /* From ALL STORIES Add-On ... ver. 1.4.1a                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -30,9 +30,9 @@ if (!function_exists("Mysql_Connexion")) {
       $cache_obj = new SuperCacheEmpty();
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      opentable();
       if ($arch_titre) { echo $arch_titre; }
       echo '
+   <hr />
    <table id ="lst_art_arch" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
@@ -59,16 +59,15 @@ if (!function_exists("Mysql_Connexion")) {
 
       $ibid=0;
       $story_limit=0;
-      if ($ibid=theme_image("box/print.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/print.gif";}
-      if ($ibid=theme_image("box/friend.gif")) {$imgtmpF=$ibid;} else {$imgtmpF="images/friend.gif";}
+
       while (($story_limit<$maxcount) and ($story_limit<sizeof($xtab))) {
         list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
         $story_limit++;
         if ($catid!=0) {
             list($cattitle) = sql_fetch_row(sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'"));
         }
-        $printP = "<a href=\"print.php?sid=$s_sid&amp;archive=$arch\"><img src=\"".$imgtmpP."\" border=\"0\" alt=\"".translate("Printer Friendly Page")."\" /></a>&nbsp;";
-        $sendF = "<a href=\"friend.php?op=FriendSend&amp;sid=$s_sid&amp;archive=$arch\"><img src=\"".$imgtmpF."\" border=\"0\" alt=\"".translate("Send this Story to a Friend")."\" /></a>";
+        $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" data-placement="left"></i></a>';
+        $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
         $sid = $s_sid;
         if ($catid != 0) {
             $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
@@ -81,24 +80,29 @@ if (!function_exists("Mysql_Connexion")) {
         if (cur_charset!="utf-8") {
            $datetime = ucfirst($datetime);
         }
-        echo "<tr align=\"center\">
-        <td align=\"left\" width=\"50%\"><a href=\"article.php?sid=$sid&amp;archive=$arch\" class=\"noir\">".aff_langue($title)."</a></td>
-        <td align=\"center\">$counter</td>
-        <td align=\"center\" width=\"25%\">$datetime</td>
-        <td align=\"left\"><a href=\"user.php?op=userinfo&amp;uname=$informant\" class=\"noir\">$informant</a></td>
-        <td align=\"center\">$printP&nbsp;$sendF</td>
-        </tr>";
+        echo '
+        <tr>
+           <td><a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue($title).'</a></td>
+           <td>'.$counter.'</td>
+           <td>'.$datetime.'</td>
+           <td><a href="user.php?op=userinfo&amp;uname='.$informant.'" >'.$informant.'</a></td>
+           <td>'.$printP.'&nbsp;'.$sendF.'</td>
+        </tr>';
       }
       echo '
          </tbody>
       </table><br />';
       $start=$start+$maxcount-1;
-      if (($count-$start)>0) {
-         if ($ibid=theme_image("box/right.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/download/right.gif";}
-         echo "<a href=\"modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start=$start&amp;count=$count\" class=\"noir\">".translate("next matches")." <img src=\"".$imgtmp."\" border=\"0\" align=\"center\" alt=\"\" /></a>";
-      }
+      echo '
+      <ul class="pagination pagination-sm">
+         <li class="page-item disabled"><a class="page-link" href="#" >'.translate("Nb of articles").' '.$count.' </a></li>';
+      if (($count-$start)>0) { echo '
+         <li class="page-item"><a class="page-link" href="modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start='.$start.'&amp;count='.$count.'" >'.translate("next matches").'</a></li>';
+         }
+      echo '
+      </ul>';
+
       echo "<p align=\"center\"><br />".translate("Nb of articles")." : $count - [ <a href=\"modules.php?ModPath=archive-stories&amp;ModStart=archive-stories\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
-      closetable();
    }
    if ($SuperCache) {
       $cache_obj->endCachingPage();

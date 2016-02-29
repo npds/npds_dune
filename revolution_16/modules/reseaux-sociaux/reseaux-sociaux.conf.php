@@ -25,6 +25,7 @@ $rs = [
 ['skype','ddddd','skype'],
 ['google+','https://plus.google.com/','google-plus'],
 ['snapchat','https://www.snapchat.com/','snapchat'],
-['linkedin','https://www.linkedin.com/in/','linkedin-square']
+['linkedin','https://www.linkedin.com/in/','linkedin-square'],
+['github','https://github.com/','github']
 ];
 ?>
