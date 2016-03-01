@@ -72,7 +72,7 @@ function SortLinks($letter) {
    }
    $sort=false;
    echo '
-   <p class="lead">';
+   <p class="">';
    echo translate("Sort by:")." ";
    if ($sortby == "uname ASC" OR !$sortby) {
       echo translate("nickname").' | ';
@@ -180,11 +180,16 @@ function avatar($user_avatar) {
       </div>
       <hr />';
       }
-      echo '<p>';
+      echo '
+      <div class="card card-block">
+         <p>';
       alpha();
       echo '</p>';
-
       SortLinks($letter);
+      echo '
+      </div>';
+      
+      
       $min = $pagesize * ($page - 1);
       $max = $pagesize;
       $ws_req='';
@@ -225,23 +230,22 @@ function avatar($user_avatar) {
          <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
             <thead>
                <tr>
-                  <th>&nbsp;</th>
-                  <th data-sortable="true">'.translate("Nickname").'</th>
-                  <th>&nbsp;</th>
-                  <th data-sortable="true">'.translate("Identity").'</th>';
+                  <th data-halign="center" data-align="center" class="text-muted"><i class="fa fa-share-alt fa-lg"></i></th>
+                  <th data-sortable="true">'.translate("Nickname").'<br /> '.translate("Identity").'</th>
+                  ';
          if ($sortby!="user_from ASC") {
             echo '
-                  <th data-sortable="true">'.translate("Email").'</th>';
+                  <th data-sortable="true" data-halign="center">'.translate("Email").'</th>';
          } else {
             echo '
-                  <th data-sortable="true">'.translate("Location").'</th>';
+                  <th data-sortable="true" data-halign="center" >'.translate("Location").'</th>';
          }
          echo '
-                  <th>'.translate("URL").'</th>';
+                  <th data-halign="center">'.translate("URL").'</th>';
          $cols = 6;
          if ($admin) {
             $cols = 7;
-            echo '<th>'.translate("Functions").'</th>';
+            echo '<th data-halign="center" data-align="right">'.translate("Functions").'</th>';
          }
          echo '
                </tr>
@@ -249,25 +253,54 @@ function avatar($user_avatar) {
             <tbody>';
          $a = 0;
          $num_users = sql_num_rows($result);
-         if ( $num_rows_per_order > 0  ) {
+         if ( $num_rows_per_order > 0 ) {
             global $anonymous, $user;
             while($temp_user = sql_fetch_assoc($result) ) {
-               if ($temp_user['mns']) {$mns='<a href="minisite.php?op='.$temp_user['uname'].'" title="'.translate("Mini-Web site").'" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-desktop fa-lg"></i></a>&nbsp;';} else {$mns='<img src="images/admin/ws/blank.gif" alt=\"0\" />';}
+            
+      $useroutils = '';
+      if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
+         $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user"></i>&nbsp;'.translate("Profile").'</a>';
+      }
+      if ($temp_user['uname']!=$anonymous) {
+         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
+      }
+      if ($temp_user['femail']!='') {
+         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x"></i>&nbsp;'.translate("Email").'</a>';
+      }
+      if ($temp_user['url']!='') {
+         if (strstr('http://', $temp_user['url']))
+            $temp_user['url'] = 'http://' . $temp_user['url'];
+         $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle=""><i class="fa fa-2x fa-external-link"></i>&nbsp;'.translate("Visit this Website").'</a>';
+      }
+      if ($temp_user['mns']) {
+          $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i>&nbsp;'.translate("Visit the Mini Web Site !").'</a>';
+      }
+      if ($user) {
+         $useroutils .= '<a class="list-group-item text-primary" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" ><i class="fa fa-plus-circle fa-2x">&nbsp;</i>'.translate("Add to mailing list").'</a>';
+      }
+      
+            
                echo '
                <tr>
-                  <td>';
+                  <td>
+                  ';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
-                  echo '<img src="'.$ibid_avatar.'" class="n-ava-small img-thumbnail" alt="avatar" />';
-               echo '</td>
+               echo '
+                <a tabindex="0" data-toggle="popover" data-trigger="" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-primary-outline img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+               </td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
                if ($admin) 
                   echo ' => '.date(translate("dateinternal"),$temp_user['user_lastvisit']);
-               echo '" data-toggle="tooltip">'.$temp_user['uname'].'</a></td>';
+               echo '" data-toggle="tooltip">'.$temp_user['uname'].'</a>
+               
+               <br />'.$temp_user['name'].'
+               </td>';
 
+/*
                if ($temp_user['uname']!=$anonymous) {
                   if ($user) {
                      echo '
-                  <td>'.$mns.'&nbsp;<a href="replypmsg.php?send='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'"><i class="fa fa-envelope-o fa-lg"></i></a>';
+                  <td>';
                      echo '&nbsp;<a href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" >';
                      echo '<i class="fa fa-plus-circle fa-lg"></i></a></td>';
                   } else {
@@ -278,8 +311,14 @@ function avatar($user_avatar) {
                   echo '
                   <td>&nbsp;</td>';
                }
+*/
+               
+/*
                echo '
                   <td>'.$temp_user['name'].'</td>';
+*/
+                  
+                  
                if ($sortby!='user_from ASC') {
                   if ($admin) {
                      echo '
@@ -331,12 +370,18 @@ function avatar($user_avatar) {
       </table>';
 
             if ($user) {
-               echo '<br /><p class="lead">'.translate("Mailing list").' : '.urldecode($list).'&nbsp;';
-               echo "<a href=\"memberslist.php?letter=$letter&amp;sortby=$sortby&amp;page=$page&amp;gr_from_ws=$gr_from_ws\" title=\"".translate("RAZ member's list")."\"><i class=\"fa fa-trash-o fa-lg text-danger\"></i></a>";
+               echo '
+      <br />
+      <div class="card card-block-small"><p class=""><strong>'.translate("Mailing list").' :</strong>&nbsp;';
                if ($list) {
-                  echo "<a href=\"replypmsg.php?send=".substr($list,0,strlen($list)-3)."\" title=\"".translate("Write to the list")."\"><i class=\"fa fa-envelope fa-lg\"></i></a>";
+               echo urldecode($list);
+                  echo '
+                  <span class="pull-xs-right">
+                  <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" title="'.translate("Write to the list").'"><i class="fa fa-envelope-o fa-lg"></i></a>&nbsp;
+                  <a href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("RAZ member's list").'"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span>';
                }
-               echo '</p>';
+               echo '</p>
+      </div>';
             }
 
             if ( $num_rows_per_order > $pagesize ) {
@@ -347,12 +392,12 @@ function avatar($user_avatar) {
                $prev_page = $page - 1;
                if ( $prev_page > 0 ) {
                   echo '
-                  <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$prev_page.'&amp;gr_from_ws='.$gr_from_ws.'"><i class="fa fa-arrow-left"></i></a></li>';
+                  <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$prev_page.'&amp;gr_from_ws='.$gr_from_ws.'"><i class="fa fa-angle-double-left fa-lg"></i></a></li>';
                }
                $next_page = $page + 1;
                if ( $next_page <= $total_pages ) {
                   echo '
-                  <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$next_page.'&amp;gr_from_ws='.$gr_from_ws.'"><i class="fa fa-arrow-right"></i></a></li>';
+                  <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$next_page.'&amp;gr_from_ws='.$gr_from_ws.'"><i class="fa fa-angle-double-right fa-lg"></i></a></li>';
                }
                for($n=1; $n < $total_pages; $n++) {
                   if ($n == $page) {
