@@ -46,7 +46,7 @@ fwrite($fp, stripslashes (json_encode($response)));
 fclose($fp);
 
 $nameskin = strtolower($_REQUEST['them']);
-$baseskin ='#<link id="bsth" rel="stylesheet" href="lib/bootstrap-3.3.4/css/bootstrap.min.css" />#';
+$baseskin ='#<link id="bsth" rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css" />#';
 $newskin ='<link id="bsth" rel="stylesheet" href="'.$depotskin.$nameskin.'/bootstrap.css" />';
 $headthem = file_get_contents('themes/'.$tmp_theme.'/include/header_head.inc');
 $replskin ="\1$nameskin\3";
