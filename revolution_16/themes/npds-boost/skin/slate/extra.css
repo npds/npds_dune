@@ -1,3 +1,4 @@
+
 #footer{
     background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
     background-image: -o-linear-gradient(#484e55, #3a3f44 60%, #313539);
@@ -9,23 +10,8 @@
     filter: none;
     border: 1px solid rgba(0, 0, 0, 0.6);
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-
-
-
-
-
-
-
-/* 
-  background-color: #4e5d6c;
- */
   color:#fff;
 }
-
-
-
-
-
 
 
 .navbar {
