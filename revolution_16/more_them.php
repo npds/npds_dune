@@ -34,28 +34,29 @@ $skins = array();
 
    $handle=opendir('themes/'.$tmp_theme.'/skin');
    while (false!==($file = readdir($handle))) {
-      if ( (!strstr($file,'.')) and (!strstr($file,'bower_components')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
-         $skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $depotskin.$file.'/thumbnail','preview'=> $depotskin.$file.'/','css'=> $depotskin.$file.'/bootstrap.css','cssMin'=> $depotskin.$file.'/bootstrap.min.css','cssCdn'=> '','less'=> $depotskin.$file.'/bootswatch.less','lessVariables'=> $depotskin.$file.'/variables.less','scss'=> $depotskin.$file.'/_bootswatch.scss','scssVariables'=> $depotskin.$file.'/_variables.scss');
+      if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
+         $skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $depotskin.$file.'/thumbnail','preview'=> $depotskin.$file.'/','css'=> $depotskin.$file.'/bootstrap.css','cssMin'=> $depotskin.$file.'/bootstrap.min.css','cssxtra'=> $depotskin.$file.'/extra.css','scss'=> $depotskin.$file.'/_bootswatch.scss','scssVariables'=> $depotskin.$file.'/_variables.scss');
       }
    }
    $response['skins'] = $skins;
    closedir($handle);
 
-$fp = fopen('api/3.json', 'w');
+$fp = fopen('api/skins.json', 'w');
 fwrite($fp, stripslashes (json_encode($response)));
 fclose($fp);
 
 $nameskin = strtolower($_REQUEST['them']);
 $baseskin ='#<link id="bsth" rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css" />#';
-$newskin ='<link id="bsth" rel="stylesheet" href="'.$depotskin.$nameskin.'/bootstrap.css" />';
+$newskin ='<link id="bsth" rel="stylesheet" href="'.$depotskin.$nameskin.'/bootstrap.css" /><link rel="stylesheet" href="'.$depotskin.$nameskin.'/extra.css" />';
 $headthem = file_get_contents('themes/'.$tmp_theme.'/include/header_head.inc');
 $replskin ="\1$nameskin\3";
 
+$extra='<link rel="stylesheet" href="'.$depotskin.$nameskin.'/extra.css" />';
 
 if (preg_match($baseskin,$headthem)) {
-$newcontent = preg_replace ( $baseskin, $newskin,$headthem);
+$newcontent = preg_replace ( $baseskin, $newskin.$extra,$headthem);
 } else{
-$newcontent = preg_replace('#(<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/)(.*)(/bootstrap.css" />)#', "\\1$nameskin\\3", $headthem);
+$newcontent = preg_replace('#(<link id="bsth" rel="stylesheet" href="themes/npds-boost/skin/)(.*)(/bootstrap.css" />)#', "\\1$nameskin\\3$extra", $headthem);
 }
 
     $file = fopen('themes/'.$tmp_theme.'/include/header_head.inc', 'w');
@@ -63,7 +64,7 @@ $newcontent = preg_replace('#(<link id="bsth" rel="stylesheet" href="themes/npds
     fwrite($file, $content);
     fclose($file);
 
-   echo " : ".$tmp_theme.'; skin : '.$nameskin;
+//   echo " : ".$tmp_theme.'; skin : '.$nameskin;
 }
 
 ?>
