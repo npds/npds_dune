@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -25,7 +25,7 @@
    $handle=opendir('../../'.$tmp_theme.'/skin');
    while (false!==($file = readdir($handle))) {
       if ( (!strstr($file,'.')) and (!strstr($file,'bower_components')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
-         $optskins[] = '<li><a href="../'.$file.'">'.ucfirst ($file).'</a></li> ';
+         $optskins[] = '<li><a class="dropdown-item" href="../'.$file.'">'.ucfirst ($file).'</a></li> ';
       }
    }
    closedir($handle);
@@ -39,7 +39,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootswatch,paintstrap,lavish and NPDS skins for NPDS - skin : <?php echo $skinametitre; ?></title>
+    <title>Bootswatch skins for NPDS - skin : <?php echo $skinametitre; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
    <?php 
@@ -49,18 +49,13 @@
    '; } else {
    echo '<link rel="stylesheet" href="./bootstrap.css" media="screen" />';
    };
-   
-   
-   
    ?>
-<!-- 
-    <link rel="stylesheet/less" href="../../../../lib/less/bootstrap.less" media="all" />
-    <link rel="stylesheet/less" href="./bootswatch.less" media="all" />
 
-    
-    <link rel="stylesheet" href="./bootstrap.css" media="screen" />  -->
     <link rel="stylesheet" href="../assets/css/bootswatch.min.css" />
-    <link rel="stylesheet" href="../../../../lib/font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../../lib/font-awesome-4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../style/style.css">
+    <link rel="stylesheet" href="extra.css">
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
@@ -70,66 +65,55 @@
     </script>
   </head>
   <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="http://www.npds.org/" class="navbar-brand">NPDS</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="../../../../"><i class="fa fa-home fa-lg"></i></a>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Themes<span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="Themes">
-                <li class="active"><a href="#">npds-boost</a></li>
-                <li class="divider"></li>
-                <li><a href="#">other npds themes</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="skins">Skins <span class="caret"></span></a>
-              <ul class="dropdown-menu scrollable-menu" aria-labelledby="skins">
-                <li><a href="../default/">Default</a></li>
-                <li class="divider"></li>
+  
+  
+<nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">
+    &#9776;
+  </button>
+  <a class="navbar-brand" href="#"><span>NPDS</span></a>
+   <div class="collapse navbar-toggleable-xs" id="barnav">
+      <ul class="nav navbar-nav">
+         <li class="navbar-divider"></li>
+         <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
+         <li class="navbar-divider"></li>
+         <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Themes</a>
+            <ul class="dropdown-menu" role="menu">
+               <li><a class="dropdown-item" href="#">npds-boost</a></li>
+               <li class="dropdown-divider"></li>
+               <li><a class="dropdown-item" href="#">other npds themes</a></li>
+            </ul>
+         </li>
+         <li class="navbar-divider"></li>
+         <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
+            <ul class="dropdown-menu" role="menu">
+               <li><a class="dropdown-item" href="#">Default</a></li>
+               <li class="dropdown-divider"></li>
                <?php echo $optskins; ?>
-              </ul>
+            </ul>
+         </li>
+         <li class="navbar-divider"></li>
+         <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+         <li class="navbar-divider"></li>
+         <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Download</a>
+               <ul class="dropdown-menu">
+                  <li class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="./bootstrap.css">bootstrap.css</a></li>
+                  <li><a class="dropdown-item" href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                  <li class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="._variables.scss">_variables.scss</a></li>
+                  <li><a class="dropdown-item" href="./bootstrap.min.css">bootstrap.min.css</a></li>
+               </ul>
             </li>
-            <li>
-              <a href="../help/">Help</a>
-            </li>
-            <li>
-              <a href="http://news.bootswatch.com">Blog</a>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Download <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="download">
-                <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
-                <li><a href="./bootstrap.css">bootstrap.css</a></li>
-                <li class="divider"></li>
-                <li><a href="./variables.less">variables.less</a></li>
-                <li><a href="./bootswatch.less">bootswatch.less</a></li>
-                <li class="divider"></li>
-                <li><a href="./_variables.scss">_variables.scss</a></li>
-                <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
-          </ul>
-
-        </div>
-      </div>
-    </div>
-
+       </ul>
+      <ul class="nav navbar-nav pull-xs-right">
+         <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
+      </ul>
+  </div>
+</nav>  
 
     <div class="container">
 
@@ -155,94 +139,121 @@
             <div class="page-header">
               <h1 id="navbar">Navbar</h1>
             </div>
-
+            
             <div class="bs-component">
-              <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
-                  </div>
-
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                      <li><a href="#">Link</a></li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Action</a></li>
-                          <li><a href="#">Another action</a></li>
-                          <li><a href="#">Something else here</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Separated link</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">One more separated link</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </div>
-                      <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#">Link</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
+            <nav class="navbar navbar-light bg-faded">
+              <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                &#9776;
+              </button>
+              <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+                <a class="navbar-brand" href="#">Responsive navbar</a>
+                <ul class="nav navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Themes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Skins</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Help</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
             </div>
+            <br />
+            <div class="collapse" id="exCollapsingNavbar">
+              <div class="bg-inverse p-a-1">
+                <h4>Collapsed content</h4>
+                <span class="text-muted">Toggleable via the navbar brand.</span>
+              </div>
+            </div>
+            <nav class="navbar navbar-light bg-faded">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+                &#9776;
+              </button>
+            </nav>
+           <br />
+            
+<div class="bs-component">
+  <nav class="navbar navbar-dark bg-inverse">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <ul class="nav navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Themes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Skins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+      </li>
+    </ul>
+    <form class="form-inline pull-xs-right">
+      <input class="form-control" type="text" placeholder="Search">
+      <button class="btn btn-info-outline" type="submit">Search</button>
+    </form>
+  </nav>
+  <br />
+  <nav class="navbar navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <ul class="nav navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Theme</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Skins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+      </li>
+    </ul>
+    <form class="form-inline pull-xs-right">
+      <input class="form-control" type="text" placeholder="Search">
+      <button class="btn btn-secondary-outline" type="submit">Search</button>
+    </form>
+  </nav>
+  <br />
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <ul class="nav navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Themes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Skins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+      </li>
+    </ul>
+    <form class="form-inline pull-xs-right">
+      <input class="form-control" type="text" placeholder="Search">
+      <button class="btn btn-primary-outline" type="submit">Search</button>
+    </form>
+  </nav>
+</div>
 
-            <div class="bs-component">
-              <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
-                  </div>
 
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                      <li><a href="#">Link</a></li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Action</a></li>
-                          <li><a href="#">Another action</a></li>
-                          <li><a href="#">Something else here</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Separated link</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">One more separated link</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </div>
-                      <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#">Link</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-            </div><!-- /example -->
+
+
+
+
+
+
+<!-- /example -->
 
           </div>
         </div>
@@ -264,7 +275,7 @@
           <div class="col-lg-6">
 
             <p class="bs-component">
-              <a href="#" class="btn btn-default">Default</a>
+              <a href="#" class="btn btn-secondary">Default</a>
               <a href="#" class="btn btn-primary">Primary</a>
               <a href="#" class="btn btn-success">Success</a>
               <a href="#" class="btn btn-info">Info</a>
@@ -274,7 +285,7 @@
             </p>
 
             <p class="bs-component">
-              <a href="#" class="btn btn-default disabled">Default</a>
+              <a href="#" class="btn btn-secondary disabled">Default</a>
               <a href="#" class="btn btn-primary disabled">Primary</a>
               <a href="#" class="btn btn-success disabled">Success</a>
               <a href="#" class="btn btn-info disabled">Info</a>
@@ -287,8 +298,8 @@
             <div style="margin-bottom: 15px;">
               <div class="btn-toolbar bs-component" style="margin: 0;">
                 <div class="btn-group">
-                  <a href="#" class="btn btn-default">Default</a>
-                  <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                  <a href="#" class="btn btn-secondary">Default</a>
+                  <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -359,37 +370,37 @@
           <div class="col-lg-6">
 
             <p class="bs-component">
-              <a href="#" class="btn btn-default btn-lg btn-block">Block level button</a>
+              <a href="#" class="btn btn-secondary btn-lg btn-block">Block level button</a>
             </p>
 
 
             <div class="bs-component" style="margin-bottom: 15px;">
               <div class="btn-group btn-group-justified">
-                <a href="#" class="btn btn-default">Left</a>
-                <a href="#" class="btn btn-default">Middle</a>
-                <a href="#" class="btn btn-default">Right</a>
+                <a href="#" class="btn btn-secondary">Left</a>
+                <a href="#" class="btn btn-secondary">Middle</a>
+                <a href="#" class="btn btn-secondary">Right</a>
               </div>
             </div>
 
             <div class="bs-component" style="margin-bottom: 15px;">
               <div class="btn-toolbar">
                 <div class="btn-group">
-                  <a href="#" class="btn btn-default">1</a>
-                  <a href="#" class="btn btn-default">2</a>
-                  <a href="#" class="btn btn-default">3</a>
-                  <a href="#" class="btn btn-default">4</a>
+                  <a href="#" class="btn btn-secondary">1</a>
+                  <a href="#" class="btn btn-secondary">2</a>
+                  <a href="#" class="btn btn-secondary">3</a>
+                  <a href="#" class="btn btn-secondary">4</a>
                 </div>
 
                 <div class="btn-group">
-                  <a href="#" class="btn btn-default">5</a>
-                  <a href="#" class="btn btn-default">6</a>
-                  <a href="#" class="btn btn-default">7</a>
+                  <a href="#" class="btn btn-secondary">5</a>
+                  <a href="#" class="btn btn-secondary">6</a>
+                  <a href="#" class="btn btn-secondary">7</a>
                 </div>
 
                 <div class="btn-group">
-                  <a href="#" class="btn btn-default">8</a>
+                  <a href="#" class="btn btn-secondary">8</a>
                   <div class="btn-group">
-                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
                       Dropdown
                       <span class="caret"></span>
                     </a>
@@ -405,10 +416,10 @@
 
             <div class="bs-component">
               <div class="btn-group-vertical">
-                  <a href="#" class="btn btn-default">Button</a>
-                  <a href="#" class="btn btn-default">Button</a>
-                  <a href="#" class="btn btn-default">Button</a>
-                  <a href="#" class="btn btn-default">Button</a>
+                  <a href="#" class="btn btn-secondary">Button</a>
+                  <a href="#" class="btn btn-secondary">Button</a>
+                  <a href="#" class="btn btn-secondary">Button</a>
+                  <a href="#" class="btn btn-secondary">Button</a>
               </div>
             </div>
 
@@ -526,31 +537,31 @@
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="info">
+                  <tr class="table-info">
                     <td>3</td>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="success">
+                  <tr class="table-success">
                     <td>4</td>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="danger">
+                  <tr class="table-danger">
                     <td>5</td>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="warning">
+                  <tr class="table-warning">
                     <td>6</td>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="active">
+                  <tr class="table-active">
                     <td>7</td>
                     <td>Column content</td>
                     <td>Column content</td>
@@ -576,18 +587,18 @@
 
         <div class="row">
           <div class="col-lg-6">
-            <div class="well bs-component">
+            <div class="card card-block bs-component">
               <form class="form-horizontal">
                 <fieldset>
                   <legend>Legend</legend>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                  <div class="form-group row">
+                    <label for="inputEmail" class="col-lg-2 form-control-label">Email</label>
                     <div class="col-lg-10">
                       <input type="text" class="form-control" id="inputEmail" placeholder="Email">
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                  <div class="form-group row">
+                    <label for="inputPassword" class="col-lg-2 form-control-label">Password</label>
                     <div class="col-lg-10">
                       <input type="password" class="form-control" id="inputPassword" placeholder="Password">
                       <div class="checkbox">
@@ -597,15 +608,15 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="textArea" class="col-lg-2 control-label">Textarea</label>
+                  <div class="form-group row">
+                    <label for="textArea" class="col-lg-2 form-control-label">Textarea</label>
                     <div class="col-lg-10">
                       <textarea class="form-control" rows="3" id="textArea"></textarea>
                       <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-lg-2 control-label">Radios</label>
+                  <div class="form-group row">
+                    <label class="col-lg-2 form-control-label">Radios</label>
                     <div class="col-lg-10">
                       <div class="radio">
                         <label>
@@ -621,8 +632,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="select" class="col-lg-2 control-label">Selects</label>
+                  <div class="form-group row">
+                    <label for="select" class="col-lg-2 form-control-label">Selects</label>
                     <div class="col-lg-10">
                       <select class="form-control" id="select">
                         <option>1</option>
@@ -641,9 +652,9 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group row">
                     <div class="col-lg-10 col-lg-offset-2">
-                      <button type="reset" class="btn btn-default">Cancel</button>
+                      <button type="reset" class="btn btn-secondary">Cancel</button>
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                   </div>
@@ -654,53 +665,53 @@
           <div class="col-lg-4 col-lg-offset-1">
 
               <form class="bs-component">
-                <div class="form-group">
-                  <label class="control-label" for="focusedInput">Focused input</label>
+                <div class="form-group row">
+                  <label class="form-control-label" for="focusedInput">Focused input</label>
                   <input class="form-control" id="focusedInput" type="text" value="This is focused...">
                 </div>
 
-                <div class="form-group">
-                  <label class="control-label" for="disabledInput">Disabled input</label>
+                <div class="form-group row">
+                  <label class="form-control-label" for="disabledInput">Disabled input</label>
                   <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
                 </div>
 
-                <div class="form-group has-warning">
-                  <label class="control-label" for="inputWarning">Input warning</label>
+                <div class="form-group row has-warning">
+                  <label class="form-control-label" for="inputWarning">Input warning</label>
                   <input type="text" class="form-control" id="inputWarning">
                 </div>
 
-                <div class="form-group has-error">
-                  <label class="control-label" for="inputError">Input error</label>
+                <div class="form-group row has-danger">
+                  <label class="form-control-label" for="inputError">Input error</label>
                   <input type="text" class="form-control" id="inputError">
                 </div>
 
-                <div class="form-group has-success">
-                  <label class="control-label" for="inputSuccess">Input success</label>
+                <div class="form-group row has-success">
+                  <label class="form-control-label" for="inputSuccess">Input success</label>
                   <input type="text" class="form-control" id="inputSuccess">
                 </div>
 
-                <div class="form-group">
-                  <label class="control-label" for="inputLarge">Large input</label>
+                <div class="form-group row">
+                  <label class="form-control-label" for="inputLarge">Large input</label>
                   <input class="form-control input-lg" type="text" id="inputLarge">
                 </div>
 
-                <div class="form-group">
-                  <label class="control-label" for="inputDefault">Default input</label>
+                <div class="form-group row">
+                  <label class="form-control-label" for="inputDefault">Default input</label>
                   <input type="text" class="form-control" id="inputDefault">
                 </div>
 
-                <div class="form-group">
-                  <label class="control-label" for="inputSmall">Small input</label>
+                <div class="form-group row">
+                  <label class="form-control-label" for="inputSmall">Small input</label>
                   <input class="form-control input-sm" type="text" id="inputSmall">
                 </div>
 
-                <div class="form-group">
-                  <label class="control-label">Input addons</label>
+                <div class="form-group row">
+                  <label class="form-control-label">Input addons</label>
                   <div class="input-group">
                     <span class="input-group-addon">$</span>
                     <input type="text" class="form-control">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Button</button>
+                      <button class="btn btn-secondary" type="button">Button</button>
                     </span>
                   </div>
                 </div>
@@ -723,23 +734,23 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <h2 id="nav-tabs">Tabs</h2>
             <div class="bs-component">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                <li><a href="#profile" data-toggle="tab">Profile</a></li>
-                <li class="disabled"><a>Disabled</a></li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Dropdown <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
-                  </ul>
-                </li>
+                <li class="nav-item" ><a class="nav-link active" href="#home" data-toggle="tab">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#profile" data-toggle="tab">Profile</a></li>
+                <li class="nav-item" ><a class="nav-link disabled">Disabled</a></li>
+                <li class="nav-item dropdown">
+                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" href="#">Action</a>
+                     <a class="dropdown-item" href="#">Another action</a>
+                     <a class="dropdown-item" href="#">Something else here</a>
+                     <div class="dropdown-divider"></div>
+                     <a class="dropdown-item" href="#">Separated link</a>
+                  </div>
+                    </li>
               </ul>
               <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="home">
@@ -757,23 +768,21 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <h2 id="nav-pills">Pills</h2>
             <div class="bs-component">
               <ul class="nav nav-pills">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li class="disabled"><a href="#">Disabled</a></li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Dropdown <span class="caret"></span>
-                  </a>
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item" ><a class="nav-link" href="#">Profile</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Dropdown</a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Action</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Another action</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Something else here</a></li>
+                    <li class="nav-item divider"></li>
+                    <li class="nav-item"><a class="nav-link"  href="#">Separated link</a></li>
                   </ul>
                 </li>
               </ul>
@@ -781,25 +790,28 @@
             <br>
             <div class="bs-component">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li class="disabled"><a href="#">Disabled</a></li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Dropdown <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li>
+<!-- 
+                <li class="nav-item dropdown">
+                  <a class="nav-item dropdown-toggle" data-toggle="dropdown" href="#">Dropdown</a>
+                  <ul class="nav-item dropdown-menu">
+                    <li class="nav-item"><a class="nav-link" href="#">Action</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Another action</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Something else here</a></li>
+                    <li class="nav-item divider"></li>
+                    <li class="nav-item"><a class="nav-link"href="#">Separated link</a></li>
                   </ul>
                 </li>
+ -->
               </ul>
             </div>
           </div>
-          <div class="col-lg-4">
+        </div>
+        
+        <div class="row">
+        <div class="col-lg-12">
             <h2 id="nav-breadcrumbs">Breadcrumbs</h2>
             <div class="bs-component">
               <ul class="breadcrumb">
@@ -821,41 +833,38 @@
           </div>
         </div>
 
-
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <h2 id="pagination">Pagination</h2>
             <div class="bs-component">
               <ul class="pagination">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item" ><a class="page-link" href="#">2</a></li>
+                <li class="page-item" ><a class="page-link" href="#">3</a></li>
+                <li class="page-item" ><a class="page-link" href="#">4</a></li>
+                <li class="page-item" ><a class="page-link" href="#">5</a></li>
+                <li class="page-item" ><a class="page-link" href="#">&raquo;</a></li>
               </ul>
-
               <ul class="pagination pagination-lg">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li class="page-item  disabled"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item" ><a class="page-link" href="#">2</a></li>
+                <li class="page-item" ><a class="page-link" href="#">3</a></li>
+                <li class="page-item" ><a class="page-link" href="#">&raquo;</a></li>
               </ul>
-
               <ul class="pagination pagination-sm">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item" ><a class="page-link" href="#">2</a></li>
+                <li class="page-item" ><a class="page-link" href="#">3</a></li>
+                <li class="page-item" ><a class="page-link" href="#">4</a></li>
+                <li class="page-item" ><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
               </ul>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <h2 id="pager">Pager</h2>
             <div class="bs-component">
               <ul class="pager">
@@ -868,9 +877,6 @@
                 <li class="next"><a href="#">Newer &rarr;</a></li>
               </ul>
             </div>
-          </div>
-          <div class="col-lg-4">
-
           </div>
         </div>
       </div>
@@ -962,63 +968,28 @@
 
             <h3 id="progress-basic">Basic</h3>
             <div class="bs-component">
-              <div class="progress">
-                <div class="progress-bar" style="width: 60%;"></div>
-              </div>
+                <progress class="progress" value="60" max="100"></progress>
             </div>
 
             <h3 id="progress-alternatives">Contextual alternatives</h3>
             <div class="bs-component">
-              <div class="progress">
-                <div class="progress-bar progress-bar-info" style="width: 20%"></div>
-              </div>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
-              </div>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-warning" style="width: 60%"></div>
-              </div>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-              </div>
+                <progress class="progress progress-info" value="20" max="100">20%</progress>
+                <progress class="progress progress-success" value="40" max="100"></progress>
+                <progress class="progress progress-warning" value="60" max="100"></progress>
+                <progress class="progress progress-danger" value="80" max="100"></progress>
             </div>
-
             <h3 id="progress-striped">Striped</h3>
             <div class="bs-component">
-              <div class="progress progress-striped">
-                <div class="progress-bar progress-bar-info" style="width: 20%"></div>
-              </div>
-
-              <div class="progress progress-striped">
-                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
-              </div>
-
-              <div class="progress progress-striped">
-                <div class="progress-bar progress-bar-warning" style="width: 60%"></div>
-              </div>
-
-              <div class="progress progress-striped">
-                <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-              </div>
+               <progress class="progress progress-striped" value="10" max="100">10%</progress>
+               <progress class="progress progress-striped progress-success" value="25" max="100">25%</progress>
+               <progress class="progress progress-striped progress-info" value="50" max="100">50%</progress>
+               <progress class="progress progress-striped progress-warning" value="75" max="100">75%</progress>
+               <progress class="progress progress-striped progress-danger" value="100" max="100">100%</progress>
             </div>
 
             <h3 id="progress-animated">Animated</h3>
             <div class="bs-component">
-              <div class="progress progress-striped active">
-                <div class="progress-bar" style="width: 45%"></div>
-              </div>
-            </div>
-
-            <h3 id="progress-stacked">Stacked</h3>
-            <div class="bs-component">
-              <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: 35%"></div>
-                <div class="progress-bar progress-bar-warning" style="width: 20%"></div>
-                <div class="progress-bar progress-bar-danger" style="width: 10%"></div>
-              </div>
+               <progress class="progress progress-striped progress-animated" value="25" max="100">35%</progress>
             </div>
           </div>
         </div>
@@ -1100,115 +1071,86 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <h2>Panels</h2>
+            <h2>Cards</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  Basic panel
+              <div class="card ">
+                <div class="card-block">
+                  Basic card
                 </div>
               </div>
 
-              <div class="panel panel-default">
-                <div class="panel-heading">Panel heading</div>
-                <div class="panel-body">
-                  Panel content
+              <div class="card">
+                <div class="card-header">Card heading</div>
+                <div class="card-block">
+                  Card content
                 </div>
               </div>
 
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  Panel content
+              <div class="card">
+                <div class="card-block">
+                  Card content
                 </div>
-                <div class="panel-footer">Panel footer</div>
+                <div class="card-footer">Card footer</div>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Panel primary</h3>
+              <div class="card card-inverse card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Card primary</h3>
                 </div>
-                <div class="panel-body">
-                  Panel content
-                </div>
-              </div>
-
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Panel success</h3>
-                </div>
-                <div class="panel-body">
-                  Panel content
+                <div class="card-block">
+                  Card content
                 </div>
               </div>
 
-              <div class="panel panel-warning">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Panel warning</h3>
+              <div class="card card-inverse card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Card success</h3>
                 </div>
-                <div class="panel-body">
-                  Panel content
+                <div class="card-block">
+                  Card content
+                </div>
+              </div>
+
+              <div class="card card-inverse card-warning">
+                <div class="card-header">
+                  <h3 class="card-title">Card warning</h3>
+                </div>
+                <div class="card-block">
+                  Card content
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="panel panel-danger">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Panel danger</h3>
+              <div class="card card-inverse card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Card danger</h3>
                 </div>
-                <div class="panel-body">
-                  Panel content
+                <div class="card-block">
+                  Card content
                 </div>
               </div>
 
-              <div class="panel panel-info">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Panel info</h3>
+              <div class="card card-inverse card-info">
+                <div class="card-header">
+                  <h3 class="card-title">Card info</h3>
                 </div>
-                <div class="panel-body">
-                  Panel content
+                <div class="card-block">
+                  Card content
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <h2>Wells</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="bs-component">
-              <div class="well">
-                Look, I'm in a well!
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="bs-component">
-              <div class="well well-sm">
-                Look, I'm in a small well!
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="bs-component">
-              <div class="well well-lg">
-                Look, I'm in a large well!
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- Dialogs
       ================================================== -->
@@ -1236,7 +1178,7 @@
                       <p>One fine body…</p>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                   </div>
@@ -1247,24 +1189,24 @@
           <div class="col-lg-6">
             <h2>Popovers</h2>
             <div class="bs-component">
-              <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Left</button>
+              <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Left</button>
 
-              <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Top</button>
+              <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Top</button>
 
-              <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+              <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
               sagittis lacus vel augue laoreet rutrum faucibus.">Bottom</button>
 
-              <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Right</button>
+              <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Right</button>
             </div>
             <h2>Tooltips</h2>
             <div class="bs-component">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Left</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Left</button>
 
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">Top</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">Top</button>
 
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">Bottom</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">Bottom</button>
 
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Right</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Right</button>
             </div>
           </div>
         </div>
@@ -1286,22 +1228,22 @@
 
       <footer>
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-sm-12">
             <ul class="list-unstyled">
-              <li class="pull-right"><a href="#top">Back to top</a></li>
+              <li class="pull-xs-right"><a href="#top">Back to top</a></li>
             </ul>
             <p>Made by <a href="http://thomaspark.co" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
             <p>Npds fork by <a href="#" rel="nofollow">Jpb</a>. Contact him at <a href="mailto:jpb@npds.org">jpb@npds.org</a>.</p>
             <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE">MIT License</a>.</p>
-            <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+            <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap 4</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
             <p>Used Color generators <a href="http://paintstrap.com/" rel="nofollow">Paintstrap</a> <a href="http://www.lavishbootstrap.com//" rel="nofollow">Lavish</a></p>
           </div>
         </div>
       </footer>
     </div>
-    <script src="../../../../lib/jquery-2.1.3.min.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../../../lib/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../../../../lib/js/tether.min.js"></script>
+    <script src="../../../../lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.min.js"></script>
     <script src="../assets/js/bootswatch.js"></script>
-    <script src="../../../../lib/less.min.js"></script>
   </body>
 </html>
