@@ -101,7 +101,7 @@ function autorise_mod($lid,$aff) {
       list($radminsuper) = sql_fetch_row($result);
       if ($radminsuper==1) {// faut remettre le controle des droits probablement pour les admin qui ont le droit link ??!!
          if ($aff) {
-            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
+            echo '&nbsp;|&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          }
          return(true);
       } else {
@@ -113,7 +113,7 @@ function autorise_mod($lid,$aff) {
       list($submitter) = sql_fetch_row($resultX);
       if ($submitter==$cookie[1]) {
          if ($aff) {
-            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
+            echo '&nbsp;|&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
          }
          return(true);
       } else {
@@ -452,7 +452,7 @@ function detecteditorial($lid, $ttitle) {
    global $ModPath, $ModStart, $links_DB;
    $resulted2 = sql_query("SELECT adminid FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
    $recordexist = sql_num_rows($resulted2);
-   if ($recordexist != 0) echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'">'.translate("EDITO").'</a>';
+   if ($recordexist != 0) echo '&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="fa fa-sticky-note-o fa-lg" title="'.translate("EDITO").'" data-toggle="tooltip"></i></a>';
 }
 
 //Reusable Link Sorting Functions
