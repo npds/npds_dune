@@ -15,7 +15,9 @@ echo '
 <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="lib/font-awesome-4.5.0/fa-snapchat.css">'; // web font
 echo '
-<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css" />'; // framework
+<link id="bsth" rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css" />'; // framework
+echo '
+<link id="bsthxtra" rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/extra.css" />'; // develop
 echo '
 <link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />'; // form control
 echo '
