@@ -1,0 +1,103 @@
+@import "../../../../lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css"; 
+.smil {
+width:24px;
+height:24px;
+}
+
+
+/*
+body {
+background-color: #FFFFFF;
+border: 0px;
+color: #000000;
+font-family: Tahoma, Verdana, sans-serif;
+font-size: 11px;
+font-weight: normal;
+margin: 0;
+padding: 0;
+}
+a, a:visited, a:link {
+}
+a:hover {
+color:#005190;
+text-decoration: underline;
+}
+a:active {
+color: #717171;
+text-decoration: none;
+}
+.textbox_standard {
+background-color: #FFFFFF;
+border-bottom: #000000 1px solid;
+border-left: #000000 1px solid;
+border-right: #000000 1px solid;
+border-top: #000000 1px solid;
+color: #45445B;
+font-family: Tahoma, Verdana, sans-serif;
+font-size: 11px;
+width: 100%;
+}
+.bouton_standard {
+background-color: Silver;
+border-bottom: #000000 1px solid;
+border-left: #000000 1px solid;
+border-right: #000000 1px solid;
+border-top: #000000 1px solid;
+color: #404040;
+font-family: Tahoma, Verdana, sans-serif;
+font-size: 11px;
+font-weight: bold;
+text-decoration: none;
+}
+.header {
+background-color: #DBB489;
+color: Black;
+font-family: Tahoma, Verdana, sans-serif;
+font-size: 11px;
+font-weight: bold;
+text-decoration: none;
+}
+.ligna {
+background-color: #E0CBBA;
+color: #404040;
+font-family: Tahoma, Verdana, sans-serif;
+font-size: 11px;
+text-decoration: none;
+}
+#chat .chatheure {
+color: #404040;
+float: left;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 9px;
+width: 58px;
+}
+#chat .chatnom, .chatnom a:visited, .chatnom a:link, .chatnom a:active, .chatnom a:hover {
+color: #005190;
+float: left;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 9px;
+padding-right: 2px;
+text-align: right;
+width: 60px;
+}
+#chat .chattexte {
+border-left: 1px solid #000000;
+font-family: Arial,Helvetica,sans-serif;
+padding-left: 3px;
+margin-left: 120px;
+}
+#chat .textbox_standard {
+background-color: White;
+border-bottom: #C0C0C0 1px solid;
+border-left: 1px solid #C0C0C0;
+border-right: 1px solid #C0C0C0;
+border-top: #C0C0C0 1px solid;
+color: #404040;
+font-size: 10px;
+width: 98%;
+} 
+.fond_emot {
+background-color: #DBB489;
+width: 100%;
+*/
+}
