@@ -22,7 +22,7 @@
    $tmp_theme=$Default_Theme;
    }
    $optskins='';
-   $handle=opendir('../../'.$tmp_theme.'/skin');
+   $handle=opendir('../../../themes/_skins');
    while (false!==($file = readdir($handle))) {
       if ( (!strstr($file,'.')) and (!strstr($file,'bower_components')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
          $optskins[] = '<li><a class="dropdown-item" href="../'.$file.'">'.ucfirst ($file).'</a></li> ';
@@ -42,18 +42,10 @@
     <title>Bootswatch skins for NPDS - skin : <?php echo $skinametitre; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-   <?php 
-   if($skinametitre=='default') {
-      echo '
-    <link rel="stylesheet/less" href="less/bootstrap.less" media="all" />
-   '; } else {
-   echo '<link rel="stylesheet" href="./bootstrap.css" media="screen" />';
-   };
-   ?>
-
+   <link rel="stylesheet" href="bootstrap.css" />'
     <link rel="stylesheet" href="../assets/css/bootswatch.min.css" />
     <link rel="stylesheet" href="../../../../lib/font-awesome-4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../style/style.css">
+    <link rel="stylesheet" href="../../npds-boost_sk/style/style.css">
     <link rel="stylesheet" href="extra.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -61,8 +53,6 @@
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
-    <script>
-    </script>
   </head>
   <body>
   
@@ -88,8 +78,8 @@
          <li class="navbar-divider"></li>
          <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
-            <ul class="dropdown-menu" role="menu">
-               <li><a class="dropdown-item" href="#">Default</a></li>
+            <ul class="dropdown-menu scrollable-menu" role="menu">
+               <li><a class="dropdown-item" href="../default">Default</a></li>
                <li class="dropdown-divider"></li>
                <?php echo $optskins; ?>
             </ul>
@@ -100,12 +90,11 @@
          <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Download</a>
                <ul class="dropdown-menu">
-                  <li class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="./bootstrap.css">bootstrap.css</a></li>
-                  <li><a class="dropdown-item" href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                  <li><a class="dropdown-item" href="./bootstrap.css" target="_blank">bootstrap.css</a></li>
+                  <li><a class="dropdown-item" href="./bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                  <li><a class="dropdown-item" href="./extra.css" target="_blank">extra.css</a></li>
                   <li class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="._variables.scss">_variables.scss</a></li>
-                  <li><a class="dropdown-item" href="./bootstrap.min.css">bootstrap.min.css</a></li>
                </ul>
             </li>
        </ul>
@@ -142,9 +131,7 @@
             
             <div class="bs-component">
             <nav class="navbar navbar-light bg-faded">
-              <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                &#9776;
-              </button>
+              <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">&#9776;</button>
               <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
                 <a class="navbar-brand" href="#">Responsive navbar</a>
                 <ul class="nav navbar-nav">
@@ -363,7 +350,6 @@
               <a href="#" class="btn btn-primary btn-lg">Large button</a>
               <a href="#" class="btn btn-primary">Default button</a>
               <a href="#" class="btn btn-primary btn-sm">Small button</a>
-              <a href="#" class="btn btn-primary btn-xs">Mini button</a>
             </p>
 
           </div>
@@ -1025,15 +1011,15 @@
             <div class="bs-component">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <span class="badge">14</span>
+                  <span class="pull-xs-right">14</span>
                   Cras justo odio
                 </li>
                 <li class="list-group-item">
-                  <span class="badge">2</span>
+                  <span class="pull-xs-right">2</span>
                   Dapibus ac facilisis in
                 </li>
                 <li class="list-group-item">
-                  <span class="badge">1</span>
+                  <span class="pull-xs-right">1</span>
                   Morbi leo risus
                 </li>
               </ul>
@@ -1243,7 +1229,7 @@
     </div>
     <script src="../../../../lib/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="../../../../lib/js/tether.min.js"></script>
-    <script src="../../../../lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.min.js"></script>
+    <script src="../../../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../assets/js/bootswatch.js"></script>
   </body>
 </html>

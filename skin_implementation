@@ -1,0 +1,26 @@
+Implémentation des skins de Framework
+
+un theme et toute son infrastructure peut donc supporter les skins
+
+header head ==> [chargement du framework avec CSS par defaut]
+<link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+===>
+<link id="bsth" rel="stylesheet" href="themes/skin/'.$skin.'/bootstrap.min.css">
+
+
+
+cookie11 ==>
+nom du skin
+
+
+
+<link id="bsth" rel="stylesheet" href="themes/skin/$cookie10/bootstrap.min.css">
+
+si le theme à le suffix _sk  (pour skin)
+on permet de choisir un skin ==> stockage dans le cookie en 11 position
+
+interface user.php et bloc
+
+
+dans header.php on remodifie le(s) lien(s) CSS relatif au Framework en lui appliquant deux css du framework customisé
+

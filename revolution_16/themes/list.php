@@ -13,7 +13,7 @@
 /************************************************************************/
    $handle=opendir('themes');
    while (false!==($file = readdir($handle))) {
-      if ( (!strstr($file,'.')) and (!strstr($file,'themes-dynamic')) and (!strstr($file,'documentations')) and (!strstr($file,'default')) ) {
+      if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'themes-dynamic')) and (!strstr($file,'documentations')) and (!strstr($file,'default')) ) {
          $themelist[] = "$file";
       }
    }

@@ -270,7 +270,7 @@ header { /* Le Header Complet */
 /************************************************************************
 La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 *************************************************************************/
-#centralcol{
+#col_princ{
    padding:1rem;
 }
 
@@ -299,6 +299,10 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 /************************************************************************
 Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 *************************************************************************/
+#col_LB  {background: #000;}           /*contient les blocs historiquement dit de gauche */
+#col_RB {background: #333;}            /* contient les blocs historiquement dit de droite */
+
+
 .leftbloc, .rightbloc   {
   background: #F2EFE8 none repeat scroll 0% 0%;
   padding: 1em;
@@ -468,7 +472,7 @@ pour les formulaires*/
 input, select, textarea {
     border: 1px solid #000;
     border-radius: 5px;
-    padding: 0.5em;
+    padding: 2px;
     width: auto;
     font-family: inherit;
     font-size: 1em;
@@ -496,6 +500,7 @@ legend { /* Titre pour identifier chaque fieldset */
 
 
 
+
 /*******Pour les police des formulaires  et deco jmd  */
 .form-control {
     max-width: 98%;
@@ -513,7 +518,7 @@ legend { /* Titre pour identifier chaque fieldset */
 /* ==> add by jpb */
 ol {
 list-style-type: decimal;}
-#leftcol ul {
+#col_LB ul {
 list-style-type:none;
 }
 
@@ -659,7 +664,7 @@ img, table, td, blockquote, code, pre, textarea, input, svg {
 }
 
 /*****jmd* pour décoler le texte des bordures de Table*/
-  
+ /* ajustement bmag*/ 
 
 .img-fluid1{
             float: left;
@@ -709,7 +714,7 @@ pagination*/
     border-color: #0275D8;
 }
 
-/* ajustement bmag*/
+
 .fa {
     display: inline-block;
     font-family: FontAwesome;

@@ -23,7 +23,7 @@ echo '
 
 
 <script type="text/javascript" src="lib/js/tether.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>
 
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>

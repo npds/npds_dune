@@ -15,14 +15,14 @@ if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
 
-function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue) {
+function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue, $skin) {
     $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax");
     global $user_cook_duration;
     if ($user_cook_duration<=0) {$user_cook_duration=1;}
     $timeX=time()+(3600*$user_cook_duration);
-    setcookie("user","$info",$timeX);
-    if ($user_langue!="") {
-       setcookie("user_language","$user_langue",$timeX);
+    setcookie('user',$info,$timeX);
+    if ($user_langue!='') {
+       setcookie('user_language',$user_langue,$timeX);
     }
 }
 
@@ -30,8 +30,8 @@ function chgtheme() {
     global $user;
     include ("header.php"); 
     $userinfo=getusrinfo($user); 
-    nav($userinfo[mns]); 
-    opentable(); 
+//    nav($userinfo[mns]); 
+
     echo "<br /><table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n"; 
     echo translate("Select One Theme"); 
     echo "</td></tr></table>\n"; 
@@ -42,8 +42,8 @@ function chgtheme() {
     for ($i=0; $i < sizeof($themelist); $i++) {
        if ($themelist[$i]!='') { 
           echo "<option value=\"$themelist[$i]\" "; 
-          if ((($userinfo[theme]=="") && ($themelist[$i]=="$Default_Theme")) || ($userinfo[theme]==$themelist[$i])) echo "selected=\"selected\"";
-             echo ">$themelist[$i]\n"; 
+          if ((($userinfo['theme']=='') && ($themelist[$i]==$Default_Theme)) || ($userinfo['theme']==$themelist[$i])) echo 'selected="selected" ';
+             echo '>'.$themelist[$i]; 
           } 
     } 
     if ($userinfo[theme]=='') $userinfo[theme] = "Default_Theme";
@@ -57,10 +57,10 @@ function chgtheme() {
           <input type=\"hidden\" name=\"op\" value=\"savetheme\" /><br /> 
           <input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Save Changes!")."\" />
           </form>"; 
-    closetable(); 
+
     include ("footer.php"); 
 } 
-function savetheme($uid, $theme) {
+function savetheme($uid, $theme, $skin) {
     global $NPDS_Prefix;
     global $user;
     $cookie=cookiedecode($user);
@@ -70,7 +70,7 @@ function savetheme($uid, $theme) {
     if ($uid == $vuid) {
         sql_query("UPDATE ".$NPDS_Prefix."users SET theme='$theme' WHERE uid='$uid'");
         $userinfo=getusrinfo($user);
-        docookie($userinfo[uid],$userinfo[uname],$userinfo[pass],$userinfo[storynum],$userinfo[umode],$userinfo[uorder],$userinfo[thold],$userinfo[noscore],$userinfo[ublockon],$userinfo[theme],$userinfo[commentmax], "");
+        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '');
         // Include cache manager for purge cache Page
         $cache_obj = new cacheManager();
         $cache_obj->UsercacheCleanup();
@@ -87,7 +87,7 @@ switch ($op) {
       Header("Location: index.php");
    break;
    case 'savetheme': 
-      savetheme($uid, $theme);
+      savetheme($uid, $theme, $skin);
    break; 
    default: 
       if (!AutoReg()) { unset($user); } 
