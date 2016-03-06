@@ -99,27 +99,21 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    }
 
 
-   // include externe file from modules/include or themes/.../include for functions, codes ...
+   // include externe file from modules/include or themes/.../include for functions, codes ...+ skin motor
    if (file_exists("modules/include/header_head.inc")) {
       ob_start();
       include "modules/include/header_head.inc";
       $hH = ob_get_contents();
       ob_end_clean();
-
       if($skin!='') {
          $hH=str_replace ('lib/bootstrap/dist/css/bootstrap.min.css','themes/_skins/'.$skin.'/bootstrap.min.css',$hH);
          $hH=str_replace ('lib/bootstrap/dist/css/extra.css','themes/_skins/'.$skin.'/extra.css',$hH);
       }
-
    echo $hH;
-
    }
-   
    if (file_exists("themes/$tmp_theme/include/header_head.inc")) {include ("themes/$tmp_theme/include/header_head.inc");}
 
    echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);
-
-
 
    // Mod by Jireck - Chargeur de JS via PAGES.PHP
    if ($js) {
