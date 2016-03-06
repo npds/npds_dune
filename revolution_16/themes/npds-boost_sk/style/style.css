@@ -7,7 +7,7 @@
 
 /** ==> Balise html                                                         **/
 /*     Balise html                                                           */
-html{font-size: 15px;}
+html{font-size: 16px;}
 body {}
 a:hover {text-decoration:none;}
 /** <== Balise html                                                         **/
@@ -57,9 +57,11 @@ line-height:28px;
 #corps{}
 #footer{
  
-/* 
+ 
 background-color: #f8f8f8;
- */
+  border: 1px solid #e7e7e7;
+  border-width: 0 0 1px 0;
+
 
 
 /* 
@@ -104,24 +106,11 @@ padding-bottom: 0.75rem;
    margin-left: 1rem;
    }
    .navbar-divider {display:none;}
-   
    nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
-
 }
 
 /*à customiser*/
 .navbar-default {
-/*
-background-color: #f8f8f8;
-border-color: #e7e7e7;
-color:#373a3c;
-*/
-
-
-/* 
-background-color: #2fa4e7;
-border-color: #1995dc;
- */
 }
 
 
@@ -213,7 +202,7 @@ padding-left:0px;
 }
 /* ==> a revoir et affiner utile pour V4 pour l'instant */
 .page-header {
-margin: 73px 0 20px;
+margin: 53px 0 20px;
 padding:15px;
 }
 /*recherche js dans tableau*/
@@ -539,7 +528,7 @@ a.tooltip_ws:hover em span {
 }
 
 
-
+/* ==> Animation des web icones fa */
 /*!
  * font-awesome-animation - v0.0.7
  * https://github.com/l-lin/font-awesome-animation
@@ -1579,6 +1568,9 @@ a.tooltip_ws:hover em span {
   animation: burst 3s infinite linear;
 }
 
+/* <== Animation des web icones fa */
+
+
 @charset "utf-8";
 /*! fileicon.css v1.0.0 | MIT License | github.com/picturepan2/fileicon.css */
 /* fileicon.basic */
@@ -1833,10 +1825,15 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
-
-
-
-
+// simple à voir sur tableau à long code
+.cut {
+word-wrap: break-word;
+-webkit-hyphens: auto;
+-moz-hyphens: auto;
+-ms-hyphens: auto;
+-o-hyphens: auto;
+hyphens: auto;
+}
 
 
 /**************
