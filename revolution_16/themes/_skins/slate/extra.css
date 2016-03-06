@@ -13,7 +13,6 @@
   color:#fff;
 }
 
-
 .navbar {
     background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
     background-image: -o-linear-gradient(#484e55, #3a3f44 60%, #313539);
@@ -351,11 +350,3 @@ margin-left: 0rem;
     -webkit-filter: none;
     filter: none;
 }
-
-
-
-
-
-
-
-
