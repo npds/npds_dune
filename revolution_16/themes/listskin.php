@@ -37,88 +37,89 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Bootswatch skins for NPDS - skin : <?php echo $skinametitre; ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-   <link rel="stylesheet" href="bootstrap.css" />'
-    <link rel="stylesheet" href="../assets/css/bootswatch.min.css" />
-    <link rel="stylesheet" href="../../../../lib/font-awesome-4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../npds-boost_sk/style/style.css">
-    <link rel="stylesheet" href="extra.css">
+   <head>
+      <meta charset="utf-8">
+      <title>Bootswatch skins for NPDS - skin : <?php echo $skinametitre; ?></title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <link rel="stylesheet" href="../../../../lib/font-awesome-4.5.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="bootstrap.css" />
+      <link rel="stylesheet" href="extra.css">
+      <link rel="stylesheet" href="../assets/css/bootswatch.min.css" />
+      <link rel="stylesheet" href="../../npds-boost_sk/style/style.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-  
-  
-<nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
-  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">
-    &#9776;
-  </button>
-  <a class="navbar-brand" href="#"><span>NPDS</span></a>
-   <div class="collapse navbar-toggleable-xs" id="barnav">
-      <ul class="nav navbar-nav">
-         <li class="navbar-divider"></li>
-         <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
-         <li class="navbar-divider"></li>
-         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Themes</a>
-            <ul class="dropdown-menu" role="menu">
-               <li><a class="dropdown-item" href="#">npds-boost</a></li>
-               <li class="dropdown-divider"></li>
-               <li><a class="dropdown-item" href="#">other npds themes</a></li>
-            </ul>
-         </li>
-         <li class="navbar-divider"></li>
-         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
-            <ul class="dropdown-menu scrollable-menu" role="menu">
-               <li><a class="dropdown-item" href="../default">Default</a></li>
-               <li class="dropdown-divider"></li>
-               <?php echo $optskins; ?>
-            </ul>
-         </li>
-         <li class="navbar-divider"></li>
-         <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
-         <li class="navbar-divider"></li>
-         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Download</a>
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="./bootstrap.css" target="_blank">bootstrap.css</a></li>
-                  <li><a class="dropdown-item" href="./bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
-                  <li><a class="dropdown-item" href="./extra.css" target="_blank">extra.css</a></li>
+   </head>
+   <body>
+   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
+      <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">&#9776;</button>
+      <a class="navbar-brand" href="#"><span>NPDS</span></a>
+      <div class="collapse navbar-toggleable-xs" id="barnav">
+         <ul class="nav navbar-nav">
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Themes</a>
+               <ul class="dropdown-menu" role="menu">
+                  <li><a class="dropdown-item" href="#">npds-boost</a></li>
                   <li class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="._variables.scss">_variables.scss</a></li>
+                  <li><a class="dropdown-item" href="#">other npds themes</a></li>
                </ul>
             </li>
-       </ul>
-      <ul class="nav navbar-nav pull-xs-right">
-         <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
-      </ul>
-  </div>
-</nav>  
-
-    <div class="container">
-
-      <div class="page-header" id="banner">
-        <div class="row">
-          <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1><?php echo ucfirst($skinametitre); ?></h1>
-            <p class="lead">Nice skin for NPDS Cms</p>
-          </div>
-          <div class="col-lg-4 col-md-5 col-sm-6">
-            <div class="sponsor">
-                <img src="../../../../modules/groupe/matrice/groupe.png" alt="npds" width="180" height="150" />
-            </div>
-          </div>
-        </div>
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
+               <ul class="dropdown-menu scrollable-menu" role="menu">
+                  <li><a class="dropdown-item" href="../default">Default</a></li>
+                  <li class="dropdown-divider"></li>
+                  <?php echo $optskins; ?>
+               </ul>
+            </li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Download</a>
+                  <ul class="dropdown-menu">
+                     <li><a class="dropdown-item" href="./bootstrap.css" target="_blank">bootstrap.css</a></li>
+                     <li><a class="dropdown-item" href="./bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                     <li><a class="dropdown-item" href="./extra.css" target="_blank">extra.css</a></li>
+                     <li class="dropdown-divider"></li>
+                     <li><a class="dropdown-item" href="._variables.scss">_variables.scss</a></li>
+                  </ul>
+               </li>
+          </ul>
+         <ul class="nav navbar-nav pull-xs-right">
+            <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
+         </ul>
       </div>
+   </nav>
+   <div class="">
+      <div class="" style="background-position: 0px -65px;">
+         <div class="page-header" id="banner">
+           <div class="row">
+             <div class="col-lg-8 col-md-7 col-sm-6">
+               <h1><?php echo ucfirst($skinametitre); ?></h1>
+               <p class="lead">Nice skin for NPDS Cms</p>
+             </div>
+             <div class="col-lg-4 col-md-5 col-sm-6">
+               <div class="sponsor">
+                   <img class="img-fluid" src="../../../../themes/npds-boost_sk/images/header.png" alt="npds" />
+               </div>
+             </div>
+           </div>
+         </div>
+      </div>
+   </div>
+   <div class="container-fluid">
+
+
+
 
       <!-- Navbar
       ================================================== -->
