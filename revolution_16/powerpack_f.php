@@ -143,28 +143,28 @@ function JavaPopUp($F,$T,$W,$H) {
 #autodoc <font color=green>BLOCS NPDS</font>:
 #autodoc instant_members_message() : Bloc MI (Message Interne) <br />=> syntaxe : function#instant_members_message
 function instant_members_message() {
-   global $user, $admin, $long_chain;
-   global $NPDS_Prefix;
+   global $user, $admin, $long_chain, $NPDS_Prefix;
 
    if (!$long_chain) {$long_chain=13;}
 
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $block_title=translate("M2M box");
 
    if ($user) {
       global $cookie;
-      $boxstuff="<table cellspacing=\"1\" cellpadding=\"0\" border=\"0\">";
+      $boxstuff='
+      <ul class="">';
       $ibid=online_members();
-      $rank1="";
+      $rank1='';
       for ($i = 1; $i <= $ibid[0]; $i++) {
           $timex=time()-$ibid[$i]['time'];
           if ($timex>=60) {
-             if (!$imgtmp=theme_image("admin/ws/disconnect.gif")) { $imgtmp="images/admin/ws/disconnect.gif"; }
-             $timex="<img src=\"$imgtmp\" style=\"vertical-align:middle;\" border=\"0\" alt=\"".$ibid[$i]['username']." ".translate("is not connected !")."\" title=\"".$ibid[$i]['username']." ".translate("is not connected !")."\" />&nbsp;";
+//             if (!$imgtmp=theme_image("admin/ws/disconnect.gif")) { $imgtmp="images/admin/ws/disconnect.gif"; }
+             $timex='<i class="fa fa-plug text-muted" title="'.$ibid[$i]['username'].' '.translate("is not connected !").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;';
           } else {
-             if (!$imgtmp=theme_image("admin/ws/connect.gif")) { $imgtmp="images/admin/ws/connect.gif"; }
-             $timex="<img src=\"$imgtmp\" style=\"vertical-align:middle;\" border=\"0\" alt=\"".$ibid[$i]['username']." ".translate("is connected !")."\" title=\"".$ibid[$i]['username']." ".translate("is connected !")."\" />&nbsp;";
+//             if (!$imgtmp=theme_image("admin/ws/connect.gif")) { $imgtmp="images/admin/ws/connect.gif"; }
+             $timex='<i class="fa fa-plug faa-flash animated text-primary" title="'.$ibid[$i]['username'].' '.translate("is connected !").'" data-toggle="tooltip" data-placement="right" ></i>&nbsp;';
           }
           global $member_invisible;
           if ($member_invisible) {
@@ -177,7 +177,7 @@ function instant_members_message() {
                    $and="AND is_visible=1";
              }
           } else {
-             $and="";
+             $and='';
           }
           $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".$ibid[$i]['username']."' $and");
           list($userid)=sql_fetch_row($result);
@@ -185,9 +185,9 @@ function instant_members_message() {
              $rowQ1=Q_Select("SELECT rank FROM ".$NPDS_Prefix."users_status WHERE uid='$userid'", 3600);
              list(,$myrow) = each($rowQ1);
              $rank=$myrow['rank'];
-             $tmpR="";
+             $tmpR='';
              if ($rank) {
-                if ($rank1=="") {
+                if ($rank1=='') {
                    if ($rowQ2 = Q_Select("SELECT rank1, rank2, rank3, rank4, rank5 FROM ".$NPDS_Prefix."config",86400)) {
                       list(,$myrow) = each($rowQ2);
                       $rank1 = $myrow['rank1'];
@@ -198,10 +198,10 @@ function instant_members_message() {
                    }
                 }
                 if ($ibidR=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibidR;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
-                $messR="rank".$rank;
+                $messR='rank'.$rank;
                 $tmpR="<img src=\"".$imgtmpA."\" border=\"0\" alt=\"".aff_langue($$messR)."\" title=\"".aff_langue($$messR)."\" />";
              } else {
-                $tmpR="&nbsp;";
+                $tmpR='&nbsp;';
              }
              $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND read_msg='0' AND type_msg='0'"));
              if ($new_messages>0) {
@@ -209,29 +209,31 @@ function instant_members_message() {
                 $PopUp="<a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">";
                 if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon="";}
                 if (!$imgtmp=theme_image("powerpack/newmail.gif")) { $imgtmp="images/powerpack/newmail.gif"; }
-                $icon.="<img src=\"$imgtmp\" border=\"0\" alt=\"".translate("New")." : ".$new_messages."\" title=\"".translate("New")." : ".$new_messages."\" />";
-                if ($ibid[$i]['username']==$cookie[1]) {$icon.="</a>";}
+                $icon.='<i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i>';
+                if ($ibid[$i]['username']==$cookie[1]) {$icon.='</a>';}
              } else {
                 $messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND type_msg='0' AND dossier='...'"));
                 if ($messages>0) {
                    $PopUp=JavaPopUp("readpmsg_imm.php?op=msg","IMM",600,500);
-                   $PopUp="<a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">";
-                   if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon="";}
-                   if (!$imgtmp=theme_image("powerpack/oldmail.gif")) { $imgtmp="images/powerpack/oldmail.gif"; }
-                   $icon.="<img src=\"$imgtmp\" border=\"0\" alt=\"\" /></a>";
+                   $PopUp='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');">';
+                   if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon='';}
+//                   if (!$imgtmp=theme_image("powerpack/oldmail.gif")) { $imgtmp="images/powerpack/oldmail.gif"; }
+                   $icon.='<i class="fa fa-envelope-o fa-lg " title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
                 } else {
-                   $icon="&nbsp;";
+                   $icon='&nbsp;';
                 }
              }
              $N=$ibid[$i]['username'];
              if (strlen($N)>$long_chain)
-                $M=substr($N,0,$long_chain).".";
+                $M=substr($N,0,$long_chain).'.';
              else
                 $M=$N;
-             $boxstuff .="<tr><td valign=\"top\">$timex&nbsp;<a href=\"powerpack.php?op=instant_message&amp;to_userid=$N\" alt=\"".translate("Send internal Message")."\" title=\"".translate("Send internal Message")."\">$M</a></td><td width=\"5%\" nowrap=\"nowrap\" align=\"right\">$icon</td><td width=\"5%\" nowrap=\"nowrap\" align=\"right\">$tmpR</td></tr>";
-          }
+             $boxstuff .='
+         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" alt="'.translate("Send internal Message").'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="pull-xs-right">'.$icon.'</span></li>';
+          }//suppression temporaire ... rank  '.$tmpR.'
       }
-      $boxstuff .="</table>";
+      $boxstuff .='
+      </ul>';
       themesidebox($block_title, $boxstuff);
    } else {
       if ($admin) {
@@ -241,7 +243,7 @@ function instant_members_message() {
             for ($i = 1; $i <= $ibid[0]; $i++) {
                $N=$ibid[$i]['username'];
                if (strlen($N)>$long_chain)
-                  $M=substr($N,0,$long_chain).".";
+                  $M=substr($N,0,$long_chain).'.';
                else
                   $M=$N;
                $boxstuff .="<tr><td valign=\"top\" class=\"titboxcont\">$M</td></tr>";
