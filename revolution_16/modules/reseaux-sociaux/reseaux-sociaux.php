@@ -76,6 +76,8 @@ function EditReseaux($ModPath, $ModStart) {
          foreach ($socialnetworks as $socialnetwork) {
             $res_id[] = explode('|',$socialnetwork);
          }
+         sort($res_id);
+         sort($rs);
       }
 
    echo '
@@ -84,17 +86,17 @@ function EditReseaux($ModPath, $ModStart) {
    <hr />
    <form id="reseaux_user" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=SaveSetReseaux" method="post">';
    $i=0;
-   sort($res_id);
-   sort($rs);
    $ident='';
    foreach ($rs as $v1) {
-      foreach($res_id as $y1) {
-         $k = array_search( $y1[0],$v1);
-         if (false !== $k) {
-            $ident=$y1[1];
-            break;
+      if ($res_id){
+         foreach($res_id as $y1) {
+            $k = array_search( $y1[0],$v1);
+            if (false !== $k) {
+               $ident=$y1[1];
+               break;
+            }
+            else $ident='';
          }
-         else $ident='';
       }
       if($i==0) echo '
    <div class="row">';
