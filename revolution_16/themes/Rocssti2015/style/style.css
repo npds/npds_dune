@@ -479,6 +479,7 @@ input[type="Submit"], [type="Reset"], [type="Return"] {
 .smil {
 width:24px;
 height:24px;
+display:inline;
 }
 /* tailles max des avatars*/
 .n-ava {
