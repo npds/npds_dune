@@ -2718,7 +2718,8 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 
    $rsql=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
 
-   $content='<script type="text/javascript">
+   $content='
+   <script type="text/javascript">
    //<![CDATA[
    //==> chargement css
    if (!document.getElementById(\'bloc_ws_css\')) {
@@ -2758,25 +2759,28 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    //]]>
    </script>";
 
-   $content.="\n".'<div id="bloc_ws_'.$gr.'" class="di_bloc_ws">'."\n";
+   $content.='
+   <div id="bloc_ws_'.$gr.'" class="di_bloc_ws">'."\n";
    if ($t_gr==1) 
       $content.= '<img src="images/admin/ws/groupe.gif" class="vam_bo_0" title="ID:'.$gr.'" alt="'.translate("Group").'" />  <span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
-      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-responsive img-fluid center-block" alt="'.translate("Group").'" />';
-   $content.='<ul class="list-group ul_bloc_ws">'."\n";
+      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid center-block" alt="'.translate("Group").'" />';
+   $content.='
+   <ul class="list-group ul_bloc_ws">'."\n";
 
    //=> liste des membres
    $li_mb=''; $li_ic='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
-   $li_mb.='<li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>&nbsp;<i class="fa fa-users fa-2x text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
+   $li_mb.='
+      <li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>&nbsp;<i class="fa fa-users fa-2x text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
-  
-   $li_mb.="\n".'<ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
+   $li_mb.='
+         <ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
-      $conn= '<img src="images/admin/ws/disconnect.gif" class="vam_bo_0" title="'.$uname.' '.translate('is not connected !').'" alt="'.$uname.' '.translate('is not connected !').'" />';
+      $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
       if (!$user_avatar) {
          $imgtmp="images/forum/avatar/blank.gif";
       } else if (stristr($user_avatar,"users_private")) {
@@ -2785,40 +2789,42 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
          if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
-      
       $timex=false;
       for ($i = 1; $i <= $tab[0]; $i++) {
          if ($tab[$i]['username']==$uname) {
             $timex=time()-$tab[$i]['time'];
-            $ok_conn=true;
          }
       }
-      if ($timex<60) {
-         $conn= '<img src="images/admin/ws/connect.gif" class="vam_bo_0" title="'.$uname.' '.translate('is connected !').'" alt="'.$uname.' '.translate('is connected !').'" />';
+      if (($timex!==false) and ($timex<60)) {
+         $conn= '<i class="fa fa-plug faa-flash animated text-primary" title="'.$uname.' '.translate('is connected !').'" data-toggle="tooltip" ></i>';
       }
-      
-      $li_ic.='<img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" />&nbsp;';
+      $li_ic.='<img class="smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
       $li_mb.= '
       <li class="list-group-item li_mb">
-      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img src="'.$imgtmp.'" style="vertical-align:middle;" height="24" width="24" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
+      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
       </div>
-      <span class="pull-right">
+      <span class="pull-xs-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";
       if ($url!='')
          $li_mb.='&nbsp;<a href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-external-link"></i></a>';
       if ($mns==1)
          $li_mb.='&nbsp;<a href="minisite.php?op='.$uname.'" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-desktop"></i></a>';
       $li_mb.='
-      </span><span class="clearfix"></span></li>';
+      </span><span class="clearfix"></span>
+      </li>';
    }
-   $li_mb.='<li style="clear:left;line-height:6px; background:none;">&nbsp;</li><li style="clear:left;line-height:24px;padding:6px; margin-top:0px; background:none; border-style: dotted; border-width: 1px; border-color: gray;">'.$li_ic.'</li> <li style="line-height:12px; background:none;">&nbsp;</li>';
-   $li_mb.='</ul>'."\n".'</li>';
-   $li_mb.="\n
-   <script type=\"text/javascript\">
+   $li_mb.='
+         <li style="clear:left;line-height:6px; background:none;">&nbsp;</li>
+         <li style="clear:left;line-height:24px;padding:6px; margin-top:0px; background:none; border-style: dotted; border-width: 1px; border-color: gray;">'.$li_ic.'</li>
+         <li style="line-height:12px; background:none;">&nbsp;</li>
+      </ul>
+   </li>';
+   $li_mb.='
+   <script type="text/javascript">
    //<![CDATA[
-   tog('lst_mb_ws_".$gr."','show_lst_mb_ws_".$gr."','hide_lst_mb_ws_".$gr."');
+   tog("lst_mb_ws_'.$gr.'","show_lst_mb_ws_'.$gr.'","hide_lst_mb_ws_'.$gr.'");
    //]]>
-   </script>\n";
+   </script>';
    $content.=$li_mb;
    //<== liste des membres
 
@@ -2976,10 +2982,10 @@ function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref
       $tmp.="<link href='themes/default/style/style.css' title='default' rel='stylesheet' type='text/css' media='all' />\n";
    }
    // Chargeur CSS specifique
-   if ($css!="") {
+   if ($css!='') {
       settype($css, 'array');
       foreach ($css as $k=>$tab_css) {
-         $admtmp="";
+         $admtmp='';
          $op=substr($tab_css,-1);
          if ($op=="+" or $op=="-")
             $tab_css=substr($tab_css,0,-1);
@@ -3002,7 +3008,7 @@ function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref
          include ("themes/pages.php");
          $op=substr($PAGES[$css_pages_ref]['css'],-1);
          $css=substr($PAGES[$css_pages_ref]['css'],0,-1);
-         if (($css!="") and (file_exists("themes/$tmp_theme/style/$css"))) {
+         if (($css!='') and (file_exists("themes/$tmp_theme/style/$css"))) {
             if ($op=="-")
                $tmp ="<link href='themes/$tmp_theme/style/$css' title='' rel='stylesheet' type='text/css' media='all' />\n";
             else
