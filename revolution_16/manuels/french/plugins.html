@@ -1,18 +1,27 @@
 <html>
-<title>Admin Plugins - NPDS V</title>
 <head>
+<meta charset="utf-8">
+<title>Administration - Admin Plugins</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center><b>Admin Plugins</b></center>
-<br /><br />
-Ce module vous permet de charger l'administration de certains modules compl&eacute;mentaires de NPDS.
-<br /><br />
-Le d&eacute;veloppeur du module (par exemple IPBAN) doit faire le n&eacute;cessaire pour que son administration s'int&egrave;gre naturellement dans celle de NPDS.
-<br /><br />
-Apr&egrave;s l'installation d'un module compl&eacute;mentaire disposant d'une administration via Plugins, le module apparaitra dans la liste.
-<br /><br />
-La description d'un plugins Admin est la suivante (fichier : admin/extend-modules.txt):<br />
+<body>
+<div class="container">
+<h3 class="bg-info">&nbsp;<i class="fa fa-info-circle"></i> Admin Plugins</b></center>
+
+<p>Ce module vous permet de charger l'administration de certains modules compl&eacute;mentaires de NPDS.
+</p>
+<p>Le d&eacute;veloppeur du module (par exemple IPBAN) doit faire le n&eacute;cessaire pour que son administration s'int&egrave;gre naturellement dans celle de NPDS.</p>
+
+<p>Apr&egrave;s l'installation d'un module compl&eacute;mentaire disposant d'une administration via Plugins, le module apparaitra dans la liste.</p>
+
+<p>La description d'un plugins Admin est la suivante (fichier : admin/extend-modules.txt):<br />
 Pour chaque plugins :<br />
 [module]<br />
 &nbsp;&nbsp;&nbsp;&nbsp;[nom]Nom du plugins[/nom]<br />
@@ -22,7 +31,7 @@ Pour chaque plugins :<br />
 [/module]<br />
 .<br />
 .<br />
-<br />
+</p>
 Les tags : [niveau][/niveau] sont optionnels (ou vide) : dans ce cas le plugins est r&eacute;serv&eacute; aux SuperAdmins.<br /><br />
 Les tags : [niveau][/niveau] int&egrave;grent UNE (et une seule) des valeurs suivantes et le plugins est r&eacute;serv&eacute; aux SuperAdmins ET aux administrateurs de la fonction.<br />
 &nbsp;-&nbsp;valeurs :<br />
@@ -51,6 +60,7 @@ Donc par exemple :<br />
 - Un plugins ayant comme niveau [niveau]<b>no-right</b>[/niveau] sera visible par tous les ADMINS et M&ecirc;me par ceux n'ayant aucun droit (aucune case &agrave; cocher valid&eacute;e).<br /><br />
 <br />
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>

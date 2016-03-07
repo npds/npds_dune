@@ -1,53 +1,75 @@
 <html>
-<title>Base de liens - NPDS V</title>
 <head>
+<meta charset="utf-8">
+<title>Administration - Liens</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center><b>Base de liens</b></center>
-<br /><br />
-La base de Liens Web est une fonction importante de NPDS. Sa maintenance est simple mais n&eacute;cessite une certaine rigueur.<br />
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
+  <li><a href="men_contenu.html">Contenu</a></li>
+  <li class="active">Les liens</li>
+</ol>
+</h3>
+
+<p>La base de liens web est une fonction importante de NPDS. Sa maintenance est simple mais n&eacute;cessite une certaine rigueur.<br />
 Elle permet la cr&eacute;ation d'un index de type Yahoo avec un moteur de recherche autonome du reste du site.
-<br /><br />
-<b>Liens en attente de Validation :</b><br />
-Vous disposerez de cette option que si un lien est en attente (sic ...).<br />
+</p>
+<h4>Liens en attente de validation :</h4>
+<p>Vous disposerez de cette option que si un lien est en attente (sic ...).<br />
 Vous pouvez modifier le titre, le lien et son commentaire, le nom et l'email du d&eacute;positaire, la cat&eacute;gorie.<br />
-Vous pouvez enfin choisir de publier le lien (bouton <i>Ajouter</i>) ou de le supprimer (<i>lien Supprimer</i>).
-<br /><br />
-<b>Nettoyer la base de liens :</b><br />
-Cette option permet de remettre &agrave; z&eacute;ro les votes pour l'ensemble des liens de la base.
-<br /><br />
-<b>Soumission de liens bris&eacute;s :</b><br />
-Les options applicables &agrave; la liste sont :<br />
- - <i>Ignorer</i> permet d'effacer toutes les demandes pour un lien donn&eacute;.<br />
- - <i>Effacer</i> permet d'effacer les liens cass&eacute;s et les avis pour un lien donn&eacute;.<br />
-<br /><br />
-<b>Soumission de modification de liens :</b><br />
-Pour chaque lien, vous aurez l'origine (actuellement stock&eacute; dans la base) et la proposition de modification.
-Les options applicables sont :<br />
- - <i>Ignorer</i> permet d'effacer toutes les demandes pour un lien donn&eacute;.<br />
- - <i>Effacer</i> permet d'effacer les liens cass&eacute;s et les avis pour un lien donn&eacute;.<br />
- - cliquer sur le lien Auteur ou Propri&eacute;taire pour envoyer un Email.
-<br /><br />
-<b>Ajouter une cat&eacute;gorie principale :</b><br />
-Pour la structuration de l'index, saisissez un titre et une description (classement par ordre alphab&eacute;tique).
-<br /><br />
-<b>Ajouter une sous-cat&eacute;gorie :</b><br />
-Pour la structuration de l'index, saisissez une sous-cat&eacute;gorie affect&eacute;e &agrave; une cat&eacute;gorie principale (un seul niveau / classement par ordre alphab&eacute;tique).
-<br /><br />
-<b>Ajouter un nouveau lien :</b><br />
-Saisissez le titre <b>(avec &agrave; la suite des balises html (br, img src (locale ou distante), ...) si vous le souhaitez)</b>, l'URL, la cat&eacute;gorie (et sous-cat&eacute;gorie), la description, le nom du propri&eacute;taire et son email. Cliquez sur le bouton <i>Ajouter</i>.
-<br /><br />
-<b>Modifier la cat&eacute;gorie :</b><br />
-Cette fonction vous permet de modifier le nom d'une cat&eacute;gorie et/ou sous-cat&eacute;gorie.<br />
-Elle permet aussi de supprimer une cat&eacute;gorie et/ou sous-cat&eacute;gorie et tous les &eacute;l&eacute;ments rattach&eacute;s (avec message de confirmation).
-<br /><br />
-<b>Modifier les liens :</b><br />
-NPDS vous pr&eacute;sente la liste des liens actuellement disponibles dans la base. Cliquez sur un lien pour l'&eacute;diter.<br />
-Vous pouvez modifier toutes les informations, y compris le nombre de hits (pour positionner plus avantageusement un lien ...).
-Vous pouvez aussi effacer le lien s&eacute;lectionn&eacute;.
-<br /><br />
+Vous pouvez enfin choisir de publier le lien en cliquant sur le bouton <em>Ajouter</em> ou  le supprimer.</p>
+
+<h4>Nettoyer la base de liens :</h4>
+<p>Cette option permet de remettre &agrave; z&eacute;ro les votes pour l'ensemble des liens de la base.</p>
+<h4>Soumission de liens bris&eacute;s :</h4>
+<p>Les options applicables &agrave; la liste sont :
+<div class="card card-block">
+<ul class="p-l-1">
+<li><em>Ignorer</em> permet d'effacer toutes les demandes pour un lien donn&eacute;.</li>
+<li><em>Effacer</em> permet d'effacer les liens cass&eacute;s et les avis pour un lien donn&eacute;.</li>
+</ul></div>
+</p>
+
+<h4>Soumission de modification de liens :</h4>
+<p>Pour chaque lien, vous aurez l'origine (actuellement stock&eacute; dans la base) et la proposition de modification.</p>
+<p>Les options applicables sont :
+<div class="card card-block">
+<ul class="p-l-1">
+<li><em>Ignorer</em> permet d'effacer toutes les demandes pour un lien donn&eacute;.</li>
+<li><i>Effacer</i> permet d'effacer les liens cass&eacute;s et les avis pour un lien donn&eacute;.</li>
+<li>cliquer sur le lien Auteur ou Propri&eacute;taire pour envoyer un Email.</li></ul>
+</div></p>
+
+<h4>Ajouter une cat&eacute;gorie principale :</h4>
+<p>Pour la structuration de l'index, saisissez un titre et une description (classement par ordre alphab&eacute;tique).</p>
+
+<h4>Ajouter une sous-cat&eacute;gorie :</h4>
+<p>Pour la structuration de l'index, saisissez une sous-cat&eacute;gorie affect&eacute;e &agrave; une cat&eacute;gorie principale (un seul niveau / classement par ordre alphab&eacute;tique).</p>
+
+<h4>Ajouter un nouveau lien :</h4>
+<p>Saisissez le titre <strong>(avec &agrave; la suite des balises html (br, img src (locale ou distante), ...) si vous le souhaitez)</b>, l'URL, la cat&eacute;gorie (et sous-cat&eacute;gorie), la description, le nom du propri&eacute;taire et son email. Cliquez sur le bouton <em>Ajouter</em>.</p>
+
+<h4>Modifier la cat&eacute;gorie :</h4>
+<p>Cette fonction vous permet de modifier le nom d'une cat&eacute;gorie et/ou sous-cat&eacute;gorie.<br />
+Elle permet aussi de supprimer une cat&eacute;gorie et/ou sous-cat&eacute;gorie et tous les &eacute;l&eacute;ments rattach&eacute;s (avec message de confirmation).</p>
+
+<h4>Modifier les liens :</h4>
+<p>NPDS vous pr&eacute;sente la liste des liens actuellement disponibles dans la base. Cliquez sur un lien pour l'&eacute;diter.<br />
+Vous pouvez modifier toutes les informations, y compris le nombre de hits (pour positionner plus avantageusement un lien ...).<br />
+Vous pouvez aussi effacer le lien s&eacute;lectionn&eacute;.</p>
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>
