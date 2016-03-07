@@ -18,10 +18,6 @@ if(!isset($chng_email)) $chng_email='';
 if(!isset($chng_femail)) $chng_femail='';
 if(!isset($chng_level)) $chng_level='';
 if(!isset($chng_rank)) $chng_rank='';
-if(!isset($chng_user_icq)) $chng_user_icq='';
-if(!isset($chng_user_aim)) $chng_user_aim='';
-if(!isset($chng_user_yim)) $chng_user_yim='';
-if(!isset($chng_user_msnm)) $chng_user_msnm='';
 if(!isset($chng_user_from)) $chng_user_from='';
 if(!isset($chng_user_occ)) $chng_user_occ='';
 if(!isset($chng_user_intrest)) $chng_user_intrest='';
@@ -123,10 +119,6 @@ if ($chng_is_visible==1) {$checked=false;} else {$checked=true;}
 $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $checked);
 // ---- SUBSCRIBE and INVISIBLE
 
-$m->add_field('add_user_icq', adm_translate("Adresse ICQ"),"$chng_user_icq",'text',false,15,"","");
-$m->add_field('add_user_aim', adm_translate("Référence AIM"),"$chng_user_aim",'text',false,18,"","");
-$m->add_field('add_user_yim', adm_translate("Référence YIM"),"$chng_user_yim",'text',false,50,"","");
-$m->add_field('add_user_msnm', adm_translate("Référence MSNM"),"$chng_user_msnm",'text',false,50,"","");
 $m->add_field('add_user_from', adm_translate("Situation géographique"),"$chng_user_from",'text',false,100,"","");
 $m->add_field('add_user_occ', adm_translate("Activité"),"$chng_user_occ",'text',false,100,"","");
 $m->add_field('add_user_intrest', adm_translate("Centres d'interêt"),"$chng_user_intrest",'text',false,150,"","");

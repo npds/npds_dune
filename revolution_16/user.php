@@ -113,7 +113,7 @@ function Only_NewUser() {
    global $user, $memberpass;
    if (!$user) {
       global $smilies, $short_user, $memberpass;
-      global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
+      global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
       include("header.php");
       showimage();
       echo '
@@ -208,21 +208,17 @@ function Only_NewUser() {
    }
 }
 function hidden_form() {
-    global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
+    global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
     echo "<form action=\"user.php\" method=\"post\">
           <input type=\"hidden\" name=\"uname\" value=\"$uname\" />
           <input type=\"hidden\" name=\"name\" value=\"".removeHack($name)."\" />
           <input type=\"hidden\" name=\"email\" value=\"$email\" />";
     if (!$user_avatar) {$user_avatar="blank.gif";}
     echo "<input type=\"hidden\" name=\"user_avatar\" value=\"$user_avatar\" />
-          <input type=\"hidden\" name=\"user_icq\" value=\"".StripSlashes(removeHack($user_icq))."\" />
           <input type=\"hidden\" name=\"user_from\" value=\"".StripSlashes(removeHack($user_from))."\" />
           <input type=\"hidden\" name=\"user_occ\" value=\"".StripSlashes(removeHack($user_occ))."\" />
           <input type=\"hidden\" name=\"user_intrest\" value=\"".StripSlashes(removeHack($user_intrest))."\" />
           <input type=\"hidden\" name=\"user_sig\" value=\"".StripSlashes(removeHack($user_sig))."\" />
-          <input type=\"hidden\" name=\"user_aim\" value=\"".StripSlashes(removeHack($user_aim))."\" />
-          <input type=\"hidden\" name=\"user_yim\" value=\"".StripSlashes(removeHack($user_yim))."\" />
-          <input type=\"hidden\" name=\"user_msnm\" value=\"".StripSlashes(removeHack($user_msnm))."\" />
           <input type=\"hidden\" name=\"user_viewemail\" value=\"$user_viewemail\" />
           <input type=\"hidden\" name=\"pass\" value=\"".removeHack($pass)."\" />
           <input type=\"hidden\" name=\"user_lnl\" value=\"".removeHack($user_lnl)."\" />";
@@ -240,7 +236,7 @@ function hidden_form() {
           <input type=\"hidden\" name=\"T2\" value=\"".StripSlashes(removeHack($T2))."\" />
           <input type=\"hidden\" name=\"B1\" value=\"".StripSlashes(removeHack($B1))."\" />";
 }
-function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
+function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $smilies, $short_user, $minpass, $memberpass;
     $uname=strip_tags($uname);
     if ($user_viewemail!=1) {$user_viewemail='0';}
@@ -276,7 +272,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
        message_error($stop,"new user");
     }
 }
-function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
+function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $NPDS_Prefix;
     global $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt;
     $stop=userCheck($uname, $email);
@@ -294,7 +290,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
        else
           $cryptpass=$makepass;
 
-       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_icq','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','$user_aim','$user_yim','$user_msnm','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
+       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
        list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
        $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
        if ($user_sig) {
@@ -353,11 +349,11 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
 function userinfo($uname) {
     global $NPDS_Prefix;
     global $user, $sitename, $smilies, $short_user, $site_font;
-    global $name, $email, $url, $bio, $user_avatar, $user_icq, $user_aim, $user_yim, $user_msnm, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
+    global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
 
     $uname=removeHack($uname);
-    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_icq, user_aim, user_yim, user_msnm, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
-    list($uid, $name, $femail, $url, $bio, $user_avatar, $user_icq, $user_aim, $user_yim, $user_msnm, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $mns) = sql_fetch_row($result);
+    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
+    list($uid, $name, $femail, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $mns) = sql_fetch_row($result);
     if (!$uid) {
        header ("location: index.php");
     }
@@ -377,10 +373,6 @@ function userinfo($uname) {
     $name=stripslashes(removeHack($name));
     $url=removeHack($url);
     $bio=stripslashes(removeHack($bio));
-    $user_icq=stripslashes(removeHack($user_icq));
-    $user_aim=stripslashes(removeHack($user_aim));
-    $user_yim=stripslashes(removeHack($user_yim));
-    $user_msnm=stripslashes(removeHack($user_msnm));
     $user_from=stripslashes(removeHack($user_from));
     $user_occ=stripslashes(removeHack($user_occ));
     $user_intrest=stripslashes(removeHack($user_intrest));
@@ -409,7 +401,7 @@ function userinfo($uname) {
       </div>
       <div class="card-block">
          <h3 class="card-title">'.$name.' <span class="text-muted">alias</span> '.$uname.'</h3>
-         <p class="card-text">You can contact me @ '.$email.' '.$user_icq.'</p>
+         <p class="card-text">You can contact me @ '.$email.'</p>
          <p class="card-text">Don not forget to visit <a href="'.$url.'" class="oo">my web-site</a>';
    if ($mns) {echo ' OR my <a href="minisite.php?op='.$uname.'" target="_blank">'.translate("Mini-Web site").'</a>';}
    echo '
@@ -767,7 +759,7 @@ function edituser() {
     $cl_act='';
     include("footer.php");
 }
-function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $attach, $usend_email, $uis_visible,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar) {
+function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar) {
     global $NPDS_Prefix;
     global $user, $userinfo, $system, $minpass;
     $cookie=cookiedecode($user);
@@ -858,14 +850,14 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                  cookiedecode($user);
                  if (!$system)
                     $pass=crypt($pass,$pass);
-                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', pass='$pass', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_icq='".removeHack($user_icq)."', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_aim='".removeHack($user_aim)."', user_yim='".removeHack($user_yim)."', user_msnm='".removeHack($user_msnm)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
+                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', pass='$pass', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
                  $result = sql_query("SELECT uid, uname, pass, storynum, umode, uorder, thold, noscore, ublockon, theme FROM ".$NPDS_Prefix."users WHERE uname='$uname' AND pass='$pass'");
                  if (sql_num_rows($result)==1) {
                     $userinfo = sql_fetch_assoc($result);
                     docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "",$skin);
                  }
               } else {
-                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_icq='".removeHack($user_icq)."', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_aim='".removeHack($user_aim)."', user_yim='".removeHack($user_yim)."', user_msnm='".removeHack($user_msnm)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
+                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
               }
               sql_query("UPDATE ".$NPDS_Prefix."users_status SET attachsig='$t' WHERE uid='$uid'");
               $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."users_extend WHERE uid='$uid'");
@@ -1129,10 +1121,10 @@ switch ($op) {
          // CheckBox
          settype($user_viewemail,'integer');
          settype($user_lnl,'integer');
-         confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
+         confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
          break;
     case "finish":
-         finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
+         finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
          break;
     case "forgetpassword":
          ForgetPassword();
@@ -1192,7 +1184,7 @@ switch ($op) {
             settype($uis_visible,'integer');
             settype($user_lnl,'integer');
             settype($raz_avatar,'integer');
-            saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
+            saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
          } else {
             Header("Location: user.php");
          }
@@ -1208,7 +1200,6 @@ switch ($op) {
          settype($ublockon,'integer');
          savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock);
          break;
-
     case "chgtheme":
          if ($user)
             chgtheme();
@@ -1218,7 +1209,6 @@ switch ($op) {
     case "savetheme":
          savetheme($uid, $theme,$skin);
          break;
-
     case "editjournal":
          if ($user)
             editjournal();
@@ -1229,7 +1219,6 @@ switch ($op) {
          settype($datetime,'integer');
          savejournal($uid, $journal, $datetime);
          break;
-
     case "only_newuser":
          global $CloseRegUser;
          if ($CloseRegUser==0) {
@@ -1241,7 +1230,6 @@ switch ($op) {
             include("footer.php");
          }
          break;
-
     default:
          if (!AutoReg()) { unset($user); }
          main($user);

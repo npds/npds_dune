@@ -1049,23 +1049,19 @@ INSERT INTO topics VALUES (3, 'styles', 'styles.gif', 'Styles', 0, NULL);
 
 CREATE TABLE users (
   uid int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) NOT NULL DEFAULT '',
+  name varchar(60) NOT NULL DEFAULT '',
   uname varchar(25) NOT NULL DEFAULT '',
   email varchar(60) NOT NULL DEFAULT '',
   femail varchar(60) NOT NULL DEFAULT '',
   url varchar(100) NOT NULL DEFAULT '',
   user_avatar varchar(100) DEFAULT NULL,
   user_regdate varchar(20) NOT NULL DEFAULT '',
-  user_icq varchar(15) DEFAULT NULL,
   user_occ varchar(100) DEFAULT NULL,
   user_from varchar(100) DEFAULT NULL,
   user_intrest varchar(150) DEFAULT NULL,
   user_sig varchar(255) DEFAULT NULL,
   user_viewemail tinyint(2) DEFAULT NULL,
   user_theme int(3) DEFAULT NULL,
-  user_aim varchar(18) DEFAULT NULL,
-  user_yim varchar(50) DEFAULT NULL,
-  user_msnm varchar(50) DEFAULT NULL,
   user_journal text NOT NULL,
   pass varchar(40) NOT NULL DEFAULT '',
   storynum tinyint(4) NOT NULL DEFAULT '10',
@@ -1088,8 +1084,8 @@ CREATE TABLE users (
   PRIMARY KEY (uid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
-INSERT INTO users VALUES (1, '', 'Anonyme', '', '', '', 'blank.gif', '989445600', '', '', '', '', '', 0, 0, '', '', '', '', '', 10, '', 0, 0, 0, '', 0, '', '', 4096, 0, 0, 1, 0, NULL, NULL, 1);
-INSERT INTO users VALUES (2, 'user', 'user', 'user@user.land', '', 'http://www.userland.com', '014.gif', '989445600', '', '', '', '', 'User of the Land', 0, 0, '', '', '', '', 'd.q1Wcp0KUqsk', 10, '', 0, 0, 0, '', 1, '<ul><li><a href=http://www.npds.org target=_blank>NPDS.ORG</a></li></ul>', 'Mouse-IT2', 4096, 4, 0, 1, 1, 'french', '1384102103', 1);
+INSERT INTO users VALUES (1, '', 'Anonyme', '', '', '', 'blank.gif', '989445600', '', '', '', '', 0, 0, '', '', 10, '', 0, 0, 0, '', 0, '', '', 4096, 0, 0, 1, 0, NULL, NULL, 1);
+INSERT INTO users VALUES (2, 'user', 'user', 'user@user.land', '', 'http://www.userland.com', '014.gif', '989445600', '', '', '', 'User of the Land', 0, 0, '', 'd.q1Wcp0KUqsk', 10, '', 0, 0, 0, '', 1, '<ul><li><a href=http://www.npds.org target=_blank>NPDS.ORG</a></li></ul>', 'npds-boost_sk', 4096, 4, 0, 1, 1, 'french', '1384102103', 1);
 
 CREATE TABLE users_extend (
   uid int(11) NOT NULL AUTO_INCREMENT,
