@@ -98,7 +98,7 @@ $troll_limit = 5;
 $moderate = 2;
 $mod_admin_news = 0;
 $not_admin_count = 1;
-$Default_Theme = "npds_boost";
+$Default_Theme = "npds-boost_sk";
 $Start_Page = "index.php?op=edito";
 $foot1 = "<a href=\"admin.php\" title=\"Admin\" data-toggle=\"tooltip\"><i class=\"fa fa-cogs fa-2x\"></i></a>
  <a href=\"http://www.mozilla-europe.org/fr/products/firefox/\" target=\"_blank\" title=\"get Firefox\" data-toggle=\"tooltip\"><i class=\"fa fa-firefox fa-2x\"></i></a>
