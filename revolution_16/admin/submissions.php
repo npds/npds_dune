@@ -12,6 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+
 $f_meta_nom ='submissions';
 $f_titre = adm_translate('Article en attente de validation');
 //==> controle droit
