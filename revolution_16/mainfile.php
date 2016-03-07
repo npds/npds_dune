@@ -687,7 +687,7 @@ function getusrinfo($user) {
    list($pass) = sql_fetch_row($result);
    $userinfos="";
    if (($cookie[2] == md5($pass)) AND ($pass != "")) {
-      $result = sql_query("SELECT uid, name, uname, email, femail, url, user_avatar, user_icq, user_occ, user_from, user_intrest, user_sig, user_viewemail, user_theme, user_aim, user_yim, user_msnm, pass, storynum, umode, uorder, thold, noscore, bio, ublockon, ublock, theme, commentmax, user_journal, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
+      $result = sql_query("SELECT uid, name, uname, email, femail, url, user_avatar, user_occ, user_from, user_intrest, user_sig, user_viewemail, user_theme, pass, storynum, umode, uorder, thold, noscore, bio, ublockon, ublock, theme, commentmax, user_journal, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       if (sql_num_rows($result)==1) {
          $userinfo = sql_fetch_assoc($result);
       } else {
