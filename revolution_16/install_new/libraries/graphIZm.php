@@ -44,8 +44,8 @@ function entete() {
   <meta name="robots" content="none" />
   <meta name="generator" content="NPDS IZ-Xinstall" />
 <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css" />
-<script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <style>
 body {
 background-color: #cccccc;
