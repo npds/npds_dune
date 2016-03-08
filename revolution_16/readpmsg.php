@@ -127,14 +127,7 @@ echo '<div class="card-block">';
                if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/www_icon.gif";}
                echo "&nbsp;&nbsp;<a href=\"".$posterdata['url']."\" target=\"_blank\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />www</a>";
             }
-
-            if (!$short_user) {
-               }
-            }
          }
-         echo '';
-
-         echo '';
          $previous = $start-1;
          $next = $start+1;
          if ($type=='outbox') {
