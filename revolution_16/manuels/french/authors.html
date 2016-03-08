@@ -1,31 +1,59 @@
 <html>
-<title>Editer les Administrateurs (Auteurs) - NPDS V</title>
 <head>
+<meta charset="utf-8">
+<title>Administration - Gestion administrateurs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center><b>Editer les Administrateurs (Auteurs)</b></center>
-<br /><br />
-Avec cette fonction, vous pouvez ajouter, modifier et supprimer les administrateurs de votre site.<br /><br />
+<body>
+<div class="container">
 
-<b>Ajouter un nouvel administrateur :</b><br />
-Remplissez le formulaire. Les champs obligatoires sont marqu&eacute;s d'une * (Surnom, Nom, Email, Mot de Passe).<br />
-Les autres champs sont facultatifs. Choisissez la ou les fonctions que vous souhaitez confier &agrave; cet administrateur.<br />
-Cliquez sur le bouton <i>Ajouter un Auteur</i> pour finir.
-<br /><br />
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_utilisateurs.html">Utilisateurs</a></li>
+  <li class="active">Admins</li>
+</ol>
+</h3>
 
-<b>Editer un administrateur :</b><br />
-Cliquez sur le lien <i>Modifier l'information</i> de l'auteur que vous voulez modifier. Changez les informations n&eacute;cessaires
-et cliquez sur le bouton <i>Actualiser l'auteur.</i>
-<br /><br />
+<p>Avec cette fonction, vous pouvez ajouter, modifier et supprimer les administrateurs de votre site.</p>
 
-<b>Supprimer un administrateur :</b><br />
-Cliquez sur le lien <i>Effacer l'auteur</i> et validez le message de confirmation.
-<br /><br />
+<h4>Ajouter un nouvel administrateur :</h4>
+<p>Remplissez le formulaire. Les champs obligatoires sont marqu&eacute;s d'une * (Surnom, Nom, Email, Mot de Passe).<br />
+Choisissez la ou les fonctions que vous souhaitez confier &agrave; cet administrateur.<br />
+Cliquez sur le bouton <i>Ajouter un administrateur</i> pour finir.</p>
 
-<b>Nota bene :</b> NPDS n&eacute;cessite au moins un administrateur pour fonctionner.
-<br /><br />
+<h4>Editer un administrateur :</h4>
+<p>Cliquez sur le lien <i>Modifier l'information</i> de l'administrateur que vous voulez modifier. Changez les informations n&eacute;cessaires et cliquez sur le bouton <i>Actualiser l'administrateur.</i></p>
+
+<h4>Supprimer un administrateur :</h4>
+<p>Cliquez sur le lien <i>Effacer l'administrateur</i> et validez le message de confirmation.</p>
+
+<p>Nota bene :</b> NPDS n&eacute;cessite au moins un administrateur pour fonctionner.</p>
+<div class="alert alert-info">
+<h4>A savoir</h4> 
+<p>Si vous supprimez accidentellement tous les administrateurs, ou si vous avez perdu le mot de passe de votre seul compte administrateur, via votre gestionnaire mysql, g&eacute;n&eacute;ralement PhpMyAdmin, positionnez-vous sur la table authors :
+<ul>
+<li>Si une entr&eacute;e avec le champ aid valant Root existe, supprimez-l&agrave;</li>
+<li>Ex&eacute;cutez la requ&ecirc;te suivante :<br />
+
+INSERT INTO `authors` (`aid`, `name`, `url`, `email`, `pwd`, `counter`, `radminfilem`, `radminsuper`) VALUES
+('Root', 'Root', '', '', 'd.8V.L9nSMMvE', 0, 0, 1);<br />
+
+Cela cr&eacute;era un compte administrateur dont l&rsquo;identifiant sera Root, et le mot de passe Password.</li>
+</ul>
+</p> 
+</div>
+
+
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>

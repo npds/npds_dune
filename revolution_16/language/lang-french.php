@@ -1001,7 +1001,8 @@ function translate_pass1($phrase) {
    case "Show this comment": $tmp="Afficher ce commentaire"; break;
    case "Icon": $tmp="Icone"; break;
    case "Social networks": $tmp="Réseaux sociaux"; break;
-
+   case "Select one skin": $tmp="Choisir une chartre graphique"; break;
+   
    default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }
  return $tmp;

@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -66,7 +66,7 @@ if (!function_exists("Mysql_Connexion")) {
          }
       }
       if ($inclusion) {
-         $Xcontent=join("",file($inclusion));
+         $Xcontent=join('',file($inclusion));
          echo meta_lang(aff_langue($Xcontent));
       }
    }

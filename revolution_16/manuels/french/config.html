@@ -1,217 +1,306 @@
 <html>
-<title>Pr&eacute;f&eacute;rences - NPDS</title>
 <head>
+<meta charset="utf-8">
+<title>Administration - Pr&eacute;f&eacute;rences</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center><b>Pr&eacute;ferences</b></center>
-<br /><br />
-Cette fonction est la plus importante quand vous d&eacute;marrez un site avec NPDS. Vous pouvez modifier toutes les
-informations importantes de votre site et surtout lui donner le look et le feeling que vous souhaitez.
-<br /><br />
+<body>
+<div class="container">
 
-Vous trouverez ci-dessous une explication pour les param&egrave;tre importants et surtout pour les nouvelles fonctions
-incluses dans NPDS.
-<br /><br /><br />
-<center><font color=Red><b>Informations g&eacute;n&eacute;rales du site</b></font></center><br />
-<li> <b>Parse algo :</b> Pour les pr&eacute;f&eacute;rences de votre site, vous pouvez choisir l'une ou l'autre des fonctions de Parse.<br />
- - FixQuotes est la fonction d'origine qui double les ['] (ex : l'art devient l''art)<br />
- - StripSlashes permet de ne pas toucher au texte (ex : l'art reste l'art) mais peut poser d'autres probl&egrave;mes.</li><br /><br />
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_syst.html">Syst&egrave;me</a></li>
+  <li class="active">Pr&eacute;f&eacute;rences</li>
+</ol>
+</h3>
 
-<li> <b>OB_Gzhandler :</b> Permet l'utilisation  de l'envoi de donn&eacute;es compress&eacute;es aux navigateurs qui supportent les pages compress&eacute;es.<br />
-Avant que ob_gzhandler() envoie les donn&eacute;es compress&eacute;es, il d&eacute;termine les types d'encodage qui sont support&eacute;s par le
-navigateur ("gzip", "deflate" ou aucun) et retourne le contenu des buffers de mani&egrave;re appropri&eacute;e. Tous les
-navigateurs sont trait&eacute;s, car c'est aux navigateurs d'envoyer une en-t&ecirc;te indiquant les types de pages
-support&eacute;s.<br /><br />Ne fonctionne qu'avec Php 4.05 (ou >) + la Zlib active (faire un phpinfo();) et pour Apache, le mod_gzip activ&eacute;.</li><br /><br />
+<p>Cette fonction est la plus importante quand vous d&eacute;marrez un site avec NPDS. Vous pouvez modifier toutes les informations importantes de votre site et surtout lui donner le look et le feeling que vous souhaitez.<br />
+Vous trouverez ci-dessous une explication pour les param&egrave;tre importants de NPDS.</p>
 
-<li> <b>FileManager :</b> Active ou retire l'acc&egrave;s au FileManager. Attention n'activez le FileManager que lorsque que vous avez besoin !</li><br /><br />
+<h4>Parse algo :</h4>
+<p>Pour les pr&eacute;f&eacute;rences de votre site, vous pouvez choisir l'une ou l'autre des fonctions de Parse.
+<ul>
+<li>FixQuotes est la fonction d'origine qui double les ['] (ex : l'art devient l''art)</li>
+<li>StripSlashes permet de ne pas toucher au texte (ex : l'art reste l'art) mais peut poser d'autres probl&egrave;mes.</ul>
+</p>
 
-<li> <b>Dur&eacute;e de vie des cookies (Admin et User) :</b> Sans commentaire (1 an = 8760 heures)</li><br /><br />
+<h4>OB_Gzhandler :</h4>
+<p>Permet l'utilisation  de l'envoi de donn&eacute;es compress&eacute;es aux navigateurs qui supportent les pages compress&eacute;es.<br />
+Avant que ob_gzhandler() envoie les donn&eacute;es compress&eacute;es, il d&eacute;termine les types d'encodage qui sont support&eacute;s par le navigateur ("gzip", "deflate" ou aucun) et retourne le contenu des buffers de mani&egrave;re appropri&eacute;e. Tous les navigateurs sont trait&eacute;s, car c'est aux navigateurs d'envoyer une en-t&ecirc;te indiquant les types de pages support&eacute;s.<br />
+<span class="text-danger"><strong>Ne fonctionne qu'avec la Zlib active (faire un phpinfo();) et pour Apache, le mod_gzip activ&eacute;.</strong></span></p>
 
-<li> <b>Nom du site :</b> Votre site a un nom, alors c'est ici qu'il faut le saisir !</li><br /><br />
+<h4>FileManager :</h4>
+<p>Active ou retire l'acc&egrave;s au FileManager. Attention n'activez le FileManager que lorsque que vous en avez besoin.</p>
 
-<li> <b>Nom du site pour la balise Title :</b> Titre des pages HTML de votre site (notamment pour les moteurs de recherche)</li><br /><br />
+<h4>Dur&eacute;e de vie des cookies admin et user :</h4>
+<p>Sans commentaires (1 an = 8760 heures)</p>
 
-<li> <b>URL du site :</b> http://www.xxx.com ou http://www.xxx.xom/~homepage/...</li><br /><br />
+<h4>Nom du site :</h4>
+<p>Votre site a un nom, alors c'est ici qu'il faut le saisir.</p>
 
-<li> <b>Logo du site :</b> fichier .gif ou .jpg localis&eacute; dans le r&eacute;pertoire <b>images</b> de votre serveur(par d&eacute;faut) ou dans un de vos th&egrave;mes (chemin complet : themes/mon_theme/..../logo.jpg par exemple).<br />
-Ce fichier ne sert que dans les fonctions d'impression de NPDS. Une bonne chose est de faire une image en noir & blanc.</li><br /><br />
+<h4>Nom du site pour la balise Title :</h4>
+<p>Titre des pages HTML de votre site (notamment pour les moteurs de recherche)</p>
 
-<li> <b>Slogan du site :</b> Si votre site a un slogan, alors c'est ici qu'il faut le saisir !</li><br /><br />
+<h4>URL du site :</h4>
+<p>http://www.xxx.com ou http://www.xxx.xom/~homepage/...</p>
 
-<li> <b>Date de d&eacute;marrage du site :</b> Une date (20/10/1429 ou 31 D&eacute;cembre 2012) qui ne sera visible que dans les statistiques.</li><br /><br />
+<h4>Logo du site :</h4>
+<p>fichier .gif ou .jpg localis&eacute; dans le r&eacute;pertoire <b>images</b> de votre serveur(par d&eacute;faut) ou dans un de vos th&egrave;mes (chemin complet : themes/mon_theme/..../logo.jpg par exemple).<br />
+Ce fichier ne sert que dans les fonctions d'impression de NPDS. Une bonne chose est de faire une image en noir et blanc.</p>
 
-<li> <b>Nombre d'&eacute;l&eacute;ments dans la page Top x :</b> Permet de param&egrave;trer le Top x (5, 10, 15, ...).</li><br /><br />
+<h4>Slogan du site :</h4>
+<p>Si votre site a un slogan, alors c'est ici qu'il faut le saisir.</p>
 
-<li> <b>Nombre d'articles en page principale :</b>Combien d'articles sur une seule page ? Un chiffre correct est 10 mais cela
- d&eacute;pend de l'activit&eacute; de votre site. Rappelez-vous que les membres enregistr&eacute;s dans NPDS peuvent changer cette valeur, donc ce
- param&egrave;tre n'est qu'une valeur par d&eacute;faut.</li><br /><br />
+<h4>Date de d&eacute;marrage du site :</h4>
+<p>Une date (20/01/2016 ou 31 Janvier 2016) qui ne sera visible que dans les statistiques.</p>
 
-<li> <b>Nombre d'articles dans la boite des anciens articles :</b> Dans les blocs de droite, se trouve celui qui montre une liste
- d'anciens articles. C'est ce nombre que vous param&egrave;trez.</li><br /><br />
+<h4>Nombre d'&eacute;l&eacute;ments dans la page top x :</h4>
+<p>Permet de param&egrave;trer le top x (5, 10, 15, ...).</p>
 
-<li> <b>Activer Export-News :</b> Export-News sont deux fichiers Texte localis&eacute;s dans le r&eacute;pertoire cache de votre site. Par d&eacute;faut ce param&egrave;tre = Non.<br />
- Dans ces deux fichiers (ultramode.txt et net2zone.txt) sont contenus les 10 derni&egrave;res news de votre site.<br />
- Ce fichier permet en fait &agrave; d'autres sites de former des canaux d'informations en se basant sur des structures simples :<br />
- -ultramode.txt est un fichier texte ou les news sont s&eacute;par&eacute;es par des %%<br />
- -net2zone.txt est un fichier texte au format XML de net2zone.<br /><br />
- La fonction "Online" r&eacute;alisant la m&ecirc;me op&eacute;ration est <i>Backend</i> qui supporte le format RDF/XML ou mieux encore le module NPDS Push Infos System.</li><br /><br />
+<h4>Nombre d'articles en page principale :</h4>
+<p>Combien d'articles sur une seule page ?<br />
+Un chiffre correct est 10 mais cela d&eacute;pend de l'activit&eacute; de votre site. Rappelez-vous que les membres enregistr&eacute;s dans NPDS peuvent changer cette valeur, donc ce param&egrave;tre n'est qu'une valeur par d&eacute;faut.</p>
 
-<li> <b> Nom par d&eacute;faut de Anonyme :</b> Nom par d&eacute;faut des utilisateurs <b>non</b> enregistr&eacute;s. Anonyme est une bonne valeur (mais aussi invit&eacute;, visiteur, ...).
-Ne changez pas cette valeur en cours de fonctionnement de NPDS.</li><br /><br />
+<h4>Nombre d'articles dans la boite des anciens articles :</h4>
+<p>Dans les blocs de droite, se trouve celui qui montre une liste d'anciens articles. C'est ce nombre que vous param&egrave;trez ici.</p>
 
-<li> <b>Autoriser la cr&eacute;ation de "News" :</b> Permet de restreindre (ou non) la soumission de News aux Mod&eacute;rateurs / Administrateurs ou Membres.<br />
-Cette fonction est int&eacute;ressante pour un site d'information.</li><br /><br />
+<h4>Activer Export-News :</h4>
+<p>Export-News sont deux fichiers texte localis&eacute;s dans le r&eacute;pertoire cache de votre site. Par d&eacute;faut ce param&egrave;tre = non.<br />
+Dans ces deux fichiers (ultramode.txt et net2zone.txt) sont contenus les 10 derni&egrave;res news de votre site.<br />
+Ce fichier permet en fait &agrave; d'autres sites de former des canaux d'informations en se basant sur des structures simples :
+<ul>
+<li>ultramode.txt est un fichier texte ou les news sont s&eacute;par&eacute;es par des %%</li>
+<li>net2zone.txt est un fichier texte au format XML de net2zone.<br />
+La fonction "Online" r&eacute;alisant la m&ecirc;me op&eacute;ration est <i>Backend</i> qui supporte le format RDF/XML ou mieux encore le module NPDS Push Infos System.</li>
+</ul></p>
 
-<li> <b>Ne  pas enregistrer les 'Hits' des auteurs dans les statistiques :</b> Permet de ne pas compter la maintenance de votre site, comme de vrais visiteurs (oui mais bon, ...).</li><br /><br />
+<h4>Nom par d&eacute;faut de anonyme :</h4>
+<p>Nom par d&eacute;faut des utilisateurs <b>non</b> enregistr&eacute;s. Anonyme est une bonne valeur (mais aussi invit&eacute;, visiteur...).<br />
+Ne changez pas cette valeur en cours de fonctionnement de NPDS.</p>
 
-<li> <b>Th&egrave;me d'affichage par d&eacute;faut du site :</b> S&eacute;lectionnez le th&egrave;me par d&eacute;faut de votre site. Rappelez-vous que les utilisateurs
-enregistr&eacute;s peuvent modifier cette option (&agrave; condition de mettre plusieurs th&egrave;mes &agrave; disposition ...).</li>
-<br /><br />
-<li> <b>Page de d&eacute;marrage :</b> Cette fonction permet de param&egrave;trer la page de d&eacute;marrage (l'accueil) de votre site. par d&eacute;faut la page est index.php
-(le syst&egrave;me d'affichage des articles) mais vous pouvez choisir une autre fonction : <br />
- - links.php<br />
- - faqs.php<br />
- - static.php?op=npds.txt&<b>npds</b>=1 ... (la valeur de npds peut-&ecirc;tre -1 : sans blocs, 0 : bloc gauche, 1 : blocs gauche et droite)<br /><br />
- - EDITO :<br />
- => index.php?op=<b>edito</b> : affichage de l'&eacute;dito <b>ET</b> du syst&egrave;me de News (sans le lien page suivante en bas des news)<br />
- => index.php?op=<b>edito-nonews</b> : affichage de l'&eacute;dito <b>SANS</b> le syst&egrave;me de News<br />
- => index.php?op=<b>newindex</b> : affichage du syst&egrave;me de News <b>SANS</b> l'&eacute;dito (avec le lien page suivante en bas des news)<br />
- => index.php?op=<b>edito-newindex</b> : affichage de l'&eacute;dito <b>AVEC</b> le syst&egrave;me de News (avec le lien page suivante en bas des news)<br />
- => index.php?op=<b>newtopic&topic=X</b> : affichage du syst&egrave;me de News relatif au sujet d'id X <b>SANS</b> l'&eacute;dito (avec le lien page suivante en bas des news)<br /><br />
+<h4>Autoriser la cr&eacute;ation de "news" :</h4>
+<p>Permet de restreindre (ou non) la soumission de news aux mod&eacute;rateurs / administrateurs ou membres.<br />
+Cette fonction est int&eacute;ressante pour un site d'informations.</p>
 
-<li> <b>S&eacute;lectionner la langue du site :</b> Sans commentaires.</li><br /><br />
-<li> <b>Activer le Multi-Langue :</b> Permet &agrave; NPDS de g&eacute;rer plusieurs langues via les tags [langue]...[/langue].<br />Pensez &agrave; param&egrave;trer aussi Heure Locale (par exemple : [french]fr_FR[/french][english]en_EN[/english]).</li><br /><br />
+<h4>Ne  pas enregistrer les 'hits' des auteurs dans les statistiques :</h4>
+<p>Permet de ne pas compter la maintenance de votre site, comme de visiteurs r&eacute;els.</p>
 
-<li> <b>Heure locale :</b> Pour un site sous Windows, la valeur doit &ecirc;tre = french / Sinon ce champ d&eacute;pend des fonctions "locales" normalement install&eacute;es sous /usr/share/locale (pour Unix).</li><br /><br />
+<h4>Th&egrave;me d'affichage par d&eacute;faut du site :</h4>
+<p>S&eacute;lectionnez le th&egrave;me par d&eacute;faut de votre site. Rappelez-vous que les utilisateurs
+enregistr&eacute;s peuvent modifier cette option &agrave; condition de mettre plusieurs th&egrave;mes &agrave; disposition.</p>
 
-<li> <b>Le jour commence &agrave; ET la nuit commence &agrave; :</b> Permet de r&eacute;gler par exemple, le changement d'EDITO &agrave; partir d'une certaine heure.</li><br /><br />
+<h4>Page de d&eacute;marrage :</h4>
+<p>Cette fonction permet de param&egrave;trer la page de d&eacute;marrage (l'accueil) de votre site, par d&eacute;faut la page est index.php (le syst&egrave;me d'affichage des articles) mais vous pouvez choisir une autre fonction :
+<ul>
+<li>links.php</li>
+<li>faqs.php</li>
+<li>static.php?op=npds.txt&<b>npds</b>=1 ... (la valeur de npds peut-&ecirc;tre -1 : sans blocs, 0 : bloc gauche, 1 : blocs gauche et droite)</li>
+<li>Edito :
+   <ul>
+   <li>index.php?op=<b>edito</b><br />
+   affichage de l'&eacute;dito <b>et</b> du syst&egrave;me de News (sans le lien page suivante en bas des news)</li>
+   <li>index.php?op=<b>edito-nonews</b><br />
+   affichage de l'&eacute;dito <b>sans</b> le syst&egrave;me de News</li>
+   <li>index.php?op=<b>newindex</b><br />
+   <li>affichage du syst&egrave;me de News <b>sans</b> l'&eacute;dito (avec le lien page suivante en bas des news)</li>
+   <li>index.php?op=<b>edito-newindex</b><br />
+   affichage de l'&eacute;dito <b>avec</b> le syst&egrave;me de news (avec le lien page suivante en bas des news)</li>
+   <li>index.php?op=<b>newtopic&topic=X</b> : affichage du syst&egrave;me de News relatif au sujet d'id X <b>sans</b> l'&eacute;dito (avec le lien page suivante en bas des news)</li>
+   </ul>
+</li></ul>
+</p>
 
-<li> <b>GMT :</b> Permet de sp&eacute;cifier (en + ou -) un d&eacute;calage horaire par rapport &agrave; celui de la machine d'h&eacute;bergement.</li><br /><br />
+<h4>S&eacute;lectionner la langue du site :</h4>
+<p>Sans commentaires.</p>
+<h4>Activer le Multi-Langue :</h4>
+<p>Permet &agrave; NPDS de g&eacute;rer plusieurs langues via les tags [langue]...[/langue].<br />Pensez &agrave; param&egrave;trer aussi Heure Locale (par exemple : [french]fr_FR[/french][english]en_EN[/english]).</p>
 
+<h4>Heure locale :</h4>
+<p>Pour un site sous windows, la valeur doit &ecirc;tre = french / Sinon ce champ d&eacute;pend des fonctions "locales" normalement install&eacute;es sous /usr/share/locale (pour unix).</p>
 
-<center><font color=Red><b>Options pour les banni&egrave;res</b></font></center><br />
+<h4>Le jour commence &agrave; et la nuit commence &agrave; :</h4>
+<p>Permet de r&eacute;gler par exemple, le changement d'&eacute;dito &agrave; partir d'une certaine heure.</p>
 
-<li> <b>Activer les banni&egrave;res sur le site :</b> Oui ou Non voulez-vous activer les banni&egrave;res de publicit&eacute;. Cela n&eacute;cessite quand m&ecirc;me que vous ayez
-param&egrave;tr&eacute; une campagne ...</li><br /><br />
-
-<li> <b>Votre adresse IP pour ne pas comptabiliser les hits qui en proviennent :</b> Soyez honn&ecirc;te, car si vous &ecirc;tes administrateur de ce site, votre
-poste (et donc son adresse IP) doit-&ecirc;tre exclue pour ne pas "bricoler" les compteurs.</li><br /><br />
-
-<center><font color=Red><b>Messages de pied de page</b></font></center><br />
-
-<li> <b>Ligne 1,2,3,4 :</b> Pied de page de votre site, ces zones supportent les codes HTML. Si vous n'avez besoin que d'une ou 2 lignes,
- laissez les zones vides (en partant de la fin).<br />
- En g&eacute;n&eacute;ral on trouve les informations de copyright, de cr&eacute;dits, le nom de l'h&eacute;bergeur, ...</li><br /><br />
-
-<center><font color=Red><b>Configuration des infos en Backend (canaux d'informations au format RDF/XML)</b></font></center><br />
-
-<li> <b>Titre du Backend :</b>Sans commentaires. Vous pouvez mettre votre slogan apr&egrave;s le Titre.</li><br /><br />
-<li> <b> Langue du Backend :</b> le m&ecirc;me format que pour la langue du site.</li><br /><br />
-<li> <b> URL de l'image du Backend :</b> Le chemin complet (http://...) permettant l'acc&egrave;s &agrave; une image/logo de votre site.</li><br /><br />
-<li> <b>Largeur de l'image du Backend :</b> Sans commentaires.</li><br /><br />
-<li> <b>Hauteur de l'image du Backend :</b> Sans commentaires.</li><br /><br />
-
-
-<center><font color=Red><b>Configuration par d&eacute;faut des Liens Web</b></font></center><br />
-
-<li> <b> Nombre de liens par page :</b> Le nombre maximun de liens par page (dans la fonction Liens Web).</li><br /><br />
-<li> <b> Nombre de hits sur le lien pour qu'il soit populaire :</b> Sans commentaires. Affiche une petite &eacute;toile &agrave; droite du lien lorsque ce crit&egrave;re est rempli.</li><br /><br />
-<li> <b> Nombre de liens 'Nouveau' :</b> Le nombre maximun de liens dans la page "Nouveau".</li><br /><br />
-<li> <b> Nombre de liens 'Meilleur' :</b> Le nombre maximun de liens dans la page "Populaire" (les liens les plus "cliqu&eacute;s").</li><br /><br />
-<li> <b> Nombre de liens dans les r&eacute;sultats des recherches :</b> Sans commentaires.</li><br /><br />
-<li> <b> Laisser les utilisateurs anonymes poster de nouveaux liens :</b> Oui ou Non</li><br /><br />
-<li> <b> Afficher le Logo sur la page Web Links :</b> Oui ou Non. Le logo prenant de la place ... .</li><br /><br />
-<li> <b> Activer l'icône [N]ouveau pour les cat&eacute;gories :</b> Affiche, lorsqu'une cat&eacute;gorie est nouvelle ou qu'il y a de nouveaux liens un petit symbole.</li><br /><br />
-
-
-<center><font color=Red><b>Syst&egrave;me de Messagerie (Email)</b></font></center><br />
-
-<li> <b>Adresse E-mail de l'administrateur :</b> Sert lorsque NPDS envoie des Emails automatiquement et permet donc
-au destinataire de vous r&eacute;pondre (Email r&eacute;elle ou non / compl&egrave;te avec le nom de domaine => ex : developpeur@npds.org).</li><br /><br />
-
-<li> <b>Quelle fonction Mail utilis&eacute;e ?</b> fonction : mail =>Par d&eacute;faut pour toute machine Linux digne de ce nom / fonction : email => Pour certains h&eacute;bergeurs.</li><br /><br />
-
-<li> <b>Pied de Email :</b> NPDS envoie un certain nombre d'Email (mot de passe, ...) et cette option vous permet de
-param&egrave;trer le "pied" (la fin, la signature) de ces Emails. Cette zone supporte les codes HTML. Une bonne habitude est
-le rappel de vos coordonn&eacute;es, votre slogan ... .</li><br /><br />
-
-<b>Envoyer par E-mail les nouveaux articles &agrave; l'Administrateur</b>. NPDS (comme PHP-Nuke) permet d'avertir un administrateur chaque fois qu'un utilisateur poste un nouvel article.
-<br /><br />
-<li> <b>Notifier les nouvelles contributions par E-mail :</b> Oui ou Non.</li><br /><br />
-<li> <b>Adresse E-mail o&ugrave; envoyer le message :</b> Sans commentaires.</li><br /><br />
-<li> <b>Sujet de l'E-mail :</b> Sans commentaires.</li><br /><br />
-<li> <b>Message de l'E-mail :</b> Sans commentaires.</li><br /><br />
-<li> <b>Compte E-mail (Provenance) :</b> Sans commentaires.</li><br /><br />
+<h4>GMT :</h4>
+<p>Permet de sp&eacute;cifier (en + ou -) un d&eacute;calage horaire par rapport &agrave; celui de la machine d'h&eacute;bergement.</p>
 
 
-<center><font color=Red><b>Mod&eacute;ration des commentaires</b></font></center><br />
+<h3 class="text-info">Options pour les banni&egrave;res</h4>
 
-<li> <b> Type de mod&eacute;ration :</b> Le syst&egrave;me de mod&eacute;ration marche mais ne lui faites pas une confiance aveugle.</li><br />
- - Mod&eacute;ration par l'Administrateur<br />
- - Mod&eacute;ration par les Utilisateurs<br />
- - Pas de mod&eacute;ration</li><br /><br />
+<h4>Activer les banni&egrave;res sur le site :</h4>
+<p>Oui ou Non voulez-vous activer les banni&egrave;res de publicit&eacute;. Cela n&eacute;cessite quand m&ecirc;me que vous ayez
+param&egrave;tr&eacute; une campagne ...</p>
 
-<li> <b>Autoriser les commentaires Anonymes :</b> Si vous voulez que les utilisateurs Anonymes (c.a.d non enregistr&eacute;s) puissent publier des
-commentaires, s&eacute;lectionnez Oui sinon ... .</li><br /><br />
+<h4>Votre adresse IP pour ne pas comptabiliser les hits qui en proviennent :</h4>
+<p>Soyez honn&ecirc;te, car si vous &ecirc;tes administrateur de ce site, votre poste (et donc son adresse IP) doit-&ecirc;tre exclue pour ne pas "bricoler" les compteurs.</p>
 
-<li> <b>Nombre Maximum de Commentaire par utilisateur (24H) :</b>Pour anonyme et les membres, limite le nombre de commentaire des articles et des sondages. 6 par d&eacute;faut, 99999 au maximum.</li><br /><br />
+<h3 class="text-info">Messages de pied de page</h4>
 
+<h4>Ligne 1,2,3,4 :</h4>
+<p>Pied de page de votre site, ces zones supportent les codes HTML. Si vous n'avez besoin que d'une ou 2 lignes, laissez les zones vides (en partant de la fin).<br />
+En g&eacute;n&eacute;ral on trouve les informations de copyright, de cr&eacute;dits, le nom de l'h&eacute;bergeur...</p>
 
-<center><font color=Red><b>Options des Sondages</b></font></center><br />
+<h3 class="text-info">Configuration des infos en Backend <small class="text-muted">canaux d'informations au format RDF/XML</small></h4>
 
-<li> <b> Nombre maximum de choix pour les Sondages :</b> Sans commentaires.</li><br /><br />
-<li> <b> Autoriser les utilisateurs &agrave; voter plusieurs fois : </b>Oui ou Non, cela d&eacute;pend de vous. Si vous utilisez Oui, cela indiquera &agrave; NPDS
-d'autoriser un utilisateur &agrave; voter toute les 24 Heures et d'afficher un petit message dans les sondages. Dans le cas contraire, le vote est unique pour toute la dur&eacute;e du sondage.</li><br /><br />
-<li> <b> Activer les commentaires des Sondages :</b> Sans commentaires.</li><br /><br />
-
-
-<center><font color=Red><b>Quelques bidules d'ordre graphique</b></font></center><br />
-
-Ne changez pas cette option sauf si ... .
-<br /><br />
-<li> <b> Chemin des images des Sujets :</b> Normalement /images/topics.</li><br /><br />
-<li> <b> Chemin de certaines images (vote, ...) : </b> Normalement /images/menu/.</li><br /><br />
-<li> <b> Chemin des images du Menu Administrateur :</b> Normalement images/admin/.</li><br /><br />
-<li> <b> Activer les images dans le menu Administration :</b> Oui ou Non. Non vous permettra de gagner du temps.</li><br /><br />
-<li> <b> Activer les Menus courts pour l'administration :</b> Oui ou Non. Oui vous permettra de gagner du temps.</li><br /><br />
-<li> <b> Police du site :</b> Normalement Verdana,Arial,Helvetica. Vous pouvez changer ces polices, mais pensez &agrave; vos utilisateurs.</li><br /><br />
+<h4>Titre du Backend :</h4>
+<p>Sans commentaires. Vous pouvez mettre votre slogan apr&egrave;s le Titre.</p>
+<h4> Langue du Backend :</h4>
+<p>le m&ecirc;me format que pour la langue du site.</p>
+<h4> URL de l'image du Backend :</h4>
+<p>Le chemin complet (http://...) permettant l'acc&egrave;s &agrave; une image/logo de votre site.</p>
+<h4>Largeur de l'image du Backend :</h4>
+<p>Sans commentaires.</p>
+<h4>Hauteur de l'image du Backend :</h4>
+<p>Sans commentaires.</p>
 
 
-<center><font color=Red><b>Divers</b></font></center><br />
+<h3 class="text-info">Configuration par d&eacute;faut des liens web</h4>
 
-<li> <b> Nombres d'articles en mode Administration :</b> Sans commentaires (mais cette valeur est utilis&eacute;e aussi pour les rubriques, ...).</li><br /><br />
-<li> <b> Longueur minimum des mots de passe Utilisateurs :</b> 8 est une bonne valeur.</li><br /><br />
-<li> <b> Nombre d'utilisateur "list&eacute;" :</b> Dans l'annuaire avant que de passer &agrave; la page suivante.</li><br /><br />
-<li> <b> Activer les Avatars :</b> NPDS permet de ne pas utiliser les avatars (petite image) pour la cr&eacute;ation des membres, les forums, ... .</li><br /><br />
-<li> <b> Taille maximum des avatars personnels (largeur * hauteur / 60*80) en pixel :</b> NPDS permet de sp&eacute;cifier la taille maximum des avatars t&eacute;l&eacute;charg&eacute;ables.</li><br /><br />
-<li> <b> Activer la description courte des utilisateurs :</b> NPDS permet de ne pas demander &agrave; un nouvel utilisateur la saisie de ses adresses ICQ, MSN, ... .</li><br /><br />
-<li> <b> Autoriser la cr&eacute;ation automatique des membres : </b> NPDS permet de ne pas autoriser un nouveau membre &agrave; se connecter sans une intervention de l'administrateur (valeur : autoriser la connexion de la fiche utilisateurs). Pratique pour les portails "ferm&eacute;s".</li><br /><br />
-<li> <b> Autoriser les utilisateurs &agrave; choisir leur Mot de Passe : </b> Vous pouvez autoriser un nouvel utilisateur &agrave; choisir le Mot de Passe qu'il souhaite utiliser. Vous pouvez aussi coupler cette option &agrave; la pr&eacute;c&eacute;dente pour &eacute;viter de "laisser" faire vos nouveaux membres.</li><br /><br />
-<li> <b> Autoriser les abonnements  :</b> Autoriser vos membres &agrave; s'abonner aux diff&eacute;rentes sources d'infos de NPDS (Sujets, Forums, Messages Internes,...) et donc &agrave; recevoir un Email d'information  (attention cela peut g&eacute;n&egrave;rer une charge importante).</li><br /><br />
-<li> <b> Autoriser les Membres invisibles  :</b> Autoriser vos membres &agrave; devenir 'invisible' : ils ne seront pas affich&eacute;s dans les diff&eacute;rents modules de NPDS (sauf pour les administrateurs).</li><br /><br />
-<li> <b> Fermer les Nouvelles Inscriptions : </b> NPDS permet de fermer temporairement l'inscription des nouveaux membres (la page static/closed.txt est affich&eacute;e). Pratique pour fermer le portail.</li><br /><br />
-<li> <b> Activer les r&eacute;f&eacute;rants HTTP :</b> Sans commentaire.</li><br /><br />
-<li> <b> Combien de r&eacute;f&eacute;rants au Maximum :</b> Ne chargez pas trop votre base de donn&eacute;es.</li><br /><br />
-<li> <b> Liste des membres : Priv&eacute;  :</b> NPDS permet de n'afficher l'annuaire qu'aux membres.</li><br /><br />
-<li> <b> Rubrique de t&eacute;l&eacute;chargement  :</b> Choississez la rubrique (cat&eacute;gorie) des t&eacute;l&eacute;chargements qui sera affich&eacute;e en premier OU aucune.</li><br /><br />
-<li> <b> Critiques courtes  :</b> Transformez les critiques en livre d'or.</li><br /><br />
+<h4>Nombre de liens par page :</h4>
+<p>Le nombre maximun de liens par page (dans la fonction liens web).</p>
+<h4>D&eacute;finit le nombre de hits sur le lien pour qu'il soit populaire :</h4>
+<p>Sans commentaires. Affiche une petite &eacute;toile &agrave; droite du lien lorsque ce crit&egrave;re est rempli.</p>
+<h4>Nombre de liens 'Nouveau' :</h4>
+<p>D&eacute;finit le nombre maximun de liens dans la page "Nouveau".</p>
+<h4>Nombre de liens 'Meilleur' :</h4>
+<p>D&eacute;finit le nombre maximun de liens dans la page "Populaire" (les liens les plus "cliqu&eacute;s").</p>
+<h4>Nombre de liens dans les r&eacute;sultats des recherches :</h4>
+<p>Sans commentaires.</p>
+<h4>Laisser les utilisateurs anonymes poster de nouveaux liens :</h4>
+<p>Oui ou non</p>
+<h4>Afficher le logo sur la page web links :</h4>
+<p>Oui ou non. Le logo prenant de la place...</p>
+<h4>Activer l'ic&ocirc;ne [N]ouveau pour les cat&eacute;gories :</h4>
+<p>Affiche un petit symbole, lorsqu'une cat&eacute;gorie est nouvelle ou s'il y a de nouveaux liens.</p>
+
+<h3 class="text-info">Syst&egrave;me de messagerie (Email)</h4>
+
+<h4>Adresse m&eacute;l de l'administrateur :</h4>
+<p>Sert lorsque NPDS envoie des m&eacute;ls automatiquement et permet donc au destinataire de vous r&eacute;pondre (Email r&eacute;elle ou non / compl&egrave;te avec le nom de domaine => ex : developpeur@npds.org).</p>
+
+<h4>Quelle fonction mail utilis&eacute;e ?</h4>
+<p>fonction : mail =>Par d&eacute;faut pour toute machine Linux digne de ce nom / fonction : email => Pour certains h&eacute;bergeurs.</p>
+
+<h4>Pied de m&eacute;l :</h4>
+<p>NPDS envoie un certain nombre de m&eacute;ls (mot de passe, ...) et cette option vous permet de param&egrave;trer le "pied" (la fin, la signature) de ces m&eacute;ls. Cette zone supporte les codes HTML. Une bonne habitude est le rappel de vos coordonn&eacute;es, votre slogan.</p>
+
+<p>Envoyer par m&eacute;l les nouveaux articles &agrave; l'administrateur. NPDS permet d'avertir un administrateur chaque fois qu'un utilisateur poste un nouvel article.</p>
+
+<h4>Notifier les nouvelles contributions par m&eacute;l :</h4>
+<p>Oui ou non.</p>
+<h4>Adresse E-mail o&ugrave; envoyer le message :</h4>
+<p>Sans commentaires.</p>
+<h4>Sujet du m&eacute;l :</h4>
+<p>Sans commentaires.</p>
+<h4>Message du m&eacute;l :</h4>
+<p>Sans commentaires.</p>
+<h4>Adresse E-mail (Provenance) :</h4>
+<p>Sans commentaires.</p>
 
 
-<center><font color=Red><b>Divers HTTP</b></font></center><br />
+<h3 class="text-info">Mod&eacute;ration des commentaires</h4>
 
-<li> <b> Activer pour les Grands Titres de sites de News, la v&eacute;rification de l'existance d'un Web sur le Port 80  :</b> NPDS permet de ne pas demander la v&eacute;rification de l'existance d'un Web sur le port 80. Pratique pour Multimania et autres ISP.</li><br /><br />
-<li> <b> Activer pour les pages HTML g&eacute;n&eacute;r&eacute;es, les tags avanc&eacute;s de gestion du cache :</b> NPDS permet d'utiliser les fonctions avanc&eacute;es de gestion du cache des pages HTML. certains ISP ne l'autorisent pas (comme Multimania).</li><br /><br />
-<li> <b> Activer la r&eacute;solution DNS pour les Posts (Forum ...) :</b> NPDS permet de 'capturer' en m&ecirc;me temps que l'adresse IP, le Nom DNS. Attention cette option peut-&ecirc;tre consommatrice de CPU sur le serveur (ou m&ecirc;me interdite).</li><br /><br />
-<br /><br /><br />
-<center><font color=Red><b>
-Divers SYSTEM
-</b></font></center><br />
-<li> <b> Taille maximum des fichiers de sauvegarde SaveMysql :</b> Taille des fichiers de dump ASCII avant la compression.</li><br /><br />
-<li> <b> Type de sauvegarde SaveMysql :</b> Type de r&eacute;sultat souhait&eacute; lors de la sauvegarde.</li><br /><br />
-<li> <b> Activer l'&eacute;diteur Tiny-Mce :</b> NPDS peut utiliser Tiny-Mce (compatible IE, Firefox, ...).</li><br /><br />
+<h4>Type de mod&eacute;ration :</h4>
+<p>Le syst&egrave;me de mod&eacute;ration marche mais ne lui faites pas une confiance aveugle.
+<ul>
+<li>Mod&eacute;ration par l'administrateur</li>
+<li>Mod&eacute;ration par les utilisateurs</li>
+<li>Pas de mod&eacute;ration</li>
+</ul></p>
+
+<h4>Autoriser les commentaires anonymes :</h4>
+<p>Si vous voulez que les utilisateurs anonymes (c.a.d non enregistr&eacute;s) puissent publier des commentaires, s&eacute;lectionnez oui.</p>
+
+<h4>Nombre maximum de Commentaires par utilisateur en 24H :</h4>
+<p>Pour anonyme et les membres, limite le nombre de commentaires des articles et des sondages. 6 par d&eacute;faut, 99999 au maximum.</p>
+
+<h3 class="text-info">Options des sondages</h4>
+
+<h4>Nombre maximum de choix pour les sondages :</h4>
+<p>Sans commentaires.</p>
+<h4>Autoriser les utilisateurs &agrave; voter plusieurs fois :</h4>
+<p>Oui ou non, cela d&eacute;pend de vous. Si vous utilisez oui, cela indiquera &agrave; NPDS d'autoriser un utilisateur &agrave; voter toutes les 24 heures et d'afficher un petit message dans les sondages. Dans le cas contraire, le vote est unique pour toute la dur&eacute;e du sondage.</p>
+<h4>Activer les commentaires des sondages :</h4>
+<p>Sans commentaires.</p>
+
+<h3 class="text-info">Quelques r&eacute;glages d'ordre graphique</h4>
+
+<p>Ne changez pas cette option sauf si...</p>
+
+<h4>Chemin des images des sujets :</h4>
+<p>Normalement /images/topics.</p>
+<h4>Chemin de certaines images (vote...) :</h4>
+<p>Normalement /images/menu/.</p>
+<h4>Chemin des images du menu administrateur :</h4>
+<p>Normalement images/admin/.</p>
+<h4>Activer les images dans le menu administration :</h4>
+<p>Oui ou non. Non vous permettra de gagner du temps.</p>
+<h4> Activer les menus courts pour l'administration :</h4>
+<p>Oui ou non. oui vous permettra de gagner du temps.</p>
+<h4>Police du site :</h4>
+<p>Normalement Verdana,Arial,Helvetica. Vous pouvez changer ces polices, mais pensez &agrave; vos utilisateurs.</p>
+
+<h3 class="text-info">Divers</h4>
+
+<h4>Nombres d'articles en mode administration :</h4>
+<p>Sans commentaires (mais cette valeur est utilis&eacute;e aussi pour les rubriques...).</p>
+<h4>Longueur minimum des mots de passe utilisateurs :</h4>
+<p>8 est une bonne valeur.</p>
+<h4>Nombre d'utilisateur "list&eacute;" :</h4>
+<p>Dans l'annuaire avant que de passer &agrave; la page suivante.</p>
+<h4>Activer les avatars :</h4>
+<p>NPDS permet de ne pas utiliser les avatars (petite image) pour la cr&eacute;ation des membres, les forums... .</p>
+<h4>Taille maximum des avatars personnels (largeur * hauteur / 60*80) en pixel :</h4>
+<p>NPDS permet de sp&eacute;cifier la taille maximum des avatars t&eacute;l&eacute;charg&eacute;ables.</p>
+<h4>Activer la description courte des utilisateurs :</h4>
+<p>NPDS permet de ne pas demander &agrave; un nouvel utilisateur la saisie de ses adresses ICQ, MSN...</p>
+<h4>Autoriser la cr&eacute;ation automatique des membres :</h4>
+<p>NPDS permet de ne pas autoriser un nouveau membre &agrave; se connecter sans une intervention de l'administrateur (valeur : autoriser la connexion de la fiche utilisateur). Pratique pour les portails "ferm&eacute;s".</p>
+<h4>Autoriser les utilisateurs &agrave; choisir leur mot de passe :</h4>
+<p>Vous pouvez autoriser un nouvel utilisateur &agrave; choisir le mot de passe qu'il souhaite utiliser. Vous pouvez aussi coupler cette option &agrave; la pr&eacute;c&eacute;dente pour &eacute;viter de laisser faire vos nouveaux membres.</p>
+<h4>Autoriser les abonnements :</h4>
+<p>Autoriser vos membres &agrave; s'abonner aux diff&eacute;rentes sources d'infos de NPDS (Sujets, Forums, messages internes...) et donc &agrave; recevoir un m&eacute;l d'information (attention cela peut g&eacute;n&egrave;rer une charge importante).</p>
+<h4>Autoriser les membres invisibles :</h4>
+<p>Autoriser vos membres &agrave; devenir 'invisible', ils ne seront pas affich&eacute;s dans les diff&eacute;rents modules de NPDS (sauf pour les administrateurs).</p>
+<h4>Fermer les nouvelles inscriptions :</h4>
+<p>NPDS permet de fermer temporairement l'inscription des nouveaux membres (la page static/closed.txt est affich&eacute;e).</p>
+<h4>Activer les r&eacute;f&eacute;rants HTTP :</h4>
+<p>Sans commentaires.</p>
+<h4>Combien de r&eacute;f&eacute;rants au maximum :</h4>
+<p>Ne chargez pas trop votre base de donn&eacute;es.</p>
+<h4>Liste des membres : priv&eacute; :</h4>
+<p>NPDS permet de n'afficher l'annuaire qu'aux membres.</p>
+<h4>Rubrique de t&eacute;l&eacute;chargement  :</h4>
+<p>Choississez la rubrique (cat&eacute;gorie) des t&eacute;l&eacute;chargements qui sera affich&eacute;e en premier ou aucune.</p>
+<h4>Critiques courtes  :</h4>
+<p>Transformez les critiques en livre d'or.</p>
+
+<h3 class="text-info">Divers http</h4>
+
+<h4>Activer pour les grands titres de sites de news, la v&eacute;rification de l'existance d'un web sur le port 80  :</h4>
+<p>NPDS permet de ne pas demander la v&eacute;rification de l'existance d'un web sur le port 80. Pratique pour Multimania et autres ISP.</p>
+<h4>Activer pour les pages HTML g&eacute;n&eacute;r&eacute;es, les tags avanc&eacute;s de gestion du cache :</h4>
+<p>NPDS permet d'utiliser les fonctions avanc&eacute;es de gestion du cache des pages HTML, certains ISP ne l'autorisent pas (comme Multimania).</p>
+<h4>Activer la r&eacute;solution DNS pour les Posts (forums...) :</h4>
+<p>NPDS permet de 'capturer' en m&ecirc;me temps que l'adresse IP, le nom DNS. Attention cette option peut-&ecirc;tre consommatrice de CPU sur le serveur (ou m&ecirc;me interdite).</p>
+<h3 class="text-info">Divers system</h4>
+<h4>Taille maximum des fichiers de sauvegarde SaveMysql :</h4>
+<p>Taille des fichiers de dump ASCII avant la compression.</p>
+<h4>Type de sauvegarde SaveMysql :</h4>
+<p>Type de r&eacute;sultat souhait&eacute; lors de la sauvegarde.</p>
+<h4>Activer l'&eacute;diteur Tiny-Mce :</h4>
+<p>NPDS peut utiliser Tiny-Mce (compatible IE, Firefox, ...).</p>
 
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>

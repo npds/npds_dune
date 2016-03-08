@@ -640,8 +640,8 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
 function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur) {
     global $NPDS_Prefix;
     global $aid, $ultramode;
-    if ($uid == 1) $author = "";
-    if ($hometext == $bodytext) $bodytext = "";
+    if ($uid == 1) $author = '';
+    if ($hometext == $bodytext) $bodytext = '';
     $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
     $hometext = stripslashes(FixQuotes($hometext));
     $bodytext = stripslashes(FixQuotes($bodytext));
@@ -679,7 +679,8 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
           if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
        // Réseaux sociaux
     }
-    redirect_url("admin.php?op=submissions");
+    redirect_url("admin.php?");//    redirect_url("admin.php?op=submissions");
+
 }
 
 function editStory ($sid) {

@@ -15,13 +15,6 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 global $NPDS_Prefix;
-echo '
-   <table class="table table-bordered table-striped table-hover">
-      <thead>
-      </thead>
-      <tbody>';
-
-
    $x=0;
    while (list($lid, $url, $title, $description, $time, $hits, $topicid_card, $xcid, $xsid)=sql_fetch_row($result)) {
       //compare the description with "nohtml description"
@@ -55,14 +48,17 @@ echo '
          $title = stripslashes($title); $description = stripslashes($description);
          settype($datetime,'string');
          echo '
-         <tr>
-            <td>';
+         <div class="card">
+            <div class="card-block ibid_descr">';
          if ($url=='') {
-            echo '<h4 class="text-muted"><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title);
+            echo '
+               <h4 class="text-muted"><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title);
          } else {
-            echo '<h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" ><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title).'</a>';
+            echo '
+               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" ><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title).'</a>';
          }
-         echo newlinkgraphic($datetime, $time).'</h4>';
+         
+         echo '&nbsp;'.newlinkgraphic($datetime, $time).'</h4>';
 
          if (!empty($xcid)) {
             $result3 = sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$xcid'");
@@ -70,43 +66,52 @@ echo '
             list($ctitle) = sql_fetch_row($result3);
             list($stitle) = sql_fetch_row($result4);
             if ($stitle=='') {$slash = '';}else{$slash = '/';}
-            echo translate("Category: ")."<b>".aff_langue($ctitle)."</b> $slash <b>".aff_langue($stitle)."</b>";
+            echo translate("Category: ")."<strong>".aff_langue($ctitle)."</strong> $slash <b>".aff_langue($stitle)."</b>";
          }
-            echo '<div class="ibid_descr">'.aff_langue($description).'</div>';
             global $links_topic;
             if ($links_topic and $topicid_card!=0) {
                list($topicLX)=sql_fetch_row(sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topicid_card'"));
-               echo "".translate("Topics")." :</td><td><b>$topicLX</b>";
+               echo '<br />'.translate("Topics").' : <strong>'.$topicLX.'</strong>';
             }
+         echo '
+               <div class="ibid_descr "><p>'.aff_langue($description).'</p></div>';
+            if ($url!='') {
+               global $popular;
+               if ($hits>$popular) {
+                  echo '&nbsp;<span class=" label label-default pull-right ">'.$hits.'</span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
+               } else {
+                  echo '&nbsp;<span class=" label label-default pull-right">'.$hits.'</span>';
+               }
+            }
+         echo '
+            </div>
+            <div class="card-footer">';
          $datetime=formatTimestampShort($time);
             echo translate("Added on: ")."$datetime ";
             if ($url!='') {
                echo translate("Hits: ");
                global $popular;
-               if ($ibid=theme_image("links/popular.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/links/popular.gif";}
                if ($hits>$popular) {
-                  echo "<b>$hits</b> <img src=\"$imgtmp\" border=\"0\" alt=\"\" align=\"center\" />";
+                  echo '<span class="label label-default" > </span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
                } else {
-                  echo $hits;
+                  echo '<span class="label label-default">'.$hits.'</span>';
                }
-               echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-chain-broken fa-lg"></i></a>';
+               echo '&nbsp;&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-chain-broken fa-lg"></i></a>';
             }
             
             // Advance infos via the class sform.php
-            autorise_mod($lid,true);
             $browse_key=$lid;
             include ("modules/sform/$ModPath/link_detail.php");
 
             detecteditorial($lid, urlencode($title));
             echo '
-            <a href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>
-            </td>
-         </tr>';
+            &nbsp;&nbsp;<a href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+            autorise_mod($lid,true);
+            echo '
+            </div>
+         </div>';
         $x++;
      }
    }
    sql_free_result();
-   echo '
-      </tbody>
-   </table>';
 ?>

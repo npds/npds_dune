@@ -16,10 +16,10 @@ if (!function_exists("Mysql_Connexion")) {
    die();
 }
 
-function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords) {
+function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords,$skin) {
    global $slogan, $site_font, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
    global $topic, $hlpfile, $user, $hr, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4, $bgcolor5, $bgcolor6, $textcolor1, $textcolor2, $long_chain;
-   global $bargif, $theme_width, $bloc_width, $page_width;
+   global $bargif, $theme_width, $bloc_width, $page_width, $skin;
 
    if ($gzhandler==1) {ob_start("ob_gzhandler");}
    include("themes/$tmp_theme/theme.php");
@@ -90,14 +90,30 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       include ("themes/$tmp_theme/include/body_onload.inc");
       echo $body_onloadF;
    }
+   
+      if (isset($user)) {
+      global $cookie;
+      $skin='';
+      if (array_key_exists(11,$cookie)) {$skin=$cookie[11];}
+      
+   }
 
-   // include externe file from modules/include or themes/.../include for functions, codes ...
-   if (file_exists("modules/include/header_head.inc")) {include ("modules/include/header_head.inc");}
+
+   // include externe file from modules/include or themes/.../include for functions, codes ...+ skin motor
+   if (file_exists("modules/include/header_head.inc")) {
+      ob_start();
+      include "modules/include/header_head.inc";
+      $hH = ob_get_contents();
+      ob_end_clean();
+      if($skin!='') {
+         $hH=str_replace ('lib/bootstrap/dist/css/bootstrap.min.css','themes/_skins/'.$skin.'/bootstrap.min.css',$hH);
+         $hH=str_replace ('lib/bootstrap/dist/css/extra.css','themes/_skins/'.$skin.'/extra.css',$hH);
+      }
+   echo $hH;
+   }
    if (file_exists("themes/$tmp_theme/include/header_head.inc")) {include ("themes/$tmp_theme/include/header_head.inc");}
 
    echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);
-
-
 
    // Mod by Jireck - Chargeur de JS via PAGES.PHP
    if ($js) {
@@ -134,13 +150,17 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    if (file_exists("modules/include/header_before.inc")) {include ("modules/include/header_before.inc");}
 
    // take the right theme location !
-   global $Default_Theme, $user;
+   global $Default_Theme, $user, $skin;
    if (isset($user)) {
       global $cookie;
-      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      $skin='';
+      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
       if (!$file=@opendir("themes/$cookie[9]")) $tmp_theme=$Default_Theme;
+      
+      if (array_key_exists(11,$cookie)) {$skin=$cookie[11];}
+      
    } else {
       $tmp_theme=$Default_Theme;
    }
@@ -308,23 +328,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       $js='';
    }
 
-   head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords);
-/* no need in admin and block admin now
-   global $httpref, $nuke_url, $httprefmax, $admin;
-   global $NPDS_Prefix;
-   if ($httpref==1) {
-      $referer= htmlentities(strip_tags(removeHack(getenv("HTTP_REFERER"))),ENT_QUOTES,cur_charset);
-      if ($referer!="" and !strstr($referer,"unknown") and !stristr($referer,$_SERVER['SERVER_NAME'])) {
-         sql_query("insert into ".$NPDS_Prefix."referer values (NULL, '$referer')");
-      }
-      if ($admin) {
-         $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
-         if ($result['total']>=$httprefmax) {
-            echo " <span class=\"rouge\">".translate("Referer max count limit : Save your referer via Admin function.")."</span>";
-         }
-      }
-   }
-*/
+   head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords,$skin);
    include("counter.php");
 
    // include externe file from modules/include for functions, codes ...

@@ -48,31 +48,6 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
    $entete_adm ='<div id="adm_workarea" class="adm_workarea">'."\n".'   <h2><a '.$furlscript.' >'.$img_adm.'&nbsp;'.$f_titre.'</a></h2>';
    echo $entete_adm;
 }
-/*
-function adminfieldinp($result) {
-   $fields = mysql_num_fields($result);
-   $idle = array();
-   for ($i=0; $i < $fields; $i++) {
-      if (mysql_field_type($result, $i) == 'string') {
-         $idle[mysql_field_name($result, $i)] = mysql_field_len($result, $i);
-      }
-   }
-   echo '
-   <script type="text/javascript">
-   //<![CDATA[
-   ';
-   foreach ($idle as $k=>$v) {
-      echo '
-      inpandfieldlen("'.$k.'",'.$v.')';
-   }
-   echo '
-   //]]>
-   </script>';
-}
-*/
-
-//function adminfieldinp($result) {};
-
 
 function adminfieldinp($result) {
    $fields = sql_num_fields($result);
@@ -100,7 +75,6 @@ function adminfieldinp($result) {
    //]]>
    </script>';
 }
-
 
 
 $filemanager=false;
@@ -148,8 +122,10 @@ function login() {
       <script type="text/javascript">
       //<![CDATA[
       document.adminlogin.aid.focus();
+      $(document).ready(function() {
       inpandfieldlen("pwd",18);
       inpandfieldlen("aid",20);
+      });
       //]]>
       </script>';
    adminfoot('fv','','','');

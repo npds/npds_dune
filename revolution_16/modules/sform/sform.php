@@ -800,11 +800,12 @@ class form_handler {
    return ($op);
   }
 
-  /**************************************************************************************/
-  // print html response
-  // $bg      => Class for TR or TD
-  // $retour  => Comment for the link at the end of the page OR ="not_echo" for not 'echo' the reply but return in a string !
-  // $action  => url to go
+  /*
+  print html response
+  $bg      => Class for TR or TD
+  $retour  => Comment for the link at the end of the page OR ="not_echo" for not 'echo' the reply but return in a string !
+  $action  => url to go
+  */
   function aff_response($bg,$retour="",$action="") {
     $str="<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"ligna\"><tr><td>";
     $str.="<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"2\" class=\"lignb\">";

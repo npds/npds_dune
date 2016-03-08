@@ -79,15 +79,7 @@ if ($smilies) {
 
 // ---- SHORT-USER
 if ($short_user=="yes") {
-   $m->add_field('user_icq', translate("Your ICQ"),$userinfo['user_icq'],'text',false,50,"","");
-   $m->add_field('user_aim', translate("Your AIM"),$userinfo['user_aim'],'text',false,50,"","");
-   $m->add_field('user_yim', translate("Your YIM"),$userinfo['user_yim'],'text',false,50,"","");
-   $m->add_field('user_msnm', translate("Your MSNM"),$userinfo['user_msnm'],'text',false,50,"","");
 } else {
-   $m->add_field('user_icq',"user_icq","",'hidden',false);
-   $m->add_field('user_aim',"user_aim","",'hidden',false);
-   $m->add_field('user_yim',"user_yim","",'hidden',false);
-   $m->add_field('user_msnm',"user_msnm","",'hidden',false);
 }
 // ---- SHORT-USER
 

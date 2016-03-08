@@ -313,6 +313,6 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['title']="[french]Galeries[/french][english]Galery[/english][spanish]Galery[/spanish][german]Galery[/german][chinese]Galery[/chinese]";
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['run']="yes";
-$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['blocs']="2";
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['blocs']="0";
 
 ?>

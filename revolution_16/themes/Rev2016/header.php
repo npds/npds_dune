@@ -10,8 +10,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
- global $pdst;
- $pdst="2"; 
+global $NPDS_Prefix, $pdst;
+$pdst='2'; 
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1' AND member ='0'");
 $nb_blg_actif = sql_num_rows($blg_actif);
@@ -19,7 +19,7 @@ $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1' A
 $nb_bld_actif = sql_num_rows($bld_actif);
 
 /*
-La variable $pdst permet de gérer le nombre et la disposition des colonnes
+La variable $pdst permet de g√©rer le nombre et la disposition des colonnes
  "-1" -> col_princ
  "0"  -> col_LB + col_princ
  "1"  -> col_LB + col_princ + col_RB
@@ -29,7 +29,7 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
  "5"  -> col_RB + col_princ
  "6"  -> col_princ + col_LB
  
- La gestion de ce paramétre s'effectue dans le fichier "pages.php" du dossier "themes
+ La gestion de ce param√©tre s'effectue dans le fichier "pages.php" du dossier "themes
 
  Nomination des div :
  col_princ contient le contenu principal
@@ -43,9 +43,8 @@ if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
     }
 }
 
-
-// ContainerGlobal permet de transmettre ‡ Theme-Dynbamic un ÈlÈment de personnalisation avant
-// le chargement de header.html / Si vide alors la class body est chargÈe par dÈfaut par Theme dynamique
+// ContainerGlobal permet de transmettre ‚Ä° Theme-Dynbamic un √àl√àment de personnalisation avant
+// le chargement de header.html / Si vide alors la class body est charg√àe par d√àfaut par Theme dynamique
 $ContainerGlobal="\n<div id=\"container\">\n";
 
 // Ne supprimez pas cette ligne / Don't remove this line
@@ -56,7 +55,7 @@ $ContainerGlobal="\n<div id=\"container\">\n";
 
 /************************************************************************/
 /*     Le corps de page de votre Site - En dessous du Header            */
-/*     On Ouvre les DiffÈrent Blocs en Fonction de la Variable $pdst    */
+/*     On Ouvre les Diff√©rent Blocs en Fonction de la Variable $pdst    */
 /*                         Le corps englobe :                           */
 /*                 col_LB + col_princ + col_RB                          */
 /*           Si Aucune variable pdst dans pages.php                     */
@@ -66,14 +65,13 @@ $ContainerGlobal="\n<div id=\"container\">\n";
      
 switch ($pdst) {
 case "-1":
-     echo '<section id="centralcol" class="col w100 autotablet">';   /* la partie centrale */
+     echo '<section id="col_princ" class="col w100 autotablet">';   /* la partie centrale */
 break;
 case "2":
-     echo '<section id="centralcol" class="col w78 autotablet">';
+     echo '<section id="col_princ" class="col w78 autotablet">';
 break;
- 
 default:
-     echo '<section id="centralcol" class="col w78 autotablet">';
+     echo '<section id="col_princ" class="col w78 autotablet">';
 break;
 }
 ?>

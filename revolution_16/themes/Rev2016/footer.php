@@ -21,7 +21,7 @@ break;
 
 case "2":
     echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo '<aside  class="col w22 notablet nomobile  aside">';
+    echo '<aside id="col_RB" class="col w22 notablet nomobile  aside">';
         leftblocks();
         rightblocks();
     echo "</aside>";
@@ -30,7 +30,7 @@ break;
 
 default :
     echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo '<aside  class="col w22 notablet nomobile  aside">';
+    echo '<aside id="col_RB" class="col w22 notablet nomobile  aside">';
         leftblocks();
         rightblocks();
     echo "</aside>";

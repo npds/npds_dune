@@ -282,13 +282,6 @@ include('header.php');
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
-   if ($ibid=theme_image("forum/icons/email.gif")) {$imgtmpEM=$ibid;} else {$imgtmpEM="images/forum/icons/email.gif";}
-/*
-   if ($ibid=theme_image("forum/icons/icq_on.gif")) {$imgtmpIC=$ibid;} else {$imgtmpIC="images/forum/icons/icq_on.gif";}
-   if ($ibid=theme_image("forum/icons/aim.gif")) {$imgtmpAI=$ibid;} else {$imgtmpAI="images/forum/icons/aim.gif";}
-   if ($ibid=theme_image("forum/icons/yim.gif")) {$imgtmpYI=$ibid;} else {$imgtmpYI="images/forum/icons/yim.gif";}
-   if ($ibid=theme_image("forum/icons/msnm.gif")) {$imgtmpMS=$ibid;} else {$imgtmpMS="images/forum/icons/msnm.gif";}
-*/
    if ($ibid=theme_image("forum/icons/gf.gif")) {$imgtmpGF=$ibid;} else {$imgtmpGF="images/forum/icons/gf.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
       $my_rsos=array();
@@ -327,7 +320,7 @@ include('header.php');
       if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i>&nbsp;'.translate("Profile").'</a>';
       }
-      if ($posterdata['uname']!=$anonymous) {
+      if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
       }
       if ($posterdata['femail']!='') {
@@ -358,36 +351,44 @@ include('header.php');
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
             }
              echo '
-             <a tabindex="0" data-toggle="popover" data-trigger="" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><i class="fa fa-share-alt fa-lg"></i>&nbsp;<img class=" btn-primary-outline img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+             <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
             }
          }
                
-   echo '&nbsp;<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-      echo '
-               </div>';
-      $message=stripslashes($myrow['post_text']);
-      echo '
-               <div class="card-block">
-                  <div class="card-text">';
-      if ($myrow['image'] != "") {
+   echo '&nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+   echo '<span class="pull-xs-right">';
+      if ($myrow['image'] != '') {
+      
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="smil" src="'.$imgtmp.'" alt="icon_post" />';
       } else {
          echo '<img class="smil" src="'.$imgtmpPI.'" alt="icon_post" />';
       }
+      echo '
+               </span></div>';
+      $message=stripslashes($myrow['post_text']);
+      echo '
+               <div class="card-block">
+                  <div class="card-text p-t-1">';
+/*
+      if ($myrow['image'] != '') {
+         if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
+         echo '<img class="smil" src="'.$imgtmp.'" alt="icon_post" />';
+      } else {
+         echo '<img class="smil" src="'.$imgtmpPI.'" alt="icon_post" />';
+      }
+*/
       $date_post=convertdateTOtimestamp($myrow['post_time']);
-      echo '<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
+//      echo '<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
       if (isset($last_read)) {
-         if (($last_read <= $date_post) AND $userdata[3]!="" AND $last_read !="0" AND $userdata[0]!=$myrow['poster_id']) {
+         if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
             echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />
-            
             ';
          }
       }
 
       echo '
                </div>
-               <hr />
                <div class="card-text">';
 
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
@@ -417,7 +418,9 @@ include('header.php');
    echo '
                </div>
             </div>
-         <div class="card-footer text-xs-right">';
+         <div class="card-footer">
+            <span class="text-muted small">'.post_convertdate($date_post).'</span>
+            <span class="pull-xs-right">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -466,7 +469,7 @@ include('header.php');
          }
       }
    }   
-      echo '
+      echo '</span>
             </div>
          </div>
       </div>

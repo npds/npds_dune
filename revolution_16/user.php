@@ -37,11 +37,12 @@ function message_pass($ibid) {
    echo '<span class="text-success">'.$ibid.'</span>';
    include("footer.php");
 }
+$cl_act='';
 function nav($mns) {
    echo '
    <ul class="nav nav-tabs"> 
-      <li class="nav-item active"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i> Vous</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Journal").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i> Vous</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Journal").'</a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
@@ -50,10 +51,10 @@ function nav($mns) {
       <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Mini-Web site").'</a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link" href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Home").'</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Theme").'</a></li>
-      <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'">'.translate("Social networks").'</a></li>
-      <li class="nav-item"><a class="nav-link" href="user.php?op=logout" title="'.translate("Logout").'"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Home").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'">'.translate("Social networks").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
    </ul>';
 }
 
@@ -112,7 +113,7 @@ function Only_NewUser() {
    global $user, $memberpass;
    if (!$user) {
       global $smilies, $short_user, $memberpass;
-      global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
+      global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1;
       include("header.php");
       showimage();
       echo '
@@ -207,21 +208,17 @@ function Only_NewUser() {
    }
 }
 function hidden_form() {
-    global $uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
+    global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
     echo "<form action=\"user.php\" method=\"post\">
           <input type=\"hidden\" name=\"uname\" value=\"$uname\" />
           <input type=\"hidden\" name=\"name\" value=\"".removeHack($name)."\" />
           <input type=\"hidden\" name=\"email\" value=\"$email\" />";
     if (!$user_avatar) {$user_avatar="blank.gif";}
     echo "<input type=\"hidden\" name=\"user_avatar\" value=\"$user_avatar\" />
-          <input type=\"hidden\" name=\"user_icq\" value=\"".StripSlashes(removeHack($user_icq))."\" />
           <input type=\"hidden\" name=\"user_from\" value=\"".StripSlashes(removeHack($user_from))."\" />
           <input type=\"hidden\" name=\"user_occ\" value=\"".StripSlashes(removeHack($user_occ))."\" />
           <input type=\"hidden\" name=\"user_intrest\" value=\"".StripSlashes(removeHack($user_intrest))."\" />
           <input type=\"hidden\" name=\"user_sig\" value=\"".StripSlashes(removeHack($user_sig))."\" />
-          <input type=\"hidden\" name=\"user_aim\" value=\"".StripSlashes(removeHack($user_aim))."\" />
-          <input type=\"hidden\" name=\"user_yim\" value=\"".StripSlashes(removeHack($user_yim))."\" />
-          <input type=\"hidden\" name=\"user_msnm\" value=\"".StripSlashes(removeHack($user_msnm))."\" />
           <input type=\"hidden\" name=\"user_viewemail\" value=\"$user_viewemail\" />
           <input type=\"hidden\" name=\"pass\" value=\"".removeHack($pass)."\" />
           <input type=\"hidden\" name=\"user_lnl\" value=\"".removeHack($user_lnl)."\" />";
@@ -239,7 +236,7 @@ function hidden_form() {
           <input type=\"hidden\" name=\"T2\" value=\"".StripSlashes(removeHack($T2))."\" />
           <input type=\"hidden\" name=\"B1\" value=\"".StripSlashes(removeHack($B1))."\" />";
 }
-function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
+function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $smilies, $short_user, $minpass, $memberpass;
     $uname=strip_tags($uname);
     if ($user_viewemail!=1) {$user_viewemail='0';}
@@ -275,7 +272,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_oc
        message_error($stop,"new user");
     }
 }
-function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
+function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $NPDS_Prefix;
     global $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt;
     $stop=userCheck($uname, $email);
@@ -293,7 +290,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
        else
           $cryptpass=$makepass;
 
-       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_icq','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','$user_aim','$user_yim','$user_msnm','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
+       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
        list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
        $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
        if ($user_sig) {
@@ -352,11 +349,11 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ
 function userinfo($uname) {
     global $NPDS_Prefix;
     global $user, $sitename, $smilies, $short_user, $site_font;
-    global $name, $email, $url, $bio, $user_avatar, $user_icq, $user_aim, $user_yim, $user_msnm, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
+    global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
 
     $uname=removeHack($uname);
-    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_icq, user_aim, user_yim, user_msnm, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
-    list($uid, $name, $femail, $url, $bio, $user_avatar, $user_icq, $user_aim, $user_yim, $user_msnm, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $mns) = sql_fetch_row($result);
+    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
+    list($uid, $name, $femail, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $mns) = sql_fetch_row($result);
     if (!$uid) {
        header ("location: index.php");
     }
@@ -365,6 +362,7 @@ function userinfo($uname) {
     include_once("functions.php");
 
     if ($uname == $cookie[1]) {
+    $cl_act='active';
       echo '
       <h2>'.translate("User").'</h2>
       <h3>'.$uname.', '.translate("Welcome to").' '.$sitename.'</h3>
@@ -375,10 +373,6 @@ function userinfo($uname) {
     $name=stripslashes(removeHack($name));
     $url=removeHack($url);
     $bio=stripslashes(removeHack($bio));
-    $user_icq=stripslashes(removeHack($user_icq));
-    $user_aim=stripslashes(removeHack($user_aim));
-    $user_yim=stripslashes(removeHack($user_yim));
-    $user_msnm=stripslashes(removeHack($user_msnm));
     $user_from=stripslashes(removeHack($user_from));
     $user_occ=stripslashes(removeHack($user_occ));
     $user_intrest=stripslashes(removeHack($user_intrest));
@@ -407,7 +401,7 @@ function userinfo($uname) {
       </div>
       <div class="card-block">
          <h3 class="card-title">'.$name.' <span class="text-muted">alias</span> '.$uname.'</h3>
-         <p class="card-text">You can contact me @ '.$email.' '.$user_icq.'</p>
+         <p class="card-text">You can contact me @ '.$email.'</p>
          <p class="card-text">Don not forget to visit <a href="'.$url.'" class="oo">my web-site</a>';
    if ($mns) {echo ' OR my <a href="minisite.php?op='.$uname.'" target="_blank">'.translate("Mini-Web site").'</a>';}
    echo '
@@ -466,6 +460,7 @@ function userinfo($uname) {
     }
     echo '</div>';
     include("footer.php");
+    $cl_act='';
 }
 
 function main($user) {
@@ -678,8 +673,8 @@ function update_password ($code, $passwd) {
     }
 }
 
-function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue) {
-    $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax");
+function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue, $skin) {
+    $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax:$skin");
     global $user_cook_duration;
     if ($user_cook_duration<=0) {$user_cook_duration=1;}
     $timeX=time()+(3600*$user_cook_duration);
@@ -721,7 +716,7 @@ function login($uname, $pass) {
                 return;
              }
           }
-          docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
+          docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
        } else {
           if (!$system) {
              $passwd=crypt($pass,$dbpass);
@@ -729,7 +724,7 @@ function login($uname, $pass) {
              $passwd=$pass;
           }
           if (strcmp($dbpass,$passwd)==0) {
-             docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
+             docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
           } else {
              Header("Location: user.php?stop=1");
              return;
@@ -751,6 +746,7 @@ function login($uname, $pass) {
 function edituser() {
     global $NPDS_Prefix;
     global $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
+    $cl_act='active';
     include("header.php");
     $userinfo=getusrinfo($user);
     nav($userinfo['mns']);
@@ -760,10 +756,10 @@ function edituser() {
     list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
     showimage();
     include ("modules/sform/extend-user/mod_extend-user.php");
-    
+    $cl_act='';
     include("footer.php");
 }
-function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $attach, $usend_email, $uis_visible,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar) {
+function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar) {
     global $NPDS_Prefix;
     global $user, $userinfo, $system, $minpass;
     $cookie=cookiedecode($user);
@@ -854,14 +850,14 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                  cookiedecode($user);
                  if (!$system)
                     $pass=crypt($pass,$pass);
-                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', pass='$pass', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_icq='".removeHack($user_icq)."', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_aim='".removeHack($user_aim)."', user_yim='".removeHack($user_yim)."', user_msnm='".removeHack($user_msnm)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
+                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', pass='$pass', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
                  $result = sql_query("SELECT uid, uname, pass, storynum, umode, uorder, thold, noscore, ublockon, theme FROM ".$NPDS_Prefix."users WHERE uname='$uname' AND pass='$pass'");
                  if (sql_num_rows($result)==1) {
                     $userinfo = sql_fetch_assoc($result);
-                    docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "");
+                    docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "",$skin);
                  }
               } else {
-                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_icq='".removeHack($user_icq)."', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_aim='".removeHack($user_aim)."', user_yim='".removeHack($user_yim)."', user_msnm='".removeHack($user_msnm)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
+                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
               }
               sql_query("UPDATE ".$NPDS_Prefix."users_status SET attachsig='$t' WHERE uid='$uid'");
               $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."users_extend WHERE uid='$uid'");
@@ -887,6 +883,7 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
 function edithome() {
    global $user, $Default_Theme;
    include ("header.php");
+   $cl_act='active';
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
    if ($userinfo['theme']=='') {
@@ -932,6 +929,7 @@ function edithome() {
          </div>
       </div>
    </form>';
+   $cl_act='';
    include ("footer.php");
 }
 function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
@@ -946,7 +944,7 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
         $ublock = FixQuotes($ublock);
         sql_query("update ".$NPDS_Prefix."users set storynum='$storynum', ublockon='$ublockon', ublock='$ublock' where uid='$uid'");
         $userinfo=getusrinfo($user);
-        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "");
+        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "",$skin);
         // Include cache manager for purge cache Page
         $cache_obj = new cacheManager();
         $cache_obj->UsercacheCleanup();
@@ -960,65 +958,102 @@ function chgtheme() {
    global $user;
    include ("header.php");
    $userinfo=getusrinfo($user);
+   $cl_act='active';
    nav($userinfo['mns']);
    echo '
    <h2>'.translate("Change Theme").'</h2>
    <form class="" role="form" action="user.php" method="post">
-   <div class="form-group row">
-      <div class="col-lg-5">
-         <label class="control-label" for="theme">'.translate("Select One Theme").'</label>
+      <div class="form-group row">
+         <label class="control-label col-lg-5" for="theme">'.translate("Select One Theme").'</label>
+         <div class="col-lg-7">
+            <select class="c-select form-control" name="theme">';
+   include("themes/list.php");
+   $themelist = explode(' ', $themelist);
+   $thl= sizeof($themelist);
+   for ($i=0; $i < $thl; $i++) {
+      if ($themelist[$i]!='') {
+         echo '
+               <option value="'.$themelist[$i].'" ';
+         if ((($userinfo['theme']=='') && ($themelist[$i]==$Default_Theme)) || ($userinfo['theme']==$themelist[$i])) echo 'selected="selected"';
+         echo '>'.$themelist[$i].'</option>';
+      }
+   }
+   if ($userinfo['theme']=='') $userinfo['theme'] = 'Default_Theme';
+   echo '
+            </select>';
+            echo '
+            <p class="help-block">
+               <span>'.translate("This option will change the look for the whole site.").'</span> 
+               <span>'.translate("The changes will be valid only to you.").'</span> 
+               <span>'.translate("Each user can view the site with different theme.").'</span>
+            </p>
+         </div>
+      </div>';
+      
+   $skinable = substr($userinfo['theme'], -3);
+      
+      
+      
+
+   $handle=opendir('themes/_skins');
+   while (false!==($file = readdir($handle))) {
+      if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
+         $skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $depotskin.$file.'/thumbnail','preview'=> $depotskin.$file.'/','css'=> $depotskin.$file.'/bootstrap.css','cssMin'=> $depotskin.$file.'/bootstrap.min.css','cssxtra'=> $depotskin.$file.'/extra.css','scss'=> $depotskin.$file.'/_bootswatch.scss','scssVariables'=> $depotskin.$file.'/_variables.scss');
+      }
+   }
+   closedir($handle);
+
+      echo '
+      <div class="form-group row">
+         <label class="control-label col-lg-5" for="skin">'.translate("Select one skin").'</label>
+         <div class="col-lg-7">
+            <select class="c-select form-control" name="skin">';
+   $cookie=cookiedecode($user);
+   foreach ($skins as $k => $v) {
+      echo '
+               <option value="'.$skins[$k]['name'].'" ';
+      if ($skins[$k]['name'] == $cookie[11]) echo 'selected="selected"';
+      echo '>'.$skins[$k]['name'].'</option>';
+   }
+      echo '
+            </select>
+         </div>
       </div>
-   <div class="col-lg-7">
-      <select class="c-select form-control" name="theme">';
-    include("themes/list.php");
-    $themelist = explode(" ", $themelist);
-    for ($i=0; $i < sizeof($themelist); $i++) {
-       if ($themelist[$i]!="") {
-          echo "<option value=\"$themelist[$i]\" ";
-          if ((($userinfo['theme']=="") && ($themelist[$i]=="$Default_Theme")) || ($userinfo['theme']==$themelist[$i])) echo "selected=\"selected\"";
-             echo ">$themelist[$i]\n";
-          }
-    }
-    if ($userinfo['theme']=='') $userinfo['theme'] = 'Default_Theme';
-    echo '
-   </select>
-   <p class="help-block">
-      <span>'.translate("This option will change the look for the whole site.").'</span> 
-      <span>'.translate("The changes will be valid only to you.").'</span> 
-      <span>'.translate("Each user can view the site with different theme.").'</span>
-   </p>
-   </div>
-   </div>
-      <div class="form-group">
-         <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
-         <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
-         <input type="hidden" name="op" value="savetheme" />
-         <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+      <div class="form-group row">
+         <div class="col-lg-offset-5 col-lg-7 ">
+            <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
+            <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
+            <input type="hidden" name="op" value="savetheme" />
+            <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+         </div>
       </div>
    </form>';
+   $cl_act='';
     include ("footer.php");
 }
-function savetheme($uid, $theme) {
-    global $NPDS_Prefix;
-    global $user;
-    $cookie=cookiedecode($user);
-    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
-    list($vuid) = sql_fetch_row($result);
-    if ($uid == $vuid) {
-        sql_query("UPDATE ".$NPDS_Prefix."users SET theme='$theme' WHERE uid='$uid'");
-        $userinfo=getusrinfo($user);
-        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "");
-        // Include cache manager for purge cache Page
-        $cache_obj = new cacheManager();
-        $cache_obj->UsercacheCleanup();
-        Header("Location: user.php");
-    } else {
-       Header("Location: index.php");
-    }
+function savetheme($uid, $theme, $skin) {
+   global $NPDS_Prefix, $user;
+   $skinable = substr($theme, -3);
+   if($skinable!=='_sk') $skin='';
+   $cookie=cookiedecode($user);
+   $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
+   list($vuid) = sql_fetch_row($result);
+   if ($uid == $vuid) {
+      sql_query("UPDATE ".$NPDS_Prefix."users SET theme='$theme' WHERE uid='$uid'");
+      $userinfo=getusrinfo($user);
+      docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "",$skin);
+      // Include cache manager for purge cache Page
+      $cache_obj = new cacheManager();
+      $cache_obj->UsercacheCleanup();
+      Header("Location: user.php");
+   } else {
+      Header("Location: index.php");
+   }
 }
 
 function editjournal(){
    global $user;
+   $cl_act='active';
    include("header.php");
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
@@ -1049,7 +1084,7 @@ function editjournal(){
          </div>
       </div>
    </form>';
-
+    $cl_act='';
    include("footer.php");
 }
 
@@ -1063,7 +1098,7 @@ function savejournal($uid, $journal, $datetime){
        $journal = removeHack(stripslashes(FixQuotes($journal)));
        if ($datetime) {
           $journalentry = $journal;
-          $journalentry .= "<br /><br />";
+          $journalentry .= '<br /><br />';
           global $gmt;
           $journalentry .= date(translate("dateinternal"),time()+($gmt*3600));
           sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journalentry' WHERE uid='$uid'");
@@ -1086,10 +1121,10 @@ switch ($op) {
          // CheckBox
          settype($user_viewemail,'integer');
          settype($user_lnl,'integer');
-         confirmNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
+         confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
          break;
     case "finish":
-         finishNewUser($uname, $name, $email, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $pass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
+         finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
          break;
     case "forgetpassword":
          ForgetPassword();
@@ -1149,7 +1184,7 @@ switch ($op) {
             settype($uis_visible,'integer');
             settype($user_lnl,'integer');
             settype($raz_avatar,'integer');
-            saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_icq, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $user_aim, $user_yim, $user_msnm, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
+            saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
          } else {
             Header("Location: user.php");
          }
@@ -1165,7 +1200,6 @@ switch ($op) {
          settype($ublockon,'integer');
          savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock);
          break;
-
     case "chgtheme":
          if ($user)
             chgtheme();
@@ -1173,9 +1207,8 @@ switch ($op) {
             Header("Location: index.php");
          break;
     case "savetheme":
-         savetheme($uid, $theme);
+         savetheme($uid, $theme,$skin);
          break;
-
     case "editjournal":
          if ($user)
             editjournal();
@@ -1186,7 +1219,6 @@ switch ($op) {
          settype($datetime,'integer');
          savejournal($uid, $journal, $datetime);
          break;
-
     case "only_newuser":
          global $CloseRegUser;
          if ($CloseRegUser==0) {
@@ -1198,7 +1230,6 @@ switch ($op) {
             include("footer.php");
          }
          break;
-
     default:
          if (!AutoReg()) { unset($user); }
          main($user);

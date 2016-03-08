@@ -127,32 +127,7 @@ echo '<div class="card-block">';
                if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/www_icon.gif";}
                echo "&nbsp;&nbsp;<a href=\"".$posterdata['url']."\" target=\"_blank\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />www</a>";
             }
-
-            if (!$short_user) {
-               if ($posterdata["user_icq"]!="") {
-                  if ($ibid=theme_image("forum/icons/icq_on.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/icq_on.gif";}
-                  echo "&nbsp;&nbsp;<a href=\"http://wwp.mirabilis.com/".$posterdata['icq']."\" target=\"_blank\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\"\" alt=\"\" />icq</a>";
-               }
-
-               if ($posterdata["user_aim"]!="") {
-                  if ($ibid=theme_image("forum/icons/aim.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/aim.gif";}
-                  echo "&nbsp;&nbsp;<a href=\"aim:goim?screenname=".$posterdata['user_aim']."&amp;message=Hi+".$posterdata['user_aim'].".+Are+you+there?\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />aim</a>";
-               }
-
-               if ($posterdata["user_yim"]!="") {
-                  if ($ibid=theme_image("forum/icons/yim.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/yim.gif";}
-                  echo "&nbsp;&nbsp;<a href=\"http://edit.yahoo.com/config/send_webmesg?.target=".$posterdata['user_yim']."&amp;.src=pg\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" /></a>";
-               }
-
-               if ($posterdata["user_msnm"] != '') {
-                  if ($ibid=theme_image("forum/icons/msnm.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/msnm.gif";}
-                  echo "&nbsp;&nbsp;<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" /></a>";
-               }
-            }
          }
-         echo '';
-
-         echo '';
          $previous = $start-1;
          $next = $start+1;
          if ($type=='outbox') {

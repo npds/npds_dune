@@ -222,17 +222,6 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
       }
 /*
       if (!$short_user) {
-         if ($posterdata['user_icq']!="")
-            echo "&nbsp;&nbsp;<a href=\"http://wwp.mirabilis.com/".$posterdata['icq']."\" target=\"_blank\" class=\"noir\"><img src=\"$imgtmpIC\" border=\"0\"\" alt=\"\" />&nbsp;<span style=\"font-size: 10px;\">icq</span></a>";
-
-         if ($posterdata['user_aim']!="")
-            echo "&nbsp;&nbsp;<a href=\"aim:goim?screenname=".$posterdata['user_aim']."&amp;message=Hi+".$posterdata['user_aim'].".+Are+you+there?\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmpAI\" border=\"0\" alt=\"\" />&nbsp;<span style=\"font-size: 10px;\">aim</span></a>";
-
-         if ($posterdata['user_yim']!="")
-            echo "&nbsp;&nbsp;<a href=\"http://edit.yahoo.com/config/send_webmesg?.target=".$posterdata['user_yim']."&amp;.src=pg\" target=\"_blank\"><img src=\"$imgtmpYI\" border=\"0\" alt=\"\" /></a>";
-
-         if ($posterdata['user_msnm'] != '')
-            echo "&nbsp;&nbsp;<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" target=\"_blank\"><img src=\"$imgtmpMS\" border=\"0\" alt=\"\" /></a>";
       }
       
 */

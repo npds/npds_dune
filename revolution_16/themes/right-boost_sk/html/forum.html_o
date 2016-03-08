@@ -1,0 +1,24 @@
+<h2>Travaux Revolution 16</h2>
+   forum_subscribeON() 
+   <table id="lesforums" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <thead>
+         <tr>
+            <th data-valign="middle" colspan="2" width="45%">&nbsp;</th>
+            forum_bouton_subscribe() 
+            <th data-valign="middle" align="center" width="15%" style="text-align: center;">[transl]Type[/transl]</th>
+            <th data-valign="middle" align="center" width="10%" style="text-align: center;">[transl]Topics[/transl]</th>
+            <th data-valign="middle" align="center" width="5%" style="text-align: center;">[english]NB[/english][french]NB[/french]</th>
+            <th data-valign="middle" align="center" width="15%" style="text-align: center;">[transl]Last Posts[/transl]</th>
+         </tr>
+      </thead>
+      <tbody>
+         forum_all()
+      </tbody>
+   </table>
+   forum_subscribeOFF()
+<br />
+<div id="forum_message">forum_message()</div>
+<br />
+<div id="forum_recherche">forum_recherche()</div>
+<br />
+<div id="forum_icones">forum_icones()</div>  

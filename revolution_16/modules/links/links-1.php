@@ -139,7 +139,8 @@ function AddLink() {
     }
     echo '
    </div>';
-    adminfoot('fv','','','');
+   include("footer.php");
+//    adminfoot('fv','','','aa');
 }
 
 function Add($title, $url, $name, $cat, $description, $email, $topicL, $asb_question, $asb_reponse) {
