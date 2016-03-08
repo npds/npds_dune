@@ -756,8 +756,8 @@ CREATE TABLE posts (
   KEY post_aff (post_aff)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
-INSERT INTO posts VALUES (1, 0, 'icon4.gif', 1, 1, 2, 'Demo', '2011-10-26 17:00', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (2, 0, 'icon8.gif', 1, 1, 2, 'R&eacute;ponse', '2012-03-05 22:36', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (1, 0, '1F577.png', 1, 1, 2, 'Demo', '2011-10-26 17:00', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (2, 0, '1F310.png', 1, 1, 2, 'R&eacute;ponse', '2012-03-05 22:36', '1.1.76.115', '', 1);
 INSERT INTO posts VALUES (3, 0, 'icon1.gif', 2, 2, 1, 'Message 1', '2013-05-14 22:54', '1.1.76.115', '', 1);
 INSERT INTO posts VALUES (4, 3, 'icon1.gif', 2, 2, 1, 'R&eacute;ponse au Message 1', '2003-05-14 22:54', '1.1.76.115', '', 1);
 INSERT INTO posts VALUES (5, 4, 'icon1.gif', 2, 2, 1, 'R&eacute;ponse &agrave; la r&eacute;ponse du Message 1', '2013-05-14 22:55', '1.1.76.115', '', 1);
