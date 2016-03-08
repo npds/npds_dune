@@ -33,7 +33,7 @@ INSERT INTO appli_log VALUES (1, 'Poll', 2, '2012-07-15 13:35:32', 1, '2', '1.1.
 
 CREATE TABLE authors (
   aid varchar(30) NOT NULL DEFAULT '',
-  `name` varchar(50) DEFAULT NULL,
+  name varchar(50) DEFAULT NULL,
   url varchar(60) DEFAULT NULL,
   email varchar(60) DEFAULT NULL,
   pwd varchar(40) DEFAULT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE autonews (
   catid int(11) NOT NULL DEFAULT '0',
   aid varchar(30) NOT NULL DEFAULT '',
   title varchar(255) DEFAULT NULL,
-  `time` varchar(19) NOT NULL DEFAULT '',
+  time varchar(19) NOT NULL DEFAULT '',
   hometext text NOT NULL,
   bodytext mediumtext,
   topic int(3) NOT NULL DEFAULT '1',
@@ -71,13 +71,13 @@ CREATE TABLE banner (
   imageurl varchar(200) NOT NULL DEFAULT '',
   clickurl varchar(200) NOT NULL DEFAULT '',
   userlevel int(1) NOT NULL DEFAULT '0',
-  `date` datetime DEFAULT NULL,
+  date datetime DEFAULT NULL,
   PRIMARY KEY (bid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 CREATE TABLE bannerclient (
   cid int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) NOT NULL DEFAULT '',
+  name varchar(60) NOT NULL DEFAULT '',
   contact varchar(60) NOT NULL DEFAULT '',
   email varchar(60) NOT NULL DEFAULT '',
   login varchar(10) NOT NULL DEFAULT '',
@@ -108,10 +108,10 @@ CREATE TABLE chatbox (
   username text,
   ip varchar(20) NOT NULL DEFAULT '',
   message text,
-  `date` int(15) NOT NULL DEFAULT '0',
+  date int(15) NOT NULL DEFAULT '0',
   id int(10) DEFAULT '0',
   dbname tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`date`)
+  PRIMARY KEY (date)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE compatsujet (
@@ -142,7 +142,7 @@ INSERT INTO config VALUES (1, 1, 1, 10, 10, 10, 0, 0, 'forum_attachments', NULL,
 
 CREATE TABLE counter (
   id_stat int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(80) NOT NULL DEFAULT '',
+  type varchar(80) NOT NULL DEFAULT '',
   var varchar(80) NOT NULL DEFAULT '',
   count int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id_stat)
@@ -352,12 +352,12 @@ CREATE TABLE forum_read (
   topicid int(3) NOT NULL DEFAULT '0',
   uid int(11) NOT NULL DEFAULT '0',
   last_read int(15) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  status tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (rid),
   KEY topicid (topicid),
   KEY forum_id (forum_id),
   KEY uid (uid),
-  KEY forum_read_mcl (forum_id,uid,topicid,`status`)
+  KEY forum_read_mcl (forum_id,uid,topicid,status)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 INSERT INTO forum_read VALUES (1, 2, 2, 2, 1383416155, 1);
@@ -380,7 +380,7 @@ CREATE TABLE headlines (
   sitename varchar(30) NOT NULL DEFAULT '',
   url varchar(100) NOT NULL DEFAULT '',
   headlinesurl varchar(200) NOT NULL DEFAULT '',
-  `status` tinyint(1) NOT NULL DEFAULT '0',
+  status tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (hid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
@@ -395,7 +395,7 @@ CREATE TABLE lblocks (
   content text,
   member varchar(60) NOT NULL DEFAULT '0',
   Lindex tinyint(4) NOT NULL DEFAULT '0',
-  `cache` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  cache mediumint(8) unsigned NOT NULL DEFAULT '0',
   actif smallint(5) unsigned NOT NULL DEFAULT '1',
   css tinyint(1) NOT NULL DEFAULT '0',
   aide mediumtext,
@@ -440,8 +440,8 @@ CREATE TABLE links_links (
   title varchar(100) NOT NULL DEFAULT '',
   url varchar(100) NOT NULL DEFAULT '',
   description text NOT NULL,
-  `date` datetime DEFAULT NULL,
-  `name` varchar(60) NOT NULL DEFAULT '',
+  date datetime DEFAULT NULL,
+  name varchar(60) NOT NULL DEFAULT '',
   email varchar(60) NOT NULL DEFAULT '',
   hits int(11) NOT NULL DEFAULT '0',
   submitter varchar(60) NOT NULL DEFAULT '',
@@ -473,7 +473,7 @@ CREATE TABLE links_newlink (
   title varchar(100) NOT NULL DEFAULT '',
   url varchar(100) NOT NULL DEFAULT '',
   description text NOT NULL,
-  `name` varchar(60) NOT NULL DEFAULT '',
+  name varchar(60) NOT NULL DEFAULT '',
   email varchar(60) NOT NULL DEFAULT '',
   submitter varchar(60) NOT NULL DEFAULT '',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
@@ -490,25 +490,25 @@ CREATE TABLE links_subcategories (
 CREATE TABLE lnl_body (
   ref int(11) NOT NULL AUTO_INCREMENT,
   html char(1) NOT NULL DEFAULT '1',
-  `text` text,
-  `status` char(3) NOT NULL DEFAULT 'stb',
+  text text,
+  status char(3) NOT NULL DEFAULT 'stb',
   PRIMARY KEY (ref)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 CREATE TABLE lnl_head_foot (
   ref int(11) NOT NULL AUTO_INCREMENT,
-  `type` char(3) NOT NULL DEFAULT '',
+  type char(3) NOT NULL DEFAULT '',
   html char(1) NOT NULL DEFAULT '1',
-  `text` text,
-  `status` char(3) NOT NULL DEFAULT 'OK',
+  text text,
+  status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 CREATE TABLE lnl_outside_users (
   email varchar(60) NOT NULL DEFAULT '',
   host_name varchar(60) DEFAULT NULL,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `status` char(3) NOT NULL DEFAULT 'OK',
+  date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (email)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -519,8 +519,8 @@ CREATE TABLE lnl_send (
   footer int(11) NOT NULL DEFAULT '0',
   number_send int(11) NOT NULL DEFAULT '0',
   type_send char(3) NOT NULL DEFAULT 'ALL',
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `status` char(3) NOT NULL DEFAULT 'OK',
+  date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
@@ -731,7 +731,7 @@ INSERT INTO poll_data VALUES (2, 'Super', 0, 1, 0);
 CREATE TABLE poll_desc (
   pollID int(11) NOT NULL AUTO_INCREMENT,
   pollTitle char(100) NOT NULL DEFAULT '',
-  `timeStamp` int(11) NOT NULL DEFAULT '0',
+  timeStamp int(11) NOT NULL DEFAULT '0',
   voters mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (pollID)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
@@ -767,7 +767,7 @@ INSERT INTO posts VALUES (7, 0, '         ', 2, -2, 2, 'Bien, bien et m&ecirc;me
 CREATE TABLE priv_msgs (
   msg_id int(10) NOT NULL AUTO_INCREMENT,
   msg_image varchar(100) DEFAULT NULL,
-  `subject` varchar(100) DEFAULT NULL,
+  subject varchar(100) DEFAULT NULL,
   from_userid int(10) NOT NULL DEFAULT '0',
   to_userid int(10) NOT NULL DEFAULT '0',
   msg_time varchar(20) DEFAULT NULL,
@@ -782,17 +782,17 @@ CREATE TABLE priv_msgs (
 CREATE TABLE publisujet (
   aid varchar(30) NOT NULL DEFAULT '',
   secid2 int(30) NOT NULL DEFAULT '0',
-  `type` int(1) NOT NULL DEFAULT '0'
+  type int(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE queue (
   qid smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(9) NOT NULL DEFAULT '0',
   uname varchar(40) NOT NULL DEFAULT '',
-  `subject` varchar(255) NOT NULL DEFAULT '',
+  subject varchar(255) NOT NULL DEFAULT '',
   story text,
   bodytext mediumtext,
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  timestamp datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   topic varchar(20) NOT NULL DEFAULT 'Linux',
   date_debval datetime DEFAULT NULL,
   date_finval datetime DEFAULT NULL,
@@ -806,7 +806,7 @@ CREATE TABLE rblocks (
   content text,
   member varchar(60) NOT NULL DEFAULT '0',
   Rindex tinyint(4) NOT NULL DEFAULT '0',
-  `cache` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  cache mediumint(8) unsigned NOT NULL DEFAULT '0',
   actif smallint(5) unsigned NOT NULL DEFAULT '1',
   css tinyint(1) NOT NULL DEFAULT '0',
   aide mediumtext,
@@ -831,16 +831,16 @@ CREATE TABLE referer (
 CREATE TABLE related (
   rid int(11) NOT NULL AUTO_INCREMENT,
   tid int(11) NOT NULL DEFAULT '0',
-  `name` varchar(30) NOT NULL DEFAULT '',
+  name varchar(30) NOT NULL DEFAULT '',
   url varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (rid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 CREATE TABLE reviews (
   id int(10) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL DEFAULT '0000-00-00',
+  date date NOT NULL DEFAULT '0000-00-00',
   title varchar(150) NOT NULL DEFAULT '',
-  `text` text NOT NULL,
+  text text NOT NULL,
   reviewer varchar(20) DEFAULT NULL,
   email varchar(60) DEFAULT NULL,
   score int(10) NOT NULL DEFAULT '0',
@@ -853,9 +853,9 @@ CREATE TABLE reviews (
 
 CREATE TABLE reviews_add (
   id int(10) NOT NULL AUTO_INCREMENT,
-  `date` date DEFAULT NULL,
+  date date DEFAULT NULL,
   title varchar(150) NOT NULL DEFAULT '',
-  `text` text NOT NULL,
+  text text NOT NULL,
   reviewer varchar(20) NOT NULL DEFAULT '',
   email varchar(60) NOT NULL DEFAULT '',
   score int(10) NOT NULL DEFAULT '0',
@@ -913,7 +913,7 @@ CREATE TABLE seccont (
   crit18 text,
   crit19 text,
   crit20 text,
-  `timestamp` varchar(14) NOT NULL DEFAULT '0',
+  timestamp varchar(14) NOT NULL DEFAULT '0',
   PRIMARY KEY (artid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
@@ -965,15 +965,15 @@ INSERT INTO sections VALUES (1, 'Pages statiques', '', '0', 1, NULL, 0, 0);
 INSERT INTO sections VALUES (2, 'En instance', '', '0', 2, NULL, 0, 0);
 INSERT INTO sections VALUES (3, 'Modifications des th&egrave;mes', '', '', 3, '', 1, 0);
 
-CREATE TABLE `session` (
+CREATE TABLE session (
   username varchar(25) NOT NULL DEFAULT '',
-  `time` varchar(14) NOT NULL DEFAULT '',
+  time varchar(14) NOT NULL DEFAULT '',
   host_addr varchar(20) NOT NULL DEFAULT '',
   guest int(1) NOT NULL DEFAULT '0',
   uri varchar(255) NOT NULL DEFAULT '',
   agent varchar(255) DEFAULT NULL,
   KEY username (username),
-  KEY `time` (`time`),
+  KEY time (time),
   KEY guest (guest)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -994,7 +994,7 @@ CREATE TABLE stories (
   catid int(11) NOT NULL DEFAULT '0',
   aid varchar(30) NOT NULL DEFAULT '',
   title varchar(255) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
+  time datetime DEFAULT NULL,
   hometext mediumtext,
   bodytext mediumtext,
   comments int(11) DEFAULT '0',
@@ -1112,8 +1112,8 @@ CREATE TABLE users_status (
   posts int(10) DEFAULT '0',
   attachsig int(2) DEFAULT '0',
   rank int(10) DEFAULT '0',
-  `level` int(10) DEFAULT '1',
-  `open` tinyint(1) NOT NULL DEFAULT '1',
+  level int(10) DEFAULT '1',
+  open tinyint(1) NOT NULL DEFAULT '1',
   groupe varchar(34) DEFAULT NULL,
   PRIMARY KEY (uid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
@@ -1123,7 +1123,7 @@ INSERT INTO users_status VALUES (2, 3, 0, 0, 2, 1, '');
 
 CREATE TABLE wspad (
   ws_id int(11) NOT NULL AUTO_INCREMENT,
-  `page` varchar(255) NOT NULL DEFAULT '',
+  page varchar(255) NOT NULL DEFAULT '',
   content mediumtext NOT NULL,
   modtime int(15) NOT NULL,
   editedby varchar(40) NOT NULL DEFAULT '',
@@ -1131,5 +1131,5 @@ CREATE TABLE wspad (
   member int(11) NOT NULL DEFAULT '1',
   verrou varchar(60) DEFAULT NULL,
   PRIMARY KEY (ws_id),
-  KEY `page` (`page`)
+  KEY page (page)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
