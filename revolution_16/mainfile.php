@@ -2237,51 +2237,22 @@ function adminblock() {
       } 
    }
    
-       $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
-       list($title, $content) = sql_fetch_row($result);
-       global $block_title;
-       if ($title=='') $title=$block_title;
-       else $title=aff_langue($title);
-       $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));//php7
-       $content .= '
-       <ul id="adm_block">
-          '.$bloc_foncts_A.'
-           <li><a href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK">'.translate("Clear Chat DB").'</a></li>
-       </ul>
-       <ul>
-          <li><small class="text-muted"><i class="fa fa-user fa-2x"></i> '.$aid.'</small></li>
-       </ul>';
-
-       /*
-       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."queue");
-       $num = sql_num_rows($result);
-       $content .= "<li><a href=\"admin.php?op=submissions\">".translate("Submissions")."</a> : <span class=\"titboxcont\">$num</span></li>\n";
-       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add");
-       $num = sql_num_rows($result);
-       $content .= "<li><a href=\"admin.php?op=reviews\">".translate("Waiting Reviews")."</a> : <span class=\"titboxcont\">$num</span></li>\n";
-       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink=1");
-       $totalbrokenlinks = sql_num_rows($result);
-       $result2 = sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink=0");
-       $totalmodrequests = sql_num_rows($result2);
-       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."links_newlink");
-       $num = sql_num_rows($result);
-       $content.= "<li><a href=\"admin.php?op=links\">".translate("Waiting Links")."</a> : <span class=\"titboxcont\">$num / $totalbrokenlinks / $totalmodrequests</span></li>\n</ul>\n";
-       $content.= "<ul>\n<li><a href=\"powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK\">".translate("Clear Chat DB")."</a></li>\n</ul>\n";
-       // Jireck 11-2007
-       $modu=false;
-       $handle=opendir("modules");
-       while (false!==($file=readdir($handle))) {
-          if ((is_dir("modules/$file")) and file_exists("modules/$file/admin/admblock.php")) {
-             if ($modu==false)
-                $content.="<hr noshade=\"noshade\" width=\"90%\" class=\"ongl\" />";
-             include("modules/$file/admin/admblock.php");
-             $modu=true;
-          }
-       }
-       closedir($handle);
-       */
-       themesidebox($title, $content);
-    }
+   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
+   list($title, $content) = sql_fetch_row($result);
+   global $block_title;
+   if ($title=='') $title=$block_title;
+   else $title=aff_langue($title);
+   $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));//php7
+   $content .= '
+      <ul id="adm_block">
+      '.$bloc_foncts_A.'
+         <li class="alerte btn btn-secondary" title="'.translate("Clear Chat DB").'" data-toggle="tooltip"><a class="adm-img" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png"/>&nbsp;<span class="alerte-para label label-pill label-danger">X</span></a></li>
+      </ul>
+      <ul>
+         <li><small class="text-muted"><i class="fa fa-user fa-2x"></i> '.$aid.'</small></li>
+      </ul>';
+   themesidebox($title, $content);
+   }
 }
 #autodoc ephemblock() : Bloc ephemerid <br />=> syntaxe : function#ephemblock
 function ephemblock() {
