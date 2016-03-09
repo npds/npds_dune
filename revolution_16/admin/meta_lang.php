@@ -112,7 +112,7 @@ function List_Meta_Lang() {
       }
       else {
          $tablmeta_c.= '
-         <td>'.split_string_without_space(aff_langue($description),29).'</td>';
+         <td class="cut">'.split_string_without_space(aff_langue($description),29).'</td>';
       }
       $tablmeta_c.='
       </tr>';

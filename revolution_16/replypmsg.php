@@ -191,8 +191,8 @@ include('auth.php');
          include("meta/meta.php");
          echo import_css($tmp_theme, $language, $site_font, '','');
          echo '
-         </head>
-         <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">';
+   </head>
+   <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">';
       } else {
          include('header.php');
       }
@@ -232,7 +232,7 @@ include('auth.php');
             $Xmessage=$message=StripSlashes($message);
             if ($allow_html == 0 || isset($html)) $Xmessage = htmlspecialchars($Xmessage,ENT_COMPAT|ENT_HTML401,cur_charset);
             if ($sig) {
-               $Xmessage .= "<br /><br />".$userdata['user_sig'];
+               $Xmessage .= '<br /><br />'.$userdata['user_sig'];
             }
             $Xmessage = aff_code($Xmessage);
             $Xmessage = str_replace("\n", "<br />", $Xmessage);
@@ -242,7 +242,7 @@ include('auth.php');
             }
             $Xmessage = make_clickable($Xmessage);
             echo $Xmessage;
-            echo"<hr noshade=\"noshade\" class=\"ongl\" />";
+            echo '<hr />';
          }
          echo '
          <div class="form-group row">
@@ -268,7 +268,9 @@ include('auth.php');
          if ($copie) {$checked='checked="checked"';} else {$checked='';}
          echo '
          <div class="form-group row">
-            <input type="checkbox" name="copie" '.$checked.' /> '.translate("Send a copy to me").'</label>
+            <div class="col-sm-12">
+               <input type="checkbox" name="copie" '.$checked.' /> '.translate("Send a copy to me").'</label>
+            </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="subject">'.translate("Subject").'</label>
@@ -283,7 +285,7 @@ include('auth.php');
          <div class="form-group row">
             <label class="form-control-label col-sm-12">'.translate("Message Icon: ").'</label>
             <div class="col-sm-12">
-               <div class="card card-block">';
+               <div class="card card-block fond_subject">';
             if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
             $handle=opendir($imgtmp);
             while (false!==($file=readdir($handle))) {
@@ -295,14 +297,14 @@ include('auth.php');
                if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
                settype($image,'string');
                if ($file==$image) {
-                  echo "
-                  <input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
+                  echo '
+                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
                   $a++;
                } else if ($file==$row['msg_image'] && $row['msg_image']!="") {
-                  echo "
-                  <input type=\"radio\" name=\"image\" value=\"$file\" checked=\"checked\" /><img class=\"smil\" src=\"$imgtmp/$file\" border=\"0\" alt=\"\" />&nbsp;";
+                  echo '
+                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="smil" src="'.$imgtmp.'/'.$file.'"  alt="" />&nbsp;';
                } else {
-                  if ($a==1 && $row['msg_image']=="") {
+                  if ($a==1 && $row['msg_image']=='') {
                      $sel='checked="checked"';
                   } else {
                      $sel='';
@@ -344,13 +346,16 @@ include('auth.php');
                if ($row['msg_time']!="" && $row['uname']!="") {
                   $Xreply = $row['msg_time'].", ".$row['uname']." ".translate("wrote:")."\n$text\n";
                } else {
-                  $Xreply = "$text\n";
+                  $Xreply = $text;
                }
-               $Xreply = "<div class=\"quote\">\n".$Xreply."</div>";
+               $Xreply = '
+               <div class="blockquote">
+               '.$Xreply.'
+               </div>';
             } else {
                $Xreply = translate("Could not connect to the forums database.")."\n";
             }
-         } elseif ($message!="") {
+         } elseif ($message!='') {
             $Xreply = $message;
          }
          if ($allow_bbcode)
@@ -371,7 +376,7 @@ include('auth.php');
       <div class="form-group row">
          <label class="form-control-label col-sm-3">'.translate("Options: ").'</label>';
          if ($allow_html==1) {
-            if ($html) {$checked="checked";} else {$checked="";}
+            if ($html) {$checked='checked="checked"';} else {$checked='';}
             echo '
          <div class="col-sm-9">
             <div class="checkbox">
@@ -387,7 +392,7 @@ include('auth.php');
             if ($attachsig == 1) {
                $s = "checked";
             }
-            if ($sig) {$checked='checked="checked"';} else {$checked="";}
+            if ($sig) {$checked='checked="checked"';} else {$checked='';}
             echo '
             <div class="checkbox">
                <label class="">
