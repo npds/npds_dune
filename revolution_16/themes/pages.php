@@ -310,9 +310,4 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 // Filtre sur l'URI
 // $PAGES['forum=1']['title']="forum.php";
 // $PAGES['forum=1']['run']="user";
-
-$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['title']="[french]Galeries[/french][english]Galery[/english][spanish]Galery[/spanish][german]Galery[/german][chinese]Galery[/chinese]";
-$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['run']="yes";
-$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['blocs']="0";
-
 ?>
