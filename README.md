@@ -1,6 +1,6 @@
 # npds_dune
 REvolution 16
-Labo of the next version of [NPDS](http://www.npds.org) CMS.
+The next version of [NPDS](http://www.npds.org) CMS.
 
 - nouvelle administration
 - utilisation framework Bootstrap 4.0.0 alpha.2
