@@ -26,9 +26,9 @@ function MNSremoveHack($Xstring) {
    }
 
    $npds_forbidden_words=array(
-     // NCRs 2 premières séquence = NCR (dec|hexa) correspondant aux caractères latin de la table ascii (code ascii entre 33 et 126)
-     //      2 dernières séquences = NCR (dec|hexa) correspondant aux caractères latin du bloc unicode Halfwidth and Fullwidth Forms.
-     //        Leur signification est identique ˆ celle des caractres latin de la table ascii dont le code ascii est entre 33 et 126.
+     // NCRs 2 premiÃ¨res sÃ©quence = NCR (dec|hexa) correspondant aux caractÃ¨res latin de la table ascii (code ascii entre 33 et 126)
+     //      2 derniÃ¨res sÃ©quences = NCR (dec|hexa) correspondant aux caractÃ¨res latin du bloc unicode Halfwidth and Fullwidth Forms.
+     //        Leur signification est identique Ë† celle des caractÂres latin de la table ascii dont le code ascii est entre 33 et 126.
      // JPB for NPDS 2005
      "'&#(33|x21|65281|xFF01);'i"=>chr(33),
      "'&#(34|x22|65282|xFF02);'i"=>chr(34),
@@ -257,7 +257,7 @@ function convert_ressources ($Xcontent) {
 }
 
    // NPDS copyright ... don't remove !
-   $copyright= '&nbsp;'.$sitename.'&nbsp;NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a></p>';
+   $copyright= '&nbsp;'.$sitename.'&nbsp;NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a>';
 
    // Troll Control for security
    $affich=false;
@@ -306,10 +306,10 @@ function convert_ressources ($Xcontent) {
          $nuke_url=$nuke_url.'/minisite.php?op='.$op;
          include("meta/meta.php");
          echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
-      // chargement sauvage lol ˆ voir
+      // chargement sauvage lol Ë† voir
          echo '
          <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
-         <script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.min.js"></script>
+         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
          ';
          echo "<style type=\"text/css\"> \n";
             readfile($dir."style.css");
