@@ -1,8 +1,8 @@
 @charset "utf-8";
 
 @import url("lib/font-awesome-4.5.0/css/font-awesome.min.css");
-@import url("lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css");
-@import url("themes/npds-boost/style/ajust.css");
+@import url("lib/bootstrap/dist/css/bootstrap.min.css");
+@import url("themes/npds-boost/style/style.css");
 
 body {
   background: #ffffff;

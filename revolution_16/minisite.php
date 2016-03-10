@@ -257,7 +257,7 @@ function convert_ressources ($Xcontent) {
 }
 
    // NPDS copyright ... don't remove !
-   $copyright= '&nbsp;'.$sitename.'&nbsp;NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a></p>';
+   $copyright= '&nbsp;'.$sitename.'&nbsp;NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a>';
 
    // Troll Control for security
    $affich=false;
@@ -309,7 +309,7 @@ function convert_ressources ($Xcontent) {
       // chargement sauvage lol ˆ voir
          echo '
          <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
-         <script type="text/javascript" src="lib/bootstrap-4.0.0-alpha.2/dist/js/bootstrap.min.js"></script>
+         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
          ';
          echo "<style type=\"text/css\"> \n";
             readfile($dir."style.css");

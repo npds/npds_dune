@@ -1,4 +1,4 @@
-@import "../../../../lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css"; 
+@import "../../../../lib/bootstrap/dist/css/bootstrap.min.css"; 
 .smil {
 width:24px;
 height:24px;
