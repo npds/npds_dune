@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2011 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,9 +16,12 @@ $m->add_title(translate("User"));
 $m->add_mess(translate("* for mandatory field"));
 $m->add_form_field_size(50);
 
-$m->add_field('name', translate("Real Name")." ".translate("(optional)"),$userinfo['name'],'text',false,60,"","");
-$m->add_field('email', translate("Real Email")."<br /><span style=\"font-size: 10px;\">".translate("(This Email will not be public but is required, will be used to send your password if you lost it)")."</span>",$userinfo['email'],'text',true,60,"","");
-$m->add_field('femail',translate("Fake Email")."<br /><span style=\"font-size: 10px;\">".translate("(This Email will be public. Just type what you want, Spam proof)")."</span>",$userinfo['femail'],'text',false,60,"","");
+$m->add_field('name', translate("Real Name").' '.translate("(optional)"),$userinfo['name'],'text',false,60,'','');
+$m->add_field('email', translate("Real Email"),$userinfo['email'],'text',true,60,'','');
+$m->add_extender('email', '','<span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span>');
+$m->add_field('femail',translate("Fake Email"),$userinfo['femail'],'text',false,60,"","");
+$m->add_extender('femail', '','<span class="help-block">'.translate("(This Email will be public. Just type what you want, Spam proof)").'</span>');
+
 if ($userinfo['user_viewemail']) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), 1, false, $checked);
 
@@ -43,8 +46,8 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 // ---- AVATAR
 if ($smilies) {
    if (stristr($userinfo['user_avatar'],"users_private")) {
-      $m->add_field('user_avatar', "<b>".translate("Your Avatar")."</b>", $userinfo['user_avatar'],'show-hidden',false,30,"","");
-      $m->add_extender("user_avatar", "", "<img src=\"".$userinfo['user_avatar']."\" name=\"avatar\" align=\"center\" alt=\"\" />");
+      $m->add_field('user_avatar',translate("Your Avatar"), $userinfo['user_avatar'],'show-hidden',false,30,'','');
+      $m->add_extender('user_avatar', '', '<img src="'.$userinfo['user_avatar'].'" name="avatar" align="center" alt="avatar" />');
    } else {
       global $theme;
       $direktori="images/forum/avatar";
@@ -62,33 +65,31 @@ if ($smilies) {
             $tmp_tempo[$file]['en']=$file;
             if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
       }
-      $m->add_select("user_avatar", "<b>".translate("Your Avatar")."</b>", $tmp_tempo, false, "", false);
-      $m->add_extender("user_avatar", "onkeyup=\"showimage();\" onchange=\"showimage();\"", "&nbsp;&nbsp;<img src=\"".$direktori."/".$userinfo['user_avatar']."\" name=\"avatar\" align=\"top\" title=\"\" />");
+      $m->add_select('user_avatar',translate("Your Avatar"), $tmp_tempo, false, '', false);
+      $m->add_extender('user_avatar', 'onkeyup="showimage();" onchange="showimage();"', '<div class="help-block"><img class="img-thumbnail n-ava" src="'.$direktori.'/'.$userinfo['user_avatar'].'" name="avatar" align="top" title="" /></div>');
    }
 
-   // Permet à l'utilisateur de télécharger un avatar (photo) personnel
-   // - si vous mettez un // devant les deux lignes B1 et raz_avatar cela équivaut à ne pas autoriser cette fonction de NPDS
-   // - le champ B1 est impératif ! La taille maxi du fichier téléchargéable peut-être changée (le dernier paramètre) et est en octets (par exemple 20480 = 20 Ko)
+   // Permet Ã  l'utilisateur de tÃ©lÃ©charger un avatar (photo) personnel
+   // - si vous mettez un // devant les deux lignes B1 et raz_avatar celÃ  Ã©quivaut Ã  ne pas autoriser cette fonction de NPDS
+   // - le champ B1 est impÃ©ratif ! La taille maxi du fichier tÃ©lÃ©chargeable peut-Ãªtre changÃ©e (le dernier paramÃ¨tre) et est en octets (par exemple 20480 = 20 Ko)
    $taille_fichier=8192;
-   if (!$avatar_size) {$avatar_size="80*100";}
-   $m->add_upload('B1', "<span style=\"font-size: 10px;\">taille maximum du fichier d'image :<br />&nbsp;&nbsp;=>&nbsp;<b>$taille_fichier</b> octects et <b>$avatar_size</b> pixels</span>", "30", $taille_fichier);
+   if (!$avatar_size) {$avatar_size='80*100';}
+   $m->add_upload('B1', '', '30', $taille_fichier);
+   $m->add_extender('B1', '', '<span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octects et <strong>'.$avatar_size.'</strong> pixels</span>');
+
+
    $m->add_checkbox('raz_avatar',translate("Re-activate the standard'avatars"), 1, false, false);
+   $m->add_extender('raz_avatar', '', translate("Re-activate the standard'avatars"));
    // ----------------------------------------------------------------------------------------------
 }
 // ---- AVATAR
 
-// ---- SHORT-USER
-if ($short_user=="yes") {
-} else {
-}
-// ---- SHORT-USER
-
-$m->add_field('user_from', translate("Your Location"),$userinfo['user_from'],'text',false,100,"","");
-$m->add_field('user_occ', translate("Your Occupation"),$userinfo['user_occ'],'text',false,100,"","");
-$m->add_field('user_intrest', translate("Your Interest"),$userinfo['user_intrest'],'text',false,150,"","");
+$m->add_field('user_from', translate("Your Location"),$userinfo['user_from'],'text',false,100,'','');
+$m->add_field('user_occ', translate("Your Occupation"),$userinfo['user_occ'],'text',false,100,'','');
+$m->add_field('user_intrest', translate("Your Interest"),$userinfo['user_intrest'],'text',false,150,'','');
 
 // ---- SIGNATURE
-$asig = sql_query("select attachsig from ".$NPDS_Prefix."users_status where uid='".$userinfo['uid']."'");
+$asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='".$userinfo['uid']."'");
 list($attsig) = sql_fetch_row($asig);
 if ($attsig==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',translate("Show signature"), 1, false, $checked);
@@ -97,8 +98,8 @@ $m->add_field('user_sig', translate("Signature")."<br /><span style=\"font-size:
 
 $m->add_field('bio',translate("Extra Info")."<br /><span style=\"font-size: 10px;\">".translate("(255 characters max. Type what others can know about yourself)")."</span>",$userinfo['bio'],'textarea',false,255,7,"","");
 
-$m->add_field('pass', translate("Password"),"",'password',false,40,"","");
-$m->add_field('vpass', translate("Retype Password"),"",'password',false,40,"","");
+$m->add_field('pass', translate("Password"),'','password',false,40,'','');
+$m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
 
 // --- EXTENDER
 if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
@@ -109,12 +110,12 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 // ----------------------------------------------------------------
 // CES CHAMPS sont indispensables --- Don't remove these fields
 // Champ Hidden
-$m->add_field("op","","saveuser",'hidden',false);
-$m->add_field("uname","",$userinfo['uname'],'hidden',false);
-$m->add_field("uid","",$userinfo['uid'],'hidden',false);
-
-$m->add_extra("<br />");
+$m->add_field('op','','saveuser','hidden',false);
+$m->add_field('uname','',$userinfo['uname'],'hidden',false);
+$m->add_field('uid','',$userinfo['uid'],'hidden',false);
 // Submit bouton
-$m->add_field('Submit',"",translate("Submit"),'submit',false);
+$m->add_extra('<div class="form-group row"><div class="col-sm-offset-4 col-sm-8" >');
+$m->add_field('Submit','',translate('Submit'),'submit',false);
+$m->add_extra('</div></div><br />');
 // ----------------------------------------------------------------
 ?>
