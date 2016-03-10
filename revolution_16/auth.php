@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -53,7 +53,7 @@ if ($rowQ1) {
       if (md5($forum_xpass)==$Xpasswd) {
          $Forum_passwd=$forum_xpass;
       } else {
-         setcookie("Forum_Priv[$forum]","",0);
+         setcookie("Forum_Priv[$forum]",'',0);
       }
    } else {
       if (isset($Forum_passwd)) {

@@ -386,7 +386,7 @@ class form_handler {
           <div class="form-group row">';
          $str.="<label class=\"form-control-label col-sm-4 \" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
          $str.=($this->form_fields[$i]['obligation'])? "&nbsp;<span class=\"text-danger\">*</span></label>\n" : "</label>\n";
-         $str.="<div class=\"col-sm-8\">\n";
+         $str.='<div class="col-sm-8 "><div class="">';
          $str.="<input class=\"form-control\" type=\"checkbox\" id=\"".$this->form_fields[$i]['name']."\" name=\"".$this->form_fields[$i]['name']."\"";
          $str.=" value=\"".$this->form_fields[$i]['value']."\"";
          $str.=($this->form_fields[$i]['checked'])? " checked=\"checked\" />" : " />";
@@ -394,7 +394,7 @@ class form_handler {
              $str.=$this->form_fields[$num_extender]['html'];
           }
           $str.='
-            </div>
+            </div></div>
          </div>';
       break;
 
@@ -556,11 +556,10 @@ class form_handler {
 
       case 'upload':
          $str.='
-         <div class="form-group row">
-            <div class="col-sm-4">';
-         $str.="<label class=\"form-control-label\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en']."</label></div>\n";
+         <div class="form-group row">';
+         $str.="<label class=\"form-control-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en']."</label>\n";
+         $str.='<div class="col-sm-8">';
          $str.="<input class=\"form-control\" id=\"".$this->form_fields[$i]['name']."\" type=\"file\" name=\"".$this->form_fields[$i]['name']."\" size=\"".$csize."\" maxlength=\"".$this->form_fields[$i]['size']."\" />";
-         $str.="<div class=\"col-sm-8\">\n";
          $str.="<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"".$this->form_fields[$i]['file_size']."\" />";
           if ($num_extender!="no") {
              $str.=$this->form_fields[$num_extender]['html'];

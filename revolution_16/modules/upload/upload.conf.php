@@ -51,7 +51,11 @@ if (isset($user)) {
 } else {
    $tmp_theme=$Default_Theme;
 }
-$url_upload_css = $racine.'/lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css';
+/*
+pour une css dans le theme courant utiliser :
+$url_upload_css = $racine."/themes/".$tmp_theme."/style/style.css";
+*/
+$url_upload_css = '/lib/bootstrap/dist/css/bootstrap.css';
 
 
 /* -------------- DIVERS -------------- */
