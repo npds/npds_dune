@@ -24,5 +24,5 @@ $m->add_url("user.php");
 /************************************************/
 include($sform_path."extend-user/formulaire.php");
 /************************************************/
-echo $m->print_form("class=\"ligna\"");
+echo $m->print_form('class="ligna"');//voir quel classe 
 ?>
