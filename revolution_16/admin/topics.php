@@ -34,17 +34,17 @@ function topicsmanager() {
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
    <div class="col-sm-12" id="top_'.$topicid.'">
-      <div class="media topi">
+      <div class=" topi">
          <div class="media-left media-middle">';
          if (($topicimage) or ($topicimage!='')) {
-            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:80px" src="'.$tipath.$topicimage.'" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
+            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.$topicimage.'" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
          } else {
-            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:80px" src="'.$tipath.'topics.png" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
+            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.'topics.png" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
          };
          echo '
          </div>
          <div class="media-body">
-            <h4 class="media-heading"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" class="noir">'.aff_langue($topicname).'</a></h4>
+            <h4 class="media-heading"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" >'.aff_langue($topicname).'</a></h4>
             <p>'.aff_langue($topictext).'</p>
          </div>
       </div>
@@ -181,61 +181,59 @@ function topicedit($topicid) {
    <div class="thumbnail"><img class="img-fluid " src="'.$tipath.$topicimage.'" alt="" /></div>';
    }
    echo '
-    <form action="admin.php" method="post">
-    <fieldset>
-        <div class="form-group row">
+   <form action="admin.php" method="post">
+      <fieldset>
+         <div class="form-group row">
             <label class="col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
             <div class="col-sm-8">
-                <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
-                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
+               <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
+               <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
-        </div>
-        <div class="form-group row">
+         </div>
+         <div class="form-group row">
             <label class="col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8">
-                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'">'.$topictext.'</textarea>
-                <span class="help-block">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
+               <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'">'.$topictext.'</textarea>
+               <span class="help-block">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
-        </div>
-        <div class="form-group row">
-        <label class="col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
+         </div>
+         <div class="form-group row">
+            <label class="col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
             <div class="col-sm-8">
-                <input id="topicimage" class="form-control" type="text" name="topicimage" size="21" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
-                <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
+               <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
+               <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
             </div>
-        </div>
-        <div class="form-group row">
+         </div>
+         <div class="form-group row">
             <label class="col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
             <div class="col-sm-8">
                <div class="input-group">
-                     <span class="input-group-btn">
-                       <button class="btn btn-primary"><i class="fa fa-user fa-lg"></i></button>
-                     </span>
-                   <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
+                  <span class="input-group-btn">
+                     <button class="btn btn-primary"><i class="fa fa-user fa-lg"></i></button>
+                  </span>
+                  <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
                </div>
             </div>
-        </div>
-        
-    </fieldset>
-    <fieldset>
-    <hr />
-        <h4>'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
-        <div class="form-group row">
-            <label class="col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
-            <div class="col-sm-8">
-                <input class="form-control" type="text" name="name" id="name" maxlength="30" />
-                <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-4" for="url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="url" name="url" id="url" maxlength="200" placeholder="http://www.valideurl.org" />
-               <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_url"></span></span>
-            </div>
-        </div>
-    </fieldset>
-    
+         </div>
+      </fieldset>
+      <fieldset>
+      <hr />
+      <h4>'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
+      <div class="form-group row">
+      <label class="col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
+      <div class="col-sm-8">
+       <input class="form-control" type="text" name="name" id="name" maxlength="30" />
+       <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
+      </div>
+      </div>
+      <div class="form-group row">
+      <label class="col-sm-4" for="url">'.adm_translate("URL").'</label>
+      <div class="col-sm-8">
+      <input class="form-control" type="url" name="url" id="url" maxlength="200" placeholder="http://www.valideurl.org" />
+      <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_url"></span></span>
+      </div>
+      </div>
+      </fieldset>
       <div class="form-group row">
          <input type="hidden" name="topicid" value="'.$topicid.'" />
          <input type="hidden" name="op" value="topicchange" />
@@ -243,10 +241,19 @@ function topicedit($topicid) {
             <button class="btn btn-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Sauver les modifications").'</button>
             <button class="btn btn-secondary" onclick="javascript:document.location.href=\'admin.php?op=topicsmanager\'">'.adm_translate("Retour en arrière").'</button>
          </div>
-   </div>
-
-   </form>';
-   
+      </div>
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("topicname",20);
+         inpandfieldlen("topictext",250);
+         inpandfieldlen("topicimage",20);
+         inpandfieldlen("name",30);
+         inpandfieldlen("url",200);
+      });
+   //]]>
+   </script>';
 /*
    <form id="fad_deltop" action="admin.php" method="post">
        <input type="hidden" name="topicid" value="'.$topicid.'" />
@@ -255,10 +262,6 @@ function topicedit($topicid) {
   <button class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Effacer le Sujet !").'</button>
 */
    
-   
-   
-   
-
     echo '
     <hr />
     <h3>'.adm_translate("Gérer les Liens Relatifs : ").' '.aff_langue($topictext).'</h3>';
@@ -266,9 +269,9 @@ function topicedit($topicid) {
     echo '
    <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
-         <th data-sortable="true" >'.adm_translate('Nom').'</th>
-         <th data-sortable="true">'.adm_translate('Url').'</th>
-         <th>'.adm_translate('Fonctions').'</th>
+         <th data-sortable="true" data-halign="center">'.adm_translate('Nom').'</th>
+         <th data-sortable="true" data-halign="center">'.adm_translate('Url').'</th>
+         <th data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
       </thead>
       <tbody>
     ';
@@ -322,11 +325,8 @@ function topicedit($topicid) {
             message: "This must be a simple word without space."
          }
       }
-   },
-   ';
-
+   },';
    echo auto_complete_multi('admin','aid','authors','topicadmin','');
-
    adminfoot('fv',$fv_parametres,'','');
 }
 
@@ -370,18 +370,25 @@ function relatededit($tid, $rid) {
                  <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
                </div>
                <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
-       </div>
-       <input type="hidden" name="op" value="relatedsave" />
-       <input type="hidden" name="tid" value="'.$tid.'" />
-       <input type="hidden" name="rid" value="'.$rid.'" />
-       </fieldset>
-       <div class="form-group row">
-           <div class="col-sm-offset-4 col-sm-8">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
-           </div>
-       </div>
-   </form>';
-   adminfieldinp($result);
+            </div>
+            <input type="hidden" name="op" value="relatedsave" />
+            <input type="hidden" name="tid" value="'.$tid.'" />
+            <input type="hidden" name="rid" value="'.$rid.'" />
+         </fieldset>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+         </div>
+      </div>
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("name",30);
+         inpandfieldlen("url",200);
+      });
+   //]]>
+   </script>';
    adminfoot('fv','','','');
 }
 
