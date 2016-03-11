@@ -12,11 +12,11 @@
 
 <ul>
 
-<li style="text-align: left;"><strong>le responsive design dans tous les secteurs du portail, </strong></li>
+<li style="text-align: left;"><strong>Le responsive design dans tous les secteurs du portail, </strong></li>
 
-<li style="text-align: left;"><strong>une nouvelle administration interface et fonctionnement permettant une gestion des droits sur les fonctions,</strong></li>
+<li style="text-align: left;"><strong>Une nouvelle interface pour l'administration permettant une gestion fine des droits sur toutes les fonctions du CMS,</strong></li>
 
-<li style="text-align: left;"><strong>une stabilité de fonctionnement record ainsi que de nombreuses corrections et améliorations - </strong>le détail des travaux réalisés pour cette nouvelle version dans le fichier <a title="Changelog REvolution 13" href="static.php?op=changelog-rev16.txt&amp;npds=0&amp;ml=1">changelog-rev16.txt</a></li>
+<li style="text-align: left;"><strong>Une stabilité de fonctionnement record ainsi que de nombreuses corrections et améliorations,</strong> le détail des travaux réalisés pour cette nouvelle version se trouve dans le fichier <a title="Changelog REvolution 13" href="static.php?op=changelog-rev16.txt&amp;npds=0&amp;ml=1">changelog-rev16.txt</a></li>
 
 </ul>
 
