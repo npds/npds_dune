@@ -88,7 +88,8 @@ function reviews() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom du produit").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="40" />
+            <input class="form-control" type="text" id="title" name="title" value="'.$title.'" maxlength="40" />
+            <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -100,7 +101,7 @@ function reviews() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="reviewer">'.adm_translate("Le critique").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="reviewer" value="'.$reviewer.'" maxlength="20" />
+            <input class="form-control" type="text" id="reviewer" name="reviewer" value="'.$reviewer.'" maxlength="20" />
             <span class="help-block text-xs-right"><span id="countcar_reviewer"></span></span>
          </div>
       </div>
@@ -139,50 +140,62 @@ function reviews() {
          <label class="form-control-label col-sm-4" for="cover">'.adm_translate("Image de garde").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="cover" name="cover" maxlength="100" />
-            <span class="help-block">150*150 pixel => images/covers</span>
+            <span class="help-block">150*150 pixel => images/covers<span id="countcar_cover"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <input type="hidden" name="op" value="add_review">
-         <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter cette critique").'</button>
-         <a href="admin.php?op=deleteNotice&amp;id='.$id.'&amp;op_back=reviews" class="btn btn-danger" role="button">'.adm_translate("Supprimer cette Critique").'</a>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input type="hidden" name="op" value="add_review">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
+            <a href="admin.php?op=deleteNotice&amp;id='.$id.'&amp;op_back=reviews" class="btn btn-danger" role="button">'.adm_translate("Supprimer").'</a>
+         </div>
       </div>
-   </form>';
+   </form>
+   <script type="text/javascript">
+      //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("title",40);
+         inpandfieldlen("reviewer",20);
+         inpandfieldlen("email",30);
+         inpandfieldlen("url",100);
+         inpandfieldlen("url_title",50);
+         inpandfieldlen("cover",100);
+      });
+      //]]>
+      </script>';
      }
    } else {
-     echo "<br />".adm_translate("Aucune critique à ajouter")."<br />";
+     echo '<br />'.adm_translate("Aucune critique à ajouter").'<br />';
    }
-   echo "<hr noshade=\"noshade\" class=\"ongl\" /><p align=\"center\"><a href=\"reviews.php?op=write_review\" class=\"noir\">".adm_translate("Cliquer ici pour proposer une Critique.")."</a></p><hr noshade class=\"ongl\">";
-   echo adm_translate("Effacer / Modifier une Critique");
-   echo "<br />";
-   echo adm_translate("Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur")." <a href=\"reviews.php\" class=\"noir\">reviews.php</a> ".adm_translate("en tant qu'Administrateur.")."<br />";
+   echo "<hr /><p align=\"center\"><a href=\"reviews.php?op=write_review\" >".adm_translate("Cliquer ici pour proposer une Critique.")."</a></p><hr />";
+   echo '<h3>'.adm_translate("Effacer / Modifier une Critique").'</h3>';
+   echo adm_translate("Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur").' <a href="reviews.php" >reviews.php</a> '.adm_translate("en tant qu'Administrateur.").'<br />';
 
-   adminfieldinp($result);
    sql_free_result($result);
    adminfoot('fv','','','');
 }
 
 function add_review($id, $date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title) {
-    global $NPDS_Prefix;
+   global $NPDS_Prefix;
 
-    $title = stripslashes(FixQuotes($title));
-    $text = stripslashes(FixQuotes($text));
-    $reviewer = stripslashes(FixQuotes($reviewer));
-    $email = stripslashes(FixQuotes($email));
-    sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
-    sql_query("DELETE FROM ".$NPDS_Prefix."reviews_add WHERE id = '$id'");
-    Header("Location: admin.php?op=reviews");
+   $title = stripslashes(FixQuotes($title));
+   $text = stripslashes(FixQuotes($text));
+   $reviewer = stripslashes(FixQuotes($reviewer));
+   $email = stripslashes(FixQuotes($email));
+   sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
+   sql_query("DELETE FROM ".$NPDS_Prefix."reviews_add WHERE id = '$id'");
+   Header("Location: admin.php?op=reviews");
 }
 
 switch ($op){
-    case 'reviews':
-         reviews();
-         break;
-    case 'add_review':
-         add_review($id, $date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title);
-         break;
-    case 'mod_main':
-         mod_main($title, $description);
-         break;
+   case 'reviews':
+      reviews();
+   break;
+   case 'add_review':
+      add_review($id, $date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title);
+   break;
+   case 'mod_main':
+      mod_main($title, $description);
+   break;
 }
 ?>

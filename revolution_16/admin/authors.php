@@ -180,7 +180,7 @@ if ($supadm==1) echo'
    </table>
    <hr />
    <h3>'.adm_translate("Nouvel administrateur").'</h3>
-   <form id="nou_adm" class="form-horizontal" action="admin.php" method="post">
+   <form id="nou_adm" action="admin.php" method="post">
       <fieldset>
       <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" /> '.adm_translate("Informations").' </legend>
        <br /><div class="form-group row">
