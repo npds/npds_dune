@@ -2509,26 +2509,27 @@ function category() {
 }
 #autodoc headlines() : Bloc HeadLines <br />=> syntaxe :
 #autodoc : function#headlines<br />params#ID_du_canal
-function headlines($hid="", $block=true) {
-  global $NPDS_Prefix;
-  global $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
+function headlines($hid='', $block=true) {
+  global $NPDS_Prefix, $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
 
   if (file_exists("proxy.conf.php")) {
      include("proxy.conf.php");
   }
-  if ($hid=="") {
-     $result = sql_query("SELECT sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines WHERE status=1");
+  if ($hid=='') {
+     $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE status=1");
   } else {
-     $result = sql_query("SELECT sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
+     $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
   }
   while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
-    $boxtitle     = "$sitename";
-    $cache_file   = "cache/$sitename.cache";
-    $cache_time   = 3600;
+    $boxtitle     = $sitename;
+//    $cache_file   = "cache/$sitename.cache";
+    
+    $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
+    $cache_time   = 3600;//3600
     $items        = 0;
-    $max_items    = 10;
+    $max_items    = 6;
     $rss_timeout  = 15;
-    $rss_font     = "<span style=\"font-size: 10px;\">";
+    $rss_font     = '<span class="small">';
 
     if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
        $rss=parse_url($url);
@@ -2550,20 +2551,27 @@ function headlines($hid="", $block=true) {
           themesidebox($boxtitle, "Security Error");
           return;
        } else {
+       
+       
+       
+/*
           if (isset($proxy_url[$hid])) {
              $fpread=fsockopen($proxy_url[$hid],$proxy_port[$hid],$errno,$errstr,$rss_timeout);
              fputs($fpread,"GET $headlinesurl/ HTTP/1.0\n\n");
           } else {
              $fpread = fopen($headlinesurl, 'r');
           }
+*/
           if (!$long_chain) {$long_chain=15;}
-          if ($fpread) {
+
+
+//           if ($fpread) {
              $fpwrite = fopen($cache_file, 'w');
              if ($fpwrite) {
                 fputs($fpwrite, "<ul>\n");
-                while (!feof($fpread)) {
+/*                while (!feof($fpread)) {
                    $buffer = ltrim(Chop(fgets($fpread, 512)));
-                   if (($buffer == "<item>") && ($items < $max_items)) {
+                   if (($buffer == "<item>") and ($items < $max_items)) {
                       $title = ltrim(Chop(fgets($fpread, 256)));
                       $link = ltrim(Chop(fgets($fpread, 256)));
                       $title = str_replace( "<title>", "", $title );
@@ -2576,34 +2584,68 @@ function headlines($hid="", $block=true) {
                       } else {
                          $encoding="UTF-8";
                       }
-                      $title=$look_title=iconv($encoding,cur_charset."//TRANSLIT", $title);
+                    $title=$look_title=iconv($encoding,cur_charset."//TRANSLIT", $title);
                       if ($block) {
                          if (strlen($look_title)>$long_chain) {
                             $title=(substr($look_title, 0, $long_chain))." ...";
                          }
                       }
-
-                      fputs($fpwrite, "<li><a href=\"$link\" alt=\"$look_title\" title=\"$look_title\" target=\"_blank\">$title</a></li>\n");
+                      fputs($fpwrite,"<li><a href=\"$link\" alt=\"$look_title\" title=\"$look_title\" target=\"_blank\">$title</a></li>\n");
                       $items++;
                    }
                 }
-                fputs($fpwrite, "</ul>");
+*/
+
+// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome !
+   $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
+   $namespaces = $flux->getNamespaces(true); // get namespaces
+   $ic='';
+   //ATOM//
+   if($flux->entry) {
+   $j=0;
+      foreach ($flux->entry as $entry) {
+      $cont='';
+//      if($entry->children($namespaces['media'])->count() > 0) $srcmedia = (string) $entry->children($namespaces['media'])->thumbnail->attributes()->url;
+      //$srcmedia = (string) $entry->children($namespaces['media'])->thumbnail->attributes()->url;
+      
+      
+      
+//         if($srcmedia!='') {$ic='<img class="img-fluid" src="'.$srcmedia.'" />&nbsp;';} else{$ic='';}
+
+         if($entry->content) $cont=(string) $entry->content;
+
+         fputs($fpwrite,'<li>'.$ic.'<a href="'.(string)$entry->link['href'].'" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+         if($j==$max_items) break;
+         $j++;
+      }
+   }
+   
+   $j=0;
+   if($flux->image) $ico='<img class="img-fluid" src="'.$flux->image->url.'" />&nbsp;'; 
+   foreach ($flux->item as $item) {
+      fputs($fpwrite,'<li>'.$ico.'<a href="'.(string) $item->link.'" target="_blank" >'.(string) $item->title.'</a></li>');
+      if($j==$max_items) break;
+      $j++;
+   }
+
+                fputs($fpwrite, "\n".'</ul>');
                 fclose($fpwrite);
              }
-             fclose($fpread);
-          }
+//              fclose($fpread);
+//           }
        }
     }
+
     if (file_exists($cache_file)) {
         ob_start();
         $ibid=readfile($cache_file);
-        $boxstuff=$rss_font.ob_get_contents()."</span>";
+        $boxstuff=$rss_font.ob_get_contents().'</span>';
         ob_end_clean();
     }
-    $boxstuff .= "<br /><div align=\"right\"><a href=\"$url\" target=\"_blank\"><b>".translate("read more...")."</b></a></div>";
+    $boxstuff .= '<div class="text-xs-right"><a href="'.$url.'" target="_blank"><strong>'.translate("read more...").'</strong></a></div>';
     if ($block) {
        themesidebox($boxtitle, $boxstuff);
-       $boxstuff="";
+       $boxstuff='';
     } else {
         return ($boxstuff);
     }
