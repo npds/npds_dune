@@ -17,7 +17,7 @@ $sql_nbREQ=0;
 
 // Escape string
    function SQL_escape_string ($arr) {
-  // pas bonnnnn car ne sert à rien !
+  // pas bonnnnn car ne sert à rien ! de plus la fonction DOIT avoir deux arguments !!
       if (function_exists("mysqli_real_escape_string"))
          @mysqli_real_escape_string($arr);
       elseif (function_exists("mysqli_escape_string"))
