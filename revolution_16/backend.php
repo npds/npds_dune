@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,7 +14,7 @@
 include("mainfile.php");
 
 function convertdateTOtimestamp($myrow) {
-   if (substr($myrow,2,1)=="-") {
+   if (substr($myrow,2,1)=='-') {
       $day=substr($myrow,0,2);
       $month=substr($myrow,3,2);
       $year=substr($myrow,6,4);
@@ -54,18 +54,16 @@ function fab_feed($type,$filename,$timeout) {
    $image->height=$backend_height;
    $rss->image = $image;
 
-   $xtab=news_aff("index","WHERE ihome='0' AND archive='0'",$storyhome,"");
+   $xtab=news_aff('index',"WHERE ihome='0' AND archive='0'",$storyhome,'');
    $story_limit=0;
    while (($story_limit<$storyhome) and ($story_limit<sizeof($xtab))) {
       list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
       $story_limit++;
       $item = new FeedItem();
-      $item->title = preview_local_langue($backend_language, str_replace("&quot;","\"",$title));
+      $item->title = preview_local_langue($backend_language, str_replace('&quot;','\"',$title));
       $item->link = $nuke_url."/article.php?sid=$sid";
-
       $item->description = meta_lang(preview_local_langue($backend_language, $hometext));
       $item->descriptionHtmlSyndicated = true;
-
       $item->date = convertdateTOtimestamp($time)+($gmt*3600);
       $item->source = $nuke_url;
       $item->author = $aid;
@@ -79,27 +77,26 @@ function fab_feed($type,$filename,$timeout) {
 settype($op,'string');
 $op=strtoupper($op);
 switch ($op) {
-    case "MBOX":
-        fab_feed("MBOX","cache/MBOX-feed",3600);
+    case 'MBOX':
+        fab_feed('MBOX','cache/MBOX-feed',3600);
         break;
-    case "OPML":
-        fab_feed("OPML","cache/OPML-feed.xml",3600);
+    case 'OPML':
+        fab_feed('OPML','cache/OPML-feed.xml',3600);
         break;
-    case "ATOM":
-        fab_feed("ATOM","cache/ATOM-feed.xml",3600);
+    case 'ATOM':
+        fab_feed('ATOM','cache/ATOM-feed.xml',3600);
         break;
-    case "RSS1.0":
-        fab_feed("RSS1.0","cache/RSS1.0-feed.xml",3600);
+    case 'RSS1.0':
+        fab_feed('RSS1.0','cache/RSS1.0-feed.xml',3600);
         break;
-    case "RSS2.0":
-        fab_feed("RSS2.0","cache/RSS2.0-feed.xml",3600);
+    case 'RSS2.0':
+        fab_feed('RSS2.0','cache/RSS2.0-feed.xml',3600);
         break;
-    case "RSS0.91":
-        fab_feed("RSS0.91","cache/RSS0.91-feed.xml",3600);
+    case 'RSS0.91':
+        fab_feed('RSS0.91','cache/RSS0.91-feed.xml',3600);
         break;
-
     default:
-        fab_feed("RSS1.0","cache/RSS1.0-feed.xml",3600);
+        fab_feed('RSS1.0','cache/RSS1.0-feed.xml',3600);
         break;
 }
 ?>
