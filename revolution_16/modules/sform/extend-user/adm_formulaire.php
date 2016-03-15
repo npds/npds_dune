@@ -37,7 +37,7 @@ $m->add_mess(adm_translate("* Désigne un champ obligatoire"));
 $m->add_form_field_size(60);
 
 // return to the memberslist.php if necessary
-$m->add_field("referer","",basename($referer),'hidden',false);
+$m->add_field("referer",'',basename($referer),'hidden',false);
 
 $m->add_field('add_uname', adm_translate("Surnom"),$chng_uname,'text',true,25,'','');
 $m->add_field('add_name', adm_translate("Nom"),$chng_name,'text',false,60,'','');
@@ -57,7 +57,7 @@ if ($mX = sql_fetch_assoc($r)) {
 
    } while($mX = sql_fetch_assoc($r));
 }
-$m->add_select("add_level", adm_translate("Niveau de l'Utilisateur"), $tmp_tempo, false, "", false);
+$m->add_select('add_level', adm_translate("Niveau de l'Utilisateur"), $tmp_tempo, false, '', false);
 
 // ---- Rôles
 unset($tmp_tempo);
@@ -76,10 +76,10 @@ $tmp_tempo[4]['en']=aff_langue($rank4);
 if ($chng_rank==4) $tmp_tempo[4]['selected']=true; else $tmp_tempo[4]['selected']=false;
 $tmp_tempo[5]['en']=aff_langue($rank5);
 if ($chng_rank==5) $tmp_tempo[5]['selected']=true; else $tmp_tempo[5]['selected']=false;
-$m->add_select("chng_rank", adm_translate("Rôle de l'Utilisateur"), $tmp_tempo, false, "", false);
+$m->add_select('chng_rank', adm_translate("Rôle de l'Utilisateur"), $tmp_tempo, false, '', false);
 
 // ---- Groupes
-$les_groupes=explode(",",$groupe);
+$les_groupes=explode(',',$groupe);
 $mX=liste_group();
 $nbg=0;
    while (list($groupe_id, $groupe_name)=each($mX)) {
@@ -94,7 +94,7 @@ $nbg=0;
       $nbg++;
    }
 if ($nbg>7) {$nbg=7;}
-$m->add_select("add_group", adm_translate("Groupe"), $tmp_groupe, false, $nbg, true);
+$m->add_select('add_group', adm_translate("Groupe"), $tmp_groupe, false, $nbg, true);
 // ---- Groupes
 
 if ($open_user) {$checked=true;} else {$checked=false;}
@@ -110,7 +110,7 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 if ($chng_user_viewemail) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres Utilisateurs à voir son adresse E-mail ?"), 1, false, $checked);
 
-$m->add_field('add_url',"URL","$chng_url",'text',false,100,"","");
+$m->add_field('add_url','URL',$chng_url,'text',false,100,'','');
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($chng_send_email==1) {$checked=true;} else {$checked=false;}
@@ -119,9 +119,9 @@ if ($chng_is_visible==1) {$checked=false;} else {$checked=true;}
 $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $checked);
 // ---- SUBSCRIBE and INVISIBLE
 
-$m->add_field('add_user_from', adm_translate("Situation géographique"),"$chng_user_from",'text',false,100,"","");
-$m->add_field('add_user_occ', adm_translate("Activité"),"$chng_user_occ",'text',false,100,"","");
-$m->add_field('add_user_intrest', adm_translate("Centres d'interêt"),"$chng_user_intrest",'text',false,150,"","");
+$m->add_field('add_user_from', adm_translate("Situation géographique"),"$chng_user_from",'text',false,100,'','');
+$m->add_field('add_user_occ', adm_translate("Activité"),$chng_user_occ,'text',false,100,'','');
+$m->add_field('add_user_intrest', adm_translate("Centres d'interêt"),$chng_user_intrest,'text',false,150,'','');
 
 if ($attach==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',adm_translate("Afficher signature"), 1, false, $checked);
@@ -140,20 +140,20 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 // ----------------------------------------------------------------
 // CES CHAMPS sont indispensables --- Don't remove these fields
 // Champ Hidden
-if ($op=="displayUsers")
-   $m->add_field("op","","addUser",'hidden',false);
+if ($op=='displayUsers')
+   $m->add_field('op','','addUser','hidden',false);
 if ($op=="ModifyUser") {
-   $m->add_field("op","","updateUser",'hidden',false);
-   $m->add_field("chng_uid","","$chng_uid",'hidden',false);
+   $m->add_field('op','','updateUser','hidden',false);
+   $m->add_field("chng_uid",'',$chng_uid,'hidden',false);
 }
-if ($chng_avatar!="")
-   $m->add_field("add_avatar","","$chng_avatar",'hidden',false);
+if ($chng_avatar!='')
+   $m->add_field('add_avatar','',$chng_avatar,'hidden',false);
 else
-   $m->add_field("add_avatar","","blank.gif",'hidden',false);
+   $m->add_field('add_avatar','','blank.gif','hidden',false);
 
-$m->add_extra("<br />");
+$m->add_extra('<br />');
 // Submit bouton
-$m->add_field('Submit',"",adm_translate("Valider"),'submit',false);
+$m->add_field('Submit','',adm_translate("Valider"),'submit',false);
 //$m->add_extra(adminfoot('fv','','',''));
 
 // ----------------------------------------------------------------
