@@ -158,28 +158,6 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       $userR = explode(':', $userX);
    }
 
-   echo '
-      <div class="card">
-         <div class="card-block-small">
-         '.translate("Moderated By: ");
-   $Mmod=false;
-   $moderator_data=explode(' ',$moderator);
-   for ($i = 0; $i < count($moderator_data); $i++) {
-      $modera = get_userdata($moderator_data[$i]);
-      if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],"users_private")) {
-            $imgtmp=$modera['user_avatar'];
-         } else {
-            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-         }
-      }
-      if ($user)
-         if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
-   }
-   echo '
-         </div>
-      </div>';
    
    echo '
    <h3>';
@@ -204,10 +182,30 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    } else {
       $closol=''; $mess_closoled='';
    }
- 
    echo '
-   <h4>'.translate("Topics").'</h4>
-   <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <div class="card">
+         <div class="card-block-small">
+         '.translate("Moderated By: ");
+   $Mmod=false;
+   $moderator_data=explode(' ',$moderator);
+   for ($i = 0; $i < count($moderator_data); $i++) {
+      $modera = get_userdata($moderator_data[$i]);
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],'users_private')) {
+            $imgtmp=$modera['user_avatar'];
+         } else {
+            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+         }
+      }
+      if ($user)
+         if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+   }
+   echo '
+         </div>
+      </div>
+      <h4>'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
+      <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th></th>
@@ -230,7 +228,6 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($ibid=theme_image("forum/icons/hot_folder.gif")) {$imgtmpH=$ibid;} else {$imgtmpH="images/forum/icons/hot_folder.gif";}
    if ($ibid=theme_image("forum/icons/red_folder.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/red_folder.gif";}
    if ($ibid=theme_image("forum/icons/folder.gif")) {$imgtmpF=$ibid;} else {$imgtmpF="images/forum/icons/folder.gif";}
-//   if ($ibid=theme_image("forum/icons/lock.gif")) {$imgtmpL=$ibid;} else {$imgtmpL="images/forum/icons/lock.gif";}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("box/right.gif")) {$imgtmpRi=$ibid;} else {$imgtmpRi="images/download/right.gif";}
 
@@ -395,8 +392,8 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
        if ($res = sql_query($sub_sql)) {
           while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
-             if (($forum_type != "9") or ($userdata)) {
-                if (($forum_type == "7") or ($forum_type == "5")) {
+             if (($forum_type != '9') or ($userdata)) {
+                if (($forum_type == '7') or ($forum_type == '5')) {
                    $ok_affich=false;
                 } else {
                    $ok_affich=true;
@@ -407,6 +404,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
        }
        echo '
             </select>
+         </div>
       </div>
    </form>';
    }
