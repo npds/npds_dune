@@ -877,17 +877,17 @@ class AtomCreator03 extends FeedCreator {
    function createFeed() {
       $feed = "<?xml version=\"1.0\" encoding=\"".$this->encoding."\"?>\n";
       $feed.= $this->_createGeneratorComment();
-      $feed.= "<feed version=\"0.3\" xmlns=\"http://purl.org/atom/ns#\"";
+      $feed.= "<feed xmlns=\"http://www.w3.org/2005/Atom\"";
       if ($this->language!="") {
          $feed.= " xml:lang=\"".$this->language."\"";
       }
       $feed.= ">\n";
-      $feed.= "    <title>".htmlspecialchars($this->title,ENT_COMPAT|ENT_HTML401,$this->encoding)."</title>\n";
+      $feed.= "    <title type=\"html\">".htmlspecialchars($this->title,ENT_COMPAT|ENT_HTML401,$this->encoding)."</title>\n";
       $feed.= "    <tagline>".htmlspecialchars($this->description,ENT_COMPAT|ENT_HTML401,$this->encoding)."</tagline>\n";
       $feed.= "    <link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."\"/>\n";
       $feed.= "    <id>".htmlspecialchars($this->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."</id>\n";
       $now = new FeedDate();
-      $feed.= "    <modified>".htmlspecialchars($now->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</modified>\n";
+      $feed.= "    <updated>".htmlspecialchars($now->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</updated>\n";
       if ($this->editor!="") {
          $feed.= "    <author>\n";
          $feed.= "        <name>".$this->editor."</name>\n";
@@ -908,7 +908,7 @@ class AtomCreator03 extends FeedCreator {
          $itemDate = new FeedDate($this->items[$i]->date);
          $feed.= "        <created>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</created>\n";
          $feed.= "        <issued>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</issued>\n";
-         $feed.= "        <modified>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</modified>\n";
+         $feed.= "        <updated>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</updated>\n";
          $feed.= "        <id>".htmlspecialchars($this->items[$i]->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."</id>\n";
          $feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
          if ($this->items[$i]->author!="") {
@@ -917,7 +917,7 @@ class AtomCreator03 extends FeedCreator {
             $feed.= "        </author>\n";
          }
          if ($this->items[$i]->description!="") {
-            $feed.= "        <summary>".htmlspecialchars($this->items[$i]->description,ENT_COMPAT|ENT_HTML401,$this->encoding)."</summary>\n";
+            $feed.= "        <summary type=\"html\">".htmlspecialchars($this->items[$i]->description,ENT_COMPAT|ENT_HTML401,$this->encoding)."</summary>\n";
          }
          $feed.= "    </entry>\n";
       }
