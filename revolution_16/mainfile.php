@@ -56,6 +56,31 @@ function session_manage() {
    if (!isset($username)) {
       $username="$ip";
       $guest=1;
+      
+      //==> mod_geoloc
+      $ousursit='';
+      global $ousursit;
+      $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc i WHERE ip_ip LIKE \"$ip\"");
+      $controle=sql_num_rows($resultat);
+      while ($row = sql_fetch_array($resultat)) 
+      {$ousursit= preg_replace("#/.*?/#","",$_SERVER['PHP_SELF']);} 
+      if($controle != 0)
+         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+      else {
+         $stream=file_get_contents("http://api.hostip.info/get_html.php?ip=$ip&position=true");
+         $lines = preg_split ("\n", $stream);
+         $pay=preg_split (":",$lines[0]);
+         $vil=preg_split (":",$lines[1]);
+         $lati=preg_split (":",$lines[2]);
+         $longi=preg_split (":",$lines[3]);
+         $lat=trim($lati[1]);
+         $long=trim($longi[1]);
+         $vi=trim($vil[1]);
+         $pa=trim($pay[1]);
+         sql_query("INSERT ".$NPDS_Prefix."ip_loc  SET ip_long = \"$long\", ip_lat = \"$lat\", ip_ip = \"$ip\", ip_country = \"$pa\", ip_city =\"$vi\"");
+         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+      }
+      //<== mod_geoloc
    }
 
    $past = time()-300;
@@ -2642,7 +2667,8 @@ function headlines($hid='', $block=true) {
         $boxstuff=$rss_font.ob_get_contents().'</span>';
         ob_end_clean();
     }
-    $boxstuff .= '<div class="text-xs-right"><a href="'.$url.'" target="_blank"><strong>'.translate("read more...").'</strong></a></div>';
+    $boxstuff .= '
+         <div class="text-xs-right"><a href="'.$url.'" target="_blank">'.translate("read more...").'</a></div>';
     if ($block) {
        themesidebox($boxtitle, $boxstuff);
        $boxstuff='';
@@ -2669,11 +2695,11 @@ function PollNewest($id='') {
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
 function bloc_langue() {
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Select a language");
    else
       $title=$block_title;
-   themesidebox($title,"<br />".aff_local_langue("" ,"index.php", "choice_user_language"));
+   themesidebox($title,'<br />'.aff_local_langue('' ,"index.php", "choice_user_language"));
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {
