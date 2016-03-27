@@ -56,6 +56,16 @@ $sql_nbREQ=0;
       else
          return $query_id;
    }
+
+   function sql_fetch_array($q_id='') {
+      if (empty($q_id)) {
+         global $query_id;
+         $q_id = $query_id;
+      }
+      return @mysql_fetch_array($q_id);
+   }
+
+
 // Tableau Associatif du résultat
    function sql_fetch_assoc($q_id="") {
       if (empty($q_id)) {

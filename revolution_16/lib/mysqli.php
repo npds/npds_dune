@@ -72,6 +72,14 @@ $sql_nbREQ=0;
       }
       return @mysqli_fetch_row($q_id);
    }
+// Tableau du résultat
+   function sql_fetch_array($q_id='') {
+      if (empty($q_id)) {
+         global $query_id;
+         $q_id = $query_id;
+      }
+      return @mysqli_fetch_array($q_id);
+   }
 // Resultat sous forme d'objet
    function sql_fetch_object($q_id='') {
       if (empty($q_id)) {
