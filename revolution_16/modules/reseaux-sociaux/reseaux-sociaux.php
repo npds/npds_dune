@@ -47,6 +47,7 @@ function ListReseaux($ModPath, $ModStart) {
          </tr>
       </thead>
       <tbody>';
+      
    foreach ($rs as $v1) {
         echo '
          <tr>
@@ -57,6 +58,8 @@ function ListReseaux($ModPath, $ModStart) {
             </td>
         </tr>';
    }
+   
+   
    echo '
       </tbody>
    </table>';
