@@ -41,20 +41,21 @@ $cl_act='';
 function nav($mns) {
    echo '
    <ul class="nav nav-tabs"> 
-      <li class="nav-item"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'"><i class="fa fa-user fa-lg"></i> Vous</a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'">'.translate("Journal").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-lg"></i> Vous</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip">'.translate("Journal").'</a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'">'.translate("Mini-Web site").'</a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip">'.translate("Mini-Web site").'</a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'">'.translate("Home").'</a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'">'.translate("Theme").'</a></li>
-      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'">'.translate("Social networks").'</a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" >'.translate("Home").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" >'.translate("Theme").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" >'.translate("Social networks").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" >'.translate("Private Message").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a></li>
    </ul>';
 }
 
@@ -991,9 +992,6 @@ function chgtheme() {
       </div>';
       
    $skinable = substr($userinfo['theme'], -3);
-      
-      
-      
 
    $handle=opendir('themes/_skins');
    while (false!==($file = readdir($handle))) {

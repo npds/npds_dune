@@ -80,7 +80,7 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 $m->add_field('op','','new user','hidden',false);
 $m->add_extra('<div class="form-group row"><div class="col-sm-offset-4 col-sm-8" >');
 $m->add_field('Submit','',translate("Submit"),'submit',false);
-$m->add_extra("&nbsp;");
+$m->add_extra('&nbsp;');
 $m->add_field('Reset','',translate("Cancel"),'reset',false);
 $m->add_extra('</div></div><br />');
 

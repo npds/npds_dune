@@ -95,7 +95,7 @@ function submissions() {
    </table>';
       }
    }
-    include ("footer.php");
+   adminfoot('','','','');
 }
 
 switch ($op) {

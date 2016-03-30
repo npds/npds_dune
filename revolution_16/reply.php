@@ -238,8 +238,7 @@ if ($submitS) {
 
    echo '
    <h4>'.translate("Post Reply in Topic:").'</h4>
-   <form class="form" role="form" action="reply.php" method="post" name="coolsus">
-      <div class="form-group">';
+   <form class="form" action="reply.php" method="post" name="coolsus">';
 
    echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
    if ($forum_access == 0) {

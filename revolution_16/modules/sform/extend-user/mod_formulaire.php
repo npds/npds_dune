@@ -17,9 +17,9 @@ $m->add_mess(translate("* for mandatory field"));
 $m->add_form_field_size(50);
 
 $m->add_field('name', translate("Real Name").' '.translate("(optional)"),$userinfo['name'],'text',false,60,'','');
-$m->add_field('email', translate("Real Email"),$userinfo['email'],'text',true,60,'','');
+$m->add_field('email', translate("Real Email"),$userinfo['email'],'email',true,60,'','');
 $m->add_extender('email', '','<span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span>');
-$m->add_field('femail',translate("Fake Email"),$userinfo['femail'],'text',false,60,"","");
+$m->add_field('femail',translate("Fake Email"),$userinfo['femail'],'email',false,60,"","");
 $m->add_extender('femail', '','<span class="help-block">'.translate("(This Email will be public. Just type what you want, Spam proof)").'</span>');
 
 if ($userinfo['user_viewemail']) {$checked=true;} else {$checked=false;}
@@ -47,7 +47,7 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 if ($smilies) {
    if (stristr($userinfo['user_avatar'],"users_private")) {
       $m->add_field('user_avatar',translate("Your Avatar"), $userinfo['user_avatar'],'show-hidden',false,30,'','');
-      $m->add_extender('user_avatar', '', '<img src="'.$userinfo['user_avatar'].'" name="avatar" align="center" alt="avatar" />');
+      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" />');
    } else {
       global $theme;
       $direktori="images/forum/avatar";
@@ -78,8 +78,8 @@ if ($smilies) {
    $m->add_extender('B1', '', '<span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octects et <strong>'.$avatar_size.'</strong> pixels</span>');
 
 
-   $m->add_checkbox('raz_avatar',translate("Re-activate the standard'avatars"), 1, false, false);
-   $m->add_extender('raz_avatar', '', translate("Re-activate the standard'avatars"));
+   $m->add_checkbox('raz_avatar','', 1, false, false);
+   $m->add_extender('raz_avatar', '', '&nbsp;'.translate("Re-activate the standard'avatars"));
    // ----------------------------------------------------------------------------------------------
 }
 // ---- AVATAR
@@ -93,12 +93,16 @@ $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid=
 list($attsig) = sql_fetch_row($asig);
 if ($attsig==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',translate("Show signature"), 1, false, $checked);
-$m->add_field('user_sig', translate("Signature")."<br /><span style=\"font-size: 10px;\">".translate("(255 characters max. Type your signature with HTML coding)")."</span>",$userinfo['user_sig'],'textarea',false,255,7,"","");
+$m->add_field('user_sig', translate("Signature"),$userinfo['user_sig'],'textarea',false,255,4,'','');
+$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="pull-xs-right" id="countcar_user_sig"></span></span>');
 // ---- SIGNATURE
 
-$m->add_field('bio',translate("Extra Info")."<br /><span style=\"font-size: 10px;\">".translate("(255 characters max. Type what others can know about yourself)")."</span>",$userinfo['bio'],'textarea',false,255,7,"","");
+$m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
+$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="pull-xs-right" id="countcar_bio"></span></span>');
 
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
+$m->add_extender('pass', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_pass"></span></span>');
+
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
 
 // --- EXTENDER
@@ -117,5 +121,19 @@ $m->add_field('uid','',$userinfo['uid'],'hidden',false);
 $m->add_extra('<div class="form-group row"><div class="col-sm-offset-4 col-sm-8" >');
 $m->add_field('Submit','',translate('Submit'),'submit',false);
 $m->add_extra('</div></div><br />');
+$m->add_extra('<script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function() {
+         inpandfieldlen("email",60);
+         inpandfieldlen("femail",60);
+         inpandfieldlen("bio",255);
+         inpandfieldlen("user_sig",255);
+         inpandfieldlen("pass",40);
+         inpandfieldlen("vpass",40);
+      });
+   //]]>
+   </script>');
+$m->add_extra(adminfoot('fv','','','1'));
+
 // ----------------------------------------------------------------
 ?>

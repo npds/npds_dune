@@ -17,7 +17,7 @@ $sql_nbREQ=0;
 
 // Escape string
    function SQL_escape_string ($arr) {
-  // pas bonnnnn car ne sert à rien !
+  // pas bonnnnn car ne sert à rien ! de plus la fonction DOIT avoir deux arguments !!
       if (function_exists("mysqli_real_escape_string"))
          @mysqli_real_escape_string($arr);
       elseif (function_exists("mysqli_escape_string"))
@@ -71,6 +71,14 @@ $sql_nbREQ=0;
          $q_id = $query_id;
       }
       return @mysqli_fetch_row($q_id);
+   }
+// Tableau du résultat
+   function sql_fetch_array($q_id='') {
+      if (empty($q_id)) {
+         global $query_id;
+         $q_id = $query_id;
+      }
+      return @mysqli_fetch_array($q_id);
    }
 // Resultat sous forme d'objet
    function sql_fetch_object($q_id='') {

@@ -199,7 +199,7 @@ include('header.php');
           if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    
    echo '
@@ -343,17 +343,17 @@ include('header.php');
          <div class="col-xs-12">
             <div class="card">
                <div class="card-header">';
-         if ($smilies) {
-            if ($posterdata['user_avatar'] != '') {
-               if (stristr($posterdata['user_avatar'],"users_private")) {
-                $imgtmp=$posterdata['user_avatar'];
-            } else {
-                if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-            }
-             echo '
-             <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
-            }
+      if ($smilies) {
+         if ($posterdata['user_avatar'] != '') {
+            if (stristr($posterdata['user_avatar'],"users_private")) {
+             $imgtmp=$posterdata['user_avatar'];
+         } else {
+             if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
          }
+          echo '
+          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+         }
+      }
                
    echo '&nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
    echo '<span class="pull-xs-right">';
@@ -419,8 +419,9 @@ include('header.php');
                </div>
             </div>
          <div class="card-footer">
-            <span class="text-muted small">'.post_convertdate($date_post).'</span>
-            <span class="pull-xs-right">';
+            <div class="row">
+               <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
+               <div class=" col-sm-6 text-xs-right">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -469,7 +470,9 @@ include('header.php');
          }
       }
    }   
-      echo '</span>
+      echo '
+                  </div>
+               </div>
             </div>
          </div>
       </div>

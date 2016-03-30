@@ -526,8 +526,6 @@ function LinksModLink($lid) {
     }
    echo '
    </form>';
-   adminfieldinp($result);
-   adminfieldinp($resulted2);
    adminfoot('fv','','','');
 }
 

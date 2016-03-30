@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -56,6 +56,31 @@ function session_manage() {
    if (!isset($username)) {
       $username="$ip";
       $guest=1;
+      
+      //==> mod_geoloc
+      $ousursit='';
+      global $ousursit;
+      $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc i WHERE ip_ip LIKE \"$ip\"");
+      $controle=sql_num_rows($resultat);
+      while ($row = sql_fetch_array($resultat)) 
+      {$ousursit= preg_replace("#/.*?/#","",$_SERVER['PHP_SELF']);} 
+      if($controle != 0)
+         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+      else {
+         $stream=file_get_contents("http://api.hostip.info/get_html.php?ip=$ip&position=true");
+         $lines = preg_split ("\n", $stream);
+         $pay=preg_split (":",$lines[0]);
+         $vil=preg_split (":",$lines[1]);
+         $lati=preg_split (":",$lines[2]);
+         $longi=preg_split (":",$lines[3]);
+         $lat=trim($lati[1]);
+         $long=trim($longi[1]);
+         $vi=trim($vil[1]);
+         $pa=trim($pay[1]);
+         sql_query("INSERT ".$NPDS_Prefix."ip_loc  SET ip_long = \"$long\", ip_lat = \"$lat\", ip_ip = \"$ip\", ip_country = \"$pa\", ip_city =\"$vi\"");
+         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+      }
+      //<== mod_geoloc
    }
 
    $past = time()-300;
@@ -86,8 +111,8 @@ function NightDay() {
 function removeHack($Xstring) {
   if ($Xstring!="") {
      $npds_forbidden_words=array(
-     // NCRs 2 premiËres sÈquence = NCR (dec|hexa) correspondant aux caractËres latin de la table ascii (code ascii entre 33 et 126)
-     //      2 derniËres sÈquences = NCR (dec|hexa) correspondant aux caractËres latin du bloc unicode Halfwidth and Fullwidth Forms.
+     // NCRs 2 premières séquence = NCR (dec|hexa) correspondant aux caractères latin de la table ascii (code ascii entre 33 et 126)
+     //      2 dernières séquences = NCR (dec|hexa) correspondant aux caractères latin du bloc unicode Halfwidth and Fullwidth Forms.
      //        Leur signification est identique à celle des caractères latin de la table ascii dont le code ascii est entre 33 et 126.
      // JPB for NPDS 2005
      "'&#(33|x21|65281|xFF01);'i"=>chr(33),
@@ -299,19 +324,19 @@ function removeHack($Xstring) {
 }
 #autodoc getmicrotime() : Retourne le temps en micro-seconde
 function getmicrotime() {
-   list($usec, $sec) = explode(" ",microtime());
+   list($usec, $sec) = explode(' ',microtime());
    return (float)$usec + (float)$sec;
 }
 #autodoc send_email($email, $subject, $message, $from, $priority, $mime) : Pour envoyer un mail en texte ou html via les fonctions mail ou email  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(piece jointe)
 function send_email($email, $subject, $message, $from="", $priority=false, $mime="text") {
    global $mail_fonction, $adminmail;
-   $advance="";
+   $advance='';
    if ($priority) {
       $advance="X-Priority: 2\n";
    }
-   if ($mime=="mixed") {
-      // dans $message se trouve le nom du fichier ‡ joindre (voir le module session-log pour un exemple)
-      $boundary = "_".md5 (uniqid(mt_rand()));
+   if ($mime=='mixed') {
+      // dans $message se trouve le nom du fichier à joindre (voir le module session-log pour un exemple)
+      $boundary = '_'.md5 (uniqid(mt_rand()));
       $attached_file = file_get_contents($message);
       $attached_file = chunk_split(base64_encode($attached_file));
       $message = "\n\n". "--" .$boundary . "\nContent-Type: application; name=\"".basename($message)."\" charset=".cur_charset."\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"".basename($message)."\"\r\n\n".$attached_file . "--" . $boundary . "--";
@@ -339,7 +364,7 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
          $result=mail($email, $subject, $message, "From: $From_email\nReturn-Path: $From_email\nX-Mailer: NPDS\n$advance");
       }
    } else {
-      $pos = strpos($adminmail, "@");
+      $pos = strpos($adminmail, '@');
       $tomail=substr($adminmail,0,$pos);
       $result=email($tomail, $email, $subject, $message, $tomail, "Return-Path:\nX-Mailer: NPDS\n$advance");
    }   
@@ -355,7 +380,7 @@ function copy_to_email($to_userid,$sujet,$message) {
    $result = sql_query("SELECT email,send_email FROM ".$NPDS_Prefix."users WHERE uid='$to_userid'");
    list($mail,$avertir_mail) = sql_fetch_row($result);
    if (($mail) and ($avertir_mail==1)) {
-      send_email($mail,$sujet,$message, "", true, "html");
+      send_email($mail,$sujet,$message, '', true, 'html');
    }
 }
 #autodoc Ecr_Log($fic_log, $req_log, $mot_log) : Pour &eacute;crire dans un log (security.log par exemple)
@@ -451,19 +476,19 @@ function Mess_Check_Mail_Sub($username, $class) {
    global $NPDS_Prefix;
    global $user;
    if ($username) {
-      $userdata = explode(":", base64_decode($user));
+      $userdata = explode(':', base64_decode($user));
       $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND type_msg='0'"));
       $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND read_msg='0' AND type_msg='0'"));
       if ($total_messages > 0) {
          if ($new_messages > 0) {
             $Xcheck_Nmail=$new_messages;
          } else {
-            $Xcheck_Nmail="0";
+            $Xcheck_Nmail='0';
          }
          $Xcheck_mail=$total_messages;
       } else {
-         $Xcheck_Nmail="0";
-         $Xcheck_mail="0";
+         $Xcheck_Nmail='0';
+         $Xcheck_mail='0';
       }
    }
    $YNmail="$Xcheck_Nmail";
@@ -471,11 +496,11 @@ function Mess_Check_Mail_Sub($username, $class) {
    $Mel="<a href=\"viewpmsg.php\" $class>Mel</a>";
    if ($Xcheck_Nmail >0) {
       $YNmail="<a href=\"viewpmsg.php\" $class>$Xcheck_Nmail</a>";
-      $Mel="Mel";
+      $Mel='Mel';
    }
    if ($Xcheck_mail >0) {
       $Ymail="<a href=\"viewpmsg.php\" $class>$Xcheck_mail</a>";
-      $Mel="Mel";
+      $Mel='Mel';
    }
    return ("$Mel : $YNmail / $Ymail");
 }
@@ -525,10 +550,10 @@ function AutoReg() {
    global $AutoRegUser, $user;
    if (!$AutoRegUser) {
       if (isset($user)) {
-         $cookie = explode(":", base64_decode($user));
+         $cookie = explode(':', base64_decode($user));
          list($test) = sql_fetch_row(sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'"));
          if (!$test) {
-            setcookie("user","",0);
+            setcookie('user','',0);
             return false;
          } else {
             return true;
@@ -2509,26 +2534,27 @@ function category() {
 }
 #autodoc headlines() : Bloc HeadLines <br />=> syntaxe :
 #autodoc : function#headlines<br />params#ID_du_canal
-function headlines($hid="", $block=true) {
-  global $NPDS_Prefix;
-  global $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
+function headlines($hid='', $block=true) {
+  global $NPDS_Prefix, $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
 
   if (file_exists("proxy.conf.php")) {
      include("proxy.conf.php");
   }
-  if ($hid=="") {
-     $result = sql_query("SELECT sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines WHERE status=1");
+  if ($hid=='') {
+     $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE status=1");
   } else {
-     $result = sql_query("SELECT sitename, url, headlinesurl, hid from ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
+     $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
   }
   while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
-    $boxtitle     = "$sitename";
-    $cache_file   = "cache/$sitename.cache";
-    $cache_time   = 3600;
+    $boxtitle     = $sitename;
+//    $cache_file   = "cache/$sitename.cache";
+    
+    $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
+    $cache_time   = 3600;//3600
     $items        = 0;
-    $max_items    = 10;
+    $max_items    = 6;
     $rss_timeout  = 15;
-    $rss_font     = "<span style=\"font-size: 10px;\">";
+    $rss_font     = '<span class="small">';
 
     if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
        $rss=parse_url($url);
@@ -2550,20 +2576,27 @@ function headlines($hid="", $block=true) {
           themesidebox($boxtitle, "Security Error");
           return;
        } else {
+       
+       
+       
+/*
           if (isset($proxy_url[$hid])) {
              $fpread=fsockopen($proxy_url[$hid],$proxy_port[$hid],$errno,$errstr,$rss_timeout);
              fputs($fpread,"GET $headlinesurl/ HTTP/1.0\n\n");
           } else {
              $fpread = fopen($headlinesurl, 'r');
           }
+*/
           if (!$long_chain) {$long_chain=15;}
-          if ($fpread) {
+
+
+//           if ($fpread) {
              $fpwrite = fopen($cache_file, 'w');
              if ($fpwrite) {
                 fputs($fpwrite, "<ul>\n");
-                while (!feof($fpread)) {
+/*                while (!feof($fpread)) {
                    $buffer = ltrim(Chop(fgets($fpread, 512)));
-                   if (($buffer == "<item>") && ($items < $max_items)) {
+                   if (($buffer == "<item>") and ($items < $max_items)) {
                       $title = ltrim(Chop(fgets($fpread, 256)));
                       $link = ltrim(Chop(fgets($fpread, 256)));
                       $title = str_replace( "<title>", "", $title );
@@ -2576,34 +2609,69 @@ function headlines($hid="", $block=true) {
                       } else {
                          $encoding="UTF-8";
                       }
-                      $title=$look_title=iconv($encoding,cur_charset."//TRANSLIT", $title);
+                    $title=$look_title=iconv($encoding,cur_charset."//TRANSLIT", $title);
                       if ($block) {
                          if (strlen($look_title)>$long_chain) {
                             $title=(substr($look_title, 0, $long_chain))." ...";
                          }
                       }
-
-                      fputs($fpwrite, "<li><a href=\"$link\" alt=\"$look_title\" title=\"$look_title\" target=\"_blank\">$title</a></li>\n");
+                      fputs($fpwrite,"<li><a href=\"$link\" alt=\"$look_title\" title=\"$look_title\" target=\"_blank\">$title</a></li>\n");
                       $items++;
                    }
                 }
-                fputs($fpwrite, "</ul>");
+*/
+
+// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome !
+   $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
+   $namespaces = $flux->getNamespaces(true); // get namespaces
+   $ic='';
+   //ATOM//
+   if($flux->entry) {
+   $j=0;
+      foreach ($flux->entry as $entry) {
+      $cont='';
+//      if($entry->children($namespaces['media'])->count() > 0) $srcmedia = (string) $entry->children($namespaces['media'])->thumbnail->attributes()->url;
+      //$srcmedia = (string) $entry->children($namespaces['media'])->thumbnail->attributes()->url;
+      
+      
+      
+//         if($srcmedia!='') {$ic='<img class="img-fluid" src="'.$srcmedia.'" />&nbsp;';} else{$ic='';}
+
+         if($entry->content) $cont=(string) $entry->content;
+
+         fputs($fpwrite,'<li>'.$ic.'<a href="'.(string)$entry->link['href'].'" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+         if($j==$max_items) break;
+         $j++;
+      }
+   }
+   
+   $j=0;
+   if($flux->image) $ico='<img class="img-fluid" src="'.$flux->image->url.'" />&nbsp;'; 
+   foreach ($flux->item as $item) {
+      fputs($fpwrite,'<li>'.$ico.'<a href="'.(string) $item->link.'" target="_blank" >'.(string) $item->title.'</a></li>');
+      if($j==$max_items) break;
+      $j++;
+   }
+
+                fputs($fpwrite, "\n".'</ul>');
                 fclose($fpwrite);
              }
-             fclose($fpread);
-          }
+//              fclose($fpread);
+//           }
        }
     }
+
     if (file_exists($cache_file)) {
         ob_start();
         $ibid=readfile($cache_file);
-        $boxstuff=$rss_font.ob_get_contents()."</span>";
+        $boxstuff=$rss_font.ob_get_contents().'</span>';
         ob_end_clean();
     }
-    $boxstuff .= "<br /><div align=\"right\"><a href=\"$url\" target=\"_blank\"><b>".translate("read more...")."</b></a></div>";
+    $boxstuff .= '
+         <div class="text-xs-right"><a href="'.$url.'" target="_blank">'.translate("read more...").'</a></div>';
     if ($block) {
        themesidebox($boxtitle, $boxstuff);
-       $boxstuff="";
+       $boxstuff='';
     } else {
         return ($boxstuff);
     }
@@ -2627,11 +2695,11 @@ function PollNewest($id='') {
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
 function bloc_langue() {
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Select a language");
    else
       $title=$block_title;
-   themesidebox($title,"<br />".aff_local_langue("" ,"index.php", "choice_user_language"));
+   themesidebox($title,'<br />'.aff_local_langue('' ,"index.php", "choice_user_language"));
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {

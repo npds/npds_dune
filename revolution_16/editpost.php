@@ -145,7 +145,7 @@ if ($submitS) {
    }
    settype($submitP,'string');
    if ($submitP) {
-      $acc = "editpost";
+      $acc = 'editpost';
       $title=stripslashes($subject);
       $message=stripslashes(make_clickable($message));
       include ("preview.php");
@@ -169,15 +169,13 @@ if ($submitS) {
       if ($Mmod)
          echo '
          <div class="form-group row">
-            <div class="col-sm-3">
-               <label class="form-control-label" for="subject">'.translate("Title").'</label>
-            </div>
+            <label class="form-control-label col-sm-3" for="subject">'.translate("Title").'</label>
             <div class="col-sm-9">
                <input class="form-control textbox_standard" type="text" name="subject" size="40" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
             </div>
          </div>';
       else {
-         echo "<b>".translate("Editing Post")."</b> : $title</td></tr>";
+         echo '<strong>'.translate("Editing Post").'</strong> : '.$title;
          echo "<input type=\"hidden\" name=\"subject\" value=\"".htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset)."\" />";
       }
    } else {
@@ -188,9 +186,9 @@ if ($submitS) {
       <div class="form-group row">
          <label class="form-control-label col-sm-3">'.translate("Message Icon: ").'</label>
          <div class="col-sm-9">
-         <div class=" card card-block fond_subject">
-         '.emotion_add($image_subject).'
-         </div>
+            <div class=" card card-block fond_subject">
+            '.emotion_add($image_subject).'
+            </div>
          </div>
       </div>';
    }
@@ -227,9 +225,7 @@ if ($submitS) {
       }
    echo '
    <div class="form-group row">
-      <div class="col-sm-3">
-         <label class="form-control-label">'.translate("Options: ").'</label>
-      </div>
+      <label class="form-control-label col-sm-3">'.translate("Options: ").'</label>
       <div class="col-sm-9">
          <div class="checkbox">
             <label class="text-danger">

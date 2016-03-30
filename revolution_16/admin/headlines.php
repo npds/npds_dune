@@ -108,25 +108,15 @@ function HeadlinesAdmin() {
    echo '
    <script type="text/javascript">
    //<![CDATA[
-   
-   var fields=$( "#fad_newheadline").serializeArray();
-   jQuery.each( fields, function( i, field ) {
-      console.log( field.name+ " " );
-    });
-   
-      
-     console.log( $( "#fad_newheadline").serializeArray() );
    //]]>
    </script>';
-   
+
    adminfoot('fv','','','');
 }
 
 function HeadlinesEdit($hid) {
    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
-
    include ("header.php");
-  $vars = get_defined_vars();
    GraphicAdmin($hlpfile);
    $result = sql_query("SELECT sitename, url, headlinesurl, status FROM ".$NPDS_Prefix."headlines WHERE hid='$hid'");
    list($xsitename, $url, $headlinesurl, $status) = sql_fetch_row($result);
@@ -195,16 +185,12 @@ function HeadlinesEdit($hid) {
 
 function HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status) {
     global $NPDS_Prefix;
-
-    $xsitename = str_replace(' ','',$xsitename);
     sql_query("UPDATE ".$NPDS_Prefix."headlines SET sitename='$xsitename', url='$url', headlinesurl='$headlinesurl', status='$status' WHERE hid='$hid'");
     Header("Location: admin.php?op=HeadlinesAdmin");
 }
 
 function HeadlinesAdd($xsitename, $url, $headlinesurl, $status) {
     global $NPDS_Prefix;
-
-    $xsitename = str_replace(' ','',$xsitename);
     sql_query("INSERT INTO ".$NPDS_Prefix."headlines VALUES (NULL, '$xsitename', '$url', '$headlinesurl', '$status')");
     Header("Location: admin.php?op=HeadlinesAdmin");
 }
@@ -228,19 +214,19 @@ function HeadlinesDel($hid, $ok=0) {
 }
 
 switch ($op) {
-   case "HeadlinesDel":
+   case 'HeadlinesDel':
       HeadlinesDel($hid, $ok);
       break;
-   case "HeadlinesAdd":
+   case 'HeadlinesAdd':
       HeadlinesAdd($xsitename, $url, $headlinesurl, $status);
       break;
-   case "HeadlinesSave":
+   case 'HeadlinesSave':
       HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status);
       break;
-   case "HeadlinesAdmin":
+   case 'HeadlinesAdmin':
       HeadlinesAdmin();
       break;
-   case "HeadlinesEdit":
+   case 'HeadlinesEdit':
       HeadlinesEdit($hid);
       break;
 }

@@ -24,7 +24,6 @@ function rs_translate($phrase) {
    case "Name" : $tmp = "Nom"; break;
    case "Icône" : $tmp = "Icon"; break;
    case "Sauvegarder" : $tmp = "Save"; break;
-   
    case "Informations sur l'IP" : $tmp = "IP informations"; break;
    case "Vider le fichier" : $tmp = "Empty the file"; break;
    case "Recevoir le fichier par mail" : $tmp = "Send file by email"; break;

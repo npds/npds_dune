@@ -1,0 +1,210 @@
+@charset "utf-8";
+/* CSSbootsbmag pour NPDS Revolution                                       */
+/* Theme : Dyna-boost (c) 2015 by jpb                                        */
+/* style.css                                                                 */
+/* pour ajuster et modifier les css du framework                             */
+/* pour utiliser les classes et #ID spécifiques à NPDS                       */
+  /*background-image: url("../images/fond2.png"); */
+/** ==> Balise html                                                         **/
+/*     Balise html                                                           */
+html{font-size: 15px;}
+body {padding-top: 150px;background: #F3F2ED;}
+a:hover {text-decoration:none;}
+/** <== Balise html   **/
+
+a {
+    color: #6f8343;;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a:focus, a:hover {
+    color: #df0018;
+    text-decoration: underline;
+}
+#corps{max-width: 1248px;} /*la taille de mon corps*/
+
+/*mon header*/
+
+#decorative2 {position:fixed;top:0;left:0;right:0;z-index:1032}
+#decorative2 {z-index:100 !important}
+#decorative2 {/*opacity:0.95;*/
+
+    -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.03);
+    -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.03);
+}
+
+#decorative2
+{height: 140px; 
+ border-bottom: 1px solid #ccc;
+ border-top:5px solid #9b0313;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f1f1f1+50,e1e1e1+51,f6f6f6+100;White+Gloss+%231 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+
+}
+
+
+/* le menu du header*/
+.navbar .ddmenu {
+    margin-top: 45px;
+    margin-bottom: 0px;
+}
+
+.navbar .btn-navbar-highlight {
+    display: none;
+    width: 100%;
+}
+.btn-primary {
+    border: 1px solid #7e9d31;
+    border-bottom: 1px solid #637b27;
+    background-color: #8eb037;
+    background-repeat: repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#8eb037), to(#809e32));
+    background-image: -webkit-linear-gradient(top, #8eb037, #809e32);
+    background-image: -moz-linear-gradient(top, #8eb037, #809e32);
+    background-image: -ms-linear-gradient(top, #8eb037, #809e32);
+    background-image: -o-linear-gradient(top, #8eb037, #809e32);
+    background-image: linear-gradient(top, #8eb037, #809e32);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr=#8eb037, endColorstr=#809e32, GradientType=0);
+    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+
+
+.page-header {
+    margin: 53px 0 20px;
+    padding: 15px;
+	
+}
+
+
+
+
+
+/*test nav rainbow*/
+
+
+
+
+
+
+/***********
+decoration
+*************/
+#divSiteTitle {
+    font-family: Allura, cursive;
+    color: rgb(142, 176, 55);
+    font-size: 40px;
+    text-shadow: rgba(0, 0, 0, 0.298039) 2px 4px 3px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    text-transform: none;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+
+/* #col_LB{ la colonne de droite
+   
+} */
+
+#footer1  {
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(18, 18, 18);
+    color: rgb(180, 173, 173);
+	margin-top:15px;
+    padding-top: 32px;
+    line-height: 23px;
+    font-size: 12px;
+    text-transform: none;
+}
+
+.card {
+    position: relative;
+    display: block;
+    background: #fefefe;
+	border: 1px solid #969696;
+	border-top: 9px solid #666;
+	border-bottom: 4px solid #969696;
+	border-radius: .025rem;
+}
+
+.card-article {
+    position: relative;
+    display: block;
+	padding:1rem;
+    background: #fefefe;
+	border: 1px solid #969696;
+
+}
+
+.card-title {
+    margin-bottom: .75rem;
+    color: #9b0313;
+}
+
+.subune {   /* présentation des articles*/
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 3.125em;
+}
+.subune h2 {
+	font-size: 1.525rem;
+	background: #4d4d4d;
+	color:#cacaca;
+    text-transform: uppercase;
+    font-family: "ProximaNova Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;
+    line-height: 1;
+	padding: 8px 10px;
+}
+
+.subune h2 a {
+    display: block;
+    background: #4d4d4d;
+    color: #cacaca;
+    padding: 8px 10px;
+}
+.subune h2 a:hover {
+    color: #fff;
+    padding: 8px 10px;
+}
+
+
+.bd-article {
+    position: relative;
+    margin: 1rem -1rem;
+    border: solid #f7f7f9;
+   
+}
+
+/**************
+test jmd
+********************/
+
+.rouge{border:1px red solid}
+
+.img-fluid1 {
+    float: left;
+    margin-right: 10px;
+}
+
+
+/* tailles max des avatars correction Bmag*/
+.n-ava {
+    max-width: 48px;
+    max-height: 48px;
+
+}
+
+.n-ava-small {
+    max-width: 48px;
+    max-height: 48px;
+    margin: 0.150rem;
+}
