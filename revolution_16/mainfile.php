@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -111,8 +111,8 @@ function NightDay() {
 function removeHack($Xstring) {
   if ($Xstring!="") {
      $npds_forbidden_words=array(
-     // NCRs 2 premiËres sÈquence = NCR (dec|hexa) correspondant aux caractËres latin de la table ascii (code ascii entre 33 et 126)
-     //      2 derniËres sÈquences = NCR (dec|hexa) correspondant aux caractËres latin du bloc unicode Halfwidth and Fullwidth Forms.
+     // NCRs 2 premières séquence = NCR (dec|hexa) correspondant aux caractères latin de la table ascii (code ascii entre 33 et 126)
+     //      2 dernières séquences = NCR (dec|hexa) correspondant aux caractères latin du bloc unicode Halfwidth and Fullwidth Forms.
      //        Leur signification est identique à celle des caractères latin de la table ascii dont le code ascii est entre 33 et 126.
      // JPB for NPDS 2005
      "'&#(33|x21|65281|xFF01);'i"=>chr(33),
@@ -324,19 +324,19 @@ function removeHack($Xstring) {
 }
 #autodoc getmicrotime() : Retourne le temps en micro-seconde
 function getmicrotime() {
-   list($usec, $sec) = explode(" ",microtime());
+   list($usec, $sec) = explode(' ',microtime());
    return (float)$usec + (float)$sec;
 }
 #autodoc send_email($email, $subject, $message, $from, $priority, $mime) : Pour envoyer un mail en texte ou html via les fonctions mail ou email  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(piece jointe)
 function send_email($email, $subject, $message, $from="", $priority=false, $mime="text") {
    global $mail_fonction, $adminmail;
-   $advance="";
+   $advance='';
    if ($priority) {
       $advance="X-Priority: 2\n";
    }
-   if ($mime=="mixed") {
-      // dans $message se trouve le nom du fichier ‡ joindre (voir le module session-log pour un exemple)
-      $boundary = "_".md5 (uniqid(mt_rand()));
+   if ($mime=='mixed') {
+      // dans $message se trouve le nom du fichier à joindre (voir le module session-log pour un exemple)
+      $boundary = '_'.md5 (uniqid(mt_rand()));
       $attached_file = file_get_contents($message);
       $attached_file = chunk_split(base64_encode($attached_file));
       $message = "\n\n". "--" .$boundary . "\nContent-Type: application; name=\"".basename($message)."\" charset=".cur_charset."\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"".basename($message)."\"\r\n\n".$attached_file . "--" . $boundary . "--";
@@ -364,7 +364,7 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
          $result=mail($email, $subject, $message, "From: $From_email\nReturn-Path: $From_email\nX-Mailer: NPDS\n$advance");
       }
    } else {
-      $pos = strpos($adminmail, "@");
+      $pos = strpos($adminmail, '@');
       $tomail=substr($adminmail,0,$pos);
       $result=email($tomail, $email, $subject, $message, $tomail, "Return-Path:\nX-Mailer: NPDS\n$advance");
    }   
@@ -380,7 +380,7 @@ function copy_to_email($to_userid,$sujet,$message) {
    $result = sql_query("SELECT email,send_email FROM ".$NPDS_Prefix."users WHERE uid='$to_userid'");
    list($mail,$avertir_mail) = sql_fetch_row($result);
    if (($mail) and ($avertir_mail==1)) {
-      send_email($mail,$sujet,$message, "", true, "html");
+      send_email($mail,$sujet,$message, '', true, 'html');
    }
 }
 #autodoc Ecr_Log($fic_log, $req_log, $mot_log) : Pour &eacute;crire dans un log (security.log par exemple)
@@ -476,19 +476,19 @@ function Mess_Check_Mail_Sub($username, $class) {
    global $NPDS_Prefix;
    global $user;
    if ($username) {
-      $userdata = explode(":", base64_decode($user));
+      $userdata = explode(':', base64_decode($user));
       $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND type_msg='0'"));
       $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND read_msg='0' AND type_msg='0'"));
       if ($total_messages > 0) {
          if ($new_messages > 0) {
             $Xcheck_Nmail=$new_messages;
          } else {
-            $Xcheck_Nmail="0";
+            $Xcheck_Nmail='0';
          }
          $Xcheck_mail=$total_messages;
       } else {
-         $Xcheck_Nmail="0";
-         $Xcheck_mail="0";
+         $Xcheck_Nmail='0';
+         $Xcheck_mail='0';
       }
    }
    $YNmail="$Xcheck_Nmail";
@@ -496,11 +496,11 @@ function Mess_Check_Mail_Sub($username, $class) {
    $Mel="<a href=\"viewpmsg.php\" $class>Mel</a>";
    if ($Xcheck_Nmail >0) {
       $YNmail="<a href=\"viewpmsg.php\" $class>$Xcheck_Nmail</a>";
-      $Mel="Mel";
+      $Mel='Mel';
    }
    if ($Xcheck_mail >0) {
       $Ymail="<a href=\"viewpmsg.php\" $class>$Xcheck_mail</a>";
-      $Mel="Mel";
+      $Mel='Mel';
    }
    return ("$Mel : $YNmail / $Ymail");
 }
@@ -550,10 +550,10 @@ function AutoReg() {
    global $AutoRegUser, $user;
    if (!$AutoRegUser) {
       if (isset($user)) {
-         $cookie = explode(":", base64_decode($user));
+         $cookie = explode(':', base64_decode($user));
          list($test) = sql_fetch_row(sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'"));
          if (!$test) {
-            setcookie("user","",0);
+            setcookie('user','',0);
             return false;
          } else {
             return true;
