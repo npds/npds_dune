@@ -710,7 +710,7 @@ function getusrinfo($user) {
    $cookie = explode(':', base64_decode($user));
    $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($pass) = sql_fetch_row($result);
-   $userinfos="";
+   $userinfos='';
    if (($cookie[2] == md5($pass)) AND ($pass != "")) {
       $result = sql_query("SELECT uid, name, uname, email, femail, url, user_avatar, user_occ, user_from, user_intrest, user_sig, user_viewemail, user_theme, pass, storynum, umode, uorder, thold, noscore, bio, ublockon, ublock, theme, commentmax, user_journal, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       if (sql_num_rows($result)==1) {
@@ -859,8 +859,8 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    @sql_free_result($result);
    return ($tab);
 }
-#autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de pr&eacute;-visualiser la prÈsentation d'un NEW
-function themepreview($title, $hometext, $bodytext="", $notes="") {
+#autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de prévisualiser la présentation d'un NEW
+function themepreview($title, $hometext, $bodytext='', $notes='') {
    echo "<span class=\"titrea\">$title</span><br />".meta_lang($hometext)."<br />".meta_lang($bodytext)."<br />".meta_lang($notes);
 }
 #autodoc prepa_aff_news($op,$catid) : Pr&eacute;pare, serialize et stock dans un tableau les news r&eacute;pondant aux crit&egrave;res<br />$op="" ET $catid="" : les news // $op="categories" ET $catid="catid" : les news de la cat&eacute;gorie catid //  $op="article" ET $catid=ID_X : l'article d'ID X // Les news des sujets : $op="topics" ET $catid="topic"
@@ -2947,12 +2947,12 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 $content.='<li class="list-group-item li_18 text-xs-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
-      $content.='&nbsp;<a href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
+      $content.='&nbsp;<a class="m-r-1" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
    }
    //<= Filemanager
    //=> Minisite
    if ($rsql['groupe_mns'] == 1) {
-      $content.='&nbsp;<a href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
+      $content.='&nbsp;<a class="m-r-1" href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
    }
    //<= Minisite
    //=> Chat
@@ -2962,12 +2962,12 @@ $content.='<li class="list-group-item li_18 text-xs-center">';
          $chat_img='images/admin/ws/comment_reply.gif';
       else
          $chat_img='images/admin/ws/comment_user.gif';
-      $content.='&nbsp;<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x"></i></a>';
+      $content.='&nbsp;<a class="m-r-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x"></i></a>';
    }
    //<= Chat
    //=> admin
    if (autorisation(-127)) {
-      $content.='&nbsp;<a href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-2x"></i></a>';
+      $content.='&nbsp;<a class="m-r-1" href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-2x"></i></a>';
    }
    //<= admin
    
