@@ -270,7 +270,7 @@ if ($submitS) {
          echo "</td></tr>";
       }
       echo "<tr align=\"left\" valign=\"top\">";
-      echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Message: ")."</b><br /><br />";
+      echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Message")."</b><br /><br />";
       echo "<span>";
       echo "HTML : ";
       if ($allow_html==1) {
