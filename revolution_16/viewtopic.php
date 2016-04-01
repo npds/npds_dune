@@ -304,7 +304,7 @@ include('header.php');
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a>&nbsp;';
+                     $my_rs.='<a class="m-r-1" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
                   } 
                   else $my_rs.='';
@@ -320,7 +320,7 @@ include('header.php');
       if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i>&nbsp;'.translate("Profile").'</a>';
       }
-      if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
+      if ($user) {
          $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
       }
       if ($posterdata['femail']!='') {
