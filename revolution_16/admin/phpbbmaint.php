@@ -136,14 +136,15 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<h3>'.adm_translate("Supprimer massivement les Topics").'</h3>';
-   echo "<form action=\"admin.php\" method=\"post\">";
+   echo '
+   <h3>'.adm_translate("Supprimer massivement les Topics").'</h3>
+   <form action="admin.php" method="post">';
    $resultTT=sql_query("SELECT post_text, post_time FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' ORDER BY post_time DESC limit 0,1");
    list($post_text, $post_time)=sql_fetch_row($resultTT);
    echo "<input type=\"hidden\" name=\"op\" value=\"ForumMaintTopicSup\" /><input type=\"hidden\" name=\"topic\" value=\"$topic\" />";
    echo "<b>Topic : $topic | ".stripslashes($topic_title)."</b> | ";
    echo "<input class=\"btn btn-danger\" type=\"submit\" name=\"Topics_Del\" value=\"".adm_translate("Effacer")."\" /><hr noshade=\"noshade\" class=\"ongl\" />";
-   echo "[ ".convertdate($post_time)." ]<br /><br />";
+   echo '[ '.convertdate($post_time).' ]<br /><br />';
    echo stripslashes($post_text);
    echo '</form>';
    adminfoot('','','','');
@@ -153,7 +154,7 @@ function ForumMaintTopicMassiveSup($topics) {
     global $NPDS_Prefix;
     if ($topics) {
        while (list($topic_id,$value)=each($topics)) {
-          if ($value=="on") {
+          if ($value=='on') {
              $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topic_id'";
              if (!$result = sql_query($sql))
                 forumerror('0009');
@@ -307,7 +308,9 @@ function ForumMaintAdmin() {
     include ("header.php");
     GraphicAdmin($hlpfile);
     adminhead ($f_meta_nom, $f_titre, $adminimg);
-    echo '<h3>'.adm_translate("Maintenance des Forums").'</h3>';
+    echo '
+    <hr />
+    <h3>'.adm_translate("Maintenance des Forums").'</h3>';
     // Mark Topics, Synchro Forum_read table, Merge Forums
     echo '
     <div class="row">
@@ -331,22 +334,22 @@ function ForumMaintAdmin() {
         </div>
     </div>
     <br />
-    <form id="fad_forumdelete" class="form-horizontal" action="admin.php" method="post">
+    <form id="fad_forumdelete" action="admin.php" method="post">
     <fieldset>
     <legend>'.adm_translate("Supprimer massivement les Topics").'</legend>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" name="forum_name" id="forum_name" size="20" maxlength="150" value="" />
+               <input type="text" class="form-control" name="forum_name" id="forum_name" maxlength="150" value="" />
            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label class="form-control-label col-sm-4" for="before">'.adm_translate("Date").'</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" name="before" id="before" value="" size="10" maxlength="11" placeholder="AAAA-MM-JJ" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+               <input type="text" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
            <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="MaintForumTopics">
                <button class="btn btn-warning" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>

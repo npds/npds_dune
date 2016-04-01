@@ -30,9 +30,9 @@ function ForumConfigAdmin() {
 
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."config");
    list($allow_html,$allow_bbcode,$allow_sig,$posts_per_page,$hot_threshold,$topics_per_page,$allow_upload_forum,$allow_forum_hide,$forum_attachments,$rank1,$rank2,$rank3,$rank4,$rank5,$anti_flood,$solved) = sql_fetch_row($result);
-   echo '<h3>'.adm_translate("Configuration des Forums").'</h3>';
-
    echo '
+   <hr />
+   <h3>'.adm_translate("Configuration des Forums").'</h3>
    <form id="fad_forumconf" action="admin.php" method="post">
       <div class="row">
          <label class="form-control-label col-sm-4 col-md-4" for="allow_html">'.adm_translate("Autoriser le HTML").'</label>
@@ -81,7 +81,7 @@ function ForumConfigAdmin() {
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="allow_sig">'.adm_translate("Autoriser les Signatures").'</label>
+         <label class="form-control-label col-sm-4" for="allow_sig">'.adm_translate("Autoriser les Signatures").'</label>
          <div class="col-sm-8">';
 
    if ($allow_sig==1) {
@@ -104,42 +104,34 @@ function ForumConfigAdmin() {
    echo '
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="hot_threshold">'.adm_translate("Seuil pour les Sujet 'chauds'").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" min="0" id="hot_threshold" name="hot_threshold" value="'.$hot_threshold.'" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="hot_threshold">'.adm_translate("Seuil pour les Sujet 'chauds'").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" min="0" id="hot_threshold" name="hot_threshold" value="'.$hot_threshold.'" />
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" min="0" id="posts_per_page" name="posts_per_page" value="'.$posts_per_page.'" />
-            </div>
-            <div class="col-sm-offset-4 col-sm-8">
-               <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'</span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" min="0" id="posts_per_page" name="posts_per_page" value="'.$posts_per_page.'" />
+         </div>
+         <div class="col-sm-offset-4 col-sm-8">
+            <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'</span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="topics_per_page">'.adm_translate("Sujets par forum :").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" min="0" id="topics_per_page" name="topics_per_page" size="4" value="'.$topics_per_page.'" />
-            </div>
-            <div class="col-sm-offset-4 col-sm-8">
-               <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'</span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="topics_per_page">'.adm_translate("Sujets par forum :").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" min="0" id="topics_per_page" name="topics_per_page" size="4" value="'.$topics_per_page.'" />
+         </div>
+         <div class="col-sm-offset-4 col-sm-8">
+            <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'</span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" min="0" id="anti_flood" name="anti_flood" value="'.$anti_flood.'" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4 col-md-4" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" min="0" id="anti_flood" name="anti_flood" value="'.$anti_flood.'" />
          </div>
       </div>
       <div class="row">
@@ -189,7 +181,7 @@ function ForumConfigAdmin() {
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="allow_forum_hide">'.adm_translate("Activer les textes cachés").'</label>
+         <label class="form-control-label col-sm-4" for="allow_forum_hide">'.adm_translate("Activer les textes cachés").'</label>
          <div class="col-sm-8">
             <label class="radio-inline">';
    if ($allow_forum_hide==1) {
