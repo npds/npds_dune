@@ -35,6 +35,7 @@ $hlpfile = "manuels/$language/authors.html";
             </label>
          </div>';
       } else {
+         if ($fid!=12)
          $listdroits .='
          <div class="col-md-4">
             <label class="" for="ad_d_'.$fid.'">
@@ -366,7 +367,7 @@ function modifyadmin($chng_aid) {
    $fnom_affich= adm_translate(utf8_encode($fnom_affich));
       if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
       if($fcategorie==6) {
-        $listdroitsmodulo .='
+         $listdroitsmodulo .='
       <div class="col-sm-4">
          <label class="" for="ad_d_m_'.$fid.'">
             <input class="ckbm" id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
@@ -374,6 +375,7 @@ function modifyadmin($chng_aid) {
       </div>';
       }
       else { 
+         if ($fid!=12)
          $listdroits .='
       <div class="col-sm-4">
          <label class="" for="ad_d_'.$fid.'">
