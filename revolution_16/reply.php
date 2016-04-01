@@ -297,7 +297,7 @@ if ($submitS) {
    }
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="message">'.translate("Message: ").'</label>
+         <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
@@ -316,7 +316,7 @@ if ($submitS) {
            $text = $m['post_text'];
            if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
               $text = smile($text);
-              $text = str_replace("<br />", "\n", $text);
+              $text = str_replace('<br />', "\n", $text);
            } else {
               $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
            }
@@ -426,7 +426,7 @@ if ($submitS) {
          }
          echo '</p>';
          $posts = $posterdata['posts'];
-		 echo '<p>';
+      echo '<p>';
          echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
          echo '</p>';
          if ($smilies) {
