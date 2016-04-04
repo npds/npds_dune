@@ -1,0 +1,1792 @@
+/* ----------------------------------------------------------------------
+   1. BASE MINIMUM         Rev2016
+---------------------------------------------------------------------- */
+ /*  body {
+
+    background: transparent -moz-linear-gradient(center top , #E7E3CF 0.1em, transparent 0.1em) repeat scroll 0% 0% / 100% 1.5em;
+} */
+/* ----------------------------------------------------------------------
+   2. LIENS - standard
+---------------------------------------------------------------------- */
+  @import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+
+
+ /*jmd work*/
+
+
+/* ----------------------------------------------------------------------
+   3. LIENS - de style noir.
+   => en gÈnÈral les actions ´ positives ª quand se ne sont pas des boutons
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   4 LIENS - de style rouge.
+   => en gÈnÈral les actions de type: annulation, suppression,
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   5 LIENS - de style box
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   6 LIENS - de style heada
+   => administration, tÈlÈchargement, annuaire notamment
+---------------------------------------------------------------------- */
+a.heada, a.heada:visited, a.heada:active {/* Admin (haut et bas) - Download - Annuaire */
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   7 LIENS - de style ongl
+   => fortement utilisÈ par le CMS
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   8 LES STYLES SUR DES BALISES DE BASES
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9 LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9a. LES STYLES SUR LES TABLEAUX
+   => UtilisÈs par la fonction tablos(), permet díalterner les couleurs des lignes de tableau
+---------------------------------------------------------------------- */
+
+   
+table {
+    background: #FFF none repeat scroll 0% 0%;
+    border: 1px solid #DDD;
+    margin-bottom: 1.25rem;
+    table-layout: auto;
+    
+}
+
+table tr.even, table tr.alt, table tr:nth-of-type(2n) {
+    background: #F9F9F9 none repeat scroll 0% 0%;
+}
+/* ----------------------------------------------------------------------
+   9b. LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9c. LES STYLES SUR LES TABLEAUX
+   => TrËs fortement utilisÈ pour la grande majoritÈ des entÍtes de tableaux
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   10 LIGNE DE SEPARATION (MENU ADMINISTRATION, MENU MEMBRE Ö)
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   11 LES STYLES SUR LES CHAMPS DE FORMULAIRES
+---------------------------------------------------------------------- */
+.inputa { /* champ de saisie, LNL, moteur de recherche notamment */
+   background-color: #FDFDFD;
+   border-top: #864732 2px solid;
+   border-bottom: #D7B39B 2px solid;
+   border-left: #864732 2px solid;
+   border-right: #D7B39B 2px solid;
+   color: #682B1A;
+   height: 15px;
+   vertical-align: middle;
+   width: 80px;
+}
+.textbox .textbox_no_mceEditor { /* Champs de formulaire */
+   width: 95%;
+   background-color: #FDFDFD;
+   color: #682B1A;
+   font-weight: bold;
+   text-decoration: none;
+   border-top: #B07A64 2px groove;
+   border-left: #B07A64 2px groove;
+   border-bottom: #682B1A 1px inset;
+   border-right: #682B1A 1px inset;
+}
+.textbox_standard { /* Champs de formulaire */
+   background-color: #FDFDFD;
+   border-bottom: #D7B39B 1px solid;
+   border-left: #D7B39B 1px solid;
+   border-right: #D7B39B 1px solid;
+   border-top: #D7B39B 1px solid;
+   color: #864732;
+}
+.bouton_standard { /* Champs de formulaire */
+   margin-top: 3px;
+   cursor: pointer;
+   background-color: #FDFDFD;
+   color: #682B1A;
+   font-weight: bold;
+   text-decoration: none;
+   border-top: #D7B39B 2px solid;
+   border-bottom: #864732 2px solid;
+   border-left: #D7B39B 2px solid;
+   border-right: #864732 2px solid;
+}
+.titboxc { /* administration, commentaires, tÈlÈchargement notamment */
+   background-color:transparent;
+   color: #9e5a42;
+   font-weight: bold;
+}
+.titboxcont { /* bloc administrateur, bloc message ‡ un membre notamment */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-weight: bold;
+}
+.titre { /* Administration */
+   background-color: transparent;
+   color: #C5BF3B;
+   font-weight: bold;
+}
+.titrea { /* sondages, commentaires, critiques, sections notamment */
+   background-color: transparent;
+   color: #682B1A;
+   font-weight: bold;
+   letter-spacing  : 1px;
+   text-indent     : 1px;
+   padding         : 2px;
+}
+.titreb { /* sondages */
+   background-color: transparent;
+   color: #91533D;
+   font-weight: bold;
+   text-decoration: none;
+}
+.titrec { /* bloc de Chat */
+   background-color: transparent;
+   color: #D5B199;
+   font-family: Georgia, "Times New Roman", serif;
+   text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   12 STATS - Jireck' work
+---------------------------------------------------------------------- */
+
+.graph .bar span { 
+  position: absolute; 
+  left: 1em;
+
+}
+.graph{ text-align: left;}
+/* ----------------------------------------------------------------------
+   13 THEME
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   14  Liens Tooltip ==> Info Bulles                        
+---------------------------------------------------------------------- */
+a.tooltip {
+    border-bottom: 1px groove gray;
+}
+a.tooltip em {
+    display:none;
+}
+a.tooltip:hover {
+    border: 0;
+    position: relative;
+    z-index: 500;
+    text-decoration:none;
+}
+a.tooltip:hover em {
+    font-style: normal;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: -5px;
+    padding: 5px;
+    color: #000000;
+    border: 1px solid #404040;
+    background: #F2EFE8;
+	 width:200px;
+	text-align: left;	
+}
+/*------------------------------------------------>
+      CSS ComplÈmentaire pour vos  Formulaires
+              ICI en Version Light
+-------------------------------------------------->*/
+
+ form {
+    padding-left: 0.525rem
+ }
+
+/*------------------------------------------------>
+      CSS ComplÈmentaire pour vos  Formulaires
+              ICI en Version Light
+-------------------------------------------------->*/
+
+
+/*jmd work*/
+
+/************************************************************************
+Dimension du site 
+*************************************************************************/
+body {
+	padding: 0px;
+        background:#fafafa;
+}
+
+
+#container {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+/* .container {max-width: 1344px; } */
+
+
+/************************************************************************
+La Partie HEADER de votre Site
+*************************************************************************/
+header { /* Le Header Complet */
+
+	width: 100%;
+        z-index: 100;
+	margin-left:auto;
+	margin-right:auto;
+	background-image: url("../images/fond0.png");
+	box-shadow: inset 0 -3px 0 #ccc, inset 0 -3px 3px #ddd, inset 0 2px 2px #ddd, inset 1px 0 2px #eee, inset -1px 0 2px #eee, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.header1{
+       height: 110px;
+ /*       background: #ededed none repeat scroll 0% 0%; */
+       position: fixed;
+       border-top: 10px solid black;
+      	margin:0px;
+	padding: 5px;
+	height: auto;
+  }
+
+#decohead{
+        max-width: 1344px;   /*   A changer si vous voulez divisible par 3 et par 4 */
+ 	margin-left:auto;
+	margin-right:auto;
+         }
+
+/************************************************************************
+La Partie CENTRALE de votre Site     colonne (s) et partie centrale
+*************************************************************************/
+#col_princ{
+   padding:1rem;
+}
+
+
+#corps, #decofoot{  /* corps= entre header et footer */
+        max-width: 1344px;   /*   A changer si vous voulez divisible par 3 et par 4 */
+ 	margin-left:auto;
+	margin-right:auto;
+         }
+
+#corps {padding-top: 145px; }
+ 
+
+#logo {
+    padding: 1em 0;
+}
+
+#logo span {
+    vertical-align: middle;
+    font-size: 1.525em;
+    font-family: 'Bree Serif', serif;
+    color: #EC8B08;
+    margin-left: .2em;
+}
+
+/************************************************************************
+Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
+*************************************************************************/
+#col_LB  {background: #000;}           /*contient les blocs historiquement dit de gauche */
+#col_RB {background: #333;}            /* contient les blocs historiquement dit de droite */
+
+
+.leftbloc, .rightbloc   {
+  background: #F2EFE8 none repeat scroll 0% 0%;
+  padding: 1em;
+  margin-bottom:1em;}
+
+/************************************************************************
+La Partie Footer de votre Site
+*************************************************************************/
+footer {
+	text-align: left;
+	padding-top: 0;
+	width: 100%;
+	clear: both;
+}
+
+#footer{
+  background: #F2EFE8 none repeat scroll 0% 0%;
+  border-top: 15px solid #777;
+  color:#666;}
+
+.footitle {
+    color: #EC8B08;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+
+
+/* CENTRAL HTML */
+
+.intro {
+    border-bottom: 1px dotted #bbb;
+    padding-bottom: 1.5em;
+}
+
+.feature:first-child, .info:first-child {
+    border-right: 1px dotted #aaa;
+}
+
+.feature{
+  border-right: 1px dotted #aaa
+}
+
+
+
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+ .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+ /* texte et alignements*/
+ 
+h2, .h2 {
+    background: #F2EFE8;
+    padding: 0px 5px 0px 5px;  }
+
+h3, .h3 {
+    background: #EBE8D8;
+    padding: 0px 5px 0px 5px;}
+    
+.ombre{    box-shadow: inset 0 -2px 0 #ccc, inset 0 -2px 2px #ddd, inset 0 2px 2px #ddd, inset 1px 0 2px #eee, inset -1px 0 2px #eee, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 2px 2px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);}
+
+
+    
+ul {
+list-style:none;
+margin-left:0;
+padding-left:0;
+}
+li {
+margin-bottom:5px;/* ‡ adapter */
+}
+
+
+
+#nav{background-color:#FFE667;}
+
+
+.sidebox {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 18px;
+    margin-top: 28px;
+}
+
+
+.redborder {border: 1px solid red;}
+
+.blackborderg {border-right: 1px solid black;}
+.blackborder {border: 1px dotted grey; padding:2px;}
+
+.beige {background-color:Beige;}
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+ .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+ 
+/*------------------------------
+Pour rendre les vidÈo youtube responsives
+*******************************************/
+    .videocontainer{
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .videocontainer iframe, .videocontainer embed, .videocontainer object{
+      width: 100%!important; height: 100%!important;
+      position: absolute;
+      top: 0; left: 0;
+    }
+    
+ /* Google Gmap3 bug fix on images */
+.gm-style img {
+  height: 100%;
+}
+:not(.gm-style) img {
+  height: auto;
+}
+.gm-style img,
+.gmnoscreen img,
+.gmnoprint img {
+  max-width: none !important;
+}
+
+/********************
+citation pour les forums
+*******************/
+.blockquote {
+    border: 1px dotted #000;
+    margin: 5px;
+    padding: 5px;
+    width: 90%;
+}
+
+/***********************
+Pour eviter que les images ne dÈbordent
+***************************/
+.row {
+    width: 100%;
+    margin-right: 0rem;
+    margin-left: 0rem;
+}
+/*********************
+pour les formulaires*/
+input, select, textarea {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 2px;
+    width: auto;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+
+
+legend { /* Titre pour identifier chaque fieldset */
+  font-size:1.1em;
+  color: #B80B36;
+  font-weight: bold;
+}
+
+.bouton_standard {
+    margin-top: 3px;
+    cursor: pointer;
+    background-color: #FDFDFD;
+    color: #682B1A;
+    font-weight: bold;
+    text-decoration: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #D5B199 #864732 #864732 #D5B199;
+}
+
+
+
+
+/*******Pour les police des formulaires  et deco jmd  */
+.form-control {
+    max-width: 98%;
+    font-size: 1.4rem;  
+    background-color: #FDFDFD;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #D5B199;
+    color: #864732;
+ }
+
+.checkbox label input:only-child, .radio label input:only-child {
+    position: absolute;
+}
+/* ==> add by jpb */
+ol {
+list-style-type: decimal;}
+#col_LB ul {
+list-style-type:none;
+}
+
+input[type="Submit"], [type="Reset"], [type="Return"] {
+    margin-top: 3px;
+    cursor: pointer;
+    background-color: #FDFDFD;
+    color: #682B1A;
+    font-weight: bold;
+    text-decoration: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #D5B199 #864732 #864732 #D5B199;
+}
+
+/* ==> class de NPDS dans le core */
+/* tailles des emoticones et autre petites images subject forum etc*/
+.smil {
+width:24px;
+height:24px;
+display:inline;
+}
+/* tailles max des avatars correction Bmag*/
+.n-ava {
+    max-width: 48px;
+    max-height: 48px;
+   
+}
+
+.n-ava-small {
+    max-width: 48px;
+    max-height: 48px;
+    margin: 0.150rem;
+}
+
+#adm_block li{
+width: 80px;
+margin: 3px;
+padding: 3px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+-webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+/*bloc ws*/
+a.tooltip_ws em {
+   display:none;
+   width:90px;
+}
+a.tooltip_ws:hover {
+    border: 0;
+    position: relative;
+    z-index: 1070;
+    text-decoration:none;
+}
+ a.tooltip_ws:hover em {
+   z-index: 1070;
+   font-style: normal;
+   font-size: 11px;
+   display: block;
+   top: 20px;
+   left: -10px;
+   padding: 5px;
+   color: #000;
+   border: 1px solid #999999;
+   background: #F8F8F8;
+   width:200px;
+   text-align: left;
+   position: absolute; left: 2em; top: 2em;
+   border-radius: 5px;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
+   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+}
+a.tooltip_ws:hover em span {
+    position: absolute;
+    top: -7px;
+    left: 15px;
+    height: 7px;
+    width: 11px;
+    margin:0;
+    padding: 0;
+    border: 0;
+    }
+
+
+
+
+
+/*<== class de NPDS dans le core */
+
+/* ==> class de BS dans le core */
+/* réimpléméntation pour V4.00 et 02 */
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #626262;
+} 
+.form-control-feedback {
+position: absolute;
+display: inline-block;
+top: 9px;
+right: 35px;
+}
+/*adaptation class has-danger(BS4) <= has-error(BS3) pour form validation*/
+.has-error .text-help,
+.has-error .form-control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label,
+.has-error small.help-block,
+.has-error span.help-block
+ {
+  color: #d9534f;
+}
+.has-error .form-control {
+  border-color: #d9534f;
+}
+.has-error .input-group-addon {
+  color: #d9534f;
+  background-color: #fdf7f7;
+  border-color: #d9534f;
+}
+.has-error .form-control-feedback {
+  color: #d9534f;
+}
+.has-error .form-control-error {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
+}
+/* <== class de BS dans le core */
+
+/* ==> Animation des web icones fa */
+/*!
+ * font-awesome-animation - v0.0.7
+ * https://github.com/l-lin/font-awesome-animation
+ * License: MIT
+ */
+@-webkit-keyframes wrench {
+  0% {
+    -webkit-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+  8% {
+    -webkit-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+  10% {
+    -webkit-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+  18% {
+    -webkit-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+  20% {
+    -webkit-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+  28% {
+    -webkit-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+  30% {
+    -webkit-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+  38% {
+    -webkit-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+  40% {
+    -webkit-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+  48% {
+    -webkit-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+  50% {
+    -webkit-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+  58% {
+    -webkit-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+  60% {
+    -webkit-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+  68% {
+    -webkit-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+  75%, 100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes wrench {
+  0% {
+    -webkit-transform: rotate(-12deg);
+    -ms-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(12deg);
+    -ms-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+
+  28% {
+    -webkit-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+
+  30% {
+    -webkit-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+
+  38% {
+    -webkit-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+
+  40% {
+    -webkit-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+
+  48% {
+    -webkit-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+
+  58% {
+    -webkit-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+
+  60% {
+    -webkit-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+  }
+
+  68% {
+    -webkit-transform: rotate(24deg);
+    -ms-transform: rotate(24deg);
+    transform: rotate(24deg);
+  }
+
+  75%, 100% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.faa-wrench.animated,
+.faa-wrench.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-wrench {
+  -webkit-animation: wrench 2.5s ease infinite;
+  animation: wrench 2.5s ease infinite;
+  transform-origin-x: 90%;
+  transform-origin-y: 35%;
+  transform-origin-z: initial;
+}
+
+.faa-wrench.animated.faa-fast,
+.faa-wrench.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-wrench.faa-fast {
+  -webkit-animation: wrench 1.2s ease infinite;
+  animation: wrench 1.2s ease infinite;
+}
+
+.faa-wrench.animated.faa-slow,
+.faa-wrench.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-wrench.faa-slow {
+  -webkit-animation: wrench 3.7s ease infinite;
+  animation: wrench 3.7s ease infinite;
+}
+
+/* BELL */
+
+@-webkit-keyframes ring {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  2% {
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  4% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  6% {
+    -webkit-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+
+  12% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  14% {
+    -webkit-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  16% {
+    -webkit-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  20%, 100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes ring {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  2% {
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  4% {
+    -webkit-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  6% {
+    -webkit-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(-22deg);
+    -ms-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(22deg);
+    -ms-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+
+  12% {
+    -webkit-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  14% {
+    -webkit-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  16% {
+    -webkit-transform: rotate(-12deg);
+    -ms-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(12deg);
+    -ms-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  20%, 100% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.faa-ring.animated,
+.faa-ring.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-ring {
+  -webkit-animation: ring 2s ease infinite;
+  animation: ring 2s ease infinite;
+  transform-origin-x: 50%;
+  transform-origin-y: 0px;
+  transform-origin-z: initial;
+}
+
+.faa-ring.animated.faa-fast,
+.faa-ring.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-ring.faa-fast {
+  -webkit-animation: ring 1s ease infinite;
+  animation: ring 1s ease infinite;
+}
+
+.faa-ring.animated.faa-slow,
+.faa-ring.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-ring.faa-slow {
+  -webkit-animation: ring 3s ease infinite;
+  animation: ring 3s ease infinite;
+}
+
+/* VERTICAL */
+
+@-webkit-keyframes vertical {
+  0% {
+    -webkit-transform: translate(0,-3px);
+    transform: translate(0,-3px);
+  }
+
+  4% {
+    -webkit-transform: translate(0,3px);
+    transform: translate(0,3px);
+  }
+
+  8% {
+    -webkit-transform: translate(0,-3px);
+    transform: translate(0,-3px);
+  }
+
+  12% {
+    -webkit-transform: translate(0,3px);
+    transform: translate(0,3px);
+  }
+
+  16% {
+    -webkit-transform: translate(0,-3px);
+    transform: translate(0,-3px);
+  }
+
+  20% {
+    -webkit-transform: translate(0,3px);
+    transform: translate(0,3px);
+  }
+
+  22%, 100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+}
+
+@keyframes vertical {
+  0% {
+    -webkit-transform: translate(0,-3px);
+    -ms-transform: translate(0,-3px);
+    transform: translate(0,-3px);
+  }
+
+  4% {
+    -webkit-transform: translate(0,3px);
+    -ms-transform: translate(0,3px);
+    transform: translate(0,3px);
+  }
+
+  8% {
+    -webkit-transform: translate(0,-3px);
+    -ms-transform: translate(0,-3px);
+    transform: translate(0,-3px);
+  }
+
+  12% {
+    -webkit-transform: translate(0,3px);
+    -ms-transform: translate(0,3px);
+    transform: translate(0,3px);
+  }
+
+  16% {
+    -webkit-transform: translate(0,-3px);
+    -ms-transform: translate(0,-3px);
+    transform: translate(0,-3px);
+  }
+
+  20% {
+    -webkit-transform: translate(0,3px);
+    -ms-transform: translate(0,3px);
+    transform: translate(0,3px);
+  }
+
+  22%, 100% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+}
+
+.faa-vertical.animated,
+.faa-vertical.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-vertical {
+  -webkit-animation: vertical 2s ease infinite;
+  animation: vertical 2s ease infinite;
+}
+
+.faa-vertical.animated.faa-fast,
+.faa-vertical.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-vertical.faa-fast {
+  -webkit-animation: vertical 1s ease infinite;
+  animation: vertical 1s ease infinite;
+}
+
+.faa-vertical.animated.faa-slow,
+.faa-vertical.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-vertical.faa-slow {
+  -webkit-animation: vertical 4s ease infinite;
+  animation: vertical 4s ease infinite;
+}
+
+/* HORIZONTAL */
+
+@-webkit-keyframes horizontal {
+  0% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  6% {
+    -webkit-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  12% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  18% {
+    -webkit-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  24% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  30% {
+    -webkit-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  36%, 100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+}
+
+@keyframes horizontal {
+  0% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  6% {
+    -webkit-transform: translate(5px,0);
+    -ms-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  12% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  18% {
+    -webkit-transform: translate(5px,0);
+    -ms-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  24% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+
+  30% {
+    -webkit-transform: translate(5px,0);
+    -ms-transform: translate(5px,0);
+    transform: translate(5px,0);
+  }
+
+  36%, 100% {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+  }
+}
+
+.faa-horizontal.animated,
+.faa-horizontal.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-horizontal {
+  -webkit-animation: horizontal 2s ease infinite;
+  animation: horizontal 2s ease infinite;
+}
+
+.faa-horizontal.animated.faa-fast,
+.faa-horizontal.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-horizontal.faa-fast {
+  -webkit-animation: horizontal 1s ease infinite;
+  animation: horizontal 1s ease infinite;
+}
+
+.faa-horizontal.animated.faa-slow,
+.faa-horizontal.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-horizontal.faa-slow {
+  -webkit-animation: horizontal 3s ease infinite;
+  animation: horizontal 3s ease infinite;
+}
+
+/* FLASHING */
+
+@-webkit-keyframes flash {
+  0%, 100%, 50% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0%, 100%, 50% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.faa-flash.animated,
+.faa-flash.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-flash {
+  -webkit-animation: flash 2s ease infinite;
+  animation: flash 2s ease infinite;
+}
+
+.faa-flash.animated.faa-fast,
+.faa-flash.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-flash.faa-fast {
+  -webkit-animation: flash 1s ease infinite;
+  animation: flash 1s ease infinite;
+}
+
+.faa-flash.animated.faa-slow,
+.faa-flash.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-flash.faa-slow {
+  -webkit-animation: flash 3s ease infinite;
+  animation: flash 3s ease infinite;
+}
+
+/* BOUNCE */
+
+@-webkit-keyframes bounce {
+  0%, 10%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+
+  60% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounce {
+  0%, 10%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -webkit-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+
+  60% {
+    -webkit-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+.faa-bounce.animated,
+.faa-bounce.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-bounce {
+  -webkit-animation: bounce 2s ease infinite;
+  animation: bounce 2s ease infinite;
+}
+
+.faa-bounce.animated.faa-fast,
+.faa-bounce.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-bounce.faa-fast {
+  -webkit-animation: bounce 1s ease infinite;
+  animation: bounce 1s ease infinite;
+}
+
+.faa-bounce.animated.faa-slow,
+.faa-bounce.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-bounce.faa-slow {
+  -webkit-animation: bounce 3s ease infinite;
+  animation: bounce 3s ease infinite;
+}
+
+/* SPIN */
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.faa-spin.animated,
+.faa-spin.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-spin {
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+.faa-spin.animated.faa-fast,
+.faa-spin.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-spin.faa-fast {
+  -webkit-animation: spin 0.7s linear infinite;
+  animation: spin 0.7s linear infinite;
+}
+
+.faa-spin.animated.faa-slow,
+.faa-spin.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-spin.faa-slow {
+  -webkit-animation: spin 2.2s linear infinite;
+  animation: spin 2.2s linear infinite;
+}
+
+/* FLOAT */
+
+@-webkit-keyframes float {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.faa-float.animated,
+.faa-float.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-float {
+  -webkit-animation: float 2s linear infinite;
+  animation: float 2s linear infinite;
+}
+
+.faa-float.animated.faa-fast,
+.faa-float.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-float.faa-fast {
+  -webkit-animation: float 1s linear infinite;
+  animation: float 1s linear infinite;
+}
+
+.faa-float.animated.faa-slow,
+.faa-float.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-float.faa-slow {
+  -webkit-animation: float 3s linear infinite;
+  animation: float 3s linear infinite;
+}
+
+/* PULSE */
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+.faa-pulse.animated,
+.faa-pulse.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-pulse {
+  -webkit-animation: pulse 2s linear infinite;
+  animation: pulse 2s linear infinite;
+}
+
+.faa-pulse.animated.faa-fast,
+.faa-pulse.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-pulse.faa-fast {
+  -webkit-animation: pulse 1s linear infinite;
+  animation: pulse 1s linear infinite;
+}
+
+.faa-pulse.animated.faa-slow,
+.faa-pulse.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-pulse.faa-slow {
+  -webkit-animation: pulse 3s linear infinite;
+  animation: pulse 3s linear infinite;
+}
+
+/* SHAKE */
+
+.faa-shake.animated,
+.faa-shake.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-shake {
+  -webkit-animation: wrench 2.5s ease infinite;
+  animation: wrench 2.5s ease infinite;
+}
+
+.faa-shake.animated.faa-fast,
+.faa-shake.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-shake.faa-fast {
+  -webkit-animation: wrench 1.2s ease infinite;
+  animation: wrench 1.2s ease infinite;
+}
+
+.faa-shake.animated.faa-slow,
+.faa-shake.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-shake.faa-slow {
+  -webkit-animation: wrench 3.7s ease infinite;
+  animation: wrench 3.7s ease infinite;
+}
+
+/* TADA */
+
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%, 20% {
+    -webkit-transform: scale(.9) rotate(-8deg);
+    transform: scale(.9) rotate(-8deg);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: scale(1.3) rotate(8deg);
+    transform: scale(1.3) rotate(8deg);
+  }
+
+  40%, 60% {
+    -webkit-transform: scale(1.3) rotate(-8deg);
+    transform: scale(1.3) rotate(-8deg);
+  }
+
+  80%, 100% {
+    -webkit-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes tada {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%, 20% {
+    -webkit-transform: scale(.9) rotate(-8deg);
+    -ms-transform: scale(.9) rotate(-8deg);
+    transform: scale(.9) rotate(-8deg);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: scale(1.3) rotate(8deg);
+    -ms-transform: scale(1.3) rotate(8deg);
+    transform: scale(1.3) rotate(8deg);
+  }
+
+  40%, 60% {
+    -webkit-transform: scale(1.3) rotate(-8deg);
+    -ms-transform: scale(1.3) rotate(-8deg);
+    transform: scale(1.3) rotate(-8deg);
+  }
+
+  80%, 100% {
+    -webkit-transform: scale(1) rotate(0);
+    -ms-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+.faa-tada.animated,
+.faa-tada.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-tada {
+  -webkit-animation: tada 2s linear infinite;
+  animation: tada 2s linear infinite;
+}
+
+.faa-tada.animated.faa-fast,
+.faa-tada.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-tada.faa-fast {
+  -webkit-animation: tada 1s linear infinite;
+  animation: tada 1s linear infinite;
+}
+
+.faa-tada.animated.faa-slow,
+.faa-tada.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-tada.faa-slow {
+  -webkit-animation: tada 3s linear infinite;
+  animation: tada 3s linear infinite;
+}
+
+/* PASSING */
+
+@-webkit-keyframes passing {
+  0% {
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+
+  50% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+@keyframes passing {
+  0% {
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+
+  50% {
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+.faa-passing.animated,
+.faa-passing.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-passing {
+  -webkit-animation: passing 2s linear infinite;
+  animation: passing 2s linear infinite;
+}
+
+.faa-passing.animated.faa-fast,
+.faa-passing.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-passing.faa-fast {
+  -webkit-animation: passing 1s linear infinite;
+  animation: passing 1s linear infinite;
+}
+
+.faa-passing.animated.faa-slow,
+.faa-passing.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-passing.faa-slow {
+  -webkit-animation: passing 3s linear infinite;
+  animation: passing 3s linear infinite;
+}
+
+/* WAVE */
+
+@-webkit-keyframes burst {
+  0% {
+    opacity: .6;
+  }
+
+  50% {
+    -webkit-transform: scale(1.8);
+    transform: scale(1.8);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes burst {
+  0% {
+    opacity: .6;
+  }
+
+  50% {
+    -webkit-transform: scale(1.8);
+    -ms-transform: scale(1.8);
+    transform: scale(1.8);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+.faa-burst.animated,
+.faa-burst.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-burst {
+  -webkit-animation: burst 2s infinite linear;
+  animation: burst 2s infinite linear;
+}
+.faa-burst.animated.faa-fast,
+.faa-burst.animated-hover.faa-fast:hover,
+.faa-parent.animated-hover:hover > .faa-burst.faa-fast {
+  -webkit-animation: burst 1s infinite linear;
+  animation: burst 1s infinite linear;
+}
+.faa-burst.animated.faa-slow,
+.faa-burst.animated-hover.faa-slow:hover,
+.faa-parent.animated-hover:hover > .faa-burst.faa-slow {
+  -webkit-animation: burst 3s infinite linear;
+  animation: burst 3s infinite linear;
+}
+
+/* <== Animation des web icones fa */
+
+
+
+
+
+
+
+
+
+/* <== add by jpb */
+
+img, table, td, blockquote, code, pre, textarea, input, svg {
+    height: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    padding-left: 0.250em;
+}
+
+/*****jmd* pour dÈcoler le texte des bordures de Table*/
+ /* ajustement bmag*/ 
+
+.img-fluid1{
+            float: left;
+            margin-right: 10px;
+}
+
+td, th {
+    padding: 5px;
+}
+
+
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
+    position: absolute;
+    margin-top: 0.5rem;/*jpb 30/01*/
+    margin-left: -1.7rem;/*jpb 30/01*/
+}
+
+ol li:nth-child(2n+1){background-color:#f9f9f9;}
+/* pour une liste */
+
+/*************
+pagination*/
+.pagination-sm .page-link {
+  padding: 0.275rem 0.75rem;
+  font-size: 1.250rem;
+  line-height: 1.5; }
+  
+/* Boutons*/ 
+
+
+
+.btn-sm, .btn {width: auto;}
+
+
+
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.250rem;
+  line-height: 1.5;
+  border-radius: 0.2rem; }
+
+.btn-primary-outline {
+    color: #0275D8;
+    font-size: 1.250rem;
+    background-color: transparent;
+    background-image: none;
+    border-color: #0275D8;
+}
+
+
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-feature-settings: normal;
+    font-language-override: normal;
+    font-kerning: auto;
+    font-synthesis: weight style;
+    font-variant: normal;
+    font-size: inherit;
+    text-rendering: auto;
+    padding-right: 1rem;
+}

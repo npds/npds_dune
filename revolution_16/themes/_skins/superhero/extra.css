@@ -1,0 +1,28 @@
+/* extra css for superhero */
+
+#footer{
+background-color: #4e5d6c;
+border-color: transparent;
+color:#fff;
+}
+
+.navbar-default {
+background-color: #4e5d6c;
+border-color: transparent;
+}
+
+.navbar .navbar-nav > li > a:hover {
+color: #ebebeb;
+background-color: #485563;
+}
+
+.nav > li > a {
+position: relative;
+display: block;
+padding: 10px 15px;
+}
+
+.navbar-divider {
+margin-right: 0rem;
+margin-left: 0rem;
+}

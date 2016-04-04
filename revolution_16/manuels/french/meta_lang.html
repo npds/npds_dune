@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Meta-lang</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootsrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_syst.html">Syst&egrave;me</a></li>
+  <li class="active">META-LANG</li>
+</ol>
+</h3>
+
+<h4>META_LANG &agrave; quoi &#xE7;a sert ?</h4>
+
+<p>META-LANG est un langage particulier &#xE0; NPDS. Il est compos&#xE9; de mots (les META-MOT) permettant, en toute s&#xE9;curit&#xE9;, d'appeler &#xE0; l'emplacement o&#xF9; vous avez inscrit ce META-MOT (dans une new, un article, un billet, un commentaire ou l'&#xE9;dito de votre site voir m&#xEA;me une page static), le r&#xE9;sultat de fonction internes de NPDS.</p>
+
+<p>Il existe 5 types de META-MOT en usage pour votre site</p>
+
+<p>Les types de META-MOT
+<ul>
+<li><b>docu</b>
+<br>Sera utilis&#xE9; par le CMS pour des traitements tr&#xE8;s particuliers et/ou de la documentation en ligne.<br>
+Actuellement seul <span class="text-primary">^</span> est pr&#xE9;sent dans cette cat&#xE9;gorie<br />Vous ne pourrez pas cr&#xE9;er ce type de meta-mot</li>
+
+<li><b>meta</b>
+<br>En usage dans presque tous NPDS, sera utilis&#xE9; pour appeler le r&#xE9;sultat d'une fonction pr&#xE9;cise qui sera affich&#xE9;e &#xE0; l'emplacement de sa saisie.<br>
+C'est la cat&#xE9;gorie la plus importante de NPDS et permet la mise en oeuvre de fonctions tr&#xE8;s &#xE9;volu&#xE9;es.<br />
+Il existe deux formes d'&#xE9;criture (dans la zone script) en fonction du niveau de complexit&#xE9; de ce que vous voulez r&#xE9;aliser :
+   <ul>
+   <li><code>$cmd=... instruction PHP tenant sur une seule ligne ...;</code></li>
+   <li><code>function MM_votre-meta-mot () {<br />
+       code php<br />
+       code php<br />
+       code php<br />
+       return (votre-retour);<br />
+       }</code>
+   </li>
+   </ul>
+</li>
+<li><b>mot</b><br />Sera utilis&#xE9; pour afficher un mot (association de lettres ou chiffres) pouvant ex&#xE9;cuter une fonction de base type HTML comme l'appel &#xE0; un lien, de la correction orthographique, la gestion des abr&#xE9;viations...<br>
+Cette cat&#xE9;gorie est tr&#xE8;s utile pour gagner en productivit&#xE9;.</li>
+<li><b>smil</b><br />Sera utilis&#xE9; pour int&#xE9;grer des smilies et/ou des raccourcis vers des images.</li>
+<li><b>them</b><br />Sera utilis&#xE9; pour documenter les fonctions internes de NPDS relatives aux th&#xE8;mes.</li>
+</ul>
+</p>
+<p align="CENTER"><img src="../../images/admin/manuels.gif" border="0" / /></p>
+</div>
+<br />
+</body>
+</html>

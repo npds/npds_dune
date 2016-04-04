@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Sujets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootsrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
+  <li><a href="men_contenu.html">Contenu</a></li>
+  <li class="active">Sujets</li>
+</ol>
+</h3>
+
+<p>Vous devez d&eacute;finir des sujets pour pouvoir publier vos articles.<br />
+C'est un composant essentiel du syst&egrave;me. Le système vous permet d'ajouter, de supprimer ou
+de modifier les sujets.<br />
+Chaque sujet doit avoir un intitul&eacute;, une description, &eacute;ventuellement une image et un ou plusieurs administrateurs.</p>
+
+<h4>Ajouter un sujet :</h4>
+<div class="card card-block">
+<ul class="p-l-1">
+<li><strong>Intitul&eacute; :</strong> c'est l'identifiant qui sera utilis&eacute; par NPDS. Saisissez le en <b>minuscules et sans espace et sans accent</b></li>
+<li><strong>Texte :</strong> c'est le texte qui sera affich&eacute;. Vous pouvez utiliser les majuscules/minuscules et les espaces.(maxi 40 caractères)</li>
+<li><strong>Image :</strong> NPDS permet de ne pas avoir d'image mais si vous souhaitez en affecter une, saisissez dans cette zone le nom du fichier par exemple : npds.gif. Ce fichier doit se trouver dans le r&eacute;pertoire <i>images/topics</i> &agrave; la racine du site ou dans le dossier de votre th&egrave;me.</li>
+<li><strong>Administrateur :</strong> NPDS permet de d&eacute;finir un ou plusieurs administrateurs pour un sujet.<br />
+Si cette zone est laiss&eacute;e vide, seuls les superadmins pourront publier dans ce sujet.<br />
+Si cette zone contient le nom d'un ou plusieurs administrateurs il faut s&eacute;parer les noms par des virgules.</li></ul>
+</div>
+
+<h4>Editer un sujet :</h4>
+<p>Cliquez simplement sur l'image ou le texte dans le tableau r&eacute;capitulatif. Dans la page suivante vous pourrez modifier l'intitul&eacute;, la description et l'image.</p>
+<p class="text-danger"><strong>Vous pouvez aussi supprimer le sujet mais rappelez-vous que cela supprime aussi tous les articles rattach&eacute;s.<br />Un message de confirmation doit &ecirc;tre renseign&eacute;.</strong></p>
+<p>Sur cette page vous pouvez aussi affecter des liens web en rapport avec le sujet.<br />
+Le lien relatif sera affich&eacute; avec les articles du sujet.</p>
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br />
+</body>
+</html>

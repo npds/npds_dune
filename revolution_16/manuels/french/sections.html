@@ -1,0 +1,181 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Rubriques</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootsrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
+  <li><a href="men_contenu.html">Contenu</a></li>
+  <li class="active">Rubriques</li>
+</ol>
+</h3>
+
+<h4>1 G&eacute;n&eacute;ralit&eacute;s</h4>
+<p>Le principe est d'exploiter une hi&eacute;rarchie (arborescence) &agrave; trois niveaux : rubrique / sous-rubrique / publication.</p>
+<p>De pr&eacute;f&eacute;rence, on y int&eacute;grerera des &eacute;l&eacute;ments permanents qui sont susceptibles d'&ecirc;tre peu modifi&eacute;s.</p>
+<p>A l'inverse des pages statiques, les rubriques, les sous-rubriques et les publications sont respectivement stock&eacute;es dans trois tables de la base de donn&eacute;es.</p>
+<p>Cette organisation permet de g&eacute;rer les droits de consultation des publications et des sous-rubriques avec la m&ecirc;me finesse que les articles : administrateurs / anonymes / membres / groupes / tous.</p>
+<p>De m&ecirc;me, les autorisations de cr&eacute;ation / publication / modification / suppression sont attribu&eacute;es &agrave; chaque administrateur de sous-rubriques.</p>
+<p class="text-danger">Le superadmin poss&egrave;de tous les droits.</p>
+<p>Un mini workflow propose en pied de publication :
+<div class="card card-block">
+<ul class="p-l-1">
+<li>De mani&egrave;re automatique, les publications disponibles dans la m&ecirc;me sous-rubrique.</li>
+<li>A l'initiative de l'auteur et des administrateurs, une s&eacute;lection transversale des publications consid&eacute;r&eacute;es comme connexes, y compris depuis une page statique (rubrique divers)</li>
+</ul>
+</div>
+</p>
+<p>Il n'y a aucune connexion avec le syst&egrave;me de gestion des articles et son environnement (sujets et cat&eacute;gories)</p>
+
+<h4>2 Administration</h4>
+<p>La gestion de cet ensemble est accessible via l'interface d'administration.</p>
+<p>A savoir, cr&eacute;ation, modification, suppression :
+<div class="card card-block">
+<ul class="p-l-1">
+<li>des <em>rubriques</em> (que l'on pourrait aussi appeler des dossiers)</li>
+<li>des <em>sous-rubriques</em> (ou sous-dossiers)</li>
+<li>des <em>publications</em></li>
+</ul>
+</div>
+</p>
+<p>La r&egrave;gle principale : les trois niveaux sont obligatoires d&egrave;s la premi&egrave;re publication. Une publication est attach&eacute;e &agrave; une sous-rubrique, elle ne peut pas l'&ecirc;tre directement &agrave; une rubrique.</p>
+<p>Cons&eacute;quence : pour mettre en ligne une publication, il faut disposer d'au moins une rubrique a laquelle est attach&eacute;e au moins une sous-rubrique.</p>
+
+<p>Pour l'exemple, le portail est livr&eacute; en standard avec les &eacute;l&eacute;ments suivants :</p>
+<ul><li><strong>Mod&egrave;les</strong> (en ligne) rubrique</li>
+<ul><li><em>Modification des th&egrave;mes </em>sous-rubrique</li><ul>
+<li>Rajouts à faire dans la CSS publication</li></ul></ul>
+<li>Divers</strong> (non publi&eacute;e, quel que soit son statut en/hors ligne)</li>
+<ul><li><em>Pages statiques ;</em></li>
+<ul><li> *(livr&eacute;e sans publication)</li></ul></ul>
+<li>Presse-papiers</strong> (non publi&eacute;e si hors ligne (**))</li>
+<ul><li><em>En instance ;</em></li>
+<ul><li> * (livr&eacute;e sans publication)</li></ul></ul></ul>
+<p>Cette organisation permet :
+<div class="card card-block">
+<ul class="p-l-1">
+<li>De regrouper (rubrique <em>divers</em>) des publications orphelines qui appartiendront, par exemple, à la sous-rubrique <em>pages statiques</em>.
+Ceci rend un peu obsol&egrave;te l'ancienne publication des pages statiques (static.php) gr&acirc;ce, notamment, &agrave; la gestion des permissions en consultation, &agrave; la r&eacute;organisation ais&eacute;e de l'ordre souhait&eacute; pour chacun des trois &eacute;l&eacute;ments, le tout dans une interface adapt&eacute;e incluant TinyMce.<br />
+Rien n'emp&ecirc;che cependant d'utiliser concurremment les deux modes de publication sur un m&ecirc;me site.</li>
+<li>De pr&eacute;parer des publications (rubrique <em>presse-papiers, </em>sous-rubrique<em> en instance</em>)</li></ul>
+</div></p>
+<p>Notes :</p>
+<p>Il est &eacute;galement possible de pr&eacute;parer un flux plus important dans une rubrique d&eacute;clar&eacute;e <em>hors Ligne</em> ou encore dans une sous-rubrique visible uniquement par les administrateurs.</p>
+<p>Un syst&egrave;me d'index facilite la r&eacute;organisation &agrave; tout moment, de l'ordre d'apparition dans la liste, des rubriques, des sous-rubriques et des publication.</p>
+<p>Une rubrique ayant le statut &quot;hors Ligne&quot; n'est pas affich&eacute;e.</p>
+
+<h4>2.1 D&eacute;tail de l'interface d'administration des rubriques</h4>
+<h4>2.1.1 Rubriques</h4>
+<h5>2.1.1.1  Ajouter une rubrique</h5>
+<p>Documenter le nom (mode texte brut), &eacute;ventuellement le texte d'introduction (TinyMce)</p>
+<p>La rubrique est cr&eacute;&eacute;e en &laquo; hors ligne &raquo;. La mise en ligne est propos&eacute;e en modification.</p>
+<h5>2.1.1.2  Modifier une rubrique</h5>
+<p>Cliquer sur son titre dans la liste des rubriques pour afficher le formulaire.</p>
+<p>Le choix en/hors ligne est alors possible.</p>
+<h4>2.1.2 Sous-rubriques</h4>
+<h5>2.1.2.1  Ajouter une sous-rubrique</h5>
+<p>S&eacute;lectionner la rubrique de rattachement et le titre. Une image associ&eacute;e est possible, qui doit &ecirc;tre pr&eacute;sente dans <em>images/sections </em>(le flash est support&eacute;). L'&eacute;diteur est disponible pour saisir un texte d'introduction. Indiquez enfin les droits de consultation.</p>
+<h5>2.1.2.2  Modifier une sous-rubrique</h5>
+<p>Cliquer sur son titre dans la liste des sous-rubriques pour afficher le formulaire.</p>
+<p>Formulaire identique &agrave; celui de la cr&eacute;ation.</p>
+<h4>2.1.3 Publications</h4>
+<h5>2.1.3.1 Cr&eacute;ation</h5>
+<p>Le multichoix propose une sous-rubrique de rattachement. Le titre est saisi en mode texte et le contenu &agrave; l'aide de l'&eacute;diteur.</p>
+<p>Le contenu peut &eacute;galement afficher du code Php, C, Perl&hellip;, &agrave; condition d'encadrer le dit code par les pseudo-balises [code] <em>votre code source</em> [/code]</p>
+<p>Le Contenu peut &ecirc;tre fractionn&eacute; en plusieurs pages. La rupture s'effectue gr&acirc;ce &agrave; la pseudo-balise [pageX] o&ugrave; X peut &ecirc;tre un caract&egrave;re quelconque. Exemple: |page1] puis [page2]...</p>
+<p>Le param&eacute;trage des droits de consultation est propos&eacute; en pied de formulaire.</p>
+<p>Si l'auteur n'est pas superadmin, la mise en ligne n'est pas automatique comme l'indique un texte d'information en pied de formulaire.</p>
+<p>Il voit s'afficher la liste de ses publications en attente de validation. Ces publications sont modifiables.</p>
+<p>S'il est superadmin, la mise en ligne de ses propres publications sera immédiate.</p>
+<p>Les publications de l'ensemble des contributeurs sont visibles et accessibles pour suppression / modification / mise en ligne.</p>
+<p>Outre les publications en attente de validation, les &eacute;l&eacute;ments suivants sont propos&eacute;s :</p>
+<ul><li>Gestion des droits des diff&eacute;rents auteurs, sous-rubrique par sous-rubrique pour cr&eacute;er / modifier / publier / supprimer</li>
+<li>Les param&egrave;tres li&eacute;s &agrave; l'illustration</li></ul>
+<p>La bascule toggle-div (utilis&eacute;e pour la consultation), positionn&eacute;e sur :</p>
+<ul><li><em>Off</em> : provoque un affichage exhaustif en liste des rubriques suivies de leurs sous-rubriques et de leurs publications associ&eacute;es, sans possibilit&eacute; de &laquo; pliage/d&eacute;pliage &raquo;.</li>
+<li><em>On</em> : affiche les rubriques et leurs sous-rubriques sans le d&eacute;tail des publication.</li></ul>
+<p>L'arborescence peut &ecirc;tre d&eacute;velopp&eacute;e/regroup&eacute;e au niveau de chaque rubrique.</p>
+<p>Note : l'acc&egrave;s &agrave; la gestion des publications connexes n'est pas propos&eacute; en mode &laquo; cr&eacute;ation &raquo;.</p>
+<h5>2.1.3.2 Modification</h5>
+<p>Il existe deux moyens d'acc&eacute;der &agrave; une publication pour la modifier.</p>
+<ul><li>saisir son id dans le champ propos&eacute; en t&ecirc;te de liste, &agrave; condition de la conna&icirc;tre.</li>
+<li>Cliquer sur son titre dans la liste. Le formulaire de modification est quasi-identique &agrave; celui de la cr&eacute;ation si ce n'est qu'il propose en outre, la gestion des publications connexes.</li></ul>
+<p>Outre le contenu de la publication, il est possible d'en modifier le titre, la sous-rubrique d'appartenance et les droits de consultation.<br />
+Par exemple, un article en cours de modification peut d'abord &ecirc;tre pass&eacute; en niveau administrateur avant intervention.</p>
+<p>La gestion des publications connexes offre une possibilit&eacute; de navigation transversale. Apr&egrave;s saisie, les publications &laquo; connexes &raquo; seront propos&eacute;es en pied de l'article consult&eacute;, dans une zone nomm&eacute;e &laquo; cela pourrait vous int&eacute;resser &raquo;.</p>
+<p>Le lien &laquo; publications connexes &raquo; est propos&eacute; sous le multichoix &laquo; sous-rubrique &raquo;.</p>
+<p>Rappel : ce choix n'est disponible qu'en mode &laquo; modification &raquo;.</p>
+<p>Une liste de l'ensemble des articles en ligne est propos&eacute;e et il suffit de cocher la case en regard d'un ou de plusieurs article(s) pour qu'ils soient pris en compte.</p>
+<p>A noter : cette disposition s'applique &eacute;galement aux publications dites &laquo; orphelines &raquo; (sous-rubrique divers, par exemple). La cons&eacute;quence est qu'un lecteur provenant d'un lien direct vers une &laquo; page statique &raquo; peut se retrouver dans l'arborescence des rubriques.</p>
+<p> </p>
+<h4>3 Informations techniques</h4>
+
+<h4>3.1 Les tables concern&eacute;es</h4>
+<p>Rubriques :                   <em>rubriques</em></p>
+<p>Sous-rubriques :           <em>sections</em></p>
+<p>Publications :                <em>seccont</em></p>
+
+<h4>3.2 Exploitation</h4>
+<div class="card card-block">
+<ul class="p-l-1">
+<li>Appel direct de l'ensemble: <strong>sections.php</strong></li>
+<li>Appel d'une rubrique: <strong>sections.php?rubric=3</strong> (pour la rubrique d'id 3)
+<br />Note, la liste comprendra toutes les publications de toutes les sous-rubriques appartenant &agrave; cette rubrique.</li>
+<li>Appel d'une sous-rubrique: <strong>sections.php?op=listarticles&amp;secid=4</strong> (pour les sous-rubriques de la rubrique d'id 4 et leurs publications rattach&eacute;es)</li>
+<li>Appel d'une publication: <strong>sections.php?op=viewarticle&amp;artid=24</strong> (pour n'importe quelle publication, qu'elle appartienne ou non à la rubrique "divers").</li>
+<li>Appel d'une « page statique » : <strong>sections.php?op=viewarticle&amp;artid=18</strong></li>
+<li>Appel de l'ensemble depuis un bloc :</span> <strong>fuction#bloc_rubrique</strong></li>
+</ul>
+</div>
+<h4>3.3 Gestion des droits</h4>
+<div class="card card-block">
+<ul class="p-l-1">
+<li>Pour un superadmin : tout est autoris&eacute;</li>
+<li>Pour un administrateur de rubrique : la gestion des droits doit se faire, sous-rubriques par sous-rubriques (attention lors de la cr&eacute;ation de nouvelles rubriques, sous-rubriques aucun droit n'est affect&eacute; par d&eacute;faut) selon 4 crit&egrave;res :</li><ul>
+<li>Cr&eacute;er : autorise la cr&eacute;ation d'une publication qui aura le statut &quot;en attente de validation&quot; dans un premier temps</li>
+<li>Publier : autorise la mise en ligne d'une publication ayant le statut &quot;en attente de validation&quot; sur le site </li>
+<li>Modifier : autorise la modification d'un contenu en ligne</li>
+<li>Supprimer : autorise la suppression d'un contenu en ligne</li></ul>
+<li>Chaque auteur peut se voir allouer un ou plusieurs droits sur une ou plusieurs rubriques, sous-rubriques.</li>
+</ul>
+</div>
+<h4>3.4 Consultez &eacute;galement</h4>
+<ul><li>La Bible de NPDS</li>
+<li>La documentation de l'interface d'administration de <em>NPDS</em> (version actuelle: 1.3)</li></ul>
+<h4>3.5 Aller plus loin</h4>
+<p>L'éditeur TinyMce permet l'exploitation des <strong>Meta_Mots</strong>. Vous pouvez, par exemple, int&eacute;grer dans votre publication des notes qui ne seront pas vues par les lecteurs ( cf le meta <strong><em>note ... /</em></strong> ) ou encore des dates de cr&eacute;ation puis de r&eacute;vision du document consid&eacute;r&eacute;.</p>
+
+
+<div class="alert alert-info">
+<h4>A retenir</h4>
+<p>Npds offre les moyens de publication suivants:</p>
+
+<ul>
+<li>Les Articles (news)</li>
+<li>Les &eacute;ditos (anonymes/inscrits, jour/nuit)</li>
+<li>Les Rubriques</li>
+<li>Les pages statiques</li>
+<li>Les FAQs;</li>
+</ul>
+
+
+<p>La rubrique presse-papier &quot;en-ligne&quot; est visible dans un bloc (function#bloc_rubrique) alors qu'elle ne l'est pas dans l'appel standard (rubriques.php).</p>
+<p>Ne <b>supprimez pas</b> les rubriques et sous-rubriques livr&eacute;es en standard sans savoir ce que vous faites.</p>
+</div>
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br />
+</body>
+</html>

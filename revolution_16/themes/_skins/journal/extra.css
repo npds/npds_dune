@@ -1,0 +1,91 @@
+/* extra css for journal */
+@import url("https://fonts.googleapis.com/css?family=News+Cycle:400,700");
+
+nav#uppernavbar {
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  border-width: 0 0 1px;
+}
+
+
+nav#uppernavbar.navbar.navbar-fixed-top.navbar-default.navbar-dark.bg-inverse {
+color:#000;
+font-size: 18px;
+font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
+font-weight: 700;
+}
+
+
+#barnav a:not(.dropdown-item):hover {
+background-color: #eeeeee;
+}
+
+#barnav.dropdown-menu a:hover {
+background-color: #eb6864;
+color: #ebebeb;
+}
+
+/* 
+.nav .navbar-nav > li > a:hover {
+color: #ebebeb;
+background-color: #485563;
+}
+ */
+
+
+nav#uppernavbar.navbar.navbar-fixed-top.navbar-default.navbar-dark.bg-inverse a {
+color: #000;
+}
+
+.navbar-default .navbar-brand {
+color:#000;
+}
+
+
+#barnav .nav > li > a {
+position: relative;
+display: block;
+padding: 10px 15px;
+}
+#barnav ul .navbar-divider {
+margin-right: 0rem;
+margin-left: 0rem;
+}
+
+   a.navbar-brand {
+   padding-top: .85rem;
+   padding-bottom: .85rem;
+   }
+
+
+/*a .dropdown-item {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #eb6864;
+
+}
+
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #eb6864;
+}
+
+a.dropdown-item :hover{
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #eb6864;
+}
+*/

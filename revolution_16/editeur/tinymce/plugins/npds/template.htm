@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>NPDS_template</title>
+</head>
+<input type="image" name="bloc1" src="images/col_un.jpg" onClick="InsertTxt();">&nbsp;
+<script type="text/javascript">
+   //<![CDATA[
+   function InsertTxt() {
+   var insert='<table width="100%" border="0"><tr><td width="100%" valign="top">texte &agrave; ins&eacute;rer</td></tr></table>';
+   parent.tinymce.activeEditor.selection.setContent(insert);
+   parent.tinymce.activeEditor.windowManager.close(this);
+   }
+   //]]>
+</script>
+<input type="image" name="bloc2" src="images/txttxt.gif" onClick="InsertTxtTxt();">&nbsp;
+   <script type="text/javascript">
+   //<![CDATA[
+   function InsertTxtTxt() {
+   
+   var insert='<div class="row"><div class="col-xs-6">.col-xs-6<br >texte &agrave; ins&eacute;rer dans la colonne 1 <br />Hae duae provinciae bello quondam piratico catervis mixtae praedonum a Servilio pro consule missae sub iugum factae sunt vectigales. et hae quidem regiones velut in prominenti terrarum lingua positae ob orbe eoo monte Amano disparantur.</div><div class="col-xs-6">.col-xs-6<br />texte &agrave; ins&eacute;rer dans la colonne 2<br />Hae duae provinciae bello quondam piratico catervis mixtae praedonum a Servilio pro consule missae sub iugum factae sunt vectigales. et hae quidem regiones velut in prominenti terrarum lingua positae ob orbe eoo monte Amano disparantur.</div></div>';
+   parent.tinymce.activeEditor.selection.setContent(insert);
+   parent.tinymce.activeEditor.windowManager.close(this);
+   }
+   //]]>
+</script>
+<input type="image" name="bloc3" src="images/imgtxt.gif" onClick="InsertImgTxt();"><br />
+<script type="text/javascript">
+   //<![CDATA[
+   function InsertImgTxt() {
+   var insert='<table width="100%" border="0"><tr><td width="5%" valign="top"><img src="editeur/tinymce/plugins/npds/images/defaut.gif"></td><td width="95%" valign="top">texte &agrave; ins&eacute;rer</td></tr></table>';
+   parent.tinymce.activeEditor.selection.setContent(insert);
+   parent.tinymce.activeEditor.windowManager.close(this);
+   }
+   //]]>
+</script>
+<input type="image" name="bloc4" src="images/txtimg.gif" onClick="InsertTxtImg();">&nbsp;
+<script type="text/javascript">
+//<![CDATA[
+function InsertTxtImg() {
+   var insert='<table width="100%" border="0"><tr><td width="95%" valign="top">texte &agrave; ins&eacute;rer</td><td width="5%" valign="top"><img src="editeur/tinymce/plugins/npds/images/defaut.gif"></td></tr></table>';
+   parent.tinymce.activeEditor.selection.setContent(insert);
+   parent.tinymce.activeEditor.windowManager.close(this);
+}
+//]]>
+</script>
+<input type="image" name="bloc5" src="images/imgtxtimg.gif" onClick="InsertImgTxtImg();">
+<script type="text/javascript">
+//<![CDATA[
+function InsertImgTxtImg() {
+   var insert='<table width="100%" border="0"><tr><td width="5%" valign="top"><img src="editeur/tinymce/plugins/npds/images/defaut.gif"></td><td width="90%" valign="top">texte &agrave; ins&eacute;rer</td><td width="5%" valign="top"><img src="editeur/tinymce/plugins/npds/images/defaut.gif"></td></tr></table>';
+   parent.tinymce.activeEditor.selection.setContent(insert);
+   parent.tinymce.activeEditor.windowManager.close(this);
+}
+//]]>
+</script>

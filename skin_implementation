@@ -1,0 +1,27 @@
+Implémentation des skins de Thème
+
+interface user.php et bloc
+
+un theme skinable doit avoir le suffixe _sk
+==> stockage dans le cookie user infos en 11 position
+architecture :
+les feuilles de style doivent se trouver dans le dossier themes/_skins/'monskin'/bootstrap.min.css
+
+un theme et toute son infrastructure peut donc supporter les skins
+
+modules/include/header_head.inc ==> [chargement du framework en backend avec CSS par defaut]
+<link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+<link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css">
+===>
+si le theme la sortir de 
+<link id="bsth" rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css">
+<link id="bsth" rel="stylesheet" href="themes/_skins//bootstrap.min.css">
+
+si le theme à le suffix _sk  (pour skin)
+on permet de choisir un skin ==> stockage dans le cookie en 11 position
+
+
+
+dans header.php on remodifie le(s) lien(s) CSS relatif au Framework en lui appliquant deux css du framework customisé
+
+note : on peut maintenant avoir des dossiers thèmes non visible par les utilisateurs (pour travaux et désactivation) pour désactiver il suffit de faire précéder le nom du dossier theme par _

@@ -1,0 +1,57 @@
+<footer id="footer" role="contentinfo" class="row w100 p1 automobile">
+   <div id="decofoot">
+      <p><strong>Le FOOTER de notre Npds ador&eacute;, le contenu doit s'adapter aux divers ecrans: il a une Classe: row w100</strong></p>
+      <div class="grid w25 p1 automobile notablet">
+        <h5>PREMIERE GRID</h5>
+        la classe Automobile sera appliqu&eacute;e sur chaque GRID, le probl&egrave;me la gestion des white space!<br />
+     </div><!----><div class="grid w25 p1 automobile">
+         <h5>SECONDE</h5>
+         ici aussi le contenu doit s'adapter automatiquement c'est donc la class &quot;automobile&quot; qui fera s'empiler les grilles les unes sous les autres
+         </div><!----><div class="grid w25 p1 nomobile">
+         <h5>TROISIEME</h5>
+         ici je met une classe &quot;Nomobile&quot; qui va faire disparaitre ce bloc d'information sur les petits ecrans.
+      </div><!----><div class="grid w25 p1 automobile">
+         <h5>QUATRIEME</h5>
+         petit bonus, il sera possible suivant la r&eacute;solution de l'&eacute;cran de faire disparaitre ou non une grid qui ne serait pas pertinante
+      </div>
+      <p class="aligncenter"> !msg_foot! !sc_infos! !sc_infos_else!   </p>
+   </div><!-- #decofoot -->
+</footer>
+
+      <script type="text/javascript">
+      //<![CDATA[
+         // ==> choix icon boostraptable //
+         window.icons = {
+            refresh: 'fa-refresh fa-lg',
+            toggle: 'fa-toggle-on fa-lg',
+            columns: 'fa-th-list fa-lg',
+            detailOpen: 'fa-plus-square-o',
+            detailClose: 'fa-minus-square-o'
+         };
+         // <== choix icon boostraptable //
+
+         $(document).ready(function(){
+            $(".article_texte img").addClass("img-fluid");
+            $("#ban img").addClass("img-fluid");
+            $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
+
+            $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
+            $('[data-toggle="popover"]').popover();
+            $('table').on('all.bs.table', function (e, name, args) {
+               $('[data-toggle="tooltip"]').tooltip();
+               $('[data-toggle="popover"]').popover();
+
+            });
+         });
+
+         // ==> colorisation syntaxique du code //
+         hljs.configure({useBR: true});
+         $('div.code').each(function(i, block) {
+           hljs.highlightBlock(block);
+         });
+         hljs.initHighlightingOnLoad();
+         // <== colorisation syntaxique du code //
+      //]]>
+      </script>
+
+

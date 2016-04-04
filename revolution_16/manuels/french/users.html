@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Edition Utilisateurs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootsrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_utilisateurs.html">Utilisateurs</a></li>
+  <li class="active">Membres</li>
+</ol>
+</h3>
+
+
+<p>Avec cette fonction, vous pouvez ajouter, modifier et supprimer les membres de votre site.</p>
+
+<h4>Ajouter un nouvel utilisateur :</h4>
+<p>Remplissez le formulaire. Les champs obligatoires sont marqu&eacute;s d'une <span class="text-danger'>*</span> tels surnom, email, mot de passe).<br />
+Les autres champs sont facultatifs. L'adresse email masqu&eacute;e est celle que NPDS pr&eacute;sentera aux utilisateurs du portail.<br />
+<strong class="text-warning">N'utilisez surtout pas la vraie adresse Email de l'utilisateur</strong>.<br />
+Cliquez sur le bouton <i>Ajouter un utilisateur</i> pour finir. Le syst&egrave;me enverra un m&eacute;l contenant le mot de passe &agrave; l'utilisateur cr&eacute;&eacute;.</p>
+<h4>Le r&ocirc;le de l'utilisateur : </h4>
+<p>Vous pouvez attribuer un r&ocirc;le particulier &agrave; un membre par exemple, administrateur du site. Le forum affichera cette information. La gestion de cette liste se fait dans la configuration des forums.</p>
+
+<h4>Le groupe :</h4>
+<p>Un utilisateur peut-&ecirc;tre membre de 0 &agrave; n groupes et la valeur du groupe est comprise entre 2 et 126.<br />
+Les groupes d'appartenance sont s&eacute;par&eacute;s par une virgule dans la table de la base de donn&eacute;es.<br />
+exemple : 2,25 correspond à membre des groupes 2 et 25<br />
+La liste des groupes disponibles est affich&eacute;e, et permet la s&eacute;lection multiple.<br />Le premier choix permet de supprimer l'affectation d'un membre aux groupes.<br />
+Un groupe est simplement un niveau de rattachement qui permettra de facilit&eacute; la gestion de certaines fonctions.</p>
+
+<h4>Autoriser la connexion : </h4>
+<p>Par d&eacute;faut si la bonne option des pr&eacute;f&eacute;rences est positionn&eacute;e &agrave; oui, un membre, d&egrave;s qu'il a re&ccedil;u sont mot de passe peut se connecter.<br />
+Vous pouvez supprimer cette possibilit&eacute; en interdisant la connexion pour un membre.</p>
+
+<h4>Editer un utilisateur :</h4>
+<p>Saisissez le surnom dans le champ <i>identifiant utilisateur</i>, s&eacute;lectionnez l'option <i>Modifer un utilisateur</i> et cliquez sur le bouton <i>Ok</i>.<br />
+L'ensemble des informations du compte seront modifiables, m&ecirc;me le mot de passe.</p>
+
+<h4>Supprimer un utilisateur :</h4>
+<p>Saisissez le surnom dans le champ <i>identifiant utilisateur</i>, s&eacute;lectionnez l'option <i>Supprimer un utilisateur</i> et cliquez sur le bouton <i>Ok</i>.</p>
+
+<h4>D&eacute;sabonner un Utilisateur :</h4>
+<p>Saisissez le Surnom dans le champ <i>identifiant utilisateur</i>, s&eacute;lectionnez l'option <i>D&eacute;sabonner un utilisateur</i> et cliquez sur le bouton <i>Ok</i>.</p>
+
+<h4>Extraction de l'annuaire</h4>
+<p>En cliquant sur Ok, vous obtenez un zip du fichier contenant les informations sur l'ensemble des utilisateurs. Le zip contient un fichier au format csv.</p>
+
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br />
+</body>
+</html>

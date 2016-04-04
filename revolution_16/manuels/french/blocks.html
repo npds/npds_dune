@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Editer/Cr&eacute;er bloc</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_inter.html">Interface</a></li>
+  <li class="active">Editer/Cr&eacute;er bloc</li>
+</ol>
+</h3>
+
+<p>NPDS, permet l'affichage d'un bloc (ou de plusieurs) sur les pages.<br />
+NPDS (avec un th&egrave;me appropri&eacute;) permet d'afficher ces blocs sur quasiment toutes les pages.</p>
+<p><strong>Un Bloc peut-&ecirc;tre r&eacute;serv&eacute; aux administrateurs, aux membres, &agrave; N groupes de membres, r&eacute;serv&eacute; aux Anonymes ou &ecirc;tre visible par Tous</strong>.</p>
+
+<h4>Modifier un bloc :</h4>
+<p>Changez les informations n&eacute;cessaires dans le bloc et s&eacute;lectionnez l'action souhait&eacute;e, pour finir cliquez sur le bouton <i>OK</i>.<br />
+Vous ne pouvez modifier qu'un seul bloc &agrave; la fois.</p>
+<h4>Supprimer un bloc :</h4>
+<p>S&eacute;lectionnez le bloc et choisissez l'action <i>Effacer un bloc </i>, pour finir cliquez sur le bouton <i>OK</i>.<br />
+Vous ne pouvez supprimer qu'un seul bloc &agrave; la fois.</p>
+
+<h4>Cr&eacute;er un bloc (de gauche ou de droite) :</h4>
+<p>Saisissez le titre du bloc, son <strong>index</strong> (ce qui va permettre un affichage tri&eacute; ainsi que son contenu et cliquez sur le bouton <i>Cr&eacute;er un bloc ...</i>.
+<br />
+Par d&eacute;faut le bloc nouvellement cr&eacute;&eacute; est actif.</p>
+<hr />
+
+
+<h4>Bloc et SuperCache :</h4>
+<ul>
+<li>les blocs sont "SuperCachables" et peuvent-&ecirc;tre activ&eacute;s ou d&eacute;sactiv&eacute;s sans toucher aux fichiers du th&eacute;mes.<br />
+Un bloc avec un temps de cache de 0 (z&eacute;ro) ne sera pas cach&eacute;.</li>
+<li>disposent aussi d'une aide en ligne qui peut-&ecirc;tre utilis&eacute;e via le module 'aide-contextuelle' ou dans le cadre d'un d&eacute;veloppement PHP (laisser cette zone vide sinon).</li>
+</ul>
+<br />
+<h4>NPDS dispose d'un syst&egrave;me de blocs &eacute;tendu capable d'afficher ou d'&eacute;x&eacute;cuter beaucoup de chose :</h4>
+<ul>
+<li>HTML (pour un bloc supportant l'HTML, s&eacute;lectionner l'option HTML lors de sa cr&eacute;ation)</li>
+<li>Javascript</li>
+<li>Code PHP et/ou SSI (Serveur Side Include)</li>
+<li>Fonction PHP et/ou de NPDS</li>
+</ul>
+<p>La seule possibilit&eacute; d'inclure du code est de respecter la syntaxe suivante :
+<ul>
+<li>Pour du code PHP et/ou SSI :
+   <ul>
+   <li><strong>include#votre_repertoire/votre_fichier.php</strong> (sans ', sans ").</li>
+   <li>Ce fichier doit &ecirc;tre du php et le retour doit obligatoirement se faire dans <strong>$content</strong>.</li>
+   </ul>
+</li>
+<li>Pour des fonctions PHP et/ou des fonctions de NPDS :
+   <ul>
+   <li><strong>function#votre_fonction</strong> => function#Xblock (sans ', sans ", sans () et sans ;).</li>
+   <li>Si votre fonction dispose de param&egrave;tres :
+      <ul>
+      <li><strong>function#votre_fonction</strong> => function#XNews (sans ', sans ", sans () et sans ;).</li>
+      <li><strong>params#votre_param</strong> => params#5,10,false (sans ', sans " mais s&eacute;par&eacute;s par des virgules).<br />
+      par exemple :
+         <ul>
+         <li>function#category</li>
+         <li>function#oldNews</li>
+         <li>params#$storynum</li><br />
+         <li>function#RecentForumPosts</li>
+         <li>params#Forums Infos,15,0,false,10,false,-:&nbsp;</li>
+         </ul>
+         </li>
+      </ul>
+   </li>
+   <li>Vous pouvez aussi mettre les 2 phases :
+      <ul>
+      <li><strong>include#votre_repertoire/votre_fichier.php</strong> (sans ', sans ").</li>
+      <li><strong>function#votre_fonction</strong> => function#XNews (sans ', sans ", sans () et sans ;).</li>
+      <li><strong>params#votre_param</strong> => params#5,10,false (sans ', sans " mais s&eacute;par&eacute;s par des virgules).<br />
+      <span class="text-info">Ce qui vous permet de charger un code et de l'&eacute;x&eacute;cuter !</span></li>
+      </ul>
+   </li>
+   </ul>
+   </li>
+</ul>
+
+
+<h4>Bloc CSS :</h4>
+<p><strong>class-title#nom</strong> d'une classe dans votre fichier CSS.<br />
+<strong>class-content#nom</strong> d'une classe dans votre fichier CSS.<br />
+<span class="text-info">Ces lignes permettent d'associer pour CHAQUE BLOC une CSS (titre et contenu) !</span>
+<ul>
+<li>Theme-Dynamic dispose de deux nouveaux meta-mots : B_class_title et B_class_content qui
+peuvent &ecirc;tre utilis&eacute;s dans le code de bloc.html</li>
+<li>Les th&egrave;mes PHP disposent de deux nouvelles variables : $B_class_title et $B_class_content
+qui peuvent &ecirc;tre 'import&eacute;es' dans la fonction themesidebox (via un global ...)<li>
+</ul>
+</p>
+
+
+<h4>Bloc CSS sp&eacute;cifique :</h4>
+<p>Pour avoir la css specifique, il faut :
+<ul>
+<li>cocher la case dans l'administration</li>
+<li>noter l'id du bloc</li>
+<li>declarer les id et class dans le fichier style.css ou bien ajouter une css via le gestionnaire (pages.php de votre theme)</li>
+</ul>
+<br />
+<p>Exemple css sur un bloc en particulier, ici le bloc gauche ID 2 :
+<code><p>
+#LB_2 .LB_title {<br />
+   color: #FF0000;<br />
+   font-family: Georgia, "Times New Roman", serif;<br />
+   font-size: 1.25em;<br />
+   font-weight: bold;<br />
+   height: 21px;<br />
+   text-align: center;<br />
+   line-height: 21px;<br />
+}<br />
+#LB_2 .LB_contain ul {<br />
+   list-style: none;<br />
+   width: 150px;<br />
+   margin:0px;<br />
+   padding:0px;<br />
+}<br />
+#LB_2 .LB_contain li {<br />
+   margin:0;<br />
+   padding:0;<br />
+}<br />
+#LB_2 .LB_contain li a {<br />
+   min-height: 1.5em;<br />
+   height: auto !important;<br />
+   height: 1.5em;<br />
+   line-height: 1.5em;<br />
+   margin: 1px 0px 1px 0px;<br />
+   padding: 0px 5px 0px 5px;<br />
+   border-bottom: solid 1px #C8C8C8;<br />
+   border-left: solid 10px #427FBC;<br />
+   color: #646464;<br />
+   text-decoration: none;<br />
+   font-weight: normal;<br />
+   font-size: 1em;<br />
+}<br />
+#LB_2 .LB_contain li a:hover {<br />
+   border-left: solid 10px #cccccc;<br />
+   background: #f0f0f0;<br />
+   font-weight: bold;<br />
+   color: #000000;<br />
+   text-decoration: none;<br />
+}</p></code>
+
+</p>
+
+
+<h4>Bloc URI :</h4>
+<p><strong>uri#uris_s&eacute;par&eacute;es_par_un_espace</strong> pour n'afficher le bloc que sur les URI cit&eacute;es.<br />
+Le temps de r&eacute;tention doit-&ecirc;tre &eacute;gal &agrave; z&eacute;ro dans ce cas.<br />
+Exemple : uri#index.php user.php forum.php static.php?op=statik.txt&npds=1<br />
+Le tag uri# permet l'utilisation du joker * : par exemple : viewforum.php?forum=* ou viewtopic.php?topic=*&forum=10
+<br />
+<span class="text-warning">Cette syntaxe est la seule support&eacute;e !</span>
+</p>
+
+
+<h4>Bloc Cach&eacute; :</h4>
+<p><strong>hidden#...</strong> pour ne pas afficher le th&egrave;me des blocs mais charger le contenu.<br />
+Cela permet d'utiliser le syst&egrave;me de bloc pour 'charger' des javascripts, des fichiers PHP, des fichiers CSS...<br />
+Exemple : hidden#&lt;script type=&quot;text/javascript&quot; src=&quot;lib/yui/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;<br />
+<span class="text-warning">Cette syntaxe est la seule support&eacute;e !</span>
+</p>
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br />
+</body>
+</html>

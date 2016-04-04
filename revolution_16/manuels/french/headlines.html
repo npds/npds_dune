@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Canaux d'informations (Grands Titres)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootsrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
+  <li><a href="men_contenu.html">Contenu</a></li>
+  <li class="active">News externes</li>
+</ol>
+</h3>
+
+<p>Vous pouvez avec cette fonction activer ou d&eacute;sactiver les canaux d'information en provenance
+d'autres sites.<br />
+Les canaux sont des fichiers RDF/XML et non des fichiers texte.<br />
+Attention cependant, l'activation des canaux d'information va probablement ralentir le serveur.<br />
+Touts les canaux sont rafra&icirc;chis une fois par heure et il n'est pas souhaitable de changer cette valeur
+car cela consomme de la bande passante.</p>
+
+<h4>Ajouter un canal d'information : </h4>
+<p>Remplissez les champs n&eacute;cessaires (Titre, URL, URL RDF/XML, statut).<br />
+Si vous d&eacute;clarez un canal actif, un nouveau appara&icirc;tra avec les informations s&eacute;lectionn&eacute;es. Les canaux inactifs ne sont pas affich&eacute;s.</p>
+
+<h4>Changer le statut d'un canal : </h4>
+<p>Simplement vous devez cliquer sur le lien <i>Editer</i> et s&eacute;lectionner sur la page suivante le statut
+d&eacute;sir&eacute;.</p>
+
+<p>Pour supprimer un canal, vous devez simplement cliquer sur le lien <i>Effacer</i>.</p>
+
+<p>Votre site est peut-&ecirc;tre derri&egrave;re un <b>Proxy Serveur</b>. Dans ce cas, configurez le fichier proxy.conf.php (dans la racine de votre site) pour permettre l'acc&egrave;s &agrave; un (ou plusieurs) canaux d'information.</p>
+
+<h4>Configuration des BLOCS int&eacute;grant des canaux :</h4>
+<p>Dans le gestionnaire de bloc (gauche ou droite), vous pouvez int&eacute;grer :
+<ul><li>function#headlines<br />
+ => dans ce cas tous les canaux d&eacute;finis comme actif seront affich&eacute;s &agrave; la suite les uns des autres</li>
+<li>function#headlines<br />
+params#$ID_du_canal<br />
+=> dans ce cas seul le canal d'ID "ID_du_canal" sera affich&eacute;. Vous pouvez d&eacute;finir autant de blocs que vous le souhaitez ...</li></ul>
+</p>
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br />
+</body>
+</html>

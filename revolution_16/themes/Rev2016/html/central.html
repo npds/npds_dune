@@ -1,0 +1,85 @@
+ <div class="central ">
+ 
+ <div class="row pb1">
+  <div class="col w50  automobile"> <h1>Bienvenu sur Npds Révolution 16</h1> Gestionnaire de contenu & de communauté</div>
+  <div class="col w50 automobile "> !banner!</div>
+</div>
+
+
+	<div class="row">
+		<div class="col w60 p1 automobile intro">
+			<h2 class="ombre">Quelques mots</h2>
+       <p class="intro">
+			 Nouvelle version responsive de notre CMS adapté avec	la	feuille	de style Rocssti, hé oui on reste francophone, même si derrière il y a malgré tout Bootstrap.
+		    Cette feuille de style est en fait un micro-framework qui devrait vous permettre de faire toutes les mises en page désirées sans trop de difficulté.<br />
+		    <br />
+		    1- Des classes simples à comprendre<br />
+		    2- Un Builder qui vous facilite la vie<br />
+		    3- Un code clair et conforme aux standards du web
+<a href="https://www.dareboost.com/fr/report/568513e90cf209e2d74158bf" target="_blank">la preuve ICI</a></a>       
+		  </p>
+         	 
+
+<div class="row">
+                             <div class="col w50  automobile ">
+					<h5>Dernier post</h5>
+					<p> !article_complet!0 </p>
+				</div>
+
+				<div class="col w50 automobile ">
+					<h5>Avant dernier</h5>
+					<p> !article_complet!-1</p>
+				</div>
+			</div>
+
+			<h3 class="ombre">Une dernière chose</h3>
+			<p>Comme indiqué plus haut, Bootstrap est integré dans le core de Npds, il faudra donc apprendre à manier cet outil trés puissant.<br />
+			  Voici un lien qui peut vous être utile si cet outil vous est complètement inconnu : <a href="http://bootstrap-doc.prauds.fr/index.php" target="_blank">http://bootstrap-doc.prauds.fr</a>  ( avantage c'est en français)<br />
+		    Il vous montre rapidement avec le code source correspondant, les principaux éléments et ce qu'ils donnent avec les classes BS.</p>
+			<p>Attention vous êtes parti pour 5 heures de lecture............</p>
+			<p>&nbsp;</p>
+		</div>
+
+		<div class="col w40 p1 autotablet intro ">
+			<h2 class="ombre aligncenter "><a href="#">Télécharger: Rev 2016</a></h2>
+			<img class="left" src="themes/Rev2016/images/logohead2.png" >
+
+			<div class="row pt1">
+				<div class="col w50 p1 autotablet feature">
+					<h4>Gestion Membre</h4> 
+                                         <p>date: dateL</p>
+<?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   if (autorisation(-1)) {
+      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+   } elseif (autorisation(1)) {
+      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
+      settype($cookie[0], 'integer');
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
+      else
+         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
+      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
+   } ?>
+					
+					<p> !whoim!</p>
+                                        <p> !member!</p> !search!
+				</div>
+
+				<div class="col w50 p1 autotablet">
+					<h4>Workspace, le plus.</h4>
+
+					<p>WorkSpace propose, au delà de la gestion de contenu 'classique', un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif..</p>
+				</div>
+			</div>
+
+			<p class="automobile">
+				Une petite place pour les reseaux sociaux
+  			</p>
+		</div>
+	</div>
+	<p> !forumP!
+</div>
