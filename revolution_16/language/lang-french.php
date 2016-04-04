@@ -349,7 +349,7 @@ function translate_pass1($phrase) {
    case "back": $tmp="retour"; break;
    case "Subject: ": $tmp="Titre : "; break;
    case "Message Icon: ": $tmp="Icone du message"; break;
-   case "Message: ": $tmp="Message"; break;
+   case "Message": $tmp="Message"; break;
    case "On": $tmp="Activé"; break;
    case "Off": $tmp="Désactivé"; break;
    case "Options: ": $tmp="Options"; break;
@@ -508,6 +508,7 @@ function translate_pass1($phrase) {
    case "No records match that query. Please broaden your search.": $tmp="Aucune réponse pour les mots que vous cherchez. Elargissez votre recherche."; break;
    case "Posted": $tmp="Posté"; break;
    case "pages": $tmp="pages"; break;
+   case "Page": $tmp="Page"; break;
    case "Anonymous": $tmp="Anonyme"; break;
    case "Posted: ": $tmp="Posté : "; break;
    case "Profile": $tmp="Profil"; break;

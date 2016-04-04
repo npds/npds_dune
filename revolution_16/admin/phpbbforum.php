@@ -29,6 +29,7 @@ function ForumAdmin() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Catégories de Forum").'</h3>
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -57,20 +58,16 @@ function ForumAdmin() {
    </table>
    <h3>'.adm_translate("Ajouter une catégorie").'</h3>
    <form action="admin.php" method="post">
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="catagories">'.adm_translate("Nom").'</label>
-            <div class="col-sm-8">
-               <textarea class="form-control" type="text" name="catagories" id="catagories" rows="3" required="required"></textarea>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="catagories">'.adm_translate("Nom").'</label>
+         <div class="col-sm-8">
+            <textarea class="form-control" type="text" name="catagories" id="catagories" rows="3" required="required"></textarea>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <div class="col-sm-offset-4 col-sm-8">
-               <input type="hidden" name="op" value="ForumCatAdd" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
-            </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input type="hidden" name="op" value="ForumCatAdd" />
+            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
          </div>
       </div>
    </form>';
@@ -87,6 +84,7 @@ function ForumGo($cat_id) {
    list($cat_title) = sql_fetch_row($result);
    $ctg=StripSlashes($cat_title);
    echo '
+   <hr />
    <h3>'.adm_translate("Forum classé en").' '.$ctg.'</h3>
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -169,106 +167,82 @@ function ForumGo($cat_id) {
    </table>
    <h3>'.adm_translate("Ajouter plus de Forum pour").' '.$ctg.'</h3>
    <form action="admin.php" method="post">
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" name="forum_index" max="9999" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_index">'.adm_translate("Index").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" name="forum_index" max="9999" />
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="forum_name" />
-               <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'</span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="forum_name" name="forum_name" maxlength="150" required="required" />
+            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="pull-right" id="countcar_forum_name"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
-            <div class="col-sm-8">
-               <textarea class="form-control" name="forum_desc" rows="5"></textarea>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_desc">'.adm_translate("Description").'</label>
+         <div class="col-sm-8">
+            <textarea class="form-control" name="forum_desc" rows="5"></textarea>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>
-            <div class="col-sm-8">
-               <input id="l_forum_mod" class="form-control" type="text" name="forum_mod" required="required"/>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>
+         <div class="col-sm-8">
+            <input id="l_forum_mod" class="form-control" type="text" name="forum_mod" required="required" />
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
-            <div class="col-sm-8">
-                  <select class="c-select form-control" name="forum_access">
-                     <option value="0">'.adm_translate("Publication Anonyme autorisée").'</option>
-                     <option value="1">'.adm_translate("Utilisateur enregistré uniquement").'</option>
-                     <option value="2">'.adm_translate("Modérateurs uniquement").'</option>
-                     <option value="9">'.adm_translate("Fermé").'</option>
-                  </select>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="forum_access">
+               <option value="0">'.adm_translate("Publication Anonyme autorisée").'</option>
+               <option value="1">'.adm_translate("Utilisateur enregistré uniquement").'</option>
+               <option value="2">'.adm_translate("Modérateurs uniquement").'</option>
+               <option value="9">'.adm_translate("Fermé").'</option>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="forum_type" id="forum_type">
-                  <option value="0">'.adm_translate("Public").'</option>
-                  <option value="1">'.adm_translate("Privé").'</option>
-                  <option value="5">PHP Script + '.adm_translate("Groupe").'</option>
-                  <option value="6">PHP Script</option>
-                  <option value="7">'.adm_translate("Groupe").'</option>
-                  <option value="8">'.adm_translate("Texte étendu").'</option>
-                  <option value="9">'.adm_translate("Caché").'</option>
-               </select>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_type">'.adm_translate("Type").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="forum_type" id="forum_type">
+               <option value="0">'.adm_translate("Public").'</option>
+               <option value="1">'.adm_translate("Privé").'</option>
+               <option value="5">PHP Script + '.adm_translate("Groupe").'</option>
+               <option value="6">PHP Script</option>
+               <option value="7">'.adm_translate("Groupe").'</option>
+               <option value="8">'.adm_translate("Texte étendu").'</option>
+               <option value="9">'.adm_translate("Caché").'</option>
+            </select>
          </div>
       </div>
-      <div class="form-group" id="the_multi_input_lol">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé)<br />- Le nom du fichier de formulaire (si Texte étendu)<br /><span style=\"font-size: 10px;\">&nbsp;&nbsp;=> modules/sform/forum</span><br />- Les Groupes ID (si Groupe)").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="forum_pass" id="forum_pass">
-            </div>
+      <div class="form-group row" id="the_multi_input_lol">
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="arbre">
+               <option value="0">'.adm_translate("Standard").'</option>
+               <option value="1">'.adm_translate("Arbre").'</option>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="arbre">
-                  <option value="0">'.adm_translate("Standard").'</option>
-                  <option value="1">'.adm_translate("Arbre").'</option>
-               </select>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="attachement">'.adm_translate("Attachement").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="attachement">
+               <option value="0">'.adm_translate("Non").'</option>
+               <option value="1">'.adm_translate("Oui").'</option>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
-            <div class="col-sm-8">
-                  <select class="c-select form-control" name="attachement">
-                     <option value="0">'.adm_translate("Non").'</option>
-                     <option value="1">'.adm_translate("Oui").'</option>
-                  </select>
-            </div>
-         </div>
-      </div>
-      <div class="form-group">
-         <div class="row">
-            <div class="col-sm-offset-4 col-sm-8">
-               <input type="hidden" name="ctg" value="'.$ctg.'" />
-               <input type="hidden" name="cat_id" value="'.$cat_id.'" />
-               <input type="hidden" name="op" value="ForumGoAdd" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").' </button>
-            </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input type="hidden" name="ctg" value="'.$ctg.'" />
+            <input type="hidden" name="cat_id" value="'.$cat_id.'" />
+            <input type="hidden" name="op" value="ForumGoAdd" />
+            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").' </button>
          </div>
       </div>
     </form>';
@@ -278,31 +252,27 @@ function ForumGo($cat_id) {
    //<![CDATA[
       var inp = $("#the_multi_input_lol");
       var htmh="",htmhe="",htmf="",lab="",inp_para="";
-      htmh +=\'      <div class="form-group" id="the_multi_input_lol">\n\';
-      htmh +=\'         <div class="row">\n\';
-      htmh +=\'            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">\'
+      htmh +=\'            <label class="form-control-label col-sm-4" for="forum_pass">\'
       htmhe +=\'</label>\n\';
-      htmhe +=\'            <div class="col-sm-8">\n\';   
+      htmhe +=\'            <div class="col-sm-8">\n\';
       htmf +=\'            </div>\n\';
-      htmf +=\'         </div>\n\';
-      htmf +=\'      </div>\n\';
       var select = $("#forum_type");
       select.change(function(){
          var type = $(this).val();
          switch (type) {
             case "1":
             lab="'.adm_translate("Mot de Passe").'";
-            inp_para=\'<input class="form-control" type="password" name="forum_pass" id="forum_pass">\n\';
+            inp_para=\'<input class="form-control" type="password" name="forum_pass" id="forum_pass" maxlength="60" required="required" />\n\';
             inp.html(htmh+lab+htmhe+inp_para+htmf);
             break;
             case "7": case"5":
             lab="'.adm_translate("Groupe ID").'";
-            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required">\n\';
+            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required" />\n\';
             inp.html(htmh+lab+htmhe+inp_para+htmf);
             break;
             case "8":
             lab="'.adm_translate("Fichier de formulaire").'";
-            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass">\n<span class="help-block">=> modules/sform/forum</span>\n\';
+            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass" />\n<span class="help-block">=> modules/sform/forum</span>\n\';
             inp.html(htmh+lab+htmhe+inp_para+htmf);
             break;
             default:
@@ -310,6 +280,19 @@ function ForumGo($cat_id) {
             break;
          }
       }).change();
+      
+      
+
+      $(document).ready(function() {
+         inpandfieldlen("forum_name",150);
+         inpandfieldlen("add_name",50);
+      });
+
+      
+      
+      
+      
+      
    //]]>
    </script>';
     adminfoot('fv','','','');
@@ -327,85 +310,72 @@ function ForumGoEdit($forum_id, $ctg) {
    <h3>'.adm_translate("Editer").' : <span class="text-muted">'.$forum_name.'</span></h3>
    <form id="fad_editforu" action="admin.php" method="post">
    <input type="hidden" name="forum_id" value="'.$forum_id.'" />
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_index">'.adm_translate("Index").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" name="forum_index" max="9999" value="'.$forum_index.'" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_index">'.adm_translate("Index").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" name="forum_index" max="9999" value="'.$forum_index.'" />
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="forum_name" value="'.$forum_name.'" />
-               <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'</span>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="forum_name" name="forum_name" value="'.$forum_name.'" />
+            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span id="countcar_forum_name"></span></span>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_desc">'.adm_translate("Description").'</label>
-            <div class="col-sm-8">
-               <textarea class="form-control" name="forum_desc" rows="5">'.$forum_desc.'</textarea>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_desc">'.adm_translate("Description").'</label>
+         <div class="col-sm-8">
+            <textarea class="form-control" name="forum_desc" rows="5">'.$forum_desc.'</textarea>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>';
-   $moderator=str_replace(" ",",",get_moderator($forum_mod));
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>';
+   $moderator=str_replace(' ',',',get_moderator($forum_mod));
    echo '
-            <div class="col-sm-8">
-               <input id="forum_mod" class="form-control" type="text" name="forum_mod" value="'.$moderator.'," />
-            </div>
+         <div class="col-sm-8">
+            <input id="forum_mod" class="form-control" type="text" name="forum_mod" value="'.$moderator.'," />
          </div>
       </div>';
    echo '
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="forum_access">';
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="forum_access">';
    if ($forum_access == 0) { $sel0=' selected="selected"'; }
    if ($forum_access == 1) { $sel1=' selected="selected"'; }
    if ($forum_access == 2) { $sel2=' selected="selected"'; }
    if ($forum_access == 9) { $sel9=' selected="selected"'; }
    echo '
-                  <option value="0"'.$sel0.'>'.adm_translate("Publication Anonyme autorisée").'</option>
-                  <option value="1"'.$sel1.'>'.adm_translate("Utilisateur enregistré uniquement").'</option>
-                  <option value="2"'.$sel2.'>'.adm_translate("Modérateurs uniquement").'</option>
-                  <option value="9"'.$sel9.'>'.adm_translate("Fermé").'</option>
-               </select>
-            </div>
+               <option value="0"'.$sel0.'>'.adm_translate("Publication Anonyme autorisée").'</option>
+               <option value="1"'.$sel1.'>'.adm_translate("Utilisateur enregistré uniquement").'</option>
+               <option value="2"'.$sel2.'>'.adm_translate("Modérateurs uniquement").'</option>
+               <option value="9"'.$sel9.'>'.adm_translate("Fermé").'</option>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="cat_id">'.adm_translate("Catégories").' </label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="cat_id">';
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="cat_id">'.adm_translate("Catégories").' </label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="cat_id">';
    $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories");
    while(list($cat_id, $cat_title) = sql_fetch_row($result)) {
       if ($cat_id == $cat_id_1) {
          echo '
-                  <option value="'.$cat_id.'" selected="selected">'.StripSlashes($cat_title).'</option>';
+               <option value="'.$cat_id.'" selected="selected">'.StripSlashes($cat_title).'</option>';
       } else {
       echo '
-                  <option value="'.$cat_id.'">'.StripSlashes($cat_title).'</option>';
+               <option value="'.$cat_id.'">'.StripSlashes($cat_title).'</option>';
       }
    }
    echo '
-               </select>
-            </div>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_type">'.adm_translate("Type").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="forum_type">';
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_type">'.adm_translate("Type").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="forum_type">';
    if ($forum_type == 0) $sel0=' selected="selected"'; else $sel0='';
    if ($forum_type == 1) $sel1=' selected="selected"'; else $sel1='';
    if ($forum_type == 5) $sel5=' selected="selected"'; else $sel5='';
@@ -415,69 +385,60 @@ function ForumGoEdit($forum_id, $ctg) {
    if ($forum_type == 9) $sel9=' selected="selected"'; else $sel9='';
 
    echo '
-                  <option value="0"'.$sel0.'>'.adm_translate("Public").'</option>
-                  <option value="1"'.$sel1.'>'.adm_translate("Privé").'</option>
-                  <option value="5"'.$sel5.'>PHP Script + '.adm_translate("Groupe").'</option>
-                  <option value="6"'.$sel6.'>PHP Script</option>
-                  <option value="7"'.$sel7.'>'.adm_translate("Groupe").'</option>
-                  <option value="8"'.$sel8.'>'.adm_translate("Texte étendu").'</option>
-                  <option value="9"'.$sel9.'>'.adm_translate("Caché").'</option>
-               </select>
-            </div>
+               <option value="0"'.$sel0.'>'.adm_translate("Public").'</option>
+               <option value="1"'.$sel1.'>'.adm_translate("Privé").'</option>
+               <option value="5"'.$sel5.'>PHP Script + '.adm_translate("Groupe").'</option>
+               <option value="6"'.$sel6.'>PHP Script</option>
+               <option value="7"'.$sel7.'>'.adm_translate("Groupe").'</option>
+               <option value="8"'.$sel8.'>'.adm_translate("Texte étendu").'</option>
+               <option value="9"'.$sel9.'>'.adm_translate("Caché").'</option>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="arbre">'.adm_translate("Mode").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="arbre">';
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="arbre">';
    if ($arbre)
       echo '
-                  <option value="0">'.adm_translate("Standard").'</option>
-                  <option value="1" selected="selected">'.adm_translate("Arbre").'</option>';
+               <option value="0">'.adm_translate("Standard").'</option>
+               <option value="1" selected="selected">'.adm_translate("Arbre").'</option>';
    else
       echo '
-                  <option value="0" selected="selected">'.adm_translate("Standard").'</option>
-                  <option value="1">'.adm_translate("Arbre").'</option>';
+               <option value="0" selected="selected">'.adm_translate("Standard").'</option>
+               <option value="1">'.adm_translate("Arbre").'</option>';
 
    echo '
-               </select>
-            </div>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="attachement">'.adm_translate("Attachement").'</label>
-            <div class="col-sm-8">
-               <select class="c-select form-control" name="attachement">';
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="attachement">'.adm_translate("Attachement").'</label>
+         <div class="col-sm-8">
+            <select class="c-select form-control" name="attachement">';
    if ($attachement)
       echo '
-                  <option value="0">'.adm_translate("Non").'</option>
-                  <option value="1" selected="selected">'.adm_translate("Oui").'</option>';
+               <option value="0">'.adm_translate("Non").'</option>
+               <option value="1" selected="selected">'.adm_translate("Oui").'</option>';
    else
       echo '
-                  <option value="0" selected="selected">'.adm_translate("Non").'</option>
-                  <option value="1">'.adm_translate("Oui").'</option>';
+               <option value="0" selected="selected">'.adm_translate("Non").'</option>
+               <option value="1">'.adm_translate("Oui").'</option>';
    echo '
-               </select>
-            </div>
+            </select>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4 col-md-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé) - Le nom du fichier de formulaire (si Texte étendu) => modules/sform/forum - Les Groupes ID (si Groupe)").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="forum_pass" value="'.$forum_pass.'" />
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé) - Le nom du fichier de formulaire (si Texte étendu) => modules/sform/forum - Les Groupes ID (si Groupe)").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="forum_pass" value="'.$forum_pass.'" />
          </div>
       </div>
       <input type="hidden" name="ctg" value="'.StripSlashes($ctg).'" />
       <input type="hidden" name="op" value="ForumGoSave" />
-      <div class="form-group">
-         <div class="row">
-            <div class="col-sm-offset-4 col-sm-8">
-                <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
-            </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+             <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>
    </form>';
@@ -493,31 +454,26 @@ function ForumCatEdit($cat_id) {
    $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
    list($cat_id, $cat_title) = sql_fetch_row($result);
    echo '
+   <hr />
    <h3>'.adm_translate("Editer la catégorie").'</h3>
-   <form class="" action="admin.php" method="post">
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="cat_id">ID</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" name="cat_id" id="cat_id" value="'.$cat_id.'" required="required" />
-            </div>
+   <form action="admin.php" method="post">
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="cat_id">ID</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="number" name="cat_id" id="cat_id" value="'.$cat_id.'" required="required" />
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-            <label class="form-control-label col-sm-4" for="cat_title">'.adm_translate("Catégorie").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="cat_title" value="'.StripSlashes($cat_title).'" required="required"/>
-            </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="cat_title">'.adm_translate("Catégorie").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="cat_title" value="'.StripSlashes($cat_title).'" required="required"/>
          </div>
       </div>
-      <div class="form-group">
-         <div class="row">
-               <input type="hidden" name="old_cat_id" value="'.$cat_id.'" />
-               <input type="hidden" name="op" value="ForumCatSave" />
-               <div class="col-sm-offset-4 col-sm-8">
-                  <button class="btn btn-primary col-sm-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
-               </div>
+      <div class="form-group row">
+         <input type="hidden" name="old_cat_id" value="'.$cat_id.'" />
+         <input type="hidden" name="op" value="ForumCatSave" />
+         <div class="col-sm-offset-4 col-sm-8">
+            <button class="btn btn-primary col-sm-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>
    </form>';
@@ -533,40 +489,39 @@ function ForumCatSave($old_catid, $cat_id, $cat_title) {
     }
     Q_Clean();
 
-    global $aid; Ecr_Log("security", "UpdateForumCat($old_catid, $cat_id, $cat_title) by AID : $aid", "");
+    global $aid; Ecr_Log("security", "UpdateForumCat($old_catid, $cat_id, $cat_title) by AID : $aid", '');
     Header("Location: admin.php?op=ForumAdmin");
 }
 
 function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg) {
-    global $hlpfile;
-    global $NPDS_Prefix;
+    global $hlpfile, $NPDS_Prefix;
 
     // il faut supprimer le dernier , à cause de l'auto-complete
-    $forum_mod=rtrim(chop($forum_mod),",");
-    $moderator=explode(",",$forum_mod);
+    $forum_mod=rtrim(chop($forum_mod),',');
+    $moderator=explode(',',$forum_mod);
 
-    $forum_mod="";
-    $error_mod="";
+    $forum_mod='';
+    $error_mod='';
     for ($i = 0; $i < count($moderator); $i++) {
        $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
        list($forum_moderator) = sql_fetch_row($result);
-       if ($forum_moderator!="") {
-          $forum_mod.=$forum_moderator." ";
+       if ($forum_moderator!='') {
+          $forum_mod.=$forum_moderator.' ';
           sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
        } else {
-          $error_mod.=$moderator[$i]." ";
+          $error_mod.=$moderator[$i].' ';
        }
     }
-    if ($error_mod!="") {
+    if ($error_mod!='') {
        include ("header.php");
        GraphicAdmin($hlpfile);
        opentable();
        echo "<p align=\"center\">".adm_translate("Le Modérateur sélectionné n'existe pas.")." : $error_mod<br />";
-       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arriére")."</a> ]</p>";
+       echo "[ <a href=\"javascript:history.go(-1)\" >".adm_translate("Retour en arriére")."</a> ]</p>";
        closetable();
        include("footer.php");
     } else {
-       $forum_mod=str_replace(" ",",",chop($forum_mod));
+       $forum_mod=str_replace(' ',',',chop($forum_mod));
        if ($arbre>1) $arbre=1;
        if ($forum_pass) {
           if (($forum_type==7) and ($forum_access==0) ) {$forum_access=1;}
@@ -576,7 +531,7 @@ function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_
        }
        Q_Clean();
 
-       global $aid; Ecr_Log("security", "UpdateForum($forum_id, $forum_name) by AID : $aid", "");
+       global $aid; Ecr_Log("security", "UpdateForum($forum_id, $forum_name) by AID : $aid", '');
        Header("Location: admin.php?op=ForumGo&cat_id=$cat_id");
     }
 }
@@ -586,7 +541,7 @@ function ForumCatAdd($catagories) {
 
     sql_query("INSERT INTO ".$NPDS_Prefix."catagories VALUES (NULL, '$catagories')");
 
-    global $aid; Ecr_Log("security", "AddForumCat($catagories) by AID : $aid", "");
+    global $aid; Ecr_Log("security", "AddForumCat($catagories) by AID : $aid", '');
     Header("Location: admin.php?op=ForumAdmin");
 }
 
