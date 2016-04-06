@@ -216,13 +216,9 @@ function translate_pass1($phrase) {
    case "Identity": $tmp="Identité"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Website: ": $tmp="Site web : "; break;
-   case "Your ICQ": $tmp="Votre adresse ICQ"; break;
-   case "Your AIM": $tmp="Votre adresse AIM"; break;
-   case "Your YIM": $tmp="Votre adresse YIM"; break;
-   case "Your MSNM": $tmp="Votre adresse MSNM"; break;
-   case "Location: ": $tmp="Votre situation géographique : "; break;
-   case "Occupation: ": $tmp="Votre activité : "; break;
-   case "Interest: ": $tmp="Vos centres d'interêt : "; break;
+   case "Location": $tmp="Situation géographique"; break;
+   case "Occupation": $tmp="Activité"; break;
+   case "Interest": $tmp="Centres d'interêt"; break;
    case "Signature": $tmp="Signature"; break;
    case "Finish": $tmp="Terminer"; break;
    case "You or someone else has used your email account": $tmp="Vous, ou quelqu'un d'autre, a utilisé votre mèl identifiant votre compte"; break;
@@ -238,9 +234,9 @@ function translate_pass1($phrase) {
    case "My HomePage:": $tmp="Ma page perso : "; break;
    case "My E-Mail:": $tmp="Mon E-Mail : "; break;
    case "Signature: ": $tmp="Signature : "; break;
-   case "Extra Info:": $tmp="Informations supplémentaires : "; break;
+   case "Extra Info": $tmp="Informations supplémentaires"; break;
    case "There is no available info for": $tmp="Il n'y a pas d'informations disponibles pour"; break;
-   case "Online journal for": $tmp="Journal en ligne pour "; break;
+   case "Online journal for": $tmp="Journal en ligne de "; break;
    case "Last 10 comments by": $tmp="Les 10 derniers Commentaires de"; break;
    case "Last 10 news submissions sent by": $tmp="Les dix dernières contributions de"; break;
    case "User not yet allowed by Administrator": $tmp="Vous n'êtes pas encore autorisé à vous connecter."; break;
@@ -286,7 +282,7 @@ function translate_pass1($phrase) {
    case "has just requested a Confirmation to change the password.": $tmp="vient de demander une confirmation pour changer de mot de passe."; break;
    case "Confirmation Code for": $tmp="Confirmation du code pour"; break;
    case "(optional)": $tmp="(optionnel)"; break;
-   case "Real Email": $tmp="Votre véritable adresse mèl"; break;
+   case "Real Email": $tmp="Véritable adresse mèl"; break;
    case "(This Email will not be public but is required, will be used to send your password if you lost it)": $tmp="(Cette adresse mèl ne sera pas divulguée, mais elle nous servira à vous envoyer votre Mot de Passe si vous le perdez)"; break;
    case "Fake Email": $tmp="Votre adresse mèl 'truquée'"; break;
    case "(This Email will be public. Just type what you want, Spam proof)": $tmp="(Cette adresse mèl sera publique. Vous pouvez saisir ce que vous voulez mais attention au Spam)"; break;
@@ -297,7 +293,6 @@ function translate_pass1($phrase) {
    case "Your Interest": $tmp="Vos centres d'intérêt"; break;
    case "(255 characters max. Type your signature with HTML coding)": $tmp="(255 caractères max. Entrez votre signature (mise en forme html))"; break;
    case "Show signature": $tmp="Afficher la signature"; break;
-   case "Extra Info": $tmp="Informations complémentaires vous concernant"; break;
    case "(255 characters max. Type what others can know about yourself)": $tmp="(255 caractères max). Précisez qui vous êtes, ou votre identification sur ce site)"; break;
    case "(type a new password twice to change it)": $tmp="(Pour activer un nouveau mot de passe, introduisez-le dans les 2 cases)"; break;
    case "Password": $tmp="Mot de passe"; break;
@@ -306,8 +301,8 @@ function translate_pass1($phrase) {
    case "characters long": $tmp="caractères"; break;
    case "News number in the Home": $tmp="Nombre d'articles sur la page principale"; break;
    case "Activate Personal Menu": $tmp="Activer votre menu personnel"; break;
-   case "(Check this option and the following text will appear in the Home)": $tmp="(Validez cette option et le texte suivant apparaîtra sur votre page d'accueil)"; break;
-   case "(You can use HTML code to put links, for example)": $tmp="(Vous pouvez utiliser du code html, pour créer un lien par exemple)"; break;
+   case "Check this option and the following text will appear in the Home": $tmp="Validez cette option et le texte suivant apparaîtra sur votre page d'accueil"; break;
+   case "You can use HTML code to put links, for example": $tmp="Vous pouvez utiliser du code html, pour créer un lien par exemple"; break;
    case "Save Changes!": $tmp="Sauver les modifications"; break;
    case "Select One Theme": $tmp="Sélectionnez un thème d'affichage"; break;
    case "This option will change the look for the whole site.": $tmp="Cette option changera l'aspect du site."; break;
@@ -657,7 +652,7 @@ function translate_pass1($phrase) {
    case "Next Messages": $tmp="Message suivant"; break;
    case "Reply Posted.": $tmp="Réponse postée."; break;
    case "You must type a message to post.": $tmp="Vous devez taper un message à poster."; break;
-   case "Post Reply in Topic:": $tmp="Poster la réponse dans le sujet :"; break;
+   case "Post Reply in Topic": $tmp="Poster une réponse dans le sujet"; break;
    case "You are not allowed to reply in this forum": $tmp="Vous n'êtes pas autorisé à participer à ce forum"; break;
    case "wrote:": $tmp="a écrit :"; break;
    case "Topic Review": $tmp="Aperçu des sujets :"; break;
