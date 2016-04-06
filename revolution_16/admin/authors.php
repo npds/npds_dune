@@ -465,7 +465,7 @@ function modifyadmin($chng_aid) {
    echo'
          </div>
          <br />
-         <div class="form-group">
+         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
                <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Actualiser l'administrateur").'</button>
                <input type="hidden" name="op" value="UpdateAuthor">
