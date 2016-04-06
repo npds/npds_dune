@@ -320,7 +320,7 @@ include('auth.php');
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="message">'.translate("Message: ").'</label>
+         <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
