@@ -43,9 +43,7 @@ style_formats: [
    'height' : 'auto'
   }}],
 
-
-
-content_css: ' lib/font-awesome-4.5.0/css/font-awesome.min.css,lib/dist/css/bootstrap.min.css',
+content_css: ' lib/font-awesome-4.5.0/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css',
 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue ',";
 
 } else if ($tiny_mce_theme=='short') {
