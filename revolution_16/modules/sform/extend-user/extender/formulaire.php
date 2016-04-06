@@ -39,9 +39,10 @@ if(!isset($C2)) $C2='';
 if(!isset($T1)) $T1='';
 if(!isset($M2)) $M2='';
 
-$m->add_comment('<p class="text-xs-center"> .: Pour en savoir plus sur vous (facultatif) :. </p>');
+$m->add_comment('<div class="row"><p class="lead">Pour en savoir plus sur vous (facultatif)</p></div>');
 
 $m->add_field('C1', 'Votre activit&#x00E9; professionnelle',$C1,'text',false,100,'','');
+
 $m->add_field('C2','Code postal', $C2, 'text',false,5,'','');
 $m->add_date('T1', 'Date de naissance',$T1,'date','',false,20);
 $m->add_extender('T1', '','<span class="help-block">au format JJ/MM/AAAA</span>');
@@ -49,13 +50,19 @@ $m->add_extra('<div class="form-group row collapse">');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'text',false);
 $m->add_extra('</div>');
 
+$m->add_comment(aff_langue('<div class="row"><p class="lead"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-map-marker fa-2x" title="[french]Modifier ou d&#xE9;finir votre position[/french][english]Define or change your geolocation[/english][chinese]Define or change your geolocation[/chinese]" data-toggle="tooltip"></i></a>&nbsp;[french]G&#xE9;olocalisation[/french][english]Geolocation[/english][chinese][/chinese][spanish][/spanish]</p></div>'));
+$m->add_field('C7',aff_langue('[french]Latitude[/french][english]Latitude[/english][chinese]&#x7ECF;&#x5EA6;[/chinese]'),$C7,'text',false);
+$m->add_field('C8',aff_langue('[french]Longitude[/french][english]Longitude[/english][chinese]&#x7EAC;&#x5EA6;[/chinese]'),$C8,'text',false);
+
 // Si vous avez besoin des champs ci-dessous - les définir selon vos besoins - sinon les laisser en hidden
 $m->add_field('C3','C3','','hidden',false);
 $m->add_field('C4','C4','','hidden',false);
 $m->add_field('C5','C5','','hidden',false);
 $m->add_field('C6','C6','','hidden',false);
+/*
 $m->add_field('C7','C7','','hidden',false);
 $m->add_field('C8','C8','','hidden',false);
+*/
 // idem pour les champ Mx
 $m->add_field('M1','M1','','hidden',false);
 $m->add_field('T2','T2','','hidden',false);
