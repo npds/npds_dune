@@ -118,7 +118,7 @@ function aff_pub_in($lock_state, $topic, $forum,$mod) {
    global $language;
    if ($lock_state==0) {
    echo '
-   <a class="" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>&nbsp;';
+   <a class="m-r-1" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>';
    }
 }
 
@@ -304,7 +304,9 @@ include('header.php');
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="m-r-1" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                     $my_rs.='<a class="m-r-1" href="';
+                     if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
                   } 
                   else $my_rs.='';
@@ -396,14 +398,14 @@ include('header.php');
          $message = aff_video_yt($message);
       }
       // <A href in the message
-      if (stristr($message,"<a href")) {
+      if (stristr($message,'<a href')) {
          $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
       }
 //      $message=split_string_without_space($message, 80);
-      if (($forum_type=="6") or ($forum_type=="5")) {
-          highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
+      if (($forum_type=='6') or ($forum_type=='5')) {
+          highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
       } else {
-         $message=str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
+         $message=str_replace('[addsig]', '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
          echo '<div class="card-text fo-post-mes">';
          echo $message;
          echo '</div>';
@@ -450,19 +452,18 @@ include('header.php');
       } else
           $postuser=false;
       if (($Mmod) or ($postuser) and (!$lock_state) and ($posterdata['uid']!='')) {
-         echo '&nbsp;<a href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
+         echo '<a class="m-r-1" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          if ($allow_upload_forum) {
          $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
-            echo '&nbsp;<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>&nbsp;';
+            echo '<a class="m-r-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
          }
       }
       if ($allow_to_post and !$lock_state and $posterdata['uid']!='') {
-         echo '&nbsp;<a href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>&nbsp;';
+         echo '<a class="m-r-1" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
       }
-      echo '&nbsp;<a href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>&nbsp;';
+      echo '<a class="m-r-1" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
       if ($Mmod) {
-         echo '&nbsp;|&nbsp;';
-         echo '<a href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>&nbsp;';
+         echo '<a class="m-r-1" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
          if (!$myrow['post_aff']) {
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Show this post").'" data-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
          } else {
