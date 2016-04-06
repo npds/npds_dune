@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2009 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,5 +24,5 @@ $m->add_url("user.php");
 /************************************************/
 include($sform_path."extend-user/mod_formulaire.php");
 /************************************************/
-echo $m->print_form("class=\"ligna\"");
+echo $m->print_form('');
 ?>
