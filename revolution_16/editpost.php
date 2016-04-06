@@ -194,7 +194,7 @@ if ($submitS) {
    }
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="message">'.translate("Message: ").'</label>';
+         <label class="form-control-label col-sm-3" for="message">'.translate("Message").'</label>';
    if ($allow_bbcode)
       $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
    echo '
