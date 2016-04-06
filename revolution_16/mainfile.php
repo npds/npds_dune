@@ -1820,6 +1820,7 @@ function aff_editeur($Xzone, $Xactiv) {
                $tmp="
                <script type=\"text/javascript\">
                //<![CDATA[
+               $(document).ready(function() {
                tinymce.init({
                   selector: 'textarea.tin',
                   height: 300,
@@ -1828,6 +1829,7 @@ function aff_editeur($Xzone, $Xactiv) {
                   
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
+               });
                });
                //]]>
                </script>';
