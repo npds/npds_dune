@@ -84,7 +84,7 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
          <div class="col-sm-9">
-            <input id="rs_url" class="form-control" type="url" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
+            <input id="rs_url" class="form-control" type="text" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
             <span class="help-block text-xs-right"><span id="countcar_rs_url"></span></span>
          </div>
       </div>
