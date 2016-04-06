@@ -211,7 +211,7 @@ if ($submitS) {
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
    echo "</td></tr></table><br />";
-   echo "<b>".translate("Post Reply in Topic:")."</b>";
+   echo "<b>".translate("Post Reply in Topic")."</b>";
    echo "&nbsp;<a href=\"viewforum.php?forum=$forum\" class=\"noir\">".stripslashes($forum_name)."</a>&nbsp;&nbsp;|&nbsp;&nbsp;";
    echo "<a href=\"forum.php\" class=\"noir\">".translate("Forum Index")."</a>\n";
    echo "<br />";
