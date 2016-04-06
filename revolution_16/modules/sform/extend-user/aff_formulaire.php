@@ -2,36 +2,36 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* Dont modify this file is you dont know what you make                 */
+/* Dont modify this file if you dont know what you make                 */
 /************************************************************************/
-$m->add_title(translate("User"));
+//$m->add_title(translate("User"));
 $m->add_form_field_size(50);
 
 settype($op,'string');
 if (($op=="userinfo") and ($user)) {
    global $act_uname;
    $act_uname="<a href='powerpack.php?op=instant_message&amp;to_userid=$uname' title='".translate("Send internal Message")."'>$uname</a>";
-   $m->add_field('act_uname', translate("User ID"),"$act_uname",'text',true,25,"","");
+   $m->add_field('act_uname', translate("User ID"),$act_uname,'text',true,25,'','');
 } else {
-   $m->add_field('uname', translate("User ID"),"$uname",'text',true,25,"","");
+   $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
 }
-$m->add_field('name', translate("Real Name"),"$name",'text',false,60,"","");
-$m->add_field('email', translate("Real Email"),"$email",'text',true,60,"","");
+$m->add_field('name', translate("Identity"),$name,'text',false,60,'','');
+$m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
 settype($url,'string');
 $url="<a href=\"$url\" target=\"_blank\">$url</a>";
-$m->add_field('url',  translate("Your HomePage"),"$url",'text',false,100,"","");
+$m->add_field('url',  translate("HomePage"),$url,'text',false,100,'','');
 
 // ---- AVATAR
 if ($smilies) {
-   $m->add_field('user_avatarX', translate("Your Avatar"),"",'text',true,25,"","");
+   $m->add_field('user_avatarX', translate("Avatar"),'','text',true,25,'','');
    if (stristr($user_avatar,"users_private")) {
-      $direktori="";
+      $direktori='';
    } else {
       global $theme;
       $direktori="images/forum/avatar/";
@@ -41,22 +41,25 @@ if ($smilies) {
       }
    }
    if ($user_avatar)
-      $m->add_extender("user_avatarX", "", "<img src=\"".$direktori.$user_avatar."\" name=\"avatar\" align=\"top\" title=\"\" />");
+      $m->add_extender("user_avatarX", '', "<img src=\"".$direktori.$user_avatar."\" name=\"avatar\" align=\"top\" title=\"\" />");
 }
 // ---- AVATAR
+if($user_from!='')
+$m->add_field('user_from', translate("Location"),$user_from,'text',false,100,'','');
+if($user_occ!='')
+$m->add_field('user_occ', translate("Occupation"),$user_occ,'text',false,100,'','');
+if($user_intrest!='')
+$m->add_field('user_intrest', translate("Interest"),$user_intrest,'text',false,150,'','');
+//$m->add_field('user_sig',translate("Signature"),$user_sig,'textarea',false,255,7,'','');
 
-// ---- SHORT-USER
-if ($short_user=="yes") {
-} else {
-}
-// ---- SHORT-USER
+if ($op=='userinfo' and $bio!='')
+   $m->add_field('bio',translate("Extra Info"),$bio,'textarea',false,255,7,'','');
 
-$m->add_field('user_from', translate("Your Location"),"$user_from",'text',false,100,"","");
-$m->add_field('user_occ', translate("Your Occupation"),"$user_occ",'text',false,100,"","");
-$m->add_field('user_intrest', translate("Your Interest"),"$user_intrest",'text',false,150,"","");
-$m->add_field('user_sig',translate("Signature"),"$user_sig",'textarea',false,255,7,"","");
 
-if ($op=="userinfo")
-   $m->add_field('bio',translate("Extra Info"),"$bio",'textarea',false,255,7,"","");
-// ----------------------------------------------------------------
+if($C7!='')
+   $m->add_field('C7','Latitude',$C7,'text',false,100,'','','');
+if($C8!='')
+   $m->add_field('C8','Longitude',$C8,'text',false,100,'','','');
+
+
 ?>
