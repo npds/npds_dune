@@ -407,7 +407,9 @@ function userinfo($uname) {
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="m-r-1" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                     $my_rs.='<a class="m-r-1" href="';
+                     if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
                   } 
                   else $my_rs.='';
@@ -444,8 +446,9 @@ function userinfo($uname) {
       echo $useroutils;
       echo $my_rsos[0];
    if ($uname == $cookie[1])
+//            <h3>'.translate("Welcome to").' '.$sitename.'</h3>
+
       echo '
-         <h3>'.translate("Welcome to").' '.$sitename.'</h3>
          <p class="lead">'.translate("This is your personal page").'</p>';
    echo '
       </div>
@@ -455,7 +458,124 @@ function userinfo($uname) {
    if ($uname == $cookie[1])
       nav($mns);
 
-   if ($uname == $cookie[1]) {
+   echo '
+   <div class="card card-block">
+      <div class="row">';
+      if ($posterdata_extend['C7']!='') echo '
+         <div class="col-md-6">'; else
+         echo '
+         <div class="col-md-12">';
+   include("modules/sform/extend-user/aff_extend-user.php");
+   echo '
+         </div>';
+   
+if ($posterdata_extend['C7']!='') {
+$content = '';
+include('modules/geoloc/geoloc_conf.php'); 
+$content .='
+<div class="col-md-6">
+<div id="map_user" style="width:100%; height:400px;"></div>';
+if (((!stristr($_SERVER['QUERY_STRING'],"geoloc")) || (stristr($_SERVER['PHP_SELF'],"admin.php")) || (stristr($_SERVER['PHP_SELF'],"user.php"))))  {
+$content .='
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr"></script>
+<script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+   var 
+   map_u,
+   mapdivu = document.getElementById("map_user"),
+   icon_u = {
+      path: fontawesome.markers.USER,
+      scale: '.$acg_sc.',
+      strokeWeight: '.$acg_t_ep.',
+      strokeColor: "'.$acg_t_co.'",
+      strokeOpacity: '.$acg_t_op.',
+      fillColor: "'.$acg_f_co.'",
+      fillOpacity: '.$acg_f_op.',
+   };
+
+   function geoloc_loaduser() {
+   
+   //==> carte du bloc
+   if (document.getElementById("map_bloc")) {
+      var 
+      map_b,
+      mapdivbl = document.getElementById("map_bloc"),
+      icon_bl = {
+         url: "'.$ch_img.$img_mbgb.'",
+         size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(0, 0),
+         scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+      };
+
+      map_b = new google.maps.Map(mapdivbl,{
+         center: new google.maps.LatLng(45, 0),
+         zoom :3,
+         zoomControl:false,
+         streetViewControl:false,
+         mapTypeControl: false,
+         disableDoubleClickZoom: true 
+      });
+      map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+      function createMarkerB(point_b) {
+         var marker_b = new google.maps.Marker({
+            position: point_b,
+            map: map_b,
+            icon: icon_bl
+         })
+         return marker_b;
+     }
+        //== Fonction qui traite le fichier JSON ==
+      $.getJSON("modules/geoloc/include/data.json", {}, function(data){
+         $.each(data.markers, function(i, item){
+            var point_b = new google.maps.LatLng(item.lat,item.lng);
+            var marker_b = createMarkerB(point_b);
+         });
+      });
+   };
+   //<== carte du bloc
+   
+      map_u = new google.maps.Map(mapdivu,{
+         center: new google.maps.LatLng('.$posterdata_extend['C7'].', '.$posterdata_extend['C8'].'),
+         zoom :7,
+         zoomControl:true,
+         streetViewControl:true,
+         mapTypeControl: true,
+         scrollwheel: false,
+         disableDoubleClickZoom: true 
+      });
+      map_u.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+      function createMarkerU(point_u) {
+         var marker_u = new google.maps.Marker({
+            position: point_u,
+            map: map_u,
+            title: "'.$uname.'",
+            icon: icon_u
+         })
+         return marker_u;
+      }
+      var point_u = new google.maps.LatLng('.$posterdata_extend['C7'].','.$posterdata_extend['C8'].');
+      var marker_u = createMarkerU(point_u);
+   }
+   $(document.body).attr("onload", "geoloc_loaduser()");
+//]]>
+</script>
+';
+}
+$content .='<div class="m-t-1"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
+if($admin)
+$content .= '&nbsp;&nbsp;<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
+$content .= '</div></div>';
+$content = aff_langue($content);
+echo $content;
+}
+
+   echo '
+      </div>
+   </div>';
+
+/*   if ($uname == $cookie[1]) {
    echo '
    <div class="card text-xs-center">
       <div class="card-header">
@@ -474,7 +594,7 @@ function userinfo($uname) {
          '.$user_sig.'
       </div>
    </div>';
-   };
+   }; */
 
     echo '
     <br />
@@ -964,14 +1084,14 @@ function edithome() {
       <div class="col-sm-10">
          <div class="checkbox">
             <label>
-               <input type="checkbox" name="ublockon" value="1" '.$sel.' />'.translate("Activate Personal Menu").'
+               <input type="checkbox" name="ublockon" value="1" '.$sel.' />&nbsp;'.translate("Activate Personal Menu").'
             </label>
          </div>
       </div>
    </div>
    <ul>
-      <li>'.translate("(Check this option and the following text will appear in the Home)").'</li>
-      <li>'.translate("(You can use HTML code to put links, for example)").'</li>
+      <li>'.translate("Check this option and the following text will appear in the Home").'</li>
+      <li>'.translate("You can use HTML code to put links, for example").'</li>
    </ul>
    <div class="form-group row">
       <div class="col-sm-12">
@@ -1110,7 +1230,7 @@ function editjournal(){
    nav($userinfo['mns']);
    echo '
    <h2>'.translate("Edit your journal").'</h2>
-   <form class="" role="form" action="user.php" method="post" name="adminForm">
+   <form action="user.php" method="post" name="adminForm">
       <div class="form-group row">
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>'
