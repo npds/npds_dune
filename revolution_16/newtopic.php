@@ -304,7 +304,7 @@ if ($submitS) {
          echo '
             <div class="form-group row">
                <div class="col-sm-3">
-                  <label class="form-control-label">'.translate("Message Icon: ").'</label>
+                  <label class="form-control-label">'.translate("Message Icon").'</label>
                </div>
                <div class="col-sm-9">';
                settype($image_subject,'string');

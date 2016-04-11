@@ -287,7 +287,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Message Icon: ").'</label>
+         <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
             <div class="card card-block fond_subject">
             '.emotion_add($image_subject).'
@@ -350,7 +350,7 @@ if ($submitS) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Options: ").'</label>';
+         <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
      if (($allow_html==1) and ($forum_type!="6") and ($forum_type!="5")) {
         if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
       echo '
