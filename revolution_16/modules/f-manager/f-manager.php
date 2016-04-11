@@ -70,16 +70,16 @@ function fma_autorise($type, $dir) {
 
    $autorise_arbo=false;
 
-   if ($type=="a") {
+   if ($type=='a') {
       $autorise_arbo=$access_fma;
    }
-   if ($type=="d") {
+   if ($type=='d') {
       if (is_array($dirlimit_fma)) {
          if (array_key_exists($dir,$dirlimit_fma))
             $autorise_arbo=$dirlimit_fma[$dir];
       }
    }
-   if ($type=="f") {
+   if ($type=='f') {
       if (is_array($ficlimit_fma)) {
          if (array_key_exists($dir,$ficlimit_fma))
             $autorise_arbo=$ficlimit_fma[$dir];
@@ -87,18 +87,18 @@ function fma_autorise($type, $dir) {
    }
 
    if ($autorise_arbo) {
-      $auto_dir="";
-      if (($autorise_arbo=="membre") and ($user)) {
+      $auto_dir='';
+      if (($autorise_arbo=='membre') and ($user)) {
          $auto_dir=true;
-      } elseif (($autorise_arbo=="anonyme") and (!$user)) {
+      } elseif (($autorise_arbo=='anonyme') and (!$user)) {
          $auto_dir=true;
-      } elseif (($autorise_arbo=="admin") and ($admin)) {
+      } elseif (($autorise_arbo=='admin') and ($admin)) {
          $auto_dir=true;
-      } elseif (($autorise_arbo!="membre") and ($autorise_arbo!="anonyme") and ($autorise_arbo!="admin") and ($user)) {
+      } elseif (($autorise_arbo!='membre') and ($autorise_arbo!='anonyme') and ($autorise_arbo!='admin') and ($user)) {
          $tab_groupe=valid_group($user);
          if ($tab_groupe) {
             foreach($tab_groupe as $groupevalue) {
-               $tab_auto=explode(",",$autorise_arbo);
+               $tab_auto=explode(',',$autorise_arbo);
                while (list(,$gp)=each($tab_auto)) {
                   if ($gp>0) {
                      if ($groupevalue==$gp) {
@@ -121,17 +121,17 @@ function fma_autorise($type, $dir) {
       $auto_dir=true;
    }
    if ($auto_dir!=true) {
-      if ($type=="d")
+      if ($type=='d')
          $dir_minuscptr++;
-      if ($type=="f")
+      if ($type=='f')
          $fic_minuscptr++;
    }
    return($auto_dir);
 }
 
 function chmod_pres($ibid, $champ) {
-   $sel="";
-   if ($ibid[0]==400) $sel="selected=\"selected\""; else $sel="";
+   $sel='';
+   if ($ibid[0]==400) $sel="selected=\"selected\""; else $sel='';
    $chmod="<option name=\"$champ\" value=\"400\" $sel> 400 (r--------)</option>";
    if ($ibid[0]==444) $sel="selected=\"selected\""; else $sel="";
    $chmod.="<option name=\"$champ\" value=\"444\" $sel> 444 (r-x------)</option>";
@@ -182,13 +182,13 @@ if ($FmaRep) {
          // Est ce que je doit récupérer le theme si un utilisateur est connecté ?
          if (isset($user)) {
              include("themes/list.php");
-             $themelist = explode(" ", $themelist);
+             $themelist = explode(' ', $themelist);
              $pos=array_search($cookie[9],$themelist);
              if ($pos!==false)
                $Default_Theme=$themelist[$pos];
          }
          include("modules/$ModPath/users/".strtolower($FmaRep).".conf.php");
-         if (fma_autorise("a", "")) {
+         if (fma_autorise('a', '')) {
             $theme_fma=$themeG_fma;
             $fic_minuscptr=0;
             $dir_minuscptr=0;
@@ -207,12 +207,12 @@ if ($FmaRep) {
 
 if (isset($browse)) {
    $ibid=rawurldecode(decrypt($browse));
-   if (substr(@php_uname(),0,7) == "Windows") {
+   if (substr(@php_uname(),0,7) == 'Windows') {
       $ibid=preg_replace('#[\*\?"<>|]#i','', $ibid);
    } else {
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
    }
-   $ibid=str_replace("..","",$ibid);
+   $ibid=str_replace('..','',$ibid);
    // contraint à rester dans la zone de repertoire définie (CHROOT)
    $base=$basedir_fma.substr($ibid,strlen($basedir_fma));
 } else {
@@ -225,11 +225,11 @@ $obj= new Navigator();
 $obj->Extension=explode(" ",$extension_fma);
 
 // traitements
-$rename_dir=""; $remove_dir=""; $chmod_dir="";
-$remove_file=""; $move_file=""; $rename_file=""; $chmod_file=""; $edit_file="";
+$rename_dir=''; $remove_dir=''; $chmod_dir='';
+$remove_file=''; $move_file=''; $rename_file=''; $chmod_file=''; $edit_file='';
 
 if (substr(@php_uname(),0,7)=="Windows") {
-   $log_dir=str_replace($basedir_fma,"",$base);
+   $log_dir=str_replace($basedir_fma,'',$base);
 } else {
    $log_dir=str_replace("\\","/",str_replace($basedir_fma,"",$base));
 }
@@ -248,9 +248,9 @@ switch ($op) {
             $filename = trim($upload->getFileName("userfile"));
             if ($filename) {
                $upload->maxupload_size=$max_size;
-               $auto=fma_filter("f", $filename, $obj->Extension);
+               $auto=fma_filter('f', $filename, $obj->Extension);
                if ($auto[0]) {
-                  if (!$upload->saveAs($auto[2], $base."/", "userfile", true)) {
+                  if (!$upload->saveAs($auto[2], $base.'/', 'userfile', true)) {
                      $Err=$upload->errors;
                   } else {
                      Ecr_Log("security","Upload File", $log_dir."/".$filename." IP=>".getip());
@@ -281,12 +281,12 @@ switch ($op) {
          }
       }
       break;
-   case "renamedir":
+   case 'renamedir':
       if ($dircmd_fma[1]) {
-         $auto=fma_filter("d", $att_name, $obj->Extension);
+         $auto=fma_filter('d', $att_name, $obj->Extension);
          if ($auto[0]) {
             $auto[3]=decrypt($browse);
-            if (file_exists($auto[3]."/".$auto[2])) {
+            if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
                $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x"></i>&nbsp;</span>'.fma_translate("Renommer un répertoire");
                $rename_dir ='
@@ -813,7 +813,7 @@ $moveM=fma_translate("Déplacer / Copier");
 $pictM=fma_translate("Autoriser Pic-Manager");
 $linked = "onmouseOver=\"this.className='ligna'; this.style.cursor='default';\" onmouseOut=\"this.className='lignb';\"";
 // Répertoires
-$subdirs=""; $sizeofDir=0;
+$subdirs=''; $sizeofDir=0;
 settype($tab_search,'array');
 while ($obj->NextDir()) {
    if (fma_autorise("d", $obj->FieldName)) {
@@ -871,9 +871,9 @@ while ($obj->NextDir()) {
 }
 
 // Fichiers
-$files=""; $sizeofFic=0;
+$files=''; $sizeofFic=0;
 while ($obj->NextFile()) {
-   if (fma_autorise("f", $obj->FieldName)) {
+   if (fma_autorise('f', $obj->FieldName)) {
       $ibid=rawurlencode(encrypt($cur_nav_encrypt."#fma#".encrypt($obj->FieldName)));
       $files.= "
       <tr id=\"REPEREDEBUGG\" class=\"lignb\" ".$linked.">";
@@ -908,10 +908,10 @@ while ($obj->NextFile()) {
          if ($url_fma_modifier) {
             include("$racine_fma/modules/$ModPath/users/$FmaRep.mod.php");
             $pop=$url_modifier;
-            $target="";
+            $target='';
          } else {
             $pop="'getfile.php?att_id=$ibid&amp;apli=f-manager'";
-            $target="target=\"_blank\"";
+            $target='target="_blank"';
          }
          if (!$wopen_fma) {
             $files.="<td nowrap=\"nowrap\" width=\"50%\"><a href=$pop $target>".extend_ascii($obj->FieldName)."</a></td>\n";
@@ -932,11 +932,11 @@ while ($obj->NextFile()) {
          $sizeofFic=$sizeofFic+$sizeofF;
          $files.="<td>".$obj->ConvertSize($sizeofF)."</td>\n";
       }  else $files.="<td>#NA#</td>";
-      if ($ficpres_fma[4])
-         $files.="<td>".$obj->FieldPerms."</td>\n";
+      if ($ficpres_fma[4]) 
+         $files.="<td>".$obj->FieldPerms."</td>\n"; else $files.="<td>#NA#</td>";
       // Traitements
       $obj->FieldName=rawurlencode($obj->FieldName);
-      $cmd_ibid="";
+      $cmd_ibid='';
       if ($ficcmd_fma[1])
          $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=renamefile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/rename.png\" border=\"0\" alt=\"$renaM\" title=\"$renaM\" /></a>\n";
       if ($ficcmd_fma[5])
@@ -951,8 +951,8 @@ while ($obj->NextFile()) {
          if (in_array($suffix,$tabW))
             $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=editfile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/edit.png\" border=\"0\" alt=\"$editM\" title=\"$editM\" /></a>\n";
       }
-      if ($cmd_ibid) $files.="<td>".$cmd_ibid."</td>";
-      $files.="</tr>";
+      if ($cmd_ibid) $files.='<td>'.$cmd_ibid.'</td>';
+      $files.='</tr>';
    }
 }
 
