@@ -29,9 +29,10 @@ function hreferer($filter) {
 
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
-   settype($filter,"integer");
+   settype($filter,'integer');
    if (!$filter) {$filter=2048;}
    echo '
+   <hr />
    <h3>'.adm_translate("Qui parle de nous ?").'</h3>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="hreferer" />
@@ -41,15 +42,16 @@ function hreferer($filter) {
          <div class="col-sm-4">
             <input type="number" class="form-control" name="filter" min="0" max="99999" value="'.$filter.'" />
          </div>
-         <div class="col-sm-4 xs-hidden"></div><div class="clearfix"></div>
+         <div class="col-sm-4 xs-hidden"></div>
+         <div class="clearfix"></div>
       </div>
    </div>
    </form>
    <table id ="tad_refe" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
    <thead>
       <tr>
-         <th data-sortable="true">Url</th>
-         <th data-sortable="true">Hit</th>
+         <th data-sortable="true" data-halign="center">Url</th>
+         <th data-sortable="true" data-halign="center" data-align="right">Hit</th>
       </tr>
    </thead>
    <tbody>';
@@ -105,15 +107,13 @@ function archreferer($filter) {
 }
 
 switch ($op) {
-   case "hreferer":
+   case 'hreferer':
         hreferer($filter);
         break;
-
-   case "archreferer":
+   case 'archreferer':
         archreferer($filter);
         break;
-
-   case "delreferer":
+   case 'delreferer':
         delreferer();
         break;
 }
