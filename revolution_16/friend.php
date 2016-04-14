@@ -27,9 +27,11 @@ function FriendSend($sid, $archive) {
    include ("header.php");
 
    echo '
-   <h2>'.translate("Send Story to a Friend").'</h2>
-   <p class="lead">'.translate("You will send the story").' <strong>'.aff_langue($title).'</strong> '.translate("to a specified friend:").'</p>
-   <form class="" role="form" action="friend.php" method="post">
+   <div class="card card-block">
+   <h2><i class="fa fa-at fa-lg text-muted"></i>&nbsp;'.translate("Send Story to a Friend").'</h2>
+   <hr />
+   <p class="lead">'.translate("You will send the story").' : <strong>'.aff_langue($title).'</strong></p>
+   <form action="friend.php" method="post">
       <input type="hidden" name="sid" value="'.$sid.'" />';
    global $user;
    if ($user) {
@@ -39,35 +41,31 @@ function FriendSend($sid, $archive) {
    }
    echo '
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="yname">'.translate("Your Name").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="yname" value="'.$yn.'" maxlength="100" required="required" />
+            <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="ymail">'.translate("Your Email").'</label>
-            </div>
+         <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
+            <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_fmail"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="fname">'.translate("Friend Name").'</label>
-            </div>
+         <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="fname" required="required" maxlength="100" />
+            <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" maxlength="100" required="required" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="fmail">'.translate("Friend Email").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="fmail" required="required" maxlength="100" />
+            <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
+            <span class="help-block text-xs-right"><span class="muted" id="countcar_ymail"></span></span>
          </div>
       </div>';
    echo ''.Q_spambot();
@@ -80,36 +78,24 @@ function FriendSend($sid, $archive) {
          </div>
       </div>
    </form>
-   
-      <script type="text/javascript">
+   <script type="text/javascript">
    //<![CDATA[
+   $(document).ready(function() {
       inpandfieldlen("yname",100);
       inpandfieldlen("ymail",100);
       inpandfieldlen("fname",100);
       inpandfieldlen("fmail",100);
+      });
    //]]>
    </script>';
-   $fv_parametres = '
-   yname: {
-   },
-   ymail: {
-   },
-   fname: {
-   },
-   fmail: {
-   },
-   ';
-
-   adminfoot('fv',$fv_parametres,'',1);
-   
-   include ('footer.php');
+   adminfoot('fv','','','');
 }
 
 function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question, $asb_reponse) {
    global $user;
    if (!$user) {
       //anti_spambot
-      if (!R_spambot($asb_question, $asb_reponse, "")) {
+      if (!R_spambot($asb_question, $asb_reponse, '')) {
          Ecr_Log("security", "Send-Story Anti-Spam : name=".$yname." / mail=".$ymail, "");
          redirect_url("index.php");
          die();
@@ -149,7 +135,6 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
 
 function StorySent($title, $fname) {
    include ("header.php");
-   
    $title = urldecode($title);
    $fname = urldecode($fname);
    echo '<p class="lead text-xs-center">';
@@ -174,8 +159,10 @@ function RecommendSite() {
    }
    include ("header.php");
    echo '
+   <div class="card card-block">
    <h2>'.translate("Recommend this Site to a Friend").'</h2>
-   <form class="" role="form" action="friend.php" method="post">
+   <hr />
+   <form action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name").'</label>
@@ -214,16 +201,15 @@ function RecommendSite() {
    </form>
    <script type="text/javascript">
    //<![CDATA[
+   $(document).ready(function() {
       inpandfieldlen("yname",100);
       inpandfieldlen("ymail",100);
       inpandfieldlen("fname",100);
       inpandfieldlen("fmail",100);
+      });
    //]]>
    </script>';
-
-   adminfoot('fv','','',1);
-
-   include ('footer.php');
+   adminfoot('fv','','','');
 }
 
 function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
