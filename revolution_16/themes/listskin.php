@@ -42,7 +42,7 @@
       <title>Bootswatch skins for NPDS - skin : <?php echo $skinametitre; ?></title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <link rel="stylesheet" href="../../../../lib/font-awesome-4.5.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="bootstrap.css" />
       <link rel="stylesheet" href="extra.css">
       <link rel="stylesheet" href="../assets/css/bootswatch.min.css" />

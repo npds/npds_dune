@@ -43,8 +43,8 @@ function entete() {
   <meta name="resource-type" content="document" />
   <meta name="robots" content="none" />
   <meta name="generator" content="NPDS IZ-Xinstall" />
-<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <style>
 body {
