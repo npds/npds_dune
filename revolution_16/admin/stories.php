@@ -861,7 +861,7 @@ function deleteStory($qid) {
 }
 
 function removeStory ($sid, $ok=0) {
-    if (($sid=="") or ($sid=="0")) {
+    if (($sid=='') or ($sid=='0')) {
        header("location: admin.php");
     }
     global $NPDS_Prefix;
@@ -874,7 +874,7 @@ function removeStory ($sid, $ok=0) {
     if ($radminsuper) {
        $affiche=true;
     } else {
-       $topicadminX=explode(",",$topicadmin);
+       $topicadminX=explode(',',$topicadmin);
        for ($i = 0; $i < count($topicadminX); $i++) {
           if (trim($topicadminX[$i])==$aid) $affiche=true;
        }
@@ -888,7 +888,7 @@ function removeStory ($sid, $ok=0) {
            include ("modules/comments/article.conf.php");
            sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
        }
-       global $aid; Ecr_Log("security", "removeStory ($sid, $ok) by AID : $aid", "");
+       global $aid; Ecr_Log('security', "removeStory ($sid, $ok) by AID : $aid", '');
        if ($ultramode) {
           ultramode();
        }
