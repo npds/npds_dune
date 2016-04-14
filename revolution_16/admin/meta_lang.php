@@ -304,19 +304,22 @@ function Creat_Meta_Lang() {
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
-            <textarea class="form-control" name="desc" id="desc" rows="7" style="width: 100%;">[french]...[/french][english]...[/english]</textarea>
+            <textarea class="form-control" name="desc" id="desc" rows="7">[french]...[/french][english]...[/english]</textarea>
          </div>
       </div>';
       }
       if ($type_meta != "them") {
-         echo '<label class="form-control-label" for="content">'.adm_translate("Script").'</label>';
+         echo '
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="content">'.adm_translate("Script").'</label>
+            <div class="col-sm-12">';
          if ($type_meta == "smil") {
             echo adm_translate("Chemin et nom de l'image du Smiley").'&nbsp;&nbsp;<span class="text-danger">Ex. : forum/smilies/pafmur.gif</span>';
-            echo '<input class="form-control" type="text" name="content" id="content" maxlength="255" />';
+            echo '<input class="form-control" type="text" name="content" id="content" maxlength="255" /></div></div>';
          } else
             echo '<textarea class="form-control" name="content" id="content" rows="20">';
             if ($type_meta=="meta") echo "function MM_XYZ (\$arg) {\n   global \$NPDS_Prefix;\n   \$arg = arg_filter(\$arg);\n\n   return(\$content);\n}";
-            echo '</textarea>';
+            echo '</textarea></div></div>';
       }
       echo '
       <div class="form-group row">
@@ -348,8 +351,6 @@ function Creat_Meta_Lang() {
    echo '
    </form>';
    adminfoot('fv','','','');
-
-//   include ("footer.php");
 }
 function kill_Meta_Lang($nbr, $action) {
    global $NPDS_Prefix;

@@ -58,13 +58,17 @@ switch ($pdst)
         break;
         
     default:
-        echo '</div>'."\n".'</div>'."\n".'</div>'."\n";
+        echo '
+         </div>
+      </div>
+   </div>';
         break;
 }
 
-// ContainerGlobal permet de transmettre · Theme-Dynbamic un ÈlÈment de personnalisation aprËs
-// le chargement de footer.html / Si vide alors rien de plus n'est affichÈ par TD
-$ContainerGlobal="\n</div>\n";
+// ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
+// le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
+$ContainerGlobal='
+</div>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");

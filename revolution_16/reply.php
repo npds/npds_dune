@@ -237,7 +237,7 @@ if ($submitS) {
    </div>';
 
    echo '
-   <h4>'.translate("Post Reply in Topic:").'</h4>
+   <h4>'.translate("Post Reply in Topic").'</h4>
    <form class="form" action="reply.php" method="post" name="coolsus">';
 
    echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
@@ -276,18 +276,18 @@ if ($submitS) {
         $message='';
      }
 
-   echo '<br />';
-     echo "<span class=\"lead\">".translate("Nickname: ")."";
-  
+   echo '
+   <br />
+   <span class="lead">'.translate("Nickname: ");
      if (isset($user))
-        echo ''.$userdata[1].'</span>';
+        echo $userdata[1].'</span>';
      else
-        echo ''.$anonymous.'</span>';
+        echo $anonymous.'</span>';
 
    if ($smilies) {
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Message Icon: ").'</label>
+         <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
             <div class="card card-block fond_subject">
             '.emotion_add($image_subject).'
@@ -326,7 +326,7 @@ if ($submitS) {
            } else {
               $reply = $text."\n";
            }
-           $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si","",$reply);
+           $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si",'',$reply);
         } else {
            $reply = translate("Error Connecting to DB")."\n";
         }
@@ -350,7 +350,7 @@ if ($submitS) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Options: ").'</label>';
+         <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
      if (($allow_html==1) and ($forum_type!="6") and ($forum_type!="5")) {
         if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
       echo '
@@ -362,11 +362,11 @@ if ($submitS) {
             </div>';
       }
       if ($user) {
-         if ($allow_sig == 1||$sig == "on") {
+         if ($allow_sig == 1||$sig == 'on') {
             $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
             list($attachsig) = sql_fetch_row($asig);
             if ($attachsig == 1) {$s = 'checked="checked"';} else {$s = '';}
-            if (($forum_type!="6") and ($forum_type!="5")) {
+            if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox">
                <label class="">
@@ -415,20 +415,14 @@ if ($submitS) {
       $myrow = sql_fetch_assoc($result);
       $count=0;
       do {
-      echo '
-      <div class="media">
-      <div class="media-left">';
+         echo '
+      <div class="row">
+         <div class="col-xs-12">
+            <div class="card">
+               <div class="card-header">';
          $posterdata = get_userdata_from_id($myrow['poster_id']);
-         if ($posterdata['uname']!=$anonymous) {
-            echo "<p><a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\" class=\"noir\">".$posterdata['uname']."</a>";
-         } else {
-            echo $posterdata['uname'];
-         }
-         echo '</p>';
          $posts = $posterdata['posts'];
-      echo '<p>';
-         echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
-         echo '</p>';
+
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -436,44 +430,48 @@ if ($submitS) {
                } else {
                   if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
                }
-                echo "<img class=\"media-object img-thumbnail\" src=\"".$imgtmp."\" alt=\"".$posterdata['uname']."\" />";
+                echo '
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
             }
          }
-      echo '</div>
-            <div class="media-body">';
-
-         if ($myrow['image'] != "") {
+       echo '
+                  &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+     
+         echo '
+                  <span class="pull-xs-right">';
+         if ($myrow['image'] != '') {
             if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="smil" src="'.$imgtmp.'"  alt="" />';
          } 
          else {
             if ($ibid=theme_image("forum/subject/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
-            echo '<img class="smil" src="'.$imgtmp.'" border="0" alt="" />';
+            echo '<img class="smil" src="'.$imgtmp.'" alt="" />';
          }
 
-         echo '&nbsp;&nbsp;<span class="text-muted pull-xs-right small">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>';
-
-         echo '<div class="well">';
+         echo '
+                  </span>
+               </div>
+               <div class="card-block">
+                  <span class="text-muted pull-xs-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
+                  <div class="card-text p-t-1">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
             $message = smilie($message);
             $message = aff_video_yt($message);
          }
-         // <a href in the message
-         if (stristr($message,"<a href")) {
-            $message=preg_replace('#_blank(")#i','_blank\1 class=\1 \1',$message);
-         }
 //         $message=split_string_without_space($message, 80);
-         if (($forum_type=="6") or ($forum_type=="5")) {
-            highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
+         if (($forum_type=='6') or ($forum_type=='5')) {
+            highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
          } else {
-            $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
-            echo $message.'</div>';
+            $message = str_replace('[addsig]','<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
+            echo $message.'
+                  </div>';
          }
    echo '
-      </div>
-   <hr />
-   </div>';
+               </div>
+            </div>
+         </div>
+      </div>';
          $count++;
       } while($myrow = sql_fetch_assoc($result));
    }

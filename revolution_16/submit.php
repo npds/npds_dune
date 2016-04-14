@@ -46,7 +46,7 @@ function defaultDisplay() {
 
    echo '
    <h2>'.translate("Submit News").'</h2>
-   <form class="" action="submit.php" method="post" name="adminForm">';
+   <form action="submit.php" method="post" name="adminForm">';
    echo '<p class="lead"><strong>'.translate("Your Name").'</strong> : ';
    if ($user) {
       echo "<a href=\"user.php\">".$userinfo['name']."</a> [ <a href=\"user.php?op=logout\">".translate("Logout")."</a> ]</p>";
@@ -79,27 +79,27 @@ function defaultDisplay() {
    echo '
             </select>
          </div>
-      </div>
+      </div>';
+   echo'
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="story" >'.translate("Intro Text").'</label>
          <div class="col-sm-12">
-            <span class="help-block">'.translate("HTML is fine, but double check those URLs and HTML tags!").'</span>
-            <textarea class="tin form-control" rows="25" name="story"></textarea>
-            '. aff_editeur('story','').'
+            <textarea class=" form-control tin" rows="25" name="story"></textarea>
          </div>
-      </div>
+      </div>';
+   echo aff_editeur('story', '');
+   echo'
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="bodytext">'.translate("Full Text").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" rows="25" name="bodytext"></textarea>
-            '.aff_editeur('bodytext','').'
+            <textarea class="form-control tin " rows="25" name="bodytext"></textarea>
          </div>
       </div>';
+   echo aff_editeur('bodytext', '');
 
    publication(0,0,0,0,0, 0,0,0,0,0, 0);
 
    echo '
-      <hr />
       <div class="form-group row">
          <div class="col-sm-12">
             <span class="help-block">'.translate("You must preview once before you can submit").'</span>
@@ -184,10 +184,10 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
             <label class="form-control-label col-sm-12">'.translate("Full Text").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>';
-   echo aff_editeur('bodytext', '');
    echo '
             </div>
          </div>';
+   echo aff_editeur('bodytext', '');
 
    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
    echo ''.Q_spambot().'';

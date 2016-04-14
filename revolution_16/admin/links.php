@@ -951,65 +951,65 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
 }
 
 switch ($op) {
-   case "links":
-   case "suite_links":
+   case 'links':
+   case 'suite_links':
         links();
         break;
-   case "LinksDelNew":
+   case 'LinksDelNew':
         LinksDelNew($lid);
         break;
-   case "LinksAddCat":
+   case 'LinksAddCat':
         LinksAddCat($title, $cdescription);
         break;
-   case "LinksAddSubCat":
+   case 'LinksAddSubCat':
         LinksAddSubCat($cid, $title);
         break;
-   case "LinksAddLink":
+   case 'LinksAddLink':
         LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter);
         break;
-   case "LinksAddEditorial":
+   case 'LinksAddEditorial':
         LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
         break;
-   case "LinksModEditorial":
+   case 'LinksModEditorial':
         LinksModEditorial($linkid, $editorialtitle, $editorialtext);
         break;
-   case "LinksDelEditorial":
+   case 'LinksDelEditorial':
         LinksDelEditorial($linkid);
         break;
-   case "LinksListBrokenLinks":
+   case 'LinksListBrokenLinks':
         LinksListBrokenLinks();
         break;
-   case "LinksDelBrokenLinks":
+   case 'LinksDelBrokenLinks':
         LinksDelBrokenLinks($lid);
         break;
-   case "LinksIgnoreBrokenLinks":
+   case 'LinksIgnoreBrokenLinks':
         LinksIgnoreBrokenLinks($lid);
         break;
-   case "LinksListModRequests":
+   case 'LinksListModRequests':
         LinksListModRequests();
         break;
-   case "LinksChangeModRequests":
+   case 'LinksChangeModRequests':
         LinksChangeModRequests($requestid);
         break;
-   case "LinksChangeIgnoreRequests":
+   case 'LinksChangeIgnoreRequests':
         LinksChangeIgnoreRequests($requestid);
         break;
-   case "LinksDelCat":
+   case 'LinksDelCat':
         LinksDelCat($cid, $sid, $sub, $ok);
         break;
-   case "LinksModCat":
+   case 'LinksModCat':
         LinksModCat($cat);
         break;
-   case "LinksModCatS":
+   case 'LinksModCatS':
         LinksModCatS($cid, $sid, $sub, $title, $cdescription);
         break;
-   case "LinksModLink":
+   case 'LinksModLink':
         LinksModLink($lid);
         break;
-   case "LinksModLinkS":
+   case 'LinksModLinkS':
         LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat);
         break;
-   case "LinksDelLink":
+   case 'LinksDelLink':
         LinksDelLink($lid);
         break;
 }

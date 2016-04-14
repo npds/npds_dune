@@ -283,7 +283,7 @@ include('auth.php');
          if ($smilies) {
             echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-12">'.translate("Message Icon: ").'</label>
+            <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
             <div class="col-sm-12">
                <div class="card card-block fond_subject">';
             if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
@@ -320,7 +320,7 @@ include('auth.php');
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="message">'.translate("Message: ").'</label>
+         <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
@@ -360,10 +360,15 @@ include('auth.php');
          }
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
-         echo '<textarea class="form-control" '.$xJava.' name="message" rows="15">';
+         echo '
+         <textarea class="form-control" '.$xJava.' name="message" rows="15">';
          if ($Xreply) echo $Xreply;
          echo '
-            </textarea>
+         </textarea>
+         <span class="help-block text-xs-right">
+            <button class="btn btn-danger-outline btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+            <button class="btn btn-primary-outline btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+         </span>
                </div>
                <div class="card-footer text-muted">';
          if ($allow_bbcode)
@@ -374,14 +379,14 @@ include('auth.php');
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3">'.translate("Options: ").'</label>';
+         <label class="form-control-label col-sm-3">'.translate("Options").'</label>';
          if ($allow_html==1) {
             if ($html) {$checked='checked="checked"';} else {$checked='';}
             echo '
          <div class="col-sm-9">
             <div class="checkbox">
                <label class="">
-                  <input type="checkbox" name="html" '.$checked.' />'.translate("Disable HTML on this Post").'
+                  <input type="checkbox" name="html" '.$checked.' />&nbsp;'.translate("Disable HTML on this Post").'
                </label>
             </div>';
          }
@@ -396,7 +401,7 @@ include('auth.php');
             echo '
             <div class="checkbox">
                <label class="">
-                  <input type="checkbox" name="sig" '.$checked.' /> '.translate("Show signature").' :<br />
+                  <input type="checkbox" name="sig" '.$checked.' /> '.translate("Show signature").'<br />
                   <small>'.translate("This can be altered or added in your profile").'</small>
                </label>
             </div>';
@@ -406,24 +411,23 @@ include('auth.php');
          </div>
       </div>
       <div class="form-group row">
-         <input type="hidden" name="msg_id" value="'.$msg_id.'" />
-         <input type="hidden" name="full_interface" value="'.$full_interface.'" />';
+         <div class="col-sm-12">
+            <input type="hidden" name="msg_id" value="'.$msg_id.'" />
+            <input type="hidden" name="full_interface" value="'.$full_interface.'" />';
               if ($send==1)
                  echo '
-         <input type="hidden" name="send" value="1" />';
+            <input type="hidden" name="send" value="1" />';
               if ($reply==1)
                  echo '
-         <input type="hidden" name="reply" value="1" />';
-              echo "
-         <input class=\"btn btn-secondary\" type=\"submit\" name=\"submitS\" value=\"".translate("Submit")."\" accesskey=\"s\" />
-              &nbsp;<input class=\"btn btn-secondary\" type=\"submit\" name=\"submitP\" value=\"".translate("Preview")."\" />
-              &nbsp;<input class=\"btn btn-secondary\" type=\"reset\" value=\"".translate("Clear")."\" />";
+            <input type="hidden" name="reply" value="1" />';
+              echo '
+            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />&nbsp;';
          if ($reply)
-            echo "&nbsp;<input class=\"btn btn-secondary\" type=\"submit\" name=\"cancel\" value=\"".translate("Cancel Reply")."\" />";
+            echo "&nbsp;<input class=\"btn btn-danger\" type=\"submit\" name=\"cancel\" value=\"".translate("Cancel Reply")."\" />";
          else
-            echo "&nbsp;<input class=\"btn btn-secondary\" type=\"submit\" name=\"cancel\" value=\"".translate("Cancel Send")."\" />";
-
+            echo "&nbsp;<input class=\"btn btn-danger\" type=\"submit\" name=\"cancel\" value=\"".translate("Cancel Send")."\" />";
          echo '
+         </div>
       </div>
    </form>';
          if ($full_interface!="short") {

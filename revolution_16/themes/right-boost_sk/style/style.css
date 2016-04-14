@@ -49,6 +49,11 @@ height : auto;
 .fond_emot, .fond_subject {
 line-height:28px;
 }
+.n-signature {
+font-style: italic;
+text-align: right !important;
+padding-top: 1.1rem !important;
+}
 /* <== pour les avatars et images */
 
 /** <== Classes NPDS-core                                                   **/

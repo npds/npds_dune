@@ -12,18 +12,18 @@
 /* Dont modify this file is you dont know what you make                 */
 /************************************************************************/
 $sform_path="modules/sform/";
-include_once($sform_path."sform.php");
+include_once($sform_path.'sform.php');
 
 global $m;
 $m=new form_handler();
 //********************
-$m->add_form_title("Register");
-$m->add_form_method("post");
-$m->add_form_check("false");
-$m->add_url("user.php");
+$m->add_form_title('Register');
+$m->add_form_method('post');
+$m->add_form_check('false');
+$m->add_url('user.php');
 
 /************************************************/
-include($sform_path."extend-user/aff_formulaire.php");
+include($sform_path.'extend-user/aff_formulaire.php');
 /************************************************/
-echo $m->aff_response("class=\"ligna\"");
+echo $m->aff_response('');
 ?>

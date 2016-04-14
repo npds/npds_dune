@@ -17,7 +17,7 @@
 // Constante
    define('CRLF', "\n", TRUE);
    if (!isset($sform_path)) {
-      $sform_path="";
+      $sform_path='';
    }
 ################################################################################################
 class form_handler {
@@ -29,11 +29,11 @@ class form_handler {
   var $form_method; // form method (Post or Get)
   var $form_key; // form key (for mysql stockage)
   var $form_key_value; // value of the form key (for mysql stockage)
-  var $form_key_status="open"; // Status of the key (open or close)
-  var $submit_value=""; // the name off all submit buttons of the form
-  var $form_password_access=""; // Protect the data with a password
-  var $answer=""; // answer table
-  var $form_check="true"; // sring which will be inserted into javascript check function
+  var $form_key_status='open'; // Status of the key (open or close)
+  var $submit_value=''; // the name off all submit buttons of the form
+  var $form_password_access=''; // Protect the data with a password
+  var $answer=''; // answer table
+  var $form_check='true'; // sring which will be inserted into javascript check function
   var $url; // path at 'action' option of form
   var $field_size=50; // Value of the size attribute of a form-field
   /**************************************************************************************/
@@ -809,10 +809,15 @@ class form_handler {
   $retour  => Comment for the link at the end of the page OR ="not_echo" for not 'echo' the reply but return in a string !
   $action  => url to go
   */
-  function aff_response($bg,$retour="",$action="") {
-    $str="<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"ligna\"><tr><td>";
-    $str.="<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"2\" class=\"lignb\">";
-    $str.="<tr class=\"ligna\"><td width=\"40%\" align=\"center\"><b>".$this->title."</b></td><td>&nbsp;</td></tr>";
+  function aff_response($bg,$retour='',$action='') {
+/*
+    $str='
+            <table class="table" border="0" cellspacing="1" cellpadding="2" >
+               <tr>
+                  <td width="40%" align="center"><strong>'.$this->title.'</strong></td>
+                  <td>&nbsp;</td>
+               </tr>';
+*/
 
     // modif Field en lieu et place des $GLOBALS ....
 
@@ -822,35 +827,35 @@ class form_handler {
          if (array_key_exists($this->form_fields[$i]['name'], $GLOBALS)) {
             $field=$GLOBALS[$this->form_fields[$i]['name']];
          } else {
-            $field="";
+            $field='';
          }
       } else {
-         $num_extender="no";
+         $num_extender='no';
       }
       if (array_key_exists('type',$this->form_fields[$i])) {
          switch($this->form_fields[$i]['type']) {
          case 'text':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
-          $str.="</td><td>";
+          $str.='<div class="m-b-1">'.$this->form_fields[$i]['en'];
+          $str.='<br />';
           $str.="<b>".stripslashes($field)."&nbsp;</b>";
-          if ($num_extender!="no") {
+          if ($num_extender!='no') {
              $str.=" ".$this->form_fields[$num_extender]['html'];
           }
-          $str.="</td></tr>";
+          $str.='</div>';
           break;
 
          case 'password':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
-          $str.="</td><td>";
+          $str.='<tr><td>'.$this->form_fields[$i]['en'];
+          $str.='</td><td>';
           $str.="<b>".str_repeat("*", strlen($field))."&nbsp;</b>";
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['html'];
           }
-          $str.="</td></tr>";
+          $str.='</td></tr>';
           break;
 
          case 'checkbox':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
+          $str.="<tr><td>".$this->form_fields[$i]['en'];
           $str.="</td><td>";
           if ($field!="") {
             $str.="<b>".$this->form_fields[$i]['value']."&nbsp;</b>";
@@ -858,23 +863,23 @@ class form_handler {
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['html'];
           }
-          $str.="</td></tr>";
+          $str.='</td></tr>';
           break;
 
          case 'textarea':
          case 'textarea_no_mceEditor':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
+          $str.="<tr><td>".$this->form_fields[$i]['en'];
           $str.="</td><td>";
           $str.="<b>".stripslashes(str_replace(chr(13).chr(10),"<br />",$field))."&nbsp;</b>";
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['html'];
           }
-          $str.="</td></tr>";
+          $str.='</td></tr>';
           break;
 
          case 'select':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
-          $str.="</td><td>";
+          $str.="<tr><td>".$this->form_fields[$i]['en'];
+          $str.='</td><td>';
           if ( is_array($field) ){
              for ($j=0;$j<count($field);$j++){
                 $str.="<b>".$this->form_fields[$i]['value'][ $field[$j] ]['en']."&nbsp;</b><br />";
@@ -885,23 +890,23 @@ class form_handler {
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['html'];
           }
-          $str.="</td></tr>";
+          $str.='</td></tr>';
           break;
 
          case 'radio':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
+          $str.="<tr><td>".$this->form_fields[$i]['en'];
           $str.="</td><td>";
           $str.="<b>".$this->form_fields[$i]['value'][ $field ]['en']."&nbsp;</b>";
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['html'];
           }
-          $str.="</td></tr>";
+          $str.='</td></tr>';
           break;
 
          case 'comment':
-          $str.="<tr $bg><td colspan=\"2\">";
+          $str.="<tr><td colspan=\"2\">";
           $str.=$this->form_fields[$i]['en'];
-          $str.="</td></tr>";
+          $str.='</td></tr>';
           break;
 
          case 'extra':
@@ -909,8 +914,8 @@ class form_handler {
           break;
 
          case 'date':
-          $str.="<tr $bg><td>".$this->form_fields[$i]['en'];
-          $str.="</td><td>";
+          $str.="<tr><td>".$this->form_fields[$i]['en'];
+          $str.='</td><td>';
           $str.="<b>".$field."&nbsp;</b>";
           if ($num_extender!="no") {
              $str.=" ".$this->form_fields[$num_extender]['html'];
@@ -923,13 +928,13 @@ class form_handler {
          }
       }
     }
-    if (($retour!="") and ($retour!="not_echo")) {
-       $str.="<tr $bg><td colspan=\"2\" align=\"center\"><a href=\"$action\" class=\"noir\">[ $retour ]</a></td></tr>";
+    if (($retour!='') and ($retour!='not_echo')) {
+       $str.="<tr><td colspan=\"2\" align=\"center\"><a href=\"$action\" class=\"noir\">[ $retour ]</a></td></tr>";
     }
-    $str.="</table>";
-    $str.="</td></tr></table>";
+    $str.='
+   </table>';
 
-    if ($retour!="not_echo") {
+    if ($retour!='not_echo') {
        echo $str;
     } else {
        return $str;

@@ -211,7 +211,7 @@ if ($submitS) {
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
    echo "</td></tr></table><br />";
-   echo "<b>".translate("Post Reply in Topic:")."</b>";
+   echo "<b>".translate("Post Reply in Topic")."</b>";
    echo "&nbsp;<a href=\"viewforum.php?forum=$forum\" class=\"noir\">".stripslashes($forum_name)."</a>&nbsp;&nbsp;|&nbsp;&nbsp;";
    echo "<a href=\"forum.php\" class=\"noir\">".translate("Forum Index")."</a>\n";
    echo "<br />";
@@ -263,7 +263,7 @@ if ($submitS) {
       echo "</td></tr>";
       if ($smilies) {
          echo "<tr align=\"left\" valign=\"top\">
-         <td class=\"lignb\" width=\"25%\"><b>".translate("Message Icon: ")."<b></td>
+         <td class=\"lignb\" width=\"25%\"><b>".translate("Message Icon")."<b></td>
          <td class=\"lignb\">";
          settype($image_subject,'string');
          echo emotion_add($image_subject);
@@ -308,7 +308,7 @@ if ($submitS) {
       if ($allow_bbcode)
          putitems();
       echo "</td></tr><tr align=\"left\">";
-      echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Options: ")."</b></td>";
+      echo "<td class=\"lignb\" width=\"25%\"><b>".translate("Options")."</b></td>";
       echo "<td class=\"lignb\">";
       if (($allow_html==1) and ($forum_type!="6") and ($forum_type!="5")) {
          if (isset($html)) {

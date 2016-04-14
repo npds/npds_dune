@@ -58,7 +58,7 @@ function MetaTagSave($filename, $tags) {
          if ($tags['doctype']=="XHTML 1.0 Strict")
             $content .="   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n<title>\\n\\n\";\n";
         if ($tags['doctype']=="HTML 5.0")
-            $content .="   \$l_meta=\"<!DOCTYPE html>\\n<head>\\n<title>\\n\\n\";\n";
+            $content .="   \$l_meta=\"<!DOCTYPE html>\\n<html>\\n<head>\\n<title>\\n\\n\";\n";
        } else {
          $tags['doctype']="HTML 4.01 Transitional";
          $content .="   \$l_meta=\"<!DOCTYPE HTML PUBLIC \\\"-//W3C//DTD HTML 4.01 Transitional//EN\\\" \\\"http://www.w3.org/TR/html4/loose.dtd\\\">\\n<html>\\n<head>\\n<title>\\n\\n\";\n";
@@ -91,7 +91,7 @@ function MetaTagSave($filename, $tags) {
       }
       
       $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');//to do =>put in admin interface
-      $content .= MetaTagMakeSingleTag('x-ua-compatible', 'ie=edge', 'http-equiv');//to do =>put in admin interface
+      $content .= MetaTagMakeSingleTag('X-UA-Compatible', 'IE=edge', 'http-equiv');//to do =>put in admin interface
       $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
       $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
       $content .= MetaTagMakeSingleTag('expires', '0', 'http-equiv');
@@ -162,7 +162,7 @@ function MetaTagSave($filename, $tags) {
       $content .= "if (\$meta_op==\"\") echo \$l_meta; else \$l_meta=str_replace(\"\\n\",\"\",str_replace(\"\\\"\",\"'\",\$l_meta));\n?>";
       fwrite($fh, $content);
       fclose($fh);
-      global $aid; Ecr_Log("security", "MetaTagsave() by AID : $aid", "");
+      global $aid; Ecr_Log('security', "MetaTagsave() by AID : $aid", '');
       return true;
    }
    return false;

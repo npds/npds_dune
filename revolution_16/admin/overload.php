@@ -179,9 +179,7 @@ function main() {
 
 switch ($op) {
    case 'supercache_save':
-      if ($radminsuper==1) {
-        save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules);
-      }
+      save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules);
       global $aid; Ecr_Log('security', "ChangeSuperCache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules) by AID : $aid", '');
       Header("Location: admin.php?op=supercache");
       break;

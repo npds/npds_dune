@@ -28,58 +28,48 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
          $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="label-pill label-default">'.$nbmes.'</span></a>';
       $ava='<a class="dropdown-item" href="user.php"><img src="'.$imgtmp.'" width="64" height="64" /></a>';
       $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
-   } 
+   }
 ?>
 
-<nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
-  <a href="#" class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">&#9776;</a>
-  <a class="navbar-brand" href="#"><span>NPDS^ 16</span></a>
-
-  <div class="collapse navbar-toggleable-xs" id="barnav">
-    <ul class="nav navbar-nav">
-       <li class="navbar-divider"></li>
-      <li class="nav-item dropdown">
-         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
-         <ul class="dropdown-menu" role="menu">
-            <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
-            <li><a class="dropdown-item" href="search.php">Les archives</a></li>
-            <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
-            <li class="dropdown-divider"></li>
+   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
+      <a href="#" class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">&#9776;</a>
+      <a class="navbar-brand" href="#"><span>NPDS^ 16</span></a>
+      <div class="collapse navbar-toggleable-xs" id="barnav">
+         <ul class="nav navbar-nav">
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
+               <ul class="dropdown-menu" role="menu">
+                  <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
+                  <li><a class="dropdown-item" href="search.php">Les archives</a></li>
+                  <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
+                  <li class="dropdown-divider"></li>
+               </ul>
+            </li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown">
+            <li class="nav-item active"><a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">[french]Contact[/french][english]Contact[/english][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese][spanish]Cont&aacute;ctenos[/spanish][german]Kontakt[/german]</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+               <ul class="dropdown-menu">
+                  <li><?php echo $ava; ?></li>
+                  <li class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> [french]Profil[/french][english]Profile[/english][chinese]Profile[/chinese][spanish]Perfil[/spanish][german]Profil[/german]</a></li>
+                  <li><?php echo $bal; ?></li>
+                  <li class="dropdown-divider"></li>
+                  <li><?php echo $btn_con; ?></li>
+               </ul>
+            </li>
+            <?php echo $cha; ?>
          </ul>
-      </li>
-      <li class="navbar-divider"></li>
-      <li class="nav-item dropdown">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="navbar-divider"></li>
-      <li class="nav-item">
-        <a class="nav-link" href="download.php">Download</a>
-      </li>
-      <li class="navbar-divider"></li>
-      <li class="nav-item">
-        <a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">Liens</a>
-      </li>
-      <li class="navbar-divider"></li>
-      <li class="nav-item">
-        <a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">Contact</a>
-      </li>
-      <li class="navbar-divider"></li>
-      <li class="nav-item dropdown">
-         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
-         <ul class="dropdown-menu">
-            <li><?php echo $ava; ?></li>
-            <li class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-            <li><?php echo $bal; ?></li>
-            <li class="dropdown-divider"></li>
-            <li><?php echo $btn_con; ?></li>
-         </ul>
-      </li>
-      <?php echo $cha; ?>
-    </ul>
-  </div>
-</nav>
+      </div>
+   </nav>
    <div class="page-header">
       <div class="row">
       <div class="col-sm-2 hidden-xs-down"><img class="img-fluid" src="themes/!theme!/images/header.png" /></div>

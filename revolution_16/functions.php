@@ -186,16 +186,11 @@ function get_userdata_extend_from_id($userid) {
       $myrow = array( "uid" => 1);
    else
       $myrow=array_merge($myrow,(array)sql_fetch_assoc(sql_query($sql1)));
- */  
+ */
 $myrow= (array)sql_fetch_assoc(sql_query($sql1));
  
  return($myrow);
 }
-
-
-
-
-
 
 
 function get_userdata($username) {
@@ -451,14 +446,12 @@ function searchblock() {
    return ($ibid);
 }
 
-
-/*
 function member_qualif($poster, $posts, $rank) {
    global $anonymous;
    $tmp='';
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
-   $tmp='<img class="smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'&nbsp;&nbsp;';
+   $tmp='<img class="smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
       if ($posts>=10 and $posts<30) {$nux=1;}
@@ -467,41 +460,14 @@ function member_qualif($poster, $posts, $rank) {
       if ($posts>=300 and $posts<1000) {$nux=4;}
       if ($posts>=1000) {$nux=5;}
       for ($i=0; $i<$nux; $i++) {
-         $tmp.="<img src=\"".$imgtmpN."\" border=\"\" alt=\"\" />&nbsp;";
-      }
-
-      if ($rank) {
-         if ($ibid=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibid;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
-         $rank="rank".$rank;
-         global $$rank;
-         $tmp.="<br /><img src=\"".$imgtmpA."\" border=\"\" alt=\"\" />&nbsp;".aff_langue($$rank);
-      }
-   }
-   return ($tmp);
-}
-*/
-function member_qualif($poster, $posts, $rank) {
-   global $anonymous;
-   $tmp='';
-   if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
-   if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
-   $tmp='<img class="smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'<br />';
-   if ($poster!=$anonymous) {
-      $nux=0;
-      if ($posts>=10 and $posts<30) {$nux=1;}
-      if ($posts>=30 and $posts<100) {$nux=2;}
-      if ($posts>=100 and $posts<300) {$nux=3;}
-      if ($posts>=300 and $posts<1000) {$nux=4;}
-      if ($posts>=1000) {$nux=5;}
-      for ($i=0; $i<$nux; $i++) {
-         $tmp.='<i class="fa fa-star-o"></i>&nbsp;';
+         $tmp.='<i class="fa fa-star-o text-success"></i>&nbsp;';
       }
 
       if ($rank) {
          if ($ibid=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibid;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
          $rank='rank'.$rank;
          global $$rank;
-         $tmp.="<br /><img src=\"".$imgtmpA."\" border=\"\" alt=\"\" />&nbsp;".aff_langue($$rank);
+         $tmp.='<br /><img src="'.$imgtmpA.'" border="" alt="" />&nbsp;'.aff_langue($$rank);
       }
    }
    return ($tmp);

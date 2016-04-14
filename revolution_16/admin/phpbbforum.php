@@ -280,19 +280,9 @@ function ForumGo($cat_id) {
             break;
          }
       }).change();
-      
-      
-
       $(document).ready(function() {
          inpandfieldlen("forum_name",150);
-         inpandfieldlen("add_name",50);
       });
-
-      
-      
-      
-      
-      
    //]]>
    </script>';
     adminfoot('fv','','','');
@@ -307,6 +297,7 @@ function ForumGoEdit($forum_id, $ctg) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
    echo '
+   <hr />
    <h3>'.adm_translate("Editer").' : <span class="text-muted">'.$forum_name.'</span></h3>
    <form id="fad_editforu" action="admin.php" method="post">
    <input type="hidden" name="forum_id" value="'.$forum_id.'" />
@@ -375,7 +366,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="forum_type">'.adm_translate("Type").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="forum_type">';
+            <select class="c-select form-control" id="forum_type" name="forum_type">';
    if ($forum_type == 0) $sel0=' selected="selected"'; else $sel0='';
    if ($forum_type == 1) $sel1=' selected="selected"'; else $sel1='';
    if ($forum_type == 5) $sel5=' selected="selected"'; else $sel5='';
@@ -394,6 +385,8 @@ function ForumGoEdit($forum_id, $ctg) {
                <option value="9"'.$sel9.'>'.adm_translate("Caché").'</option>
             </select>
          </div>
+      </div>
+      <div class="form-group row" id="the_multi_input_lol">
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
@@ -428,12 +421,6 @@ function ForumGoEdit($forum_id, $ctg) {
             </select>
          </div>
       </div>
-      <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="forum_pass">'.adm_translate("- Mot de Passe (si Privé) - Le nom du fichier de formulaire (si Texte étendu) => modules/sform/forum - Les Groupes ID (si Groupe)").'</label>
-         <div class="col-sm-8">
-            <input class="form-control" type="text" name="forum_pass" value="'.$forum_pass.'" />
-         </div>
-      </div>
       <input type="hidden" name="ctg" value="'.StripSlashes($ctg).'" />
       <input type="hidden" name="op" value="ForumGoSave" />
       <div class="form-group row">
@@ -443,6 +430,47 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
    </form>';
    echo auto_complete_multi ('modera','uname','users','forum_mod','WHERE uid<>1');
+   echo'
+   <script type="text/javascript">
+   //<![CDATA[
+      var inp = $("#the_multi_input_lol");
+      var htmh="",htmhe="",htmf="",lab="",inp_para="";
+      htmh +=\'            <label class="form-control-label col-sm-4" for="forum_pass">\'
+      htmhe +=\'</label>\n\';
+      htmhe +=\'            <div class="col-sm-8">\n\';
+      htmf +=\'            </div>\n\';
+      var select = $("#forum_type");
+      select.change(function(){
+         var type = $(this).val();
+         switch (type) {
+            case "1":
+            lab="'.adm_translate("Mot de Passe").'";
+            inp_para=\'<input class="form-control" type="password" name="forum_pass" id="forum_pass" maxlength="60" required="required" />\n\';
+            inp.html(htmh+lab+htmhe+inp_para+htmf);
+            break;
+            case "7": case"5":
+            lab="'.adm_translate("Groupe ID").'";
+            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required" />\n\';
+            inp.html(htmh+lab+htmhe+inp_para+htmf);
+            break;
+            case "8":
+            lab="'.adm_translate("Fichier de formulaire").'";
+            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass" />\n<span class="help-block">=> modules/sform/forum</span>\n\';
+            inp.html(htmh+lab+htmhe+inp_para+htmf);
+            break;
+            default:
+            inp.html("");
+            break;
+         }
+      }).change();
+      $(document).ready(function() {
+         inpandfieldlen("forum_name",150);
+//         inpandfieldlen("add_name",50);
+      });
+   //]]>
+   </script>';
+   
+   
    adminfoot('fv','','','');
 }
 

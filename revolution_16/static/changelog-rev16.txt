@@ -1,31 +1,98 @@
-----------------------
-- NPDS REvolution 16 -
-----------------------
-Corrections majeures impactant sur tout le portail :
-- intégration en backend d'un framework : Bootsrap 4
-   ayant pour conséquence :
-      intégration de Jquery 2.x
-      abandon de la librairie YUI
-      
-      
-       
-- intégration côté client d'un controle des form
+changelog-rev16  [ révision : 27 - jpb / 30-03-2016 17:47 ]
+
+- NPDS REvolution 16 - 
+v.16.0-alpha
+Implémentations majeures impactant sur tout le portail :
+- intégration en backend d'un framework : Bootsrap 4 #requis
+ayant pour conséquence :
+intégration de Jquery 2.x (implémentation) #requis
+abandon de la librairie YUI (désimplémentation)
+- intégration des webfont fontawesome version courante  4.5.0 (soutien et remplacement de l'iconographie du cms) #requis
+- responsive design
+réécriture de presque TOUS  les fichiers du portail (suppression des mise en pages tabulaires) et implémentation de classes (pour grilles/grid) ces classes sont celles de bootstrap4 MAIS elle peuvent très bien se comporter comme des classes génériques à clôner ou modifier en cas de changement de framework..) 
+ 
 
 
+Administration
+ 
+ 
+ 
+- passage en full utf-8
+tous les fichiers (script et langue) sont en utf-8 : la sortie des fichiers langues est donc en utf-8 transformé si nécessaire en entités html
+
+- Modules impact
+l'administration des modules est recentralisé pour profiter de la puissance du nouveau système de droits aux fonctions 
+cela signifie :
+abandon du mecanisme géré par extend-modules.txt 
+modification des entêtes des fichiers admin des modules (inclusion de la fonction qui gère les droits)
+
+modification des fichiers install_conf des modules avec install auto et admin qui doivent envoyer une requete d'identification à la table fonctions
+ 
 Corrections :
+- lib mysqli 
+ajout de la connection persistante et globalisation de $dblink dans la fonction sql_connect() car variable non disponible dans certain contexte (install auto)
+- bug (Rev13) état de l'icone témoin de connection ne fonctionnait pas dans les blocs groupes
+- bug (Rev13)  headlines  (la lib feed creator avait changé mais pas la construction du bloc headline) 
+  lib/feedcreator.class.php (corrections conformité dans la lib ATOM) 
+ dans backend.php 
+ dans admin/headlines.php (remove la suppression des espace avant entrée dans bd) 
+ dans mainfile.php (fonction headline) 
+ rajout de la possibilité d'avoir un titre de bloc human readable ...) par la modif du système de création de nom des fichier.cache qui était basée sur un nom compatible de fichier (...sans espace) 
+
 
 Evolutions :
+- install auto v.1.2
+utilisation des lib (mysql ou mysqli)
+compatibilité php7 (ereg=>preg)
+interface
+ 
+
+- intégration côté client d'un contrôle des form
+- suppression des commentaires relatifs à un sondage quand on supprime le sondage. 
+- chargement de footer_after.inc à partir du thème
+modification du fichier footer.php pour pouvoir charger (comme pour les modules) si il existe le fichier footer_after.inc ceci permet de placer ici les js (...de second niveau) nécessaires ==> chargement plus rapide de la page 
 
 - THEMES :
 
 - Minisites : 
 
-- Gestion des groupes :
 
-- WS PAD 1.44 : 
+- WS PAD 1.44
+adaptation pour tiny4 jquery et responsive
 
 - Support de PHP 7.x
+correction des preg utlisant le flag '##'e remplacement par callback
+ correction de new topic.php (encadrement des codes d'erreur forum par des simple quote) 
+ correction de la lib file.class.php (incompatible avec PHP7 objet incompatible?...) ... 
+### download.php 
+### admin/download.php 
+### upload.func.forum.php 
+### upload_forum2.php 
+### minigf.php 
 
-- TinyMCE : 
+admin/banners.php 
+lignes 387 et 431 de admin/banners.php (REV 13) 
+la variable $extrainfo est doublée dans les liste d'arguments de la fonction BannerClientChange() === page blanche !!!! 
 
+modules/links/links-1.php 
+ligne 101 (REV 13) 
+la variable $name deux fois dans les arguments de fonction Add() 
+=== page blanche 
 
+modules/links/links.php 
+ligne 544 (REV 13) 
+la variable $name deux fois dans les arguments de fonction Add() 
+ 
+- Tinymce 
+
+version courante 4.3.3
+adaptation de l'implémentation
+ajout de commande pour les métamots
+ajout plugins pour font awesome
+modification des templates (responsives)
+ 
+- inside code php
+mise en majuscule des instruction mySQL
+écriture à double indentation (3 espaces) PHP / html / js
+généralisation des simple quotes (le plus souvent)
+augmentation de la longueur des chaines de sorties réduction des concaténations courtes
