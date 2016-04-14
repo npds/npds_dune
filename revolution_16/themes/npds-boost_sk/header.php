@@ -58,7 +58,8 @@ if ($nb_bld_actif == 0) {
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
-$ContainerGlobal="\n".'<div id="container" class="">'."\n";
+$ContainerGlobal='
+<div id="container" class="">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
@@ -77,19 +78,20 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
 /* =====================================================================*/
    //if(isset($pdst)) echo'hello je suis défini à '. $pdst; //debug
    echo '
-   <div id="corps" class="container-fluid"><div class="row">';
+   <div id="corps" class="container-fluid">
+      <div class="row">';
 switch ($pdst) {
 case '-1':
    echo '
-      <div id="col_princ" class="col-xs-12">';
+         <div id="col_princ" class="col-xs-12">';
 break;
 case '1':
    echo '
-      <div id="col_LB" class="col2 collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="col2 collapse navbar-toggleable-sm col-sm-3">';
      leftblocks();
    echo '
-      </div>
-      <div id="col_princ" class="col-xs-12 col-sm-6">';
+         </div>
+         <div id="col_princ" class="col-xs-12 col-sm-6">';
 break;
 case '2': case '6':
    echo '
@@ -121,11 +123,11 @@ case '5':
 break;
 default:
    echo '
-      <div id="col_LB" class="col3 collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="col3 collapse navbar-toggleable-sm col-sm-3">';
    leftblocks();
    echo '
-      </div>
-      <div id="col_princ" class="col-xs-12 col-sm-9">';
+         </div>
+         <div id="col_princ" class="col-xs-12 col-sm-9">';
 break;
 }
 ?>
