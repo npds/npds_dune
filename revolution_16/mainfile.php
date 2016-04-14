@@ -56,31 +56,6 @@ function session_manage() {
    if (!isset($username)) {
       $username="$ip";
       $guest=1;
-      
-      //==> mod_geoloc
-      $ousursit='';
-      global $ousursit;
-      $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc i WHERE ip_ip LIKE \"$ip\"");
-      $controle=sql_num_rows($resultat);
-      while ($row = sql_fetch_array($resultat)) 
-      {$ousursit= preg_replace("#/.*?/#","",$_SERVER['PHP_SELF']);} 
-      if($controle != 0)
-         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-      else {
-         $stream=file_get_contents("http://api.hostip.info/get_html.php?ip=$ip&position=true");
-         $lines = preg_split ("\n", $stream);
-         $pay=preg_split (":",$lines[0]);
-         $vil=preg_split (":",$lines[1]);
-         $lati=preg_split (":",$lines[2]);
-         $longi=preg_split (":",$lines[3]);
-         $lat=trim($lati[1]);
-         $long=trim($longi[1]);
-         $vi=trim($vil[1]);
-         $pa=trim($pay[1]);
-         sql_query("INSERT ".$NPDS_Prefix."ip_loc  SET ip_long = \"$long\", ip_lat = \"$lat\", ip_ip = \"$ip\", ip_country = \"$pa\", ip_city =\"$vi\"");
-         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-      }
-      //<== mod_geoloc
    }
 
    $past = time()-300;
@@ -1066,18 +1041,18 @@ function fab_block($title, $member, $content, $Xcache) {
    // Bloc cachÈ
    $hidden=false;
    if (substr($content,0,7)=="hidden#") {
-      $content=str_replace("hidden#","",$content);
+      $content=str_replace("hidden#",'',$content);
       $hidden=true;
    }
    // Si on cherche ‡ charger un JS qui a dÈj‡ ÈtÈ chargÈ par pages.php alors on ne le charge pas ...
    global $pages_js;
-   if ($pages_js!="") {
+   if ($pages_js!='') {
       preg_match('#src="([^"]*)#',$content,$jssrc);
       if (is_array($pages_js)) {
          foreach($pages_js as $jsvalue) {
             if (array_key_exists('1',$jssrc)) {
                if ($jsvalue==$jssrc[1]) {
-                  $content="";
+                  $content='';
                   break;
                }
             }
@@ -1259,9 +1234,13 @@ function Pre_fab_block($Xid, $Xblock) {
     while (list($title, $content, $member, $cache, $actif, $id, $css)=sql_fetch_row($result)) {
       if (($actif) or ($Xid)) {
          if ($css==1){
-            $htvar = "<div id=\"".$Xblock."_".$id."\">"; // modif Jireck
+            $htvar = '
+            <div id="'.$Xblock.'_'.$id.'">
+            '; // modif Jireck
          } else {
-            $htvar = "<div class=\"".strtolower($bloc_side)."bloc\">"; // modif Jireck
+            $htvar = '
+            <div class="'.strtolower($bloc_side).'bloc">
+            '; // modif Jireck
          }
          fab_block($title, $member, $content, $cache);
          // echo "</div>"; // modif Jireck
@@ -1275,12 +1254,12 @@ function niv_block($Xcontent) {
    $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."rblocks WHERE (content like '%$Xcontent%')");
    if (sql_num_rows($result)) {
       list($content, $member, $actif) = sql_fetch_row($result);
-      return ($member.",".$actif);
+      return ($member.','.$actif);
    }
    $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."lblocks WHERE (content like '%$Xcontent%')");
    if (sql_num_rows($result)) {
       list($content, $member, $actif) = sql_fetch_row($result);
-      return ($member.",".$actif);
+      return ($member.','.$actif);
    }
    sql_free_result($result);
 }
@@ -1947,7 +1926,9 @@ function Q_spambot() {
          </div>
       </div>';
    } else {
-      $tmp='<input type="hidden" name="asb_question" value="" /><input type="hidden" name="asb_reponse" value="" />';
+      $tmp='
+      <input type="hidden" name="asb_question" value="" />
+      <input type="hidden" name="asb_reponse" value="" />';
    }
    return ($tmp);
 }
@@ -2233,7 +2214,7 @@ function mainblock() {
    global $block_title;
    if ($title=='')
       $title=$block_title;
-   themesidebox(aff_langue($title), nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)))); //php7
+   themesidebox(aff_langue($title), aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content))); //php7
 }
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
