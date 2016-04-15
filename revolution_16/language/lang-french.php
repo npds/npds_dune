@@ -343,11 +343,11 @@ function translate_pass1($phrase) {
    case "You are not allowed to post in this forum": $tmp="Vous n'êtes pas autorisé à participer à ce forum"; break;
    case "back": $tmp="retour"; break;
    case "Subject: ": $tmp="Titre : "; break;
-   case "Message Icon: ": $tmp="Icone du message"; break;
+   case "Message Icon": $tmp="Icone du message"; break;
    case "Message": $tmp="Message"; break;
    case "On": $tmp="Activé"; break;
    case "Off": $tmp="Désactivé"; break;
-   case "Options: ": $tmp="Options"; break;
+   case "Options": $tmp="Options"; break;
    case "Disable HTML on this Post": $tmp="Désactiver le html pour cet envoi"; break;
    case "This can be altered or added in your profile": $tmp="Cela peut être retiré ou ajouté dans vos paramètres personnels"; break;
    case "Notify by email when replies are posted": $tmp="Prévenir par mèl quand de nouvelles réponses sont postées"; break;
