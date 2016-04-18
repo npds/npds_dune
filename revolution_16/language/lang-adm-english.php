@@ -77,7 +77,7 @@ switch($phrase) {
   case " Ajouter un Auteur ": $tmp="Add Author"; break;
   case "* indique les champs requis": $tmp="* indicates required fields"; break;
   case "mise à jour": $tmp="update"; break;
-  case "Entrez à nouveau votre Mot de Passe": $tmp="Retype Password"; break;
+  case "Entrez à nouveau le Mot de Passe": $tmp="Retype Password"; break;
   case "(seulement pour modifications)": $tmp="(for changes only)"; break;
   case " Actualiser l'Auteur": $tmp="Update Author"; break;
   case "Mauvais Mot de Passe": $tmp="bad password"; break;
@@ -94,6 +94,9 @@ switch($phrase) {
   case "Groupe": $tmp="Group"; break;
   case "Catégorie": $tmp="Category"; break;
   case "Articles programmés": $tmp="Programmed Articles"; break;
+  case "Articles programmés pour la publication.": $tmp="Programmed Articles"; break;
+  case "Articles en attente de validation !": $tmp="Articles waiting for checking !"; break;
+
   case "Titre": $tmp="Title"; break;
   case "Sujet": $tmp="Topic"; break;
   case "Sélectionner un Sujet": $tmp="Select Topic"; break;
@@ -471,14 +474,11 @@ switch($phrase) {
   case "Identifiant Utilisateur": $tmp="Handle/UserID"; break;
   case "Modifier un utilisateur": $tmp="Modify User"; break;
   case "Supprimer un utilisateur": $tmp="Delete User"; break;
-  case "Votre adresse E-mail masquée": $tmp="Fake Email"; break;
-  case "Votre adresse ICQ": $tmp="Your ICQ"; break;
-  case "Votre référence AIM": $tmp="Your AIM"; break;
-  case "Votre référence YIM": $tmp="Your YIM"; break;
-  case "Votre référence MSNM": $tmp="Your MSNM"; break;
+  case "Adresse E-mail masquée": $tmp="Fake Email"; break;
   case "Votre situation géographique": $tmp="Location"; break;
-  case "Votre activité": $tmp="Occupation"; break;
-  case "Vos centres d'interêt": $tmp="Interest"; break;
+  case "Situation géographique": $tmp="Location"; break;
+  case "Activité": $tmp="Occupation"; break;
+  case "Centres d'intérêt": $tmp="Interest"; break;
   case "Option : ": $tmp="Option: "; break;
   case "Autoriser les autres Utilisateurs à voir mon adresse E-mail ?": $tmp="Allow other users to view my email address?"; break;
   case "Autoriser les autres utilisateurs à voir son adresse E-mail": $tmp="Allow other users to view his email address"; break;
@@ -535,14 +535,14 @@ switch($phrase) {
   case "Critiques en attente de validation": $tmp="Reviews Waiting for Validation"; break;
   case "Ajouter la critique N° : ": $tmp="Reviews_Add ID:"; break;
   case "Date :": $tmp="Date:"; break;
-  case "Nom du produit :": $tmp="Product Title:"; break;
+  case "Nom du produit": $tmp="Product Title"; break;
   case "Texte : ": $tmp="Text:"; break;
-  case "Le critique : ": $tmp="Reviewer:"; break;
+  case "Le critique": $tmp="Reviewer"; break;
   case "E-mail : ": $tmp="Email:"; break;
   case "Note : ": $tmp="Score:"; break;
   case "Liens relatifs : ": $tmp="Related Links:"; break;
   case "Titre du lien : ": $tmp="Link title:"; break;
-  case "Image de garde : ": $tmp="Cover image:"; break;
+  case "Image de garde": $tmp="Cover image"; break;
   case "Supprimer cette Critique": $tmp="Delete this notice"; break;
   case "Ajouter cette critique": $tmp="Add Review"; break;
   case "Aucune critique à ajouter": $tmp="No reviews to add"; break;
@@ -689,6 +689,7 @@ switch($phrase) {
   case "Les sondages": $tmp="The Polls"; break;
   case "Liste des sondages": $tmp="Polls list"; break;
   case "Afficher votre signature": $tmp="Show signature"; break;
+  case "Afficher signature": $tmp="Show signature"; break;
   case "Créer le fichier": $tmp="Created the file"; break;
   case "Visualiser": $tmp="View"; break;
   case "* Désigne un champ obligatoire": $tmp="* for mandatory field"; break;
@@ -924,6 +925,7 @@ switch($phrase) {
   case "Supprimer la question réponse": $tmp="Delete the Question Answer"; break;
   case "Editer la question réponse": $tmp="Edit the Question Answer"; break;
   case "Format de données": $tmp="Data format"; break;
+  case "Format de fichier": $tmp="File format"; break;
   case 'Administration': $tmp='Administration'; break;
   case 'Menu': $tmp='Menu'; break;
   case 'Module': $tmp='Module'; break;
@@ -1001,9 +1003,14 @@ switch($phrase) {
   case "Configuration de la page": $tmp="Page setting"; break;
   case "Groupe ID": $tmp="Group ID"; break;
   case "Fichier de formulaire": $tmp="Form file"; break;
-
+  case "Créer utilisateur": $tmp="Create user"; break;
   case "Rechercher utilisateur": $tmp="Search for user"; break;
-
+  case "Liens à valider.": $tmp="Links waiting for checking."; break;
+  case "Liens rompus à valider.": $tmp="Broken links waiting for checking."; break;
+  case "Modules": $tmp="Addons"; break;
+  case "Communication": $tmp="Communication"; break;
+  case "Interface": $tmp="Interface"; break;
+  
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
