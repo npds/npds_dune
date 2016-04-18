@@ -26,11 +26,11 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    if (file_exists("themes/".$theme."/html/index-news.html")) {$inclusion="themes/".$theme."/html/index-news.html";}
    elseif (file_exists("themes/default/html/index-news.html")) {$inclusion="themes/default/html/index-news.html";}
    else {
-      echo "index-news.html manquant / not find !<br />";
+      echo 'index-news.html manquant / not find !<br />';
       die();
    }
    $H_var=local_var($thetext);
-   if ($H_var!="") {
+   if ($H_var!='') {
       ${$H_var}=true;
       $thetext=str_replace("!var!$H_var","",$thetext);
    }
@@ -89,7 +89,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    if (file_exists("themes/".$theme."/html/detail-news.html")) {$inclusion="themes/".$theme."/html/detail-news.html";}
    elseif (file_exists("themes/default/html/detail-news.html")) {$inclusion="themes/default/html/detail-news.html";}
    else {
-      echo "detail-news.html manquant / not find !<br />";
+      echo 'detail-news.html manquant / not find !<br />';
       die();
    }
    $H_var=local_var($thetext);
@@ -148,7 +148,7 @@ function themesidebox($title, $content) {
       if (file_exists("themes/".$theme."/html/bloc.html")) {$inclusion='themes/'.$theme.'/html/bloc.html';}
       elseif (file_exists("themes/default/html/footer.html")) {$inclusion='themes/default/html/bloc.html';}
       else {
-         echo "bloc.html manquant / not find !<br />";
+         echo 'bloc.html manquant / not find !<br />';
          die();
       }
    }
@@ -156,8 +156,8 @@ function themesidebox($title, $content) {
    include($inclusion);
    $Xcontent=ob_get_contents();
    ob_end_clean();
-   if ($title=="no-title") {
-      $Xcontent=str_replace("<div class=\"LB_title\">!B_title!</div>","",$Xcontent);
+   if ($title=='no-title') {
+      $Xcontent=str_replace("<div class=\"LB_title\">!B_title!</div>",'',$Xcontent);
       $title='';
    }
    $npds_METALANG_words=array(
@@ -168,7 +168,8 @@ function themesidebox($title, $content) {
    );
    echo $htvar;// modif ji fantôme block
    echo meta_lang(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent));
-   echo '</div>';// modif ji fantôme block
+   echo '
+            </div>';// modif ji fantôme block
 }
 function themedito($content) {
    global $theme;
