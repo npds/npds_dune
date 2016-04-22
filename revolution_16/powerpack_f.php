@@ -82,21 +82,27 @@ function write_short_private_message($to_userid) {
    <h3><i class="fa fa-at"></i>&nbsp'.$to_userid.'</h3>
    <form id="sh_priv_mess" action="powerpack.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label" for="subject" >'.translate("Subject").'</label>
-         <input class="form-control" type="text" name="subject" maxlength="100" />
+         <label class="form-control-label col-sm-12" for="subject" >'.translate("Subject").'</label>
+         <div class="col-sm-12">
+            <input class="form-control" type="text" name="subject" maxlength="100" />
+         </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label" for="message" >'.translate("Message: ").'</label>
-         <textarea class="form-control" name="message" rows="10"></textarea>
+         <label class="form-control-label col-sm-12" for="message" >'.translate("Message").'</label>
+         <div class="col-sm-12">
+            <textarea class="form-control" name="message" rows="10"></textarea>
+         </div>
       </div>
       <div class="form-group row">
-         <label><input type="checkbox" name="copie" /> '.translate("Send a copy to me").'</label>
+         <label class="col-sm-12" ><input type="checkbox" name="copie" /> '.translate("Send a copy to me").'</label>
       </div>
       <div class="form-group row">
          <input type="hidden" name="to_userid" value="'.$to_userid.'" />
          <input type="hidden" name="op" value="write_instant_message" />
-         <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" accesskey="s" />&nbsp;
-         <button class="btn btn-secondary" type="reset">'.translate("Clear").'</button>
+         <div class="col-sm-12">
+            <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" accesskey="s" />&nbsp;
+            <button class="btn btn-secondary" type="reset">'.translate("Clear").'</button>
+         </div>
       </div>
    </form>';
 }
