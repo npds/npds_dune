@@ -30,10 +30,11 @@ function error_foot() {
 }
 
 function AddLink() {
-   global $ModPath, $ModStart, $links_DB, $NPDS_Prefix, $links_anonaddlinklock;
+   global $ModPath, $ModStart, $links_DB, $NPDS_Prefix, $links_anonaddlinklock,$op;
    include("header.php");
-   $mainlink = 'ad_l';
-   global $user;
+//   $mainlink = 'ad_l';
+//   if($op='AddLink') {$ad_l='active';echo'Yo';}
+   global $user,$ad_l;
    mainheader();
 
    if (autorisation($links_anonaddlinklock)) {
@@ -45,13 +46,14 @@ function AddLink() {
          <li>'.translate("All links are posted pending verification.").'</li>
          <li>'.translate("Username and IP are recorded, so please don't abuse the system.").'</li>
       </ul>
-      <form class="" method="post" action="modules.php" name="adminForm">
+      <form method="post" action="modules.php" name="adminForm">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="title">'.translate("Title").'</label>
             <div class="col-sm-9">
                <input class="form-control" type="text" id="title" name="title" maxlength="100" required="required" />
+               <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
            </div>
         </div>';
         global $links_url;
@@ -61,6 +63,7 @@ function AddLink() {
             <label class="form-control-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
                <input class="form-control" type="url" id="url" name="url" maxlength="100" value="http://" required="required" />
+               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
            </div>
         </div>';
         $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -127,20 +130,25 @@ function AddLink() {
         echo '
          <div class="form-group row">
             <input type="hidden" name="op" value="Add" />
-            <div class="col-sm-12">
+            <div class="col-sm-offset-3 col-sm-9">
                <input type="submit" class="btn btn-primary" value="'.translate("Add URL").'" />
             </div>
          </div>
-      </form>';
-    } else {
-        echo '
+      </form>
+      <script type="text/javascript">
+         //<![CDATA[
+            $(document).ready(function() {
+               inpandfieldlen("title",100);
+               inpandfieldlen("url",100);
+            });
+         //]]>
+      </script>';
+   } else {
+      echo '
         <p align="center>'.translate("You are not a registered user or you have not logged in.").'<br />
         '.translate("If you were registered you could add links on this website.").'</p>';
-    }
-    echo '
-   </div>';
-   include("footer.php");
-//    adminfoot('fv','','','aa');
+   }
+   adminfoot('fv','','','');
 }
 
 function Add($title, $url, $name, $cat, $description, $email, $topicL, $asb_question, $asb_reponse) {
