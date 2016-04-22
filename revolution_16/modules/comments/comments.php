@@ -142,12 +142,12 @@ if ($mycount) {
          else $my_rsos[]='';
       }
 
-   $useroutils = '';
-   $useroutils .= '<hr />';
-      if ($posterdata['uid']!= 1 and $posterdata['uid']!="") {
+      $useroutils = '';
+      $useroutils .= '<hr />';
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i>&nbsp;'.translate("Profile").'</a>';
       }
-      if ($posterdata['uname']!=$anonymous) {
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
          $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
       }
       if ($posterdata['femail']!='') {
@@ -178,10 +178,10 @@ if ($mycount) {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
              }
               echo '
-             <a tabindex="0" data-toggle="popover" data-trigger="" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><i class="fa fa-share-alt fa-lg"></i>&nbsp;<img class=" btn-primary-outline img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+             <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
           }
       }
-             echo '&nbsp;<span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+             echo '&nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
       
       echo '
                </div>';
@@ -189,57 +189,50 @@ if ($mycount) {
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo '
                <div class="card-block">
-                  <div class="card-text">
-                     <img class="smil" src="'.$imgtmpPI.'" alt="" />
-                     <span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>
-                  </div>
-                  <hr />
-                  <div class="card-text">';
-
+                  <div class="card-text p-t-1">';
       if ($allow_bbcode) {
          $message = smilie($message);
          $message = aff_video_yt($message);
       }
-      // <a href in the message
-      if (stristr($message,"<a href")) {
-         $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
-      }
-      $message=split_string_without_space($message, 80);
-      $message=str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
-         echo '<div class="card-text fo-post-mes">';
+
+//      $message=split_string_without_space($message, 80);
+      $message=str_replace("[addsig]", '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
+         echo '
+                     <div class="card-text fo-post-mes">';
          echo $message;
          echo '
+                     </div>
+                  </div>
                </div>
-               </div>
-            </div>
-         <div class="card-footer text-xs-right">';
-
-      if ($allow_to_post and $posterdata['uid']!='') {
-         if ($formulaire=='') {
-            echo '&nbsp;<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>&nbsp;';
-         } else
-            echo '&nbsp;&nbsp;';
+               <div class="card-footer">
+                  <div class="row">
+                     <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
+                     <div class=" col-sm-6 text-xs-right">';
+      if ($allow_to_post) {
+         echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="fa fa-comment-o fa-lg"></i></a>';
       }
-
+      if ($allow_to_post and $posterdata['uid']!='') {
+         if ($formulaire=='') 
+            echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
+      }
       if ($Mmod) {
-         if ($formulaire=='')
-            echo '&nbsp;|&nbsp;';
-            
-         echo '<a href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>&nbsp;';
+         echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
          if (!$myrow['post_aff']) {
-            echo '&nbsp;<a href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>&nbsp;';
+            echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
          } else {
-            echo '&nbsp;<a href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>&nbsp;';
+            echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
          }
       }
       echo '
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
-      </div>
-   </div>';
+      </div>';
       $count++;
     } while($myrow = sql_fetch_assoc($result));
-    unset ($tmp_imp);
+    unset ($tmp_imp); // not sure we need ?
 
    if ($total > $comments_per_page) {
       echo '
@@ -256,11 +249,11 @@ if ($mycount) {
    </nav>';
    }
 
-   if ($ibid=theme_image("forum/icons/lock_topic.gif")) {$imgtmpLT=$ibid;} else {$imgtmpLT="images/forum/icons/lock_topic.gif";}
    if ($allow_to_post) {
       echo Caff_pub($topic,$file_name, $archive);
    }
    echo '
+   <br />
    <blockquote class="blockquote">'.translate("The comments are owned by the poster. We aren't responsible for their content.").'</blockquote>';
 
    if ($Mmod) {
