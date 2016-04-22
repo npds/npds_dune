@@ -37,13 +37,21 @@ $m->add_mess(adm_translate("* Désigne un champ obligatoire"));
 $m->add_form_field_size(60);
 
 // return to the memberslist.php if necessary
-$m->add_field("referer",'',basename($referer),'hidden',false);
+$m->add_field('referer','',basename($referer),'hidden',false);
 
 $m->add_field('add_uname', adm_translate("Surnom"),$chng_uname,'text',true,25,'','');
+$m->add_extender('add_uname', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_uname"></span></span>');
+
 $m->add_field('add_name', adm_translate("Nom"),$chng_name,'text',false,60,'','');
-$m->add_field('add_email', adm_translate("E-mail"),$chng_email,'text',false,60,'','');
-$m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),$chng_femail,'text',false,60,'','');
-if ($op=="ModifyUser")
+$m->add_extender('add_name', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_name"></span></span>');
+
+$m->add_field('add_email', adm_translate("E-mail"),$chng_email,'email',false,60,'','');
+$m->add_extender('add_email', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_email"></span></span>');
+
+$m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),$chng_femail,'email',false,60,'','');
+$m->add_extender('add_femail', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_femail"></span></span>');
+
+if ($op=='ModifyUser')
    $m->add_checkbox('raz_avatar',adm_translate("Revenir aux avatars standards"), 1, false, false);
 
 $r = sql_query("SELECT access_id, access_title FROM ".$NPDS_Prefix."access");
@@ -64,8 +72,8 @@ unset($tmp_tempo);
 $r = sql_query("SELECT rank1, rank2, rank3, rank4, rank5 FROM ".$NPDS_Prefix."config");
 list($rank1,$rank2,$rank3,$rank4,$rank5) = sql_fetch_row($r);
 
-$tmp_tempo[0]['en']="-> ".adm_translate("Supprimer")."/".adm_translate("Choisir un rôle")." <-";
-if (($chng_rank=="") or ($chng_rank=="0")) $tmp_tempo[0]['selected']=true; else $tmp_tempo[0]['selected']=false;
+$tmp_tempo[0]['en']='-> '.adm_translate("Supprimer").'/'.adm_translate("Choisir un rôle").' <-';
+if (($chng_rank=='') or ($chng_rank=='0')) $tmp_tempo[0]['selected']=true; else $tmp_tempo[0]['selected']=false;
 $tmp_tempo[1]['en']=aff_langue($rank1);
 if ($chng_rank==1) $tmp_tempo[1]['selected']=true; else $tmp_tempo[1]['selected']=false;
 $tmp_tempo[2]['en']=aff_langue($rank2);
@@ -108,9 +116,10 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 // LNL
 
 if ($chng_user_viewemail) {$checked=true;} else {$checked=false;}
-$m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres Utilisateurs à voir son adresse E-mail ?"), 1, false, $checked);
+$m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres utilisateurs à voir son adresse E-mail"), 1, false, $checked);
 
 $m->add_field('add_url','URL',$chng_url,'text',false,100,'','');
+$m->add_extender('add_url', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_url"></span></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($chng_send_email==1) {$checked=true;} else {$checked=false;}
@@ -119,18 +128,30 @@ if ($chng_is_visible==1) {$checked=false;} else {$checked=true;}
 $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $checked);
 // ---- SUBSCRIBE and INVISIBLE
 
-$m->add_field('add_user_from', adm_translate("Situation géographique"),"$chng_user_from",'text',false,100,'','');
+$m->add_field('add_user_from', adm_translate("Situation géographique"),$chng_user_from,'text',false,100,'','');
+$m->add_extender('add_user_from', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_user_from"></span></span>');
+
 $m->add_field('add_user_occ', adm_translate("Activité"),$chng_user_occ,'text',false,100,'','');
-$m->add_field('add_user_intrest', adm_translate("Centres d'interêt"),$chng_user_intrest,'text',false,150,'','');
+$m->add_extender('add_user_occ', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_user_occ"></span></span>');
+
+$m->add_field('add_user_intrest', adm_translate("Centres d'intérêt"),$chng_user_intrest,'text',false,150,'','');
+$m->add_extender('add_user_intrest', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_user_intrest"></span></span>');
 
 if ($attach==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',adm_translate("Afficher signature"), 1, false, $checked);
-$m->add_field('add_user_sig', adm_translate("Signature")."<br /><span style=\"font-size: 10px;\">".adm_translate("Description :  (255 caractères max)")."</span>","$chng_user_sig",'textarea',false,255,7,"","");
-$m->add_field('add_bio',adm_translate("Informations supplémentaires : ")."<br /><span style=\"font-size: 10px;\">".adm_translate("Description :  (255 caractères max)")."</span>","$chng_bio",'textarea',false,255,7,"","");
-$m->add_field('add_pass', adm_translate("Mot de Passe"),"",'password',false,40,"","");
-if ($op=="ModifyUser")
-   $m->add_field('add_pass2', adm_translate("Entrez à nouveau le Mot de Passe")."&nbsp;<span style=\"font-size: 10px;\">".adm_translate("(seulement pour modifications)")."</span>","",'password',false,40,"","");
+$m->add_field('add_user_sig', adm_translate("Signature"),$chng_user_sig,'textarea',false,255,7,'','');
+$m->add_extender('add_user_sig', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_user_sig"></span></span>');
 
+$m->add_field('add_bio',adm_translate("Informations supplémentaires"),$chng_bio,'textarea',false,255,7,'','');
+$m->add_extender('add_bio', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_bio"></span></span>');
+
+$m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',false,40,'','');
+$m->add_extender('add_pass', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_pass"></span></span>');
+
+if ($op=="ModifyUser") {
+   $m->add_field('add_pass2', adm_translate("Entrez à nouveau le Mot de Passe")."&nbsp;<span style=\"font-size: 10px;\">".adm_translate("(seulement pour modifications)")."</span>",'','password',false,40,'','');
+   $m->add_extender('add_pass2', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_add_pass2"></span></span>');
+}
 // --- EXTENDER
 if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
    include("modules/sform/extend-user/extender/formulaire.php");
@@ -151,10 +172,35 @@ if ($chng_avatar!='')
 else
    $m->add_field('add_avatar','','blank.gif','hidden',false);
 
-$m->add_extra('<br />');
+$m->add_extra('
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8" >');
 // Submit bouton
 $m->add_field('Submit','',adm_translate("Valider"),'submit',false);
-//$m->add_extra(adminfoot('fv','','',''));
-
+$m->add_extra('
+         </div>
+      </div>');
+      $m->add_extra('
+      <script type="text/javascript">
+      //<![CDATA[
+         $(document).ready(function() {
+            inpandfieldlen("add_uname",25);
+            inpandfieldlen("add_name",60);
+            inpandfieldlen("add_email",60);
+            inpandfieldlen("add_femail",60);
+            inpandfieldlen("add_user_from",100);
+            inpandfieldlen("add_user_occ",100);
+            inpandfieldlen("add_user_intrest",150);
+            inpandfieldlen("add_bio",255);
+            inpandfieldlen("add_user_sig",255);
+            inpandfieldlen("add_pass",40);
+            inpandfieldlen("add_pass2",40);
+            inpandfieldlen("add_url",100);
+            inpandfieldlen("C2",5);
+            inpandfieldlen("C1",100);
+         });
+      //]]>
+      </script>');
+$m->add_extra(adminfoot('fv','','','1'));
 // ----------------------------------------------------------------
 ?>
