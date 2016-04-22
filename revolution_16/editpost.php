@@ -225,7 +225,7 @@ if ($submitS) {
       }
    echo '
    <div class="form-group row">
-      <label class="form-control-label col-sm-3">'.translate("Options: ").'</label>
+      <label class="form-control-label col-sm-3">'.translate("Options").'</label>
       <div class="col-sm-9">
          <div class="checkbox">
             <label class="text-danger">
