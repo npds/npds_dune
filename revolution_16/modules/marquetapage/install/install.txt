@@ -1,16 +1,16 @@
 ###################################################################################
 ##
 ## Nom:  MarqueTaPage
-## Version:  1.1
-## Date:  01/05/12
-## Auteur: Dev,jpb 
+## Version:  1.2
+## Date:  01/03/16
+## Auteur: Dev,jpb
 ## 
 ## Description:
 ## Module qui vous permet de disposer d'un MarqueTaPage 
 ## 
 ## Niveau d'installation: simple
 ## Temps d'installation: 1 minute
-## Fichiers a éditer:  0
+## Fichiers a Ã©diter:  0
 ##
 #######################################################################################
 ##
@@ -18,11 +18,11 @@
 ## Localisation : modules/marquetapage
 ## 1. CREER la nouvelle table marquetapage via le fichier marquetapage.sql
 ##   CONFIGURATION
-##   Via le système de bloc :
+##   Via le systÃ¨me de bloc :
 ##
 ##     include#modules/marquetapage/marquetapage.php
 ##     function#marquetapage
-##     Bien METTRE le délais de rétention du bloc à ZERO
+##     Bien METTRE le dÃ©lais de rÃ©tention du bloc Ã  ZERO
 ##
 ## ** INSTALLATION AUTOMATIQUE : **
 ## 1. Rendez-vous dans la section "Gestion des modules" dans l'administration et cliquez sur "Installer le module" en face de "marquetapage"
@@ -31,8 +31,8 @@
 #######################################################################################
 ##
 ## Nom:  MarqueTaPage
-## Version:  1.1
-## Date:  01/05/12
+## Version:  1.2
+## Date:  01/03/16
 ## Auteur: Dev,jpb 
 ##
 #######################################################################################
