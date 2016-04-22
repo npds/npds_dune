@@ -8,4 +8,4 @@ CREATE TABLE marquetapage (
   topic varchar(255) NOT NULL default '',
   PRIMARY KEY  (uid,uri),
   KEY uid (uid)
-) type=MyISAM;
+) ENGINE=MyISAM;
