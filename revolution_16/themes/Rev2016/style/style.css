@@ -247,7 +247,7 @@ header { /* Le Header Complet */
         z-index: 100;
 	margin-left:auto;
 	margin-right:auto;
-	background-image: url("../images/fond0.png");
+	background:#fff;
 	box-shadow: inset 0 -3px 0 #ccc, inset 0 -3px 3px #ddd, inset 0 2px 2px #ddd, inset 1px 0 2px #eee, inset -1px 0 2px #eee, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -266,7 +266,69 @@ header { /* Le Header Complet */
  	margin-left:auto;
 	margin-right:auto;
          }
+		 
+#decohead2{
+        max-width: 1344px;   /*   A changer si vous voulez divisible par 3 et par 4 */
+ 	margin-left:auto;
+	margin-right:auto;
+         }
 
+.header2{
+	position:relative;
+	top:100px;
+  height:auto;
+  padding: 1rem;
+  background-image: url("../images/gray_jean.png");
+  
+}  
+
+#divHeaderLine1 {
+    letter-spacing: -1px;
+    word-spacing: 0px;
+    margin-top: 1rem;
+    color: rgb(142, 176, 55);
+    font-size: 40px;
+    line-height: 40px;
+    font-family: 'Tangerine', serif;
+    text-transform: none;
+    text-shadow: rgba(0, 0, 0, 0.14902) 0px 3px 5px, rgba(255, 255, 255, 0.298039) 0px -5px 35px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+    opacity: 1;
+    padding: 0px;
+    background-image: none;
+}
+
+
+.bouton_standard2 {    
+	margin-top: 3px;
+	border-radius:8px;
+	padding:1em ;
+    cursor: pointer;
+    background-color: #F2EFE8;
+    color: rgb(142, 176, 55);
+    font-size: 16px;
+    line-height: 10px;
+    font-family: 'Tangerine', serif;
+    text-transform: none;
+    text-shadow: rgba(0, 0, 0, 0.14902) 0px 3px 5px, rgba(255, 255, 255, 0.298039) 0px -5px 35px;
+    font-weight: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+	box-shadow: inset 0 -3px 0 #ccc, inset 0 -3px 3px #ddd, inset 0 2px 2px #ddd, inset 1px 0 2px #eee, inset -1px 0 2px #eee, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+	}
+.bouton_standard2:hover{    
+
+    cursor: pointer;
+    background-color: #F2EFE8;
+    color: #ac3426;
+    font-weight: bold;
+	}
+
+
+	
 /************************************************************************
 La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 *************************************************************************/
@@ -281,7 +343,7 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 	margin-right:auto;
          }
 
-#corps {padding-top: 145px; }
+ #corps {padding-top: 145px; } 
  
 
 #logo {
@@ -306,7 +368,8 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 .leftbloc, .rightbloc   {
   background: #F2EFE8 none repeat scroll 0% 0%;
   padding: 1em;
-  margin-bottom:1em;}
+  margin-bottom:1em;
+  font-size: 1.125em;}
 
 /************************************************************************
 La Partie Footer de votre Site
@@ -504,7 +567,7 @@ legend { /* Titre pour identifier chaque fieldset */
 /*******Pour les police des formulaires  et deco jmd  */
 .form-control {
     max-width: 98%;
-    font-size: 1.4rem;  
+    font-size: 14px;  
     background-color: #FDFDFD;
     border-width: 1px;
     border-style: solid;
@@ -619,6 +682,7 @@ a.tooltip_ws:hover em span {
 /* ==> class de BS dans le core */
 /* réimpléméntation pour V4.00 et 02 */
 .help-block {
+  max-width: 98%;
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -1723,6 +1787,12 @@ img, table, td, blockquote, code, pre, textarea, input, svg {
 
 /*****jmd* pour dÈcoler le texte des bordures de Table*/
  /* ajustement bmag*/ 
+ 
+.img-fluid {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
 
 .img-fluid1{
             float: left;
@@ -1750,8 +1820,9 @@ pagination*/
   font-size: 1.250rem;
   line-height: 1.5; }
   
-/* Boutons*/ 
+/* Boutons je passe les taille en em pour garder les roportions*/
 
+ .btn {font-size: 1em; }
 
 
 .btn-sm, .btn {width: auto;}
@@ -1772,6 +1843,11 @@ pagination*/
     border-color: #0275D8;
 }
 
+.bg-primary {
+    color: #fff !important;
+    background-color: #176f06 !important;
+}
+
 
 .fa {
     display: inline-block;
@@ -1789,4 +1865,14 @@ pagination*/
     font-size: inherit;
     text-rendering: auto;
     padding-right: 1rem;
+}
+
+.fa-2x {
+    font-size: 2em;
+}
+
+.fa-lg {
+    font-size: 1.33333333em;
+    line-height: .75em;
+    vertical-align: -15%;
 }

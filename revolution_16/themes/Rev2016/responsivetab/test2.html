@@ -1,37 +1,12 @@
+    <link rel="stylesheet" type="text/css" href="css/easy-responsive-tabs.css " />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/easyResponsiveTabs.js"></script>
 
+    <div id="container">
 
- <div class="central ">
- 
- <div class="row pb1">
-  <div class="col w50  automobile"> <h1>Bienvenu sur Npds Révolution 16</h1> Gestionnaire de contenu & de communauté</div>
-  <div class="col w50 automobile "> <?php
-   global $cookie, $anonymous;
-   global $NPDS_Prefix;
-   $username = $cookie[1];
-   if (autorisation(-1)) {
-      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
-   } elseif (autorisation(1)) {
-      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
-      settype($cookie[0], 'integer');
-      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
-      if ($nbmes>0)
-         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
-      else
-         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
-      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
-   } ?></div>
-</div>
-
-
-	<div class="row">
-		<div class="col w60 p1 automobile intro">
-			<h2 class="ombre">Quelques mots</h2>
-
-			<div id="container">
-
-
+        <h1 style="font-size:32px">NPDS CMS 100% francophone<br/>
       <!--Horizontal Tab-->
-      
+      </h1>
       <div id="parentHorizontalTab">
   <ul class="resp-tabs-list hor_1">
                 <li>Présentation du CMS</li>
@@ -95,78 +70,72 @@
                                     <div><a href="http://www.npds.org/search.php?query=&topic=10"><img src="http://www.npds.org/themes/NPDS-Bmag/images/topics/npds.png" alt="Rechercher dans NPDS" border="0"></a></div>
 Une idée novatrice, un peu de développement et voilà que notre ami Jireck lance officiellement le site "<a href="http://global.npds.org/" target="_blank" title="Global NPDS">Global NPDS</a>". <br>
 <br>
+Tous les webmasters de sites NPDS sont invités à venir s'inscrire  pour bénéficier des nombreux avantages de ce nouvel outil de  communication développé sous NPDS pour les sites NPDS. <br>
+<br>
+Le but de cette nouveauté consiste à rassembler et diffuser en un  espace commun toutes les "news" publiées des sites NPDS qui lui sont  rattachés en conservant les liens vers les sites d'origine. <br>
+<br>
+Cette opération de mutuélisation est appellée "clustérisation" dans le système. <br>
+Elle favorisera donc le référencement et augmentera en conséquence le nombre de visiteurs de tous les sites partenaires. <br>
+Son fonctionnement est complétement automatisé et utilise les fluxs RSS. <br>
+<br>
 Il n'est pas contraignant pour le webmaster du site "clustérisé"  qui conserve à chaque "new publiée" la décision de la clustériser ou  non.
 <p>&nbsp;</p>
                                 </div>
                             </div>
                         </div>
                     </p>
-                    
-                    <p>NPDS gestion de contenu</p>
+                    xxxxxxxxxxxxxxx
+                    <p>Tab 1 Container</p>
                 </div>
                 <div>
                   <p>Le texte relatif au Modules et addon que Npds peut fournir</p>
                   <p>Une liste de module existant, un exemple de module, le lien direct vers module ou le forum<br>
                     <br>
                   </p>
-                    <p>Module</p>
+                    <p>Tab 2 Container</p>
                 </div>
                 <div>
                     <p>Le texte pour Styles avec des vignettes de site serait un plus </p>
                     <p><br>
                       <br>
                     </p>
-                    <p>Styles</p>
+                    <p>Tab 3 Container</p>
                 </div>
             </div>
         </div>
       <br/>
     </div>
-			
-			
-			
-		</div>
-
-		<div class="col w40 p1 autotablet intro ">
-			<h2 class="ombre aligncenter "><a> Mais encore..</a></h2>
-			<img class="left" src="themes/Rev2016/images/logohead2.png" >
-
-			<div class="row pt1">
-				<div class="col w50 p1 autotablet feature">
-					<h4>Gestion Membre</h4> 
-                      <p>date: dateL</p>
-
-					
-					<p> !whoim!</p>
-                    <p> !member!</p> !search!
-				</div>
-
-				<div class="col w50 p1 autotablet">
-					<h4>Workspace, le plus.</h4>
-
-					<p>WorkSpace propose, au delà de la gestion de contenu 'classique', un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif..</p>
-				</div>
-			</div>
-
-			<p class="automobile blackborder"> Suivez nous: &nbsp;
-			 <a href="backend.php" target="_blank" ><i class="fa fa-rss fa-2x" title="RSS 1.0" data-toggle="tooltip"></i></a>&nbsp;
-<a href="https://github.com/jipexu/npds_dune" target="_blank"><i class="fa fa-github fa-2x"  title="A voir sur" data-toggle="tooltip"></i></a>
-					</p>
-		</div>
-	</div>
-	<p> !forumP!
-	<br>
 	
-		<p><h2> les derniers articles </h2></p>
-		<div class="row ">
-			<div class="col w50 automobile">
-			!article_complet!0
-			</div>
-		  <div class="col w50 automobile">
-			!article_complet!-1
-		  </div>
-		
-		</div
-	
-</div>
+	<!--Plug-in Initialisation-->
+	<script type="text/javascript">
+    $(document).ready(function() {
+        //Horizontal Tab
+        $('#parentHorizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            tabidentify: 'hor_1', // The tab groups identifier
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
 
+        // Child Tab
+        $('#ChildVerticalTab_1').easyResponsiveTabs({
+            type: 'vertical',
+            width: 'auto',
+            fit: true,
+            tabidentify: 'ver_1', // The tab groups identifier
+            activetab_bg: '#fff', // background color for active tabs in this group
+            inactive_bg: '#F5F5F5', // background color for inactive tabs in this group
+            active_border_color: '#c1c1c1', // border color for active tabs heads in this group
+            active_content_border_color: '#5AB1D0' // border color for active tabs contect in this group so that it matches the tab head border
+        });
+
+
+    });
+</script>
