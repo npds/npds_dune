@@ -12,7 +12,7 @@
 
 // since NPDS Rev 16 this ressources are required dont remove //
 echo '
-<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />'; // web font
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />'; // web font
 echo '
 <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />'; // framework
 echo '
