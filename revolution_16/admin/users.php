@@ -98,22 +98,21 @@ function extractUserCSV() {
       $line .= $crlf;
    }
    send_file($line,"annuaire","csv",$MSos);
-   global $aid; Ecr_Log("security", "ExtractUserCSV() by AID : $aid", "");
+   global $aid; Ecr_Log('security', "ExtractUserCSV() by AID : $aid", '');
 }
 
 function modifyUser($chng_user) {
    global $hlpfile, $NPDS_Prefix, $admf_ext, $f_meta_nom, $f_titre, $adminimg;
    include("header.php");
    GraphicAdmin($hlpfile);
-
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
    $result = sql_query("SELECT uid, uname, name, url, email, femail, user_from, user_occ, user_intrest, user_viewemail, user_avatar, user_sig, bio, pass, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uid='$chng_user' OR uname='$chng_user'");
    if (sql_num_rows($result) > 0) {
       list($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, $chng_femail, $chng_user_from, $chng_user_occ, $chng_user_intrest, $chng_user_viewemail, $chng_avatar, $chng_user_sig, $chng_bio, $chng_pass, $chng_send_email, $chng_is_visible, $mns, $user_lnl) = sql_fetch_row($result);
-      adminhead ($f_meta_nom, $f_titre, $adminimg);
       echo '
       <hr />
       <h3>'.adm_translate("Modifier un utilisateur").' : '.$chng_uname.' / '.$chng_uid.'</h3>';
-      $op="ModifyUser";
+      $op='ModifyUser';
       $result = sql_query("SELECT level, open, groupe, attachsig, rank FROM ".$NPDS_Prefix."users_status WHERE uid='$chng_uid'");
       list ($chng_level, $open_user, $groupe, $attach, $chng_rank) = sql_fetch_row($result);
       $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='$chng_uid'");
@@ -126,17 +125,17 @@ function modifyUser($chng_user) {
 }
 
 function error_handler($ibid) {
-   opentable();
-   echo "<p align=\"center\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
-   echo "$ibid<br /><a href=\"admin.php?op=mod_users\" class=\"noir\">".adm_translate("Retour en arriére")."</a></p>";
-   closetable();
+   echo '
+   <div class="alert alert-danger" align="center">'.adm_translate("Merci d'entrer l'information en fonction des spécifications").'<br />
+   <strong>'.$ibid.'</strong><br /><a class="btn btn-secondary" href="admin.php?op=mod_users" >'.adm_translate("Retour en arrière").'</a>
+   </div>';
 }
 
 function Minisites($chng_mns,$chng_uname) {
    // Création de la structure pour les MiniSites dans users_private/$chng_uname
    if ($chng_mns) {
       include ("modules/upload/upload.conf.php");
-      if ($DOCUMENTROOT=="") {
+      if ($DOCUMENTROOT=='') {
          global $DOCUMENT_ROOT;
          if ($DOCUMENT_ROOT) {
             $DOCUMENTROOT=$DOCUMENT_ROOT;
@@ -149,55 +148,55 @@ function Minisites($chng_mns,$chng_uname) {
       if (!is_dir($user_dir)) {
          @umask("0000");
          if (@mkdir($user_dir,0777)) {
-            $fp = fopen($user_dir."/index.html", 'w');
+            $fp = fopen($user_dir.'/index.html', 'w');
             fclose($fp);
             @umask("0000");
             if (@mkdir($repertoire,0777)) {
-               $fp = fopen($repertoire."/index.html", 'w');
+               $fp = fopen($repertoire.'/index.html', 'w');
                fclose($fp);
-               $fp = fopen($repertoire."/.htaccess", 'w');
-               @fputs($fp, "Deny from All");
+               $fp = fopen($repertoire.'/.htaccess', 'w');
+               @fputs($fp, 'Deny from All');
                fclose($fp);
             }
          }
       } else {
          @umask("0000");
          if (@mkdir($repertoire,0777)) {
-            $fp = fopen($repertoire."/index.html", 'w');
+            $fp = fopen($repertoire.'/index.html', 'w');
             fclose($fp);
-            $fp = fopen($repertoire."/.htaccess", 'w');
+            $fp = fopen($repertoire.'/.htaccess', 'w');
             @fputs($fp, "Deny from All");
             fclose($fp);
          }
       }
 
       // copie de la matrice par défaut
-      $directory=$racine."/modules/blog/matrice";
+      $directory=$racine.'/modules/blog/matrice';
       $handle=opendir($DOCUMENTROOT.$directory);
       while (false!==($file = readdir($handle))) $filelist[] = $file;
       asort($filelist);
       while (list ($key, $file) = each ($filelist)) {
-         if ($file<>"." and $file<>"..") {
-            @copy($DOCUMENTROOT.$directory."/".$file, $repertoire."/".$file);
+         if ($file<>'.' and $file<>'..') {
+            @copy($DOCUMENTROOT.$directory.'/'.$file, $repertoire.'/'.$file);
          }
       }
       closedir($handle);
       unset ($filelist);
-      global $aid; Ecr_Log("security", "CreateMiniSite($chng_uname) by AID : $aid", "");
+      global $aid; Ecr_Log('security', "CreateMiniSite($chng_uname) by AID : $aid", '');
    }
 }
 
 function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, $chng_femail, $chng_user_from, $chng_user_occ, $chng_user_intrest, $chng_user_viewemail, $chng_avatar, $chng_user_sig, $chng_bio, $chng_pass, $chng_pass2, $level, $open_user, $chng_groupe, $chng_send_email, $chng_is_visible, $chng_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar, $chng_rank, $chng_lnl) {
    global $NPDS_Prefix;
-
    $tmp = 0;
-   if ($chng_pass2 != "") {
+   if ($chng_pass2 != '') {
       if ($chng_pass != $chng_pass2) {
-         global $hlpfile;
+         global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
          include("header.php");
          GraphicAdmin($hlpfile);
+         adminhead ($f_meta_nom, $f_titre, $adminimg);
          echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
-         include("footer.php");
+         adminfoot('','','','');
          return;
       }
       $tmp=1;
@@ -209,8 +208,8 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       Minisites($chng_mns,$chng_uname);
    }
 
-   if ($chng_send_email=="") {$chng_send_email='0';}
-   if ($chng_is_visible=="") {
+   if ($chng_send_email=='') {$chng_send_email='0';}
+   if ($chng_is_visible=='') {
       $chng_is_visible='1';
    } else {
       $chng_is_visible='0';
@@ -233,15 +232,15 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
    } else {
      $attach = 0;
    }
-   if ($open_user=="") {$open_user=0;}
-   if (preg_match('#[a-zA-Z_]#',$chng_groupe)) {$chng_groupe="";}
-   if ($chng_groupe!="") {
-      $tab_groupe=explode(",",$chng_groupe);
+   if ($open_user=='') {$open_user=0;}
+   if (preg_match('#[a-zA-Z_]#',$chng_groupe)) {$chng_groupe='';}
+   if ($chng_groupe!='') {
+      $tab_groupe=explode(',',$chng_groupe);
       if ($tab_groupe) {
          foreach($tab_groupe as $groupevalue) {
-           if ( ($groupevalue=="0") and ($groupevalue!="") ) {$chng_groupe="";}
-           if ($groupevalue=="1") {$chng_groupe="";}
-           if ($groupevalue>"127") {$chng_groupe="";}
+           if ( ($groupevalue=="0") and ($groupevalue!='') ) {$chng_groupe='';}
+           if ($groupevalue=="1") {$chng_groupe='';}
+           if ($groupevalue>"127") {$chng_groupe='';}
          }
       }
    }
@@ -258,7 +257,7 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
 }
 
 switch ($op) {
-   case "extractUserCSV":
+   case 'extractUserCSV':
         extractUserCSV();
         break;
 
@@ -266,12 +265,12 @@ switch ($op) {
         modifyUser($chng_uid);
         break;
 
-   case "updateUser":
-        if ($add_group) {$add_group=implode(",",$add_group);}
+   case 'updateUser':
+        if ($add_group) {$add_group=implode(',',$add_group);}
         updateUser($chng_uid, $add_uname, $add_name, $add_url, $add_email, $add_femail, $add_user_from, $add_user_occ, $add_user_intrest, $add_user_viewemail, $add_avatar, $add_user_sig, $add_bio, $add_pass, $add_pass2, $add_level, $add_open_user, $add_group, $add_send_email, $add_is_visible, $add_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar,$chng_rank,$user_lnl);
         break;
 
-   case "delUser":
+   case 'delUser':
         global $hlpfile;
         include("header.php");
         GraphicAdmin($hlpfile);
@@ -287,7 +286,7 @@ switch ($op) {
         include("footer.php");
         break;
 
-   case "delUserConf":
+   case 'delUserConf':
         $result = sql_query("SELECT uid, uname FROM ".$NPDS_Prefix."users WHERE uid='$del_uid' or uname='$del_uid'");
         list($del_uid, $del_uname) = sql_fetch_row($result);
         if ($del_uid!=1) {
@@ -301,7 +300,7 @@ switch ($op) {
            sql_query("UPDATE ".$NPDS_Prefix."reviews SET reviewer=' ' WHERE reviewer='$del_uname'");
 
            include ("modules/upload/upload.conf.php");
-           if ($DOCUMENTROOT=="") {
+           if ($DOCUMENTROOT=='') {
               global $DOCUMENT_ROOT;
               if ($DOCUMENT_ROOT) {
                  $DOCUMENTROOT=$DOCUMENT_ROOT;
@@ -309,23 +308,23 @@ switch ($op) {
                  $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
               }
            }
-           $user_dir=$DOCUMENTROOT.$racine."/users_private/".$del_uname;
+           $user_dir=$DOCUMENTROOT.$racine.'/users_private/'.$del_uname;
 
            // Supprimer son ministe s'il existe
-           if (is_dir($user_dir."/mns")) {
-              $dir = opendir($user_dir."/mns");
+           if (is_dir($user_dir.'/mns')) {
+              $dir = opendir($user_dir.'/mns');
               while(false!==($nom = readdir($dir))) {
-                 if ($nom != "." && $nom != ".." && $nom != "") {
-                    @unlink($user_dir."/mns/".$nom);
+                 if ($nom != '.' && $nom != '..' && $nom != '') {
+                    @unlink($user_dir.'/mns/'.$nom);
                  }
               }
               closedir($dir);
-              @rmdir($user_dir."/mns");
+              @rmdir($user_dir.'/mns');
            }
 
-           // Mettre un fichier 'delete' dans sa home_directory  si elle existe
+           // Mettre un fichier 'delete' dans sa home_directory si elle existe
            if (is_dir($user_dir)) {
-              $fp = fopen($repertoire.$user_dir."/delete", 'w');
+              $fp = fopen($repertoire.$user_dir.'/delete', 'w');
               fclose($fp);
            }
 
@@ -342,7 +341,7 @@ switch ($op) {
                   sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_moderator='".implode (',',$tmp_moder)."' WHERE forum_id='$row[0]'");
                }
            }
-           global $aid; Ecr_Log("security", "DeleteUser($del_uid) by AID : $aid", "");
+           global $aid; Ecr_Log('security', "DeleteUser($del_uid) by AID : $aid", '');
         }
         if ($referer!="memberslist.php")
            Header("Location: admin.php?op=mod_users");
@@ -350,46 +349,47 @@ switch ($op) {
            Header("Location: memberslist.php");
         break;
 
-   case "addUser":
-        if (!($add_uname && $add_email && $add_pass) or (preg_match('#[^a-zA-Z0-9_-]#',$add_uname))) {
-           global $hlpfile;
-           include("header.php");
-           GraphicAdmin($hlpfile);
-           echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
-           include("footer.php");
-           return;
-        }
-        if (!$system) {
-           $add_pass = crypt($add_pass,$add_pass);
-        }
-        if ($add_is_visible=="") {
-           $add_is_visible='1';
-        } else {
-           $add_is_visible='0';
-        }
-        $user_regdate = time()+$gmt*3600;
-        $sql= "INSERT INTO ".$NPDS_Prefix."users ";
-        $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,send_email,is_visible,mns) ";
-        $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$add_send_email','$add_is_visible','$add_mns')";
-        $result = sql_query($sql);
-        list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'"));
-        $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
-        if ($add_user_viewemail) {
-           $attach = 1;
-        } else {
-           $attach = 0;
-        }
-        if ($add_group==0) $add_group="";
-        if ($add_group) {$add_group=implode(",",$add_group);}
-        $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','$chng_rank','$add_level','1','$add_group')");
+   case 'addUser':
+      if (!($add_uname && $add_email && $add_pass) or (preg_match('#[^a-zA-Z0-9_-]#',$add_uname))) {
+         global $hlpfile;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         adminhead ($f_meta_nom, $f_titre, $adminimg);
+         echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
+         adminfoot('','','','');
+         return;
+      }
+      if (!$system) {
+         $add_pass = crypt($add_pass,$add_pass);
+      }
+      if ($add_is_visible=='') {
+         $add_is_visible='1';
+      } else {
+         $add_is_visible='0';
+      }
+      $user_regdate = time()+$gmt*3600;
+      $sql= 'INSERT INTO '.$NPDS_Prefix.'users ';
+      $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,send_email,is_visible,mns) ";
+      $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$add_send_email','$add_is_visible','$add_mns')";
+      $result = sql_query($sql);
+      list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'"));
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
+      if ($add_user_viewemail) {
+         $attach = 1;
+      } else {
+         $attach = 0;
+      }
+      if ($add_group==0) $add_group='';
+      if ($add_group) {$add_group=implode(',',$add_group);}
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','$chng_rank','$add_level','1','$add_group')");
 
-        Minisites($add_mns,$add_uname);
+      Minisites($add_mns,$add_uname);
 
-        global $aid; Ecr_Log("security", "AddUser($add_name, $add_uname) by AID : $aid", "");
-        Header("Location: admin.php?op=mod_users");
-        break;
+      global $aid; Ecr_Log('security', "AddUser($add_name, $add_uname) by AID : $aid", '');
+      Header("Location: admin.php?op=mod_users");
+   break;
 
-   case "unsubUser":
+   case 'unsubUser':
         $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uid='$chng_uid' OR uname='$chng_uid'");
         list($chng_uid) = sql_fetch_row($result);
         if ($chng_uid!=1) {
@@ -398,7 +398,7 @@ switch ($op) {
         }
         Header("Location: admin.php?op=mod_users");
         break;
-   case "mod_users":
+   case 'mod_users':
    default:
         displayUsers();
         break;
