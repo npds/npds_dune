@@ -126,7 +126,7 @@ function display_upload($apli,$post_id,$Mmod){
       $attachments = '
       <div class="list-group">
          <div class="list-group-item">
-            <img class="smil" src="themes/npds-boost/images/forum/subject/1F4CE.png" border="0" alt="icon_post" />
+            <img class="smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" border="0" alt="icon_post" />
             <span class="text-muted">'.upload_translate("Pièces jointes").'</span>
             <span class="label label-default label-pill pull-right">'.$att_count.'</span>
          </div>';
