@@ -28,9 +28,8 @@ function ForumMaintMarkTopics() {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<h3>'.adm_translate("Marquer tous les Topics comme lus").'</h3>';
-
    echo '
+   <h3>'.adm_translate("Marquer tous les Topics comme lus").'</h3>
    <table data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -39,8 +38,7 @@ function ForumMaintMarkTopics() {
             <th>Status</th>
          </tr>
       </thead>
-      <tbody>
-   ';
+      <tbody>';
    if (!$r = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read")) {
       forumerror('0001');
    } else {
@@ -59,7 +57,7 @@ function ForumMaintMarkTopics() {
                   $r=sql_query("INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum_id', '$topic_id', '$uid', '$time_actu', '1')");
                }
             }
-         echo $topic_id." ";
+         echo $topic_id.' ';
          }
          echo '
             </td>
@@ -80,8 +78,10 @@ function ForumMaintTopics($before,$forum_name) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
-   echo '<h3 class="text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>';
-    if ($before!="") {
+   echo '
+   <hr />
+   <h3 class="text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>';
+    if ($before!='') {
         echo '&nbsp;<span class="text-danger">< '.$before.'</span>';
        $add_sql="and topic_time<'$before'";
        $topic_check=' checked="checked"';
@@ -128,7 +128,7 @@ function ForumMaintTopics($before,$forum_name) {
     <input class=\"btn btn-danger\" type=\"submit\" name=\"Topics_Del\" value=\"".adm_translate("Supprimer massivement les Topics")."\" />";
     echo '</form>';
     sql_free_result;
-    include("footer.php");
+    adminfoot('','','','');
 }
 
 function ForumMaintTopicDetail($topic, $topic_title) {
@@ -225,13 +225,14 @@ function MergeForum() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr/>
    <h3>'.adm_translate("Fusionner des forums").'</h3>
-   <form id="fad_mergeforum" class="form-horizontal" action="admin.php" method="post">
+   <form id="fad_mergeforum" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group">
-            <label class="form-control-label col-sm-4 col-md-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
-               <select class="form-control" name="oriforum">';
+               <select class="c-select form-control" name="oriforum">';
    $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id";
    if ($result = sql_query($sql)) {
       if ($myrow = sql_fetch_assoc($result)) {
@@ -251,10 +252,10 @@ function MergeForum() {
                </select>
             </div>
          </div>
-         <div class="form-group">
-            <label class="form-control-label col-sm-4 col-md-4" for="destforum">'.adm_translate("Forum de destination").'</label>
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
-               <select class="form-control" name="destforum">';
+               <select class="c-select form-control" name="destforum">';
     if ($result = sql_query($sql)) {
        if ($myrow = sql_fetch_assoc($result)) {
           do {
@@ -273,7 +274,7 @@ function MergeForum() {
                </select>
             </div>
          </div>
-         <div class="form-group">
+         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
                <input type="hidden" name="op" value="MergeForumAction" />
                <button class="btn btn-primary col-xs-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
@@ -304,60 +305,90 @@ function MergeForumAction($oriforum,$destforum) {
 }
 
 function ForumMaintAdmin() {
-    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
-    include ("header.php");
-    GraphicAdmin($hlpfile);
-    adminhead ($f_meta_nom, $f_titre, $adminimg);
-    echo '
-    <hr />
-    <h3>'.adm_translate("Maintenance des Forums").'</h3>';
-    // Mark Topics, Synchro Forum_read table, Merge Forums
-    echo '
-    <div class="row">
-        <div class="col-xs-12">
-            <form id="fad_forumaction" action="admin.php" method="post">
-                <input type="hidden" name="op" value="MaintForumMarkTopics" />
-                <button class="btn btn-primary btn-block btn-lg" type="submit" name="Topics_Mark"><i class="fa fa-check-square-o fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
-            </form>
-        </div>
-        <div class="col-xs-12">
-            <form action="admin.php" method="post">
-                <input type="hidden" name="op" value="SynchroForum" />
-                <button class="btn btn-primary btn-block btn-lg" type="submit" name="Synchro_Forum"><i class="fa fa-refresh fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
-            </form>
-        </div>
-        <div class="col-xs-12">
-            <form action="admin.php" method="post">
-                <input type="hidden" name="op" value="MergeForum" />
-                <button class="btn btn-primary btn-block btn-lg" type="submit" name="Merge_Forum"><i class="fa fa-compress fa-lg"></i>&nbsp;'.adm_translate("Fusionner des forums").'</button>
-            </form>
-        </div>
-    </div>
-    <br />
-    <form id="fad_forumdelete" action="admin.php" method="post">
-    <fieldset>
-    <legend>'.adm_translate("Supprimer massivement les Topics").'</legend>
-        <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
-            <div class="col-sm-8">
-               <input type="text" class="form-control" name="forum_name" id="forum_name" maxlength="150" value="" />
-           </div>
-        </div>
-        <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="before">'.adm_translate("Date").'</label>
-            <div class="col-sm-8">
-               <input type="text" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
-           </div>
-        </div>
-        <div class="form-group row">
-           <div class="col-sm-offset-4 col-sm-8">
-               <input type="hidden" name="op" value="MaintForumTopics">
-               <button class="btn btn-warning" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>
-           </div>
-        </div>
-    </fieldset>
-    </form>';
-    echo auto_complete("forname","forum_name","forums","forum_name","86400");
-    adminfoot('','','','');
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   include ("header.php");
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   echo '
+   <hr />
+   <h3>'.adm_translate("Maintenance des Forums").'</h3>';
+   // Mark Topics, Synchro Forum_read table, Merge Forums
+   echo '
+   <div class="row">
+      <div class="col-xs-12">
+         <form id="fad_forumaction" action="admin.php" method="post">
+            <input type="hidden" name="op" value="MaintForumMarkTopics" />
+            <button class="btn btn-primary btn-block btn-lg" type="submit" name="Topics_Mark"><i class="fa fa-check-square-o fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
+         </form>
+      </div>
+      <div class="col-xs-12">
+         <form action="admin.php" method="post">
+            <input type="hidden" name="op" value="SynchroForum" />
+            <button class="btn btn-primary btn-block btn-lg" type="submit" name="Synchro_Forum"><i class="fa fa-refresh fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
+         </form>
+      </div>
+      <div class="col-xs-12">
+         <form action="admin.php" method="post">
+            <input type="hidden" name="op" value="MergeForum" />
+            <button class="btn btn-primary btn-block btn-lg" type="submit" name="Merge_Forum"><i class="fa fa-compress fa-lg"></i>&nbsp;'.adm_translate("Fusionner des forums").'</button>
+         </form>
+      </div>
+   </div>
+   <br />
+   <form id="fad_forumdelete" action="admin.php" method="post">
+      <legend>'.adm_translate("Supprimer massivement les Topics").'</legend>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="forum_name" id="forum_name" maxlength="150" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="before">'.adm_translate("Date").'</label>
+         <div class="col-sm-8">
+            <div id="embeddingDatePicker"></div>
+            <input type="hidden" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-offset-4 col-sm-8">
+            <input type="hidden" name="op" value="MaintForumTopics">
+            <button class="btn btn-primary" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>
+         </div>
+      </div>
+   </form>
+   <script>
+   $(document).ready(function() {
+    $("#embeddingDatePicker")
+        .datepicker({
+            format: "yyyy-mm-dd",
+            language:"'.language_iso(1,'','').'",
+            title:"Avant cette date"
+        })
+        .on("changeDate", function(e) {
+            $("#before").val($("#embeddingDatePicker").datepicker("getFormattedDate"));
+            $("#fad_forumdelete").formValidation("revalidateField", "before");
+        });
+   });
+   </script>';
+   $fv_parametres ='
+   
+              before: {
+                excluded: false,
+                validators: {
+                    notEmpty: {
+                        message: "The date is required"
+                    },
+                    date: {
+                        format: "YYYY-MM-DD",
+                        message: "The date is not a valid"
+                    }
+                }
+            },
+';
+   
+   
+   echo auto_complete("forname","forum_name","forums","forum_name","86400");
+   adminfoot('fv',$fv_parametres,'','');
 }
 ?>
