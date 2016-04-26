@@ -13,6 +13,7 @@
 /************************************************************************/
 $userdatat=$userdata;
 //$messageP=split_string_without_space($message, 80);
+$messageP=$message;
 $time=date(translate("dateinternal"),time()+($gmt*3600));
 
 switch ($acc) {
@@ -121,7 +122,7 @@ switch ($acc) {
       } else {
          if ($allow_bbcode) $messageP=smilie($messageP);
          $messageP=str_replace("[addsig]", '', $messageP);
-         echo $messageP;
+         echo 'lala//debug'.$messageP;
       }
       echo '
          </div>

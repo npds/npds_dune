@@ -473,6 +473,10 @@ form .form-control-feedback:hover {
     cursor: pointer;
 }
 
+.datepicker-inline {
+width:100%;
+}
+
 
 .splash {
 padding: 9em 0 2em;

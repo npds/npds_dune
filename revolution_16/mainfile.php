@@ -2682,7 +2682,7 @@ function bloc_langue() {
       $title=translate("Select a language");
    else
       $title=$block_title;
-   themesidebox($title,'<br />'.aff_local_langue('' ,"index.php", "choice_user_language"));
+   themesidebox($title,aff_local_langue('' ,"index.php", "choice_user_language"));
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {
@@ -2701,7 +2701,7 @@ function bloc_rubrique() {
          $nb_article = sql_num_rows($result3);
          if ($nb_article>0) {
             $boxstuff.='<ul>';
-            $tmp_auto=explode(",",$userlevel);
+            $tmp_auto=explode(',',$userlevel);
             while (list(,$userlevel)=each($tmp_auto)) {
                $okprintLV1=autorisation($userlevel);
                if ($okprintLV1) break;
