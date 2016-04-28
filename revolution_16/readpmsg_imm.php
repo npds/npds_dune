@@ -64,27 +64,29 @@ function show_imm($op) {
             $pasfin=true;
             cache_ctrl();
             include("meta/meta.php");
+            include('modules/include/header_head.inc');
             echo import_css($theme, $language, $site_font, '','');
             echo '
       </head>
-      <body><div>';
+      <body>
+         <div class="card card-block">';
          }
-         echo '<div class="card">';
          $posterdata = get_userdata_from_id($myrow['from_userid']);
-         echo translate("Private Message")." ".translate("From");
+         echo '
+            <div class="card">
+               <div class="card-block">
+               <h3>'.translate("Private Message").' '.translate("From");
          if ($posterdata['uid']==1) {
             global $sitename;
-            echo "&nbsp;".$sitename;
+            echo ' <span class="text-muted">'.$sitename.'</span></h3>';
          }
-//         echo "</td></tr></table>\n";
-         echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"1\" border=\"0\">";
-         echo "<tr class=\"ligna\">";
+         if ($posterdata['uid']<>1) echo ' <span class="text-muted">'.$posterdata['uname'].'</span></h3>';
+
          $myrow['subject']=strip_tags($myrow['subject']);
-         echo "<td valign=\"top\" style=\"width: 15%;\"><b>";
-         if ($posterdata['uid']<>1) echo $posterdata['uname']."</b><br />";
+
          $posts = $posterdata['posts'];
          if ($posterdata['uid']<>1) echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
-         echo "<br /><br />";
+         echo '<br /><br />';
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -92,12 +94,12 @@ function show_imm($op) {
                } else {
                   if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
                }
-               echo "<div class=\"avatar_cadre\"><img class=\"n_ava\" src=\"".$imgtmp."\" alt=\"".$posterdata['uname']."\" border=\"0\" /></div>";
+               echo '<img class="btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
             }
          }
-         echo "</td><td valign=\"top\" style=\"width: 85%;\" height=\"100%\">";
-         echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"height: 100%; width: 100%;\">";
-         echo "<tr><td valign=\"top\" width=\"100%\" height=\"100%\">";
+
+
+
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
@@ -105,7 +107,7 @@ function show_imm($op) {
             }
          }
          echo translate("Sent").' : '.$myrow['msg_time'].'&nbsp;&nbsp;&nbsp';
-         echo '<hr /><strong>'.aff_langue($myrow['subject']).'</strong><br />';
+         echo '<h4>'.aff_langue($myrow['subject']).'</h4>';
          $message = stripslashes($myrow['msg_text']);
          if ($allow_bbcode) {
             $message = smilie($message);
@@ -114,10 +116,10 @@ function show_imm($op) {
          $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), aff_langue($message));
          echo $message.'<br />';
 
-         echo "</td></tr><tr><td valign=\"bottom\">";
 
          if ($posterdata['uid']<>1) {
-            echo "<hr noshade=\"noshade\" class=\"ongl\">";
+/*
+            echo '<hr />';
             if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/profile.gif";}
             echo "&nbsp;&nbsp<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />".translate("Profile")."</a>";
 
@@ -132,6 +134,7 @@ function show_imm($op) {
                if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/www_icon.gif";}
                echo "&nbsp;&nbsp;<a href=\"".$posterdata['url']."\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />www</a>";
             }
+*/
 
             if (!$short_user) {
             
@@ -141,23 +144,18 @@ function show_imm($op) {
                
             }
          }
-         echo "</td></tr></table>";
-         echo "</td></tr>";
-         echo "<tr align=\"left\"><td colspan=\"2\" align=\"left\">";
-
+         echo '
+         </div>
+         <div class="card-footer">';
          if ($posterdata['uid']<>1) {
-            if ($ibid=theme_image("forum/icons/$language/reply.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/reply.gif";}
-            echo "&nbsp;<a href=\"readpmsg_imm.php?op=read_msg&amp;msg_id=".$myrow['msg_id']."&amp;op_orig=$op&amp;sub_op=reply\"><img src=\"$imgtmpD\" border=\"0\" alt=\"\" /></a>";
+            echo '
+         <a class="m-r-1" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg"></i></a>';
          }
-         if ($ibid=theme_image("forum/icons/$language/delete.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/delete.gif";}
-         echo "&nbsp<a href=\"readpmsg_imm.php?op=delete&amp;msg_id=".$myrow['msg_id']."&amp;op_orig=$op\"><img src=\"$imgtmpD\" border=\"0\" alt=\"\" /></a>";
-
-         if ($ibid=theme_image("forum/icons/$language/msg_read.gif")) {$imgtmpD=$ibid;} else {$imgtmpD="images/forum/icons/$language/msg_read.gif";}
-         echo "&nbsp;<a href=\"readpmsg_imm.php?op=read_msg&amp;msg_id=".$myrow['msg_id']."&amp;op_orig=$op&amp;sub_op=read\"><img src=\"$imgtmpD\" border=\"0\" alt=\"\" /></a>";
-
-         echo "
-         </td></tr>
-         </div>";
+         echo '
+         <a class="m-r-1" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-check-square-o fa-lg"></i></a>
+         <a class="m-r-1" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+         </div>
+         </div>';
 
       }
       if ($pasfin!=true) {
@@ -166,6 +164,7 @@ function show_imm($op) {
       }
    }
    echo '
+         </div>
       </body>
    </html>';
 }

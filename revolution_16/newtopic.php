@@ -342,7 +342,7 @@ if ($submitS) {
       </div>
       <div class="form-group row">
          <div class="col-sm-3">
-            <label class="form-control-label">'.translate("Options: ").'</label>
+            <label class="form-control-label">'.translate("Options").'</label>
          </div>
          <div class="col-sm-9">';
 

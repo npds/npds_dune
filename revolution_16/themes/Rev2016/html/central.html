@@ -1,54 +1,10 @@
+
+
  <div class="central ">
  
  <div class="row pb1">
   <div class="col w50  automobile"> <h1>Bienvenu sur Npds Révolution 16</h1> Gestionnaire de contenu & de communauté</div>
-  <div class="col w50 automobile "> !banner!</div>
-</div>
-
-
-	<div class="row">
-		<div class="col w60 p1 automobile intro">
-			<h2 class="ombre">Quelques mots</h2>
-       <p class="intro">
-			 Nouvelle version responsive de notre CMS adapté avec	la	feuille	de style Rocssti, hé oui on reste francophone, même si derrière il y a malgré tout Bootstrap.
-		    Cette feuille de style est en fait un micro-framework qui devrait vous permettre de faire toutes les mises en page désirées sans trop de difficulté.<br />
-		    <br />
-		    1- Des classes simples à comprendre<br />
-		    2- Un Builder qui vous facilite la vie<br />
-		    3- Un code clair et conforme aux standards du web
-<a href="https://www.dareboost.com/fr/report/568513e90cf209e2d74158bf" target="_blank">la preuve ICI</a></a>       
-		  </p>
-         	 
-
-<div class="row">
-                             <div class="col w50  automobile ">
-					<h5>Dernier post</h5>
-					<p> !article_complet!0 </p>
-				</div>
-
-				<div class="col w50 automobile ">
-					<h5>Avant dernier</h5>
-					<p> !article_complet!-1</p>
-				</div>
-			</div>
-
-			<h3 class="ombre">Une dernière chose</h3>
-			<p>Comme indiqué plus haut, Bootstrap est integré dans le core de Npds, il faudra donc apprendre à manier cet outil trés puissant.<br />
-			  Voici un lien qui peut vous être utile si cet outil vous est complètement inconnu : <a href="http://bootstrap-doc.prauds.fr/index.php" target="_blank">http://bootstrap-doc.prauds.fr</a>  ( avantage c'est en français)<br />
-		    Il vous montre rapidement avec le code source correspondant, les principaux éléments et ce qu'ils donnent avec les classes BS.</p>
-			<p>Attention vous êtes parti pour 5 heures de lecture............</p>
-			<p>&nbsp;</p>
-		</div>
-
-		<div class="col w40 p1 autotablet intro ">
-			<h2 class="ombre aligncenter "><a href="#">Télécharger: Rev 2016</a></h2>
-			<img class="left" src="themes/Rev2016/images/logohead2.png" >
-
-			<div class="row pt1">
-				<div class="col w50 p1 autotablet feature">
-					<h4>Gestion Membre</h4> 
-                                         <p>date: dateL</p>
-<?php
+  <div class="col w50 automobile "> <?php
    global $cookie, $anonymous;
    global $NPDS_Prefix;
    $username = $cookie[1];
@@ -63,10 +19,126 @@
       else
          echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
       echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
-   } ?>
+   } ?></div>
+</div>
+
+
+	<div class="row">
+		<div class="col w60 p1 automobile intro">
+			<h2 class="ombre">Quelques mots</h2>
+
+			<div id="container">
+
+
+      <!--Horizontal Tab-->
+      
+      <div id="parentHorizontalTab">
+  <ul class="resp-tabs-list hor_1">
+                <li>Présentation du CMS</li>
+                <li>Modules</li>
+                <li>Thèmes</li>
+            </ul>
+            <div class="resp-tabs-container hor_1">
+                <div>
+                    <p>
+                        <!--vertical Tabs-->
+
+                        <div id="ChildVerticalTab_1">
+                            <ul class="resp-tabs-list ver_1">
+                                <li>Gestion de communauté</li>
+                                <li>Gestion de contenu</li>
+                                <li>WorkSpace intégré</li>
+                                <li>Gestion multisite</li>
+                            </ul>
+                            <div class="resp-tabs-container ver_1">
+                                <div>
+                                  <p>Le CMS est l'outil idéal pour les sites communautaires, associatifs,   ou liés à l'actualité. Un CMS permet de créer des sites WEB dynamiques sans connaissances avancées.
+                                  <br>
+                                  
+                                  <p>Aux programmes des CMS eux mêmes, viennent s'ajouter des modules, ou   des add-ons (extensions), qui permettent d'ajouter des possibilités au   site.<br>
+                                    Différents thèmes (aspect graphique) existent ou peuvent être créés. <br></p>
+                  
+								  </p>
+</div>
+                                <div>
+                                    <p>Gérez votre Communauté d'utilisateurs, vos groupes de travail   collaboratif, publiez, gérez et organisez votre contenu grace aux   puissants outils disponiblent de base. </p>
+                                    <ul>
+                                      <li>Multi langues (Français, Anglais, Allemand, Espagnol, Chinois)</li>
+                                      <li>Installation et administration complète et centralisée</li>
+                                      <li>Gestionnaire de fichier en ligne</li>
+                                      <li>Gestion des groupes de membres</li>
+                                      <li>Ecriture collaborative de documents (PAD)</li>
+                                      <li>Forums évolués</li>
+                                      <li>Mini-sites (pour les membres et les groupes de travail)</li>
+                                      <li>Chat temp réel</li>
+                                      <li>Système de News et de rubriques complet (édition, révision, publication)</li>
+                                      <li>...</li>
+                                    </ul>
+                              </div>
+                                <div>
+                                    <p>Dans une Communauté, le travail à plusieurs est gage de réussite.</p>
+                                  <p>&nbsp;</p>
+                                    <ul>
+                                      <li>Editer des contenus communs et pouvoir les modifier &quot;en ligne&quot; peut se faire trés facilement.</li>
+                                      <li>Partager des documents textes, images, vidéo dans un espace sécurisé.</li>
+                                      <li>Stoker ces documents en fonction des Groupes que vous aurez créé.</li>
+                                      <li>Activer des forum spécifiques.</li>
+                                      <li>Une messagerie interne</li>
+                                      <li>Gérer un Minisite (Blog) pour le groupe...</li>
+                                  </ul>
+                                    <p><strong>Tout cela en bien plus encore est possible dans le WorkSpace de Npds</strong>.</p>
+                                    <p>&nbsp;</p>
+</div>
+                                <div>
+                                    <p>Gestion multisite</p>
+                                    <p>Mieux qu'un long discourt un exemple basique : <a href="http://global.npds.org/index.php?op=edito" target="_blank">globalnpds</a></p>
+                                    <div><a href="http://www.npds.org/search.php?query=&topic=10"><img src="http://www.npds.org/themes/NPDS-Bmag/images/topics/npds.png" alt="Rechercher dans NPDS" border="0"></a></div>
+Une idée novatrice, un peu de développement et voilà que notre ami Jireck lance officiellement le site "<a href="http://global.npds.org/" target="_blank" title="Global NPDS">Global NPDS</a>". <br>
+<br>
+Il n'est pas contraignant pour le webmaster du site "clustérisé"  qui conserve à chaque "new publiée" la décision de la clustériser ou  non.
+<p>&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                    
+                    <p>NPDS gestion de contenu</p>
+                </div>
+                <div>
+                  <p>Le texte relatif au Modules et addon que Npds peut fournir</p>
+                  <p>Une liste de module existant, un exemple de module, le lien direct vers module ou le forum<br>
+                    <br>
+                  </p>
+                    <p>Module</p>
+                </div>
+                <div>
+                    <p>Le texte pour Styles avec des vignettes de site serait un plus </p>
+                    <p><br>
+                      <br>
+                    </p>
+                    <p>Styles</p>
+                </div>
+            </div>
+        </div>
+      <br/>
+    </div>
+			
+			
+			
+		</div>
+
+		<div class="col w40 p1 autotablet intro ">
+			<h2 class="ombre aligncenter "><a> Mais encore..</a></h2>
+			<img class="left" src="themes/Rev2016/images/logohead2.png" >
+
+			<div class="row pt1">
+				<div class="col w50 p1 autotablet feature">
+					<h4>Gestion Membre</h4> 
+                      <p>date: dateL</p>
+
 					
 					<p> !whoim!</p>
-                                        <p> !member!</p> !search!
+                    <p> !member!</p> !search!
 				</div>
 
 				<div class="col w50 p1 autotablet">
@@ -76,10 +148,25 @@
 				</div>
 			</div>
 
-			<p class="automobile">
-				Une petite place pour les reseaux sociaux
-  			</p>
+			<p class="automobile blackborder"> Suivez nous: &nbsp;
+			 <a href="backend.php" target="_blank" ><i class="fa fa-rss fa-2x" title="RSS 1.0" data-toggle="tooltip"></i></a>&nbsp;
+<a href="https://github.com/jipexu/npds_dune" target="_blank"><i class="fa fa-github fa-2x"  title="A voir sur" data-toggle="tooltip"></i></a>
+					</p>
 		</div>
 	</div>
 	<p> !forumP!
+	<br>
+	
+		<p><h2> les derniers articles </h2></p>
+		<div class="row ">
+			<div class="col w50 automobile">
+			!article_complet!0
+			</div>
+		  <div class="col w50 automobile">
+			!article_complet!-1
+		  </div>
+		
+		</div
+	
 </div>
+

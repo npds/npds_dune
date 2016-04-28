@@ -54,8 +54,7 @@ function marquetapage() {
       if ($ibid=theme_image("modules/addj.gif")) {$addj=$ibid;} else {$addj="modules/marquetapage/addj.gif";}
       $result=sql_query("SELECT uri, topic FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]' ORDER BY topic ASC");
       if (sql_num_rows($result)) {
-         $tmp_toggle='<span class="pull-xs-right"><a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-down fa-2x" ></i></a></span>';
-
+         $tmp_toggle='<a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i></a>';
          $content="
    <script type=\"text/javascript\">
    //<![CDATA[
@@ -83,30 +82,35 @@ function marquetapage() {
    //]]>
    </script>";
 
-         $content.="<table width=\"100%\" id=\"lst_fav\" border=\"0\" cellspacing=\"1\" cellpadding=\"2\" style=\"display:none;\" >\n<thead>\n<tr>\n<th><img src=\"$addj\" border=\"0\" style=\"vertical-align:middle\" alt=\"".translate("Add")." ".translate("favourite")."\" title=\"".translate("Add")." ".translate("favourite")."\" />&nbsp;Bookmarks [".sql_num_rows($result)."]</th><th align=\"right\"><a href=\"modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri=".$_SERVER['PHP_SELF']."\"><img src=\"modules/marquetapage/del.gif\" border=\"0\" alt=\"".translate("Delete")."\" title=\"".translate("Delete")."\" style=\"vertical-align: middle;\" /></a></th>\n</tr>\n</thead>\n<tbody>";
+         $content.='
+   <h6>
+   <a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i>&nbsp;Bookmarks </a><span class="label label-pill label-default pull-right">'.sql_num_rows($result).'</span>
+   </h6>
+   <ul id="lst_fav" style="display:none;" >
+   
+   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
          while(list($uri, $topic)=sql_fetch_row($result)) {
-            $content.="\n<tr>\n<td align=\"left\" width=\"95%\"><a href=\"$uri\" style=\"font-size:.7rem;\">".$topic."</a></td>";
-            $content.='<td align="right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></td></tr>';
+            $content.='
+      <li><a href="'.$uri.'" style="font-size:.7rem;">'.$topic.'</a>
+            <span class="pull-xs-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
          }
          $content.='
-         </tbody>
-         </table>
-         <script type="text/javascript">
-         //<![CDATA[
-         tog("lst_fav","show_fav","hide_fav");
-         //]]>
-         </script>';
+   </ul>
+   <script type="text/javascript">
+   //<![CDATA[
+      tog("lst_fav","show_fav","hide_fav");
+   //]]>
+   </script>';
       }
       global $block_title;
       $uri=urlencode($REQUEST_URI);
       if ($post) {$title.="/".$post;}
       if ($title=='') {$title_MTP=basename(urldecode($uri));} else {$title_MTP=$title;}
-      $boxTitle="<span><a href=\"modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri=$uri&amp;topic=".urlencode($title_MTP)."\"><img src=\"$add\" name=\"image\" onmouseover=\"image.src='$addj';\" onmouseout=\"image.src='$add';\" border=\"0\" style=\"vertical-align:middle\" alt=\"".translate("Add")." ".translate("favourite")."\" title=\"".translate("Add")." ".translate("favourite")."\" /></a></span>";
+      $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="fa fa-bookmark-o " title="'.translate("Add").' '.translate("favourite").'" data-toggle="tooltip"></i></a></span>';
             if ($block_title=='')
-         $boxTitle.='&nbsp;MarqueTaPage '.$tmp_toggle;
+         $boxTitle.='&nbsp;MarqueTaPage';
       else
-         $boxTitle.='&nbsp;'.$block_title.' '.$tmp_toggle;
-
+         $boxTitle.='&nbsp;'.$block_title;
       themesidebox($boxTitle, $content);
    }
 }

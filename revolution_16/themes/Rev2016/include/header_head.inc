@@ -16,6 +16,7 @@ echo '
 <link rel="stylesheet" href="themes/Rev2016/responsivetab/css/easy-responsive-tabs.css" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700)">
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
+<link rel="stylesheet" href="themes/Rev2016/style/responsiveslides.css"/>
 
 <link id="sty_highlight" rel="stylesheet" href="lib/js/highlight-9.0.0/styles/github.css" />
 
@@ -95,3 +96,17 @@ echo '
         });
     });
 </script>
+
+
+  <script src="themes/Rev2016/js/responsiveslides.js"></script>
+  <script>
+    // You can also use "$(window).load(function() {"
+    $(function () {
+
+      // Slideshow 1
+      $("#slider1").responsiveSlides({
+        maxwidth: 400,
+        speed: 800
+      });
+ });
+  </script>

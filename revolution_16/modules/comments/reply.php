@@ -209,7 +209,7 @@ if (isset($submitS)) {
       
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="message">'.translate("Message: ").'</label>
+         <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
@@ -237,7 +237,7 @@ if (isset($submitS)) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Options: ").'</label>';
+         <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
         if ($allow_html==1) {
         if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
            echo '

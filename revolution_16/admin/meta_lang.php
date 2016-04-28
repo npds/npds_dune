@@ -310,16 +310,18 @@ function Creat_Meta_Lang() {
       }
       if ($type_meta != "them") {
          echo '
-         <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="content">'.adm_translate("Script").'</label>
-            <div class="col-sm-12">';
+      <div class="form-group row">
+         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Script").'</label>
+         <div class="col-sm-12">';
          if ($type_meta == "smil") {
             echo adm_translate("Chemin et nom de l'image du Smiley").'&nbsp;&nbsp;<span class="text-danger">Ex. : forum/smilies/pafmur.gif</span>';
             echo '<input class="form-control" type="text" name="content" id="content" maxlength="255" /></div></div>';
          } else
             echo '<textarea class="form-control" name="content" id="content" rows="20">';
             if ($type_meta=="meta") echo "function MM_XYZ (\$arg) {\n   global \$NPDS_Prefix;\n   \$arg = arg_filter(\$arg);\n\n   return(\$content);\n}";
-            echo '</textarea></div></div>';
+            echo '</textarea>
+         </div>
+      </div>';
       }
       echo '
       <div class="form-group row">
@@ -332,12 +334,14 @@ function Creat_Meta_Lang() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="help-block">
-         '.adm_translate("les URLs que vous aurez renseignés ci-après (ne renseigner que la racine de l'URI)").'<br />
-         '.adm_translate("Exemple").' : index.php user.php forum.php static.php<br />
-         '.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'
+        <div class="col-sm-12">
+           <div class="help-block">
+            '.adm_translate("les URLs que vous aurez renseignés ci-après (ne renseigner que la racine de l'URI)").'<br />
+            '.adm_translate("Exemple").' : index.php user.php forum.php static.php<br />
+            '.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'
+            </div>
+            <textarea class="form-control" name="uri" rows="7"></textarea>
          </div>
-         <textarea class="form-control" name="uri" rows="7"></textarea>
       </div>
       <div class="form-group row">
          <div class="col-sm-12">
@@ -362,17 +366,19 @@ function kill_Meta_Lang($nbr, $action) {
    Header("Location: admin.php?op=Meta-LangAdmin");
 }
 function meta_exist($def) {
-    global $hlpfile, $language;
-    include("header.php");
-    GraphicAdmin($hlpfile);
-    echo "<p align=\"center\"><br />";
-    echo "<span class=\"rouge\"><b>";
-    echo $def."</b></span><br /><br />";
-    echo adm_translate("Ce META-MOT existe déjà");
-    echo "<br /><br />".adm_translate("Veuillez nommer différement ce nouveau META-MOT").".";
-    go_back('');
-    
-    include("footer.php");
+   global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg;
+   include("header.php");
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   echo '
+   <hr />
+   <div class="alert alert-danger">
+      <strong>'.$def.'</strong>
+      <br />'.adm_translate("Ce META-MOT existe déjà").'<br />'.adm_translate("Veuillez nommer différement ce nouveau META-MOT").'<br /><br />';
+   echo go_back('');
+   echo '
+   </div>';
+   adminfoot('','','','');
 }
 function Maj_Bdd_ML($Maj_Bdd_ML, $def, $content, $type_meta, $type_uri, $uri, $desc) {
    global $NPDS_Prefix;

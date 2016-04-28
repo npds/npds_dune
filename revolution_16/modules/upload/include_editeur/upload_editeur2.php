@@ -24,7 +24,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
    $Titlesitename=upload_translate("Télécharg.");
    include("meta/meta.php");
    if ($url_upload_css) {
-      $url_upload_cssX=str_replace("style.css","$language-style.css",$url_upload_css);
+      $url_upload_cssX=str_replace('style.css',"$language-style.css",$url_upload_css);
       if (is_readable($url_upload.$url_upload_cssX))
          $url_upload_css=$url_upload_cssX;
       print ("<link href=\"".$url_upload.$url_upload_css."\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
@@ -107,7 +107,7 @@ function editeur_upload() {
 
    include "modules/upload/include/fileupload.php";
 
-   // RÈcupÈration des valeurs de PCFILE
+   // Récupération des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;
    if (!empty($HTTP_POST_FILES))
        $fic=$HTTP_POST_FILES;
@@ -119,12 +119,12 @@ function editeur_upload() {
    $pcfile = $fic['pcfile']['tmp_name'];
 
    $fu = new FileUpload;
-   $fu->init ($rep_upload_editeur,"",$apli);
+   $fu->init ($rep_upload_editeur,'',$apli);
 
-   $attachments = $fu->getUploadedFiles("","");
+   $attachments = $fu->getUploadedFiles('','');
    if (is_array ($attachments) ) {
-      $att_count = $attachments["att_count"];
-      $att_size = $attachments["att_size"];
+      $att_count = $attachments['att_count'];
+      $att_size = $attachments['att_size'];
       if (is_array($pcfile_name)) {
          reset ($pcfile_name);
          $names = implode (', ', $pcfile_name);

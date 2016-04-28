@@ -39,13 +39,16 @@ if(!isset($C2)) $C2='';
 if(!isset($T1)) $T1='';
 if(!isset($M2)) $M2='';
 
-$m->add_comment('<div class="row"><p class="lead">Pour en savoir plus sur vous (facultatif)</p></div>');
+$m->add_comment(aff_langue('<div class="row"><p class="lead">[french]En savoir plus[/french][english]More[/english]</p></div>'));
 
-$m->add_field('C1', 'Votre activit&#x00E9; professionnelle',$C1,'text',false,100,'','');
+$m->add_field('C1', aff_langue('[french]Activit&#x00E9; professionnelle[/french][english]Professional activity[/english]'),$C1,'text',false,100,'','');
+$m->add_extender('C1', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_C1"></span></span>');
 
-$m->add_field('C2','Code postal', $C2, 'text',false,5,'','');
-$m->add_date('T1', 'Date de naissance',$T1,'date','',false,20);
-$m->add_extender('T1', '','<span class="help-block">au format JJ/MM/AAAA</span>');
+$m->add_field('C2',aff_langue('[french]Code postal[/french][english]Postal code[/english]'), $C2, 'text',false,5,'','');
+$m->add_extender('C2', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_C2"></span></span>');
+
+$m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english]'),$T1,'date','',false,20);
+$m->add_extender('T1', '','<span class="help-block">JJ/MM/AAAA</span>');
 $m->add_extra('<div class="form-group row collapse">');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'text',false);
 $m->add_extra('</div>');
@@ -59,10 +62,6 @@ $m->add_field('C3','C3','','hidden',false);
 $m->add_field('C4','C4','','hidden',false);
 $m->add_field('C5','C5','','hidden',false);
 $m->add_field('C6','C6','','hidden',false);
-/*
-$m->add_field('C7','C7','','hidden',false);
-$m->add_field('C8','C8','','hidden',false);
-*/
 // idem pour les champ Mx
 $m->add_field('M1','M1','','hidden',false);
 $m->add_field('T2','T2','','hidden',false);

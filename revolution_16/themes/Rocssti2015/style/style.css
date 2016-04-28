@@ -483,9 +483,17 @@ display:inline;
 }
 /* tailles max des avatars*/
 .n-ava {
-max-width:64px;
-max-height:64px;
+    max-width: 48px;
+    max-height: 48px;
+
 }
+
+.n-ava-small {
+    max-width: 48px;
+    max-height: 48px;
+    margin: 0.150rem;
+}
+
 #adm_block li{
 width: 80px;
 margin: 3px;
@@ -654,6 +662,9 @@ pagination*/
     border-color: #0275D8;
 }
 
+.btn-secondary{
+background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1); }
+
 /* ajustement bmag*/
 .fa {
     display: inline-block;
@@ -668,7 +679,6 @@ pagination*/
     font-kerning: auto;
     font-synthesis: weight style;
     font-variant: normal;
-    font-size: inherit;
     text-rendering: auto;
     padding-right: 1rem;
 }

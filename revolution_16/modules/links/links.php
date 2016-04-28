@@ -22,21 +22,16 @@ include_once("modules/$ModPath/links.conf.php");
 if ($links_DB=='') $links_DB=$NPDS_Prefix;
 
 function menu($mainlink) {
-   global $ModPath, $ModStart, $links_anonaddlinklock;
-//$ad_l='';$ne_l='';
+   global $ModPath, $ModStart, $links_anonaddlinklock,$op;
+   $ad_l='';$ne_l='';$in_l='';
+   if($op=='NewLinks') $ne_l='active'; else $ne_l='';
+   if($op=='AddLink') $ad_l='active'; else $ad_l='';
+   if($op=='') $in_l='active'; else $in_l='';
 
-//if($op='NewLinks') {$ne_l='active';} else
-//if($op='AddLink') {$ad_l='active';}
-
-// if ($mainlink =='') {$in_l = 'active'; $ne_l =''; $ad_l ='';}
-// if ($mainlink =='ad_l') {$in_l = ''; $ad_l = 'active'; $ne_l ='';}
-// if ($mainlink =='ne_l') {$ne_l = 'active'; $ad_l ='';}
    echo '
    <ul class="nav nav-tabs">';
-//   if ($mainlink>0) {
       echo '
       <li class="nav-item"><a class="nav-link '.$in_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" >'.translate("Links Main").'</a></li>';
-//   }
    if (autorisation($links_anonaddlinklock))
       echo '
       <li class="nav-item" ><a class="nav-link '.$ad_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=AddLink" >'.translate("Add Link").'</a></li>';
@@ -79,7 +74,7 @@ function SearchForm() {
          </div>
          <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
-               <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+               <button class="btn btn-primary" type="submit">'.translate("Search").'</button>
             </div>
          </div>
       </form>
@@ -87,7 +82,6 @@ function SearchForm() {
 }
 
 function mainheader() {
-//   $mainlink ='in_l';
    menu($mainlink);
    SearchForm();
 }
@@ -410,7 +404,7 @@ function fiche_detail ($Xlid) {
        settype($xlid,'integer');
        $browse_key=$Xlid;
        $link_fiche_detail="fiche_detail";
-       $inter="cid";
+       $inter='cid';
        include ("modules/sform/links/link_detail.php");
        
     }
@@ -540,71 +534,71 @@ function formatTimestampShort($time) {
 
 settype($op,'string');
 switch ($op) {
-    case "menu":
+    case 'menu':
         menu($mainlink);
         break;
-    case "AddLink":
+    case 'AddLink':
         include_once("modules/$ModPath/links-1.php");
         AddLink();
         break;
-    case "Add":
+    case 'Add':
         include_once("modules/$ModPath/links-1.php");
         settype($asb_question,'string');
         settype($asb_reponse,'string');
         Add($title, $url, $name, $cat, $xtext, $email, $topicL, $asb_question, $asb_reponse);
         break;
-    case "NewLinks":
+    case 'NewLinks':
         include_once("modules/$ModPath/links-2.php");
         if (!isset($newlinkshowdays)) {$newlinkshowdays = 7;}
         NewLinks($newlinkshowdays);
         break;
-    case "NewLinksDate":
+    case 'NewLinksDate':
         include_once("modules/$ModPath/links-2.php");
         NewLinksDate($selectdate);
         break;
-    case "viewlink":
+    case 'viewlink':
         if (!isset($min)) $min=0;
         if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
         if (isset($show)) $perpage = $show; else $show=$perpage;
         viewlink($cid, $min, $orderby, $show);
         break;
-    case "viewslink":
+    case 'viewslink':
         if (!isset($min)) $min=0;
         if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
         if (isset($show)) $perpage = $show; else $show=$perpage;
         viewslink($sid, $min, $orderby, $show);
         break;
-    case "brokenlink":
+    case 'brokenlink':
         include_once("modules/$ModPath/links-3.php");
         brokenlink($lid);
         break;
-    case "brokenlinkS":
+    case 'brokenlinkS':
         include_once("modules/$ModPath/links-3.php");
         brokenlinkS($lid, $modifysubmitter);
         break;
-    case "modifylinkrequest":
+    case 'modifylinkrequest':
         include_once("modules/$ModPath/links-3.php");
         settype($modifylinkrequest_adv_infos,'string');
         modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author);
         break;
-    case "modifylinkrequestS":
+    case 'modifylinkrequestS':
         include_once("modules/$ModPath/links-3.php");
         modifylinkrequestS($lid, $cat, $title, $url, $xtext, $modifysubmitter, $topicL);
         break;
-    case "visit":
+    case 'visit':
         visit($lid);
         break;
-    case "search":
+    case 'search':
         include_once("modules/$ModPath/links-1.php");
         $offset=10;
         if (!isset($min)) $min=0;
         if (!isset($max)) $max=$min+$offset;
         links_search($query, $topicL, $min, $max, $offset);
         break;
-    case "viewlinkeditorial":
+    case 'viewlinkeditorial':
         viewlinkeditorial($lid, $ttitle);
         break;
-    case "fiche_detail":
+    case 'fiche_detail':
         fiche_detail ($lid);
         break;
     default:

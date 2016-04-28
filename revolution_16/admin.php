@@ -93,22 +93,18 @@ function login() {
       </div>
       <form action="admin.php" method="post" name="adminlogin">
          <fieldset>
-            <div class="form-group ">
-               <div class="row">
-                  <label class="control-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
-                  <div class="col-sm-8">
-                     <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
-                     <span class="help-block text-xs-right"><span id="countcar_aid"></span></span>
-                  </div>
+            <div class="form-group row">
+               <label class="control-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
+               <div class="col-sm-8">
+                  <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
+                  <span class="help-block text-xs-right"><span id="countcar_aid"></span></span>
                </div>
             </div>
-            <div class="form-group ">
-               <div class="row">
-                  <label class="control-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
-                  <div class="col-sm-8">
-                     <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-                     <span class="help-block text-xs-right"><span id="countcar_pwd"></span></span>
-                  </div>
+            <div class="form-group row">
+               <label class="control-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
+               <div class="col-sm-8">
+                  <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
+                  <span class="help-block text-xs-right"><span id="countcar_pwd"></span></span>
                </div>
             </div>
             <div class="form-group row">
@@ -178,10 +174,10 @@ function GraphicAdmin($hlpfile) {
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider
    $newsubs=sql_num_rows(sql_query("SELECT qid FROM ".$NPDS_Prefix."queue"));
-   if($newsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newsubs."' WHERE fid='38'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='38'");
+   if($newsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newsubs."',fretour_h='".adm_translate("Articles en attente de validation !")."' WHERE fid='38'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='38'");
    //news auto
    $newauto=sql_num_rows(sql_query("SELECT anid FROM ".$NPDS_Prefix."autonews"));
-   if($newauto) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("articles sont programmés pour la publication.")."' WHERE fid=37"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0',fretour_h='' WHERE fid=37");
+   if($newauto) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("Articles programmés pour la publication.")."' WHERE fid=37"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0',fretour_h='' WHERE fid=37");
    //etat filemanager
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
    //version npds
@@ -196,10 +192,10 @@ function GraphicAdmin($hlpfile) {
    if($critsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$critsubs."' WHERE fid='35'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='35'");
    //nouveau lien à valider
    $newlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_newlink"));
-   if($newlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newlink."' WHERE fid='41'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='41'");
+   if($newlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newlink."', fretour_h='".adm_translate("Liens à valider.")."' WHERE fid='41'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='41'");
    //lien rompu à valider
    $brokenlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest where brokenlink='1'"));
-   if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
+   if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
    //==> construction de la zone de téléchargement des versions de NPDS
@@ -282,7 +278,6 @@ function GraphicAdmin($hlpfile) {
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accés
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-//   $Q = sql_fetch_assoc($Q);
    if ($Q['radminsuper']==1) {
    // on prend tout ce qui a une interface 
       $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");}
@@ -315,7 +310,7 @@ function GraphicAdmin($hlpfile) {
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.$SAQ['fcategorie_nom'].'</h4>
+         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
          <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
@@ -408,8 +403,7 @@ function GraphicAdmin($hlpfile) {
        dajs = new Date(dae);
 
    $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
-  
-   
+
    deCompte= function() {
    var date1 = new Date(),
        sec = (dae - date1) / 1000,
@@ -628,41 +622,41 @@ function adminMain($deja_affiches) {
 if ($admintest) {
    settype($op,'string');
    switch ($op) {
-        case "GraphicAdmin":
-             GraphicAdmin($hlpfile);
-             break;
+      case 'GraphicAdmin':
+         GraphicAdmin($hlpfile);
+      break;
 
-        case "logout":
-             setcookie("admin");
-             setcookie("adm_exp");
-             unset($admin);
-             Header("Location: index.php");
-             break;
+      case 'logout':
+         setcookie("admin");
+         setcookie("adm_exp");
+         unset($admin);
+         Header("Location: index.php");
+      break;
 
-        // FILES MANAGER
-        case "FileManager":
-            if ($admintest and $filemanager) {
-               header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=$aid");
-            }
-            break;
-        case "FileManagerDisplay":
-            if ($admintest and $filemanager) {
-               header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=download");
-            }
-            break;
-        // FILES MANAGER
+      // FILES MANAGER
+      case 'FileManager':
+         if ($admintest and $filemanager) {
+            header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=$aid");
+         }
+      break;
+      case 'FileManagerDisplay':
+         if ($admintest and $filemanager) {
+            header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=download");
+         }
+      break;
+      // FILES MANAGER
 
-        // CRITIQUES
-        case "reviews":
-        case "mod_main":
-        case "add_review":
-             include("admin/reviews.php");
-             break;
-        case "deleteNotice":
-             sql_query("DELETE FROM ".$NPDS_Prefix."reviews_add WHERE id='$id'");
-             Header("Location: admin.php?op=$op_back");
-             break;
-        // CRITIQUES
+      // CRITIQUES
+      case 'reviews':
+      case 'mod_main':
+      case 'add_review':
+         include('admin/reviews.php');
+      break;
+      case 'deleteNotice':
+         sql_query("DELETE FROM ".$NPDS_Prefix."reviews_add WHERE id='$id'");
+         Header("Location: admin.php?op=$op_back");
+      break;
+      // CRITIQUES
 
         // FORUMS
         case "ForumConfigAdmin":
@@ -820,232 +814,232 @@ if ($admintest) {
         // FAQ
 
         // AUTOMATED
-        case "autoStory":
-        case "autoEdit":
-        case "autoDelete":
-        case "autoSaveEdit":
+        case 'autoStory':
+        case 'autoEdit':
+        case 'autoDelete':
+        case 'autoSaveEdit':
              include("admin/automated.php");
              break;
         // AUTOMATED
 
         // NEWS
-        case "submissions":
+        case 'submissions':
              include("admin/submissions.php");
              break;
         // NEWS
 
         // REFERANTS
-        case "HeadlinesDel":
-        case "HeadlinesAdd":
-        case "HeadlinesSave":
-        case "HeadlinesAdmin":
-        case "HeadlinesEdit":
+        case 'HeadlinesDel':
+        case 'HeadlinesAdd':
+        case 'HeadlinesSave':
+        case 'HeadlinesAdmin':
+        case 'HeadlinesEdit':
              include("admin/headlines.php");
              break;
         // REFERANTS
 
         // PREFERENCES
-        case "Configure":
-        case "ConfigSave":
+        case 'Configure':
+        case 'ConfigSave':
             include("admin/settings.php");
             break;
         // PREFERENCES
 
         // EPHEMERIDS
-        case "Ephemeridsedit":
-        case "Ephemeridschange":
-        case "Ephemeridsdel":
-        case "Ephemeridsmaintenance":
-        case "Ephemeridsadd":
-        case "Ephemerids":
+        case 'Ephemeridsedit':
+        case 'Ephemeridschange':
+        case 'Ephemeridsdel':
+        case 'Ephemeridsmaintenance':
+        case 'Ephemeridsadd':
+        case 'Ephemerids':
             include("admin/ephemerids.php");
             break;
         // EPHEMERIDS
 
         // LINKS
-        case "links":
-        case "LinksDelNew":
-        case "LinksAddCat":
-        case "LinksAddSubCat":
-        case "LinksAddLink":
-        case "LinksAddEditorial":
-        case "LinksModEditorial":
-        case "LinksDelEditorial":
-        case "LinksCleanVotes":
-        case "LinksListBrokenLinks":
-        case "LinksDelBrokenLinks":
-        case "LinksIgnoreBrokenLinks":
-        case "LinksListModRequests":
-        case "LinksChangeModRequests":
-        case "LinksChangeIgnoreRequests":
-        case "LinksDelCat":
-        case "LinksModCat":
-        case "LinksModCatS":
-        case "LinksModLink":
-        case "LinksModLinkS":
-        case "LinksDelLink":
-        case "LinksDelVote":
-        case "LinksDelComment":
-        case "suite_links":
+        case 'links':
+        case 'LinksDelNew':
+        case 'LinksAddCat':
+        case 'LinksAddSubCat':
+        case 'LinksAddLink':
+        case 'LinksAddEditorial':
+        case 'LinksModEditorial':
+        case 'LinksDelEditorial':
+        case 'LinksCleanVotes':
+        case 'LinksListBrokenLinks':
+        case 'LinksDelBrokenLinks':
+        case 'LinksIgnoreBrokenLinks':
+        case 'LinksListModRequests':
+        case 'LinksChangeModRequests':
+        case 'LinksChangeIgnoreRequests':
+        case 'LinksDelCat':
+        case 'LinksModCat':
+        case 'LinksModCatS':
+        case 'LinksModLink':
+        case 'LinksModLinkS':
+        case 'LinksDelLink':
+        case 'LinksDelVote':
+        case 'LinksDelComment':
+        case 'suite_links':
             include("admin/links.php");
             break;
         // LINKS
 
         // BANNERS
-        case "BannersAdmin":
-        case "BannersAdd":
-        case "BannerAddClient":
-        case "BannerFinishDelete":
-        case "BannerDelete":
-        case "BannerEdit":
-        case "BannerChange":
-        case "BannerClientDelete":
-        case "BannerClientEdit":
-        case "BannerClientChange":
+        case 'BannersAdmin':
+        case 'BannersAdd':
+        case 'BannerAddClient':
+        case 'BannerFinishDelete':
+        case 'BannerDelete':
+        case 'BannerEdit':
+        case 'BannerChange':
+        case 'BannerClientDelete':
+        case 'BannerClientEdit':
+        case 'BannerClientChange':
              include("admin/banners.php");
              break;
         // BANNERS
 
         // HTTP Referer
-        case "hreferer":
-        case "delreferer":
-        case "archreferer":
+        case 'hreferer':
+        case 'delreferer':
+        case 'archreferer':
              include("admin/referers.php");
              break;
         // HTTP Referer
 
         // TOPIC Manager
-        case "topicsmanager":
-        case "topicedit":
-        case "topicmake":
-        case "topicdelete":
-        case "topicchange":
-        case "relatedsave":
-        case "relatededit":
-        case "relateddelete":
+        case 'topicsmanager':
+        case 'topicedit':
+        case 'topicmake':
+        case 'topicdelete':
+        case 'topicchange':
+        case 'relatedsave':
+        case 'relatededit':
+        case 'relateddelete':
              include("admin/topics.php");
              break;
         // TOPIC Manager
 
         // SECTIONS - RUBRIQUES
-        case "new_rub_section":
-        case "sections":
-        case "sectionedit":
-        case "sectionmake":
-        case "sectiondelete":
-        case "sectionchange":
-        case "rubriquedit":
-        case "rubriquemake":
-        case "rubriquedelete":
-        case "rubriquechange":
-        case "secarticleadd":
-        case "secartedit":
-        case "secartchange":
-        case "secartchangeup":
-        case "secartdelete":
-        case "secartpublish":
-        case "secartupdate":
-        case "secartdelete2":
-        case "ordremodule":
-        case "ordrechapitre":
-        case "ordrecours":
-        case "majmodule":
-        case "majchapitre":
-        case "majcours":
-        case "publishcompat":
-        case "updatecompat":
-        case "droitauteurs":
-        case "updatedroitauteurs":
-        case "menu_dyn":
+        case 'new_rub_section':
+        case 'sections':
+        case 'sectionedit':
+        case 'sectionmake':
+        case 'sectiondelete':
+        case 'sectionchange':
+        case 'rubriquedit':
+        case 'rubriquemake':
+        case 'rubriquedelete':
+        case 'rubriquechange':
+        case 'secarticleadd':
+        case 'secartedit':
+        case 'secartchange':
+        case 'secartchangeup':
+        case 'secartdelete':
+        case 'secartpublish':
+        case 'secartupdate':
+        case 'secartdelete2':
+        case 'ordremodule':
+        case 'ordrechapitre':
+        case 'ordrecours':
+        case 'majmodule':
+        case 'majchapitre':
+        case 'majcours':
+        case 'publishcompat':
+        case 'updatecompat':
+        case 'droitauteurs':
+        case 'updatedroitauteurs':
+        case 'menu_dyn':
              include("admin/sections.php");
              break;
         // SECTIONS - RUBRIQUES
 
         // BLOCKS
-        case "blocks":
+        case 'blocks':
              include("admin/blocks.php");
              break;
 
-             case "makerblock":
-             case "deleterblock":
-             case "changerblock":
-             case "gaucherblock":
+             case 'makerblock':
+             case 'deleterblock':
+             case 'changerblock':
+             case 'gaucherblock':
                   include("admin/rightblocks.php");
                   break;
 
-             case "makelblock":
-             case "deletelblock":
-             case "changelblock":
-             case "droitelblock":
+             case 'makelblock':
+             case 'deletelblock':
+             case 'changelblock':
+             case 'droitelblock':
                   include("admin/leftblocks.php");
                   break;
 
-        case "ablock":
-        case "changeablock":
+        case 'ablock':
+        case 'changeablock':
              include("admin/adminblock.php");
              break;
 
-        case "mblock":
-        case "changemblock":
+        case 'mblock':
+        case 'changemblock':
              include("admin/mainblock.php");
              break;
         // BLOCKS
 
         // STORIES
-        case "DisplayStory":
-        case "PreviewAgain":
-        case "PostStory":
-        case "DeleteStory":
-        case "EditStory":
-        case "ChangeStory":
-        case "RemoveStory":
-        case "adminStory":
-        case "PreviewAdminStory":
+        case 'DisplayStory':
+        case 'PreviewAgain':
+        case 'PostStory':
+        case 'DeleteStory':
+        case 'EditStory':
+        case 'ChangeStory':
+        case 'RemoveStory':
+        case 'adminStory':
+        case 'PreviewAdminStory':
         // CATEGORIES des NEWS
-        case "EditCategory":
-        case "DelCategory":
-        case "YesDelCategory":
-        case "NoMoveCategory":
-        case "SaveEditCategory":
-        case "AddCategory":
-        case "SaveCategory":
+        case 'EditCategory':
+        case 'DelCategory':
+        case 'YesDelCategory':
+        case 'NoMoveCategory':
+        case 'SaveEditCategory':
+        case 'AddCategory':
+        case 'SaveCategory':
              include("admin/stories.php");
              break;
         // CATEGORIES des NEWS
         // STORIES
 
         // AUTHORS
-        case "mod_authors":
-        case "modifyadmin":
-        case "UpdateAuthor":
-        case "AddAuthor":
-        case "deladmin":
-        case "deladminconf":
+        case 'mod_authors':
+        case 'modifyadmin':
+        case 'UpdateAuthor':
+        case 'AddAuthor':
+        case 'deladmin':
+        case 'deladminconf':
              include("admin/authors.php");
              break;
         // AUTHORS
 
         // USERS
-        case "mod_users":
-        case "modifyUser":
-        case "updateUser":
-        case "delUser":
-        case "delUserConf":
-        case "addUser":
-        case "extractUserCSV":
-        case "unsubUser":
+        case 'mod_users':
+        case 'modifyUser':
+        case 'updateUser':
+        case 'delUser':
+        case 'delUserConf':
+        case 'addUser':
+        case 'extractUserCSV':
+        case 'unsubUser':
              include("admin/users.php");
              break;
         // USERS
 
         // SONDAGES
-        case "create":
-        case "createPosted":
-        case "remove":
-        case "removePosted":
-        case "editpoll":
-        case "editpollPosted":
-        case "SendEditPoll":
+        case 'create':
+        case 'createPosted':
+        case 'remove':
+        case 'removePosted':
+        case 'editpoll':
+        case 'editpollPosted':
+        case 'SendEditPoll':
              include("admin/polls.php");
              break;
         // SONDAGES
@@ -1113,26 +1107,26 @@ if ($admintest) {
                $op="Add_Body";
                include("admin/lnl.php");
                break;
-               case "lnl_Add_Body_Submit":
-                  $op="Add_Body_Submit";
-                  include("admin/lnl.php");
-                  break;
-               case "lnl_Add_Body_Mod":
-                  $op="Add_Body_Mod";
-                  include("admin/lnl.php");
-                  break;
+            case "lnl_Add_Body_Submit":
+               $op="Add_Body_Submit";
+               include("admin/lnl.php");
+               break;
+            case "lnl_Add_Body_Mod":
+               $op="Add_Body_Mod";
+               include("admin/lnl.php");
+               break;
             case "lnl_Add_Footer":
                $op="Add_Footer";
                include("admin/lnl.php");
                break;
-               case "lnl_Add_Footer_Submit":
-                  $op="Add_Footer_Submit";
-                  include("admin/lnl.php");
-                  break;
-               case "lnl_Add_Footer_Mod":
-                  $op="Add_Footer_Mod";
-                  include("admin/lnl.php");
-                  break;
+            case "lnl_Add_Footer_Submit":
+               $op="Add_Footer_Submit";
+               include("admin/lnl.php");
+               break;
+            case "lnl_Add_Footer_Mod":
+               $op="Add_Footer_Mod";
+               include("admin/lnl.php");
+               break;
             case "lnl_Test":
                $op="Test";
                include("admin/lnl.php");
@@ -1156,112 +1150,111 @@ if ($admintest) {
         // LNL
 
         // SUPERCACHE
-        case "supercache":
-        case "supercache_save":
-        case "supercache_empty":
+        case 'supercache':
+        case 'supercache_save':
+        case 'supercache_empty':
              include("admin/overload.php");
              break;
         // SUPERCACHE
 
         // OPTIMYSQL
-        case "OptimySQL":
+        case 'OptimySQL':
              include("admin/optimysql.php");
              break;
         // OPTIMYSQL
 
         // SAVEMYSQL
-        case "SavemySQL":
+        case 'SavemySQL':
              include("admin/savemysql.php");
              break;
         // SAVEMYSQL
 
         // EDITO
-        case "Edito":
-        case "Edito_save":
-        case "Edito_load":
+        case 'Edito':
+        case 'Edito_save':
+        case 'Edito_load':
              include("admin/adminedito.php");
              break;
         // EDITO
 
         // METATAGS
-        case "MetaTagAdmin":
-        case "MetaTagSave":
+        case 'MetaTagAdmin':
+        case 'MetaTagSave':
              include("admin/metatags.php");
              break;
         // METATAGS
 
         // META-LANG
-        case "Meta-LangAdmin":
-        case "List_Meta_Lang":
-        case "Creat_Meta_Lang":
-        case "Edit_Meta_Lang":
-        case "Kill_Meta_Lang":
-        case "Valid_Meta_Lang":
+        case 'Meta-LangAdmin':
+        case 'List_Meta_Lang':
+        case 'Creat_Meta_Lang':
+        case 'Edit_Meta_Lang':
+        case 'Kill_Meta_Lang':
+        case 'Valid_Meta_Lang':
              include("admin/meta_lang.php");
              break;
         // META-LANG
 
         // ConfigFiles
-        case "ConfigFiles":
-        case "ConfigFiles_load":
-        case "ConfigFiles_save":
-        case "ConfigFiles_create":
-        case "delete_configfile":
-        case "ConfigFiles_delete":
+        case 'ConfigFiles':
+        case 'ConfigFiles_load':
+        case 'ConfigFiles_save':
+        case 'ConfigFiles_create':
+        case 'delete_configfile':
+        case 'ConfigFiles_delete':
              include("admin/configfiles.php");
              break;
         // ConfigFiles
 
         // NPDS-Admin-Plugins
-        case "Extend-Admin-Module":
-        case "Extend-Admin-SubModule":
+        case 'Extend-Admin-Module':
+        case 'Extend-Admin-SubModule':
              include("admin/plugins.php");
              break;
         // NPDS-Admin-Plugins
 
         // NPDS-Admin-Groupe
-        case "groupes";
-        case "groupe_edit":
-        case "groupe_maj":
-        case "groupe_add":
-        case "groupe_add_finish":
-        case "bloc_groupe_create":
-        case "retiredugroupe":
-        case "retiredugroupe_all":
-        case "membre_add":
-        case "membre_add_finish":
-        case "pad_create":
-        case "pad_remove":
-        case "note_create":
-        case "note_remove":
-        case "workspace_create":
-        case "workspace_archive":
-        case "forum_groupe_delete":
-        case "forum_groupe_create":
-        case "moderateur_update":
-        case "groupe_mns_create":
-        case "groupe_mns_delete":
-        case "groupe_chat_create":
-        case "groupe_chat_delete":
-        include("admin/groupes.php");
+        case 'groupes';
+        case 'groupe_edit':
+        case 'groupe_maj':
+        case 'groupe_add':
+        case 'groupe_add_finish':
+        case 'bloc_groupe_create':
+        case 'retiredugroupe':
+        case 'retiredugroupe_all':
+        case 'membre_add':
+        case 'membre_add_finish':
+        case 'pad_create':
+        case 'pad_remove':
+        case 'note_create':
+        case 'note_remove':
+        case 'workspace_create':
+        case 'workspace_archive':
+        case 'forum_groupe_delete':
+        case 'forum_groupe_create':
+        case 'moderateur_update':
+        case 'groupe_mns_create':
+        case 'groupe_mns_delete':
+        case 'groupe_chat_create':
+        case 'groupe_chat_delete':
+        include('admin/groupes.php');
              break;
         // NPDS-Admin-Groupe
 
         // NPDS-Instal-Modules
-        case "modules":
+        case 'modules':
              include("admin/modules.php");
              break;
-        case "Module-Install":
+        case 'Module-Install':
              include("admin/module-install.php");
              break;
         // NPDS-Instal-Modules
 
         // NPDS-Admin-Main
-        case "suite_articles":
+        case 'suite_articles':
              adminMain($deja_affiches);
              break;
-
-        case "adminMain":
+        case 'adminMain':
         default:
              adminMain(0);
              break;

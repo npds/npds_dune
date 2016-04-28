@@ -21,7 +21,6 @@ admindroits($aid,$f_meta_nom);
 global $language;
 $hlpfile = "manuels/$language/referer.html";
 
-
 function hreferer($filter) {
    global $hlpfile, $f_meta_nom, $adminimg, $admf_ext, $f_titre;
    include ("header.php");
@@ -66,9 +65,8 @@ function hreferer($filter) {
       else
         echo $url;
       if($TheCount == 1) echo '</a>';
-      echo '</a>
-         </td>
-         <td align="right">'.$TheCount.'</td>
+      echo '</a></td>
+         <td>'.$TheCount.'</td>
       </tr>';
    }
     echo '
