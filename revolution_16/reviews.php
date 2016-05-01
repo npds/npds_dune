@@ -217,10 +217,10 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       display_score($score); 
       echo'</span>';
       if ($url != '')
-         echo "<br /><b>".translate("Related Link")." :</b> <a href=\"$url\" target=\"_blank\">$url_title</a>";
+         echo '<br /><strong>'.translate("Related Link").' :</strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
       if ($id != 0) {
-         echo "<br /><b>".translate("Review ID")." :</b> $id<br />";
-         echo "<b>".translate("Hits")." :</b> $hits<br />";
+         echo '<br /><strong>'.translate("Review ID").' :</strong> '.$id.'<br />
+         <strong>'.translate("Hits").' :</strong> '.$hits.'<br />';
       }
       $text = urlencode($text);
       echo '
@@ -320,16 +320,16 @@ function reviews($field, $order) {
    <h4><a href="reviews.php?op=write_review"><i class="fa fa-edit"></i></a>&nbsp;'.translate("Write a Review").'</h4><br />';
    if ($order!="ASC" and $order!="DESC") $order="ASC";
    switch ($field) {
-          case "reviewer":
+          case 'reviewer':
                $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by reviewer $order");
                break;
-          case "score":
+          case 'score':
                $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by score $order");
                break;
-          case "hits":
+          case 'hits':
                $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by hits $order");
                break;
-          case "date":
+          case 'date':
                $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by id $order");
                break;
           default:
@@ -339,7 +339,7 @@ function reviews($field, $order) {
    $numresults = sql_num_rows($result);
    if ($numresults > 0) {
       echo '
-      <table class="" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th data-align="center" data-sortable="true">
@@ -395,7 +395,7 @@ function f_date($xdate) {
    $year = substr($xdate,0,4);
    $month = substr($xdate,5,2);
    $day = substr($xdate,8,2);
-   $fdate=date(str_replace("%","",translate("linksdatestring")),mktime (0,0,0,$month,$day,$year));
+   $fdate=date(str_replace("%",'',translate("linksdatestring")),mktime (0,0,0,$month,$day,$year));
    return $fdate;
 }
 
@@ -425,7 +425,7 @@ function showcontent($id) {
       <div class="card-text text-muted text-xs-right small">
    '.translate("Added:").' '.$fdate.'<br />
       </div>
-   <hr />  
+   <hr />
    <h3>'.$title.'</h3><br />';
    if ($cover != '')
       echo '<img class="img-fluid" src="images/reviews/'.$cover.'" />';
@@ -442,7 +442,7 @@ function showcontent($id) {
    display_score($score);
    echo '</span>';
    if ($url != '')
-      echo '<br /><strong>'.translate("Related Link").' : </strong> <a href="$url" target="_blank">'.$url_title.'</a>';
+      echo '<br /><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
    echo '<br /><strong>'.translate("Hits:").'</strong><span class="label label-pill label-default">'.$hits.'</span>
       </div>';
    if ($admin)
