@@ -7,7 +7,7 @@
  * inspiré par http://www.knacss.com/
  * 
  * Une Röcssti-quote, juste pour le plaisir :
- * « Merci pour ce moment… d’intégration. » — Valérie Trierweiler 
+ * « THIS IS RÖCSSTI! » — Leonidas 
  *
  * ROCSSTI est sous licence MIT : https://github.com/nico3333fr/ROCSSTI/blob/master/LICENSE
  * 
@@ -70,7 +70,7 @@ html { box-sizing: border-box; }
 html, body, blockquote, ul, ol, form, button { margin: 0; padding: 0; }
 button { border: 0; }
 p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
-  font-size: 1em; /* equiv 14px */
+  font-size: 1em; /* equiv 16px */
   line-height: 1.5;
   margin: 1.5em 0;
 }
@@ -94,16 +94,18 @@ ul, ol { padding-left: 2em; }
   padding-right: 0;
 }
 
-/* la base correspond à 10px    */
+/* la base correspond à 10px */
 html { 
   font-size: 62.5%;
+  /* IE9-IE11 math fixing. Voir http://bit.ly/1g4X0bX */
+  /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
   font-size: calc(1em * 0.625);
 }
 body {
   background: #fff;
   color: #333;
   font-family: Arial, sans-serif;
-  font-size: 1.5em; /* taille de base équiv à 15px */
+  font-size: 1.6em; /* taille de base équiv à 16px */
   line-height: 1.5; /* à corriger si besoin est */
 }
 
@@ -125,44 +127,44 @@ body {
 h1,
 .h1 {
   display: block;
-  font-size: 1.85714em; /* equiv 26px */
-  line-height: 1.61538;
-  margin: 1.61538em 0 .80769em 0;
+  font-size: 1.625em; /* equiv 26px */
+  line-height: 1.84615;
+  margin: 0 0 .92308em 0;
 }
 h2,
 .h2 {
   display: block;
-  font-size: 1.71429em; /* equiv 24px */
+  font-size: 1.5em; /* equiv 24px */
   line-height: 1.75;
-  margin: 1.75em 0 .875em 0;
+  margin: 0 0 .5em 0;
 }
 h3,
 .h3 {
   display: block;
-  font-size: 1.57143em; /* equiv 22px */
-  line-height: 1.90909;
-  margin: 1.90909em 0 .95455em 0;
+  font-size: 1.375em; /* equiv 22px */
+  line-height: 1.9091;
+  margin: 0 0 1.09091em 0;
 }
 h4,
 .h4 {
   display: block;
-  font-size: 1.42857em; /* equiv 20px */
-  line-height: 1.05;
-  margin: 2.1em 0 1.05em 0;
+  font-size: 1.25em; /* equiv 20px */
+  line-height: 1.2;
+  margin: 0 0 1.2em 0;
 }
 h5,
 .h5 {
   display: block;
-  font-size: 1.28571em; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 2.33333em 0 1.16667em 0;
+  font-size: 1.125em; /* equiv 18px */
+  line-height: 1.33333;
+  margin: 0 0 1.33333em 0;
 }
 h6,
 .h6 {
   display: block;
-  font-size: 1.14286em; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 2.625em 0 1.3125em 0;
+  font-size: 1em; /* equiv 16px */
+  line-height: 1.5;
+  margin: 0 0 1.5em 0;
 }
 
 .uppercase {
@@ -171,29 +173,29 @@ h6,
 
 /* autres classes utiles */
 .smaller {
-  font-size: .71429em; /* equiv 10px */
-  line-height: 2.1;
-  margin: 2.1em 0;
+  font-size: .75em; /* equiv 12px */
+  line-height: 2;
+  margin: 2em 0;
 }
-/* .small {
-  font-size: .85714em; /* equiv 12px */
-  line-height: 1.75;
-  margin: 1.75em 0;
-} */
+.small {
+  font-size: .875em; /* equiv 14px */
+  line-height: 1.71429;
+  margin: 1.71429em 0;
+}
 .big {
-  font-size: 1.14286em; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 1.3125em 0;
+  font-size: 1.125em; /* equiv 18px */
+  line-height: 1.33333;
+  margin: 1.33333em 0;
 }
 .bigger {
-  font-size: 1.28571em; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 1.16667em 0;
+  font-size: 1.25em; /* equiv 20px */
+  line-height: 1.2;
+  margin: 1.2em 0;
 }
 .biggest {
-  font-size: 1.42857em; /* equiv 20px */
-  line-height: 1.05;
-  margin: 1.05em 0;
+  font-size: 1.375em; /* equiv 22px */
+  line-height: 1.09091;
+  margin: 1.09091em 0;
 }
 
 
@@ -256,27 +258,6 @@ sub {
   top: .5ex;
 }
 
-
-/* éviter problèmes de margin */
-h1:first-child, .h1:first-child,
-h2:first-child, .h2:first-child,
-h3:first-child, .h3:first-child,
-h4:first-child, .h4:first-child,
-h5:first-child, .h5:first-child,
-h6:first-child, .h6:first-child {
-  margin-top: 0;
-}
-
-/* virer marge basse sur dernier enfant */
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-blockquote:last-child,
-pre:last-child,
-table:last-child {
-  margin-bottom: 0;
-}
 
 
 
@@ -361,14 +342,14 @@ abbr[title] {
 
 /* Liens */
 a {
-    color: #ac3426;
-    cursor: pointer;
+  color: #933;
+  cursor: pointer;
 }
 /* penser au focus */
 a:focus,
 a:hover,
 a:active {
-  color: #c60;
+  color: #000;
 }
 /* éviter la bordure sur une image comprise dans un lien + fix bordure image IE */
 a:link img,
@@ -645,6 +626,7 @@ svg {
 .p2  { padding: 2em; }
 
 
+
 /* RTL = attention, utiliser avec précaution */
 [dir="rtl"] .pr0 { padding-left: 0; }
 [dir="rtl"] .pr1 { padding-right: 0; padding-left: 1em; }
@@ -660,7 +642,7 @@ hr {
   border: 0;
   color: #000;
   height: 1px;
-  margin: 1 0 1em;
+  margin: 0 0 1em;
   padding: 0;
 }
 
@@ -767,6 +749,8 @@ input[type="reset"] {
 textarea {
   resize: vertical;
 }
+/* supprime un bug Firefox sur button */
+button::-moz-focus-inner { border: 0; padding: 0; }
 
 label,
 button,
@@ -779,16 +763,16 @@ select {
 input,
 select,
 textarea,
+optgroup,
 button {
-  font-family: inherit;
-  font-size: 1em;
+  font: inherit;
 }
 
 /* à adapter selon le design voulu */
 input,
 select,
 textarea {
-  border: 1px solid #804000;
+  border: 1px solid #000;
   border-radius: 5px;
   padding: .5em;
   width: 250px;
@@ -797,12 +781,6 @@ textarea {
 /* pour les textes des champs */
 .label {
   display: inline-block;
-}
-
- label, textarea {
-    font-size: 1em;
-    line-height: 1.5;
-    margin: 0px;
 }
 
 /* à adapter selon le design voulu */
@@ -1010,7 +988,7 @@ select:focus:required:valid {
    */
   body,
   html,
-  #page,
+  .page,
   .reset4print {
     background-color: #fff;
     background-image: none;

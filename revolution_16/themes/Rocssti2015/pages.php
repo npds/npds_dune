@@ -11,7 +11,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
- $PAGES['index.php']['blocs']="0";
+ $PAGES['index.php']['blocs']="1";
  
  
  // CSS sur fichiers particuliers car n'utilisant pas header.php

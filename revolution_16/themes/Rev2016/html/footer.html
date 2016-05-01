@@ -1,13 +1,13 @@
-<footer id="footer" role="contentinfo" class="row w100 p1 automobile">
+<footer id="footer" role="contentinfo" class="row w100 p2 automobile">
    <div id="decofoot">
 
-      <div class="grid w25  automobile notablet">
+      <div class="grid w25 p2 automobile notablet">
         blocID(L24)
-     </div><!----><div class="grid w25  automobile">
+     </div><!----><div class="grid w25 p2 automobile">
          blocID(R5)
-         </div><!----><div class="grid w25  automobile">
+         </div><!----><div class="grid w25 p2 automobile">
          blocID(L10)
-      </div><!----><div class="grid w25 p1 automobile">
+      </div><!----><div class="grid w25 p2 automobile">
          <h5 class="footitle">BLOC MEMBRE</h5>
               <?php
    global $cookie, $anonymous;
@@ -25,8 +25,11 @@
          echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
       echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
    } ?>
-   <p> !logo! </p>
+   <p class="p2"> <img src="themes/Rev2016/images/logohead2.png" > </p>
       </div>
       <p class="aligncenter"> !msg_foot! !sc_infos! !sc_infos_else!   </p>
    </div><!-- #decofoot -->
 </footer>
+
+
+

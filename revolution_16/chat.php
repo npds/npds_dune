@@ -25,9 +25,9 @@
          <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       </head>
       <frameset rows="1%,60%,200">
-         <frame src="chatrafraich.php?repere=0&amp;aff_entetes=1&amp;connectes=-1&amp;id=$id&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="rafraich">
+         <frame src="chatrafraich.php?repere=0&amp;aff_entetes=1&amp;connectes=-1&amp;id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="rafraich">
          <frame src="chattop.php" frameborder="0" scrolling="yes" noresize="noresize" name="haut">
-         <frame src="chatinput.php?id=$id&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="bas">
+         <frame src="chatinput.php?id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="bas">
       </frameset>
    </html>';
 ?>
