@@ -48,7 +48,7 @@ if (!function_exists("Mysql_Connexion")) {
    $pdst=$npds;
    $remp='';
    include ("header.php");
-
+   echo '<div id="static_cont">';
    if (($op!='') and ($op)) {
       // Troll Control for security
       if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta"))  {
@@ -67,7 +67,7 @@ if (!function_exists("Mysql_Connexion")) {
                echo $remp;
             }
             if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
-            echo "<a href=\"print.php?sid=static:$op&amp;metalang=$metalang&amp;nl=$nl\" title=\"".translate("Printer Friendly Page")."\"><i class=\"fa fa-2x fa-print\"></i></a>";
+            echo '<p><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" title="'.translate("Printer Friendly Page").'"><i class="fa fa-2x fa-print"></i></a></p>';
 
             // Si vous voulez tracer les appels au pages statiques : supprimer les // devant la ligne ci-dessous
             // Ecr_Log("security", "static/$op", "");
@@ -78,5 +78,6 @@ if (!function_exists("Mysql_Connexion")) {
          echo "<p class=\"text-danger text-xs-center\">".translate("Please enter information according to the specifications")."</p>";
       }
    }
+   echo '</div>';
    include ("footer.php");
 ?>
