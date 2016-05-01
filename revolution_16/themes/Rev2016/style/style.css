@@ -175,33 +175,10 @@ table tr.even, table tr.alt, table tr:nth-of-type(2n) {
 ---------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------
-   14  Liens Tooltip ==> Info Bulles                        
+   14  Liens Tooltip ==> Info Bulles
 ---------------------------------------------------------------------- */
-a.tooltip {
-    border-bottom: 1px groove gray;
-}
-a.tooltip em {
-    display:none;
-}
-a.tooltip:hover {
-    border: 0;
-    position: relative;
-    z-index: 500;
-    text-decoration:none;
-}
-a.tooltip:hover em {
-    font-style: normal;
-    display: block;
-    position: absolute;
-    top: 15px;
-    left: -5px;
-    padding: 5px;
-    color: #000000;
-    border: 1px solid #404040;
-    background: #F2EFE8;
-	 width:200px;
-	text-align: left;	
-}
+.popover, .popover-title {font-size:12px;}
+.tooltip {font-size:12px;}
 /*------------------------------------------------>
       CSS ComplÈmentaire pour vos  Formulaires
               ICI en Version Light
@@ -361,15 +338,24 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 /************************************************************************
 Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 *************************************************************************/
-#col_LB  {background: #000;}           /*contient les blocs historiquement dit de gauche */
-#col_RB {background: #333;}            /* contient les blocs historiquement dit de droite */
+#col_LB , #col_RB {background:    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1) inset;
+    background-color: rgb(250, 250, 250);
+    color: rgb(51, 51, 51);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);    /*dans notre theme la colonne de droite*/
+    border-radius: 3px;
+    padding: 18px;
+    margin-top: 11px;
+    margin-bottom:20px;
+    font-size: 16px; }
 
 
+/*contient les blocs  */
 .leftbloc, .rightbloc   {
-  background: #F2EFE8 none repeat scroll 0% 0%;
-  padding: 1em;
-  margin-bottom:1em;
-  font-size: 1.125em;}
+}
 
 /************************************************************************
 La Partie Footer de votre Site
@@ -382,9 +368,10 @@ footer {
 }
 
 #footer{
-  background: #F2EFE8 none repeat scroll 0% 0%;
+  background: #24221F  none repeat scroll 0% 0%;
   border-top: 15px solid #777;
-  color:#666;}
+  color:#E9E5CD;
+  margin-top: 15px;}
 
 .footitle {
     color: #EC8B08;
@@ -394,7 +381,9 @@ footer {
     font-size: 16px;
 }
 
-
+#footer a {
+    color: rgb(142, 176, 55);
+}
 
 /* CENTRAL HTML */
 
@@ -428,11 +417,11 @@ Adaptation des css au fil du test
  /* texte et alignements*/
  
 h2, .h2 {
-    background: #F2EFE8;
+    background: #EBE8D8;
     padding: 0px 5px 0px 5px;  }
 
 h3, .h3 {
-    background: #EBE8D8;
+    background: RGBA(235, 232, 216, 0.6);
     padding: 0px 5px 0px 5px;}
     
 .ombre{    box-shadow: inset 0 -2px 0 #ccc, inset 0 -2px 2px #ddd, inset 0 2px 2px #ddd, inset 1px 0 2px #eee, inset -1px 0 2px #eee, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 2px 2px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);}
@@ -516,10 +505,16 @@ Pour rendre les vidÈo youtube responsives
 citation pour les forums
 *******************/
 .blockquote {
-    border: 1px dotted #000;
-    margin: 5px;
-    padding: 5px;
-    width: 90%;
+border-left: 10px solid #ccc;
+border-bottom: 1px dotted #ccc;
+margin: 5px;
+padding: 5px;
+width: 98%;
+font-style: italic;
+color: #333;
+background-color: rgba(242, 238, 228, 0.69);
+
+
 }
 
 /***********************
@@ -556,7 +551,7 @@ legend { /* Titre pour identifier chaque fieldset */
     color: #682B1A;
     font-weight: bold;
     text-decoration: none;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: #D5B199 #864732 #864732 #D5B199;
 }
@@ -586,19 +581,29 @@ list-style-type:none;
 }
 
 input[type="Submit"], [type="Reset"], [type="Return"] {
-    margin-top: 3px;
+    
     cursor: pointer;
     background-color: #FDFDFD;
     color: #682B1A;
     font-weight: bold;
     text-decoration: none;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: #D5B199 #864732 #864732 #D5B199;
 }
 
 /* ==> class de NPDS dans le core */
 /* tailles des emoticones et autre petites images subject forum etc*/
+
+.card {
+    position: relative;
+    display: block;
+    margin-bottom: .75rem;
+    background-color: rgba(206, 203, 188, 0.17);
+    border: 1px solid #e5e5e5;
+    border-radius: .25rem;
+}
+
 .smil {
 width:24px;
 height:24px;
@@ -633,7 +638,7 @@ box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 /*bloc ws*/
 a.tooltip_ws em {
    display:none;
-   width:90px;
+   width:200px;
 }
 a.tooltip_ws:hover {
     border: 0;
@@ -644,7 +649,7 @@ a.tooltip_ws:hover {
  a.tooltip_ws:hover em {
    z-index: 1070;
    font-style: normal;
-   font-size: 11px;
+   font-size: 12px;
    display: block;
    top: 20px;
    left: -10px;
@@ -658,9 +663,7 @@ a.tooltip_ws:hover {
    border-radius: 5px;
    -moz-border-radius: 5px; 
    -webkit-border-radius: 5px;
-   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
-   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
-   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+
 }
 a.tooltip_ws:hover em span {
     position: absolute;
@@ -677,7 +680,12 @@ a.tooltip_ws:hover em span {
 
 
 
-/*<== class de NPDS dans le core */
+/*<== class de NPDS dans le core jmd*/
+
+.lead {
+    font-size: 1.125em;
+    font-weight: 300;
+}
 
 /* ==> class de BS dans le core */
 /* réimpléméntation pour V4.00 et 02 */
@@ -1788,8 +1796,14 @@ img, table, td, blockquote, code, pre, textarea, input, svg {
 /*****jmd* pour dÈcoler le texte des bordures de Table*/
  /* ajustement bmag*/ 
  
+
+ .n-signature {
+    font-style: italic;
+    text-align: right !important;
+    padding-top: 1.1rem !important;
+}
+ 
 .img-fluid {
-    display: block;
     max-width: 100%;
     height: auto;
 }
