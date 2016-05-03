@@ -26,7 +26,7 @@ $m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
 settype($url,'string');
 $url="<a href=\"$url\" target=\"_blank\">$url</a>";
 $m->add_field('url',  translate("HomePage"),$url,'text',false,100,'','');
-
+/*
 // ---- AVATAR
 if ($smilies) {
    $m->add_field('user_avatarX', translate("Avatar"),'','text',true,25,'','');
@@ -44,6 +44,8 @@ if ($smilies) {
       $m->add_extender("user_avatarX", '', "<img src=\"".$direktori.$user_avatar."\" name=\"avatar\" align=\"top\" title=\"\" />");
 }
 // ---- AVATAR
+
+*/
 if($user_from!='')
 $m->add_field('user_from', translate("Location"),$user_from,'text',false,100,'','');
 if($user_occ!='')
