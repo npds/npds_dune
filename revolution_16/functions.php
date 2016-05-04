@@ -581,12 +581,11 @@ function forumerror($e_code) {
    if (!isset($header)) {
       include("header.php");
    }
-   opentable();
-   echo "<p align=\"center\"><b>$sitename ".translate("Forum Error")."</b><br /><br />";
-   echo translate("Error Code:")." $e_code<br /><br />";
-   echo "$error_msg<br /><br />";
-   echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a> ]<br /></p>";
-   closetable();
+   echo '
+   <div class="alert alert-danger"><strong>'.$sitename.'<br />'.translate("Forum Error").'</strong><br />';
+   echo translate("Error Code:").' '.$e_code.'<br /><br />';
+   echo $error_msg.'<br /><br />';
+   echo '<a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Go Back").'</a><br /></div>';
    include("footer.php");
    die("");
 }
