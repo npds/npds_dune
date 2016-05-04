@@ -133,43 +133,6 @@ function GraphicAdmin($hlpfile) {
    $bloc_foncts ='';
    $bloc_foncts_A ='';
 
-   //==> recuperation traitement des messages de NPDS
-   $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
-   settype($f_mes, "array");
-   while ($SQM=sql_fetch_assoc($QM)) {
-   $f_mes[]=$SQM['fretour_h'];
-   };
-   $messagerie_npds= file_get_contents('http://labo.infocapagde.com/npds_versus_n');
-   $messages_npds = explode("\n", $messagerie_npds);
-   // traitement specifique car fonction permanente versus
-   $versus_info = explode('|', $messages_npds[0]);
-   $vs=$versus_info[1];
-   $vn=$versus_info[2];
-
-   if ($messages_npds[1]) {
-      settype($mes_x, "array");
-// a revoir je n'arrive pas à changer l'icone du message....
-      $fico ='';
-      for ($i=1;$i<count($messages_npds);$i++) {
-         $zob = explode('|',$messages_npds[$i]);//print_r ( $f_mes );
-         $mes_x[]=$zob;//print_r ( $mes_x );
-         if($mes_x[($i-1)][0] = 'Note') {$fico='flag_red';}
-         else {$fico='flag_green';}
-         //echo $mes_x[($i-1)]['0'];//debug
-
-         if (in_array ($mes_x[($i-1)][1],$f_mes,true)) {
-            $k=(array_search ($mes_x[($i-1)][1], $f_mes)); unset ($f_mes[$k]);
-         } else {
-         sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$mes_x[($i-1)]['1'].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
-         };
-      }
-      if(count ($f_mes)!==0) {
-         foreach ( $f_mes as $v ) {
-           //        sql_query('delete from '.$NPDS_Prefix.'fonctions where fretour_h="'.$v.'" and fcategorie="9"');
-         }
-      }
-   }
-   //<== recuperation traitement des messages de NPDS
 
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider
@@ -197,84 +160,6 @@ function GraphicAdmin($hlpfile) {
    $brokenlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest where brokenlink='1'"));
    if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
-
-   //==> construction de la zone de téléchargement des versions de NPDS
-   if (($vs != $Version_Sub) or ($vn != $Version_Num)) {
-   $scri='
-   <script type="text/javascript">
-   //<![CDATA[
-   (function() {
-   var html="";
-   var target = $("#adm_men_info");
-   var npdsAPI = "http://labo.infocapagde.com/npds_api.php?op=api_getdownload&dna=version";
-   $.getJSON( npdsAPI, {
-//    tags: "mount rainier",
-//    tagmode: "any",
-//    format: "json"
-   })
-    .done(function( data ) {
-       html += \'<div id="versus">\n\';
-       html += \'   <div class="yui3-g">\n\';
-       html += \'        <div class="info yui3-u-2-3">\n\';
-       html += \'           <h2>\n\';
-       html += \'                <span class="avatar logo">\n\';
-       html += \'                    <img src="images/topics/npds.gif" alt="logo" />\n\';
-       html += \'                </span>\n\';
-       html += \'                <span class="npds_text">NPDS</span>\n\';
-       html += \'           </h2>\n\';
-       html += \'        </div>\n\';
-       html += \'        <div class="stats yui3-u-1-3">\n\';
-       html += \'            <ul class="yui3-g">\n\';
-       html += \'                <li class="yui3-u-1-2">\n\';
-       html += \'                    <b>\'+data.length+\'</b> '.adm_translate("Versions").'\n\';
-       html += \'                </li>\n\';
-       html += \'                <li class="yui3-u-1-2">\n\';
-       html += \'                    <b>1291</b> '.adm_translate("Téléchargements").'\n\';
-       html += \'                </li>\n\';
-       html += \'            </ul>\n\';
-       html += \'        </div>\n\';
-       html += \'   </div>\n\';
-       html += \'   <p class="yui3-u-1 versus_st">'.adm_translate("Télécharger une version courante.").'</p>\n\';
-       html += \'   <ul class="yui3-g">\n\';
-
-      for (i=0, l=data.length; i < l; ++i) {
-       html += \'    <li class="versus" onclick="location=\\\'http://lab.grottes-et-karsts-de-chine.org/download.php?op=mydown&did=\' + data[i].did + \'\\\'" id="down_\' + data[i].did + \'">\n\';
-       html += \'      <div class="yui3-u-2-3">\n\';
-       html += \'        <p class="dfilename"><strong>\' + data[i].dfilename + \'</strong></p>\n\';
-       html += \'      </div>\n\';
-       html += \'      <div class="versus_stats yui3-u-1-3">\n\';
-       html += \'        <ul class="yui3-g">\n\';
-       html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dcounter + \'</b><span>'.adm_translate("Téléchargements").'</span></li>\n\';
-       html += \'          <li class="yui3-u-1-2"><b>\' + data[i].dfilesize + \'</b><span>Mo</span></li>\n\';
-       html += \'        </ul>\n\';
-       html += \'      </div>\n\';
-       html += \'      <div class="yui3-u-1">\n\';
-       html += \'        <p>\' + data[i].ddescription + \'</p>\n\';
-       html += \'      </div>\n\';
-       html += \'     </li>\n\';
-      }
-/*
-      $.each( data, function( i, item ) {
-        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-        if ( i === 3 ) {
-          return false;
-        }
-      });
-*/
-        html +=\'   </ul>\n\';
-        html +=\'</div>\n\';
-        target.html(html);
-        target.hide();
-    });
-})();
-   $( document ).ready(function() {
-      tog(\'adm_men_info\',\'show_inf\',\'hide_inf\');
-   })
-
-   //]]>
-   </script>'."\n";
-}
-   //<== construction de la zone de téléchargement des versions de NPDS
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accés
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
