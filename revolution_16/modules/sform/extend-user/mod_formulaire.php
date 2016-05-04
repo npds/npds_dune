@@ -143,6 +143,7 @@ $m->add_extra('
             inpandfieldlen("user_sig",255);
             inpandfieldlen("pass",40);
             inpandfieldlen("vpass",40);
+            inpandfieldlen("C2",40);
          });
       //]]>
       </script>');
