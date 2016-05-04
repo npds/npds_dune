@@ -718,7 +718,7 @@ function ForgetPassword() {
    <h2>'.translate("User").'</h2>
    <h3 class="lead text-warning text-xs-center">'.translate("Lost your Password?").'</h3>
    <p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>
-   <form class="form-horizontal" role="form" action="user.php" method="post">
+   <form action="user.php" method="post">
       <div class="form-group row">
          <div class="col-sm-2">
             <label for="inputuser" class="control-label">'.translate("Nickname: ").'</label>
@@ -738,7 +738,7 @@ function ForgetPassword() {
          <input type="hidden" name="op" value="mailpasswd" />
          <div class="form-group">
          <div class="col-sm-offset-2 col-sm-1">
-            <button class="btn btn-primary" type="submit" title="'.translate("Send").'"><i class="fa fa-lg fa-check"></i>&nbsp;'.translate("Send").'</button>
+            <input class="btn btn-primary" type="submit" value ="'.translate("Send").'"  />
          </div>
       </div>
    </form>';
@@ -769,7 +769,7 @@ function mail_password($uname, $code) {
 
        message_pass('<p class="lead text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
 
-       Ecr_Log("security", "Lost_password_request : ".$uname, "");
+       Ecr_Log("security", "Lost_password_request : ".$uname, '');
     }
 }
 
