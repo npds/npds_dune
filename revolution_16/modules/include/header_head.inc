@@ -18,7 +18,7 @@ echo '
 echo '
 <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />'; // develop
 echo '
-<link rel="stylesheet" href="lib/formvalidation-dist-v0.7.0/dist/css/formValidation.min.css" />'; // form control
+<link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />'; // form control
 echo '
 <link rel="stylesheet" href="lib/jquery-ui.css">';
 echo '

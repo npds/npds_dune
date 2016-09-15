@@ -3153,11 +3153,10 @@ function language_iso($l,$s,$c) {
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
 if ($fv=='fv') {
 echo '
-<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/formValidation.min.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
-<script type="text/javascript" src="lib/formvalidation-dist-v0.7.0/dist/js/framework/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/formvalidation/dist/js/formValidation.min.js"></script>
+<script type="text/javascript" src="lib/formvalidation/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
+<script type="text/javascript" src="lib/formvalidation/dist/js/framework/bootstrap4.min.js"></script>
 <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
-
 <script type="text/javascript">
 //<![CDATA[
 var diff;
@@ -3167,9 +3166,9 @@ $(document).ready(function() {
    
    .on("init.field.fv", function(e, data) {
       var $parent = data.element.parents(".form-group"),
-       $icon   = $parent.find(\'.form-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
+       $icon   = $parent.find(\'.fv-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
       $icon.on("click.clearing", function() {
-          if ($icon.hasClass("fa fa-ban fa-lg")) {
+          if ($icon.hasClass("fv-control-feedback fa fa-ban fa-lg")) {
               data.fv.resetField(data.element);
           }
       })
@@ -3177,7 +3176,7 @@ $(document).ready(function() {
 
    .formValidation({
       locale: "'.language_iso(1,"_",1).'",
-      framework: "bootstrap",
+      framework: "bootstrap4",
       icon: {
          required: "glyphicon glyphicon-asterisk",
 
