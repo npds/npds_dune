@@ -556,7 +556,11 @@ legend { /* Titre pour identifier chaque fieldset */
     border-color: #D5B199 #864732 #864732 #D5B199;
 }
 
-
+/* ==> hauteur et scroll des modal */
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
 
 
 /*******Pour les police des formulaires  et deco jmd  */
