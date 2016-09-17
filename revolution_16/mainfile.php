@@ -3149,99 +3149,100 @@ function language_iso($l,$s,$c) {
     return ($ietf);
 }
 
-#autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>inutilisé,  $foo =='' ==> </div> et inclusion footer.php
+#autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>js pur au début du script js,  $foo =='' ==> </div> et inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
-if ($fv=='fv') {
-echo '
-<script type="text/javascript" src="lib/formvalidation/dist/js/formValidation.min.js"></script>
-<script type="text/javascript" src="lib/formvalidation/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
-<script type="text/javascript" src="lib/formvalidation/dist/js/framework/bootstrap4.min.js"></script>
-<script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
-<script type="text/javascript">
-//<![CDATA[
-var diff;
-$(document).ready(function() {
-   $("form")
-   .attr("autocomplete", "off")
+   if ($fv=='fv') {
+      echo '
+   <script type="text/javascript" src="lib/formvalidation/dist/js/formValidation.min.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/framework/bootstrap4.min.js"></script>
+   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
+   <script type="text/javascript">
+   //<![CDATA[
+   '.$arg1.'
+   var diff;
+   $(document).ready(function() {
+      $("form")
+      .attr("autocomplete", "off")
    
-   .on("init.field.fv", function(e, data) {
-      var $parent = data.element.parents(".form-group"),
-       $icon   = $parent.find(\'.fv-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
-      $icon.on("click.clearing", function() {
-          if ($icon.hasClass("fv-control-feedback fa fa-ban fa-lg")) {
-              data.fv.resetField(data.element);
-          }
+      .on("init.field.fv", function(e, data) {
+         var $parent = data.element.parents(".form-group"),
+          $icon   = $parent.find(\'.fv-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
+         $icon.on("click.clearing", function() {
+             if ($icon.hasClass("fv-control-feedback fa fa-ban fa-lg")) {
+                 data.fv.resetField(data.element);
+             }
+         })
       })
-   })
 
-   .formValidation({
-      locale: "'.language_iso(1,"_",1).'",
-      framework: "bootstrap4",
-      icon: {
-         required: "glyphicon glyphicon-asterisk",
+      .formValidation({
+         locale: "'.language_iso(1,"_",1).'",
+         framework: "bootstrap4",
+         icon: {
+            required: "glyphicon glyphicon-asterisk",
 
-         valid: "fa fa-check fa-lg",
-         invalid: "fa fa-ban fa-lg",
-         validating: "glyphicon glyphicon-refresh"
-      },
-      fields: {
-         alpha: {
-         },';
-echo '
-         '.$fv_parametres;
-echo '
-         dzeta: {
+            valid: "fa fa-check fa-lg",
+            invalid: "fa fa-ban fa-lg",
+            validating: "glyphicon glyphicon-refresh"
+         },
+         fields: {
+            alpha: {
+            },';
+   echo '
+            '.$fv_parametres;
+   echo '
+            dzeta: {
+            }
          }
-      }
+      })
+
+      .on("success.validator.fv", function(e, data) {
+      // The password passes the callback validator
+      // voir si on a plus de champs mot de passe : changer par un array de champs ...
+      if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass") && data.validator === "callback") {
+         // Get the score
+         var score = data.result.score,$bar_cont=$("#passwordMeter_cont"),$pass_level=$("#pass-level"),
+             $bar = $("#passwordMeter").find(".progress-bar");
+         switch (true) {
+           case (score === null):
+               $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
+               $bar_cont.attr("value","0");
+               break;
+           case (score <= 0):
+               $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-striped progress-danger");
+               $bar_cont.attr("value","25").removeClass().addClass("progress progress-striped progress-danger");
+               $pass_level.html("Tr&#xE8;s faible").addClass("text-danger");
+               break;
+           case (score > 0 && score <= 2):
+               $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-striped progress-warning");
+               $bar_cont.attr("value","50").removeClass().addClass("progress progress-striped progress-warning");
+               $pass_level.html("Faible").addClass("text-warning");
+               break;
+           case (score > 2 && score <= 4):
+               $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-striped progress-info");
+               $bar_cont.attr("value","75").removeClass().addClass("progress progress-striped progress-info");
+               $pass_level.html("Moyen").addClass("text-info");
+               break;
+           case (score > 4):
+               $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-striped progress-success");
+               $bar_cont.attr("value","100").removeClass().addClass("progress progress-striped progress-success");
+               $pass_level.html("Fort").addClass("text-success");
+               break;
+           default:
+               break;
+         }
+         }
+      });
+
    })
 
-   .on("success.validator.fv", function(e, data) {
-   // The password passes the callback validator
-   // voir si on a plus de champs mot de passe : changer par un array de champs ...
-   if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass") && data.validator === "callback") {
-      // Get the score
-      var score = data.result.score,$bar_cont=$("#passwordMeter_cont"),$pass_level=$("#pass-level"),
-          $bar = $("#passwordMeter").find(".progress-bar");
-      switch (true) {
-        case (score === null):
-            $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
-            $bar_cont.attr("value","0");
-            break;
-        case (score <= 0):
-            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-striped progress-danger");
-            $bar_cont.attr("value","25").removeClass().addClass("progress progress-striped progress-danger");
-            $pass_level.html("Tr&#xE8;s faible").addClass("text-danger");
-            break;
-        case (score > 0 && score <= 2):
-            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-striped progress-warning");
-            $bar_cont.attr("value","50").removeClass().addClass("progress progress-striped progress-warning");
-            $pass_level.html("Faible").addClass("text-warning");
-            break;
-        case (score > 2 && score <= 4):
-            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-striped progress-info");
-            $bar_cont.attr("value","75").removeClass().addClass("progress progress-striped progress-info");
-            $pass_level.html("Moyen").addClass("text-info");
-            break;
-        case (score > 4):
-            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-striped progress-success");
-            $bar_cont.attr("value","100").removeClass().addClass("progress progress-striped progress-success");
-            $pass_level.html("Fort").addClass("text-success");
-            break;
-        default:
-            break;
-      }
-      }
-   });
-
-})
-
-//]]>
-</script>'."\n";
-}
-if ($foo=='') {
-echo '
-</div>';
-include ('footer.php');
-}
+   //]]>
+   </script>'."\n";
+   }
+   if ($foo=='') {
+      echo '
+      </div>';
+      include ('footer.php');
+   }
 }
 ?>
