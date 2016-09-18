@@ -1,0 +1,25 @@
+<div class="bd-article">
+   
+   <div class="subune">
+      <h2 class="subune"><a href='article.php?sid=!N_id!'> !N_titre! </h2>
+	  <p>
+		<div class="pull-left  p-x-1"> !N_sujet! </div>
+		<div class="p-x-1"> !N_texte! </div>
+	  </p>
+      
+<?php
+   if ($notes!='') {
+      echo '
+   <blockquote class="blockquote">'.$notes.'</blockquote>';
+   }
+?>
+      <p class=""><small class="text-muted">[french]Publi&eacute; le[/french][english]Published[/english][chinese]Published[/chinese][spanish]Published[/spanish][german]Published[/german] : !N_date! </small></p>
+   </p>
+		<div class="p-x-1" id="pied_art">
+			<div class="row">
+         <div class="col-sm-6">!N_read_more! <small class="text-muted"></small></div>
+         <p class="pull-right p-r-2">!N_print! !N_friend! <span class="label label-pill label-default">!N_nb_comment!</span> !N_link_comment!</p>
+			</div>
+		</div>
+	</div>
+</div>

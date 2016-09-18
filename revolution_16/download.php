@@ -34,7 +34,7 @@ function geninfo($did) {
       $objZF    =    new FileManagement;
       if ($dfilesize!=0) {
          echo $objZF->file_size_auto($durl, 2);
-         echo $Fichier->Pretty_Size($dfilesize);
+//         echo $Fichier->Pretty_Size($dfilesize);
       } else {
          echo $Fichier->Affiche_Size();
          echo $objZF->file_size_auto($durl, 2);
@@ -125,7 +125,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename,$aff) {
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" title=""><span aria-hidden="true">&times;</span></button>
                <h4 class="modal-title text-left" id="my'.$did.'">'.translate("File Information").' - '.$dfilename.'</h4>
                </div>
-            <div class="modal-body text-left" style="max-height: 1000px;">';
+            <div class="modal-body text-left">';
                geninfo($did);
    echo '</div>
       <div class="modal-footer">

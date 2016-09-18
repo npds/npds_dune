@@ -20,6 +20,11 @@ a:hover {text-decoration:none;}
    -moz-border-radius: 10px;
    border-radius: 10px;
 }
+/* ==> hauteur et scroll des modal */
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
 
 /** <== Classes BS4                                                         **/
 

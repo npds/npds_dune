@@ -684,3 +684,10 @@ background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1); }
     border: 1px solid transparent;
     border-radius: .25rem;
 }
+
+
+/* ==> hauteur et scroll des modal */
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}

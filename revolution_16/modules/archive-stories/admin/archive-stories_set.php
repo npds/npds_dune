@@ -80,13 +80,9 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             </div>
          </div>
       </fieldset>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      inpandfieldlen("arch_titre",400);
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='inpandfieldlen("arch_titre",400);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPath, $ModStart) {
