@@ -1496,7 +1496,7 @@ function pollMain($pollID,$pollClose) {
       }
    }
    if (!$pollClose) {
-      $inputvote = '<button class="btn btn-primary-outline btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
+      $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
    }
    $boxContent .= '
    <div class="form-group">'.$inputvote.'</div>
@@ -2186,7 +2186,7 @@ function lnlbox() {
             <p><span class="help-block">'.translate("Sign up now to receive our lastest infos.").'</span></p>
             <div class="form-group row">
                <div class="col-sm-12">
-                  <button type="submit" class="btn btn-primary-outline btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Submit").'</button>
+                  <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Submit").'</button>
                </div>
             </div>
          </form>'

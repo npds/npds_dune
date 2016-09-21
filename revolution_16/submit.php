@@ -103,7 +103,7 @@ function defaultDisplay() {
       <div class="form-group row">
          <div class="col-sm-12">
             <span class="help-block">'.translate("You must preview once before you can submit").'</span>
-            <input class="btn btn-primary-outline" type="submit" name="op" value="'.translate("Preview").'" />
+            <input class="btn btn-outline-primary" type="submit" name="op" value="'.translate("Preview").'" />
          </div>
       </div>
    </form>';

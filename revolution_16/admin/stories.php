@@ -103,7 +103,7 @@ function SelectCategory($cat) {
     }
    echo '
             </select>
-            <p class="help-block text-xs-right"><a href="admin.php?op=AddCategory" class="btn btn-primary-outline btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-primary-outline btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-danger-outline btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a></p>
+            <p class="help-block text-xs-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a></p>
          </div>
       </div>';
 }
@@ -160,7 +160,7 @@ function SaveCategory($title) {
    $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
    if ($check) {
       $what1 = '<div class="alert alert-danger" role="alert">'.adm_translate("Cette Catégorie existe déjà !").'</div>';
-      $what2 = '<a href="javascript:history.go(-1)" class="btn btn-danger-outline">'.adm_translate("Retour en arrière, pour changer le Nom").'</a>';
+      $what2 = '<a href="javascript:history.go(-1)" class="btn btn-outline-danger">'.adm_translate("Retour en arrière, pour changer le Nom").'</a>';
    } else {
    $what1 = '<div class="alert alert-success" role="alert">'.adm_translate("Nouvelle Catégorie ajoutée").'</div>';
    $what2 = '<a href="admin.php" class="btn btn-secondary">'.adm_translate("Retour à l'index d'administration").'</a>';
@@ -315,8 +315,8 @@ function DelCategory($cat) {
             echo adm_translate("ou les affecter à une autre Catégorie.").'<br /></p>
             <p align="text-xs-center"><strong>'.adm_translate("Que voulez-vous faire ?").'</strong></p>
          </div>
-         <a href="admin.php?op=YesDelCategory&amp;catid='.$cat.'" class="btn btn-danger-outline">'.adm_translate("Tout supprimer").'</a>
-         <a href="admin.php?op=NoMoveCategory&amp;catid='.$cat.'" class="btn btn-primary-outline">'.adm_translate("Affecter à une autre Catégorie").'</a></p>';
+         <a href="admin.php?op=YesDelCategory&amp;catid='.$cat.'" class="btn btn-outline-danger">'.adm_translate("Tout supprimer").'</a>
+         <a href="admin.php?op=NoMoveCategory&amp;catid='.$cat.'" class="btn btn-outline-primary">'.adm_translate("Affecter à une autre Catégorie").'</a></p>';
       }
    }
    adminfoot('','','','');

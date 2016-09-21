@@ -1012,7 +1012,7 @@ if (file_exists("themes/$Default_Theme/html/modules/f-manager/$theme_fma")) {
 if ($inclusion) {
    $Xcontent=join("",file($inclusion));
    $Xcontent=str_replace("_back",extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace("_refresh","<a class=\"btn btn-primary-outline btn-small\" href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."$urlext_fma\"><i class=\"fa fa-refresh fa-spin\"></i>&nbsp;".fma_translate("Rafraichir")."</a>",$Xcontent);
+   $Xcontent=str_replace("_refresh","<a class=\"btn btn-outline-primary btn-sm\" href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."$urlext_fma\"><i class=\"fa fa-refresh fa-spin\"></i>&nbsp;".fma_translate("Rafraichir")."</a>",$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace("_size",$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);

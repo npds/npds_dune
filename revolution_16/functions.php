@@ -440,7 +440,7 @@ function searchblock() {
             <label class="sr-only" for="term">'.translate('Search').'</label>
             <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
          </div>
-         <button type="submit" class="btn btn-primary-outline">'.translate("Submit").'</button>
+         <button type="submit" class="btn btn-outline-primary">'.translate("Submit").'</button>
       </form>
    </nav>';
    return ($ibid);

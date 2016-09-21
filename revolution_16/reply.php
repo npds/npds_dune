@@ -195,7 +195,7 @@ if ($submitS) {
       echo '
    <h4>'.translate("Post Reply in Topic:").' '.$title_topic.'</h4>
    <p class="alert alert-danger">'.translate("You must type a message to post.").'</p>
-   <a class="btn btn-primary-outline" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>';
+   <a class="btn btn-outline-primary" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>';
    }
 } else {
    include('header.php');
@@ -337,8 +337,8 @@ if ($submitS) {
       echo '
                   <textarea class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
                   <span class="help-block text-xs-right">
-                     <button class="btn btn-danger-outline btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
-                     <button class="btn btn-primary-outline btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>
                <div class="card-footer text-muted">';
@@ -435,7 +435,7 @@ if ($submitS) {
             }
          }
        echo '
-                  &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+                  &nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
      
          echo '
                   <span class="pull-xs-right">';
@@ -453,7 +453,7 @@ if ($submitS) {
                </div>
                <div class="card-block">
                   <span class="text-muted pull-xs-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
-                  <div class="card-text p-t-1">';
+                  <div class="card-text p-t-2">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
             $message = smilie($message);

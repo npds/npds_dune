@@ -109,7 +109,7 @@ function login() {
             </div>
             <div class="form-group row">
                <div class="col-sm-offset-3 col-sm-9">
-                  <button class="btn btn-primary-outline" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+                  <button class="btn btn-outline-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>
             </div>
             <input type="hidden" name="op" value="login" />

@@ -152,7 +152,7 @@ include("auth.php");
       if ($display) {
          echo '
                   <tr class="table-danger">
-                     <td colspan="6"><input type="hidden" name="total_messages" value="'.$total_messages.'"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+                     <td colspan="6"><input type="hidden" name="total_messages" value="'.$total_messages.'"><button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
                   </tr>';
       }
       echo '
@@ -225,7 +225,7 @@ include("auth.php");
       if ($display) {
          echo '
          <tr class="table-danger">
-            <td colspan="6"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+            <td colspan="6"><button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
          </tr>
          <input type="hidden" name="total_messages" value="'.$total_messages.'" />
          <input type="hidden" name="type" value="outbox" />';

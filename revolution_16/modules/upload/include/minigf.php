@@ -171,9 +171,9 @@ function confirmSendFile(f) {
       $total_sz = $Fichier->file_size_format($tsz,1);
       
       echo '<input type="hidden" name="visible_list" value="'.$visible_list.'">';
-      $att_inline_button='<input type="button" class="btn btn-primary-outline btn-sm" value="'.upload_translate("Adapter").'" onclick="InlineType(this.form);" />';
+      $att_inline_button='<input type="button" class="btn btn-outline-primary btn-sm" value="'.upload_translate("Adapter").'" onclick="InlineType(this.form);" />';
       if ($Mmod) {
-         $visu_button='<input type="button" class="btn btn-primary-outline btn-sm" value="'.upload_translate("Adapter").'" onclick="visibleFile(this.form);" />';
+         $visu_button='<input type="button" class="btn btn-outline-primary btn-sm" value="'.upload_translate("Adapter").'" onclick="visibleFile(this.form);" />';
       }
       if ($ibid=theme_image("upload/arrow.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/upload/arrow.gif";}
       $att_table.='
