@@ -53,7 +53,7 @@ function email_user() {
             <div id="div_groupe" class="form-group row">
                <label class="form-control-label col-sm-4" for="groupe">'.adm_translate("Groupe").'</label>
                <div class="col-sm-8">
-                  <select id="groupe" class="c-select form-control" name="groupe" >
+                  <select id="groupe" class="custom-select form-control" name="groupe" >
                      <option value="0" selected="selected">'.adm_translate("Choisir un groupe");
        $resultID = sql_query("SELECT groupe_id, groupe_name FROM ".$NPDS_Prefix."groupes ORDER BY groupe_id ASC");
        while (list($groupe_id, $groupe_name)=sql_fetch_row($resultID)) {

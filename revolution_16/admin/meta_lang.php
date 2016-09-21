@@ -38,7 +38,7 @@ function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
 
    $list = '
-   <select class="c-select form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="custom-select form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">META-MOT</option>';
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
@@ -55,7 +55,7 @@ function list_meta($meta, $type_meta) {
 }
 function list_meta_type() {
    $list = '
-   <select class="c-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="custom-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="">Type</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=meta">meta</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=mot">mot</option>
@@ -67,7 +67,7 @@ function list_meta_type() {
 function list_type_meta($type_meta) {
    global $NPDS_Prefix;
    $list = '
-   <select class="c-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="custom-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">Type</option>';
    $Q = sql_query("SELECT type_meta FROM ".$NPDS_Prefix."metalang GROUP BY type_meta ORDER BY 'type_meta' ASC");
    while ($resultat = sql_fetch_row($Q))  {
@@ -247,7 +247,7 @@ function Edit_Meta_Lang() {
          else {$sel0 = ' selected';}
       }
       echo '
-      <select class="c-select form-control" name="type_uri">
+      <select class="custom-select form-control" name="type_uri">
          <option'.$sel0.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
          <option'.$sel1.' value="plus">'.adm_translate("Seulement pour ...").'</option>
       </select>
@@ -327,7 +327,7 @@ function Creat_Meta_Lang() {
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="type_uri">'.adm_translate("Restriction").'</label>
          <div class="col-sm-12">
-            <select class="c-select form-control" name="type_uri">
+            <select class="custom-select form-control" name="type_uri">
                <option'.$sel.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
                <option'.$sel.' value="plus">'.adm_translate("Seulement pour ...").'</option>
             </select>

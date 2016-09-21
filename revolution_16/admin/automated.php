@@ -83,7 +83,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
+            <select class="custom-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
       </div>';
 }
@@ -95,7 +95,7 @@ function SelectCategory($cat) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="catid">';
+            <select class="custom-select form-control" name="catid">';
    if ($cat == 0) $sel = 'selected="selected"';
    else $sel = '';
    echo '
@@ -251,7 +251,7 @@ function autoEdit($anid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';

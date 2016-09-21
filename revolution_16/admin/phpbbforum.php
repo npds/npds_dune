@@ -195,7 +195,7 @@ function ForumGo($cat_id) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="forum_access">
+            <select class="custom-select form-control" name="forum_access">
                <option value="0">'.adm_translate("Publication Anonyme autorisée").'</option>
                <option value="1">'.adm_translate("Utilisateur enregistré uniquement").'</option>
                <option value="2">'.adm_translate("Modérateurs uniquement").'</option>
@@ -206,7 +206,7 @@ function ForumGo($cat_id) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="forum_type">'.adm_translate("Type").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="forum_type" id="forum_type">
+            <select class="custom-select form-control" name="forum_type" id="forum_type">
                <option value="0">'.adm_translate("Public").'</option>
                <option value="1">'.adm_translate("Privé").'</option>
                <option value="5">PHP Script + '.adm_translate("Groupe").'</option>
@@ -222,7 +222,7 @@ function ForumGo($cat_id) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="arbre">
+            <select class="custom-select form-control" name="arbre">
                <option value="0">'.adm_translate("Standard").'</option>
                <option value="1">'.adm_translate("Arbre").'</option>
             </select>
@@ -231,7 +231,7 @@ function ForumGo($cat_id) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="attachement">'.adm_translate("Attachement").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="attachement">
+            <select class="custom-select form-control" name="attachement">
                <option value="0">'.adm_translate("Non").'</option>
                <option value="1">'.adm_translate("Oui").'</option>
             </select>
@@ -332,7 +332,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="forum_access">';
+            <select class="custom-select form-control" name="forum_access">';
    if ($forum_access == 0) { $sel0=' selected="selected"'; }
    if ($forum_access == 1) { $sel1=' selected="selected"'; }
    if ($forum_access == 2) { $sel2=' selected="selected"'; }
@@ -348,7 +348,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="cat_id">'.adm_translate("Catégories").' </label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat_id">';
+            <select class="custom-select form-control" name="cat_id">';
    $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories");
    while(list($cat_id, $cat_title) = sql_fetch_row($result)) {
       if ($cat_id == $cat_id_1) {
@@ -366,7 +366,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="forum_type">'.adm_translate("Type").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" id="forum_type" name="forum_type">';
+            <select class="custom-select form-control" id="forum_type" name="forum_type">';
    if ($forum_type == 0) $sel0=' selected="selected"'; else $sel0='';
    if ($forum_type == 1) $sel1=' selected="selected"'; else $sel1='';
    if ($forum_type == 5) $sel5=' selected="selected"'; else $sel5='';
@@ -391,7 +391,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="arbre">';
+            <select class="custom-select form-control" name="arbre">';
    if ($arbre)
       echo '
                <option value="0">'.adm_translate("Standard").'</option>
@@ -408,7 +408,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="attachement">'.adm_translate("Attachement").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="attachement">';
+            <select class="custom-select form-control" name="attachement">';
    if ($attachement)
       echo '
                <option value="0">'.adm_translate("Non").'</option>

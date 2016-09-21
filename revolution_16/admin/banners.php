@@ -196,7 +196,7 @@ function BannersAdmin() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cid">';
+            <select class="custom-select form-control" name="cid">';
    $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient");
    while(list($cid, $name) = sql_fetch_row($result)) {
    echo '
@@ -387,7 +387,7 @@ function BannerEdit($bid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="cid">'.adm_translate("Nom de l'Annonceur").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cid">';
+            <select class="custom-select form-control" name="cid">';
    $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
    list($cid, $name) = sql_fetch_row($result);
    echo '

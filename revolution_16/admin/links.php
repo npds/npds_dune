@@ -94,7 +94,7 @@ function links() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="cat">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
        while(list($ccid, $ctitle) = sql_fetch_row($result2)) {
           $sel = '';
           if ($cid==$ccid AND $sid==0) {
@@ -160,7 +160,7 @@ function links() {
     echo '
          <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
       echo '
                <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -252,7 +252,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cid">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="cid">';
+               <select class="custom-select form-control" name="cid">';
       while(list($ccid, $ctitle) = sql_fetch_row($result)) {
          echo '
                   <option value="'.$ccid.'">'.aff_langue($ctitle).'</option>';
@@ -283,7 +283,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="cat">';
+               <select class="custom-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
        echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -433,7 +433,7 @@ function LinksModLink($lid) {
          <input type="hidden" name="lid" value="'.$lid.'" />
          <label class="form-control-label col-sm-4 " for="hits">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
     while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
        $sel = "";
        if ($cid==$ccid AND $sid==0) {

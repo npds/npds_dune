@@ -78,7 +78,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
+            <select class="custom-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
       </div>';
 }
@@ -90,7 +90,7 @@ function SelectCategory($cat) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="catid">';
+            <select class="custom-select form-control" name="catid">';
    if ($cat == 0) $sel = 'selected="selected"';
    else $sel = '';
    echo '
@@ -200,7 +200,7 @@ function EditCategory($catid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="catid">'.adm_translate("Sélectionner une Catégorie").'</label>
          <div class="col-sm-12">
-            <select class="c-select form-control" name="catid">';
+            <select class="custom-select form-control" name="catid">';
       echo '
                <option name="catid" value="0">'.adm_translate("Articles").'</option>';
       while(list($catid, $title) = sql_fetch_row($selcat)) {
@@ -283,7 +283,7 @@ function DelCategory($cat) {
       <div class="form-group row">
       <label class="form-control-label col-sm-12" for="cat">'.adm_translate("Sélectionner une Catégorie à supprimer").'</label>
          <div class="col-sm-12">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
         while(list($catid, $title) = sql_fetch_row($selcat)) {
             echo '
                <option name="cat" value="'.$catid.'">'.aff_langue($title).'</option>';
@@ -360,7 +360,7 @@ function NoMoveCategory($catid, $newcat) {
       <div class="form-group row">
          <label class="form-control-label sr-only" for="newcat">'.adm_translate("Sélectionner la nouvelle Catégorie : ").'</label>
          <div class="col-sm-12">
-            <select class="c-select form-control" name="newcat">
+            <select class="custom-select form-control" name="newcat">
                <option name="newcat" value="0">'.adm_translate("Articles").'</option>';
       while(list($newcat, $title) = sql_fetch_row($selcat)) {
          echo '
@@ -456,7 +456,7 @@ function displayStory ($qid) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -524,7 +524,7 @@ function displayStory ($qid) {
    echo '
    <input type="hidden" name="qid" value="'.$qid.'" />
    <input type="hidden" name="uid" value="'.$uid.'" />
-   <select class="c-select form-control" name="op">
+   <select class="custom-select form-control" name="op">
       <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
       <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
       <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
@@ -583,7 +583,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     <label class="form-control-label col-sm-4">'.adm_translate("Titre").'</label>
     <input class="textbox" type="text" name="subject" size="50" value="'.$subject.'" />
     <label class="form-control-label col-sm-4">'.adm_translate("Sujet").'</label>
-    <select class="c-select form-control" name="topic">';
+    <select class="custom-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
     <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -627,7 +627,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     echo '
     <input type="hidden" name="qid" value="'.$qid.'" />
     <input type="hidden" name="uid" value="'.$uid.'" />
-    <br /><select class="c-select form-control" name="op">
+    <br /><select class="custom-select form-control" name="op">
     <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
     <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
     <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
@@ -756,7 +756,7 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -974,7 +974,7 @@ function adminStory() {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-         <select class="c-select form-control" name="topic">';
+         <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
 //probablement ici aussi mettre les droits pour les gestionnaires de topics ??
    if ($radminsuper) echo '
@@ -1096,7 +1096,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -1149,7 +1149,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       <div class="form-group row">
          <input type="hidden" name="author" value="'.$aid.'" />
          <div class="col-xs-7">
-            <select class="c-select form-control" name="op">
+            <select class="custom-select form-control" name="op">
                <option value="PreviewAdminStory" selected>'.adm_translate("Prévisualiser").'</option>
                <option value="PostStory">'.adm_translate("Poster un Article Admin").'</option>
             </select>

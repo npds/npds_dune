@@ -91,7 +91,7 @@ function HeadlinesAdmin() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" id="status" name="status">
+               <select class="custom-select form-control" id="status" name="status">
                   <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
                   <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
                </select>
@@ -151,7 +151,7 @@ function HeadlinesEdit($hid) {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="status">';
+               <select class="custom-select form-control" name="status">';
    if ($status == 1) {
       $sel_a = 'selected="selected"';
    } else {

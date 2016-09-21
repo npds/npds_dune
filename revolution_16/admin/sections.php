@@ -92,7 +92,7 @@ function sousrub_select($secid) {
    global $NPDS_Prefix;
    $ok_pub=false;
    $tmp='
-         <select name="secid" class="c-select form-control">';
+         <select name="secid" class="custom-select form-control">';
    $result = sql_query("SELECT distinct rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    while(list($rubid, $rubname) = sql_fetch_row($result)) {
       $rubname = aff_langue($rubname);
@@ -467,7 +467,7 @@ function new_rub_section($type) {
             <div class="row">
                <label class="form-control-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
                <div class="col-sm-8">
-                  <select class="c-select form-control" name="rubref">';
+                  <select class="custom-select form-control" name="rubref">';
       if ($radminsuper==1) {
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
       } else {
@@ -748,7 +748,7 @@ function sectionedit($secid) {
             <label class="form-control-label" for="rubref">'.adm_translate("Rubriques").'</label>';
    if ($radminsuper==1) {
       echo '
-      <select class="c-select form-control" name="rubref">';
+      <select class="custom-select form-control" name="rubref">';
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
          while(list($rubid, $rubname) = sql_fetch_row($result)) {
             if ($rubref==$rubid) {$sel='selected="selected"';} else {$sel='';}

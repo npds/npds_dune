@@ -44,7 +44,7 @@ function groupe($groupe) {
    }
    if ($nbg>5) {$nbg=5;}
    return ('
-   <select multiple="multiple" class="c-select form-control" name="Mmember[]" size="'.$nbg.'">
+   <select multiple="multiple" class="custom-select form-control" name="Mmember[]" size="'.$nbg.'">
    '.$str.'
    </select>');
 }
@@ -206,7 +206,7 @@ function blocks() {
                         </fieldset>
                         <div class="form-group row">
                            <div class="col-sm-12">
-                              <select class="c-select form-control" name="op">
+                              <select class="custom-select form-control" name="op">
                                  <option value="changelblock" selected="selected">'.adm_translate("Modifier un Bloc gauche").'</option>
                                  <option value="deletelblock">'.adm_translate("Effacer un Bloc gauche").'</option>
                                  <option value="droitelblock">'.adm_translate("Transférer à Droite").'</option>
@@ -375,7 +375,7 @@ function blocks() {
                         </fieldset>
                         <div class="form-group row">
                            <div class="col-sm-12">
-                              <select class="c-select form-control" name="op">
+                              <select class="custom-select form-control" name="op">
                                  <option value="changerblock" selected="selected">'.adm_translate("Modifier un Bloc droit").'</option>
                                  <option value="deleterblock">'.adm_translate("Effacer un Bloc droit").'</option>
                                  <option value="gaucherblock">'.adm_translate("Transférer à Gauche").'</option>

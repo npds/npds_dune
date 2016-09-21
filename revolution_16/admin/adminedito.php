@@ -33,7 +33,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          <fieldset>
             <legend>'.adm_translate("Type d'éditorial").'</legend>
             <div class="form-group">
-               <select class="c-select form-control" name="edito_type" onchange="submit()">
+               <select class="custom-select form-control" name="edito_type" onchange="submit()">
                   <option value="0">'.adm_translate("Modifier l'Editorial").' ...</option>
                   <option value="G">'.adm_translate("Anonyme").'</option>
                   <option value="M">'.adm_translate("Membre").'</option>

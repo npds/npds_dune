@@ -33,7 +33,7 @@ function Ephemerids() {
       <div class="form-group row">
          <div class="col-xs-4">
             <label class="form-control-label" for="did">'.adm_translate("Jour").'</label>
-            <select class="c-select form-control" id="did" name="did">';
+            <select class="custom-select form-control" id="did" name="did">';
    while ($nday<=31) {
       echo '
                <option name="did">'.$nday.'</option>';
@@ -46,7 +46,7 @@ function Ephemerids() {
     echo '
          <div class="col-xs-4">
             <label class="form-control-label" for="mid">'.adm_translate("Mois").'</label>
-            <select class="c-select form-control" id="mid" name="mid">';
+            <select class="custom-select form-control" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
                <option name="mid">'.$nmonth.'</option>';
@@ -81,7 +81,7 @@ function Ephemerids() {
       <div class="form-group row">
          <div class="col-xs-4">
             <label class="form-control-label" for="did">'.adm_translate("Jour").'</label>
-            <select class="c-select form-control" id="did" name="did">';
+            <select class="custom-select form-control" id="did" name="did">';
    while ($nday<=31) {
       echo '
                <option name="did">'.$nday.'</option>';
@@ -94,7 +94,7 @@ function Ephemerids() {
     echo '
          <div class="col-xs-4">
             <label class="form-control-label" for="mid">'.adm_translate("Mois").'</label>
-            <select class="c-select form-control" id="mid" name="mid">';
+            <select class="custom-select form-control" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
                <option name="mid">'.$nmonth.'</option>';
