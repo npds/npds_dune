@@ -26,7 +26,7 @@ switch ($pdst)
    case "2":
       echo '
       </div>
-         <div id="col_LB" class="col 2 collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="col-md-3">';
             leftblocks();
             rightblocks();
       echo '

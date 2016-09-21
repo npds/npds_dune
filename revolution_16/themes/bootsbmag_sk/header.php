@@ -39,7 +39,7 @@ if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
-$ContainerGlobal="\n".'<div id="container" class="">'."\n";
+$ContainerGlobal="\n".'<div id="container" class="globalpage">'."\n";
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
@@ -62,19 +62,19 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
 switch ($pdst) {
 case '-1':
    echo '
-      <div id="col_princ" class="col-xs-12">';
+      <div id="col_princ" class="col-md-12">';
 break;
 case '2':
    echo '
-      <div id="col_princ" class="col-xs-12 col-sm-9">';
+      <div id="col_princ" class="col-md-9">';
 break;
 default:
    echo '
-      <div id="col_LB" class="col4 collapse navbar-toggleable-sm col-sm-3">';
+      <div id="col_LB" class="col-md-3">';
    leftblocks();
    echo '
       </div>
-      <div id="col_princ" class="col-xs-12 col-sm-9">';
+      <div id="col_princ" class="col-md-12">';
 break;
 }
 ?>
