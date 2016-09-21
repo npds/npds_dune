@@ -650,7 +650,7 @@ function rubriquedit($rubid) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '<h3>'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
    if ($number)
-      echo '<span class="label label-pill label-default">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
+      echo '<span class="tag tag-pill tag-default">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
@@ -741,7 +741,7 @@ function sectionedit($secid) {
    $result2 = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'");
    $number = sql_num_rows($result2);
    if ($number)
-      echo '<span class="label label-pill label-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
+      echo '<span class="tag tag-pill tag-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">

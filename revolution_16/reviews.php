@@ -443,7 +443,7 @@ function showcontent($id) {
    echo '</span>';
    if ($url != '')
       echo '<br /><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
-   echo '<br /><strong>'.translate("Hits:").'</strong><span class="label label-pill label-default">'.$hits.'</span>
+   echo '<br /><strong>'.translate("Hits:").'</strong><span class="tag tag-pill tag-default">'.$hits.'</span>
       </div>';
    if ($admin)
       echo '

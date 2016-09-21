@@ -188,7 +188,7 @@ function GraphicAdmin($hlpfile) {
          else 
          $li_c ='<li class="alerte btn btn-secondary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
-         $li_c .='<span class="alerte-para label label-pill label-danger">'.$SAQ['fretour'].'</span>'."\n";
+         $li_c .='<span class="alerte-para tag tag-pill tag-danger">'.$SAQ['fretour'].'</span>'."\n";
          $li_c .='</a></li>'."\n";
          $bloc_foncts_A .= $li_c;
          array_pop($cat_n);
