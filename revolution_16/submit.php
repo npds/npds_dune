@@ -66,7 +66,7 @@ function defaultDisplay() {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Select Topic").'</option>';
@@ -157,7 +157,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Select Topic").'</option>';

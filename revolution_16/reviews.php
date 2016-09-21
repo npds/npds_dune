@@ -93,7 +93,7 @@ function write_review() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="score">'.translate("Score").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="score">
+            <select class="custom-select form-control" name="score">
                <option value="10">10</option>
                <option value="9">9</option>
                <option value="8">8</option>

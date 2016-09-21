@@ -495,7 +495,7 @@ switch ($op) {
                $move_file.="<option value=\"copyfile-save\">".fma_translate("Copier")."</option>";
                $move_file.="</select>";
                $move_file.="&nbsp;&nbsp;".extend_ascii($auto[2])."<b> >> </b>";
-               $move_file.="<select class=\"c-select form-control\" name=\"movefile\">";
+               $move_file.="<select class=\"custom-select form-control\" name=\"movefile\">";
                   $move_file.="<option value=\"\">/</option>";
                   $arb=explode("|",$obj->GetDirArbo($basedir_fma));
                   while (list(,$rep)=each($arb)) {
@@ -602,7 +602,7 @@ switch ($op) {
                $chmod_file.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
                $chmod_file.="<input type=\"hidden\" name=\"op\" value=\"chmodfile-save\" />";
                $chmod_file.=extend_ascii($auto[2])." : ";
-               $chmod_file.="<select class=\"c-select form-control\" name=\"chmodfile\">";
+               $chmod_file.="<select class=\"custom-select form-control\" name=\"chmodfile\">";
                $chmod_file.=chmod_pres($obj->GetPerms($auto[3]."/".$auto[2]),"chmodfile");
                $chmod_file.="&nbsp;<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }

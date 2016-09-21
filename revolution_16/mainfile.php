@@ -1640,7 +1640,7 @@ function aff_localzone_langue($ibid) {
    reset ($tab_langue);
    $M_langue= '
    <div class="form-group">
-      <select name="'.$ibid.'" class="c-select form-control" onchange="this.form.submit()">
+      <select name="'.$ibid.'" class="custom-select form-control" onchange="this.form.submit()">
          <option value="">'.translate("Select a language").'</option>';
    while (list($bidon, $langue)=each($tab_langue)) {
       $M_langue.='
@@ -2174,7 +2174,7 @@ function lnlbox() {
       $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
             <div class="form-group">
-               <select name="op" class=" c-select form-control">
+               <select name="op" class=" custom-select form-control">
                   <option value="subscribe">'.translate("Subscribe").'</option>
                   <option value="unsubscribe">'.translate("Unsubscribe").'</option>
                </select>

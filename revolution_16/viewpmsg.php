@@ -57,7 +57,7 @@ include("auth.php");
          <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
             <div class="form-group">
                <label class="sr-only" for="dossier" >'.translate("Topic").'</label>
-               <select class="c-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
+               <select class="custom-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
                   <option value="...">'.translate("Choose a folder/topic").'...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {

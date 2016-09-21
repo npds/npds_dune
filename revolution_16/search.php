@@ -71,7 +71,7 @@ if (!function_exists("Mysql_Connexion")) {
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
    <div class="form-group">
-      <select class="c-select form-control" name="topic">
+      <select class="custom-select form-control" name="topic">
          <option value="">'.translate("All Topics").'</option>';
    $sel='';
    while(list($topicid, $topics) = sql_fetch_row($toplist)) {
@@ -84,7 +84,7 @@ if (!function_exists("Mysql_Connexion")) {
       </select>
    </div>
    <div class="form-group">
-      <select class="c-select form-control" name="category">
+      <select class="custom-select form-control" name="category">
          <option value="0">'.translate("Articles").'</option>';
    $catlist = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    settype($category,"integer");
@@ -102,7 +102,7 @@ if (!function_exists("Mysql_Connexion")) {
    $thing = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors ORDER BY aid");
    echo '
    <div class="form-group">
-      <select class="c-select form-control" name="author">
+      <select class="custom-select form-control" name="author">
          <option value="">'.translate("All Authors").'</option>';
    settype($author,'string');
    $sel='';
@@ -132,7 +132,7 @@ if (!function_exists("Mysql_Connexion")) {
    }
    echo '
       <div class="form-group">
-         <select class="c-select form-control" name="days">
+         <select class="custom-select form-control" name="days">
             <option '.$sel1.' value="0">'.translate("All").'</option>
             <option '.$sel2.' value="7">1 '.translate("week").'</option>
             <option '.$sel3.' value="14">2 '.translate("weeks").'</option>

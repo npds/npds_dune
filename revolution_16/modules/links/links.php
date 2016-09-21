@@ -52,7 +52,7 @@ function SearchForm() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="topicL" >'.translate("Select Topic").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="topicL">';
+               <select class="custom-select form-control" name="topicL">';
       $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
       echo '
                   <option value="">'.translate("All Topics").'</option>';

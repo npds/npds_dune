@@ -44,7 +44,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="arch">';
+               <select class="custom-select form-control" name="arch">';
    if ($arch == 1) {
       $sel_a = 'selected="selected"';
    } else {

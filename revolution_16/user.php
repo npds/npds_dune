@@ -1142,7 +1142,7 @@ function chgtheme() {
       <div class="form-group row">
          <label class="control-label col-lg-5" for="theme">'.translate("Select One Theme").'</label>
          <div class="col-lg-7">
-            <select class="c-select form-control" name="theme">';
+            <select class="custom-select form-control" name="theme">';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
    $thl= sizeof($themelist);
@@ -1179,7 +1179,7 @@ function chgtheme() {
       <div id="skin_choice" class="form-group row">
          <label class="control-label col-lg-5" for="skin">'.translate("Select one skin").'</label>
          <div class="col-lg-7">
-            <select class="c-select form-control" name="skin">';
+            <select class="custom-select form-control" name="skin">';
    $cookie=cookiedecode($user);
    foreach ($skins as $k => $v) {
       echo '

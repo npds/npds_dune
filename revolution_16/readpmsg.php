@@ -169,7 +169,7 @@ echo '<div class="card-block">';
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="dossier">'.translate("Topic").'</label>
             <div class="col-sm-9">
-               <select class="c-select form-control" name="dossier">';
+               <select class="custom-select form-control" name="dossier">';
             while (list($dossier)=sql_fetch_row($result)) {
                echo '
                   <option value="'.$dossier.'">'.$dossier.'</option>';

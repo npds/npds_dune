@@ -356,32 +356,22 @@ include('header.php');
           <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
          }
       }
-               
-   echo '&nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+
+   echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
    echo '<span class="pull-xs-right">';
       if ($myrow['image'] != '') {
-      
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="smil" src="'.$imgtmp.'" alt="icon_post" />';
       } else {
          echo '<img class="smil" src="'.$imgtmpPI.'" alt="icon_post" />';
       }
-      echo '
-               </span></div>';
+      echo '</span>
+            </div>';
       $message=stripslashes($myrow['post_text']);
       echo '
                <div class="card-block">
                   <div class="card-text p-t-1">';
-/*
-      if ($myrow['image'] != '') {
-         if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="smil" src="'.$imgtmp.'" alt="icon_post" />';
-      } else {
-         echo '<img class="smil" src="'.$imgtmpPI.'" alt="icon_post" />';
-      }
-*/
       $date_post=convertdateTOtimestamp($myrow['post_time']);
-//      echo '<span class="text-muted pull-right small">'.translate("Posted: ").post_convertdate($date_post).'</span>';
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
             echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />
@@ -391,15 +381,11 @@ include('header.php');
 
       echo '
                </div>
-               <div class="card-text">';
+               <div class="card-text p-t-1">';
 
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
          $message = smilie($message);
          $message = aff_video_yt($message);
-      }
-      // <A href in the message
-      if (stristr($message,'<a href')) {
-         $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
       }
 //      $message=split_string_without_space($message, 80);
       if (($forum_type=='6') or ($forum_type=='5')) {
@@ -420,10 +406,10 @@ include('header.php');
    echo '
                </div>
             </div>
-         <div class="card-footer">
-            <div class="row">
-               <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
-               <div class=" col-sm-6 text-xs-right">';
+               <div class="card-footer">
+                  <div class="row">
+                     <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
+                     <div class=" col-sm-6 text-xs-right">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -470,14 +456,14 @@ include('header.php');
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Hide this post").'" data-toggle="tooltip"><i class="fa fa-eye-slash fa-lg "></i></a>&nbsp;';
          }
       }
-   }   
+   }
       echo '
+                     </div>
                   </div>
                </div>
             </div>
          </div>
-      </div>
-   </div>';
+      </div>';
       $count++;
     } while($myrow = sql_fetch_assoc($result));
     unset ($tmp_imp);
@@ -519,7 +505,7 @@ include('header.php');
    <div class="form-group row">
       <div class="col-xs-12">
          <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
-         <select class="form-control c-select" name="forum" onchange="submit();">
+         <select class="form-control custom-select" name="forum" onchange="submit();">
             <option value="index">'.translate("Jump To: ").'</option>
             <option value="index">'.translate("Forum Index").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";

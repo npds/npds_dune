@@ -19,7 +19,7 @@ $content  = '';
    $content .= translate("Select One Theme");
    $content .='
    <form action="user2.php" method="post">
-      <select class="c-select form-control" name="theme" onchange="submit()";>';
+      <select class="custom-select form-control" name="theme" onchange="submit()";>';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
    for ($i=0; $i < sizeof($themelist); $i++) {

@@ -440,7 +440,7 @@ echo '
    <div class="form-group row">
       <div class="col-xs-12">
          <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
-         <select class="form-control c-select" name="forum" onchange="submit();">
+         <select class="form-control custom-select" name="forum" onchange="submit();">
             <option value="index">'.translate("Jump To: ").'</option>
             <option value="index">'.translate("Forum Index").'</option>';
       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";

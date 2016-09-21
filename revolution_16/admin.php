@@ -490,7 +490,7 @@ function adminMain($deja_affiches) {
                <input class="form-control" type="number" name="sid" size="10" />
          </div>
          <div class="form-group">
-            <select class="c-select form-control" name="op">
+            <select class="custom-select form-control" name="op">
                <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
                <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
             </select>

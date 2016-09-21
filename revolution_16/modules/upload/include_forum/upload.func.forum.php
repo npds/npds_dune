@@ -68,7 +68,7 @@ function getCheckBox ($name, $value=1, $current, $text="") {
 /************************************************************************/
 function getListBox ($name, $items, $selected="", $multiple=0, $onChange="") {
    $oc = empty ($onChange) ? "" : " onchange=\"$onChange\"";
-   $p = sprintf ("<select class=\"c-select form-control-sm\" name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
+   $p = sprintf ("<select class=\"custom-select form-control-sm\" name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
                 ($multiple == 1)?" multiple":"", $oc);
    if (is_array($items)) {
       reset ($items);
