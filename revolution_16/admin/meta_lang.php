@@ -131,7 +131,7 @@ function List_Meta_Lang() {
       <div class="col-sm-3">'.list_type_meta($type_meta).'</div>
    </div>
    <hr />
-   <h3>META-MOT <span class="label label-default pull-xs-right">'.$ibid.'</span></h3>
+   <h3>META-MOT <span class="tag tag-default pull-xs-right">'.$ibid.'</span></h3>
    <form name="admin_meta_lang" action="admin.php" method="post" onsubmit="return confirm(\''.adm_translate("Supprimer").' ?\')">
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons" >
       <thead>

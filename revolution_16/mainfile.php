@@ -2377,7 +2377,7 @@ function topdownload_data($form, $ordre) {
          if ($form=="short") {
             if ($okfile) { $ibid.="".$lugar." <a href=\"download.php?op=geninfo&amp;did=$did\" title=\"".$ori_dfilename." ".$dd."\" >".$dfilename."</a><br />";}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="label label-default pull-right">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="tag tag-default pull-right">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;

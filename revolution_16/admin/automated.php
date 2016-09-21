@@ -203,7 +203,7 @@ function autoEdit($anid) {
        }
     }
     if (!$affiche) { header("location: admin.php?op=autoStory");}
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);

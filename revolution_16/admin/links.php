@@ -312,7 +312,7 @@ function links() {
    $numrow=sql_num_rows($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Liste des liens").' <span class="label label-default pull-right">'.$numrow.'</span></h3>
+   <h3>'.adm_translate("Liste des liens").' <span class="tag tag-default pull-right">'.$numrow.'</span></h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -542,7 +542,7 @@ function LinksListBrokenLinks() {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="label label-default pull-right">'.$totalbrokenlinks.'</span></h3>
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="tag tag-default pull-right">'.$totalbrokenlinks.'</span></h3>
    - '.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
     - '.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)");
 

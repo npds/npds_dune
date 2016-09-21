@@ -78,9 +78,9 @@ global $NPDS_Prefix;
             if ($url!='') {
                global $popular;
                if ($hits>$popular) {
-                  echo '&nbsp;<span class=" label label-default pull-right ">'.$hits.'</span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
+                  echo '&nbsp;<span class=" tag tag-default pull-right ">'.$hits.'</span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
                } else {
-                  echo '&nbsp;<span class=" label label-default pull-right">'.$hits.'</span>';
+                  echo '&nbsp;<span class=" tag tag-default pull-right">'.$hits.'</span>';
                }
             }
          echo '
@@ -92,9 +92,9 @@ global $NPDS_Prefix;
                echo translate("Hits: ");
                global $popular;
                if ($hits>$popular) {
-                  echo '<span class="label label-default" > </span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
+                  echo '<span class="tag tag-default" > </span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
                } else {
-                  echo '<span class="label label-default">'.$hits.'</span>';
+                  echo '<span class="tag tag-default">'.$hits.'</span>';
                }
                echo '&nbsp;&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-chain-broken fa-lg"></i></a>';
             }

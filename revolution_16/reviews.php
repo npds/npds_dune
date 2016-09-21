@@ -385,7 +385,7 @@ function reviews($field, $order) {
          </tbody>
       </table>';
    }
-   echo '<p class="label label-default">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
+   echo '<p class="tag tag-default">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
 
    sql_free_result($result);
    include ("footer.php");

@@ -112,7 +112,7 @@ function defaultDisplay() {
 
 function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    $subject = stripslashes(str_replace('"','&quot;',(strip_tags($subject))));
    $story = stripslashes($story);

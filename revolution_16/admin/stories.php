@@ -418,7 +418,7 @@ function displayStory ($qid) {
       }
    }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
    
@@ -556,7 +556,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
        }
     }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
     include ('header.php');
     GraphicAdmin($hlpfile);
@@ -718,7 +718,7 @@ function editStory ($sid) {
       }
    }
    if (!$affiche) { header("location: admin.php");}
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -1064,7 +1064,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    //==> controle droit
 //   admindroits($aid,$f_meta_nom); // à voir l'intégration avec les droits sur les topics ...
    //<== controle droit
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
    global $local_user_language;
