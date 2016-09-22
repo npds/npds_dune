@@ -64,7 +64,7 @@ function nmig_Start($name_module,$txtdeb) {
    $display .= '
    </div>
    <div style="text-align: center;">
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">'.adm_translate("Etape suivante").'</a><br />
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary col-xs-12 col-sm-4 offset-sm-4">'.adm_translate("Etape suivante").'</a><br />
    </div>
    '.nmig_copyright();
 }

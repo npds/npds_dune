@@ -233,7 +233,7 @@ function BannersAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4 ">
             <input type="hidden" name="op" value="BannersAdd" />
             <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Bannière").' </button>
          </div>
@@ -282,7 +282,7 @@ function BannersAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4 ">
             <input type="hidden" name="op" value="BannerAddClient" />
             <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un annonceur").'</button>
          </div>
@@ -436,7 +436,7 @@ function BannerEdit($bid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4 ">
             <input type="hidden" name="bid" value="'.$bid.'" />
             <input type="hidden" name="imptotal" value="'.$imptotal.'" />
             <input type="hidden" name="op" value="BannerChange" />
@@ -477,10 +477,10 @@ function BannerClientDelete($cid, $ok=0) {
           ".adm_translate("Cet Annonceur a les BANNIERES ACTIVES suivantes dans")." $sitename :<br /><br />";
        }
        while (list($imageurl, $clickurl) = sql_fetch_row($result2)) {
-          if ($imageurl!="") {
+          if ($imageurl!='') {
              echo "<img src=\"".aff_langue($imageurl)."\" border=\"1\" alt=\"\" /><br /><br />";
           } else {
-             echo $clickurl."<br /><br />";
+             echo $clickurl.'<br /><br />';
           }
        }
     }
@@ -536,7 +536,7 @@ function BannerClientEdit($cid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="cid" value="'.$cid.'" />
             <input type="hidden" name="op" value="BannerClientChange" />
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Modifier Annonceur").'" />

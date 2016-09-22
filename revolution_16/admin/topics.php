@@ -88,7 +88,7 @@ function topicsmanager() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="topicmake" />
             <button class="btn btn-primary col-xs-12" type="submit" ><i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Ajouter un Sujet").'</button>
          </div>
@@ -237,7 +237,7 @@ function topicedit($topicid) {
       <div class="form-group row">
          <input type="hidden" name="topicid" value="'.$topicid.'" />
          <input type="hidden" name="op" value="topicchange" />
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Sauver les modifications").'</button>
             <button class="btn btn-secondary" onclick="javascript:document.location.href=\'admin.php?op=topicsmanager\'">'.adm_translate("Retour en arrière").'</button>
          </div>
@@ -376,7 +376,7 @@ function relatededit($tid, $rid) {
             <input type="hidden" name="rid" value="'.$rid.'" />
          </fieldset>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>

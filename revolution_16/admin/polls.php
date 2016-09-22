@@ -82,7 +82,7 @@ function poll_createPoll() {
    echo '
             <div class="checkbox">
                <div class="row">
-                  <div class="col-sm-offset-3 col-sm-9">
+                  <div class="col-sm-9 offset-sm-3">
                      <label>
                         <input type="checkbox" name="poll_type" value="1" />&nbsp;'.adm_translate("Seulement aux membres").'
                      </label>
@@ -90,7 +90,7 @@ function poll_createPoll() {
                </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-offset-3 col-sm-9">
+               <div class="col-sm-9 offset-sm-3">
                   <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
                </div>
             </div>
@@ -271,7 +271,7 @@ function poll_editPollPosted() {
       echo '
       <div class="checkbox">
          <div class="row">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-9 offset-sm-3">
                <label>
                   <input type="checkbox" name="poll_type" value="1"';
       if ($pollType == "1") echo ' checked="checked"';
@@ -282,7 +282,7 @@ function poll_editPollPosted() {
       </div>
       <div class="checkbox">
          <div class="row">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-9 offset-sm-3">
                <label class="text-danger">
                   <input type="checkbox" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
@@ -292,7 +292,7 @@ function poll_editPollPosted() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-3 col-sm-9">
+         <div class="col-sm-9 offset-sm-3">
             <button class="btn btn-primary" type="submit">Ok</button>
          </div>
       </div>
