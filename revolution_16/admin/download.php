@@ -44,7 +44,7 @@ function groupe($groupe) {
    }
    if ($nbg>5) {$nbg=5;}
    return ('
-   <select multiple="multiple" class="c-select form-control" name="Mprivs[]" size="'.$nbg.'">
+   <select multiple="multiple" class="custom-select form-control" name="Mprivs[]" size="'.$nbg.'">
    '.$str.'
    </select>');
 }
@@ -231,7 +231,7 @@ function DownloadAdmin() {
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" maxlength="250" />
             <span class="help-block text-xs-right"><span id="countcar_dcategory"></span></span>
-            <select class="c-select form-control" name="sdcategory">';
+            <select class="custom-select form-control" name="sdcategory">';
    $result = sql_query("SELECT DISTINCT dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
    while (list($dcategory) = sql_fetch_row($result)) {
       $dcategory=stripslashes($dcategory);
@@ -336,7 +336,7 @@ function DownloadEdit($did) {
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" value="'.stripslashes($dcategory).'" maxlength="250" />
             <span class="help-block text-xs-right"><span id="countcar_dcategory"></span></span>
-            <select class="c-select form-control" name="sdcategory" onchange="adminForm.dcategory.value=options[selectedIndex].value">';
+            <select class="custom-select form-control" name="sdcategory" onchange="adminForm.dcategory.value=options[selectedIndex].value">';
    $result = sql_query("SELECT distinct dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
    while (list($Xdcategory) = sql_fetch_row($result)) {
       if ($Xdcategory==$dcategory) $sel='selected';

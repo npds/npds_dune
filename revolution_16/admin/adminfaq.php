@@ -61,7 +61,7 @@ function FaqAdmin() {
          </div>
          <div class="form-group row">
             <div class="col-sm-12">
-               <button class="btn btn-primary-outline col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
+               <button class="btn btn-outline-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
                <input type="hidden" name="op" value="FaqCatAdd" />
             </div>
          </div>
@@ -183,7 +183,7 @@ function FaqCatEdit($id_cat) {
                <input type="hidden" name="op" value="FaqCatSave" />
                <input type="hidden" name="old_id_cat" value="'.$id_cat.'" />
                <input type="hidden" name="id_cat" value="'.$id_cat.'" />
-               <button class="btn btn-primary-outline col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+               <button class="btn btn-outline-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
             </div>
          </div>
       </fieldset>
@@ -244,8 +244,8 @@ function FaqCatGoEdit($id) {
             <div class="col-sm-12">
                <input type="hidden" name="id" value="'.$id.'" />
                <input type="hidden" name="op" value="FaqCatGoSave" />
-               <button class="btn btn-primary-outline col-xs-12 col-sm-6" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
-               <button class="btn btn-secondary-outline col-xs-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arriére").'</a>
+               <button class="btn btn-outline-primary col-xs-12 col-sm-6" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+               <button class="btn btn-outline-secondary col-xs-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arriére").'</a>
             </div>
          </div>
       </fieldset>

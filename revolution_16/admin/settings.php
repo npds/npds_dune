@@ -207,7 +207,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xDefault_Theme">';
+               <select class="custom-select form-control" name="xDefault_Theme">';
    include("themes/list.php");
    $themelist = explode(" ", $themelist);
    for ($i=0; $i < sizeof($themelist); $i++) {
@@ -231,7 +231,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xlanguage">';
+               <select class="custom-select form-control" name="xlanguage">';
     include("manuels/list.php");
     $languageslist = explode(' ', $languageslist);
     for ($i=0; $i < sizeof($languageslist); $i++) {
@@ -482,7 +482,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xperpage">'.adm_translate("Nombre de liens par page").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xperpage">
+               <select class="custom-select form-control" name="xperpage">
                   <option  value="'.$perpage.'" selected="selected">'.$perpage.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -496,7 +496,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xpopular">'.adm_translate("Nombre de clics sur un lien pour qu'il soit populaire").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xpopular">
+               <select class="custom-select form-control" name="xpopular">
                   <option value="'.$popular.'" selected="selected">'.$popular.'</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -510,7 +510,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xnewlinks">'.adm_translate("Nombre de Liens 'Nouveaux'").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xnewlinks">
+               <select class="custom-select form-control" name="xnewlinks">
                   <option value="'.$newlinks.'" selected="selected">'.$newlinks.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -524,7 +524,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xtoplinks">'.adm_translate("Nombre de Liens 'Meilleur'").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xtoplinks">
+               <select class="custom-select form-control" name="xtoplinks">
                   <option value="'.$toplinks.'" selected="selected">'.$toplinks.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -538,7 +538,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xlinksresults">'.adm_translate("Nombre de liens dans les résultats des recherches").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="xlinksresults">
+               <select class="custom-select form-control" name="xlinksresults">
                   <option value="'.$linksresults.'" selected="selected">'.$linksresults.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -729,7 +729,7 @@ function Configure() {
             <div class="row">
                <label class="form-control-label col-sm-7 col-md-7" for="xmoderate">'.adm_translate("Type de modération").'</label>
                <div class="col-sm-5 col-md-5">
-                  <select class="c-select form-control" name="xmoderate">';
+                  <select class="custom-select form-control" name="xmoderate">';
    if ($moderate==1) {
       echo '
                      <option value="1" selected="selected">'.adm_translate("Modération par l'Administrateur").'</option>
@@ -799,7 +799,7 @@ function Configure() {
             <div class="row">
                <label class="form-control-label col-sm-5 col-md-5" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les sondages").'</label>
                <div class="col-sm-7 col-md-7">
-                  <select class="c-select form-control" name="xmaxOptions">
+                  <select class="custom-select form-control" name="xmaxOptions">
                      <option value="'.$maxOptions.'">'.$maxOptions.'</option>
                      <option value="10">10</option>
                      <option value="12">12</option>
@@ -970,7 +970,7 @@ function Configure() {
             <div class="row">
                <label class="form-control-label col-sm-8" for="xadmart">'.adm_translate("Nombres d'articles en mode administration").'</label>
                <div class="col-sm-4">
-                  <select class="c-select form-control" name="xadmart">
+                  <select class="custom-select form-control" name="xadmart">
                      <option value="'.$admart.'">'.$admart.'</option>
                      <option value="10">10</option>
                      <option value="15">15</option>
@@ -985,7 +985,7 @@ function Configure() {
             <div class="row">
                <label class="form-control-label col-sm-8" for="xminpass">'.adm_translate("Longueur minimum du mot de passe des utilisateurs").'</label>
                <div class="col-sm-4">
-                  <select class="c-select form-control" name="xminpass">
+                  <select class="custom-select form-control" name="xminpass">
                      <option value="'.$minpass.'">'.$minpass.'</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
@@ -1000,7 +1000,7 @@ function Configure() {
             <div class="row">
                <label class="form-control-label col-sm-8" for="xshow_user">'.adm_translate("Nombre d'utilisateurs listés").'</label>
                <div class="col-sm-4">
-                  <select class="c-select form-control" name="xshow_user">
+                  <select class="custom-select form-control" name="xshow_user">
                      <option value="'.$show_user.'">'.$show_user.'</option>
                      <option value="10">10</option>
                      <option value="20">20</option>
@@ -1204,7 +1204,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xhttprefmax">'.adm_translate("Combien de référants au maximum").'</label>
             <div class="col-sm-4">
-               <select class="c-select form-control" name="xhttprefmax">
+               <select class="custom-select form-control" name="xhttprefmax">
                   <option value="'.$httprefmax.'">'.$httprefmax.'</option>
                   <option value="100">100</option>
                   <option value="250">250</option>
@@ -1240,7 +1240,7 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xdownload_cat">'.adm_translate("Rubrique de téléchargement").'</label>
             <div class="col-sm-4">
-               <select class="c-select form-control" name="xdownload_cat">
+               <select class="custom-select form-control" name="xdownload_cat">
                   <option value="'.$download_cat.'">'.aff_langue($download_cat).'</option>';
    $result = sql_query("SELECT distinct dcategory FROM ".$NPDS_Prefix."downloads");
    while (list($category) = sql_fetch_row($result)) {
@@ -1369,7 +1369,7 @@ function Configure() {
    <div class="form-group row">
       <label class="form-control-label col-sm-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
-         <select class="c-select form-control" name="xsavemysql_size">
+         <select class="custom-select form-control" name="xsavemysql_size">
             <option value="256" '.$sel_size256.'>256 Ko</option>
             <option value="512" '.$sel_size512.'>512 Ko</option>
             <option value="1024" '.$sel_size1024.'>1024 Ko</option>
@@ -1387,7 +1387,7 @@ function Configure() {
    <div class="form-group row">
       <label class="form-control-label col-sm-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
-         <select class="c-select form-control" name="xsavemysql_mode">
+         <select class="custom-select form-control" name="xsavemysql_mode">
             <option value="1" '.$type_save1.'>'.adm_translate("Toute tables. Fichier envoyé au navigateur. Pas de limite de taille").'</option>
             <option value="2" '.$type_save2.'>'.adm_translate("Fichiers dans /slogs. table par table, tables non scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
             <option value="3" '.$type_save3.'>'.adm_translate("Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>

@@ -52,7 +52,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
       $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
       while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
          $sel = '';
@@ -81,7 +81,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="topicL">';
+            <select class="custom-select form-control" name="topicL">';
          $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
          echo '
                <option value="">'.translate("All Topics").'</option>';

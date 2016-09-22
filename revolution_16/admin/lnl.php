@@ -310,7 +310,7 @@ function main() {
          if ($groupe_id=="0") {$groupe_id="";}
          $tmp_groupe.="<option value=\"$groupe_id\" $sel3>$groupe_name</option>\n";
       }
-      echo '<select class="c-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>';
+      echo '<select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>';
       // ---- Groupes
       echo "<input type=\"radio\" value=\"Out\" name=\"Xtype\" /> ".adm_translate("Seulement aux prospects")." - ";
       echo '

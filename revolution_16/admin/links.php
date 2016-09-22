@@ -94,7 +94,7 @@ function links() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="cat">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
        while(list($ccid, $ctitle) = sql_fetch_row($result2)) {
           $sel = '';
           if ($cid==$ccid AND $sid==0) {
@@ -160,7 +160,7 @@ function links() {
     echo '
          <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
       echo '
                <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -252,7 +252,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cid">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="cid">';
+               <select class="custom-select form-control" name="cid">';
       while(list($ccid, $ctitle) = sql_fetch_row($result)) {
          echo '
                   <option value="'.$ccid.'">'.aff_langue($ctitle).'</option>';
@@ -283,7 +283,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="cat">';
+               <select class="custom-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
        echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -312,7 +312,7 @@ function links() {
    $numrow=sql_num_rows($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Liste des liens").' <span class="label label-default pull-right">'.$numrow.'</span></h3>
+   <h3>'.adm_translate("Liste des liens").' <span class="tag tag-default pull-right">'.$numrow.'</span></h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -433,7 +433,7 @@ function LinksModLink($lid) {
          <input type="hidden" name="lid" value="'.$lid.'" />
          <label class="form-control-label col-sm-4 " for="hits">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
     while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
        $sel = "";
        if ($cid==$ccid AND $sid==0) {
@@ -542,7 +542,7 @@ function LinksListBrokenLinks() {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="label label-default pull-right">'.$totalbrokenlinks.'</span></h3>
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="tag tag-default pull-right">'.$totalbrokenlinks.'</span></h3>
    - '.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
     - '.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)");
 

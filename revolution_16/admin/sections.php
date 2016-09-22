@@ -92,7 +92,7 @@ function sousrub_select($secid) {
    global $NPDS_Prefix;
    $ok_pub=false;
    $tmp='
-         <select name="secid" class="c-select form-control">';
+         <select name="secid" class="custom-select form-control">';
    $result = sql_query("SELECT distinct rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    while(list($rubid, $rubname) = sql_fetch_row($result)) {
       $rubname = aff_langue($rubname);
@@ -467,7 +467,7 @@ function new_rub_section($type) {
             <div class="row">
                <label class="form-control-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
                <div class="col-sm-8">
-                  <select class="c-select form-control" name="rubref">';
+                  <select class="custom-select form-control" name="rubref">';
       if ($radminsuper==1) {
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
       } else {
@@ -650,7 +650,7 @@ function rubriquedit($rubid) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '<h3>'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
    if ($number)
-      echo '<span class="label label-pill label-default">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
+      echo '<span class="tag tag-pill tag-default">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
@@ -741,14 +741,14 @@ function sectionedit($secid) {
    $result2 = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'");
    $number = sql_num_rows($result2);
    if ($number)
-      echo '<span class="label label-pill label-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
+      echo '<span class="tag tag-pill tag-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
             <label class="form-control-label" for="rubref">'.adm_translate("Rubriques").'</label>';
    if ($radminsuper==1) {
       echo '
-      <select class="c-select form-control" name="rubref">';
+      <select class="custom-select form-control" name="rubref">';
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
          while(list($rubid, $rubname) = sql_fetch_row($result)) {
             if ($rubref==$rubid) {$sel='selected="selected"';} else {$sel='';}

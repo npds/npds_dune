@@ -83,7 +83,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
+            <select class="custom-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
       </div>';
 }
@@ -95,7 +95,7 @@ function SelectCategory($cat) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="catid">';
+            <select class="custom-select form-control" name="catid">';
    if ($cat == 0) $sel = 'selected="selected"';
    else $sel = '';
    echo '
@@ -108,7 +108,7 @@ function SelectCategory($cat) {
     }
    echo '
             </select>
-            <p class="help-block text-xs-right"><a href="admin.php?op=AddCategory" class="btn btn-primary-outline btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-primary-outline btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-danger-outline btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a></p>
+            <p class="help-block text-xs-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a></p>
          </div>
       </div>';
 }
@@ -203,7 +203,7 @@ function autoEdit($anid) {
        }
     }
     if (!$affiche) { header("location: admin.php?op=autoStory");}
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -251,7 +251,7 @@ function autoEdit($anid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';

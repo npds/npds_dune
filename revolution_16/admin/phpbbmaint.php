@@ -232,7 +232,7 @@ function MergeForum() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="oriforum">';
+               <select class="custom-select form-control" name="oriforum">';
    $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id";
    if ($result = sql_query($sql)) {
       if ($myrow = sql_fetch_assoc($result)) {
@@ -255,7 +255,7 @@ function MergeForum() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="destforum">';
+               <select class="custom-select form-control" name="destforum">';
     if ($result = sql_query($sql)) {
        if ($myrow = sql_fetch_assoc($result)) {
           do {

@@ -33,7 +33,7 @@ function displayUsers() {
         <fieldset>
             <div class="form-group">
                 <label for="op">'.adm_translate("Format de fichier").'</label>
-                <select class="c-select form-control" name="op">
+                <select class="custom-select form-control" name="op">
                     <option value="extractUserCSV">'.adm_translate("Au format CSV").'</option>
                 </select>
             </div>
@@ -48,7 +48,7 @@ function displayUsers() {
                <label for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
                <input class="form-control" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
             </div>
-            <select class="c-select form-control" name="op">
+            <select class="custom-select form-control" name="op">
                 <option value="modifyUser">'.adm_translate("Modifier un utilisateur").'</option>
                 <option value="unsubUser">'.adm_translate("Désabonner un utilisateur").'</option>
                 <option value="delUser">'.adm_translate("Supprimer un utilisateur").'</option>

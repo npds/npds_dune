@@ -181,7 +181,10 @@ if (isset($submitS)) {
         $message='';
      }
      if ($formulaire!='') {
+     echo'<div class="col-sm-12">';
         include ("modules/comments/comments_extender.php");
+             echo'</div>';
+
      } else {
         if ($allow_bbcode)
            $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
@@ -224,8 +227,8 @@ if (isset($submitS)) {
                <div class="card-block">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.$reply.'</textarea>
                   <span class="help-block text-xs-right">
-                     <button class="btn btn-danger-outline btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
-                     <button class="btn btn-primary-outline btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>
                <div class="card-footer text-muted">';

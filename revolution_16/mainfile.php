@@ -1496,7 +1496,7 @@ function pollMain($pollID,$pollClose) {
       }
    }
    if (!$pollClose) {
-      $inputvote = '<button class="btn btn-primary-outline btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
+      $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
    }
    $boxContent .= '
    <div class="form-group">'.$inputvote.'</div>
@@ -1510,13 +1510,13 @@ function pollMain($pollID,$pollClose) {
       list($numcom) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."posts where forum_id='$forum' and topic_id='$pollID' and post_aff='1'"));
       $boxContent .= '
       <ul>
-         <li>'.translate("Votes: ").' <span class="label label-pill label-default pull-right">'.$sum.'</span></li>
-         <li>'.translate("comments:").' <span class="label label-pill label-default pull-right">'.$numcom.'</span></li>
+         <li>'.translate("Votes: ").' <span class="tag tag-pill tag-default pull-right">'.$sum.'</span></li>
+         <li>'.translate("comments:").' <span class="tag tag-pill tag-default pull-right">'.$numcom.'</span></li>
       </ul>';
    } else {
       $boxContent .= '
       <ul>
-         <li>'.translate("Votes: ").' <span class="label label-pill label-default pull-right">'.$sum.'</span></li>
+         <li>'.translate("Votes: ").' <span class="tag tag-pill tag-default pull-right">'.$sum.'</span></li>
       <ul>';
    }
    
@@ -1640,7 +1640,7 @@ function aff_localzone_langue($ibid) {
    reset ($tab_langue);
    $M_langue= '
    <div class="form-group">
-      <select name="'.$ibid.'" class="c-select form-control" onchange="this.form.submit()">
+      <select name="'.$ibid.'" class="custom-select form-control" onchange="this.form.submit()">
          <option value="">'.translate("Select a language").'</option>';
    while (list($bidon, $langue)=each($tab_langue)) {
       $M_langue.='
@@ -2098,11 +2098,11 @@ function Site_Activ() {
    $who_online='
    <p align="center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul id="site_active">
-     <li>'.translate("Nb of members").' <span class="label label-pill label-default pull-xs-right">'.wrh($membres).'</span></li>
-     <li>'.translate("Nb of articles").' <span class="label label-pill label-default pull-xs-right">'.wrh($totala).'</span></li>
-     <li>'.translate("Nb of forums").' <span class="label label-pill label-default pull-xs-right">'.wrh($totalc).'</span></li>
-     <li>'.translate("Nb of topics").' <span class="label label-pill label-default pull-xs-right">'.wrh($totald).'</span></li>
-     <li>'.translate("Nb of reviews").' <span class="label label-pill label-default pull-xs-right">'.wrh($totalb).'</span></li>
+     <li>'.translate("Nb of members").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($membres).'</span></li>
+     <li>'.translate("Nb of articles").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totala).'</span></li>
+     <li>'.translate("Nb of forums").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totalc).'</span></li>
+     <li>'.translate("Nb of topics").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totald).'</span></li>
+     <li>'.translate("Nb of reviews").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totalb).'</span></li>
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
@@ -2174,7 +2174,7 @@ function lnlbox() {
       $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
             <div class="form-group">
-               <select name="op" class=" c-select form-control">
+               <select name="op" class=" custom-select form-control">
                   <option value="subscribe">'.translate("Subscribe").'</option>
                   <option value="unsubscribe">'.translate("Unsubscribe").'</option>
                </select>
@@ -2186,7 +2186,7 @@ function lnlbox() {
             <p><span class="help-block">'.translate("Sign up now to receive our lastest infos.").'</span></p>
             <div class="form-group row">
                <div class="col-sm-12">
-                  <button type="submit" class="btn btn-primary-outline btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Submit").'</button>
+                  <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Submit").'</button>
                </div>
             </div>
          </form>'
@@ -2239,7 +2239,7 @@ function adminblock() {
          else 
          $li_c ='<li class="alerte btn btn-secondary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
-         $li_c .='<span class="alerte-para label label-pill label-danger">'.$SAQ['fretour'].'</span>'."\n";
+         $li_c .='<span class="alerte-para tag tag-pill tag-danger">'.$SAQ['fretour'].'</span>'."\n";
          $li_c .='</a></li>'."\n";
          $bloc_foncts_A .= $li_c;
       } 
@@ -2254,7 +2254,7 @@ function adminblock() {
    $content .= '
       <ul id="adm_block">
       '.$bloc_foncts_A.'
-         <li class="alerte btn btn-secondary" title="'.translate("Clear Chat DB").'" data-toggle="tooltip"><a class="adm-img" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png"/>&nbsp;<span class="alerte-para label label-pill label-danger">X</span></a></li>
+         <li class="alerte btn btn-secondary" title="'.translate("Clear Chat DB").'" data-toggle="tooltip"><a class="adm-img" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png"/>&nbsp;<span class="alerte-para tag tag-pill tag-danger">X</span></a></li>
       </ul>
       <ul>
          <li><small class="text-muted"><i class="fa fa-user fa-2x"></i> '.$aid.'</small></li>
@@ -2377,7 +2377,7 @@ function topdownload_data($form, $ordre) {
          if ($form=="short") {
             if ($okfile) { $ibid.="".$lugar." <a href=\"download.php?op=geninfo&amp;did=$did\" title=\"".$ori_dfilename." ".$dd."\" >".$dfilename."</a><br />";}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="label label-default pull-right">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="tag tag-default pull-right">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;
@@ -2421,14 +2421,14 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="label label-pill label-default pull-xs-right">'.$comments.'</span></li>';
+         <li><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="tag tag-pill tag-default pull-xs-right">'.$comments.'</span></li>';
       } else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-xs-right\">($comments)</span></li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default pull-xs-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"label label-pill label-default pull-xs-right\">($comments)</span></li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default pull-xs-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
          }
       }
@@ -2796,7 +2796,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
    $li_mb.='
-      <li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>&nbsp;<i class="fa fa-users fa-2x text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="label label-pill label-default pull-right">'.$nb_mb.'</span>';
+      <li class=" list-group-item li_18"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>&nbsp;<i class="fa fa-users fa-2x text-muted" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="tag tag-pill tag-default pull-right">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
          <ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
@@ -2858,7 +2858,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($nb_foru >= 1) {
          $lst_for_tog='<a class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
-         $nb_for_gr='  <span class="label label-pill label-default pull-right">'.$nb_foru.'</span>';
+         $nb_for_gr='  <span class="tag tag-pill tag-default pull-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
             $lst_for.='
             <li style="line-height:18px;margin-top:0; background:none; padding: 0px 1px 0px 14px;"><a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a></li>';
@@ -2888,7 +2888,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          $lst_doc_tog ='<a class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
          $lst_doc.='
          <ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws m-t-md" style ="list-style-type:none; display:none; ">';
-         $nb_doc_gr='  <span class="label label-pill label-default pull-right">'.$nb_doc.'</span>';
+         $nb_doc_gr='  <span class="tag tag-pill tag-default pull-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='

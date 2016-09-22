@@ -72,7 +72,7 @@ function MetaTagAdmin($saved = false) {
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="newtag[rating]">'.adm_translate("Audience").'</label>
          <div class="col-xs-12">
-            <select class="c-select form-control" name="newtag[rating]">
+            <select class="custom-select form-control" name="newtag[rating]">
                <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? ' selected="selected"' : '').'>'.adm_translate("Tout public").'</option>
                <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? ' selected="selected"' : '').'>'.adm_translate("Adulte").'</option>
                <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? ' selected="selected"' : '').'>'.adm_translate("Accés restreint").'</option>
@@ -84,7 +84,7 @@ function MetaTagAdmin($saved = false) {
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="newtag[distribution]">'.adm_translate("Distribution").'</label>
          <div class="col-xs-12">
-            <select class="c-select form-control" name="newtag[distribution]">
+            <select class="custom-select form-control" name="newtag[distribution]">
                <option value="global"'.(!strcasecmp($tags['distribution'], 'global') ? ' selected="selected"' : '').'>'.adm_translate("Large").'</option>
                <option value="local"'.(!strcasecmp($tags['distribution'], 'local') ? ' selected="selected"' : '').'>'.adm_translate("Restreinte").'</option>
             </select>
@@ -100,7 +100,7 @@ function MetaTagAdmin($saved = false) {
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="newtag[robots]">'.adm_translate("Robots/Spiders").'</label>
          <div class="col-xs-12">
-            <select class="c-select form-control" name="newtag[robots]">
+            <select class="custom-select form-control" name="newtag[robots]">
                <option value="all"'.(!strcasecmp($tags['robots'], 'all') ? ' selected="selected"' : '').'>'.adm_translate("Tout contenu (page/liens/etc)").'</option>
                <option value="none"'.(!strcasecmp($tags['robots'], 'none') ? ' selected="selected"' : '').'>'.adm_translate("Aucune indexation").'</option>
                <option value="index,nofollow"'.(!strcasecmp($tags['robots'], 'index,nofollow') ? ' selected="selected"' : '').'>'.adm_translate("Page courante sans liens locaux").'</option>
@@ -124,7 +124,7 @@ function MetaTagAdmin($saved = false) {
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="newtag[content-type]">'.adm_translate("Encodage").'</label>
          <div class="col-xs-12">
-            <select class="c-select form-control" name="newtag[content-type]">
+            <select class="custom-select form-control" name="newtag[content-type]">
                <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? ' selected="selected"' : '').'>charset=ISO-8859-1</option>
                <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['content-type'], 'text/html; charset=utf-8') and strcasecmp($tags['content-type'], 'text/html')) ? ' selected="selected"' : '').'>charset=UTF-8</option>
             </select>
@@ -139,7 +139,7 @@ function MetaTagAdmin($saved = false) {
       <div class="form-group row">
          <label class="form-control-label col-xs-12" for="newtag[content-type]">DOCTYPE</label>
          <div class="col-xs-12">
-            <select class="c-select form-control" name="newtag[doctype]">
+            <select class="custom-select form-control" name="newtag[doctype]">
                <option value="HTML 4.01 Transitional"'.(!strcasecmp(doctype, 'HTML 4.01 Transitional') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Transitional").' (deprecated)</option>
                <option value="HTML 4.01 Strict"'.(!strcasecmp(doctype, 'HTML 4.01 Strict') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Strict").' (deprecated)</option>
                <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>

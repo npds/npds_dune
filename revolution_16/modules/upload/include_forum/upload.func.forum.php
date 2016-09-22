@@ -68,7 +68,7 @@ function getCheckBox ($name, $value=1, $current, $text="") {
 /************************************************************************/
 function getListBox ($name, $items, $selected="", $multiple=0, $onChange="") {
    $oc = empty ($onChange) ? "" : " onchange=\"$onChange\"";
-   $p = sprintf ("<select class=\"c-select form-control-sm\" name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
+   $p = sprintf ("<select class=\"custom-select form-control-sm\" name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
                 ($multiple == 1)?" multiple":"", $oc);
    if (is_array($items)) {
       reset ($items);
@@ -128,7 +128,7 @@ function display_upload($apli,$post_id,$Mmod){
          <div class="list-group-item">
             <img class="smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" border="0" alt="icon_post" />
             <span class="text-muted">'.upload_translate("Pièces jointes").'</span>
-            <span class="label label-default label-pill pull-right">'.$att_count.'</span>
+            <span class="tag tag-default tag-pill pull-right">'.$att_count.'</span>
          </div>';
 
       $ncell = 0;

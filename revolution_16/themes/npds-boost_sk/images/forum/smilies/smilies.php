@@ -10,10 +10,10 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-   // Une ligne pour chaque smilie, la dernière ligne ne devant pas comporter de , à la fin du tableau
+   // Une ligne pour chaque smilie, la derniÃ¨re ligne ne devant pas comporter de , Ã  la fin du tableau
    // colonne 1 : le code du smiliey
    // colonne 2 : l'icone
-   // colonne 3 : si nécessaire la description (sinon "")
+   // colonne 3 : si nÃ©cessaire la description (sinon "")
    // colonne 4 : visible (1) ou invisible (0)
 
    $smilies=array(

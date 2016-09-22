@@ -71,7 +71,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
             <div class="col-sm-9">
-               <select class="c-select form-control" name="cat">';
+               <select class="custom-select form-control" name="cat">';
         while (list($cid, $title) = sql_fetch_row($result)) {
            echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -91,7 +91,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
             <div class="col-sm-9">
-               <select class="c-select form-control" name="topicL">';
+               <select class="custom-select form-control" name="topicL">';
            $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
            echo '
                   <option value="">'.translate("All Topics").'</option>';

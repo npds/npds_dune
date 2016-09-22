@@ -210,7 +210,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             <tr>
                <th></th>
                <th></th>
-               <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;'.$mess_closoled.'</th>
+               <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
                <th class="text-xs-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
                <th class="text-xs-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
                <th class="text-xs-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
@@ -386,7 +386,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       <div class="form-group row">
          <div class="col-xs-12">
             <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
-            <select class="form-control c-select" name="forum" onchange="submit();">
+            <select class="form-control custom-select" name="forum" onchange="submit();">
                <option value="index">'.translate("Jump To: ").'</option>
                <option value="index">'.translate("Forum Index").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";

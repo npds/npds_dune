@@ -317,7 +317,7 @@ function avatar($user_avatar) {
                   ';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
                echo '
-                <a tabindex="0" data-toggle="popover" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-primary-outline img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+                <a tabindex="0" data-toggle="popover" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-primary img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
                </td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
                if ($admin) 

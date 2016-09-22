@@ -49,7 +49,7 @@ function ablock() {
             <input type="hidden" name="op" value="changeablock" />
             <div class="form-group row">
                <div class="col-xs-12">
-                  <button class="btn btn-primary-outline btn-block col-xs-12" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+                  <button class="btn btn-outline-primary btn-block col-xs-12" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>
             </div>
          </form>

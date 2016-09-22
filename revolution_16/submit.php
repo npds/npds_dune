@@ -66,7 +66,7 @@ function defaultDisplay() {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Select Topic").'</option>';
@@ -103,7 +103,7 @@ function defaultDisplay() {
       <div class="form-group row">
          <div class="col-sm-12">
             <span class="help-block">'.translate("You must preview once before you can submit").'</span>
-            <input class="btn btn-primary-outline" type="submit" name="op" value="'.translate("Preview").'" />
+            <input class="btn btn-outline-primary" type="submit" name="op" value="'.translate("Preview").'" />
          </div>
       </div>
    </form>';
@@ -112,7 +112,7 @@ function defaultDisplay() {
 
 function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="label label-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="tag tag-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    $subject = stripslashes(str_replace('"','&quot;',(strip_tags($subject))));
    $story = stripslashes($story);
@@ -157,7 +157,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="topic">';
+            <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Select Topic").'</option>';

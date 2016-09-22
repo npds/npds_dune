@@ -49,7 +49,7 @@ function mblock() {
             <input type="hidden" name="op" value="changemblock" />
             <div class="form-group row">
                <div class="col-xs-12">
-                  <button class="btn btn-primary-outline btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+                  <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>
             </div>
          </form>

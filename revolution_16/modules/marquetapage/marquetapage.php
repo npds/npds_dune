@@ -84,7 +84,7 @@ function marquetapage() {
 
          $content.='
    <h6>
-   <a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i>&nbsp;Bookmarks </a><span class="label label-pill label-default pull-right">'.sql_num_rows($result).'</span>
+   <a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i>&nbsp;Bookmarks </a><span class="tag tag-pill tag-default pull-right">'.sql_num_rows($result).'</span>
    </h6>
    <ul id="lst_fav" style="display:none;" >
    

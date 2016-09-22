@@ -98,7 +98,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
             <div class="col-sm-9">
-               <select class="c-select form-control" name="cat">';
+               <select class="custom-select form-control" name="cat">';
           while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
              $sel = "";
              if ($cid==$ccid AND $sid==0) {
@@ -127,7 +127,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
             <div class="col-sm-9">
-                <select class="c-select form-control" name="topicL">';
+                <select class="custom-select form-control" name="topicL">';
              $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
              echo '
                    <option value="">'.translate("All Topics").'</option>';
@@ -215,7 +215,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
             <div class="col-sm-9">
-               <select class="c-select form-control" name="cat">';
+               <select class="custom-select form-control" name="cat">';
        while (list($cid, $title) = sql_fetch_row($result)) {
           echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -235,7 +235,7 @@ function links() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
             <div class="col-sm-9">
-               <select class="c-select form-control" name="topicL">';
+               <select class="custom-select form-control" name="topicL">';
           $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
           echo '
                   <option value="">'.translate("All Topics").'</option>';
@@ -324,7 +324,7 @@ function links() {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="cat">';
+            <select class="custom-select form-control" name="cat">';
       while(list($cid, $title) = sql_fetch_row($result)) {
          echo '
                <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -369,7 +369,7 @@ function links() {
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="cid">'.translate("in").'</label>
          <div class="col-sm-9">
-            <select class="c-select form-control" name="cid">';
+            <select class="custom-select form-control" name="cid">';
        while (list($ccid, $ctitle) = sql_fetch_row($result)) {
           echo '
                <option value="'.$ccid.'">'.aff_langue($ctitle).'</option>';
@@ -500,7 +500,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cat">'.translate("Category").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="cat">';
+               <select class="custom-select form-control" name="cat">';
        while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
           $sel = '';
           if ($cid==$ccid AND $sid==0) {
@@ -528,7 +528,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="topicL">'.translate("Topics").'</label>
             <div class="col-sm-8">
-               <select class="c-select form-control" name="topicL">';
+               <select class="custom-select form-control" name="topicL">';
           $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
           echo '
                   <option value="">'.translate("All Topics").'</option>';
@@ -854,7 +854,7 @@ function LinksListModRequests() {
    if ($x_ori != $x_mod) return ' class="text-danger" ';}
 
    echo '
-   <h3>'.translate("User Link Modification Requests").' <span class="label label-default pull-right">'.$totalmodrequests.'</span></h3>';
+   <h3>'.translate("User Link Modification Requests").' <span class="tag tag-default pull-right">'.$totalmodrequests.'</span></h3>';
    while (list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter, $topicid_card)=sql_fetch_row($resultX)) {
       $result2 = sql_query("SELECT cid, sid, title, url, description, submitter, topicid_card FROM ".$links_DB."links_links WHERE lid='$lid'");
       list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner, $oritopicid_card)=sql_fetch_row($result2);
@@ -937,7 +937,7 @@ function LinksListBrokenLinks() {
    } else {
    include ("header.php");
       echo '
-   <h3>'.translate("User Reported Broken Links").' <span class="label label-default pull-right"> '.$totalbrokenlinks.'</span></h3>';
+   <h3>'.translate("User Reported Broken Links").' <span class="tag tag-default pull-right"> '.$totalbrokenlinks.'</span></h3>';
        echo "<br />
        ".translate("Ignore (Deletes all requests for a given link)")."<br /><br />
        ".translate("Delete (Deletes broken link and requests for a given link)")."<br /><br />";

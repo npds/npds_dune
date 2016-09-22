@@ -103,7 +103,7 @@ function pollResults($pollID) {
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
      echo '
-   <h4><span class="label label-default">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>
+   <h4><span class="tag tag-default">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>
 
    ';
      for ($i = 1; $i <= $maxOptions; $i++) {
@@ -122,7 +122,7 @@ function pollResults($pollID) {
    <div class="row">
       <div class="col-sm-5">'.aff_langue($optionText).'</div>
       <div class="col-sm-7">
-         <span class="label label-default text-xs-right">'.wrh($optionCount).'</span>
+         <span class="tag tag-default text-xs-right">'.wrh($optionCount).'</span>
          <progress class="progress  progress-striped" value="'.$percentInt.'" max="100" title="'.$percentInt.'%" data-toggle="tooltip">
             <div class="progress">
                <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" ></span>

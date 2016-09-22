@@ -92,7 +92,7 @@ include('header.php');
             <label class="form-control-label" for="forum">'.translate("Forum").'</label>
          </div>
          <div class="col-sm-8">
-            <select class="form-control c-select" name="forum">
+            <select class="form-control custom-select" name="forum">
                <option value="all">'.translate("Search All Forums").'</option>';
    $rowQ1=Q_Select ("SELECT forum_name,forum_id FROM ".$NPDS_Prefix."forums", 3600);
    if (!$rowQ1)

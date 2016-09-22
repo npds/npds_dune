@@ -109,7 +109,7 @@ function login() {
             </div>
             <div class="form-group row">
                <div class="col-sm-offset-3 col-sm-9">
-                  <button class="btn btn-primary-outline" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
+                  <button class="btn btn-outline-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>
             </div>
             <input type="hidden" name="op" value="login" />
@@ -188,7 +188,7 @@ function GraphicAdmin($hlpfile) {
          else 
          $li_c ='<li class="alerte btn btn-secondary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
-         $li_c .='<span class="alerte-para label label-pill label-danger">'.$SAQ['fretour'].'</span>'."\n";
+         $li_c .='<span class="alerte-para tag tag-pill tag-danger">'.$SAQ['fretour'].'</span>'."\n";
          $li_c .='</a></li>'."\n";
          $bloc_foncts_A .= $li_c;
          array_pop($cat_n);
@@ -490,7 +490,7 @@ function adminMain($deja_affiches) {
                <input class="form-control" type="number" name="sid" size="10" />
          </div>
          <div class="form-group">
-            <select class="c-select form-control" name="op">
+            <select class="custom-select form-control" name="op">
                <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
                <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
             </select>

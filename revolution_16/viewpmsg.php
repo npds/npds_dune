@@ -57,7 +57,7 @@ include("auth.php");
          <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
             <div class="form-group">
                <label class="sr-only" for="dossier" >'.translate("Topic").'</label>
-               <select class="c-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
+               <select class="custom-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
                   <option value="...">'.translate("Choose a folder/topic").'...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {
@@ -152,7 +152,7 @@ include("auth.php");
       if ($display) {
          echo '
                   <tr class="table-danger">
-                     <td colspan="6"><input type="hidden" name="total_messages" value="'.$total_messages.'"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+                     <td colspan="6"><input type="hidden" name="total_messages" value="'.$total_messages.'"><button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
                   </tr>';
       }
       echo '
@@ -225,7 +225,7 @@ include("auth.php");
       if ($display) {
          echo '
          <tr class="table-danger">
-            <td colspan="6"><button class="btn btn-danger-outline btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+            <td colspan="6"><button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
          </tr>
          <input type="hidden" name="total_messages" value="'.$total_messages.'" />
          <input type="hidden" name="type" value="outbox" />';

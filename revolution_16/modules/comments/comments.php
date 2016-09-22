@@ -181,7 +181,7 @@ if ($mycount) {
              <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
           }
       }
-             echo '&nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+             echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
       
       echo '
                </div>';
@@ -199,7 +199,7 @@ if ($mycount) {
       $message=str_replace("[addsig]", '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
          echo '
                      <div class="card-text fo-post-mes">';
-         echo $message;
+         echo nl2br($message);
          echo '
                      </div>
                   </div>

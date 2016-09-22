@@ -161,7 +161,7 @@ function main() {
       <div class="form-group row">
          <input type="hidden" name="op" value="supercache_save" />
          <div class="col-xs-12">
-            <button class="btn btn-primary-outline col-xs-12 text-xs-left" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate("Valider").'</button>
+            <button class="btn btn-outline-primary col-xs-12 text-xs-left" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate("Valider").'</button>
          </div>
       </div>
       </form>
@@ -169,7 +169,7 @@ function main() {
       <form id="fad_cacheclean" action="admin.php" method="post">
          <div class="form-group row">
             <div class="col-xs-12">
-               <button class="btn btn-danger-outline col-xs-12 pull-xs-right text-xs-right" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fa fa-trash-o fa-lg"></i></button>
+               <button class="btn btn-outline-danger col-xs-12 pull-xs-right text-xs-right" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fa fa-trash-o fa-lg"></i></button>
             </div>
          </div>
          <input type="hidden" name="op" value="supercache_empty" />

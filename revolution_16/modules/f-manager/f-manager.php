@@ -495,7 +495,7 @@ switch ($op) {
                $move_file.="<option value=\"copyfile-save\">".fma_translate("Copier")."</option>";
                $move_file.="</select>";
                $move_file.="&nbsp;&nbsp;".extend_ascii($auto[2])."<b> >> </b>";
-               $move_file.="<select class=\"c-select form-control\" name=\"movefile\">";
+               $move_file.="<select class=\"custom-select form-control\" name=\"movefile\">";
                   $move_file.="<option value=\"\">/</option>";
                   $arb=explode("|",$obj->GetDirArbo($basedir_fma));
                   while (list(,$rep)=each($arb)) {
@@ -602,7 +602,7 @@ switch ($op) {
                $chmod_file.="<input type=\"hidden\" name=\"att_name\" value=\"$att_name\" />";
                $chmod_file.="<input type=\"hidden\" name=\"op\" value=\"chmodfile-save\" />";
                $chmod_file.=extend_ascii($auto[2])." : ";
-               $chmod_file.="<select class=\"c-select form-control\" name=\"chmodfile\">";
+               $chmod_file.="<select class=\"custom-select form-control\" name=\"chmodfile\">";
                $chmod_file.=chmod_pres($obj->GetPerms($auto[3]."/".$auto[2]),"chmodfile");
                $chmod_file.="&nbsp;<input class=\"btn btn-primary\" type=\"submit\" name=\"ok\" value=\"".fma_translate("Ok")."\" /></form>";
             }
@@ -1012,7 +1012,7 @@ if (file_exists("themes/$Default_Theme/html/modules/f-manager/$theme_fma")) {
 if ($inclusion) {
    $Xcontent=join("",file($inclusion));
    $Xcontent=str_replace("_back",extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace("_refresh","<a class=\"btn btn-primary-outline btn-small\" href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."$urlext_fma\"><i class=\"fa fa-refresh fa-spin\"></i>&nbsp;".fma_translate("Rafraichir")."</a>",$Xcontent);
+   $Xcontent=str_replace("_refresh","<a class=\"btn btn-outline-primary btn-sm\" href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."$urlext_fma\"><i class=\"fa fa-refresh fa-spin\"></i>&nbsp;".fma_translate("Rafraichir")."</a>",$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace("_size",$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
