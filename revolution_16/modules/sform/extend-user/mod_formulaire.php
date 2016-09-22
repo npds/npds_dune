@@ -125,7 +125,7 @@ $m->add_field('uid','',$userinfo['uid'],'hidden',false);
 // Submit bouton
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8" >');
+         <div class="col-sm-8 offset-sm-4 " >');
 $m->add_field('Submit','',translate('Submit'),'submit',false);
 $m->add_extra('
          </div>

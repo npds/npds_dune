@@ -73,7 +73,7 @@ function FriendSend($sid, $archive) {
    <input type="hidden" name="archive" value="'.$archive.'" />
    <input type="hidden" name="op" value="SendStory" />
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>
@@ -96,7 +96,7 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    if (!$user) {
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, '')) {
-         Ecr_Log("security", "Send-Story Anti-Spam : name=".$yname." / mail=".$ymail, "");
+         Ecr_Log('security', "Send-Story Anti-Spam : name=".$yname." / mail=".$ymail, '');
          redirect_url("index.php");
          die();
       }
@@ -104,8 +104,8 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
 
    global $sitename, $nuke_url;
    global $NPDS_Prefix;
-   settype($sid,"integer");
-   settype($archive, "integer");
+   settype($sid,'integer');
+   settype($archive, 'integer');
    $result2=sql_query("SELECT title, time, topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
    list($title, $time, $topic) = sql_fetch_row($result2);
    $result3=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
@@ -123,7 +123,7 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    if ((!$fmail) || ($fmail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$fmail))) $stop = true;
    if ((!$ymail) || ($ymail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$ymail))) $stop = true;
    if (!$stop) {
-      send_email($fmail, $subject, $message, $ymail, false,"html");
+      send_email($fmail, $subject, $message, $ymail, false,'html');
    } else {
      $title='';
      $fname='';
@@ -138,7 +138,7 @@ function StorySent($title, $fname) {
    $title = urldecode($title);
    $fname = urldecode($fname);
    echo '<p class="lead text-xs-center">';
-   if ($fname=="") {
+   if ($fname=='') {
       echo '<span class="text-danger">'.translate("ERROR: Invalid email").'</span>';
    } else {
       echo '<span class="text-success">'.translate("Story").' <strong>'.stripslashes($title).'</strong> '.translate("has been sent to").'&nbsp;'.$fname.'<br />'.translate("Thanks!").'</span>';
@@ -194,7 +194,7 @@ function RecommendSite() {
       </div>
       '.Q_spambot().'
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>
@@ -217,7 +217,7 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    if (!$user) {
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, "")) {
-         Ecr_Log("security", "Friend Anti-Spam : name=".$yname." / mail=".$ymail, "");
+         Ecr_Log('security', "Friend Anti-Spam : name=".$yname." / mail=".$ymail, '');
          redirect_url("index.php");
          die();
       }
@@ -234,10 +234,10 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    $yname=removeHack($yname);
    $ymail=removeHack($ymail);
    $stop=false;
-   if ((!$fmail) || ($fmail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$fmail))) $stop = true;
-   if ((!$ymail) || ($ymail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$ymail))) $stop = true;
+   if ((!$fmail) || ($fmail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$fmail))) $stop = true;
+   if ((!$ymail) || ($ymail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$ymail))) $stop = true;
    if (!$stop) {
-      send_email($fmail, $subject, $message, $ymail, false,"html");
+      send_email($fmail, $subject, $message, $ymail, false,'html');
    } else {
      $fname='';
    }
@@ -265,23 +265,23 @@ function SiteSent($fname) {
 
 settype($op,'string');
 switch ($op) {
-   case "FriendSend":
-        FriendSend($sid, $archive);
-        break;
-   case "SendStory":
-        SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question, $asb_reponse);
-        break;
-   case "StorySent":
-        StorySent($title, $fname);
-        break;
-   case "SendSite":
-        SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse);
-        break;
-   case "SiteSent":
-        SiteSent($fname);
-        break;
+   case 'FriendSend':
+      FriendSend($sid, $archive);
+   break;
+   case 'SendStory':
+      SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question, $asb_reponse);
+   break;
+   case 'StorySent':
+      StorySent($title, $fname);
+   break;
+   case 'SendSite':
+      SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse);
+   break;
+   case 'SiteSent':
+      SiteSent($fname);
+   break;
    default:
-        RecommendSite();
-        break;
+      RecommendSite();
+   break;
 }
 ?>

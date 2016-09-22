@@ -164,7 +164,7 @@ function links() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-9 offset-sm-3">
                <input type="hidden" name="new" value="1" />
                <input type="hidden" name="lid" value="'.$lid.'" />
                <input type="hidden" name="submitter" value="'.$submitter.'" />
@@ -271,7 +271,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-3 col-sm-9">
+         <div class="col-sm-9 offset-sm-3">
             <input type="hidden" name="op" value="LinksAddLink" />
             <input type="hidden" name="new" value="0" />
             <input type="hidden" name="lid" value="0" />
@@ -339,7 +339,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-3 col-sm-9">
+         <div class="col-sm-9 offset-sm-3">
             <input type="hidden" name="op" value="LinksModCat" />
             <input class="btn btn-primary" type="submit" value="'.translate("Modify").'" />
          </div>
@@ -379,7 +379,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-3 col-sm-9">
+         <div class="col-sm-9 offset-sm-3">
             <input type="hidden" name="op" value="LinksAddSubCat" />
             <input class="btn btn-primary " type="submit" value="'.translate("Add").'" />
          </div>
@@ -557,7 +557,6 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
             </div>
          </div>';
        echo aff_editeur('xtext','');
-
        echo '
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="name">'.translate("Name").'</label>
@@ -572,7 +571,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="lid" value="'.$lid.'" />
                <input type="hidden" name="op" value="LinksModLinkS" />
                <input class="btn btn-primary" type="submit" value="'.translate("Modify").'" />&nbsp;

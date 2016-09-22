@@ -145,7 +145,7 @@ function EditReseaux($ModPath, $ModStart) {
 echo '
    </div>
       <div class="form-group row">
-         <div class="col-sm-offset-6 col-sm-6">
+         <div class="col-sm-6 offset-sm-6">
             <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.rs_translate("Sauvegarder").'</button>
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />
@@ -160,8 +160,8 @@ function SaveSetReseaux($ModPath, $ModStart) {
    global $cookie;
    $li_rs='';
    foreach ($_POST['rs'] as $v1){
-   if($v1['uid']!=='')
-   $li_rs.=$v1['id'].'|'.$v1['uid'].';';
+      if($v1['uid']!=='')
+      $li_rs.=$v1['id'].'|'.$v1['uid'].';';
    }
    $li_rs=rtrim($li_rs,';');
    $li_rs=removeHack(stripslashes(FixQuotes($li_rs)));
