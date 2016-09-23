@@ -125,21 +125,21 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
 
    echo '
       <form role="form" action="viewforum.php" method="post">
-      <div class="form-group">
-      <div class="text-xs-center">
-      <label class="control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
-      </div>
-      <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-      <input class="form-control" type="password" name="Forum_passwd"  placeholder="'.translate("Password").'" />
-      </div>
-      </div>
-      </div>
-      <input type="hidden" name="forum" value="'.$forum.'" />
-      <div class="text-xs-center">
-      <button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;
-      <button type="reset" class="btn btn-default" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>
-      </div>
+         <div class="form-group">
+         <div class="text-xs-center">
+         <label class="form-control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
+         </div>
+         <div class="row">
+         <div class="col-sm-4 offset-sm-4">
+         <input class="form-control" type="password" name="Forum_passwd"  placeholder="'.translate("Password").'" />
+         </div>
+         </div>
+         </div>
+         <input type="hidden" name="forum" value="'.$forum.'" />
+         <div class="text-xs-center">
+         <button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;
+         <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>
+         </div>
       </form>';
    }
    
