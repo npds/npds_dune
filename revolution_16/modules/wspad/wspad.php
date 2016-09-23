@@ -115,7 +115,7 @@ function Liste_Page() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 col-sm-offset-4 ">
+            <div class="col-sm-8 offset-sm-4">
                <input class="btn btn-primary" type="submit" name="creer" value="'.wspad_trans("Créer").'" />
                <input type="hidden" name="op" value="creer" />
             </div>
@@ -181,7 +181,7 @@ function Liste_Page() {
                            </div>
                         </div>
                         <div class="form-group row">
-                           <div class="col-xs-9 col-xs-offset-3">
+                           <div class="col-sm-9 offset-sm-3">
                               <input type="hidden" name="page" value="'.$page.'" />
                               <input type="hidden" name="op" value="renomer" />
                               <button type="submit" class="btn btn-primary" name="creer">'.wspad_trans("Renommer").'</button>
