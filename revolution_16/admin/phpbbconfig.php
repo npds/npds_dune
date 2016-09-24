@@ -115,7 +115,7 @@ function ForumConfigAdmin() {
          <div class="col-sm-8">
             <input class="form-control" type="number" min="0" id="posts_per_page" name="posts_per_page" value="'.$posts_per_page.'" />
          </div>
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'</span>
          </div>
       </div>
@@ -124,18 +124,18 @@ function ForumConfigAdmin() {
          <div class="col-sm-8">
             <input class="form-control" type="number" min="0" id="topics_per_page" name="topics_per_page" size="4" value="'.$topics_per_page.'" />
          </div>
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 col-md-4" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
+         <label class="form-control-label col-sm-4" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" min="0" id="anti_flood" name="anti_flood" value="'.$anti_flood.'" />
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="solved">'.adm_translate("Activer le tri des contributions 'résolues'").'</label>
+         <label class="form-control-label col-sm-4" for="solved">'.adm_translate("Activer le tri des contributions 'résolues'").'</label>
          <div class="col-sm-8">';
    if ($solved==1) {
       echo '
@@ -158,7 +158,7 @@ function ForumConfigAdmin() {
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="allow_upload_forum">'.adm_translate("Activer l'upload dans les forums ?").'</label>
+         <label class="form-control-label col-sm-4" for="allow_upload_forum">'.adm_translate("Activer l'upload dans les forums ?").'</label>
          <div class="col-sm-8">';
    if ($allow_upload_forum) {
        echo '

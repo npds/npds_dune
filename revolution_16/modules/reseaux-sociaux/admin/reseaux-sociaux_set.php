@@ -96,7 +96,7 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-3 col-sm-9">
+         <div class="col-sm-9 offset-sm-3">
             <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
             <input type="hidden" name="op" value="Extend-Admin-SubModule" />
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />

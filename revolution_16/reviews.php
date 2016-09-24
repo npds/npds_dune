@@ -52,7 +52,7 @@ function write_review() {
          <div class="col-sm-8">
             <textarea class="form-control" name="text" rows="15"></textarea>
          </div>
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <p class="help-block">'.translate("Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.").'</p>
          </div>
       </div>';
@@ -138,7 +138,7 @@ function write_review() {
    }
    echo '
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="preview_review" />
             <button type="submit" class="btn btn-primary" >'.translate("Preview").'</button>
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary" title="'.translate("Go Back").'">'.translate("Go Back").'</button>
@@ -557,7 +557,7 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="preview_review" />
             <input class="btn btn-primary" type="submit" value="'.translate("Preview Modifications").'" />&nbsp;
             <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("Cancel").'" />
@@ -587,28 +587,28 @@ function del_review($id_del) {
 settype($op,'string');
 switch ($op) {
    case 'showcontent':
-        showcontent($id);
-        break;
+      showcontent($id);
+   break;
    case 'write_review':
-        write_review();
-        break;
+      write_review();
+   break;
    case 'preview_review':
-        preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id);
-        break;
+      preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id);
+   break;
    case 'add_reviews':
-        send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse);
-        break;
+      send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse);
+   break;
    case 'del_review':
-        del_review($id_del);
-        break;
+      del_review($id_del);
+   break;
    case 'mod_review':
-        mod_review($id);
-        break;
+      mod_review($id);
+   break;
    case 'sort':
-        reviews($field,$order);
-        break;
+      reviews($field,$order);
+   break;
    default:
-        reviews('date','DESC');
-        break;
+      reviews('date','DESC');
+   break;
 }
 ?>

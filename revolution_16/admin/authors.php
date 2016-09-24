@@ -466,7 +466,7 @@ function modifyadmin($chng_aid) {
          </div>
          <br />
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4 ">
                <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Actualiser l'administrateur").'</button>
                <input type="hidden" name="op" value="UpdateAuthor">
             </div>
@@ -545,9 +545,8 @@ function addroits($add_aid) {
    global $NPDS_Prefix;
    foreach ( $_POST as $y=>$w) {
       if(stristr("$y", 'ad_d_')) $res= sql_query("INSERT INTO ".$NPDS_Prefix."droits VALUES ('$add_aid', '$w', 11111)");
-   } 
+   }
 }
-
 
 function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5) {
     global $NPDS_Prefix, $modu;

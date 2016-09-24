@@ -117,7 +117,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="submitter" value="'.$submitter.'">
             <input type="hidden" name="op" value="LinksAddLink">
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />&nbsp;
@@ -197,7 +197,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="LinksAddLink">
             <input type="hidden" name="new" value="0">
             <input type="hidden" name="lid" value="0">
@@ -225,7 +225,7 @@ function links() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="LinksAddCat">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
             </div>
@@ -262,7 +262,7 @@ function links() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="LinksAddSubCat">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Sous-catégorie").'</button>
             </div>
@@ -298,7 +298,7 @@ function links() {
                </div>
             </div>
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="LinksModCat">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Editer une catégorie").'</button>
             </div>
@@ -457,7 +457,7 @@ function LinksModLink($lid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="LinksModLinkS" />
             <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").' </button>
             <button href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger col-xs-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
@@ -486,7 +486,7 @@ function LinksModLink($lid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="linkid" value="'.$lid.'" />
             <input type="hidden" name="op" value="LinksAddEditorial" />
             <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un Editorial").'</button>
@@ -515,7 +515,7 @@ function LinksModLink($lid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="linkid" value="'.$lid.'" />
             <input type="hidden" name="op" value="LinksModEditorial" />
             <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
@@ -768,7 +768,7 @@ function LinksModCat($cat) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="sub" value="0">
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="op" value="LinksModCatS">
@@ -794,7 +794,7 @@ function LinksModCat($cat) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="sub" value="1">
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="sid" value="'.$cat[1].'">

@@ -31,14 +31,10 @@ a:hover {text-decoration:none;}
 /** ==> Classes NPDS-core                                                   **/
 /* ==> pour les avatars et images */
 .n-ava {
-width 64px;
-height 64px;
 max-width:64px;
 max-height:64px;
 }
 .n-ava-small {
-width 48px;
-height 48px;
 max-width:48px;
 max-height:48px;
 }

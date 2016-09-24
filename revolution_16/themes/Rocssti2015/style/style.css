@@ -463,9 +463,7 @@ display:inline;
 .n-ava {
     max-width: 48px;
     max-height: 48px;
-
 }
-
 .n-ava-small {
     max-width: 48px;
     max-height: 48px;
@@ -527,10 +525,6 @@ a.tooltip_ws:hover em span {
     padding: 0;
     border: 0;
     }
-
-
-
-
 
 /*<== class de NPDS dans le core */
 

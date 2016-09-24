@@ -115,7 +115,7 @@ function clientlogin() {
                </div>
                <div class="form-group">
                   <div class="row">
-                     <div class="col-sm-offset-4 col-sm-8">
+                     <div class="col-sm-8 offset-sm-4">
                         <input type="hidden" name="op" value="Ok" />
                         <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.translate("Submit").'</button>
                      </div>
@@ -165,7 +165,7 @@ function bannerstats($login, $pass) {
    global $NPDS_Prefix;
    $result = sql_query("SELECT cid, name, passwd FROM ".$NPDS_Prefix."bannerclient WHERE login='$login'");
    list($cid, $name, $passwd) = sql_fetch_row($result);
-   if ($login=="" AND $pass=="" OR $pass=="") {
+   if ($login=='' AND $pass=='' OR $pass=='') {
       IncorrectLogin();
    } else {
       if ($pass==$passwd) {
@@ -221,7 +221,7 @@ function bannerstats($login, $pass) {
             $numrows = sql_num_rows($result);
             echo '<div class="card">';
 
-            if ($imageurl!="") {
+            if ($imageurl!='') {
                echo '
                <p><img src="'.aff_langue($imageurl).'" class="img-fluid" />
                ';//pourquoi aff_langue ??
@@ -238,27 +238,22 @@ function bannerstats($login, $pass) {
             <form action="banners.php" method="get">';
             if ($imageurl!="") {
                echo '
-               <div class="form-group">
-                  <div class="row">
-                     <label class="control-label col-sm-12" for="url">'.translate("Change").' URL</label>
-                     <div class="col-sm-12">
-                        <input class="form-control" type="text" name="url" maxlength="200" value="'.$clickurl.'" />
-                     </div>
+               <div class="form-group row">
+                  <label class="control-label col-sm-12" for="url">'.translate("Change").' URL</label>
+                  <div class="col-sm-12">
+                     <input class="form-control" type="text" name="url" maxlength="200" value="'.$clickurl.'" />
                   </div>
                </div>';
             } else {
                echo '
-               <div class="form-group">
-                  <div class="row">
-                     <label class="control-label col-sm-12" for="url">'.translate("Change").' URL</label>
-                     <div class="col-sm-12">
-                        <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, cur_charset).'" />
-                     </div>
+               <div class="form-group row">
+                  <label class="control-label col-sm-12" for="url">'.translate("Change").' URL</label>
+                  <div class="col-sm-12">
+                     <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, cur_charset).'" />
                   </div>
                </div>';
             }
             echo '
-            
             <input type="hidden" name="login" value="'.$login.'" />
             <input type="hidden" name="bid" value="'.$bid.'" />
             <input type="hidden" name="pass" value="'.$pass.'" />
@@ -375,27 +370,27 @@ function change_banner_url_by_client($login, $pass, $cid, $bid, $url) {
 }
 settype($op,'string');
 switch ($op) {
-   case "click":
-        clickbanner($bid);
-        break;
-   case "login":
-        clientlogin();
-        break;
-   case "Ok":
-        bannerstats($login, $pass);
-        break;
-   case translate("Change"):
-        change_banner_url_by_client($login, $pass, $cid, $bid, $url);
-        break;
-   case "EmailStats":
-        EmailStats($login, $cid, $bid);
-        break;
+   case 'click':
+      clickbanner($bid);
+   break;
+   case 'login':
+      clientlogin();
+   break;
+   case 'Ok':
+      bannerstats($login, $pass);
+   break;
+   case translate('Change'):
+      change_banner_url_by_client($login, $pass, $cid, $bid, $url);
+   break;
+   case 'EmailStats':
+      EmailStats($login, $cid, $bid);
+   break;
    default:
-        if ($banners) {
-           viewbanner();
-        } else {
-           redirect_url("index.php");
-        }
-        break;
+      if ($banners) {
+         viewbanner();
+      } else {
+         redirect_url('index.php');
+      }
+   break;
 }
 ?>

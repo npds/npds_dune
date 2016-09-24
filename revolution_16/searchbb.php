@@ -156,7 +156,7 @@ include('header.php');
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
+         <div class="col-sm-8 offset-sm-4">
             <button class="btn btn-primary" type="submit" name="submit">&nbsp;'.translate("Search").'</button>&nbsp;&nbsp;
             <button class="btn btn-secondary" type="reset" name="reset">'.translate("Clear").'</button>
          </div>

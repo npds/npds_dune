@@ -70,7 +70,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4">
                <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
                <input type="hidden" name="op" value="Extend-Admin-SubModule" />
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -143,10 +143,10 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    @chmod("modules/$ModPath/cache.timings.php",0666);
 }
    switch ($subop) {
-       case "SaveSetArchive_stories":
-       SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPath, $ModStart);
-       default:
-       ConfigureArchive($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
-    break;
+      case "SaveSetArchive_stories":
+         SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPath, $ModStart);
+      default:
+         ConfigureArchive($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      break;
    }
 ?>

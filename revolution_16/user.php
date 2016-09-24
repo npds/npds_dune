@@ -657,9 +657,11 @@ function main($user) {
        }
        if (!$user) {
           echo '
-          <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
-          <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
           <div class="card card-block">
+          <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
+         </div>
+          <div class="card card-block">
+          <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
           <form class="" role="form" action="user.php" method="post" name="userlogin">
              <div class="form-group row">
                <label for="inputuser" class="form-control-label col-sm-4">'.translate("Nickname").'</label>
@@ -676,7 +678,7 @@ function main($user) {
             </div>
             <input type="hidden" name="op" value="login" />
             <div class="form-group row">
-               <div class="col-sm-offset-4 col-sm-8">
+               <div class="col-sm-8 offset-sm-4">
                   <button class="btn btn-primary" type="submit" title="'.translate("Submit").'"><i class="fa fa-lg fa-check"></i>&nbsp;'.translate("Submit").'</button>
                </div>
             </div>
@@ -720,29 +722,25 @@ function ForgetPassword() {
    <p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>
    <form action="user.php" method="post">
       <div class="form-group row">
-         <div class="col-sm-2">
-            <label for="inputuser" class="control-label">'.translate("Nickname: ").'</label>
-         </div>
-         <div class="col-sm-4">
+         <label for="inputuser" class="col-sm-3 form-control-label">'.translate("Nickname").'</label>
+         <div class="col-sm-6">
             <input type="text" class="form-control"  name="uname" id="inputuser" placeholder="'.translate("Nickname").'" />
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-2">
-            <label for="inputPassuser" class="control-label">'.translate("Password: ").'</label>
-         </div>
-         <div class="col-sm-4">
+         <label for="inputPassuser" class="col-sm-3 form-control-label">'.translate("Password").'</label>
+         <div class="col-sm-6">
             <input type="password" class="form-control" name="code" id="inputPassuser" placeholder="'.translate("Password").'" />
          </div>
       </div>
          <input type="hidden" name="op" value="mailpasswd" />
-         <div class="form-group">
-         <div class="col-sm-offset-2 col-sm-1">
+         <div class="form-group row">
+         <div class="col-sm-9 offset-sm-3 ">
             <input class="btn btn-primary" type="submit" value ="'.translate("Send").'"  />
          </div>
       </div>
    </form>';
-   include ("footer.php");
+   include ('footer.php');
 }
 
 function mail_password($uname, $code) {
@@ -1138,10 +1136,10 @@ function chgtheme() {
    nav($userinfo['mns']);
    echo '
    <h2>'.translate("Change Theme").'</h2>
-   <form class="" role="form" action="user.php" method="post">
+   <form role="form" action="user.php" method="post">
       <div class="form-group row">
-         <label class="control-label col-lg-5" for="theme">'.translate("Select One Theme").'</label>
-         <div class="col-lg-7">
+         <label class="form-control-label col-sm-5" for="theme">'.translate("Select One Theme").'</label>
+         <div class="col-sm-7">
             <select class="custom-select form-control" name="theme">';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
@@ -1176,9 +1174,9 @@ function chgtheme() {
    closedir($handle);
 
       echo '
-      <div id="skin_choice" class="form-group row">
-         <label class="control-label col-lg-5" for="skin">'.translate("Select one skin").'</label>
-         <div class="col-lg-7">
+      <div class="form-group row" id="skin_choice">
+         <label class="form-control-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
+         <div class="col-sm-7">
             <select class="custom-select form-control" name="skin">';
    $cookie=cookiedecode($user);
    foreach ($skins as $k => $v) {
@@ -1192,7 +1190,7 @@ function chgtheme() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-lg-offset-5 col-lg-7 ">
+         <div class="col-sm-7 offset-sm-5  ">
             <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
             <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
             <input type="hidden" name="op" value="savetheme" />

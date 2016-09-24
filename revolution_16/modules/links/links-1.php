@@ -130,7 +130,7 @@ function AddLink() {
         echo '
          <div class="form-group row">
             <input type="hidden" name="op" value="Add" />
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-9 offset-sm-3">
                <input type="submit" class="btn btn-primary" value="'.translate("Add URL").'" />
             </div>
          </div>

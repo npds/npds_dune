@@ -108,7 +108,7 @@ function login() {
                </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-offset-3 col-sm-9">
+               <div class="col-sm-9 offset-sm-3">
                   <button class="btn btn-outline-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>
             </div>
@@ -132,7 +132,6 @@ function GraphicAdmin($hlpfile) {
    global $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
-
 
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider

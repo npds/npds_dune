@@ -275,7 +275,7 @@ function MergeForum() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
+            <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="MergeForumAction" />
                <button class="btn btn-primary col-xs-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
             </div>
@@ -290,7 +290,7 @@ function MergeForumAction($oriforum,$destforum) {
     global $NPDS_Prefix;
     $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$destforum' WHERE forum_id='$oriforum'";
     if (!$r = sql_query($sql))
-       forumerro('0010');
+       forumerror('0010');
     $sql = "UPDATE ".$NPDS_Prefix."posts SET forum_id='$destforum' WHERE forum_id='$oriforum'";
     if (!$r = sql_query($sql))
        forumerror('0010');
@@ -351,8 +351,8 @@ function ForumMaintAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-offset-4 col-sm-8">
-            <input type="hidden" name="op" value="MaintForumTopics">
+         <div class="col-sm-8 offset-sm-4">
+            <input type="hidden" name="op" value="MaintForumTopics" />
             <button class="btn btn-primary" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>
          </div>
       </div>
@@ -386,8 +386,7 @@ function ForumMaintAdmin() {
                 }
             },
 ';
-   
-   
+
    echo auto_complete("forname","forum_name","forums","forum_name","86400");
    adminfoot('fv',$fv_parametres,'','');
 }
