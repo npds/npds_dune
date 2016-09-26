@@ -55,7 +55,7 @@
     <![endif]-->
    </head>
    <body>
-   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
+   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-light bg-faded">
       <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav">&#9776;</button>
       <a class="navbar-brand" href="#"><span>NPDS</span></a>
       <div class="collapse navbar-toggleable-xs" id="barnav">
@@ -920,14 +920,14 @@
         </div>
         <div class="row">
           <div class="col-lg-4">
-            <h2>Labels</h2>
+            <h2>Tag</h2>
             <div class="bs-component" style="margin-bottom: 40px;">
-              <span class="label label-default">Default</span>
-              <span class="label label-primary">Primary</span>
-              <span class="label label-success">Success</span>
-              <span class="label label-warning">Warning</span>
-              <span class="label label-danger">Danger</span>
-              <span class="label label-info">Info</span>
+              <span class="tag tag-secondary">Default</span>
+              <span class="tag tag-primary">Primary</span>
+              <span class="tag tag-success">Success</span>
+              <span class="tag tag-warning">Warning</span>
+              <span class="tag tag-danger">Danger</span>
+              <span class="tag tag-info">Info</span>
             </div>
           </div>
           <div class="col-lg-4">
