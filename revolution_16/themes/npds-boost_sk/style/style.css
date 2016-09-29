@@ -7,7 +7,7 @@
 
 /** ==> Balise html                                                         **/
 /*     Balise html                                                           */
-html{font-size: 16px;}
+html{}
 body {}
 a:hover {text-decoration:none;}
 /** <== Balise html                                                         **/
@@ -72,9 +72,10 @@ text-align:center;
 
 
 /* ==> adaptation menu */
+
+nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0rem 1rem;}
+
 nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {
-padding-top: 0rem;
-padding-bottom: 0rem; 
 }
 ul.nav.navbar-nav {
 line-height: 2.5rem;
@@ -82,6 +83,14 @@ line-height: 2.5rem;
 a.navbar-brand {
 padding-top: 0.75rem;
 padding-bottom: 0.75rem;
+}
+
+@media (min-width: 34em) {
+.page-header {
+margin: 53px 0 20px;
+padding:15px;
+}
+
 }
 @media (max-width: 34em) {
    ul.nav.navbar-nav {
@@ -98,13 +107,19 @@ padding-bottom: 0.75rem;
    }
    .navbar-divider {display:none;}
    nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
+   
+   .page-header {
+margin: 3px 0 20px;
+padding:15px;
+}
+
+   
+   
 }
 
 /*à customiser*/
 .navbar-default {
 }
-
-
 
 /* 
 .dropdown-menu {
@@ -192,10 +207,8 @@ list-style: none;
 padding-left:0px;
 }
 /* ==> a revoir et affiner utile pour V4 pour l'instant */
-.page-header {
-margin: 53px 0 20px;
-padding:15px;
-}
+
+
 /*recherche js dans tableau*/
 div .pull-right.search input.form-control{
 background-color: rgba(2, 117, 216, 0.07);
