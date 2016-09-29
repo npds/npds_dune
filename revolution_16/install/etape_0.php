@@ -18,44 +18,38 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
-function etape_0()
-{
- global $stage;
- $stage = 0;
- echo '<div class="row">
- <div class="col-md-3"></div>
- <div class="col-md-9">
- <form name="langue" method="post" action="install.php">
-  <div class="form-group row">
-    <label class="col-sm-4"><h3>Choix langue</h3></label>
-    <div class="col-sm-8">
-      <div class="m-y-1 radio">
-        <label>
-        <input class="m-y-1" type="radio" name="langue" value="french" checked="checked" />
-          <h2><span class="label label-pill label-default">Français</span></h2>
-        </label>
-      </div>
-      <div class="m-y-1 radio">
-        <label>
-          <input class="m-y-1" type="radio" name="langue" value="english" />
-          <h2><span class="label label-pill label-default">English</span></h2>
-        </label>
-      </div>
-      <div class="m-y-1 radio">
-        <label>
-          <input class="m-y-1" type="radio" name="langue" value="german" />
-          <h2><span class="label label-pill label-default">Deutschland</span></h2>
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <div class="col-sm-8">
-      <input type="hidden" name="stage" value="1" />
-      <button type="submit" class="btn btn-warning-outline label-pill"><i class="fa fa-lg fa-check"></i> Ok </button>
-    </div>
-  </div>
-</form></div>';
+function etape_0() {
+   global $stage;
+   $stage = 0;
+   echo '
+         <div class="row">
+            <div class="col-sm-3"><img class="img-fluid " src="install/images/carte_monde.png"/></div>
+            <div class="col-sm-9">
+            <div class="col-sm-12">
+               <form name="langue" method="post" action="install.php">
+                  <div class="form-group row">
+                     <div class="form-check">
+                        <label class="form-check-label">
+                           <input class="form-check-input" type="radio" name="langue" value="french" checked="checked" />&nbsp;Français
+                        </label>
+                     </div>
+                     <div class="form-check">
+                        <label class="form-check-label">
+                           <input class="form-check-input" type="radio" name="langue" value="english" />&nbsp;English
+                        </label>
+                     </div>
+                     <div class="form-check">
+                        <label class="form-check-label">
+                           <input class="form-check-input" type="radio" name="langue" value="german" />&nbsp;Deutsch
+                        </label>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <input type="hidden" name="stage" value="1" />
+                     <button type="submit" class="btn btn-success"> Ok </button>
+                  </div>
+               </form>
+            </div>
+         </div>';
 }
 ?>

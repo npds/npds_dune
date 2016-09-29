@@ -19,34 +19,61 @@
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 function etape_3() {
- global $stage, $langue, $stopngo, $table_rep;
- $stage = 3;
- echo '<form name="path" method="post" action="install.php">
-   <h3>'.ins_translate('Vérification des fichiers').'</h3>
+   global $menu, $stage, $langue, $qi, $stopngo, $table_rep, $stopphp, $phpver, $listfich, $colorst1,$colorst2,$colorst3,$colorst4;
+   $stage = 3;
+   verif_php();
+   verif_chmod();
+   $colorst1 = '-success';
+   $colorst2 = '-success';
+   $colorst3 = '-success';
+   $colorst4 = ' active';
+   if ($stopphp == 1) $colorst4 = '-danger';
+   if ($stopngo == 1) {$colorst4 = '-danger';};
+   if ($stopngo != 1 and $stopphp != 1 and $qi==1) {$stage = 4;} else {
 
-<ul>';
-  verif_php();
-  verif_chmod();
-  if($stopngo == 1)
-  {
-   echo '</ul>
-   </form>
-   <div class="alert alert-warning" role="alert">'.ins_translate("Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.").'</div>
-   <form name="reload" method="post">
-   <button onclick="window.location.reload()" class="btn btn-warning-outline label-pill"><i class="fa fa-lg fa-check"></i>'.ins_translate(' Actualiser ').'</button>
-   
-   </form></div>';
-pied_depage();
-   exit;
- }
- else
- {
-  echo '</ul>
+   entete();
+   menu();
+   echo $menu;
+   echo '
+   <h3>'.ins_translate('Vérification des fichiers').'</h3>';
+   if ($stopphp != 0) {
+      echo '
+      <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
+      <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 4.0.6 ou supérieure !").'</div>
+      <form name="reload" method="post">
+         <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate(' Actualiser ').'</button>
+      </form>';
+      pied_depage();
+   }
+   echo '
+               <form name="path" method="post" action="install.php">
+                  <ul class="list-group form-group m-t-1">';
+   if ($stopphp!=1) echo $listfich;
 
-   <input type="hidden" name="langue" value="'.$langue.'" />
-   <input type="hidden" name="stage" value="4" />
-   <button type="submit" class="btn btn-warning-outline label-pill"><i class="fa fa-lg fa-check"></i>'.ins_translate(' Etape suivante ').'</button>
-   </form></div>';
- }
+   if($stopngo == 1) {
+      echo '
+                  </ul>
+               </form>
+               <div class="alert alert-danger" role="alert">'.ins_translate("Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.").'</div>
+               <form name="reload" method="post">
+                  <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate(' Actualiser ').'</button>
+               </form>
+            </div>';
+      pied_depage();
+      exit;
+   }
+   else {
+      echo '
+               </ul>
+               <div class="form-group m-t-1">
+                  <input type="hidden" name="langue" value="'.$langue.'" />
+                  <input type="hidden" name="stage" value="4" />
+                  <button type="submit" class="btn btn-success">'.ins_translate(' Etape suivante ').'</button>
+               </div>
+            </form>
+         </div>';
+   }
+   pied_depage();
+   }
 }
 ?>

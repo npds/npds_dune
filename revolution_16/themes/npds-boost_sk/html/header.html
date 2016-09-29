@@ -25,29 +25,27 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
 
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
-         $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="label-pill label-default">'.$nbmes.'</span></a>';
+         $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="tag-pill tag-default">'.$nbmes.'</span></a>';
       $ava='<a class="dropdown-item" href="user.php"><img src="'.$imgtmp.'" width="64" height="64" /></a>';
       $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
    }
 ?>
 
-   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-default navbar-dark bg-inverse ">
-      <a href="#" class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#barnav">&#9776;</a>
+   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-light bg-faded">
+      <a href="#" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse" data-target="#barnav">&#9776;</a>
       <a class="navbar-brand" href="#"><span>NPDS^ 16</span></a>
       <div class="collapse navbar-toggleable-xs" id="barnav">
          <ul class="nav navbar-nav">
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a></li>
             <li class="navbar-divider"></li>
             <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
                <ul class="dropdown-menu" role="menu">
                   <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
                   <li><a class="dropdown-item" href="search.php">Les archives</a></li>
                   <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
-                  <li class="dropdown-divider"></li>
                </ul>
             </li>
-            <li class="navbar-divider"></li>
-            <li class="nav-item dropdown">
-            <li class="nav-item active"><a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a></li>
             <li class="navbar-divider"></li>
             <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
             <li class="navbar-divider"></li>

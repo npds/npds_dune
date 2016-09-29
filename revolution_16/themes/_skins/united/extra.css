@@ -1,29 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700");
 
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-default.navbar-dark.bg-inverse a {
+nav#uppernavbar.navbar navbar-fixed-top navbar-light bg-faded a {
 color: #fff;
 }
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-default.navbar-dark.bg-inverse a.dropdown-item {
+nav#uppernavbar.navbar navbar-fixed-top navbar-light bg-faded a.dropdown-item {
 color: #333;
 }
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-default.navbar-dark.bg-inverse a.dropdown-item:hover {
+nav#uppernavbar.navbar navbar-fixed-top navbar-light bg-faded a.dropdown-item:hover {
 color: #fff;
 }
-.navbar-default .navbar-nav > .open > a{background-color: #97310e;
+.navbar-nav > .open > a{background-color: #97310e;
 }
-.navbar-default .navbar-nav > .open > a:focus{background-color: #97310e;
+.navbar-nav > .open > a:focus{background-color: #97310e;
 }
 
 
+.navbar-light .navbar-brand{
+color:#fff;}
 
-.navbar-default {
+nav#uppernavbar {
 background-color: #dd4814;
 border-color: #bf3e11;
 }
 
-
-
-
+.navbar-light .navbar-nav .nav-link {
+color: #fff;
+}
 
 
 .navbar .navbar-nav > li > a:hover {
@@ -31,8 +33,8 @@ color: #fff;
 background-color: #ae3910;
 }
 
-.navbar-default .navbar-nav > li > a {
-#fff;}
+.navbar .navbar-nav > li > a {
+color:#fff;}
 
 .nav > li > a {
 position: relative;
