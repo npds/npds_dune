@@ -19,8 +19,16 @@
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
       include_once('lib/mysqli.php');
-   } else{
+   } else {
       include_once('lib/mysql.php');
+   }
+
+   $lang_symb = substr($langue, 0, 3);
+   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
+      include_once $fichier_lang;
+   }
+   else {
+      include_once('install/languages/francais/install-fre.php');
    }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
@@ -34,42 +42,38 @@ function FixQuotes($what = '') {
 }
 
 function verif_php() {
-   global $stopngo;
-   $stopngo = 0;
-   if(phpversion() < "4.0.6")
-   {
+   global $stopphp, $phpver;
+   $stopphp = 0;
+   if(phpversion() < "4.0.6") { 
       $phpver = phpversion();
-      echo "<ul><li>".ins_translate("Version actuelle de PHP")." : ".$phpver."</li></ul>"
-      ."<div style=\"color: #FF0000\">".ins_translate("NPDS nécessite une version 4.0.6 ou supérieure !")."</div>";
-      $stopngo = 1;
+      $stopphp = 1;
    }
 }
+
 function verif_chmod() {
-   global $stopngo;
+   global $stopngo, $listfich;
    $file_to_check = array("abla.log.php","cache.config.php","config.php","filemanager.conf","slogs/security.log","meta/meta.php","static/edito.txt","modules/upload/upload.conf.php");
-   $i=0;
+   $i=0; $listfich='';
    foreach ($file_to_check as $v) {
       if(file_exists($v))
       {
-         echo "<li>".ins_translate("Droits d'accès du fichier ")."<span class=\"fich\">".$v."</span> : ";
-         if(is_writeable($v))
-         {
-            echo " <span class=\"vert\">".ins_translate("corrects")." !</span></li>\n";
+         if(is_writeable($v)) {
+            $listfich .= '<li class="list-group-item">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :  <span class="text-success">'.ins_translate("corrects").' !</span></li>';
          }
-         else
-         {
-            echo " <span class=\"rouge\">".ins_translate("incorrects")." !</span></li>
-            <ul><li style=\"color: #ff0000\">".ins_translate("Vous devez modifier les droits d'accès (lecture/écriture) du fichier ") .$v. " (chmod 666)</ul></li>\n";
+         else {
+            $listfich .=  '<li class="list-group-item list-group-item-danger">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :  <span class="">'.ins_translate("incorrects").' !</span><br />
+            <span class="">'.ins_translate("Vous devez modifier les droits d'accès (lecture/écriture) du fichier ") .$v. ' (chmod 666)</li>';
             $stopngo = 1;
          }
       }
-      else
-      {
-         echo "<li style=\"color: #ff0000\">".ins_translate("Le fichier")." $v ".ins_translate("est introuvable !")."</li>\n";
+      else {
+         $listfich .=  '
+         <li class="list-group-item list-group-item-danger">'.ins_translate("Le fichier").' '.$v.' '.ins_translate("est introuvable !").'</li>';
          $stopngo = 1;
       }
       $i++;
    }
+   return $listfich;
 }
 
 function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_system, $new_system_md5, $new_adminmail) {
@@ -235,5 +239,122 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    
    $stage8_ok = 1;
    return($stage8_ok);
+}
+
+
+#autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2  $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)
+function language_iso($l,$s,$c) {
+    global $langue;
+    $iso_lang='';$iso_country='';$ietf='';
+    switch ($langue) {
+        case "french": $iso_lang ='fr';$iso_country='FR'; break;
+        case "english":$iso_lang ='en';$iso_country='US'; break;
+        case "spanish":$iso_lang ='es';$iso_country='ES'; break;
+        case "german":$iso_lang ='de';$iso_country='DE'; break;
+        case "chinese":$iso_lang ='zh';$iso_country='CN'; break;
+        default:
+        break;
+    }
+    if ($c!==1) $ietf= $iso_lang;
+    if (($l==1) and ($c==1)) $ietf=$iso_lang.$s.$iso_country;
+    if (($l!==1) and ($c==1)) $ietf=$iso_country;
+    if (($l!==1) and ($c!==1)) $ietf='';
+    if (($l==1) and ($c!==1)) $ietf=$iso_lang;
+    return ($ietf);
+}
+
+#autodoc formval($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>inutilisé,  $foo =='' ==> </div> et inclusion footer.php
+function formval($fv,$fv_parametres,$arg1,$foo) {
+if ($fv=='fv') {
+echo '
+<script type="text/javascript" src="lib/formvalidation/dist/js/formValidation.min.js"></script>
+<script type="text/javascript" src="lib/formvalidation/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
+<script type="text/javascript" src="lib/formvalidation/dist/js/framework/bootstrap4.min.js"></script>
+<script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+'.$arg1.'
+$(document).ready(function() {
+   $("form")
+   .attr("autocomplete", "off")
+   
+   .on("init.field.fv", function(e, data) {
+      var $parent = data.element.parents(".form-group"),
+       $icon   = $parent.find(\'.fv-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
+      $icon.on("click.clearing", function() {
+          if ($icon.hasClass("fv-control-feedback fa fa-ban fa-lg")) {
+              data.fv.resetField(data.element);
+          }
+      })
+   })
+
+   .formValidation({
+      locale: "'.language_iso(1,"_",1).'",
+      framework: "bootstrap4",
+      icon: {
+         required: "glyphicon glyphicon-asterisk",
+
+         valid: "fa fa-check fa-lg",
+         invalid: "fa fa-ban fa-lg",
+         validating: "glyphicon glyphicon-refresh"
+      },
+      fields: {
+         alpha: {
+         },';
+echo '
+         '.$fv_parametres;
+echo '
+         dzeta: {
+         }
+      }
+   })
+
+   .on("success.validator.fv", function(e, data) {
+   // The password passes the callback validator
+   // voir si on a plus de champs mot de passe : changer par un array de champs ...
+   if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass") && data.validator === "callback") {
+      // Get the score
+      var score = data.result.score,$bar_cont=$("#passwordMeter_cont"),$pass_level=$("#pass-level"),
+          $bar = $("#passwordMeter").find(".progress-bar");
+      switch (true) {
+        case (score === null):
+            $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
+            $bar_cont.attr("value","0");
+            break;
+        case (score <= 0):
+            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-striped progress-danger");
+            $bar_cont.attr("value","25").removeClass().addClass("progress progress-striped progress-danger");
+            $pass_level.html("Tr&#xE8;s faible").addClass("text-danger");
+            break;
+        case (score > 0 && score <= 2):
+            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-striped progress-warning");
+            $bar_cont.attr("value","50").removeClass().addClass("progress progress-striped progress-warning");
+            $pass_level.html("Faible").addClass("text-warning");
+            break;
+        case (score > 2 && score <= 4):
+            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-striped progress-info");
+            $bar_cont.attr("value","75").removeClass().addClass("progress progress-striped progress-info");
+            $pass_level.html("Moyen").addClass("text-info");
+            break;
+        case (score > 4):
+            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-striped progress-success");
+            $bar_cont.attr("value","100").removeClass().addClass("progress progress-striped progress-success");
+            $pass_level.html("Fort").addClass("text-success");
+            break;
+        default:
+            break;
+      }
+      }
+   });
+
+})
+
+//]]>
+</script>'."\n";
+}
+if ($foo=='') {
+echo '
+</div>';
+}
 }
 ?>

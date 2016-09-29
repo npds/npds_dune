@@ -23,19 +23,25 @@ function etape_1() {
    $stage = 0;
    $accueil = 'install/languages/'.$langue.'/bienvenue.txt';
    echo '
-   <form name="welcome" method="post" action="install.php">
-   <div class="row">
-   <div class="col-md-12">
-    <h3>'.ins_translate('Nouvelle installation').'&nbsp;'.$cms_name.'</h3>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <h3>'.ins_translate('Nouvelle installation').'&nbsp;'.$cms_name.'</h3>
     '.ins_translate('Bienvenue').',<br />';
-      $id_fr = fopen("$accueil", "r");
+      $id_fr = fopen($accueil, 'r');
       fpassthru($id_fr);
    echo '
-    </div>
-    </div>
-    <input type="hidden" name="stage" value="2" />
-    <input type="hidden" name="langue" value="'.$langue.'" />
-    <button type="submit" class="btn btn-warning-outline label-pill"><i class="fa fa-lg fa-check"></i>'.ins_translate(' Etape suivante ').'</button>
-    </form></div>';
+                  </div>
+               </div>
+               <form name="welcome" method="post" action="install.php">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" name="qi" value="1"> Installation rapide
+                    </label>
+                  </div>
+                  <input type="hidden" name="stage" value="2" />
+                  <input type="hidden" name="langue" value="'.$langue.'" />
+                  <button type="submit" class="btn btn-success">'.ins_translate(' Etape suivante ').'</button>
+               </form>
+            </div>';
 }
 ?>
