@@ -28,7 +28,7 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
       include_once $fichier_lang;
    }
    else {
-      include_once('install/languages/francais/install-fre.php');
+      include_once('install/languages/french/install-fre.php');
    }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
