@@ -19,16 +19,6 @@
 
 function entete() {
    global $langue, $cms_logo, $cms_name, $stage;
-/*
-      $lang_symb = substr($langue, 0, 3);
-   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
-      include_once $fichier_lang;
-   }
-   else {
-      include_once('install/languages/francais/install-fre.php');
-   }
-*/
-
    echo '<html>
    <head>
       <meta charset="utf-8">
@@ -60,11 +50,10 @@ function entete() {
       <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
       <script type="text/javascript" src="lib/js/tether.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
    </head>
    <body>
       <div class="container-fluid">
-         <div class="page-header">
+         <div class="m-y-2">
             <div class="row">
                <div class="col-sm-10"></div>
                <div class="col-sm-2">'.$cms_name.'</div>
