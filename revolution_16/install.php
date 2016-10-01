@@ -40,7 +40,7 @@ if(!isset($stage)) { $stage = 0; }
 # install/etape_0.php
 # Accueil :
 #   => install/languages/english/welcome.txt
-#   => install/languages/francais/accueil.txt
+#   => install/languages/french/bienvenue.txt
 #   0 : nouvelle installation (par defaut à supprimer)
 */
 if($stage == 0) {
@@ -53,7 +53,7 @@ if($stage == 0) {
 /*
 # install/etape_1.php
 # Choix de la langue :
-#   => install/languages/*
+#   => install/languages
 */
 if($stage == 1) {
    $colorst1 = '-success';
@@ -76,7 +76,7 @@ if($stage == 1) {
 # install/etape_2.php
 # Licence GNU GPL en fonction de la langue :
 #   => install/languages/english/licence-eng.txt
-#   => install/languages/francais/licence-fra.txt
+#   => install/languages/french/licence-fra.txt
 */
 if($stage == 2 and $qi!=1) {
    $colorst1 = '-success';
@@ -406,7 +406,7 @@ if($stage == 8) {
                 <input type="hidden" name="langue" value="'.$langue.'" />
                 <input type="hidden" name="stage" value="9" />
                 <br /><br />
-                <input type="submit" class="btn btn-secondary" value="'.ins_translate(" Etape suivante ").'" />';
+                <input type="submit" class="btn btn-success" value="'.ins_translate(" Etape suivante ").'" />';
           }
           echo '
             </form>
