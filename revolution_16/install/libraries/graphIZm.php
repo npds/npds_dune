@@ -91,14 +91,14 @@ function menu() {
                <ul class="list-group m-b-1">
                   <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>
                   <li class="list-group-item list-group-item'.$colorst2.'">'.ins_translate('Bienvenue').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst4.'">'.ins_translate('Vérification des fichiers').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst5.'">'.ins_translate('Paramètres de connexion').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst6.'">'.ins_translate('Autres paramètres').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst7.'">'.ins_translate('Base de données').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
+                  <li class="list-group-item list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
+                  <li class="list-group-item list-group-item'.$colorst4.'">'.ins_translate('Vérification des fichiers').'</li>
+                  <li class="list-group-item list-group-item'.$colorst5.'">'.ins_translate('Paramètres de connexion').'</li>
+                  <li class="list-group-item list-group-item'.$colorst6.'">'.ins_translate('Autres paramètres').'</li>
+                  <li class="list-group-item list-group-item'.$colorst7.'">'.ins_translate('Base de données').'</li>
+                  <li class="list-group-item list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
+                  <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
+                  <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
                </ul>
             </div>
             <div class="col-md-9">';
