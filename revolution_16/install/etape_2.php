@@ -28,13 +28,12 @@ function etape_2() {
       $licence_text = fread($myfile, filesize($licence_file));
       fclose($myfile);
       $nohalt = true;
-   }
-   else {
+   } else {
       $licence_text = inst_translate('Fichier de licence indisponible !');
       $nohalt = false;
    }
- echo '
-               <h3>'.ins_translate('Licence').'</h3>
+   echo '
+               <h3 class="m-b-2">'.ins_translate('Licence').'</h3>
                <form name="gpl" method="post" action="install.php">
                   <fieldset class="form-group">
                      <label for="licence">'.ins_translate("L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ").' :</label>
@@ -42,15 +41,14 @@ function etape_2() {
                   </fieldset>
                   <input type="hidden" name="langue" value="'.$langue.'" />
                   <input type="hidden" name="stage" value="3" />';
- if($nohalt) {
-  echo '
+   if($nohalt) {
+      echo '
                   <button type="submit" class="btn btn-success">'.ins_translate(" J'accepte ").'</button>';
-  }
- else
- {
-  echo '<div style="font-weight: bold; color: #ff0000">stop !</div>';
- }
- echo '
+   } else {
+   echo '
+                  <div style="font-weight: bold; color: #ff0000">stop !</div>';
+   }
+   echo '
                </form>
             </div>';
 }
