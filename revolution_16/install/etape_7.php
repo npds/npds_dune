@@ -19,35 +19,34 @@
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 function etape_7() {
- include_once ('config.php');
-
+   include_once ('config.php');
    global $langue, $stage, $minpass, $NPDS_Prefix;
    $stage = 7;
-   echo '<h3>'.ins_translate('Compte Admin').'</h3>
-
-   <form id="admin_password" name="admin_password" method="post" action="install.php">
-
-   <fieldset class="form-group">
-      <label>'.ins_translate('Identifiant').'</label>
-      <input class="form-control" type="text" name="adminlogin" size="35" maxlength="40" value="Root">
-   </fieldset>
-
-   <fieldset class="form-group">
-      <label>'.ins_translate('Mot de passe').' *</label>
-      <input class="form-control" type="password" name="adminpass1" size="35" maxlength="40">
-      <small>* '.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</small>
-      </fieldset>
-
-   <fieldset class="form-group">
-      <label>'.ins_translate("Une seconde fois").' *</label>
-      <input class="form-control" type="password" name="adminpass2" size="35" maxlength="40" />
-      <small>* '.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</small>
-   </fieldset>
-
-      <input type="hidden" name="langue" value="'.$langue.'" />
-      <input type="hidden" name="stage" value="'.$stage.'" />
-      <input type="hidden" name="op" value="write_users" />
-      <button type="submit" class="btn btn-warning-outline label-pill"><i class="fa fa-lg fa-check"></i>'.ins_translate(' Créer ').'</button>
-</form></div>';
+   echo '
+               <h3 class="m-b-2">'.ins_translate('Compte Admin').'</h3>
+               <div class="col-sm-12">
+                  <form id="admin_password" name="admin_password" method="post" action="install.php">
+                     <div class="form-group row">
+                        <label for="adminlogin">'.ins_translate('Identifiant').'</label>
+                        <input class="form-control" type="text" name="adminlogin" maxlength="40" value="Root" />
+                     </div>
+                     <div class="form-group row">
+                        <label for="adminpass1">'.ins_translate('Mot de passe').' *</label>
+                        <input class="form-control" type="password" name="adminpass1" maxlength="40" />
+                        <small>* '.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</small>
+                     </div>
+                     <div class="form-group row">
+                        <label for="adminpass2">'.ins_translate("Une seconde fois").' *</label>
+                        <input class="form-control" type="password" name="adminpass2" maxlength="40" />
+                        <small>* '.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</small>
+                     </div>
+                     <div class="form-group row">
+                        <input type="hidden" name="langue" value="'.$langue.'" />
+                        <input type="hidden" name="stage" value="'.$stage.'" />
+                        <input type="hidden" name="op" value="write_users" />
+                        <button type="submit" class="btn btn-success">'.ins_translate(' Créer ').'</button>
+                     </div>
+                  </form>
+            </div>';
 }
 ?>

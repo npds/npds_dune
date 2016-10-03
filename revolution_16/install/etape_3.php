@@ -35,22 +35,21 @@ function etape_3() {
    menu();
    echo $menu;
    echo '
-   <h3>'.ins_translate('Vérification des fichiers').'</h3>';
+               <h3 class="m-b-2">'.ins_translate('Vérification des fichiers').'</h3>';
    if ($stopphp != 0) {
       echo '
-      <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
-      <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 4.0.6 ou supérieure !").'</div>
-      <form name="reload" method="post">
-         <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate(' Actualiser ').'</button>
-      </form>';
+               <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
+               <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 4.0.6 ou supérieure !").'</div>
+               <form name="reload" method="post">
+                  <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate(' Actualiser ').'</button>
+               </form>';
       pied_depage();
    }
    echo '
                <form name="path" method="post" action="install.php">
                   <ul class="list-group form-group m-t-1">';
-   if ($stopphp!=1) echo $listfich;
-
-   if($stopngo == 1) {
+   if ($stopphp != 1) echo $listfich;
+   if ($stopngo == 1) {
       echo '
                   </ul>
                </form>

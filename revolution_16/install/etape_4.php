@@ -23,7 +23,7 @@ function etape_4() {
    $stage = 4;
    include_once('config.php');
    echo '
-               <h3>'.ins_translate("Paramètres de connexion").'</h3>
+               <h3 class="m-b-2">'.ins_translate("Paramètres de connexion").'</h3>
                <div class="col-sm-12">
                   <form id="parameters" name="parameters" method="post" action="install.php">
                      <div class="form-group row">
