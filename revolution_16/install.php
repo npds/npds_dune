@@ -330,24 +330,31 @@ if($stage == 7) {
          }
          else {
             echo '
-            <h3 class="m-b-2">'.ins_translate('Compte Admin').'</h3>';
+               <h3 class="m-b-2">'.ins_translate('Compte Admin').'</h3>';
             if($stage7_ok == 1) {
-               $msg = '<div class="alert alert-success">'.ins_translate("Le compte Admin a été modifié avec succès !").'</div>';
+               $msg = '
+               <div class="alert alert-success">'.ins_translate("Le compte Admin a été modifié avec succès !").'</div>';
                @unlink("modules/f-manager/users/root.conf.php");
                @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
             }
             elseif($stage7_ok == 0) {
-               $msg = '<div class="alert alert-danger">'.ins_translate("Le compte Admin n'a pas pu être modifié. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
+               $msg = '
+               <div class="alert alert-danger">'.ins_translate("Le compte Admin n'a pas pu être modifié. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
             }
-                echo '<form name="next" method="post" action="install.php">'.$msg;
+            echo $msg;
+            
+            
+//                echo '<form name="next" method="post" action="install.php">';
                 if($stage7_ok == 1) {
                    echo '
+                   <form name="next" method="post" action="install.php">
                       <input type="hidden" name="langue" value="'.$langue.'" />
                       <input type="hidden" name="stage" value="8" />
-                      <br /><br />
-                      <input type="submit" class="btn btn-success" value="'.ins_translate(" Etape suivante ").'" />';
+                      <br />
+                      <input type="submit" class="btn btn-success" value="'.ins_translate(" Etape suivante ").'" />
+                  </form>';
                 }
-                echo '</form>
+                echo '
                 </div>';
              unset($stage7_ok);
           }
