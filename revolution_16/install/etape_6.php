@@ -26,7 +26,7 @@ include ('config.php');
    {$pre_tab='';}
 
 function etape_6() {
-   global $list_tab, $langue, $stage,$dbhost,$dbname,$dbuname,$dbpass,$NPDS_Prefix,$pre_tab;
+   global $list_tab, $langue, $stage, $dbhost, $dbname, $dbuname, $dbpass, $NPDS_Prefix, $pre_tab;
    $stage = 6;
    echo '
                <h3 class="m-b-2">'.ins_translate('Base de données').'</h3>
