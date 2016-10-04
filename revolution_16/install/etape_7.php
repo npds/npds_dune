@@ -27,17 +27,18 @@ function etape_7() {
                <div class="col-sm-12">
                   <form id="admin_password" name="admin_password" method="post" action="install.php">
                      <div class="form-group row">
-                        <label for="adminlogin">'.ins_translate('Identifiant').'</label>
-                        <input class="form-control" type="text" name="adminlogin" maxlength="40" value="Root" />
+                        <label class="form-control-label" for="adminlogin">'.ins_translate('Identifiant').'</label>
+                        <input class="form-control" type="text" name="adminlogin" id="adminlogin" maxlength="40" value="Root" required="required" />
+                        <span class="help-block text-xs-right" id="countcar_adminlogin"></span>
                      </div>
                      <div class="form-group row">
-                        <label for="adminpass1">'.ins_translate('Mot de passe').' *</label>
-                        <input class="form-control" type="password" name="adminpass1" maxlength="40" />
+                        <label class="form-control-label" for="adminpass1">'.ins_translate('Mot de passe').' *</label>
+                        <input class="form-control" type="password" name="adminpass1" id="adminpass1" maxlength="'.$minpass.'" required="required" />
                         <small>* '.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</small>
                      </div>
                      <div class="form-group row">
-                        <label for="adminpass2">'.ins_translate("Une seconde fois").' *</label>
-                        <input class="form-control" type="password" name="adminpass2" maxlength="40" />
+                        <label class="form-control-label" for="adminpass2">'.ins_translate("Une seconde fois").' *</label>
+                        <input class="form-control" type="password" name="adminpass2" id="adminpass2" maxlength="'.$minpass.'" required="required" />
                         <small>* '.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</small>
                      </div>
                      <div class="form-group row">
@@ -48,5 +49,10 @@ function etape_7() {
                      </div>
                   </form>
             </div>';
+               $fieldlength = '
+            inpandfieldlen("adminlogin",40);
+            inpandfieldlen("adminpass1",'.$minpass.');
+            inpandfieldlen("adminpass2",'.$minpass.');';
+            formval('fv','',$fieldlength,'1');
 }
 ?>
