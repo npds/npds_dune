@@ -19,7 +19,7 @@
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 function etape_3() {
-   global $menu, $stage, $langue, $qi, $stopngo, $table_rep, $stopphp, $phpver, $listfich, $colorst1,$colorst2,$colorst3,$colorst4;
+   global $menu, $stage, $langue, $qi, $stopngo, $table_rep, $stopphp, $phpver, $listfich, $colorst1, $colorst2, $colorst3, $colorst4;
    $stage = 3;
    verif_php();
    verif_chmod();
