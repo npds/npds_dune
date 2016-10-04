@@ -26,10 +26,10 @@ include ('config.php');
    {$pre_tab='';}
 
 function etape_6() {
-   global $list_tab, $langue, $stage,$dbhost,$dbname,$dbuname,$dbpass,$NPDS_Prefix,$pre_tab;
+   global $list_tab, $langue, $stage, $dbhost, $dbname, $dbuname, $dbpass, $NPDS_Prefix, $pre_tab;
    $stage = 6;
    echo '
-               <h3>'.ins_translate('Base de données').'</h3>
+               <h3 class="m-b-2">'.ins_translate('Base de données').'</h3>
                   <p id="mess_bd">'.ins_translate('Nous allons maintenant procéder à la création des tables de la base de données ').' (&nbsp;<code class="code">'.$dbname.'</code>&nbsp;) '.ins_translate('sur le serveur d\'hébergement').' (&nbsp;<code class="code">'.$dbhost.'</code>&nbsp;). '.$pre_tab.'<br />'. ins_translate('Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !').'<br />'.ins_translate('Si la base de données').' (&nbsp;<code class="code">'.$dbname.'</code>&nbsp;) '.ins_translate('n\'existait pas ce script tentera de la créer pour vous.').'</p><br />
                   <form name="database" method="post" action="install.php">
                      <input type="hidden" name="langue" value="'.$langue.'" />

@@ -19,6 +19,7 @@
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
       include_once('lib/mysqli.php');
+      
    } else {
       include_once('lib/mysql.php');
    }
@@ -145,8 +146,7 @@ function msg_erreur($message) {
 function mysql_connex() {
    global $dbhost, $dbuname, $dbname, $dbpass;
    $db_connect = sql_connect($dbhost, $dbuname, $dbpass);
-   if($db_connect != FALSE)
-   {
+   if($db_connect != FALSE) {
 /*      if(!mysql_select_db("$dbname"))
       {
          $request = sql_query("CREATE DATABASE $dbname");
@@ -165,8 +165,7 @@ function mysql_connex() {
          return($db_connect);
 //      }
    }
-   else
-   {
+   else {
       msg_erreur("Erreur : la connexion à la base de données a échoué. Vérifiez vos paramètres !");
    }
 }
@@ -236,7 +235,6 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
          fwrite($fic, $ligne);
    }
    fclose($fic);
-   
    $stage8_ok = 1;
    return($stage8_ok);
 }

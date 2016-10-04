@@ -157,7 +157,7 @@ if($stage == 4) {
          menu();
          echo $menu;
          $out .= '
-                  <h3>'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
+                  <h3 class="m-b-2">'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
          if($stage4_ok == 1 and $qi !=1) {
             $out.= '
                   <form name="submit" method="post" action="install.php">
@@ -211,7 +211,7 @@ if($stage == 5){
          $msg = '<div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
       }
       echo '
-               <h3>'.ins_translate("Fichier de configuration").'</h3>'.$msg;
+               <h3 class="m-b-2">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
       if($stage5_ok == 1) {
          echo '
                <form name="next" method="post" action="install.php">
@@ -267,13 +267,12 @@ if($stage == 6) {
       write_database();
 
       echo '
-      <h3>'.ins_translate('Base de données').'</h3>';
+      <h3 class="m-b-2">'.ins_translate('Base de données').'</h3>';
       if($stage6_ok == 1) {
          $msg = '<div class="alert alert-success">'.ins_translate('La base de données a été créée avec succès !').'</div>';
       }
       elseif($stage6_ok == 0) {
          $colorst7 = '-danger';
-
          $msg = '<div class="alert alert-danger">'.ins_translate("La base de données n'a pas pu être créée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
       }
       echo '<form name="next" method="post" action="install.php">'.$msg;
@@ -331,24 +330,31 @@ if($stage == 7) {
          }
          else {
             echo '
-            <h3>'.ins_translate('Compte Admin').'</h3>';
+               <h3 class="m-b-2">'.ins_translate('Compte Admin').'</h3>';
             if($stage7_ok == 1) {
-               $msg = 'Le compte Admin a été modifié avec succès !';
+               $msg = '
+               <div class="alert alert-success">'.ins_translate("Le compte Admin a été modifié avec succès !").'</div>';
                @unlink("modules/f-manager/users/root.conf.php");
                @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
             }
             elseif($stage7_ok == 0) {
-               $msg = "Le compte Admin n'a pas pu être modifié. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.";
+               $msg = '
+               <div class="alert alert-danger">'.ins_translate("Le compte Admin n'a pas pu être modifié. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
             }
-                echo '<form name="next" method="post" action="install.php">'.ins_translate($msg);
+            echo $msg;
+            
+            
+//                echo '<form name="next" method="post" action="install.php">';
                 if($stage7_ok == 1) {
                    echo '
+                   <form name="next" method="post" action="install.php">
                       <input type="hidden" name="langue" value="'.$langue.'" />
                       <input type="hidden" name="stage" value="8" />
-                      <br /><br />
-                      <input type="submit" class="btn btn-secondary" value="'.ins_translate(" Etape suivante ").'" />';
+                      <br />
+                      <input type="submit" class="btn btn-success" value="'.ins_translate(" Etape suivante ").'" />
+                  </form>';
                 }
-                echo '</form>
+                echo '
                 </div>';
              unset($stage7_ok);
           }
@@ -392,11 +398,11 @@ if($stage == 8) {
        include('config.php');
        write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
        echo '
-       <h3>'.ins_translate("Configuration du module UPload").'</h3>';
+               <h3 class="m-b-2">'.ins_translate("Configuration du module UPload").'</h3>';
        if($stage8_ok == 1) {
           $msg = 'Le fichier de configuration a été écrit avec succès !';
        }
-       elseif($stage8_ok == 0) {
+       elseif($stage8_ok == 0) {// ce controle de fichier à déjà été effectué
           $msg = "Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.";
        }
           echo '<form name="next" method="post" action="install.php">
@@ -405,7 +411,7 @@ if($stage == 8) {
              echo '
                 <input type="hidden" name="langue" value="'.$langue.'" />
                 <input type="hidden" name="stage" value="9" />
-                <br /><br />
+                <br />
                 <input type="submit" class="btn btn-success" value="'.ins_translate(" Etape suivante ").'" />';
           }
           echo '

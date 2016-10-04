@@ -25,7 +25,7 @@ function etape_1() {
    echo '
                <div class="row">
                   <div class="col-sm-12">
-                     <h3>'.ins_translate('Nouvelle installation').'&nbsp;'.$cms_name.'</h3>
+                     <h3 class="m-b-2">'.ins_translate('Nouvelle installation').'&nbsp;'.$cms_name.'</h3>
     '.ins_translate('Bienvenue').',<br />';
       $id_fr = fopen($accueil, 'r');
       fpassthru($id_fr);
@@ -35,7 +35,7 @@ function etape_1() {
                <form name="welcome" method="post" action="install.php">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" name="qi" value="1"> Installation rapide
+                      <input class="form-check-input" type="checkbox" name="qi" value="1" /> Installation rapide
                     </label>
                   </div>
                   <input type="hidden" name="stage" value="2" />

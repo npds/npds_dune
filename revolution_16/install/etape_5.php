@@ -23,7 +23,7 @@ function etape_5() {
    $stage = 5;
    include_once('config.php');
    echo '
-               <h3>'.ins_translate('Autres paramètres').'</h3>
+               <h3 class="m-b-2">'.ins_translate('Autres paramètres').'</h3>
                <div class="col-sm-12">
                   <form id="others_parameters" name="others_parameters" method="post" action="install.php">
                   <div class="form-group row">
@@ -75,6 +75,7 @@ function etape_5() {
                      <input type="hidden" name="stage" value="'.$stage.'" />
                      <input type="hidden" name="new_startdate" value="'.$startdate.'" />
                      <input type="hidden" name="op" value="write_others" />
+                     <input type="hidden" name="qi" value="'.$qi.'" />
                      <button type="submit" class="btn btn-success">'.ins_translate(' Modifier ').'</button>
                   </div>
                </form>

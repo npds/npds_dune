@@ -18,7 +18,7 @@
 /************************************************************************/
 
 function entete() {
-   global $langue, $cms_logo, $cms_name, $stage;
+   global $langue, $cms_logo, $cms_name, $stage, $Version_Num, $Version_Id, $Version_Sub;
    echo '<html>
    <head>
       <meta charset="utf-8">
@@ -56,7 +56,7 @@ function entete() {
          <div class="m-y-2">
             <div class="row">
                <div class="col-sm-10"></div>
-               <div class="col-sm-2">'.$cms_name.'</div>
+               <div class="col-sm-2">'.$Version_Id.' '.$Version_Sub.' '.$Version_Num.'</div>
             </div>
             <div class="row">
                <div class="col-sm-2 hidden-xs-down"><img class="img-fluid" src="install/images/header.png" /></div>
@@ -91,14 +91,14 @@ function menu() {
                <ul class="list-group m-b-1">
                   <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>
                   <li class="list-group-item list-group-item'.$colorst2.'">'.ins_translate('Bienvenue').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst4.'">'.ins_translate('Vérification des fichiers').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst5.'">'.ins_translate('Paramètres de connexion').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst6.'">'.ins_translate('Autres paramètres').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst7.'">'.ins_translate('Base de données').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
-                  <li class="list-group-item list-group-item-action list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
+                  <li class="list-group-item list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
+                  <li class="list-group-item list-group-item'.$colorst4.'">'.ins_translate('Vérification des fichiers').'</li>
+                  <li class="list-group-item list-group-item'.$colorst5.'">'.ins_translate('Paramètres de connexion').'</li>
+                  <li class="list-group-item list-group-item'.$colorst6.'">'.ins_translate('Autres paramètres').'</li>
+                  <li class="list-group-item list-group-item'.$colorst7.'">'.ins_translate('Base de données').'</li>
+                  <li class="list-group-item list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
+                  <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
+                  <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
                </ul>
             </div>
             <div class="col-md-9">';
