@@ -19,7 +19,7 @@
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 function etape_4() {
-   global $langue, $stage, $qi, $stopngo, $stopphp;
+   global $langue, $stage, $qi, $stopngo, $stopphp, $dbhost, $dbuname, $dbname, $adminmail;
    $stage = 4;
    include_once('config.php');
    echo '
