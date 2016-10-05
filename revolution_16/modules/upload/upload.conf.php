@@ -38,7 +38,7 @@ $rep_cache = $racine.'/modules/upload/tmp/';
 $rep_log = $racine.'/slogs/security.log';
 
 // URL HTTP de votre site (exemple : http://www.monsite.org)  !
-$url_upload = 'http://labo.infocapagde.com';
+$url_upload = 'http://localhost';
 
 // URL de la feuille de style à utiliser pour la présentation de la fenetre d'upload (ou "")
 

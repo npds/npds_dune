@@ -33,12 +33,12 @@ function etape_7() {
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="adminpass1">'.ins_translate('Mot de passe').' *</label>
-                        <input class="form-control" type="password" name="adminpass1" id="adminpass1" maxlength="'.$minpass.'" required="required" />
+                        <input class="form-control" type="password" name="adminpass1" id="adminpass1" minlength="'.$minpass.'" maxlength="40" required="required" />
                         <span class="help-block">'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</span>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="adminpass2">'.ins_translate("Une seconde fois").' *</label>
-                        <input class="form-control" type="password" name="adminpass2" id="adminpass2" maxlength="'.$minpass.'" required="required" />
+                        <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="40" required="required" />
                         <span class="help-block">'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</span>
                      </div>
                      <div class="form-group row">
@@ -51,8 +51,8 @@ function etape_7() {
             </div>';
                $fieldlength = '
             inpandfieldlen("adminlogin",40);
-            inpandfieldlen("adminpass1",'.$minpass.');
-            inpandfieldlen("adminpass2",'.$minpass.');';
+            inpandfieldlen("adminpass1",40);
+            inpandfieldlen("adminpass2",40);';
             formval('fv','',$fieldlength,'1');
 }
 ?>
