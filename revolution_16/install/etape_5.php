@@ -29,7 +29,7 @@ function etape_5() {
                   <div class="form-group row">
                      <label class="form-control-label" for="new_nuke_url">'.ins_translate('Adresse (URL) de votre site').'</label>
                      <input class="form-control" type="url" name="new_nuke_url" id="new_nuke_url" maxlength="80" value="'.$nuke_url.'" required="required" />
-                     <small>'.ins_translate('Exemples :').'<br />http://www.monsite.com<br />http://www.monsite.com/npds</small>
+                     <span class="help-block">'.ins_translate('Exemples :').' http://www.monsite.com | http://www.monsite.com/npds</span>
                      <span class="help-block text-xs-right" id="countcar_new_nuke_url"></span>
                   </div>
                   <div class="form-group row">
@@ -52,10 +52,12 @@ function etape_5() {
                      <select class="custom-select form-control" name="new_Default_Theme" />';
    include('themes/list.php');
    $themelist = explode(' ', $themelist);
+   $sel='';
    for($i = 0; $i < sizeof($themelist); $i++) {
       if($themelist[$i] != '') {
-         echo '
-                        <option value="'.$themelist[$i].'">'.$themelist[$i].'</option>';
+         if($themelist[$i] == 'npds-boost_sk') $sel=' selected="selected"'; else $sel='' ;
+            echo '
+                        <option value="'.$themelist[$i].'"'.$sel.'>'.$themelist[$i].'</option>';
       }
    }
    echo '
@@ -86,6 +88,5 @@ function etape_5() {
             inpandfieldlen("new_Titlesitename",80);
             inpandfieldlen("new_slogan",80);';
             formval('fv','',$fieldlength,'1');
-
 }
 ?>
