@@ -21,19 +21,20 @@
 if (file_exists('IZ-Xinstall.ok')) {include('admin/die.php');}
 
 /*
-# Paramètres du CMS
-*/
-$cms_logo = 'install/images/header.png';
-$cms_name = 'NPDS REvolution 16';
-global $cms_logo,$cms_name;
-
-/*
 # Contrôle des fichiers de base de IZ-Xinstall
 */
-
 if(file_exists('grab_globals.php')) include ('grab_globals.php');
 if(file_exists('install/libraries/graphIZm.php')) include ('install/libraries/graphIZm.php');
 if(file_exists('install/libraries/lib-inc.php')) include ('install/libraries/lib-inc.php');
+
+
+/*
+# Paramètres install
+*/
+$cms_logo = 'install/images/header.png';
+$cms_name = 'NPDS REvolution 16';
+global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub;
+
 if(!isset($stage)) { $stage = 0; }
 
 /*
@@ -148,7 +149,7 @@ if($stage == 4) {
             $file = fopen('slogs/install.log', 'a');
             fwrite($file, $Xinst_log);
             fclose($file);
-            if($qi == 1) {Header('Location: install.php?stage=5&qi=1&langue=french');exit;};
+            if($qi == 1) {Header('Location: install.php?stage=5&qi=1&langue='.$langue);exit;};
          }
          elseif($stage4_ok == 0) {
             $msg = '<div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
@@ -189,44 +190,50 @@ if($stage == 4) {
 #      fonction : write_others()
 */
 if($stage == 5){
+   $out='';
    $colorst1 = '-success';
    $colorst2 = '-success';
    $colorst3 = '-success';
    $colorst4 = '-success';
    $colorst5 = '-success';
    $colorst6 = ' active';
-   entete();
-   menu();
-   echo $menu;
    require('install/etape_5.php');
    if(!isset($op)) { $op = 'etape_5'; }
    switch($op) {
       case 'write_others':
-      global $stage, $langue, $stage5_ok;
-      write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slogan, $new_Default_Theme, $new_startdate);
-      if($stage5_ok == 1) {
-         $msg = '<div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
-      }
-      elseif($stage5_ok == 0) {
-         $msg = '<div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-      }
-      echo '
+         global $stage, $langue, $stage5_ok, $qi;
+         write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slogan, $new_Default_Theme, $new_startdate);
+         if($stage5_ok == 1) {
+            $msg = '<div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
+            if($qi == 1) {Header('Location: install.php?stage=6&qi=1&langue='.$langue);exit;};
+         }
+         elseif($stage5_ok == 0) {
+            $msg = '<div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
+         }
+         entete();
+         menu();
+         echo $menu;
+         $out .= '
                <h3 class="m-b-2">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
-      if($stage5_ok == 1) {
-         echo '
+         if($stage5_ok == 1 and $qi !=1) {
+            $out.= '
                <form name="next" method="post" action="install.php">
                   <input type="hidden" name="langue" value="'.$langue.'" />
                   <input type="hidden" name="stage" value="6" />
                   <input type="submit" class="btn btn-success" value="'.ins_translate(' Etape suivante ').'" />
                </form>';
-      }
-      echo '
-         </div>';
+         }
+      $out.= '
+            </div>';
+      echo $out;
       unset($stage5_ok);
       break;
       case "etape_5":
       default:
-      etape_5();
+         entete();
+         menu();
+         echo $menu;
+         etape_5();
       break;
    }
    pied_depage();
@@ -237,6 +244,8 @@ if($stage == 5){
 # Création/Mise à jour de la base de données
 */
 if($stage == 6) {
+   require('install/etape_6.php');
+   if(!isset($op)) { $op = 'etape_6'; }
    $colorst1 = '-success';
    $colorst2 = '-success';
    $colorst3 = '-success';
@@ -245,55 +254,49 @@ if($stage == 6) {
    $colorst6 = '-success';
    $colorst7 = ' active';
    entete();
-   menu();
-   echo $menu;
-   require('install/etape_6.php');
-   if(!isset($op)) { $op = 'etape_6'; }
    switch($op) {
       case 'write_database':
-      global $stage, $langue, $stage6_ok,$NPDS_Prefix,$pre_tab, $sql_com;
-
-//        include('config.php');
-//          if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-//       include_once('lib/mysqli.php');
-//    } else{
-//       include_once('lib/mysql.php');
-//    }
-
-      require('install/sql/build_sql-create.php');
-      build_sql_create($NPDS_Prefix);
-      sql_connect();
-      require('install/sql/sql-create.php');
-      write_database();
-
-      echo '
-      <h3 class="m-b-2">'.ins_translate('Base de données').'</h3>';
-      if($stage6_ok == 1) {
-         $msg = '<div class="alert alert-success">'.ins_translate('La base de données a été créée avec succès !').'</div>';
-      }
-      elseif($stage6_ok == 0) {
-         $colorst7 = '-danger';
-         $msg = '<div class="alert alert-danger">'.ins_translate("La base de données n'a pas pu être créée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
-      }
-      echo '<form name="next" method="post" action="install.php">'.$msg;
-      if($stage6_ok == 1) {
-         $Xinst_log = date('d/m/y  H:j:s').' : Création tables et/ou base de donnée pour '.$cms_name."\n";
-         $file = fopen("slogs/install.log", "a");
-         fwrite($file, $Xinst_log);
-         fclose($file);
+         global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi;
+         require('install/sql/build_sql-create.php');
+         build_sql_create($NPDS_Prefix);
+         sql_connect();
+         require('install/sql/sql-create.php');
+         write_database();
+         if($stage6_ok == 1) {
+         $colorst7 = ' active';
+            $msg = '
+                  <div class="alert alert-success">'.ins_translate('La base de données a été créée avec succès !').'</div>';
+         }
+         elseif($stage6_ok == 0) {
+            $colorst7 = '-danger';
+            $msg = '
+                  <div class="alert alert-danger">'.ins_translate("La base de données n'a pas pu être créée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
+         }
+         menu();
+         echo $menu;
          echo '
-         <input type="hidden" name="langue" value="'.$langue.'" />
-         <input type="hidden" name="stage" value="7" />
-         <br />
-         <input type="submit" class="btn btn-success" value="'.ins_translate(' Etape suivante ').'" />';
-      }
-      echo '
-      </form>
+               <h3 class="m-b-2">'.ins_translate('Base de données').'</h3>';
+         echo $msg;
+         if($stage6_ok == 1) {
+            $Xinst_log = date('d/m/y  H:j:s').' : Création tables et/ou base de donnée pour '.$cms_name."\n";
+            $file = fopen("slogs/install.log", "a");
+            fwrite($file, $Xinst_log);
+            fclose($file);
+            echo '
+               <form name="next" method="post" action="install.php">
+                  <input type="hidden" name="langue" value="'.$langue.'" />
+                  <input type="hidden" name="stage" value="7" />
+                  <input type="submit" class="btn btn-success" value="'.ins_translate(' Etape suivante ').'" />
+               </form>';
+         }
+         echo '
       </div>';
-      unset($stage6_ok);
+         unset($stage6_ok);
       break;
       case "etape_6":
       default:
+         menu();
+         echo $menu;
       etape_6();
       break;
    }
@@ -342,9 +345,6 @@ if($stage == 7) {
                <div class="alert alert-danger">'.ins_translate("Le compte Admin n'a pas pu être modifié. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
             }
             echo $msg;
-            
-            
-//                echo '<form name="next" method="post" action="install.php">';
                 if($stage7_ok == 1) {
                    echo '
                    <form name="next" method="post" action="install.php">
@@ -470,14 +470,13 @@ if($stage == 9) {
          closedir($dir);
          return $archive;
          }
-
-/*         if (file_exists('IZ-Xinstall.ok')) {
+         if (file_exists('IZ-Xinstall.ok')) {
             if (file_exists('install.php') OR is_dir('install')) {
                icare_delete_Dir('install');
                @rmdir ('install');
                @unlink('install.php');
             }
-         }*/
+         }
          echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'index.php\';'."\n".'//]]>'."\n".'</script>';
          break;
 

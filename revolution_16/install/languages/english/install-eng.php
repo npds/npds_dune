@@ -128,6 +128,8 @@ function ins_translate($phrase) {
   case "Félicitations, vous avez à présent votre portail NPDS.": $tmp = "Congratulations, you have now your NPDS portal."; break;
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Do not forget to remove with your favorite FTP client the directory 'install/' as well as the file 'install.php' !"; break;
   case " Quitter ": $tmp = " Exit "; break;
+  case "Installation rapide": $tmp = "Quick setup"; break;
+
   
   
   default: $tmp = "Need to be translated [** $phrase **]"; break;

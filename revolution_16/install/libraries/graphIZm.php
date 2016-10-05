@@ -18,6 +18,7 @@
 /************************************************************************/
 
 function entete() {
+   include_once('config.php');
    global $langue, $cms_logo, $cms_name, $stage, $Version_Num, $Version_Id, $Version_Sub;
    echo '<html>
    <head>
@@ -55,14 +56,14 @@ function entete() {
       <div class="container-fluid">
          <div class="m-y-2">
             <div class="row">
-               <div class="col-sm-10"></div>
-               <div class="col-sm-2">'.$Version_Id.' '.$Version_Sub.' '.$Version_Num.'</div>
-            </div>
-            <div class="row">
-               <div class="col-sm-2 hidden-xs-down"><img class="img-fluid" src="install/images/header.png" /></div>
+               <div class="col-sm-2 hidden-xs-down"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
                   <h1 class="display-4">NPDS<br /><small class="text-muted"><em>installation automatique</em></small></h1>
                </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6"></div>
+               <div class="col-sm-6 text-xs-right">'.$Version_Sub.' '.$Version_Num.'</div>
             </div>
          </div>
          <hr class="lead" />';

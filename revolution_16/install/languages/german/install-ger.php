@@ -125,6 +125,7 @@ function ins_translate($phrase) {
   case "Félicitations, vous avez à présent votre portail NPDS.": $tmp = "Glückwunsch, Ihre NPDS Webseite wurde erstellt."; break;
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Vergessen Sie nicht den 'install/' Ordner und die 'install.php' Datei zu löschen!"; break;
   case " Quitter ": $tmp = " Beenden "; break;
+  case "Installation rapide": $tmp = "Schnelle Einrichtung"; break;
   default: $tmp = "Muss übersetzt werden [** $phrase **]"; break;
  }
  return $tmp;
