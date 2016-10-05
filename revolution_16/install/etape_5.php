@@ -81,7 +81,8 @@ function etape_5() {
                      <button type="submit" class="btn btn-success">'.ins_translate(' Modifier ').'</button>
                   </div>
                </form>
-            </div>';
+            </div>
+         </div>';
    $fieldlength = '
             inpandfieldlen("new_nuke_url",80);
             inpandfieldlen("new_sitename",80);
