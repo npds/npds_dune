@@ -18,11 +18,18 @@
 /************************************************************************/
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-      include_once('lib/mysqli.php');
-      
-   } else {
-      include_once('lib/mysql.php');
+   include_once('lib/mysqli.php');
+   $file = file("config.php");
+   $file[33] ="\$mysql_p = 0;\n";
+   $file[34] ="\$mysql_i = 1;\n";
+   $fic = fopen("config.php", "w");
+   while(list($n,$ligne) = each($file)) {
+      fwrite($fic, $ligne);
    }
+   fclose($fic);
+} else {
+   include_once('lib/mysql.php');
+}
 
    $lang_symb = substr($langue, 0, 3);
    if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
@@ -89,7 +96,7 @@ function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $
    $file[33] ="\$mysql_p = \"$new_mysql_p\";\n";
    $file[36] ="\$system = $new_system;\n";
    $file[37] ="\$system_md5 = $new_system_md5;\n";
-   $file[213]="\$adminmail = \"$new_adminmail\";\n";
+   $file[212]="\$adminmail = \"$new_adminmail\";\n";
    $file[317]="\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
    $NPDS_Key=uniqid("");
    $file[318]="\$NPDS_Key = \"$NPDS_Key\";\n";
