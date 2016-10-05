@@ -26,7 +26,7 @@ if (file_exists('IZ-Xinstall.ok')) {include('admin/die.php');}
 if(file_exists('grab_globals.php')) include ('grab_globals.php');
 if(file_exists('install/libraries/graphIZm.php')) include ('install/libraries/graphIZm.php');
 if(file_exists('install/libraries/lib-inc.php')) include ('install/libraries/lib-inc.php');
-
+   include('config.php');
 
 /*
 # Paramètres install
@@ -57,6 +57,17 @@ if($stage == 0) {
 #   => install/languages
 */
 if($stage == 1) {
+
+   $file = file("config.php");
+   $file[171] ="\$language = \"$langue\";\n";
+   $fic = fopen("config.php", "w");
+      while(list($n,$ligne) = each($file)) {
+         fwrite($fic, $ligne);
+   }
+   fclose($fic);
+
+
+
    $colorst1 = '-success';
    $colorst2 = ' active';
    entete();
@@ -105,14 +116,6 @@ if($stage == 2 and $qi!=1) {
 #                  verif_chmod (présence et droits des fichiers de configuration)
 */
 if(($stage == 3) or ($stage == 2 and $qi==1)){
-/*
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = ' active';
-   entete();
-   menu();
-*/
    require('install/etape_3.php');
    if(!isset($op)) { $op = 'etape_3'; }
    switch($op) {
@@ -121,7 +124,6 @@ if(($stage == 3) or ($stage == 2 and $qi==1)){
       etape_3();
       break;
    }
-//   pied_depage();
 }
 
 /*

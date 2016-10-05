@@ -18,7 +18,6 @@
 /************************************************************************/
 
 function entete() {
-   include_once('config.php');
    global $langue, $cms_logo, $cms_name, $stage, $Version_Num, $Version_Id, $Version_Sub;
    echo '<html>
    <head>
