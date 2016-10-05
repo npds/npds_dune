@@ -29,18 +29,24 @@ function etape_0() {
                <form name="langue" method="post" action="install.php">
                   <div class="form-group row">
                      <div class="form-check">
-                        <label class="form-check-label">
-                           <input class="form-check-input" type="radio" name="langue" value="french" checked="checked" />&nbsp;Français
+                        <label class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" name="langue" value="french" checked="checked" />
+                           <span class="custom-control-indicator"></span>
+                           <span class="custom-control-description">Français</span>
                         </label>
                      </div>
                      <div class="form-check">
-                        <label class="form-check-label">
-                           <input class="form-check-input" type="radio" name="langue" value="english" />&nbsp;English
+                        <label class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" name="langue" value="english" />
+                           <span class="custom-control-indicator"></span>
+                           <span class="custom-control-description">English</span>
                         </label>
                      </div>
                      <div class="form-check">
-                        <label class="form-check-label">
-                           <input class="form-check-input" type="radio" name="langue" value="german" />&nbsp;Deutsch
+                        <label class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" name="langue" value="german" />
+                           <span class="custom-control-indicator"></span>
+                           <span class="custom-control-description">Deutsch</span>
                         </label>
                      </div>
                   </div>

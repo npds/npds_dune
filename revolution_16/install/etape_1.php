@@ -34,8 +34,10 @@ function etape_1() {
                </div>
                <form name="welcome" method="post" action="install.php">
                   <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" name="qi" value="1" /> Installation rapide
+                     <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" name="qi" value="1" />
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description"> '.ins_translate("Installation rapide").'</span>
                     </label>
                   </div>
                   <input type="hidden" name="stage" value="2" />
