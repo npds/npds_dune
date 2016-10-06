@@ -645,7 +645,7 @@ function translate_pass1($phrase) {
    case "This article comes from": $tmp="Cet article provient de"; break;
    case "Private Message": $tmp="Message personnel"; break;
    case "To": $tmp="Envoyé à"; break;
-   case "From": $tmp="venant de"; break;
+   case "From": $tmp="de"; break;
    case "You don't have any Messages.": $tmp="Vous n'avez aucun message."; break;
    case "Sent": $tmp="Envoyé"; break;
    case "Previous Messages": $tmp="Message précédent"; break;

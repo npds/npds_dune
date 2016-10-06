@@ -13,8 +13,8 @@
 /************************************************************************/
 
 function adm_translate($phrase) {
-settype($englishname,'string');
-switch($phrase) {
+ settype($englishname,'string');
+ switch($phrase) {
   case "$englishname": $tmp="$englishname"; break;
   case "datestring": $tmp="%A, %B %d @ %H:%M:%S %Z"; break;
   case "linksdatestring": $tmp="%d-%b-%Y"; break;
@@ -1010,7 +1010,8 @@ switch($phrase) {
   case "Modules": $tmp="Addons"; break;
   case "Communication": $tmp="Communication"; break;
   case "Interface": $tmp="Interface"; break;
-  
+  case "Connexion": $tmp="Login"; break;
+
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
