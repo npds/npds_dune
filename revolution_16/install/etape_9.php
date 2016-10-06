@@ -22,13 +22,13 @@ function etape_9() {
    global $langue, $stage, $izx;
    $stage = 9;
    echo '
-      <h3>'.ins_translate('Fin').'</h3>
-         <p>'.ins_translate('Félicitations, vous avez à présent votre portail NPDS.').'</p>
+      <h3 class="m-b-2">'.ins_translate('Fin').'</h3>
+         <div class="alert alert-success">'.ins_translate('Félicitations, vous avez à présent votre portail NPDS.').'</div>
          <form name="ended" method="post" action="install.php">
             <input type="hidden" name="langue" value="'.$langue.'" />
             <input type="hidden" name="stage" value="'.$stage.'" />
             <input type="hidden" name="op" value="write_ok" />
-            <button type="submit" class="btn btn-success"><i class="fa fa-lg fa-check"></i>'.ins_translate(" Quitter ").'</button>
+            <button type="submit" class="btn btn-success">'.ins_translate(" Quitter ").'</button>
          </form>
       </div>';
 }
