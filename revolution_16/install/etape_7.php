@@ -32,12 +32,12 @@ function etape_7() {
                         <span class="help-block text-xs-right" id="countcar_adminlogin"></span>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="adminpass1">'.ins_translate('Mot de passe').' *</label>
+                        <label class="form-control-label" for="adminpass1">'.ins_translate('Mot de passe').'</label>
                         <input class="form-control" type="password" name="adminpass1" id="adminpass1" minlength="'.$minpass.'" maxlength="40" required="required" />
                         <span class="help-block">'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</span>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="adminpass2">'.ins_translate("Une seconde fois").' *</label>
+                        <label class="form-control-label" for="adminpass2">'.ins_translate("Une seconde fois").'</label>
                         <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="40" required="required" />
                         <span class="help-block">'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</span>
                      </div>
