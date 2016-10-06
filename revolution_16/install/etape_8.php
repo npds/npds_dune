@@ -37,11 +37,11 @@ function etape_8() {
                   <form id="upload_module" name="upload_module" method="post" action="install.php">
                      <div class="form-group row">
                         <label class="form-control-label" for="new_max_size">'.ins_translate('Taille maxi des fichiers en octets').'</label>
-                        <input class="form-control" type="text" name="new_max_size" maxlength="20" value="'.$max_size.'" />
+                        <input class="form-control" type="number" name="new_max_size" id="new_max_size" maxlength="20" value="'.$max_size.'" />
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_DOCUMENTROOT">'.ins_translate("Chemin physique absolu d'accès depuis la racine de votre site").'</label>
-                        <input class="form-control" type="text" name="new_DOCUMENTROOT" maxlength="60" value="'.$DOCUMENTROOT.'" />
+                        <input class="form-control" type="text" name="new_DOCUMENTROOT" id="new_DOCUMENTROOT" maxlength="60" value="'.$DOCUMENTROOT.'" />
                         <small>'.ins_translate("Exemple par défaut ou SI vous ne savez pas").' : ==><br />'.ins_translate("Exemples SI redirection").' : ==> /data/www/monsite OU c:\web\monsite</small>
                      </div>
                      <div class="form-group row">
@@ -56,24 +56,24 @@ function etape_8() {
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_racine">'.ins_translate("Répertoire de votre site").'</label>
-                        <input class="form-control" type="text" name="new_racine" maxlength="60" value="'.$racine.'" />
+                        <input class="form-control" type="text" name="new_racine" id="new_racine" maxlength="60" value="'.$racine.'" />
                         <small>'.ins_translate('Exemples :').'<br />www.monsite.com/ ==> <br />www.monsite.com/npds/ ==> <span class="vert">/npds</span><br />www.monsite.com/npds/npds/ ==> <span class="vert">/npds/npds</span></small>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_rep_upload">'.ins_translate("Répertoire de téléchargement").'</label>
-                        <input class="form-control" type="text" name="new_rep_upload" maxlength="60" value="'.$rep_upload.'" readonly="readonly" />
+                        <input class="form-control" type="text" name="new_rep_upload" id="new_rep_upload" maxlength="60" value="'.$rep_upload.'" />
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_rep_cache">'.ins_translate("Répertoire des fichiers temporaires").'</label>
-                        <input class="form-control" type="text" name="new_rep_cache" maxlength="60" value="'.$rep_cache.'" readonly="readonly" />
+                        <input class="form-control" type="text" name="new_rep_cache" id="new_rep_cache" maxlength="60" value="'.$rep_cache.'" />
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_rep_log">'.ins_translate("Fichier journal de sécurité").'</label>
-                        <input class="form-control" type="text" name="new_rep_log" maxlength="60" value="'.$rep_log.'" readonly="readonly" />
+                        <input class="form-control" type="text" name="new_rep_log" id="new_rep_log" maxlength="60" value="'.$rep_log.'" />
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
-                        <input class="form-control" type="text" name="new_url_upload" maxlength="60" value="'.$url_upload.'" />
+                        <input class="form-control" type="text" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" />
                      </div>
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />
