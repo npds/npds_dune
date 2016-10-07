@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -940,6 +940,9 @@ function adm_translate($phrase) {
    case "Créer le bloc WS": $tmp = "Erstellen Sie den Block WS"; break;
    case "Groupe de travail": $tmp = "Arbeitsgruppe"; break;
    // WS
+   
+   case "Connexion": $tmp="Login"; break;
+
 
    default: $tmp = "Es gibt keine Übersetzung <b>[** $phrase **]</b>"; break;
  }
