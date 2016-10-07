@@ -25,7 +25,6 @@ function adm_translate($phrase) {
   case "Contenu :": $tmp="Content:"; break;
   case "Valider": $tmp="Submit"; break;
   case "Faq": $tmp="FAQ"; break;
-  case "ID": $tmp="ID"; break;
   case "Catégories": $tmp="Categories"; break;
   case "Effacer": $tmp="Delete"; break;
   case "Editer": $tmp="Edit"; break;
@@ -96,7 +95,6 @@ function adm_translate($phrase) {
   case "Articles programmés": $tmp="Programmed Articles"; break;
   case "Articles programmés pour la publication.": $tmp="Programmed Articles"; break;
   case "Articles en attente de validation !": $tmp="Articles waiting for checking !"; break;
-
   case "Titre": $tmp="Title"; break;
   case "Sujet": $tmp="Topic"; break;
   case "Sélectionner un Sujet": $tmp="Select Topic"; break;
@@ -184,7 +182,7 @@ function adm_translate($phrase) {
   case "Propriétaire": $tmp="Owner"; break;
   case "Catégorie": $tmp="Category"; break;
   case "Description:": $tmp="Description:"; break;
-  case "Choisir les priviléges ? :": $tmp="Set Privileges? :"; break;
+  case "Choisir les privilèges ? :": $tmp="Set Privileges? :"; break;
   case "Anonyme": $tmp="Anonymous"; break;
   case "Editer un Téléchargement": $tmp="Edit Download"; break;
   case "Changer la date": $tmp="Change Date"; break;
@@ -567,7 +565,7 @@ function adm_translate($phrase) {
   case "Structure de la table": $tmp="Table structure for table"; break;
   case "Contenu de la table": $tmp="Dumping data for table"; break;
   case "Optimisation de la base de données ": $tmp="Optimization of the database "; break;
-  case "Derniére optimisation effectuée le ": $tmp="Last optimization made the "; break;
+  case "Dernière optimisation effectuée le ": $tmp="Last optimization made the "; break;
   case " à ": $tmp=" at "; break;
   case "Table": $tmp="Table"; break;
   case "Taille actuelle": $tmp="Actual size"; break;
@@ -814,7 +812,7 @@ function adm_translate($phrase) {
   case "Activer Toggle-Div :": $tmp="Activate Toggle-Div:"; break;
   case "Meta obligatoire, ne pas le modifier ou le supprimer": $tmp="Compulsory Meta, not to modify it or to suppress it"; break;
   case "Restriction": $tmp="Limitation"; break;
-  case "les URLs que vous aurez renseignés ci-aprés&nbsp;<i>(ne renseigner que la racine de l'URI)</i>": $tmp="The URL that you will have informed below&nbsp;<i>(Inform only the root of the URI)</i>"; break;
+  case "les URLs que vous aurez renseignés ci-après (ne renseigner que la racine de l'URI)": $tmp="The URL that you will have informed below (Inform only the root of the URI)"; break;
   case "Exemple": $tmp="Example"; break;
   case "Créer un nouveau": $tmp="Create a new"; break;
   case "Recherche rapide": $tmp="Fast search"; break;
