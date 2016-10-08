@@ -1,62 +1,58 @@
-<html><head>
-<title>Banners Administration - NPDS V</title>
-
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Banners</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<div align="center">
-  <p><font face="Verdana,Arial,Helvetica" size="2"><b>Banners Administration</b> </font></p>
-  <p align="left"><font face="Verdana,Arial,Helvetica" size="2"><br />
-    <br />
-    NPDS has a little and basic banner system bundled, so you can have your own 
-    banners stats and control them in the way you want. The section is self explanatory 
-    and doesn't need a big manual page, all options are clear.<br />
-    <br />
-    NPDS has a brand new feature : banners can be set according to the user level.<br />
-    A banner can be displayed to all users or only to members or admins. You also 
-    can disable a banner for a certain amount of time.<br />
-    You can aim at different customers by using this feature. <br />
-    <br />
-    In order to <b>activate</b> the banners : admininistration / Preferences <br />
-    <br />
-    To set up the banners : click on Banners administration<br />
-    <br />
-    <b>Current Active Banners:</b> Show the banners that are running right now 
-    in your site. The field Impressions show you the total impressions made for 
-    that banner, Imp. Left show the impressions left, Clicks is the number of 
-    clicks on the banner, % Click is the percentage of click based on the Impressions 
-    made, Client Name and functions are self explanatory. In functions you can 
-    Edit or Delete the selected banner.<br />
-    <br />
-    <b>'Time over' Banners:</b> When a banner reaches the impressions it automaticaly 
-    stops and move into this table. In this table you can see total impressions 
-    made, how many clicks received, % of clicks, The date when started and finished 
-    the banner, client name and the option to delete it.<br />
-    <br />
-    <b>Advertising Clients:</b> This shows all the data of your clients and how 
-    many active banners are running at the moment.<br />
-    <br />
-    <b>Notes on adding a banner:</b> If you want the banner to have unlimited 
-    impressions, just write <b>0</b> on the field <i>Impressions Purchased</i>. 
-    <br />
-    <br />
-    <b>Client Statistics:</b> When you setup a new client, you can asign a login 
-    and password for it. With this info the client can view in real time the stats 
-    page for his banners by visiting this url: <br />
-    <br />
-    </font> </p>
-</div>
-<div align="left">
-  <ul>
-    <font face="Verdana,Arial,Helvetica" size="2"> http://yourdomain.com/banners.php?op=login 
-    </font> 
-  </ul>
-  <font face="Verdana,Arial,Helvetica" size="2"><br />
-  In that page the client can change the banner URL for clicks and view the stats 
-  in real time, also he can request an automatic report by email without your 
-  intervention.</font><font face="Verdana,Arial,Helvetica" size="2"><br />
-  <br />
-  </font>
-</div>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_com.html">Communication</a></li>
+  <li class="active">Banners</li>
+</ol>
+</h3>
+
+<p>NPDS dispose d'un gestionnaire de banni&egrave;res simple mais int&eacute;gr&eacute; au syst&egrave;me.<br />
+Vous pouvez impl&eacute;menter un autre syst&egrave;me de banni&egrave;res.<br />
+Celui-ci est suffisamment simple pour que  cette page d'aide suffise.</p>
+<p>NPDS impl&eacute;mente quand m&ecirc;me une fonction in&eacute;dite, les banni&egrave;res li&eacute;es au niveau de l'utilisateur.<br />
+Une banni&egrave;re peut effectivement &ecirc;tre visible par tout le monde ou bien par les membres ou bien par les administrateurs. Il est m&ecirc;me possible de d&eacute;sactiver temporairement une banni&egrave;re.<br />
+L'int&eacute;r&ecirc;t de cette fonction est de pouvoir diff&eacute;rencier le public...</p>
+<p>Pour <b>activer</b> le syst&egrave;me de banni&egrave;res : administration / Pr&eacute;f&eacute;rences pour le param&egrave;trer.</p>
+
+<h4>Banni&egrave;res actives actuellement :</h4>
+<p>Cette liste vous montre l'activit&eacute; des campagnes de banni&egrave;res actuellement en service sur votre site et vous permet de modifier et/ou supprimer une campagne en cours.</p>
+
+<h4>Banni&egrave;res termin&eacute;es :</h4>
+<p>Quand une campagne a atteint le nombre d'impression maximale, elle est bascul&eacute;e dans cette liste.<br />
+Vous pouvez suivre l'efficacit&eacute; de la campagne et la supprimer.</p>
+
+<h4>Clients faisant de la publicit&eacute; :</h4>
+<p>Cette liste identifie les clients (et leurs informations) ainsi que le nombre de leurs banni&egrave;res en service.<br />
+Cette liste vous permet de modifier et/ou supprimer les clients.</p>
+
+<p>Nota bene :</b> Si vous souhaitez mettre une banni&egrave;re en affichage illimit&eacute; (nombre d'impression), saisissez 0 (z&eacute;ro) dans le champ <i>Impressions Achet&eacute;es</i>.</p>
+
+<h4>Gestion des statistiques par vos clients :</h4>
+<p>Un client peut consulter en temps r&eacute;el sa (ou ses) campagne(s) de publicit&eacute; sur votre site.<br />Pour ce faire il dispose d'un identifiant et d'un mot de passe lui permettant de se connecter sur :
+<ul>
+<li>http://votre_site/banners.php?op=login</li>
+</ul>
+</p>
+
+<p>Dans ces pages, votre client peut changer les URLs de ses banni&egrave;res (donc la page sur laquelle l'utilisateur est envoy&eacute; lorsqu'il clique sur l'image), voir ses statistiques en temps r&eacute;el et demander un rapport automatique par Email.</p>
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br />
 </body>
 </html>

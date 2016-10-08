@@ -1,35 +1,52 @@
-<html><head>
-<title>Main Block - NPDS V</title>
-
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Main block</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center>
-  <b>Main Block</b> 
-</center>
-<br /><br />
-Everysite has a main menu! You cannot delete this block and you can only get one block.<br />
-<br />
-This is the most important menu for your site as it has all the main sections.<br />
-You can use HTML within this block but no PHP.<br />
-<br />
-<b>Key features: </b><br />
-<br />
-<li>a href=static.php?op=premier.txt => Static page
-<li>a href=sdv.php?sdv=Annonces => Classifieds (?sdv=[name of the room]) 
-<li>a href=sdv.php?sdv=Name%20of%20the%20Room => Classifieds (%20 stands for space) 
-<li>a href=index.php?op=index.php =>News (op=[Opening page]) 
-<li>a href=forum.php => Forums
-<li>a href=topics.php => Topics
-<li>a href=sections.php => Sections
-<li>a href=reviews.php => Reviews
-<li>a href=links.php => Links
-<li>a href=download.php => Download
-<li>a href=memberslist.php => Memberslist
-<li>a href=faq.php => FAQ
-<li>a href=friend.php => Tell a friend<br />
-<br />
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_inter.html">Interface</a></li>
+  <li class="active">Main block</li>
+</ol>
+</h3>
+
+<p>Tous les sites ont un menu principal ! Vous ne pouvez pas supprimer ce bloc et vous ne pouvez en avoir qu'un.</p>
+
+<p>Ce bloc est fondamental pour pointer sur les fonctions de votre site.<br />
+Vous pouvez utiliser des codes HTML mais pas de PHP dans ce bloc.</p>
+
+<h4>Rappel des principaux liens :</h4>
+<ul>
+
+<li><code>&lt;a href=&quot;static.php?op=premier.txt&quot;&gt;Page Statique&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;index.php?op=index.php&quot;&gt;Les nouvelles (op=[page de d&eacute;marrage])&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;forum.php&quot;&gt;Forums&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;topics.php&quot;&gt;Sujets&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;sections.php&quot;&gt;Rubriques&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;modules.php?ModPath=links&amp;ModStart=links&quot;&gt;Liens Web&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;reviews.php&quot;&gt;Critiques&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;download.php&quot;&gt;T&eacute;l&eacute;chargements&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;memberslist.php&quot;&gt;Annuaire&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;map.php&quot;&gt;Plan du site&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;faq.php&quot;&gt;FAQ&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;friend.php&quot;&gt;Recommandez-nous&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;submit.php&quot;&gt;Proposer article&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;admin.php&quot;&gt;Administration&lt;/a&gt;</code></li>
+</ul>
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>

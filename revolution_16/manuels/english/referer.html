@@ -1,26 +1,37 @@
-<html><head>
-<title>HTTP Referers - NPDS V</title>
-
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Referers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center>
-  <b>HTTP Referers</b> 
-</center>
-<br /><br />
-This features allows you to know from which website your visitors are coming.<br />
-<br />
-The filter notion allows to regroup the referers : if filter=50 then the regroupment 
-will be done using the 50 first caracters.<br />
-<br />
-You may end up with an important list if you don't administrate this section daily. 
-You can turn this feature off in the preferences.<br />
-You can also set a maximum number of referents before you receive an error message<br />
-<br />
-You can archive or delete the list (directory : slogs/referers.log).<br />
-<br />
+<body>
+<div class="container">
 
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_com.html">Communication</a></li>
+  <li class="active">Referers</li>
+</ol>
+</h3>
+
+<p>Cette fonction vous permet de savoir qui (URL Web) pointe sur votre site.</p>
+
+<p>La notion de filtre permet de regrouper les r&eacute;f&eacute;rants : si filtre=50 alors le regroupement se fera sur les 50 premiers caract&egrave;res.</p>
+
+<p>La liste risque de devenir rapidement "importante" si vous ne la maintenez pas.</p>
+<p>Vous pouvez d&eacute;sactiver cette fonction dans les <i>Pr&eacute;f&eacute;rences</i>.<br />
+Vous pouvez fixer le nombre maximum d'enregistrements de la base de donn&eacute;es avant qu'une alerte vous soit adress&eacute;e.</p>
+<p>Vous pouvez supprimer le contenu de cette liste et/ou au pr&eacute;alable l'archiver (dans le r&eacute;pertoire : slogs/referers.log).</p>
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>
