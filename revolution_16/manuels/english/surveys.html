@@ -1,36 +1,44 @@
-<html><head>
-<title>Poll / Survey - NPDS V</title>
-
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Surveys/polls</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2> 
-<center>
-  <b>Poll / Survey</b> 
-</center>
-<br />
-<br />
-Change your polls frequently! Think about the users!<br />
-To add a new poll, just fill out the form from the Poll module.<br /><br />
-You can have several Polls "running" on your website (several blocks / pollnewest params) AND polls in static page (for example) with meta-mot !block!... and metalang=1 option of static.php.<br /><br />
-<b>Title :</b><br />
-The question of your poll.<br />
-<br />
-<b>Options :</b><br />
-A poll requires a minimum of two options (yes /no) and you can use all the fields 
-but it is not mandatory.<br />
-<br />
-<b>Delete a poll :</b><br />
-Click on <i>delete polls</i>. Then choose which poll you want to delete. The Database 
-will delete the poll right away so there is no turning back! Be careful!<br />
-<br />
-<b>Edit a poll :</b><br />
-You can edit a poll but it won't change the votes. Select the poll and click on Edit.<br />
-You can set it to members-only and/or close the poll. The database is updated 
-right away, there's no turning back.<br />
-<br />
-<center>
-  <img src="../../images/admin/manuels.gif" border="0" />
-</center>
-</font> 
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_com.html">Communication</a></li>
+  <li class="active">Surveys/polls</li>
+</ol>
+</h3>
+
+<p>Faites l'effort de changer vos sondages fr&eacute;quemment !<br />
+Pour ajouter un nouveau sondage vous n'avez qu'&agrave; remplir le formulaire d'administration.</p>
+<p>Vous pouvez aussi avoir plusieurs sondages en service sur votre site (plusieurs blocs / param&egrave;trage de la fonction pollnewest), voir des sondages dans des pages static (via le meta-mot !block!... et l'option metalang=1 de static.php).</p>
+<h4>Intitul&eacute; du sondage :</h4>
+<p>Le titre que vous avez choisi pour votre sondage.</p>
+
+<h4>Options :</h4>
+<p>Un sondage doit avoir au minimum <b>2</b> options et vous n'&ecirc;tes pas oblig&eacute; de toutes les utiliser.</p>
+
+<h4>Supprimer un sondage :</h4>
+<p>Pour supprimer un ou plusieurs sondages existants, cliquez sur le lien <i>Effacer les sondages</i>. Vous arrivez ensuite sur une page vous permettant de choisir le sondage que vous souhaitez supprimer.<br />
+Choisissez le sondage et cliquez sur le bouton <i>Retirer</i>. Attention la mise &agrave; jour de la base de donn&eacute;es est Imm&eacute;diate.</p>
+<h4>Editer un sondage :</h4>
+<p>Vous pouvez &eacute;diter votre sondage, mais attention cela ne touchera pas les votes. Choisissez le sondage et cliquez sur le bouton <i>Editer</i>.<br />
+Vous pouvez r&eacute;server un sondage aux membres et/ou fermer les votes. Attention la mise &agrave; jour de la base de donn&eacute;es est Imm&eacute;diate.</p>
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
+<br /<
 </body>
 </html>

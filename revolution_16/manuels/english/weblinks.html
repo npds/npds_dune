@@ -1,62 +1,75 @@
-<html><head>
-<title>Web links - NPDS V</title>
-
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Links</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2> 
-<center>
-  <b>Web links</b> 
-</center>
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
+  <li><a href="men_contenu.html">Content</a></li>
+  <li class="active">Web links</li>
+</ol>
+</h3>
+
+<p>La base de liens web est une fonction importante de NPDS. Sa maintenance est simple mais n&eacute;cessite une certaine rigueur.<br />
+Elle permet la cr&eacute;ation d'un index de type Yahoo avec un moteur de recherche autonome du reste du site.
+</p>
+<h4>Liens en attente de validation :</h4>
+<p>Vous disposerez de cette option que si un lien est en attente (sic ...).<br />
+Vous pouvez modifier le titre, le lien et son commentaire, le nom et l'email du d&eacute;positaire, la cat&eacute;gorie.<br />
+Vous pouvez enfin choisir de publier le lien en cliquant sur le bouton <em>Ajouter</em> ou  le supprimer.</p>
+
+<h4>Nettoyer la base de liens :</h4>
+<p>Cette option permet de remettre &agrave; z&eacute;ro les votes pour l'ensemble des liens de la base.</p>
+<h4>Soumission de liens bris&eacute;s :</h4>
+<p>Les options applicables &agrave; la liste sont :
+<div class="card card-block">
+<ul class="p-l-1">
+<li><em>Ignorer</em> permet d'effacer toutes les demandes pour un lien donn&eacute;.</li>
+<li><em>Effacer</em> permet d'effacer les liens cass&eacute;s et les avis pour un lien donn&eacute;.</li>
+</ul></div>
+</p>
+
+<h4>Soumission de modification de liens :</h4>
+<p>Pour chaque lien, vous aurez l'origine (actuellement stock&eacute; dans la base) et la proposition de modification.</p>
+<p>Les options applicables sont :
+<div class="card card-block">
+<ul class="p-l-1">
+<li><em>Ignorer</em> permet d'effacer toutes les demandes pour un lien donn&eacute;.</li>
+<li><i>Effacer</i> permet d'effacer les liens cass&eacute;s et les avis pour un lien donn&eacute;.</li>
+<li>cliquer sur le lien Auteur ou Propri&eacute;taire pour envoyer un Email.</li></ul>
+</div></p>
+
+<h4>Ajouter une cat&eacute;gorie principale :</h4>
+<p>Pour la structuration de l'index, saisissez un titre et une description (classement par ordre alphab&eacute;tique).</p>
+
+<h4>Ajouter une sous-cat&eacute;gorie :</h4>
+<p>Pour la structuration de l'index, saisissez une sous-cat&eacute;gorie affect&eacute;e &agrave; une cat&eacute;gorie principale (un seul niveau / classement par ordre alphab&eacute;tique).</p>
+
+<h4>Ajouter un nouveau lien :</h4>
+<p>Saisissez le titre <strong>(avec &agrave; la suite des balises html (br, img src (locale ou distante), ...) si vous le souhaitez)</b>, l'URL, la cat&eacute;gorie (et sous-cat&eacute;gorie), la description, le nom du propri&eacute;taire et son email. Cliquez sur le bouton <em>Ajouter</em>.</p>
+
+<h4>Modifier la cat&eacute;gorie :</h4>
+<p>Cette fonction vous permet de modifier le nom d'une cat&eacute;gorie et/ou sous-cat&eacute;gorie.<br />
+Elle permet aussi de supprimer une cat&eacute;gorie et/ou sous-cat&eacute;gorie et tous les &eacute;l&eacute;ments rattach&eacute;s (avec message de confirmation).</p>
+
+<h4>Modifier les liens :</h4>
+<p>NPDS vous pr&eacute;sente la liste des liens actuellement disponibles dans la base. Cliquez sur un lien pour l'&eacute;diter.<br />
+Vous pouvez modifier toutes les informations, y compris le nombre de hits (pour positionner plus avantageusement un lien ...).<br />
+Vous pouvez aussi effacer le lien s&eacute;lectionn&eacute;.</p>
+<center><img src="../../images/admin/manuels.gif" border="0" /></center>
+</div>
 <br />
-<br />
-This base is an important feature of NPDS. It only requires a 'daily' efficient maintenance.<br />
-It allows the creation of a Yahoo-like index with its own search engine.<br />
-<br />
-<b>Waiting links :</b><br />
-When there's a link waiting for your approval (lol ...).<br />
-You can change its title, the URL, the commentary, the name and email of the one 
-who submitted the link, the category.<br />
-Then you can add the link (<i>Add</i>) or not (<i>Delete</i>).<br />
-<br />
-<b>Clean Links DB :</b><br />
-Set to zero the votes database (votes about links, it has nothing to do with the poll and surveys).<br />
-<br />
-<b>Broken links submission :</b><br />
-These are the options :<br />
-- <i>Ignore</i> allows to delete all demands for a given link.<br />
-- <i>Delete</i> allows to delete broken links and comments for a given link.<br />
-<br />
-<b>Links change Submission :</b><br />
-For each link, you have the original link (the one stored in the database) and the new URL.<br />
-Options are :<br />
-- <i>Ignore</i> allows to delete all demands for a given link.<br />
-- <i>Delete</i> allows to delete broken links and comments for a given link.<br />
-<br />
-<b>Add main category :</b><br />
-In order to have a good structured index, enter a title and a description (alphabetically sorted).<br />
-<br />
-<b>Add sub-category :</b><br />
-In order to have a good structured index, enter a sub-category related to a main category (one level / alphabetically sorted). <br />
-<br />
-<b>Add new link :</b><br />
-Enter the title <b>(you can add html code (br, img src (local or no), ...) if 
-you want to )</b>, URL, category (and sub-category), description, name of the 
-one who submitted the link and his email. Click on <i>Add</i>. <br />
-<br />
-<b>Modify category :</b><br />
-You can change the name of a category or sub-category.<br />
-You can also delete a category or sub-category with all the following elements 
-(confirmation message).<br />
-<br />
-<b>Modify links :</b><br />
-NPDS shows you all the links it has stored in its database. click on a link to 
-edit it.<br />
-You can change everyhting from description to the number of hits (if you need 
-to 'help' a friendly link...). You can also delete the selected link.<br />
-<br />
-<center>
-  <img src="../../images/admin/manuels.gif" border="0" /> 
-</center>
-</font> 
 </body>
 </html>

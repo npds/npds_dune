@@ -1,35 +1,49 @@
-<html><head>
-<title>Forums Maintenance - NPDS V</title>
-
+<html>
+<head>
+<meta charset="utf-8">
+<title>Administration - Forums maintenance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+<style>
+body {
+background-color: #f5f5f5;
+}
+</style>
 </head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center><b>Forums Maintenance</b></center>
-<br /><br />
-<b>Set all Topics as read :</b><br />
-You can set them all as read. This option can re-initialize the forum_read MySql 
-table.<br />
-<br />
-<b>Massive suppresion Topics :</b><br />
-Allows to delete the content of forums (with a eventually a date). The interface displays, by forum,Topic's IDs.<br />
-<br />
-Two modes :<br />
-&nbsp;- Select as much topics as necessary and click on "delete Topics" (Warning! 
-You can't go back!).<br />
-&nbsp;- Select a Topic, its title and the last Post.<br />
-Then you can delete it. <br />
-<br />
-<b>Synchronize Forums :</b><br />
-Allows the Re-Synchronization of the forum_read table (that deals with read marks). 
-Sometimes the synchronization is lost.<br />
-<br />
-This may take a while (depending on the number of forums and topics)<br />
-<br />
-<b>Merge Forums :</b><br />
-simply merge all the posts of one forum to another.<br />
-This may take a while (depending on the number of forums)<br />
-<br /><br />
+<body>
+<div class="container">
+
+<h3>
+<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
+  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
+  <li><a href="men_com.html">Communication</a></li>
+  <li class="active">Forums maintenance</li>
+</ol>
+</h3>
+
+
+<h4>Marquer tous les Topics comme lus :</h4>
+<p>Permet de positionner comme lus tous les Posts de tous les Topics de tous les Forums.<br />
+Cette fonction permet aussi de r&eacute;initialiser la table forum_read.</p>
+
+<h4>Supprimer massivement les Topics :</h4>
+<p>Permet la suppression en masse du contenu des Forums (la saisie d'une date AAAA-MM-JJ, vous permet de faire une s&eacute;lection des plus vieux posts par exemple). L'interface pr&eacute;sente, par forum, l'ID des topics.</p>
+<p>Deux modes :
+<ul><li>Selectionnez autant de Topic (case &agrave; cocher) que n&eacute;cessaire et cliquer sur le bouton "Supprimer massivement les Topics"<br />
+<span class="text-danger">Attention pas de confirmation demand&eacute;e</span>.</li>
+<li>S&eacute;lectionnez un Topic, son titre ainsi que le dernier Post rattach&eacute; est affich&eacute;.<br />Vous pouvez alors le supprimer.</li></ul>
+</p>
+
+<h4>Synchroniser les Forums :</h4>
+<p>Permet la re-synchronisation de la table forum_read (qui g&eacute;re les marqueurs de lecture). Il peut arriver que cette table ne soit plus synchro avec les topics d'un forum.<br />
+Cette op&eacute;ration peut-&ecirc;tre relativement longue (en fonction de la taille de vos forums).</p>
+
+<h4>Fusionner des forums :</h4>
+<p>Permet simplement, le transfert de tous les posts d'un forum vers un autre.<br /><br />
+Cette op&eacute;ration peut-&ecirc;tre relativement longue (en fonction de la taille de vos forums).</p>
 <center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
+</div>
+<br />
 </body>
 </html>
