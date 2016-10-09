@@ -925,7 +925,6 @@ function adm_translate($phrase) {
   case "Editer la question réponse": $tmp="Edit the Question Answer"; break;
   case "Format de données": $tmp="Data format"; break;
   case "Format de fichier": $tmp="File format"; break;
-  case 'Administration': $tmp='Administration'; break;
   case 'Menu': $tmp='Menu'; break;
   case 'Module': $tmp='Module'; break;
   case 'Titre de la page': $tmp='Page title'; break;
