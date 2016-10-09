@@ -564,8 +564,9 @@ function adm_translate($phrase) {
   case "Effectuée le": $tmp="Make the"; break;
   case "Structure de la table": $tmp="Table structure for table"; break;
   case "Contenu de la table": $tmp="Dumping data for table"; break;
-  case "Optimisation de la base de données ": $tmp="Optimization of the database "; break;
-  case "Dernière optimisation effectuée le ": $tmp="Last optimization made the "; break;
+  case "Optimisation effectuée": $tmp="Optimization done"; break;
+  case "Optimisation de la base de données": $tmp="Optimization of the database"; break;
+  case "Dernière optimisation effectuée le": $tmp="Last optimization made the"; break;
   case " à ": $tmp=" at "; break;
   case "Table": $tmp="Table"; break;
   case "Taille actuelle": $tmp="Actual size"; break;
@@ -590,7 +591,7 @@ function adm_translate($phrase) {
   case "(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)": $tmp="(Ex. : fr(French), en(English), en-us(American), de(Deutch), it(Italian), pt(Portuges), etc)"; break;
   case "(Brève description des centres d'intérêt du site. 200 caractères maxi.)": $tmp="(Light description of the interest center of your website. 200 caracters max.)"; break;
   case "Mot(s) clé(s)": $tmp="Keyword(s)"; break;
-  case "(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi. Remarques : une lettre accentuée équivaut le plus souvent à 8 caractéres. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)": $tmp="(Give one or several keyword(s). 1000 caracters max. Notes : a accentued letter in general count like 8 caracters. More search engines make the difference between min/upper letter. Separate words with , )"; break;
+  case "(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi. Remarques : une lettre accentuée équivaut le plus souvent à 8 caractères. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)": $tmp="(Give one or several keyword(s). 1000 caracters max. Notes : a accentued letter in general count like 8 caracters. More search engines make the difference between min/upper letter. Separate words with , )"; break;
   case "Audience": $tmp="Rating"; break;
   case "Tout public": $tmp="All public"; break;
   case "Adulte": $tmp="Adult"; break;
@@ -819,7 +820,7 @@ function adm_translate($phrase) {
   case "Chemin et nom de l'image du Smiley": $tmp="Directory and name of the picture of the Smiley"; break;
   case "Veuillez choisir un type de META-MOT": $tmp="Please choose a type of META-MOT"; break;
   case "Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction": $tmp="By defaut, nothing or All except [no URI] = no limitation"; break;
-  case "Ce META-MOT existe déjà": $tmp="This META-MOTalready exist"; break;
+  case "Ce META-MOT existe déjà": $tmp="This META-MOT already exist"; break;
   case "Veuillez nommer différement ce nouveau META-MOT": $tmp="Please choose another name for this new META-MOT"; break;
   case "Administration de META-LANG": $tmp="META-LANG administration"; break;
   case "Modifier un ": $tmp="Change a "; break;
@@ -1009,6 +1010,8 @@ function adm_translate($phrase) {
   case "Communication": $tmp="Communication"; break;
   case "Interface": $tmp="Interface"; break;
   case "Connexion": $tmp="Login"; break;
+  case "Système": $tmp="System"; break;
+  case "Critique en attente de validation.": $tmp="Review awaiting validation"; break;
 
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
