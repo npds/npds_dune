@@ -85,7 +85,6 @@ function adm_translate($phrase) {
   case "Retour en arrière": $tmp="后退"; break;
   case "Vous devez remplir tous les Champs": $tmp="您必须填写所有的表栏"; break;
   case "- Etes-vous certain ?": $tmp="- 您肯定吗？"; break;
-  case "Effacer": $tmp="删除"; break;
   case "Etes-vous sûr de vouloir effacer": $tmp="您肯定要删除吗？"; break;
   case "Publier dans la racine ?": $tmp="在首页发布吗？"; break;
   case "Ne s'applique que si la catégorie : <b>'Articles'</b> n'est pas sélectionnée.": $tmp="当<b>文章</b>没被选择时作用"; break;
@@ -503,7 +502,6 @@ function adm_translate($phrase) {
   case "Ajouter un Sujet": $tmp="添加主题!"; break;
   case "Editer le Sujet :": $tmp="编辑主题:"; break;
   case "Ajouter des Liens relatifs au Sujet": $tmp="添加相关链接:"; break;
-  case "Nom du site : ": $tmp="站点名称：: "; break;
   case "URL : ": $tmp="URL: "; break;
   case "Gérer les Liens Relatifs : ": $tmp="管理相关链接"; break;
   case "Effacer le Sujet !": $tmp="删除主题!"; break;

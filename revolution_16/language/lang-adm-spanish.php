@@ -85,7 +85,6 @@ function adm_translate($phrase) {
   case "Retour en arrière": $tmp="Volver"; break;
   case "Vous devez remplir tous les Champs": $tmp="Tiene que rellenar todos los campos"; break;
   case "- Etes-vous certain ?": $tmp="- ¿está usted seguro?"; break;
-  case "Effacer": $tmp="Borrar"; break;
   case "Etes-vous sûr de vouloir effacer": $tmp="¿está usted seguro que quiere borrar?"; break;
   case "Publier dans la racine ?": $tmp="¿Publicar en la raíz?"; break;
   case "Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.": $tmp="Solo se aplica si la categoria 'Noticias' no está seleccionada"; break;
@@ -503,7 +502,6 @@ function adm_translate($phrase) {
   case "Ajouter un Sujet": $tmp="Añadir un tema!"; break;
   case "Editer le Sujet :": $tmp="Edicion de un Tema:"; break;
   case "Ajouter des Liens relatifs au Sujet : ": $tmp="Añadir vinculos relativos a este tema:"; break;
-  case "Nom du site : ": $tmp="Sitio web: "; break;
   case "URL : ": $tmp="URL: "; break;
   case "Gérer les Liens Relatifs : ": $tmp="Gestionar los vinculos relativos:"; break;
   case "Effacer le Sujet !": $tmp="Borrar el tema!"; break;

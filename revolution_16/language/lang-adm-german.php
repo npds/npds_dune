@@ -85,7 +85,6 @@ function adm_translate($phrase) {
   case "Retour en arrière": $tmp="Go Back"; break;
   case "Vous devez remplir tous les Champs": $tmp="You must complete all compulsory fields"; break;
   case "- Etes-vous certain ?": $tmp="- are you sure?"; break;
-  case "Effacer": $tmp="delete"; break;
   case "Etes-vous sûr de vouloir effacer": $tmp="Are you sure you want to delete"; break;
   case "Publier dans la racine ?": $tmp="Publish in Home?"; break;
   case "Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.": $tmp="Only works if Articles category isn't selected"; break;
@@ -503,7 +502,6 @@ function adm_translate($phrase) {
   case "Ajouter un Sujet": $tmp="Add Topic!"; break;
   case "Editer le Sujet :": $tmp="Edit Topic:"; break;
   case "Ajouter des Liens relatifs au Sujet": $tmp="Add Related Links"; break;
-  case "Nom du site : ": $tmp="Site Name: "; break;
   case "URL : ": $tmp="URL: "; break;
   case "Gérer les Liens Relatifs : ": $tmp="Manage Related Links:"; break;
   case "Effacer le Sujet !": $tmp="Delete Topic!"; break;
