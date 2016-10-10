@@ -85,7 +85,6 @@ function adm_translate($phrase) {
   case "Retour en arrière": $tmp="Go Back"; break;
   case "Vous devez remplir tous les Champs": $tmp="You must complete all compulsory fields"; break;
   case "- Etes-vous certain ?": $tmp="- are you sure?"; break;
-  case "Effacer": $tmp="delete"; break;
   case "Etes-vous sûr de vouloir effacer": $tmp="Are you sure you want to delete"; break;
   case "Publier dans la racine ?": $tmp="Publish in Home?"; break;
   case "Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.": $tmp="Only works if Articles category isn't selected"; break;
@@ -495,7 +494,7 @@ function adm_translate($phrase) {
   case "(un simple nom sans espaces - 20 caractères max.)": $tmp="(just a name without spaces - max: 20 characters)"; break;
   case "cesiteestgénial": $tmp="thiswebsiteisamazing"; break;
   case "Texte du Sujet :": $tmp="Topic Text:"; break;
-  case "(description ou nom complet du Sujet - max : 40 caractéres)": $tmp="(the full topic text or description - max: 40 characters)"; break;
+  case "(description ou nom complet du Sujet - max : 40 caractères)": $tmp="(the full topic text or description - max: 40 characters)"; break;
   case "ce site est génial": $tmp="this web site is amazing"; break;
   case "Image du Sujet :": $tmp="Topic Image:"; break;
   case "(nom de l'image + extension)": $tmp="(image name + extension located in"; break;
@@ -503,7 +502,6 @@ function adm_translate($phrase) {
   case "Ajouter un Sujet": $tmp="Add Topic!"; break;
   case "Editer le Sujet :": $tmp="Edit Topic:"; break;
   case "Ajouter des Liens relatifs au Sujet": $tmp="Add Related Links"; break;
-  case "Nom du site : ": $tmp="Site Name: "; break;
   case "URL : ": $tmp="URL: "; break;
   case "Gérer les Liens Relatifs : ": $tmp="Manage Related Links:"; break;
   case "Effacer le Sujet !": $tmp="Delete Topic!"; break;
@@ -925,7 +923,6 @@ function adm_translate($phrase) {
   case "Editer la question réponse": $tmp="Edit the Question Answer"; break;
   case "Format de données": $tmp="Data format"; break;
   case "Format de fichier": $tmp="File format"; break;
-  case 'Administration': $tmp='Administration'; break;
   case 'Menu': $tmp='Menu'; break;
   case 'Module': $tmp='Module'; break;
   case 'Titre de la page': $tmp='Page title'; break;

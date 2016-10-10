@@ -27,9 +27,7 @@ function autorisation_section($userlevel) {
 
 function listsections($rubric) {
    global $sitename, $admin, $NPDS_Prefix;
-
    include ('header.php');
-
    if (file_exists("sections.config.php"))
       include ("sections.config.php");
 
@@ -57,6 +55,7 @@ function listsections($rubric) {
             $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
             $nb_section=sql_num_rows($result2);
             $aff.='
+            <hr />
       <h3>
          <a class="arrow-toggle" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="fa fa-caret-down"></i></a>&nbsp;
          <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a>
@@ -100,7 +99,7 @@ function listsections($rubric) {
                         }
                         $aff2.='<span><a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a>&nbsp;<small>'.translate("read:").' '.$counter.' '.translate("times").'</small>';
                         if ($nouveau=='') {
-                           $aff2.='<i class="fa fa-star"></i>';
+                           $aff2.='<i class="fa fa-star-o m-l-1 text-success"></i>';
 
                               $aff1=str_replace("#NEW#","",$aff1);
                         } else {
@@ -113,8 +112,7 @@ function listsections($rubric) {
                   $aff2.='
                </div>
             </div>
-         </div>
-                  ';
+         </div>';
                }
                $aff.=$aff1.$aff2;
             $aff.=''; 
@@ -197,7 +195,7 @@ function listarticles($secid) {
                echo '</p>';
             }
          }
-         echo '<a class="btn btn-default" href="sections.php">'.translate("Return to Sections Index").'</a>';
+         echo '<a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a>';
          
       } else {
          redirect_url("sections.php");
@@ -254,7 +252,7 @@ function viewarticle($artid, $page) {
          if (function_exists("themesection_title")) {
             themesection_title($title);
          } else 
-            echo '<h3>'.$title.'</h3>';
+            echo '<h3 class="m-b-2">'.$title.'</h3>';
          
          echo '<p class="text-muted">('.$words.' '.translate("total words in this text)").'&nbsp;-&nbsp;
          '.translate("read:").' '.$counter.' '.translate("times").'&nbsp;&nbsp;&nbsp;<a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-print fa-lg"></i></a></p>';

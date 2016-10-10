@@ -151,7 +151,7 @@ function GraphicAdmin($hlpfile) {
    }
    //critique en attente
    $critsubs= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add"));
-   if($critsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$critsubs."' WHERE fid='35'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='35'");
+   if($critsubs) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$critsubs."', fretour_h='".adm_translate("Critique en attente de validation.")."' WHERE fid='35'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='35'");
    //nouveau lien à valider
    $newlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_newlink"));
    if($newlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newlink."', fretour_h='".adm_translate("Liens à valider.")."' WHERE fid='41'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='41'");
