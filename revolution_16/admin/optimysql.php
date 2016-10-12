@@ -40,7 +40,7 @@
     list($dateopt, $houropt) = sql_fetch_row($result);
     if (!$dateopt OR ($dateopt == "") OR !$houropt OR ($houropt == "")) {
     } else {
-       $last_opti= adm_translate("Derniére optimisation effectuée le ")." : ".$dateopt." ".adm_translate(" à ")." ".$houropt."<br />\n";
+       $last_opti= adm_translate("Dernière optimisation effectuée le")." : ".$dateopt." ".adm_translate(" à ")." ".$houropt."<br />\n";
     }
     
     $tot_data = 0;
@@ -99,7 +99,7 @@
 
     // Affichage
     adminhead ($f_meta_nom, $f_titre, $adminimg);
-    echo adm_translate("Optimisation effectuée ").' : '.adm_translate("Gain total réalisé").' '.$total_gain.' Ko</br>';
+    echo adm_translate("Optimisation effectuée").' : '.adm_translate("Gain total réalisé").' '.$total_gain.' Ko</br>';
     echo $last_opti;
     echo "<p>".adm_translate("A ce jour, vous avez effectué ")." ".$countopt." optimisation(s) ".adm_translate(" et réalisé un gain global de ")." ".$gainopt." Ko.</p>\n";
     echo'<table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
