@@ -194,7 +194,7 @@ function GraphicAdmin($hlpfile) {
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
+         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
          <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
@@ -509,14 +509,12 @@ if ($admintest) {
       case 'GraphicAdmin':
          GraphicAdmin($hlpfile);
       break;
-
       case 'logout':
          setcookie("admin");
          setcookie("adm_exp");
          unset($admin);
          Header("Location: index.php");
       break;
-
       // FILES MANAGER
       case 'FileManager':
          if ($admintest and $filemanager) {
@@ -529,7 +527,6 @@ if ($admintest) {
          }
       break;
       // FILES MANAGER
-
       // CRITIQUES
       case 'reviews':
       case 'mod_main':
@@ -541,303 +538,289 @@ if ($admintest) {
          Header("Location: admin.php?op=$op_back");
       break;
       // CRITIQUES
+      // FORUMS
+      case "ForumConfigAdmin":
+         include ("admin/phpbbconfig.php");
+         ForumConfigAdmin();
+      break;
+      case "ForumConfigChange":
+         include ("admin/phpbbconfig.php");
+         ForumConfigChange($allow_html,$allow_bbcode,$allow_sig,$posts_per_page,$hot_threshold,$topics_per_page,$allow_upload_forum,$allow_forum_hide,$rank1,$rank2,$rank3,$rank4,$rank5,$anti_flood,$solved);
+      break;
+      case "MaintForumAdmin":
+         include ("admin/phpbbmaint.php");
+         ForumMaintAdmin();
+      break;
+      case "MaintForumMarkTopics":
+         include ("admin/phpbbmaint.php");
+         ForumMaintMarkTopics();
+      break;
+      case "MaintForumTopics":
+         include ("admin/phpbbmaint.php");
+         ForumMaintTopics($before, $forum_name);
+      break;
+      case "MaintForumTopicDetail":
+         include ("admin/phpbbmaint.php");
+         ForumMaintTopicDetail($topic, $topic_title);
+      break;
+      case "SynchroForum":
+         include ("admin/phpbbmaint.php");
+         SynchroForum();
+      break;
+      case "ForumMaintTopicSup":
+         include ("admin/phpbbmaint.php");
+         ForumMaintTopicSup($topic);
+      break;
+      case "ForumMaintTopicMassiveSup":
+         include ("admin/phpbbmaint.php");
+         ForumMaintTopicMassiveSup($topics);
+      break;
+      case "MergeForum":
+         include ("admin/phpbbmaint.php");
+         MergeForum();
+      break;
+      case "MergeForumAction":
+         include ("admin/phpbbmaint.php");
+         MergeForumAction($oriforum,$destforum);
+      break;
+      case "ForumGoAdd":
+         include ("admin/phpbbforum.php");
+         ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
+      break;
+      case "ForumGoSave":
+         include ("admin/phpbbforum.php");
+         ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
+      break;
+      case "ForumCatDel":
+         include ("admin/phpbbforum.php");
+         ForumCatDel($cat_id, $ok);
+      break;
+      case "ForumGoDel":
+         include ("admin/phpbbforum.php");
+         ForumGoDel($forum_id, $ok);
+      break;
+      case "ForumCatSave":
+         include ("admin/phpbbforum.php");
+         ForumCatSave($old_cat_id, $cat_id, $cat_title);
+      break;
+      case "ForumCatEdit":
+         include ("admin/phpbbforum.php");
+         ForumCatEdit($cat_id);
+      break;
+      case "ForumGoEdit":
+         include ("admin/phpbbforum.php");
+         ForumGoEdit($forum_id,$ctg);
+      break;
+      case "ForumGo":
+         include ("admin/phpbbforum.php");
+         ForumGo($cat_id);
+      break;
+      case "ForumCatAdd":
+         include ("admin/phpbbforum.php");
+         ForumCatAdd($catagories);
+      break;
+      case "ForumAdmin":
+         include ("admin/phpbbforum.php");
+         ForumAdmin();
+      break;
+      // FORUMS
+      // DOWNLOADS
+      case "DownloadDel":
+         include ("admin/download.php");
+         DownloadDel($did, $ok);
+      break;
+      case "DownloadAdd":
+         include ("admin/download.php");
+         DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $dver, $dcategory, $sdcategory, $xtext, $privs, $Mprivs);
+      break;
+      case "DownloadSave":
+         include ("admin/download.php");
+         DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $ddate, $dver, $dcategory, $sdcategory, $xtext, $privs, $Mprivs);
+      break;
+      case "DownloadAdmin":
+         include ("admin/download.php");
+         DownloadAdmin();
+      break;
+      case "DownloadEdit":
+         include ("admin/download.php");
+         DownloadEdit($did);
+      break;
+      // DOWNLOADS
+      // FAQ
+      case "FaqCatSave":
+         include ("admin/adminfaq.php");
+         FaqCatSave($old_id_cat, $id_cat, $categories);
+      break;
+      case "FaqCatGoSave":
+         include ("admin/adminfaq.php");
+         FaqCatGoSave($id, $question, $answer);
+      break;
+      case "FaqCatAdd":
+         include ("admin/adminfaq.php");
+         FaqCatAdd($categories);
+      break;
+      case "FaqCatGoAdd":
+         include ("admin/adminfaq.php");
+         FaqCatGoAdd($id_cat, $question, $answer);
+      break;
+      case "FaqCatEdit":
+         include ("admin/adminfaq.php");
+         FaqCatEdit($id_cat);
+      break;
+      case "FaqCatGoEdit":
+         include ("admin/adminfaq.php");
+         FaqCatGoEdit($id);
+      break;
+      case "FaqCatDel":
+         include ("admin/adminfaq.php");
+         FaqCatDel($id_cat, $ok);
+      break;
+      case "FaqCatGoDel":
+         include ("admin/adminfaq.php");
+         FaqCatGoDel($id, $ok);
+      break;
+      case "FaqAdmin":
+         include ("admin/adminfaq.php");
+         FaqAdmin();
+      break;
+      case "FaqCatGo":
+         include ("admin/adminfaq.php");
+         FaqCatGo($id_cat);
+      break;
+      // FAQ
+      // AUTOMATED
+      case 'autoStory':
+      case 'autoEdit':
+      case 'autoDelete':
+      case 'autoSaveEdit':
+         include("admin/automated.php");
+      break;
+      // AUTOMATED
+      // NEWS
+      case 'submissions':
+         include("admin/submissions.php");
+      break;
+      // NEWS
+      // REFERANTS
+      case 'HeadlinesDel':
+      case 'HeadlinesAdd':
+      case 'HeadlinesSave':
+      case 'HeadlinesAdmin':
+      case 'HeadlinesEdit':
+         include("admin/headlines.php");
+      break;
+      // REFERANTS
+      // PREFERENCES
+      case 'Configure':
+      case 'ConfigSave':
+         include("admin/settings.php");
+      break;
+      // PREFERENCES
+      // EPHEMERIDS
+      case 'Ephemeridsedit':
+      case 'Ephemeridschange':
+      case 'Ephemeridsdel':
+      case 'Ephemeridsmaintenance':
+      case 'Ephemeridsadd':
+      case 'Ephemerids':
+         include("admin/ephemerids.php");
+      break;
+      // EPHEMERIDS
+      // LINKS
+      case 'links':
+      case 'LinksDelNew':
+      case 'LinksAddCat':
+      case 'LinksAddSubCat':
+      case 'LinksAddLink':
+      case 'LinksAddEditorial':
+      case 'LinksModEditorial':
+      case 'LinksDelEditorial':
+      case 'LinksCleanVotes':
+      case 'LinksListBrokenLinks':
+      case 'LinksDelBrokenLinks':
+      case 'LinksIgnoreBrokenLinks':
+      case 'LinksListModRequests':
+      case 'LinksChangeModRequests':
+      case 'LinksChangeIgnoreRequests':
+      case 'LinksDelCat':
+      case 'LinksModCat':
+      case 'LinksModCatS':
+      case 'LinksModLink':
+      case 'LinksModLinkS':
+      case 'LinksDelLink':
+      case 'LinksDelVote':
+      case 'LinksDelComment':
+      case 'suite_links':
+         include("admin/links.php");
+      break;
+      // LINKS
+      // BANNERS
+      case 'BannersAdmin':
+      case 'BannersAdd':
+      case 'BannerAddClient':
+      case 'BannerFinishDelete':
+      case 'BannerDelete':
+      case 'BannerEdit':
+      case 'BannerChange':
+      case 'BannerClientDelete':
+      case 'BannerClientEdit':
+      case 'BannerClientChange':
+         include("admin/banners.php");
+      break;
+      // BANNERS
+      // HTTP Referer
+      case 'hreferer':
+      case 'delreferer':
+      case 'archreferer':
+         include("admin/referers.php");
+      break;
+      // HTTP Referer
+      // TOPIC Manager
+      case 'topicsmanager':
+      case 'topicedit':
+      case 'topicmake':
+      case 'topicdelete':
+      case 'topicchange':
+      case 'relatedsave':
+      case 'relatededit':
+      case 'relateddelete':
+         include("admin/topics.php");
+      break;
+      // TOPIC Manager
 
-        // FORUMS
-        case "ForumConfigAdmin":
-             include ("admin/phpbbconfig.php");
-             ForumConfigAdmin();
-             break;
-        case "ForumConfigChange":
-             include ("admin/phpbbconfig.php");
-             ForumConfigChange($allow_html,$allow_bbcode,$allow_sig,$posts_per_page,$hot_threshold,$topics_per_page,$allow_upload_forum,$allow_forum_hide,$rank1,$rank2,$rank3,$rank4,$rank5,$anti_flood,$solved);
-             break;
-
-        case "MaintForumAdmin":
-             include ("admin/phpbbmaint.php");
-             ForumMaintAdmin();
-             break;
-        case "MaintForumMarkTopics":
-             include ("admin/phpbbmaint.php");
-             ForumMaintMarkTopics();
-             break;
-        case "MaintForumTopics":
-             include ("admin/phpbbmaint.php");
-             ForumMaintTopics($before, $forum_name);
-             break;
-        case "MaintForumTopicDetail":
-             include ("admin/phpbbmaint.php");
-             ForumMaintTopicDetail($topic, $topic_title);
-             break;
-        case "SynchroForum":
-             include ("admin/phpbbmaint.php");
-             SynchroForum();
-             break;
-        case "ForumMaintTopicSup":
-             include ("admin/phpbbmaint.php");
-             ForumMaintTopicSup($topic);
-             break;
-        case "ForumMaintTopicMassiveSup":
-             include ("admin/phpbbmaint.php");
-             ForumMaintTopicMassiveSup($topics);
-             break;
-        case "MergeForum":
-             include ("admin/phpbbmaint.php");
-             MergeForum();
-             break;
-        case "MergeForumAction":
-             include ("admin/phpbbmaint.php");
-             MergeForumAction($oriforum,$destforum);
-             break;
-
-        case "ForumGoAdd":
-             include ("admin/phpbbforum.php");
-             ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
-             break;
-        case "ForumGoSave":
-             include ("admin/phpbbforum.php");
-             ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
-             break;
-        case "ForumCatDel":
-             include ("admin/phpbbforum.php");
-             ForumCatDel($cat_id, $ok);
-             break;
-        case "ForumGoDel":
-             include ("admin/phpbbforum.php");
-             ForumGoDel($forum_id, $ok);
-             break;
-        case "ForumCatSave":
-             include ("admin/phpbbforum.php");
-             ForumCatSave($old_cat_id, $cat_id, $cat_title);
-             break;
-        case "ForumCatEdit":
-             include ("admin/phpbbforum.php");
-             ForumCatEdit($cat_id);
-             break;
-        case "ForumGoEdit":
-             include ("admin/phpbbforum.php");
-             ForumGoEdit($forum_id,$ctg);
-             break;
-        case "ForumGo":
-             include ("admin/phpbbforum.php");
-             ForumGo($cat_id);
-             break;
-        case "ForumCatAdd":
-             include ("admin/phpbbforum.php");
-             ForumCatAdd($catagories);
-             break;
-        case "ForumAdmin":
-             include ("admin/phpbbforum.php");
-             ForumAdmin();
-             break;
-        // FORUMS
-
-        // DOWNLOADS
-        case "DownloadDel":
-             include ("admin/download.php");
-             DownloadDel($did, $ok);
-             break;
-        case "DownloadAdd":
-             include ("admin/download.php");
-             DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $dver, $dcategory, $sdcategory, $xtext, $privs, $Mprivs);
-             break;
-        case "DownloadSave":
-             include ("admin/download.php");
-             DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $ddate, $dver, $dcategory, $sdcategory, $xtext, $privs, $Mprivs);
-             break;
-        case "DownloadAdmin":
-             include ("admin/download.php");
-             DownloadAdmin();
-             break;
-        case "DownloadEdit":
-             include ("admin/download.php");
-             DownloadEdit($did);
-             break;
-        // DOWNLOADS
-
-        // FAQ
-        case "FaqCatSave":
-             include ("admin/adminfaq.php");
-             FaqCatSave($old_id_cat, $id_cat, $categories);
-             break;
-        case "FaqCatGoSave":
-             include ("admin/adminfaq.php");
-             FaqCatGoSave($id, $question, $answer);
-             break;
-        case "FaqCatAdd":
-             include ("admin/adminfaq.php");
-             FaqCatAdd($categories);
-             break;
-        case "FaqCatGoAdd":
-             include ("admin/adminfaq.php");
-             FaqCatGoAdd($id_cat, $question, $answer);
-             break;
-        case "FaqCatEdit":
-             include ("admin/adminfaq.php");
-             FaqCatEdit($id_cat);
-             break;
-        case "FaqCatGoEdit":
-             include ("admin/adminfaq.php");
-             FaqCatGoEdit($id);
-             break;
-        case "FaqCatDel":
-             include ("admin/adminfaq.php");
-             FaqCatDel($id_cat, $ok);
-             break;
-        case "FaqCatGoDel":
-             include ("admin/adminfaq.php");
-             FaqCatGoDel($id, $ok);
-             break;
-        case "FaqAdmin":
-             include ("admin/adminfaq.php");
-             FaqAdmin();
-             break;
-        case "FaqCatGo":
-             include ("admin/adminfaq.php");
-             FaqCatGo($id_cat);
-             break;
-        // FAQ
-
-        // AUTOMATED
-        case 'autoStory':
-        case 'autoEdit':
-        case 'autoDelete':
-        case 'autoSaveEdit':
-             include("admin/automated.php");
-             break;
-        // AUTOMATED
-
-        // NEWS
-        case 'submissions':
-             include("admin/submissions.php");
-             break;
-        // NEWS
-
-        // REFERANTS
-        case 'HeadlinesDel':
-        case 'HeadlinesAdd':
-        case 'HeadlinesSave':
-        case 'HeadlinesAdmin':
-        case 'HeadlinesEdit':
-             include("admin/headlines.php");
-             break;
-        // REFERANTS
-
-        // PREFERENCES
-        case 'Configure':
-        case 'ConfigSave':
-            include("admin/settings.php");
-            break;
-        // PREFERENCES
-
-        // EPHEMERIDS
-        case 'Ephemeridsedit':
-        case 'Ephemeridschange':
-        case 'Ephemeridsdel':
-        case 'Ephemeridsmaintenance':
-        case 'Ephemeridsadd':
-        case 'Ephemerids':
-            include("admin/ephemerids.php");
-            break;
-        // EPHEMERIDS
-
-        // LINKS
-        case 'links':
-        case 'LinksDelNew':
-        case 'LinksAddCat':
-        case 'LinksAddSubCat':
-        case 'LinksAddLink':
-        case 'LinksAddEditorial':
-        case 'LinksModEditorial':
-        case 'LinksDelEditorial':
-        case 'LinksCleanVotes':
-        case 'LinksListBrokenLinks':
-        case 'LinksDelBrokenLinks':
-        case 'LinksIgnoreBrokenLinks':
-        case 'LinksListModRequests':
-        case 'LinksChangeModRequests':
-        case 'LinksChangeIgnoreRequests':
-        case 'LinksDelCat':
-        case 'LinksModCat':
-        case 'LinksModCatS':
-        case 'LinksModLink':
-        case 'LinksModLinkS':
-        case 'LinksDelLink':
-        case 'LinksDelVote':
-        case 'LinksDelComment':
-        case 'suite_links':
-            include("admin/links.php");
-            break;
-        // LINKS
-
-        // BANNERS
-        case 'BannersAdmin':
-        case 'BannersAdd':
-        case 'BannerAddClient':
-        case 'BannerFinishDelete':
-        case 'BannerDelete':
-        case 'BannerEdit':
-        case 'BannerChange':
-        case 'BannerClientDelete':
-        case 'BannerClientEdit':
-        case 'BannerClientChange':
-             include("admin/banners.php");
-             break;
-        // BANNERS
-
-        // HTTP Referer
-        case 'hreferer':
-        case 'delreferer':
-        case 'archreferer':
-             include("admin/referers.php");
-             break;
-        // HTTP Referer
-
-        // TOPIC Manager
-        case 'topicsmanager':
-        case 'topicedit':
-        case 'topicmake':
-        case 'topicdelete':
-        case 'topicchange':
-        case 'relatedsave':
-        case 'relatededit':
-        case 'relateddelete':
-             include("admin/topics.php");
-             break;
-        // TOPIC Manager
-
-        // SECTIONS - RUBRIQUES
-        case 'new_rub_section':
-        case 'sections':
-        case 'sectionedit':
-        case 'sectionmake':
-        case 'sectiondelete':
-        case 'sectionchange':
-        case 'rubriquedit':
-        case 'rubriquemake':
-        case 'rubriquedelete':
-        case 'rubriquechange':
-        case 'secarticleadd':
-        case 'secartedit':
-        case 'secartchange':
-        case 'secartchangeup':
-        case 'secartdelete':
-        case 'secartpublish':
-        case 'secartupdate':
-        case 'secartdelete2':
-        case 'ordremodule':
-        case 'ordrechapitre':
-        case 'ordrecours':
-        case 'majmodule':
-        case 'majchapitre':
-        case 'majcours':
-        case 'publishcompat':
-        case 'updatecompat':
-        case 'droitauteurs':
-        case 'updatedroitauteurs':
-        case 'menu_dyn':
-             include("admin/sections.php");
-             break;
-        // SECTIONS - RUBRIQUES
+      // SECTIONS - RUBRIQUES
+      case 'new_rub_section':
+      case 'sections':
+      case 'sectionedit':
+      case 'sectionmake':
+      case 'sectiondelete':
+      case 'sectionchange':
+      case 'rubriquedit':
+      case 'rubriquemake':
+      case 'rubriquedelete':
+      case 'rubriquechange':
+      case 'secarticleadd':
+      case 'secartedit':
+      case 'secartchange':
+      case 'secartchangeup':
+      case 'secartdelete':
+      case 'secartpublish':
+      case 'secartupdate':
+      case 'secartdelete2':
+      case 'ordremodule':
+      case 'ordrechapitre':
+      case 'ordrecours':
+      case 'majmodule':
+      case 'majchapitre':
+      case 'majcours':
+      case 'publishcompat':
+      case 'updatecompat':
+      case 'droitauteurs':
+      case 'updatedroitauteurs':
+      case 'menu_dyn':
+         include("admin/sections.php");
+      break;
+      // SECTIONS - RUBRIQUES
 
         // BLOCKS
         case 'blocks':
