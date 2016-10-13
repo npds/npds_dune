@@ -465,7 +465,8 @@ function Configure() {
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xbackend_image">'.adm_translate("URL de l'image du backend").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="xbackend_image" value="'.$backend_image.'" size="50" maxlength="200" />
+               <input class="form-control" type="url" name="xbackend_image" id="xbackend_image" value="'.$backend_image.'" maxlength="200" />
+               <span class="help-block text-xs-right" id="countcar_xbackend_image"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -1687,7 +1688,7 @@ function Configure() {
          inpandfieldlen("xgmt",5);
          inpandfieldlen("xbackend_title",100);
          inpandfieldlen("xbackend_language",10);
-
+         inpandfieldlen("xbackend_image",200);
          
          inpandfieldlen("xadminmail",100);
          inpandfieldlen("xnotify_email",100);
