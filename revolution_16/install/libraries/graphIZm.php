@@ -47,7 +47,7 @@ function entete() {
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">
-      <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
+      <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       <script type="text/javascript" src="lib/js/tether.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
    </head>

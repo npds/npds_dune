@@ -19,7 +19,7 @@ echo '
 
 <link id="sty_highlight" rel="stylesheet" href="lib/js/highlight-9.0.0/styles/github.css" />
 
-<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="lib/js/jquery.min.js"></script>
 <script type="text/javascript" src="themes/NBOR/responsivetab/js/easyResponsiveTabs.js"></script>
 
 <script type="text/javascript" src="lib/js/tether.min.js"></script>
