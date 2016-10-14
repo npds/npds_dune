@@ -95,16 +95,16 @@ echo '
 
 function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
    echo '
-         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-asc"></i></a>&nbsp;
+         <a class="hidden-xs-down" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-asc"></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
-         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-desc"></i></a>';
+         <a class="hidden-xs-down" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-desc"></i></a>';
 }
 
 function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
      echo '
-         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-asc" ></i></a>&nbsp;
+         <a class="hidden-xs-down" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-asc" ></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
-         <a href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-desc" ></i></a>';
+         <a class="hidden-xs-down" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-desc" ></i></a>';
 }
 
 function dl_tableheader () {
