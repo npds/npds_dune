@@ -119,13 +119,10 @@ border-radius: 4px;
 #adm_men, .adm_workarea, #mes_delauthor {
 margin:3px;
 padding:1rem;
-border: solid 0.2px;
 -moz-border-radius: 4px;
 -webkit-border-radius: 4px;
 border-radius: 4px;
-/* 
-border-color: #FFEFC2 #9D8F70 #9D8F70 #FFEFC2;
- */
+border: 1px solid rgba(0, 0, 0, .125);
 -moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 -webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
