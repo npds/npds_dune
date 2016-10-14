@@ -49,34 +49,6 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
    echo $entete_adm;
 }
 
-function adminfieldinp($result) {
-   $fields = sql_num_fields($result);
-   $idle = array();
-   for ($i=0; $i < $fields; $i++) {
-//    $field_info = sql_fetch_field_direct($result, $i);
-//       if ($field_info->type == 'string') {
-//          $idle[$field_info->name] = $field_info->length;
-//       }
-
-          $idle['b'.$i] = 'a';
-
-
-   }
-   echo '
-   <script type="text/javascript">
-   //<![CDATA[
-   ';
-   foreach ($idle as $k=>$v) {
-   echo $fields;
-      echo '
-      inpandfieldlen("'.$k.'",'.$v.')';
-   }
-   echo '
-   //]]>
-   </script>';
-}
-
-
 $filemanager=false;
 if (file_exists("filemanager.conf")) {
    include_once("filemanager.conf");
@@ -128,8 +100,7 @@ function login() {
 }
 
 function GraphicAdmin($hlpfile) {
-   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax;
-   global $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
+   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
 
@@ -174,12 +145,11 @@ function GraphicAdmin($hlpfile) {
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
       $fid_ar[]=$SAQ['fid'];
-      if ($SAQ['fcategorie'] == 6)  {
+      if ($SAQ['fcategorie'] == 6) {
          if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
       } else {
-      $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
+         $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       };
-   
       if ($SAQ['fcategorie'] == 9) {
          //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
@@ -269,42 +239,39 @@ function GraphicAdmin($hlpfile) {
    });
 */
    function openwindow(){
-       window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");
-    }
-
-   $( document ).ready(function () {
-       $('[data-toggle=\"tooltip\"]').tooltip();
-       $('[data-toggle=\"popover\"]').popover();
-       $('table').on('all.bs.table', function (e, name, args) {
-        $('[data-toggle=\"tooltip\"]').tooltip();
-        $('[data-toggle=\"popover\"]').popover();  
-    });
-   });
-
-   //==>date d'expiration connection admin
-   $(function () {
-      var dae = Cookies.get('adm_exp')*1000,
-       dajs = new Date(dae);
-
-   $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
-
-   deCompte= function() {
-   var date1 = new Date(),
-       sec = (dae - date1) / 1000,
-       n = 24 * 3600;
-     if (sec > 0) {
-       j = Math.floor (sec / n);
-       h = Math.floor ((sec - (j * n)) / 3600);
-       mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
-       sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
-       $('#car').text(j +'j '+ h +':'+ mn +':'+sec);
-     }
-   t_deCompte=setTimeout (deCompte, 1000);
+      window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");
    }
-   deCompte();
-   
-    })
-   //<== date d'expiration connection admin
+
+      $( document ).ready(function () {
+         $('[data-toggle=\"tooltip\"]').tooltip();
+         $('[data-toggle=\"popover\"]').popover();
+         $('table').on('all.bs.table', function (e, name, args) {
+            $('[data-toggle=\"tooltip\"]').tooltip();
+            $('[data-toggle=\"popover\"]').popover();
+         });
+      });
+
+      //==>date d'expiration connection admin
+      $(function () {
+         var dae = Cookies.get('adm_exp')*1000,
+          dajs = new Date(dae);
+
+      $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
+
+      deCompte= function() {
+      var date1 = new Date(), sec = (dae - date1) / 1000, n = 24 * 3600;
+        if (sec > 0) {
+          j = Math.floor (sec / n);
+          h = Math.floor ((sec - (j * n)) / 3600);
+          mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
+          sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
+          $('#car').text(j +'j '+ h +':'+ mn +':'+sec);
+        }
+      t_deCompte=setTimeout (deCompte, 1000);
+      }
+      deCompte();
+      })
+      //<== date d'expiration connection admin
    
    tog = function(lst,sho,hid){
       $('#adm_men, #adm_workarea').on('click', 'a.tog', function() {
@@ -526,7 +493,6 @@ if ($admintest) {
             header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=download");
          }
       break;
-      // FILES MANAGER
       // CRITIQUES
       case 'reviews':
       case 'mod_main':
@@ -537,7 +503,6 @@ if ($admintest) {
          sql_query("DELETE FROM ".$NPDS_Prefix."reviews_add WHERE id='$id'");
          Header("Location: admin.php?op=$op_back");
       break;
-      // CRITIQUES
       // FORUMS
       case "ForumConfigAdmin":
          include ("admin/phpbbconfig.php");
@@ -623,7 +588,6 @@ if ($admintest) {
          include ("admin/phpbbforum.php");
          ForumAdmin();
       break;
-      // FORUMS
       // DOWNLOADS
       case "DownloadDel":
          include ("admin/download.php");
@@ -645,7 +609,6 @@ if ($admintest) {
          include ("admin/download.php");
          DownloadEdit($did);
       break;
-      // DOWNLOADS
       // FAQ
       case "FaqCatSave":
          include ("admin/adminfaq.php");
@@ -687,7 +650,6 @@ if ($admintest) {
          include ("admin/adminfaq.php");
          FaqCatGo($id_cat);
       break;
-      // FAQ
       // AUTOMATED
       case 'autoStory':
       case 'autoEdit':
@@ -695,12 +657,10 @@ if ($admintest) {
       case 'autoSaveEdit':
          include("admin/automated.php");
       break;
-      // AUTOMATED
       // NEWS
       case 'submissions':
          include("admin/submissions.php");
       break;
-      // NEWS
       // REFERANTS
       case 'HeadlinesDel':
       case 'HeadlinesAdd':
@@ -709,13 +669,11 @@ if ($admintest) {
       case 'HeadlinesEdit':
          include("admin/headlines.php");
       break;
-      // REFERANTS
       // PREFERENCES
       case 'Configure':
       case 'ConfigSave':
          include("admin/settings.php");
       break;
-      // PREFERENCES
       // EPHEMERIDS
       case 'Ephemeridsedit':
       case 'Ephemeridschange':
@@ -725,7 +683,6 @@ if ($admintest) {
       case 'Ephemerids':
          include("admin/ephemerids.php");
       break;
-      // EPHEMERIDS
       // LINKS
       case 'links':
       case 'LinksDelNew':
@@ -753,7 +710,6 @@ if ($admintest) {
       case 'suite_links':
          include("admin/links.php");
       break;
-      // LINKS
       // BANNERS
       case 'BannersAdmin':
       case 'BannersAdd':
@@ -767,14 +723,12 @@ if ($admintest) {
       case 'BannerClientChange':
          include("admin/banners.php");
       break;
-      // BANNERS
       // HTTP Referer
       case 'hreferer':
       case 'delreferer':
       case 'archreferer':
          include("admin/referers.php");
       break;
-      // HTTP Referer
       // TOPIC Manager
       case 'topicsmanager':
       case 'topicedit':
@@ -786,8 +740,6 @@ if ($admintest) {
       case 'relateddelete':
          include("admin/topics.php");
       break;
-      // TOPIC Manager
-
       // SECTIONS - RUBRIQUES
       case 'new_rub_section':
       case 'sections':
@@ -820,312 +772,270 @@ if ($admintest) {
       case 'menu_dyn':
          include("admin/sections.php");
       break;
-      // SECTIONS - RUBRIQUES
-
-        // BLOCKS
-        case 'blocks':
-             include("admin/blocks.php");
-             break;
-
-             case 'makerblock':
-             case 'deleterblock':
-             case 'changerblock':
-             case 'gaucherblock':
-                  include("admin/rightblocks.php");
-                  break;
-
-             case 'makelblock':
-             case 'deletelblock':
-             case 'changelblock':
-             case 'droitelblock':
-                  include("admin/leftblocks.php");
-                  break;
-
-        case 'ablock':
-        case 'changeablock':
-             include("admin/adminblock.php");
-             break;
-
-        case 'mblock':
-        case 'changemblock':
-             include("admin/mainblock.php");
-             break;
-        // BLOCKS
-
-        // STORIES
-        case 'DisplayStory':
-        case 'PreviewAgain':
-        case 'PostStory':
-        case 'DeleteStory':
-        case 'EditStory':
-        case 'ChangeStory':
-        case 'RemoveStory':
-        case 'adminStory':
-        case 'PreviewAdminStory':
-        // CATEGORIES des NEWS
-        case 'EditCategory':
-        case 'DelCategory':
-        case 'YesDelCategory':
-        case 'NoMoveCategory':
-        case 'SaveEditCategory':
-        case 'AddCategory':
-        case 'SaveCategory':
-             include("admin/stories.php");
-             break;
-        // CATEGORIES des NEWS
-        // STORIES
-
-        // AUTHORS
-        case 'mod_authors':
-        case 'modifyadmin':
-        case 'UpdateAuthor':
-        case 'AddAuthor':
-        case 'deladmin':
-        case 'deladminconf':
-             include("admin/authors.php");
-             break;
-        // AUTHORS
-
-        // USERS
-        case 'mod_users':
-        case 'modifyUser':
-        case 'updateUser':
-        case 'delUser':
-        case 'delUserConf':
-        case 'addUser':
-        case 'extractUserCSV':
-        case 'unsubUser':
-             include("admin/users.php");
-             break;
-        // USERS
-
-        // SONDAGES
-        case 'create':
-        case 'createPosted':
-        case 'remove':
-        case 'removePosted':
-        case 'editpoll':
-        case 'editpollPosted':
-        case 'SendEditPoll':
-             include("admin/polls.php");
-             break;
-        // SONDAGES
-
-        // DIFFUSION MI ADMIN
-        case "email_user":
-        case "send_email_to_user":
-             include("admin/email_user.php");
-             break;
-        // DIFFUSION MI ADMIN
-
-        // LNL
-        case "lnl":
-            include("admin/lnl.php");
-            break;
-            case "lnl_Sup_Header":
-               $op="Sup_Header";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Sup_Body":
-               $op="Sup_Body";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Sup_Footer":
-               $op="Sup_Footer";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Sup_HeaderOK":
-               $op="Sup_HeaderOK";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Sup_BodyOK":
-               $op="Sup_BodyOK";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Sup_FooterOK":
-               $op="Sup_FooterOK";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Shw_Header":
-               $op="Shw_Header";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Shw_Body":
-               $op="Shw_Body";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Shw_Footer":
-               $op="Shw_Footer";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Add_Header":
-               $op="Add_Header";
-               include("admin/lnl.php");
-               break;
-               case "lnl_Add_Header_Submit":
-                  $op="Add_Header_Submit";
-                  include("admin/lnl.php");
-                  break;
-               case "lnl_Add_Header_Mod":
-                  $op="Add_Header_Mod";
-                  include("admin/lnl.php");
-                  break;
-            case "lnl_Add_Body":
-               $op="Add_Body";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Add_Body_Submit":
-               $op="Add_Body_Submit";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Add_Body_Mod":
-               $op="Add_Body_Mod";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Add_Footer":
-               $op="Add_Footer";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Add_Footer_Submit":
-               $op="Add_Footer_Submit";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Add_Footer_Mod":
-               $op="Add_Footer_Mod";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Test":
-               $op="Test";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Send":
-               $op="Send";
-               include("admin/lnl.php");
-               break;
-            case "lnl_List":
-               $op="List";
-               include("admin/lnl.php");
-               break;
-            case "lnl_User_List":
-               $op="User_List";
-               include("admin/lnl.php");
-               break;
-            case "lnl_Sup_User":
-               $op="Sup_User";
-               include("admin/lnl.php");
-               break;
-        // LNL
-
-        // SUPERCACHE
-        case 'supercache':
-        case 'supercache_save':
-        case 'supercache_empty':
-             include("admin/overload.php");
-             break;
-        // SUPERCACHE
-
-        // OPTIMYSQL
-        case 'OptimySQL':
-             include("admin/optimysql.php");
-             break;
-        // OPTIMYSQL
-
-        // SAVEMYSQL
-        case 'SavemySQL':
-             include("admin/savemysql.php");
-             break;
-        // SAVEMYSQL
-
-        // EDITO
-        case 'Edito':
-        case 'Edito_save':
-        case 'Edito_load':
-             include("admin/adminedito.php");
-             break;
-        // EDITO
-
-        // METATAGS
-        case 'MetaTagAdmin':
-        case 'MetaTagSave':
-             include("admin/metatags.php");
-             break;
-        // METATAGS
-
-        // META-LANG
-        case 'Meta-LangAdmin':
-        case 'List_Meta_Lang':
-        case 'Creat_Meta_Lang':
-        case 'Edit_Meta_Lang':
-        case 'Kill_Meta_Lang':
-        case 'Valid_Meta_Lang':
-             include("admin/meta_lang.php");
-             break;
-        // META-LANG
-
-        // ConfigFiles
-        case 'ConfigFiles':
-        case 'ConfigFiles_load':
-        case 'ConfigFiles_save':
-        case 'ConfigFiles_create':
-        case 'delete_configfile':
-        case 'ConfigFiles_delete':
-             include("admin/configfiles.php");
-             break;
-        // ConfigFiles
-
-        // NPDS-Admin-Plugins
-        case 'Extend-Admin-Module':
-        case 'Extend-Admin-SubModule':
-             include("admin/plugins.php");
-             break;
-        // NPDS-Admin-Plugins
-
-        // NPDS-Admin-Groupe
-        case 'groupes';
-        case 'groupe_edit':
-        case 'groupe_maj':
-        case 'groupe_add':
-        case 'groupe_add_finish':
-        case 'bloc_groupe_create':
-        case 'retiredugroupe':
-        case 'retiredugroupe_all':
-        case 'membre_add':
-        case 'membre_add_finish':
-        case 'pad_create':
-        case 'pad_remove':
-        case 'note_create':
-        case 'note_remove':
-        case 'workspace_create':
-        case 'workspace_archive':
-        case 'forum_groupe_delete':
-        case 'forum_groupe_create':
-        case 'moderateur_update':
-        case 'groupe_mns_create':
-        case 'groupe_mns_delete':
-        case 'groupe_chat_create':
-        case 'groupe_chat_delete':
-        include('admin/groupes.php');
-             break;
-        // NPDS-Admin-Groupe
-
-        // NPDS-Instal-Modules
-        case 'modules':
-             include("admin/modules.php");
-             break;
-        case 'Module-Install':
-             include("admin/module-install.php");
-             break;
-        // NPDS-Instal-Modules
-
-        // NPDS-Admin-Main
-        case 'suite_articles':
-             adminMain($deja_affiches);
-             break;
-        case 'adminMain':
-        default:
-             adminMain(0);
-             break;
-        // NPDS-Admin-Main
+      // BLOCKS
+      case 'blocks':
+         include("admin/blocks.php");
+      break;
+      case 'makerblock':
+      case 'deleterblock':
+      case 'changerblock':
+      case 'gaucherblock':
+         include("admin/rightblocks.php");
+      break;
+      case 'makelblock':
+      case 'deletelblock':
+      case 'changelblock':
+      case 'droitelblock':
+         include("admin/leftblocks.php");
+      break;
+      case 'ablock':
+      case 'changeablock':
+         include("admin/adminblock.php");
+      break;
+      case 'mblock':
+      case 'changemblock':
+         include("admin/mainblock.php");
+      break;
+      // STORIES
+      case 'DisplayStory':
+      case 'PreviewAgain':
+      case 'PostStory':
+      case 'DeleteStory':
+      case 'EditStory':
+      case 'ChangeStory':
+      case 'RemoveStory':
+      case 'adminStory':
+      case 'PreviewAdminStory':
+      // CATEGORIES des NEWS
+      case 'EditCategory':
+      case 'DelCategory':
+      case 'YesDelCategory':
+      case 'NoMoveCategory':
+      case 'SaveEditCategory':
+      case 'AddCategory':
+      case 'SaveCategory':
+         include("admin/stories.php");
+      break;
+      // AUTHORS
+      case 'mod_authors':
+      case 'modifyadmin':
+      case 'UpdateAuthor':
+      case 'AddAuthor':
+      case 'deladmin':
+      case 'deladminconf':
+         include("admin/authors.php");
+      break;
+      // USERS
+      case 'mod_users':
+      case 'modifyUser':
+      case 'updateUser':
+      case 'delUser':
+      case 'delUserConf':
+      case 'addUser':
+      case 'extractUserCSV':
+      case 'unsubUser':
+         include("admin/users.php");
+      break;
+      // SONDAGES
+      case 'create':
+      case 'createPosted':
+      case 'remove':
+      case 'removePosted':
+      case 'editpoll':
+      case 'editpollPosted':
+      case 'SendEditPoll':
+         include("admin/polls.php");
+      break;
+      // DIFFUSION MI ADMIN
+      case "email_user":
+      case "send_email_to_user":
+         include("admin/email_user.php");
+      break;
+      // LNL
+      case "lnl":
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_Header":
+         $op="Sup_Header";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_Body":
+         $op="Sup_Body";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_Footer":
+         $op="Sup_Footer";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_HeaderOK":
+         $op="Sup_HeaderOK";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_BodyOK":
+         $op="Sup_BodyOK";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_FooterOK":
+         $op="Sup_FooterOK";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Shw_Header":
+         $op="Shw_Header";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Shw_Body":
+         $op="Shw_Body";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Shw_Footer":
+         $op="Shw_Footer";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Header":
+         $op="Add_Header";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Header_Submit":
+         $op="Add_Header_Submit";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Header_Mod":
+         $op="Add_Header_Mod";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Body":
+         $op="Add_Body";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Body_Submit":
+         $op="Add_Body_Submit";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Body_Mod":
+         $op="Add_Body_Mod";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Footer":
+         $op="Add_Footer";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Footer_Submit":
+         $op="Add_Footer_Submit";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Add_Footer_Mod":
+         $op="Add_Footer_Mod";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Test":
+         $op="Test";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Send":
+         $op="Send";
+         include("admin/lnl.php");
+      break;
+      case "lnl_List":
+         $op="List";
+         include("admin/lnl.php");
+      break;
+      case "lnl_User_List":
+         $op="User_List";
+         include("admin/lnl.php");
+      break;
+      case "lnl_Sup_User":
+         $op="Sup_User";
+         include("admin/lnl.php");
+      break;
+      // SUPERCACHE
+      case 'supercache':
+      case 'supercache_save':
+      case 'supercache_empty':
+         include("admin/overload.php");
+      break;
+      // OPTIMYSQL
+      case 'OptimySQL':
+         include("admin/optimysql.php");
+      break;
+      // SAVEMYSQL
+      case 'SavemySQL':
+         include("admin/savemysql.php");
+      break;
+      // EDITO
+      case 'Edito':
+      case 'Edito_save':
+      case 'Edito_load':
+         include("admin/adminedito.php");
+      break;
+      // METATAGS
+      case 'MetaTagAdmin':
+      case 'MetaTagSave':
+         include("admin/metatags.php");
+      break;
+      // META-LANG
+      case 'Meta-LangAdmin':
+      case 'List_Meta_Lang':
+      case 'Creat_Meta_Lang':
+      case 'Edit_Meta_Lang':
+      case 'Kill_Meta_Lang':
+      case 'Valid_Meta_Lang':
+         include("admin/meta_lang.php");
+      break;
+      // ConfigFiles
+      case 'ConfigFiles':
+      case 'ConfigFiles_load':
+      case 'ConfigFiles_save':
+      case 'ConfigFiles_create':
+      case 'delete_configfile':
+      case 'ConfigFiles_delete':
+         include("admin/configfiles.php");
+      break;
+      // NPDS-Admin-Plugins
+      case 'Extend-Admin-Module':
+      case 'Extend-Admin-SubModule':
+         include("admin/plugins.php");
+      break;
+      // NPDS-Admin-Groupe
+      case 'groupes';
+      case 'groupe_edit':
+      case 'groupe_maj':
+      case 'groupe_add':
+      case 'groupe_add_finish':
+      case 'bloc_groupe_create':
+      case 'retiredugroupe':
+      case 'retiredugroupe_all':
+      case 'membre_add':
+      case 'membre_add_finish':
+      case 'pad_create':
+      case 'pad_remove':
+      case 'note_create':
+      case 'note_remove':
+      case 'workspace_create':
+      case 'workspace_archive':
+      case 'forum_groupe_delete':
+      case 'forum_groupe_create':
+      case 'moderateur_update':
+      case 'groupe_mns_create':
+      case 'groupe_mns_delete':
+      case 'groupe_chat_create':
+      case 'groupe_chat_delete':
+         include('admin/groupes.php');
+      break;
+      // NPDS-Instal-Modules
+      case 'modules':
+         include("admin/modules.php");
+      break;
+      case 'Module-Install':
+         include("admin/module-install.php");
+      break;
+      // NPDS-Admin-Main
+      case 'suite_articles':
+         adminMain($deja_affiches);
+      break;
+      case 'adminMain':
+      default:
+         adminMain(0);
+      break;
    }
 } else {
    login();
