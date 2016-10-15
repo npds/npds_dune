@@ -97,7 +97,7 @@ echo '<div class="card-block">';
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo '<img class="smil" src="'.$imgtmp.'" alt="img_subject" />&nbsp;';
+               echo '<img class="n-smil" src="'.$imgtmp.'" alt="img_subject" />&nbsp;';
             }
          }
          echo translate("Sent")." : ".$myrow['msg_time']."&nbsp;&nbsp;&nbsp";

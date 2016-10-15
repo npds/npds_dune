@@ -361,9 +361,9 @@ include('header.php');
    echo '<span class="pull-xs-right">';
       if ($myrow['image'] != '') {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="smil" src="'.$imgtmp.'" alt="icon_post" />';
+         echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
       } else {
-         echo '<img class="smil" src="'.$imgtmpPI.'" alt="icon_post" />';
+         echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="icon_post" />';
       }
       echo '</span>
             </div>';

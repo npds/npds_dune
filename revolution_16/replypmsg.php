@@ -298,11 +298,11 @@ include('auth.php');
                settype($image,'string');
                if ($file==$image) {
                   echo '
-                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
+                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
                   $a++;
                } else if ($file==$row['msg_image'] && $row['msg_image']!="") {
                   echo '
-                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="smil" src="'.$imgtmp.'/'.$file.'"  alt="" />&nbsp;';
+                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="n-smil" src="'.$imgtmp.'/'.$file.'"  alt="" />&nbsp;';
                } else {
                   if ($a==1 && $row['msg_image']=='') {
                      $sel='checked="checked"';
@@ -310,7 +310,7 @@ include('auth.php');
                      $sel='';
                   }
                   echo '
-                  <input type="radio" name="image" value="'.$file.'" '.$sel.' /> <img class="smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
+                  <input type="radio" name="image" value="'.$file.'" '.$sel.' /> <img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
                   $a++;
                }
            }

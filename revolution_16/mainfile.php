@@ -2391,7 +2391,7 @@ function topdownload_data($form, $ordre) {
 function oldNews($storynum, $typ_aff='') {
    global $locale, $oldnum, $storyhome, $categories, $cat;
    global $user,$cookie;
-   $boxstuff = '<ul>';
+   $boxstuff = '<ul class="list-group">';
    if (isset($cookie[3])) {
       $storynum=$cookie[3];
    } else {
@@ -2421,7 +2421,7 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="tag tag-pill tag-default pull-xs-right">'.$comments.'</span></li>';
+         <li class="list-group-item list-group-item-action hyphenate"><span class="tag tag-pill tag-default pull-xs-right">'.$comments.'</span> <a class=".ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></li>';
       } else {
          if ($a==0) {
             $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default pull-xs-right\">($comments)</span></li>\n";
@@ -2440,7 +2440,7 @@ function oldNews($storynum, $typ_aff='') {
             $storynum = $storyhome;
          }
          $min = $oldnum + $storynum;
-         $boxstuff .= "<br /><p class=\"text-xs-center\" ><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><strong>".translate("Older Articles")."</strong></a></p>\n";
+         $boxstuff .= "<li class=\"text-xs-center m-t-1\" ><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><strong>".translate("Older Articles")."</strong></a></li>\n";
       }
    }
    $boxstuff .='</ul>';
@@ -2820,10 +2820,10 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if (($timex!==false) and ($timex<60)) {
          $conn= '<i class="fa fa-plug faa-flash animated text-primary" title="'.$uname.' '.translate('is connected !').'" data-toggle="tooltip" ></i>';
       }
-      $li_ic.='<img class="smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
+      $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
       $li_mb.= '
       <li class="list-group-item li_mb">
-      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
+      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
       </div>
       <span class="pull-xs-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";

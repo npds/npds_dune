@@ -122,11 +122,10 @@ function display_upload($apli,$post_id,$Mmod){
    $att = getAttachments ($apli,$post_id,0,$Mmod);
    if (is_array($att)) {
       $att_count = count($att);
-//      $attachments = "\n<table id=\"ooo\" class=\"fo-post-mes\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">\n<tr>";
       $attachments = '
       <div class="list-group">
          <div class="list-group-item">
-            <img class="smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" border="0" alt="icon_post" />
+            <img class="n-smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" alt="icon_post" />
             <span class="text-muted">'.upload_translate("Pièces jointes").'</span>
             <span class="tag tag-default tag-pill pull-right">'.$att_count.'</span>
          </div>';
@@ -163,7 +162,6 @@ function display_upload($apli,$post_id,$Mmod){
          $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
       }
-//      $attachments .= "</tr></table>";
       $attachments .= '</div>';
 
       return $attachments;

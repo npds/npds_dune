@@ -164,12 +164,11 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
           }
       }
 
-   
-      if ($myrow['image'] != "") {
+      if ($myrow['image'] != '') {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="smil" src="'.$imgtmp.'" alt="" />';
+         echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
       } else {
-         echo '<img class="smil" src="'.$imgtmpPI.'" alt="" />';
+         echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="" />';
       }
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo "&nbsp;&nbsp;".translate("Posted: ").post_convertdate($date_post);
@@ -196,8 +195,6 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id) {
       }
       if ($att>0) {
          $post_id=$myrow['post_id'];
-      
-      
          echo display_upload("forum_npds",$post_id,$Mmod);
       
       }

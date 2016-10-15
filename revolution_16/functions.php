@@ -410,7 +410,7 @@ function emotion_add($image_subject) {
          $temp .= '<input type="radio" value="'.$file.'" name="image_subject" checked="checked" />&nbsp;';
          $image_subject='no image';
       }
-      $temp .= '<img class="smil" src="'.$imgtmp.'/'.$file.'" border="0" alt="" />&nbsp;';
+      $temp .= '<img class="n-smil" src="'.$imgtmp.'/'.$file.'" border="0" alt="" />&nbsp;';
    }
    return $temp;
 }
@@ -451,7 +451,7 @@ function member_qualif($poster, $posts, $rank) {
    $tmp='';
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
-   $tmp='<img class="smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'&nbsp;';
+   $tmp='<img class="n-smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
       if ($posts>=10 and $posts<30) {$nux=1;}

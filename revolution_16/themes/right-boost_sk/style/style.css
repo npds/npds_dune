@@ -28,7 +28,7 @@ a:hover {text-decoration:none;}
 
 /** <== Classes BS4                                                         **/
 
-/** ==> Classes NPDS-core                                                   **/
+/** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
 .n-ava {
 max-width:64px;
@@ -38,7 +38,7 @@ max-height:64px;
 max-width:48px;
 max-height:48px;
 }
-.smil {
+.n-smil {
 width:24px;
 height:24px;
 display:inline;
@@ -496,6 +496,7 @@ a.tooltip_ws:hover em span {
     padding: 0;
     border: 0;
     }
+
 /* réimpléméntation pour V4 */    
 .help-block {
   font-size: .85rem;
@@ -1824,7 +1825,7 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
-// simple à voir sur tableau à long code
+// pour troncature des mots trop long
 .cut {
 word-wrap: break-word;
 -webkit-hyphens: auto;
@@ -1833,13 +1834,16 @@ word-wrap: break-word;
 -o-hyphens: auto;
 hyphens: auto;
 }
-
-
-/**************
-test jmd
-********************/
-
-.img-fluid1 {
-    float: left;
-    margin-right: 10px;
+.hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
