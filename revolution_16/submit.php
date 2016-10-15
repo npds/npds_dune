@@ -137,7 +137,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
+      $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
 
    $storyX=aff_code($story);

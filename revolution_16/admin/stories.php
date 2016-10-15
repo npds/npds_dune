@@ -433,7 +433,7 @@ function displayStory ($qid) {
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
+      $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
     code_aff('<h4>'.$subject.$topiclogo.'</h4>','<div class="text-muted">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
 
@@ -573,7 +573,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid N_sujetsize" src="'.$timage.'" align="right" alt="" />';
+      $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
     code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.meta_lang($hometext).'</div>', meta_lang($bodytext), meta_lang($notes));
 
