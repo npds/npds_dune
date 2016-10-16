@@ -7,7 +7,7 @@
 
 /** ==> Balise html                                                         **/
 /*     Balise html                                                           */
-html{font-size: 15px;}
+html{}
 body {}
 a:hover {text-decoration:none;}
 /** <== Balise html                                                         **/
@@ -28,7 +28,7 @@ a:hover {text-decoration:none;}
 
 /** <== Classes BS4                                                         **/
 
-/** ==> Classes NPDS-core                                                   **/
+/** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
 .n-ava {
 max-width:64px;
@@ -38,7 +38,7 @@ max-height:64px;
 max-width:48px;
 max-height:48px;
 }
-.smil {
+.n-smil {
 width:24px;
 height:24px;
 display:inline;
@@ -61,20 +61,7 @@ padding-top: 1.1rem !important;
 
 /** ==> ID NPDS-Core                                                        **/
 #corps{}
-#footer{
- 
-/* 
-background-color: #f8f8f8;
- */
-
-
-/* 
-  background-color: #4e5d6c;
- */
-/* 
-  color:#fff;
- */
-}
+#footer{}
 #pied{
 text-align:center;
 }
@@ -85,10 +72,9 @@ text-align:center;
 
 
 /* ==> adaptation menu */
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-dark.bg-inverse {
-padding-top: 0rem;
-padding-bottom: 0rem; 
-}
+
+nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0rem 1rem;}
+
 ul.nav.navbar-nav {
 line-height: 2.5rem;
 }
@@ -96,6 +82,14 @@ a.navbar-brand {
 padding-top: 0.75rem;
 padding-bottom: 0.75rem;
 }
+
+@media (min-width: 34em) {
+   .page-header {
+      margin: 53px 0 20px;
+      padding:15px;
+   }
+}
+
 @media (max-width: 34em) {
    ul.nav.navbar-nav {
    line-height: 1.5rem;
@@ -110,27 +104,13 @@ padding-bottom: 0.75rem;
    margin-left: 1rem;
    }
    .navbar-divider {display:none;}
-   
    nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
-
+   
+   .page-header {
+   margin: 3px 0 20px;
+   padding:15px;
+   }
 }
-
-/*à customiser*/
-.navbar-default {
-/*
-background-color: #f8f8f8;
-border-color: #e7e7e7;
-color:#373a3c;
-*/
-
-
-/* 
-background-color: #2fa4e7;
-border-color: #1995dc;
- */
-}
-
-
 
 /* 
 .dropdown-menu {
@@ -212,16 +192,11 @@ margin-bottom: 0px;
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
-
 #col_LB ul, #col_RB ul{
 list-style: none;
 padding-left:0px;
 }
-/* ==> a revoir et affiner utile pour V4 pour l'instant */
-.page-header {
-margin: 73px 0 20px;
-padding:15px;
-}
+
 /*recherche js dans tableau*/
 div .pull-right.search input.form-control{
 background-color: rgba(2, 117, 216, 0.07);
@@ -229,7 +204,6 @@ background-color: rgba(2, 117, 216, 0.07);
 .blockquote {
 font-size: 0.85rem;
 }
-
 
 .form-control-label {
 font-weight: 500;
@@ -334,41 +308,47 @@ padding-top:15px;
 /*taille defaut des glyphicons font*/
 .glyphicons{font-size:24px;}
 
-/*ajustement des icones form validation*/
-.form-control-feedback {
+/*ajustement des icones etat form validation*/
+.fv-form-bootstrap4 .form-group.row .fv-control-feedback {
 position: absolute;
 display: inline-block;
-top: 11px;
-right: 35px;
+right: 45px;
 }
-/*adaptation class has-danger(BS4) <= has-error(BS3) pour form validation*/
-.has-error .text-help,
-.has-error .form-control-label,
-.has-error .radio,
-.has-error .checkbox,
-.has-error .radio-inline,
-.has-error .checkbox-inline,
-.has-error.radio label,
-.has-error.checkbox label,
-.has-error.radio-inline label,
-.has-error.checkbox-inline label,
-.has-error small.help-block,
-.has-error span.help-block
+
+/*adaptation pour form validation*/
+.has-warning .text-help,
+.has-warning .form-control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label,
+.has-warning small.help-block,
+.has-warning span.help-block
  {
   color: #d9534f;
 }
-.has-error .form-control {
+.fv-form-bootstrap4 .has-warning .fv-control-feedback, .fv-form-bootstrap4 .has-warning label {
+    color: #d9534f
+}
+.has-warning .text-help, .has-warning .form-control-feedback, .has-warning .form-control-label {
+    color: #d9534f
+}
+.has-warning .form-control {
   border-color: #d9534f;
 }
-.has-error .input-group-addon {
+.has-warning .input-group-addon {
   color: #d9534f;
   background-color: #fdf7f7;
   border-color: #d9534f;
 }
-.has-error .form-control-feedback {
+.has-warning .form-control-feedback {
   color: #d9534f;
 }
-.has-error .form-control-error {
+.has-warning .form-control-warning {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
 }
 
@@ -434,6 +414,10 @@ form .form-control-feedback {
 }
 form .form-control-feedback:hover {
     cursor: pointer;
+}
+
+.datepicker-inline {
+width:100%;
 }
 
 
@@ -512,6 +496,7 @@ a.tooltip_ws:hover em span {
     padding: 0;
     border: 0;
     }
+
 /* réimpléméntation pour V4 */    
 .help-block {
   font-size: .85rem;
@@ -544,8 +529,7 @@ a.tooltip_ws:hover em span {
    animation: fa-blink .75s linear infinite;
 }
 
-
-
+/* ==> Animation des web icones fa */
 /*!
  * font-awesome-animation - v0.0.7
  * https://github.com/l-lin/font-awesome-animation
@@ -1585,6 +1569,8 @@ a.tooltip_ws:hover em span {
   animation: burst 3s infinite linear;
 }
 
+/* <== Animation des web icones fa */
+
 @charset "utf-8";
 /*! fileicon.css v1.0.0 | MIT License | github.com/picturepan2/fileicon.css */
 /* fileicon.basic */
@@ -1839,17 +1825,25 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
-
-
-
-
-
-
-/**************
-test jmd
-********************/
-
-.img-fluid1 {
-    float: left;
-    margin-right: 10px;
+// pour troncature des mots trop long
+.cut {
+word-wrap: break-word;
+-webkit-hyphens: auto;
+-moz-hyphens: auto;
+-ms-hyphens: auto;
+-o-hyphens: auto;
+hyphens: auto;
+}
+.hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

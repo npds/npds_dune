@@ -98,12 +98,10 @@ function show_imm($op) {
             }
          }
 
-
-
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo '<img class="smil" src="'.$imgtmp.'"  alt="" />&nbsp;';
+               echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />&nbsp;';
             }
          }
          echo translate("Sent").' : '.$myrow['msg_time'].'&nbsp;&nbsp;&nbsp';
@@ -209,16 +207,16 @@ settype($op,'string');
 switch ($op) {
    case 'new_msg':
       show_imm($op);
-      break;
+   break;
    case 'read_msg':
       read_imm($msg_id, $sub_op);
-      break;
+   break;
    case 'delete':
       sup_imm($msg_id);
       show_imm($op_orig);
-      break;
+   break;
    default:
       show_imm($op);
-      break;
+   break;
 }
 ?>

@@ -270,9 +270,9 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
 
             if ($image_subject != "") {
                if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
-               echo '<td><img class="smil" src="'.$imgtmp.'" border="0" alt="" /></td>';
+               echo '<td><img class="n-smil" src="'.$imgtmp.'" border="0" alt="" /></td>';
             } else 
-            echo '<td><img class="smil" src="'.$imgtmpP.'" border="0" alt="" /></td>';
+            echo '<td><img class="n-smil" src="'.$imgtmpP.'" border="0" alt="" /></td>';
 
             $topic_title = stripslashes($myrow['topic_title']);
             if (!stristr($topic_title,"<a href=")) {

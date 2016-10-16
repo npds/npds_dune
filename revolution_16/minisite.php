@@ -308,7 +308,7 @@ function convert_ressources ($Xcontent) {
          echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
       // chargement sauvage lol ˆ voir
          echo '
-         <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
+         <script type="text/javascript" src="lib/js/jquery.min.js"></script>
          <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
          ';
          echo "<style type=\"text/css\"> \n";

@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : npds-boost 2015 by jpb                                       */
+/* Theme : right-boost_sk 2015 by jpb                                   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -56,9 +56,9 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
 /*           Si Aucune variable pdst dans pages.php                     */
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
-   //if(isset($pdst)) echo'hello je suis défini à '. $pdst; //debug
    echo '
-   <div id="corps" class="container-fluid"><div class="row">';
+   <div id="corps" class="container-fluid">
+      <div class="row">';
 switch ($pdst) {
 case '-1':
    echo '
@@ -70,11 +70,7 @@ case '2':
 break;
 default:
    echo '
-      <div id="col_LB" class="col4 collapse navbar-toggleable-sm col-sm-4">';
-   leftblocks();
-   echo '
-      </div>
-      <div id="col_princ" class="col-xs-12 col-sm-9">';
+      <div id="col_princ" class="col-xs-12 col-sm-8">';
 break;
 }
 ?>

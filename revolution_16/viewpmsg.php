@@ -128,7 +128,7 @@ include("auth.php");
             if ($myrow['msg_image']!="") {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
                echo '
-                     <td width="5%" align="center"><img class="smil" src="'.$imgtmp.'" alt="" border="0" /></td>';
+                     <td width="5%" align="center"><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else {
                echo '
                      <td width="5%" align="center">&nbsp;</td>';

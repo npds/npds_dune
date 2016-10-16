@@ -19,7 +19,7 @@ echo '
 <link rel="stylesheet" href="lib/css/octicons.css" />
 <link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />';
 echo '
-<script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>';
+<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
 echo '
 <script type="text/javascript" src="lib/js/tether.min.js"></script>';
 echo '

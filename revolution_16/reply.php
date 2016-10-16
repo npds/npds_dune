@@ -441,11 +441,11 @@ if ($submitS) {
                   <span class="pull-xs-right">';
          if ($myrow['image'] != '') {
             if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="smil" src="'.$imgtmp.'"  alt="" />';
+         echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />';
          } 
          else {
             if ($ibid=theme_image("forum/subject/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
-            echo '<img class="smil" src="'.$imgtmp.'" alt="" />';
+            echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
          }
 
          echo '

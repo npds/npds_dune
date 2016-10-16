@@ -385,15 +385,13 @@ function PrintSecPage($artid) {
 
 function verif_aff($artid) {
    global $NPDS_Prefix;
-
-    $result = sql_query("SELECT secid FROM ".$NPDS_Prefix."seccont WHERE artid='$artid'");
-    list($secid) = sql_fetch_row($result);
-
-    $result = sql_query("SELECT userlevel FROM ".$NPDS_Prefix."sections WHERE secid='$secid'");
-    list($userlevel) = sql_fetch_row($result);
-    $okprint=false;
-    $okprint=autorisation_section($userlevel);
-    return ($okprint);
+   $result = sql_query("SELECT secid FROM ".$NPDS_Prefix."seccont WHERE artid='$artid'");
+   list($secid) = sql_fetch_row($result);
+   $result = sql_query("SELECT userlevel FROM ".$NPDS_Prefix."sections WHERE secid='$secid'");
+   list($userlevel) = sql_fetch_row($result);
+   $okprint=false;
+   $okprint=autorisation_section($userlevel);
+   return ($okprint);
 }
 
 settype($op,'string');

@@ -112,11 +112,10 @@ function List_Meta_Lang() {
       }
       else {
          $tablmeta_c.= '
-         <td class="cut">'.split_string_without_space(aff_langue($description),29).'</td>';
+         <td>'.split_string_without_space(aff_langue($description),29).'</td>';
       }
       $tablmeta_c.='
       </tr>';
-      
       $ibid++;
    }
    sql_free_result($Q);
@@ -409,21 +408,21 @@ function Maj_Bdd_ML($Maj_Bdd_ML, $def, $content, $type_meta, $type_uri, $uri, $d
 switch ($op) {
    case 'List_Meta_Lang':
       List_Meta_Lang();
-      break;
+   break;
    case 'Creat_Meta_Lang':
       Creat_Meta_Lang();
-      break;
+   break;
    case 'Edit_Meta_Lang':
       Edit_Meta_Lang();
-      break;
+   break;
    case 'Kill_Meta_Lang':
       kill_Meta_Lang($nbr, $action);
-      break;
+   break;
    case 'Valid_Meta_Lang':
       Maj_Bdd_ML($Maj_Bdd_ML, $def, $content, $type_meta, $type_uri, $uri, $desc);
-      break;
+   break;
    default:
       List_Meta_Lang();
-      break;
+   break;
 }
 ?>
