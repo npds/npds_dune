@@ -20,7 +20,7 @@ echo '
 echo '
 <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />'; // form control
 echo '
-<link rel="stylesheet" href="lib/jquery-ui.css">';
+<link rel="stylesheet" href="lib/jquery-ui.min.css">';
 echo '
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />'; // table
 ?>
