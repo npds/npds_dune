@@ -1,3 +1,9 @@
+@import "../../../../lib/bootstrap/dist/css/bootstrap.min.css"; 
+.n-smil {
+width:24px;
+height:24px;
+}
+
 /* CSS chat de brown pour NPDS Revolution */
 body {
         background-color: #fefefe;
