@@ -118,7 +118,7 @@ function aff_pub_in($lock_state, $topic, $forum,$mod) {
    global $language;
    if ($lock_state==0) {
    echo '
-   <a class="m-r-1" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>';
+   <a class="mr-1" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>';
    }
 }
 
@@ -304,7 +304,7 @@ include('header.php');
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="m-r-1" href="';
+                     $my_rs.='<a class="mr-1" href="';
                      if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                      $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
@@ -370,7 +370,7 @@ include('header.php');
       $message=stripslashes($myrow['post_text']);
       echo '
                <div class="card-block">
-                  <div class="card-text p-t-1">';
+                  <div class="card-text pt-1">';
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
@@ -381,7 +381,7 @@ include('header.php');
 
       echo '
                </div>
-               <div class="card-text p-t-1">';
+               <div class="card-text pt-1">';
 
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
          $message = smilie($message);
@@ -438,18 +438,18 @@ include('header.php');
       } else
           $postuser=false;
       if (($Mmod) or ($postuser) and (!$lock_state) and ($posterdata['uid']!='')) {
-         echo '<a class="m-r-1" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
+         echo '<a class="mr-1" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          if ($allow_upload_forum) {
          $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
-            echo '<a class="m-r-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+            echo '<a class="mr-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
          }
       }
       if ($allow_to_post and !$lock_state and $posterdata['uid']!='') {
-         echo '<a class="m-r-1" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
+         echo '<a class="mr-1" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
       }
-      echo '<a class="m-r-1" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+      echo '<a class="mr-1" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
       if ($Mmod) {
-         echo '<a class="m-r-1" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
+         echo '<a class="mr-1" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
          if (!$myrow['post_aff']) {
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Show this post").'" data-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
          } else {
