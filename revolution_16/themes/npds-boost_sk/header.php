@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : npds-boost 2015 by jpb                                       */
+/* Theme : npds-boost_sk 2015 by jpb                                    */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -78,7 +78,7 @@ $ContainerGlobal='
 /* =====================================================================*/
    //if(isset($pdst)) echo'hello je suis défini à '. $pdst; //debug
    echo '
-   <div id="corps" class="container-fluid">
+   <div id="corps" class="container-fluid n-hyphenate">
       <div class="row">';
 switch ($pdst) {
 case '-1':

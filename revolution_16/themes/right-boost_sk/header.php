@@ -57,7 +57,7 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
    echo '
-   <div id="corps" class="container-fluid">
+   <div id="corps" class="container-fluid n-hyphenate">
       <div class="row">';
 switch ($pdst) {
 case '-1':
