@@ -2098,11 +2098,11 @@ function Site_Activ() {
    $who_online='
    <p align="center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul id="site_active">
-     <li>'.translate("Nb of members").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($membres).'</span></li>
-     <li>'.translate("Nb of articles").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totala).'</span></li>
-     <li>'.translate("Nb of forums").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totalc).'</span></li>
-     <li>'.translate("Nb of topics").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totald).'</span></li>
-     <li>'.translate("Nb of reviews").' <span class="tag tag-pill tag-default pull-xs-right">'.wrh($totalb).'</span></li>
+     <li>'.translate("Nb of members").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($membres).'</span></li>
+     <li>'.translate("Nb of articles").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($totala).'</span></li>
+     <li>'.translate("Nb of forums").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($totalc).'</span></li>
+     <li>'.translate("Nb of topics").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($totald).'</span></li>
+     <li>'.translate("Nb of reviews").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($totalb).'</span></li>
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
@@ -2312,37 +2312,39 @@ function loginbox() {
 }
 #autodoc userblock() : Bloc membre <br />=> syntaxe : function#userblock
 function userblock() {
-   global $NPDS_Prefix;
-   global $user,$cookie;
+   global $NPDS_Prefix, $user,$cookie;
    if (($user) AND ($cookie[8])) {
       $getblock = Q_select("SELECT ublock FROM ".$NPDS_Prefix."users WHERE uid='$cookie[0]'",86400);
       list(,$ublock) = each($getblock);
       global $block_title;
-      if ($block_title=="")
-         $title=translate("Menu for")." $cookie[1]";
+      if ($block_title=='')
+         $title=translate("Menu for").' '.$cookie[1];
       else
          $title=$block_title;
       themesidebox($title, $ublock['ublock']);
    }
 }
-#aautodo topdownload() : Bloc topdownload <br />=> syntaxe : function#topdownload
+#autodoc topdownload() : Bloc topdownload <br />=> syntaxe : function#topdownload
 function topdownload() {
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("most downloaded");
    else
       $title=$block_title;
-   $boxstuff = topdownload_data("short","dcounter");
+   $boxstuff = topdownload_data('short','dcounter');
    themesidebox($title, $boxstuff);
 }
 #autodoc lastdownload() : Bloc lastdownload <br />=> syntaxe : function#lastdownload
 function lastdownload() {
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("last downloadable files");
    else
       $title=$block_title;
-   $boxstuff = topdownload_data("short","ddate");
+   $boxstuff = '<ul>';
+   $boxstuff .= topdownload_data('short','ddate');
+   $boxstuff .= '</ul>';
+   if ($boxstuff=='<ul></ul>') $boxstuff='';
    themesidebox($title, $boxstuff);
 }
 #autodoc topdownload_data($form, $ordre) : Bloc topdownload et lastdownload / SOUS-Fonction
@@ -2350,34 +2352,33 @@ function topdownload_data($form, $ordre) {
    global $NPDS_Prefix;
    global $top, $long_chain;
    if (!$long_chain) {$long_chain=13;}
-   settype($top,"integer");
-   $result = sql_query("SELECT did, dcounter, dfilename, dcategory, ddate, perms FROM ".$NPDS_Prefix."downloads ORDER BY '$ordre' DESC LIMIT 0,$top");
-   $lugar=1; $ibid="";
+   settype($top,'integer');
+   $result = sql_query("SELECT did, dcounter, dfilename, dcategory, ddate, perms FROM ".$NPDS_Prefix."downloads ORDER BY $ordre DESC LIMIT 0,$top");
+   $lugar=1; $ibid='';
    while(list($did, $dcounter, $dfilename, $dcategory, $ddate, $dperm) = sql_fetch_row($result)) {
-      $rowcolor = tablos();
       if ($dcounter>0) {
          $okfile=autorisation($dperm);
-         if ($ordre=="dcounter") {
-            $dd="( ".wrh($dcounter)." )";
+         if ($ordre=='dcounter') {
+            $dd= wrh($dcounter);
          }
-         if ($ordre=="ddate") {
+         if ($ordre=='ddate') {
             $dd=translate("dateinternal");
             $day=substr($ddate,8,2);
             $month=substr($ddate,5,2);
             $year=substr($ddate,0,4);
-            $dd=str_replace("d",$day,$dd);
-            $dd=str_replace("m",$month,$dd);
-            $dd=str_replace("Y",$year,$dd);
-            $dd="(".str_replace("H:i","",$dd).")";
+            $dd=str_replace('d',$day,$dd);
+            $dd=str_replace('m',$month,$dd);
+            $dd=str_replace('Y',$year,$dd);
+            $dd=str_replace("H:i","",$dd);
          }
          $ori_dfilename=$dfilename;
          if (strlen($dfilename)>$long_chain) {
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
          }
-         if ($form=="short") {
-            if ($okfile) { $ibid.="".$lugar." <a href=\"download.php?op=geninfo&amp;did=$did\" title=\"".$ori_dfilename." ".$dd."\" >".$dfilename."</a><br />";}
+         if ($form=='short') {
+            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action">'.$lugar.' <a href="download.php?op=geninfo&amp;did='.$did.'" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="tag tag-default float-xs-right">'.$dd.'</span></li>';}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="tag tag-default pull-right">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="tag tag-default float-xs-right">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;
@@ -2421,14 +2422,14 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li class="list-group-item list-group-item-action hyphenate"><span class="tag tag-pill tag-default pull-xs-right">'.$comments.'</span> <a class=".ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></li>';
+         <li class="list-group-item list-group-item-action hyphenate"><span class="tag tag-pill tag-default float-xs-right">'.$comments.'</span> <a class=".ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></li>';
       } else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default pull-xs-right\">($comments)</span></li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default float-xs-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default pull-xs-right\">($comments)</span></li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"tag tag-pill tag-default float-xs-right\">($comments)</span></li>\n";
             $time2 = $datetime2;
          }
       }
@@ -2485,14 +2486,13 @@ function bigstory() {
 }
 #autodoc category() : Bloc de gestion des cat&eacute;gories <br />=> syntaxe : function#category
 function category() {
-   global $NPDS_Prefix;
-   global $cat, $language;
+   global $NPDS_Prefix, $cat, $language;
    $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    $numrows = sql_num_rows($result);
    if ($numrows == 0) {
       return;
    } else {
-      $boxstuff = "<ul>";
+      $boxstuff = '<ul>';
       while (list($catid, $title) = sql_fetch_row($result)) {
          $result2 = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories WHERE catid='$catid' LIMIT 0,1");
          $numrows = sql_num_rows($result2);
@@ -2502,13 +2502,13 @@ function category() {
             if ($cat == $catid) {
                $boxstuff .= "<li><b>".aff_langue($title)."</b></li>";
             } else {
-               $boxstuff .= "<li><a href=\"index.php?op=newcategory&amp;catid=$catid\" title=\"".formatTimestamp($time)."\">".aff_langue($title)."</a></li>";
+               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-toggle="tooltip" title="'.formatTimestamp($time).'">'.aff_langue($title).'</a></li>';
             }
          }
       }
-      $boxstuff .= "</ul>";
+      $boxstuff .= '</ul>';
       global $block_title;
-      if ($block_title=="")
+      if ($block_title=='')
          $title=translate("Categories");
       else
          $title=$block_title;
@@ -2825,7 +2825,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       <li class="list-group-item li_mb">
       <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
       </div>
-      <span class="pull-xs-right">
+      <span class="float-xs-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";
       if ($url!='')
          $li_mb.='&nbsp;<a href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-external-link"></i></a>';
