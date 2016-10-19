@@ -242,7 +242,7 @@ function smilie($message) {
       foreach ($smilies AS $tab_smilies) {
          $suffix=strtoLower(substr(strrchr($tab_smilies[1],'.'),1));
          if (($suffix=="gif") or ($suffix=="png"))
-            $message = str_replace($tab_smilies[0], "<img class=\"smil\" src='".$imgtmp.$tab_smilies[1]."' />", $message);
+            $message = str_replace($tab_smilies[0], "<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $message);
          else
             $message = str_replace($tab_smilies[0], $tab_smilies[1], $message);
       }
@@ -251,7 +251,7 @@ function smilie($message) {
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
-         $message = str_replace($tab_smilies[0], "<img class='smil' src='".$imgtmp.$tab_smilies[1]."' />", $message);
+         $message = str_replace($tab_smilies[0], "<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $message);
       }
    }
    return($message);
@@ -264,14 +264,14 @@ function smile($message) {
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
-         $message = str_replace("<img class='smil' src='".$imgtmp.$tab_smilies[1]."' />", $tab_smilies[0],  $message);
+         $message = str_replace("<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $tab_smilies[0], $message);
       }
    }
    if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
-         $message = str_replace("<img class='smil' src='".$imgtmp.$tab_smilies[1]."' />", $tab_smilies[0],  $message);
+         $message = str_replace("<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $tab_smilies[0],  $message);
       }
    }
    return($message);
@@ -348,7 +348,7 @@ function putitems() {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
          if ($tab_smilies[3]) {
-            echo "<a href=\"javascript: emoticon('".$tab_smilies[0]."');\"><img class=\"smil\" src=\"".$imgtmp.$tab_smilies[1]."\" border=\"0\" alt=\"$tab_smilies[2]";
+            echo "<a href=\"javascript: emoticon('".$tab_smilies[0]."');\"><img class=\"n-smil\" src=\"".$imgtmp.$tab_smilies[1]."\" alt=\"$tab_smilies[2]";
             if ($tab_smilies[2]) echo " => ";
             echo $tab_smilies[0]."\" /></a> ";
          }
