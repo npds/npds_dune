@@ -235,7 +235,7 @@ function instant_members_message() {
              else
                 $M=$N;
              $boxstuff .='
-         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" alt="'.translate("Send internal Message").'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="pull-xs-right">'.$icon.'</span></li>';
+         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" alt="'.translate("Send internal Message").'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="float-xs-right">'.$icon.'</span></li>';
           }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
