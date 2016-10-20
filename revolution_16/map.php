@@ -44,7 +44,7 @@ function mapsections() {
          <h3>
             <a class="" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
             <i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Sections").'
-            <span class="tag tag-default pull-xs-right">'.sql_num_rows($result).'</span>
+            <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
          </h3>
       <div class="collapse" id="collapseSections">
          <div class="card">
@@ -87,7 +87,7 @@ function maptopics() {
       echo '
       <h3>
          <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Topics").'
-         <span class="tag tag-default pull-xs-right">'.sql_num_rows($result).'</span>
+         <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseTopics">
          <div class="card">
@@ -112,7 +112,7 @@ function mapcategories() {
       echo '
       <h3>
          <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Categories").'
-         <span class="tag tag-default pull-xs-right">'.sql_num_rows($result).'</span>
+         <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseCategories">
          <div class="card card-block">
@@ -136,7 +136,7 @@ function mapfaq() {
       echo '
       <h3>
          <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
-         <span class="tag tag-default pull-xs-right">'.sql_num_rows($result).'</span>
+         <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseFaq">
          <div class="card card-block">

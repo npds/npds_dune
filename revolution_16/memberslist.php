@@ -385,7 +385,7 @@ function avatar($user_avatar) {
                if ($list) {
                echo urldecode($list);
                   echo '
-                  <span class="pull-xs-right">
+                  <span class="float-xs-right">
                   <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" title="'.translate("Write to the list").'"><i class="fa fa-envelope-o fa-lg"></i></a>&nbsp;
                   <a href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("RAZ member's list").'"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span>';
                }

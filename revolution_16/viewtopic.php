@@ -358,7 +358,7 @@ include('header.php');
       }
 
    echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-   echo '<span class="pull-xs-right">';
+   echo '<span class="float-xs-right">';
       if ($myrow['image'] != '') {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
