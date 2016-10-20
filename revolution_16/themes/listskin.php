@@ -94,7 +94,7 @@
                   </ul>
                </li>
           </ul>
-         <ul class="nav navbar-nav pull-xs-right">
+         <ul class="nav navbar-nav float-xs-right">
             <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
          </ul>
       </div>
@@ -183,7 +183,7 @@
         <a class="nav-link" href="#">Help</a>
       </li>
     </ul>
-    <form class="form-inline pull-xs-right">
+    <form class="form-inline float-xs-right">
       <input class="form-control" type="text" placeholder="Search">
       <button class="btn btn-info-outline" type="submit">Search</button>
     </form>
@@ -205,7 +205,7 @@
         <a class="nav-link" href="#">Help</a>
       </li>
     </ul>
-    <form class="form-inline pull-xs-right">
+    <form class="form-inline float-xs-right">
       <input class="form-control" type="text" placeholder="Search">
       <button class="btn btn-secondary-outline" type="submit">Search</button>
     </form>
@@ -227,7 +227,7 @@
         <a class="nav-link" href="#">Help</a>
       </li>
     </ul>
-    <form class="form-inline pull-xs-right">
+    <form class="form-inline float-xs-right">
       <input class="form-control" type="text" placeholder="Search">
       <button class="btn btn-primary-outline" type="submit">Search</button>
     </form>
@@ -1012,15 +1012,15 @@
             <div class="bs-component">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <span class="pull-xs-right">14</span>
+                  <span class="float-xs-right">14</span>
                   Cras justo odio
                 </li>
                 <li class="list-group-item">
-                  <span class="pull-xs-right">2</span>
+                  <span class="float-xs-right">2</span>
                   Dapibus ac facilisis in
                 </li>
                 <li class="list-group-item">
-                  <span class="pull-xs-right">1</span>
+                  <span class="float-xs-right">1</span>
                   Morbi leo risus
                 </li>
               </ul>
@@ -1217,7 +1217,7 @@
         <div class="row">
           <div class="col-sm-12">
             <ul class="list-unstyled">
-              <li class="pull-xs-right"><a href="#top">Back to top</a></li>
+              <li class="float-xs-right"><a href="#top">Back to top</a></li>
             </ul>
             <p>Made by <a href="http://thomaspark.co" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
             <p>Npds fork by <a href="#" rel="nofollow">Jpb</a>. Contact him at <a href="mailto:jpb@npds.org">jpb@npds.org</a>.</p>
