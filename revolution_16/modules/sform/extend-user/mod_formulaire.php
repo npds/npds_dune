@@ -17,7 +17,7 @@ $m->add_mess(translate("* for mandatory field"));
 $m->add_form_field_size(50);
 
 $m->add_field('name', translate("Real Name").' '.translate("(optional)"),$userinfo['name'],'text',false,60,'','');
-$m->add_extender('name', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_name"></span></span>');
+$m->add_extender('name', '', '<span class="help-block"><span class="float-xs-right" id="countcar_name"></span></span>');
 
 $m->add_field('email', translate("Real Email"),$userinfo['email'],'email',true,60,'','');
 $m->add_extender('email', '','<span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span>');
@@ -87,11 +87,11 @@ if ($smilies) {
 // ---- AVATAR
 
 $m->add_field('user_from', translate("Your Location"),$userinfo['user_from'],'text',false,100,'','');
-$m->add_extender('user_from', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_user_from"></span></span>');
+$m->add_extender('user_from', '', '<span class="help-block"><span class="float-xs-right" id="countcar_user_from"></span></span>');
 $m->add_field('user_occ', translate("Your Occupation"),$userinfo['user_occ'],'text',false,100,'','');
-$m->add_extender('user_occ', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_user_occ"></span></span>');
+$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-xs-right" id="countcar_user_occ"></span></span>');
 $m->add_field('user_intrest', translate("Your Interest"),$userinfo['user_intrest'],'text',false,150,'','');
-$m->add_extender('user_intrest', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_user_intrest"></span></span>');
+$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-xs-right" id="countcar_user_intrest"></span></span>');
 
 // ---- SIGNATURE
 $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='".$userinfo['uid']."'");
@@ -99,15 +99,15 @@ list($attsig) = sql_fetch_row($asig);
 if ($attsig==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',translate("Show signature"), 1, false, $checked);
 $m->add_field('user_sig', translate("Signature"),$userinfo['user_sig'],'textarea',false,255,4,'','');
-$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="pull-xs-right" id="countcar_user_sig"></span></span>');
+$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-xs-right" id="countcar_user_sig"></span></span>');
 // ---- SIGNATURE
 
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
-$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="pull-xs-right" id="countcar_bio"></span></span>');
+$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-xs-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
-$m->add_extender('pass', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_pass"></span></span>');
+$m->add_extender('pass', '', '<span class="help-block"><span class="float-xs-right" id="countcar_pass"></span></span>');
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
-$m->add_extender('vpass', '', '<span class="help-block"><span class="pull-xs-right" id="countcar_vpass"></span></span>');
+$m->add_extender('vpass', '', '<span class="help-block"><span class="float-xs-right" id="countcar_vpass"></span></span>');
 
 
 // --- EXTENDER

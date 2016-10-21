@@ -57,7 +57,7 @@ function Caff_pub($topic, $file_name, $archive) {
    global $anonymous;
    settype($archive,'integer');
    if ($allow_to_post) {
-      echo '<nav class="pull-xs-right m-b-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      echo '<nav class="float-xs-right mb-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    }
 
    // Pagination

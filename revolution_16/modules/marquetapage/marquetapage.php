@@ -92,7 +92,7 @@ function marquetapage() {
          while(list($uri, $topic)=sql_fetch_row($result)) {
             $content.='
       <li><a href="'.$uri.'" style="font-size:.7rem;">'.$topic.'</a>
-            <span class="pull-xs-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
+            <span class="float-xs-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
          }
          $content.='
    </ul>

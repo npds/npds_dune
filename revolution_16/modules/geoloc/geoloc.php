@@ -928,7 +928,7 @@ if (!document.getElementById("map_bloc")) {
 include ('header.php');
 //==> ecriture des div contenants
 $affi .= '
-<h3>Géolocalisation des membres du site<span class="pull-xs-right label label-default">'.$total_membre.'</span></h3>
+<h3>Géolocalisation des membres du site<span class="float-xs-right label label-default">'.$total_membre.'</span></h3>
 <div class="card">
    <div class=" card-header">
       <div class="row">
@@ -949,7 +949,7 @@ $affi .= '
             </span>
             </h4>
          </div>
-         <div class="col-xs-12 col-sm-3 "><span class="pull-xs-right">'.$lkadm.'<a><i id="eye" class="fa fa-eye-slash fa-2x" onclick="clearMarkers()"></i></a>&nbsp;&nbsp;<a><i data-toggle="collapse" data-target="#sidebar" class="fa fa-bars fa-2x "></i></a></span></div>
+         <div class="col-xs-12 col-sm-3 "><span class="float-xs-right">'.$lkadm.'<a><i id="eye" class="fa fa-eye-slash fa-2x" onclick="clearMarkers()"></i></a>&nbsp;&nbsp;<a><i data-toggle="collapse" data-target="#sidebar" class="fa fa-bars fa-2x "></i></a></span></div>
          <div id="mess_info" class=" col-xs-12 "></div>
      </div>
    </div>
@@ -976,7 +976,7 @@ $affi .= '
    </ul>
    <div class="tab-content">
       <div class="tab-pane active" id="infocart">
-      <span class="pull-xs-right" id="mypoint"></span>
+      <span class="float-xs-right" id="mypoint"></span>
       <span class=""></span>
       </div>
       <div class="tab-pane" id="aide"></div>
