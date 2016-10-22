@@ -57,7 +57,7 @@ function Caff_pub($topic, $file_name, $archive) {
    global $anonymous;
    settype($archive,'integer');
    if ($allow_to_post) {
-      echo '<nav class="pull-xs-right m-b-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      echo '<nav class="float-xs-right mb-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    }
 
    // Pagination
@@ -209,18 +209,18 @@ if ($mycount) {
                      <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
                      <div class=" col-sm-6 text-xs-right">';
       if ($allow_to_post) {
-         echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="fa fa-comment-o fa-lg"></i></a>';
+         echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="fa fa-comment-o fa-lg"></i></a>';
       }
       if ($allow_to_post and $posterdata['uid']!='') {
          if ($formulaire=='') 
-            echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
+            echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
       }
       if ($Mmod) {
-         echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
+         echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
          if (!$myrow['post_aff']) {
-            echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
+            echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
          } else {
-            echo '<a class="m-r-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
+            echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
          }
       }
       echo '

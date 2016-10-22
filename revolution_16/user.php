@@ -407,7 +407,7 @@ function userinfo($uname) {
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="m-r-1" href="';
+                     $my_rs.='<a class="mr-1" href="';
                      if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                      $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
@@ -423,18 +423,18 @@ function userinfo($uname) {
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
       if ($user) {
-         $useroutils .= '<a class=" text-primary m-r-1" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
+         $useroutils .= '<a class=" text-primary mr-1" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['femail']!='') {
-         $useroutils .= '<a class=" text-primary m-r-1" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
+         $useroutils .= '<a class=" text-primary mr-1" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['url']!='') {
          if (strstr('http://', $posterdata['url']))
             $posterdata['url'] = 'http://' . $posterdata['url'];
-         $useroutils .= '<a class=" text-primary m-r-1" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
+         $useroutils .= '<a class=" text-primary mr-1" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['mns']) {
-          $useroutils .= '<a class=" text-primary m-r-1" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
+          $useroutils .= '<a class=" text-primary mr-1" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
 
    echo '

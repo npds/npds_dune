@@ -53,7 +53,7 @@ function entete() {
    </head>
    <body>
       <div class="container-fluid">
-         <div class="m-y-2">
+         <div class="my-2">
             <div class="row">
                <div class="col-sm-2 hidden-xs-down"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
@@ -70,7 +70,7 @@ function entete() {
 function pied_depage() {
    global $stage;
    echo '
-         <div class="col-md-12 text-xs-center"><hr class="lead" /> NPDS IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="sr-only">On work...</span></div>
+         <div class="col-sm-12 text-xs-center"><hr class="lead" /> NPDS IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="sr-only">On work...</span></div>
       </div>
    </body>
 </html>';
@@ -87,8 +87,8 @@ function menu() {
    $menu='';
    $menu.= '
          <div class="row">
-            <div class="col-md-3">
-               <ul class="list-group m-b-1">
+            <div class="col-sm-3">
+               <ul class="list-group mb-1">
                   <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>
                   <li class="list-group-item list-group-item'.$colorst2.'">'.ins_translate('Bienvenue').'</li>
                   <li class="list-group-item list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
@@ -101,7 +101,7 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
                </ul>
             </div>
-            <div class="col-md-9">';
+            <div class="col-sm-9">';
    return $menu;
 }
 ?>

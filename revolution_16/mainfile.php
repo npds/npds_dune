@@ -2930,12 +2930,12 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
 $content.='<li class="list-group-item li_18 text-xs-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
-      $content.='&nbsp;<a class="m-r-1" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
+      $content.='&nbsp;<a class="mr-1" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
    }
    //<= Filemanager
    //=> Minisite
    if ($rsql['groupe_mns'] == 1) {
-      $content.='&nbsp;<a class="m-r-1" href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
+      $content.='&nbsp;<a class="mr-1" href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
    }
    //<= Minisite
    //=> Chat
@@ -2945,12 +2945,12 @@ $content.='<li class="list-group-item li_18 text-xs-center">';
          $chat_img='images/admin/ws/comment_reply.gif';
       else
          $chat_img='images/admin/ws/comment_user.gif';
-      $content.='&nbsp;<a class="m-r-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x"></i></a>';
+      $content.='&nbsp;<a class="mr-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x"></i></a>';
    }
    //<= Chat
    //=> admin
    if (autorisation(-127)) {
-      $content.='&nbsp;<a class="m-r-1" href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-2x"></i></a>';
+      $content.='&nbsp;<a class="mr-1" href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-2x"></i></a>';
    }
    //<= admin
    
