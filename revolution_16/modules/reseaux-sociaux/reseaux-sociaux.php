@@ -51,9 +51,7 @@ function ListReseaux($ModPath, $ModStart) {
       <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-   <div class="m-t-1"></div>';
-   echo '
-   <h3>'.rs_translate("Réseaux sociaux").'</h3>
+   <h3 class="mt-1">'.rs_translate("Réseaux sociaux").'</h3>
    <hr />
    <h3><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux"><i class="fa fa-edit fa-lg"></i></a>&nbsp;'.rs_translate("Editer").'</h3>
 '.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'

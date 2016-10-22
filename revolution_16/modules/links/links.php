@@ -38,7 +38,7 @@ function menu($mainlink) {
    echo '
       <li class="nav-item"><a class="nav-link '.$ne_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=NewLinks" >'.translate("New links").'</a></li>
    </ul>
-   <div class="m-t-1"></div>';
+   <div class="mt-1"></div>';
 }
 
 function SearchForm() {

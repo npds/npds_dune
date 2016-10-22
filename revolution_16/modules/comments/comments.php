@@ -189,7 +189,7 @@ if ($mycount) {
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo '
                <div class="card-block">
-                  <div class="card-text p-t-1">';
+                  <div class="card-text pt-1">';
       if ($allow_bbcode) {
          $message = smilie($message);
          $message = aff_video_yt($message);

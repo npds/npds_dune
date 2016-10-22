@@ -361,7 +361,7 @@ function BannerDelete($bid, $ok=0) {
       </table>
     <br />
     <div class="alert alert-danger">'.adm_translate("Etes-vous sûr de vouloir effacer cette Bannière ?").'<br />
-    <a class="btn btn-danger btn-sm m-t-1" href="admin.php?op=BannerDelete&amp;bid=$bid&amp;ok=1">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm m-t-1" href="admin.php?op=BannersAdmin" >'.adm_translate("Non").'</a></div>';
+    <a class="btn btn-danger btn-sm mt-1" href="admin.php?op=BannerDelete&amp;bid=$bid&amp;ok=1">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm mt-1" href="admin.php?op=BannersAdmin" >'.adm_translate("Non").'</a></div>';
    adminfoot('','','','');
 }
 

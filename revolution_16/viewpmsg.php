@@ -49,7 +49,7 @@ include("auth.php");
       <li class="nav-item"><a class="nav-link active" href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-   <div class="m-t-1"></div>';
+   <div class="mt-1"></div>';
 
       echo '
       <div class="card card-block ">
