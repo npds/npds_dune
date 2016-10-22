@@ -3,7 +3,7 @@ REvolution 16
 The next version of [NPDS](http://www.npds.org) CMS.
 
 - nouvelle administration
-- utilisation framework Bootstrap 4.0.0 alpha.2
+- utilisation framework Bootstrap 4.0.0 alpha.5
 - utilisation fontawesome
 - abandon YUI pour jquery
 - thèmes responsives au choix (BS4 alpha et Rocssti) et systeme de skins
