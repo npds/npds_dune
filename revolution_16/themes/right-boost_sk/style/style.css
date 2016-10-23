@@ -57,6 +57,29 @@ text-align: right !important;
 padding-top: 1.1rem !important;
 }
 /* ==> pour les troncatures de mots trop longs */
+
+.n-list-compact-no-bord {
+padding-top: .35rem;
+padding-bottom: .35rem;
+padding-right: 0rem;
+padding-left: 0rem;
+
+border:0px;
+/* 
+margin-left: -1.25rem;
+margin-right: 1.25rem;
+ */
+
+}
+
+.n-card-compact-no-padside {
+padding-right: 0rem;
+padding-left: 0rem;
+
+border:0px;
+
+}
+
 .n-hyphenate {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -86,7 +109,6 @@ text-align:center;
 
 
 /* ==> adaptation menu */
-
 nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0rem 1rem;}
 
 ul.nav.navbar-nav {
@@ -97,14 +119,16 @@ padding-top: 0.75rem;
 padding-bottom: 0.75rem;
 }
 
-@media (min-width: 34em) {
+@media (min-width: 768px) {
    .page-header {
       margin: 53px 0 20px;
-      padding:15px;
+      padding:1rem;
    }
 }
 
-@media (max-width: 34em) {
+@media (max-width: 767px) {
+   nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
+   .navbar-divider {display:none;}
    ul.nav.navbar-nav {
    line-height: 1.5rem;
    }
@@ -112,17 +136,18 @@ padding-bottom: 0.75rem;
    padding-top: 0.25rem;
    padding-bottom: 0.25rem;
    }
+/* 
    .navbar-toggler {float:left;}
+ */
    .navbar-nav .nav-item {
    clear: left;
    margin-left: 1rem;
    }
-   .navbar-divider {display:none;}
    nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
    
    .page-header {
-   margin: 3px 0 20px;
-   padding:15px;
+   margin: 1.5rem 0 20px;
+   padding:1rem;
    }
 }
 
