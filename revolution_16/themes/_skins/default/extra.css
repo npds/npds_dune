@@ -6,21 +6,12 @@ nav#uppernavbar{
   border-width: 0 0 1px;
 }
 
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-default.navbar-dark.bg-inverse a {
-color: #777;
-}
-
 #footer{
-  background-color: #f8f8f8;
+   background-color: #f8f8f8;
   border: 1px solid #e7e7e7;
   border-width: 0 0 1px 0;
 }
+
 #footer a {
 color: #777;
 }
-
-
-
-
-.navbar-transparent {
-background-color: transparent;}
