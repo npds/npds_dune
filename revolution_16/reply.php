@@ -453,7 +453,7 @@ if ($submitS) {
                </div>
                <div class="card-block">
                   <span class="text-muted float-xs-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
-                  <div class="card-text p-t-2">';
+                  <div class="card-text pt-2">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
             $message = smilie($message);
