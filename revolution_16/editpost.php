@@ -55,7 +55,7 @@ if ($submitS) {
       $ok_maj=true;
    } else {
       if (!$Mmod) { forumerror('0035'); }
-      if ((user_is_moderator($userdata[0],$userdata[2],$forum_access)<2) )  { forumerror('0036'); }
+      if ((user_is_moderator($userdata[0],$userdata[2],$forum_access)<2) ) { forumerror('0036'); }
    }
    $userdata = get_userdata($userdata[1]);
 
@@ -164,14 +164,15 @@ if ($submitS) {
    }
    if ( (($Mmod) or ($userdata[0]==$myrow['uid'])) and ($forum_access!=9) ) {
       echo '
-      <h4>'.translate("Editing Post").' de '.$myrow['uname'].'</h4>
+      <h3>'.translate("Editing Post").' de <span class="text-muted">'.$myrow['uname'].'</span></h3>
+      <hr />
       <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
          echo '
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="subject">'.translate("Title").'</label>
             <div class="col-sm-9">
-               <input class="form-control textbox_standard" type="text" name="subject" size="40" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
+               <input class="form-control textbox_standard" type="text" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
             </div>
          </div>';
       else {
@@ -208,7 +209,7 @@ if ($submitS) {
    echo '
                </div>
                <div class="card-block">
-                  <textarea class="form-control textbox" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
+                  <textarea class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
                </div>
                <div class="card-footer text-muted">';
                  if ($allow_bbcode) putitems();
@@ -225,16 +226,20 @@ if ($submitS) {
       }
    echo '
    <div class="form-group row">
-      <label class="form-control-label col-sm-3">'.translate("Options").'</label>
+   <label class="form-control-label col-sm-3">'.translate("Options").'</label>
       <div class="col-sm-9">
          <div class="checkbox">
-            <label class="text-danger">
-               <input type="checkbox" name="delete" /> '.translate("Delete this Post").'
+            <label class="custom-control custom-checkbox text-danger">
+               <input class="custom-control-input" type="checkbox" name="delete" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Delete this Post").'</span>
             </label>
          </div>
          <div class="checkbox">
-            <label>
-               <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
+            <label class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
             </label>
          </div>
       </div>
@@ -245,7 +250,6 @@ if ($submitS) {
       <input type="hidden" name="forum" value="'.$forum.'" />
       <input type="hidden" name="topic_id" value="'.$topic.'" />
       <input type="hidden" name="topic" value="'.$topic.'" />
-      <input type="hidden" name="user_sig" value="'.$myrow["user_sig"].'" />
       <input type="hidden" name="arbre" value="'.$arbre.'" />
       <div class="form-group row">
          <div class="col-sm-9 offset-sm-3 ">
