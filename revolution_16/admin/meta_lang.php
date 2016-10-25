@@ -21,24 +21,21 @@ global $language, $NPDS_Prefix;
 $hlpfile = "manuels/".$language."/meta_lang.html";
 
 function go_back($label) {
-   if (!$label)
-      $label = adm_translate("Retour en arrière");
+   if (!$label) $label = adm_translate("Retour en arrière");
    echo '
    <script type="text/javascript">
    //<![CDATA[
    function precedent() {
-   document.write(\'<div class="form-group row"><div class="col-sm-12"><button class="btn btn-secondary" onclick="history.back();" >'.$label.'</button></div></div>\');
+      document.write(\'<div class="form-group row"><div class="col-sm-12"><button class="btn btn-secondary" onclick="history.back();" >'.$label.'</button></div></div>\');
    }
    precedent();
    //]]>
    </script>';
 }
-
 function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
-
    $list = '
-   <select class="custom-select form-control" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="custom-select" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">META-MOT</option>';
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
@@ -55,7 +52,7 @@ function list_meta($meta, $type_meta) {
 }
 function list_meta_type() {
    $list = '
-   <select class="custom-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="">Type</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=meta">meta</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=mot">mot</option>
@@ -67,7 +64,7 @@ function list_meta_type() {
 function list_type_meta($type_meta) {
    global $NPDS_Prefix;
    $list = '
-   <select class="custom-select form-control" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">Type</option>';
    $Q = sql_query("SELECT type_meta FROM ".$NPDS_Prefix."metalang GROUP BY type_meta ORDER BY 'type_meta' ASC");
    while ($resultat = sql_fetch_row($Q))  {
@@ -95,8 +92,8 @@ function List_Meta_Lang() {
             <td>
                <input type="hidden" name="nbr" value="'.$ibid.'" />';
       if ($obligatoire == false) 
-      $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fa fa-trash-o fa-lg text-danger" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
-      else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>      ';
+         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fa fa-trash-o fa-lg text-danger" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
+      else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>';
       $tablmeta_c.='
             </td>
             <td><code>'.$def.'</code></td>
@@ -119,7 +116,7 @@ function List_Meta_Lang() {
       $ibid++;
    }
    sql_free_result($Q);
-   
+
    $tablmeta.= '
    <hr />
    <h3><a href="admin.php?op=Creat_Meta_Lang"><i class="fa fa-plus-square"></i></a>&nbsp;'.adm_translate("Créer un nouveau").' META-MOT</h3>
@@ -169,9 +166,7 @@ function Edit_Meta_Lang() {
    if ($Q['obligatoire'] != true) 
    echo '
    <h3>'.adm_translate("Modifier un ").' META-MOT</h3>';
-   
-   echo aff_local_langue('<b>'.adm_translate("Langue de Prévisualisation").'</b> : ','','local_user_language').'<br />';
-
+   echo aff_local_langue('<label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language').'<br />';
    echo '
    <div class="row">
       <div class="text-muted col-sm-3">META</div>
@@ -232,11 +227,17 @@ function Edit_Meta_Lang() {
       }
 
       if ($Q['type_meta']!="docu" and $Q['type_meta']!="them") {
-         echo '<b>'.adm_translate("Script").'</b>';
-         echo '<textarea class="form-control" name="content" rows="20" >'.$Q['content'].'</textarea>';
+         echo '
+      <div class="form-group row">
+         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Script").'</label>
+         <div class="col-sm-12">
+            <textarea class="form-control" name="content" rows="20" >'.$Q['content'].'</textarea>
+         </div>
+      </div>';
       }
-      echo '<td><b>'.adm_translate("Restriction").'</b></td>';
-
+      echo '
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="type_uri">'.adm_translate("Restriction").'</label>';
       if ($Q['type_uri'] == '+') {
          if ($Q['obligatoire'] == true) {$sel1 = 'selected="selected"';}
          else  {$sel1 = ' selected';}
@@ -246,14 +247,17 @@ function Edit_Meta_Lang() {
          else {$sel0 = ' selected';}
       }
       echo '
-      <select class="custom-select form-control" name="type_uri">
-         <option'.$sel0.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
-         <option'.$sel1.' value="plus">'.adm_translate("Seulement pour ...").'</option>
-      </select>
-      <div class="help-block">...
+      <div class="col-sm-8">
+         <select class="custom-select" name="type_uri">
+            <option'.$sel0.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
+            <option'.$sel1.' value="plus">'.adm_translate("Seulement pour ...").'</option>
+         </select>
+         <div class="help-block">...
       '.adm_translate("les URLs que vous aurez renseignés ci-après (ne renseigner que la racine de l'URI)").'<br />
       '.adm_translate("Exemple").' : index.php user.php forum.php static.php<br />
       '.adm_translate("Par défaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'
+         </div>
+         </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-12">
@@ -272,13 +276,9 @@ function Edit_Meta_Lang() {
       go_back('');
    }
    adminfoot('','','','');
-//   include ("footer.php");
 }
-
-
 function Creat_Meta_Lang() {
    global $NPDS_Prefix, $hlpfile, $type_meta, $f_meta_nom, $f_titre, $adminimg;
-
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -381,9 +381,7 @@ function meta_exist($def) {
 }
 function Maj_Bdd_ML($Maj_Bdd_ML, $def, $content, $type_meta, $type_uri, $uri, $desc) {
    global $NPDS_Prefix;
-
    if ($type_uri =='plus') {$type_uri = '+';} else {$type_uri = '-';}
-
    if ($Maj_Bdd_ML=='creat_meta') {
       $def=trim($def);
       $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE def='".$def."'");
