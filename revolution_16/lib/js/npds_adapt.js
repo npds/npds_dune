@@ -1,7 +1,7 @@
       //<![CDATA[
       /* ce script assure : 
       responsivité des anciens site : forçage des dimensions par la classe img-fluid,
-      paramétrages de plugins :  tolltips, popover, toggle, boostrap table, highlight
+      paramétrages de plugins :  tooltips, popover, toggle, boostrap table, highlight
       */
 
       // ==> choix icon boostrap table //
@@ -34,8 +34,8 @@
       });
       
       // ==> colorisation syntaxique du code //
-      hljs.configure({useBR: true});
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
+        hljs.configure({useBR: true});
       });
       //]]>
