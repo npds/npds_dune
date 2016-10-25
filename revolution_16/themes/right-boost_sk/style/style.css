@@ -75,9 +75,7 @@ margin-right: 1.25rem;
 .n-card-compact-no-padside {
 padding-right: 0rem;
 padding-left: 0rem;
-
 border:0px;
-
 }
 
 .n-hyphenate {
@@ -424,11 +422,9 @@ right:65px;
     }
 /* pour les menus dropdown trop long (haut) ...*/
 
-
-#shortcut-tools{
+.n-shortcut-tools{
 position:absolute;bottom:2px;right:2px;z-index:100;font-weight:700
 }
-
 .password-meter {
     margin-top: 8px;
 }
