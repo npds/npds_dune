@@ -356,8 +356,10 @@ if ($submitS) {
       echo '
          <div class="col-sm-12">
             <div class="checkbox">
-               <label class="" for="html">
-                  <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
                </label>
             </div>';
       }
@@ -369,8 +371,10 @@ if ($submitS) {
             if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox">
-               <label class="">
-                  <input type="checkbox" name="sig" '.$s.' /> '.translate("Show signature").' :<br /><small>'.translate("This can be altered or added in your profile").'</small>
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="sig" '.$s.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Show signature").'<br /><small>'.translate("This can be altered or added in your profile").'</small>
                </label>
             </div>';
            }
@@ -379,8 +383,10 @@ if ($submitS) {
            if ($upload == 'on') {$up = 'checked="checked"';}
          echo '
             <div class="checkbox">
-               <label class="">
-                  <input type="checkbox" name="upload" '.$up.' /> '.translate("Upload file after send accepted").'
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="upload" '.$up.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Upload file after send accepted").'</span>
                </label>
             </div>';
         }

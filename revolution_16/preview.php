@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -31,7 +31,7 @@ switch ($acc) {
       }
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = aff_code($messageP);
-         $messageP = str_replace("\n", "<br />", $messageP);
+         $messageP = str_replace("\n", '<br />', $messageP);
       }
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
          $messageP = smile($messageP);
@@ -67,7 +67,7 @@ switch ($acc) {
       $messageP = addslashes($messageP);
    break;
 
-   case"editpost" :
+   case 'editpost' :
       $userdata = get_userdata($userdata[1]);
       settype($post_id,"integer");
       $sql = "SELECT poster_id, topic_id FROM ".$NPDS_Prefix."posts WHERE (post_id = '$post_id')";
@@ -91,44 +91,66 @@ switch ($acc) {
       }
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = aff_code($messageP);
-         $messageP = str_replace("\n", "<br />", removeHack($messageP));
-         $messageP .= "<br /><p class=\"lignb\">".translate("This message was edited by")." : ".$userdata['uname']."</p>";
+         $messageP = str_replace("\n", '<br />', removeHack($messageP));
+         $messageP .= "<br /><p class=\"lignb\">".translate("This message was edited by").' : '.$userdata['uname']."</p>";
          if ($allow_bbcode) $messageP = aff_video_yt($messageP);
       } else {
-         $messageP .= "\n\n".translate("This message was edited by")." : ".$userdata['uname'];
+         $messageP .= "\n\n".translate("This message was edited by").' : '.$userdata['uname'];
       }
       $messageP = addslashes($messageP);
    break;
 }
-
-      echo '<hr noshade="noshade" class="ongl" /><p class="lead text-xs-center">'.translate("Preview").'</p>';
-     echo '
-      <div class="col-md-12">
-      <div class="well">
-      ';
-      if (($forum_type=="6") or ($forum_type=="5"))
+         
+      $theposterdata = get_userdata_from_id($userdatat[0]);
+      echo '
+      <h4>'.translate("Preview").'</h4>
+      <div class="row">
+         <div class="col-xs-12">
+            <div class="card">
+               <div class="card-header">';
+         if ($smilies) {
+            if ($theposterdata['user_avatar'] != '') {
+               if (stristr($theposterdata['user_avatar'],"users_private")) {
+                  $imgtmp=$theposterdata['user_avatar'];
+               } else {
+                  if ($ibid=theme_image("forum/avatar/".$theposterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$theposterdata['user_avatar'];}
+               }
+                echo '
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rank']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
+            }
+         }
+               echo'
+                  &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$userdatat[1].'</strong></span>
+                  <span class="float-xs-right">';
+//      if (($forum_type=='6') or ($forum_type=='5'))
       if (isset($image_subject)) {
          if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
-         echo '<img src="'.$imgtmp.'" alt="" />';
+         echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
       } else {
          if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/forum/icons/posticon.gif";}
-         echo '<img src="'.$imgtmpP.'" alt="" />';
+         echo '<img class="n-smil" src="'.$imgtmpP.'" alt="" />';
       }
-      echo ''.translate("Posted: ").''.$time.'';
-      echo '<br /><br />';
+      echo '</span>
+      </div>
+      <div class="card-block">
+         <span class="text-muted float-xs-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
+         <div id="post_preview" class="card-text pt-2">';
+
       $messageP=stripslashes($messageP);
-      if (($forum_type=="6") or ($forum_type=="5")) {
+      if (($forum_type=='6') or ($forum_type=='5')) {
          highlight_string(stripslashes($messageP));
       } else {
          if ($allow_bbcode) $messageP=smilie($messageP);
-         $messageP=str_replace("[addsig]", '', $messageP);
-         echo 'lala//debug'.$messageP;
+         $messageP=str_replace('[addsig]', '<div class="n-signature">'.nl2br($theposterdata['user_sig']).'</div>', $messageP);
+         echo $messageP.'
+         </div>';
       }
       echo '
+            </div>
          </div>
-      </div>';
-    echo '<hr />';
+      </div>
+   </div>';
 
-if ($acc=="reply"||$acc=="editpost")
+if ($acc=='reply'||$acc=='editpost')
    $userdata=$userdatat;
 ?>

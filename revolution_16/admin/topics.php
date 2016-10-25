@@ -44,8 +44,9 @@ function topicsmanager() {
          echo '
          </div>
          <div class="media-body">
-            <h4 class="media-heading"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" >'.aff_langue($topicname).'</a></h4>
+            <h4 class="media-heading"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" ><i class="fa fa-edit mr-1"></i>'.aff_langue($topicname).'</a></h4>
             <p>'.aff_langue($topictext).'</p>
+            <div id="shortcut-tools_'.$topicid.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid='.$topicid.'&amp;ok=0" ><i class="fa fa-trash-o fa-2x"></i></a></div>
          </div>
       </div>
    </div>';
@@ -95,20 +96,23 @@ function topicsmanager() {
       </div>
    </form>';
     echo'
-<script type="text/javascript">
-   //<![CDATA[
-      var topid="";
-      $(".topi").hover(function(){
-         topid = $(this).parent().attr("id");
-         topid=topid.substr (topid.search(/\d/))
-         $button = $(\'<div id="shortcut-tools" class=""><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid=\'+topid+\'&amp;ok=0" ><i class="fa fa-trash-o fa-2x"></i></a></div>\')
-         $(this).append($button);
-         $button.show();
-      }, function(){
-       $button.hide();
-     });
-   //]]>
-</script>';
+   <script type="text/javascript">
+      //<![CDATA[
+         var topid="";
+         $(".topi").hover(function(){
+            topid = $(this).parent().attr("id");
+            topid=topid.substr (topid.search(/\d/))
+            $button=$("#shortcut-tools_"+topid);
+   /*
+            $button = $(\'<div id="shortcut-tools_\'+topid+\'" class="n-shortcut-tools"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid=\'+topid+\'&amp;ok=0" ><i class="fa fa-trash-o fa-2x"></i></a></div>\')
+            $(this).append($button);
+   */
+            $button.show();
+         }, function(){
+          $button.hide();
+        });
+      //]]>
+   </script>';
    $fv_parametres = '
    topicadmin: {
       validators: {
@@ -175,7 +179,7 @@ function topicedit($topicid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Editer le Sujet :").' '.aff_langue($topictext).'</h3>';
+   <h3 class="mb-1">'.adm_translate("Editer le Sujet :").' <span class="text-muted">'.aff_langue($topictext).'</span></h3>';
    if ($topicimage!="") {
       echo '
    <div class="thumbnail"><img class="img-fluid " src="'.$tipath.$topicimage.'" alt="" /></div>';
@@ -184,28 +188,28 @@ function topicedit($topicid) {
    <form action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
+            <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
             <div class="col-sm-8">
                <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
+            <label class="form-control-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8">
                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'">'.$topictext.'</textarea>
                <span class="help-block">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
+            <label class="form-control-label col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
             <div class="col-sm-8">
                <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
                <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
+            <label class="form-control-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
             <div class="col-sm-8">
                <div class="input-group">
                   <span class="input-group-btn">
@@ -218,20 +222,20 @@ function topicedit($topicid) {
       </fieldset>
       <fieldset>
       <hr />
-      <h4>'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
+      <h4 class="mb-1">'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
       <div class="form-group row">
-      <label class="col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
-      <div class="col-sm-8">
-       <input class="form-control" type="text" name="name" id="name" maxlength="30" />
-       <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
-      </div>
+         <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" name="name" id="name" maxlength="30" />
+            <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
+         </div>
       </div>
       <div class="form-group row">
-      <label class="col-sm-4" for="url">'.adm_translate("URL").'</label>
-      <div class="col-sm-8">
-      <input class="form-control" type="url" name="url" id="url" maxlength="200" placeholder="http://www.valideurl.org" />
-      <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_url"></span></span>
-      </div>
+         <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="url" name="url" id="url" maxlength="200" placeholder="http://www.valideurl.org" />
+            <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_url"></span></span>
+         </div>
       </div>
       </fieldset>
       <div class="form-group row">
@@ -264,7 +268,7 @@ function topicedit($topicid) {
    
     echo '
     <hr />
-    <h3>'.adm_translate("Gérer les Liens Relatifs : ").' '.aff_langue($topictext).'</h3>';
+    <h3 class="mb-1">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-muted">'.aff_langue($topictext).'</span></h3>';
     $res=sql_query("SELECT rid, name, url FROM ".$NPDS_Prefix."related WHERE tid='$topicid'");
     echo '
    <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">
@@ -273,8 +277,7 @@ function topicedit($topicid) {
          <th data-sortable="true" data-halign="center">'.adm_translate('Url').'</th>
          <th data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
       </thead>
-      <tbody>
-    ';
+      <tbody>';
     while (list($rid, $name, $url) = sql_fetch_row($res)) {
        echo '
             <tr>
@@ -393,38 +396,33 @@ function relatededit($tid, $rid) {
 }
 
 function relatedsave($tid, $rid, $name, $url) {
-    global $NPDS_Prefix;
-
-    sql_query("UPDATE ".$NPDS_Prefix."related SET name='$name', url='$url' WHERE rid='$rid'");
-    Header("Location: admin.php?op=topicedit&topicid=$tid");
+   global $NPDS_Prefix;
+   sql_query("UPDATE ".$NPDS_Prefix."related SET name='$name', url='$url' WHERE rid='$rid'");
+   Header("Location: admin.php?op=topicedit&topicid=$tid");
 }
 
 function relateddelete($tid, $rid) {
-    global $NPDS_Prefix;
-
-    sql_query("DELETE FROM ".$NPDS_Prefix."related WHERE rid='$rid'");
-    Header("Location: admin.php?op=topicedit&topicid=$tid");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."related WHERE rid='$rid'");
+   Header("Location: admin.php?op=topicedit&topicid=$tid");
 }
 
 function topicmake($topicname, $topicimage, $topictext, $topicadmin) {
-    global $NPDS_Prefix;
-
-    $topicname = stripslashes(FixQuotes($topicname));
-    $topicimage = stripslashes(FixQuotes($topicimage));
-    $topictext = stripslashes(FixQuotes($topictext));
-    sql_query("INSERT INTO ".$NPDS_Prefix."topics VALUES (NULL,'$topicname','$topicimage','$topictext','0', '$topicadmin')");
-    global $aid; Ecr_Log("security", "topicMake ($topicname) by AID : $aid", "");
-    
-    $topicadminX = explode(",",$topicadmin);
-    array_pop($topicadminX);
-      for ($iX = 0; $iX < count($topicadminX); $iX++) {
-         $nres = sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."droits WHERE d_aut_aid='$topicadminX[$iX]' and d_droits=11112"));
-         if($nres == 0){
-            sql_query("INSERT INTO ".$NPDS_Prefix."droits VALUES ('$topicadminX[$iX]', '2', '11112')");
-         }
+   global $NPDS_Prefix;
+   $topicname = stripslashes(FixQuotes($topicname));
+   $topicimage = stripslashes(FixQuotes($topicimage));
+   $topictext = stripslashes(FixQuotes($topictext));
+   sql_query("INSERT INTO ".$NPDS_Prefix."topics VALUES (NULL,'$topicname','$topicimage','$topictext','0', '$topicadmin')");
+   global $aid; Ecr_Log("security", "topicMake ($topicname) by AID : $aid", "");
+   $topicadminX = explode(",",$topicadmin);
+   array_pop($topicadminX);
+   for ($iX = 0; $iX < count($topicadminX); $iX++) {
+      $nres = sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."droits WHERE d_aut_aid='$topicadminX[$iX]' and d_droits=11112"));
+      if($nres == 0){
+         sql_query("INSERT INTO ".$NPDS_Prefix."droits VALUES ('$topicadminX[$iX]', '2', '11112')");
       }
-    
-    Header("Location: admin.php?op=topicsmanager#Add");
+   }
+   Header("Location: admin.php?op=topicsmanager#Add");
 }
 
 function topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin, $name, $url) {
@@ -508,28 +506,28 @@ function topicdelete($topicid, $ok=0) {
 
 switch ($op) {
    case "topicsmanager":
-        topicsmanager();
-        break;
+      topicsmanager();
+   break;
    case "topicedit":
-        topicedit($topicid);
-        break;
+      topicedit($topicid);
+   break;
    case "topicmake":
-        topicmake($topicname, $topicimage, $topictext, $topicadmin);
-        break;
+      topicmake($topicname, $topicimage, $topictext, $topicadmin);
+   break;
    case "topicdelete":
-        topicdelete($topicid, $ok);
-        break;
+      topicdelete($topicid, $ok);
+   break;
    case "topicchange":
-        topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin, $name, $url);
-        break;
+      topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin, $name, $url);
+   break;
    case "relatedsave":
-        relatedsave($tid, $rid, $name, $url);
-        break;
+      relatedsave($tid, $rid, $name, $url);
+   break;
    case "relatededit":
-        relatededit($tid, $rid);
-        break;
+      relatededit($tid, $rid);
+   break;
    case "relateddelete":
-        relateddelete($tid, $rid);
-        break;
+      relateddelete($tid, $rid);
+   break;
 }
 ?>

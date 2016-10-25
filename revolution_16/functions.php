@@ -391,7 +391,7 @@ function HTML_Add() {
 function emotion_add($image_subject) {
    global $theme;
 
-   if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
+   if ($ibid=theme_image('forum/subject/index.html')) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp='images/forum/subject';}
    $handle=opendir($imgtmp);
    while (false!==($file = readdir($handle))) {
       $filelist[] = $file;
@@ -400,17 +400,25 @@ function emotion_add($image_subject) {
    $temp='';
    while (list ($key, $file) = each ($filelist)) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
+      $temp .='<label class="custom-control custom-radio">';
       if ($image_subject!='') {
          if ($file == $image_subject) {
-            $temp .= '<input type="radio" value="'.$file.'" name="image_subject" checked="checked" />&nbsp;';
+            $temp .= '
+            <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" checked="checked" />
+            <span class="custom-control-indicator"></span>';
          } else {
-            $temp .= '<input type="radio" value="'.$file.'" name="image_subject" />&nbsp;';
+            $temp .= '
+            <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" />
+            <span class="custom-control-indicator"></span>';
          }
       } else {
-         $temp .= '<input type="radio" value="'.$file.'" name="image_subject" checked="checked" />&nbsp;';
+         $temp .= '
+            <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" checked="checked" />
+            <span class="custom-control-indicator"></span>';
          $image_subject='no image';
       }
-      $temp .= '<img class="n-smil" src="'.$imgtmp.'/'.$file.'" border="0" alt="" />&nbsp;';
+      $temp .= '<span class="custom-control-description"><img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" /></span>';
+      $temp .='</label>';
    }
    return $temp;
 }
@@ -433,7 +441,7 @@ function undo_htmlspecialchars($input) {
 function searchblock() {
    $ibid='
    <nav class="navbar navbar-light bg-faded">
-      <form class="form-inline pull-xs-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
+      <form class="form-inline float-xs-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
          <input type="hidden" name="addterm" value="any" />
          <input type="hidden" name="sortby" value="0" />
          <div class="form-group">
@@ -451,7 +459,7 @@ function member_qualif($poster, $posts, $rank) {
    $tmp='';
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
-   $tmp='<img class="n-smil" src="'.$imgtmpP.'" border="0" alt="" />'.$posts.'&nbsp;';
+   $tmp='<img class="n-smil" src="'.$imgtmpP.'" alt="" />'.$posts.'&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
       if ($posts>=10 and $posts<30) {$nux=1;}
