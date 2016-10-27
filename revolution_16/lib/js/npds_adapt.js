@@ -19,11 +19,11 @@
          $(".article_texte img,.ibid_descr img").addClass("img-fluid");
          $("#ban img,#art_preview img,#online_user_journal img,#art_sect img, iframe").addClass("img-fluid");
          $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
-
-         $('a.arrow-toggle').on('click', function(e){
-         $('a.arrow-toggle i').toggleClass('fa-caret-down , fa-caret-up', 6000);
+         // icon toggle 
+         $('a[data-toggle="collapse"]').click(function () {
+            $(this).find('i.toggle-icon').toggleClass('fa-caret-up fa-caret-down',6000);
          })
-
+         // initialisation tooltip et popover
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
          // fix bug tooltip in table
