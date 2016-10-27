@@ -2782,26 +2782,23 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    </script>";
 
    $content.='
-   <div id="bloc_ws_'.$gr.'" class="di_bloc_ws">'."\n";
+   <div id="bloc_ws_'.$gr.'" class="">'."\n";
    if ($t_gr==1) 
       $content.= '<img src="images/admin/ws/groupe.gif" class="img-fluid mx-auto d-block rounded" title="ID:'.$gr.'" alt="'.translate("Group").'" />  <span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
       $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Group").'" />';
-/*
-   $content.='
-   <ul class="list-group ul_bloc_ws">'."\n";
-*/
 
    //=> liste des membres
    $li_mb=''; $li_ic='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
    $li_mb.='
-      <div class="my-2"><a class="tog" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a><i class="fa fa-users fa-2x text-muted ml-1" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" >'.translate("Members").'</a><span class="tag tag-default float-xs-right">'.$nb_mb.'</span>';
+      <div class="my-2">
+      <a data-toggle="collapse" data-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ml-1" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Members").'</a><span class="tag tag-default float-xs-right">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
-         <ul id="lst_mb_ws_'.$gr.'" class=" list-group ul_bloc_ws" style="display:none;">'."\n";
+         <ul id="lst_mb_ws_'.$gr.'" class="list-group ul_bloc_ws collapse">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
@@ -2824,32 +2821,25 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       }
       $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
       $li_mb.= '
-      <li class="list-group-item li_mb">
-      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;</a>
-      </div>
+      <li class="list-group-item list-group-item-action li_mb">
+      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;'.$uname.'</a>
+      </div><br />
       <span class="float-xs-right">
-      <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o"></i></a>'."\n";
+      <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o fa-lg ml-0.5"></i></a>'."\n";
       if ($url!='')
-         $li_mb.='&nbsp;<a href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-external-link"></i></a>';
+         $li_mb.='<a href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-external-link fa-lg ml-1"></i></a>';
       if ($mns==1)
-         $li_mb.='&nbsp;<a href="minisite.php?op='.$uname.'" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-desktop"></i></a>';
+         $li_mb.='<a href="minisite.php?op='.$uname.'" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-desktop fa-lg ml-1"></i></a>';
       $li_mb.='
       </span><span class="clearfix"></span>
       </li>';
    }
    $li_mb.='
          <li style="clear:left;line-height:6px; background:none;">&nbsp;</li>
-         <li style="clear:left;line-height:24px;padding:6px; margin-top:0px; background:none; border-style: dotted; border-width: 1px; border-color: gray;">'.$li_ic.'</li>
-         <li style="line-height:12px; background:none;">&nbsp;</li>
+         <li class="list-group-item" style="clear:left;line-height:24px;padding:6px; margin-top:0px;">'.$li_ic.'</li>
       </ul>
    </div>';
-   $li_mb.='
-   <script type="text/javascript">
-   //<![CDATA[
-   tog("lst_mb_ws_'.$gr.'","show_lst_mb_ws_'.$gr.'","hide_lst_mb_ws_'.$gr.'");
-   //]]>
-   </script>';
-   $content.=$li_mb;
+   $content.= $li_mb;
    //<== liste des membres
 
    //=> Forum
@@ -2858,22 +2848,17 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $res_forum=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_pass REGEXP '$gr'");
       $nb_foru=sql_num_rows ($res_forum);
       if ($nb_foru >= 1) {
-         $lst_for_tog='<a class="tog" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'" ><i id="i_lst_for_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
-         $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws" style ="list-style-type:none; display:none; ">';
+         $lst_for_tog='<a data-toggle="collapse" data-target="#lst_for_gr_'.$gr.'" class="text-primary" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'" ><i id="i_lst_for_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
+         $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws collapse" style ="list-style-type:none;">';
          $nb_for_gr='  <span class="tag tag-default float-xs-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
             $lst_for.='
             <li class="list-group-item list-group-item-action"><a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a></li>';
          }
          $lst_for.='</ul>';
-         $lst_for.="\n<script type=\"text/javascript\">
-         //<![CDATA[
-         tog('lst_for_gr_".$gr."','show_lst_for_".$gr."','hide_lst_for_".$gr."');
-         //]]>
-         </script>\n";
       }
       $content.='
-      <div class="mb-2">'.$lst_for_tog.'<i class="fa fa-list-alt fa-2x text-muted ml-1" title="'.translate("Group").'('.$gr.'): '.translate("forum").'." data-toggle="tooltip" ></i>&nbsp;<a href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</div>'."\n";
+      <hr /><div class="">'.$lst_for_tog.'<i class="fa fa-list-alt fa-2x text-muted ml-1" title="'.translate("Group").'('.$gr.'): '.translate("forum").'." data-toggle="tooltip" ></i>&nbsp;<a class="text-uppercase" href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</div>'."\n";
    }
    //<= Forum
    //=> wspad
@@ -2881,33 +2866,24 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_doc,'string');
       settype($nb_doc_gr,'string');
       settype($lst_doc_tog,'string');
-
       include("modules/wspad/config.php");
-
       $docs_gr=sql_query("SELECT page, editedby, modtime, ranq FROM ".$NPDS_Prefix."wspad WHERE (ws_id) IN (SELECT MAX(ws_id) FROM ".$NPDS_Prefix."wspad WHERE member='$gr' GROUP BY page) ORDER BY page ASC");
       $nb_doc=sql_num_rows ($docs_gr);
       if ($nb_doc >= 1) {
-         $lst_doc_tog ='<a class="tog" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="fa fa-caret-down fa-2x" ></i></a>';
+         $lst_doc_tog ='<a data-toggle="collapse" data-target="#lst_doc_gr_'.$gr.'" class="text-primary" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
          $lst_doc.='
-         <ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws mt-1" style ="list-style-type:none; display:none; ">';
+         <ul id="lst_doc_gr_'.$gr.'" class="list-group ul_bloc_ws mt-1 collapse">';
          $nb_doc_gr='  <span class="tag tag-default float-xs-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='
-            <li style="line-height:14px;margin-top:0; background:none; padding: 0px 2px 0px 0px;"><div id="last_editor_'.$p.'" title="'.translate("Last editor").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:12px; height:12px; margin-top:4px; background-color:'.$surlignage.'"></div><img src="images/admin/ws/document_edit.gif" class="vam_bo_0" alt="'.translate("Multi-writers document").'." title="'.translate("Multi-writers document").'." />  <a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a>';
-            $lst_doc.= '</li>';
+            <li class="list-group-item list-group-item-action" style="line-height:14px;"><div id="last_editor_'.$p.'" data-toggle="tooltip" data-placement="right" title="'.translate("Last editor").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-muted mx-1" data-toggle="tooltip" title="'.translate("Multi-writers document").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
          }
          $lst_doc.='
          </ul>';
-         $lst_doc.='
-         <script type="text/javascript">
-         //<![CDATA[
-         tog("lst_doc_gr_'.$gr.'","show_lst_doc_'.$gr.'","hide_lst_doc'.$gr.'");
-         //]]>
-         </script>';
       }
       $content.='
-      <div class="mb-2">'. $lst_doc_tog.'<i class="fa fa-edit fa-2x text-muted ml-1" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</div>'."\n";
+      <hr /><div class="">'. $lst_doc_tog.'<i class="fa fa-edit fa-2x text-muted ml-1" title="'.translate("Co-writing").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;<a class="text-uppercase" href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-writing").'</a>'.$nb_doc_gr.$lst_doc.'</div>'."\n";
    }
    //<= wspad
    
@@ -2916,20 +2892,15 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<a class="tog" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="fa fa-caret-down fa-2x" ></i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-1"></i>&nbsp; Bloc note';
-      $lst_blocnote ='<div id="lst_blocnote" class="mt-1" style =" display:none; ">';
+      $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-1"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
+      $lst_blocnote ='<div id="lst_blocnote" class="mt-1 collapse">';
       $lst_blocnote .= blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
       $lst_blocnote .= '</div>';
-      $lst_blocnote.='<script type="text/javascript">
-      //<![CDATA[
-      tog("lst_blocnote","show_lst_blocnote","hide_lst_blocnote");
-      //]]>
-      </script>';
-      $content.='<div class="mb-2">'.$lst_blocnote_tog.$lst_blocnote.'</div>';
+      $content.='<hr /><div class="mb-2">'.$lst_blocnote_tog.$lst_blocnote.'</div>';
    }
    //=> bloc-notes
    
-$content.='<div class="list-group-item li_18 text-xs-center">';
+$content.='<div class="card card-block text-muted text-xs-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
       $content.='<a class="mr-1" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
@@ -2952,7 +2923,7 @@ $content.='<div class="list-group-item li_18 text-xs-center">';
    //<= Chat
    //=> admin
    if (autorisation(-127)) {
-      $content.='<a class="mr-1" href="admin.php?op=groupes" title="'.translate("Groups setting.").'" data-toggle="tooltip"><i class="fa fa-cogs fa-2x"></i></a>';
+      $content.='<a class="mr-1" href="admin.php?op=groupes" ><i title="'.translate("Groups setting.").'" data-toggle="tooltip" class="fa fa-cogs fa-2x"></i></a>';
    }
    //<= admin
    
