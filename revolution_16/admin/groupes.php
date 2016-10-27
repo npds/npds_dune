@@ -606,9 +606,11 @@ function pad_remove($groupe_id) {
 // BLOC-NOTE
 function note_create($groupe_id) {
    global $NPDS_Prefix;
-
+   $type_engine='';
    // => Creation table blocnotes
-   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
+   if (version_compare(PHP_VERSION, '7.0.0') >= 0) {$type_engine=6;}// a affiner
+   else {$type_engine=(int)substr(mysql_get_server_info(), 0, 1);}// a affiner
+
    $sql="CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."blocnotes (
    bnid tinytext NOT NULL,
    texte text,
@@ -831,16 +833,16 @@ switch ($op) {
 
    case "pad_create":
         pad_create($groupe_id);
-        Header("Location: admin.php?op=groupes");    
+        Header("Location: admin.php?op=groupes");
         break;
    case "pad_remove":
         pad_remove($groupe_id);
-        Header("Location: admin.php?op=groupes");    
+        Header("Location: admin.php?op=groupes");
         break;
         
    case "note_create":
         note_create($groupe_id);
-        Header("Location: admin.php?op=groupes");    
+        Header("Location: admin.php?op=groupes");
         break;
    case "note_remove":
         note_remove($groupe_id);
@@ -876,7 +878,6 @@ switch ($op) {
         groupe_mns_delete($groupe_id);
         Header('location: admin.php?op=groupes');
         break;
-
    case "groupe_chat_create":
         groupe_chat_create($groupe_id);
         Header('location: admin.php?op=groupes');
@@ -885,7 +886,6 @@ switch ($op) {
         groupe_chat_delete($groupe_id);
         Header('location: admin.php?op=groupes');
         break;
-
    case "groupe_edit":
         groupe_edit($groupe_id);
         break;
@@ -907,7 +907,7 @@ switch ($op) {
               if ($row[0]==0) $row[0]=1;
               $groupe_id=$row[0]+1;
               $ok_grp=true;
-           }           
+           }
         }  else {
            $ok_grp=true;
         }
