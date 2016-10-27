@@ -44,7 +44,7 @@ function groupe($groupe) {
    }
    if ($nbg>5) {$nbg=5;}
    return ('
-   <select multiple="multiple" class="custom-select form-control" name="Mmember[]" size="'.$nbg.'">
+   <select multiple="multiple" class="form-control" name="Mmember[]" size="'.$nbg.'">
    '.$str.'
    </select>');
 }
