@@ -7,29 +7,19 @@
    list-style-image: none;
    background-image: none;
    background:none;
-   padding:2px;
    margin:0;
    margin-top: 0.5rem !important;
 }
 .dim_ima {width:16px; height:18px;}
 .vam_bo_0 {vertical-align:text-bottom; border:0;}
-/* 
-.li_18 {line-height:18px; margin-top:0;}
- */
 .li_18 { 
  padding: .75rem 0.2rem;
 }
 
- 
- 
- 
- 
 .li_mb {
    clear:left;
-   
-   padding-right: 0.2rem;
-   padding-left: 0.2rem;
-   
+   padding-right: 0.3rem;
+   padding-left: 0.3rem;
    line-height:18px;
    margin-top:0;
    background:none;
@@ -41,6 +31,7 @@
    padding-right: 2px;
    padding-top: 2px;
 }
+
 .di_bloc_ws li ul{
    list-style-image: none;
    background-image: none;
