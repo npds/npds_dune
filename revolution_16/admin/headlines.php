@@ -28,7 +28,7 @@ function HeadlinesAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo'
    <hr />
-   <h3 class="m-t-md">'.adm_translate("Liste des Grands Titres de sites de News").'</h3>
+   <h3 class="mb-1">'.adm_translate("Liste des Grands Titres de sites de News").'</h3>
    <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -65,7 +65,7 @@ function HeadlinesAdmin() {
       </tbody>
    </table>
    <hr />
-   <h3 class="m-t-md">'.adm_translate("Nouveau Grand Titre").'</h3>
+   <h3 class="mb-1">'.adm_translate("Nouveau Grand Titre").'</h3>
    <form id="fad_newheadline" class="" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">

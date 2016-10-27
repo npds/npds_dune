@@ -29,8 +29,8 @@ function topicsmanager() {
    if (sql_num_rows($result) > 0) {
       echo '
    <hr />
-   <h3>'.adm_translate("Sujets actifs").'</h3>
-   <div>';
+   <h3 class="my-1">'.adm_translate("Sujets actifs").'</h3>
+   <div class="row">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
    <div class="col-sm-12" id="top_'.$topicid.'">
@@ -58,7 +58,7 @@ function topicsmanager() {
     echo '
     </div>
    <hr />
-   <h3>'.adm_translate("Ajouter un nouveau Sujet").'</h3>
+   <h3 class="my-1">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
@@ -103,10 +103,6 @@ function topicsmanager() {
             topid = $(this).parent().attr("id");
             topid=topid.substr (topid.search(/\d/))
             $button=$("#shortcut-tools_"+topid);
-   /*
-            $button = $(\'<div id="shortcut-tools_\'+topid+\'" class="n-shortcut-tools"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid=\'+topid+\'&amp;ok=0" ><i class="fa fa-trash-o fa-2x"></i></a></div>\')
-            $(this).append($button);
-   */
             $button.show();
          }, function(){
           $button.hide();
