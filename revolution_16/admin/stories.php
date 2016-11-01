@@ -122,7 +122,8 @@ function AddCategory () {
 
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
-   <h3>'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
+   <hr />
+   <h3 class="mb-1">'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
    <form id="adm_ad_cat" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-xs-12 form-control-label" for="title">'.adm_translate("Nom").'</label>
@@ -190,7 +191,9 @@ function EditCategory($catid) {
    GraphicAdmin('');
 
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<h3>'.adm_translate("Edition des Catégories").'</h3>';
+   echo '
+   <hr />
+   <h3 class="mb-1">'.adm_translate("Edition des Catégories").'</h3>';
    $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
    list($title) = sql_fetch_row($result);
    if (!$catid) {
@@ -275,6 +278,7 @@ function DelCategory($cat) {
    list($title) = sql_fetch_row($result);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Supprimer une Catégorie").'</h3>';
    if (!$cat) {
       $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
@@ -295,7 +299,7 @@ function DelCategory($cat) {
       <div class="form-group row">
          <div class="col-sm-12">
             <input type="hidden" name="op" value="DelCategory" />
-            <input class="btn btn-danger" type="submit" value="'.adm_translate("Effacer").'" />
+            <button class="btn btn-danger" type="submit">'.adm_translate("Effacer").'</button>
          </div>
       </div>
    </form>';
@@ -963,6 +967,7 @@ function adminStory() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
    echo '
+   <hr />
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
