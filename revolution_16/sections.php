@@ -39,16 +39,19 @@ function listsections($rubric) {
       $cache_obj = new SuperCacheEmpty();
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      settype($rubric,"integer");
+      settype($rubric,'integer');
+      settype($nb_r,'integer');
       if ($rubric) $sqladd="AND rubid='".$rubric."'";
       else $sqladd='';
       if ($admin) {
          $result=sql_query("SELECT rubid, rubname, intro FROM ".$NPDS_Prefix."rubriques WHERE rubname<>'Divers' AND rubname<>'Presse-papiers' $sqladd ORDER BY ordre");
+         $nb_r = sql_num_rows($result);
       } else {
          $result=sql_query("SELECT rubid, rubname, intro FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'Divers' AND rubname<>'Presse-papiers' $sqladd ORDER BY ordre");
+         $nb_r = sql_num_rows($result);
       }
       $aff='
-      <h2>'.translate("Sections").'</h2>';
+      <h2>'.translate("Sections").'<span class="float-xs-right tag tag-default">'.$nb_r.'</span></h2>';
       if (sql_num_rows($result) > 0) {
          while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
             $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
@@ -56,8 +59,8 @@ function listsections($rubric) {
             $aff.='
       <hr />
       <h3>
-         <a class="arrow-toggle" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;
-         <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a>
+         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;
+         <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class="tag tag-default float-xs-right title">'.$nb_section.'</span>
       </h3>';
             if ($intro!='') {$aff.='<p class="text-muted">'.aff_langue($intro).'</p>';};
             $aff.= '
@@ -69,11 +72,11 @@ function listsections($rubric) {
                   $aff.='
          <div class="card card-block" id="rub_'.$rubid.'sec_'.$secid.'">
             <h4 class="">
-               <a class="arrow-toggle" data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
+               <a class="arrow-toggle text-primary" data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
-                        $aff.="<img class=\"img-fluid\" src=\"$imgtmp\" border=\"0\" alt=\"".aff_langue($secname)."\" /><br />";
+                        $aff.="<img class=\"img-fluid\" src=\"$imgtmp\" alt=\"".aff_langue($secname)."\" /><br />";
                   }
                   $aff1=''.aff_langue($secname).'#NEW#';
                   if ($intro!='') {
@@ -112,7 +115,6 @@ function listsections($rubric) {
          </div>';
                }
                $aff.=$aff1.$aff2;
-            $aff.=''; 
             }
             $aff.='</div>';
          }
@@ -131,8 +133,7 @@ function listsections($rubric) {
 }
 
 function listarticles($secid) {
-   global $user, $prev;
-   global $NPDS_Prefix;
+   global $user, $prev, $NPDS_Prefix;
 
    if (file_exists("sections.config.php"))
       include ("sections.config.php");
@@ -334,7 +335,7 @@ function viewarticle($artid, $page) {
 }
 
 function PrintSecPage($artid) {
-   global $NPDS_Prefix, $user,$cookie, $theme,$Default_Theme, $site_logo, $sitename, $nuke_url, $language, $site_font, $Titlesitename;
+   global $NPDS_Prefix, $user, $cookie, $theme, $Default_Theme, $site_logo, $sitename, $nuke_url, $language, $site_font, $Titlesitename;
 
    include("meta/meta.php");
    if (isset($user)) {
