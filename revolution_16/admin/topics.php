@@ -30,10 +30,10 @@ function topicsmanager() {
       echo '
    <hr />
    <h3 class="my-1">'.adm_translate("Sujets actifs").'</h3>
-   <div class="row">';
+   <div class="">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
-   <div class="col-sm-12" id="top_'.$topicid.'">
+   <div class="card card-block" id="top_'.$topicid.'">
       <div class=" topi">
          <div class="media-left media-middle">';
          if (($topicimage) or ($topicimage!='')) {
@@ -175,10 +175,10 @@ function topicedit($topicid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-1">'.adm_translate("Editer le Sujet :").' <span class="text-muted">'.aff_langue($topictext).'</span></h3>';
-   if ($topicimage!="") {
+   <h3 class="mb-1">'.adm_translate("Editer le Sujet :").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
+   if ($topicimage!='') {
       echo '
-   <div class="thumbnail"><img class="img-fluid " src="'.$tipath.$topicimage.'" alt="" /></div>';
+   <div class="card card-block my-2 py-1"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
    }
    echo '
    <form action="admin.php" method="post">
@@ -222,7 +222,7 @@ function topicedit($topicid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="name" id="name" maxlength="30" />
+            <input class="form-control" type="text" name="name" id="name" maxlength="30" required="required"/>
             <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
          </div>
       </div>
