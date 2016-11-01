@@ -306,10 +306,10 @@ function GraphicAdmin($hlpfile) {
    </div>
    <div id ="adm_men" class="row">
       <div id="adm_header" class="row">
-         <div class="col-xs-3 men_tit">
+         <div class="col-xs-6 men_tit">
             <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
          </div>
-         <div id="adm_men_man" class="col-xs-9 men_man text-xs-right">
+         <div id="adm_men_man" class="col-xs-6 men_man text-xs-right">
             <ul class="liste" id="lst_men_top">
                <li class="btn btn-secondary" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
    if ($hlpfile) {
@@ -351,8 +351,7 @@ function GraphicAdmin($hlpfile) {
 }
 
 function adminMain($deja_affiches) {
-   global $language, $admart, $hlpfile, $aid, $admf_ext;
-   global $NPDS_Prefix;
+   global $language, $admart, $hlpfile, $aid, $admf_ext, $NPDS_Prefix;
    $hlpfile = "manuels/$language/admin.html";
    include("header.php");
    global $short_menu_admin;
@@ -389,7 +388,7 @@ function adminMain($deja_affiches) {
          if ($radminsuper) {
             $affiche=true;
          } else {
-            $topicadminX = explode(",",$topicadmin);
+            $topicadminX = explode(',',$topicadmin);
             for ($iX = 0; $iX < count($topicadminX); $iX++) {
                if (trim($topicadminX[$iX])==$aid) $affiche=true;
             }
@@ -466,7 +465,7 @@ function adminMain($deja_affiches) {
          </div>
       </form>';
    }
-   echo "</div>\n";
+   echo '</div>';
    include("footer.php");
 }
 
