@@ -1,10 +1,10 @@
 <?php
 /************************************************************************/
-/* Theme for NPDS / Net Portal Dynamic System     Rocssti2015                   */
+/* Theme for NPDS / Net Portal Dynamic System     npds-roc2016                   */
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : jpb Jireck Bmag     Rocssti2015            */
+/* Theme : jpb Jireck Bmag     npds-roc2016            */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -84,7 +84,7 @@ $ContainerGlobal="\n<div id=\"container\">\n";
 /*           Si Aucune variable pdst dans pages.php                     */
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
-     echo '<section id="corps" class="row w100 automobile" role="main">';
+     echo '<section id="corps" class="row w100 automobile  n-hyphenate" role="main">';
 switch ($pdst) {
 case "-1":
      echo '<section id="centralcol" class="col w100 autotablet">';   /* la partie centrale */

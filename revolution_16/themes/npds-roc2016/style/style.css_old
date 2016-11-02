@@ -1,0 +1,345 @@
+/* ----------------------------------------------------------------------
+   1. BASE MINIMUM
+---------------------------------------------------------------------- */
+/** <== Classes BS4                                                         **/
+
+/** ==> Classes NPDS-core [prefixe n-]                                      **/
+/* ==> pour les avatars et images   MODIF BMAG */
+.n-ava {
+max-width:48px;
+max-height:48px;
+}
+.n-ava-small {
+max-width:48px;
+max-height:48px;
+}
+.n-smil {
+width:24px;
+height:24px;
+display:inline;
+}
+.n-sujetsize {
+max-width : 100px;
+height : auto;
+}
+.fond_emot, .fond_subject {
+line-height:28px;
+}
+/* ==> pour la signature */
+.n-signature {
+font-style: italic;
+text-align: right !important;
+padding-top: 1.1rem !important;
+}
+/* ==> pour les troncatures de mots trop longs */
+
+.n-list-compact-no-bord {
+padding-top: .35rem;
+padding-bottom: .35rem;
+padding-right: 0rem;
+padding-left: 0rem;
+
+border:0px;
+/* 
+margin-left: -1.25rem;
+margin-right: 1.25rem;
+ */
+
+}
+
+.n-card-compact-no-padside {
+padding-right: 0rem;
+padding-left: 0rem;
+
+border:0px;
+
+}
+
+.n-hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.n-ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/** <== Classes NPDS-core                                                   **/
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .35rem 1.25rem;
+    margin-bottom: -1px;
+     background-color: transparent;
+   /* border: 1px solid #ddd;     */
+}
+
+ .list-group-item-action:hover {
+    color: #555;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+/* ----------------------------------------------------------------------
+   6 LIENS - de style heada
+   => administration, téléchargement, annuaire notamment
+---------------------------------------------------------------------- */
+a.heada, a.heada:visited, a.heada:active {/* Admin (haut et bas) - Download - Annuaire */
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+/* ----------------------------------------------------------------------
+   7 LIENS - de style ongl
+   => fortement utilisé par le CMS
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   8 LES STYLES SUR DES BALISES DE BASES
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9 LES STYLES SUR LES TABLEAUX
+---------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   9a. LES STYLES SUR LES TABLEAUX
+   => Utilisés par la fonction tablos(), permet d’alterner les couleurs des lignes de tableau
+---------------------------------------------------------------------- */
+
+   
+table {
+    background: #FFF none repeat scroll 0% 0%;
+    border: 1px solid #DDD;
+    margin-bottom: 1.25rem;
+    table-layout: auto;
+    
+}
+
+table tr.even, table tr.alt, table tr:nth-of-type(2n) {
+    background: #F9F9F9 none repeat scroll 0% 0%;
+}
+
+
+/*jmd work*/
+
+/************************************************************************
+Dimension du site 
+*************************************************************************/
+body {
+	text-align: center; /* pour corriger un bug de centrage IE */
+	padding: 0px;
+
+        background-repeat: repeat repeat;
+}
+
+
+#container {
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
+        background-image: url("../images/fond1.png");
+        width:100%;
+
+}
+
+/************************************************************************
+La Partie HEADER de votre Site
+*************************************************************************/
+header { /* Le Header Complet */
+
+	width: 100%;
+	height: auto;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+
+/************************************************************************
+La Partie CENTRALE de votre Site     colonne (s) et partie centrale
+*************************************************************************/
+#centralcol{
+   padding:10px;
+}
+
+
+#corps, #decofoot,#decohead{  /* corps= entre header et footer */
+        max-width: 1600px;   /*   A changer si vous voulez divisible par 3 et par 4 */
+ 	margin-left:auto;
+	margin-right:auto;
+	padding: 1em;
+         }
+
+#corps {background: #fff; }
+
+/************************************************************************
+Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
+*************************************************************************/
+#leftcol ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.rightbloc, .leftbloc{
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right:5px;
+}
+
+
+
+/************************************************************************
+La Partie Footer de votre Site
+*************************************************************************/
+footer {
+	text-align: left;
+	padding-top: 0;
+	width: 100%;
+	clear: both;
+}
+
+#footer{background-color:AliceBlue;}
+/********************
+le  header   et son contenu ( sa taille est ds decoheader)
+**********************/
+.header1{
+    background: -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1) inset;
+    background-color: rgb(250, 250, 250);
+    color: rgb(51, 51, 51);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    padding: 18px;
+    margin-top: 1px;
+    margin-bottom: 5px;
+	height: auto;
+  }
+
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+
+
+
+ /* texte et alignements*/
+ 
+h2, .h2 {
+    background: antiquewhite;
+    padding: 0px 5px 0px 5px;}
+
+h3, .h3 {
+    background: aliceblue;
+    padding: 0px 5px 0px 5px;}
+
+
+
+#nav{background-color:#FFE667;}
+
+
+.sidebox {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+    background-color: #FAFAFA;
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFF;
+    border-radius: 3px;
+    padding: 18px;
+    margin-top: 28px;
+}
+
+
+.redborder {border: 1px solid red;}
+
+.blackborderg {border-right: 1px solid black;}
+.blackborder {border: 1px dotted black;}
+
+.beige {background-color:Beige;}
+
+
+
+ 
+/*------------------------------
+Ajustement Bmag pour compatibilite boostrap
+*******************************************/
+
+.btn {
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.bg-primary {
+    background-color:#22a4d9 !important;
+    color: white;
+}
+
+
+/********************
+citation pour les forums
+*******************/
+.blockquote {
+    border: 1px dotted #000;
+    margin: 5px;
+    padding: 5px;
+    width: 90%;
+}
+
+/***********************
+Pour eviter que les images ne débordent
+***************************/
+.row {
+    width: 100%;
+    margin-right: 0rem;
+    margin-left: 0rem;
+}
+
+
+
+
+/*******Pour les police des formulaires   jmd  */
+
+.form-control {
+    font-size: 1.25rem;   }
+    
+
+label, textarea {
+    font-size: 1em;
+    line-height: 1.5;
+    margin: .5em 0;
+}
+
+
+/* ==> class de NPDS dans le core */
+
+
+/*****jmd* pour décoler le texte des bordures de Table*/
+
+
+ol li:nth-child(2n+1){background-color:#f9f9f9;}
+/* pour une liste */
+
+/*************
+

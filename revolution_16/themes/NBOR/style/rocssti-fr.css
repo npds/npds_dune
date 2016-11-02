@@ -86,7 +86,7 @@ html {
   font-size: 62.5%;
   /* IE9-IE11 math fixing. Voir http://bit.ly/1g4X0bX */
   /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
-  font-size: calc(1em * 0.625);
+/*   font-size: calc(1em * 0.625); */
 }
 body {
   background: #fff;
@@ -690,120 +690,6 @@ hr {
  *****************************************************************
  */
 
-/* donne envie de cliquer sur un bouton */
-label,
-button,
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
-  cursor: pointer;
-}
-
-/* évite un resize potentiellement foireux */
-textarea {
-  resize: vertical;
-}
-/* supprime un bug Firefox sur button */
-button::-moz-focus-inner { border: 0; padding: 0; }
-
-label,
-button,
-input,
-select {
-  vertical-align: middle;
-}
-
-/** fix typo inputs **/
-input,
-select,
-textarea,
-optgroup,
-button {
-  font: inherit;
-}
-
-/* à adapter selon le design voulu */
-input,
-select,
-textarea {
-  border: 1px solid #800000;
-  border-radius: 5px;
-  padding: .5em;
-  width: 250px;
-}
-
-/* pour les textes des champs */
-.label {
-  display: inline-block;
-}
-
-/* à adapter selon le design voulu */
-.button {
-  background: #fff;
-  border-radius: 5px;
-  -webkit-box-shadow: 1px 1px 1px #ddd; 
-  box-shadow: 1px 1px 1px #ddd; 
-  color: #000;
-}
-
-/* 
- * évite dimensionnement des radios, checkboxes et images
- * et un affichage différent sous IE 
- */
-input[type="radio"],
-input[type="checkbox"],
-input[type="image"] {
-  background-color: transparent;
-  border: 0;
-  width: auto;
-}
-
-/* pour annuler la taille des inputs ou autres */
-.auto {
-  width: auto;
-}
-
-/* messages d’erreur ou de confirmation */
-.alert,
-.alert input,
-.alert textarea,
-.alert select {
-  color: #bf0000;
-  font-weight: bold;
-}
-/* .redborder sert à débugger uniquement */
-.alert input,
-.alert textarea,
-.alert select,
-.redborder {
-  border: 1px solid #bf0000;
-}
-.alert img {
-  border: 0;
-}
-/*.ok {
-
-}*/
-
-/* 
- * peut être complété par les attributs HTML5 required
- * exemple avec une couleur, penser à ne pas uniquement transmettre l’info ainsi
- */
-/*select:required:invalid,
-input:required:invalid,
-input:focus:invalid,
-textarea:required:invalid,
-textarea:focus:invalid {
-  background: #fef6f6;
-  -moz-box-shadow: none;
-}
-
-input:focus:required:valid,
-textarea:focus:required:valid,
-select:focus:required:valid {
-  background: #efe;
-  -moz-box-shadow: none;
-}*/
 
 
 

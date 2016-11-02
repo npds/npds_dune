@@ -787,6 +787,7 @@ function adm_translate($phrase) {
   case "Publications connexes": $tmp="相关发表文章"; break;
   case "Ajouter une publication": $tmp="添加一个发表文章"; break;
   case "Editer une publication": $tmp="编辑一个发表文章"; break;
+  case "Effacer la publication :": $tmp="Delete a publication:"; break;
   case "Etes-vous certain de vouloir effacer cette publication ?": $tmp="您肯定要删除该发表信息吗？"; break;
   case "Droits de publication": $tmp="发表文章之权益"; break;
   case "publication(s) attachée(s)": $tmp="相关的发表文章"; break;

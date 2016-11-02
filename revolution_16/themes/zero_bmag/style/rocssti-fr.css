@@ -46,55 +46,10 @@
 
 /*
  *****************************************************************
- * 1 -- reset
+ * 1 -- reset          Je vire tout pour garder que celui de Bootstrap
  *****************************************************************
  */
 
-/* spécial HTML 5 */
-article, aside, datagrid, datalist, details, dialog, figure, footer, header, main, menu, nav, section { display: block; }
-audio, canvas, progress, video { display: inline-block; }
-abbr, eventsource, mark, meter, time, output, bb { display: inline; }
-
-/* à commenter/fallback si vous vous souciez d’IE<8 */
-html { box-sizing: border-box; }
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-/* reset minimum */
-html, body, blockquote, ul, ol, form, button { margin: 0; padding: 0; }
-button { border: 0; }
-p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
-  font-size: 1em; /* equiv 14px */
-  line-height: 1.5;
-  margin: 1.5em 0;
-}
-
-/* fix display img/iframe */
-img,
-iframe { vertical-align: middle; }
-
-ul, ol { padding-left: 2em; }
-
-.unstyled {
-  padding-left: 0;
-  list-style-type: none;
-}
-
-/* la base correspond à 10px */
-html { 
-  font-size: 62.5%;
-  /* IE9-IE11 math fixing. Voir http://bit.ly/1g4X0bX */
-  /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
-  font-size: calc(1em * 0.625);
-}
-body {
-  background: #fff;
-  color: #333;
-  font-family: Arial, sans-serif;
-  font-size: 1.4rem;
-  line-height: 1.5; /* à corriger si besoin est */
-}
 
 
 
@@ -105,9 +60,10 @@ body {
  *****************************************************************
  */ 
 
-/*@font-face {
+html { font-size: 62.5%; }
+body { font-size: 1.6rem; } /* =16px */
 
-}*/
+}
 
 /* calculées via http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
 
@@ -164,11 +120,11 @@ h6,
   line-height: 2.1;
   margin: 2.1em 0;
 }
-.small {
-  font-size: 1.2rem; /* equiv 12px */
+/* .small {
+  font-size: 1.2rem;
   line-height: 1.75;
   margin: 1.75em 0;
-}
+} */                        
 .big {
   font-size: 1.6rem; /* equiv 16px */
   line-height: 1.3125;

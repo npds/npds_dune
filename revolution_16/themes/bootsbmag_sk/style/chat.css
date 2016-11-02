@@ -1,5 +1,5 @@
-@import "../../../../lib/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.css"; 
-.smil {
+@import "../../../../lib/bootstrap/dist/css/bootstrap.min.css"; 
+.n-smil {
 width:24px;
 height:24px;
 }

@@ -2,14 +2,14 @@
 /************************************************************************/
 /* Theme for NPDS / Net Portal Dynamic System                           */
 /* =====================================================================*/
-/*        Theme : jpb Jireck Bmag     Rocssti2015                                                                */
+/*        Theme : jpb Jireck Bmag     npds-roc2016                                                                */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-$theme      = "Rocssti2015";
+$theme      = "npds-roc2016";
 $long_chain = "15"; // Nombre de caractères affiché avant troncature pour certains blocs
 
 // Par defaut NPDS utilise pour une partie de sa présentation les fonctions OpenTable() - CloseTable() ET OpenTable2() - CloseTable2()

@@ -787,6 +787,7 @@ function adm_translate($phrase) {
   case "Publications connexes": $tmp="Related publications"; break;
   case "Ajouter une publication": $tmp="Add a publication"; break;
   case "Editer une publication": $tmp="Edit a publication"; break;
+  case "Effacer la publication :": $tmp="Delete a publication:"; break;
   case "Etes-vous certain de vouloir effacer cette publication ?": $tmp="Are you sure you want delete this publication?"; break;
   case "Droits de publication": $tmp="Publication' rights"; break;
   case "publication(s) attachée(s)": $tmp="attached publication(s)"; break;
@@ -799,7 +800,7 @@ function adm_translate($phrase) {
   case "Ajouter une nouvelle Sous-Rubrique": $tmp="Add a new Sub-Section"; break;
   case "Nom de la Sous-Rubrique : ": $tmp="Sub-Section Name:"; break;
   case "Image pour la Sous-Rubrique": $tmp="Sub-Section Image"; break;
-  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Once that you will have validated this publication, it will be integrated in temporary base, and the administrator will be warned. He will aim this publication.<br/> It is normal than for the moment, this publication does not appear in the tree structure."; break;
+  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Once that you will have validated this publication, it will be integrated in temporary base, and the administrator will be warned. He will aim this publication. It is normal than for the moment, this publication does not appear in the tree structure."; break;
   case "Mettre à jour": $tmp="Update"; break;
   case "Publier": $tmp="Publish"; break;
   case "Vos droits de publications vous permettent de mettre à jour, de supprimer ou de le mettre en ligne sur le site ce contenu.": $tmp="Your rights of publications enable you to update, to remove or to put on line this content."; break;

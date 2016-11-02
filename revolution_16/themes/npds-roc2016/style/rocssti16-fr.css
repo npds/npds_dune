@@ -7,7 +7,7 @@
  * inspiré par http://www.knacss.com/
  * 
  * Une Röcssti-quote, juste pour le plaisir :
- * « Merci pour ce moment… d’intégration. » — Valérie Trierweiler 
+ * « Röcssti, je suis ton père. » — Nicolas Hoffmann 
  *
  * ROCSSTI est sous licence MIT : https://github.com/nico3333fr/ROCSSTI/blob/master/LICENSE
  * 
@@ -19,11 +19,6 @@
  *  .parent
  *  .parent__enfant
  *  .parent--modifieur  
- * 
- *
- * RTL = Right To Left => 
- * pour adapter un site dans une langue qui se lit de droite à gauche
- * prévu surtout pour sites multilingues avec LTR et RTL 
  *  
  * 
  * résumé
@@ -70,7 +65,7 @@ html { box-sizing: border-box; }
 html, body, blockquote, ul, ol, form, button { margin: 0; padding: 0; }
 button { border: 0; }
 p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
-  font-size: 1em; /* equiv 14px */
+  font-size: 1em; /* equiv 16px */
   line-height: 1.5;
   margin: 1.5em 0;
 }
@@ -79,33 +74,25 @@ p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
 img,
 iframe { vertical-align: middle; }
 
-ul, ol { padding-left: 2em; }
+ul, ol { padding-left: 1rem; } /* modif JMD*/
 
 .unstyled {
   padding-left: 0;
   list-style-type: none;
 }
-[dir="rtl"] ul, 
-[dir="rtl"] ol { 
-  padding-left: 0; 
-  padding-right: 2em;
-}
-[dir="rtl"] .unstyled {
-  padding-right: 0;
-}
 
 /* la base correspond à 10px */
 html { 
   font-size: 62.5%;
-  /* IE9-IE11 math fixing. Voir http://bit.ly/1g4X0bX */
+  /* IE9-IE11 math fixing. Voir https://connect.microsoft.com/IE/feedback/details/816709/ */
   /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
-  font-size: calc(1em * 0.625);
+  /* font-size: calc(1em * 0.625); */
 }
 body {
   background: #fff;
   color: #333;
   font-family: Arial, sans-serif;
-  font-size: 1.4em; /* taille de base équiv à 14px */
+  font-size: 1.6rem;
   line-height: 1.5; /* à corriger si besoin est */
 }
 
@@ -122,49 +109,50 @@ body {
 
 }*/
 
-/* calculées via http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
+/* calculées via https://rocssti.net/builder-css
+ * basé sur http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
 
 h1,
 .h1 {
   display: block;
-  font-size: 1.85714em; /* equiv 26px */
-  line-height: 1.61538;
-  margin: 1.61538em 0 .80769em 0;
+  font-size: 2.6rem; /* equiv 26px */
+  line-height: 1.84615;
+  margin: 0 0 .92308em 0;
 }
 h2,
 .h2 {
   display: block;
-  font-size: 1.71429em; /* equiv 24px */
-  line-height: 1.75;
-  margin: 1.75em 0 .875em 0;
+  font-size: 2.4rem; /* equiv 24px */
+  line-height: 1;
+  margin: 0 0 .5em 0;
 }
 h3,
 .h3 {
   display: block;
-  font-size: 1.57143em; /* equiv 22px */
-  line-height: 1.90909;
-  margin: 1.90909em 0 .95455em 0;
+  font-size: 2.2rem; /* equiv 22px */
+  line-height: 1.09091;
+  margin: 0 0 1.09091em 0;
 }
 h4,
 .h4 {
   display: block;
-  font-size: 1.42857em; /* equiv 20px */
-  line-height: 1.05;
-  margin: 2.1em 0 1.05em 0;
+  font-size: 2rem; /* equiv 20px */
+  line-height: 1.2;
+  margin: 0 0 1.2em 0;
 }
 h5,
 .h5 {
   display: block;
-  font-size: 1.28571em; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 2.33333em 0 1.16667em 0;
+  font-size: 1.8rem; /* equiv 18px */
+  line-height: 1.33333;
+  margin: 0 0 1.33333em 0;
 }
 h6,
 .h6 {
   display: block;
-  font-size: 1.14286em; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 2.625em 0 1.3125em 0;
+  font-size: 1.6rem; /* equiv 16px */
+  line-height: 1.5;
+  margin: 0 0 1.5em 0;
 }
 
 .uppercase {
@@ -173,29 +161,25 @@ h6,
 
 /* autres classes utiles */
 .smaller {
-  font-size: .71429em; /* equiv 10px */
-  line-height: 2.1;
-  margin: 2.1em 0;
+  font-size: 1rem; /* equiv 10px */
+  line-height: 2.4;
+  margin: 2.4em 0;
 }
-/* .small {
-  font-size: .85714em; /* equiv 12px */
-  line-height: 1.75;
-  margin: 1.75em 0;
-} */
+
 .big {
-  font-size: 1.14286em; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 1.3125em 0;
+  font-size: 1.6rem; /* equiv 16px */
+  line-height: 1.5;
+  margin: 1.5em 0;
 }
 .bigger {
-  font-size: 1.28571em; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 1.16667em 0;
+  font-size: 1.8rem; /* equiv 18px */
+  line-height: 1.33333;
+  margin: 1.33333em 0;
 }
 .biggest {
-  font-size: 1.42857em; /* equiv 20px */
-  line-height: 1.05;
-  margin: 1.05em 0;
+  font-size: 2rem; /* equiv 20px */
+  line-height: 1.2;
+  margin: 1.2em 0;
 }
 
 
@@ -209,10 +193,6 @@ h6,
 
 .noborder,
 iframe { border: 0; }
-
-table {
-  table-layout: fixed;
-}
 
 /*
  * repris de http://tinytypo.tetue.net/ de @tetue
@@ -259,27 +239,6 @@ sub {
 }
 
 
-/* éviter problèmes de margin */
-h1:first-child, .h1:first-child,
-h2:first-child, .h2:first-child,
-h3:first-child, .h3:first-child,
-h4:first-child, .h4:first-child,
-h5:first-child, .h5:first-child,
-h6:first-child, .h6:first-child {
-  margin-top: 0;
-}
-
-/* virer marge basse sur dernier enfant */
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-blockquote:last-child,
-pre:last-child,
-table:last-child {
-  margin-bottom: 0;
-}
-
 
 
 
@@ -290,7 +249,7 @@ li ul {
   margin-top: 0;
 }
 /* Vous ne passerez PAS (Gandalf) */
-textarea,
+/*textarea,
 table,
 td,
 th,
@@ -298,7 +257,7 @@ code,
 pre,
 samp,
 div,
-p,
+p,*/
 .cut {
   word-wrap: break-word;
   -webkit-hyphens: auto;
@@ -333,6 +292,7 @@ kbd {
 }
 table {
   margin-bottom: 1.5em;
+  table-layout: fixed;
 }
 /* j’y tiens, les abbr c’est bon pour la planète */
 /* seuls ceux ayant un title sont signalés */
@@ -347,10 +307,6 @@ abbr[title] {
 .alignright  { text-align: right; }
 .aligncenter { text-align: center; }
 .alignleft   { text-align: left; }
-
-/* RTL */
-[dir="rtl"] .alignright  { text-align: left; }
-[dir="rtl"] .alignleft   { text-align: right; }
 
 
 
@@ -370,13 +326,17 @@ a {
 a:focus,
 a:hover,
 a:active {
-  color: #a65300;
+  color: #000;
 }
 /* éviter la bordure sur une image comprise dans un lien + fix bordure image IE */
 a:link img,
 a:visited img, 
 img {
   border-style: none;
+}
+
+.nodecoration {
+  text-decoration: none;
 }
 
 /* liens avec icônes, on peut utiliser les DATA-URI */
@@ -460,39 +420,27 @@ svg {
 .clear {
   clear: both;
 }
+
 .clearleft {
   clear: left;
 }
 .clearright {
   clear: right;
 }
+
 .clearhidden {
   clear: both;
   margin: 0;
   padding: 0;
   visibility: hidden;
 }
+
 .clearfix:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
-}
-
-/* RTL */
-[dir="rtl"] .left {
-  float: right;
-}
-[dir="rtl"] .right {
-  float: left;
-}
-
-[dir="rtl"] .clearleft {
-  clear: right;
-}
-[dir="rtl"] .clearright {
-  clear: left;
 }
 
 
@@ -503,8 +451,12 @@ svg {
 }
 
 /* gestion du table-design en CSS */
-.row {
+/* .row {
   display: table;
+  table-layout: fixed; */
+}
+.inline-row {
+  display: inline-table;
   table-layout: fixed;
 }
 .line {
@@ -618,14 +570,6 @@ svg {
 .m02  { margin: 0.725em; }
 
 
-/* RTL = attention, utiliser avec précaution */
-[dir="rtl"] .mr0 { margin-left: 0; }
-[dir="rtl"] .mr1 { margin-right: inherit; margin-left: 1em; }
-[dir="rtl"] .mr2 { margin-right: inherit; margin-left: 2em; }
-[dir="rtl"] .ml0 { margin-right: 0; }
-[dir="rtl"] .ml1 { margin-left: inherit; margin-right: 1em; }
-[dir="rtl"] .ml2 { margin-left: inherit; margin-right: 2em; }
-
 
 /* paddings */
 .pt0 { padding-top: 0; }
@@ -643,15 +587,6 @@ svg {
 .p0  { padding: 0; }
 .p1  { padding: 1em; }
 .p2  { padding: 2em; }
-
-
-/* RTL = attention, utiliser avec précaution */
-[dir="rtl"] .pr0 { padding-left: 0; }
-[dir="rtl"] .pr1 { padding-right: 0; padding-left: 1em; }
-[dir="rtl"] .pr2 { padding-right: 0; padding-left: 2em; }
-[dir="rtl"] .pl0 { padding-right: 0; }
-[dir="rtl"] .pl1 { padding-left: 0; padding-right: 1em; }
-[dir="rtl"] .pl2 { padding-left: 0; padding-right: 2em; }
 
 
 /* spécial hr de 1px de haut */
@@ -750,130 +685,9 @@ hr {
 
 /*
  *****************************************************************
- * 07 -- forms
+ * 07 -- forms      je vire tout pour laisser BT travailler
  *****************************************************************
  */
-
-/* donne envie de cliquer sur un bouton */
-label,
-button,
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
-  cursor: pointer;
-}
-
-/* évite un resize potentiellement foireux */
-textarea {
-  resize: vertical;
-}
-
-label,
-button,
-input,
-select {
-  vertical-align: middle;
-}
-
-/** fix typo inputs **/
-input,
-select,
-textarea,
-button {
-  font-family: inherit;
-  font-size: 1em;
-}
-
-/* à adapter selon le design voulu */
-input,
-select,
-textarea {
-  border: 1px solid #804000;
-  border-radius: 5px;
-  padding: .5em;
-  width: 250px;
-}
-
-/* pour les textes des champs */
-.label {
-  display: inline-block;
-}
-
- label, textarea {
-    font-size: 1em;
-    line-height: 1.5;
-    margin: 0px;
-}
-
-/* à adapter selon le design voulu */
-.button {
-  background: #fff;
-  border-radius: 5px;
-  -webkit-box-shadow: 1px 1px 1px #ddd; 
-  box-shadow: 1px 1px 1px #ddd; 
-  color: #000;
-}
-
-/* 
- * évite dimensionnement des radios, checkboxes et images
- * et un affichage différent sous IE 
- */
-input[type="radio"],
-input[type="checkbox"],
-input[type="image"] {
-  background-color: transparent;
-  border: 0;
-  width: auto;
-}
-
-/* pour annuler la taille des inputs ou autres */
-.auto {
-  width: auto;
-}
-
-/* messages d’erreur ou de confirmation */
-.alert,
-.alert input,
-.alert textarea,
-.alert select {
-  color: #bf0000;
-  font-weight: bold;
-}
-/* .redborder sert à débugger uniquement */
-.alert input,
-.alert textarea,
-.alert select,
-.redborder {
-  border: 1px solid #bf0000;
-}
-.alert img {
-  border: 0;
-}
-/*.ok {
-
-}*/
-
-/* 
- * peut être complété par les attributs HTML5 required
- * exemple avec une couleur, penser à ne pas uniquement transmettre l’info ainsi
- */
-/*select:required:invalid,
-input:required:invalid,
-input:focus:invalid,
-textarea:required:invalid,
-textarea:focus:invalid {
-  background: #fef6f6;
-  -moz-box-shadow: none;
-}
-
-input:focus:required:valid,
-textarea:focus:required:valid,
-select:focus:required:valid {
-  background: #efe;
-  -moz-box-shadow: none;
-}*/
-
-
 
 
 /*
@@ -993,6 +807,35 @@ select:focus:required:valid {
  *****************************************************************
  */
 
+@media (max-width: 20em) { /* equiv 320px */
+
+  /**
+   * layout/modules
+   */
+
+  /* affichage des éléments */
+  /*.nomobile { display: block; }*/
+
+  /* cachage des éléments inutiles ! */
+  .notinymobile { display: none; }
+
+  /* linéarisation contenus flottants/table-layout */
+  .autotinymobile {
+    float: none;
+    display: block;
+    width: auto;
+  }
+
+  /**
+   * adaptation structure globale (page / skip links / header / contenu principal / footer)
+   */
+  
+  
+  /**
+   * dans le contenu (contenus spécifiques aux pages)
+   */
+
+}
 
 
 
@@ -1010,7 +853,7 @@ select:focus:required:valid {
    */
   body,
   html,
-  #page,
+  .page,
   .reset4print {
     background-color: #fff;
     background-image: none;
@@ -1168,12 +1011,4 @@ select:focus:required:valid {
 .ie7 .row,
 .ie6 .row {
   overflow: auto;
-}
-
-/* RTL */
-[dir="rtl"] .ie7 .col,
-[dir="rtl"] .ie7 .col-noalign,
-[dir="rtl"] .ie6 .col,
-[dir="rtl"] .ie6 .col-noalign {
-  float: right;
 }

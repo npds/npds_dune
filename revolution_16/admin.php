@@ -768,7 +768,9 @@ if ($admintest) {
       case 'updatecompat':
       case 'droitauteurs':
       case 'updatedroitauteurs':
+/*
       case 'menu_dyn':
+*/
          include("admin/sections.php");
       break;
       // BLOCKS
