@@ -1,24 +1,95 @@
 /* ----------------------------------------------------------------------
    1. BASE MINIMUM          NBOR
 ---------------------------------------------------------------------- */
-body {
+/** <== Classes BS4                                                         **/
 
-/*     background: transparent -moz-linear-gradient(center top , #E7E3CF 0.1em, transparent 0.1em) repeat scroll 0% 0% / 100% 1.5em;
-    border:5px solid red; */
+/** ==> Classes NPDS-core [prefixe n-]                                      **/
+/* ==> pour les avatars et images */
+.n-ava {
+max-width:48px;
+max-height:48px;
 }
-/* ----------------------------------------------------------------------
-   2. LIENS - standard  voir ROCSSTI point 04 -- liens + icônes
----------------------------------------------------------------------- */
+.n-ava-small {
+max-width:48px;
+max-height:48px;
+}
+.n-smil {
+width:24px;
+height:24px;
+display:inline;
+}
+.n-sujetsize {
+max-width : 100px;
+height : auto;
+}
+.fond_emot, .fond_subject {
+line-height:28px;
+}
+/* ==> pour la signature */
+.n-signature {
+font-style: italic;
+text-align: right !important;
+padding-top: 1.1rem !important;
+}
+/* ==> pour les troncatures de mots trop longs */
 
-/* ----------------------------------------------------------------------
-   3. LIENS - de style noir.
-   => en général les actions « positives » quand se ne sont pas des boutons
----------------------------------------------------------------------- */
+.n-list-compact-no-bord {
+padding-top: .35rem;
+padding-bottom: .35rem;
+padding-right: 0rem;
+padding-left: 0rem;
+border:0px;
 
-/* ----------------------------------------------------------------------
-   4 LIENS - de style rouge.
-   => en général les actions de type: annulation, suppression,
----------------------------------------------------------------------- */
+}
+
+.n-card-compact-no-padside {
+padding-right: 0rem;
+padding-left: 0rem;
+
+border:0px;
+
+}
+
+.n-hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.n-ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/** <== Classes NPDS-core                                                   **/
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.15rem;
+    margin-bottom: -1px;
+/*     background-color: #fff;
+    border: 1px solid #ddd */;
+}
+
+ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.btn {
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 1em;
+}
+
 
 /* ----------------------------------------------------------------------
    5 LIENS - Blob de droite on inverse les couleurs
@@ -385,13 +456,18 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 }
 
 .leftbloc{
-   padding:0.15em;
+   padding:1.15em;
    color: #333;
     border-width: 1px;
     border-style: solid;
     border-color: #dbd8c4;
     margin: 0px 10px 5px 10px;
     background-color: #f7f7f7;
+}
+
+#col_LB ul, #col_RB ul {
+    list-style: none;
+    padding-left: 0px;
 }
 
 /************************************
@@ -453,6 +529,7 @@ mes articles
 	border-top: 9px solid #666;
 	border-bottom: 4px solid #969696;
 	border-radius: .025rem;
+	padding-left: 0.350rem;
 }
 
 .card-article {
@@ -507,11 +584,6 @@ mes articles
 /*****************************************
 Adaptation des css au fil du test
 *********************************************/
- .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
 
 
 
@@ -641,13 +713,12 @@ legend { /* Titre pour identifier chaque fieldset */
 
 /*******Pour les police des formulaires  et deco jmd  */
 .form-control {
-    max-width: 100%;
-    font-size: 14px;
-    background-color: #FDFDFD;
+
     border-width: 1px;
     border-style: solid;
     border-color: #D5B199;
     color: #864732;
+	font-size: 1.2rem;
  }
 
 .checkbox label input:only-child, .radio label input:only-child {
@@ -894,20 +965,3 @@ background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1); }
     padding-right: 1rem;
 }
 
-.btn {
-    display: inline-block;
-    padding: .375rem 1rem;
-    font-size: 1em;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-}
