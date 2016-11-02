@@ -179,6 +179,7 @@ function sections() {
    if ($nb_rub > 0) {
    $i=-1;
       echo '
+      <hr />
       <h3 class="my-1">'.adm_translate("Liste des rubriques").'</h3>';
       while (list($rubid, $rubname, $enligne, $ordre) = sql_fetch_row($result)) {$i++;
          if ($radminsuper==1) {
@@ -205,7 +206,7 @@ function sections() {
          if (sql_num_rows($result2) > 0) {
             echo '
             <ul id="srub_'.$i.'" class="list-group mb-1 collapse">
-               <li class="list-group-item"><span class="tag tag-default">'.sql_num_rows($result2).'</span> <strong class="ml-1">'.adm_translate("Sous-rubriques").'</strong>';
+               <li class="list-group-item"><span class="tag tag-default ml-1">'.sql_num_rows($result2).'</span>&nbsp;<strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1) {
                   echo '<span class="float-xs-right"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
                }
@@ -216,7 +217,7 @@ function sections() {
               $secname=aff_langue($secname);
                echo '
                <li class="list-group-item ">
-                  <a class="arrow-toggle text-primary ml-2" data-toggle="collapse" data-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;
+                  <a class="arrow-toggle text-primary ml-1" data-toggle="collapse" data-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;
 
                '.$secname.'&nbsp;
                <span class=" float-xs-right">
@@ -232,11 +233,17 @@ function sections() {
                if (sql_num_rows($result3) > 0) {
                   $ibid=true;
                   echo '
-                  <ul id="lst_sect_'.$secid.'" class="list-group collapse">';
+                  <ul id="lst_sect_'.$secid.'" class="list-group collapse">
+                  <li class="list-group-item">
+                  <span class="tag tag-default ml-2">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
+                  if ($radminsuper==1) {
+                     echo '<span class="float-xs-right"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").'" data-toggle="tooltip" data-placement="left">&nbsp;<i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
+                  }
+                  echo '</li>';
                   while (list($artid, $title) = sql_fetch_row($result3)) {
                      if ($title=='') $title=adm_translate("Sans titre");
                      echo '
-                     <li class="list-group-item  list-group-item-action"><span class="ml-3">'.aff_langue($title).'</span>
+                     <li class="list-group-item list-group-item-action"><span class="ml-3">'.aff_langue($title).'</span>
                         <span class="float-xs-right">
                            <a href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;prev=1"><i class="fa fa-eye fa-lg"></i></a>&nbsp;
                            <a href="admin.php?op=secartedit&amp;artid='.$artid.'" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
@@ -247,10 +254,6 @@ function sections() {
                      echo '
                         </span>
                      </li>';
-                  }
-                  if ($radminsuper==1) {
-                     // modifier l'ordre des publications au sein de la sous-rubrique
-//                     echo '<a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" >'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").'</a>';
                   }
                   echo '
                   </ul>';
@@ -1128,8 +1131,11 @@ function ordremodule() {
       $i++;
       echo '<tr>
                <td width="80%"><label for="ordre['.$i.']">'.aff_langue($rubname).'</label></td>
-               <td width="20%"><input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
+               <td width="20%">
+               <div class="form-group">
+                  <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
                   <input type="number" class="form-control" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
+               </div>
                </td>
            </tr>';
       }
@@ -1140,7 +1146,7 @@ function ordremodule() {
       <div class="form-group">
          <input type="hidden" name="i" value="'.$i.'" />
          <input type="hidden" name="op" value="majmodule" />
-         <button type="submit" class="btn btn-primary" ><i class="fa fa-check"></i>'.adm_translate("Valider").'</button>
+         <button type="submit" class="btn btn-primary" >'.adm_translate("Valider").'</button>
          <button class="btn btn-secondary" onclick="javascript:history.back()" >'.adm_translate("Retour en arrière").'</button>
       </div>
    </form>';
@@ -1189,29 +1195,30 @@ function ordrechapitre() {
    adminfoot('fv','','','');
 }
 function ordrecours() {
-   global $secid, $hlpfile, $radminsuper, $NPDS_Prefix;
+   global $secid, $hlpfile, $radminsuper, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    if ($radminsuper <> 1) {
       Header("Location: admin.php?op=sections");
    }
    include("header.php");
    GraphicAdmin($hlpfile);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
    $result = sql_query("SELECT secname FROM ".$NPDS_Prefix."sections WHERE secid='$secid'");
    list($secname) = sql_fetch_row($result);
    echo '
+   <hr />
    <h3>'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").' / '.aff_langue($secname).'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
-               <th data-sortable="true" class="n-t-col-xs-9>'.adm_translate("Publications").'</th>
-               <th data-sortable="true" class="n-t-col-xs-3>'.adm_translate("Index").'</th>
+               <th data-sortable="true" class="n-t-col-xs-9">'.adm_translate("Publications").'</th>
+               <th data-sortable="true" class="n-t-col-xs-3">'.adm_translate("Index").'</th>
             </tr>
          </thead>
          <tbody>';
    $result = sql_query("SELECT artid, title, ordre FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
    $i=0;
    while(list($artid, $title, $ordre) = sql_fetch_row($result)) {
-      $rowcolor=tablos();
       $i++;
       echo '
             <tr>
@@ -1226,15 +1233,13 @@ function ordrecours() {
       <div class="form-group mt-1">
          <input type="hidden" name="op" value="majcours" />
          <input type="submit" class="btn btn-primary" value="'.adm_translate("Valider").'" />
-         <input type="button" class="bnt btn-secondary" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
+         <input type="button" class="btn btn-secondary" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
       </div>
    </form>';
    include("footer.php");
 }
 function updateordre($rubid, $artid, $secid, $op, $ordre) {
-   global $NPDS_Prefix;
-
-   global $radminsuper;
+   global $NPDS_Prefix, $radminsuper;
    if ($radminsuper!=1) {
       Header("Location: admin.php?op=sections");
    }
@@ -1374,32 +1379,7 @@ function updaterights($chng_aid, $maxindex, $creation, $publication, $modificati
    Header("Location: admin.php?op=sections");
 }
 // Fonctions DROIT des AUTEURS
-/*
-// Fonctions Param du menu barre des sections
-function menudyn_save($sections_chemin, $togglesection) {
-   $file = fopen("sections.config.php", "w");
-   $content = "<?php\n";
-   $content .= "$line";
-   $content .= "# # DUNE by NPDS : Net Portal Dynamic System\n";
-   $content .= "# ===================================================\n";
-   $content .= "#\n";
-   $content .= "# This version name NPDS Copyright (c) 2001-2012 by Philippe Brunier\n";
-   $content .= "#\n";
-   $content .= "# This module is to configure the Sections \n";
-   $content .= "#\n";
-   $content .= "# This program is free software. You can redistribute it and/or modify\n";
-   $content .= "# it under the terms of the GNU General Public License as published by\n";
-   $content .= "# the Free Software Foundation; either version 2 of the License.\n";
-   $content .= "\n";
-   $content .= "\$sections_chemin=$sections_chemin;\n";
-   $content .= "\$togglesection=$togglesection;\n";
-   $content .= "?>";
-   fwrite($file, $content);
-   fclose($file);
-   Header("Location: admin.php?op=sections");
-}
-// Fonctions Param du menu barre des sections
-*/
+
 switch ($op) {
    case "new_rub_section":    new_rub_section($type); break;
    case "sections":           sections(); break;
@@ -1435,7 +1415,5 @@ switch ($op) {
 
    case "droitauteurs":       publishrights($author); break;
    case "updatedroitauteurs": updaterights($chng_aid, $maxindex, $creation, $publication, $modification, $suppression); break;
-
-   //case "menu_dyn":           menudyn_save($sections_chemin, $togglesection); break;
 }
 ?>
