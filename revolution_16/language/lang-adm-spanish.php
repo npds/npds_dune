@@ -787,6 +787,7 @@ function adm_translate($phrase) {
   case "Publications connexes": $tmp="Publicaciones conexas"; break;
   case "Ajouter une publication": $tmp="Añadir una publicación"; break;
   case "Editer une publication": $tmp="Editar una publicación"; break;
+  case "Effacer la publication :": $tmp="Delete a publication:"; break;
   case "Etes-vous certain de vouloir effacer cette publication ?": $tmp="¿Esta seguro de querer borrar esta publicación?"; break;
   case "Droits de publication": $tmp="Derechos de publicación"; break;
   case "publication(s) attachée(s)": $tmp="publicacion(es) vinculada(s)"; break;
