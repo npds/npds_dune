@@ -989,7 +989,7 @@ function adminStory() {
       if ($radminsuper) {
          $affiche=true;
       } else {
-         $topicadminX=explode(",",$topicadmin);
+         $topicadminX=explode(',',$topicadmin);
          for ($i = 0; $i < count($topicadminX); $i++) {
             if (trim($topicadminX[$i])==$aid) $affiche=true;
          }
