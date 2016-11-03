@@ -146,7 +146,7 @@ echo '
       $(".topi").hover(function(){
          topid = $(this).attr("id");
          topid=topid.substr (topid.search(/\d/))
-         $button = $(\'<div id="shortcut-tools" class=""><a class="text-danger btn" href="admin.php?op=FaqCatGoDel&amp;id=\'+topid+\'&amp;ok=0" ><i class="fa fa-trash-o fa-2x" title="'.adm_translate("Supprimer la question réponse").'" data-toggle="tooltip" data-placement="left"></i></a></div>\')
+         $button = $(\'<div id="n-shortcut-tools" class=""><a class="text-danger btn" href="admin.php?op=FaqCatGoDel&amp;id=\'+topid+\'&amp;ok=0" ><i class="fa fa-trash-o fa-2x" title="'.adm_translate("Supprimer la question réponse").'" data-toggle="tooltip" data-placement="left"></i></a></div>\')
          $(this).append($button);
          $button.show();
       }, function(){
