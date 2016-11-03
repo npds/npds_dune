@@ -86,60 +86,6 @@ $scri_check ='
    //]]>
 </script>';
 
-function modulesadmin ($chng_moduadmin) {
-global $modu,$fieldnames,$NPDS_Prefix;
-// from plugins.php ... analyse extend-modules.txt, construction list des droits admin module
-   if (file_exists("admin/extend-modules.txt")) {
-    // ==> tableau des droits de l'admin (le nom de la fonction(= champ) si droit est à 1) a little bit obsolete since lesradmin ne sont plus la a l'exception de fm et super
-    $result=sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$chng_moduadmin'");
-    $row = sql_fetch_assoc ($result);
-      $droit_adm_fonct=array();
-      foreach ($fieldnames as $k =>$v) {
-        if ($row[$v]==1) {$droit_adm_fonct[]=$v;}
-      }
-    // <== tableau des droits de l'admin (le nom de la fonction(= champ) si droit est à 1)
-   
-      $fp=fopen("admin/extend-modules.txt","r");
-      if (filesize("admin/extend-modules.txt")>0)
-         $Xcontent=fread($fp,filesize("admin/extend-modules.txt"));
-      fclose($fp);
-      $tmp = explode("[/module]",$Xcontent);
-      array_pop($tmp);
-      $modu=array();
-// faut encore voir la contradiction entre les droits génériques (no right etc) et les droits individuels et comment on imbrique .. si on considére que extend est par défaut le paramétrage puis on récupére pour la base et faudra ensuite regénérer extend ?....donc ce serait les droits individuels (dans la bd...) + les droits généraux
-      foreach ($tmp as $ibid) {
-         $Tnom=explode("[/nom]",$ibid);
-         if ($ibid) {
-            $Tlevel=explode("[/niveau]",$ibid);
-            if (strpos($ibid,"[/niveau]")==0) {};//pas besoin ? c'est un superadmin?...
-
-               $TModPath=explode("[/ModPath]",$ibid);
-               $chemin=substr($TModPath[0], strpos($TModPath[0],"[ModPath]")+9);
-               $modu[]=$chemin;
-               // tableau des admins du modules (|aid|aid)
-
-               $result = sql_query("SELECT madmin FROM ".$NPDS_Prefix."modules WHERE mnom='$chemin'");
-               
-               
-               list($radminmodule) = sql_fetch_row($result);
-               $listradminmodule[]=$radminmodule;
-               // si on netrouve pas l'administrateur dans le module extend ne peut pas etre noright...mais que super admin...
-               //               if(!strstr ( $radminmodule, $chng_moduadmin ) {};
-              if(substr($Tlevel[0], strpos($Tlevel[0],"[niveau]")+8)!=="no-right" and !in_array (substr($Tlevel[0], strpos($Tlevel[0],"[niveau]")+8), $droit_adm_fonct)){};
-
-               if(strstr ( $radminmodule, $chng_moduadmin ) or substr($Tlevel[0], strpos($Tlevel[0],"[niveau]")+8)=="no-right" or in_array (substr($Tlevel[0], strpos($Tlevel[0],"[niveau]")+8), $droit_adm_fonct)) {
-               $listdroits_mod .= '<li><input type="checkbox" name="chng_'.$chemin.'" value="'.$chng_moduadmin.'" checked="checked" /> '.substr($Tnom[0], strpos($Tnom[0],"[nom]")+5).'</li>'."\n";
-               }
-               else
-               {
-               $listdroits_mod .= '<li><input type="checkbox" name="chng_'.$chemin.'" value="'.$chng_moduadmin.'" /> '.substr($Tnom[0], strpos($Tnom[0],"[nom]")+5).'</li>'."\n";
-               }
-         }
-         }//fin de la boucle
-   }
-   return array ($listdroits_mod,$modu,$listradminmodule);
-}
-
 function displayadmins() {
    global $hlpfile, $NPDS_Prefix, $admf_ext, $fieldnames, $listdroits, $listdroitsmodulo, $f_meta_nom, $f_titre, $adminimg, $scri_check;
    include("header.php");
@@ -160,7 +106,7 @@ function displayadmins() {
       <tbody>';
    while(list($a_aid, $name, $url, $email, $supadm) = sql_fetch_row($result)) {
 if ($supadm==1) echo'
-         <tr class="table-info">'; else echo'
+         <tr class="table-danger">'; else echo'
          <tr>';
       echo '
             <td>'.$a_aid.'</td>
@@ -295,10 +241,8 @@ if ($supadm==1) echo'
          }
       }
    },
-   add_email: {
-   },
-   add_url: {
-   },
+   add_email: {},
+   add_url: {},
    add_pwd: {
       validators: {
          notEmpty: {
@@ -345,7 +289,7 @@ function modifyadmin($chng_aid) {
    echo '
    <hr />
    <h3>'.adm_translate("Actualiser l'administrateur").' : <span class="text-muted">'.$chng_aid.'</span></h3>';
-    
+
    $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminfilem, $chng_radminsuper) = sql_fetch_row($result);
 
@@ -540,13 +484,6 @@ function updatedroits($chng_aid) {
       if(stristr("$y", 'ad_d_')) $res= sql_query("INSERT INTO ".$NPDS_Prefix."droits VALUES ('$chng_aid', '$w', 11111)");
    }
 }
-// la meme chose ?....
-function addroits($add_aid) {
-   global $NPDS_Prefix;
-   foreach ( $_POST as $y=>$w) {
-      if(stristr("$y", 'ad_d_')) $res= sql_query("INSERT INTO ".$NPDS_Prefix."droits VALUES ('$add_aid', '$w', 11111)");
-   }
-}
 
 function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5) {
     global $NPDS_Prefix, $modu;
@@ -608,78 +545,56 @@ function error_handler($ibid) {
 
 switch ($op) {
    case 'mod_authors':
-        displayadmins();
-        break;
+      displayadmins();
+   break;
    case 'modifyadmin':
-        modifyadmin($chng_aid);
-        break;
+      modifyadmin($chng_aid);
+   break;
    case 'UpdateAuthor':
-        updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5);
-        break;
+      updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5);
+   break;
    case 'AddAuthor':
-        if (!($add_aid && $add_name && $add_email && $add_pwd)) {
-           global $hlpfile;
-           include("header.php");
-           GraphicAdmin($hlpfile);
-           echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
-           include("footer.php");
-           return;
-        }
-        if ($system_md5) {
-           $add_pwdX=crypt($add_pwd,$add_pwdX);
-        }
-        
-        
-        $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','$add_radminfilem', '$add_radminsuper')");
-        addroits($add_aid);
-
-/*
-            
-          //==> maj des droits admin modules
-          $i=0;$upd='';
-          foreach($modu as $k=>$v){
-            if(!$_POST['chng_'.$v]) {
-            $upd=str_replace ('|'.$add_aid,"",$listradminmodule[$i]);} else {
-               if(strstr ( $listradminmodule[$i], '|'.$add_aid )) $upd=$listradminmodule[$i];
-               else
-               $upd=$listradminmodule[$i].'|'.$add_aid;
-            } 
-            sql_query("UPDATE ".$NPDS_Prefix."modules SET madmin='".$upd."' WHERE mnom='$v'");
-            $i++;
-          }
-          //==> maj des droits admin modules
-
-*/
-
-        // Copie du fichier pour filemanager
-        if ($add_radminsuper or $add_radminfilem)
-           @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($add_aid).".conf.php");
-
-        global $aid; Ecr_Log("security", "AddAuthor($add_aid) by AID : $aid", "");
-        Header("Location: admin.php?op=mod_authors");
-        break;
+      if (!($add_aid && $add_name && $add_email && $add_pwd)) {
+         global $hlpfile;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
+         include("footer.php");
+         return;
+      }
+      if ($system_md5) {
+         $add_pwdX=crypt($add_pwd,$add_pwdX);
+      }
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','$add_radminfilem', '$add_radminsuper')");
+      updatedroits($add_aid);
+      // Copie du fichier pour filemanager
+      if ($add_radminsuper or $add_radminfilem)
+         @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($add_aid).".conf.php");
+      global $aid; Ecr_Log("security", "AddAuthor($add_aid) by AID : $aid", "");
+      Header("Location: admin.php?op=mod_authors");
+   break;
 
    case 'deladmin':
-        global $hlpfile;
-        include("header.php");
-        GraphicAdmin($hlpfile);
-        adminhead ($f_meta_nom, $f_titre, $adminimg);
-        echo '
-        <hr />
-        <h3>'.adm_translate("Effacer l'Administrateur").' : <span class="text-muted">'.$del_aid.'</span></h3>
-        <div class="alert alert-danger">
-           <p><strong>'.adm_translate("Etes-vous sûr de vouloir effacer").' '.$del_aid.' ? </strong></p>
-        </div>
-        <a href="admin.php?op=deladminconf&amp;del_aid='.$del_aid.'" class="btn btn-danger">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=mod_authors" class="btn btn-secondary">'.adm_translate("Non").'</a>';
-        adminfoot('','','','');
-        break;
+      global $hlpfile;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo '
+      <hr />
+      <h3>'.adm_translate("Effacer l'Administrateur").' : <span class="text-muted">'.$del_aid.'</span></h3>
+      <div class="alert alert-danger">
+      <p><strong>'.adm_translate("Etes-vous sûr de vouloir effacer").' '.$del_aid.' ? </strong></p>
+      <a href="admin.php?op=deladminconf&amp;del_aid='.$del_aid.'" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=mod_authors" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>
+      </div>';
+      adminfoot('','','','');
+   break;
    case 'deladminconf':
-        sql_query("DELETE FROM ".$NPDS_Prefix."authors WHERE aid='$del_aid'");
-        deletedroits($chng_aid=$del_aid);
-        // Supression du fichier pour filemanager
-        @unlink("modules/f-manager/users/".strtolower($del_aid).".conf.php");
-        global $aid; Ecr_Log("security", "DeleteAuthor($del_aid) by AID : $aid", "");
-        Header("Location: admin.php?op=mod_authors");
-        break;
+      sql_query("DELETE FROM ".$NPDS_Prefix."authors WHERE aid='$del_aid'");
+      deletedroits($chng_aid=$del_aid);
+      // Supression du fichier pour filemanager
+      @unlink("modules/f-manager/users/".strtolower($del_aid).".conf.php");
+      global $aid; Ecr_Log("security", "DeleteAuthor($del_aid) by AID : $aid", "");
+      Header("Location: admin.php?op=mod_authors");
+   break;
 }
 ?>
