@@ -88,10 +88,13 @@ function FaqCatGo($id_cat) {
       $faq_cat = aff_langue($categories);
       $answer = aff_code(aff_langue($answer));
       $lst_qr.= '
-      <a id="qr_'.$id.'" href="admin.php?op=FaqCatGoEdit&amp;id='.$id.'" class="list-group-item topi" title="'.adm_translate("Editer la question réponse").'" data-toggle="tooltip" >
-         <h5 class="list-group-item-heading">'.aff_langue($question).'</h5>
-         <p class="list-group-item-text">'.meta_lang($answer).'</p>
-      </a>';
+      <li id="qr_'.$id.'" class="list-group-item">
+         <div class="topi">
+            <h5 id="q_'.$id.'" class="list-group-item-heading"><a class="" href="admin.php?op=FaqCatGoEdit&amp;id='.$id.'" title="'.adm_translate("Editer la question réponse").'" data-toggle="tooltip">'.aff_langue($question).'</a></h5>
+            <p class="list-group-item-text">'.meta_lang($answer).'</p>
+            <div id="shortcut-tools_'.$id.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=FaqCatGoDel&amp;id='.$id.'&amp;ok=0" ><i class="fa fa-trash-o fa-2x" title="'.adm_translate("Supprimer la question réponse").'" data-toggle="tooltip" data-placement="left"></i></a></div>
+         </div>
+      </li>';
    }
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
@@ -133,25 +136,25 @@ function FaqCatGo($id_cat) {
    //]]>
    </script>
    <h4>'.adm_translate("Liste des questions réponses").'</h4>
-   <div class="list-group">
+   <ul class="list-group">
       '.$lst_qr.'
-   </div>';
+   </ul>';
 
 
 echo '  
 <script type="text/javascript">
    //<![CDATA[
-   $(function() {
+      $(document).ready(function() {
       var topid="";
       $(".topi").hover(function(){
-         topid = $(this).attr("id");
-         topid=topid.substr (topid.search(/\d/))
-         $button = $(\'<div id="n-shortcut-tools" class=""><a class="text-danger btn" href="admin.php?op=FaqCatGoDel&amp;id=\'+topid+\'&amp;ok=0" ><i class="fa fa-trash-o fa-2x" title="'.adm_translate("Supprimer la question réponse").'" data-toggle="tooltip" data-placement="left"></i></a></div>\')
-         $(this).append($button);
+         topid = $(this).parent().attr("id");
+         console.log(topid);
+         topid = topid.substr(topid.search(/\d/))
+         $button=$("#shortcut-tools_"+topid);
          $button.show();
       }, function(){
        $button.hide();
-     })
+     });
      });
    //]]>
 </script>';
