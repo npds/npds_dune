@@ -1459,23 +1459,21 @@ function pollSecur($pollID) {
 
 
 
-#autodoc pollMain($pollID,$pollClose) : Construit le blocs sondages par phr
+#autodoc pollMain($pollID,$pollClose) : Construit le bloc sondage
 function pollMain($pollID,$pollClose) {
-   global $NPDS_Prefix;
-   global $maxOptions, $boxTitle, $boxContent, $userimg, $language, $pollcomm;
-   global $cookie;
+   global $NPDS_Prefix, $maxOptions, $boxTitle, $boxContent, $userimg, $language, $pollcomm, $cookie;
    if (!isset($pollID))
       $pollID = 1;
    if (!isset($url))
       $url = sprintf("pollBooth.php?op=results&amp;pollID=%d", $pollID);
    $boxContent = "
-   <form class=\"form\" role=\"form\" action=\"pollBooth.php\" method=\"post\">\n
+   <form action=\"pollBooth.php\" method=\"post\">\n
    <input type=\"hidden\" name=\"pollID\" value=\"".$pollID."\" />\n
    <input type=\"hidden\" name=\"forwarder\" value=\"".$url."\" />\n";
    $result = sql_query("SELECT pollTitle, voters FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
    list($pollTitle, $voters) = sql_fetch_row($result);
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $boxTitle=translate("Survey");
    else
       $boxTitle=$block_title;
@@ -1496,13 +1494,12 @@ function pollMain($pollID,$pollClose) {
       }
    }
    if (!$pollClose) {
-      $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
+      $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" ><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
    }
    $boxContent .= '
    <div class="form-group">'.$inputvote.'</div>
-   </form>';
-   $boxContent .= '<a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Results").'">'.translate("Results").'</a>';
-   $boxContent .= "&nbsp;&nbsp;<a href=\"pollBooth.php\">".translate("Past Surveys")."</a>\n";
+   </form>
+   <a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Results").'">'.translate("Results").'</a>&nbsp;&nbsp;<a href="pollBooth.php">'.translate("Past Surveys").'</a>';
    if ($pollcomm) {
       if (file_exists("modules/comments/pollBoth.conf.php")) {
          include ("modules/comments/pollBoth.conf.php");
@@ -2331,7 +2328,10 @@ function topdownload() {
       $title=translate("most downloaded");
    else
       $title=$block_title;
-   $boxstuff = topdownload_data('short','dcounter');
+      $boxstuff = '<ul>';
+      $boxstuff .= topdownload_data('short','dcounter');
+      $boxstuff .= '</ul>';
+      if ($boxstuff=='<ul></ul>') $boxstuff='';
    themesidebox($title, $boxstuff);
 }
 #autodoc lastdownload() : Bloc lastdownload <br />=> syntaxe : function#lastdownload
@@ -2822,7 +2822,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
       $li_mb.= '
       <li class="list-group-item list-group-item-action li_mb">
-      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;'.$uname.'</a>
+      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" alt="avatar" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;'.$uname.'</a>
       </div><br />
       <span class="float-xs-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o fa-lg ml-0.5"></i></a>'."\n";
@@ -3023,7 +3023,7 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
 
    $list_json='';
    $list_json.='var '.$nom_array_js.' = [';
-   $res = Q_select("select ".$nom_champ." from ".$NPDS_Prefix.$nom_tabl,$temps_cache);
+   $res = Q_select("SELECT ".$nom_champ." FROM ".$NPDS_Prefix.$nom_tabl,$temps_cache);
    while (list(,$ar_data)=each($res)) {
       foreach ($ar_data as $val_champ) {
          $list_json.='"'.$val_champ.'",';
@@ -3032,15 +3032,18 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    $list_json= rtrim($list_json,',');
    $list_json.='];';
    $scri_js ='';
-   $scri_js.="
-   <script type=\"text/javascript\">
+   $scri_js.='
+   <script type="text/javascript">
    //<![CDATA[
-   ".$list_json."\n
-   $( '#".$id_inpu."' ).autocomplete({
-      source: ".$nom_array_js."
-    });
+   '.$list_json;
+   if($id_inpu !='')
+      $scri_js .= '
+   $( "#'.$id_inpu.'" ).autocomplete({
+      source: '.$nom_array_js.'
+    });';
+   $scri_js .= '
    //]]>
-   </script>\n";
+   </script>';
    return ($scri_js);
 }
 
