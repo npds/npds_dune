@@ -144,7 +144,7 @@ function MetaTagAdmin($saved = false) {
                <option value="HTML 4.01 Strict"'.(!strcasecmp(doctype, 'HTML 4.01 Strict') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Strict").' (deprecated)</option>
                <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
                <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
-               <option value="HTML 5.0"'.(!strcasecmp(doctype, 'HTML 5.0') ? ' selected="selected"' : '').'>HTML 5.0 (experimental)</option>
+               <option value="HTML 5.0"'.(!strcasecmp(doctype, 'HTML 5.0') ? ' selected="selected"' : '').'>HTML 5.0</option>
             </select>
          </div>
       </div>
@@ -166,12 +166,12 @@ $hlpfile = "manuels/$language/metatags.html";
 
    settype($meta_saved,'string');
    switch ($op) {
-      case "MetaTagSave":
-         $meta_saved = MetaTagSave("meta/meta.php", $newtag);
-         header("location: admin.php?op=MetaTagAdmin");
-         break;
-       case "MetaTagAdmin":
-         MetaTagAdmin($meta_saved);
-         break;
-    }
+   case "MetaTagSave":
+      $meta_saved = MetaTagSave("meta/meta.php", $newtag);
+      header("location: admin.php?op=MetaTagAdmin");
+   break;
+   case "MetaTagAdmin":
+      MetaTagAdmin($meta_saved);
+   break;
+   }
 ?>

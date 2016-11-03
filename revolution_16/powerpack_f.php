@@ -166,10 +166,8 @@ function instant_members_message() {
       for ($i = 1; $i <= $ibid[0]; $i++) {
           $timex=time()-$ibid[$i]['time'];
           if ($timex>=60) {
-//             if (!$imgtmp=theme_image("admin/ws/disconnect.gif")) { $imgtmp="images/admin/ws/disconnect.gif"; }
              $timex='<i class="fa fa-plug text-muted" title="'.$ibid[$i]['username'].' '.translate("is not connected !").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;';
           } else {
-//             if (!$imgtmp=theme_image("admin/ws/connect.gif")) { $imgtmp="images/admin/ws/connect.gif"; }
              $timex='<i class="fa fa-plug faa-flash animated text-primary" title="'.$ibid[$i]['username'].' '.translate("is connected !").'" data-toggle="tooltip" data-placement="right" ></i>&nbsp;';
           }
           global $member_invisible;
@@ -223,7 +221,6 @@ function instant_members_message() {
                    $PopUp=JavaPopUp("readpmsg_imm.php?op=msg","IMM",600,500);
                    $PopUp='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');">';
                    if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon='';}
-//                   if (!$imgtmp=theme_image("powerpack/oldmail.gif")) { $imgtmp="images/powerpack/oldmail.gif"; }
                    $icon.='<i class="fa fa-envelope-o fa-lg " title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
                 } else {
                    $icon='&nbsp;';
@@ -235,7 +232,7 @@ function instant_members_message() {
              else
                 $M=$N;
              $boxstuff .='
-         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" alt="'.translate("Send internal Message").'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="float-xs-right">'.$icon.'</span></li>';
+         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="float-xs-right">'.$icon.'</span></li>';
           }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
@@ -271,7 +268,7 @@ function makeChatBox() {
    $dimauto=count($auto);
 
    if (!$long_chain) {$long_chain=12;}
-   $thing=""; $une_ligne=false;
+   $thing=''; $une_ligne=false;
 
    if ($dimauto<=1) {
       $counter=sql_num_rows(sql_query("SELECT message FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."'"))-6;

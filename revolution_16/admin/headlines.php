@@ -123,7 +123,7 @@ function HeadlinesEdit($hid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="m-t-md">'.adm_translate("Editer paramètres Grand Titre").'</h3>
+   <h3 class="mb-1">'.adm_translate("Editer paramètres Grand Titre").'</h3>
    <form action="admin.php" method="post">
       <fieldset>
          <input type="hidden" name="hid" value="'.$hid.'" />
@@ -196,38 +196,40 @@ function HeadlinesAdd($xsitename, $url, $headlinesurl, $status) {
 }
 
 function HeadlinesDel($hid, $ok=0) {
-    global $NPDS_Prefix;
-
-    if ($ok==1) {
-       sql_query("DELETE FROM ".$NPDS_Prefix."headlines WHERE hid='$hid'");
-       Header("Location: admin.php?op=HeadlinesAdmin");
-    } else {
-       global $hlpfile;
-       include("header.php");
-       GraphicAdmin($hlpfile);
-       echo "<p align=\"center\"><br />";
-       echo "<span class=\"rouge\">";
-       echo "<b>".adm_translate("Etes-vous sûr de vouloir supprimer cette boîte de Titres ?")."</b><br /><br /></span>";
-    }
-    echo "[ <a href=\"admin.php?op=HeadlinesDel&amp;hid=$hid&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=HeadlinesAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br />";
-    include("footer.php");
+   global $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   if ($ok==1) {
+      sql_query("DELETE FROM ".$NPDS_Prefix."headlines WHERE hid='$hid'");
+      Header("Location: admin.php?op=HeadlinesAdmin");
+   } else {
+      global $hlpfile;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead($f_meta_nom, $f_titre, $adminimg);
+      echo '
+      <hr />
+      <p class="alert alert-danger">
+         <strong class="d-block mb-1">'.adm_translate("Etes-vous sûr de vouloir supprimer cette boîte de Titres ?").'</strong>
+         <a class="btn btn-danger btn-sm" href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" href="admin.php?op=HeadlinesAdmin" role="button">'.adm_translate("Non").'</a>
+      </p>';
+      include("footer.php");
+   }
 }
 
 switch ($op) {
    case 'HeadlinesDel':
       HeadlinesDel($hid, $ok);
-      break;
+   break;
    case 'HeadlinesAdd':
       HeadlinesAdd($xsitename, $url, $headlinesurl, $status);
-      break;
+   break;
    case 'HeadlinesSave':
       HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status);
-      break;
+   break;
    case 'HeadlinesAdmin':
       HeadlinesAdmin();
-      break;
+   break;
    case 'HeadlinesEdit':
       HeadlinesEdit($hid);
-      break;
+   break;
 }
 ?>
