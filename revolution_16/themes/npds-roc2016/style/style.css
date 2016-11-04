@@ -10,14 +10,14 @@
 
 /** ==> Balise html                                                         **/
 /*     Balise html                                                           */
-html{font-size: 62.5%;}
-body {font-size: 1.6rem;}
+html{}
+body {font-size: 1rem;}
 a:hover {text-decoration:none;}
 /** <== Balise html                                                         **/
 
 .n-ava {
-    max-height: 48px;
-    max-width: 48px;
+    max-height: 64px;
+    max-width: 64px;
 }
 
 .n-ava-small {
@@ -36,8 +36,8 @@ a:hover {text-decoration:none;}
     max-width: 100px;
 }
 
-.fond_emot,
-.fond_subject {
+.n-fond_emot,
+.n-fond_subject {
     line-height: 28px;
 }
 
@@ -308,88 +308,30 @@ h3,
 /*------------------------------
 Ajustement Bmag pour compatibilite boostrap
 *******************************************/
-
-.btn {
-    text-align: center;
-    font-size: 1em;
-    font-weight: 400;
-    line-height: 1.25;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
 .bg-primary {
-    color: white;
-    background-color: #22a4d9 !important;
-}
+    color: #ece7e7 !important;}
 
 /********************
 citation pour les forums
 *******************/
 
 .blockquote {
-    width: 90%;
+    width: 100%;
+    font-size: 1rem;
     margin: 5px;
     padding: 5px;
     border: 1px dotted #000;
 }
 
-/***********************
-Pour eviter que les images ne débordent
-***************************/
 
-/* .row {
-    width: 100%;
-    margin-right: 0;
-    margin-left: 0;
-} */
-
-/*******Pour les police des formulaires   jmd  */
-
-.form-control {
-    font-size: 1.2rem;
+label {
+    margin: .5rem 0 ;
 }
 
-label,
-textarea {
-    margin: .5em 0;
-    font-size: 1em;
-    line-height: 1.5;
-}
 
-.custom-control-indicator {
-    position: absolute;
-    top: .55rem;
-    left: 0;
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
-}
-
-.tag {
-    display: inline-block;
-    padding: .25em .5em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem;
-}
-
-.tag-default {
-    background-color: #818a91;
-    margin-top: 0.3rem;
-}
-
-/*****jmd* pour décoler le texte des bordures de Table*/
-
-ol li:nth-child(2n+1) {
-    background-color: #f9f9f9;
-}
 
 /* pour une liste */
+
+.radio{  }
 
 
