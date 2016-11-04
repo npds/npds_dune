@@ -187,7 +187,7 @@ if ($submitS) {
       <div class="form-group row">
          <label class="form-control-label col-sm-3">'.translate("Message Icon").'</label>
          <div class="col-sm-9">
-            <div class=" card card-block fond_subject">
+            <div class=" card card-block n-fond_subject">
             '.emotion_add($image_subject).'
             </div>
          </div>
