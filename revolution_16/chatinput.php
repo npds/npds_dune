@@ -20,15 +20,15 @@ if (unserialize(decrypt($auto))!=$id) die();
 if (!function_exists("makeChatBox")) {include ("powerpack_f.php");}
 include("functions.php");
 
-   // Savoir si le 'connectÈ' ‡ le droit ‡ ce chat ?
-   // le problËme c'est que tous les groupes qui existent on le droit au chat ... donc il faut trouver une solution pour pouvoir l'interdire
-   // soit on vient d'un bloc qui par dÈfinition autorise en fabricant l'interface
-   // soit on viens de WS et l‡ ....
+   // Savoir si le 'connect√©' a le droit √† ce chat ?
+   // le probl√®me c'est que tous les groupes qui existent on le droit au chat ... donc il faut trouver une solution pour pouvoir l'interdire
+   // soit on vient d'un bloc qui par d√©finition autorise en fabricant l'interface
+   // soit on viens de WS et l√† ....
 
    if (!autorisation($id)) { die(); }
 
    if (isset($user)) {
-      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
       if (!$file=@opendir("themes/$cookie[9]")) {
@@ -41,19 +41,20 @@ include("functions.php");
       $tmp_theme=$Default_Theme;
       include("themes/$Default_Theme/theme.php");
    }
-   $Titlesitename="NPDS";
+   $Titlesitename='NPDS';
    include("meta/meta.php");
-   echo import_css($tmp_theme, $language, $site_font, basename($_SERVER['PHP_SELF']), "");
+   echo import_css($tmp_theme, $language, $site_font, basename($_SERVER['PHP_SELF']), '');
    include("lib/formhelp.java.php");
    echo '</head>';
 
    // cookie chat_info
-   echo "\n<script type=\"text/javascript\" src=\"lib/cookies.js\"></script>\n";
+   echo '
+   <script type="text/javascript" src="lib/cookies.js"></script>';
    echo "
-      <body style=\"padding: 2px;\" onload=\"setCookie('chat_info', '1', '');\" onUnload=\"deleteCookie('chat_info');\">";
+      <body id=\"chat\" onload=\"setCookie('chat_info', '1', '');\" onUnload=\"deleteCookie('chat_info');\">";
    putitems();
    echo '
-         <form role="form" name="coolsus" action="chatinput.php" method="post">
+         <form name="coolsus" action="chatinput.php" method="post">
             <input type="hidden" name="op" value="set" />
             <input type="hidden" name="id" value="'.$id.'" />
             <input type="hidden" name="auto" value="'.$auto.'" />';
@@ -68,7 +69,7 @@ include("functions.php");
    echo translate("You are logged in as").' <strong>'.$pseudo.'</strong>&nbsp;';
    echo '
             <input type="hidden" name="name" value="'.$pseudo.'" />
-            <textarea class="form-control" type="text" rows="2" '.$xJava.' ></textarea>
+            <textarea class="form-control mb-1" type="text" rows="2" '.$xJava.' ></textarea>
             <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Submit").'" />
          </form>
          <script type="text/javascript">
@@ -81,15 +82,15 @@ include("functions.php");
 
    settype($op,'string');
    switch ($op) {
-      case "set":
-           if (!isset($cookie[1]) && isset($name)) {
-              $uname = $name;
-              $dbname = 0;
-           } else {
-              $uname = $cookie[1];
-              $dbname = 1;
-           }
-           insertChat($uname, $message, $dbname, $id);
-           break;
+   case 'set':
+      if (!isset($cookie[1]) && isset($name)) {
+         $uname = $name;
+         $dbname = 0;
+      } else {
+         $uname = $cookie[1];
+         $dbname = 1;
+      }
+      insertChat($uname, $message, $dbname, $id);
+   break;
    }
 ?>
