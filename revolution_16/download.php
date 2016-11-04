@@ -117,7 +117,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename,$aff) {
 
    echo '<a data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'">
          <i class="fa fa-lg fa-info-circle"></i></a>&nbsp;&nbsp;&nbsp;';
-
+ 
    echo '<div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
@@ -129,12 +129,12 @@ function popuploader($did, $ddescription, $dcounter, $dfilename,$aff) {
                geninfo($did);
    echo '</div>
       <div class="modal-footer">
-         <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'"><i class="fa fa-lg fa-download"></i></a>
+         <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'" target="_blank"><i class="fa fa-lg fa-download"></i></a>
       </div>
    </div>
    </div>
 </div>';
-   echo "<a href=\"download.php?op=mydown&amp;did=$did\" title=\"".translate("Download Now!")."\"><i class=\"fa fa-download\"></i></a>";
+   echo "<a href=\"download.php?op=mydown&amp;did=$did\" title=\"".translate("Download Now!")."\" target=\"_blank\"><i class=\"fa fa-download\"></i></a>";
    }
 }
 
