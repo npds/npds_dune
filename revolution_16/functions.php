@@ -342,7 +342,7 @@ function putitems() {
    global $theme;
 //   echo '   <a href="#" class="" title="'.translate("Click on Smilies to insert it on your Message").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i> + </a>';
    
-   echo '<span class ="fond_emot">';
+   echo '<span class ="n-fond_emot">';
    if ($ibid=theme_image("forum/smilies/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/";} else {$imgtmp="images/forum/smilies/";}
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
