@@ -285,7 +285,7 @@ include('auth.php');
          <div class="form-group row">
             <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
             <div class="col-sm-12">
-               <div class="card card-block fond_subject">';
+               <div class="card card-block n-fond_subject">';
             if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
             $handle=opendir($imgtmp);
             while (false!==($file=readdir($handle))) {
