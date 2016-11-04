@@ -21,14 +21,15 @@ echo '
 <link id="sty_highlight" rel="stylesheet" href="lib/js/highlight-9.0.0/styles/github.css" />
 
 <script type="text/javascript" src="lib/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="themes/Rev2016/cssmenu/script.js"></script>
+
 
 
 <script type="text/javascript" src="lib/js/tether.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>
 <script type="text/javascript" src="themes/Rev2016/responsivetab/js/easyResponsiveTabs.js"></script>
-
+<script type="text/javascript" src="themes/Rev2016/cssmenu/script.js"></script>
+ <script type="text/javascript" src="themes/Rev2016/js/responsiveslides.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
@@ -98,8 +99,8 @@ echo '
 </script>
 
 
-  <script src="themes/Rev2016/js/responsiveslides.js"></script>
-  <script>
+
+<script>
     // You can also use "$(window).load(function() {"
     $(function () {
 

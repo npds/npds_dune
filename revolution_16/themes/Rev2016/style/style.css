@@ -1815,10 +1815,11 @@ td, th {
 
 
 .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
-    position: absolute;
-    margin-top: 0.5rem;/*jpb 30/01*/
-    margin-left: -1.7rem;/*jpb 30/01*/
+  position: absolute;
+    margin-top: 0.3rem;          /* bmag*/
+    margin-left: -1.4rem;        /* bmag*/
 }
+
 
 ol li:nth-child(2n+1){background-color:#f9f9f9;}
 /* pour une liste */

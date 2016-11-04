@@ -2754,32 +2754,6 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //]]>
    </script>';
-   $content.="
-   <script type=\"text/javascript\">
-   //<![CDATA[
-   tog = function(lst,sho,hid){
-      $(document).on('click', 'a.tog', function() {
-         var buttonID = $(this).attr('id');
-         lst_id = $('#'+lst);
-         i_id=$('#i_'+lst);
-         btn_show=$('#'+sho);
-         btn_hide=$('#'+hid);
-         if (buttonID == sho) {
-            lst_id.fadeIn(1000);//show();
-            btn_show.attr('id',hid)
-            btn_show.attr('title','".translate("Hide list")."');
-            i_id.attr('class','fa fa-caret-up fa-2x');
-         } else if (buttonID == hid) {
-            lst_id.fadeOut(1000);//hide();
-            btn_hide=$('#'+hid);
-            btn_hide.attr('id',sho);
-            btn_hide.attr('title','".translate("Show list")."');
-            i_id.attr('class','fa fa-caret-down fa-2x');
-        }
-       });
-   };
-   //]]>
-   </script>";
 
    $content.='
    <div id="bloc_ws_'.$gr.'" class="">'."\n";
@@ -2822,7 +2796,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
       $li_mb.= '
       <li class="list-group-item list-group-item-action li_mb">
-      <div id="li_mb_'.$uname.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" alt="avatar" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;'.$uname.'</a>
+      <div id="li_mb_'.$uname.'_'.$gr.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" alt="avatar" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;'.$uname.'</a>
       </div><br />
       <span class="float-xs-right">
       <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o fa-lg ml-0.5"></i></a>'."\n";
@@ -2892,10 +2866,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-1"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
-      $lst_blocnote ='<div id="lst_blocnote" class="mt-1 collapse">';
-      $lst_blocnote .= blocnotes("shared", "WS-BN".$gr,"100%","7","",false);
-      $lst_blocnote .= '</div>';
+      $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-1"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
+      $lst_blocnote = '
+      <div id="lst_blocnote_'.$gr.'" class="mt-1 collapse">
+      '.blocnotes("shared", "WS-BN".$gr,"100%","7","",false).'
+      </div>';
       $content.='<hr /><div class="mb-2">'.$lst_blocnote_tog.$lst_blocnote.'</div>';
    }
    //=> bloc-notes

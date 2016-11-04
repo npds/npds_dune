@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2012 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,11 +23,11 @@ settype ($repere,'integer');
 settype($aff_entetes,'integer');
 settype($connectes,'integer');
 
-   // Savoir si le 'connecté' à le droit à ce chat ?
+   // Savoir si le 'connectÃ©' a le droit Ã  ce chat ?
    if (!autorisation($id)) { die(); }
 
    if (isset($user)) {
-      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
       if (!$file=@opendir("themes/$cookie[9]")) {
@@ -40,14 +40,13 @@ settype($connectes,'integer');
       $tmp_theme=$Default_Theme;
       include("themes/$Default_Theme/theme.php");
    }
-   global $site_font;
-   global $NPDS_Prefix;
+   global $site_font, $NPDS_Prefix;
 
    $result = sql_query("SELECT username, message, dbname, date FROM ".$NPDS_Prefix."chatbox WHERE id='$id' AND date>'$repere' ORDER BY date ASC");
-   $thing="";
+   $thing='';
    if ($result){
       while(list($username, $message, $dbname, $date_message) = sql_fetch_row($result)) {
-         $thing.="<div class='textbox_standard' style='margin: 0px; padding: 2px;'><div class='chatheure'>".date(translate("Chatdate"),$date_message+($gmt*3600))."</div>";
+         $thing.="<div class='chatmessage'><div class='chatheure'>".date(translate("Chatdate"),$date_message+($gmt*3600))."</div>";
          if ($dbname==1) {
             if ((!$user) and ($member_list==1) and (!$admin)) {
                $thing.="<div class='chatnom'>$username</div>";
@@ -59,12 +58,12 @@ settype($connectes,'integer');
          }
          $message=smilie($message);
          $chat_forbidden_words=array(
-         "'\"'i"=>"&quot;",
-         "'OxOA'i"=>"",
-         "'OxOD'i"=>"",
-         "'\n'i"=>"",
-         "'\r'i"=>"",
-         "'\t'i"=>"");
+         "'\"'i"=>'&quot;',
+         "'OxOA'i"=>'',
+         "'OxOD'i"=>'',
+         "'\n'i"=>'',
+         "'\r'i"=>'',
+         "'\t'i"=>'');
          $message=preg_replace(array_keys($chat_forbidden_words),array_values($chat_forbidden_words), $message);
          $message=str_replace('"','\"',make_clickable($message));
          $thing.="<div class='chattexte'>".removeHack($message)."</div></div>";
@@ -122,11 +121,12 @@ settype($connectes,'integer');
                ";
       }
       if ($rafraich_connectes==1) {
-         echo "parent.document.title=$nbre_connectes;";
+         echo "top.document.title=$nbre_connectes;";
       }
    echo "}
    window.onload=sur_chargement();
    //]]>
    </script>
-   </body></html>";
+   </body>
+   </html>";
 ?>

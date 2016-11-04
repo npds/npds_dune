@@ -1,0 +1,339 @@
+/* ----------------------------------------------------------------------
+   1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
+   theme: BaseRoc
+---------------------------------------------------------------------- */
+@charset "utf-8";
+/* CSS npds-boots pour NPDS Revolution                                       */
+/* Theme : Dyna-boost (c) 2015 by jpb                                        */
+/* style.css                                                                 */
+/* pour ajuster et modifier les css du framework                             */
+/* pour utiliser les classes et #ID spécifiques à NPDS                       */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/** ==> Balise html                                                         **/
+/*     Balise html                                                           */
+html{}
+body {
+font-family: 'Roboto', sans-serif;
+font-size: 1rem;
+line-height: 1.5;
+color: #000;}
+a:hover {text-decoration:none;}
+/** <== Balise html                                                         **/
+
+/** ==> Classes BS4                                                         **/
+/*                                                                           */
+/* ==> élément ayant la class btn (boutons, a, input) */
+.btn {
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+}
+/* ==> hauteur et scroll des modal */
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+/** <== Classes BS4                                                         **/
+
+/** ==> Classes NPDS-core [prefixe n-]                                      **/
+/* ==> pour les avatars et images */
+.n-ava {
+max-width:64px;
+max-height:64px;
+}
+.n-ava-small {
+max-width:48px;
+max-height:48px;
+}
+.n-smil {
+width:24px;
+height:24px;
+display:inline;
+}
+.n-sujetsize {
+max-width : 100px;
+height : auto;
+}
+.fond_emot, .fond_subject {
+line-height:28px;
+}
+/* ==> pour la signature */
+.n-signature {
+font-style: italic;
+text-align: right !important;
+padding-top: 1.1rem !important;
+}
+/* ==> pour les troncatures de mots trop longs */
+
+.n-list-compact-no-bord {
+padding-top: .35rem;
+padding-bottom: .35rem;
+padding-right: 0rem;
+padding-left: 0rem;
+
+border:0px;
+/* 
+margin-left: -1.25rem;
+margin-right: 1.25rem;
+ */
+
+}
+
+.n-card-compact-no-padside {
+padding-right: 0rem;
+padding-left: 0rem;
+border:0px;
+}
+.n-hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.n-ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/** <== Classes NPDS-core                                                   **/
+
+/** ==> ID NPDS-Core                                                        **/
+#corps{}
+#footer{}
+#pied{
+text-align:center;
+}
+#col_princ{padding: .5rem;}
+#col_LB{}
+#col_RB{}
+/** <== ID NPDS-Core                                                        **/
+
+
+
+/**************************************************
+ adapt JMD pour correspondances avec Rocssti
+ ****************************************************/
+ /* gestion du table-design en CSS */
+.row1 {
+   display: table;
+  table-layout: fixed;  /* pour ne pas rentrer en conflit avec BS row devient row1  BMAG */
+}
+
+.ie7 .row1,
+.ie6 .row1 {
+  overflow: auto;
+}
+/************************************************************************
+Dimension du site    *jmd work
+*************************************************************************/
+
+
+
+#container {
+	margin-left:auto;
+	margin-right:auto;
+        width:95%;
+        border:1px dotted black;
+}
+
+#corps, #decofoot,#decohead{  /* corps= entre header et footer */
+        max-width: 100%;   /*   A changer si vous voulez divisible par 3 et par 4 */
+ 	margin-left:auto;
+	margin-right:auto;
+
+         }
+
+/************************************************************************
+La Partie HEADER de votre Site
+*************************************************************************/
+header { /* Le Header Complet */
+
+	width: 100%;
+	height: auto;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+/********************
+le  header   et son contenu ( sa taille est ds decoheader)
+**********************/
+.header1{
+        background: WhiteSmoke;
+  	margin:0px;
+	padding: 5px;
+	height: auto;
+  }
+
+
+/*************************************
+le menu de mon header simple mais responsive
+**************************************/
+
+
+.navigation ul {
+  margin:0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.3rem;
+  background: white;
+}
+.navigation li {
+  display: inline-block;
+  padding: 1rem;
+}
+
+@media (max-width: 320px) {
+  .navigation li {
+    display: block;
+  }
+}
+
+
+/************************************************************************
+La Partie CENTRALE de votre Site     colonne (s) et partie centrale
+*************************************************************************/
+
+
+/************************************************************************
+ Vos Blocs
+*************************************************************************/
+.rightbloc, .leftbloc{
+
+    color: #333;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000;
+    padding: 10px;
+    margin:0 5px 5px 5px;
+}
+
+#col_LB ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+
+/************************************
+On customise le Menu bloc gauche il faudra cocher la case dans l'admin
+*****************************************/
+#LB_24 {
+	background-color: #ddd;
+    color: #fff;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #dbd8c4;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right:5px;
+}
+
+#LB_24 a {
+  font-weight:bold;	
+  margin: 1px 0; /* espace les liens d'1 px */
+  padding: 0px 20px; /* marges internes pour a�rer */ 
+  color: #666;
+  text-decoration: none; /* on vire le soulignement */
+  line-height: 1.750em;}
+  
+#LB_24 a:hover{
+  font-weight:bold;	
+  background-color: #000;
+  color: #F0AD4E;
+  text-decoration: none; /* on vire le soulignement */
+  line-height: 1.750em;}
+
+  #LB_24 li:hover{
+  color: #F0AD4E;	
+  background-color: #000;
+}
+
+/************************************************************************
+La Partie Footer de votre Site
+*************************************************************************/
+#footer{border: 1px solid black;}
+
+#decofoot{
+background-color: #ccc;}
+
+
+
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+ #footer a {
+ color: #2573be;
+  cursor: pointer;
+}
+
+ #footer a:hover {color: #000;}
+
+
+ /* texte et alignements*/
+ 
+h2, .h2 {
+    background: antiquewhite;
+    padding: 0px 5px 0px 5px;}
+h3, .h3 {
+    background: aliceblue;
+    padding: 0px 5px 0px 5px;}
+
+
+
+.redborder {border: 1px solid red;}
+.blackborder {border: 1px dotted black;}
+.blackborderg {border-right: 1px solid black;}
+.beige {background-color:Beige;}
+
+/*****************************************
+Adaptation des css au fil du test
+*********************************************/
+
+label {
+    font-size: 1em;
+    line-height: 1.5;
+    margin:.3em 0;
+}
+
+/* d�co des tableaux */
+table {
+    background: #FFF none repeat scroll 0% 0%;
+    border: 1px solid #DDD;
+    margin-bottom: 1.25rem;
+    table-layout: auto;
+}
+
+table tr.even,
+table tr.alt,
+table tr:nth-of-type(2n) {
+    background: #F9F9F9 none repeat scroll 0% 0%;
+}
+
+/* citation */
+.blockquote{
+  font-size: .9em;
+ background: #F6F6EB80 none repeat scroll 0% 0%;
+ border-width:1px 1px 1px 3px;
+ border-style:solid ;
+ border-color:black grey; }
+
+ /* les formulaires */
+ 
+.form-control {
+    border: 1px solid #C69F13;
+    color: #7E6406;
+}
+ 
+ input, select, textarea {
+    border: 1px solid #988029;
+    border-radius: 5px;
+    padding: .5em;
+    max-width: 100%;
+}
