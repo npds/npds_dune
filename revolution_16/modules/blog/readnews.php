@@ -96,6 +96,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
                </div>
             </div>
          </form>';
+   return ($content);
       }
       // Modifier - Ecriture
       if (substr($action,0,3)=='MOK') {
@@ -144,10 +145,10 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
 
    // Output
    $new_pages=false;
-   $content.="!v_yt!";
+//   $content.="!v_yt!";
    if ($adminblog) {
-      $content.='<i class="fa fa-plus-square fa-lg"></i>!l_blog_ajouterOK!';
-      $content.='<br />';
+      $content.='<p><i class="fa fa-plus-square fa-lg"></i>!l_blog_ajouterOK!';
+      $content.='</p>';
    }
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode("!;!",$xnews[$i]);
@@ -159,7 +160,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
             <h6 class="card-subtitle text-muted">'.translate("Posted on ").' '.$crtsplit[0].'</h6>
          </div>';
-       if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
+//       if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
 
        $content.='<div class=" card-block">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {
