@@ -41,15 +41,15 @@ if (!function_exists("Mysql_Connexion")) {
    }
    settype($type,'string');
    if ($type == "users") {
-      echo '<h2>'.translate("Search in Users Database").'</h2>';
+      echo '<h2 class="mb-1">'.translate("Search in Users Database").'</h2><hr />';
    } elseif ($type == 'sections') {
-      echo '<h2>'.translate("Search in Sections").'</h2>';
+      echo '<h2 class="mb-1">'.translate("Search in Sections").'</h2><hr />';
    } elseif ($type == 'reviews') {
-      echo '<h2>'.translate("Search in Reviews").'</h2>';
+      echo '<h2 class="mb-1">'.translate("Search in Reviews").'</h2><hr />';
    } elseif ($type == 'archive') {
-      echo '<h2>'.translate("Search in")." ".translate("Archives").'</h2>';
+      echo '<h2 class="mb-1">'.translate("Search in")." ".translate("Archives").'</h2><hr />';
    } else {
-      echo '<h2>'.translate("Search in")." ".aff_langue($topictext).'</h2>';
+      echo '<h2 class="mb-1">'.translate("Search in")." ".aff_langue($topictext).'</h2><hr />';
    }
    echo '
    <form action="search.php" method="get">';
@@ -65,8 +65,7 @@ if (!function_exists("Mysql_Connexion")) {
    echo '
       <div class="form-group">
          <input class="form-control" type="text" name="query" value="'.$query.'" />
-      </div>
-   ';
+      </div>';
 
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
@@ -186,20 +185,20 @@ if (!function_exists("Mysql_Connexion")) {
       } elseif ($category == 0) {
          $categ = '';
       }
-      if ($type=="stories" OR !$type) {
+      if ($type=='stories' OR !$type) {
          $q = "SELECT s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome FROM ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a WHERE s.archive='0' AND s.aid=a.aid $categ";
       } else {
          $q = "SELECT s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome FROM ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a WHERE s.archive='1' AND s.aid=a.aid $categ";
       }
       if (isset($query)) $q .= "AND (s.title LIKE '%$query_title%' OR s.hometext LIKE '%$query_body%' OR s.bodytext LIKE '%$query_body%' OR s.notes LIKE '%$query_body%') ";
       // Membre OU Auteur
-      if ($member!="")
+      if ($member!='')
          $q .= "AND s.informant='$member' ";
       else
-         if ($author!= "") $q .= "AND s.aid='$author' ";
+         if ($author!= '') $q .= "AND s.aid='$author' ";
 
-      if ($topic != "") $q .= "AND s.topic='$topic' ";
-      if ($days != "" && $days!=0) $q .= "AND TO_DAYS(NOW()) - TO_DAYS(time) <= '$days' ";
+      if ($topic != '') $q .= "AND s.topic='$topic' ";
+      if ($days != '' && $days!=0) $q .= "AND TO_DAYS(NOW()) - TO_DAYS(time) <= '$days' ";
       $q .= " ORDER BY s.time DESC".$limit;
       $t = $topic;
       $x=0;
@@ -208,7 +207,7 @@ if (!function_exists("Mysql_Connexion")) {
          $CACHE_TIMINGS[$cache_clef]=3600;
          $cache_obj = new cacheManager();
          $tab_sid=$cache_obj->startCachingObjet($cache_clef);
-         if ($tab_sid!="") $x=count($tab_sid);
+         if ($tab_sid!='') $x=count($tab_sid);
       } else {
          $cache_obj = new SuperCacheEmpty();
       }
@@ -250,19 +249,18 @@ if (!function_exists("Mysql_Connexion")) {
          formatTimestamp($tab_sid[$i]['time']);
          echo '
             <tr>
-               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contributed by").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> : <a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a><br /><span>'.translate("Posted by ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("on").' '.$datetime.'</td>
+               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contributed by").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> :<br /><strong><a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a></strong><br /><span>'.translate("Posted by ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("on").' '.$datetime.'</td>
             </tr>';
       }
       echo '
          <tbody>
       </table>';
-      
-            if ($x==0) {
+
+      if ($x==0) {
       echo '
          <div class="alert alert-danger lead" role="alert">
             <p class="lead"><i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;'.translate("No matches found to your query").' !</p>
-         </div>
-         ';
+         </div>';
       }
 
       $prev=($min-$offset);
@@ -285,27 +283,30 @@ if (!function_exists("Mysql_Connexion")) {
          $nrows  = sql_num_rows($result);
       }
       $x=0;
-      echo '
-      <table id ="search_result" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      if ($nrows>0) {
+         echo '
+      <table id ="search_result" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th data-sortable="true">'.translate("Results").'</th>
             </tr>
          </thead>
-      <tbody>';
-      if ($nrows>0) {
+         <tbody>';
          while (list($id, $title, $text, $reviewer) = sql_fetch_row($result)) {
             $furl = "reviews.php?op=showcontent&amp;id=$id";
-            echo "<tr $rowcolor><td><a href=\"$furl\" class=\"noir\">$title</a> ".translate("by")." $reviewer</td></tr>\n";
+            echo '
+            <tr>
+               <td><a href="'.$furl.'">'.$title.'</a> '.translate("by").' <i class="fa fa-user text-muted"></i>&nbsp;'.$reviewer.'</td>
+            </tr>';
             $x++;
          }
-      } else {
-         echo "<tr><td align=\"center\" class=\"text-danger\">".translate("No matches found to your query")."<br />";
-         echo "</td></tr>";
-      }
       echo '
          </tbody>
       </table>';
+      } else {
+         echo '
+      <div class="alert alert-danger"><strong>'.translate("No matches found to your query").'</strong></div>';
+      }
       $prev=$min-$offset;
       echo '
       <p align="left">
@@ -322,90 +323,113 @@ if (!function_exists("Mysql_Connexion")) {
       echo '
          </ul>
       </p>';
-      
    // sections
-   } elseif ($type=="sections") {
+   } elseif ($type=='sections') {
       $result = sql_query("SELECT artid, secid, title, content FROM ".$NPDS_Prefix."seccont WHERE (title LIKE '%$query_title%' OR content LIKE '%$query_body%') ORDER BY artid DESC LIMIT $min,$offset");
       if ($result) {
          $nrows  = sql_num_rows($result);
       }
       $x=0;
-      echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
       if ($nrows>0) {
+         echo '
+      <table id ="search_result" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
+         <thead>
+            <tr>
+               <th data-sortable="true">'.translate("Results").'</th>
+            </tr>
+         </thead>
+         <tbody>';
          while (list($artid, $secid, $title, $content) = sql_fetch_row($result)) {
-            $rowcolor = tablos();
-            $rowQ2=Q_Select ("select secname, rubid from ".$NPDS_Prefix."sections where secid='$secid'", 3600);
+            $rowQ2=Q_Select ("SELECT secname, rubid FROM ".$NPDS_Prefix."sections WHERE secid='$secid'", 3600);
             list(,$row2) = each($rowQ2);
-            $rowQ3=Q_Select ("select rubname from ".$NPDS_Prefix."rubriques where rubid='".$row2['rubid']."'", 3600);
+            $rowQ3=Q_Select ("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='".$row2['rubid']."'", 3600);
             list(,$row3) = each($rowQ3);
-            if ($row3['rubname']!="Divers" AND $row3['rubname']!="Presse-papiers") {
+            if ($row3['rubname']!='Divers' AND $row3['rubname']!='Presse-papiers') {
                $surl = "sections.php?op=listarticles&amp;secid=$secid";
                $furl = "sections.php?op=viewarticle&amp;artid=$artid";
-               echo "<tr $rowcolor><td><a href=\"$furl\" class=\"noir\">".aff_langue($title)."</a> ".translate("in the sub-section")." <a href=\"$surl\" class=\"noir\">".aff_langue($row2['secname'])."</a></td></tr>\n";
-               echo "<tr><td><hr noshade=\"noshade\" class=\"ongl\" /></td></tr>";
+               echo '
+            <tr>
+               <td><a href="'.$furl.'">'.aff_langue($title).'</a> '.translate("in the sub-section").' <a href="'.$surl.'">'.aff_langue($row2['secname']).'</a></td>
+            </tr>';
                $x++;
             }
          }
+            echo '
+         </tbody>
+      </table>';
          if ($x==0) {
-            echo "<tr><td align=\"center\" class=\"rouge\">".translate("No matches found to your query")."<br />";
-            echo "</td></tr>";
+            echo '
+      <div class="alert alert-danger"><strong>'.translate("No matches found to your query").'</strong></div>';
          }
       } else {
-         echo "<tr><td align=\"center\" class=\"rouge\">".translate("No matches found to your query")."<br />";
-         echo "</td></tr>";
+      echo '
+      <div class="alert alert-danger"><strong>'.translate("No matches found to your query").'</strong></div>';
       }
-      echo "</table>";
-
       $prev=$min-$offset;
-      echo "<br /><p align=\"right\">";
+      echo '
+      <p align="left">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
       if ($prev>=0) {
-         echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type\" class=\"noir\">";
-         echo "<b>$offset ".translate("previous matches")."</b></a>";
+         echo '
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("previous matches").'</a></li>';
       }
       if ($x>=($offset-1)) {
-         if ($prev>=0) echo "&nbsp;|&nbsp;";
-         echo  "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type\" class=\"noir\">";
-         echo  "<b>".translate("next matches")."</b></a>";
+         echo '
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'">'.translate("next matches").'</a></li>';
       }
-      echo "</p>";
+      echo '
+         </ul>
+      </p>';
    // users
-   } elseif ($type=="users") {
+   } elseif ($type=='users') {
       if (($member_list and $user) or $admin) {
-         $result = sql_query("select uname, name from ".$NPDS_Prefix."users where (uname like '%$query_title%' OR name like '%$query_title%' OR bio like '%$query_title%') order by uname ASC limit $min,$offset");
+         $result = sql_query("SELECT uname, name FROM ".$NPDS_Prefix."users WHERE (uname LIKE '%$query_title%' OR name LIKE '%$query_title%' OR bio LIKE '%$query_title%') ORDER BY uname ASC LIMIT $min,$offset");
          if ($result) {
             $nrows  = sql_num_rows($result);
          }
          $x=0;
-         echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">\n";
          if ($nrows>0) {
+            echo '
+      <table id ="search_result" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
+         <thead>
+            <tr>
+               <th data-sortable="true">'.translate("Results").'</th>
+            </tr>
+         </thead>
+         <tbody>';
             while (list($uname, $name) = sql_fetch_row($result)) {
-               $rowcolor = tablos();
                $furl = "user.php?op=userinfo&amp;uname=$uname";
-               if ($name=="") {
-                  $name = "".translate("No name entered")."";
+               if ($name=='') {
+                  $name = translate("No name entered");
                }
-               echo "<tr $rowcolor><td><a href=\"$furl\" class=\"noir\">$uname</a> ($name)</td></tr>\n";
-               echo "<tr><td><hr noshade=\"noshade\" class=\"ongl\" /></td></tr>";
+               echo '
+               <tr>
+                  <td><a href="'.$furl.'"><i class="fa fa-user text-muted"></i>&nbsp;'.$uname.'</a> ('.$name.')</td>
+               </tr>';
                $x++;
             }
+            echo '</table>';
          } else {
-            echo "<tr><td align=\"center\" class=\"rouge\">".translate("No matches found to your query")."<br />";
-            echo "</td></tr>";
+            echo '
+            <div class="alert alert-danger" role="alert"><strong>'.translate("No matches found to your query").'</strong></div>';
          }
-         echo "</table>";
-
          $prev=$min-$offset;
-         echo "<br /><p align=\"right\">";
-         if ($prev>=0) {
-            echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$prev&amp;query=$query&amp;type=$type\" class=\"noir\">";
-            echo "<b>$offset ".translate("previous matches")."</b></a>";
+         echo '
+      <p align="left">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
+      if ($prev>=0) {
+         echo '
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("previous matches").'</a></li>';
          }
          if ($x>=($offset-1)) {
-            if ($prev>=0) echo "&nbsp;|&nbsp;";
-            echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type\" class=\"noir\">";
-            echo "<b>".translate("next matches")."</b></a>";
+            echo '
+               <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
          }
-         echo "</p>";
+         echo '
+         </ul>
+      </p>';
       }
    }
    include("footer.php");
