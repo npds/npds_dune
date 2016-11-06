@@ -191,7 +191,7 @@ ul.dropdown-menu {
 /* ==> toggle systeme identique au navbar mais pour les col */
 .col.navbar-toggler {
   position: relative;
-  float: left;
+  float: right;
   margin-right: 0px;
   padding: 0px 0px;
   margin-top: 7px;
@@ -201,7 +201,10 @@ ul.dropdown-menu {
 @media (max-width: 48em) {
   #col_princ.col-sm-8,#col_LB.col-sm-4 {
     width:100%;
+    content: "";
+    clear: both;
   }
+  #col_princ {margin-bottom: 1rem;}
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
