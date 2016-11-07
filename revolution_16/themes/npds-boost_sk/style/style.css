@@ -70,7 +70,6 @@ a:hover {text-decoration:none;}
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 .n-list-compact-no-bord {
   padding-top: .35rem;
   padding-bottom: .35rem;
@@ -78,7 +77,6 @@ a:hover {text-decoration:none;}
   padding-left: 0rem;
   border:0px;
 }
-
 .n-card-compact-no-padside {
   padding-right: 0rem;
   padding-left: 0rem;
@@ -201,6 +199,8 @@ ul.dropdown-menu {
 @media (max-width: 48em) {
   #col_princ.col-sm-9,#col_princ.col-sm-6,#col_LB.col-sm-3,#col_RB.col-sm-3 {
     width:100%;
+    content: "";
+    clear: both;
   }
 }
 /* <== toggle systeme identique au navbar mais pour les col */

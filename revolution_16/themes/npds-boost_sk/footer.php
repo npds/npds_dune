@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : npds-boost 2015 by jpb                                       */
+/* Theme : npds-boost_sk 2015 by jpb                                    */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,49 +20,60 @@
 global $pdst;
 switch ($pdst)
 {
-    case "-1":case "3":case "5":
-        echo '</div>'."\n".'</div>'."\n".'</div>'."\n";
-        break;
-    case "1":case "2":
-        echo '</div>'."\n";
-        echo '<div id="col_RB" class="col2 collapse navbar-toggleable-sm col-sm-3">'."\n";
-        rightblocks();
-        echo '</div>'."\n";
-        echo '</div>'."\n".'</div>'."\n";
-        break;
-    case "2":
-        echo '</div>'."\n";
-        echo '<div id="col_RB" class="col-xs-12 col-sm-3">'."\n";
-        rightblocks();
-        echo '</div>'."\n";
-        echo '</div>'."\n".'</div>'."\n";
-        break;
-    case "4":
-        echo '</div>'."\n";
-        echo '<div id="col_LB" class="col-xs-12 col-sm-3">'."\n";
-        leftblocks();
-        echo '</div>'."\n";
-        echo '<div id="col_RB" class="col-xs-12 col-sm-3">'."\n";
-        rightblocks();
-        echo '</div>'."\n";
-        echo '</div>'."\n";
-        echo '</div>'."\n";
-        break;
-        
-    case "6":
-        echo '</div>'."\n";
-        echo '<div id="col_LB" class="col-xs-12 col-sm-3">'."\n";
-        leftblocks();
-        echo '</div>'."\n";
-        echo '</div>'."\n".'</div>'."\n";
-        break;
-        
-    default:
-        echo '
+   case '-1':case '3':case '5':
+      echo '
          </div>
       </div>
    </div>';
-        break;
+   break;
+   case '1':case '2':
+      echo '
+         </div>';
+         colsyst('#col_RB');
+         echo '
+         <div id="col_RB" class="collapse navbar-toggleable-sm col-sm-3">'."\n";
+        rightblocks();
+      echo '
+         </div>
+      </div>
+   </div>';
+   break;
+   case '4':
+      echo '
+      </div>';
+         colsyst('#col_LB');
+      echo'
+         <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">'."\n";
+      leftblocks();
+      echo '
+      </div>';
+         colsyst('#col_RB');
+      echo'
+         <div id="col_RB" class="collapse navbar-toggleable-sm col-sm-3">'."\n";
+      rightblocks();
+      echo '
+         </div>
+      </div>
+   </div>';
+   break;
+   case '6':
+      echo '
+      </div>';
+         colsyst('#col_LB');
+      echo'
+      <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">'."\n";
+         leftblocks();
+      echo '
+         </div>
+      </div>
+   </div>';
+   break;
+   default:
+      echo '
+         </div>
+      </div>
+   </div>';
+   break;
 }
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
