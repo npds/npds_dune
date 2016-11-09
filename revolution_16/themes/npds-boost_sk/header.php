@@ -36,6 +36,7 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
  col_LB contient les blocs historiquement dit de gauche
  col_RB contient les blocs historiquement dit de droite
 */
+$coltarget='';
 
 if ($nb_blg_actif == 0) {
    switch ($pdst) {
@@ -52,14 +53,24 @@ if ($nb_bld_actif == 0) {
    case '2': $pdst='-1'; break;
    case '3': $pdst='0'; break;
    case '4': $pdst='6'; break;
-   case '5': $pdst='-1'; break;
+   case '5': $pdst='-1';break;
    }
+}
+function colsyst($coltarget) {
+   $coltoggle ='
+   <p class="hidden-md-up text-xs-right text-muted">
+      <a class=" mr-1" data-toggle="collapse" data-target="'.$coltarget.'">
+         <i class="fa fa-ellipsis-h faa-burst animated" title="Plus de contenu" data-toggle="tooltip" data-placement="left"></i>
+         <span class="sr-only">Toggle colonne</span>
+      </a>
+   </p>';
+   echo $coltoggle;
 }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
 $ContainerGlobal='
-<div id="container" class="">';
+<div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
@@ -76,7 +87,6 @@ $ContainerGlobal='
 /*           Si Aucune variable pdst dans pages.php                     */
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
-   //if(isset($pdst)) echo'hello je suis défini à '. $pdst; //debug
    echo '
    <div id="corps" class="container-fluid n-hyphenate">
       <div class="row">';
@@ -86,8 +96,9 @@ case '-1':
          <div id="col_princ" class="col-xs-12">';
 break;
 case '1':
+   colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="col2 collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">';
      leftblocks();
    echo '
          </div>
@@ -98,11 +109,14 @@ case '2': case '6':
       <div id="col_princ" class="col-xs-12 col-sm-9">';
 break;
 case '3':
+   colsyst('#col_LB');
    echo '
-      <div id="col_LB" class="col2 collapse navbar-toggleable-sm col-sm-3">';
+      <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">';
    leftblocks();
    echo '
-      </div>
+      </div>';
+   colsyst('#col_RB');
+   echo' 
       <div id="col_RB" class="collapse navbar-toggleable-sm col-sm-3">';
    rightblocks();
    echo '
@@ -114,16 +128,18 @@ case '4':
       <div id="col_princ" class="col-xs-12 col-sm-6">';
 break;
 case '5':
+   colsyst('#col_RB');
    echo '
-      <div id="col_RB" class="col-xs-12 col-sm-3">';
+      <div id="col_RB" class="collapse navbar-toggleable-sm col-sm-3">';
    rightblocks();
    echo '
       </div>
       <div id="col_princ" class="col-xs-12 col-sm-9">';
 break;
 default:
+   colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="col3 collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">';
    leftblocks();
    echo '
          </div>

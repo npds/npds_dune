@@ -1451,13 +1451,13 @@ function pollMain($pollID,$pollClose) {
       list($numcom) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."posts where forum_id='$forum' and topic_id='$pollID' and post_aff='1'"));
       $boxContent .= '
       <ul>
-         <li>'.translate("Votes: ").' <span class="tag tag-pill tag-default pull-xs-right">'.$sum.'</span></li>
-         <li>'.translate("comments:").' <span class="tag tag-pill tag-default pull-xs-right">'.$numcom.'</span></li>
+         <li>'.translate("Votes: ").' <span class="tag tag-pill tag-default float-xs-right">'.$sum.'</span></li>
+         <li>'.translate("comments:").' <span class="tag tag-pill tag-default float-xs-right">'.$numcom.'</span></li>
       </ul>';
    } else {
       $boxContent .= '
       <ul>
-         <li>'.translate("Votes: ").' <span class="tag tag-pill tag-default pull-xs-right">'.$sum.'</span></li>
+         <li>'.translate("Votes: ").' <span class="tag tag-pill tag-default float-xs-right">'.$sum.'</span></li>
       <ul>';
    }
    themesidebox($boxTitle, $boxContent);

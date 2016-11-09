@@ -10,6 +10,17 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
+/*
+   Ce thème :
+   NE permet PAS la gestion de la variable $pdst dans page.php.
+   Accepte l'utilisation des skins (_sk).
+   La variable $pdst :
+   "-1" -> col_princ (en cas de désactivation de TOUS les blocs!)
+   "2"  -> col_princ + col_LB (bloc "gauche" et "droit")
+   Nomination des div :
+   col_princ contient le contenu principal
+   col_LB contient les blocs historiquement dit de gauche et de droite
+*/
 global $NPDS_Prefix, $pdst;
 $pdst='2'; 
 
@@ -18,23 +29,10 @@ $nb_blg_actif = sql_num_rows($blg_actif);
 $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'");
 $nb_bld_actif = sql_num_rows($bld_actif);
 
-/*
-La variable $pdst permet de gérer le nombre et la disposition des colonnes 
- "-1" -> col_princ
- "2"  -> col_princ + col_RB
- 
- La gestion de ce paramètre s'effectue dans le fichier "pages.php" du dossier "themes
-
- Nomination des div :
- col_princ contient le contenu principal
- col_LB contient les blocs historiquement dit de gauche
- col_RB contient les blocs historiquement dit de droite
-*/
-
 if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
-    switch ($pdst) {
-    case '2': $pdst='-1'; break;
-    }
+   switch ($pdst) {
+      case '2': $pdst='-1'; break;
+   }
 }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
@@ -47,15 +45,6 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
    if (!isset($powerpack)) {include ("powerpack.php");}
 // Ne supprimez pas cette ligne / Don't remove this line
 
-   
-/************************************************************************/
-/*     Le corps de page de votre Site - En dessous du Header            */
-/*     On Ouvre les Différent Blocs en Fonction de la Variable $pdst    */
-/*                         Le corps englobe :                           */
-/*                 col_LB + col_princ + col_RB                          */
-/*           Si Aucune variable pdst dans pages.php                     */
-/*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
-/* =====================================================================*/
    echo '
    <div id="corps" class="container-fluid n-hyphenate">
       <div class="row">';

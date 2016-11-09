@@ -29,7 +29,7 @@ switch ($pdst)
    case '2':
       echo '
       </div>
-         <div id="col_LB" class="col 2 collapse navbar-toggleable-sm col-sm-4">';
+         <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-4">';
             leftblocks();
             rightblocks();
       echo '
@@ -40,7 +40,7 @@ switch ($pdst)
    default:
       echo '
       </div>
-      <div id="col_LB" class="col 2 collapse navbar-toggleable-sm col-sm-4">';
+      <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-4">';
          leftblocks();
          rightblocks();
       echo '

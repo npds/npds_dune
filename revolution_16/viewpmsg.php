@@ -208,9 +208,9 @@ include("auth.php");
             echo "<td width=\"5%\" align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
          }
          if ($smilies) {
-            if ($myrow['msg_image']!="") {
+            if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo "<td width=\"5%\" align=\"center\"><img class=\"smil\" src=\"$imgtmp\" alt=\"\" border=\"0\" /></td>";
+               echo '<td width="5%" align="center"><img class="n-smil" src="'.$imgtmp.'" alt="Image du topic" /></td>';
             } else {
                echo '<td width="5%" align="center">&nbsp;</td>';
             }
