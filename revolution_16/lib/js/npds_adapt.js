@@ -1,4 +1,4 @@
-      //<![CDATA[
+$(".n-resp img").addClass("img-fluid");      //<![CDATA[
       /* ce script assure : 
       responsivité des anciens site : forçage des dimensions par la classe img-fluid,
       paramétrages de plugins :  tooltips, popover, toggle, boostrap table, highlight
@@ -19,6 +19,7 @@
          $(".article_texte img,.ibid_descr img").addClass("img-fluid");
          $("#ban img,#art_preview img,#online_user_journal img,#art_sect img, iframe").addClass("img-fluid");
          $(".fo-post-mes img").addClass("img-fluid");//not sure if usefull to late ...
+         $(".n-resp img").addClass("img-fluid");
          // icon toggle 
          $('a[data-toggle="collapse"]').click(function () {
             $(this).find('i.toggle-icon').toggleClass('fa-caret-up fa-caret-down',6000);
