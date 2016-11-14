@@ -106,7 +106,7 @@ $foot1 = "<a href=\"admin.php\" title=\"Admin\" data-toggle=\"tooltip\"><i class
  - <a href=\"modules.php?ModPath=contact&amp;ModStart=contact\">Contact</a> 
  <a href=\"backend.php\" target=\"_blank\" title=\"RSS 1.0\" data-toggle=\"tooltip\"><i class=\"fa fa-rss fa-2x\"></i></a>&nbsp;
 <a href=\"https://github.com/jipexu/npds_dune\" target=\"_blank\" title=\"NPDS Dune on Github ...\" data-toggle=\"tooltip\"><i class=\"fa fa-github fa-2x\"></i></a>";
-$foot2 = "Tous les Logos et Marques sont d&eacute;pos&eacute;s, les commentaires sont sous la responsabilit&eacute; de ceux qui les ont publi&eacute;s, le reste &copy; NPDS Revolution 16 [comme Louis]";
+$foot2 = "Tous les Logos et Marques sont d&eacute;pos&eacute;s, les commentaires sont sous la responsabilit&eacute; de ceux qui les ont publi&eacute;s, le reste &copy; NPDS Revolution 16";
 $foot3 = "";
 $foot4 = "";
 $anonymous = "Visiteur";
