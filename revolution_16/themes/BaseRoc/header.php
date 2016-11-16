@@ -87,42 +87,42 @@ $ContainerGlobal="\n<div id=\"container\">\n";
      echo '<section id="corps" class="row w100 automobile" role="main">';
 switch ($pdst) {
 case "-1":
-     echo '<section id="col_princ" class="col w100 autotablet">';   /* la partie centrale */
+     echo '<section id="col_princ" class="col w100 ">';   /* la partie centrale */
 break;
 case "0":
-     echo '<aside id="col_LB" class="col w18 notablet nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
+     echo '<aside id="col_LB" class="col w18  nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
         leftblocks();
      echo '</aside>';
-     echo '<section id="col_princ" class="col w82 autotablet content">';
+     echo '<section id="col_princ" class="col w82  content">';
 break;
 
 case "1":
-     echo '<aside id="col_LB" class="col w18 notablet nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
+     echo '<aside id="col_LB" class="col w18  nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
         leftblocks();
      echo '</aside>';
-     echo '<section id="col_princ" class="col  w64 autotablet">';
+     echo '<section id="col_princ" class="col  w64 ">';
 break;
 case "2":
-     echo '<section id="col_princ" class="col w82 autotablet">';
+     echo '<section id="col_princ" class="col w82 ">';
 break;
 case "3":
-     echo '<aside id="col_LB" class="col w18 notablet nomobile  aside">';
+     echo '<aside id="col_LB" class="col w18  nomobile  aside">';
         leftblocks();
      echo '</aside>';
      echo '<aside id="col_RB" class="col w18 notablet nomobile   aside">';    /* la colonne de droite qui aura les BLOCS de droites */
         rightblocks();
      echo '</aside>';
-     echo '<section id="col_princ" class="col w64 autotablet content">';
+     echo '<section id="col_princ" class="col w64  content">';
 break;
 case "4":
-     echo '<section id="col_princ" class="col w64 autotablet content">';
+     echo '<section id="col_princ" class="col w64  content">';
 break;
 
 case "5":
      echo '<aside id="col_RB" class="col w18 notablet nomobile   aside">';    /* la colonne de droite qui aura les BLOCS de droites */
         rightblocks();
      echo '</aside>';
-     echo '<section id="col_princ" class="col w82 autotablet content">';
+     echo '<section id="col_princ" class="col w82  content">';
 break;
 
  case "6":
@@ -132,10 +132,10 @@ break;
 
 
 default:
-     echo '<aside id="col_LB" class="col w18 notablet nomobile  aside">';
+     echo '<aside id="col_LB" class="col w18  nomobile  aside">';
         leftblocks();
      echo '</aside>';
-     echo '<section id="col_princ" class="col w82 autotablet content">';
+     echo '<section id="col_princ" class="col w82  content">';
 break;
 }
 ?>
