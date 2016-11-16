@@ -7,7 +7,7 @@
  * inspiré par http://www.knacss.com/
  * 
  * Une Röcssti-quote, juste pour le plaisir :
- * « ♫ Like a Röcssti, touch for the very first time… ♪ » — Madonna 
+ * « Habemus Röcssti ! » — François 
  *
  * ROCSSTI est sous licence MIT : https://github.com/nico3333fr/ROCSSTI/blob/master/LICENSE
  * 
@@ -42,7 +42,7 @@
  */
 
 
-
+ /* Modifi� par JMD sous les conseils de JPB pour utilisation sur NPDS   04-11-2016 */
 
 /*
  *****************************************************************
@@ -65,7 +65,7 @@ html { box-sizing: border-box; }
 html, body, blockquote, ul, ol, form, button { margin: 0; padding: 0; }
 button { border: 0; }
 p, ul, ol, dl, blockquote, pre, td, th, label, textarea {
-  font-size: 1em; /* equiv 14px */
+  font-size: 1em; /* equiv 16px */
   line-height: 1.5;
   margin: 1.5em 0;
 }
@@ -82,19 +82,8 @@ ul, ol { padding-left: 2em; }
 }
 
 /* la base correspond à 10px */
-html { 
-  font-size: 62.5%;
-  /* IE9-IE11 math fixing. Voir http://bit.ly/1g4X0bX */
-  /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
-/*   font-size: calc(1em * 0.625); */
-}
-body {
-  background: #fff;
-  color: #333;
-  font-family: Arial, sans-serif;
-  font-size: 1.4rem;
-  line-height: 1.5; /* à corriger si besoin est */
-}
+html {}
+body {}
 
 
 
@@ -109,49 +98,50 @@ body {
 
 }*/
 
-/* calculées via http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
+/* calculées via https://rocssti.net/builder-css
+ * basé sur http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
 
 h1,
 .h1 {
   display: block;
-  font-size: 2.6rem; /* equiv 26px */
-  line-height: 1.61538;
-  margin: 0 0 .80769em 0;
+  font-size: 2rem; /* equiv 20px */
+  line-height: 1.2;
+  margin: 0 0 1.2em 0;
 }
 h2,
 .h2 {
   display: block;
-  font-size: 2.4rem; /* equiv 24px */
-  line-height: 1.75;
-  margin: 0 0 .875em 0;
+  font-size: 1.8rem; /* equiv 18px */
+  line-height: 1.33333;
+  margin: 0 0 1.33333em 0;
 }
 h3,
 .h3 {
   display: block;
-  font-size: 2.2rem; /* equiv 22px */
-  line-height: 1.90909;
-  margin: 0 0 .95455em 0;
+  font-size: 1.6rem; /* equiv 16px */
+  line-height: 1.5;
+  margin: 0 0 1.5em 0;
 }
 h4,
 .h4 {
   display: block;
-  font-size: 2rem; /* equiv 20px */
-  line-height: 1.05;
-  margin: 0 0 1.05em 0;
+  font-size: 1.4rem; /* equiv 14px */
+  line-height: 1.71429;
+  margin: 0 0 1.71429em 0;
 }
 h5,
 .h5 {
   display: block;
-  font-size: 1.8rem; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 0 0 1.16667em 0;
+  font-size: 1.2rem; /* equiv 12px */
+  line-height: 2;
+  margin: 0 0 2em 0;
 }
 h6,
 .h6 {
   display: block;
-  font-size: 1.6rem; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 0 0 1.3125em 0;
+  font-size: 1rem; /* equiv 10px */
+  line-height: 2.4;
+  margin: 0 0 3.6em 0;
 }
 
 .uppercase {
@@ -161,28 +151,28 @@ h6,
 /* autres classes utiles */
 .smaller {
   font-size: 1rem; /* equiv 10px */
-  line-height: 2.1;
-  margin: 2.1em 0;
+  line-height: 2.4;
+  margin: 2.4em 0;
 }
-.small {
-  font-size: 1.2rem; /* equiv 12px */
-  line-height: 1.75;
-  margin: 1.75em 0;
-}
+/*.small {  fait double emploi ,avec la classe de BT
+  font-size: 1.2rem;   
+  line-height: 2;
+  margin: 2em 0;
+}       */
 .big {
   font-size: 1.6rem; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 1.3125em 0;
+  line-height: 1.5;
+  margin: 1.5em 0;
 }
 .bigger {
   font-size: 1.8rem; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 1.16667em 0;
+  line-height: 1.33333;
+  margin: 1.33333em 0;
 }
 .biggest {
   font-size: 2rem; /* equiv 20px */
-  line-height: 1.05;
-  margin: 1.05em 0;
+  line-height: 1.2;
+  margin: 1.2em 0;
 }
 
 
@@ -252,7 +242,7 @@ li ul {
   margin-top: 0;
 }
 /* Vous ne passerez PAS (Gandalf) */
-/*textarea,
+textarea,
 table,
 td,
 th,
@@ -260,7 +250,7 @@ code,
 pre,
 samp,
 div,
-p,*/
+p,
 .cut {
   word-wrap: break-word;
   -webkit-hyphens: auto;
@@ -423,18 +413,21 @@ svg {
 .clear {
   clear: both;
 }
+
 .clearleft {
   clear: left;
 }
 .clearright {
   clear: right;
 }
+
 .clearhidden {
   clear: both;
   margin: 0;
   padding: 0;
   visibility: hidden;
 }
+
 .clearfix:after {
   content: ".";
   display: block;
@@ -452,7 +445,11 @@ svg {
 
 /* gestion du table-design en CSS */
 .row {
-  display: table;
+/*   display: table;
+  table-layout: fixed; */  /* pour ne pas rentrer en conflit avec BS   BMAG */
+}
+.inline-row {
+  display: inline-table;
   table-layout: fixed;
 }
 .line {
@@ -508,7 +505,7 @@ svg {
 }
 
 
-/* largeurs de blocks adapt� par Bmag pour les besoin de npds*/
+                /* largeurs de blocks adapt� par Bmag pour les besoin de npds*/
 .w1   { width: 1%; }
 .w2   { width: 2%; }
 .w3   { width: 3%; }
@@ -589,12 +586,11 @@ svg {
 .p2  { padding: 2em; }
 
 
-
 /* spécial hr de 1px de haut */
 hr {
-  background-color: #000;
+  background-color: #804040;
   border: 0;
-  color: #000;
+  color: #804040;
   height: 1px;
   margin: 0 0 1em;
   padding: 0;
@@ -611,6 +607,7 @@ hr {
   position: absolute;
   width: 1px;
 }
+.nonvisible { visibility: hidden; }
 
 .hidden    { display: none; } /* caché partout */
 .nodesktop { display: none; } /* caché sur desktop */
@@ -690,6 +687,120 @@ hr {
  *****************************************************************
  */
 
+/* donne envie de cliquer sur un bouton */
+label,
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  cursor: pointer;
+}
+
+/* évite un resize potentiellement foireux */
+textarea {
+  resize: vertical;
+}
+/* supprime un bug Firefox sur button */
+button::-moz-focus-inner { border: 0; padding: 0; }
+
+label,
+button,
+input,
+select {
+  vertical-align: middle;
+}
+
+/** fix typo inputs **/
+input,
+select,
+textarea,
+optgroup,
+button {
+  font: inherit;
+}
+
+/* à adapter selon le design voulu */
+input,
+select,
+textarea {
+  border: 1px solid #988029;
+  border-radius: 5px;
+  padding: .5em;
+  width: 250px;
+}
+
+/* pour les textes des champs */
+.label {
+  display: inline-block;
+}
+
+/* à adapter selon le design voulu */
+.button {
+  background: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 1px #ddd; 
+  box-shadow: 1px 1px 1px #ddd; 
+  color: #000;
+}
+
+/* 
+ * évite dimensionnement des radios, checkboxes et images
+ * et un affichage différent sous IE 
+ */
+input[type="radio"],
+input[type="checkbox"],
+input[type="image"] {
+  background-color: transparent;
+  border: 0;
+  width: auto;
+}
+
+/* pour annuler la taille des inputs ou autres */
+.auto {
+  width: auto;
+}
+
+/* messages d’erreur ou de confirmation */
+.alert,
+.alert input,
+.alert textarea,
+.alert select {
+  color: #bf0000;
+  font-weight: bold;
+}
+/* .redborder sert à débugger uniquement */
+.alert input,
+.alert textarea,
+.alert select,
+.redborder {
+  border: 1px solid #bf0000;
+}
+.alert img {
+  border: 0;
+}
+/*.ok {
+
+}*/
+
+/* 
+ * peut être complété par les attributs HTML5 required
+ * exemple avec une couleur, penser à ne pas uniquement transmettre l’info ainsi
+ */
+/*select:required:invalid,
+input:required:invalid,
+input:focus:invalid,
+textarea:required:invalid,
+textarea:focus:invalid {
+  background: #fef6f6;
+  -moz-box-shadow: none;
+}
+
+input:focus:required:valid,
+textarea:focus:required:valid,
+select:focus:required:valid {
+  background: #efe;
+  -moz-box-shadow: none;
+}*/
 
 
 
