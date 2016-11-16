@@ -21,7 +21,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
 
     $aff=true;
     if ($oper=='news') {
-       $xtab=news_aff("libre","where sid='$sid'",1,1);
+       $xtab=news_aff('libre',"where sid='$sid'",1,1);
        list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
        if ($topic!='') {
           $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
@@ -31,9 +31,9 @@ function PrintPage($oper, $DB, $nl, $sid) {
        }
     }
     if ($oper=='archive') {
-       $xtab=news_aff("archive","WHERE sid='$sid'",1,1);
+       $xtab=news_aff('archive',"WHERE sid='$sid'",1,1);
        list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
-       if ($topic!="") {
+       if ($topic!='') {
           $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
           list($topictext) = sql_fetch_row($result2);
        } else {
@@ -47,7 +47,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
        $title = stripslashes($title); $description = stripslashes($description);
     }   
     if ($oper=='static') {
-       if (preg_match('#^[a-z0-9_\.-]#i',$sid) and !stristr($sid,".*://") and !stristr($sid,"..") and !stristr($sid,"../") and !stristr($sid, "script") and !stristr($sid, "cookie") and !stristr($sid, "iframe") and  !stristr($sid, "applet") and !stristr($sid, "object") and !stristr($sid, "meta"))  {
+       if (preg_match('#^[a-z0-9_\.-]#i',$sid) and !stristr($sid,".*://") and !stristr($sid,"..") and !stristr($sid,"../") and !stristr($sid, 'script') and !stristr($sid, "cookie") and !stristr($sid, 'iframe') and  !stristr($sid, 'applet') and !stristr($sid, 'object') and !stristr($sid, 'meta'))  {
           if (file_exists("static/$sid")) {
              ob_start();
                 include ("static/$sid");
@@ -67,7 +67,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
        }
     }
     if ($aff==true) {
-       $Titlesitename="NPDS - ".translate("Printer Friendly Page")." / ".$title;
+       $Titlesitename='NPDS - '.translate("Printer Friendly Page").' / '.$title;
        if (isset($time))
           formatTimestamp($time);
        include("meta/meta.php");
@@ -87,8 +87,8 @@ function PrintPage($oper, $DB, $nl, $sid) {
        echo '
        </head>
        <body>
-          <div max-width="640" class="container p-1">
-             <div class="">';
+          <div max-width="640" class="container p-1 n-hyphenate">
+             <div>';
        $pos = strpos($site_logo, '/');
        if ($pos)
           echo '<img class="img-fluid d-block mx-auto" src="'.$site_logo.'" alt="website logo" />';
@@ -100,7 +100,9 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $hometext=meta_lang(aff_code(aff_langue($hometext)));
           $bodytext=meta_lang(aff_code(aff_langue($bodytext)));
           echo '
-          <span style="font-size: .8rem;"> '.$datetime.' :: <b>'.translate("Topic:").'</b> '.aff_langue($topictext).'<br /><br /></span>
+             <span class="float-xs-right text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
+             <hr />
+             <h2 class="mb-1">'.translate("Topic:").' '.aff_langue($topictext).'</h2>
          </div>
          <div>'.$hometext.'<br /><br />';
           if ($bodytext!='') {
@@ -112,7 +114,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           if ($oper=='news') {
              echo '
              <hr />
-             <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br /><br />
+             <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
              '.translate("The URL for this story is:").'
              <a href="'.$nuke_url.'/article.php?sid='.$sid.'">'.$nuke_url.'/article.php?sid='.$sid.'</a>
              </p>';
@@ -126,12 +128,12 @@ function PrintPage($oper, $DB, $nl, $sid) {
           }
        }
        if ($oper=='links') {
-          echo '<span style="font-size: .8rem;">'.$datetime;
+          echo '<span class="float-xs-right text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
           if ($url!='') {
-             echo ' :: <strong>'.translate("Links").' : </strong> '.$url.'<br /><br />';
+             echo '<h2 class="mb-1">'.translate("Links").' : '.$url.'</h2>';
           }
-          echo '</span></p>'.aff_langue($description);
           echo '
+          <div>'.aff_langue($description).'</div>
           <hr />
           <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
           <a href="'.$nuke_url.'">'.$nuke_url.'</a></p>';
