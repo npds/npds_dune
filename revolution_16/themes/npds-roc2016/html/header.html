@@ -1,76 +1,72 @@
- <header class="header1">
-
+<header class="header1">
    <div id="decohead" class="p1 ">
-				<div class="mod  ">
-					  <div class="left w33  automobile">
-					   <img src="themes/npds-roc2016/images/logohead.png" >
-					  </div>
-					  <div class="left w33 pt1 alignmiddle automobile">
-						 <?php
-					   global $cookie, $anonymous;
-					   global $NPDS_Prefix;
-					   $username = $cookie[1];
-					   if (autorisation(-1)) {
-						  echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
-					   } elseif (autorisation(1)) {
-						  echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
-						  settype($cookie[0], 'integer');
-						  list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
-						  if ($nbmes>0)
-							 echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
-						  else
-							 echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
-						  echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
-					   } ?></a>
-					  </div>
-					  <div class="left w33  alignright automobile"><h1> !slogan! </h1> !date! </div>
-				</div>
-				<p></p>
-
- <div id='cssmenu'>
-<ul>
-   <li><a href='index.php'><i class="fa fa-fw fa-home"></i>Home</a></li>
-   <li class='active'><a href='#'><i class="fa fa-fw fa-cog"></i>Multicolonnes</a>
-      <ul>
-         <li><a href='static.php?op=central.html&npds=-1&metalang=1'>Une colonne</a>
-
-         </li>
-         <li><a href='#'>Deux colonnes</a>
-            <ul>
-               <li><a href='static.php?op=central.html&npds=0&metalang=1'>Aside et Central</a></li>
-               <li><a href='static.php?op=central.html&npds=2&metalang=1'>Central et Aside</a></li>
-            </ul>
-         </li>
-
-         <li><a href='#'>Troiscolonnes</a>
-            <ul>
-               <li><a href='static.php?op=central.html&npds=1&metalang=1'>Aside-Central-Aside</a></li>
-               <li><a href='static.php?op=central.html&npds=3&metalang=1'>Aside-Aside-Central</a></li>
-               <li><a href='static.php?op=central.html&npds=4&metalang=1'>Central-Aside-Aside</a></li>
-            </ul>
-         </li>
-
-      </ul>
-   </li>
-   <li><a href='#'>PAges NPDS</a>
+      <div class="mod  ">
+         <div class="left w33  automobile">
+            <img src="themes/npds-roc2016/images/logohead.png" >
+         </div>
+         <div class="left w33 pt1 alignmiddle automobile">
+<?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   if (autorisation(-1)) {
+      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+   } elseif (autorisation(1)) {
+      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
+      settype($cookie[0], 'integer');
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
+      else
+         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
+      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
+   }
+?>
+</a>
+         </div>
+         <div class="left w33  alignright automobile"><h1> !slogan! </h1> !date! </div>
+      </div>
+      <div id='cssmenu'>
+         <ul>
+            <li><a href='index.php'><i class="fa fa-fw fa-home"></i>Home</a></li>
+            <li class='active'><a href='#'><i class="fa fa-fw fa-cog"></i>Multicolonnes</a>
+               <ul>
+                  <li><a href='static.php?op=central.html&npds=-1&metalang=1'>Une colonne</a></li>
+                  <li><a href='#'>Deux colonnes</a>
+                     <ul>
+                        <li><a href='static.php?op=central.html&npds=0&metalang=1'>Aside et Central</a></li>
+                        <li><a href='static.php?op=central.html&npds=2&metalang=1'>Central et Aside</a></li>
+                     </ul>
+                  </li>
+                  <li><a href='#'>Troiscolonnes</a>
+                     <ul>
+                        <li><a href='static.php?op=central.html&npds=1&metalang=1'>Aside-Central-Aside</a></li>
+                        <li><a href='static.php?op=central.html&npds=3&metalang=1'>Aside-Aside-Central</a></li>
+                        <li><a href='static.php?op=central.html&npds=4&metalang=1'>Central-Aside-Aside</a></li>
+                     </ul>
+                  </li>
+               </ul>
+            </li>
+            <li><a href='#'>PAges NPDS</a>
                <ul class="menu-vertical"><li><a href="index.php">home</a></li>
-               <li><a href="modules.php?ModPath=archive-stories&ModStart=archive-stories">Nouvelles</a></li>
-               <li><a href="forum.php">Forums</a></li>
-               <li><a href="sections.php">Rubriques</a></li>
-               <li><a href="topics.php">Sujets actifs</a></li>
-               <li><a href="modules.php?ModPath=links&ModStart=links">Liens Web</a></li>
-               <li><a href="download.php">Downloads</a></li>
-               <li><a href="faq.php">FAQ</a></li>
-               <li><a href="static.php?op=statik.txt&npds=1">Page statique</a></li>
-               <li><a href="reviews.php">Critiques</a></li>
-               <li><a href="memberslist.php">Annuaire</a></li>
-               <li><a href="map.php">Plan du site</a></li>
-               <li><a href="friend.php">Faire notre pub</a></li>
-               <li><a href="user.php">Votre compte</a></li>
-               <li><a href="submit.php">Nouvel article</a></li>
-               </ul></li>
-   <li><a href='modules.php?ModPath=contact&ModStart=contact'><i class="fa fa-fw fa-phone"></i>Contact</a></li>
-</ul>
-</div>
+                  <li><a href="modules.php?ModPath=archive-stories&ModStart=archive-stories">Nouvelles</a></li>
+                  <li><a href="forum.php">Forums</a></li>
+                  <li><a href="sections.php">Rubriques</a></li>
+                  <li><a href="topics.php">Sujets actifs</a></li>
+                  <li><a href="modules.php?ModPath=links&ModStart=links">Liens Web</a></li>
+                  <li><a href="download.php">Downloads</a></li>
+                  <li><a href="faq.php">FAQ</a></li>
+                  <li><a href="static.php?op=statik.txt&npds=1">Page statique</a></li>
+                  <li><a href="reviews.php">Critiques</a></li>
+                  <li><a href="memberslist.php">Annuaire</a></li>
+                  <li><a href="map.php">Plan du site</a></li>
+                  <li><a href="friend.php">Faire notre pub</a></li>
+                  <li><a href="user.php">Votre compte</a></li>
+                  <li><a href="submit.php">Nouvel article</a></li>
+               </ul>
+            </li>
+            <li><a href='modules.php?ModPath=contact&ModStart=contact'><i class="fa fa-fw fa-phone"></i>Contact</a></li>
+         </ul>
+      </div>
    </div>
-   </header>
+</header>

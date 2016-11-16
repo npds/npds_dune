@@ -165,11 +165,11 @@ h6,
   line-height: 2.4;
   margin: 2.4em 0;
 }
-.small {
-  font-size: 1.2rem; /* equiv 12px */
+/* .small {     pour eviter des bug avec la classe de BS
+  font-size: 1.2rem;
   line-height: 2;
   margin: 2em 0;
-}
+} */
 .big {
   font-size: 1.6rem; /* equiv 16px */
   line-height: 1.5;
