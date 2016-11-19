@@ -47,7 +47,7 @@ function mapsections() {
             <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
          </h3>
       <div class="collapse" id="collapseSections">
-         <div class="card">
+         <div class="card card-block">
             <ul>'.$tmp.'</ul>
          </div>
       </div>';
@@ -66,7 +66,7 @@ function mapforum() {
          <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Forums!").'
       </h3>
       <div class="collapse" id="collapseForums">
-         <div class="card">
+         <div class="card card-block">
             '.$tmp.'
          </div>
       </div>';
@@ -90,7 +90,7 @@ function maptopics() {
          <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseTopics">
-         <div class="card">
+         <div class="card card-block">
             <ul>'.$lis_top.'</ul>
          </div>
       </div>';
