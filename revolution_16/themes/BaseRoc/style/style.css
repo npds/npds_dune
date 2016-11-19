@@ -76,13 +76,7 @@ padding-top: .35rem;
 padding-bottom: .35rem;
 padding-right: 0rem;
 padding-left: 0rem;
-
 border:0px;
-/* 
-margin-left: -1.25rem;
-margin-right: 1.25rem;
- */
-
 }
 
 .n-card-compact-no-padside {
@@ -109,10 +103,10 @@ border:0px;
 .list-group-item {   /* ajust jmd*/
     position: relative;
     display: block;
-    padding: .75rem .25rem;
+    padding:.25rem;
     margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: transparent;
+    /* border: 1px solid #ddd; */
 }
 
 /** ==> ID NPDS-Core                                                        **/
@@ -127,7 +121,11 @@ text-align:center;
 /** <== ID NPDS-Core                                                        **/
 
 
-
+/* Liens */
+.text-primary {
+  color: #be2525 !important  ;
+  cursor: pointer;
+}
 /**************************************************
  adapt JMD pour correspondances avec Rocssti
  ****************************************************/
@@ -144,7 +142,7 @@ text-align:center;
 /************************************************************************
 Dimension du site    *jmd work
 *************************************************************************/
-body {background: firebrick;}
+body {background: url("../images/site-bg.jpg");}
 
 
 #container {
@@ -239,6 +237,11 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
     list-style: none;
 }
 
+#col_RB ul {
+    padding-left: 0;
+    list-style: none;
+}
+
 
 /************************************
 On customise le Menu bloc gauche il faudra cocher la case dans l'admin
@@ -289,11 +292,11 @@ background-color: #ccc;}
 Adaptation des css au fil du test
 *********************************************/
 ul, ol {
-    padding-left: 0;
+    padding-left: 1rem;
 }
 
  #footer a {
- color: #2573be;
+ color: #be2525;
   cursor: pointer;
 }
 
