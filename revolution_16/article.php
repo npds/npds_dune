@@ -100,22 +100,15 @@ if (!isset($sid) && !isset($tid)) {
          list($sid1,$catid1,$aid1,$title1) = $xtab[$story_limit];
          $story_limit++;
          $title1=aff_langue(addslashes($title1));
-
          $boxstuff.='
          <li><a href="article.php?sid='.$sid1.'&amp;archive='.$archive.'" class="noir">'.aff_langue(stripslashes($title1)).'</a></li>';
       }
       $boxstuff .='
-      </ul>';
-
-      $boxstuff .= '<p align="center">';
-//       $boxstuff .= '<a href="print.php?sid='.$sid.'&amp;archive='.$archive.'">';
-//       if ($ibid=theme_image("box/print.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/print.gif";}
-//      $boxstuff .= "<img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Printer Friendly Page")."\" align=\"center\" /></a>&nbsp;&nbsp;";
-      if ($ibid=theme_image("box/friend.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/friend.gif";}
-      $boxstuff .= "<a href=\"friend.php?op=FriendSend&amp;sid=$sid&amp;archive=$archive\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Send this Story to a Friend")."\" align=\"center\" /></a>&nbsp;";
-
-      $boxstuff .= '<a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
-      $boxstuff .= '</p>';
+      </ul>
+      <p align="center">
+         <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-lg fa-envelope-o mr-1" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip"></i></a>
+         <a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" ><i class="fa fa-print fa-lg" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"></i></a>
+      </p>';
 
       if (!$archive) {
          $previous_tab=news_aff("libre","WHERE sid<'$sid' ORDER BY sid DESC ",0,1);
