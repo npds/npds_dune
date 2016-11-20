@@ -32,8 +32,8 @@ function FaqAdmin() {
    <table id="tad_faq" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead class="thead-infos">
          <tr>
-            <th data-sortable="true" data-halign="center">'.adm_translate("Catégories").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th data-sortable="true" data-halign="center" class="n-t-col-xs-10">'.adm_translate("Catégories").'</th>
+            <th data-halign="center" data-align="right" class="n-t-col-xs-2">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -41,8 +41,8 @@ function FaqAdmin() {
    while(list($id_cat, $categories) = sql_fetch_row($result)) {
       echo '
          <tr>
-            <td><span title="ID : '.$id_cat.'">'.aff_langue($categories).'</span><br /><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" class="noir"><i class="fa fa-level-up fa-lg fa-rotate-90 " title="'.adm_translate("Voir").'"></i>&nbsp;&nbsp;'.adm_translate("Questions & Réponses").'&nbsp;</a></td>
-            <td align="right"><a href="admin.php?op=FaqCatEdit&amp;id_cat='.$id_cat.'"><i class="fa fa-edit fa-lg" title="Editer"></i></a> <a href="admin.php?op=FaqCatDel&amp;id_cat='.$id_cat.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></a></td>
+            <td><span title="ID : '.$id_cat.'">'.aff_langue($categories).'</span><br /><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" class="noir"><i class="fa fa-level-up fa-lg fa-rotate-90 " title="'.adm_translate("Voir").'" data-toggle="tooltip"></i>&nbsp;&nbsp;'.adm_translate("Questions & Réponses").'&nbsp;</a></td>
+            <td><a href="admin.php?op=FaqCatEdit&amp;id_cat='.$id_cat.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a> <a href="admin.php?op=FaqCatDel&amp;id_cat='.$id_cat.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></a></td>
          </tr>';
    }
    echo '
@@ -128,36 +128,26 @@ function FaqCatGo($id_cat) {
          </div>
       </fieldset>
    </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("question",255);
-      });
-   //]]>
-   </script>
    <h4>'.adm_translate("Liste des questions réponses").'</h4>
    <ul class="list-group">
       '.$lst_qr.'
-   </ul>';
-
-
-echo '  
-<script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-      var topid="";
-      $(".topi").hover(function(){
-         topid = $(this).parent().attr("id");
-         console.log(topid);
-         topid = topid.substr(topid.search(/\d/))
-         $button=$("#shortcut-tools_"+topid);
-         $button.show();
-      }, function(){
-       $button.hide();
-     });
-     });
-   //]]>
-</script>';
+   </ul>
+   <script type="text/javascript">
+      //<![CDATA[
+         $(document).ready(function() {
+            inpandfieldlen("question",255);
+            var topid="";
+            $(".topi").hover(function(){
+               topid = $(this).parent().attr("id");
+               topid = topid.substr(topid.search(/\d/))
+               $button=$("#shortcut-tools_"+topid);
+               $button.show();
+            }, function(){
+             $button.hide();
+           });
+        });
+      //]]>
+   </script>';
    adminfoot('fv','','','');
 }
 
@@ -194,7 +184,7 @@ function FaqCatEdit($id_cat) {
    <script type="text/javascript">
    //<![CDATA[
       $(document).ready(function() {
-      inpandfieldlen("categories",255);
+         inpandfieldlen("categories",255);
       });
    //]]>
    </script>';
@@ -217,7 +207,7 @@ function FaqCatGoEdit($id) {
    <h4>'.adm_translate("Prévisualiser").'</h4>';
    echo'
    <label class="form-control-label" for="">'
-      .aff_local_langue(adm_translate("Langue de Prévisualisation"),"","local_user_language").'
+      .aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
    </label>
    <div class="card card-block">
    <p>'.preview_local_langue($local_user_language, $question).'</p>';
@@ -248,7 +238,7 @@ function FaqCatGoEdit($id) {
                <input type="hidden" name="id" value="'.$id.'" />
                <input type="hidden" name="op" value="FaqCatGoSave" />
                <button class="btn btn-outline-primary col-xs-12 col-sm-6" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
-               <button class="btn btn-outline-secondary col-xs-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arriére").'</a>
+               <button class="btn btn-outline-secondary col-xs-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arrière").'</a>
             </div>
          </div>
       </fieldset>
@@ -264,68 +254,76 @@ function FaqCatGoEdit($id) {
 }
 
 function FaqCatSave($old_id_cat, $id_cat, $categories) {
-    global $NPDS_Prefix;
-    $categories = stripslashes(FixQuotes($categories));
-    if ($old_id_cat!=$id_cat) {
-       sql_query("UPDATE ".$NPDS_Prefix."faqanswer SET id_cat='$id_cat' WHERE id_cat='$old_id_cat'");
-    }
-    sql_query("UPDATE ".$NPDS_Prefix."faqcategories SET id_cat='$id_cat', categories='$categories' WHERE id_cat='$old_id_cat'");
-    Header("Location: admin.php?op=FaqAdmin");
+   global $NPDS_Prefix;
+   $categories = stripslashes(FixQuotes($categories));
+   if ($old_id_cat!=$id_cat) {
+      sql_query("UPDATE ".$NPDS_Prefix."faqanswer SET id_cat='$id_cat' WHERE id_cat='$old_id_cat'");
+   }
+   sql_query("UPDATE ".$NPDS_Prefix."faqcategories SET id_cat='$id_cat', categories='$categories' WHERE id_cat='$old_id_cat'");
+   Header("Location: admin.php?op=FaqAdmin");
 }
 
 function FaqCatGoSave($id, $question, $answer) {
-    global $NPDS_Prefix;
-    $question = stripslashes(FixQuotes($question));
-    $answer = stripslashes(FixQuotes($answer));
-    sql_query("UPDATE ".$NPDS_Prefix."faqanswer SET question='$question', answer='$answer' WHERE id='$id'");
-    Header("Location: admin.php?op=FaqCatGoEdit&id=$id");
+   global $NPDS_Prefix;
+   $question = stripslashes(FixQuotes($question));
+   $answer = stripslashes(FixQuotes($answer));
+   sql_query("UPDATE ".$NPDS_Prefix."faqanswer SET question='$question', answer='$answer' WHERE id='$id'");
+   Header("Location: admin.php?op=FaqCatGoEdit&id=$id");
 }
 
 function FaqCatAdd($categories) {
-    global $NPDS_Prefix;
-    $categories = stripslashes(FixQuotes($categories));
-    sql_query("INSERT INTO ".$NPDS_Prefix."faqcategories VALUES (NULL, '$categories')");
-    Header("Location: admin.php?op=FaqAdmin");
+   global $NPDS_Prefix;
+   $categories = stripslashes(FixQuotes($categories));
+   sql_query("INSERT INTO ".$NPDS_Prefix."faqcategories VALUES (NULL, '$categories')");
+   Header("Location: admin.php?op=FaqAdmin");
 }
 
 function FaqCatGoAdd($id_cat, $question, $answer) {
-    global $NPDS_Prefix;
-    $question = stripslashes(FixQuotes($question));
-    $answer = stripslashes(FixQuotes($answer));
-    sql_query("INSERT INTO ".$NPDS_Prefix."faqanswer VALUES (NULL, '$id_cat', '$question', '$answer')");
-    Header("Location: admin.php?op=FaqCatGo&id_cat=$id_cat");
+   global $NPDS_Prefix;
+   $question = stripslashes(FixQuotes($question));
+   $answer = stripslashes(FixQuotes($answer));
+   sql_query("INSERT INTO ".$NPDS_Prefix."faqanswer VALUES (NULL, '$id_cat', '$question', '$answer')");
+   Header("Location: admin.php?op=FaqCatGo&id_cat=$id_cat");
 }
 
 function FaqCatDel($id_cat, $ok=0) {
-    global $NPDS_Prefix;
-    if($ok==1) {
-        sql_query("DELETE FROM ".$NPDS_Prefix."faqcategories WHERE id_cat='$id_cat'");
-        sql_query("DELETE FROM ".$NPDS_Prefix."faqanswer WHERE id_cat='$id_cat'");
-        Header("Location: admin.php?op=FaqAdmin");
-    } else {
-        global $hlpfile;
-        include("header.php");
-        GraphicAdmin($hlpfile);
-        echo "<p align=\"center\"><br />";
-        echo "<span class=\"rouge\"><b>".adm_translate("ATTENTION : êtes-vous sûr de vouloir effacer cette FAQ et toutes ses questions ?")."</b></span><br /><br />";
-    }
-    echo "[ <a href=\"admin.php?op=FaqCatDel&amp;id_cat=$id_cat&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=FaqAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br /></p>";
-    include("footer.php");
+   global $NPDS_Prefix;
+   if($ok==1) {
+      sql_query("DELETE FROM ".$NPDS_Prefix."faqcategories WHERE id_cat='$id_cat'");
+      sql_query("DELETE FROM ".$NPDS_Prefix."faqanswer WHERE id_cat='$id_cat'");
+      Header("Location: admin.php?op=FaqAdmin");
+   } else {
+      global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo '
+      <hr />
+      <div class="alert alert-danger">
+         <p><strong>'.adm_translate("ATTENTION : êtes-vous sûr de vouloir effacer cette FAQ et toutes ses questions ?").'</strong></p>
+         <a href="admin.php?op=FaqCatDel&amp;id_cat='.$id_cat.'&amp;ok=1" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=FaqAdmin" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>
+      </div>';
+      include("footer.php");
+   }
 }
 
 function FaqCatGoDel($id, $ok=0) {
-    global $NPDS_Prefix;
-    if($ok==1) {
-        sql_query("DELETE FROM ".$NPDS_Prefix."faqanswer WHERE id='$id'");
-        Header("Location: admin.php?op=FaqAdmin");
-    } else {
-        global $hlpfile;
-        include("header.php");
-        GraphicAdmin($hlpfile);
-        echo "<p align=\"center\"><br />";
-        echo "<span class=\"rouge\"><b>".adm_translate("ATTENTION : êtes-vous sûr de vouloir effacer cette question ?")."</b></span><br /><br />";
-    }
-    echo "[ <a href=\"admin.php?op=FaqCatGoDel&amp;id=$id&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=FaqAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br /></p>";
-    include("footer.php");
+   global $NPDS_Prefix;
+   if($ok==1) {
+      sql_query("DELETE FROM ".$NPDS_Prefix."faqanswer WHERE id='$id'");
+      Header("Location: admin.php?op=FaqAdmin");
+   } else {
+      global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo '
+      <hr />
+      <div class="alert alert-danger">
+         <p><strong>'.adm_translate("ATTENTION : êtes-vous sûr de vouloir effacer cette question ?").'</strong></p>
+         <a href="admin.php?op=FaqCatGoDel&amp;id='.$id.'&amp;ok=1" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=FaqAdmin" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>
+      </div>';
+      include("footer.php");
+   }
 }
 ?>
