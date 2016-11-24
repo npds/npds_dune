@@ -241,8 +241,6 @@ if ($supadm==1) echo'
          }
       }
    },
-   add_email: {},
-   add_url: {},
    add_pwd: {
       validators: {
          notEmpty: {

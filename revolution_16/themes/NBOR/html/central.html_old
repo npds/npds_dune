@@ -1,39 +1,173 @@
-<h1>Bienvenu sur Npds</h1>
-<div class="row ">
-<div class="col w100 m1 automobile">
-<h2>EDITO</h2>
-!edito!
 
-<div class="row">
-  <div class="col w50 p1  bord1 automobile">
-    <h4>Dernier post</h4>
-    !article_complet!0
-  </div>
-  <div class="col w50 p1   automobile">
-    <h4>Avant dernier post</h4>
-    !article_complet!-1
-  </div>
+
+ <div class="central ">
+ 
+ <div class="row pb1">
+  <div class="col w50  automobile"> <h1>Bienvenu sur Npds Révolution 16</h1> Gestionnaire de contenu & de communauté</div>
+  <div class="col w50 automobile "> <?php
+   global $cookie, $anonymous;
+   global $NPDS_Prefix;
+   $username = $cookie[1];
+   if (autorisation(-1)) {
+      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
+   } elseif (autorisation(1)) {
+      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
+      settype($cookie[0], 'integer');
+      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      if ($nbmes>0)
+         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
+      else
+         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
+      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
+   } ?></div>
 </div>
-<h3>Un autre sous titre</h3>
-<p>Je dois donc avoir ici un simple paragraphe qui va s'&eacute;tendre sur toute la largeur de ma fen&egrave;tre. Aenean massa.
-Cum sociis natoque penatibus et m. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-<div class="row redborder">
-  <div class="col  p1   automobile">
-    <h4>bloctxt Block 1</h4>
-  </div>
-  <div class="col  p1   automobile">
-    <h4>bloctxt Block 2</h4>
-  </div>
-  <div class="col  p1 bord1  automobile">
-    <h4>bloctxt Block 3</h4>
-  </div>
-  <div class="col  p1 automobile">
-    <h4>bloctxt Block 4</h4>
-  </div>
-  <div class="col bloctxt p1 automobile">
-    <h4>bloctxt Block 5</h4>
-  </div>
-  <div class="col bloctxt p1 automobile">
-    <h4>bloctxt Block 6</h4>
-  </div>
+
+
+	<div class="row">
+		<div class="col w60 p1 automobile intro">
+			<h2 class="ombre">Quelques mots</h2>
+
+			<div id="container">
+
+
+      <!--Horizontal Tab-->
+      
+      <div id="parentHorizontalTab">
+  <ul class="resp-tabs-list hor_1">
+                <li>Présentation du CMS</li>
+                <li>Modules</li>
+                <li>Thèmes</li>
+            </ul>
+            <div class="resp-tabs-container hor_1">
+                <div>
+                    <p>
+                        <!--vertical Tabs-->
+
+                        <div id="ChildVerticalTab_1">
+                            <ul class="resp-tabs-list ver_1">
+                                <li>Gestion de communauté</li>
+                                <li>Gestion de contenu</li>
+                                <li>WorkSpace intégré</li>
+                                <li>Gestion multisite</li>
+                            </ul>
+                            <div class="resp-tabs-container ver_1">
+                                <div>
+                                  <p>Le CMS est l'outil idéal pour les sites communautaires, associatifs,   ou liés à l'actualité. Un CMS permet de créer des sites WEB dynamiques sans connaissances avancées.
+                                  <br>
+                                  
+                                  <p>Aux programmes des CMS eux mêmes, viennent s'ajouter des modules, ou   des add-ons (extensions), qui permettent d'ajouter des possibilités au   site.<br>
+                                    Différents thèmes (aspect graphique) existent ou peuvent être créés. <br></p>
+                  
+								  </p>
 </div>
+                                <div>
+                                    <p>Gérez votre Communauté d'utilisateurs, vos groupes de travail   collaboratif, publiez, gérez et organisez votre contenu grace aux   puissants outils disponiblent de base. </p>
+                                    <ul>
+                                      <li>Multi langues (Français, Anglais, Allemand, Espagnol, Chinois)</li>
+                                      <li>Installation et administration complète et centralisée</li>
+                                      <li>Gestionnaire de fichier en ligne</li>
+                                      <li>Gestion des groupes de membres</li>
+                                      <li>Ecriture collaborative de documents (PAD)</li>
+                                      <li>Forums évolués</li>
+                                      <li>Mini-sites (pour les membres et les groupes de travail)</li>
+                                      <li>Chat temp réel</li>
+                                      <li>Système de News et de rubriques complet (édition, révision, publication)</li>
+                                      <li>...</li>
+                                    </ul>
+                              </div>
+                                <div>
+                                    <p>Dans une Communauté, le travail à plusieurs est gage de réussite.</p>
+                                  <p>&nbsp;</p>
+                                    <ul>
+                                      <li>Editer des contenus communs et pouvoir les modifier &quot;en ligne&quot; peut se faire trés facilement.</li>
+                                      <li>Partager des documents textes, images, vidéo dans un espace sécurisé.</li>
+                                      <li>Stoker ces documents en fonction des Groupes que vous aurez créé.</li>
+                                      <li>Activer des forum spécifiques.</li>
+                                      <li>Une messagerie interne</li>
+                                      <li>Gérer un Minisite (Blog) pour le groupe...</li>
+                                  </ul>
+                                    <p><strong>Tout cela en bien plus encore est possible dans le WorkSpace de Npds</strong>.</p>
+                                    <p>&nbsp;</p>
+</div>
+                                <div>
+                                    <p>Gestion multisite</p>
+                                    <p>Mieux qu'un long discourt un exemple basique : <a href="http://global.npds.org/index.php?op=edito" target="_blank">globalnpds</a></p>
+                                    <div><a href="http://www.npds.org/search.php?query=&topic=10"><img src="http://www.npds.org/themes/NPDS-Bmag/images/topics/npds.png" alt="Rechercher dans NPDS" border="0"></a></div>
+Une idée novatrice, un peu de développement et voilà que notre ami Jireck lance officiellement le site "<a href="http://global.npds.org/" target="_blank" title="Global NPDS">Global NPDS</a>". <br>
+<br>
+Il n'est pas contraignant pour le webmaster du site "clustérisé"  qui conserve à chaque "new publiée" la décision de la clustériser ou  non.
+<p>&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                    
+                    <p>NPDS gestion de contenu</p>
+                </div>
+                <div>
+                  <p>Le texte relatif au Modules et addon que Npds peut fournir</p>
+                  <p>Une liste de module existant, un exemple de module, le lien direct vers module ou le forum<br>
+                    <br>
+                  </p>
+                    <p>Module</p>
+                </div>
+                <div>
+                    <p>Le texte pour Styles avec des vignettes de site serait un plus </p>
+                    <p><br>
+                      <br>
+                    </p>
+                    <p>Styles</p>
+                </div>
+            </div>
+        </div>
+      <br/>
+    </div>
+			
+			
+			
+		</div>
+
+		<div class="col w40 p1 autotablet intro ">
+			<h2 class="ombre aligncenter "><a> Mais encore..</a></h2>
+			<img class="left" src="themes/Rev2016/images/logohead2.png" >
+
+			<div class="row pt1">
+				<div class="col w50 p1 autotablet feature">
+					<h4>Gestion Membre</h4> 
+                      <p>date: dateL</p>
+
+					
+					<p> !whoim!</p>
+                    <p> !member!</p> !search!
+				</div>
+
+				<div class="col w50 p1 autotablet">
+					<h4>Workspace, le plus.</h4>
+
+					<p>WorkSpace propose, au delà de la gestion de contenu 'classique', un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif..</p>
+				</div>
+			</div>
+
+			<p class="automobile blackborder"> Suivez nous: &nbsp;
+			 <a href="backend.php" target="_blank" ><i class="fa fa-rss fa-2x" title="RSS 1.0" data-toggle="tooltip"></i></a>&nbsp;
+<a href="https://github.com/jipexu/npds_dune" target="_blank"><i class="fa fa-github fa-2x"  title="A voir sur" data-toggle="tooltip"></i></a>
+					</p>
+		</div>
+	</div> <br>
+	<p> !forumP! </p>
+	<br>
+	
+		<p><h2> les derniers articles </h2></p>
+		<div class="row w100">
+			<div class="col-md-6 card-block">!article_complet!0</div>
+		    <div class="col-md-6 card-block">!article_complet!-1</div>
+		</div>
+		<div class="row w100">
+			<div class="col-md-6 card-block">!article_complet!-2</div>
+		    <div class="col-md-6 card-block">!article_complet!-3</div>
+		</div
+	
+</div>
+
+</div>
+

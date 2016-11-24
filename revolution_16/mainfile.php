@@ -2421,7 +2421,7 @@ function bigstory() {
       $content .= "<a href=\"article.php?sid=$fsid\">".aff_langue($ftitle)."</a>";
    }
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $boxtitle=translate("Today's Big Story");
    else
       $boxtitle=$block_title;
@@ -2443,7 +2443,7 @@ function category() {
             $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
             if ($cat == $catid) {
-               $boxstuff .= "<li><b>".aff_langue($title)."</b></li>";
+               $boxstuff .= '<li><strong>'.aff_langue($title).'</strong></li>';
             } else {
                $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-toggle="tooltip" title="'.formatTimestamp($time).'">'.aff_langue($title).'</a></li>';
             }
@@ -3017,7 +3017,7 @@ function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $r
    </script>'."\n";
    return ($scri_js);
 }
-#autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2  $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)
+#autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2 $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)
 function language_iso($l,$s,$c) {
     global $language;
     $iso_lang='';$iso_country='';$ietf='';

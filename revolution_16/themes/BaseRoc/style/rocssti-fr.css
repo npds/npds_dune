@@ -312,7 +312,7 @@ abbr[title] {
 
 /* Liens */
 a {
-  color: #2573be;
+  color: #be2525;
   cursor: pointer;
 }
 /* penser au focus */
@@ -829,7 +829,7 @@ select:focus:required:valid {
  *****************************************************************
  */ 
 
-@media (max-width: 47.9375em) { /* equiv 767px */
+@media (max-width: 50em) { /* equiv 800px */
    
   /**
    * layout/modules

@@ -20,15 +20,15 @@ function MNSremoveHack($Xstring) {
    static $blog_editor;
    if ($tiny_mce) {
       if (!$blog_editor) {
-         $tiny_mce_theme="full";
-         $blog_editor=aff_editeur("tiny_mce","begin").aff_editeur("story","false").aff_editeur("tiny_mce","end");
+         $tiny_mce_theme='full';
+         $blog_editor=aff_editeur('tiny_mce','begin').aff_editeur('story','false').aff_editeur('tiny_mce','end');
       }
    }
 
    $npds_forbidden_words=array(
-     // NCRs 2 premières séquence = NCR (dec|hexa) correspondant aux caractères latin de la table ascii (code ascii entre 33 et 126)
-     //      2 dernières séquences = NCR (dec|hexa) correspondant aux caractères latin du bloc unicode Halfwidth and Fullwidth Forms.
-     //        Leur signification est identique ˆ celle des caractres latin de la table ascii dont le code ascii est entre 33 et 126.
+     // NCRs 2 premiÃ¨res sÃ©quences = NCR (dec|hexa) correspondant aux caractÃ¨res latin de la table ascii (code ascii entre 33 et 126)
+     //      2 derniÃ¨res sÃ©quences = NCR (dec|hexa) correspondant aux caractÃ¨res latin du bloc unicode Halfwidth and Fullwidth Forms.
+     //        Leur signification est identique Ã  celle des caractÃ¨res latin de la table ascii dont le code ascii est entre 33 et 126.
      // JPB for NPDS 2005
      "'&#(33|x21|65281|xFF01);'i"=>chr(33),
      "'&#(34|x22|65282|xFF02);'i"=>chr(34),
@@ -233,7 +233,7 @@ function MNSremoveHack($Xstring) {
      "'&#160;'i"=>'&nbsp;',
      "'.htaccess'i"=>"",
      "'!blog_editeur!'i"=>$blog_editor,
-     "'!l_blog_ajouterOK!'i"=>"<a class=\"btn btn-secondary\" href=\"minisite.php?op=$op&amp;action=A\" class=\"blog_lien\">".translate("Add articles")."</a>",
+     "'!l_blog_ajouterOK!'i"=>'<a class="btn btn-outline-primary" href="minisite.php?op='.$op.'&amp;action=A" class="blog_lien"><i class="fa fa-plus-square fa-lg"></i> '.translate("Add articles").'</a>',
      "'\<\?php'i"=>"&lt;?php",
      "'\<\?'i"=>"&lt;?",
      "'\?\>'i"=>"?&gt;",
@@ -261,25 +261,25 @@ function convert_ressources ($Xcontent) {
 
    // Troll Control for security
    $affich=false;
-   if (($op!="") and ($op)) {
+   if (($op!='') and ($op)) {
       if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta"))  {
          global $user, $super_admintest;
-         
+
          if ($super_admintest)
             $adminblog=true;
          else
             $adminblog=false;
-            
+
          $dir="users_private/$op/mns/";
 
-         if (dirname($op)!="groupe") {
+         if (dirname($op)!='groupe') {
             // single user
             $userdata=get_userdata($op);
             if ($userdata['mns']==true) {
                $affich=true;
             }
             $userX = base64_decode($user);
-            $userdataX = explode(":", $userX);
+            $userdataX = explode(':', $userX);
             if ($userdataX[1]==$op) {
                $adminblog=true;
             }
@@ -305,15 +305,15 @@ function convert_ressources ($Xcontent) {
          $Titlesitename="Minisite - $op";
          $nuke_url=$nuke_url.'/minisite.php?op='.$op;
          include("meta/meta.php");
-         echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
-      // chargement sauvage lol ˆ voir
+         echo '<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />';
+      // chargement sauvage lol Ã  voir
          echo '
          <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-         ';
-         echo "<style type=\"text/css\"> \n";
+         <script type="text/javascript" src="lib/js/tether.min.js"></script>
+         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>';
+         echo '<style type="text/css">';
             readfile($dir."style.css");
-         echo "</style>\n";
+         echo '</style>';
          $Xcontent='
          </head>
          <body>';
@@ -338,53 +338,53 @@ function convert_ressources ($Xcontent) {
          }
 
          // Analyse et convertion des liens et images, blog, header, footer ...
-         if (strstr($Xcontent,"!blog_page!")) {
+         if (strstr($Xcontent,'!blog_page!')) {
             $perpage=substr($Xcontent,strpos($Xcontent,"!blog_page!",0)+11,2);
          } else {
             $perpage=4;
          }
-         if (strstr($Xcontent,"!blog!")) {
+         if (strstr($Xcontent,'!blog!')) {
             include ("modules/blog/readnews.php");
             settype($startpage,'integer');
             settype($perpage,'integer');
             settype($action,'string');
             $content=readnews($dir, $op, $perpage, $startpage, $action, $adminblog);
-            if (strstr($content,"!l_new_pages!")) {
+            if (strstr($content,'!l_new_pages!')) {
                $new_pages=substr($content,strpos($content,"!l_new_pages!")+13);
                $content=substr($content,0,strpos($content,"!l_new_pages!"));
             }
          }
-         $Hcontent="";
-         if (strstr($Xcontent,"!l_header!")) {
-            $l_fic=$dir."header.html";
+         $Hcontent='';
+         if (strstr($Xcontent,'!l_header!')) {
+            $l_fic=$dir.'header.html';
             if (file_exists($l_fic)) {
-               $fp=fopen($l_fic,"r");
+               $fp=fopen($l_fic,'r');
                if (filesize($l_fic)>0)
                   $Hcontent=convert_ressources(fread($fp,filesize($l_fic)));
                fclose($fp);
             }
          }
-         $Fcontent="";
-         if (strstr($Xcontent,"!l_footer!")) {
-            $l_fic=$dir."footer.html";
+         $Fcontent='';
+         if (strstr($Xcontent,'!l_footer!')) {
+            $l_fic=$dir.'footer.html';
             if (file_exists($l_fic)) {
-               $fp=fopen($l_fic,"r");
+               $fp=fopen($l_fic,'r');
                if (filesize($l_fic)>0)
                   $Fcontent=convert_ressources(fread($fp,filesize($l_fic)));
                fclose($fp);
             }
          }
-         if (($adminblog) and (strstr($Xcontent,"!l_blog_ajouter!"))) {
-            $blog_ajouter="!l_blog_ajouterOK!";
+         if (($adminblog) and (strstr($Xcontent,'!l_blog_ajouter!'))) {
+            $blog_ajouter='!l_blog_ajouterOK!';
          } else {
-            $blog_ajouter="";
+            $blog_ajouter='';
          }
          $Xcontent=convert_ressources($Xcontent);
          // Meta-lang et removehack local
          $MNS_METALANG_words=array(
          "'!l_header!'i"=>"$Hcontent",
          "'!l_footer!'i"=>"$Fcontent",
-         "'!blog_page!$perpage'i"=>"",
+         "'!blog_page!$perpage'i"=>'',
          "'!l_compteur!'i"=>"$cpt",
          "'!l_new_pages!'i"=>"$new_pages",
          "'!l_blog_ajouter!'i"=>"$blog_ajouter",
@@ -393,13 +393,14 @@ function convert_ressources ($Xcontent) {
          );
          $Xcontent=preg_replace(array_keys($MNS_METALANG_words),array_values($MNS_METALANG_words), $Xcontent);
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
-         
-         //applique aff_video que sur la partie affichage  
-         $rupt=strpos($Xcontent, "!v_yt!");
+
+         //applique aff_video que sur la partie affichage
+         $rupt=strpos($Xcontent, '!v_yt!');
          echo substr($Xcontent, 0, $rupt);
          echo aff_video_yt(substr($Xcontent,$rupt+6));
 
          echo '
+               <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
             </body>
          </html>';
       }
