@@ -331,7 +331,6 @@ if($stage == 7) {
       global $stage, $langue, $stage7_ok, $NPDS_Prefix;
       if(($adminpass1 != '') AND ($adminpass2 != '')) {
          include('config.php');
-//         sql_connect();
          write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix);
          if($stage7_ok == 2) {
             echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'install.php?op=etape_7&stage=7&classe=0&langue='.$langue.'\';'."\n".'//]]>'."\n".'</script>';
