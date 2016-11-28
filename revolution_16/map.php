@@ -22,17 +22,19 @@ function mapsections() {
     if (sql_num_rows($result) > 0) {
        while (list($rubid, $rubname) = sql_fetch_row($result)) {
           if ($rubname!='')
-             $tmp.="<li>".aff_langue($rubname)."";
+             $tmp.='<li>'.aff_langue($rubname);
           $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' AND (userlevel='0' OR userlevel='') ORDER BY ordre");
           if (sql_num_rows($result2) > 0) {
              while (list($secid, $secname, $userlevel) = sql_fetch_row($result2)) {
                 if (autorisation($userlevel)) {
-                   $tmp.="<ul><li>".aff_langue($secname);
+                   $tmp.='<ul><li>'.aff_langue($secname);
                    $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'");
                    while (list($artid, $title) = sql_fetch_row($result3)) {
-                      $tmp.="<ul><li><a href=\"sections.php?op=viewarticle&amp;artid=$artid\">".aff_langue($title).'</a></li></ul>';
+                      $tmp.="<ul>
+                      <li><a href=\"sections.php?op=viewarticle&amp;artid=$artid\">".aff_langue($title).'</a></li></ul>';
                    }
-                   $tmp.='</li></ul>';
+                   $tmp.='</li>
+                   </ul>';
                 }
              }
           }
@@ -43,14 +45,15 @@ function mapsections() {
       echo '
          <h3>
             <a class="" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
-            <i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Sections").'
+            <i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Sections").'
             <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
          </h3>
       <div class="collapse" id="collapseSections">
          <div class="card card-block">
             <ul>'.$tmp.'</ul>
          </div>
-      </div>';
+      </div>
+      <hr />';
 
     sql_free_result($result);
     sql_free_result($result2);
@@ -63,13 +66,14 @@ function mapforum() {
     if ($tmp!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Forums!").'
+         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Forums!").'
       </h3>
       <div class="collapse" id="collapseForums">
          <div class="card card-block">
             '.$tmp.'
          </div>
-      </div>';
+      </div>
+      <hr />';
 }
 
 function maptopics() {
@@ -86,14 +90,15 @@ function maptopics() {
     if ($lis_top!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Topics").'
+         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Topics").'
          <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseTopics">
          <div class="card card-block">
             <ul>'.$lis_top.'</ul>
          </div>
-      </div>';
+      </div>
+      <hr />';
     sql_free_result($result);
     sql_free_result($result2);
 }
@@ -111,14 +116,15 @@ function mapcategories() {
     if ($lis_cat!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("Categories").'
+         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Categories").'
          <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseCategories">
          <div class="card card-block">
             <ul>'.$lis_cat.'</ul>
          </div>
-      </div>';
+      </div>
+      <hr />';
     sql_free_result($result);
     sql_free_result($result2);
 }
@@ -135,14 +141,15 @@ function mapfaq() {
     if ($lis_faq!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
+         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
          <span class="tag tag-default float-xs-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseFaq">
          <div class="card card-block">
             <ul>'.$lis_faq.'</ul>
          </div>
-      </div>';
+      </div>
+      <hr />';
     sql_free_result($result);
 }
 
@@ -158,13 +165,14 @@ if ($SuperCache) {
    $cache_obj = new SuperCacheEmpty();
 }
 if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-    echo '<h2>'.translate("Site map").'</h2>';
-    // Vous pouvez enlever certaines parties en mettant // devant les lignes ci-dessous
-    mapsections();
-    mapforum();
-    maptopics();
-    mapcategories();
-    mapfaq();
+   echo '
+   <h2>'.translate("Site map").'</h2>
+   <hr />';
+   mapsections();
+   mapforum();
+   maptopics();
+   mapcategories();
+   mapfaq();
    echo '<br />';
     if (file_exists("modules/include/user.inc")) {
        include ("modules/include/user.inc");
