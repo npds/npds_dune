@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -58,10 +58,10 @@ if (($forum_type==9) and (!$user)) {
 // Moderator
 if (isset($user)) {
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
+   $userdata = explode(':', $userX);
 }
 $moderator=get_moderator($mod);
-$moderator=explode(" ",$moderator);
+$moderator=explode(' ',$moderator);
 $Mmod=false;
 if (isset($user)) {
    for ($i = 0; $i < count($moderator); $i++) {
@@ -77,7 +77,7 @@ $topic_subject = stripslashes($myrow['topic_title']);
 $lock_state = $myrow['topic_status'];
 
    if (isset($user)) {
-      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
       if (!$file=@opendir("themes/$cookie[9]")) {
@@ -88,29 +88,34 @@ $lock_state = $myrow['topic_status'];
    }
    include("meta/meta.php");
    global $site_font;
+    echo '
+   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
    echo import_css($tmp_theme, $language, $site_font, '','');
-   echo "</head>\n<body style=\"background-color: #FFFFFF; background-image: none;\">
-   <table border=\"0\"><tr><td>
-   <table border=\"0\" width=\"640\" cellpadding=\"0\" cellspacing=\"1\" style=\"background-color: #000000;\"><tr><td>
-   <table border=\"0\" width=\"640\" cellpadding=\"20\" cellspacing=\"1\" style=\"background-color: #FFFFFF;\"><tr><td align=\"center\">";
-   $pos = strpos($site_logo, "/");
+   echo '
+   </head>
+   <body>
+      <div max-width="640" class="container p-1 n-hyphenate">
+         <div>';
+   $pos = strpos($site_logo, '/');
    if ($pos)
-      echo "<img src=\"$site_logo\" border=\"0\" alt=\"\" />";
+      echo '<img class="img-fluid d-block mx-auto" src="'.$site_logo.'" alt="website logo" />';
    else
-      echo "<img src=\"images/$site_logo\" border=\"0\" alt=\"\" />";
+      echo '<img class="img-fluid d-block mx-auto" src="images/'.$site_logo.'" alt="website logo" />';
 
-   echo "<br /><br /><table border=\"0\" width=\"640\" cellpadding=\"2\" cellspacing=\"2\"><tr><td>".translate("Forum Index")."&nbsp;&raquo;&nbsp;&raquo;&nbsp;";
+   echo '<p class="mt-2">'.translate("Forum Index").'&nbsp;&raquo;&nbsp;&raquo;&nbsp;';
    echo stripslashes($forum_name);
-   echo "</td></tr></table>\n";
+   echo '</p>';
 
-   echo "<table border=\"0\" width=\"640\" cellpadding=\"2\" cellspacing=\"1\">";
-   echo "<tr>";
-   echo "<td width=\"15%\"><hr noshade=\"noshade\" class=\"ongl\" />".translate("Author")."</td>";
-   echo "<td><hr noshade=\"noshade\" class=\"ongl\" />$topic_subject</td></tr>";
+   echo "
+   <table border=\"0\" >
+      <tr>
+         <td width=\"15%\"><hr />".translate("Author")."</td>
+         <td><hr />$topic_subject</td>
+      </tr>";
    if ($Mmod) {
       $post_aff=' ';
    } else {
-      $post_aff=" and post_aff='1' ";
+      $post_aff=" AND post_aff='1' ";
    }
    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and post_id='$post_id'".$post_aff;
    if (!$result = sql_query($sql))
@@ -129,15 +134,15 @@ $lock_state = $myrow['topic_status'];
       }
    }
 
-   echo "<tr style=\"background-color: #FFFFFF;\" align=\"left\">";
+   echo "<tr align=\"left\">";
    $posterdata = get_userdata_from_id($myrow['poster_id']);
    echo "<td width=\"15%\" valign=\"top\">";
    $posts = $posterdata['posts'];
 
    echo $posterdata['uname'];
-   echo "<br />";
+   echo '<br />';
    echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
-   echo "<br /><br />";
+   echo '<br /><br />';
    if ($smilies) {
       if ($posterdata['user_avatar'] != '') {
          if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -155,7 +160,7 @@ $lock_state = $myrow['topic_status'];
 
    echo "</td><td valign=\"top\" width=\"100%\" height=\"100%\">";
 
-   if ($myrow['image'] != "") {
+   if ($myrow['image'] != '') {
       if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
       echo "<img src=\"$imgtmp\" border=\"0\" alt=\"\" />";
    } else {
@@ -171,27 +176,36 @@ $lock_state = $myrow['topic_status'];
    }
    // <a href in the message
    if (stristr($message,"<a href")) {
-      $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
+      $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
    }
    $message=split_string_without_space($message, 80);
-   if (($forum_type=="6") or ($forum_type=="5")) {
-      highlight_string(stripslashes($myrow['post_text']))."<br /><br />";
+   if (($forum_type=='6') or ($forum_type=='5')) {
+      highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
    } else {
-      echo $message=str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
+      echo $message=str_replace('[addsig]', '<br /><br />' . nl2br($posterdata['user_sig']), $message);
    }
    if ($allow_upload_forum and ($att>0)) {
       $post_id=$myrow['post_id'];
-      echo "<table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">";
-      echo "<tr><td>";
+      echo "<table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">
+      <tr><td>";
       echo display_upload("forum_npds",$post_id,$Mmod);
-      echo "</td></tr></table>";
+      echo "</td>
+      </tr>
+      </table>";
    }
-   echo "</td></tr></table>";
-   echo "<br /><hr noshade=\"noshade\" class=\"ongl\" /><br />
-         ".translate("This article comes from")." $sitename<br /><br />
-         <a href=\"$nuke_url\">$nuke_url/viewtopic.php?topic=$topic&forum=$forum</a><br />";
-   echo "</td></tr></table>
+   echo "
+   </td></tr></table>
          </td></tr></table>
          </td></tr></table>
-         </body></html>";
+         </td></tr></table>";
+   echo '
+          </div>
+          <hr />
+          <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
+         <a href="'.$nuke_url.'">'.$nuke_url.'/viewtopic.php?topic='.$topic.'&forum='.$forum.'</a></p>
+   ';
+       echo '
+      </div>
+   </body>
+</html>';
 ?>
