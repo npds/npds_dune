@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* pour dÈfinir le PAD courant via l'URL                                  */
+/* pour définir le PAD courant via l'URL                                  */
 /* member='' ou '1' => PAD commun à tous les membres si $pad_membre=true  */
 /* member='2 . 126' => PAD du groupe (si le membre appartient au groupe)  */
 /* member='-1'      => PAD des admins (si un admin est connecté)          */
@@ -19,7 +19,7 @@
 
 // For More security
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
    die();
 }
 global $title, $language, $NPDS_Prefix, $user, $admin;
@@ -76,36 +76,9 @@ function Liste_Page() {
    }
    //]]>
    </script>';
-   echo "
-   <script type=\"text/javascript\">
-   //<![CDATA[
-   tog =function(lst,sho,hid){
-         $(document).on('click', 'a.tog', function() {
-        var buttonID = $(this).attr('id');
-         lst_id = $('#'+lst);
-         i_id=$('#i_'+lst);
-         btn_show=$('#'+sho);
-         btn_hide=$('#'+hid);
-         if (buttonID == sho) {
-            lst_id.fadeIn(1000);//show();
-            btn_show.attr('id',hid)
-            btn_show.attr('title','".wspad_trans("Replier la liste")."');
-            i_id.attr('class','fa fa-caret-up fa-lg');
-         } else if (buttonID == hid) {
-            lst_id.fadeOut(1000);//hide();
-            btn_hide=$('#'+hid);
-            btn_hide.attr('id',sho);
-            btn_hide.attr('title','".wspad_trans("Déplier la liste")."');
-            i_id.attr('class','fa fa-caret-down fa-lg');
-        }
-       });
-   };
-   //]]>
-   </script>";
-
    $aff='
-   <h3><a class="tog" id="show_cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
-   <div id="cre_page" style ="display:none; padding-left:10px;">
+   <h3><a class="arrow-toggle text-primary" id="show_cre_page" data-toggle="collapse" data-target="#cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
+   <div id="cre_page" class="collapse" style ="padding-left:10px;">
       <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformfic">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="page">'.wspad_trans("Nom du document").'</label>
@@ -121,25 +94,19 @@ function Liste_Page() {
             </div>
          </div>
       </form>
-   </div>
-   <script type="text/javascript">
-   //<![CDATA[
-      tog("cre_page","show_cre_page","hide_cre_page");
-   //]]>
-   </script>';
+   </div>';
    echo $aff.'<br />';
 
    $aff='
-   <h3><a class="tog" id="show_paddoc" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_paddoc" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;';
+   <h3><a class="arrow-toggle text-primary" id="show_paddoc" data-toggle="collapse" data-target="#lst_paddoc" title="'.wspad_trans("Déplier la liste").'">&nbsp;<i id="i_lst_paddoc" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;';
    $nb_pages=sql_num_rows(sql_query("SELECT COUNT(page) FROM ".$NPDS_Prefix."wspad WHERE member='$groupe' GROUP BY page"));
    if ($groupe>0) {
       $gp=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe'"));
-      $aff.="".$nb_pages." ".wspad_trans("Document(s) et révision(s) disponible(s) pour le groupe")." ".aff_langue($gp['groupe_name'])." [$groupe]</h3>";
+      $aff.=$nb_pages.' '.wspad_trans("Document(s) et révision(s) disponible(s) pour le groupe")." ".aff_langue($gp['groupe_name'])." [$groupe]</h3>";
    } else {
-      $aff.="".$nb_pages." ".wspad_trans("Document(s) et révision(s) disponible(s) pour les administrateurs")."</strong><br />";
+      $aff.=$nb_pages.' '.wspad_trans("Document(s) et révision(s) disponible(s) pour les administrateurs")."</strong><br />";
    }
-
-   $aff.='<div id="lst_paddoc" style ="display:none; padding-left:10px;">';
+   $aff.='<div id="lst_paddoc" class="collapse" style =" padding-left:10px;">';
    if ($nb_pages>0) {
       $ibid=0; $pgibid=0;
       $result=sql_query("SELECT DISTINCT page FROM ".$NPDS_Prefix."wspad WHERE member='$groupe' ORDER BY page ASC");
@@ -153,7 +120,7 @@ function Liste_Page() {
             if ((time()-$refresh)>filemtime($filename)) {
                sql_query("UPDATE ".$NPDS_Prefix."wspad SET verrou='' WHERE page='$page' and member='$groupe'");
                @unlink($filename);
-               $verrou="";
+               $verrou='';
             }
          }
          // Supression des verrous de mon groupe
@@ -185,7 +152,7 @@ function Liste_Page() {
                               <input type="hidden" name="page" value="'.$page.'" />
                               <input type="hidden" name="op" value="renomer" />
                               <button type="submit" class="btn btn-primary" name="creer">'.wspad_trans("Renommer").'</button>
-                              <button type="button" class="btn btn-default" data-dismiss="modal">'.wspad_trans("Cancel").'</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">'.wspad_trans("Cancel").'</button>
                            </div>
                         </div>
                      </form>
@@ -195,13 +162,13 @@ function Liste_Page() {
          </div>';
          $aff.='
          <hr />
-         <h4><a class="tog" id="show_lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
-            <span class="pull-right">
-               <a data-toggle="modal" data-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-toggle="tooltip"></i></a>&nbsp;
+         <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-toggle="collapse" data-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
+            <span class="float-xs-right">
+               <a href="#" data-toggle="modal" data-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-toggle="tooltip"></i></a>&nbsp;
                <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>&nbsp;
             </span>
          </h4>
-         <div id="lst_page_'.$pgibid.'" style ="display:none; padding-left:10px;">';
+         <div id="lst_page_'.$pgibid.'" class="collapse" style ="padding-left:10px;">';
          $result2=sql_query("SELECT modtime, editedby, ranq, verrou FROM ".$NPDS_Prefix."wspad WHERE page='$page' AND member='$groupe' ORDER BY ranq ASC");
          
          $aff.='
@@ -240,7 +207,7 @@ function Liste_Page() {
                   <td>'.$ibid.$ranq.'</td>
                   <td><div style="float: left; margin-top: 2px; width: 1rem; height: 1.5rem; background-color: '.$couleur[hexfromchr($editedby)].';"></div>&nbsp;'.$editedby.'</td>
                   <td>'.date(translate("dateinternal"),$modtime+($gmt*3600)).'</td>';
-            // voir la rÈvision du ranq x
+            // voir la révision du ranq x
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
             $aff.='
                   <td>
@@ -272,21 +239,7 @@ function Liste_Page() {
          </table>';
          $aff.='
          </div>';
-         //==> pliage repliage listes des pages
-        $aff.="\n
-        <script type=\"text/javascript\">
-        //<![CDATA[
-        tog('lst_page_".$pgibid."','show_lst_page_".$pgibid."','hide_lst_page_".$pgibid."');
-        //]]>
-        </script>\n";
       }
-      //==> pliage repliage création d'une page
-      $aff.="\n
-      <script type=\"text/javascript\">
-      //<![CDATA[
-      tog('lst_paddoc','show_paddoc','hide_paddoc');
-      //]]>
-      </script>\n";
    }
    echo $aff.'
    </div>
@@ -344,7 +297,7 @@ function Page($page, $ranq) {
    clearstatcache();
    if (file_exists($filename)) {
       if (filemtime($filename) > (time()-$refresh)) {
-         // propriÈtaire de ce verrou ?
+         // propriétaire de ce verrou ?
          $cont=file($filename);
          if ($cont[0]==$auteur) {
             $edition=true;
@@ -388,22 +341,20 @@ function Page($page, $ranq) {
    }
    global $surlignage;
    echo '
-   <h4>'.wspad_trans("Document : ").$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+($gmt*3600)).' ] </span> <span style="float: right;"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span>';
-   echo '</h4>
+   <h4>'.wspad_trans("Document : ").$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+($gmt*3600)).' ] </span> <span style="float: right;"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
    <div id="mess" class="alert alert-success" role="alert">test debug'.$mess.'</div>
    <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformcont">
    <div class="form-group">
       <textarea class="tin form-control" rows="30" name="content" ><div class="mceNonEditable">'.$row['content'].'</div></textarea>
-   </div>
-      ';
+   </div>';
    echo aff_editeur('content', '');
    if ($edition) {
       echo '
       <div class="form-group">
-      <input class="btn btn-primary" type="submit" name="sauve" value="'.wspad_trans("Sauvegarder").'" />
-      <a class="btn btn-secondary" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" >'.wspad_trans("Abandonner").'</a>
-      <input type="hidden" name="page" value="'.$page.'" />
-      <input type="hidden" name="op" value="sauve" />
+         <input class="btn btn-primary" type="submit" name="sauve" value="'.wspad_trans("Sauvegarder").'" />
+         <a class="btn btn-secondary" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" >'.wspad_trans("Abandonner").'</a>
+         <input type="hidden" name="page" value="'.$page.'" />
+         <input type="hidden" name="op" value="sauve" />
       </div>';
    }
    echo '</form>';
@@ -437,7 +388,7 @@ switch($op) {
      @unlink("modules/$ModPath/locks/$page-vgp-$groupe.txt");
   break;
   case "renomer":
-     // Filtre les caractËres interdits dans les noms de pages
+     // Filtre les caractères interdits dans les noms de pages
      $newpage=preg_replace('#[^a-zA-Z0-9\\s\\_\\.\\-]#i','_', removeHack(stripslashes(urldecode($newpage))));
      settype($member, 'integer');
      $result = sql_query("UPDATE ".$NPDS_Prefix."wspad SET page='$newpage', verrou='' WHERE page='$page' AND member='$member'");
@@ -456,29 +407,29 @@ switch($op) {
 header("X-UA-Compatible: IE=8");
 // For IE ----------------------
 include ('header.php');
-// Head banner de prÈsentation
+// Head banner de présentation
 if (file_exists("modules/$ModPath/html/head.html")) {
-   $Xcontent=join("",file("modules/$ModPath/html/head.html"));
+   $Xcontent=join('',file("modules/$ModPath/html/head.html"));
    $Xcontent=meta_lang(aff_langue($Xcontent));
    echo $Xcontent;
 }
 
 switch($op) {
-  case "sauve":
-     Liste_Page();
-     Page($page, ($row['ranq']+1));
-  break;
-  case "creer":
-     Liste_Page();
-     Page($page, 1);
-  break;
-  case "relo":
+   case 'sauve':
+      Liste_Page();
+      Page($page, ($row['ranq']+1));
+   break;
+   case 'creer':
+      Liste_Page();
+      Page($page, 1);
+   break;
+   case 'relo':
      Liste_Page();
      Page($page, $ranq);
-  break;
-  default :
-     Liste_Page();
-  break;
+   break;
+   default :
+      Liste_Page();
+   break;
 }
 
 // Foot banner de présentation
