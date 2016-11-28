@@ -221,7 +221,7 @@ function instant_members_message() {
                    $PopUp=JavaPopUp("readpmsg_imm.php?op=msg","IMM",600,500);
                    $PopUp='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');">';
                    if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon='';}
-                   $icon.='<i class="fa fa-envelope-o fa-lg " title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
+                   $icon.='<i class="fa fa-envelope-open-o fa-lg " title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
                 } else {
                    $icon='&nbsp;';
                 }
