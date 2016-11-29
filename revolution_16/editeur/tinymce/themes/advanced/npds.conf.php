@@ -25,26 +25,29 @@ if (!array_key_exists(1,$setup)) $setup[1]='';
 // Full Theme
 if ($tiny_mce_theme=="full") {
    $tmp.= "
-plugins: [
-   'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-   'searchreplace wordcount visualblocks visualchars code fullscreen',
-   'insertdatetime media nonbreaking save table contextmenu directionality',
-   'emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome '
-],
+plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak','searchreplace wordcount visualblocks visualchars code fullscreen','insertdatetime media nonbreaking save table contextmenu directionality','emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome'],
 
 image_class_list: [
     {title: 'Responsive', value: 'img_fluid'}
   ],
 
 style_formats: [
+{ title: 'Headers', items: [
+      { title: 'h1', block: 'h1' },
+      { title: 'h2', block: 'h2' },
+      { title: 'h3', block: 'h3' },
+      { title: 'h4', block: 'h4' },
+      { title: 'h5', block: 'h5' },
+      { title: 'h6', block: 'h6' }
+    ] },
   {title: 'Image responsive', selector: 'img', styles: {
    'display' : 'block',
    'max-width': '100%',
    'height' : 'auto'
   }}],
 
-content_css: ' lib/font-awesome-4.5.0/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css',
-toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue ',";
+content_css: ' lib/font-awesome/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css',
+toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue fontawesome',";
 
 } else if ($tiny_mce_theme=='short') {
    // Short Theme
