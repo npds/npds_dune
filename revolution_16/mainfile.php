@@ -2018,7 +2018,7 @@ function conv2br($txt) {
    $Xcontent=str_replace("<BR>","<br />",$Xcontent);
    return ($Xcontent);
 }
-#autodoc hexfromchr($txt) : Les 8 premiers caractères sont converties en UNE valeur Hexa unique 
+#autodoc hexfromchr($txt) : Les 8 premiers caractères sont convertis en UNE valeur Hexa unique 
 function hexfromchr($txt) {
    $surlignage=substr(md5($txt),0,8);
    $tmp=0;
@@ -2036,7 +2036,7 @@ function Site_Activ() {
    global $startdate, $top;
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
    $who_online='
-   <p align="center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
+   <p class="text-xs-center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul id="site_active">
      <li>'.translate("Nb of members").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($membres).'</span></li>
      <li>'.translate("Nb of articles").' <span class="tag tag-pill tag-default float-xs-right">'.wrh($totala).'</span></li>
@@ -2046,12 +2046,12 @@ function Site_Activ() {
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
-      $who_online .= "<p align=\"center\"><a href=\"top.php\"><img alt=\"".translate("Top")." $top\" src=\"$imgtmp\" border=\"0\" /></a>&nbsp;&nbsp;";
+      $who_online .= "<p align=\"center\"><a href=\"top.php\"><img alt=\"".translate("Top")." $top\" src=\"$imgtmp\" /></a>&nbsp;&nbsp;";
       if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
-      $who_online .= "<a href=\"stats.php\"><img alt=\"".translate("Statistics")."\" src=\"$imgtmp\" border=\"0\" /></a></p>\n";
+      $who_online .= "<a href=\"stats.php\"><img alt=\"".translate("Statistics")."\" src=\"$imgtmp\" /></a></p>\n";
    } else {
-      $who_online .= "<p align=\"center\"><a href=\"top.php\" >".translate("Top")." $top</a>&nbsp;&nbsp;";
-      $who_online .= "<a href=\"stats.php\" >".translate("Statistics")."</a></p>\n";
+      $who_online .= '
+   <p class="text-xs-center"><a href="top.php">'.translate("Top").' '.$top.'</a>&nbsp;&nbsp;<a href="stats.php" >'.translate("Statistics").'</a></p>';
    }
    global $block_title;
    if ($block_title=='')
@@ -2062,12 +2062,11 @@ function Site_Activ() {
 }
 #autodoc online() : Bloc Online (Who_Online) <br />=> syntaxe : function#online
 function online() {
-   global $NPDS_Prefix;
-   global $user,$cookie;
+   global $NPDS_Prefix, $user, $cookie;
    $ip = getip();
    $username = $cookie[1];
    if (!isset($username)) {
-      $username = "$ip";
+      $username = $ip;
       $guest = 1;
    }
    $past = time()-300;
@@ -2084,20 +2083,20 @@ function online() {
    $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session WHERE guest=0");
    $member_online_num = sql_num_rows($result);
    $who_online_num = $guest_online_num + $member_online_num;
-   $who_online = "<p align=\"center\">".translate("There are currently,")." $guest_online_num ".translate("guest(s) and")." $member_online_num ".translate("member(s) that are online.")."<br />";
+   $who_online = '<p class="text-xs-center">'.translate("There are currently,").' <span class="tag tag-default">'.$guest_online_num.'</span> '.translate("guest(s) and").' <span class="tag tag-default">'.$member_online_num.' </span> '.translate("member(s) that are online.").'<br />';
    $content = $who_online;
    if ($user) {
-      $content .= "<br />".translate("You are logged as")." <b>$username</b>.<br />";
+      $content .= '<br />'.translate("You are logged as").' <strong>'.$username.'</strong>.<br />';
       $result = Q_select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'", 86400);
       list(,$uid) = each($result);
       $result2 = sql_query("SELECT to_userid FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$uid['uid']."' AND type_msg='0'");
       $numrow = sql_num_rows($result2);
-      $content .= translate("You have")." <a href=\"viewpmsg.php\">$numrow</a> ".translate("private message(s).")."</p>";
+      $content .= translate("You have").' <a href="viewpmsg.php"><span class="tag tag-primary">'.$numrow.'</span></a> '.translate("private message(s).").'</p>';
    } else {
-      $content .= "<br />".translate("You can register for free by clicking")." <a href=\"user.php?op=only_newuser\">".translate("here")."</a></p>";
+      $content .= '<br />'.translate("You can register for free by clicking").' <a href="user.php?op=only_newuser">'.translate("here").'</a></p>';
    }
    global $block_title;
-   if ($block_title=="")
+   if ($block_title=='')
       $title=translate("Who's Online");
    else
       $title=$block_title;
@@ -2154,7 +2153,11 @@ function mainblock() {
    global $block_title;
    if ($title=='')
       $title=$block_title;
-   themesidebox(aff_langue($title), aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content))); //php7 not work on PHP Version 4.4.3-dev
+      if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+      themesidebox(aff_langue($title), aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content))); //php7 not work on PHP Version 4.4.3-dev
+      } else {
+      themesidebox(aff_langue($title), aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content)));
+      }
 }
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
