@@ -104,15 +104,16 @@ function maptopics() {
 }
 
 function mapcategories() {
-   global $NPDS_Prefix;
-   $lis_cat='';
-   $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
-   while (list($catid, $title) = sql_fetch_row($result)) {
-      $result2 = sql_query("SELECT sid FROM stories WHERE catid='$catid'");
-      $nb_article = sql_num_rows($result2);
-      $lis_cat.='<li><a href="index.php?op=newindex&amp;catid='.$catid.'">'.aff_langue($title).'</a> <span class="float-xs-right tag tag-default"> '.$nb_article.' </span></li>'."\n";
-   }
-   if ($lis_cat!='')
+    global $NPDS_Prefix;
+
+    $lis_cat='';
+    $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
+    while (list($catid, $title) = sql_fetch_row($result)) {
+       $result2 = sql_query("SELECT sid FROM stories WHERE catid='$catid'");
+       $nb_article = sql_num_rows($result2);
+       $lis_cat.="<li><a href=\"index.php?op=newindex&amp;catid=$catid\">".aff_langue($title)."</a> (".$nb_article.") </li>\n";
+    }
+    if ($lis_cat!='')
       echo '
       <h3>
          <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Categories").'

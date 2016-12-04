@@ -322,10 +322,11 @@ function GraphicAdmin($hlpfile) {
       </div>
       <div id="adm_men_dial">
          <div id="adm_men_alert" >
-            <ul id="Alerte">
-            '.aff_langue($bloc_foncts_A).'
-            </ul>
-         </div>
+            '.$scri.'
+                <ul id="Alerte">
+                '.aff_langue($bloc_foncts_A).'
+                </ul>
+            </div>
             <div id="adm_men_info"></div>
             <div class="contenair-fluid" id ="mes_perm" >
                 <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="car" class="car"></span>

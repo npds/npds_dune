@@ -12,7 +12,7 @@
   Themes:B-Mag 
 
 /* SITE */
-  Language:french (multilangue)
-  Doctype:(x)Html5 with CSS3
-  Tools:PHP/Mysql(i)/js
-  IDE:Notepad++/BBEdit
+  Language:french
+  Doctype:xHtml with CSS
+  Tools:PHP
+  IDE:Notepad++
