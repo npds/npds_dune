@@ -475,15 +475,15 @@ include('modules/geoloc/geoloc_conf.php');
 $content .='
 <div class="col-md-6">
 <div id="map_user" style="width:100%; height:400px;"></div>';
-if (((!stristr($_SERVER['QUERY_STRING'],"geoloc")) || (stristr($_SERVER['PHP_SELF'],"admin.php")) || (stristr($_SERVER['PHP_SELF'],"user.php"))))  {
 $content .='
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr"></script>
-<script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
+
    var 
-   map_u,
+   map_u, map_b,
    mapdivu = document.getElementById("map_user"),
+   mapdivbl = document.getElementById("map_bloc");
+   function geoloc_loaduser() {
    icon_u = {
       path: fontawesome.markers.USER,
       scale: '.$acg_sc.',
@@ -494,20 +494,16 @@ $content .='
       fillOpacity: '.$acg_f_op.',
    };
 
-   function geoloc_loaduser() {
-   
+   icon_bl = {
+      url: "'.$ch_img.$img_mbgb.'",
+      size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0),
+      scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+   };
+      
    //==> carte du bloc
    if (document.getElementById("map_bloc")) {
-      var 
-      map_b,
-      mapdivbl = document.getElementById("map_bloc"),
-      icon_bl = {
-         url: "'.$ch_img.$img_mbgb.'",
-         size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(0, 0),
-         scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-      };
 
       map_b = new google.maps.Map(mapdivbl,{
          center: new google.maps.LatLng(45, 0),
@@ -560,9 +556,7 @@ $content .='
    }
    $(document.body).attr("onload", "geoloc_loaduser()");
 //]]>
-</script>
-';
-}
+</script>';
 $content .='<div class="mt-1"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
 if($admin)
 $content .= '&nbsp;&nbsp;<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
@@ -599,7 +593,7 @@ echo $content;
     echo '
     <br />
     <h4>'.translate("Online journal for").' '.$uname.'.</h4>
-    <div id="online_user_journal" class="card card-block">'.$user_journal.'</div>';
+    <div id="online_user_journal" class="card card-block mb-1">'.$user_journal.'</div>';
     $file='';
     $handle=opendir('modules/comments');
     while (false!==($file = readdir($handle))) {
@@ -611,13 +605,13 @@ echo $content;
     closedir($handle);
 
    echo '
-   <h4>'.translate("Last 10 comments by").' '.$uname.'.</h4>
-   <div id="last_ten_comment" class="card card-block">';
+   <h4 class="mt-1">'.translate("Last 10 comments by").' '.$uname.'.</h4>
+   <div id="last_ten_comment" class="card card-block mb-1">';
    $url='';
    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
    while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
       $url=str_replace("#topic#",$topic_id,$filelist[$forum_id]);
-      echo "<p><a href=\"".$url."\">".translate("Posted: ").convertdate($post_time)."</a></p>";
+      echo '<p><a href="'.$url.'">'.translate("Posted: ").convertdate($post_time).'</a></p>';
       $message=smilie(stripslashes($post_text));
       $message = aff_video_yt($message);
       $message = str_replace('[addsig]','',$message);
@@ -628,20 +622,20 @@ echo $content;
    }
    echo '
     </div>
-    <h4>'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
-    <div id="last_ten_comment" class="card card-block">';
-
+    <h4 class="mt-1">'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
+    <div id="last_ten_comment" class="card card-block mb-1">';
    $xtab=news_aff("libre", "WHERE informant='$uname' ORDER BY sid DESC LIMIT 10", '', 10);
    $story_limit=0;
    while (($story_limit<10) and ($story_limit<sizeof($xtab))) {
       list($sid, $catid, $aid, $title) = $xtab[$story_limit];
       $story_limit++;
-      echo '<p><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></p>';
+      echo '
+      <p><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></p>';
    }
    echo '
    </div>
    <hr />
-   <p class="text-xs-right text-muted font-italic">'.$user_sig.'</p>';
+   <p class="n-signature">'.$user_sig.'</p>';
    include("footer.php");
 }
 
@@ -651,9 +645,9 @@ function main($user) {
       include("header.php");
       echo '<h2>'.translate("User").'</h2>';
        if ($stop==99) {
-          echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
+          echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
        } elseif ($stop) {
-          echo '<p class="lead text-danger text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
+          echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
        }
        if (!$user) {
           echo '
@@ -702,16 +696,15 @@ function main($user) {
 }
 
 function logout() {
-    global $NPDS_Prefix;
-    global $user, $cookie;
-    if ($cookie[1]!="") {
-       sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE username='$cookie[1]'");
-    }
-    setcookie("user","",0);
-    unset($user);
-    setcookie("user_language","",0);
-    unset($user_language);
-    Header("Location: index.php");
+   global $NPDS_Prefix, $user, $cookie;
+   if ($cookie[1]!='') {
+      sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE username='$cookie[1]'");
+   }
+   setcookie('user','',0);
+   unset($user);
+   setcookie('user_language','',0);
+   unset($user_language);
+   Header('Location: index.php');
 }
 
 function ForgetPassword() {
@@ -750,7 +743,7 @@ function mail_password($uname, $code) {
     $result = sql_query("SELECT uname,email,pass FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
     $tmp_result=sql_fetch_row($result);
     if (!$tmp_result) {
-       message_error(translate("Sorry, no corresponding user info was found")."<br /><br />","");
+       message_error(translate("Sorry, no corresponding user info was found")."<br /><br />",'');
     } else {
        $host_name = getip();
        list($uname,$email, $pass) = $tmp_result;
@@ -763,11 +756,11 @@ function mail_password($uname, $code) {
 
        $subject="".translate("Confirmation Code for")." $uname";
 
-       send_email($email, $subject, $message, "", true, "html");
+       send_email($email, $subject, $message, '', true, 'html');
 
        message_pass('<p class="lead text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
 
-       Ecr_Log("security", "Lost_password_request : ".$uname, '');
+       Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }
 }
 
@@ -804,11 +797,11 @@ function valid_password ($code) {
          include ("footer.php");
       } else {
          message_pass(translate("Error"));
-         Ecr_Log("security", "Lost_password_valid NOK Mail not match : ".$ibid[0], "");
+         Ecr_Log('security', 'Lost_password_valid NOK Mail not match : '.$ibid[0], '');
       }
    } else {
       message_pass(translate("Error"));
-      Ecr_Log("security", "Lost_password_valid NOK Bad hash : ".$ibid[0], "");
+      Ecr_Log('security', 'Lost_password_valid NOK Bad hash : '.$ibid[0], '');
    }
 }
 
@@ -834,22 +827,22 @@ function update_password ($code, $passwd) {
                 }
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
                 message_pass("<p class=\"lead text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate ("Password update, please re-connect you.")."</p>");
-                Ecr_Log("security", "Lost_password_update OK : ".$uname, "");
+                Ecr_Log('security', "Lost_password_update OK : ".$uname, "");
              } else {
                 message_pass(translate("Error"));
-                Ecr_Log("security", "Lost_password_update Password not match : ".$uname, "");
+                Ecr_Log('security', 'Lost_password_update Password not match : '.$uname, '');
              }
           } else {
              message_pass(translate("Error"));
-             Ecr_Log("security", "Lost_password_update NOK Time > 24H00 : ".$uname, "");
+             Ecr_Log('security', 'Lost_password_update NOK Time > 24H00 : '.$uname, '');
           }
        } else {
           message_pass(translate("Error"));
-          Ecr_Log("security", "Lost_password_update NOK Mail not match : ".$uname, "");
+          Ecr_Log('security', 'Lost_password_update NOK Mail not match : '.$uname, '');
        }
     } else {
        message_pass(translate("Error"));
-       Ecr_Log("security", "Lost_password_update NOK Empty Mail or bad user : ".$uname, "");
+       Ecr_Log('security', 'Lost_password_update NOK Empty Mail or bad user : '.$uname, '');
     }
 }
 
@@ -1281,125 +1274,124 @@ function savejournal($uid, $journal, $datetime){
 
 settype($op,'string');
 switch ($op) {
-    case 'logout':
-         logout();
-         break;
-    case 'new user':
-         // CheckBox
-         settype($user_viewemail,'integer');
-         settype($user_lnl,'integer');
-         confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
-         break;
-    case 'finish':
-         finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
-         break;
-    case 'forgetpassword':
-         ForgetPassword();
-         break;
-    case "mailpasswd":
-         if ($uname!='' and $code!='') {
-            if (strlen($code)>=$minpass)
-               mail_password($uname, $code);
-            else
-               message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You did not enter the correct password, please go back and try again.")."<br /><br />","");
-         } else {
-            main($user);
-         }
-         break;
-    case 'validpasswd':
-         if ($code!='') {
-            valid_password($code);
-         } else {
-            main($user);
-         }
-         break;
-    case "updatepasswd":
-         if ($code!='' and $passwd!='') {
-            update_password($code, $passwd);
-         } else {
-            main($user);
-         }
-         break;
-    case 'userinfo':
-         if (($member_list==1) AND ((!isset($user)) AND (!isset($admin)))) {
-            Header("Location: index.php");
-         }
-         if ($uname!='') {
-            userinfo($uname);
-         } else {
-            main($user);
-         }
-         break;
-    case 'login':
-         login($uname, $pass);
-         break;
-    case 'edituser':
-         if ($user)
-            edituser();
+   case 'logout':
+      logout();
+   break;
+   case 'new user':
+      // CheckBox
+      settype($user_viewemail,'integer');
+      settype($user_lnl,'integer');
+      confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
+   break;
+   case 'finish':
+      finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
+   break;
+   case 'forgetpassword':
+      ForgetPassword();
+   break;
+   case "mailpasswd":
+      if ($uname!='' and $code!='') {
+         if (strlen($code)>=$minpass)
+            mail_password($uname, $code);
          else
-            Header("Location: index.php");
-         break;
-    case 'saveuser':
-         $past = time()-300;
-         sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < $past");
-         $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$cookie[1]'");
-         if (sql_num_rows($result)==1) {
-            // CheckBox
-            settype($attach,'integer');
-            settype($user_viewemail,'integer');
-            settype($usend_email,'integer');
-            settype($uis_visible,'integer');
-            settype($user_lnl,'integer');
-            settype($raz_avatar,'integer');
-            saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
-         } else {
-            Header("Location: user.php");
-         }
-         break;
-
-    case 'edithome':
-         if ($user)
-            edithome();
-         else
-            Header("Location: index.php");
-         break;
-    case 'savehome':
-         settype($ublockon,'integer');
-         savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock);
-         break;
-    case 'chgtheme':
-         if ($user)
-            chgtheme();
-         else
-            Header("Location: index.php");
-         break;
-    case 'savetheme':
-         savetheme($uid, $theme,$skin);
-         break;
-    case 'editjournal':
-         if ($user)
-            editjournal();
-         else
-            Header("Location: index.php");
-         break;
-    case 'savejournal':
-         settype($datetime,'integer');
-         savejournal($uid, $journal, $datetime);
-         break;
-    case 'only_newuser':
-         global $CloseRegUser;
-         if ($CloseRegUser==0) {
-            Only_NewUser();
-         } else {
-            include("header.php");
-            if (file_exists("static/closed.txt"))
-               include("static/closed.txt");
-            include("footer.php");
-         }
-         break;
-    default:
-         if (!AutoReg()) { unset($user); }
+            message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You did not enter the correct password, please go back and try again.")."<br /><br />","");
+      } else {
          main($user);
-         break;
+      }
+   break;
+   case 'validpasswd':
+      if ($code!='') {
+         valid_password($code);
+      } else {
+         main($user);
+      }
+   break;
+   case 'updatepasswd':
+      if ($code!='' and $passwd!='') {
+         update_password($code, $passwd);
+      } else {
+         main($user);
+      }
+   break;
+   case 'userinfo':
+      if (($member_list==1) AND ((!isset($user)) AND (!isset($admin)))) {
+         Header("Location: index.php");
+      }
+      if ($uname!='') {
+         userinfo($uname);
+      } else {
+         main($user);
+      }
+   break;
+   case 'login':
+      login($uname, $pass);
+   break;
+   case 'edituser':
+      if ($user)
+         edituser();
+      else
+         Header("Location: index.php");
+   break;
+   case 'saveuser':
+      $past = time()-300;
+      sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < $past");
+      $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$cookie[1]'");
+      if (sql_num_rows($result)==1) {
+         // CheckBox
+         settype($attach,'integer');
+         settype($user_viewemail,'integer');
+         settype($usend_email,'integer');
+         settype($uis_visible,'integer');
+         settype($user_lnl,'integer');
+         settype($raz_avatar,'integer');
+         saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
+      } else {
+         Header("Location: user.php");
+      }
+   break;
+   case 'edithome':
+      if ($user)
+         edithome();
+      else
+         Header("Location: index.php");
+   break;
+   case 'savehome':
+      settype($ublockon,'integer');
+      savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock);
+   break;
+   case 'chgtheme':
+      if ($user)
+         chgtheme();
+      else
+         Header("Location: index.php");
+   break;
+   case 'savetheme':
+      savetheme($uid, $theme, $skin);
+   break;
+   case 'editjournal':
+      if ($user)
+         editjournal();
+      else
+         Header("Location: index.php");
+   break;
+   case 'savejournal':
+      settype($datetime,'integer');
+      savejournal($uid, $journal, $datetime);
+   break;
+   case 'only_newuser':
+      global $CloseRegUser;
+      if ($CloseRegUser==0) {
+         Only_NewUser();
+      } else {
+         include("header.php");
+         if (file_exists("static/closed.txt"))
+            include("static/closed.txt");
+         include("footer.php");
+      }
+   break;
+   default:
+      if (!AutoReg()) { unset($user); }
+      main($user);
+   break;
 }
 ?>

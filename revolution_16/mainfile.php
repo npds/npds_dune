@@ -434,13 +434,13 @@ function Mess_Check_Mail_interface($username, $class) {
    if ($class!="") $class="class=\"$class\"";
    if ($username==$anonymous) {
       if ($imgtmp) {
-         echo "<img alt=\"\" src=\"$imgtmp\" align=\"center\" border=\"0\" />$username - <a href=\"user.php\" $class>".translate("Your account")."</a>";
+         echo "<img alt=\"\" src=\"$imgtmp\" align=\"center\" />$username - <a href=\"user.php\" $class>".translate("Your account")."</a>";
       } else {
          echo "[$username - <a href=\"user.php\" $class>".translate("Your account")."</a>]";
       }
    } else {
       if ($imgtmp) {
-         echo "<a href=\"user.php\" $class><img alt=\"\" src=\"$imgtmp\" align=\"center\" border=\"0\" />".translate("Your account")."</a>&nbsp;".Mess_Check_Mail_Sub($username,$class);
+         echo "<a href=\"user.php\" $class><img alt=\"\" src=\"$imgtmp\" align=\"center\" />".translate("Your account")."</a>&nbsp;".Mess_Check_Mail_Sub($username,$class);
       } else {
          echo "[<a href=\"user.php\" $class>".translate("Your account")."</a>&nbsp;&middot;&nbsp;".Mess_Check_Mail_Sub($username,$class)."]";
       }
@@ -641,23 +641,22 @@ function ultramode() {
 }
 #autodoc cookiedecode($user) : Décode le cookie membre et vérifie certaines choses (password)
 function cookiedecode($user) {
-   global $NPDS_Prefix;
-   global $language;
+   global $NPDS_Prefix, $language;
    $stop=false;
 
    if (array_key_exists("user",$_GET)) {
-      if ($_GET['user']!="") { $stop=true; $user="BAD-GET";}
+      if ($_GET['user']!='') { $stop=true; $user="BAD-GET";}
    } else if (isset($HTTP_GET_VARS)) {
-      if (array_key_exists("user",$HTTP_GET_VARS) and ($HTTP_GET_VAR['user']!="")) { $stop=true; $user="BAD-GET";}
+      if (array_key_exists("user",$HTTP_GET_VARS) and ($HTTP_GET_VAR['user']!='')) { $stop=true; $user="BAD-GET";}
    }
    if ($user) {
-      $cookie = explode(":", base64_decode($user));
+      $cookie = explode(':', base64_decode($user));
       settype($cookie[0],"integer");
-      if (trim($cookie[1])!="") {
+      if (trim($cookie[1])!='') {
          $result = sql_query("SELECT pass, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
          if (sql_num_rows($result)==1) {
             list($pass, $user_langue) = sql_fetch_row($result);
-            if (($cookie[2] == md5($pass)) AND ($pass != "")) {
+            if (($cookie[2] == md5($pass)) AND ($pass != '')) {
                if ($language!=$user_langue) {
                   sql_query("UPDATE ".$NPDS_Prefix."users SET user_langue='$language' WHERE uname='$cookie[1]'");
                }
@@ -773,7 +772,7 @@ function ctrl_aff($ihome, $catid=0) {
 #autodoc news_aff($type_req, $sel, $storynum, $oldnum) : Une des fonctions fondamentales de NPDS / assure la gestion de la selection des News en fonctions des critères de publication
 function news_aff($type_req, $sel, $storynum, $oldnum) {
    global $NPDS_Prefix;
-   // Astuce pour affiché le nb de News correct même si certaines News ne sont pas visibles (membres, groupe de membres)
+   // Astuce pour afficher le nb de News correct même si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
    $row_Q2 = Q_select("SELECT COUNT(groupe_id) AS total FROM ".$NPDS_Prefix."groupes",86400);
    list(,$NumG)=each($row_Q2);
@@ -840,8 +839,7 @@ function themepreview($title, $hometext, $bodytext='', $notes='') {
 }
 #autodoc prepa_aff_news($op,$catid) : Prépare, serialize et stock dans un tableau les news répondant aux critères<br />$op="" ET $catid="" : les news // $op="categories" ET $catid="catid" : les news de la catégorie catid //  $op="article" ET $catid=ID_X : l'article d'ID X // Les news des sujets : $op="topics" ET $catid="topic"
 function prepa_aff_news($op,$catid,$marqeur) {
-   global $NPDS_Prefix;
-   global $storyhome, $topicname, $topicimage, $topictext, $datetime, $cookie;
+   global $NPDS_Prefix, $storyhome, $topicname, $topicimage, $topictext, $datetime, $cookie;
    if (isset($cookie[3])) {
        $storynum = $cookie[3];
    } else {
@@ -874,9 +872,9 @@ function prepa_aff_news($op,$catid,$marqeur) {
        $story_limit++;
 // trop brutal faut faire plus fin et laisser la possibilité des images !!!!
 //       if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
-       $printP = '<a href="print.php?sid='.$s_sid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
+       $printP = '<a href="print.php?sid='.$s_sid.'" class="mr-1" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
 //       if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
-       $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-envelope-o"></i></a>';
+       $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" class="mr-1" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-envelope-o"></i></a>';
        getTopics($s_sid);
        $title = aff_langue(stripslashes($title));
        $hometext = aff_langue(stripslashes($hometext));
@@ -895,13 +893,13 @@ function prepa_aff_news($op,$catid,$marqeur) {
        }
        if ($comments==0) {
            $morelink[2]=0;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class=""><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
        } elseif ($comments==1) {
            $morelink[2]=$comments;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class=""><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
        } else {
            $morelink[2]=$comments;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
@@ -1690,7 +1688,7 @@ function wrapper_f (&$string, $key, $cols) {
 #autodoc preg_anti_spam($str) : Permet l'utilisation de la fonction anti_spam via preg_replace
 function preg_anti_spam($ibid) {
    // Adaptation - David MARTINET alias Boris (2011)
-   return("<a href=\"mailto:".anti_spam($ibid, 1)."\" target=\"_blank\" class=\"noir\">".anti_spam($ibid, 0)."</a>");  
+   return("<a href=\"mailto:".anti_spam($ibid, 1)."\" target=\"_blank\">".anti_spam($ibid, 0)."</a>");  
 }  
 #autodoc anti_spam($str [, $highcode]) : Encode une chaine en mélangeant caractères normaux, codes décimaux et hexa. Si $highcode == 1, utilise également le codage ASCII (compatible uniquement avec des mailto et des URL, pas pour affichage)
 function anti_spam($str, $highcode = 0) {
@@ -2046,9 +2044,10 @@ function Site_Activ() {
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
-      $who_online .= "<p align=\"center\"><a href=\"top.php\"><img alt=\"".translate("Top")." $top\" src=\"$imgtmp\" /></a>&nbsp;&nbsp;";
+      $who_online .= '
+   <p class="text-xs-center"><a href="top.php"><img src="'.$imgtmp.'" alt="'.translate("Top").' '.$top.'" /></a>&nbsp;&nbsp;';
       if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
-      $who_online .= "<a href=\"stats.php\"><img alt=\"".translate("Statistics")."\" src=\"$imgtmp\" /></a></p>\n";
+      $who_online .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistics").'" /></a></p>';
    } else {
       $who_online .= '
    <p class="text-xs-center"><a href="top.php">'.translate("Top").' '.$top.'</a>&nbsp;&nbsp;<a href="stats.php" >'.translate("Statistics").'</a></p>';
@@ -2151,13 +2150,10 @@ function mainblock() {
    $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."mainblock");
    list($title, $content) = sql_fetch_row($result);
    global $block_title;
-   if ($title=='')
-      $title=$block_title;
-      if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-      themesidebox(aff_langue($title), aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content))); //php7 not work on PHP Version 4.4.3-dev
-      } else {
-      themesidebox(aff_langue($title), aff_langue(preg_replace('#<a href=[^>]*(&)[^>]*>#e','str_replace("&","&amp;","\0")',$content)));
-      }
+   if ($title=='') $title=$block_title;
+   //must work from php 4 to 7 !..?..
+   function changetoamp($r) { return str_replace('&','&amp;',$r[0]);}
+   themesidebox(aff_langue($title), aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoamp',$content)));
 }
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
@@ -2193,7 +2189,9 @@ function adminblock() {
    global $block_title;
    if ($title=='') $title=$block_title;
    else $title=aff_langue($title);
-   $content = nl2br(aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#',function (&$r) {return str_replace('&','&amp;',$r[0]);},$content)));//php7
+   //must work from php 4 to 7 !..?..
+   function changetoampadm($r) { return str_replace('&','&amp;',$r[0]);}
+   $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
    $content .= '
       <ul id="adm_block">
       '.$bloc_foncts_A.'
