@@ -59,7 +59,7 @@ function listsections($rubric) {
             $aff.='
       <hr />
       <h3>
-         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;
+         <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;
          <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class="tag tag-default float-xs-right title">'.$nb_section.'</span>
       </h3>';
             if ($intro!='') {$aff.='<p class="text-muted">'.aff_langue($intro).'</p>';};
@@ -72,11 +72,11 @@ function listsections($rubric) {
                   $aff.='
          <div class="card card-block" id="rub_'.$rubid.'sec_'.$secid.'">
             <h4 class="">
-               <a class="arrow-toggle text-primary" data-toggle="collapse" data-parent="#rub_'.$rubid.'sec_'.$secid.'" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
+               <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
-                        $aff.="<img class=\"img-fluid\" src=\"$imgtmp\" alt=\"".aff_langue($secname)."\" /><br />";
+                     $aff.='<img class="img-fluid" src="'.$imgtmp.'" alt="'.aff_langue($secname).'" /><br />';
                   }
                   $aff1=''.aff_langue($secname).'#NEW#';
                   if ($intro!='') {
@@ -85,10 +85,9 @@ function listsections($rubric) {
                      $aff1.='
             </h4>';
                      $aff2='
-            <div id="sec'.$secid.'" class="collapse">
+            <div id="sec'.$secid.'" class="collapse in">
                <div class="">';
                   $result3 = sql_query("SELECT artid, title, counter, userlevel, timestamp FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
-
                   $noartid=false;
                   while (list($artid, $title, $counter, $userlevel, $timestamp) = sql_fetch_row($result3)) {
                      $okprintLV2=autorisation_section($userlevel);
@@ -142,7 +141,7 @@ function listarticles($secid) {
    list($secname, $rubid, $image, $intro, $userlevel) = sql_fetch_row($result);
    list($rubname) = sql_fetch_row(sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubid'"));
    if ($sections_chemin) {
-      $title =  aff_langue($rubname)." - ".aff_langue($secname);
+      $title =  aff_langue($rubname).' - '.aff_langue($secname);
    } else {
       $title =  aff_langue($secname);
    }
@@ -158,7 +157,7 @@ function listarticles($secid) {
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       $okprint1=autorisation_section($userlevel);
       if ($okprint1) {
-         if ($prev==1) {echo "<input class=\"btn btn-primary\" type=\"button\" value=\"".translate("Back to console")."\" onclick=\"javascript:history.back()\" /><br /><br />";}
+         if ($prev==1) {echo '<input class="btn btn-primary" type="button" value="'.translate("Back to console").'" onclick="javascript:history.back()" /><br /><br />';}
          if (function_exists("themesection_title")) {
             themesection_title($title);
          } else {
@@ -285,8 +284,7 @@ function viewarticle($artid, $page) {
 
          $artidtempo=$artid;
          if ($rubname!='Divers') {
-            
-         echo '<p><a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a></p>'; 
+            echo '<p><a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a></p>'; 
 
  
  /*         echo '<h4>***<strong>'.translate("Back to chapter:").'</strong></h4>';
