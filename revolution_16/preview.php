@@ -12,7 +12,6 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 $userdatat=$userdata;
-//$messageP=split_string_without_space($message, 80);
 $messageP=$message;
 $time=date(translate("dateinternal"),time()+($gmt*3600));
 
@@ -48,15 +47,15 @@ switch ($acc) {
    break;
 
    case "reply":
-      if (array_key_exists(1,$userdata))// why make an error ? car le tableau est déclaré après le array key exist ...
+//      if (array_key_exists(1,$userdata))// why make an error ? car le tableau est déclaré après le array key exist ...
          $userdata = get_userdata($userdata[1]);
       if ($allow_html == 0 || isset($html)) $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
       if (isset($sig) && $userdata['uid'] != 1) $messageP .= " [addsig]";
-      if (($forum_type!="6") and ($forum_type!="5")) {
+      if (($forum_type!='6') and ($forum_type!='5')) {
          $messageP = aff_code($messageP);
-         $messageP = str_replace("\n", "<br />", $messageP);
+         $messageP = str_replace("\n", '<br />', $messageP);
       }
-      if (($allow_bbcode) and ($forum_type!="6") and ($forum_type!="5")) {
+      if (($allow_bbcode) and ($forum_type!='6') and ($forum_type!='5')) {
          $messageP = smile($messageP);
       }
       if (($forum_type!=6) and ($forum_type!=5)){
@@ -92,7 +91,7 @@ switch ($acc) {
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = aff_code($messageP);
          $messageP = str_replace("\n", '<br />', removeHack($messageP));
-         $messageP .= "<br /><p class=\"lignb\">".translate("This message was edited by").' : '.$userdata['uname']."</p>";
+         $messageP .= "<br /><p>".translate("This message was edited by").' : '.$userdata['uname']."</p>";
          if ($allow_bbcode) $messageP = aff_video_yt($messageP);
       } else {
          $messageP .= "\n\n".translate("This message was edited by").' : '.$userdata['uname'];
@@ -100,7 +99,7 @@ switch ($acc) {
       $messageP = addslashes($messageP);
    break;
 }
-         
+
       $theposterdata = get_userdata_from_id($userdatat[0]);
       echo '
       <h4>'.translate("Preview").'</h4>
@@ -122,7 +121,6 @@ switch ($acc) {
                echo'
                   &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$userdatat[1].'</strong></span>
                   <span class="float-xs-right">';
-//      if (($forum_type=='6') or ($forum_type=='5'))
       if (isset($image_subject)) {
          if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
