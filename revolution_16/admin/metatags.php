@@ -21,9 +21,11 @@ function MetaTagAdmin($saved = false) {
    $tags = GetMetaTags("meta/meta.php");
    include("header.php");
    GraphicAdmin($hlpfile);
-    adminhead ($f_meta_nom, $f_titre, $adminimg);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   echo '
+   <hr />';
    if ($saved){
-      echo '<p align="center " class="text-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</p>';
+      echo '<p align="center " class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</p>';
    }
    echo '
    <form id="fad_metatags" action="admin.php" method="post">
