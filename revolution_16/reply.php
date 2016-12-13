@@ -113,7 +113,7 @@ if ($submitS) {
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, $message)) {
-         Ecr_Log("security", "Forum Anti-Spam : forum=".$forum." / topic=".$topic, "");
+         Ecr_Log('security', 'Forum Anti-Spam : forum='.$forum.' / topic='.$topic, '');
          redirect_url("index.php");
          die();
       }
@@ -182,7 +182,7 @@ if ($submitS) {
          if (subscribe_query($userdata['uid'],"forum",$forum)) {
             $sauf=$userdata['uid'];
          }
-         subscribe_mail("forum",$topic,$forum,'',$sauf);
+         subscribe_mail('forum',$topic,$forum,'',$sauf);
       }
       if (isset($upload)) {
          include("modules/upload/upload_forum.php");
@@ -219,28 +219,25 @@ if ($submitS) {
       <div class="card-block-small">
             '.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
-    $modera = get_userdata($moderator[$i]);
-             if ($modera['user_avatar'] != '') {
-             if (stristr($modera['user_avatar'],"users_private")) {
-                $imgtmp=$modera['user_avatar'];
-             } else {
-                if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-             }
-             }
+      $modera = get_userdata($moderator[$i]);
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],"users_private")) {
+            $imgtmp=$modera['user_avatar'];
+         } else {
+            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+         }
+      }
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
-   
       if (isset($user))
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
    echo '
       </div>
-   </div>';
+   </div>
+   <h4 class="hidden-xs-down">'.translate("Post Reply in Topic").'</h4>
+   <form action="reply.php" method="post" name="coolsus">';
 
-   echo '
-   <h4>'.translate("Post Reply in Topic").'</h4>
-   <form class="form" action="reply.php" method="post" name="coolsus">';
-
-   echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
+   echo '<blockquote class="blockquote hidden-xs-down"><p>'.translate("About Posting:").'<br />';
    if ($forum_access == 0) {
       echo translate("Anonymous users can post new topics and replies in this forum.");
    } else if($forum_access == 1) {
@@ -286,7 +283,7 @@ if ($submitS) {
 
    if ($smilies) {
       echo '
-      <div class="form-group row">
+      <div class="hidden-xs-down form-group row">
          <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
             <div class="card card-block n-fond_subject">
@@ -351,9 +348,9 @@ if ($submitS) {
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
-     if (($allow_html==1) and ($forum_type!="6") and ($forum_type!="5")) {
-        if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
-      echo '
+      if (($allow_html==1) and ($forum_type!='6') and ($forum_type!='5')) {
+         if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
+         echo '
          <div class="col-sm-12">
             <div class="checkbox">
                <label class="custom-control custom-checkbox">
@@ -393,20 +390,19 @@ if ($submitS) {
      }
      echo '
          </div>
-      </div>';
-     echo "".Q_spambot()."";
-   echo'
+      </div>'
+      .Q_spambot().'
       <div class="form-group row">
          <div class="col-sm-12">
             <input type="hidden" name="forum" value="'.$forum.'" />
             <input type="hidden" name="topic" value="'.$topic.'" />
-            <button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'" data-toggle="tooltip" ><i class="fa fa-check fa-lg"></i> '.translate("Submit").'</button>&nbsp;
+            <button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'" data-toggle="tooltip" >'.translate("Submit").'</button>&nbsp;
             <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fa fa-close fa-lg"></i>'.translate("Cancel Post").'</button>
          </div>
       </div>';
    } else {
-     echo '
-   <div class="alert alert-danger">'.translate("You are not allowed to reply in this forum").'</div>';
+      echo '
+      <div class="alert alert-danger">'.translate("You are not allowed to reply in this forum").'</div>';
    }
    echo '
    </form>';
