@@ -618,7 +618,7 @@ echo $content;
       if (stristr($message,"<a href")) {
          $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
       }
-      echo $message.'<hr />';
+      echo nl2br($message).'<hr />';
    }
    echo '
     </div>
@@ -644,13 +644,13 @@ function main($user) {
    if (!isset($user)) {
       include("header.php");
       echo '<h2>'.translate("User").'</h2>';
-       if ($stop==99) {
-          echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
-       } elseif ($stop) {
-          echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
-       }
-       if (!$user) {
-          echo '
+      if ($stop==99) {
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
+      } elseif ($stop) {
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
+      }
+      if (!$user) {
+         echo '
           <div class="card card-block">
           <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
          </div>
@@ -681,18 +681,18 @@ function main($user) {
 
           echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
 
-          // include externe file from modules/include for functions, codes ...
- /*         if (file_exists("modules/include/user.inc")) {
-             
-             include ("modules/include/user.inc");
-             
-          }*/
-       }
-       include("footer.php");
-    } elseif (isset($user)) {
-       $cookie=cookiedecode($user);
-       userinfo($cookie[1]);
-    }
+         // include externe file from modules/include for functions, codes ...
+         /*
+         if (file_exists("modules/include/user.inc")) {
+            include ("modules/include/user.inc");
+         }
+         */
+      }
+      include("footer.php");
+   } elseif (isset($user)) {
+      $cookie=cookiedecode($user);
+      userinfo($cookie[1]);
+   }
 }
 
 function logout() {
