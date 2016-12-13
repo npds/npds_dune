@@ -222,7 +222,7 @@ function topicedit($topicid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="name" id="name" maxlength="30" required="required"/>
+            <input class="form-control" type="text" name="name" id="name" maxlength="30" />
             <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
          </div>
       </div>
@@ -264,7 +264,7 @@ function topicedit($topicid) {
    
     echo '
     <hr />
-    <h3 class="mb-1">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-muted">'.aff_langue($topictext).'</span></h3>';
+    <h3 class="mb-1">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
     $res=sql_query("SELECT rid, name, url FROM ".$NPDS_Prefix."related WHERE tid='$topicid'");
     echo '
    <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">
@@ -280,9 +280,9 @@ function topicedit($topicid) {
                 <td>'.$name.'</td>
                 <td><a href="'.$url.'" target="_blank">'.$url.'</a></td>
                 <td>
-                   <a href="admin.php?op=relatededit&amp;tid='.$topicid.'&amp;rid='.$rid.'" class="noir"><i class="fa fa-edit fa-lg" data-toggle="tooltip" title="'.adm_translate("Editer").'"></i></a>&nbsp;
+                   <a href="admin.php?op=relatededit&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fa fa-edit fa-lg" data-toggle="tooltip" title="'.adm_translate("Editer").'"></i></a>&nbsp;
                    <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>&nbsp;
-                   <a href="admin.php?op=relateddelete&amp;tid='.$topicid.'&amp;rid='.$rid.'" class=""><i class="fa fa-trash-o fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a>
+                   <a href="admin.php?op=relateddelete&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fa fa-trash-o fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a>
                 </td>
             </tr>';
     }
