@@ -1128,12 +1128,13 @@ function chgtheme() {
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
    echo '
+   
    <h2>'.translate("Change Theme").'</h2>
    <form role="form" action="user.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-5" for="theme">'.translate("Select One Theme").'</label>
          <div class="col-sm-7">
-            <select class="custom-select form-control" name="theme">';
+            <select class="custom-select form-control" id="theme" name="theme">';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
    $thl= sizeof($themelist);
@@ -1190,7 +1191,22 @@ function chgtheme() {
             <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
          </div>
       </div>
-   </form>';
+   </form>
+   <script type="text/javascript">
+   //<![CDATA[
+   $(function () {
+      $( "#theme" ).change(function () {
+         sk = $( "#theme option:selected" ).text().substr(-3);
+         if(sk=="_sk") {
+            $("#skin_choice").removeClass("collapse");
+         } else {
+            $("#skin_choice").addClass("collapse");
+         }
+      })
+     .change();
+   });
+   //]]
+   </script>';
    include ("footer.php");
 }
 
