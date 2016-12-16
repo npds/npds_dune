@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* CSS npds-boots pour NPDS Revolution                                       */
+/* CSS npds-boost_sk pour NPDS Revolution                                    */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
@@ -15,11 +15,13 @@ a:hover {text-decoration:none;}
 /** ==> Classes BS4                                                         **/
 /*                                                                           */
 /* ==> élément ayant la class btn (boutons, a, input) */
+/* 
 .btn {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+ */
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);
@@ -100,6 +102,7 @@ a:hover {text-decoration:none;}
 /* ==> adaptation menu */
 nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0rem 1rem;}
 
+/* 
 ul.nav.navbar-nav {
   line-height: 2.5rem;
 }
@@ -107,6 +110,7 @@ a.navbar-brand {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+ */
 
 @media (min-width: 768px) {
   .page-header {
@@ -116,6 +120,7 @@ a.navbar-brand {
 }
 
 @media (max-width: 767px) {
+  body {margin-top:2rem;}
   nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
   .navbar-divider {display:none;}
   ul.nav.navbar-nav {
@@ -132,7 +137,7 @@ a.navbar-brand {
   nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
   .page-header {
     margin: 1.5rem 0 20px;
-    padding:1rem;
+    padding:1rem;display:none;
   }
 }
 

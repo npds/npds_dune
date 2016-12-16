@@ -10,10 +10,10 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-   // Une ligne pour chaque smilie, la dernière ligne ne devant pas comporter de , à la fin du tableau
+   // Une ligne pour chaque smilie, la derniÃ¨re ligne ne devant pas comporter de , Ã  la fin du tableau
    // colonne 1 : le code du smiliey
-   // colonne 2 : l'icone
-   // colonne 3 : si nécessaire la description (sinon "")
+   // colonne 2 : l'icÃ´ne
+   // colonne 3 : si nÃ©cessaire la description (sinon '')
    // colonne 4 : visible (1) ou invisible (0)
 
    $smilies=array(
@@ -50,25 +50,17 @@
       array(':sob:','1F62D.png','',1),
       array(':open_mouth:','1F62E.png','',1),
       array(':hushed:','1F62F.png','',1),
-      
       array(':hand_splayed:','1F590.png','',1),
-      array(':raised_hand_with_fingers_splayed:','1F590.png','',1),
       array(':hand_splayed_reverse:','1F591.png','',1),
-      array(':reversed_raised_hand_with_fingers_splayed:','1F591.png','',1),
       array(':thumbs_up_reverse:','1F592.png','',1),
-      array(':reversed_thumbs_up_sign:','1F592.png','',1),
       array(':thumbs_down_reverse:','1F593.png','',1),
-      array(':reversed_thumbs_down_sign:','1F593.png','',1),
       array(':hand_victory:','1F594.png','',1),
-      array(':reversed_victory_hand:','1F594.png','',1),
       array(':middle_finger:','1F595.png','',1),
-      array(':reversed_hand_with_middle_finger_extended:','1F595.png','',1),
       array(':vulcan:','1F596.png','',1),
-      array(':raised_hand_with_part_between_middle_and_ring_fingers:','1F596.png','',1),
-      array(':finger_pointing_down:','1F597.png','',1),
       array(':white_down_pointing_left_hand_index:','1F597.png','',1),
       array(':finger_pointing_left:','1F598.png','',1),
-      array(':sideways_white_left_pointing_index:','1F598.png','',1),
-      array(':finger_pointing_right:','1F599.png','',1)
+      array(':finger_pointing_right:','1F599.png','',1),
+      array(':finger_pointing_up:','1F59E.png','',1),
+      array(':finger_pointing_down2:','1F59F.png','',1)
    );
 ?>

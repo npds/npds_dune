@@ -120,11 +120,17 @@ text-align:center;
  adapt JMD pour correspondances avec Rocssti
  ****************************************************/
  
- /* Liens */
+/* Liens */
 #leftcol a {
   color: #b00000;
   cursor: pointer;
 }
+
+.text-primary {
+  color: #b00000 !important  ;
+  cursor: pointer;
+}
+
 /* penser au focus */
 #leftcol a:focus,
 #leftcol a:hover,
@@ -135,11 +141,8 @@ text-align:center;
    5 LIENS - Blob de droite on inverse les couleurs
 ---------------------------------------------------------------------- */
 
-/* Liens */
-#leftcol a {
-  color: #b00000;
-  cursor: pointer;
-}
+
+
 /* penser au focus */
 #leftcol a:focus,
 #leftcol a:hover,

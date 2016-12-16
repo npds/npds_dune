@@ -126,6 +126,25 @@ text-align:center;
   color: #be2525 !important  ;
   cursor: pointer;
 }
+
+/** ==> classe présente dans le core de npds
+********************************************** */
+/* .ligna {
+  font-size: 20px;
+  color: #f39cef;
+  text-decoration: underline;  } */
+
+.lignb {
+  font-size: 16px;
+  text-decoration: underline;  }
+  
+.boxc  {
+  font-size: 16px;
+  text-decoration: underline;  }
+  
+.text-danger  {
+  text-shadow: 1px 1px #333;
+   }
 /**************************************************
  adapt JMD pour correspondances avec Rocssti
  ****************************************************/
@@ -291,6 +310,19 @@ background-color: #ccc;}
 /*****************************************
 Adaptation des css au fil du test
 *********************************************/
+.bg-primary {
+    color: beige;
+}
+
+.lignb {
+  font-size: 16px;
+  text-decoration: underline;  }
+  
+.boxc  {
+  font-size: 16px;
+  text-decoration: underline;  }
+
+
 ul, ol {
     padding-left: 1rem;
 }
@@ -363,6 +395,13 @@ table tr:nth-of-type(2n) {
     border-radius: 5px;
     padding: .5em;
     max-width: 100%;
+}
+
+input[type="radio"], input[type="checkbox"], input[type="image"] {
+    background-color: transparent;
+    border: 0;
+    width: auto;
+    margin: .5em;
 }
 
 /* les boutons */
@@ -1766,3 +1805,63 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
+
+/* test des anciennes classes sur les titres
+
+.noir {
+  font-size: 20px;
+  color: #ff0;
+  text-decoration: underline;  }
+
+
+
+.box  {
+  font-size: 20px;
+  color: #f320e9;
+  text-decoration: underline;  }
+
+.heada {
+  font-size: 20px;
+  color: #f9930e;
+  text-decoration: overline;  }
+
+.ongl {
+  font-size: 20px;
+  color: #5fcf43;
+  text-decoration: underline;  }
+
+.ligna {
+  font-size: 20px;
+  color: #f39cef;
+  text-decoration: underline;  }
+
+.lignb {
+  font-size: 20px;
+  color: #f320e9;
+  text-decoration: underline;  }
+
+
+
+.TITRE   {font-size: 20px;
+  color: #f320e9;
+  text-decoration: line-through; }
+
+.titrea    {font-size: 20px;
+  color: #f320e9;
+  text-decoration: line-through; }
+
+.titreb   {font-size: 20px;
+  color: #f320e9;
+  text-decoration: line-through; }
+
+.titrec   {font-size: 20px;
+  color: #f320e9;
+  text-decoration: line-through; }
+
+.titboxc  {font-size: 20px;
+  color: #f320e9;
+  text-decoration: line-through; }
+
+.titboxcont   {font-size: 20px;
+  color: #f320e9;
+  text-decoration: line-through; }               */
