@@ -270,7 +270,7 @@ $httprefmax = 1000;
 # $AutoRegUser:      Allow automated new-user creation (sending email and allowed connection)
 # $short_review:     For transform reviews like "gold book" (1=Yes, 0=no)
 # $subscribe:        Allow your members to subscribe to topics, ... (1=Yes, 0=no)
-# $member_invisible: Allow your members to subscribe to topics, ... (1=Yes, 0=no)
+# $member_invisible: Allow users to hide from other users, ... (1=Yes, 0=no)
 # $CloseRegUser:     Allow you to close New Member Registration (from Gawax Idea), ... (1=Yes, 0=no)
 # $memberpass:       Allow user to choose alone the password (1=Yes, 0=no)
 ######################################################################

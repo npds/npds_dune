@@ -514,7 +514,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "# \$AutoRegUser:      Allow automated new-user creation (sending email and allowed connection)\n";
     $content .= "# \$short_review:     For transform reviews like \"gold book\" (1=Yes, 0=no)\n";
     $content .= "# \$subscribe:        Allow your members to subscribe to topics, ... (1=Yes, 0=no)\n";
-    $content .= "# \$member_invisible: Allow your members to subscribe to topics, ... (1=Yes, 0=no)\n";
+    $content .= "# \$member_invisible: Allow members to hide from other members, ... (1=Yes, 0=no)\n";
     $content .= "# \$CloseRegUser:     Allow you to close New Member Registration (from Gawax Idea), ... (1=Yes, 0=no)\n";
     $content .= "# \$memberpass:       Allow user to choose alone the password (1=Yes, 0=no)\n";
     $content .= "$line";
