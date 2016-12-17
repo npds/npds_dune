@@ -1,6 +1,32 @@
 <?php
    global $cookie, $anonymous, $NPDS_Prefix;
    $username = $cookie[1];$con='';$ava='';$cha='';
+   $skinname = $cookie[11];
+   switch ($skinname) {
+      case 'cyborg': 
+        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-inverse';
+      break;
+      case 'cerulean':
+      case 'cosmo':
+      case 'darkly':
+      case 'flatly':
+      case 'sandstone':
+      case 'slate':
+      case 'superhero':
+      case 'united':
+      case 'yeti':
+        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-primary';
+      break;
+      case 'lumen':
+         $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
+      break;
+      case 'simplex':
+         $headerclasses ='navbar navbar-light navbar-fixed-top bg-primary';
+      break;
+      default :
+        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default
+      break;
+   }
 
 if (!isset($powerpack)) {include_once ("powerpack.php");}
    if (if_chat()) $cha= '
@@ -15,12 +41,12 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
       if (!$user_avatar) {
-      $imgtmp='images/forum/avatar/blank.gif';
+         $imgtmp='images/forum/avatar/blank.gif';
        } else if (stristr($user_avatar,"users_private")) {
-      $imgtmp=$user_avatar;
+         $imgtmp=$user_avatar;
       } else {
-      if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
-      if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
+         if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
+         if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
 
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
@@ -31,8 +57,8 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
    }
 ?>
 
-   <nav id="uppernavbar" class="navbar navbar-fixed-top navbar-light bg-faded">
-      <a href="#" class="navbar-toggler hidden-md-up float-xs-right btn btn-secondary" data-toggle="collapse" data-target="#barnav"></a>
+   <nav id="uppernavbar" class="<?php echo $headerclasses; ?>">
+      <a href="#" class="navbar-toggler hidden-md-up float-xs-right " data-toggle="collapse" data-target="#barnav"></a>
       <a class="navbar-brand" href="#"><span>NPDS^ 16</span></a>
       <div class="collapse navbar-toggleable-sm" id="barnav">
          <ul class="nav navbar-nav">
