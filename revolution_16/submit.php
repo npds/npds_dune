@@ -18,12 +18,12 @@ if (!function_exists("Mysql_Connexion")) {
 include ("publication.php");
 
 if ($mod_admin_news>0) {
-   if ($admin=="" and $user=="") {
+   if ($admin=='' and $user=='') {
       Header("Location: index.php");
       exit;
    }
    if ($mod_admin_news==1) {
-      if ($user!="" and $admin=="") {
+      if ($user!='' and $admin=='') {
          global $cookie;
          $result = sql_query("select level from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
          if (sql_num_rows($result)==1) {
