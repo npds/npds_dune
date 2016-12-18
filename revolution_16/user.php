@@ -1171,7 +1171,7 @@ function chgtheme() {
       <div class="form-group row" id="skin_choice">
          <label class="form-control-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
          <div class="col-sm-7">
-            <select class="custom-select form-control" name="skin">';
+            <select class="custom-select form-control" id="skin" name="skin">';
    $cookie=cookiedecode($user);
    foreach ($skins as $k => $v) {
       echo '
@@ -1184,7 +1184,10 @@ function chgtheme() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-7 offset-sm-5  ">
+         <div id="skin_thumbnail" class="col-sm-7 offset-sm-5"></div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-7 offset-sm-5 ">
             <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
             <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
             <input type="hidden" name="op" value="savetheme" />
@@ -1196,11 +1199,16 @@ function chgtheme() {
    //<![CDATA[
    $(function () {
       $( "#theme" ).change(function () {
-         sk = $( "#theme option:selected" ).text().substr(-3);
+         sk = $("#theme option:selected").text().substr(-3);
          if(sk=="_sk") {
             $("#skin_choice").removeClass("collapse");
+            $("#skin").change(function () {
+               sl = $("#skin option:selected").text();
+               $("#skin_thumbnail").html(\'<a href="themes/_skins/\'+sl+\'"><img class="img-fluid img-thumbnail" src="themes/_skins/\'+sl+\'/thumbnail.png" /></a>\');
+            }).change();
          } else {
             $("#skin_choice").addClass("collapse");
+            $("#skin_thumbnail").html(\'\');
          }
       })
      .change();
