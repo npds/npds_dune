@@ -35,8 +35,8 @@ if ($rep) {
       echo $ContainerGlobal;
    }
    ob_start();
-
-   if (stristr($_SERVER['REQUEST_URI'],$Start_Page,true) and file_exists("themes/".$rep."/html/header_landing.html")) {
+   // landing page
+   if (stristr($_SERVER['REQUEST_URI'],$Start_Page) and file_exists("themes/".$rep."/html/header_landing.html")) {
       include("themes/".$rep."/html/header_landing.html");
    } 
    else {
