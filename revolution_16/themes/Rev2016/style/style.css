@@ -1,10 +1,51 @@
 /* ----------------------------------------------------------------------
-   1. BASE MINIMUM         Rev2016
+   1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
+   theme: BaseRoc
 ---------------------------------------------------------------------- */
- /*  body {
+@charset "utf-8";
+/* CSS npds-boots pour NPDS Revolution                                       */
+/* Theme : Dyna-boost (c) 2015 by jpb                                        */
+/* style.css                                                                 */
+/* pour ajuster et modifier les css du framework                             */
+/* pour utiliser les classes et #ID spécifiques à NPDS                       */
 
-    background: transparent -moz-linear-gradient(center top , #E7E3CF 0.1em, transparent 0.1em) repeat scroll 0% 0% / 100% 1.5em;
-} */
+
+/** ==> Balise html                                                         **/
+/*     Balise html                                                           */
+html{font-size: 14px;}
+body {
+font-family: Helvetica,Arial,Tahoma,Sans-Serif;
+font-size: 1rem;
+line-height: 1.5;
+color: #000;
+
+}
+
+.n-ava {
+    max-height: 64px;
+    max-width: 64px;
+}
+
+.n-ava-small {
+    max-height: 48px;
+    max-width: 48px;
+}
+
+.n-smil {
+    display: inline;
+    width: 24px;
+    height: 24px;
+}
+
+.n-sujetsize {
+    height: auto;
+    max-width: 100px;
+}
+
+.n-fond_emot,
+.n-fond_subject {
+    line-height: 28px;
+}
 /* ----------------------------------------------------------------------
    2. LIENS - standard
 ---------------------------------------------------------------------- */
@@ -357,7 +398,15 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 .leftbloc, .rightbloc   {
 }
 
-/************************************************************************
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: transparent;
+    border: 0px;
+}
+/***********************************************************************
 La Partie Footer de votre Site
 *************************************************************************/
 footer {
@@ -401,7 +450,73 @@ footer {
 }
 
 
+/* pour le tutos uniquement*/
 
+
+.aqua {
+    background: #9FD9AA;
+}
+
+.red {
+    background: #F9D9BE;
+}
+
+.grey {
+    background: #ccc;
+}
+
+
+.section{position: relative;
+padding: .8em;
+margin-bottom: 3em;
+border: .25em dotted goldenrod;
+color: #555;
+background-color: #fff;
+}
+
+
+code, pre, samp {
+    white-space: pre-wrap;
+    background: beige;
+	font-size: .9em;
+}
+
+.toc{
+	position:fixed;
+	top: 35rem;
+	width: 10%;
+	}
+
+.toc a {
+    display: block;
+    padding: .6rem 1rem;
+    color: #555;
+    background: #eee;
+    text-decoration: none;
+}
+
+.toc a:hover, .toc a:focus {
+    color: #555;
+    background: #ddd;
+}
+.toc li {
+    list-style-type: none;
+    counter-increment: toc;
+    margin-bottom: 1px;
+}
+
+.toc li::before {
+    content: counter(toc);
+    float: left;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    margin-right: 2rem;
+    color: #fff;
+    background: rgba(0,0,0,.3);
+    border-radius: 0 0 6px 0;
+}
 
 /*****************************************
 Adaptation des css au fil du test
