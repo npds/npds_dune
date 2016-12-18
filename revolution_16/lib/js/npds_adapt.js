@@ -23,6 +23,9 @@
          $('a[data-toggle="collapse"]').click(function () {
             $(this).find('i.toggle-icon').toggleClass('fa-caret-up fa-caret-down',6000);
          })
+         $('a[data-toggle="collapse"]').click(function () {
+            $(this).find('i.togglearbr-icon').toggleClass('fa-level-up fa-level-down',6000);
+         })
          // initialisation tooltip et popover
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
