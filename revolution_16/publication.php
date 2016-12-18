@@ -239,12 +239,12 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
             $sel1='checked="checked"';
          echo '
          <div class="col-sm-6">
-            <div class="radio">
-               <label class="radio-inline">
-                  <input type="radio" name="epur" value="1" '.$sel1.' />&nbsp;'.translate("Yes").'
+            <div class="">
+               <label class="form-check-inline">
+                  <input class="form-check-input" type="radio" name="epur" value="1" '.$sel1.' />&nbsp;'.translate("Yes").'
                </label>
-               <label class="radio-inline">
-                  <input type="radio" name="epur" value="0" '.$sel2.' />&nbsp;'.translate("No").'
+               <label class="form-check-inline">
+                  <input class="form-check-input" type="radio" name="epur" value="0" '.$sel2.' />&nbsp;'.translate("No").'
                </label>
             </div>
          </div>
