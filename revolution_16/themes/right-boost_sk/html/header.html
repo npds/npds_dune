@@ -20,11 +20,8 @@
       case 'lumen':
          $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
       break;
-      case 'simplex':
-         $headerclasses ='navbar navbar-light navbar-fixed-top bg-primary';
-      break;
       default :
-        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default
+        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default simplex
       break;
    }
 
@@ -58,40 +55,45 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
 ?>
 
    <nav id="uppernavbar" class="<?php echo $headerclasses; ?>">
-      <a href="#" class="navbar-toggler hidden-md-up float-xs-right " data-toggle="collapse" data-target="#barnav"></a>
-      <a class="navbar-brand" href="#"><span>NPDS^ 16</span></a>
-      <div class="collapse navbar-toggleable-sm" id="barnav">
-         <ul class="nav navbar-nav">
-            <li class="navbar-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a></li>
-            <li class="navbar-divider"></li>
-            <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
-               <ul class="dropdown-menu" role="menu">
-                  <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
-                  <li><a class="dropdown-item" href="search.php">Les archives</a></li>
-                  <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
-               </ul>
-            </li>
-            <li class="navbar-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
-            <li class="navbar-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
-            <li class="navbar-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">[french]Contact[/french][english]Contact[/english][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese][spanish]Cont&aacute;ctenos[/spanish][german]Kontakt[/german]</a></li>
-            <li class="navbar-divider"></li>
-            <li class="nav-item dropdown">
-               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
-               <ul class="dropdown-menu">
-                  <li><?php echo $ava; ?></li>
-                  <li class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> [french]Profil[/french][english]Profile[/english][chinese]Profile[/chinese][spanish]Perfil[/spanish][german]Profil[/german]</a></li>
-                  <li><?php echo $bal; ?></li>
-                  <li class="dropdown-divider"></li>
-                  <li><?php echo $btn_con; ?></li>
-               </ul>
-            </li>
-            <?php echo $cha; ?>
-         </ul>
+      <div class="">
+         <div class="clearfix">
+            <button class="navbar-toggler float-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target="#barnav"></button>
+            <a  href="index.php" class="navbar-brand hidden-md-up"><span>NPDS^ 16</span></a>
+         </div>
+         <div class="collapse navbar-toggleable-sm" id="barnav">
+            <ul class="nav navbar-nav">
+               <li class="nav-item active hidden-sm-down"><a class="nav-link" href="../../../">NPDS^ 16</a></li>
+               <li class="navbar-divider"></li>
+               <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
+                  <ul class="dropdown-menu" role="menu">
+                     <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
+                     <li><a class="dropdown-item" href="search.php">Les archives</a></li>
+                     <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
+                  </ul>
+               </li>
+               <li class="navbar-divider"></li>
+               <li class="nav-item"><a class="nav-link" href="forum.php">Forums</a></li>
+               <li class="navbar-divider"></li>
+               <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
+               <li class="navbar-divider"></li>
+               <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
+               <li class="navbar-divider"></li>
+               <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">[french]Contact[/french][english]Contact[/english][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese][spanish]Cont&aacute;ctenos[/spanish][german]Kontakt[/german]</a></li>
+               <li class="navbar-divider"></li>
+               <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+                  <ul class="dropdown-menu">
+                     <li><?php echo $ava; ?></li>
+                     <li class="dropdown-divider"></li>
+                     <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> [french]Profil[/french][english]Profile[/english][chinese]Profile[/chinese][spanish]Perfil[/spanish][german]Profil[/german]</a></li>
+                     <li><?php echo $bal; ?></li>
+                     <li class="dropdown-divider"></li>
+                     <li><?php echo $btn_con; ?></li>
+                  </ul>
+               </li>
+               <?php echo $cha; ?>
+            </ul>
+         </div>
       </div>
    </nav>
    <div class="page-header">
