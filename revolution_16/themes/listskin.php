@@ -34,6 +34,35 @@
    $skinpath = dirname($_SERVER['PHP_SELF']);
    $parts = explode('/', $skinpath);
    $skinametitre = end($parts);
+//         <link rel="stylesheet" href="/themes/npds-boost_sk/style/style.css" />
+
+   switch ($skinametitre) {
+      case 'cyborg': 
+        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-inverse';
+      break;
+      case 'cerulean':
+      case 'cosmo':
+      case 'custom':
+      case 'darkly':
+      case 'flatly':
+      case 'minty':
+      case 'pulse':
+      case 'sandstone':
+      case 'slate':
+      case 'superhero':
+      case 'united':
+      case 'yeti':
+        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-primary';
+      break;
+      case 'lumen':
+         $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
+      break;
+      default :
+        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default simplex litera lux
+      break;
+   }
+//      <link rel="stylesheet" href="/themes/npds-boost_sk/style/style.css" />
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,9 +74,10 @@
       <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="bootstrap.min.css" />
       <link rel="stylesheet" href="../assets/css/custom.min.css" />
+
    </head>
    <body>
-      <div class="navbar navbar-dark navbar-fixed-top bg-primary">
+      <div class="<?php echo $headerclasses; ?>">
          <div class="container">
             <div class="clearfix">
                <button class="navbar-toggler float-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav"></button>
@@ -55,16 +85,16 @@
             </div>
             <div class="collapse navbar-toggleable-xs" id="barnav">
                <ul class="nav navbar-nav">
-                  <li class="nav-item active hidden-xs-down"><a class="nav-link" href="../">NPDS</a></li>
+                  <li class="nav-item active hidden-xs-down"><a class="nav-link" href="../../../">NPDS</a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Themes</a>
                      <ul class="dropdown-menu" role="menu">
-                        <li><a class="dropdown-item" href="#">npds-boost</a></li>
+                        <li><a class="dropdown-item disabled" href="#">npds-boost_sk</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">other npds themes</a></li>
+                        <li><a class="dropdown-item disabled" href="#">other npds themes</a></li>
                      </ul>
                   </li>
                   <li class="navbar-divider"></li>
@@ -207,7 +237,7 @@
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-dark bg-faded">
+              <nav class="navbar navbar-light bg-faded">
                 <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive1" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
                 <div class="container collapse navbar-toggleable-md" id="navbarResponsive1">
                   <a class="navbar-brand" href="#">Navbar</a>
