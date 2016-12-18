@@ -423,11 +423,11 @@ function emotion_add($image_subject) {
    return $temp;
 }
 
+function fakedmail($r) { return preg_anti_spam($r[1]);}
 function make_clickable($text) {
    $ret='';
    $ret = preg_replace('#(^|\s)(http|https|ftp|sftp)(://)([^\s]*)#i',' <a href="$2$3$4" target="_blank">$2$3$4</a>',$text);
-   function fakemail($r) { return preg_anti_spam($r[1]);}
-   $ret = preg_replace_callback('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#i','fakemail',$ret);
+   $ret = preg_replace_callback('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#i','fakedmail',$ret);
    return($ret);
 }
 
