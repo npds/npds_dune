@@ -8,23 +8,26 @@
       break;
       case 'cerulean':
       case 'cosmo':
+      case 'custom':
       case 'darkly':
       case 'flatly':
+      case 'minty':
+      case 'pulse':
       case 'sandstone':
       case 'slate':
       case 'superhero':
       case 'united':
       case 'yeti':
+      case 'default':
         $headerclasses ='navbar navbar-dark navbar-fixed-top bg-primary';
       break;
       case 'lumen':
          $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
       break;
       default :
-        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default simplex
+        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab simplex litera lux
       break;
    }
-
 if (!isset($powerpack)) {include_once ("powerpack.php");}
    if (if_chat()) $cha= '
          <li class="navbar-divider"></li>
@@ -49,7 +52,7 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
          $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="tag-pill tag-default">'.$nbmes.'</span></a>';
-      $ava='<a class="dropdown-item" href="user.php"><img src="'.$imgtmp.'" width="64" height="64" /></a>';
+      $ava='<a class="dropdown-item" href="user.php"><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" /></a>';
       $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
    }
 ?>
