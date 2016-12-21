@@ -914,6 +914,7 @@ function translate_pass1($phrase) {
    case "Guest": $tmp="Visiteur"; break;
    case "Last articles": $tmp="Derniers articles"; break;
    case "Check a forum and click on button for receive an Email when a new submission is made in it.": $tmp="Cochez un forum et cliquez sur le bouton pour recevoir un mèl lors d'une nouvelle soumission dans celui-ci."; break;
+   case "Check me and click on OK button to receive an Email when is a new submission in this forum.": $tmp="Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum."; break;
    case "Error": $tmp="Erreur"; break;
    case "You are logged in as": $tmp="Vous êtes connecté en tant que :"; break;
    case "person chatting right now.": $tmp="personne connectée."; break;
