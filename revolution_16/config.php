@@ -92,7 +92,7 @@ $Titlesitename = "NPDS - Gestion de Contenu et de Communaut&eacute; - Open Sourc
 $nuke_url = "http://localhost";
 $site_logo = "images/npds_p.gif";
 $slogan = "NPDS REvolution 16";
-$startdate = "02/11/2015";
+$startdate = "21/12/2016";
 $anonpost = 1;
 $troll_limit = 5;
 $moderate = 2;
@@ -317,7 +317,7 @@ $tiny_mce = true;
 
 $NPDS_Prefix = "";
 $NPDS_Key = "";
-$Version_Num = "v.16.0.3-alpha";
+$Version_Num = "v.16.0.4-alpha";
 $Version_Id = "NPDS";
 $Version_Sub = "REvolution";
 
