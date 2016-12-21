@@ -1,23 +1,46 @@
-<h2>Forums</h2>
+<h2 class="mb-1">Forums</h2>
    forum_subscribeON()
-   <div class="table-responsive">
-   <table class="table table-bordered table-hover table-sm" id="lesforums" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
-      <thead>
-         <tr>
-            <th colspan="2" width="45%">&nbsp;</th>
-            forum_bouton_subscribe()
-            <th class="text-xs-center p-a-1">[transl]Type[/transl]</th>
-            <th class="text-xs-center p-a-1">[transl]Topics[/transl]</th>
-            <th class="text-xs-center p-a-1">[english]NB[/english][french]NB[/french]</th>
-            <th class="text-xs-center">[transl]Last Posts[/transl]</th>
-         </tr>
-      </thead>
-      <tbody>
-         forum_all()
-      </tbody>
-   </table>
+   <div class="form-group row">
+      <div class="col-sm-12">
+         <input type="text" class="mb-1 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />
+      </div>
+   </div>
+   <div class="n-filtrable">
+      forum_all()
+   </div>
+   <div class="row">
+      <div class="col-sm-12">
+         <span class="help-block">forum_message()</span>
+         forum_bouton_subscribe()
+      </div>
    </div>
    forum_subscribeOFF()
-<div class="text-info" id="forum_message"><p><i class="fa fa-lg fa-info-circle"></i> forum_message()</p></div>
-<div id="forum_recherche"><p>forum_recherche()</p></div>
-<div id="forum_icones"><p>forum_icones()</p></div>
+   <div id="forum_recherche"><p>forum_recherche()</p></div>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(function(){
+         $('.n-filtrable div p').each(function(){
+            $(this).attr('data-search-term', $(this).text().toLowerCase());
+            $('.n_filtrbox').on('keyup', function(){
+               var searchTerm = $(this).val().toLowerCase();
+               $('.n-filtrable div p').each(function(){
+                  if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+                     $(this).show();
+                  } else {
+                     $(this).hide();
+                  }
+                });
+            });
+         });
+         $('#ckball_f').change(function(){
+            check_a_f = $('#ckball_f').is(':checked');
+            if(check_a_f) {
+               $('#ckb_status_f').text('Tout décocher');
+            } else {
+               $('#ckb_status_f').text('Tout cocher');
+            }
+            $('.n-ckbf').prop('checked', $(this).prop('checked'));
+         });
+      });
+   //]]
+   </script>
