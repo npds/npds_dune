@@ -148,29 +148,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if (($myrow['forum_type']== 9) and (!$user)) { header("location: forum.php"); }
    $title=$forum_name;
    include('header.php');
-   echo '
-      <p class="lead">
-         <a href="forum.php" >'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
-      </p>';
-
    if ($user) {
       $userX = base64_decode($user);
       $userR = explode(':', $userX);
    }
-
-   
-   echo '
-   <h3>';
-   if ($forum_access!=9) {
-      $allow_to_post = true;
-      if ($forum_access==2)
-         if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
-      if ($allow_to_post) {
-         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square "></i></a>&nbsp;';
-      }
-   }
-   echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
-   </h3>';
    if ($solved) {
       if (isset($closoled)) {
          $closol="and topic_status='2'";
@@ -182,6 +163,22 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    } else {
       $closol=''; $mess_closoled='';
    }
+
+   echo '
+   <p class="lead">
+      <a href="forum.php" >'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
+   </p>
+   <h3>';
+   if ($forum_access!=9) {
+      $allow_to_post = true;
+      if ($forum_access==2)
+         if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
+      if ($allow_to_post) {
+         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square "></i></a>&nbsp;';
+      }
+   }
+   echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
+   </h3>';
    echo '
       <div class="card">
          <div class="card-block-small">
