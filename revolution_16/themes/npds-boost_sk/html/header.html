@@ -8,23 +8,25 @@
       break;
       case 'cerulean':
       case 'cosmo':
+      case 'custom':
       case 'darkly':
       case 'flatly':
+      case 'minty':
+      case 'pulse':
       case 'sandstone':
       case 'slate':
       case 'superhero':
       case 'united':
       case 'yeti':
+      case 'default':
+
         $headerclasses ='navbar navbar-dark navbar-fixed-top bg-primary';
       break;
       case 'lumen':
          $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
       break;
-      case 'simplex':
-         $headerclasses ='navbar navbar-light navbar-fixed-top bg-primary';
-      break;
       default :
-        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default
+        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab simplex litera lux
       break;
    }
 if (!isset($powerpack)) {include_once ("powerpack.php");}
@@ -40,12 +42,12 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
       if (!$user_avatar) {
-      $imgtmp='images/forum/avatar/blank.gif';
+         $imgtmp='images/forum/avatar/blank.gif';
        } else if (stristr($user_avatar,"users_private")) {
-      $imgtmp=$user_avatar;
+         $imgtmp=$user_avatar;
       } else {
-      if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
-      if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
+         if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
+         if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
 
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
@@ -62,8 +64,6 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
       <div class="collapse navbar-toggleable-sm" id="barnav">
          <ul class="nav navbar-nav">
             <li class="navbar-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a></li>
-            <li class="navbar-divider"></li>
             <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
                <ul class="dropdown-menu" role="menu">
                   <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
@@ -71,6 +71,8 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
                   <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
                </ul>
             </li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="forum.php">Forums</a></li>
             <li class="navbar-divider"></li>
             <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
             <li class="navbar-divider"></li>
