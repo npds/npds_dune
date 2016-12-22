@@ -36,32 +36,24 @@
    $skinametitre = end($parts);
 //         <link rel="stylesheet" href="/themes/npds-boost_sk/style/style.css" />
 
-   switch ($skinametitre) {
+   switch ($skinname) {
       case 'cyborg': 
         $headerclasses ='navbar navbar-dark navbar-fixed-top bg-inverse';
-      break;
-      case 'cerulean':
-      case 'cosmo':
-      case 'custom':
-      case 'darkly':
-      case 'flatly':
-      case 'minty':
-      case 'pulse':
-      case 'sandstone':
-      case 'slate':
-      case 'superhero':
-      case 'united':
-      case 'yeti':
-        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-primary';
       break;
       case 'lumen':
          $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
       break;
+      case 'journal':
+      case 'materia':
+      case 'litera':
+      case 'simplex':
+      case 'spacelab':
+         $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded';
+      break;
       default :
-        $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded'; // journal materia spacelab default simplex litera lux
+        $headerclasses = 'navbar navbar-dark navbar-fixed-top bg-primary'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate superhero united yeti default
       break;
    }
-//      <link rel="stylesheet" href="/themes/npds-boost_sk/style/style.css" />
 
 ?>
 <!DOCTYPE html>
