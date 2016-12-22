@@ -386,7 +386,6 @@ CREATE TABLE headlines (
 INSERT INTO headlines VALUES (1, 'NPDS', 'http://www.npds.org', 'http://www.npds.org/backend.php', 0);
 INSERT INTO headlines VALUES (2, 'Modules', 'http://modules.npds.org', 'http://modules.npds.org/backend.php', 0);
 INSERT INTO headlines VALUES (3, 'Styles', 'http://styles.npds.org', 'http://styles.npds.org/backend.php', 0);
-INSERT INTO headlines VALUES (4, 'Global', 'http://global.npds.org', 'http://global.npds.org/backend.php', 0);
 
 CREATE TABLE lblocks (
   id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
