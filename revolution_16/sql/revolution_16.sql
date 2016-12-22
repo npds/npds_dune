@@ -407,9 +407,9 @@ INSERT INTO lblocks VALUES (2, 'Menu', 'function#mainblock', '0', 1, 86400, 1, 0
 INSERT INTO lblocks VALUES (3, 'Msg &agrave; un Membre', 'function#instant_members_message', '0', 4, 0, 1, 0, '');
 INSERT INTO lblocks VALUES (4, 'Chat Box', 'function#makeChatBox', '0', 2, 10, 1, 0, '');
 INSERT INTO lblocks VALUES (5, 'Forums Infos', 'function#RecentForumPosts\r\nparams#Forums Infos,15,0,false,10,false,-:\r\n', '0', 5, 60, 1, 0, '');
-INSERT INTO lblocks VALUES (6, 'Les plus t&eacute;l&eacute;charg&eacute;s', 'function#topdownload', '0', 6, 3600, 1, 0, '');
+INSERT INTO lblocks VALUES (6, 'Les plus t&eacute;l&eacute;charg&eacute;s', 'function#topdownload', '0', 6, 3600, 0, 0, '');
 INSERT INTO lblocks VALUES (7, 'Administration', 'function#adminblock', '0', 3, 0, 1, 0, '');
-INSERT INTO lblocks VALUES (8, 'Eph&eacute;m&eacute;rides', 'function#ephemblock', '0', 7, 28800, 1, 0, '');
+INSERT INTO lblocks VALUES (8, 'Eph&eacute;m&eacute;rides', 'function#ephemblock', '0', 7, 28800, 0, 0, '');
 INSERT INTO lblocks VALUES (9, 'headlines', 'function#headlines', '0', 9, 3600, 0, 0, '');
 INSERT INTO lblocks VALUES (10, 'Activit&eacute; du Site', 'function#Site_Activ', '0', 8, 10, 1, 0, '');
 INSERT INTO lblocks VALUES (11, 'Sondage', 'function#pollNewest', '0', 1, 60, 1, 0, '');
