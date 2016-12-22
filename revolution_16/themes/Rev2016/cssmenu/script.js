@@ -96,7 +96,7 @@
 (function($){
 $(document).ready(function(){
 
-$(window).load(function() {
+$(window).on('load',function() {
   $("#cssmenu").menumaker({
     title: "Menu",
     format: "dropdown"

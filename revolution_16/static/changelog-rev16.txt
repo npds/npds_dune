@@ -1,22 +1,19 @@
-changelog-rev16  [ révision : 27 - jpb / 30-03-2016 17:47 ]
-
+changelog-rev16  [ révision : 38 - jpb / 21-12-2016 18:18 ]
 - NPDS REvolution 16 - 
-v.16.0-alpha
+v.16.0.4-alpha
 Implémentations majeures impactant sur tout le portail :
 - intégration en backend d'un framework : Bootsrap 4 #requis
 ayant pour conséquence :
-intégration de Jquery 2.x (implémentation) #requis
+intégration de Jquery 3.x (implémentation) #requis
 abandon de la librairie YUI (désimplémentation)
-- intégration des webfont fontawesome version courante  4.5.0 (soutien et remplacement de l'iconographie du cms) #requis
+ 
+- intégration des webfont fontawesome version courante  4.7.0 (soutien et remplacement de l'iconographie du cms) #requis
+- abandon de la librairie toggle-div (désimplémentation)
 - responsive design
 réécriture de presque TOUS  les fichiers du portail (suppression des mise en pages tabulaires) et implémentation de classes (pour grilles/grid) ces classes sont celles de bootstrap4 MAIS elle peuvent très bien se comporter comme des classes génériques à clôner ou modifier en cas de changement de framework..) 
  
-
-
 Administration
- 
- 
- 
+
 - passage en full utf-8
 tous les fichiers (script et langue) sont en utf-8 : la sortie des fichiers langues est donc en utf-8 transformé si nécessaire en entités html
 
@@ -40,24 +37,36 @@ ajout de la connection persistante et globalisation de $dblink dans la fonction 
  rajout de la possibilité d'avoir un titre de bloc human readable ...) par la modif du système de création de nom des fichier.cache qui était basée sur un nom compatible de fichier (...sans espace) 
 
 
-Evolutions :
+Evolutions 
+
 - install auto v.1.2
 utilisation des lib (mysql ou mysqli)
 compatibilité php7 (ereg=>preg)
 interface
- 
-
 - intégration côté client d'un contrôle des form
 - suppression des commentaires relatifs à un sondage quand on supprime le sondage. 
 - chargement de footer_after.inc à partir du thème
 modification du fichier footer.php pour pouvoir charger (comme pour les modules) si il existe le fichier footer_after.inc ceci permet de placer ici les js (...de second niveau) nécessaires ==> chargement plus rapide de la page 
 
-- THEMES :
+THEMES
 
-- Minisites : 
+Implémentation des skins de Thème pour l'utilisateur
 
+interface user.php
 
-- WS PAD 1.44
+un theme skinable doit avoir le suffixe _sk
+==> stockage dans le cookie user infos en 11 position
+architecture :
+les feuilles de style doivent se trouver dans le dossier themes/_skins/'monskin'/bootstrap.min.css
+
+un theme et toute son infrastructure peut donc supporter les skins
+
+modules/!!!!!include!!!!!/header_head.inc ==> [chargement du framework en backend avec CSS par defaut]
+===>
+si l'utilisateur choisit un skin dans header.php on remodifie le(s) lien(s) CSS relatif au Framework en lui appliquant deux css du framework customisé (bootstrap.min.css, extra.css)
+
+note : on peut maintenant avoir des dossiers thèmes non visible par les utilisateurs (pour travaux et désactivation) pour désactiver il suffit de faire précéder le nom du dossier theme par _
+
 adaptation pour tiny4 jquery et responsive
 
 - Support de PHP 7.x
@@ -95,4 +104,4 @@ modification des templates (responsives)
 mise en majuscule des instruction mySQL
 écriture à double indentation (3 espaces) PHP / html / js
 généralisation des simple quotes (le plus souvent)
-augmentation de la longueur des chaines de sorties réduction des concaténations courtes
+augmentation de la longueur des chaines de sorties réduction des concaténations courtes 

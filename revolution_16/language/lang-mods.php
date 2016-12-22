@@ -22,8 +22,10 @@ switch($phrase) {
    // case "Valider":   $tmp="\"No problème, valide mon garçon !\""; break;
    // case "Submit":   $tmp="\"Yo, submit Man\""; break;
    
-    case "One Day like Today...": $tmp=""; break;  
-   
+//    case "One Day like Today...": $tmp=""; break;  
+
+    //mettre les forums publication sans minutes et secondes   
+//   case "dateinternal": $tmp = "d-m-Y"; break;  
    
    case "Your account":
    case "Votre compte":

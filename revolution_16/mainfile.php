@@ -2144,6 +2144,7 @@ function searchbox() {
    </form>';
    themesidebox($title, $content);
 }
+function changetoamp($r) { return str_replace('&','&amp;',$r[0]);}//must work from php 4 to 7 !..?..
 #autodoc mainblock() : Bloc principal <br />=> syntaxe : function#mainblock
 function mainblock() {
    global $NPDS_Prefix;
@@ -2152,9 +2153,9 @@ function mainblock() {
    global $block_title;
    if ($title=='') $title=$block_title;
    //must work from php 4 to 7 !..?..
-   function changetoamp($r) { return str_replace('&','&amp;',$r[0]);}
    themesidebox(aff_langue($title), aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoamp',$content)));
 }
+function changetoampadm($r) { return str_replace('&','&amp;',$r[0]);}
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
    $bloc_foncts_A='';
@@ -2190,7 +2191,6 @@ function adminblock() {
    if ($title=='') $title=$block_title;
    else $title=aff_langue($title);
    //must work from php 4 to 7 !..?..
-   function changetoampadm($r) { return str_replace('&','&amp;',$r[0]);}
    $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
    $content .= '
       <ul id="adm_block">

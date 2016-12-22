@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* CSS npds-boots pour NPDS Revolution                                       */
+/* CSS right-boost_sk pour NPDS Revolution                                       */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
@@ -15,11 +15,13 @@ a:hover {text-decoration:none;}
 /** ==> Classes BS4                                                         **/
 /*                                                                           */
 /* ==> élément ayant la class btn (boutons, a, input) */
+/* 
 .btn {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+ */
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);
@@ -70,7 +72,6 @@ a:hover {text-decoration:none;}
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 .n-list-compact-no-bord {
   padding-top: .35rem;
   padding-bottom: .35rem;
@@ -78,7 +79,6 @@ a:hover {text-decoration:none;}
   padding-left: 0rem;
   border:0px;
 }
-
 .n-card-compact-no-padside {
   padding-right: 0rem;
   padding-left: 0rem;
@@ -100,8 +100,11 @@ a:hover {text-decoration:none;}
 
 
 /* ==> adaptation menu */
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0rem 1rem;}
+/* 
+nav#uppernavbar.navbar.navbar-light.navbar-fixed-top.bg-faded {padding: 0rem 1rem;}
+ */
 
+/* 
 ul.nav.navbar-nav {
   line-height: 2.5rem;
 }
@@ -109,6 +112,7 @@ a.navbar-brand {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+ */
 
 @media (min-width: 768px) {
   .page-header {
@@ -118,23 +122,36 @@ a.navbar-brand {
 }
 
 @media (max-width: 767px) {
-  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
+  body {margin-top:4rem;}
+  nav#uppernavbar.navbar.navbar-light.navbar-fixed-top.bg-faded {padding: 0.5rem 0.5rem;}
+ 
+/* 
   .navbar-divider {display:none;}
+ */
+ 
+ 
   ul.nav.navbar-nav {
     line-height: 1.5rem;
   }
+ 
+ 
   a.navbar-brand {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
   }
+ 
+ 
+/* 
   .navbar-nav .nav-item {
     clear: left;
     margin-left: 1rem;
   }
+ */
+ 
   nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
   .page-header {
     margin: 1.5rem 0 20px;
-    padding:1rem;
+    padding:1rem;display:none;
   }
 }
 
@@ -446,16 +463,15 @@ right:65px;
 }
 
 form .form-control-feedback {
-    pointer-events: auto;
+  pointer-events: auto;
 }
 form .form-control-feedback:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .datepicker-inline {
-width:100%;
+  width:100%;
 }
-
 
 .splash {
 padding: 9em 0 2em;
@@ -778,7 +794,6 @@ a.tooltip_ws:hover em span {
     transform: rotate(0deg);
   }
 }
-
 @keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);
@@ -889,7 +904,6 @@ a.tooltip_ws:hover em span {
     transform: translate(0,0);
   }
 }
-
 @keyframes vertical {
   0% {
     -webkit-transform: translate(0,-3px);
@@ -1229,7 +1243,6 @@ a.tooltip_ws:hover em span {
     transform: scale(1.1);
   }
 }
-
 @keyframes pulse {
   0% {
     -webkit-transform: scale(1.1);

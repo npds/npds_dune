@@ -13,7 +13,7 @@
 
 /************************************************************************/
 /* Fermeture ou ouverture et fermeture according with $pdst :           */
-/*       col_LB +|| col_princ +|| col_RB                                */
+/*       col_princ + col_LB +|| col_RB                                  */
 /* Fermeture : div > div"#corps"> $ContainerGlobal>                     */
 /*                    ouverts dans le Header.php                        */
 /* =====================================================================*/ 

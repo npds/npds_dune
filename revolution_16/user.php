@@ -87,19 +87,19 @@ function userCheck($uname, $email) {
 }
 
 function makePass() {
-    $makepass="";
-    $syllables="er,in,tia,dun,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,";
-    $syllables.="mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
-    $syllable_array=explode(",", $syllables);
-    srand((double)microtime()*1000000);
-    for ($count=1;$count<=4;$count++) {
-       if (rand()%10 == 1) {
-          $makepass .= sprintf("%0.0f",(rand()%50)+1);
-       } else {
-          $makepass .= sprintf("%s",$syllable_array[rand()%62]);
-       }
-    }
-    return($makepass);
+   $makepass='';
+   $syllables='er,in,tia,dun,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,';
+   $syllables.='mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se';
+   $syllable_array=explode(',', $syllables);
+   srand((double)microtime()*1000000);
+   for ($count=1;$count<=4;$count++) {
+      if (rand()%10 == 1) {
+         $makepass .= sprintf("%0.0f",(rand()%50)+1);
+      } else {
+         $makepass .= sprintf("%s",$syllable_array[rand()%62]);
+      }
+   }
+   return($makepass);
 }
 
 function showimage() {
@@ -216,33 +216,34 @@ function Only_NewUser() {
    }
 }
 function hidden_form() {
-    global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
-    echo "<form action=\"user.php\" method=\"post\">
-          <input type=\"hidden\" name=\"uname\" value=\"$uname\" />
-          <input type=\"hidden\" name=\"name\" value=\"".removeHack($name)."\" />
-          <input type=\"hidden\" name=\"email\" value=\"$email\" />";
-    if (!$user_avatar) {$user_avatar="blank.gif";}
-    echo "<input type=\"hidden\" name=\"user_avatar\" value=\"$user_avatar\" />
-          <input type=\"hidden\" name=\"user_from\" value=\"".StripSlashes(removeHack($user_from))."\" />
-          <input type=\"hidden\" name=\"user_occ\" value=\"".StripSlashes(removeHack($user_occ))."\" />
-          <input type=\"hidden\" name=\"user_intrest\" value=\"".StripSlashes(removeHack($user_intrest))."\" />
-          <input type=\"hidden\" name=\"user_sig\" value=\"".StripSlashes(removeHack($user_sig))."\" />
-          <input type=\"hidden\" name=\"user_viewemail\" value=\"$user_viewemail\" />
-          <input type=\"hidden\" name=\"pass\" value=\"".removeHack($pass)."\" />
-          <input type=\"hidden\" name=\"user_lnl\" value=\"".removeHack($user_lnl)."\" />";
-    echo "<input type=\"hidden\" name=\"C1\" value=\"".StripSlashes(removeHack($C1))."\" />
-          <input type=\"hidden\" name=\"C2\" value=\"".StripSlashes(removeHack($C2))."\" />
-          <input type=\"hidden\" name=\"C3\" value=\"".StripSlashes(removeHack($C3))."\" />
-          <input type=\"hidden\" name=\"C4\" value=\"".StripSlashes(removeHack($C4))."\" />
-          <input type=\"hidden\" name=\"C5\" value=\"".StripSlashes(removeHack($C5))."\" />
-          <input type=\"hidden\" name=\"C6\" value=\"".StripSlashes(removeHack($C6))."\" />
-          <input type=\"hidden\" name=\"C7\" value=\"".StripSlashes(removeHack($C7))."\" />
-          <input type=\"hidden\" name=\"C8\" value=\"".StripSlashes(removeHack($C8))."\" />
-          <input type=\"hidden\" name=\"M1\" value=\"".StripSlashes(removeHack($M1))."\" />
-          <input type=\"hidden\" name=\"M2\" value=\"".StripSlashes(removeHack($M2))."\" />
-          <input type=\"hidden\" name=\"T1\" value=\"".StripSlashes(removeHack($T1))."\" />
-          <input type=\"hidden\" name=\"T2\" value=\"".StripSlashes(removeHack($T2))."\" />
-          <input type=\"hidden\" name=\"B1\" value=\"".StripSlashes(removeHack($B1))."\" />";
+   global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
+   if (!$user_avatar) {$user_avatar="blank.gif";}
+   echo '
+   <form action="user.php" method="post">
+      <input type="hidden" name="uname" value="'.$uname.'" />
+      <input type="hidden" name="name" value="'.removeHack($name).'" />
+      <input type="hidden" name="email" value="'.$email.'" />
+      <input type="hidden" name="user_avatar" value="'.$user_avatar.'" />
+      <input type="hidden" name="user_from" value="'.StripSlashes(removeHack($user_from)).'" />
+      <input type="hidden" name="user_occ" value="'.StripSlashes(removeHack($user_occ)).'" />
+      <input type="hidden" name="user_intrest" value="'.StripSlashes(removeHack($user_intrest)).'" />
+      <input type="hidden" name="user_sig" value="'.StripSlashes(removeHack($user_sig)).'" />
+      <input type="hidden" name="user_viewemail" value="'.$user_viewemail.'" />
+      <input type="hidden" name="pass" value="'.removeHack($pass).'" />
+      <input type="hidden" name="user_lnl" value="'.removeHack($user_lnl).'" />
+      <input type="hidden" name="C1" value="'.StripSlashes(removeHack($C1)).'" />
+      <input type="hidden" name="C2" value="'.StripSlashes(removeHack($C2)).'" />
+      <input type="hidden" name="C3" value="'.StripSlashes(removeHack($C3)).'" />
+      <input type="hidden" name="C4" value="'.StripSlashes(removeHack($C4)).'" />
+      <input type="hidden" name="C5" value="'.StripSlashes(removeHack($C5)).'" />
+      <input type="hidden" name="C6" value="'.StripSlashes(removeHack($C6)).'" />
+      <input type="hidden" name="C7" value="'.StripSlashes(removeHack($C7)).'" />
+      <input type="hidden" name="C8" value="'.StripSlashes(removeHack($C8)).'" />
+      <input type="hidden" name="M1" value="'.StripSlashes(removeHack($M1)).'" />
+      <input type="hidden" name="M2" value="'.StripSlashes(removeHack($M2)).'" />
+      <input type="hidden" name="T1" value="'.StripSlashes(removeHack($T1)).'" />
+      <input type="hidden" name="T2" value="'.StripSlashes(removeHack($T2)).'" />
+      <input type="hidden" name="B1" value="'.StripSlashes(removeHack($B1)).'" />';
 }
 function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
     global $smilies, $short_user, $minpass, $memberpass;
@@ -250,7 +251,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
     if ($user_viewemail!=1) {$user_viewemail='0';}
     $stop=userCheck($uname, $email);
     if ($memberpass) {
-       if ((isset($pass)) and ("$pass" != "$vpass")) {
+       if ((isset($pass)) and ($pass != $vpass)) {
           $stop="<p class=\"text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."</p><br />";
        } elseif (strlen($pass) < $minpass) {
           $stop="<p class=\"text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."</p><br />";
@@ -274,7 +275,6 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
             <input class="btn btn-primary" type="submit" value="'.translate("Finish").'" />
          </form>';
          }
-       
        include("footer.php");
     } else {
        message_error($stop,"new user");
@@ -313,7 +313,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
        }
        if ($result) {
           if (($system==1) or ($memberpass)) {
-	   echo '<h2>'.translate("User").'</h2>';
+            echo '<h2>'.translate("User").'</h2>';
           echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';
                 echo "<p class=\"lead\">".translate("Your Password is: ")."<strong>$makepass</strong></p>";
                 echo "<p class=\"lead\">".translate("You can change it after you login at")." : <a href=\"user.php?op=login&uname=$uname&pass=$makepass\"><strong>$sitename</strong></a></p>";
@@ -1171,7 +1171,7 @@ function chgtheme() {
       <div class="form-group row" id="skin_choice">
          <label class="form-control-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
          <div class="col-sm-7">
-            <select class="custom-select form-control" name="skin">';
+            <select class="custom-select form-control" id="skin" name="skin">';
    $cookie=cookiedecode($user);
    foreach ($skins as $k => $v) {
       echo '
@@ -1184,7 +1184,10 @@ function chgtheme() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-7 offset-sm-5  ">
+         <div id="skin_thumbnail" class="col-sm-7 offset-sm-5"></div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-7 offset-sm-5 ">
             <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
             <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
             <input type="hidden" name="op" value="savetheme" />
@@ -1195,12 +1198,17 @@ function chgtheme() {
    <script type="text/javascript">
    //<![CDATA[
    $(function () {
-      $( "#theme" ).change(function () {
-         sk = $( "#theme option:selected" ).text().substr(-3);
+      $("#theme").change(function () {
+         sk = $("#theme option:selected").text().substr(-3);
          if(sk=="_sk") {
             $("#skin_choice").removeClass("collapse");
+            $("#skin").change(function () {
+               sl = $("#skin option:selected").text();
+               $("#skin_thumbnail").html(\'<a href="themes/_skins/\'+sl+\'"><img class="img-fluid img-thumbnail" src="themes/_skins/\'+sl+\'/thumbnail.png" /></a>\');
+            }).change();
          } else {
             $("#skin_choice").addClass("collapse");
+            $("#skin_thumbnail").html(\'\');
          }
       })
      .change();

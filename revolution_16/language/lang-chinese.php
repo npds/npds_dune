@@ -944,6 +944,7 @@ function translate_pass1($phrase) {
 
    // Phrases modifiées :
    /**/case "Check a forum and click on button for receive an Email when a new submission is made in it.": $tmp="Check a forum and click on button for receive an Email when a new submission is made in it."; break;
+   /**/case "Check me and click on OK button to receive an Email when is a new submission in this forum.": $tmp="Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum."; break;
    /**/case "Error": $tmp="Error"; break;
    // NPDS Dune
 

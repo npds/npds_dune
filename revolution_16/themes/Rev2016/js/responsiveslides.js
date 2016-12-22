@@ -1,4 +1,4 @@
-/*! ResponsiveSlides.js v1.54
+/*! ResponsiveSlides.js v1.55
  * http://responsiveslides.com
  * http://viljamis.com
  *
@@ -14,8 +14,8 @@
     // Default settings
     var settings = $.extend({
       "auto": true,             // Boolean: Animate automatically, true or false
-      "speed": 800,             // Integer: Speed of the transition, in milliseconds
-      "timeout": 8000,          // Integer: Time between slide transitions, in milliseconds
+      "speed": 500,             // Integer: Speed of the transition, in milliseconds
+      "timeout": 4000,          // Integer: Time between slide transitions, in milliseconds
       "pager": false,           // Boolean: Show pager, true or false
       "nav": false,             // Boolean: Show navigation, true or false
       "random": false,          // Boolean: Randomize the order of the slides, true or false
@@ -49,7 +49,7 @@
         // Helpers
         index = 0,
         $slide = $this.children(),
-        length = $slide.size(),
+        length = $slide.length,
         fadeTime = parseFloat(settings.speed),
         waitTime = parseFloat(settings.timeout),
         maxw = parseFloat(settings.maxwidth),
@@ -171,7 +171,7 @@
       }
 
       // Only run if there's more than one slide
-      if ($slide.size() > 1) {
+      if ($slide.length > 1) {
 
         // Make sure the timeout is at least 100ms longer than the fade
         if (waitTime < fadeTime + 100) {

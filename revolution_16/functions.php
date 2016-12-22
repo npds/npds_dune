@@ -97,7 +97,7 @@ function get_last_post($id, $type, $cmd, $Mmod) {
          $val=translate("No posts");
       } else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
-         $val=convertdate($myrow[0]).'<br /><a href="user.php?op=userinfo&amp;uname='.$rowQ1[0]['uname'].'" class="small">'.$rowQ1[0]['uname'].'</a>';
+         $val='<span class="small">'.convertdate($myrow[0]).' <a href="user.php?op=userinfo&amp;uname='.$rowQ1[0]['uname'].'" >'.$rowQ1[0]['uname'].'</a></span>';
       }
    }
    sql_free_result($result);
@@ -423,11 +423,11 @@ function emotion_add($image_subject) {
    return $temp;
 }
 
+function fakedmail($r) { return preg_anti_spam($r[1]);}
 function make_clickable($text) {
    $ret='';
    $ret = preg_replace('#(^|\s)(http|https|ftp|sftp)(://)([^\s]*)#i',' <a href="$2$3$4" target="_blank">$2$3$4</a>',$text);
-   function fakemail($r) { return preg_anti_spam($r[1]);}
-   $ret = preg_replace_callback('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#i','fakemail',$ret);
+   $ret = preg_replace_callback('#([_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4})#i','fakedmail',$ret);
    return($ret);
 }
 
@@ -677,7 +677,7 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
       }
    }
 }
-
+/*
 function forum($rowQ1) {
    global $user, $subscribe, $theme, $NPDS_Prefix, $admin, $adminforum;
 
@@ -858,6 +858,165 @@ function forum($rowQ1) {
    }
    return ($ibid);
 }
+*/
+
+function forum($rowQ1) {
+   global $user, $subscribe, $theme, $NPDS_Prefix, $admin, $adminforum;
+
+//==> droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+   $adminforum=false;
+   if ($admin) {
+      $adminX = base64_decode($admin);
+      $adminR = explode(':', $adminX);
+      $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
+      if ($Q['radminsuper']==1) {$adminforum=1;} else {
+         $R = sql_query("SELECT fnom, fid, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$adminR[0]' AND f.fid BETWEEN 13 AND 15");
+         if (sql_num_rows($R) >=1) $adminforum=1;
+      }
+   }
+//<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
+
+   if ($user) {
+      $userX = base64_decode($user);
+      $userR = explode(':', $userX);
+      $tab_groupe=valid_group($user);
+   }
+
+   if ($ibid=theme_image("forum/icons/red_folder.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/red_folder.gif";}
+   if ($ibid=theme_image("forum/icons/folder.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/folder.gif";}
+
+   // preparation de la gestion des folders
+   $result = sql_query("SELECT forum_id, COUNT(topic_id) AS total FROM ".$NPDS_Prefix."forumtopics GROUP BY (forum_id)");
+   while (list($forumid, $total)=sql_fetch_row($result)) {
+      $tab_folder[$forumid][0]=$total; // Topic
+   }
+   $result = sql_query("SELECT forum_id, COUNT(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' AND topicid>'0' AND status!='0' GROUP BY (forum_id)");
+   while (list($forumid, $total)=sql_fetch_row($result)) {
+      $tab_folder[$forumid][1]=$total; // Folder
+   }
+   // préparation de la gestion des abonnements
+   $result = sql_query("SELECT forumid FROM ".$NPDS_Prefix."subscribe WHERE uid='$userR[0]'");
+   while (list($forumid)=sql_fetch_row($result)) {
+      $tab_subscribe[$forumid]=true;
+   }
+   // preparation du compteur total_post
+   $rowQ0=Q_Select ("SELECT forum_id, COUNT(post_aff) AS total FROM ".$NPDS_Prefix."posts GROUP BY forum_id", 600);
+   while (list(,$row0)=each($rowQ0)) {
+      $tab_total_post[$row0['forum_id']]=$row0['total'];
+   }
+   $ibid='';
+   if ($rowQ1) {
+      while (list(,$row) = each($rowQ1)) {
+         $title_aff=true;
+         $rowQ2=Q_Select ("SELECT * FROM ".$NPDS_Prefix."forums WHERE cat_id = '".$row['cat_id']."' AND SUBSTRING(forum_name,1,3)!='<!>' ORDER BY forum_index,forum_id", 21600);
+         if ($rowQ2) {
+            while(list(,$myrow) = each($rowQ2)) {
+               // Gestion des Forums Cachés aux non-membres
+               if (($myrow['forum_type'] != "9") or ($userR)) {
+                  // Gestion des Forums réservés à un groupe de membre
+                  if (($myrow['forum_type'] == "7") or ($myrow['forum_type'] == "5")){
+                     $ok_affich=groupe_forum($myrow['forum_pass'], $tab_groupe);
+                     if ( (isset($admin)) and ($adminforum==1) ) $ok_affich=true;// to see when admin mais pas assez precis
+                  } else {
+                     $ok_affich=true;
+                  }
+                  if ($ok_affich) {
+                     if ($title_aff) {
+                        $title = stripslashes($row['cat_title']);
+                        if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html"))) {
+                           $ibid.='
+                           <div class="list-group mt-1" id="catfo_'.$row['cat_id'].'" >
+                              <a class="list-group-item list-group-item-action active" href="forum.php?catid='.$row['cat_id'].'"><h5 class="list-group-item-heading" >'.$title.'</h5></a>';
+                        } else {
+                           $ibid.='
+                           <div class="list-group mt-1" id="catfo_'.$row['cat_id'].'">
+                              <div class="list-group-item list-group-item-action active"><h5 class="list-group-item-heading" >'.$title.'</h5></div>';
+                        }
+                        $title_aff=false;
+                     }
+                     $forum_moderator=explode(' ',get_moderator($myrow['forum_moderator']));
+                     $Mmod=false;
+                     for ($i = 0; $i < count($forum_moderator); $i++) {
+                        if (($userR[1]==$forum_moderator[$i])) {$Mmod=true;}
+                     }
+
+                     $last_post = get_last_post($myrow['forum_id'], "forum","infos",$Mmod);
+                     $ibid.='<p class="list-group-item list-group-item-action">';
+                     if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)  {
+                        $ibid.='<i class="fa fa-folder text-primary fa-lg" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                     } else {
+                        $ibid.='<i class="fa fa-folder-o text-primary fa-lg" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                     }
+                     $name = stripslashes($myrow['forum_name']);
+                     $redirect=false;
+                     if (strstr(strtoupper($name),"<a HREF")) {
+                        $redirect=true;
+                     } else {
+                        $ibid.= '
+                        <a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
+                     }
+                     if (!$redirect) {
+                     $ibid.=' 
+            <span class="tag tag-default ml-1" style=" position: relative; float: right;" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+            <span class="tag tag-default " style=" position: relative; float: right;" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>';}
+
+                     $desc = stripslashes(meta_lang($myrow['forum_desc']));
+                     if($desc!='')
+                        $ibid.='<br />'.$desc;
+                     if (!$redirect) {
+                        $ibid.='<br />[ ';
+                        if ($myrow['forum_access']=="0" && $myrow['forum_type']=="0")
+                           $ibid.=translate("Free for All");
+                        if ($myrow['forum_type'] == "1")
+                           $ibid.=translate("Private");
+                        if ($myrow['forum_type'] == "5")
+                           $ibid.="PHP Script + ".translate("Group");
+                        if ($myrow['forum_type'] == "6")
+                           $ibid.="PHP Script";
+                        if ($myrow['forum_type'] == "7")
+                           $ibid.=translate("Group");
+                        if ($myrow['forum_type'] == "8")
+                           $ibid.=translate("Extended Text");
+                        if ($myrow['forum_type'] == "9")
+                           $ibid.=translate("Hidden");
+                        if ($myrow['forum_access']=="1" && $myrow['forum_type'] == "0")
+                           $ibid.=translate("Registered User");
+                        if ($myrow['forum_access']=="2" && $myrow['forum_type'] == "0")
+                           $ibid.=translate("Moderator");
+                        if ($myrow['forum_access']=="9")
+                           $ibid.=' <strong class="text-danger">'.translate("Closed").'</strong>';
+                        $ibid.=' ]';
+                        $ibid.= '<br />';
+                     // Subscribe
+                     if (($subscribe) and ($user)) {
+                        if (!$redirect) {
+                           if ($tab_subscribe[$myrow['forum_id']]) {
+                              $ibid.='<input class="n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
+                           } else {
+                              $ibid.='<input class="n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
+                           }
+                        }
+                     }
+                        $ibid.='<span class="float-xs-right">'.$last_post.'</span><br />';
+                     } else {
+                        $ibid.='';
+                     }
+                  }
+               }
+            }
+            if ($ok_affich)
+            $ibid.= '
+            </p>
+         </div>';
+         }
+      }
+   }
+    if (($subscribe) and ($user) and ($ok_affich)) {
+      $ibid.='<input type="checkbox" id="ckball_f" />&nbsp;<span class=" text-muted" id="ckb_status_f">Tout cocher</span>';
+    }
+   return ($ibid);
+}
+
 
 // fonction appelée par le meta-mot forum_subfolder()
 function sub_forum_folder($forum) {
