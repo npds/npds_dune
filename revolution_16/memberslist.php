@@ -157,9 +157,9 @@ function avatar($user_avatar) {
       $list=urlencode(implode(',',$tempo));
    }
 
-   $result = sql_query("SELECT uname, user_avatar FROM ".$NPDS_Prefix."users ORDER BY uid DESC limit 0,1");
+   $result = sql_query("SELECT u.uname, u.user_avatar FROM ".$NPDS_Prefix."users AS u LEFT JOIN users_status AS us ON u.uid = us.uid where us.open='1' ORDER BY u.uid DESC LIMIT 0,1");
    list($lastuser,$lastava) = sql_fetch_row($result);
-   
+
    echo '
    <h2><img src="images/admin/users.png" alt="'.translate("Members List").'" />'.translate("Members List");
    if (isset ($uid_from_ws) and ($uid_from_ws!='')) echo '<span class="text-muted"> '.translate("for group").' #'.$gr_from_ws.'</span>';
@@ -175,7 +175,7 @@ function avatar($user_avatar) {
             <img src="'.$ibid_avatar.'" class=" media-object n-ava img-thumbnail" alt="avatar" />
          </div>';
       echo '
-         <div class="media-body"><br />
+         <div class="media-body">
          '.translate("Greetings to our latest registered user:").' <br /><h4 class="media-heading"><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
          </div>
       </div>
@@ -189,8 +189,7 @@ function avatar($user_avatar) {
       SortLinks($letter);
       echo '
       </div>';
-      
-      
+
       $min = $pagesize * ($page - 1);
       $max = $pagesize;
       $ws_req='';
@@ -257,7 +256,6 @@ function avatar($user_avatar) {
          if ( $num_rows_per_order > 0 ) {
             global $anonymous, $user;
             while($temp_user = sql_fetch_assoc($result) ) {
-            
                $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
                if (!$short_user) {
                   $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
@@ -310,23 +308,21 @@ function avatar($user_avatar) {
                if ($posterdata_extend['C7'] !='') {
                   $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&ModStart=geoloc" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i>'.translate("Location").'</a>';
                }
-
+               $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
+               list($open_user) = sql_fetch_row($op_result);
+               if ( ($open_user==1 and $user) || ($admin) ) {
                echo '
                <tr>
-                  <td>
-                  ';
+                  <td>';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
-               echo '
-                <a tabindex="0" data-toggle="popover" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-primary img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
-               </td>
+               echo '<a tabindex="0" data-toggle="popover" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-primary img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+                  </td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
-               if ($admin) 
+               if ($admin)
                   echo ' => '.date(translate("dateinternal"),$temp_user['user_lastvisit']);
                echo '" data-toggle="tooltip">'.$temp_user['uname'].'</a>
-               
                <br />'.$temp_user['name'].'
-               </td>';
-                  
+                  </td>';
                if ($sortby!='user_from ASC') {
                   if ($admin) {
                      echo '
@@ -351,22 +347,21 @@ function avatar($user_avatar) {
                   <td>
                      <a href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-toggle="tooltip"></i></a> 
                      <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
-                  $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
-                  list($open_user) = sql_fetch_row($op_result);
                   if ($open_user==1) {
-                     echo "&nbsp;<i class=\"fa fa-chain fa-lg\" title=\"".translate("Connection allowed")."\"></i>";
+                     echo '&nbsp;<i class="fa fa-chain fa-lg" title="'.translate("Connection allowed").'"></i>';
                   } else {
-                     echo "&nbsp;<i class=\"fa fa-chain-broken fa-lg\" title=\"".translate("Connection not allowed")."\"></i>"; 
+                     echo '&nbsp;<i class="fa fa-chain-broken fa-lg" title="'.translate("Connection not allowed").'"></i>'; 
                   }
                   if (!$temp_user['is_visible']) {
-                     echo "<img src=\"images/admin/ws/user_invisible.gif\" border=\"0\" alt=\"".translate("Invisible' member")."\" title=\"".translate("Invisible' member")." \" /></td>\n";
+                     echo "<img src=\"images/admin/ws/user_invisible.gif\" alt=\"".translate("Invisible' member")."\" title=\"".translate("Invisible' member")." \" /></td>\n";
                   } else {
-                     echo '<img src="images/admin/ws/blank.gif"  /></td>';
+                     echo '<img src="images/admin/ws/blank.gif" alt="" /></td>';
                   }
                }
                echo '
             </tr>';
             $a++;
+            }
             }
          } else {
             echo '
