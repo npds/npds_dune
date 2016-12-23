@@ -171,7 +171,7 @@ $npds_fcb = 0;
 
 $language = "french";
 $multi_langue = false;
-$locale = "fr_FR";
+$locale = "fr_FR.UTF8";
 $gmt = "";
 $lever = "08:00";
 $coucher = "20:00";
