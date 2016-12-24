@@ -2872,7 +2872,7 @@ function theme_image($theme_img) {
     }
 }
 #autodoc import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par défaut) / Charge la CSS complémentaire / le HTML ne contient que de simple quote pour être compatible avec javascript
-function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref="", $css="") {
+function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref='', $css='') {
    // CSS standard 
    $tmp='';
    if (file_exists("themes/$tmp_theme/style/$language-style.css")) {
@@ -2890,43 +2890,47 @@ function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref
    } else {
       $tmp.="<link href='themes/default/style/style.css' title='default' rel='stylesheet' type='text/css' media='all' />\n";
    }
-   // Chargeur CSS specifique
-   if ($css!='') {
-      settype($css, 'array');
-      foreach ($css as $k=>$tab_css) {
-         $admtmp='';
-         $op=substr($tab_css,-1);
-         if ($op=="+" or $op=="-")
-            $tab_css=substr($tab_css,0,-1);
-         if (stristr($tab_css, "http://")) {
-            $admtmp="<link href='$tab_css' rel='stylesheet' type='text/css' media='all' />\n";
-         } else {
-            if (file_exists("themes/$tmp_theme/style/$tab_css") and ($tab_css!="")) {
-               $admtmp="<link href='themes/$tmp_theme/style/$tab_css' rel='stylesheet' type='text/css' media='all' />\n";
-            } elseif (file_exists("$tab_css") and ($tab_css!="")) {
+   // Chargeur CSS spécifique
+   if ($css_pages_ref) {
+      include ("themes/pages.php");
+      if (is_array($PAGES[$css_pages_ref]['css'])) {
+         foreach ($PAGES[$css_pages_ref]['css'] as $tab_css) {
+            $admtmp='';
+            $op=substr($tab_css,-1);
+            if ($op=='+' or $op=='-')
+               $tab_css=substr($tab_css,0,-1);
+            if (stristr($tab_css, 'http://')) {
                $admtmp="<link href='$tab_css' rel='stylesheet' type='text/css' media='all' />\n";
+            } else {
+               if (file_exists("themes/$tmp_theme/style/$tab_css") and ($tab_css!='')) {
+                  $admtmp="<link href='themes/$tmp_theme/style/$tab_css' rel='stylesheet' type='text/css' media='all' />\n";
+               } elseif (file_exists("$tab_css") and ($tab_css!='')) {
+                  $admtmp="<link href='$tab_css' rel='stylesheet' type='text/css' media='all' />\n";
+               }
             }
-         }
-         if ($op=="-")
-            $tmp =$admtmp;
-         else
-            $tmp.=$admtmp;
-      }
-   } else {
-      if ($css_pages_ref) {
-         include ("themes/pages.php");
-         $op=substr($PAGES[$css_pages_ref]['css'],-1);
-         $css=substr($PAGES[$css_pages_ref]['css'],0,-1);
-         if (($css!='') and (file_exists("themes/$tmp_theme/style/$css"))) {
-            if ($op=="-")
-               $tmp ="<link href='themes/$tmp_theme/style/$css' title='' rel='stylesheet' type='text/css' media='all' />\n";
+            if ($op=='-')
+               $tmp =$admtmp;
             else
-               $tmp.="<link href='themes/$tmp_theme/style/$css' title='' rel='stylesheet' type='text/css' media='all' />\n";
+               $tmp.=$admtmp;
+         }
+      }
+      else
+      {
+      $oups=$PAGES[$css_pages_ref]['css'];
+         settype($oups, 'string');
+         $op=substr($oups,-1);
+         $css=substr($oups,0,-1);
+         if (($css!='') and (file_exists("themes/$tmp_theme/style/$css"))) {
+            if ($op=='-')
+               $tmp ="<link href='themes/$tmp_theme/style/$css' rel='stylesheet' type='text/css' media='all' />\n";
+            else
+               $tmp.="<link href='themes/$tmp_theme/style/$css' rel='stylesheet' type='text/css' media='all' />\n";
          }
       }
    }
    return($tmp);
 }
+
 #autodoc import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css) : Fonctionnement identique à import_css_javascript sauf que le code HTML en retour ne contient que de double quote
 function import_css ($tmp_theme, $language, $site_font, $css_pages_ref, $css) {
    return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css)));
