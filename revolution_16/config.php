@@ -111,7 +111,7 @@ $foot3 = "";
 $foot4 = "";
 $anonymous = "Visiteur";
 $site_font = "Verdana, Arial, Helvetica";
-$minpass = 5;
+$minpass = 8;
 $show_user = 20;
 
 ######################################################################

@@ -37,7 +37,6 @@
 //      Si Aucune Variable de renseigné : Affichage par défaut = 0
 //   ATTENTION cette Variable se Renseigne Maintenant sur cette page et non plus dans votre thème !
 
-
 // $PAGES['index.php']['run']="yes or no or script";
 //   => "" ou "yes" : le script aura l'autorisation de s'executer
 //   => "no"        : le script sera redirigé sur index.php
@@ -185,13 +184,6 @@ $PAGES['admin.php']['TinyMce-theme']="full";
 $PAGES['admin.php']['css']="admin.css+";
 $PAGES['admin.php']['TinyMceRelurl']="false";
 
-//$PAGES['admin.php?op=Edito']['title']=""; // obligatoirement à vide
-//$PAGES['admin.php?op=Edito']['blocs']="0";
-//$PAGES['admin.php?op=Edito']['run']="yes";
-// $PAGES['admin.php?op=Edito']['TinyMce']=1;
-// $PAGES['admin.php?op=Edito']['TinyMce-theme']="full";
-//$PAGES['admin.php?op=Edito']['css']="admin.css+";
-
 // $PAGES['admin.php?op=Edito_load']['title']=""; // obligatoirement à vide
 // $PAGES['admin.php?op=Edito_load']['blocs']="0";
 // $PAGES['admin.php?op=Edito_load']['run']="yes";
@@ -238,7 +230,7 @@ $PAGES['abla.php']['title']="[french]Admin Blackboard[/french][english]Admin Bla
 $PAGES['abla.php']['run']="yes";
 $PAGES['abla.php']['blocs']="1";
 
-$PAGES['replypmsg.php']['title']="[french]RÈpondre ‡ un MP[/french][english]Reply to a MP[/english][spanish]Responder a un MP[/spanish][german]Antwort auf eine MP[/german][chinese]Reply to a MP[/chinese]+";
+$PAGES['replypmsg.php']['title']="[french]R&eacute;pondre &agrave; un MP[/french][english]Reply to a MP[/english][spanish]Responder a un MP[/spanish][german]Antwort auf eine MP[/german][chinese]Reply to a MP[/chinese]+";
 $PAGES['replypmsg.php']['run']="yes";
 $PAGES['replypmsg.php']['blocs']="1";
 
@@ -256,13 +248,13 @@ $PAGES['pollBooth.php']['run']="yes";
 
 // Page static
 $PAGES['static.php?op=statik.txt']['title']="[french]Page de d&eacute;monstration[/french][english]Demo page[/english][spanish]Demostraci&oacute;n p&aacute;gina[/spanish][german]Demo-Seite[/german][chinese]Demo page[/chinese]+";
-$PAGES['static.php?op=statik.txt']['blocs']="0";
+$PAGES['static.php?op=statik.txt']['blocs']="-1";
 $PAGES['static.php?op=statik.txt']['run']="yes";
 
 // Modules
 // Pour les modules il existe deux forme d'écriture :
 // la syntaxe : modules.php?ModPath=links&ModStart=links ==> qui permet d'affecter un titre, un run et un type de bloc pour chaque 'sous-url' du module
-// la syntaxe : mdoules.php?ModPath=links&ModStart=links* (rajout d'une * à la fin) ==> qui permet de faire la même chose mais en indiquant que TOUTES les pages du module seront traitÈes de la même manière
+// la syntaxe : mdoules.php?ModPath=links&ModStart=links* (rajout d'une * à la fin) ==> qui permet de faire la même chose mais en indiquant que TOUTES les pages du module seront traitées de la même manière
 $PAGES['modules.php?ModPath=links&ModStart=links*']['title']="[french]Liens et annuaires[/french][english]Web Links[/english][spanish]Enlaces y Directorios[/spanish][german]Links und Verzeichnisse[/german][chinese]&#x7F51;&#x7AD9;&#x94FE;&#x63A5;[/chinese]+|$title+";
 $PAGES['modules.php?ModPath=links&ModStart=links*']['run']="yes";
 $PAGES['modules.php?ModPath=links&ModStart=links*']['blocs']="2";
@@ -300,8 +292,9 @@ $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['run']="yes";
 $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="0";
 
 // CSS sur fichiers particuliers car n'utilisant pas header.php
-$PAGES['chatrafraich.php']['css']="chat.css-";
-$PAGES['chatinput.php']['css']="chat.css-";
+global $nuke_url;
+$PAGES['chatrafraich.php']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap.min.css+","chat.css+");
+$PAGES['chatinput.php']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap.min.css+","chat.css+");
 
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['title']="[french]R&eacute;seaux Sociaux[/french][english]Social Networks[/english]";
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['run']="yes";

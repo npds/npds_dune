@@ -36,7 +36,7 @@
    $skinametitre = end($parts);
 //         <link rel="stylesheet" href="/themes/npds-boost_sk/style/style.css" />
 
-   switch ($skinname) {
+   switch ($skinametitre) {
       case 'cyborg': 
         $headerclasses ='navbar navbar-dark navbar-fixed-top bg-inverse';
       break;
