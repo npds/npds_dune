@@ -12,7 +12,7 @@
 
 // skins for advanced theme
 // skin : "default" or "o2k7"
-// skin variant : "" or "silver" or "black"
+// skin variant : "" or "lightgray" or "custom"
 $tmp.='
 skin : "lightgray",';
 
@@ -30,9 +30,10 @@ plugins: ['advlist autolink lists link image charmap print preview hr anchor pag
 image_class_list: [
     {title: 'Responsive', value: 'img_fluid'}
   ],
+style_formats_merge: true,
 
 style_formats: [
-{ title: 'Headers', items: [
+  { title: 'Headers', items: [
       { title: 'h1', block: 'h1' },
       { title: 'h2', block: 'h2' },
       { title: 'h3', block: 'h3' },
