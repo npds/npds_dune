@@ -18,36 +18,50 @@ if (!function_exists("Mysql_Connexion")) {
 include_once("lib/file.class.php");
 include('functions.php');
 
-function geninfo($did) {
-   global $sitename;
-   global $NPDS_Prefix;
-
+function geninfo($did,$out_template) {
+   global $sitename, $NPDS_Prefix;
    settype($did, 'integer');
+   settype($out_template, 'integer');
    $result = sql_query("SELECT dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
    list($dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $dperm) = sql_fetch_row($result);
    $okfile=autorisation($dperm);
    if ($okfile) {
       $title=$dfilename;
+      if ($out_template==1) {
+         include('header.php');
+         echo '
+         <h2 class="mb-1">'.translate("Download Section").'</h2>
+         <div class="card">
+            <div class="card-header"><h4>'.$dfilename.'<span class="ml-1 text-muted small">@'.$durl.'</h4></div>
+            <div class="card-block">
+         ';
+      }
       echo '
-   <p><strong>'.translate("File Size").' : </strong>';
+               <p><strong>'.translate("File Size").' : </strong>';
       $Fichier = new File($durl);
       $objZF    =    new FileManagement;
       if ($dfilesize!=0) {
          echo $objZF->file_size_auto($durl, 2);
-//         echo $Fichier->Pretty_Size($dfilesize);
+//         echo $Fichier->Pretty_Size($dfilesize);//maybe keep for lower php version
       } else {
-         echo $Fichier->Affiche_Size();
+//         echo $Fichier->Affiche_Size();//maybe keep for lower php version
          echo $objZF->file_size_auto($durl, 2);
       }
       echo '
-   </p>
-   <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
-   <p><strong>'.translate("Upload Date").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
-   <p><strong>'.translate("Downloads").'&nbsp;:</strong>&nbsp;'.wrh($dcounter).'</p>
-   <p><strong>'.translate("Category").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($dcategory)).'</p>
-   <p><strong>'.translate("Description").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($ddescription)).'</p>
-   <strong>'.translate("Author").'&nbsp;:</strong>&nbsp;'.$duser.'</p>
-   <strong>'.translate("HomePage").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
+                  </p>
+                  <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
+                  <p><strong>'.translate("Upload Date").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
+                  <p><strong>'.translate("Downloads").'&nbsp;:</strong>&nbsp;'.wrh($dcounter).'</p>
+                  <p><strong>'.translate("Category").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($dcategory)).'</p>
+                  <p><strong>'.translate("Description").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($ddescription)).'</p>
+                  <strong>'.translate("Author").'&nbsp;:</strong>&nbsp;'.$duser.'</p>
+                  <strong>'.translate("HomePage").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
+      if ($out_template==1) {
+         echo '
+               <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-download"></i></a>
+            </div>';
+         include('footer.php');
+      }
    } else {
       Header("Location: download.php");
    }
@@ -111,30 +125,31 @@ function dl_tableheader () {
   echo '</td><td>';
 }
 
-function popuploader($did, $ddescription, $dcounter, $dfilename,$aff) {
-  global $dcategory, $sortby;
-  if ($aff) {
-
-   echo '<a data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'">
-         <i class="fa fa-lg fa-info-circle"></i></a>&nbsp;&nbsp;&nbsp;';
-
-   echo '<div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
-         <div class="modal-dialog">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" title=""><span aria-hidden="true">&times;</span></button>
-               <h4 class="modal-title text-left" id="my'.$did.'">'.translate("File Information").' - '.$dfilename.'</h4>
+function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
+   global $dcategory, $sortby;
+   $out_template = 0;
+   if ($aff) {
+      echo '
+         <a class="mr-1" href="#" data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'">
+         <i class="fa fa-lg fa-info-circle"></i></a>
+         <div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" title=""><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title text-left" id="my'.$did.'">'.translate("File Information").' - '.$dfilename.'</h4>
+                  </div>
+                  <div class="modal-body text-left">';
+               geninfo($did,$out_template);
+   echo '
+                  </div>
+                  <div class="modal-footer">
+                     <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'"><i class="fa fa-lg fa-download"></i></a>
+                  </div>
                </div>
-            <div class="modal-body text-left">';
-               geninfo($did);
-   echo '</div>
-      <div class="modal-footer">
-         <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'"><i class="fa fa-lg fa-download"></i></a>
-      </div>
-   </div>
-   </div>
-</div>';
-   echo "<a href=\"download.php?op=mydown&amp;did=$did\" title=\"".translate("Download Now!")."\"><i class=\"fa fa-download\"></i></a>";
+            </div>
+         </div>
+         <a href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
    }
 }
 
@@ -408,7 +423,7 @@ switch ($op) {
        transferfile($did);
        break;
   case 'geninfo':
-       geninfo($did);
+       geninfo($did,$out_template);
        break;
   case 'broken':
        broken($did);

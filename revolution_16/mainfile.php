@@ -893,13 +893,15 @@ function prepa_aff_news($op,$catid,$marqeur) {
        }
        if ($comments==0) {
            $morelink[2]=0;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
+           //article.php?sid='.$s_sid.'
+           //modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0
+           $morelink[3]='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
        } elseif ($comments==1) {
            $morelink[2]=$comments;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
        } else {
            $morelink[2]=$comments;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0" class="mr-1" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
@@ -1735,21 +1737,20 @@ function aff_editeur($Xzone, $Xactiv) {
                $tmp_Xzone=substr_replace($tmp_Xzone,'',-1);
             if ($tmp_Xzone) {
                $tmp="
-               <script type=\"text/javascript\">
-               //<![CDATA[
-               $(document).ready(function() {
-               tinymce.init({
-                  selector: 'textarea.tin',
-                  height: 300,
-                  theme : 'modern',
-                  language : '".language_iso(1,'','')."',";
-                  
+      <script type=\"text/javascript\">
+      //<![CDATA[
+      $(document).ready(function() {
+         tinymce.init({
+            selector: 'textarea.tin',
+            height: 300,
+            theme : 'modern',
+            language : '".language_iso(1,'','')."',";
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
-               });
-               });
-               //]]>
-               </script>';
+            });
+         });
+      //]]>
+      </script>';
             }
          } else {
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
@@ -2300,6 +2301,7 @@ function topdownload_data($form, $ordre) {
    $result = sql_query("SELECT did, dcounter, dfilename, dcategory, ddate, perms FROM ".$NPDS_Prefix."downloads ORDER BY $ordre DESC LIMIT 0,$top");
    $lugar=1; $ibid='';
    while(list($did, $dcounter, $dfilename, $dcategory, $ddate, $dperm) = sql_fetch_row($result)) {
+   
       if ($dcounter>0) {
          $okfile=autorisation($dperm);
          if ($ordre=='dcounter') {
@@ -2320,9 +2322,9 @@ function topdownload_data($form, $ordre) {
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
          }
          if ($form=='short') {
-            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action">'.$lugar.' <a href="download.php?op=geninfo&amp;did='.$did.'" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="tag tag-default float-xs-right">'.$dd.'</span></li>';}
+            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action">'.$lugar.' <a href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="tag tag-default float-xs-right">'.$dd.'</span></li>';}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=geninfo&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="tag tag-default float-xs-right">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="tag tag-default float-xs-right">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;
