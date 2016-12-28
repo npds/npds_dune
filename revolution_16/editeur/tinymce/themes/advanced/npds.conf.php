@@ -14,69 +14,63 @@
 // skin : "default" or "o2k7"
 // skin variant : "" or "lightgray" or "custom"
 $tmp.='
-skin : "lightgray",';
+            skin : "lightgray",';
 
 // Analyse the type of Theme from pages.php and determine if setup inclusion file is request
-$setup=explode("+",$tiny_mce_theme);
+$setup=explode('+',$tiny_mce_theme);
 $tiny_mce_theme=$setup[0];
 if (!array_key_exists(1,$setup)) $setup[1]='';
-// ----------
 
 // Full Theme
-if ($tiny_mce_theme=="full") {
+if ($tiny_mce_theme=='full') {
    $tmp.= "
-plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak','searchreplace wordcount visualblocks visualchars code fullscreen','insertdatetime media nonbreaking save table contextmenu directionality','emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome'],
-
-image_class_list: [
-    {title: 'Responsive', value: 'img_fluid'}
-  ],
-style_formats_merge: true,
-
-style_formats: [
-  { title: 'Headers', items: [
-      { title: 'h1', block: 'h1' },
-      { title: 'h2', block: 'h2' },
-      { title: 'h3', block: 'h3' },
-      { title: 'h4', block: 'h4' },
-      { title: 'h5', block: 'h5' },
-      { title: 'h6', block: 'h6' }
-    ] },
-  {title: 'Image responsive', selector: 'img', styles: {
-   'display' : 'block',
-   'max-width': '100%',
-   'height' : 'auto'
-  }}],
-
-content_css: ' lib/font-awesome/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css',
-toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue fontawesome',";
+            plugins : ['advlist autolink lists link image charmap print preview hr anchor pagebreak','searchreplace wordcount visualblocks visualchars code fullscreen','insertdatetime media nonbreaking save table contextmenu directionality','emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome'],
+            image_class_list : [{title: 'Responsive', value: 'img_fluid'}],
+            style_formats_merge : true,
+            style_formats : [
+               {title: 'Headers', items: [
+                  {title: 'h1', block: 'h1'},
+                  {title: 'h2', block: 'h2'},
+                  {title: 'h3', block: 'h3'},
+                  {title: 'h4', block: 'h4'},
+                  {title: 'h5', block: 'h5'},
+                  {title: 'h6', block: 'h6'}
+               ]},
+               {title: 'Image responsive', selector: 'img', styles: {
+               'display' : 'block',
+               'max-width': '100%',
+               'height' : 'auto'
+            }}],
+            content_css : ' lib/font-awesome/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css',
+            toolbar : 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue fontawesome',";
 
 } else if ($tiny_mce_theme=='short') {
    // Short Theme
    $tmp.=" 
-plugins : ['autolink wordcount npds image link media paste'],
-toolbar: 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_plug',\n";
+            plugins : ['autolink wordcount npds image link media paste'],
+            toolbar : 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_plug',\n";
 }
 $tmp.="
-extended_valid_elements : \"hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]\",
-directionality          : 'ltr',
-auto_focus              : '".substr($tmp_Xzone,0,strpos($tmp_Xzone,",",0))."',
-apply_source_formatting : true,
-force_br_newlines       : true,
-force_p_newlines        : false,
-convert_newlines_to_brs : false,
-remove_linebreaks       : false,\n";
+            extended_valid_elements : 'hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]',
+            directionality: 'ltr',
+            auto_focus: '".substr($tmp_Xzone,0,strpos($tmp_Xzone,",",0))."',
+            apply_source_formatting : true,
+            force_br_newlines : true,
+            force_p_newlines : false,
+            convert_newlines_to_brs : false,
+            remove_linebreaks : false,";
 
 if ($tiny_mce_relurl=="false")
    $tmp.='
-relative_urls        : false,';
+            relative_urls        : false,';
 else
    $tmp.='
-relative_urls        : true,';
+            relative_urls        : true,';
 
 if ($setup[1]=='setup') {
    global $ModPath;
    if (file_exists("modules/$ModPath/tiny_mce_setup.php")) {
-      $tmp.="remove_script_host   : false,\n";
+      $tmp.="remove_script_host : false,\n";
       include_once("modules/$ModPath/tiny_mce_setup.php");
    }
 } else {
