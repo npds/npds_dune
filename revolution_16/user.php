@@ -422,7 +422,7 @@ function userinfo($uname) {
 
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
-      if ($user) {
+      if (($user) and ($uid!=1)) {
          $useroutils .= '<a class=" text-primary mr-1" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['femail']!='') {
@@ -445,7 +445,7 @@ function userinfo($uname) {
    if ($uname !== $cookie[1])
       echo $useroutils;
       echo $my_rsos[0];
-   if ($uname == $cookie[1])
+//   if ($uname == $cookie[1])
 //            <h3>'.translate("Welcome to").' '.$sitename.'</h3>
 
       echo '
@@ -589,20 +589,20 @@ echo $content;
       </div>
    </div>';
    }; */
-
-    echo '
-    <br />
-    <h4>'.translate("Online journal for").' '.$uname.'.</h4>
-    <div id="online_user_journal" class="card card-block mb-1">'.$user_journal.'</div>';
-    $file='';
-    $handle=opendir('modules/comments');
-    while (false!==($file = readdir($handle))) {
-       if (!preg_match('#\.conf\.php$#i',$file)) continue;
-       $topic="#topic#";
-       include("modules/comments/$file");
-       $filelist[$forum] = $url_ret;
-    }
-    closedir($handle);
+   if($uid!=1)
+      echo '
+      <br />
+      <h4>'.translate("Online journal for").' '.$uname.'.</h4>
+      <div id="online_user_journal" class="card card-block mb-1">'.$user_journal.'</div>';
+   $file='';
+   $handle=opendir('modules/comments');
+   while (false!==($file = readdir($handle))) {
+      if (!preg_match('#\.conf\.php$#i',$file)) continue;
+      $topic="#topic#";
+      include("modules/comments/$file");
+      $filelist[$forum] = $url_ret;
+   }
+   closedir($handle);
 
    echo '
    <h4 class="mt-1">'.translate("Last 10 comments by").' '.$uname.'.</h4>
