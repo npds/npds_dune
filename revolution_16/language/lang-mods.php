@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* ce fichier permettra à partir de la version 5.0 de NPDS, la          */
+/* ce fichier permet ˆ partir de la version 5.0 de NPDS, la             */
 /* personnalisation par le webmestre des MESSAGES (sauf ceux de l'admin)*/
 /************************************************************************/
 
@@ -21,12 +21,11 @@ switch($phrase) {
    // case "Preview":   $tmp="Verify my informations"; break;
    // case "Valider":   $tmp="\"No problème, valide mon garçon !\""; break;
    // case "Submit":   $tmp="\"Yo, submit Man\""; break;
-   
-//    case "One Day like Today...": $tmp=""; break;  
+   // case "One Day like Today...": $tmp=""; break;  
 
-    //mettre les forums publication sans minutes et secondes   
-//   case "dateinternal": $tmp = "d-m-Y"; break;  
-   
+   //mettre les forums publication sans minutes et secondes   
+   //case "dateinternal": $tmp = "d-m-Y"; break;  
+/*   
    case "Your account":
    case "Votre compte":
    case "Su cuenta":
@@ -37,5 +36,6 @@ switch($phrase) {
          $tmp="Connexion";
       }
    break;
+*/
 }
 ?>
