@@ -895,13 +895,13 @@ function prepa_aff_news($op,$catid,$marqeur) {
            $morelink[2]=0;
            //article.php?sid='.$s_sid.'
            //modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0
-           $morelink[3]='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
        } elseif ($comments==1) {
            $morelink[2]=$comments;
-           $morelink[3]='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
        } else {
            $morelink[2]=$comments;
-           $morelink[3]='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0" class="mr-1" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
+           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-1" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;

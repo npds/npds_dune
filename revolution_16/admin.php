@@ -37,11 +37,11 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
    global $admf_ext, $NPDS_Prefix, $f_meta_nom, $ModPath, $adm_img_mod;
    list($furlscript, $ficone)=sql_fetch_row(sql_query("SELECT furlscript, ficone FROM ".$NPDS_Prefix."fonctions WHERE fnom='$f_meta_nom'"));
    if (file_exists($adminimg.$ficone.'.'.$admf_ext)) {
-      $img_adm ='<img src="'.$adminimg.$ficone.'.'.$admf_ext.'" class="vam faa-pulse animated faa-slow" border="0" alt="'.$f_titre.'" />';
+      $img_adm ='<img src="'.$adminimg.$ficone.'.'.$admf_ext.'" class="vam " alt="'.$f_titre.'" />';
    } 
    elseif (stristr($_SERVER['QUERY_STRING'],"Extend-Admin-SubModule")||$adm_img_mod==1) {
       if (file_exists('modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext)) {
-         $img_adm ='<img src="modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext.'" class="vam" border="0" alt="'.$f_titre.'" />';
+         $img_adm ='<img src="modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext.'" class="vam" alt="'.$f_titre.'" />';
       } else $img_adm ='';
    }
    else $img_adm ='';

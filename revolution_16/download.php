@@ -58,7 +58,7 @@ function geninfo($did,$out_template) {
                   <strong>'.translate("HomePage").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
       if ($out_template==1) {
          echo '
-               <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-download"></i></a>
+               <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-download"></i></a>
             </div>';
          include('footer.php');
       }
@@ -149,7 +149,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
                </div>
             </div>
          </div>
-         <a href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+         <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
    }
 }
 
