@@ -54,7 +54,7 @@ function session_manage() {
    $ip=getip();
    $username=$cookie[1];
    if (!isset($username)) {
-      $username="$ip";
+      $username= $ip;
       $guest=1;
    }
 
@@ -317,20 +317,20 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
       $message = "\n\n". "--" .$boundary . "\nContent-Type: application; name=\"".basename($message)."\" charset=".cur_charset."\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"".basename($message)."\"\r\n\n".$attached_file . "--" . $boundary . "--";
       $advance.= "MIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
    }
-   if ($mime=="text") {
+   if ($mime=='text') {
       $advance.="Content-Type: text/plain; charset=".cur_charset."\n";
    }
-   if (($mime=="html") or ($mime=="html-nobr")) {
+   if (($mime=='html') or ($mime=='html-nobr')) {
       $advance.="Content-Type: text/html; charset=".cur_charset."\n";
-      if ($mime!="html-nobr")
+      if ($mime!='html-nobr')
          $message=nl2br($message);
       else
-         $mime="html";
+         $mime='html';
       $css="<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 11px;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n";
       $message=$css.$message."\n</body>\n</html>";
    }
    if (($mail_fonction==1) or ($mail_fonction=="")) {
-      if ($from!="") {
+      if ($from!='') {
          $From_email=$from;
       } else {
          $From_email=$adminmail;
@@ -544,20 +544,20 @@ function AutoReg() {
 function secur_static($sec_type) {
    global $user, $admin;
    switch ($sec_type) {
-      case "member":
-           if (isset($user)) {
-              return true;
-           } else {
-              return false;
-           }
-           break;
-      case "admin":
-           if (isset($admin)) {
-              return true;
-           } else {
-              return false;
-           }
-           break;
+      case 'member':
+         if (isset($user)) {
+            return true;
+         } else {
+            return false;
+         }
+      break;
+      case 'admin':
+         if (isset($admin)) {
+            return true;
+         } else {
+            return false;
+         }
+      break;
    }
 }
 // Opentable - closetable
@@ -625,7 +625,7 @@ function ultramode() {
    $file2 = fopen("$netTOzone", "w");
    fwrite($file, "General purpose self-explanatory file with news headlines\n");
    $storynum = $storyhome;
-   $xtab=news_aff("index","WHERE ihome='0' AND archive='0'",$storyhome,"");
+   $xtab=news_aff('index',"WHERE ihome='0' AND archive='0'",$storyhome,'');
    $story_limit=0;
    while (($story_limit<$storynum) and ($story_limit<sizeof($xtab))) {
       list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
@@ -935,12 +935,12 @@ function prepa_aff_news($op,$catid,$marqeur) {
 function valid_group($xuser) {
    global $NPDS_Prefix;
    if ($xuser) {
-      $userdata = explode(":",base64_decode($xuser));
+      $userdata = explode(':',base64_decode($xuser));
       $user_temp=Q_select("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$userdata[0]'",3600);
       list(,$groupe) = each($user_temp);
-      $tab_groupe=explode(",",$groupe['groupe']);
+      $tab_groupe=explode(',',$groupe['groupe']);
    } else {
-      $tab_groupe="";
+      $tab_groupe='';
    }
    return ($tab_groupe);
 }
@@ -962,7 +962,7 @@ function groupe_forum($forum_groupeX, $tab_groupeX) {
 }
 #autodoc groupe_autorisation($groupeX, $tab_groupeX) : Retourne true ou false en fonction de l'autorisation d'un membre sur 1 (ou x) groupe
 function groupe_autorisation($groupeX, $tab_groupeX) {
-   $tab_groupe=explode(",",$groupeX);
+   $tab_groupe=explode(',',$groupeX);
    $ok=false;
    if ($tab_groupeX) {
       foreach($tab_groupe as $groupe) {
@@ -991,7 +991,7 @@ function block_fonction($title, $contentX) {
          $pos = strpos($contentY,"params#");
          $contentII=trim(substr($contentY,0,$pos));
          $params=substr($contentY,$pos+7);
-         $prm=explode(",",$params);
+         $prm=explode(',',$params);
          // Remplace le param "False" par la valeur false (idem pour True)
          for ($i=0; $i<=count($prm)-1; $i++) {
             if ($prm[$i]=="false") {$prm[$i]=false;}
@@ -1076,10 +1076,10 @@ function fab_block($title, $member, $content, $Xcache) {
       global $user, $admin;
       // For including CLASS AND URI in Block
       global $B_class_title, $B_class_content;
-      $B_class_title=""; $B_class_content=""; $R_uri="";
-      if (stristr($content,"class-") or stristr($content,"uri")) {
+      $B_class_title=''; $B_class_content=''; $R_uri='';
+      if (stristr($content,'class-') or stristr($content,'uri')) {
          $tmp=explode("\n",$content);
-         $content="";
+         $content='';
          while(list($id,$class)=each($tmp)) {
             $temp=explode("#",$class);
             if ($temp[0]=="class-title") {
@@ -1087,10 +1087,10 @@ function fab_block($title, $member, $content, $Xcache) {
             } else if ($temp[0]=="class-content") {
                $B_class_content=str_replace("\r","",$temp[1]);
             } else if ($temp[0]=="uri") {
-               $R_uri=str_replace("\r","",$temp[1]);
+               $R_uri=str_replace("\r",'',$temp[1]);
             } else {
-               if ($content!="") {$content.="\n ";}
-               $content.=str_replace("\r","",$class);
+               if ($content!='') {$content.="\n ";}
+               $content.=str_replace("\r",'',$class);
             }
          }
       }
@@ -1102,12 +1102,12 @@ function fab_block($title, $member, $content, $Xcache) {
          $R_content=false;
          $tab_pref=parse_url($page_ref);
          $racine_page=$tab_pref['path'];
-         $tab_pref=explode("&",$tab_pref['query']);
+         $tab_pref=explode('&',$tab_pref['query']);
          while (list(,$RR_uri)=each($tab_uri)) {
             $tab_puri=parse_url($RR_uri);
             $racine_uri=$tab_puri['path'];
             if ($racine_page==$racine_uri) {
-               $tab_puri=explode("&",$tab_puri['query']);
+               $tab_puri=explode('&',$tab_puri['query']);
                while (list($idx,$RRR_uri)=each($tab_puri)) {
                   if (substr($RRR_uri,-1)=="*") {
                      // si le token contient *
@@ -1127,18 +1127,18 @@ function fab_block($title, $member, $content, $Xcache) {
          if (!$R_content) $content='';
       }
       // For Javascript in Block
-      if (!stristr($content,"javascript")) {
+      if (!stristr($content,'javascript')) {
          $content = nl2br($content);
       }
       // For including externale file in block / the return MUST BE in $content
-      if (stristr($content,"include#")) {
+      if (stristr($content,'include#')) {
          $Xcontent=false;
          // You can now, include AND cast a fonction with params in the same bloc !
          if (stristr($content,"function#")) {
-            $content=str_replace("<br />","",$content);
-            $content=str_replace("<BR />","",$content);
-            $content=str_replace("<BR>","",$content);
-            $pos = strpos($content,"function#");
+            $content=str_replace('<br />','',$content);
+            $content=str_replace('<BR />','',$content);
+            $content=str_replace('<BR>','',$content);
+            $pos = strpos($content,'function#');
             $Xcontent=substr(trim($content),$pos);
             $content=substr(trim($content),8,$pos-10);
          } else {
@@ -1195,11 +1195,11 @@ function fab_block($title, $member, $content, $Xcache) {
 }
 #autodoc leftblocks() : Meta-Fonction / Blocs de Gauche
 function leftblocks() {
-   Pre_fab_block("","LB");
+   Pre_fab_block('','LB');
 }
 #autodoc rightblocks() : Meta-Fonction / Blocs de Droite
 function rightblocks() {
-   Pre_fab_block("","RB");
+   Pre_fab_block('','RB');
 }
 #autodoc oneblock($Xid, $Xblock) : Alias de Pre_fab_block pour meta-lang
 function oneblock($Xid, $Xblock) {
@@ -1213,23 +1213,23 @@ function oneblock($Xid, $Xblock) {
 function Pre_fab_block($Xid, $Xblock) {
     global $NPDS_Prefix, $htvar; // modif Jireck
     if ($Xid) {
-      if ($Xblock=="RB") {
+      if ($Xblock=='RB') {
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks WHERE id='$Xid'");
       } else {
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks WHERE id='$Xid'");
       }
     } else {
-      if ($Xblock=="RB") {
+      if ($Xblock=='RB') {
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
       } else {
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks ORDER BY Lindex ASC");
       }
     }
     global $bloc_side;
-    if ($Xblock=="RB") {
-      $bloc_side="RIGHT";
+    if ($Xblock=='RB') {
+      $bloc_side='RIGHT';
     } else {
-      $bloc_side="LEFT";
+      $bloc_side='LEFT';
     }
     while (list($title, $content, $member, $cache, $actif, $id, $css)=sql_fetch_row($result)) {
       if (($actif) or ($Xid)) {
@@ -1323,20 +1323,19 @@ function getTopics($s_sid) {
 #autodoc subscribe_mail($Xtype, $Xtopic,$Xforum, $Xresume, $Xsauf) : Assure l'envoi d'un mail pour un abonnement
 function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
    // $Xtype : topic, forum ... / $Xtopic clause WHERE / $Xforum id of forum / $Xresume Text passed / $Xsauf not this userid
-   global $NPDS_Prefix;
-   global $sitename, $nuke_url;
-   if ($Xtype=="topic") {
+   global $NPDS_Prefix, $sitename, $nuke_url;
+   if ($Xtype=='topic') {
       $result=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$Xtopic'");
       list($abo)=sql_fetch_row($result);
       $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."subscribe WHERE topicid='$Xtopic'");
    }
-   if ($Xtype=="forum")  {
+   if ($Xtype=='forum') {
       $result=sql_query("SELECT forum_name, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id='$Xforum'");
       list($abo, $arbre)=sql_fetch_row($result);
       if ($arbre)
-         $hrefX="viewtopicH.php";
+         $hrefX='viewtopicH.php';
       else
-         $hrefX="viewtopic.php";
+         $hrefX='viewtopic.php';
       $resultZ=sql_query("SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$Xtopic'");
       list($title_topic)=sql_fetch_row($resultZ);
       $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."subscribe WHERE forumid='$Xforum'");
@@ -1346,16 +1345,16 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
       if ($uid!=$Xsauf) {
          $resultX=sql_query("SELECT email, user_langue FROM ".$NPDS_Prefix."users WHERE uid='$uid'");
          list($email, $user_langue)=sql_fetch_row($resultX);
-         if ($Xtype=="topic") {
+         if ($Xtype=='topic') {
             $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous êtes abonné à : ").translate_ml($user_langue, "Sujet")." => ".strip_tags($abo)."\n\n";
             $resume=translate_ml($user_langue, "Le titre de la dernière publication est")." => $Xresume\n\n";
             $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/search.php?query=&topic=$Xtopic\">$nuke_url/search.php?query=&topic=$Xtopic</a>\n\n";
          }
-         if ($Xtype=="forum") {
+         if ($Xtype=='forum') {
             $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous êtes abonné à : ").translate_ml($user_langue, "Forum")." => ".strip_tags($abo)."\n\n";
             $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999#last-post\">$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999</a>\n\n";
             $resume=translate_ml($user_langue, "Le titre de la dernière publication est")." => ";
-            if ($Xresume!="") {
+            if ($Xresume!='') {
                $resume.=$Xresume."\n\n";
             } else {
                $resume.=$title_topic."\n\n";
@@ -1388,8 +1387,7 @@ function subscribe_query($Xuser,$Xtype, $Xclef) {
 }
 #autodoc pollSecur($pollID) : Assure la gestion des sondages membres
 function pollSecur($pollID) {
-   global $NPDS_Prefix;
-   global $user;
+   global $NPDS_Prefix, $user;
    $pollIDX=false;
    $result = sql_query("SELECT pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
    if (sql_num_rows($result)) {
@@ -1489,15 +1487,15 @@ function fab_edito() {
       }
    }
    $affich=false;
-   $Xibid=strstr($Xcontents,"aff_jours");
+   $Xibid=strstr($Xcontents,'aff_jours');
    if ($Xibid) {
       parse_str($Xibid);
       if (($aff_date+($aff_jours*86400))-time()>0) {
          $affichJ=false; $affichN=false;
-         if ((NightDay()=="Jour") and ($aff_jour=="checked")) {$affichJ=true;}
-         if ((NightDay()=="Nuit") and ($aff_nuit=="checked")) {$affichN=true;}
+         if ((NightDay()=='Jour') and ($aff_jour=='checked')) {$affichJ=true;}
+         if ((NightDay()=='Nuit') and ($aff_nuit=='checked')) {$affichN=true;}
       }
-      $XcontentsT=substr($Xcontents,0,strpos($Xcontents,"aff_jours"));
+      $XcontentsT=substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
       $contentJ=substr($XcontentsT,strpos($XcontentsT,"[jour]")+6,strpos($XcontentsT,"[/jour]")-6);
       $contentN=substr($XcontentsT,strpos($XcontentsT,"[nuit]")+6,strpos($XcontentsT,"[/nuit]")-19-strlen($contentJ));
       $Xcontents='';
@@ -1522,7 +1520,7 @@ function aff_langue($ibid) {
    global $language, $tab_langue;
    // copie du tableau + rajout de transl pour gestion de l'appel à translate(...); - Theme Dynamic
    $tab_llangue=$tab_langue;
-   $tab_llangue[]="transl";
+   $tab_llangue[]='transl';
    reset ($tab_llangue);
    $ok_language=false;
    $trouve_language=false;
@@ -1545,13 +1543,13 @@ function aff_langue($ibid) {
          if (($pos_deb>=0) and ($pos_fin>=0)) {
             $fragment=substr($ibid,$pos_deb+$decal,($pos_fin-$pos_deb-$decal));
             if ($trouve_language==false) {
-               if ($lang!="transl")
+               if ($lang!='transl')
                   $ibid=str_replace("[$lang]".$fragment."[/$lang]", $fragment, $ibid);
                else
                   $ibid=str_replace("[$lang]".$fragment."[/$lang]", translate($fragment), $ibid);
                $ok_language=true;
             } else {
-               if ($lang!="transl")
+               if ($lang!='transl')
                   $ibid=str_replace("[$lang]".$fragment."[/$lang]", "", $ibid);
                else
                   $ibid=str_replace("[$lang]".$fragment."[/$lang]", translate($fragment), $ibid);
@@ -1569,9 +1567,9 @@ function aff_langue($ibid) {
 #autodoc make_tab_langue() : Charge le tableau TAB_LANGUE qui est utilisé par les fonctions multi-langue
 function make_tab_langue() {
    global $language, $languageslist;
-   $languageslocal=$language." ".str_replace($language,"",$languageslist);
-   $languageslocal=trim(str_replace("  "," ",$languageslocal));
-   $tab_langue=explode(" ",$languageslocal);
+   $languageslocal=$language.' '.str_replace($language,'',$languageslist);
+   $languageslocal=trim(str_replace('  ',' ',$languageslocal));
+   $tab_langue=explode(' ',$languageslocal);
    return ($tab_langue);
 }
 #autodoc aff_localzone_langue($ibid) : Charge une zone de formulaire de selection de la langue
@@ -1786,8 +1784,8 @@ function utf8_java($ibid) {
 }
 #autodoc wrh($ibid) : Formate une chaine numérique avec un espace tous les 3 chiffres / cheekybilly 2005
 function wrh($ibid) {
-   $tmp=number_format($ibid,0,","," ");
-   $tmp=str_replace(" ","&nbsp;",$tmp);
+   $tmp=number_format($ibid,0,',',' ');
+   $tmp=str_replace(' ','&nbsp;',$tmp);
    return ($tmp);
 }
 #autodoc Q_spambot() : forge un champ de formulaire (champ de saisie : $asb_reponse / champ hidden : asb_question) permettant de déployer une fonction anti-spambot
@@ -1875,35 +1873,35 @@ function Q_spambot() {
 function L_spambot($ip, $status) {
    $cpt_sup=0;
    $maj_fic=false;
-   if ($ip=="")
+   if ($ip=='')
       $ip=getip();
    if (file_exists("slogs/spam.log")) {
-      $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
-      if (in_array($ip.":1",$tab_spam))
+      $tab_spam=str_replace("\r\n",'',file("slogs/spam.log"));
+      if (in_array($ip.':1',$tab_spam))
          $cpt_sup=2;
-      if (in_array($ip.":2",$tab_spam))
+      if (in_array($ip.':2',$tab_spam))
          $cpt_sup=3;
-      if (in_array($ip.":3",$tab_spam))
+      if (in_array($ip.':3',$tab_spam))
          $cpt_sup=4;
-      if (in_array($ip.":4",$tab_spam))
+      if (in_array($ip.':4',$tab_spam))
          $cpt_sup=5;
    }
    if ($cpt_sup) {
       if ($status=="false") {
-         $tab_spam[array_search($ip.":".($cpt_sup-1),$tab_spam)]=$ip.":".$cpt_sup;
+         $tab_spam[array_search($ip.':'.($cpt_sup-1),$tab_spam)]=$ip.':'.$cpt_sup;
       } else if ($status=="ban") {
-         $tab_spam[array_search($ip.":".($cpt_sup-1),$tab_spam)]=$ip.":5";
+         $tab_spam[array_search($ip.':'.($cpt_sup-1),$tab_spam)]=$ip.':5';
       } else {
-         $tab_spam[array_search($ip.":".($cpt_sup-1),$tab_spam)]="";
+         $tab_spam[array_search($ip.':'.($cpt_sup-1),$tab_spam)]='';
       }
       $maj_fic=true;
    } else {
       if ($status=="false") {
-         $tab_spam[]=$ip.":1";
+         $tab_spam[]=$ip.':1';
          $maj_fic=true;
-      } else if ($status=="ban") {
-         if (!in_array($ip.":5",$tab_spam)) {
-            $tab_spam[]=$ip.":5";
+      } else if ($status=='ban') {
+         if (!in_array($ip.':5',$tab_spam)) {
+            $tab_spam[]=$ip.':5';
             $maj_fic=true;
          }
       }
@@ -2230,22 +2228,28 @@ function ephemblock() {
 #autodoc loginbox() : Bloc Login <br />=> syntaxe : function#loginbox
 function loginbox() {
    global $user;
+   $boxstuff='';
    if (!$user) {
-      $boxstuff  = "<form action=\"user.php\" method=\"post\">";
-      $boxstuff .= "<p align=\"center\">".translate("Nickname")."<br />";
-      $boxstuff .= "<input class=\"inputa\" style=\"width: 90%\" type=\"text\" name=\"uname\" size=\"12\" maxlength=\"25\" /><br />";
-      $boxstuff .= "".translate("Password")."<br />";
-      $boxstuff .= "<input class=\"inputa\" style=\"width: 90%\" type=\"password\" name=\"pass\" size=\"12\" maxlength=\"20\" /><br />";
-      $boxstuff .= "<input type=\"hidden\" name=\"op\" value=\"login\" />";
-      $boxstuff .= "<input class=\"bouton_standard\" type=\"submit\" value=\"".translate("Submit")."\" /><hr class=\"ongl\" noshade=\"noshade\" /></p>";
-      $boxstuff .= translate("Don't have an account yet? You can");
-      $boxstuff .= " <a href=\"user.php\">".translate("create one")."</a>.";
-      $boxstuff .= " ".translate("As registered")."";
-      $boxstuff .= " ".translate("user you have some advantages like theme manager,")."";
-      $boxstuff .= " ".translate("comments configuration and post comments with your name.")."";
-      $boxstuff .= "</form>";
+      $boxstuff = '
+      <form action="user.php" method="post">
+         <div class="form-group">
+            <label for="uname">'.translate("Nickname").'</label>
+            <input class="form-control" type="text" name="uname" maxlength="25" />
+         </div>
+         <div class="form-group">
+            <label for="pass">'.translate("Password").'</label>
+            <input class="form-control" type="password" name="pass" maxlength="20" />
+         </div>
+         <div class="form-group">
+            <input type="hidden" name="op" value="login" />
+            <button class="btn btn-primary" type="submit">'.translate("Submit").'</button>
+         </div>
+         <div class="help-block">
+         '.translate("Don't have an account yet? You can").' <a href="user.php">'.translate("create one").'</a>. '.translate("As registered").' '.translate("user you have some advantages like theme manager,").' '.translate("comments configuration and post comments with your name.").'
+         </div>
+      </form>';
       global $block_title;
-      if ($block_title=="")
+      if ($block_title=='')
          $title=translate("Login box");
       else
          $title=$block_title;
