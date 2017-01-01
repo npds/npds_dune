@@ -14,23 +14,18 @@
 
 function rs_translate($phrase) {
  switch ($phrase) {
-   case "Liste des réseaux sociaux mis à disposition par l'administrateur." : $tmp = ""; break;
-   case "Ajouter ou supprimer votre identifiant à ces réseaux sociaux." : $tmp = ""; break;
+   case "Liste des réseaux sociaux mis à disposition par l'administrateur." : $tmp = "List of social networks provided by the administrator."; break;
+   case "Ajouter ou supprimer votre identifiant à ces réseaux sociaux." : $tmp = "Add or remove your login to these social networks."; break;
    case "Identifiant" : $tmp = "Nickname"; break;
    case "Réseaux sociaux" : $tmp = "Social networks"; break;
-   case "Ceci créera ou supprimera le lien d'accès dans toutes les pages du portail où ils sont disponibles (forums, articles, commentaires, liste des membres, etc) pour tous les utilisateurs." : $tmp = "Infos"; break;
+   case "Ceci créera ou supprimera le lien d'accès dans toutes les pages du portail où ils sont disponibles (forums, articles, commentaires, liste des membres, etc) pour tous les utilisateurs." : $tmp = "This creates or deletes the access link in all the pages of the portal where they are available for all users (forums, articles, comments, list of members, etc)."; break;
    case "Editer" : $tmp = "Edit"; break;
+   case "Effacer" : $tmp = "Delete"; break;
    case "Fonctions" : $tmp = "Functions"; break;
-   case "Name" : $tmp = "Nom"; break;
+   case "Nom" : $tmp = "Name"; break;
    case "Icône" : $tmp = "Icon"; break;
    case "Sauvegarder" : $tmp = "Save"; break;
-   case "Informations sur l'IP" : $tmp = "IP informations"; break;
-   case "Vider le fichier" : $tmp = "Empty the file"; break;
-   case "Recevoir le fichier par mail" : $tmp = "Send file by email"; break;
-   case "Effacer les fichiers temporaires" : $tmp = "Erase temporary files"; break;
-   case "Fichier de Log de" : $tmp = "Log File for"; break;
-   case "Agent utilisateur" : $tmp = "User agent"; break;
-   case "Agent" : $tmp = "Agent"; break;
+   
    default: $tmp = "Translation error [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

@@ -14,21 +14,16 @@
 
 function rs_translate($phrase) {
  switch ($phrase) {
-   case "Liste des Sessions" : $tmp = "Liste der Sessions"; break;
+   case "Liste des réseaux sociaux mis à disposition par l'administrateur." : $tmp = "Liste von sozialen Netzwerken gemacht vom Administrator zur Verfügung."; break;
+   case "Ajouter ou supprimer votre identifiant à ces réseaux sociaux." : $tmp = "Hinzufügen oder Entfernen von Ihren Benutzernamen an diesen sozialen Netzwerken."; break;
+   case "Identifiant" : $tmp = "Nickname"; break;
+   case "Réseaux sociaux" : $tmp = "Soziale Netzwerke"; break;
+   case "Ceci créera ou supprimera le lien d'accès dans toutes les pages du portail où ils sont disponibles (forums, articles, commentaires, liste des membres, etc) pour tous les utilisateurs." : $tmp = "Dies erzeugt oder entfernt den Zugangslink auf allen Seiten des Portals, wo sie verfügbar sind (Foren, Artikel, Kommentare, Mitgliederliste, etc.) für alle Benutzer."; break;
+   case "Editer" : $tmp = "Bearbeiten"; break;
+   case "Fonctions" : $tmp = "Funktionen"; break;
    case "Nom" : $tmp = "Name"; break;
-   case "@ IP" : $tmp = "@IP"; break;
-   case "@ IP résolue" : $tmp = "entschlossen @IP"; break;
-   case "Infos" : $tmp = "Infos"; break;
-   case "Liste des Logs" : $tmp = "Liste der Logs"; break;
-   case "SECURITE" : $tmp = "Sicherheit"; break;
-   case "TELECHARGEMENT" : $tmp = "UPLOAD"; break;
-   case "Gestion des Logs" : $tmp = "Log-Management"; break;
-   case "Fournisseur" : $tmp = "FAI"; break;
-   case "Informations sur l'IP" : $tmp = "Informationen ¸ber IP"; break;
-   case "Vider le fichier" : $tmp = "Leere Datei"; break;
-   case "Recevoir le fichier par mail" : $tmp = "Erhalten Sie die Datei per E-Mail"; break;
-   case "Effacer les fichiers temporaires" : $tmp = "Temporäre Dateien löschen"; break;
-   case "Fichier de Log de" : $tmp = "Log-Datei für"; break;
+   case "Icône" : $tmp = "Icon"; break;
+   case "Sauvegarder" : $tmp = "Speichern"; break;
 
    default: $tmp = "Es gibt keine Übersetzung [** $phrase **]"; break;
  }

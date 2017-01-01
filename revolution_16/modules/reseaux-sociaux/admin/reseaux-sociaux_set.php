@@ -149,7 +149,7 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    $content .= "/* version 1.0 17/02/2016                                               */\n";
    $content .= "/************************************************************************/\n";
    $content .= "// Do not change if you dont know what you do ;-)\n";
-   $content .= "// \$rs=[['rs name','rs url',rs class fontawesome for rs icon],...\n";
+   $content .= "// \$rs=[['rs name','rs url',rs class fontawesome for rs icon],[...]]\n";
    $content .= "\$rs = [\n";
    $li='';
    foreach ($newrs as $v1) {

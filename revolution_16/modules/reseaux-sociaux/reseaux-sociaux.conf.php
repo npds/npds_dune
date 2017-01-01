@@ -18,11 +18,10 @@
 /* version 1.0 17/02/2016                                               */
 /************************************************************************/
 // Do not change if you dont know what you do ;-)
-// $rs=[['rs name','rs url',rs class fontawesome for rs icon],...
+// $rs=[['rs name','rs url',rs class fontawesome for rs icon],[...]]
 $rs = [
 ['facebook','https://facebook.com/','facebook'],
 ['twitter','https://twitter.com/','twitter'],
-['skype','ddddd','skype'],
 ['google+','https://plus.google.com/','google-plus'],
 ['snapchat','https://www.snapchat.com/','snapchat'],
 ['linkedin','https://www.linkedin.com/in/','linkedin-square'],
