@@ -105,7 +105,7 @@ if (isset($submitS)) {
       //anti_spambot
       if (isset($asb_question) and isset($asb_reponse)) {
          if (!R_spambot($asb_question, $asb_reponse, $message)) {
-            Ecr_Log('security', "Forum Anti-Spam : forum=".$forum." / topic=".$topic, "");
+            Ecr_Log('security', "Forum Anti-Spam : forum=".$forum." / topic=".$topic, '');
             redirect_url("$url_ret");
             die();
          }
@@ -209,7 +209,6 @@ if (isset($submitS)) {
         if (!isset($reply)) {$reply=$message;}
 
    echo '
-      
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
@@ -332,8 +331,7 @@ if (isset($submitS)) {
             if (stristr($message,'<a href')) {
                $message=preg_replace('#_blank(")#i','_blank\1 class=\1 \1',$message);
             }
-//            $message=split_string_without_space($message, 80);
-            $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), $message);
+            $message = str_replace('[addsig]', '<br /><br />' . nl2br($posterdata['user_sig']), $message);
             echo $message.'<br />';
          }
       }
