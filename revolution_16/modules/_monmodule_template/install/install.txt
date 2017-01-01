@@ -1,0 +1,36 @@
+/************************************************************************/
+/* NPDS : Net Portal Dynamic System                                     */
+/* ================================                                     */
+/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
+/************************************************************************/
+/* Original Copyright (c) [ ANNEE ] Par [ NOM DU DEVELOPPEUR ]          */
+/* Module   : [ NOM DU MODULE ]                                         */
+/* Auteur   : [ NOM DU DEVELOPPEUR ]                                    */
+/* Mail     : [ MAIL DU DEVELOPPEUR ]                                   */
+/* Site     : [ SITE DU DEVELOPPEUR ]                                   */
+/************************************************************************/
+/* MODULE DEVELOPPE POUR NPDS VERSION [ VERSION DU CORE NPDS ]          */
+/************************************************************************/
+/* [ ACTION ( Correction, MaJ, ...) ] Par [ NOM ] le [ ANNEE ]          */
+/************************************************************************/
+/* This NPDS modules is free software. You can redistribute it          */
+/* and/or modify it under the terms of the GNU General Public License   */
+/* as published by the Free Software Foundation; either version 2 of    */
+/* the License.                                                         */
+/************************************************************************/
+
+/* DESCRIPTIF FONCTIONNEL DU MODULE */
+
+/* INSTALLATION DU MODULE */
+Automatique via Module-Install (Admin/Gestion installation des modules)
+ou 
+Manuelle:
+
+/* LANCEMENT DU MODULE */
+Via une url de type : 
+/modules.php?ModPath=monmodule&ModStart=monmodule
+
+/* ADMINISTRATION DU MODULE */
+ Via l'administration des Plugins - Exemple 
+
+/* BLOCK (S) DU MODULE */
