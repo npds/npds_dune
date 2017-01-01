@@ -55,31 +55,19 @@ function ListReseaux($ModPath, $ModStart) {
    <div class="help-block">'.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'</div>
    <hr />
    <h3><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux"><i class="fa fa-edit fa-lg"></i></a>&nbsp;'.rs_translate("Editer").'</h3>
-   <table id ="lst_res_soc" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
-      <thead>
-         <tr>
-            <th data-sortable="true" data-halign="center" data-align="right">'.rs_translate("Nom").'</th>
-            <th data-halign="center" data-align="center">'.rs_translate("Icône").'</th>
-            <th data-halign="center" data-align="right">'.rs_translate("Fonctions").'</th>
-         </tr>
-      </thead>
-      <tbody>';
-
+ <div class="row mt-1">';
    foreach ($rs as $v1) {
         echo '
-         <tr>
-            <td>'.$v1[0].'</td>
-            <td><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></td>
-            <td>
-               <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux" ><i class="fa fa-edit fa-lg" title="'.rs_translate("Editer").'" data-toggle="tooltip"></i></a>
-            </td>
-        </tr>';
+         <div class="col-sm-3 col-xs-6">
+            <div class="card">
+               <div class="card-block text-xs-center">
+               <i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></br>'.$v1[0].'
+               </div>
+            </div>
+        </div>';
    }
-   
-   
    echo '
-      </tbody>
-   </table>';
+      </div>';
    include("footer.php");
 }
 
