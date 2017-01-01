@@ -14,21 +14,17 @@
 
 function rs_translate($phrase) {
  switch ($phrase) {
-   case "Liste des Sessions" : $tmp = "Sessions List"; break;
-   case "Nom" : $tmp = "Name"; break;
-   case "@ IP" : $tmp = "@IP"; break;
-   case "@ IP résolue" : $tmp = "Resolved @IP"; break;
-   case "Infos" : $tmp = "Infos"; break;
-   case "Liste des Logs" : $tmp = "Logs List"; break;
-   case "SECURITE" : $tmp = "SECURITY"; break;
-   case "TELECHARGEMENT" : $tmp = "UPLOAD"; break;
-   case "Gestion des Logs" : $tmp = "Logs' administration"; break;
-   case "Fournisseur" : $tmp = "FAI"; break;
-   case "Informations sur l'IP" : $tmp = "IP informations"; break;
-   case "Vider le fichier" : $tmp = "Empty the file"; break;
-   case "Recevoir le fichier par mail" : $tmp = "Send file by email"; break;
-   case "Effacer les fichiers temporaires" : $tmp = "Erase temporary files"; break;
-   case "Fichier de Log de" : $tmp = "Log File for"; break;
+   case "Liste des réseaux sociaux mis à disposition par l'administrateur." : $tmp = "由管理员提供的社交网络的列表。"; break;
+   case "Ajouter ou supprimer votre identifiant à ces réseaux sociaux." : $tmp = "添加或删除您的登录这些社交网络。"; break;
+   case "Identifiant" : $tmp = "昵称"; break;
+   case "Réseaux sociaux" : $tmp = "社交网络"; break;
+   case "Ceci créera ou supprimera le lien d'accès dans toutes les pages du portail où ils sont disponibles (forums, articles, commentaires, liste des membres, etc) pour tous les utilisateurs." : $tmp = "This creates or deletes the access link in all the pages of the portal where they are available for all users (forums, articles, comments, list of members, etc)."; break;
+   case "Editer" : $tmp = "编辑"; break;
+   case "Effacer" : $tmp = "删除"; break;
+   case "Fonctions" : $tmp = "功能"; break;
+   case "Nom" : $tmp = "姓名"; break;
+   case "Icône" : $tmp = "图标"; break;
+   case "Sauvegarder" : $tmp = "保存"; break;
 
    default: $tmp = "需要翻译稿 [** $phrase **]"; break;
  }

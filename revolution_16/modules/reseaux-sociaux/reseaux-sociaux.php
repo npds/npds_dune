@@ -52,20 +52,19 @@ function ListReseaux($ModPath, $ModStart) {
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
    <h3 class="mt-1">'.rs_translate("Réseaux sociaux").'</h3>
+   <div class="help-block">'.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'</div>
    <hr />
    <h3><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux"><i class="fa fa-edit fa-lg"></i></a>&nbsp;'.rs_translate("Editer").'</h3>
-'.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'
-
    <table id ="lst_res_soc" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" data-align="right">'.rs_translate("Name").'</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.rs_translate("Nom").'</th>
             <th data-halign="center" data-align="center">'.rs_translate("Icône").'</th>
             <th data-halign="center" data-align="right">'.rs_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
-      
+
    foreach ($rs as $v1) {
         echo '
          <tr>
@@ -102,8 +101,29 @@ function EditReseaux($ModPath, $ModStart) {
       }
 
    echo '
-   <h3>'.rs_translate("Réseaux sociaux").'</h3>
+
+      <h2>'.translate("User").'</h2>
+
+   <ul class="nav nav-tabs"> 
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
+   include ("modules/upload/upload.conf.php");
+   if (($mns) and ($autorise_upload_p)) {
+      include ("modules/blog/upload_minisite.php");
+      $PopUp=win_upload("popup");
+      echo '
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
+   }
+   echo '
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Page").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Theme").'</span></a></li>
+      <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Social networks").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+   </ul>
+   <h3 class="mt-1">'.rs_translate("Réseaux sociaux").'</h3>
    <div>
+   <div class="help-block">'.rs_translate("Ajouter ou supprimer votre identifiant à ces réseaux sociaux.").'</div>
    <hr />
    <form id="reseaux_user" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=SaveSetReseaux" method="post">';
    $i=0;
@@ -159,7 +179,7 @@ function SaveSetReseaux($ModPath, $ModStart) {
    $li_rs='';
    foreach ($_POST['rs'] as $v1){
       if($v1['uid']!=='')
-      $li_rs.=$v1['id'].'|'.$v1['uid'].';';
+         $li_rs.=$v1['id'].'|'.$v1['uid'].';';
    }
    $li_rs=rtrim($li_rs,';');
    $li_rs=removeHack(stripslashes(FixQuotes($li_rs)));

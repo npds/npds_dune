@@ -14,21 +14,16 @@
 
 function rs_translate($phrase) {
  switch ($phrase) {
-   case "Liste des Sessions" : $tmp = "Lista de Sessions"; break;
+   case "Liste des réseaux sociaux mis à disposition par l'administrateur." : $tmp = "Lista de redes sociales a su disposición por el administrador."; break;
+   case "Ajouter ou supprimer votre identifiant à ces réseaux sociaux." : $tmp = "Añadir o quitar su nombre de usuario para estas redes sociales."; break;
+   case "Identifiant" : $tmp = "Nombre de usuario"; break;
+   case "Réseaux sociaux" : $tmp = "Redes sociales"; break;
+   case "Ceci créera ou supprimera le lien d'accès dans toutes les pages du portail où ils sont disponibles (forums, articles, commentaires, liste des membres, etc) pour tous les utilisateurs." : $tmp = "Esto creará o eliminar el enlace de acceso en todas las páginas del portal donde están disponibles para todos los usuarios (foros, artículos, comentarios, lista de miembros, etc.)."; break;
+   case "Editer" : $tmp = "Editar"; break;
+   case "Fonctions" : $tmp = "Funciones"; break;
    case "Nom" : $tmp = "Nombre"; break;
-   case "@ IP" : $tmp = "@IP"; break;
-   case "@ IP résolue" : $tmp = "Resuelto @IP"; break;
-   case "Infos" : $tmp = "Infos"; break;
-   case "Liste des Logs" : $tmp = "Lista de Logs"; break;
-   case "SECURITE" : $tmp = "SEGURIDAD"; break;
-   case "TELECHARGEMENT" : $tmp = "SUBIR"; break;
-   case "Gestion des Logs" : $tmp = "Gestión de Logs"; break;
-   case "Fournisseur" : $tmp = "FAI"; break;
-   case "Informations sur l'IP" : $tmp = "Información IP"; break;
-   case "Vider le fichier" : $tmp = "Fichero vacío"; break;
-   case "Recevoir le fichier par mail" : $tmp = "Recibir el fichero por email"; break;
-   case "Effacer les fichiers temporaires" : $tmp = "Eliminar ficheros temporales"; break;
-   case "Fichier de Log de" : $tmp = "Fichero Log de"; break;
+   case "Icône" : $tmp = "Icono"; break;
+   case "Sauvegarder" : $tmp = "Guardar"; break;
 
    default: $tmp = "Necesita una traducción [** $phrase **]"; break;
  }
