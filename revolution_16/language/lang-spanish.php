@@ -347,11 +347,11 @@ function translate_pass1($phrase) {
    case "You are not allowed to post in this forum": $tmp="No esta autorizado a participar en este Foro"; break;
    case "back": $tmp="Volver"; break;
    case "Subject: ": $tmp="Titulo : "; break;
-   case "Message Icon: ": $tmp="Icono del mensaje : "; break;
-   case "Message: ": $tmp="Mensaje : "; break;
+   case "Message Icon": $tmp="Icono del mensaje : "; break;
+   case "Message": $tmp="Mensaje"; break;
    case "On": $tmp="Activado"; break;
    case "Off": $tmp="Desactivado"; break;
-   case "Options: ": $tmp="Opciones : "; break;
+   case "Options": $tmp="Opciones"; break;
    case "Disable HTML on this Post": $tmp="Desactivar el c&oacute;digo HTML para este env&iacute;o"; break;
    case "This can be altered or added in your profile": $tmp="Esto se puede cambiar en su perfil"; break;
    case "Notify by email when replies are posted": $tmp="Notificar por correo electr&oacute;nico cuando nuevas contribuciones ser&aacute;n a&ntilde;adidas"; break;
@@ -995,8 +995,41 @@ function translate_pass1($phrase) {
    case "/": $tmp="dividir por"; break;
    case "*": $tmp="multiplicado por"; break;
    case "Ban this @IP": $tmp="Prohibici&oacute;n de la @IP"; break;
-   // WS
- 
+   case "New Topic": $tmp="Nuevo tema"; break;
+   case "Recipient": $tmp="Destinatario"; break;
+   case "Registration": $tmp="Inscripci&#xF3;n"; break;
+   case "Smilies": $tmp="Emoticones"; break;
+   case "Bold": $tmp="Negrita"; break;
+   case "Italic": $tmp="It&#xE1;lica"; break;
+   case "Underline": $tmp="Subrayado"; break;
+   case "Text align-left": $tmp="Alineaci&#xF3;n de texto a la izquierda"; break;
+   case "Text center": $tmp="Texto centrado"; break;
+   case "Text align-right": $tmp="Alineaci&#xF3;n de texto a la derecha"; break;
+   case "Text justified": $tmp="Texto justificado"; break;
+   case "Unordered list": $tmp="Lista desordenada"; break;
+   case "Ordered list": $tmp="Lista ordenada"; break;
+   case "Web link": $tmp="Web links"; break;
+   case "Table": $tmp="Tabla"; break;
+   case "Code": $tmp="C&#xF3;digo"; break;
+   case "Youtube video": $tmp="Youtube video"; break;
+   case "Hide this post": $tmp="Ocultar este mensaje"; break;
+   case "Show this post": $tmp="Mostrar este mensaje"; break;
+   case "Read": $tmp="Le&#xED;do"; break;
+   case "Choose a folder/topic": $tmp="Elegir carpeta / sujeto"; break;
+   case "Write a new Private Message": $tmp="Escribir un nuevo mensaje privado"; break;
+   case "Private Messages": $tmp="Mensajes personales"; break;
+   case "Contributors": $tmp="Colaboradores"; break;
+   case "Bottom page": $tmp="P&#xE1;gina inferior"; break;
+   case "Topic status": $tmp="Estado del tema"; break;
+   case "Print": $tmp="Imprimir"; break;
+   case "Your request": $tmp="Su b&#xFA;squeda"; break;
+   case "Sender": $tmp="Remitente"; break;
+   case "Delete comments.": $tmp="Eliminar comentarios."; break;
+   case "Hide this comment": $tmp="Ocultar este comentario"; break;
+   case "Show this comment": $tmp="Mostrar este comentario"; break;
+   case "Icon": $tmp="Icono"; break;
+   case "Social networks": $tmp="Redes sociales"; break;
+   case "Select one skin": $tmp="Elegir un tema gr&#xE1;fico"; break; 
    default: $tmp = "Necesita una traducci&oacute;n <b>[** $phrase **]</b>"; break;
  }
  return $tmp;

@@ -971,12 +971,12 @@ function translate_pass1($phrase) {
    case "Bold": $tmp="Gras"; break;
    case "Italic": $tmp="Italique"; break;
    case "Underline": $tmp="Souligné"; break;
-   case "Text align-left": $tmp="Text aligné à droite"; break;
+   case "Text align-left": $tmp="Text aligné à gauche"; break;
    case "Text center": $tmp="Text centré"; break;
-   case "Text align-right": $tmp="Text aligné à gauche"; break;
+   case "Text align-right": $tmp="Text aligné à droite"; break;
    case "Text justified": $tmp="Text justifié"; break;
-   case "Unordered list": $tmp="Liste ordonnnée"; break;
-   case "Ordered list": $tmp="Liste non ordonnnée"; break;
+   case "Unordered list": $tmp="Liste non ordonnnée"; break;
+   case "Ordered list": $tmp="Liste ordonnnée"; break;
    case "Web link": $tmp="Lien web"; break;
    case "Table": $tmp="Tableau"; break;
    case "Code": $tmp="Code"; break;
@@ -985,7 +985,7 @@ function translate_pass1($phrase) {
    case "Show this post": $tmp="Afficher ce post"; break;
    case "Read": $tmp="Lu"; break;
    case "Choose a folder/topic": $tmp="Choisir un dossier/sujet"; break;
-   case "Write a new Private Message": $tmp="Ecrire un nouveau message privé;"; break;
+   case "Write a new Private Message": $tmp="Ecrire un nouveau message privé"; break;
    case "Private Messages": $tmp="Messages personnels"; break;
    case "Contributors": $tmp="Contributeurs"; break;
    case "Bottom page": $tmp="Bas de page"; break;
@@ -998,7 +998,7 @@ function translate_pass1($phrase) {
    case "Show this comment": $tmp="Afficher ce commentaire"; break;
    case "Icon": $tmp="Icone"; break;
    case "Social networks": $tmp="Réseaux sociaux"; break;
-   case "Select one skin": $tmp="Choisir une chartre graphique"; break;
+   case "Select one skin": $tmp="Choisir une charte graphique"; break;
    
    default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }

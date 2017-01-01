@@ -346,11 +346,11 @@ function translate_pass1($phrase) {
    case "You are not allowed to post in this forum": $tmp="Sie haben keine Berechtigungen für dieses Forum."; break;
    case "back": $tmp="zurück"; break;
    case "Subject: ": $tmp="Titel : "; break;
-   case "Message Icon: ": $tmp="Icon für die Nachricht : "; break;
-   case "Message: ": $tmp="Nachricht : "; break;
+   case "Message Icon": $tmp="Icon für die Nachricht"; break;
+   case "Message": $tmp="Nachricht"; break;
    case "On": $tmp="Aktiviert"; break;
    case "Off": $tmp="Deaktiviert"; break;
-   case "Options: ": $tmp="Optionen : "; break;
+   case "Options": $tmp="Optionen"; break;
    case "Disable HTML on this Post": $tmp="Deaktivieren Sie HTML für diesen Post"; break;
    case "This can be altered or added in your profile": $tmp="Das kann in Ihrem Profil geändert, oder hinzugefügt werden."; break;
    case "Notify by email when replies are posted": $tmp="Benachrichtigen Sie mich per E-mail, wenn neue Antworten eingehen"; break;
@@ -992,9 +992,43 @@ function translate_pass1($phrase) {
    case "/": $tmp="geteilt durch"; break;
    case "*": $tmp="multipliziert mit"; break;
    case "Ban this @IP": $tmp="Diese @IP bannen"; break;
-   // WS
+   case "New Topic": $tmp="Neues Thema"; break;
+   case "Recipient": $tmp="EmpfŠnger"; break;
+   case "Registration": $tmp="Registrierung"; break;
+   case "Smilies": $tmp="Emoticons"; break;
+   case "Bold": $tmp="Fetter"; break;
+   case "Italic": $tmp="Kursiv"; break;
+   case "Underline": $tmp="Unterstrichen"; break;
+   case "Text align-left": $tmp="Text links ausrichten"; break;
+   case "Text center": $tmp="Textmitte"; break;
+   case "Text align-right": $tmp="Text rechts ausrichten"; break;
+   case "Text justified": $tmp="Text gerechtfertigt"; break;
+   case "Unordered list": $tmp="Geordnete Liste"; break;
+   case "Ordered list": $tmp="Ungeordnete Liste"; break;
+   case "Web link": $tmp="Weblink"; break;
+   case "Table": $tmp="Tabelle"; break;
+   case "Code": $tmp="Code"; break;
+   case "Youtube video": $tmp="Youtube-Video"; break;
+   case "Hide this post": $tmp="Diesen Beitrag ausblenden"; break;
+   case "Show this post": $tmp="Diesen Beitrag anzeigen"; break;
+   case "Read": $tmp="Lesen"; break;
+   case "Choose a folder/topic": $tmp="Wählen Sie einen Ordner / Thema"; break;
+   case "Write a new Private Message": $tmp="Neue private Nachricht schreiben"; break;
+   case "Private Messages": $tmp="Private Nachrichten"; break;
+   case "Contributors": $tmp="Mitarbeiter"; break;
+   case "Bottom page": $tmp="Unterseite"; break;
+   case "Topic status": $tmp="Themenstatus"; break;
+   case "Print": $tmp="Drucken"; break;
+   case "Your request": $tmp="Ihre Anfrage"; break;
+   case "Sender": $tmp="Absender"; break;
+   case "Delete comments.": $tmp="Kommentare löschen."; break;
+   case "Hide this comment": $tmp="Verbergen Sie diesen Kommentar"; break;
+   case "Show this comment": $tmp="Diesen Kommentar anzeigen"; break;
+   case "Icon": $tmp="Icon"; break;
+   case "Social networks": $tmp="Soziale Netzwerke"; break;
+   case "Select one skin": $tmp="Wählen Sie ein Thema Grafik"; break;
 
-   default: $tmp = "Es gibt keine Übersetzung <b>[** $phrase **]</b>"; break;
+   default: $tmp = "Es gibt keine Übersetzung <strong>[** $phrase **]</strong>"; break;
  }
  return $tmp;
 }
