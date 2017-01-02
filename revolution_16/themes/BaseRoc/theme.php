@@ -2,7 +2,7 @@
 /************************************************************************/
 /* Theme for NPDS / Net Portal Dynamic System                           */
 /* =====================================================================*/
-/*        Theme : jpb Jireck Bmag     BaseRoc                                                                */
+/*        Theme : jpb Jireck Bmag     BaseRoc                           */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */

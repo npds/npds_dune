@@ -1,6 +1,6 @@
 <?php
 /************************************************************************/
-/* DUNE by NPDS        bootsbmag                                                 */
+/* DUNE by NPDS        bootsbmag                                        */
 /* ===========================                                          */
 /*                                                                      */
 /* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
