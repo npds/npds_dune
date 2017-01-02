@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -75,7 +75,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    "'!N_titre!'i"=>$title,
    "'!N_texte!'i"=>$thetext,
    "'!N_id!'i"=>$id,
-   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$timage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" border=\"0\" /></a>",
+   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$timage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" /></a>",
    "'!N_note!'i"=>$notes,
    "'!N_nb_lecture!'i"=>$counter,
    "'!N_suite!'i"=>$morel
@@ -102,11 +102,11 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    $Xcontent=ob_get_contents();
    ob_end_clean();
    if ($previous_sid) {
-      $prevArt="<a href=\"article.php?sid=".$previous_sid."&amp;archive=$archive\" class=\"noir\">".translate("Previous")."</a>";
+      $prevArt="<a href=\"article.php?sid=".$previous_sid."&amp;archive=$archive\" >".translate("Previous")."</a>";
       if ($next_sid) {$prevArt.="&nbsp;|&nbsp;";}
    }
    else $prevArt='';
-   if ($next_sid) {$nextArt="<a href=\"article.php?sid=".$next_sid."&amp;archive=$archive\"  class=\"noir\">".translate("Next")."</a>";}
+   if ($next_sid) {$nextArt="<a href=\"article.php?sid=".$next_sid."&amp;archive=$archive\" >".translate("Next")."</a>";}
    else $nextArt='';
 
    if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }

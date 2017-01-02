@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -68,10 +68,10 @@ function Caff_pub($topic, $file_name, $archive) {
    if ($total > $comments_per_page) {
       $times = 1; $current_page=0;
       echo '
-      <div id="fo-postpagi">
+      <div id="co-pagihaute">
          <ul class="pagination pagination-sm">
             <li class="page-item">
-               <a class="page-link" href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
+               <a class="page-link" href="#co-pagibasse"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
             </li>
             <li class="page-item disabled">
                <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
@@ -236,10 +236,10 @@ if ($mycount) {
 
    if ($total > $comments_per_page) {
       echo '
-   <nav>
+   <nav id="co-pagibasse">
       <ul class="pagination pagination-sm">
          <li class="page-item">
-            <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+            <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
          </li>
          <li class="page-item disabled">
             <a class="page-link" href="#">'.translate("Goto Page").'</a>

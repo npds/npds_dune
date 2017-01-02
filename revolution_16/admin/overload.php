@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,7 +24,7 @@ function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt
     $content .= "$line";
     $content .= "/* DUNE by NPDS / SUPER-CACHE engine                                    */\n";
     $content .= "/*                                                                      */\n";
-    $content .= "/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */\n";
+    $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
     $content .= "/*                                                                      */\n";
     $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
     $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -182,14 +182,14 @@ switch ($op) {
       save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules);
       global $aid; Ecr_Log('security', "ChangeSuperCache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules) by AID : $aid", '');
       Header("Location: admin.php?op=supercache");
-      break;
+   break;
    case 'supercache_empty':
       SC_clean();
       global $aid; Ecr_Log('security', "EmptySuperCache() by AID : $aid", '');
       Header("Location: admin.php?op=supercache");
-      break;
+   break;
    default:
       main();
-      break;
+   break;
 }
 ?>

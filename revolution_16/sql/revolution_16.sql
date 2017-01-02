@@ -3,7 +3,7 @@ CREATE TABLE access (
   access_id int(10) NOT NULL AUTO_INCREMENT,
   access_title varchar(20) DEFAULT NULL,
   PRIMARY KEY (access_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO access (access_id, access_title) VALUES(1, 'User');
 INSERT INTO access (access_id, access_title) VALUES(2, 'Moderator');
@@ -12,7 +12,7 @@ INSERT INTO access (access_id, access_title) VALUES(3, 'Super Moderator');
 CREATE TABLE adminblock (
   title varchar(250) DEFAULT NULL,
   content text
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO adminblock (title, content) VALUES
 ('Administration', '<ul><li><a href="admin.php"><i class="fa fa-sign-in fa-2x"></i> Administration</a></li><li><a href="admin.php?op=logout" class=" text-danger"><i class="fa fa-sign-out fa-2x"></i> Logout</a></li></ul>');
@@ -27,7 +27,7 @@ CREATE TABLE appli_log (
   al_ip varchar(19) NOT NULL DEFAULT '',
   al_hostname varchar(255) DEFAULT NULL,
   KEY al_id (al_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO appli_log VALUES (1, 'Poll', 2, '2012-07-15 13:35:32', 1, '2', '1.1.76.115', '');
 
@@ -41,7 +41,7 @@ CREATE TABLE authors (
   radminfilem tinyint(2) NOT NULL DEFAULT '0',
   radminsuper tinyint(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (aid)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 INSERT INTO authors (aid, name, url, email, pwd, counter, radminfilem, radminsuper) VALUES ('Root', 'Root', '', 'root@npds.org', 'd.8V.L9nSMMvE', 0, 0, 1);
 
 CREATE TABLE autonews (
@@ -60,7 +60,7 @@ CREATE TABLE autonews (
   date_finval datetime DEFAULT NULL,
   auto_epur tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (anid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE banner (
   bid int(11) NOT NULL AUTO_INCREMENT,
@@ -73,7 +73,7 @@ CREATE TABLE banner (
   userlevel int(1) NOT NULL DEFAULT '0',
   date datetime DEFAULT NULL,
   PRIMARY KEY (bid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE bannerclient (
   cid int(11) NOT NULL AUTO_INCREMENT,
@@ -84,7 +84,7 @@ CREATE TABLE bannerclient (
   passwd varchar(10) NOT NULL DEFAULT '',
   extrainfo text NOT NULL,
   PRIMARY KEY (cid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE bannerfinish (
   bid int(11) NOT NULL AUTO_INCREMENT,
@@ -94,13 +94,13 @@ CREATE TABLE bannerfinish (
   datestart datetime DEFAULT NULL,
   dateend datetime DEFAULT NULL,
   PRIMARY KEY (bid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE catagories (
   cat_id int(10) NOT NULL AUTO_INCREMENT,
   cat_title text,
   PRIMARY KEY (cat_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO catagories VALUES (1, 'Demo');
 
@@ -112,12 +112,12 @@ CREATE TABLE chatbox (
   id int(10) DEFAULT '0',
   dbname tinyint(4) DEFAULT '0',
   PRIMARY KEY (date)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE compatsujet (
   id1 varchar(30) NOT NULL DEFAULT '',
   id2 int(30) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE config (
   allow_html int(2) DEFAULT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE config (
   rank5 varchar(255) DEFAULT NULL,
   anti_flood char(3) DEFAULT NULL,
   solved int(2) unsigned NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO config VALUES (1, 1, 1, 10, 10, 10, 0, 0, 'forum_attachments', NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
@@ -146,7 +146,7 @@ CREATE TABLE counter (
   var varchar(80) NOT NULL DEFAULT '',
   count int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id_stat)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO counter (id_stat, type, var, count) VALUES(1, 'total', 'hits', 0);
 INSERT INTO counter (id_stat, type, var, count) VALUES(2, 'browser', 'WebTV', 0);
@@ -186,7 +186,7 @@ CREATE TABLE downloads (
   ddescription text,
   perms tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (did)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE droits (
   d_aut_aid varchar(40) NOT NULL COMMENT 'id administrateur',
@@ -201,7 +201,7 @@ CREATE TABLE ephem (
   yid int(4) NOT NULL DEFAULT '0',
   content text NOT NULL,
   PRIMARY KEY (eid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE faqanswer (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -209,13 +209,13 @@ CREATE TABLE faqanswer (
   question varchar(255) DEFAULT NULL,
   answer text,
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE faqcategories (
   id_cat tinyint(3) NOT NULL AUTO_INCREMENT,
   categories varchar(255) DEFAULT NULL,
   PRIMARY KEY (id_cat)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE fonctions (
   fid mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id unique auto incrémenté',
@@ -298,7 +298,7 @@ CREATE TABLE forums (
   attachement tinyint(1) unsigned NOT NULL DEFAULT '0',
   forum_index int(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (forum_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO forums VALUES (1, 'Demo', '', 0, '2', 1, 0, '', 0, 0, 0);
 INSERT INTO forums VALUES (2, 'Arbre', 'un forum &agrave; l''ancienne forme', 0, '2', 1, 0, '', 1, 0, 0);
@@ -317,7 +317,7 @@ CREATE TABLE forumtopics (
   PRIMARY KEY (topic_id),
   KEY forum_id (forum_id),
   KEY topic_first (topic_first,topic_time)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO forumtopics VALUES (1, 'Demo', 2, '2012-03-05 22:36:00', 27, 1, 0, 0, 2, 1);
 INSERT INTO forumtopics VALUES (2, 'Message 1', 1, '2013-05-14 22:55:00', 8, 2, 0, 0, 1, 1);
@@ -342,7 +342,7 @@ CREATE TABLE forum_attachments (
   KEY apli (apli),
   KEY visible (visible),
   KEY forum_id (forum_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE forum_read (
@@ -357,7 +357,7 @@ CREATE TABLE forum_read (
   KEY forum_id (forum_id),
   KEY uid (uid),
   KEY forum_read_mcl (forum_id,uid,topicid,status)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO forum_read VALUES (1, 2, 2, 2, 1383416155, 1);
 INSERT INTO forum_read VALUES (2, 1, 1, 2, 1383418761, 1);
@@ -372,7 +372,7 @@ CREATE TABLE groupes (
   groupe_blocnote int(1) unsigned NOT NULL DEFAULT '0',
   groupe_pad int(1) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY groupe_id (groupe_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE headlines (
   hid int(11) NOT NULL AUTO_INCREMENT,
@@ -381,7 +381,7 @@ CREATE TABLE headlines (
   headlinesurl varchar(200) NOT NULL DEFAULT '',
   status tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (hid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO headlines VALUES (1, 'NPDS', 'http://www.npds.org', 'http://www.npds.org/backend.php', 0);
 INSERT INTO headlines VALUES (2, 'Modules', 'http://modules.npds.org', 'http://modules.npds.org/backend.php', 0);
@@ -399,7 +399,7 @@ CREATE TABLE lblocks (
   aide mediumtext,
   PRIMARY KEY (id),
   KEY Lindex (Lindex)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO lblocks VALUES (1, 'Un Bloc ...', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
 INSERT INTO lblocks VALUES (2, 'Menu', 'function#mainblock', '0', 1, 86400, 1, 0, 'Ce menu contient presque toutes les fonctions de base disponibles dans NPDS');
@@ -418,7 +418,7 @@ CREATE TABLE links_categories (
   title varchar(250) DEFAULT NULL,
   cdescription text NOT NULL,
   PRIMARY KEY (cid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO links_categories VALUES (1, 'Mod&eacute;le', '');
 
@@ -429,7 +429,7 @@ CREATE TABLE links_editorials (
   editorialtext text NOT NULL,
   editorialtitle varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (linkid)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE links_links (
   lid int(11) NOT NULL AUTO_INCREMENT,
@@ -448,7 +448,7 @@ CREATE TABLE links_links (
   totalcomments int(11) NOT NULL DEFAULT '0',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (lid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE links_modrequest (
   requestid int(11) NOT NULL AUTO_INCREMENT,
@@ -462,7 +462,7 @@ CREATE TABLE links_modrequest (
   brokenlink int(3) NOT NULL DEFAULT '0',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (requestid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE links_newlink (
   lid int(11) NOT NULL AUTO_INCREMENT,
@@ -476,14 +476,14 @@ CREATE TABLE links_newlink (
   submitter varchar(60) NOT NULL DEFAULT '',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (lid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE links_subcategories (
   sid int(11) NOT NULL AUTO_INCREMENT,
   cid int(11) NOT NULL DEFAULT '0',
   title varchar(250) DEFAULT NULL,
   PRIMARY KEY (sid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE lnl_body (
   ref int(11) NOT NULL AUTO_INCREMENT,
@@ -491,7 +491,7 @@ CREATE TABLE lnl_body (
   text text,
   status char(3) NOT NULL DEFAULT 'stb',
   PRIMARY KEY (ref)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE lnl_head_foot (
   ref int(11) NOT NULL AUTO_INCREMENT,
@@ -500,7 +500,7 @@ CREATE TABLE lnl_head_foot (
   text text,
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE lnl_outside_users (
   email varchar(60) NOT NULL DEFAULT '',
@@ -508,7 +508,7 @@ CREATE TABLE lnl_outside_users (
   date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (email)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE lnl_send (
   ref int(11) NOT NULL AUTO_INCREMENT,
@@ -520,12 +520,12 @@ CREATE TABLE lnl_send (
   date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE mainblock (
   title varchar(255) DEFAULT NULL,
   content text
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO mainblock VALUES ('Menu', '<ul><li><a href="modules.php?ModPath=archive-stories&ModStart=archive-stories">Nouvelles</a></li><li><a href="forum.php">Forums</a></li><li><a href="sections.php">Rubriques</a></li><li><a href="topics.php">Sujets actifs</a></li><li><a href="modules.php?ModPath=links&ModStart=links">Liens Web</a></li><li><a href="download.php">Downloads</a></li><li><a href="faq.php">FAQ</a></li><li><a href="static.php?op=statik.txt&npds=1">Page statique</a></li><li><a href="reviews.php">Critiques</a></li><li><a href="memberslist.php">Annuaire</a></li><li><a href="map.php">Plan du site</a></li></ul><ul><li><a href="friend.php">Faire notre pub</a></li><li><a href="user.php">Votre compte</a></li><li><a href="submit.php">Nouvel article</a></li></ul><ul><li><a href="admin.php">Administration</a></li></ul>');
 
@@ -539,7 +539,7 @@ CREATE TABLE metalang (
   obligatoire char(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (def),
   KEY type_meta (type_meta)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('Dev', 'Developpeur', 'mot', '-', NULL, NULL, '0');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('NPDS', '<a href="http://www.npds.org" target="_blank" title="www.npds.org">NPDS</a>', 'mot', '-', NULL, NULL, '1');
@@ -694,7 +694,7 @@ CREATE TABLE modules (
   minstall int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (mid),
   KEY mnom (mnom)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE optimy (
   optid int(11) NOT NULL AUTO_INCREMENT,
@@ -703,7 +703,7 @@ CREATE TABLE optimy (
   opthour varchar(8) DEFAULT NULL,
   optcount int(11) DEFAULT '0',
   PRIMARY KEY (optid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE poll_data (
   pollID int(11) NOT NULL DEFAULT '0',
@@ -711,7 +711,7 @@ CREATE TABLE poll_data (
   optionCount int(11) NOT NULL DEFAULT '0',
   voteID int(11) NOT NULL DEFAULT '0',
   pollType int(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO poll_data VALUES (2, '', 0, 12, 0);
 INSERT INTO poll_data VALUES (2, '', 0, 11, 0);
@@ -732,7 +732,7 @@ CREATE TABLE poll_desc (
   timeStamp int(11) NOT NULL DEFAULT '0',
   voters mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (pollID)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO poll_desc VALUES (2, 'NPDS', 1004108978, 1);
 
@@ -752,7 +752,7 @@ CREATE TABLE posts (
   KEY forum_id (forum_id),
   KEY topic_id (topic_id),
   KEY post_aff (post_aff)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO posts VALUES (1, 0, '1F577.png', 1, 1, 2, 'Demo', '2011-10-26 17:00', '1.1.76.115', '', 1);
 INSERT INTO posts VALUES (2, 0, '1F310.png', 1, 1, 2, 'R&eacute;ponse', '2012-03-05 22:36', '1.1.76.115', '', 1);
@@ -775,13 +775,13 @@ CREATE TABLE priv_msgs (
   dossier varchar(50) NOT NULL DEFAULT '...',
   PRIMARY KEY (msg_id),
   KEY to_userid (to_userid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE publisujet (
   aid varchar(30) NOT NULL DEFAULT '',
   secid2 int(30) NOT NULL DEFAULT '0',
   type int(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE queue (
   qid smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -796,7 +796,7 @@ CREATE TABLE queue (
   date_finval datetime DEFAULT NULL,
   auto_epur tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (qid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE rblocks (
   id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
@@ -810,7 +810,7 @@ CREATE TABLE rblocks (
   aide mediumtext,
   PRIMARY KEY (id),
   KEY Rindex (Rindex)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO rblocks VALUES (1, 'Un Bloc ...', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
 INSERT INTO rblocks VALUES (2, 'Information', '<p align="center"><a href="http://www.npds.org" target="_blank"><img src="images/powered/miniban-bleu.png" border="0" alt="npds_logo" /></a></p>', '0', 0, 0, 1, 0, '');
@@ -824,7 +824,7 @@ CREATE TABLE referer (
   rid int(11) NOT NULL AUTO_INCREMENT,
   url varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (rid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE related (
   rid int(11) NOT NULL AUTO_INCREMENT,
@@ -832,7 +832,7 @@ CREATE TABLE related (
   name varchar(30) NOT NULL DEFAULT '',
   url varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (rid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE reviews (
   id int(10) NOT NULL AUTO_INCREMENT,
@@ -847,7 +847,7 @@ CREATE TABLE reviews (
   url_title varchar(50) NOT NULL DEFAULT '',
   hits int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE reviews_add (
   id int(10) NOT NULL AUTO_INCREMENT,
@@ -860,12 +860,12 @@ CREATE TABLE reviews_add (
   url varchar(100) NOT NULL DEFAULT '',
   url_title varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE reviews_main (
   title text,
   description text
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO reviews_main VALUES ('Votre point de vue nous int&eacute;resse', 'Participez &agrave; la vie du site en apportant vos critiques mais restez toujours positif.');
 
@@ -876,7 +876,7 @@ CREATE TABLE rubriques (
   enligne tinyint(1) NOT NULL DEFAULT '0',
   ordre int(2) NOT NULL DEFAULT '0',
   UNIQUE KEY rubid (rubid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO rubriques VALUES (1, 'Divers', '', 1, 9998);
 INSERT INTO rubriques VALUES (2, 'Presse-papiers', '', 0, 9999);
@@ -893,7 +893,7 @@ CREATE TABLE seccont (
   userlevel varchar(34) NOT NULL DEFAULT '0',
   timestamp varchar(14) NOT NULL DEFAULT '0',
   PRIMARY KEY (artid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE seccont_tempo (
   artid int(11) NOT NULL AUTO_INCREMENT,
@@ -905,7 +905,7 @@ CREATE TABLE seccont_tempo (
   ordre int(2) NOT NULL DEFAULT '0',
   userlevel varchar(34) NOT NULL DEFAULT '0',
   PRIMARY KEY (artid)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE sections (
   secid int(11) NOT NULL AUTO_INCREMENT,
@@ -917,7 +917,7 @@ CREATE TABLE sections (
   ordre int(2) NOT NULL DEFAULT '0',
   counter int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (secid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO sections VALUES (1, 'Pages statiques', '', '0', 1, NULL, 0, 0);
 INSERT INTO sections VALUES (2, 'En instance', '', '0', 2, NULL, 0, 0);
@@ -933,7 +933,7 @@ CREATE TABLE session (
   KEY username (username),
   KEY time (time),
   KEY guest (guest)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO session VALUES ('user', '1384102103', '127.0.0.1', 0, '/index.php', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0');
 
@@ -945,7 +945,7 @@ CREATE TABLE sform (
   passwd text,
   content longtext NOT NULL,
   PRIMARY KEY (cpt)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE stories (
   sid int(11) NOT NULL AUTO_INCREMENT,
@@ -969,7 +969,7 @@ CREATE TABLE stories (
   KEY topic (topic),
   KEY informant (informant),
   KEY aid (aid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO stories VALUES (1, 0, 'Root', 'Comment modifier et / ou supprimer EDITO', '2012-09-15 05:01:52', '<font face="arial"><b>L''EDITO </b>est l<b>a premi&egrave;re chose que les visiteurs visualiseront</b> en arrivant sur votre nouveau <b>site NPDS</b>.<br />\r\n<br />Vous pouvez l''<b>&eacute;diter</b> pour le personnaliser, ainsi que choisir de l''afficher ou non. <br />\r\nPour toute modification, l''<b>&eacute;diteur int&eacute;gr&eacute; &agrave; NPDS</b> vous simplifiera &eacute;norm&eacute;ment la t&acirc;che !<br />\r\n<br />\r\nEnfin, vous pouvez d&eacute;cider dans les <i>pr&eacute;f&eacute;rences administrateur</i>\r\nde la page que vous souhaitez utiliser <b>comme index de votre site</b>:\r\nce n''est donc pas forc&eacute;ment l''EDITO, et votre imagination laissera\r\nentrevoir bien d''autres possibilit&eacute;s !<br />\r\n</font>', 'Vous pouvez, par exemple:<br />\r\n<ul>\r\n  <li>faire arriver vos visiteurs sur la <b>page des forums</b></li>\r\n  <li>faire arriver vos visiteurs sur <b>une page d&eacute;crivant votre site en utilisant les rubriques</b></li>\r\n  <li>....<br />\r\n  </li>\r\n</ul>', 0, 2, 1, 'user', '', 0, 0, '2112-01-01 00:00:00', 0);
 INSERT INTO stories VALUES (2, 0, 'Root', 'NPDS contient un excellent &eacute;diteur HTML !', '2012-09-19 01:08:39', 'L''<span style="font-weight: bold;">&eacute;diteur HTML</span> int&eacute;gr&eacute; dans <span style="font-weight: bold;">NPDS</span> est vraiment <span style="font-style: italic;">tr&egrave;s puissant</span> ! <span style="font-weight: bold; color: rgb(0, 0, 204);">Tiny MCE</span>, c''est son nom, vous permet de taper et de mettre en forme le texte directement depuis votre navigateur.<br /><p style="text-align: justify;"><br /><span style="font-weight: bold;">L''envoi d''images</span> sur votre site est <span style="font-style: italic;">tr&egrave;s simple</span> si vous souhaitez illustrer vos textes, et vous pouvez aussi faire des <span style="font-weight: bold;">copier/coller</span> depuis nimporte quel logiciel de <span style="font-weight: bold;">traitement de texte</span> !</p>', '', 0, 4, 1, 'user', '', 0, 0, '2112-01-01 00:00:00', 0);
@@ -981,7 +981,7 @@ CREATE TABLE stories_cat (
   title varchar(255) DEFAULT NULL,
   counter int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (catid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE subscribe (
   topicid tinyint(3) DEFAULT NULL,
@@ -989,7 +989,7 @@ CREATE TABLE subscribe (
   lnlid text,
   uid int(11) NOT NULL DEFAULT '0',
   KEY uid (uid)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE topics (
   topicid int(3) NOT NULL AUTO_INCREMENT,
@@ -999,7 +999,7 @@ CREATE TABLE topics (
   counter int(11) NOT NULL DEFAULT '0',
   topicadmin text,
   PRIMARY KEY (topicid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO topics VALUES (1, 'npds', 'npds.gif', 'NPDS', 0, NULL);
 INSERT INTO topics VALUES (2, 'modules', 'modules.gif', 'Modules', 0, NULL);
@@ -1040,7 +1040,7 @@ CREATE TABLE users (
   user_lastvisit varchar(14) DEFAULT NULL,
   user_lnl tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (uid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO users VALUES (1, '', 'Anonyme', '', '', '', 'blank.gif', '989445600', '', '', '', '', 0, 0, '', '', 10, '', 0, 0, 0, '', 0, '', '', 4096, 0, 0, 1, 0, NULL, NULL, 1);
 INSERT INTO users VALUES (2, 'user', 'user', 'user@user.land', '', 'http://www.userland.com', '014.gif', '989445600', '', '', '', 'User of the Land', 0, 0, '', 'd.q1Wcp0KUqsk', 10, '', 0, 0, 0, '', 1, '<ul><li><a href=http://www.npds.org target=_blank>NPDS.ORG</a></li></ul>', 'npds-boost_sk', 4096, 4, 0, 1, 1, 'french', '1384102103', 1);
@@ -1061,7 +1061,7 @@ CREATE TABLE users_extend (
   T2 varchar(14) DEFAULT NULL,
   B1 blob,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO users_extend VALUES (2, '', '', '', '', '', '', '', '', '', '', '15/07/2015', '', 'none');
 
@@ -1074,7 +1074,7 @@ CREATE TABLE users_status (
   open tinyint(1) NOT NULL DEFAULT '1',
   groupe varchar(34) DEFAULT NULL,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO users_status VALUES (1, 19, 0, 0, 1, 1, '');
 INSERT INTO users_status VALUES (2, 3, 0, 0, 2, 1, '');
@@ -1090,4 +1090,4 @@ CREATE TABLE wspad (
   verrou varchar(60) DEFAULT NULL,
   PRIMARY KEY (ws_id),
   KEY page (page)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
