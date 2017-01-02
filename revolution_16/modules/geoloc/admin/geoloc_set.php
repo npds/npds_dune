@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 3.0                                            */
-/* geoloc_set.php file 2007-2015 by Jean Pierre Barbary (jpb)           */
+/* geoloc_set.php file 2007-2017 by Jean Pierre Barbary (jpb)           */
 /* dev team : Philippe Revilliod (Phr)                                  */
 /************************************************************************/
 
@@ -44,27 +44,32 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
    <script type=\"text/javascript\">
    //<![CDATA[
       $(document).ready(function() {
-         if(!$('#map_bloc')) { 
-         console.log('truetruetrue');
-         $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr'));
+         if($('#map_bloc').length) { 
+            console.log('map_bloc est dans la page');
+                        $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr'));
+
          }
-
-      if(!$('script[src=\"http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr\"]'))
-      console.log('true');//debug
+         else {
+            $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr'));
+         }
       });
-
    //]]>
    </script>";
    echo'
    <script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
    <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;Carte</a>
 
-   
+
    <form id="geolocset" name="geoloc_set" action="admin.php" method="post">
       <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Paramètres syst&#xE8;me').'</h4>
       <fieldset id="para_sys" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
    <span class="text-danger">* '.geoloc_translate("requis").'</span>
-
+         <div class="form-group row">
+            <label class="form-control-label col-sm-6" for="api_key">'.geoloc_translate('Clef').'&nbsp;<font color=red>*</font> : '.$api_key.'</label>
+            <div class="col-sm-6">
+               <input type="text" class="form-control" name="api_key" id="ch_lat" placeholder="" value="'.$api_key.'" required="required" />
+            </div>
+         </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-6" for="ch_lat">'.geoloc_translate('Champ de table pour latitude').'&nbsp;<font color=red>*</font> : '.$ch_lat.'</label>
             <div class="col-sm-6">
@@ -91,7 +96,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                <div class="form-group row ">
                   <label class="form-control-label col-sm-6" for="cartyp">'.geoloc_translate('Type de carte').'&nbsp;<font color=red>*</font></label>
                   <div class="col-sm-6">
-                     <select class="c-select form-control" name="cartyp" id="cartyp">
+                     <select class="custom-select form-control" name="cartyp" id="cartyp">
                         <option>ROADMAP</option>
                         <option>SATELLITE</option>
                         <option>HYBRID</option>
@@ -103,7 +108,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                <div class="form-group row">
                   <label class="form-control-label col-sm-6" for="co_unit">'.geoloc_translate('Unit&#xE9; des coordonn&#xE9;es').'&nbsp;<font color=red>*</font></label>
                   <div class="col-sm-6">
-                     <select class="c-select form-control" name="co_unit" id="co_unit">
+                     <select class="custom-select form-control" name="co_unit" id="co_unit">
                         <option>dd</option>
                         <option>dms</option>
                         <option selected>'.$co_unit.'</option>
@@ -317,7 +322,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
     <div class="form-group row">
         <label class="form-control-label col-sm-6" for="cartyp_b">'.geoloc_translate('Type de carte').'&nbsp;<font color=red>*</font></label>
         <div class="col-sm-6">
-        <select class="c-select form-control" name="cartyp_b" id="cartyp_b">
+        <select class="custom-select form-control" name="cartyp_b" id="cartyp_b">
             <option>ROADMAP</option>
             <option>SATELLITE</option>
             <option>HYBRID</option>
@@ -327,7 +332,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
         </div>
     </div>
     <div class="form-group row">
-      <label class="form-control-label col-sm-6" for="img_mbgb">'.geoloc_translate('Fichier image membre g&#xE9;or&#xE9;f&#xE9;renc&#xE9;').'&nbsp;<font color=red>*</font></label>
+      <label class="form-control-label col-sm-6" for="img_mbgb">'.geoloc_translate('Fichier image membre géoréférencé').'&nbsp;<font color=red>*</font></label>
       <div class="col-sm-6">
         <div class="input-group">
             <div class="input-group-addon"><img src="'.$ch_img.$img_mbgb.'" /></div>
@@ -742,22 +747,13 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
         break;
         }
     })
-   
-   
-   
-   
-   
-
-
-
-
 
 });
 }
 
 
-$( window ).load( geoloc_conf );
-//    window.onload = geoloc_conf;
+//$( window ).load( geoloc_conf );
+    window.onload = geoloc_conf;
 
 //]]>
 </script>';
@@ -765,7 +761,7 @@ adminfoot('fv','','','');
 
 }
 
-function SaveSetgeoloc($ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon) {
+function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon) {
    //==> modifie le fichier de configuration
    $file_conf = fopen("modules/$ModPath/geoloc_conf.php", "w+");
    $content = "<?php \n";
@@ -782,9 +778,10 @@ function SaveSetgeoloc($ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, 
    $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module geoloc version 3.0                                            */\n";
-   $content .= "/* geoloc_conf.php file 2008-2015 by Jean Pierre Barbary (jpb)          */\n";
+   $content .= "/* geoloc_conf.php file 2008-2017 by Jean Pierre Barbary (jpb)          */\n";
    $content .= "/* dev team : Philippe Revilliod (Phr)                                  */\n";
    $content .= "/************************************************************************/\n";
+   $content .= "\$api_key = \"$api_key\"; // clef api google \n";
    $content .= "\$ch_lat = \"$ch_lat\"; // Champ lat dans sql \n";
    $content .= "\$ch_lon = \"$ch_lon\"; // Champ long dans sql \n";
    $content .= "// interface carte \n";
@@ -837,7 +834,7 @@ function SaveSetgeoloc($ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, 
 if ($admin) {
    switch ($subop) {
        case 'SaveSetgeoloc':
-       SaveSetgeoloc($ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon);
+       SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon);
        case 'AfterSaveSetgeoloc':
        AfterSaveSetgeoloc($ModPath, $ModStart);
        default:
