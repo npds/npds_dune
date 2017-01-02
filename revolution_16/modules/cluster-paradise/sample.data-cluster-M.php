@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Cluster Paradise - Manage Data-Cluster  / Mod by Tribal-Dolphin      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
