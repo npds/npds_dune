@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS V Forum .                                    */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2011                                               */
+/* P. Brunier 2002 - 2017                                               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
