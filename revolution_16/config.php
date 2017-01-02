@@ -304,7 +304,7 @@ $dns_verif = false;
 #
 # $savemysql_size:  Determine the maximum size for one file in the SaveMysql process
 # $savemysql_mode:  Type of Myql process (1, 2 or 3)
-# $tiny_mce:        true=Yes or false=No to use tiny_mce Editor or standard Npds Editor
+# $tiny_mce:        true=Yes or false=No to use tiny_mce Editor or NO Editor
 ######################################################################
 
 $savemysql_size = 256;
@@ -317,7 +317,7 @@ $tiny_mce = true;
 
 $NPDS_Prefix = "";
 $NPDS_Key = "";
-$Version_Num = "v.16.0.4-alpha";
+$Version_Num = "v.16.0.5-alpha";
 $Version_Id = "NPDS";
 $Version_Sub = "REvolution";
 
