@@ -3,7 +3,7 @@
 /* NPDS V : Net Portal Dynamic System .                                 */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */

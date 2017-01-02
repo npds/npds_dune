@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -154,7 +154,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/* DUNE by NPDS                                                         */\n";
    $content .= "/* ===========================                                          */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -197,7 +197,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -221,7 +221,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";

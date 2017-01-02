@@ -5,7 +5,7 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -775,7 +775,7 @@ function SaveSetgeoloc($ch_lat, $ch_lon, $cartyp, $co_unit, $mark_typ, $ch_img, 
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2015 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";

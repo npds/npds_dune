@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2015 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
 /* Based on Script for NPDS by Alexandre Pirard  / www.pascalex.net     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
