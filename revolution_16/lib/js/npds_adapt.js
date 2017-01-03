@@ -29,9 +29,11 @@
          $('a[data-toggle="collapse"]').click(function () {
             $(this).find('i.togglearbr-icon').toggleClass('fa-level-up fa-level-down',6000);
          })
-         // initialisation tooltip et popover
+         // initialisation tooltip et popover (qui ferme au prochain click)
          $('[data-toggle="tooltip"]').tooltip({container:'#corps'});
          $('[data-toggle="popover"]').popover();
+         $('.popover-dismiss').popover({ trigger: 'focus'})
+
          // fix bug tooltip in table
          $('table').on('all.bs.table', function (e, name, args) {
             $('[data-toggle="tooltip"]').tooltip();

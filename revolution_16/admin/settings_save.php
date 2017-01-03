@@ -548,7 +548,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "#\n";
     $content .= "# \$savemysql_size:  Determine the maximum size for one file in the SaveMysql process\n";
     $content .= "# \$savemysql_mode:  Type of Myql process (1, 2 or 3)\n";
-    $content .= "# \$tiny_mce:        true=Yes or false=No to use tiny_mce Editor or standard Npds Editor\n";
+    $content .= "# \$tiny_mce:        true=Yes or false=No to use tiny_mce Editor or NO Editor\n";
     $content .= "$line";
     $content .= "\n";
     $content .= "\$savemysql_size = $xsavemysql_size;\n";
@@ -562,7 +562,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"v.16.0.4-alpha\";\n";
+    $content .= "\$Version_Num = \"v.16.0.5-alpha\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
     $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";
