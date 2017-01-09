@@ -126,7 +126,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    echo '
       <form role="form" action="viewforum.php" method="post">
          <div class="form-group">
-         <div class="text-xs-center">
+         <div class="text-center">
          <label class="form-control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
          </div>
          <div class="row">
@@ -136,7 +136,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          </div>
          </div>
          <input type="hidden" name="forum" value="'.$forum.'" />
-         <div class="text-xs-center">
+         <div class="text-center">
          <button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;
          <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>
          </div>
@@ -208,9 +208,9 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                <th></th>
                <th></th>
                <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
-               <th class="text-xs-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
-               <th class="text-xs-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
-               <th class="text-xs-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
+               <th class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
+               <th class="text-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
+               <th class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
                <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
             </tr>
          </thead>
@@ -344,7 +344,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       }
       else {
           echo '
-         <li class="page-item disabled text-xs-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
+         <li class="page-item disabled text-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
       }
     for($x = 0; $x < $all_topics; $x++) {
       if (!($x % $topics_per_page)) {
@@ -381,7 +381,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       echo '
    <form class="" role="form" action="viewforum.php" method="post">
       <div class="form-group row">
-         <div class="col-xs-12">
+         <div class="col-12">
             <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
             <select class="form-control custom-select" name="forum" onchange="submit();">
                <option value="index">'.translate("Jump To: ").'</option>

@@ -17,12 +17,12 @@ if (!function_exists("Mysql_Connexion")) {
 function message_error($ibid,$op) {
    include("header.php");
    echo '<h2>'.translate("User").'</h2>';
-   echo "<p class=\"lead text-warning text-xs-center\">";
+   echo "<p class=\"lead text-warning text-center\">";
    echo $ibid;
    if (($op=="only_newuser") or ($op=="new user") or ($op=="finish")) {
        hidden_form();
       echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\" />
-      <p class=\"text-xs-center\">
+      <p class=\"text-center\">
       <button class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Go Back")."\" /><i class=\"fa fa-lg fa-undo\"></i></button>
       </p>
       </form>";
@@ -63,7 +63,7 @@ function nav($mns) {
       <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-   <div class="mt-1"></div>';
+   <div class="mt-3"></div>';
 }
 
 function userCheck($uname, $email) {
@@ -252,9 +252,9 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
     $stop=userCheck($uname, $email);
     if ($memberpass) {
        if ((isset($pass)) and ($pass != $vpass)) {
-          $stop="<p class=\"text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."</p><br />";
+          $stop="<p class=\"text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."</p><br />";
        } elseif (strlen($pass) < $minpass) {
-          $stop="<p class=\"text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."</p><br />";
+          $stop="<p class=\"text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."</p><br />";
        }
     }
     if (!$stop) {
@@ -265,7 +265,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
           hidden_form();
           global $charte;
           if (!$charte) {
-             echo "<p class=\"lead text-warning text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
+             echo "<p class=\"lead text-warning text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
              echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\">
             <input class=\"btn btn-secondary\" type=\"submit\" value=\"".translate("Go Back")."\" />
             </form>";
@@ -407,7 +407,7 @@ function userinfo($uname) {
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="mr-1" href="';
+                     $my_rs.='<a class="mr-3" href="';
                      if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                      $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
@@ -423,18 +423,18 @@ function userinfo($uname) {
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
       if (($user) and ($uid!=1)) {
-         $useroutils .= '<a class=" text-primary mr-1" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
+         $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['femail']!='') {
-         $useroutils .= '<a class=" text-primary mr-1" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
+         $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['url']!='') {
          if (strstr('http://', $posterdata['url']))
             $posterdata['url'] = 'http://' . $posterdata['url'];
-         $useroutils .= '<a class=" text-primary mr-1" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
+         $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
       if ($posterdata['mns']) {
-          $useroutils .= '<a class=" text-primary mr-1" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
+          $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
       }
 
    echo '
@@ -557,7 +557,7 @@ $content .='
    $(document.body).attr("onload", "geoloc_loaduser()");
 //]]>
 </script>';
-$content .='<div class="mt-1"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
+$content .='<div class="mt-3"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
 if($admin)
 $content .= '&nbsp;&nbsp;<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
 $content .= '</div></div>';
@@ -571,7 +571,7 @@ echo $content;
 
 /*   if ($uname == $cookie[1]) {
    echo '
-   <div class="card text-xs-center">
+   <div class="card text-center">
       <div class="card-header">
          <img src="'.$direktori.$user_avatar.'" class="n-ava  thumbnail" />
          <p class="card-text card-title "></p>
@@ -593,7 +593,7 @@ echo $content;
       echo '
       <br />
       <h4>'.translate("Online journal for").' '.$uname.'.</h4>
-      <div id="online_user_journal" class="card card-block mb-1">'.$user_journal.'</div>';
+      <div id="online_user_journal" class="card card-block mb-3">'.$user_journal.'</div>';
    $file='';
    $handle=opendir('modules/comments');
    while (false!==($file = readdir($handle))) {
@@ -605,8 +605,8 @@ echo $content;
    closedir($handle);
 
    echo '
-   <h4 class="mt-1">'.translate("Last 10 comments by").' '.$uname.'.</h4>
-   <div id="last_ten_comment" class="card card-block mb-1">';
+   <h4 class="mt-3">'.translate("Last 10 comments by").' '.$uname.'.</h4>
+   <div id="last_ten_comment" class="card card-block mb-3">';
    $url='';
    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
    while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
@@ -622,8 +622,8 @@ echo $content;
    }
    echo '
     </div>
-    <h4 class="mt-1">'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
-    <div id="last_ten_comment" class="card card-block mb-1">';
+    <h4 class="mt-3">'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
+    <div id="last_ten_comment" class="card card-block mb-3">';
    $xtab=news_aff("libre", "WHERE informant='$uname' ORDER BY sid DESC LIMIT 10", '', 10);
    $story_limit=0;
    while (($story_limit<10) and ($story_limit<sizeof($xtab))) {
@@ -711,7 +711,7 @@ function ForgetPassword() {
    include("header.php");
    echo '
    <h2>'.translate("User").'</h2>
-   <h3 class="lead text-warning text-xs-center">'.translate("Lost your Password?").'</h3>
+   <h3 class="lead text-warning text-center">'.translate("Lost your Password?").'</h3>
    <p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>
    <form action="user.php" method="post">
       <div class="form-group row">
@@ -758,7 +758,7 @@ function mail_password($uname, $code) {
 
        send_email($email, $subject, $message, '', true, 'html');
 
-       message_pass('<p class="lead text-xs-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
+       message_pass('<p class="lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
 
        Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }
@@ -826,7 +826,7 @@ function update_password ($code, $passwd) {
                    $cryptpass=$ibid[1];
                 }
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
-                message_pass("<p class=\"lead text-xs-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate ("Password update, please re-connect you.")."</p>");
+                message_pass("<p class=\"lead text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate ("Password update, please re-connect you.")."</p>");
                 Ecr_Log('security', "Lost_password_update OK : ".$uname, "");
              } else {
                 message_pass(translate("Error"));
@@ -1256,7 +1256,7 @@ function editjournal(){
       <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
       <input type="hidden" name="op" value="savejournal" />
       <div class="form-group row">
-         <div class="col-xs-12">
+         <div class="col-12">
             <div class="checkbox">
                <label>
                <input type="checkbox" name="datetime" value="1" />&nbsp;'.translate("Add date and time stamp").'
@@ -1265,7 +1265,7 @@ function editjournal(){
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-xs-12">
+         <div class="col-12">
             <input class="btn btn-primary" type="submit" value="'.translate("Save Journal").'" />
          </div>
       </div>

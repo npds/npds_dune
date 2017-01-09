@@ -104,7 +104,7 @@ switch ($acc) {
       echo '
       <h4>'.translate("Preview").'</h4>
       <div class="row">
-         <div class="col-xs-12">
+         <div class="col-12">
             <div class="card">
                <div class="card-header">';
          if ($smilies) {
@@ -115,12 +115,12 @@ switch ($acc) {
                   if ($ibid=theme_image("forum/avatar/".$theposterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$theposterdata['user_avatar'];}
                }
                 echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rank']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rank']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
             }
          }
                echo'
                   &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$userdatat[1].'</strong></span>
-                  <span class="float-xs-right">';
+                  <span class="float-right">';
       if (isset($image_subject)) {
          if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
@@ -131,7 +131,7 @@ switch ($acc) {
       echo '</span>
       </div>
       <div class="card-block">
-         <span class="text-muted float-xs-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
+         <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
          <div id="post_preview" class="card-text pt-2">';
 
       $messageP=stripslashes($messageP);

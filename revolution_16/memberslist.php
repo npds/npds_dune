@@ -271,7 +271,7 @@ function avatar($user_avatar) {
                         foreach($res_id as $y1) {
                            $k = array_search( $y1[0],$v1);
                            if (false !== $k) {
-                              $my_rs.='<a class="mr-1" href="';
+                              $my_rs.='<a class="mr-3" href="';
                               if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                               $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                               break;
@@ -286,27 +286,27 @@ function avatar($user_avatar) {
 
                $useroutils = '';
                if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
-                  $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user"></i><span class="ml-1 hidden-sm-down">'.translate("Profile").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
                }
                if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
-                  $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o"></i><span class="ml-1 hidden-sm-down">'.translate("Send internal Message").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Send internal Message").'</span></a>';
                }
                if ($temp_user['femail']!='') {
-                  $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x"></i><span class="ml-1 hidden-sm-down">'.translate("Email").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
                }
                if ($temp_user['url']!='') {
                   if (strstr('http://', $temp_user['url']))
                      $temp_user['url'] = 'http://' . $temp_user['url'];
-                  $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle=""><i class="fa fa-2x fa-external-link"></i><span class="ml-1 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle=""><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
                }
                if ($temp_user['mns']) {
-                   $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i><span class="ml-1 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+                   $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
                }
                if ($user and $temp_user['uid']!= 1) {
-                  $useroutils .= '<a class="list-group-item text-primary" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" ><i class="fa fa-plus-circle fa-2x">&nbsp;</i><span class="ml-1 hidden-sm-down">'.translate("Add to mailing list").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" ><i class="fa fa-plus-circle fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Add to mailing list").'</span></a>';
                }
                if ($posterdata_extend['C7'] !='') {
-                  $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&ModStart=geoloc" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-1 hidden-sm-down">'.translate("Location").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&ModStart=geoloc" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
                }
                $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
                list($open_user) = sql_fetch_row($op_result);
@@ -319,7 +319,7 @@ function avatar($user_avatar) {
                <tr>
                   <td>';
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
-               echo '<a tabindex="0" data-trigger="focus" data-toggle="popover" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-primary img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+               echo '<a tabindex="0" data-toggle="popover" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-primary img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
                   </td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
                if ($admin)
@@ -377,13 +377,13 @@ function avatar($user_avatar) {
 
             if ($user) {
                echo '
-      <div class="mt-1 card card-block-small"><p class=""><strong>'.translate("Mailing list").' :</strong>&nbsp;';
+      <div class="mt-3 card card-block-small"><p class=""><strong>'.translate("Mailing list").' :</strong>&nbsp;';
                if ($list) {
                echo urldecode($list);
                   echo '
-                  <span class="float-xs-right">
+                  <span class="float-right">
                      <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="fa fa-envelope-o fa-lg" title="'.translate("Write to the list").'" data-toggle="tooltip" ></i></a>
-                     <a class="ml-1" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.translate("RAZ member's list").'" data-toggle="tooltip" ></i></a>
+                     <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.translate("RAZ member's list").'" data-toggle="tooltip" ></i></a>
                   </span>';
                }
                echo '</p>
@@ -430,7 +430,7 @@ function avatar($user_avatar) {
                echo '
                </ul>';
             } else {
-               echo '<p class="mt-1 lead">'.$num_rows_per_order.' '.translate("users found").'</p>';
+               echo '<p class="mt-3 lead">'.$num_rows_per_order.' '.translate("users found").'</p>';
             }
       }
    include("footer.php");
