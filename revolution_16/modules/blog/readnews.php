@@ -83,7 +83,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
                </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label col-sm-12" for="story">'.translate("Full Text").'</label>
+-               <label class="form-control-label col-sm-12" for="story">'.translate("Full Text").'</label>
                <div class="col-sm-12">
                   <textarea class="tin form-control" name="story" rows="25"></textarea>';
             $content.="&nbsp;!blog_editeur!";
@@ -93,7 +93,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             <div class="form-group row">
                <div class="col-sm-12">
                   <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" />
-               </div>
+n               </div>
             </div>
          </form>';
       }
@@ -103,7 +103,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          @copy ($blog_file,$blog_file.".bak");
          if (!$tiny_mce) {
             $formatted=str_replace("\r\n","<br />",$story);
-            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
+             $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
             $formatted=str_replace("\n","<br />",$formatted);
          } else {
             $formatted=str_replace("\r\n","",$story);
@@ -161,7 +161,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          </div>';
        if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
 
-       $content.='<div class=" card-block">'.convert_ressources($crtsplit[2]).'</div>';
+       $content.='<div class="card-block n-resp">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {
        $content.='
        <div class="card-footer">
