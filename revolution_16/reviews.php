@@ -385,7 +385,7 @@ function reviews($field, $order) {
          </tbody>
       </table>';
    }
-   echo '<p class="tag tag-default">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
+   echo '<p class="badge badge-default">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
 
    sql_free_result($result);
    include ("footer.php");
@@ -422,7 +422,7 @@ function showcontent($id) {
    <h2>'.translate("Reviews").'</h2>
    <a href="reviews.php">'.translate("Back to Reviews Index").'</a>
    <div class="card card-block">
-      <div class="card-text text-muted text-xs-right small">
+      <div class="card-text text-muted text-right small">
    '.translate("Added:").' '.$fdate.'<br />
       </div>
    <hr />
@@ -443,11 +443,11 @@ function showcontent($id) {
    echo '</span>';
    if ($url != '')
       echo '<br /><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
-   echo '<br /><strong>'.translate("Hits:").'</strong><span class="tag tag-pill tag-default">'.$hits.'</span>
+   echo '<br /><strong>'.translate("Hits:").'</strong><span class="badge badge-pill badge-default">'.$hits.'</span>
       </div>';
    if ($admin)
       echo '
-      <nav class="text-xs-center">
+      <nav class="text-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>

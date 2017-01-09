@@ -53,7 +53,7 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          $deb_min = '0'.$deb_min.'';
       }
    }
-   echo '<p class="small text-xs-right">';
+   echo '<p class="small text-right">';
    echo translate(date("l")).date(" ".translate("dateinternal"),time()+($gmt*3600));
    echo '</p>';
    $day = 1;

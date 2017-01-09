@@ -70,7 +70,7 @@ if ($submitS) {
       $message = make_clickable($message);
       $message = aff_code($message);
       $message = str_replace("\n", "<br />", removeHack($message));
-      $message .= '<div class="text-muted text-xs-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600))."</div>";
+      $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600))."</div>";
    } else {
       $message .= "\n\n".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600));
    }

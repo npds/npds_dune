@@ -95,14 +95,14 @@ function PrintPage($oper, $DB, $nl, $sid) {
        else
           echo '<img class="img-fluid d-block mx-auto" src="images/'.$site_logo.'" alt="website logo" />';
        echo '
-               <h1 class="d-block text-xs-center my-2">'.aff_langue($title).'</h1>';
+               <h1 class="d-block text-center my-4">'.aff_langue($title).'</h1>';
        if (($oper=='news') or ($oper=='archive')) {
           $hometext=meta_lang(aff_code(aff_langue($hometext)));
           $bodytext=meta_lang(aff_code(aff_langue($bodytext)));
           echo '
-             <span class="float-xs-right text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
+             <span class="float-right text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
              <hr />
-             <h2 class="mb-1">'.translate("Topic:").' '.aff_langue($topictext).'</h2>
+             <h2 class="mb-3">'.translate("Topic:").' '.aff_langue($topictext).'</h2>
          </div>
          <div>'.$hometext.'<br /><br />';
           if ($bodytext!='') {
@@ -114,28 +114,28 @@ function PrintPage($oper, $DB, $nl, $sid) {
           if ($oper=='news') {
              echo '
              <hr />
-             <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
+             <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
              '.translate("The URL for this story is:").'
              <a href="'.$nuke_url.'/article.php?sid='.$sid.'">'.$nuke_url.'/article.php?sid='.$sid.'</a>
              </p>';
           } else {
              echo '
              <hr />
-             <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
+             <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
              '.translate("The URL for this story is:").'
              <a href="'.$nuke_url.'/article.php?sid='.$sid.'&amp;archive=1">'.$nuke_url.'/article.php?sid='.$sid.'&amp;archive=1</a>
              </p>';
           }
        }
        if ($oper=='links') {
-          echo '<span class="float-xs-right text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
+          echo '<span class="float-right text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
           if ($url!='') {
-             echo '<h2 class="mb-1">'.translate("Links").' : '.$url.'</h2>';
+             echo '<h2 class="mb-3">'.translate("Links").' : '.$url.'</h2>';
           }
           echo '
           <div>'.aff_langue($description).'</div>
           <hr />
-          <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
+          <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
           <a href="'.$nuke_url.'">'.$nuke_url.'</a></p>';
        }
        if ($oper=='static') {
@@ -144,7 +144,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
              '.$remp.'
           </div>
           <hr />
-          <p class="text-xs-center">'.translate("This article comes from").' '.$sitename.'<br />
+          <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
           <a href="'.$nuke_url.'/static.php?op='.$sid.'&npds=1">'.$nuke_url.'/static.php?op='.$sid.'&npds=1</a></p>';
        }
        echo '

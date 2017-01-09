@@ -41,15 +41,15 @@ if (!function_exists("Mysql_Connexion")) {
    }
    settype($type,'string');
    if ($type == "users") {
-      echo '<h2 class="mb-1">'.translate("Search in Users Database").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in Users Database").'</h2><hr />';
    } elseif ($type == 'sections') {
-      echo '<h2 class="mb-1">'.translate("Search in Sections").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in Sections").'</h2><hr />';
    } elseif ($type == 'reviews') {
-      echo '<h2 class="mb-1">'.translate("Search in Reviews").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in Reviews").'</h2><hr />';
    } elseif ($type == 'archive') {
-      echo '<h2 class="mb-1">'.translate("Search in")." ".translate("Archives").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in")." ".translate("Archives").'</h2><hr />';
    } else {
-      echo '<h2 class="mb-1">'.translate("Search in")." ".aff_langue($topictext).'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in")." ".aff_langue($topictext).'</h2><hr />';
    }
    echo '
    <form action="search.php" method="get">';

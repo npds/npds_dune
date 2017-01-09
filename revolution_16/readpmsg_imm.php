@@ -147,11 +147,11 @@ function show_imm($op) {
          <div class="card-footer">';
          if ($posterdata['uid']<>1) {
             echo '
-         <a class="mr-1" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg"></i></a>';
+         <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg"></i></a>';
          }
          echo '
-         <a class="mr-1" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-check-square-o fa-lg"></i></a>
-         <a class="mr-1" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+         <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-check-square-o fa-lg"></i></a>
+         <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
          </div>
          </div>';
 

@@ -365,7 +365,7 @@ include('auth.php');
          if ($Xreply) echo $Xreply;
          echo '
          </textarea>
-         <span class="help-block text-xs-right">
+         <span class="help-block text-right">
             <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
             <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
          </span>

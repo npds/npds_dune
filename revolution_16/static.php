@@ -72,10 +72,10 @@ if (!function_exists("Mysql_Connexion")) {
             // Si vous voulez tracer les appels au pages statiques : supprimer les // devant la ligne ci-dessous
             // Ecr_Log("security", "static/$op", "");
          } else {
-            echo "<p class=\"text-danger text-xs-center\">".translate("Please enter information according to the specifications")."</p>";
+            echo "<p class=\"text-danger text-center\">".translate("Please enter information according to the specifications")."</p>";
          }
       } else {
-         echo "<p class=\"text-danger text-xs-center\">".translate("Please enter information according to the specifications")."</p>";
+         echo "<p class=\"text-danger text-center\">".translate("Please enter information according to the specifications")."</p>";
       }
    }
    echo '</div>';

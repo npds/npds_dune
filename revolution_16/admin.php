@@ -69,14 +69,14 @@ function login() {
                <label class="control-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
                <div class="col-sm-8">
                   <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
-                  <span class="help-block text-xs-right"><span id="countcar_aid"></span></span>
+                  <span class="help-block text-right"><span id="countcar_aid"></span></span>
                </div>
             </div>
             <div class="form-group row">
                <label class="control-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
                <div class="col-sm-8">
                   <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-                  <span class="help-block text-xs-right"><span id="countcar_pwd"></span></span>
+                  <span class="help-block text-right"><span id="countcar_pwd"></span></span>
                </div>
             </div>
             <div class="form-group row">
@@ -157,7 +157,7 @@ function GraphicAdmin($hlpfile) {
          else 
          $li_c ='<li class="alerte btn btn-secondary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
-         $li_c .='<span class="alerte-para tag tag-pill tag-danger">'.$SAQ['fretour'].'</span>'."\n";
+         $li_c .='<span class="alerte-para badge badge-pill badge-danger">'.$SAQ['fretour'].'</span>'."\n";
          $li_c .='</a></li>'."\n";
          $bloc_foncts_A .= $li_c;
          array_pop($cat_n);
@@ -296,20 +296,26 @@ function GraphicAdmin($hlpfile) {
    };
    //]]>
    </script>\n";
-
+/*
+<div class="d-flex justify-content-start">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="ml-auto p-2">Flex item</div>
+</div>
+*/
    $adm_ent ='';
    $adm_ent .='
    <div id="adm_tit" class="row">
-      <div id="adm_tit_l" class="col-xs-12">
+      <div id="adm_tit_l" class="col-12">
          <h1>'.adm_translate("Administration").'</h1>
       </div>
    </div>
-   <div id ="adm_men" class="row">
-      <div id="adm_header" class="row">
-         <div class="col-xs-6 men_tit">
+   <div id ="adm_men" class="">
+      <div id="adm_header" class="row justify-content-end">
+         <div class="col-6 col-lg-6 men_tit">
             <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
          </div>
-         <div id="adm_men_man" class="col-xs-6 men_man text-xs-right">
+         <div id="adm_men_man" class="col-6 col-lg-6 men_man text-right">
             <ul class="liste" id="lst_men_top">
                <li class="btn btn-secondary" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
    if ($hlpfile) {
@@ -320,7 +326,7 @@ function GraphicAdmin($hlpfile) {
             </ul>
          </div>
       </div>
-      <div id="adm_men_dial">
+      <div class="col-12" id="adm_men_dial">
          <div id="adm_men_alert" >
             <ul id="Alerte">
             '.aff_langue($bloc_foncts_A).'
