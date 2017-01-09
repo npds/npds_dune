@@ -67,7 +67,7 @@ function ForumAdmin() {
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="ForumCatAdd" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
          </div>
       </div>
    </form>';
@@ -242,7 +242,7 @@ function ForumGo($cat_id) {
             <input type="hidden" name="ctg" value="'.$ctg.'" />
             <input type="hidden" name="cat_id" value="'.$cat_id.'" />
             <input type="hidden" name="op" value="ForumGoAdd" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").' </button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").' </button>
          </div>
       </div>
     </form>';

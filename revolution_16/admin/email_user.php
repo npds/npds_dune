@@ -74,7 +74,7 @@ function email_user() {
                <label class="form-control-label col-sm-4" for="subject">'.adm_translate("Sujet").'</label>
                <div class="col-sm-8">
                   <input id="subject" class="form-control" type="text" maxlength="100" name="subject" />
-                  <span class="help-block text-xs-right"><span id="countcar_subject"></span></span>
+                  <span class="help-block text-right"><span id="countcar_subject"></span></span>
                </div>
             </div>
             <div class="form-group row">

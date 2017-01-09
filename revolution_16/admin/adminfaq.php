@@ -56,12 +56,12 @@ function FaqAdmin() {
             <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" placeholder="'.adm_translate("Catégories").'" rows="3" required="required" ></textarea>
-               <span class="help-block text-xs-right"><span id="countcar_categories"></span></span>
+               <span class="help-block text-right"><span id="countcar_categories"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <div class="col-sm-12">
-               <button class="btn btn-outline-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
+               <button class="btn btn-outline-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
                <input type="hidden" name="op" value="FaqCatAdd" />
             </div>
          </div>
@@ -107,7 +107,7 @@ function FaqCatGo($id_cat) {
             <label class="form-control-label col-sm-12" for="question">'.adm_translate("Question").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="question" id="question" maxlength="255"></textarea>
-               <span class="help-block text-xs-right"><span id="countcar_question"></span></span>
+               <span class="help-block text-right"><span id="countcar_question"></span></span>
             </div>
          </div>
          <div class="form-group row">
@@ -122,8 +122,8 @@ function FaqCatGo($id_cat) {
             <div class="col-sm-12">
                <input type="hidden" name="id_cat" value="'.$id_cat.'" />
                <input type="hidden" name="op" value="FaqCatGoAdd" />'."\n".'
-               <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
-               <button class="btn btn-secondary col-xs-6" href="admin.php?op=FaqAdmin">'.adm_translate("Retour en arrière").'</button>
+               <button class="btn btn-primary col-6" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
+               <button class="btn btn-secondary col-6" href="admin.php?op=FaqAdmin">'.adm_translate("Retour en arrière").'</button>
             </div>
          </div>
       </fieldset>
@@ -168,7 +168,7 @@ function FaqCatEdit($id_cat) {
             <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" rows="3" required="required" >'.$categories.'</textarea>
-               <span class="help-block text-xs-right"><span id="countcar_categories"></span></span>
+               <span class="help-block text-right"><span id="countcar_categories"></span></span>
             </div>
          </div>
          <div class="form-group row">
@@ -176,7 +176,7 @@ function FaqCatEdit($id_cat) {
                <input type="hidden" name="op" value="FaqCatSave" />
                <input type="hidden" name="old_id_cat" value="'.$id_cat.'" />
                <input type="hidden" name="id_cat" value="'.$id_cat.'" />
-               <button class="btn btn-outline-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+               <button class="btn btn-outline-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
             </div>
          </div>
       </fieldset>
@@ -220,14 +220,14 @@ function FaqCatGoEdit($id) {
    <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-xs-12" for="question">'.adm_translate("Question").'</label>
+            <label class="form-control-label col-12" for="question">'.adm_translate("Question").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="question" id="question" maxlength="255">'.$question.'</textarea>
-               <span class="help-block text-xs-right"><span id="countcar_question"></span></span>
+               <span class="help-block text-right"><span id="countcar_question"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-xs-12" for="answer">'.adm_translate("Réponse").'</label>
+            <label class="form-control-label col-12" for="answer">'.adm_translate("Réponse").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="answer" rows="15">'.$answer.'</textarea>
             </div>
@@ -237,8 +237,8 @@ function FaqCatGoEdit($id) {
             <div class="col-sm-12">
                <input type="hidden" name="id" value="'.$id.'" />
                <input type="hidden" name="op" value="FaqCatGoSave" />
-               <button class="btn btn-outline-primary col-xs-12 col-sm-6" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
-               <button class="btn btn-outline-secondary col-xs-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arrière").'</a>
+               <button class="btn btn-outline-primary col-12 col-sm-6" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+               <button class="btn btn-outline-secondary col-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arrière").'</a>
             </div>
          </div>
       </fieldset>

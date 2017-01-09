@@ -235,7 +235,7 @@ function BannersAdmin() {
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4 ">
             <input type="hidden" name="op" value="BannersAdd" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Bannière").' </button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Bannière").' </button>
          </div>
       </div>
    </form>';
@@ -284,7 +284,7 @@ function BannersAdmin() {
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4 ">
             <input type="hidden" name="op" value="BannerAddClient" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un annonceur").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un annonceur").'</button>
          </div>
       </div>
    </form>';
@@ -361,7 +361,7 @@ function BannerDelete($bid, $ok=0) {
       </table>
     <br />
     <div class="alert alert-danger">'.adm_translate("Etes-vous sûr de vouloir effacer cette Bannière ?").'<br />
-    <a class="btn btn-danger btn-sm mt-1" href="admin.php?op=BannerDelete&amp;bid=$bid&amp;ok=1">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm mt-1" href="admin.php?op=BannersAdmin" >'.adm_translate("Non").'</a></div>';
+    <a class="btn btn-danger btn-sm mt-3" href="admin.php?op=BannerDelete&amp;bid=$bid&amp;ok=1">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm mt-3" href="admin.php?op=BannersAdmin" >'.adm_translate("Non").'</a></div>';
    adminfoot('','','','');
 }
 
@@ -440,7 +440,7 @@ function BannerEdit($bid) {
             <input type="hidden" name="bid" value="'.$bid.'" />
             <input type="hidden" name="imptotal" value="'.$imptotal.'" />
             <input type="hidden" name="op" value="BannerChange" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Modifier la Bannière").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Modifier la Bannière").'</button>
          </div>
       </div>
    </form>';

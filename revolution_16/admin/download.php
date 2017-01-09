@@ -183,7 +183,7 @@ function DownloadAdmin() {
             <input class="form-control" type="text" id="durl" name="durl" maxlength="255" required="required" />
    &nbsp;<a href="javascript:void(0);" onclick="window.open(\'admin.php?op=FileManagerDisplay\', \'wdir\', \'width=650, height=450, menubar=no, location=no, directories=no, status=no, copyhistory=no, toolbar=no, scrollbars=yes, resizable=yes\');">
    <span class="">['.adm_translate("Parcourir").']</span></a>
-            <span class="help-block text-xs-right"><span id="countcar_durl"></span></span>
+            <span class="help-block text-right"><span id="countcar_durl"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -196,14 +196,14 @@ function DownloadAdmin() {
          <label class="form-control-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" id="dfilename" name="dfilename" maxlength="255" required="required" />
-               <span class="help-block text-xs-right"><span id="countcar_dfilename"></span></span>
+               <span class="help-block text-right"><span id="countcar_dfilename"></span></span>
             </div>
          </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dver" id="dver" maxlength="6" />
-            <span class="help-block text-xs-right"><span id="countcar_dver"></span></span>
+            <span class="help-block text-right"><span id="countcar_dver"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -216,21 +216,21 @@ function DownloadAdmin() {
          <label class="form-control-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dweb" name="dweb" maxlength="255" />
-            <span class="help-block text-xs-right"><span id="countcar_dweb"></span></span>
+            <span class="help-block text-right"><span id="countcar_dweb"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="duser" name="duser" maxlength="30" />
-            <span class="help-block text-xs-right"><span id="countcar_duser"></span></span>
+            <span class="help-block text-right"><span id="countcar_duser"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" maxlength="250" />
-            <span class="help-block text-xs-right"><span id="countcar_dcategory"></span></span>
+            <span class="help-block text-right"><span id="countcar_dcategory"></span></span>
             <select class="custom-select form-control" name="sdcategory">';
    $result = sql_query("SELECT DISTINCT dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
    while (list($dcategory) = sql_fetch_row($result)) {
@@ -294,21 +294,21 @@ function DownloadEdit($did) {
          <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="durl" name="durl" value="'.$durl.'" maxlength="255" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_durl"></span></span>
+            <span class="help-block text-right"><span id="countcar_durl"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dfilename" name="dfilename" id="dfilename" value="'.$dfilename.'" maxlength="255" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_dfilename"></span></span>
+            <span class="help-block text-right"><span id="countcar_dfilename"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dver" id="dver" value="'.$dver.'" maxlength="6" />
-            <span class="help-block text-xs-right"><span id="countcar_dver"></span></span>
+            <span class="help-block text-right"><span id="countcar_dver"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -321,21 +321,21 @@ function DownloadEdit($did) {
          <label class="form-control-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dweb" name="dweb" value="'.$dweb.'" maxlength="255" />
-            <span class="help-block text-xs-right"><span id="countcar_dweb"></span></span>
+            <span class="help-block text-right"><span id="countcar_dweb"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="duser" name="duser" value="'.$duser.'" maxlength="30" />
-            <span class="help-block text-xs-right"><span id="countcar_duser"></span></span>
+            <span class="help-block text-right"><span id="countcar_duser"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" value="'.stripslashes($dcategory).'" maxlength="250" />
-            <span class="help-block text-xs-right"><span id="countcar_dcategory"></span></span>
+            <span class="help-block text-right"><span id="countcar_dcategory"></span></span>
             <select class="custom-select form-control" name="sdcategory" onchange="adminForm.dcategory.value=options[selectedIndex].value">';
    $result = sql_query("SELECT distinct dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
    while (list($Xdcategory) = sql_fetch_row($result)) {

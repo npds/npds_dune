@@ -108,42 +108,42 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsitename" id="xsitename" value="'.$sitename.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xsitename"></span>
+               <span class="help-block text-right" id="countcar_xsitename"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xTitlesitename">'.adm_translate("Nom du site pour la balise title").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xTitlesitename" id="xTitlesitename" value="'.$Titlesitename.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xTitlesitename"></span>
+               <span class="help-block text-right" id="countcar_xTitlesitename"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xnuke_url">'.adm_translate("URL du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="xnuke_url" id="xnuke_url"  value="'.$nuke_url.'" maxlength="200" />
-               <span class="help-block text-xs-right" id="countcar_xnuke_url"></span>
+               <span class="help-block text-right" id="countcar_xnuke_url"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xsite_logo">'.adm_translate("Logo du site pour les impressions").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsite_logo" id="xsite_logo" value="'.$site_logo.'" maxlength="255" />
-               <span class="help-block text-xs-right" id="countcar_xsite_logo"></span>
+               <span class="help-block text-right" id="countcar_xsite_logo"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xslogan">'.adm_translate("Slogan du site").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xslogan" id="xslogan" value="'.$slogan.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xslogan"></span>
+               <span class="help-block text-right" id="countcar_xslogan"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xstartdate">'.adm_translate("Date de démarrage du site").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xstartdate" id="xstartdate" value="'.$startdate.'" maxlength="30" />
-               <span class="help-block text-xs-right" id="countcar_xstartdate"></span>
+               <span class="help-block text-right" id="countcar_xstartdate"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -168,7 +168,7 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xanonymous">'.adm_translate("Nom d'utilisateur anonyme").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xanonymous" id="xanonymous" value="'.$anonymous.'" maxlength="25" />
-               <span class="help-block text-xs-right" id="countcar_xanonymous"></span>
+               <span class="help-block text-right" id="countcar_xanonymous"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -275,7 +275,7 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xstart_page" id="xstart_page" value="'.$Start_Page.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xstart_page"></span>
+               <span class="help-block text-right" id="countcar_xstart_page"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -329,7 +329,7 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xlocale">'.adm_translate("Heure locale").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xlocale" id="xlocale" value="'.$locale.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xlocale"></span>
+               <span class="help-block text-right" id="countcar_xlocale"></span>
             </div>
          </div>';
       if ($lever=='') {$lever='08:00';}
@@ -340,7 +340,7 @@ function Configure() {
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xlever" id="xlever" value="'.$lever.'" size="6" maxlength="5" required="required" />
                <span class="help-block">(HH:MM)</span>
-               <span class="help-block text-xs-right" id="countcar_xlever"></span>
+               <span class="help-block text-right" id="countcar_xlever"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -348,7 +348,7 @@ function Configure() {
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
                <span class="help-block">(HH:MM)</span>
-               <span class="help-block text-xs-right" id="countcar_xcoucher"></span>
+               <span class="help-block text-right" id="countcar_xcoucher"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -356,7 +356,7 @@ function Configure() {
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xgmt" id="xgmt" value="'.$gmt.'" maxlength="3" />
                <span class="help-block">(+- x)</span>
-               <span class="help-block text-xs-right" id="countcar_xgmt"></span>
+               <span class="help-block text-right" id="countcar_xgmt"></span>
             </div>
          </div>
       </div>
@@ -452,21 +452,21 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xbackend_title">'.adm_translate("Titre du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xbackend_title" id="xbackend_title" value="'.$backend_title.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xbackend_title"></span>
+               <span class="help-block text-right" id="countcar_xbackend_title"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xbackend_language">'.adm_translate("Langue du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xbackend_language" id="xbackend_language" value="'.$backend_language.'" maxlength="10" />
-               <span class="help-block text-xs-right" id="countcar_xbackend_language"></span>
+               <span class="help-block text-right" id="countcar_xbackend_language"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xbackend_image">'.adm_translate("URL de l'image du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="xbackend_image" id="xbackend_image" value="'.$backend_image.'" maxlength="200" />
-               <span class="help-block text-xs-right" id="countcar_xbackend_image"></span>
+               <span class="help-block text-right" id="countcar_xbackend_image"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -750,7 +750,7 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xadminmail" id="xadminmail" value="'.$adminmail.'" maxlength="100" required="required" />
-               <span class="help-block text-xs-right" id="countcar_xadminmail"></span>
+               <span class="help-block text-right" id="countcar_xadminmail"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -827,14 +827,14 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xnotify_email">'.adm_translate("Adresse E-mail où envoyer le message").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_email" id="xnotify_email" value="'.$notify_email.'" maxlength="100" required="required" />
-               <span class="help-block text-xs-right" id="countcar_xnotify_email"></span>
+               <span class="help-block text-right" id="countcar_xnotify_email"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xnotify_subject">'.adm_translate("Sujet de l'E-mail").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xnotify_subject" id="xnotify_subject" value="'.$notify_subject.'" maxlength="100" required="required" />
-               <span class="help-block text-xs-right" id="countcar_xnotify_subject"></span>
+               <span class="help-block text-right" id="countcar_xnotify_subject"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -847,7 +847,7 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xnotify_from">'.adm_translate("Compte E-mail (Provenance)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_from" id="xnotify_from" value="'.$notify_from.'" maxlength="100" required="required" />
-               <span class="help-block text-xs-right" id="countcar_xnotify_from"></span>
+               <span class="help-block text-right" id="countcar_xnotify_from"></span>
             </div>
          </div>
       </div>
@@ -1015,21 +1015,21 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xtipath" id="xtipath" value="'.$tipath.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xtipath"></span>
+               <span class="help-block text-right" id="countcar_xtipath"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xuserimg" id="xuserimg" value="'.$userimg.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xuserimg"></span>
+               <span class="help-block text-right" id="countcar_xuserimg"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xadminimg">'.adm_translate("Chemin des images du menu administrateur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xadminimg" id="xadminimg" value="'.$adminimg.'" maxlength="100" />
-               <span class="help-block text-xs-right" id="countcar_xadminimg"></span>
+               <span class="help-block text-right" id="countcar_xadminimg"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -1067,7 +1067,7 @@ function Configure() {
             <label class="form-control-label col-sm-4" for="xadmf_ext">'.adm_translate("Extension des fichiers d'image").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xadmf_ext" id="xadmf_ext" value="'.$admf_ext.'" maxlength="3" />
-               <span class="help-block text-xs-right" id="countcar_xadmf_ext"></span>
+               <span class="help-block text-right" id="countcar_xadmf_ext"></span>
             </div>
          </div>
          <div class="form-group row">
