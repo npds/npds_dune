@@ -99,12 +99,12 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       <input type="hidden" name="edito_type" value="'.$edito_type.'" />
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4 ">
-            <button class="btn btn-primary col-xs-12" type="submit" name="edito_confirm"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").' </button>
+            <button class="btn btn-primary col-12" type="submit" name="edito_confirm"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").' </button>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4 ">
-            <a href="admin.php?op=Edito" class="btn btn-secondary col-xs-12">'.adm_translate("Abandonner").'</a>
+            <a href="admin.php?op=Edito" class="btn btn-secondary col-12">'.adm_translate("Abandonner").'</a>
          </div>
       </div>
       </fieldset>

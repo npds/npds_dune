@@ -253,7 +253,7 @@ function blocks() {
                      <input type="hidden" name="id" value="'.$id.'" />
                   </div>
                   <div class="form-group row">
-                     <div class="col-xs-12">
+                     <div class="col-12">
                         <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Ok").'</button>
                      </div>
                   </div>
@@ -422,7 +422,7 @@ function blocks() {
                      <input type="hidden" name="id" value="'.$id.'" />
                   </div>
                   <div class="form-group row">
-                     <div class="col-xs-12">
+                     <div class="col-12">
                         <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Ok").'</button>
                      </div>
                   </div>
