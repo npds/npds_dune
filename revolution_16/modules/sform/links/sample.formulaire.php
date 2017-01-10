@@ -70,5 +70,5 @@ $m->add_radio('f6', "Type d'Option", $tmp, false);
 $m->add_checkbox('f7', 'Centre de Formation Agr&eacute;&eacute;', '100', false, true);
 
 // Commentaire
-$m->add_comment("<p class=\"text-xs-center\">Ces informations sont publiques, mais vous disposez d'un droit permanent de modification.</p>");
+$m->add_comment("<p class=\"text-center\">Ces informations sont publiques, mais vous disposez d'un droit permanent de modification.</p>");
 ?>

@@ -57,7 +57,7 @@ function Caff_pub($topic, $file_name, $archive) {
    global $anonymous;
    settype($archive,'integer');
    if ($allow_to_post) {
-      echo '<nav class="float-xs-right mb-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      echo '<nav class="float-right mb-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    }
 
    // Pagination
@@ -166,7 +166,7 @@ if ($mycount) {
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '<a name="last-post"></a>';
       echo '
-         <div class="col-xs-12">
+         <div class="col-12">
             <div class="card">
                <div class="card-header">';
       global $smilies;
@@ -207,20 +207,20 @@ if ($mycount) {
                <div class="card-footer">
                   <div class="row">
                      <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
-                     <div class=" col-sm-6 text-xs-right">';
+                     <div class=" col-sm-6 text-right">';
       if ($allow_to_post) {
-         echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="fa fa-comment-o fa-lg"></i></a>';
+         echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="fa fa-comment-o fa-lg"></i></a>';
       }
       if ($allow_to_post and $posterdata['uid']!='') {
          if ($formulaire=='') 
-            echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
+            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
       }
       if ($Mmod) {
-         echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
+         echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
          if (!$myrow['post_aff']) {
-            echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
+            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
          } else {
-            echo '<a class="mr-1" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
+            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
          }
       }
       echo '
@@ -258,7 +258,7 @@ if ($mycount) {
 
    if ($Mmod) {
        echo '
-   <nav class="text-xs-center">
+   <nav class="text-center">
       <ul class="pagination pagination-sm">
          <li class="page-item disabled">
             <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>

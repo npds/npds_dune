@@ -46,7 +46,7 @@ switch($ok) {
             global $notify_email;
             send_email($notify_email,"Contact site",aff_langue($message),'','',"html");
 
-            echo "<p class=\"lead text-xs-center\">".aff_langue("[french]Votre demande est prise en compte. Nous y r&#xE9;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english]")."</p>";
+            echo "<p class=\"lead text-center\">".aff_langue("[french]Votre demande est prise en compte. Nous y r&#xE9;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english]")."</p>";
 
             break;
          }
