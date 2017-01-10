@@ -23,5 +23,5 @@ $m->add_field('AR', 'Autres R&eacute;alisations','','textarea',false,200,4,'',''
 // Champ text : Longueur = 200 / TextArea / Pas de Vérification
 $m->add_field('AF', 'Autres Informations','','textarea',false,200,4,'','');
 // Commentaire
-$m->add_comment('<p class="text-xs-center">Ces informations sont publiques, mais vous disposez du droit permanent de modification.</p>');
+$m->add_comment('<p class="text-center">Ces informations sont publiques, mais vous disposez du droit permanent de modification.</p>');
 ?>

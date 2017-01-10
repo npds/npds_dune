@@ -150,7 +150,7 @@ function index() {
             echo '
          <tr>
             <td>
-               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="tag tag-default pull-right">'.$cnumrows.'</span></h4>';
+               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="badge badge-default pull-right">'.$cnumrows.'</span></h4>';
             categorynewlinkgraphic($cid);
             if ($cdescription)
                 echo '
@@ -160,7 +160,7 @@ function index() {
                $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
                $cnumrows= sql_num_rows($cresult3);
                echo '
-               <h5><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="tag tag-default pull-right">'.$cnumrows.'</span></h5>';
+               <h5><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-default pull-right">'.$cnumrows.'</span></h5>';
             }
             echo '
             </td>
@@ -197,9 +197,9 @@ function index() {
          echo '
          <div class="card card-block">
           <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x" title="Admin" data-toggle="tooltip"></i></a> '.translate("Waiting Links").' : 
-          <span class="tag tag-danger" title="'.translate("Links Waiting for Validation").'" data-toggle="tooltip">'.$num.'</span> 
-          <span class="tag tag-danger" title="'.translate("User Reported Broken Links").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
-          <span class="tag tag-danger" title="'.translate("Request Link Modification").'" data-toggle="tooltip">'.$totalmodrequests.'</span>
+          <span class="badge badge-danger" title="'.translate("Links Waiting for Validation").'" data-toggle="tooltip">'.$num.'</span> 
+          <span class="badge badge-danger" title="'.translate("User Reported Broken Links").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
+          <span class="badge badge-danger" title="'.translate("Request Link Modification").'" data-toggle="tooltip">'.$totalmodrequests.'</span>
          ';
          if($links_DB!='') echo 'Ref Tables => <strong>'.$links_DB.'</strong>';
          echo '

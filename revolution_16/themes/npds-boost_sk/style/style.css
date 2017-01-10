@@ -203,6 +203,7 @@ ul.dropdown-menu {
   margin-bottom: 0px;
 }
 
+/* 
 @media (max-width: 48em) {
   #col_princ.col-sm-9,#col_princ.col-sm-6,#col_LB.col-sm-3,#col_RB.col-sm-3 {
     width:100%;
@@ -210,6 +211,7 @@ ul.dropdown-menu {
     clear: both;
   }
 }
+ */
 /* <== toggle systeme identique au navbar mais pour les col */
 
 #col_LB ul, #col_RB ul{

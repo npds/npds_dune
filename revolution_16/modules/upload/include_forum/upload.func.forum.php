@@ -127,7 +127,7 @@ function display_upload($apli,$post_id,$Mmod){
          <div class="list-group-item">
             <img class="n-smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" alt="icon_post" />
             <span class="text-muted">'.upload_translate("Pièces jointes").'</span>
-            <span class="tag tag-default tag-pill pull-right">'.$att_count.'</span>
+            <span class="badge badge-default badge-pill pull-right">'.$att_count.'</span>
          </div>';
 
       $ncell = 0;

@@ -42,10 +42,10 @@ if(!isset($M2)) $M2='';
 $m->add_comment(aff_langue('<div class="row"><p class="lead">[french]En savoir plus[/french][english]More[/english]</p></div>'));
 
 $m->add_field('C1', aff_langue('[french]Activit&#x00E9; professionnelle[/french][english]Professional activity[/english]'),$C1,'text',false,100,'','');
-$m->add_extender('C1', '', '<span class="help-block"><span class="float-xs-right" id="countcar_C1"></span></span>');
+$m->add_extender('C1', '', '<span class="help-block"><span class="float-right" id="countcar_C1"></span></span>');
 
 $m->add_field('C2',aff_langue('[french]Code postal[/french][english]Postal code[/english]'), $C2, 'text',false,5,'','');
-$m->add_extender('C2', '', '<span class="help-block"><span class="float-xs-right" id="countcar_C2"></span></span>');
+$m->add_extender('C2', '', '<span class="help-block"><span class="float-right" id="countcar_C2"></span></span>');
 
 $m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english]'),$T1,'date','',false,20);
 $m->add_extender('T1', '','<span class="help-block">JJ/MM/AAAA</span>');

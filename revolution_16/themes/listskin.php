@@ -1153,7 +1153,7 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card card-inverse card-primary text-xs-center">
+              <div class="card card-inverse card-primary text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1161,7 +1161,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-success text-xs-center">
+              <div class="card card-inverse card-success text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1169,7 +1169,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-info text-xs-center">
+              <div class="card card-inverse card-info text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1177,7 +1177,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-warning text-xs-center">
+              <div class="card card-inverse card-warning text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1185,7 +1185,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-danger text-xs-center">
+              <div class="card card-inverse card-danger text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1197,7 +1197,7 @@
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card card-outline-primary text-xs-center">
+              <div class="card card-outline-primary text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1205,7 +1205,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-success text-xs-center">
+              <div class="card card-outline-success text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1213,7 +1213,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-info text-xs-center">
+              <div class="card card-outline-info text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1221,7 +1221,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-warning text-xs-center">
+              <div class="card card-outline-warning text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1229,7 +1229,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-danger text-xs-center">
+              <div class="card card-outline-danger text-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1254,7 +1254,7 @@
                   <a href="#" class="card-link">Card link</a>
                   <a href="#" class="card-link">Another link</a>
                 </div>
-                <div class="card-footer text-muted text-xs-center">
+                <div class="card-footer text-muted text-center">
                   2 days ago
                 </div>
               </div>

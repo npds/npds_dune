@@ -928,11 +928,11 @@ if (!document.getElementById("map_bloc")) {
 include ('header.php');
 //==> ecriture des div contenants
 $affi .= '
-<h3>Géolocalisation des membres du site<span class="float-xs-right label label-default">'.$total_membre.'</span></h3>
+<h3>Géolocalisation des membres du site<span class="float-right label label-default">'.$total_membre.'</span></h3>
 <div class="card">
    <div class=" card-header">
       <div class="row">
-         <div class=" col-xs-12 col-sm-9 ">
+         <div class=" col-12 col-sm-9 ">
             <h4>
             <i title ="'.geoloc_translate('Membres du site').'" class="text-muted fa fa-users fa-2x"></i>&nbsp;<span class="label label-default">'.$total_membre.'</span>&nbsp;&nbsp;
             <span title="'.geoloc_translate('Visiteur en ligne').'" class="fa-stack fa-lg">
@@ -949,15 +949,15 @@ $affi .= '
             </span>
             </h4>
          </div>
-         <div class="col-xs-12 col-sm-3 "><span class="float-xs-right">'.$lkadm.'<a><i id="eye" class="fa fa-eye-slash fa-2x" onclick="clearMarkers()"></i></a>&nbsp;&nbsp;<a><i data-toggle="collapse" data-target="#sidebar" class="fa fa-bars fa-2x "></i></a></span></div>
-         <div id="mess_info" class=" col-xs-12 "></div>
+         <div class="col-12 col-sm-3 "><span class="float-right">'.$lkadm.'<a><i id="eye" class="fa fa-eye-slash fa-2x" onclick="clearMarkers()"></i></a>&nbsp;&nbsp;<a><i data-toggle="collapse" data-target="#sidebar" class="fa fa-bars fa-2x "></i></a></span></div>
+         <div id="mess_info" class=" col-12 "></div>
      </div>
    </div>
    <div>
    <div id="content">
       <div id="map-wrapper">
          <div id="map">
-         <div style="z-index:1000;" class="voffset2 col-xs-10 col-md-offset-2 alert alert-danger"><i style=" opacity:0.2;" class="fa fa-refresh fa-3x fa-pulse"></i>&nbsp '.geoloc_translate('Chargement en cours...Ou serveurs Google HS...Ou erreur...').'</div>
+         <div style="z-index:1000;" class="voffset2 col-10 col-md-offset-2 alert alert-danger"><i style=" opacity:0.2;" class="fa fa-refresh fa-3x fa-pulse"></i>&nbsp '.geoloc_translate('Chargement en cours...Ou serveurs Google HS...Ou erreur...').'</div>
          </div>
          <div id="sidebar" class= "collapse list-group">
             <ul id="sidebar-list"></ul>
@@ -967,7 +967,7 @@ $affi .= '
    </div>
 </div>
 
-<div class="col-xs-12 col row voffset2">
+<div class="col-12 col row voffset2">
    <ul class="nav nav-tabs">
       <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax">Infos carte</a></li>
       <li class="nav-item"><a class="nav-link" href="#geolocalisation" data-toggle="tab_ajax">Geolocalisation</a></li>
@@ -976,7 +976,7 @@ $affi .= '
    </ul>
    <div class="tab-content">
       <div class="tab-pane active" id="infocart">
-      <span class="float-xs-right" id="mypoint"></span>
+      <span class="float-right" id="mypoint"></span>
       <span class=""></span>
       </div>
       <div class="tab-pane" id="aide"></div>
