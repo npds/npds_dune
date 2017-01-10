@@ -299,9 +299,9 @@ if ($submitS) {
             <div class="card">
                <div class="card-header">';
    if ($allow_html == 1) {
-      echo '<span class="text-success float-xs-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
-      echo '<span class="text-danger float-xs-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
             <div class="card-block">';
@@ -333,7 +333,7 @@ if ($submitS) {
         $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
                   <textarea class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
-                  <span class="help-block text-xs-right">
+                  <span class="help-block text-right">
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
@@ -419,7 +419,7 @@ if ($submitS) {
       do {
          echo '
       <div class="row">
-         <div class="col-xs-12">
+         <div class="col-12">
             <div class="card">
                <div class="card-header">';
          $posterdata = get_userdata_from_id($myrow['poster_id']);
@@ -433,14 +433,14 @@ if ($submitS) {
                   if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
                }
                 echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
             }
          }
        echo '
                   &nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
      
          echo '
-                  <span class="float-xs-right">';
+                  <span class="float-right">';
          if ($myrow['image'] != '') {
             if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />';
@@ -454,7 +454,7 @@ if ($submitS) {
                   </span>
                </div>
                <div class="card-block">
-                  <span class="text-muted float-xs-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
+                  <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
                   <div class="card-text pt-2">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {

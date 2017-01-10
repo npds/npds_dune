@@ -59,7 +59,7 @@ function reviews() {
          <div class="form-group row">
             <div class="col-sm-12">
                <input type="hidden" name="op" value="mod_main" />
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
             </div>
          </div>
       </fieldset>
@@ -89,7 +89,7 @@ function reviews() {
          <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom du produit").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="title" name="title" value="'.$title.'" maxlength="40" />
-            <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
+            <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -102,14 +102,14 @@ function reviews() {
          <label class="form-control-label col-sm-4 " for="reviewer">'.adm_translate("Le critique").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="reviewer" name="reviewer" value="'.$reviewer.'" maxlength="20" />
-            <span class="help-block text-xs-right"><span id="countcar_reviewer"></span></span>
+            <span class="help-block text-right"><span id="countcar_reviewer"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="30" />
-            <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
+            <span class="help-block text-right"><span id="countcar_email"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -124,14 +124,14 @@ function reviews() {
          <label class="form-control-label col-sm-4 " for="url">'.adm_translate("Liens relatifs").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" />
-            <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
+            <span class="help-block text-right"><span id="countcar_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="url_title">'.adm_translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="url_title" name="url_title" value="'.$url_title.'" maxlength="50" />
-            <span class="help-block text-xs-right"><span id="countcar_url_title"></span></span>
+            <span class="help-block text-right"><span id="countcar_url_title"></span></span>
          </div>
       </div>';
         }

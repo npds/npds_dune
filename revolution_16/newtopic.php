@@ -408,7 +408,7 @@ if ($submitS) {
 
    echo'
       <fieldset>
-      <div class="btn-group-sm text-xs-center" role="group">
+      <div class="btn-group-sm text-center" role="group">
          <input type="hidden" name="forum" value="'.$forum.'" />
          <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
          <input class="btn btn-secondary" type="submit" name="submitP" value="'.translate("Preview").'" />

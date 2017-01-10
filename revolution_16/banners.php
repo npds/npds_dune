@@ -117,7 +117,7 @@ function clientlogin() {
                   <div class="row">
                      <div class="col-sm-8 offset-sm-4">
                         <input type="hidden" name="op" value="Ok" />
-                        <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.translate("Submit").'</button>
+                        <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.translate("Submit").'</button>
                      </div>
                   </div>
                </div>

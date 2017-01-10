@@ -442,7 +442,7 @@ function undo_htmlspecialchars($input) {
 function searchblock() {
    $ibid='
    <nav class="navbar navbar-light bg-faded">
-      <form class="form-inline float-xs-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
+      <form class="form-inline float-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
          <input type="hidden" name="addterm" value="any" />
          <input type="hidden" name="sortby" value="0" />
          <div class="form-group">
@@ -925,11 +925,11 @@ function forum($rowQ1) {
                         $title = stripslashes($row['cat_title']);
                         if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html"))) {
                            $ibid.='
-                           <div class="list-group mt-1" id="catfo_'.$row['cat_id'].'" >
+                           <div class="list-group mt-3" id="catfo_'.$row['cat_id'].'" >
                               <a class="list-group-item list-group-item-action active" href="forum.php?catid='.$row['cat_id'].'"><h5 class="list-group-item-heading" >'.$title.'</h5></a>';
                         } else {
                            $ibid.='
-                           <div class="list-group mt-1" id="catfo_'.$row['cat_id'].'">
+                           <div class="list-group mt-3" id="catfo_'.$row['cat_id'].'">
                               <div class="list-group-item list-group-item-action active"><h5 class="list-group-item-heading" >'.$title.'</h5></div>';
                         }
                         $title_aff=false;
@@ -957,8 +957,8 @@ function forum($rowQ1) {
                      }
                      if (!$redirect) {
                      $ibid.=' 
-            <span class="tag tag-default ml-1" style=" position: relative; float: right;" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
-            <span class="tag tag-default " style=" position: relative; float: right;" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>';}
+            <span class="badge badge-default ml-3" style=" position: relative; float: right;" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+            <span class="badge badge-default " style=" position: relative; float: right;" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>';}
 
                      $desc = stripslashes(meta_lang($myrow['forum_desc']));
                      if($desc!='')
@@ -997,7 +997,7 @@ function forum($rowQ1) {
                            }
                         }
                      }
-                        $ibid.='<span class="float-xs-right">'.$last_post.'</span><br />';
+                        $ibid.='<span class="float-right">'.$last_post.'</span><br />';
                      } else {
                         $ibid.='';
                      }

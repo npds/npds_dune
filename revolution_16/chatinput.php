@@ -69,7 +69,7 @@ include("functions.php");
    echo translate("You are logged in as").' <strong>'.$pseudo.'</strong>&nbsp;';
    echo '
             <input type="hidden" name="name" value="'.$pseudo.'" />
-            <textarea class="form-control mb-1" type="text" rows="2" '.$xJava.' ></textarea>
+            <textarea class="form-control mb-3" type="text" rows="2" '.$xJava.' ></textarea>
             <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Submit").'" />
          </form>
          <script type="text/javascript">

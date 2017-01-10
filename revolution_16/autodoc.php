@@ -32,7 +32,7 @@ function dochead() {
       include ("modules/include/header_head.inc");
       echo '
       </head>
-      <body class="my-1 mx-1">
+      <body class="my-3 mx-3">
       ';
    }
 }

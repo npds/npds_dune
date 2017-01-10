@@ -75,7 +75,7 @@ function pollList() {
    global $NPDS_Prefix;
    $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
    echo '
-   <h2 class="mb-1">'.translate("Survey").'</h2>
+   <h2 class="mb-3">'.translate("Survey").'</h2>
    <hr />
    <div class="row">';
    while($object = sql_fetch_assoc($result)) {
@@ -86,7 +86,7 @@ function pollList() {
       list ($sum) = sql_fetch_row($result2);
       echo '
       <div class="col-sm-8">'.aff_langue($pollTitle).'</div>
-      <div class="col-sm-4 text-xs-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
+      <div class="col-sm-4 text-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Results").'</a> - '.$sum.' '.translate("votes").')</div>';
    }
    echo '
    </div>';
@@ -100,11 +100,11 @@ function pollResults($pollID) {
       list(,$pollTitle) = sql_fetch_row($result);
 
    echo '
-   <h3 class="mb-1">'.$pollTitle.'</h3>';
+   <h3 class="mb-3">'.$pollTitle.'</h3>';
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
      echo '
-   <h4><span class="tag tag-default">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>';
+   <h4><span class="badge badge-default">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>';
      for ($i = 1; $i <= $maxOptions; $i++) {
         $result = sql_query("SELECT optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID') AND (voteID='$i')");
         $object = sql_fetch_assoc($result);
@@ -121,7 +121,7 @@ function pollResults($pollID) {
    <div class="row">
       <div class="col-sm-5">'.aff_langue($optionText).'</div>
       <div class="col-sm-7">
-         <span class="tag tag-default text-xs-right">'.wrh($optionCount).'</span>
+         <span class="badge badge-default text-right">'.wrh($optionCount).'</span>
          <progress class="progress  progress-striped" value="'.$percentInt.'" max="100" title="'.$percentInt.'%" data-toggle="tooltip">
             <div class="progress">
                <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" ></span>
@@ -132,7 +132,7 @@ function pollResults($pollID) {
         }
      }
      echo '<br />';
-     echo '<p class="text-xs-center"><b>'.translate("Total Votes: ").' '.$sum.'</b></p><br />';
+     echo '<p class="text-center"><b>'.translate("Total Votes: ").' '.$sum.'</b></p><br />';
      if ($setCookies>0) {
         echo '<p class="text-danger">'.translate("We allow just one vote per poll.").'</p>';
      }

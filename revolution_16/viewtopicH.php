@@ -102,9 +102,9 @@ global $idtog;
    }
    $resultX='';
 //    $toggle = new ToggleDiv(count(array_keys($table))-1);
-//    echo "<p class=\"text-xs-right\">",$toggle->All(),"</p>";
+//    echo "<p class=\"text-right\">",$toggle->All(),"</p>";
    $resultX.=makebranch($rootcatid,$table,0,$maxlevel,$max_post_id,$clas,$idtog);
-//   echo "<br /><p class=\"text-xs-right\">",$toggle->All(),"</p>";
+//   echo "<br /><p class=\"text-right\">",$toggle->All(),"</p>";
 
    return ($resultX);
 }
@@ -152,7 +152,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="mr-1" href="';
+                     $my_rs.='<a class="mr-3" href="';
                      if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                      $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                      break;
@@ -190,7 +190,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if ($myrow['post_id']==$max_post_id) echo '<a name="last-post"></a>';
       echo '
-         <div class="col-xs-12">
+         <div class="col-12">
             <div class="card">
                <div class="card-header">';
       if ($smilies) {
@@ -201,12 +201,12 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
              }
              echo '
-          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
           }
       }
 
    echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-   echo '<span class="float-xs-right">';
+   echo '<span class="float-right">';
       if ($myrow['image'] != '') {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
@@ -249,22 +249,22 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
             <div class="card-footer">
                <div class="row">
                   <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
-                  <div class=" col-sm-6 text-xs-right">';
+                  <div class=" col-sm-6 text-right">';
       if ($forum_access!=9) {
          if ($allow_to_post) {echo aff_pub_in($lock_state,$topic,$forum,$myrow['post_id'],1);}
          if (($Mmod) or ($posterdata['uid']==$userdata[0]) and (!$lock_state) and ($posterdata['uid']!='')) {
-            echo '<a class="mr-1" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
+            echo '<a class="mr-3" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
             if ($allow_upload_forum) {
                $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
-               echo '<a class="mr-1" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+               echo '<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
             }
          }
          if ($allow_to_post and !$lock_state and $posterdata['uid']!='') {
-            echo '<a class="mr-1" href="replyH.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
+            echo '<a class="mr-3" href="replyH.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
          }
-         echo '<a class="mr-1" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+         echo '<a class="mr-3" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
          if ($Mmod) {
-            echo '<a class="mr-1" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=1" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
+            echo '<a class="mr-3" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=1" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
             if (!$myrow['post_aff']) {
                echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Show this post").'" data-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
             } else {
@@ -278,7 +278,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                </div>';
       if ((isset($table[$key])) AND (($maxlevel>$level+1) OR ($maxlevel=='0'))) {
          echo '
-         <div><a class="float-xs-right" data-toggle="collapse" href="#tog_'.$idtog.'" aria-expanded="false" aria-controls=""><i class="togglearbr-icon fa fa-level-down fa-2x"></i></a></div>';
+         <div><a class="float-right" data-toggle="collapse" href="#tog_'.$idtog.'" aria-expanded="false" aria-controls=""><i class="togglearbr-icon fa fa-level-down fa-2x"></i></a></div>';
 //unset ($idtog);
         $result.= makebranch($key,$table,$level+1,$maxlevel,$max_post_id,$clas,$idtog);
       }
@@ -308,7 +308,7 @@ function aff_pub_in($lock_state, $topic, $forum,$post, $bouton) {
    $ibid='';
    if ($lock_state==0) {
       if (($bouton==1) or ($bouton==9))
-         $ibid = '<a class="mr-1" href="replyH.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$post.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>&nbsp;';
+         $ibid = '<a class="mr-3" href="replyH.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$post.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>&nbsp;';
    }
    return $ibid;
 }
@@ -452,7 +452,7 @@ echo '
       echo '
 <form action="viewforum.php" method="post">
    <div class="form-group row">
-      <div class="col-xs-12">
+      <div class="col-12">
          <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
          <select class="form-control custom-select" name="forum" onchange="submit();">
             <option value="index">'.translate("Jump To: ").'</option>
@@ -484,7 +484,7 @@ echo '
 
    if (($Mmod) and ($forum_access!=9)) { // et le super admin ??
       echo '
-      <nav class="text-xs-center">
+      <nav class="text-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>

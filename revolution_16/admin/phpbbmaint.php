@@ -277,7 +277,7 @@ function MergeForum() {
          <div class="form-group row">
             <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="MergeForumAction" />
-               <button class="btn btn-primary col-xs-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
+               <button class="btn btn-primary col-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
             </div>
          </div>
       </fieldset>
@@ -315,19 +315,19 @@ function ForumMaintAdmin() {
    // Mark Topics, Synchro Forum_read table, Merge Forums
    echo '
    <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
          <form id="fad_forumaction" action="admin.php" method="post">
             <input type="hidden" name="op" value="MaintForumMarkTopics" />
             <button class="btn btn-primary btn-block btn-lg" type="submit" name="Topics_Mark"><i class="fa fa-check-square-o fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
          </form>
       </div>
-      <div class="col-xs-12">
+      <div class="col-12">
          <form action="admin.php" method="post">
             <input type="hidden" name="op" value="SynchroForum" />
             <button class="btn btn-primary btn-block btn-lg" type="submit" name="Synchro_Forum"><i class="fa fa-refresh fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
          </form>
       </div>
-      <div class="col-xs-12">
+      <div class="col-12">
          <form action="admin.php" method="post">
             <input type="hidden" name="op" value="MergeForum" />
             <button class="btn btn-primary btn-block btn-lg" type="submit" name="Merge_Forum"><i class="fa fa-compress fa-lg"></i>&nbsp;'.adm_translate("Fusionner des forums").'</button>

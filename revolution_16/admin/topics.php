@@ -29,7 +29,7 @@ function topicsmanager() {
    if (sql_num_rows($result) > 0) {
       echo '
    <hr />
-   <h3 class="my-1">'.adm_translate("Sujets actifs").'</h3>
+   <h3 class="my-3">'.adm_translate("Sujets actifs").'</h3>
    <div class="">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
@@ -58,7 +58,7 @@ function topicsmanager() {
     echo '
     </div>
    <hr />
-   <h3 class="my-1">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
+   <h3 class="my-3">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
@@ -91,7 +91,7 @@ function topicsmanager() {
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="topicmake" />
-            <button class="btn btn-primary col-xs-12" type="submit" ><i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Ajouter un Sujet").'</button>
+            <button class="btn btn-primary col-12" type="submit" ><i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Ajouter un Sujet").'</button>
          </div>
       </div>
    </form>';
@@ -178,7 +178,7 @@ function topicedit($topicid) {
    <h3 class="mb-1">'.adm_translate("Editer le Sujet :").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
    if ($topicimage!='') {
       echo '
-   <div class="card card-block my-2 py-1"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
+   <div class="card card-block my-4 py-3"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
    }
    echo '
    <form action="admin.php" method="post">
@@ -356,7 +356,7 @@ function relatededit($tid, $rid) {
            <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
            <div class="col-sm-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
-              <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
+              <span class="help-block text-right"><span id="countcar_name"></span></span>
            </div>
        </div>
        <div class="form-group row">
@@ -368,7 +368,7 @@ function relatededit($tid, $rid) {
                  </span>
                  <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
                </div>
-               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-right"><span id="countcar_url"></span></span>
             </div>
             <input type="hidden" name="op" value="relatedsave" />
             <input type="hidden" name="tid" value="'.$tid.'" />
@@ -376,7 +376,7 @@ function relatededit($tid, $rid) {
          </fieldset>
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4">
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>
    </form>

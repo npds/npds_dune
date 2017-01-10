@@ -66,7 +66,7 @@ function poll_createPoll() {
             <div class="col-sm-9 ">
                <input class="form-control" type="text" id="pollTitle" name="pollTitle" id="pollTitle" maxlength="100" required="required" />
                <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-               <span class="help-block text-xs-right"><span id="countcar_pollTitle"></span></span>
+               <span class="help-block text-right"><span id="countcar_pollTitle"></span></span>
             </div>
          </div>';
    for ($i = 1; $i <= $maxOptions; $i++) {
@@ -75,7 +75,7 @@ function poll_createPoll() {
                <label class="form-control-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
                <div class="col-sm-9" >
                   <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
-                  <span class="help-block text-xs-right"><span id="countcar_optionText'.$i.'"></span></span>
+                  <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
                </div>
             </div>';
    }
@@ -252,7 +252,7 @@ function poll_editPollPosted() {
          <div class="col-sm-9">
             <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" required="required" />
             <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-            <span class="help-block text-xs-right"><span id="countcar_pollTitle'.$i.'"></span></span>
+            <span class="help-block text-right"><span id="countcar_pollTitle'.$i.'"></span></span>
          </div>
       </div>';
          for ($i = 1; $i <= $maxOptions; $i++) {
@@ -262,7 +262,7 @@ function poll_editPollPosted() {
          <label class="form-control-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
          <div class="col-sm-9 ">
             <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" />
-            <span class="help-block text-xs-right"><span id="countcar_optionText'.$i.'"></span></span>
+            <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
          </div>
       </div>';
       }

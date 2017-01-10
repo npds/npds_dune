@@ -232,7 +232,7 @@ function instant_members_message() {
              else
                 $M=$N;
              $boxstuff .='
-         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="float-xs-right">'.$icon.'</span></li>';
+         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" >'.$M.'</a><span class="float-right">'.$icon.'</span></li>';
           }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
@@ -305,7 +305,7 @@ function makeChatBox() {
       
       
       if ($numofchatters > 0) {
-         $thing.='<a class=" nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a><span class="tag tag-pill tag-primary pull-right" title="'.translate("person chatting right now.").'" data-toggle="tooltip">'.$numofchatters.'</span> ';
+         $thing.='<a class=" nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a><span class="badge badge-pill badge-primary pull-right" title="'.translate("person chatting right now.").'" data-toggle="tooltip">'.$numofchatters.'</span> ';
       }
       else {
          $thing.='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a>';

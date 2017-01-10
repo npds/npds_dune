@@ -41,7 +41,7 @@ function nmig_copyright() {
       $clspin =' text-danger';
       }
    $display = '
-   <br /><div class="text-xs-center">
+   <br /><div class="text-center">
       <i class="fa fa-spinner fa-pulse '.$clspin.' "></i> NPDS Module Installer v2.0
    </div>';
    return $display;
@@ -64,7 +64,7 @@ function nmig_Start($name_module,$txtdeb) {
    $display .= '
    </div>
    <div style="text-align: center;">
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary col-xs-12 col-sm-4 offset-sm-4">'.adm_translate("Etape suivante").'</a><br />
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary col-12 col-sm-4 offset-sm-4">'.adm_translate("Etape suivante").'</a><br />
    </div>
    '.nmig_copyright();
 }
@@ -287,9 +287,9 @@ function nmig_AlertBloc($blocs) {
    $display .= '
    <div class="">
       <br />
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=l" class="btn btn-primary col-xs-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à gauche").'</a>
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=r" class="btn btn-primary col-xs-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à droite").'</a>
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=0" class="btn btn-danger col-xs-12 col-md-4">'.adm_translate("Sauter cette étape").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=l" class="btn btn-primary col-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à gauche").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=r" class="btn btn-primary col-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à droite").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=0" class="btn btn-danger col-12 col-md-4">'.adm_translate("Sauter cette étape").'</a>
    </div><br /><br />';
    $display .= nmig_copyright();
 }
@@ -476,7 +476,7 @@ function nmig_clean($name_module) {
          <p>'.adm_translate("Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".").'</p>
       </div>
       <div style="text-align: center;">
-      <a href="JavaScript:history.go(-1)" class="btn btn-primary col-xs-12 col-md-6">'.adm_translate("Retour en arriére").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger col-xs-12 col-md-6">'.adm_translate("Marquer le module comme désinstallé").'</a><br />
+      <a href="JavaScript:history.go(-1)" class="btn btn-primary col-12 col-md-6">'.adm_translate("Retour en arriére").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger col-12 col-md-6">'.adm_translate("Marquer le module comme désinstallé").'</a><br />
       </div>
       <br /><br />
       '.nmig_copyright();

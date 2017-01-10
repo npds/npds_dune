@@ -51,7 +51,7 @@ function listsections($rubric) {
          $nb_r = sql_num_rows($result);
       }
       $aff='
-      <h2>'.translate("Sections").'<span class="float-xs-right tag tag-default">'.$nb_r.'</span></h2>';
+      <h2>'.translate("Sections").'<span class="float-right badge badge-default">'.$nb_r.'</span></h2>';
       if (sql_num_rows($result) > 0) {
          while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
             $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
@@ -60,7 +60,7 @@ function listsections($rubric) {
       <hr />
       <h3>
          <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;
-         <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class="tag tag-default float-xs-right title">'.$nb_section.'</span>
+         <a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class="badge badge-default float-right title">'.$nb_section.'</span>
       </h3>';
             if ($intro!='') {$aff.='<p class="text-muted">'.aff_langue($intro).'</p>';};
             $aff.= '
@@ -99,7 +99,7 @@ function listsections($rubric) {
                         }
                         $aff2.='<span><a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a>&nbsp;<small>'.translate("read:").' '.$counter.' '.translate("times").'</small>';
                         if ($nouveau=='') {
-                           $aff2.='<i class="fa fa-star-o ml-1 text-success"></i>';
+                           $aff2.='<i class="fa fa-star-o ml-3 text-success"></i>';
                            $aff1=str_replace('#NEW#','',$aff1);
                         } else {
                            $aff1=str_replace('#NEW#','',$aff1);
@@ -169,7 +169,7 @@ function listarticles($secid) {
          if ($image!='') {
             if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
             $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
-               echo '<p class="text-xs-center"><img class="img-fluid" src="'.$imgtmp.'" alt="" /></p>';
+               echo '<p class="text-center"><img class="img-fluid" src="'.$imgtmp.'" alt="" /></p>';
          } else {
          } 
          echo '<p>'.translate("Following are the articles published under this section.").'</p>';
@@ -251,7 +251,7 @@ function viewarticle($artid, $page) {
          } else 
             echo '<h3 class="mb-2">'.$title.'</h3>';
          echo '<p class="text-muted">('.$words.' '.translate("total words in this text)").'&nbsp;-&nbsp;
-         '.translate("read:").' '.$counter.' '.translate("times").'<a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-print fa-lg ml-1"></i></a></p>';
+         '.translate("read:").' '.$counter.' '.translate("times").'<a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-print fa-lg ml-3"></i></a></p>';
             preg_match_all('#\[page.*\]#', $Xcontent, $rs);
             $ndepages=count($rs[0]);
 
@@ -350,7 +350,7 @@ function PrintSecPage($artid) {
    echo '
       </head>
       <body style="background-color: #FFFFFF; background-image: none;">
-      <p class="text-xs-center">';
+      <p class="text-center">';
    $pos = strpos($site_logo, "/");
    if ($pos)
       echo '<img src="'.$site_logo.'" alt="" />';
@@ -369,7 +369,7 @@ function PrintSecPage($artid) {
    echo meta_lang($content);
    echo '
          <hr />
-         <p class="text-xs-center">
+         <p class="text-center">
          '.translate("This article comes from").' '.$sitename.'<br /><br />
          '.translate("The URL for this story is:").'
          <a href="'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'">'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'</a>

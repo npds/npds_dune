@@ -145,14 +145,14 @@ function links() {
          <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
+            <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" name="url" id="url" maxlength="100" placeholder="http://" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
+            <span class="help-block text-right"><span id="countcar_url"></span></span>
          </div>
       </div>
       <div class="form-group row">';
@@ -186,14 +186,14 @@ function links() {
          <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" id="name" maxlength="60" />
-            <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
+            <span class="help-block text-right"><span id="countcar_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" name="email" id="email" maxlength="60" />
-            <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
+            <span class="help-block text-right"><span id="countcar_email"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -201,7 +201,7 @@ function links() {
             <input type="hidden" name="op" value="LinksAddLink">
             <input type="hidden" name="new" value="0">
             <input type="hidden" name="lid" value="0">
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une URL").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une URL").'</button>
          </div>
       </div>
    </form>
@@ -227,7 +227,7 @@ function links() {
          <div class="form-group row">
             <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="LinksAddCat">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
+               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
             </div>
          </div>
       </form>
@@ -264,7 +264,7 @@ function links() {
          <div class="form-group row">
             <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="LinksAddSubCat">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Sous-catégorie").'</button>
+               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une Sous-catégorie").'</button>
             </div>
          </div>
       </form>
@@ -300,7 +300,7 @@ function links() {
          <div class="form-group row">
             <div class="col-sm-8 offset-sm-4">
                <input type="hidden" name="op" value="LinksModCat">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Editer une catégorie").'</button>
+               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Editer une catégorie").'</button>
             </div>
          </div>
       </form>
@@ -312,7 +312,7 @@ function links() {
    $numrow=sql_num_rows($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Liste des liens").' <span class="tag tag-default pull-right">'.$numrow.'</span></h3>
+   <h3>'.adm_translate("Liste des liens").' <span class="badge badge-default pull-right">'.$numrow.'</span></h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -382,7 +382,7 @@ function LinksModLink($lid) {
          <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" value="'.$title.'" maxlength="100" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
+            <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -394,7 +394,7 @@ function LinksModLink($lid) {
                </span>
                <input class="form-control" type="text" name="url" id="url" value="'.$url.'" maxlength="100" required="required" />
              </div>
-             <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
+             <span class="help-block text-right"><span id="countcar_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -409,14 +409,14 @@ function LinksModLink($lid) {
          <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" id="name" maxlength="100" value="'.$name.'" />
-            <span class="help-block text-xs-right"><span id="countcar_name"></span></span>
+            <span class="help-block text-right"><span id="countcar_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" name="email" id="email" maxlength="100" value="'.$email.'" />
-            <span class="help-block text-xs-right"><span id="countcar_email"></span></span>
+            <span class="help-block text-right"><span id="countcar_email"></span></span>
          </div>
       </div>
       <div class="form-group">
@@ -459,8 +459,8 @@ function LinksModLink($lid) {
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="LinksModLinkS" />
-            <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").' </button>
-            <button href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger col-xs-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button class="btn btn-primary col-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").' </button>
+            <button href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger col-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>
    </form>';
@@ -476,7 +476,7 @@ function LinksModLink($lid) {
          <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" maxlength="100" />
-            <span class="help-block text-xs-right"><span id="countcar_editorialtitle"></span></span>
+            <span class="help-block text-right"><span id="countcar_editorialtitle"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -489,7 +489,7 @@ function LinksModLink($lid) {
          <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="linkid" value="'.$lid.'" />
             <input type="hidden" name="op" value="LinksAddEditorial" />
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un Editorial").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un Editorial").'</button>
          </div>
       </div>';
    } else {
@@ -505,7 +505,7 @@ function LinksModLink($lid) {
          <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" value="'.$editorialtitle.'" maxlength="100" />
-            <span class="help-block text-xs-right"><span id="countcar_editorialtitle"></span></span>
+            <span class="help-block text-right"><span id="countcar_editorialtitle"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -518,8 +518,8 @@ function LinksModLink($lid) {
          <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="linkid" value="'.$lid.'" />
             <input type="hidden" name="op" value="LinksModEditorial" />
-            <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelEditorial&amp;linkid='.$lid.'" class="btn btn-danger col-xs-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button class="btn btn-primary col-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
+            <button href="admin.php?op=LinksDelEditorial&amp;linkid='.$lid.'" class="btn btn-danger col-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>';
       }
@@ -542,7 +542,7 @@ function LinksListBrokenLinks() {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="tag tag-default pull-right">'.$totalbrokenlinks.'</span></h3>
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-default pull-right">'.$totalbrokenlinks.'</span></h3>
    - '.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
     - '.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)");
 
@@ -772,8 +772,8 @@ function LinksModCat($cat) {
             <input type="hidden" name="sub" value="0">
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="op" value="LinksModCatS">
-            <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger col-xs-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button class="btn btn-primary col-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
+            <button href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger col-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>
    </form>';
@@ -799,8 +799,8 @@ function LinksModCat($cat) {
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="sid" value="'.$cat[1].'">
             <input type="hidden" name="op" value="LinksModCatS">
-            <button class="btn btn-primary col-xs-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger col-xs-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button class="btn btn-primary col-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
+            <button href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger col-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>
    </form>';

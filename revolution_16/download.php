@@ -30,9 +30,9 @@ function geninfo($did,$out_template) {
       if ($out_template==1) {
          include('header.php');
          echo '
-         <h2 class="mb-1">'.translate("Download Section").'</h2>
+         <h2 class="mb-3">'.translate("Download Section").'</h2>
          <div class="card">
-            <div class="card-header"><h4>'.$dfilename.'<span class="ml-1 text-muted small">@'.$durl.'</h4></div>
+            <div class="card-header"><h4>'.$dfilename.'<span class="ml-3 text-muted small">@'.$durl.'</h4></div>
             <div class="card-block">
          ';
       }
@@ -130,7 +130,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
    $out_template = 0;
    if ($aff) {
       echo '
-         <a class="mr-1" href="#" data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'">
+         <a class="mr-3" href="#" data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'">
          <i class="fa fa-lg fa-info-circle"></i></a>
          <div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
             <div class="modal-dialog">
@@ -158,46 +158,46 @@ function SortLinks($dcategory, $sortby) {
   echo '
       <thead>
          <tr>
-            <th class="text-xs-center">'.translate("Functions").'</th>
-            <th class="text-xs-center">'.translate("Type").'</th>
-            <th class="text-xs-center">';
+            <th class="text-center">'.translate("Functions").'</th>
+            <th class="text-center">'.translate("Type").'</th>
+            <th class="text-center">';
   if ($sortby == 'dfilename' OR !$sortby) {
      act_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
   }
   echo '</th>
-            <th class="text-xs-center">';
+            <th class="text-center">';
   if ($sortby == "dfilesize") {
      act_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
   }
-  echo "</th><th class=\"text-xs-center\">";
+  echo "</th><th class=\"text-center\">";
   if ($sortby == "dcategory") {
      act_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
   }
-  echo "</th><th class=\"text-xs-center\">";
+  echo "</th><th class=\"text-center\">";
   if ($sortby == "ddate") {
      act_dl_tableheader($dcategory, $sortby, "ddate", "Date");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "ddate", "Date");
   }
-  echo "</th><th class=\"text-xs-center\">";
+  echo "</th><th class=\"text-center\">";
   if ($sortby == "dver") {
      act_dl_tableheader($dcategory, $sortby, "dver", "Version");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dver", "Version");
   }
-  echo "</th><th class=\"text-xs-center\">";
+  echo "</th><th class=\"text-center\">";
   if ($sortby == "dcounter") {
      act_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
   } else {
      inact_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
   }
-  echo "</th><th class=\"text-xs-center\">&nbsp;</th></tr></thead>";
+  echo "</th><th class=\"text-center\">&nbsp;</th></tr></thead>";
 }
 
 function listdownloads ($dcategory, $sortby, $sortorder) {
@@ -280,7 +280,7 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
       $okfile=autorisation($dperm);
       echo '
          <tr>
-            <td class="text-xs-center">';
+            <td class="text-center">';
       if ($okfile==true) {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
       } else {
@@ -288,7 +288,7 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
          echo '<span class="text-danger">'.translate("Private").'</span>';
       }
       echo '</td>
-            <td class="text-xs-center"><img src="'.$Fichier->Affiche_Extention().'" alt="'.$Fichier->Affiche_Extention().'" /></td>
+            <td class="text-center"><img src="'.$Fichier->Affiche_Extention().'" alt="'.$Fichier->Affiche_Extention().'" /></td>
             <td>';
       if ($okfile==true) {
          echo '<a href="download.php?op=mydown&amp;did='.$did.'" target="_blank">'.$dfilename.'</a>';
@@ -305,8 +305,8 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
             echo '</td>
             <td>'.aff_langue(stripslashes($dcat)).'</td>
             <td>'.convertdate($ddate).'</td>
-            <td class="text-xs-center">'.$dver.'</td>
-            <td class="text-xs-center">'.wrh($dcounter).'</td>
+            <td class="text-center">'.$dver.'</td>
+            <td class="text-center">'.wrh($dcounter).'</td>
             <td>';
       if (($okfile==true) and $user) {
          echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'"><i class="fa fa-lg fa-chain-broken"></i></a>';
@@ -379,7 +379,7 @@ function transferfile($did) {
   list($dcounter, $durl, $dperm) = sql_fetch_row($result);
   if (!$durl) {
      include("header.php");
-     echo "<p class=\"lead text-xs-center\">$durl : ".translate("There is no such file...")."</p>\n";
+     echo "<p class=\"lead text-center\">$durl : ".translate("There is no such file...")."</p>\n";
      include("footer.php");
   } else {
      if (autorisation($dperm)) {
@@ -403,7 +403,7 @@ function broken($did) {
         $message=translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
         send_email($notify_email, translate("Report Broken Link"), $message, $notify_from , false, "text");
         include("header.php");
-        echo "<br /><p class=\"lead text-info text-xs-center\">".translate("For security reasons your user name and IP address will also be temporarily recorded.");
+        echo "<br /><p class=\"lead text-info text-center\">".translate("For security reasons your user name and IP address will also be temporarily recorded.");
         echo "<br /><br />".translate("Thanks for this information. We'll look into your request shortly.")."</p>";
         include("footer.php");
      } else {
