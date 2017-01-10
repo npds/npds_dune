@@ -4,20 +4,20 @@
    $skinname = $cookie[11];
    switch ($skinname) {
       case 'cyborg': 
-        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-inverse';
+        $headerclasses ='navbar navbar-toggleable-md navbar-dark fixed-top bg-inverse';
       break;
       case 'lumen':
-         $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
+         $headerclasses ='navbar  navbar-toggleable-md navbar-light bg-inverse fixed-top';
       break;
       case 'journal':
       case 'materia':
       case 'litera':
       case 'simplex':
       case 'spacelab':
-         $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded';
+         $headerclasses = 'navbar  navbar-toggleable-md navbar-light fixed-top bg-faded';
       break;
       default :
-        $headerclasses = 'navbar navbar-dark navbar-fixed-top bg-primary'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate superhero united yeti default
+        $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate superhero united yeti default
       break;
    }
 if (!isset($powerpack)) {include_once ("powerpack.php");}
@@ -49,53 +49,50 @@ if (!isset($powerpack)) {include_once ("powerpack.php");}
    }
 ?>
 
-   <nav id="uppernavbar" class="<?php echo $headerclasses; ?>">
-      <div class="">
-         <div class="clearfix">
-            <button class="navbar-toggler float-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target="#barnav"></button>
-            <a  href="index.php" class="navbar-brand hidden-md-up"><span>NPDS^ 16</span></a>
-         </div>
-         <div class="collapse navbar-toggleable-sm" id="barnav">
-            <ul class="nav navbar-nav">
-               <li class="nav-item active hidden-sm-down"><a class="nav-link" href="../../../">NPDS^ 16</a></li>
-               <li class="navbar-divider"></li>
-               <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
-                  <ul class="dropdown-menu" role="menu">
-                     <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
-                     <li><a class="dropdown-item" href="search.php">Les archives</a></li>
-                     <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
-                  </ul>
-               </li>
-               <li class="navbar-divider"></li>
-               <li class="nav-item"><a class="nav-link" href="forum.php">Forums</a></li>
-               <li class="navbar-divider"></li>
-               <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
-               <li class="navbar-divider"></li>
-               <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
-               <li class="navbar-divider"></li>
-               <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">[french]Contact[/french][english]Contact[/english][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese][spanish]Cont&aacute;ctenos[/spanish][german]Kontakt[/german]</a></li>
-               <li class="navbar-divider"></li>
-               <li class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
-                  <ul class="dropdown-menu">
-                     <li><?php echo $ava; ?></li>
-                     <li class="dropdown-divider"></li>
-                     <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> [french]Profil[/french][english]Profile[/english][chinese]Profile[/chinese][spanish]Perfil[/spanish][german]Profil[/german]</a></li>
-                     <li><?php echo $bal; ?></li>
-                     <li class="dropdown-divider"></li>
-                     <li><?php echo $btn_con; ?></li>
-                  </ul>
-               </li>
-               <?php echo $cha; ?>
-            </ul>
-         </div>
+   <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>">
+      <button href="#" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barnav">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="index.php"><span>NPDS^ 16</span></a>
+      <div class="collapse navbar-collapse" id="barnav">
+         <ul class="nav navbar-nav">
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
+               <ul class="dropdown-menu" role="menu">
+                  <li><a class="dropdown-item" href="index.php?op=index.php">Les articles</a></li>
+                  <li><a class="dropdown-item" href="search.php">Les archives</a></li>
+                  <li><a class="dropdown-item" href="submit.php">Proposer un article</a></li>
+               </ul>
+            </li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="forum.php">Forums</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">[french]Contact[/french][english]Contact[/english][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese][spanish]Cont&aacute;ctenos[/spanish][german]Kontakt[/german]</a></li>
+            <li class="navbar-divider"></li>
+            <li class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+               <ul class="dropdown-menu">
+                  <li><?php echo $ava; ?></li>
+                  <li class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="user.php"><i class="fa fa-user fa-lg"></i> [french]Profil[/french][english]Profile[/english][chinese]Profile[/chinese][spanish]Perfil[/spanish][german]Profil[/german]</a></li>
+                  <li><?php echo $bal; ?></li>
+                  <li class="dropdown-divider"></li>
+                  <li><?php echo $btn_con; ?></li>
+               </ul>
+            </li>
+            <?php echo $cha; ?>
+         </ul>
       </div>
    </nav>
    <div class="page-header">
       <div class="row">
       <div class="col-sm-2 hidden-sm-down"><img class="img-fluid" src="themes/!theme!/images/header.png" /></div>
          <div id="logo_header" class="col-sm-6">
-            <h1 class="my-2">NPDS<br /><small class="text-muted">Responsive</small></h1>
+            <h1 class="my-4">NPDS<br /><small class="text-muted">Responsive</small></h1>
          </div>
          <div id="ban" class="col-sm-4 text-right">!banner!</div>
       </div>

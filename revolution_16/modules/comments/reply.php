@@ -217,15 +217,15 @@ if (isset($submitS)) {
                <div class="card-header">';
    if ($allow_html == 1) {
       echo '
-                  <span class="text-success float-xs-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+                  <span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
       echo '
-                  <span class="text-danger float-xs-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+                  <span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-block">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.$reply.'</textarea>
-                  <span class="help-block text-xs-right">
+                  <span class="help-block text-right">
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>

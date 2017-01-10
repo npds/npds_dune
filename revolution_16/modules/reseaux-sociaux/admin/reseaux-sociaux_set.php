@@ -78,26 +78,26 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
          <label class="form-control-label col-sm-3" for="rs_id">'.adm_translate("Nom").'</label>
          <div class="col-sm-9">
             <input id="rs_id" class="form-control" type="text" name="rs_id"  maxlength="50"  placeholder="'.adm_translate("").'" value="'.urldecode($rs_id).'" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_rs_id"></span></span>
+            <span class="help-block text-right"><span id="countcar_rs_id"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
          <div class="col-sm-9">
             <input id="rs_url" class="form-control" type="text" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_rs_url"></span></span>
+            <span class="help-block text-right"><span id="countcar_rs_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-3" for="rs_ico">'.adm_translate("Icône").'</label>
          <div class="col-sm-9">
             <input id="rs_ico" class="form-control" type="text" name="rs_ico"  maxlength="40" placeholder="'.adm_translate("").'" value="'.stripcslashes(urldecode($rs_ico)).'" required="required" />
-            <span class="help-block text-xs-right"><span id="countcar_rs_ico"></span></span>
+            <span class="help-block text-right"><span id="countcar_rs_ico"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-9 offset-sm-3">
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
             <input type="hidden" name="op" value="Extend-Admin-SubModule" />
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />

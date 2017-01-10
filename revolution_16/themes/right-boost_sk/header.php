@@ -51,15 +51,15 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
 switch ($pdst) {
 case '-1':
    echo '
-      <div id="col_princ" class="col-xs-12">';
+      <div id="col_princ" class="col-12">';
 break;
 case '2':
    echo '
-      <div id="col_princ" class="col-xs-12 col-sm-8">';
+      <div id="col_princ" class="col-12 col-sm-8">';
 break;
 default:
    echo '
-      <div id="col_princ" class="col-xs-12 col-sm-8">';
+      <div id="col_princ" class="col-12 col-sm-8">';
 break;
 }
 ?>

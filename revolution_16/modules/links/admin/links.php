@@ -250,8 +250,8 @@ function links() {
        }
        echo '
       <div class="form-group row">
-         <label class="form-control-label col-xs-12" for="xtext">'.translate("Description: (255 characters max)").'</label>
-         <div class="col-xs-12">
+         <label class="form-control-label col-12" for="xtext">'.translate("Description: (255 characters max)").'</label>
+         <div class="col-12">
             <textarea class="tin form-control" name="xtext" rows="10"></textarea>
           </div>
       </div>';

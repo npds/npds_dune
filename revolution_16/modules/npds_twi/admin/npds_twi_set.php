@@ -142,7 +142,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
          </div>
       </div>
    </form>
-   <div class="text-xs-right">Version : '.$npds_twi_versus.'</div>';
+   <div class="text-right">Version : '.$npds_twi_versus.'</div>';
    adminfoot('fv','','','');
 }
 

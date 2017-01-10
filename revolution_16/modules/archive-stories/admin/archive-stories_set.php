@@ -38,7 +38,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             <label class="form-control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
             <div class="col-sm-8">
                <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
-               <span class="help-block text-xs-right"><span id="countcar_arch_titre"></span></span>
+               <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
             </div>
          </div>
          <div class="form-group row">
@@ -66,12 +66,12 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             <label class="form-control-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
             <div class="col-sm-8">
               <input id="retcache" class="form-control" type="number" name="retcache" value="'.$retcache.'" min="0" required="required" />
-               <span class="help-block text-xs-right">'.adm_translate("Temps de rétention en secondes").'</span>
+               <span class="help-block text-right">'.adm_translate("Temps de rétention en secondes").'</span>
             </div>
          </div>
          <div class="form-group row">
             <div class="col-sm-8 offset-sm-4">
-               <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
+               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
                <input type="hidden" name="op" value="Extend-Admin-SubModule" />
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
                <input type="hidden" name="ModStart" value="'.$ModStart.'" />

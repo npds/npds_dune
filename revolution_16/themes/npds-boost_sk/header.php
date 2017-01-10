@@ -58,9 +58,11 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-   <div class="hidden-md-up text-xs-right">
-      <a class="mr-1 small" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+   <div class="hidden-sm-up d-flex justify-content-end">
+   <div class="mr-auto p-2">
+      <a class="p-2 small" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
       <hr class="mt-0 mb-1" />
+      </div>
    </div>';
    echo $coltoggle;
 }
@@ -91,57 +93,57 @@ $ContainerGlobal='
 switch ($pdst) {
 case '-1':
    echo '
-         <div id="col_princ" class="col-xs-12">';
+         <div id="col_princ" class="col-12">';
 break;
 case '1':
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="n-c col-md-3">';
      leftblocks();
    echo '
          </div>
-         <div id="col_princ" class="col-xs-12 col-sm-6">';
+         <div id="col_princ" class="col-md-6">';
 break;
 case '2': case '6':
    echo '
-      <div id="col_princ" class="col-xs-12 col-sm-9">';
+      <div id="col_princ" class="col-sm-9">';
 break;
 case '3':
    colsyst('#col_LB');
    echo '
-      <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">';
+      <div id="col_LB" class="col-md-3">';
    leftblocks();
    echo '
       </div>';
    colsyst('#col_RB');
    echo' 
-      <div id="col_RB" class="collapse navbar-toggleable-sm col-sm-3">';
+      <div id="col_RB" class=" col-md-3">';
    rightblocks();
    echo '
       </div>
-      <div id="col_princ" class="col-xs-12 col-sm-6">';
+      <div id="col_princ" class="col-md-6">';
 break;
 case '4':
    echo '
-      <div id="col_princ" class="col-xs-12 col-sm-6">';
+      <div id="col_princ" class="col-md-6">';
 break;
 case '5':
    colsyst('#col_RB');
    echo '
-      <div id="col_RB" class="collapse navbar-toggleable-sm col-sm-3">';
+      <div id="col_RB" class="col-md-3">';
    rightblocks();
    echo '
       </div>
-      <div id="col_princ" class="col-xs-12 col-sm-9">';
+      <div id="col_princ" class="col-md-9">';
 break;
 default:
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="collapse navbar-toggleable-sm col-sm-3">';
+         <div id="col_LB" class="n-c col-md-3">';
    leftblocks();
    echo '
          </div>
-         <div id="col_princ" class="col-xs-12 col-sm-9">';
+         <div id="col_princ" class="col-md-9">';
 break;
 }
 ?>

@@ -58,9 +58,9 @@ function ListReseaux($ModPath, $ModStart) {
  <div class="row mt-1">';
    foreach ($rs as $v1) {
         echo '
-         <div class="col-sm-3 col-xs-6">
+         <div class="col-sm-3 col-6">
             <div class="card">
-               <div class="card-block text-xs-center">
+               <div class="card-block text-center">
                <i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></br>'.$v1[0].'
                </div>
             </div>
@@ -137,7 +137,7 @@ function EditReseaux($ModPath, $ModStart) {
          <label class="form-control-label col-sm-12" for="rs_uid'.$i.'">'.rs_translate("Identifiant").'</label>
          <div class="col-sm-12">
             <input id="rs_uid'.$i.'" class="form-control" type="text" name="rs['.$i.'][uid]"  maxlength="50"  placeholder="'.rs_translate("Identifiant").' '.$v1[0].'" value="'.$ident.'"/>
-            <span class="help-block text-xs-right"><span id="countcar_rs_uid'.$i.'"></span></span>
+            <span class="help-block text-right"><span id="countcar_rs_uid'.$i.'"></span></span>
             <input type="hidden" name="rs['.$i.'][id]" value="'.$v1[0].'" />
          </div>
       </div>
@@ -152,7 +152,7 @@ echo '
    </div>
       <div class="form-group row">
          <div class="col-sm-6 offset-sm-6">
-            <button class="btn btn-primary col-xs-12" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.rs_translate("Sauvegarder").'</button>
+            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.rs_translate("Sauvegarder").'</button>
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />
             <input type="hidden" name="op" value="SaveSetReseaux" />

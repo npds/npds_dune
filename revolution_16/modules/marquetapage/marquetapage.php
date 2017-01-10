@@ -84,7 +84,7 @@ function marquetapage() {
 
          $content.='
    <h6>
-   <a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i>&nbsp;Bookmarks </a><span class="tag tag-pill tag-default pull-right">'.sql_num_rows($result).'</span>
+   <a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i>&nbsp;Bookmarks </a><span class="badge badge-pill badge-default pull-right">'.sql_num_rows($result).'</span>
    </h6>
    <ul id="lst_fav" style="display:none;" >
    
@@ -92,7 +92,7 @@ function marquetapage() {
          while(list($uri, $topic)=sql_fetch_row($result)) {
             $content.='
       <li><a href="'.$uri.'" style="font-size:.7rem;">'.$topic.'</a>
-            <span class="float-xs-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
+            <span class="float-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
          }
          $content.='
    </ul>
