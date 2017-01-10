@@ -101,7 +101,7 @@ if (!function_exists("Mysql_Connexion")) {
    <div class="card card-block lead">
    '.translate("We received").' <span class="badge badge-default">'.wrh($total).'</span> '.translate("views since").' '.$startdate.'
    </div>
-   <h3>'.translate("Browsers").'</h3>
+   <h3 class="my-4">'.translate("Browsers").'</h3>
    <table data-toggle="table" data-striped="true" data-mobile-responsive="true">
       <thead>
          <tr>
@@ -252,7 +252,7 @@ if (!function_exists("Mysql_Connexion")) {
       </tbody>
    </table>
    <br />
-   <h3>'.translate("Operating Systems").'</h3>
+   <h3 class="my-4">'.translate("Operating Systems").'</h3>
    <table data-toggle="table" data-striped="true" >
       <thead>
          <tr>
@@ -500,32 +500,32 @@ if (!function_exists("Mysql_Connexion")) {
    $cat = $cat1+$cat2;
 
    echo '
-   <h3>'.translate("Miscelaneous Stats").'</h3>
+   <h3 class="my-4">'.translate("Miscelaneous Stats").'</h3>
    <ul class="list-group">
-      <li class="list-group-item"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Registered Users: ").' <span class="badge badge-default float-right">'.wrh($unum).' </span></li>
-      <li class="list-group-item"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fa fa-pencil fa-lg text-muted"></i>&nbsp;'.translate("Active Authors: ").' <span class="label label-default float-right">'.wrh($anum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Registered Users: ").' <span class="badge badge-default ml-auto">'.wrh($unum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fa fa-pencil fa-lg text-muted"></i>&nbsp;'.translate("Active Authors: ").' <span class="badge badge-default ml-auto">'.wrh($anum).' </span></li>';
    if ($ibid=theme_image("stats/postnew.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/postnew.png";}
    echo '
-      <li class="list-group-item"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Stories Published: ").' <span class="badge badge-default float-right">'.wrh($snum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Stories Published: ").' <span class="badge badge-default ml-auto">'.wrh($snum).' </span></li>';
    if ($ibid=theme_image("stats/topicsman.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/topicsman.png";}
    echo '
-      <li class="list-group-item"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Active Topics: ").' <span class="badge badge-default float-right">'.wrh($tnum).' </span></li>
-      <li class="list-group-item"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Comments Posted: ").' <span class="badge badge-default float-right">'.wrh($cnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Active Topics: ").' <span class="badge badge-default ml-auto">'.wrh($tnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Comments Posted: ").' <span class="badge badge-default ml-auto">'.wrh($cnum).' </span></li>';
    if ($ibid=theme_image("stats/sections.png")) {$imgtmpS=$ibid;} else { $imgtmpS="images/admin/sections.png";}
    echo '
-      <li class="list-group-item"><img src="'.$imgtmpS.'" alt="" />&nbsp;'.translate("Special Sections: ").' <span class="badge badge-default float-right">'.wrh($secnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start"><img src="'.$imgtmpS.'" alt="" />&nbsp;'.translate("Special Sections: ").' <span class="badge badge-default ml-auto">'.wrh($secnum).' </span></li>';
    if ($ibid=theme_image("stats/sections.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/sections.png";}
    echo '
-      <li class="list-group-item"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles in Sections: ").' <span class="badge badge-default float-right">'.wrh($secanum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles in Sections: ").' <span class="badge badge-default ml-auto">'.wrh($secanum).' </span></li>';
    echo '
-      <li class="list-group-item"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Links in Web Links: ").' <span class="badge badge-default float-right">'.wrh($links).' </span></li>
-      <li class="list-group-item"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Categories in Web Links: ").' <span class="badge badge-default float-right">'.wrh($cat).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Links in Web Links: ").' <span class="badge badge-default ml-auto">'.wrh($links).' </span></li>
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Categories in Web Links: ").' <span class="badge badge-default ml-auto">'.wrh($cat).' </span></li>';
    if ($ibid=theme_image("stats/submissions.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/submissions.png";}
    echo '
-      <li class="list-group-item"><img src="'.$imgtmp.'"  alt="" />&nbsp;'.translate("News Waiting to be Published: ").' <span class="badge badge-default float-right">'.wrh($subnum).' </span></li>
-      <li class="list-group-item"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Num <span class="badge badge-danger float-right">'.$Version_Num.'</span></li>
-      <li class="list-group-item"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Id <span class="badge badge-danger float-right">'.$Version_Id.'</span></li>
-      <li class="list-group-item"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Sub <span class="badge badge-danger float-right">'.$Version_Sub.'</span></li>
+      <li class="list-group-item d-flex justify-content-start"><img src="'.$imgtmp.'"  alt="" />&nbsp;'.translate("News Waiting to be Published: ").' <span class="badge badge-default ml-auto">'.wrh($subnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Num <span class="badge badge-danger ml-auto">'.$Version_Num.'</span></li>
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Id <span class="badge badge-danger ml-auto">'.$Version_Id.'</span></li>
+      <li class="list-group-item d-flex justify-content-start"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Sub <span class="badge badge-danger ml-auto">'.$Version_Sub.'</span></li>
    </ul>
    <br />
    <p align="center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';

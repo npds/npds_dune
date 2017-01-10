@@ -123,7 +123,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
    <form class="" action="submit.php" method="post" name="adminForm">
       <p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>
       <input type="hidden" name="name" value="'.$name.'" />';
-   echo '<div class="card card-block">';
+   echo '<div class="card card-block mb-4">';
 
    if ($topic=='') {
 //      $topicimage='all-topics.gif';
