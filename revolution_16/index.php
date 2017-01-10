@@ -23,7 +23,7 @@ if (file_exists("IZ-Xinstall.ok")) {
          <div style="text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #000000"><br />
             NPDS IZ-Xinstall - Installation &amp; Configuration
          </div>
-         <div style="text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #FF0000"><br />
+         <div style="text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #ff0000"><br />
             Vous devez supprimer le r&eacute;pertoire "install" ET le fichier "install.php" avant de poursuivre !<br />
             You must remove the directory "install" as well as the file "install.php" before continuing!
          </div>
@@ -45,10 +45,10 @@ if (!function_exists("Mysql_Connexion")) {
 function select_start_page($op) {
     global $Start_Page, $index;
     if (!AutoReg()) { global $user; unset($user); }
-    if (($Start_Page=="") or ($op=="index.php") or ($op=="edito")or ($op=="edito-nonews")) {
+    if (($Start_Page=='') or ($op=="index.php") or ($op=="edito")or ($op=="edito-nonews")) {
        $index = 1;
-       theindex($op, "", "");
-       die("");
+       theindex($op, '', '');
+       die('');
     } else {
        Header("Location: $Start_Page");
     }
@@ -83,7 +83,7 @@ function automatednews() {
                 sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
                 global $subscribe;
                 if ($subscribe) {
-                   subscribe_mail("topic",$topic,"",$subject,"");
+                   subscribe_mail('topic',$topic,'',$subject,'');
                 }
                 // Réseaux sociaux
                 if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
@@ -110,36 +110,36 @@ function automatednews() {
 
 function aff_edito() {
     list($affich,$Xcontents)=fab_edito();
-    if (($affich) and ($Xcontents!="")) {
+    if (($affich) and ($Xcontents!='')) {
        $notitle=false;
-       if (strstr($Xcontents,"!edito-notitle!")) {
-          $notitle="notitle";
-          $Xcontents=str_replace("!edito-notitle!","",$Xcontents);
+       if (strstr($Xcontents,'!edito-notitle!')) {
+          $notitle='notitle';
+          $Xcontents=str_replace('!edito-notitle!','',$Xcontents);
        }
        $ret=false;
        if (function_exists("themedito")) {
           $ret=themedito($Xcontents);
        } else {
           if (function_exists("theme_centre_box")) {
-             if (!$notitle) {$title=translate("EDITO");} else {$title="";}
+             if (!$notitle) {$title=translate("EDITO");} else {$title='';}
              theme_centre_box($title, $Xcontents);
              $ret=true;
           }
        }
        if ($ret==false) {
           if (!$notitle) {
-             echo "<span class=\"edito\">".translate("EDITO")."</span>";
+             echo '<span class="edito">'.translate("EDITO").'</span>';
           }
           opentable();
           echo $Xcontents;
           closetable();
-          echo "<br />";
+          echo '<br />';
        }
     }
 }
 
 function aff_news($op,$catid,$marqeur) {
-   $url=$op;             
+   $url=$op;
    if ($op=="edito-newindex") {
       if ($marqeur==0) {aff_edito();}
       $op="news";
@@ -229,14 +229,14 @@ function theindex($op, $catid, $marqeur) {
        automatednews();
 
        global $theme;
-       if (($op=="newcategory") or ($op=="newtopic") or ($op=="newindex") or ($op=="edito-newindex")) {
+       if (($op=='newcategory') or ($op=='newtopic') or ($op=='newindex') or ($op=='edito-newindex')) {
           aff_news($op, $catid, $marqeur);
        } else {
           if (file_exists("themes/$theme/central.php")) {
              include("themes/$theme/central.php");
           } else {
-             if (($op=="edito") or ($op=="edito-nonews")) {aff_edito();}
-             if ($op!="edito-nonews") {aff_news($op, $catid, $marqeur);}
+             if (($op=='edito') or ($op=='edito-nonews')) {aff_edito();}
+             if ($op!='edito-nonews') {aff_news($op, $catid, $marqeur);}
           }
        }
     }
@@ -250,18 +250,16 @@ settype($op,'string');
 settype($catid,'integer');
 settype($marqeur,'integer');
 switch ($op) {
-   case "newindex":
-   case "edito-newindex":
-   case "newcategory":
-        theindex($op, $catid, $marqeur);
-        break;
-
-   case "newtopic":
-        theindex($op, $topic, $marqeur);
-        break;
-
+   case 'newindex':
+   case 'edito-newindex':
+   case 'newcategory':
+      theindex($op, $catid, $marqeur);
+      break;
+   case 'newtopic':
+      theindex($op, $topic, $marqeur);
+   break;
    default:
-        select_start_page($op, "");
-        break;
+      select_start_page($op, '');
+   break;
 }
 ?>

@@ -141,7 +141,7 @@ function mapfaq() {
       echo '
       <h3>
          <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
-         <span class="tag tag-default float-right">'.sql_num_rows($result).'</span>
+         <span class="badge badge-default float-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseFaq">
          <div class="card card-block">
