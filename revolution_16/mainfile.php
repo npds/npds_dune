@@ -2372,14 +2372,14 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li class="list-group-item list-group-item-action hyphenate"><span class="badge badge-pill badge-default float-right">'.$comments.'</span> <a class=".ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></li>';
+         <li class="list-group-item list-group-item-action hyphenate justify-content-between align-self-start"><a class=".ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-default">'.$comments.'</span></li>';
       } else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default float-right\">($comments)</span></li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default\">($comments)</span></li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default float-right\">($comments)</span></li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default\">($comments)</span></li>\n";
             $time2 = $datetime2;
          }
       }
@@ -2792,8 +2792,8 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($nb_doc >= 1) {
          $lst_doc_tog ='<a data-toggle="collapse" data-target="#lst_doc_gr_'.$gr.'" class="text-primary" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
          $lst_doc.='
-         <ul id="lst_doc_gr_'.$gr.'" class="list-group ul_bloc_ws mt-3 collapse">';
-         $nb_doc_gr='  <span class="tag tag-default float-right">'.$nb_doc.'</span>';
+         <ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws mt-3 collapse">';
+         $nb_doc_gr='  <span class="badge badge-default float-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='

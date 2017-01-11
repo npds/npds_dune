@@ -57,7 +57,7 @@ function Caff_pub($topic, $file_name, $archive) {
    global $anonymous;
    settype($archive,'integer');
    if ($allow_to_post) {
-      echo '<nav class="float-right mb-1">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      echo '<nav class="text-right my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    }
 
    // Pagination
@@ -166,7 +166,7 @@ if ($mycount) {
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if (($count+2)==$mycount) echo '<a name="last-post"></a>';
       echo '
-         <div class="col-12">
+         <div class="col-12 mb-3">
             <div class="card">
                <div class="card-header">';
       global $smilies;
@@ -189,7 +189,7 @@ if ($mycount) {
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo '
                <div class="card-block">
-                  <div class="card-text pt-1">';
+                  <div class="card-text pt-3">';
       if ($allow_bbcode) {
          $message = smilie($message);
          $message = aff_video_yt($message);
@@ -250,7 +250,7 @@ if ($mycount) {
    }
 
    if ($allow_to_post) {
-      echo Caff_pub($topic,$file_name, $archive);
+      echo '<nav class="text-right mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    }
    echo '
    <br />
