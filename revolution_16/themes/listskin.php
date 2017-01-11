@@ -38,20 +38,20 @@
 
    switch ($skinametitre) {
       case 'cyborg': 
-        $headerclasses ='navbar navbar-dark navbar-fixed-top bg-inverse';
+        $headerclasses ='navbar navbar-toggleable-md navbar-dark fixed-top bg-inverse';
       break;
       case 'lumen':
-         $headerclasses ='navbar navbar-light bg-inverse navbar-fixed-top';
+         $headerclasses ='navbar navbar-toggleable-md navbar-light bg-inverse fixed-top';
       break;
       case 'journal':
       case 'materia':
       case 'litera':
       case 'simplex':
       case 'spacelab':
-         $headerclasses = 'navbar navbar-light navbar-fixed-top bg-faded';
+         $headerclasses = 'navbar navbar-toggleable-md navbar-light fixed-top bg-faded';
       break;
       default :
-        $headerclasses = 'navbar navbar-dark navbar-fixed-top bg-primary'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate superhero united yeti default
+        $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
       break;
    }
 
@@ -69,15 +69,14 @@
 
    </head>
    <body>
-      <div class="<?php echo $headerclasses; ?>">
-         <div class="container">
-            <div class="clearfix">
-               <button class="navbar-toggler float-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#barnav"></button>
-               <a href="#" class="navbar-brand hidden-sm-up" >NPDS</a>
-            </div>
-            <div class="collapse navbar-toggleable-xs" id="barnav">
+      <nav class="<?php echo $headerclasses; ?>">
+         <button href="#" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barnav">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <a class="navbar-brand" href="index.php" data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt&lt/i&gt"><span>NPDS 16</span></a>
+
+            <div class="collapse navbar-collapse" id="barnav">
                <ul class="nav navbar-nav">
-                  <li class="nav-item active hidden-xs-down"><a class="nav-link" href="../../../">NPDS</a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
                   <li class="navbar-divider"></li>
@@ -112,12 +111,13 @@
                         </ul>
                      </li>
                 </ul>
-               <ul class="nav navbar-nav float-xs-right">
+               <ul class="nav navbar-nav ml-auto">
                   <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
                </ul>
             </div>
-         </div>
-      </div>
+      </nav>
+      
+      
       <div class="container">
          <div class="" style="background-position: 0px -65px;">
             <div class="page-header" id="banner">
@@ -165,96 +165,60 @@
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-dark bg-primary">
-                <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive2" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
-                <div class="container collapse navbar-toggleable-md" id="navbarResponsive2">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <ul class="nav navbar-nav">
+              <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <a class="navbar-brand" href="#">Navbar</a>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                  <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link" href="#">Features</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link" href="#">Pricing</a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                      <div class="dropdown-menu" aria-labelledby="supportedContentDropdown2">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">About</a>
                     </li>
                   </ul>
-                  <form class="form-inline float-lg-right">
-                    <input class="form-control" type="text" placeholder="Search">
-                    <button class="btn btn-secondary" type="submit">Search</button>
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
               </nav>
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-dark bg-inverse">
-                <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive3" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
-                <div class="container collapse navbar-toggleable-md" id="navbarResponsive3">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <ul class="nav navbar-nav">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                      <div class="dropdown-menu" aria-labelledby="supportedContentDropdown3">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </li>
-                  </ul>
-                  <form class="form-inline float-lg-right">
-                    <input class="form-control" type="text" placeholder="Search">
-                    <button class="btn btn-primary" type="submit">Search</button>
-                  </form>
-                </div>
-              </nav>
-            </div>
+              <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <a class="navbar-brand" href="#">Navbar</a>
 
-            <div class="bs-component">
-              <nav class="navbar navbar-light bg-faded">
-                <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive1" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
-                <div class="container collapse navbar-toggleable-md" id="navbarResponsive1">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <ul class="nav navbar-nav">
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                  <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link" href="#">Features</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link" href="#">Pricing</a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                      <div class="dropdown-menu" aria-labelledby="supportedContentDropdown1">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">About</a>
                     </li>
                   </ul>
-                  <form class="form-inline float-lg-right">
-                    <input class="form-control" type="text" placeholder="Search">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
               </nav>
@@ -397,15 +361,12 @@
 
             <div class="bs-component">
               <div class="btn-group-vertical" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" name="options" id="option4" checked> Radio 1
-                </label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option5"> Radio 2
-                </label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option6"> Radio 3
-                </label>
+                <button type="button" class="btn btn-primary">Button</button>
+                <button type="button" class="btn btn-primary">Button</button>
+                <button type="button" class="btn btn-primary">Button</button>
+                <button type="button" class="btn btn-primary">Button</button>
+                <button type="button" class="btn btn-primary">Button</button>
+                <button type="button" class="btn btn-primary">Button</button>
               </div>
             </div>
 
@@ -1007,25 +968,23 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <h2>Tags</h2>
-            <div class="bs-component" style="margin-bottom: 40px;">
-              <span class="tag tag-default">Default</span>
-              <span class="tag tag-primary">Primary</span>
-              <span class="tag tag-success">Success</span>
-              <span class="tag tag-warning">Warning</span>
-              <span class="tag tag-danger">Danger</span>
-              <span class="tag tag-info">Info</span>
-            </div>
-            <div class="bs-component">
-              <span class="tag tag-pill tag-default">Default</span>
-              <span class="tag tag-pill tag-primary">Primary</span>
-              <span class="tag tag-pill tag-success">Success</span>
-              <span class="tag tag-pill tag-warning">Warning</span>
-              <span class="tag tag-pill tag-danger">Danger</span>
-              <span class="tag tag-pill tag-info">Info</span>
-            </div>
+        <div>
+          <h2>Badges</h2>
+          <div class="bs-component" style="margin-bottom: 40px;">
+            <span class="badge badge-default">Default</span>
+            <span class="badge badge-primary">Primary</span>
+            <span class="badge badge-success">Success</span>
+            <span class="badge badge-warning">Warning</span>
+            <span class="badge badge-danger">Danger</span>
+            <span class="badge badge-info">Info</span>
+          </div>
+          <div class="bs-component">
+            <span class="badge badge-pill badge-default">Default</span>
+            <span class="badge badge-pill badge-primary">Primary</span>
+            <span class="badge badge-pill badge-success">Success</span>
+            <span class="badge badge-pill badge-warning">Warning</span>
+            <span class="badge badge-pill badge-danger">Danger</span>
+            <span class="badge badge-pill badge-info">Info</span>
           </div>
         </div>
       </div>
@@ -1042,29 +1001,60 @@
 
             <h3 id="progress-basic">Basic</h3>
             <div class="bs-component">
-              <progress class="progress" value="50" max="100" ></progress>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
 
             <h3 id="progress-alternatives">Contextual alternatives</h3>
             <div class="bs-component">
-              <progress class="progress progress-success" value="25" max="100" ></progress>
-              <progress class="progress progress-info" value="50" max="100" ></progress>
-              <progress class="progress progress-warning" value="75" max="100" ></progress>
-              <progress class="progress progress-danger" value="100" max="100" ></progress>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <h3 id="progress-multiple">Multiple bars</h3>
+            <div class="bs-component">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
 
             <h3 id="progress-striped">Striped</h3>
             <div class="bs-component">
-              <progress class="progress progress-striped" value="10" max="100"></progress>
-              <progress class="progress progress-striped progress-success" value="25" max="100"></progress>
-              <progress class="progress progress-striped progress-info" value="50" max="100"></progress>
-              <progress class="progress progress-striped progress-warning" value="75" max="100"></progress>
-              <progress class="progress progress-striped progress-danger" value="100" max="100"></progress>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
 
             <h3 id="progress-animated">Animated</h3>
             <div class="bs-component">
-              <progress class="progress progress-striped progress-animated" value="25" max="100"></progress>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1153,7 +1143,7 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card card-inverse card-primary text-center">
+              <div class="card card-inverse card-primary text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1161,7 +1151,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-success text-center">
+              <div class="card card-inverse card-success text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1169,7 +1159,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-info text-center">
+              <div class="card card-inverse card-info text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1177,7 +1167,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-warning text-center">
+              <div class="card card-inverse card-warning text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1185,7 +1175,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-danger text-center">
+              <div class="card card-inverse card-danger text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1197,7 +1187,7 @@
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card card-outline-primary text-center">
+              <div class="card card-outline-primary text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1205,7 +1195,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-success text-center">
+              <div class="card card-outline-success text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1213,7 +1203,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-info text-center">
+              <div class="card card-outline-info text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1221,7 +1211,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-warning text-center">
+              <div class="card card-outline-warning text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1229,7 +1219,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-danger text-center">
+              <div class="card card-outline-danger text-xs-center">
                 <div class="card-block">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1254,7 +1244,7 @@
                   <a href="#" class="card-link">Card link</a>
                   <a href="#" class="card-link">Another link</a>
                 </div>
-                <div class="card-footer text-muted text-center">
+                <div class="card-footer text-muted text-xs-center">
                   2 days ago
                 </div>
               </div>
@@ -1280,18 +1270,20 @@
             <h2>Modals</h2>
             <div class="bs-component">
               <div class="modal">
-                <div class="modal-dialog">
+                <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h4 class="modal-title">Modal title</h4>
+                      <h5 class="modal-title">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
                     <div class="modal-body">
-                      <p>One fine body…</p>
+                      <p>Modal body text goes here.</p>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>

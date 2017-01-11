@@ -82,7 +82,7 @@ function getListBox ($name, $items, $selected="", $multiple=0, $onChange="") {
 /* Pour la class                                                        */
 /************************************************************************/
 /************************************************************************/
-/* Ajoute l'attachement dans la base de donnÈ                           */
+/* Ajoute l'attachement dans la base de donnée                          */
 /************************************************************************/
 function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $inline="A", $size=0, $type="") {
    global $upload_table, $visible_forum;
@@ -124,10 +124,10 @@ function display_upload($apli,$post_id,$Mmod){
       $att_count = count($att);
       $attachments = '
       <div class="list-group">
-         <div class="list-group-item">
+         <div class="list-group-item d-flex justify-content-start">
             <img class="n-smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" alt="icon_post" />
-            <span class="text-muted">'.upload_translate("Pièces jointes").'</span>
-            <span class="badge badge-default badge-pill pull-right">'.$att_count.'</span>
+            <span class="text-muted p-2">'.upload_translate("Pièces jointes").'</span>
+            <span class="badge badge-default badge-pill ml-auto">'.$att_count.'</span>
          </div>';
 
       $ncell = 0;
