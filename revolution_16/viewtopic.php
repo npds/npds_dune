@@ -370,7 +370,7 @@ include('header.php');
       $message=stripslashes($myrow['post_text']);
       echo '
                <div class="card-block">
-                  <div class="card-text pt-1">';
+                  <div class="card-text pt-2">';
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
@@ -381,7 +381,7 @@ include('header.php');
 
       echo '
                </div>
-               <div class="card-text pt-1">';
+               <div class="card-text pt-2">';
 
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
          $message = smilie($message);
