@@ -175,7 +175,7 @@ function avatar($user_avatar) {
             <img src="'.$ibid_avatar.'" class=" media-object n-ava img-thumbnail" alt="avatar" />
          </div>';
       echo '
-         <div class="media-body">
+         <div class="media-body ml-2">
          '.translate("Greetings to our latest registered user:").' <br /><h4 class="media-heading"><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
          </div>
       </div>
