@@ -2372,7 +2372,7 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li class="list-group-item list-group-item-action hyphenate justify-content-between align-self-start"><a class=".ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-default">'.$comments.'</span></li>';
+         <li class="list-group-item list-group-item-action justify-content-between align-self-start n-hyphenate"><a class="n-hyphenate" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-default">'.$comments.'</span></li>';
       } else {
          if ($a==0) {
             $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default\">($comments)</span></li>\n";
@@ -2718,7 +2718,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       <a data-toggle="collapse" data-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ml-3" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Members").'</a><span class="badge badge-default float-right">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
-         <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse ">'."\n";
+         <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
@@ -2817,7 +2817,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-3"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
       $lst_blocnote = '
       <div id="lst_blocnote_'.$gr.'" class="mt-3 collapse">
-      '.blocnotes("shared", "WS-BN".$gr,"100%","7","",false).'
+      '.blocnotes("shared", 'WS-BN'.$gr,'100%','7','',false).'
       </div>';
       $content.='
       <hr />
@@ -2825,7 +2825,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //=> bloc-notes
    
-$content.='<div class="card card-block d-flex flex-row mt-3 flex wrap">';
+$content.='<div class="card card-block d-flex flex-row mt-3 flex-wrap">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
       $content.='<a class="mr-3" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";

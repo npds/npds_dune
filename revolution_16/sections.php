@@ -70,7 +70,7 @@ function listsections($rubric) {
                $aff1=''; $aff2='';
                if ($okprintLV1) {
                   $aff.='
-         <div class="card card-block" id="rub_'.$rubid.'sec_'.$secid.'">
+         <div class="card card-block mb-2" id="rub_'.$rubid.'sec_'.$secid.'">
             <h4 class="">
                <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
                   if ($image!='') {
@@ -85,7 +85,7 @@ function listsections($rubric) {
                      $aff1.='
             </h4>';
                      $aff2='
-            <div id="sec'.$secid.'" class="collapse in">
+            <div id="sec'.$secid.'" class="collapse show">
                <div class="">';
                   $result3 = sql_query("SELECT artid, title, counter, userlevel, timestamp FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
                   $noartid=false;

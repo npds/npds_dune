@@ -87,12 +87,16 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          </div>
          <div class="form-group row">
          <div class="col-sm-8 offset-sm-4">
-            <label class="checkbox-inline">
-               <input type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' />'.adm_translate("Le jour").'
-            </label> 
-            <label class="checkbox-inline">
-               <input type="checkbox" name="aff_nuit" value="checked" '.$Xaff_nuit.' />'.adm_translate("La nuit").'
-            </label>
+            <div class="form-check form-check-inline">
+               <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' /> '.adm_translate("Le jour").'
+               </label>
+            </div>
+            <div class="form-check form-check-inline"> 
+               <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" name="aff_nuit" value="checked" '.$Xaff_nuit.' /> '.adm_translate("La nuit").'
+               </label>
+            </div>
             </div>
          </div>
       <input type="hidden" name="op" value="Edito_save" />
