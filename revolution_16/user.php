@@ -445,9 +445,6 @@ function userinfo($uname) {
    if ($uname !== $cookie[1])
       echo $useroutils;
       echo $my_rsos[0];
-//   if ($uname == $cookie[1])
-//            <h3>'.translate("Welcome to").' '.$sitename.'</h3>
-
       echo '
          <p class="lead">'.translate("This is your personal page").'</p>';
    echo '
@@ -1166,7 +1163,7 @@ function chgtheme() {
       }
    }
    closedir($handle);
-
+   asort($skins);
       echo '
       <div class="form-group row" id="skin_choice">
          <label class="form-control-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
