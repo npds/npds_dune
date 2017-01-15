@@ -31,7 +31,7 @@ switch ($pdst)
          </div>';
          colsyst('#col_RB');
          echo '
-         <div id="col_RB" class="col-sm-3">'."\n";
+         <div id="col_RB" class="n-c col-md-3">'."\n";
         rightblocks();
       echo '
          </div>
@@ -43,13 +43,13 @@ switch ($pdst)
       </div>';
          colsyst('#col_LB');
       echo'
-         <div id="col_LB" class="col-sm-3">'."\n";
+         <div id="col_LB" class="n-c col-md-3">'."\n";
       leftblocks();
       echo '
       </div>';
          colsyst('#col_RB');
       echo'
-         <div id="col_RB" class="col-sm-3">'."\n";
+         <div id="col_RB" class="n-c col-md-3">'."\n";
       rightblocks();
       echo '
          </div>
@@ -61,7 +61,7 @@ switch ($pdst)
       </div>';
          colsyst('#col_LB');
       echo'
-      <div id="col_LB" class="col-sm-3">'."\n";
+      <div id="col_LB" class="n-c col-sm-3">'."\n";
          leftblocks();
       echo '
          </div>

@@ -2825,7 +2825,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //=> bloc-notes
    
-$content.='<div class="card card-block d-flex flex-row mt-3">';
+$content.='<div class="card card-block d-flex flex-row mt-3 flex wrap">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
       $content.='<a class="mr-3" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";

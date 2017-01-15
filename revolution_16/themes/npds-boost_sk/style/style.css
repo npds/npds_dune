@@ -119,6 +119,7 @@ a.navbar-brand {
     margin: 53px 0 20px;
     padding:1rem;
   }
+  
 }
 
 @media (max-width: 767px) {
@@ -194,6 +195,7 @@ ul.dropdown-menu {
 }
 
 /* ==> toggle systeme identique au navbar mais pour les col */
+/* 
 .col.navbar-toggler {
   position: relative;
   float: left;
@@ -202,16 +204,18 @@ ul.dropdown-menu {
   margin-top: 7px;
   margin-bottom: 0px;
 }
+ */
 
-/* 
+ 
 @media (max-width: 48em) {
-  #col_princ.col-sm-9,#col_princ.col-sm-6,#col_LB.col-sm-3,#col_RB.col-sm-3 {
+  #col_princ.col-md-9,#col_princ.col-md-6,#col_LB.col-md-3,#col_RB.col-md-3 {
     width:100%;
     content: "";
     clear: both;
   }
+ .n-c {display:none;}
 }
- */
+ 
 /* <== toggle systeme identique au navbar mais pour les col */
 
 #col_LB ul, #col_RB ul{

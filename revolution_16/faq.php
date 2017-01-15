@@ -65,7 +65,7 @@ function ShowFaqAll($id_cat) {
        <h2>'.translate("FAQ (Frequently Ask Question)").'</h2>
        <div class="list-group">
        <a href="#" class="list-group-item disabled">
-       <h3>'.translate("Categories").'<span class="badge badge-default badge-pill float-right">'.sql_num_rows($result).'</span></h3></a>';
+       <h3>'.translate("Categories").'<span class="badge badge-default badge-pill ml-auto">'.sql_num_rows($result).'</span></h3></a>';
        while(list($id_cat, $categories) = sql_fetch_row($result)) {
           $catname = urlencode(aff_langue($categories));
           echo'<a class="list-group-item" href="faq.php?id_cat='.$id_cat.'&amp;myfaq=yes&amp;categories='.$catname.'"><h4 class="list-group-item-heading">'.aff_langue($categories).'</h4></a>';

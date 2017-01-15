@@ -925,11 +925,11 @@ function forum($rowQ1) {
                         $title = stripslashes($row['cat_title']);
                         if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html"))) {
                            $ibid.='
-                           <div class="list-group mt-3" id="catfo_'.$row['cat_id'].'" >
+                           <div class=" mt-3" id="catfo_'.$row['cat_id'].'" >
                               <a class="list-group-item list-group-item-action active" href="forum.php?catid='.$row['cat_id'].'"><h5 class="list-group-item-heading" >'.$title.'</h5></a>';
                         } else {
                            $ibid.='
-                           <div class="list-group mt-3" id="catfo_'.$row['cat_id'].'">
+                           <div class=" mt-3" id="catfo_'.$row['cat_id'].'">
                               <div class="list-group-item list-group-item-action active"><h5 class="list-group-item-heading" >'.$title.'</h5></div>';
                         }
                         $title_aff=false;
@@ -941,11 +941,13 @@ function forum($rowQ1) {
                      }
 
                      $last_post = get_last_post($myrow['forum_id'], "forum","infos",$Mmod);
-                     $ibid.='<p class="list-group-item list-group-item-action">';
+                     $ibid.='
+                     <p class="list-group-item list-group-item-action flex-column align-items-start">
+                        <span class="d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)  {
-                        $ibid.='<i class="fa fa-folder text-primary fa-lg" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
                      } else {
-                        $ibid.='<i class="fa fa-folder-o text-primary fa-lg" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="fa fa-folder-o text-primary fa-lg mr-2 mt-1" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
                      }
                      $name = stripslashes($myrow['forum_name']);
                      $redirect=false;
@@ -956,15 +958,18 @@ function forum($rowQ1) {
                         <a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
                      }
                      if (!$redirect) {
-                     $ibid.=' 
-            <span class="badge badge-default ml-3" style=" position: relative; float: right;" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
-            <span class="badge badge-default " style=" position: relative; float: right;" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>';}
+                     $ibid.='
+                           <span class="ml-auto"> 
+                              <span class="badge badge-default ml-1" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+                              <span class="badge badge-default ml-1" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
+                           </span>
+                        </span>';}
 
                      $desc = stripslashes(meta_lang($myrow['forum_desc']));
                      if($desc!='')
-                        $ibid.='<br />'.$desc;
+                        $ibid.='<span class="d-flex w-100 mt-1">'.$desc.'</span>';
                      if (!$redirect) {
-                        $ibid.='<br />[ ';
+                        $ibid.='<span class="d-flex w-100 mt-1"> [ ';
                         if ($myrow['forum_access']=="0" && $myrow['forum_type']=="0")
                            $ibid.=translate("Free for All");
                         if ($myrow['forum_type'] == "1")
@@ -985,19 +990,20 @@ function forum($rowQ1) {
                            $ibid.=translate("Moderator");
                         if ($myrow['forum_access']=="9")
                            $ibid.=' <strong class="text-danger">'.translate("Closed").'</strong>';
-                        $ibid.=' ]';
-                        $ibid.= '<br />';
+                        $ibid.=' ] </span>';
                      // Subscribe
                      if (($subscribe) and ($user)) {
                         if (!$redirect) {
+                         $ibid.='<span class="d-flex w-100 mt-1">';
                            if ($tab_subscribe[$myrow['forum_id']]) {
                               $ibid.='<input class="n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
                            } else {
                               $ibid.='<input class="n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
                            }
+                            $ibid.='</span>';
                         }
                      }
-                        $ibid.='<span class="float-right">'.$last_post.'</span><br />';
+                        $ibid.='<span class="ml-auto">'.$last_post.'</span>';
                      } else {
                         $ibid.='';
                      }

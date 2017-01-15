@@ -58,12 +58,9 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-   <div class="hidden-sm-up d-flex justify-content-end">
-   <div class="mr-auto p-2">
-      <a class="p-2 small" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
-      <hr class="mt-0 mb-1" />
-      </div>
-   </div>';
+      <div class="hidden-sm-up ml-auto mr-4 my-2">
+         <a class="p-2 small" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+      </div>';
    echo $coltoggle;
 }
 
@@ -106,18 +103,18 @@ case '1':
 break;
 case '2': case '6':
    echo '
-      <div id="col_princ" class="col-sm-9">';
+      <div id="col_princ" class="col-md-9">';
 break;
 case '3':
    colsyst('#col_LB');
    echo '
-      <div id="col_LB" class="col-md-3">';
+      <div id="col_LB" class="n-c col-md-3">';
    leftblocks();
    echo '
       </div>';
    colsyst('#col_RB');
    echo' 
-      <div id="col_RB" class=" col-md-3">';
+      <div id="col_RB" class="n-c col-md-3">';
    rightblocks();
    echo '
       </div>
@@ -130,7 +127,7 @@ break;
 case '5':
    colsyst('#col_RB');
    echo '
-      <div id="col_RB" class="col-md-3">';
+      <div id="col_RB" class="n-c col-md-3">';
    rightblocks();
    echo '
       </div>
