@@ -48,7 +48,7 @@ global $NPDS_Prefix;
          $title = stripslashes($title); $description = stripslashes($description);
          settype($datetime,'string');
          echo '
-         <div class="card">
+         <div class="card mb-3">
             <div class="card-block ibid_descr">';
          if ($url=='') {
             echo '
@@ -76,38 +76,35 @@ global $NPDS_Prefix;
          echo '
                <div class="ibid_descr "><p>'.aff_langue($description).'</p></div>';
             if ($url!='') {
+            echo '<div class="d-flex justify-content-between">';
                global $popular;
                if ($hits>$popular) {
-                  echo '&nbsp;<span class=" badge badge-default pull-right ">'.$hits.'</span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
+                  echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-default">'.$hits.'</span></span>';
                } else {
-                  echo '&nbsp;<span class=" badge badge-default pull-right">'.$hits.'</span>';
+                  echo '<span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-default">'.$hits.'</span></span>';
                }
+            echo '</div>';
             }
          echo '
             </div>
-            <div class="card-footer">';
+            <div class="card-footer d-flex justify-content-start">';
          $datetime=formatTimestampShort($time);
-            echo translate("Added on: ")."$datetime ";
+            echo '
+               <span class="small">'.translate("Added on: ").$datetime.'</span>
+               <span class="ml-auto">';
             if ($url!='') {
-               echo translate("Hits: ");
-               global $popular;
-               if ($hits>$popular) {
-                  echo '<span class="badge badge-default" > </span> <span class="text-success"><i class="fa fa-star-o fa-lg"></i>';
-               } else {
-                  echo '<span class="badge badge-default">'.$hits.'</span>';
-               }
-               echo '&nbsp;&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-chain-broken fa-lg"></i></a>';
+               echo '
+                  <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-chain-broken fa-lg"></i></a>';
             }
-            
             // Advance infos via the class sform.php
             $browse_key=$lid;
             include ("modules/sform/$ModPath/link_detail.php");
-
             detecteditorial($lid, urlencode($title));
             echo '
-            &nbsp;&nbsp;<a href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+                  <a class="mr-3" href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
             autorise_mod($lid,true);
             echo '
+               </span>
             </div>
          </div>';
         $x++;
