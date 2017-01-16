@@ -94,7 +94,7 @@ function autorise_mod($lid,$aff) {
       list($radminsuper) = sql_fetch_row($result);
       if ($radminsuper==1) {// faut remettre le controle des droits probablement pour les admin qui ont le droit link ??!!
          if ($aff) {
-            echo '&nbsp;|&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          }
          return(true);
       } else {
@@ -106,7 +106,7 @@ function autorise_mod($lid,$aff) {
       list($submitter) = sql_fetch_row($resultX);
       if ($submitter==$cookie[1]) {
          if ($aff) {
-            echo '&nbsp;|&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
          }
          return(true);
       } else {
@@ -119,7 +119,6 @@ function autorise_mod($lid,$aff) {
 
 function index() {
    global $ModPath, $ModStart, $links_DB;
-   $lili=$links_DB;
    include ("modules/$ModPath/links.conf.php");
    include("header.php");
    // Include cache manager
@@ -134,12 +133,11 @@ function index() {
       
       $mainlink = 'in_l';
       menu($mainlink);
-      SearchForm();
 
       $filen="modules/$ModPath/links.ban_01.php";
       if (file_exists($filen)) {include($filen);}
 
-      echo $lili.'
+      echo '
       <table class="table table-bordered table-striped table-hover">';
       $result=sql_query("SELECT cid, title, cdescription FROM ".$links_DB."links_categories ORDER BY title");
       if ($result) {
@@ -159,7 +157,7 @@ function index() {
                $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
                $cnumrows= sql_num_rows($cresult3);
                echo '
-               <h5><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-default pull-right">'.$cnumrows.'</span></h5>';
+               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-default pull-right">'.$cnumrows.'</span></h5>';
             }
             echo '
             </td>
@@ -179,7 +177,7 @@ function index() {
             <span class="btn btn-primary btn-sm" title="'.translate("New Links in this Category Added this week").'" data-toggle="tooltip" >N</span>
          </p>';
       }
-      
+      SearchForm();
    }
    if ($SuperCache) {
       $cache_obj->endCachingPage();
@@ -244,12 +242,7 @@ function viewlink($cid, $min, $orderby, $show) {
       $result=sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$cid'");
       list($title) = sql_fetch_row($result);
       echo '
-      <table class="table table-bordered">
-         <tr>
-         <td class="">';
-      echo aff_langue($title).' : '.translate("SubCategories").'</td>
-         </tr>
-      </table>';
+      <div>'.aff_langue($title).' : '.translate("SubCategories").'</div>';
 
       $subresult=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$cid' ORDER BY title");
       $numrows = sql_num_rows($subresult);
@@ -273,7 +266,6 @@ function viewlink($cid, $min, $orderby, $show) {
       echo "<br />\n";
       $link_fiche_detail='';
       include_once("modules/$ModPath/links-view.php");
-      echo "<br />\n";
 
       $orderby = convertorderbyout($orderby);
       //Calculates how many pages exist.  Which page one should be on, etc...
@@ -290,20 +282,27 @@ function viewlink($cid, $min, $orderby, $show) {
       }
       //Page Numbering
       if ($linkpages!=1 && $linkpages!=0) {
-         echo "<p align=\"center\">";
-         echo translate("Select page")." :&nbsp;&nbsp;";
+         // à traduire
+         echo '
+            <nav aria-label="Page navigation links">
+               <ul class="pagination pagination-sm justify-content-end">
+                  <li class="page-item disabled hidden-sm-down"><a class="page-link" href="#" tabindex="-1">'.translate("Select page").'</a></li>';
          $prev=$min-$perpage;
          $counter = 1;
          $currentpage = ($max / $perpage);
          while ($counter<=$linkpages ) {
             $cpage = $counter;
             $mintemp = ($perpage * $counter) - $perpage;
-            if ($counter == $currentpage) echo "<span class=\"rouge\">$counter</span>&nbsp;";
-            else echo "<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlink&amp;cid=$cid&amp;min=$mintemp&amp;orderby=$orderby&amp;show=$show\">$counter</a>&nbsp;";
+            if ($counter == $currentpage) echo '
+                  <li class="page-item active"><a class="page-link">'.$counter.' <span class="sr-only">(page courante)</span></a></li>';
+            else echo '
+                  <li class="page-item"><a class="page-link" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;min='.$mintemp.'&amp;orderby='.$orderby.'&amp;show='.$show.'">'.$counter.'</a></li>';
             $counter++;
          }
       }
-      echo "</p><br />";
+      echo '
+               </ul>
+            </nav>';
       if (isset($sid))
          FooterOrderBy($cid, $sid, $orderbyTrans, 'viewlink');
       
@@ -419,7 +418,7 @@ function fiche_detail ($Xlid) {
 
 function categorynewlinkgraphic($cat) {
    global $OnCatNewLink, $locale, $links_DB;
-   if ($OnCatNewLink=="1") {
+   if ($OnCatNewLink=='1') {
       $newresult = sql_query("SELECT date FROM ".$links_DB."links_links WHERE cid='$cat' ORDER BY date DESC LIMIT 1");
       list($time)=sql_fetch_row($newresult);
       if (isset($ime)) {
@@ -449,7 +448,7 @@ function detecteditorial($lid, $ttitle) {
    global $ModPath, $ModStart, $links_DB;
    $resulted2 = sql_query("SELECT adminid FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
    $recordexist = sql_num_rows($resulted2);
-   if ($recordexist != 0) echo '&nbsp;<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="fa fa-sticky-note-o fa-lg" title="'.translate("EDITO").'" data-toggle="tooltip"></i></a>';
+   if ($recordexist != 0) echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="fa fa-sticky-note-o fa-lg" title="'.translate("EDITO").'" data-toggle="tooltip"></i></a>';
 }
 
 //Reusable Link Sorting Functions
@@ -516,7 +515,7 @@ function viewlinkeditorial($lid, $ttitle) {
          <hr noshade="noshade" />'.aff_langue($editorialtext);
       }
    } else {
-       echo '<p align="center">'.translate("No editorial is currently available for this website.").'</p><br />';
+       echo '<p class="text-center">'.translate("No editorial is currently available for this website.").'</p><br />';
    }
    echo '
    </div>';
