@@ -32,20 +32,17 @@ function error_foot() {
 function AddLink() {
    global $ModPath, $ModStart, $links_DB, $NPDS_Prefix, $links_anonaddlinklock,$op;
    include("header.php");
-//   $mainlink = 'ad_l';
-//   if($op='AddLink') {$ad_l='active';echo'Yo';}
    global $user,$ad_l;
    mainheader();
-
    if (autorisation($links_anonaddlinklock)) {
       echo '
-   <div class="card card-block">
-      <h3>Proposer un lien</h3>
-      <ul>
-         <li>'.translate("Submit a unique link only once.").'</li>
-         <li>'.translate("All links are posted pending verification.").'</li>
-         <li>'.translate("Username and IP are recorded, so please don't abuse the system.").'</li>
-      </ul>
+   <div class="card card-block mb-3">
+      <h3 class="mb-3">Proposer un lien</h3>
+      <div class="card card-outline-secondary mb-3">
+         <div class="card-block">
+            <span class="help-block">'.translate("Submit a unique link only once.").'<br />'.translate("All links are posted pending verification.").'<br />'.translate("Username and IP are recorded, so please don't abuse the system.").'</span>
+         </div>
+      </div>
       <form method="post" action="modules.php" name="adminForm">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
@@ -53,7 +50,7 @@ function AddLink() {
             <label class="form-control-label col-sm-3" for="title">'.translate("Title").'</label>
             <div class="col-sm-9">
                <input class="form-control" type="text" id="title" name="title" maxlength="100" required="required" />
-               <span class="help-block text-xs-right"><span id="countcar_title"></span></span>
+               <span class="help-block text-right"><span id="countcar_title"></span></span>
            </div>
         </div>';
         global $links_url;
@@ -63,7 +60,7 @@ function AddLink() {
             <label class="form-control-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
                <input class="form-control" type="url" id="url" name="url" maxlength="100" value="http://" required="required" />
-               <span class="help-block text-xs-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-right"><span id="countcar_url"></span></span>
            </div>
         </div>';
         $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -135,6 +132,8 @@ function AddLink() {
             </div>
          </div>
       </form>
+         </div>
+         <div>
       <script type="text/javascript">
          //<![CDATA[
             $(document).ready(function() {
@@ -143,6 +142,7 @@ function AddLink() {
             });
          //]]>
       </script>';
+      SearchForm();
    } else {
       echo '
         <p align="center>'.translate("You are not a registered user or you have not logged in.").'<br />
@@ -152,98 +152,98 @@ function AddLink() {
 }
 
 function Add($title, $url, $name, $cat, $description, $email, $topicL, $asb_question, $asb_reponse) {
-    global $ModPath, $ModStart, $links_DB, $troll_limit, $anonymous, $user, $admin;
-    if (!$user and !$admin) {
-       //anti_spambot
-       if (!R_spambot($asb_question, $asb_reponse, "")) {
-          Ecr_Log("security", "Links Anti-Spam : url=".$url, "");
-          redirect_url("index.php");
-          die();
-       }
-    }
+   global $ModPath, $ModStart, $links_DB, $troll_limit, $anonymous, $user, $admin;
+   if (!$user and !$admin) {
+      //anti_spambot
+      if (!R_spambot($asb_question, $asb_reponse, '')) {
+         Ecr_Log('security', 'Links Anti-Spam : url='.$url, '');
+         redirect_url("index.php");
+         die();
+      }
+   }
 
-    $result = sql_query("SELECT lid FROM ".$links_DB."links_newlink");
-    $numrows = sql_num_rows($result);
-    if ($numrows>=$troll_limit) {
-       error_head("alert-danger");
-       echo translate("ERROR: This URL is already listed in the Database!")."<br />";
-       error_foot();
-       exit();
-    }
-    global $user;
-    if (isset($user)) {
-       global $cookie;
-       $submitter = $cookie[1];
-    } else {
-       $submitter = $anonymous;
-    }
-    if ($title=='') {
-       error_head("alert-danger");
-       echo translate("ERROR: You need to type a TITLE for your URL!")."<br />";
-       error_foot();
-       exit();
-    }
-    if ($email=='') {
-       error_head("alert-danger");
-       echo translate("ERROR: Invalid email")."<br />";
-       error_foot();
-       exit();
-    }
-    global $links_url;
-    if (($url=='') and ($links_url==1)) {
-       error_head("alert-danger");
-       echo translate("ERROR: You need to type a URL for your URL!")."<br />";
-       error_foot();
-       exit();
-    }
-    if ($description=='') {
-       error_head("alert-danger");
-       echo translate("ERROR: You need to type a DESCRIPTION for your URL!")."<br />";
-       error_foot();
-       exit();
-    }
-    $cat = explode('-', $cat);
-    if (!array_key_exists(1,$cat)) {
-       $cat[1] = 0;
-    }
-    $title = removeHack(stripslashes(FixQuotes($title)));
-    $url = removeHack(stripslashes(FixQuotes($url)));
-    $description = removeHack(stripslashes(FixQuotes($description)));
-    $name = removeHack(stripslashes(FixQuotes($name)));
-    $email = removeHack(stripslashes(FixQuotes($email)));
-    sql_query("INSERT INTO ".$links_DB."links_newlink VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$description', '$name', '$email', '$submitter', '$topicL')");
-    error_head("alert-success");
-    echo translate("We received your Link submission. Thanks!")."<br />";
-    echo translate("You'll receive and E-mail when it's approved.")."<br />";
-    error_foot();
+   $result = sql_query("SELECT lid FROM ".$links_DB."links_newlink");
+   $numrows = sql_num_rows($result);
+   if ($numrows>=$troll_limit) {
+      error_head("alert-danger");
+      echo translate("ERROR: This URL is already listed in the Database!").'<br />';
+      error_foot();
+      exit();
+   }
+   global $user;
+   if (isset($user)) {
+      global $cookie;
+      $submitter = $cookie[1];
+   } else {
+      $submitter = $anonymous;
+   }
+   if ($title=='') {
+      error_head('alert-danger');
+      echo translate("ERROR: You need to type a TITLE for your URL!").'<br />';
+      error_foot();
+      exit();
+   }
+   if ($email=='') {
+      error_head('alert-danger');
+      echo translate("ERROR: Invalid email").'<br />';
+      error_foot();
+      exit();
+   }
+   global $links_url;
+   if (($url=='') and ($links_url==1)) {
+      error_head('alert-danger');
+      echo translate("ERROR: You need to type a URL for your URL!").'<br />';
+      error_foot();
+      exit();
+   }
+   if ($description=='') {
+      error_head('alert-danger');
+      echo translate("ERROR: You need to type a DESCRIPTION for your URL!").'<br />';
+      error_foot();
+      exit();
+   }
+   $cat = explode('-', $cat);
+   if (!array_key_exists(1,$cat)) {
+      $cat[1] = 0;
+   }
+   $title = removeHack(stripslashes(FixQuotes($title)));
+   $url = removeHack(stripslashes(FixQuotes($url)));
+   $description = removeHack(stripslashes(FixQuotes($description)));
+   $name = removeHack(stripslashes(FixQuotes($name)));
+   $email = removeHack(stripslashes(FixQuotes($email)));
+   sql_query("INSERT INTO ".$links_DB."links_newlink VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$description', '$name', '$email', '$submitter', '$topicL')");
+   error_head('alert-success');
+   echo translate("We received your Link submission. Thanks!").'<br />';
+   echo translate("You'll receive and E-mail when it's approved.").'<br />';
+   error_foot();
 }
 
 function links_search($query, $topicL, $min, $max, $offset) {
-    global $ModPath, $ModStart, $links_DB;
-    include ("header.php");
-    mainheader();
-    $filen="modules/$ModPath/links.ban_02.php";
-    if (file_exists($filen)) {include($filen);}
-    $query = removeHack(stripslashes(htmlspecialchars($query,ENT_QUOTES,cur_charset))); // Romano et NoSP
+   global $ModPath, $ModStart, $links_DB;
+   include ("header.php");
+   mainheader();
+   $filen="modules/$ModPath/links.ban_02.php";
+   if (file_exists($filen)) {include($filen);}
+   $query = removeHack(stripslashes(htmlspecialchars($query,ENT_QUOTES,cur_charset))); // Romano et NoSP
 
-    if ($topicL!='') {
-       $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid from ".$links_DB."links_links WHERE topicid_card='$topicL' AND (title LIKE '%$query%' OR description LIKE '%$query%') ORDER BY lid ASC LIMIT $min,$offset");
-    } else {
-       $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid from ".$links_DB."links_links WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY lid ASC LIMIT $min,$offset");
-    }
-    if ($result) {
+   if ($topicL!='') {
+      $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE topicid_card='$topicL' AND (title LIKE '%$query%' OR description LIKE '%$query%') ORDER BY lid ASC LIMIT $min,$offset");
+   } else {
+      $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY lid ASC LIMIT $min,$offset");
+   }
+   if ($result) {
       $link_fiche_detail='';
       include_once("modules/$ModPath/links-view.php");
       $prev=$min-$offset;
       if ($prev>=0) {
-          echo "$min <a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;op=search&min=$prev&amp;query=$query&amp;topicL=$topicL\" class=\"noir\">";
-          echo translate("previous matches")."</a>&nbsp;&nbsp;";
-       }
-       if ($x>=($offset-1)) {
-          echo "<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;op=search&amp;min=$max&amp;query=$query&amp;topicL=$topicL\" class=\"noir\">";
-          echo translate("next matches")."</a>";
-       }
-    }
-    include("footer.php");
+         echo "$min <a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;op=search&min=$prev&amp;query=$query&amp;topicL=$topicL\" class=\"noir\">";
+         echo translate("previous matches")."</a>&nbsp;&nbsp;";
+      }
+      if ($x>=($offset-1)) {
+         echo "<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;op=search&amp;min=$max&amp;query=$query&amp;topicL=$topicL\" class=\"noir\">";
+         echo translate("next matches")."</a>";
+      }
+   }
+   include("footer.php");
 }
 ?>

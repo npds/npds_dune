@@ -3038,10 +3038,10 @@ function language_iso($l,$s,$c) {
     $iso_lang='';$iso_country='';$ietf='';
     switch ($language) {
         case "french": $iso_lang ='fr';$iso_country='FR'; break;
-        case "english":$iso_lang ='en';$iso_country='US'; break;
-        case "spanish":$iso_lang ='es';$iso_country='ES'; break;
-        case "german":$iso_lang ='de';$iso_country='DE'; break;
-        case "chinese":$iso_lang ='zh';$iso_country='CN'; break;
+        case "english": $iso_lang ='en';$iso_country='US'; break;
+        case "spanish": $iso_lang ='es';$iso_country='ES'; break;
+        case "german": $iso_lang ='de';$iso_country='DE'; break;
+        case "chinese": $iso_lang ='zh';$iso_country='CN'; break;
         default:
         break;
     }

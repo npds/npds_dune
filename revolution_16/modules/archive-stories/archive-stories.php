@@ -67,12 +67,12 @@ if (!function_exists("Mysql_Connexion")) {
             list($cattitle) = sql_fetch_row(sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'"));
         }
         $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" data-placement="left"></i></a>';
-        $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
+        $sendF = '<a class="ml-3" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
         $sid = $s_sid;
         if ($catid != 0) {
             $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
             list($title1) = sql_fetch_row($resultm);
-            $title = "<a href=\"article.php?sid=$sid&amp;archive=$arch\" class=\"noir\">$title</a> [ <a href=\"index.php?op=newindex&amp;catid=$catid\" class=\"ongl\">$title1</a> ]";
+            $title = "<a href=\"article.php?sid=$sid&amp;archive=$arch\" >$title</a> [ <a href=\"index.php?op=newindex&amp;catid=$catid\" class=\"ongl\">$title1</a> ]";
         }
         setlocale (LC_TIME, aff_langue($locale));
         preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
@@ -86,7 +86,7 @@ if (!function_exists("Mysql_Connexion")) {
            <td>'.$counter.'</td>
            <td>'.$datetime.'</td>
            <td><a href="user.php?op=userinfo&amp;uname='.$informant.'" >'.$informant.'</a></td>
-           <td>'.$printP.'&nbsp;'.$sendF.'</td>
+           <td>'.$printP.$sendF.'</td>
         </tr>';
       }
       echo '
@@ -94,7 +94,7 @@ if (!function_exists("Mysql_Connexion")) {
       </table><br />';
       $start=$start+$maxcount-1;
       echo '
-      <ul class="pagination pagination-sm">
+      <ul class="mt-3 pagination pagination-sm">
          <li class="page-item disabled"><a class="page-link" href="#" >'.translate("Nb of articles").' '.$count.' </a></li>';
       if (($count-$start)>0) { echo '
          <li class="page-item"><a class="page-link" href="modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start='.$start.'&amp;count='.$count.'" >'.translate("next matches").'</a></li>';
@@ -102,7 +102,7 @@ if (!function_exists("Mysql_Connexion")) {
       echo '
       </ul>';
 
-      echo "<p align=\"center\"><br />".translate("Nb of articles")." : $count - [ <a href=\"modules.php?ModPath=archive-stories&amp;ModStart=archive-stories\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
+      echo "<p align=\"center\"><br />".translate("Nb of articles")." : $count - [ <a href=\"modules.php?ModPath=archive-stories&amp;ModStart=archive-stories\">".translate("Go Back")."</a> ]</p>";
    }
    if ($SuperCache) {
       $cache_obj->endCachingPage();

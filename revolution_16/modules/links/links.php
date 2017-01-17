@@ -29,22 +29,22 @@ function menu($mainlink) {
    if($op=='') $in_l='active'; else $in_l='';
 
    echo '
-   <ul class="nav nav-tabs mb-3">';
-      echo '
+   <ul class="nav nav-tabs mb-3">
       <li class="nav-item"><a class="nav-link '.$in_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" >'.translate("Links Main").'</a></li>';
    if (autorisation($links_anonaddlinklock))
       echo '
       <li class="nav-item" ><a class="nav-link '.$ad_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=AddLink" >'.translate("Add Link").'</a></li>';
    echo '
       <li class="nav-item"><a class="nav-link '.$ne_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=NewLinks" >'.translate("New links").'</a></li>
+      <li class="nav-item"><a class="nav-link " href="#linksearchblock">'.translate("Search").'</a></li>
    </ul>';
 }
 
 function SearchForm() {
    global $ModPath, $ModStart, $NPDS_Prefix, $links_topic;
    echo '
-   <div class="card card-block mb-3">
-      <h3>'.translate("Search").'</h3>
+   <div class="card card-block mb-3" id="linksearchblock">
+      <h3 class="mb-3">'.translate("Search").'</h3>
       <form class="" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
    if ($links_topic) {
       echo '
@@ -82,7 +82,7 @@ function SearchForm() {
 
 function mainheader() {
    menu($mainlink);
-   SearchForm();
+//   SearchForm();
 }
 
 function autorise_mod($lid,$aff) {
@@ -303,10 +303,9 @@ function viewlink($cid, $min, $orderby, $show) {
       echo '
                </ul>
             </nav>';
-      if (isset($sid))
-         FooterOrderBy($cid, $sid, $orderbyTrans, 'viewlink');
-      
-   }
+      if (isset($sid)) FooterOrderBy($cid, $sid, $orderbyTrans, 'viewlink');
+      SearchForm();
+      }
    if ($SuperCache) {
       $cache_obj->endCachingPage();
    }
