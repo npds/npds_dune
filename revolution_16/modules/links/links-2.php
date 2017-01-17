@@ -60,7 +60,7 @@ function NewLinks($newlinkshowdays) {
    }
    echo '
    
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <h3>'.translate("New links").'</h3>
    '.translate("Total new links: Last week").' : '.$allweeklinks.' -/- '.translate("Last 30 days").' : '.$allmonthlinks;
 
@@ -88,6 +88,7 @@ function NewLinks($newlinkshowdays) {
     </blockquote>
     </ul>
     </div>';
+   SearchForm();
    $counter = 0;
    $allmonthlinks = 0;
    include("footer.php");
