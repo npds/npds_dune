@@ -469,7 +469,7 @@ function member_qualif($poster, $posts, $rank) {
       if ($posts>=300 and $posts<1000) {$nux=4;}
       if ($posts>=1000) {$nux=5;}
       for ($i=0; $i<$nux; $i++) {
-         $tmp.='<i class="fa fa-star-o text-success"></i>&nbsp;';
+         $tmp.='<i class="fa fa-star-o text-success mr-1"></i>';
       }
 
       if ($rank) {

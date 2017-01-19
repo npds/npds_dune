@@ -73,7 +73,7 @@ function show_imm($op) {
          }
          $posterdata = get_userdata_from_id($myrow['from_userid']);
          echo '
-            <div class="card">
+            <div class="card mb-3">
                <div class="card-block">
                <h3>'.translate("Private Message").' '.translate("From");
          if ($posterdata['uid']==1) {

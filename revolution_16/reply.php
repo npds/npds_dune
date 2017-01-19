@@ -193,7 +193,7 @@ if ($submitS) {
       redirect_url("viewforum.php?forum=$forum");
    } else {
       echo '
-   <h4>'.translate("Post Reply in Topic:").' '.$title_topic.'</h4>
+   <h4 class="my-3">'.translate("Post Reply in Topic:").' '.$title_topic.'</h4>
    <p class="alert alert-danger">'.translate("You must type a message to post.").'</p>
    <a class="btn btn-outline-primary" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>';
    }
@@ -234,7 +234,7 @@ if ($submitS) {
    echo '
       </div>
    </div>
-   <h4 class="hidden-xs-down">'.translate("Post Reply in Topic").'</h4>
+   <h4 class="hidden-xs-down my-3">'.translate("Post Reply in Topic").'</h4>
    <form action="reply.php" method="post" name="coolsus">';
 
    echo '<blockquote class="blockquote hidden-xs-down"><p>'.translate("About Posting:").'<br />';
@@ -397,7 +397,7 @@ if ($submitS) {
             <input type="hidden" name="forum" value="'.$forum.'" />
             <input type="hidden" name="topic" value="'.$topic.'" />
             <button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'" data-toggle="tooltip" >'.translate("Submit").'</button>&nbsp;
-            <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fa fa-close fa-lg"></i>'.translate("Cancel Post").'</button>
+            <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" >'.translate("Cancel Post").'</button>
          </div>
       </div>';
    } else {
@@ -408,7 +408,7 @@ if ($submitS) {
    </form>';
    if ($allow_to_reply) {
       echo '
-      <h4>'.translate("Topic Review").'</h4>';
+      <h4 class="my-3">'.translate("Topic Review").'</h4>';
       if ($Mmod) $post_aff='';
       else $post_aff=" AND post_aff='1' ";
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id DESC limit 0,10";
@@ -420,11 +420,31 @@ if ($submitS) {
          echo '
       <div class="row">
          <div class="col-12">
-            <div class="card">
+            <div class="card mb-3">
                <div class="card-header">';
          $posterdata = get_userdata_from_id($myrow['poster_id']);
          $posts = $posterdata['posts'];
-
+         $useroutils = '';
+         if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
+            $useroutils .= '<hr />';
+         }
+         if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
+            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
+         }
+         if ($posterdata['uid']!= 1) {
+            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Send internal Message").'</span></a>';
+         }
+         if ($posterdata['femail']!='') {
+            $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
+         }
+         if ($posterdata['url']!='') {
+            if (strstr('http://', $posterdata['url']))
+               $posterdata['url'] = 'http://' . $posterdata['url'];
+            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+         }
+         if ($posterdata['mns']) {
+             $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+         }
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -433,7 +453,7 @@ if ($submitS) {
                   if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
                }
                 echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
             }
          }
        echo '
@@ -455,7 +475,7 @@ if ($submitS) {
                </div>
                <div class="card-block">
                   <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
-                  <div class="card-text pt-2">';
+                  <div class="card-text pt-4">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
             $message = smilie($message);

@@ -164,7 +164,7 @@ function GraphicAdmin($hlpfile) {
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
+         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
          <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
@@ -284,13 +284,13 @@ function GraphicAdmin($hlpfile) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".adm_translate("Replier la liste")."');
-            i_id.attr('class','fa fa-caret-up fa-lg');
+            i_id.attr('class','fa fa-caret-up fa-lg text-primary');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
             btn_hide.attr('title','".adm_translate("Déplier la liste")."');
-            i_id.attr('class','fa fa-caret-down fa-lg');
+            i_id.attr('class','fa fa-caret-down fa-lg text-primary');
         }
        });
    };
@@ -310,7 +310,7 @@ function GraphicAdmin($hlpfile) {
          <h1>'.adm_translate("Administration").'</h1>
       </div>
    </div>
-   <div id ="adm_men" class="">
+   <div id ="adm_men" class="mb-4">
       <div id="adm_header" class="row justify-content-end">
          <div class="col-6 col-lg-6 men_tit">
             <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
@@ -346,7 +346,7 @@ function GraphicAdmin($hlpfile) {
         return;
      }
      echo '
-    <div id="adm_men_corps">
+    <div class="my-3" id="adm_men_corps">
       <div id="lst_men_main">
          '.$bloc_foncts.'
       </div>
@@ -441,7 +441,7 @@ function adminMain($deja_affiches) {
       echo '
          </tbody>
       </table>
-      <ul class="pagination pagination-sm">
+      <ul class="pagination pagination-sm mt-3">
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
          <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches=0">'.adm_translate("Les plus récents").'</a></li>';
       if ($deja_affiches>=$admart) echo '

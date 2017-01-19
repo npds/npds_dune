@@ -29,17 +29,21 @@ $hlpfile = "manuels/$language/authors.html";
     $fnom_affich = adm_translate(utf8_encode($fnom_affich));
       if($fcategorie==6) {
          $listdroitsmodulo .= '
-         <div class="col-md-4">
-            <label class="" for="ad_d_m_'.$fid.'">
-               <input class="ckbm" id="ad_d_m_'.$fnom.'" type="checkbox" name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
+         <div class="col-md-4 col-sm-6">
+            <label class="custom-control custom-checkbox" for="ad_d_m_'.$fid.'">
+               <input class="ckbm custom-control-input" id="ad_d_m_'.$fnom.'" type="checkbox" name="ad_d_m_'.$fnom.'" value="'.$fid.'" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.$fnom_affich.'</span>
             </label>
          </div>';
       } else {
          if ($fid!=12)
          $listdroits .='
-         <div class="col-md-4">
-            <label class="" for="ad_d_'.$fid.'">
-               <input class="ckbf" id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
+         <div class="col-md-4 col-sm-6">
+            <label class="custom-control custom-checkbox" for="ad_d_'.$fid.'">
+               <input class="ckbf custom-control-input" id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.$fnom_affich.'</span>
             </label>
          </div>';
       }
@@ -57,9 +61,9 @@ $scri_check ='
    $("#cb_radminsuper").on("click", function(){
       check = $("#cb_radminsuper").is(":checked");
       if(check) {
-         $("#adm_droi_f, #adm_droi_m").toggleClass("collapse","collapse in");
+         $("#adm_droi_f, #adm_droi_m").toggleClass("collapse","collapse show");
       } else {
-         $("#adm_droi_f, #adm_droi_m").toggleClass("collapse","collapse in");
+         $("#adm_droi_f, #adm_droi_m").toggleClass("collapse","collapse show");
       }
    }); 
    $(document).ready(function(){ 
@@ -163,11 +167,9 @@ if ($supadm==1) echo'
          <div class="col-sm-8">
             <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
             <span class="help-block text-right"><span id="countcar_add_pwd"></span></span>
-            <progress id="passwordMeter_cont" class="progress password-meter" value="0" max="100">
                <div class="progress">
-                  <span id="passwordMeter" class="progress-bar" style="width: 0%;"></span>
+                  <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div>
                </div>
-            </progress>
             <span id="pass-level" class="help-block text-right"></span>
          </div>
       </div>
@@ -184,9 +186,10 @@ if ($supadm==1) echo'
    <div id="adm_droi_f" class="container-fluid ">
    <div class="form-group">
       <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-muted" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
-   </div>';
-   echo $listdroits;
-   echo '
+   </div>
+   <div class="row">
+   '.$listdroits.'
+   </div>
    </div>
    </fieldset>
    <fieldset>
@@ -194,9 +197,10 @@ if ($supadm==1) echo'
    <div id="adm_droi_m" class="container-fluid">
       <div class="form-group">
          <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-muted" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
-      </div>';
-   echo $listdroitsmodulo;
-   echo'
+      </div>
+      <div class="row">
+      '.$listdroitsmodulo.'
+      </div>
    </div>
    <br />
       <div class="form-group">
@@ -310,20 +314,24 @@ function modifyadmin($chng_aid) {
       if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
       if($fcategorie==6) {
          $listdroitsmodulo .='
-      <div class="col-sm-4">
-         <label class="" for="ad_d_m_'.$fid.'">
-            <input class="ckbm" id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" /> '.$fnom_affich.'
-         </label>
-      </div>';
+         <div class="col-md-4 col-sm-6">
+            <label class="custom-control custom-checkbox" for="ad_d_m_'.$fid.'">
+               <input class="ckbm custom-control-input" id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.$fnom_affich.'</span>
+            </label>
+         </div>';
       }
       else { 
          if ($fid!=12)
          $listdroits .='
-      <div class="col-sm-4">
-         <label class="" for="ad_d_'.$fid.'">
-            <input class="ckbf" id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" /> '.$fnom_affich.'
-         </label>
-      </div>';
+         <div class="col-md-4 col-sm-6">
+               <label class="custom-control custom-checkbox" for="ad_d_'.$fid.'">
+               <input class="ckbf custom-control-input" id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.$fnom_affich.'</span>
+            </label>
+         </div>';
       }
    } 
    //<== construction des check-box des droits
@@ -359,11 +367,9 @@ function modifyadmin($chng_aid) {
             <div class="col-sm-8">
                <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
                <span class="help-block text-right"><span id="countcar_chng_pwd"></span></span>
-               <progress id="passwordMeter_cont" class="progress password-meter" value="0" max="100">
                   <div class="progress">
-                     <span id="passwordMeter" class="progress-bar" style="width: 0%;"></span>
+                     <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div>
                   </div>
-               </progress>
                <span id="pass-level" class="help-block text-right"></span>
             </div>
          </div>
@@ -392,9 +398,10 @@ function modifyadmin($chng_aid) {
          <div id="adm_droi_f" class="container-fluid ">
             <div class="form-group">
                <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-muted" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
-            </div>';
-   echo $listdroits;
-   echo'
+            </div>
+            <div class="row">
+            '.$listdroits.'
+            </div>
         </div>
       </fieldset>
       <fieldset>
@@ -402,9 +409,10 @@ function modifyadmin($chng_aid) {
          <div id="adm_droi_m" class="container-fluid ">
             <div class="form-group">
                <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-muted" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
-            </div>';
-   echo $listdroitsmodulo;
-   echo'
+            </div>
+            <div class="row">
+               '.$listdroitsmodulo.'
+            </div>
          </div>
          <br />
          <div class="form-group row">

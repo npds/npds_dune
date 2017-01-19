@@ -398,7 +398,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
 
           $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
-          $boxstuff .= "<li><a href=\"viewforum.php?forum=$forumid\" title=\"".strip_tags($forum_desc)."\">$forumname</a> ($ibidx) </li>\n";
+          $boxstuff .= '<li><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'">'.$forumname.'</a><span class="float-right badge badge-default">'.$ibidx.'</span></li>';
           
           $topics = 0;
           while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {

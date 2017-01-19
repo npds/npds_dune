@@ -50,7 +50,7 @@ function mapsections() {
          </h3>
       <div class="collapse" id="collapseSections">
          <div class="card card-block">
-            <ul>'.$tmp.'</ul>
+            <ul class="list-unstyled">'.$tmp.'</ul>
          </div>
       </div>
       <hr />';
@@ -95,7 +95,7 @@ function maptopics() {
       </h3>
       <div class="collapse" id="collapseTopics">
          <div class="card card-block">
-            <ul>'.$lis_top.'</ul>
+            <ul class="list-unstyled">'.$lis_top.'</ul>
          </div>
       </div>
       <hr />';
@@ -120,7 +120,7 @@ function mapcategories() {
       </h3>
       <div class="collapse" id="collapseCategories">
          <div class="card card-block">
-            <ul>'.$lis_cat.'</ul>
+            <ul class="list-unstyled">'.$lis_cat.'</ul>
          </div>
       </div>
       <hr />';
@@ -145,7 +145,7 @@ function mapfaq() {
       </h3>
       <div class="collapse" id="collapseFaq">
          <div class="card card-block">
-            <ul>'.$lis_faq.'</ul>
+            <ul class="">'.$lis_faq.'</ul>
          </div>
       </div>
       <hr />';

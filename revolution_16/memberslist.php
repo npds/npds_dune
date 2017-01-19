@@ -17,7 +17,7 @@ include('functions.php');
 // Make Member_list Private or not
 if (!AutoReg()) { unset($user); }
 if (($member_list==1) AND ($user=='') AND ($admin=='')) {
-   Header("Location: index.php");
+   Header("Location: user.php");
 }
 
 if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
@@ -193,7 +193,7 @@ function avatar($user_avatar) {
       $min = $pagesize * ($page - 1);
       $max = $pagesize;
       $ws_req='';
-      if (isset($uid_from_ws) and ($uid_from_ws!="")) $ws_req= 'WHERE uid REGEXP \''.$uid_from_ws.'\' ';
+      if (isset($uid_from_ws) and ($uid_from_ws!='')) $ws_req= 'WHERE uid REGEXP \''.$uid_from_ws.'\' ';
       $count = "SELECT COUNT(uid) AS total FROM ".$NPDS_Prefix."users ";
       $select = "SELECT uid, name, uname, femail, url, user_regdate, user_from, email, is_visible, user_viewemail, user_avatar, mns, user_lastvisit FROM ".$NPDS_Prefix."users ";
       if (($letter != translate("Other")) AND ($letter != translate("All"))) {
@@ -310,16 +310,22 @@ function avatar($user_avatar) {
                }
                $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
                list($open_user) = sql_fetch_row($op_result);
+               $clnoconnect ='';
                if ( ($open_user==1 and $user) || ($admin) ) {
-               if ($open_user==0)
-               echo '
+                  if ($open_user==0) {
+                     $clconnect ='danger';
+                     echo '
                <tr class="table-danger" title="'.translate("Connection not allowed").'" data-toggle="tooltip">
-               <td title="'.translate("Connection not allowed").'" data-toggle="tooltip">';
-               else echo'
+                  <td title="'.translate("Connection not allowed").'" data-toggle="tooltip">';
+                  }
+                  else  {
+                     $clconnect ='primary';
+                     echo '
                <tr>
                   <td>';
+                  }
                if ($ibid_avatar=avatar($temp_user['user_avatar']))
-               echo '<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-primary img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+               echo '<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
                   </td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
                if ($admin)
@@ -352,13 +358,15 @@ function avatar($user_avatar) {
                if ($admin) {
                   echo '
                   <td>
-                     <a href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-toggle="tooltip"></i></a> 
+                     <a class="mr-3" href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-toggle="tooltip"></i></a> 
                      <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
                   if (!$temp_user['is_visible']) {
-                     echo "<img src=\"images/admin/ws/user_invisible.gif\" alt=\"".translate("Invisible' member")."\" title=\"".translate("Invisible' member")." \" /></td>\n";
+                     echo '<img src="images/admin/ws/user_invisible.gif" alt="'.translate("Invisible' member").'" title="'.translate("Invisible' member").'" />';
                   } else {
-                     echo '<img src="images/admin/ws/blank.gif" alt="" /></td>';
+                     echo '<img src="images/admin/ws/blank.gif" alt="" />';
                   }
+                  echo '
+                  </td>';
                }
                echo '
             </tr>';

@@ -34,7 +34,7 @@ function ListReseaux($ModPath, $ModStart) {
    echo '
       <h2>'.translate("User").'</h2>
 
-   <ul class="nav nav-tabs"> 
+   <ul class="nav nav-tabs d-flex flex-wrap"> 
       <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
@@ -51,15 +51,15 @@ function ListReseaux($ModPath, $ModStart) {
       <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-   <h3 class="mt-1">'.rs_translate("Réseaux sociaux").'</h3>
+   <h3 class="mt-3">'.rs_translate("Réseaux sociaux").'</h3>
    <div class="help-block">'.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'</div>
    <hr />
    <h3><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;op=EditReseaux"><i class="fa fa-edit fa-lg"></i></a>&nbsp;'.rs_translate("Editer").'</h3>
- <div class="row mt-1">';
+ <div class="row mt-3">';
    foreach ($rs as $v1) {
         echo '
          <div class="col-sm-3 col-6">
-            <div class="card">
+            <div class="card mb-4">
                <div class="card-block text-center">
                <i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></br>'.$v1[0].'
                </div>

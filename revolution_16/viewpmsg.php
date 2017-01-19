@@ -28,15 +28,15 @@ include("auth.php");
       $userX = base64_decode($user);
       $userdata = explode(':', $userX);
       $userdata = get_userdata($userdata[1]);
-      $sqlT = "SELECT distinct dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND dossier!='...' AND type_msg='0' ORDER BY dossier";
+      $sqlT = "SELECT DISTINCT dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND dossier!='...' AND type_msg='0' ORDER BY dossier";
       $resultT = sql_query($sqlT);
 
    echo '
-   <ul class="nav nav-tabs"> 
+   <ul class="nav nav-tabs d-flex flex-wrap"> 
       <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
-   if (($mns) and ($autorise_upload_p)) {
+   if (($userdata['mns']==1) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
@@ -49,10 +49,7 @@ include("auth.php");
       <li class="nav-item"><a class="nav-link active" href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-   <div class="mt-1"></div>';
-
-      echo '
-      <div class="card card-block ">
+      <div class="card card-block mt-3">
          <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit"></i></a>&nbsp;'.translate("Private Message")." - ".translate("Inbox").'</h2>
          <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
             <div class="form-group">
@@ -84,7 +81,7 @@ include("auth.php");
 
       echo '
          <form name="prvmsg" method="get" action="replypmsg.php">
-            <table class="table table-hover table-striped table-sm" >
+            <table class="table table-hover table-striped table-sm table-responsive" >
                <thead class="thead-default">
                   <tr>
                      <th align="center" ><input name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /></th>
@@ -168,21 +165,21 @@ include("auth.php");
       }
 
       echo '
-      <div class="card card-block ">
+      <div class="card card-block mt-3">
       <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit"></i></a>&nbsp;'.translate("Private Message")." - ".translate("Outbox").'</h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
-      <table class="table table-hover table-striped table-sm" >
+      <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
          <thead class="thead-default">
             <tr>
                <th data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>
-               <th align="center" ><i class="fa fa-long-arrow-down"></i></th>';
+               <th data-halign="center" ><i class="fa fa-long-arrow-down"></i></th>';
       if ($smilies) { echo '
                <th align="center" >&nbsp;</th>';
       }
       echo '
-               <th data-sortable="true" align="center">'.translate("To").'</th>
-               <th data-sortable="true" align="center">'.translate("Subject").'</th>
-               <th data-sortable="true" align="center">'.translate("Date").'</th>
+               <th data-halign="center" data-sortable="true" align="center">'.translate("To").'</th>
+               <th data-halign="center" data-sortable="true" align="center">'.translate("Subject").'</th>
+               <th data-halign="center" data-align="right" data-sortable="true" align="center">'.translate("Date").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -222,17 +219,19 @@ include("auth.php");
          echo "<td align=\"center\" width=\"20%\">".$myrow['msg_time']."</td></tr>";
          $count++;
       }
-      if ($display) {
-         echo '
-         <tr class="table-danger">
-            <td colspan="6"><button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
-         </tr>
-         <input type="hidden" name="total_messages" value="'.$total_messages.'" />
-         <input type="hidden" name="type" value="outbox" />';
-      }
       echo '
          </tbody>
          </table>
+      ';
+      if ($display) {
+         echo '
+         <div class="form-group mt-3">
+         <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
+         <input type="hidden" name="total_messages" value="'.$total_messages.'" />
+         <input type="hidden" name="type" value="outbox" />
+         </div>';
+      }
+      echo '
       </form>
       </div>';
       ?>

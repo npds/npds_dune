@@ -46,7 +46,7 @@ function nav($mns) {
    if($op=='chgtheme') $ch_t='active';
 
    echo '
-   <ul class="nav nav-tabs"> 
+   <ul class="nav nav-tabs d-flex flex-wrap"> 
       <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
       <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
@@ -648,7 +648,7 @@ function main($user) {
       }
       if (!$user) {
          echo '
-          <div class="card card-block">
+          <div class="card card-block mb-3">
           <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
          </div>
           <div class="card card-block">
@@ -670,7 +670,7 @@ function main($user) {
             <input type="hidden" name="op" value="login" />
             <div class="form-group row">
                <div class="col-sm-8 offset-sm-4">
-                  <button class="btn btn-primary" type="submit" title="'.translate("Submit").'"><i class="fa fa-lg fa-check"></i>&nbsp;'.translate("Submit").'</button>
+                  <button class="btn btn-primary" type="submit" title="'.translate("Submit").'">'.translate("Submit").'</button>
                </div>
             </div>
          </form>

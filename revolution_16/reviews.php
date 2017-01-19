@@ -159,7 +159,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
 
    include ('header.php');
    echo '
-   <h2>'.translate("Write a Review").'</h2>
+   <h2 class="mb-4">'.translate("Write a Review").'</h2>
    <form method="post" action="reviews.php">';
    if ($title == '') {
       $error = 1;
@@ -236,7 +236,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
             <input type="hidden" name="url_title" value="'.$url_title.'" />
             <input type="hidden" name="cover" value="'.$cover.'" />
             <input type="hidden" name="op" value="add_reviews" />
-            <br />'.translate("Does this look right?").'&nbsp;&nbsp;';
+            <br />'.translate("Does this look right?");
       if (!$admin) echo Q_spambot();
       echo '
       <div class="form-group row">
@@ -421,36 +421,36 @@ function showcontent($id) {
    echo '
    <h2>'.translate("Reviews").'</h2>
    <a href="reviews.php">'.translate("Back to Reviews Index").'</a>
-   <div class="card card-block">
+   <div class="card card-block my-3">
       <div class="card-text text-muted text-right small">
    '.translate("Added:").' '.$fdate.'<br />
       </div>
    <hr />
-   <h3>'.$title.'</h3><br />';
+   <h3 class="mb-3">'.$title.'</h3><br />';
    if ($cover != '')
       echo '<img class="img-fluid" src="images/reviews/'.$cover.'" />';
    echo $text;
 
    echo '
       <br /><br />
-      <div class="card card-block">';
+      <div class="card card-block mb-3">';
    if ($reviewer != '')
-      echo '<strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" >'.$reviewer.'</a><br />';
+      echo '<div class="mb-2"><strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" >'.$reviewer.'</a></div>';
    if ($score != '')
-      echo '<strong>'.translate("Score:").' : </strong>';
+      echo '<div class="mb-2"><strong>'.translate("Score:").' : </strong>';
    echo '<span class="text-success">';
    display_score($score);
-   echo '</span>';
+   echo '</span></div>';
    if ($url != '')
-      echo '<br /><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
-   echo '<br /><strong>'.translate("Hits:").'</strong><span class="badge badge-pill badge-default">'.$hits.'</span>
+      echo '<div class="mb-2"><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a></div>';
+   echo '<div><strong>'.translate("Hits:").'</strong><span class="badge badge-default">'.$hits.'</span></div>
       </div>';
    if ($admin)
       echo '
-      <nav class="text-center">
+      <nav class="d-flex justify-content-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 hidden-sm-down">'.translate("Administration Tools").'</span></a>
             </li>
             <li class="page-item">
                <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
@@ -460,7 +460,8 @@ function showcontent($id) {
             </li>
          </ul>
       </nav>';
-   echo '</div>';
+   echo '
+   </div>';
 
    sql_free_result($result);
 
@@ -493,7 +494,7 @@ function mod_review($id) {
       $score = $myrow['score'];
 
    echo '
-   <h2>'.translate("Review Modification").'</h2>
+   <h2 class="mb-4">'.translate("Review Modification").'</h2>
    <form class="" method="post" action="reviews.php?op=preview_review">
    <input type="hidden" name="id" value="'.$id.'">
       <div class="form-group row">
@@ -559,8 +560,8 @@ function mod_review($id) {
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4">
             <input type="hidden" name="op" value="preview_review" />
-            <input class="btn btn-primary" type="submit" value="'.translate("Preview Modifications").'" />&nbsp;
-            <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("Cancel").'" />
+            <input class="btn btn-primary col-12 mb-2" type="submit" value="'.translate("Preview Modifications").'" />
+            <input class="btn btn-secondary col-12" type="button" onclick="history.go(-1)" value="'.translate("Cancel").'" />
          </div>
       </div>
       </form>';

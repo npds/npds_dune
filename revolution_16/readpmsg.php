@@ -62,72 +62,93 @@ include('auth.php');
       </h3>
       <hr />
       <p class="lead">
-      <a href="viewpmsg.php">'.translate("Private Messages").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
+         <a href="viewpmsg.php">'.translate("Private Messages").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
       </p>
-      <div class="card">
+      <div class="card mb-3">
          <div class="card-header">';
       if ($type=='outbox') {
          $posterdata = get_userdata_from_id($myrow['to_userid']);
-         echo translate("Recipient");
+//         echo translate("Recipient");
       } else {
          $posterdata = get_userdata_from_id($myrow['from_userid']);
-         echo translate("Sender");
-         if ($posterdata['uid']==1) echo ' : <span class="text-muted"><strong>'.$sitename.'</strong></span></div>';
+//         echo translate("Sender");
+//         if ($posterdata['uid']==1) echo ' : <span class="text-muted"><strong>'.$sitename.'</strong></span>';
       }
+      $posts = $posterdata['posts'];
+
+      if ($posterdata['uid']<>1) {
+         $useroutils = '';
+         $useroutils .= '<hr />';
+         if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
+            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i>&nbsp;'.translate("Profile").'</a>';
+         }
+         if ($posterdata['uid']!= 1) {
+            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i>&nbsp;'.translate("Send internal Message").'</a>';
+         }
+         if ($posterdata['femail']!='') {
+            $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i>&nbsp;'.translate("Email").'</a>';
+         }
+         if ($posterdata['url']!='') {
+            if (strstr('http://', $posterdata['url']))
+               $posterdata['url'] = 'http://' . $posterdata['url'];
+            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i>&nbsp;'.translate("Visit this Website").'</a>';
+         }
+         if ($posterdata['mns']) {
+             $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i>&nbsp;'.translate("Visit the Mini Web Site !").'</a>';
+         }
+      }
+
       if (!sql_num_rows($resultID)) {
          echo ''.translate("You don't have any Messages.").'</div>';//à traiter
       } else {
-         if ($posterdata['uid']<>1) echo ' : <span class="text-muted"><strong>'.$posterdata['uname'].'</strong></span></div>';
-echo '<div class="card-block">';
-
-         $posts = $posterdata['posts'];
-         if ($posterdata['uid']<>1) echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
-         echo '<br />';
+      
          if ($smilies) {
-            if ($posterdata['user_avatar']!='') {
-               if (stristr($posterdata['user_avatar'],"users_private")) {
-                  $imgtmp=$posterdata['user_avatar'];
-               } else {
-                  if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-               }
-               echo '<img class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" />';
+         if ($posterdata['user_avatar'] != '') {
+            if (stristr($posterdata['user_avatar'],"users_private")) {
+             $imgtmp=$posterdata['user_avatar'];
+         } else {
+             if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
+         }
+          echo '
+          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+         }
+      }
+
+      
+         if ($posterdata['uid']<>1) 
+
+   echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+   echo '<span class="float-right">';
+      if ($smilies) {
+         if ($myrow['msg_image']!='') {
+            if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
+
+            echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
+            } else {
+                        if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
+
+               echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="icon_post" />';
             }
          }
-
-         if ($smilies) {
-            if ($myrow['msg_image']!='') {
-               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
-               echo '<img class="n-smil" src="'.$imgtmp.'" alt="img_subject" />&nbsp;';
-            }
-         }
-         echo translate("Sent")." : ".$myrow['msg_time']."&nbsp;&nbsp;&nbsp";
-         echo "<hr noshade=\"noshade\" class=\"ongl\" /><b>".aff_langue($myrow['subject'])."</b><br />";
+      echo '</span>
+            </div>
+            <div class="card-block">
+            <div class="card-text pt-2">';
+         echo '<div class="text-right small">'.translate("Sent").' : '.$myrow['msg_time'].'</div>';
+         echo '<hr /><strong>'.aff_langue($myrow['subject']).'</strong><br />';
          $message = stripslashes($myrow['msg_text']);
          if ($allow_bbcode) {
             $message = smilie($message);
             $message = aff_video_yt($message);
          }
-         $message = str_replace("[addsig]", '<br />' . nl2br($posterdata['user_sig']), aff_langue($message));
+         $message = str_replace('[addsig]', '<br />' . nl2br($posterdata['user_sig']), aff_langue($message));
          echo $message;
-         echo '</div></div>';
+         echo '
+         </div>
+         </div>
+         </div>';
 
-         if ($posterdata['uid']<>1) {
-            echo '<hr />';
-            if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/profile.gif";}
-            echo "&nbsp;&nbsp<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />".translate("Profile")."</a>";
 
-            if ($posterdata["femail"]!="") {
-               if ($ibid=theme_image("forum/icons/email.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/email.gif";}
-               echo "&nbsp;&nbsp;<a href=\"mailto:".$posterdata['femail']."\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />".translate("Email")."</a>";
-            }
-
-            if ($posterdata["url"]!="") {
-               if (strstr("http://", $posterdata["url"]))
-                  $posterdata["url"] = "http://" . $posterdata["url"];
-               if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/www_icon.gif";}
-               echo "&nbsp;&nbsp;<a href=\"".$posterdata['url']."\" target=\"_blank\" class=\"noir\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />www</a>";
-            }
-         }
          $previous = $start-1;
          $next = $start+1;
          if ($type=='outbox') {
@@ -136,20 +157,40 @@ echo '<div class="card-block">';
             $tmpx='&amp;dossier='.urlencode(StripSlashes($dossier));
          }
          echo '
-         <ul class="pagination ">';
+         <ul class="pagination d-flex justify-content-center">';
          if ($type!='outbox') {
             if ($posterdata['uid']<>1)
             echo '
             <li class="page-item"><a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-reply fa-lg"></i></a></li>';
          }
          if ($previous >= 0) echo '
-            <li class="page-item"><a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >'.translate("Previous Messages").'</a></li>';
+            <li class="page-item">
+               <a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >
+                  <span class="hidden-sm-down">'.translate("Previous Messages").'</span>
+                  <span class="hidden-md-up"><i class="fa fa-angle-double-left fa-lg"></i></span>
+               </a>
+            </li>';
          else echo '
-            <li class="page-item"><a class="page-link disabled" href="#">'.translate("Previous Messages").'</a></li>';
+            <li class="page-item">
+               <a class="page-link disabled" href="#">
+                  <span class="hidden-xs-down">'.translate("Previous Messages").'</span>
+                  <span class="hidden-md-up"><i class="fa fa-angle-double-left fa-lg"></i></span>
+               </a>
+            </li>';
          if ($next < $total_messages) echo '
-            <li class="page-item" ><a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >'.translate("Next Messages").'</a></li>';
+            <li class="page-item" >
+               <a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >
+                  <span class="hidden-sm-down">'.translate("Next Messages").'</span>
+                  <span class="hidden-md-up"><i class="fa fa-angle-double-right fa-lg"></i></span>
+               </a>
+            </li>';
          else echo '
-            <li class="page-item"><a class="page-link disabled" href="#">'.translate("Next Messages").'</a></li>';
+            <li class="page-item">
+               <a class="page-link disabled" href="#">
+                  <span class="hidden-sm-down">'.translate("Next Messages").'</span>
+                  <span class="hidden-md-up"><i class="fa fa-angle-double-right fa-lg"></i></span>
+               </a>
+            </li>';
          if ($type!='outbox') {
             echo '
             <li class="page-item" ><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
@@ -165,6 +206,7 @@ echo '<div class="card-block">';
             $sql = "SELECT DISTINCT dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' ORDER BY dossier";
             $result = sql_query($sql);
             echo '
+      <div class="card card-block">
       <form action="replypmsg.php" method="post">
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="dossier">'.translate("Topic").'</label>
@@ -185,13 +227,14 @@ echo '<div class="card-block">';
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-9 offset-sm-3">
                <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
                <input type="hidden" name="classement" value="1" />
-               <input type="submit" class="btn btn-primary" name="classe" value="OK" />
+               <button type="submit" class="btn btn-primary" name="classe">OK</button>
             </div>
          </div>
-      </form>';
+      </form>
+      </div>';
          }
       }
       include('footer.php');
