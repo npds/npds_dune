@@ -180,11 +180,10 @@ if (isset($submitS)) {
      } else {
         $message='';
      }
-     if ($formulaire!='') {
-     echo'<div class="col-sm-12">';
-        include ("modules/comments/comments_extender.php");
-             echo'</div>';
-
+      if ($formulaire!='') {
+         echo'<div class="col" id ="debug">';
+         include ("modules/comments/comments_extender.php");
+         echo'</div></div>';
      } else {
         if ($allow_bbcode)
            $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';

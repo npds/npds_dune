@@ -335,8 +335,8 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    $count = 1;
    $next = $start + $topics_per_page;
    echo '
-   <div class="xs-12">
-      <ul class="pagination pagination-sm">';
+   <div class="col-12">
+      <ul class="pagination pagination-sm d-flex flex-wrap">';
    if ($all_topics > $topics_per_page) {
       if ($next >= $all_topics) {
          echo '
