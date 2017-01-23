@@ -375,12 +375,9 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
   </form>
 </div>
 <div class="col-sm-4">
-    <div id="map_conf" style="height:900px;"></div>
-
-    
-    
-    Icones en service
-  </div>
+   <div id="map_conf" style="height:900px;"></div>
+       Icones en service
+   </div>
 </div>
 ';
 
@@ -757,7 +754,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
 
 //]]>
 </script>';
-adminfoot('fv','','','');
+adminfoot('','','','');
 
 }
 
