@@ -99,13 +99,15 @@ if (!function_exists("Mysql_Connexion")) {
    echo '
    <h2>'.translate("Statistics").'</h2>
    <div class="card card-block lead">
-   '.translate("We received").' <span class="badge badge-default">'.wrh($total).'</span> '.translate("views since").' '.$startdate.'
+      <div>
+      '.translate("We received").' <span class="badge badge-default">'.wrh($total).'</span> '.translate("views since").' '.$startdate.'
+      </div>
    </div>
    <h3 class="my-4">'.translate("Browsers").'</h3>
-   <table data-toggle="table" data-striped="true" data-mobile-responsive="true">
+   <table data-toggle="table" data-mobile-responsive="true">
       <thead>
          <tr>
-            <th data-sortable="true" data-align="right" >'.translate("Browsers").'</th>
+            <th data-sortable="true" >'.translate("Browsers").'</th>
             <th data-sortable="true" data-halign="center" data-align="right" >%</th>
             <th data-align="right" ></th>
          </tr>
@@ -116,12 +118,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td > MSIE <img src="'.$imgtmp.'" alt="MSIE_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$msie[1].'%;">'.$msie[1].'%</strong></div>
-               <progress class="progress" value="'.$msie[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$msie[1].'%;">'.$msie[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$msie[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$msie[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$msie[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($msie[0]).'</td>
          </tr>';
@@ -130,12 +130,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> Mozilla <img src="'.$imgtmp.'" alt="Mozilla_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$netscape[1].'%;">'.$netscape[1].'%</strong></div>
-               <progress class="progress" value="'.$netscape[1].'" max="100">
+               <div class="text-center small">'.$netscape[1].' %</div>
                   <div class="progress">
-                     <span class="progress-bar" style="width:'.$netscape[1].'%;">'.$netscape[1].'%</span>
+                     <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$netscape[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$netscape[1].'%; height:1rem;"></div>
                   </div>
-               </progress>
             </td>
             <td> '.wrh($netscape[0]).'</td>
          </tr>';
@@ -144,12 +142,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> Opera <img src="'.$imgtmp.'" alt="Opera_ico" /></td>
             <td>
-            <div class="graph"><strong class="bar" style="width: '.$opera[1].'%;">'.$opera[1].'%</strong></div>
-               <progress class="progress" value="'.$opera[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$opera[1].'%;">'.$opera[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$opera[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$opera[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$opera[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($opera[0]).'</td>
          </tr>';
@@ -158,12 +154,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> Chrome <img src="'.$imgtmp.'" alt="Chrome_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$chrome[1].'%;">'.$chrome[1].'%</strong></div>
-               <progress class="progress" value="'.$chrome[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$chrome[1].'%;">'.$chrome[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$chrome[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$chrome[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$chrome[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($chrome[0]).'</td>
          </tr>';
@@ -172,12 +166,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> Safari <img src="'.$imgtmp.'" alt="Safari_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$safari[1].'%;">'.$safari[1].'%</strong></div>
-               <progress class="progress" value="'.$safari[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$safari[1].'%;">'.$safari[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$safari[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$safari[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$safari[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($safari[0]).'</td>
          </tr>';
@@ -186,12 +178,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> WebTV <img src="'.$imgtmp.'"  alt="WebTV_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$webtv[1].'%;">'.$webtv[1].'%</strong></div>
-               <progress class="progress" value="'.$webtv[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$webtv[1].'%;">'.$webtv[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$webtv[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$webtv[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$webtv[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($webtv[0]).'</td>
          </tr>';
@@ -200,12 +190,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> Konqueror <img src="'.$imgtmp.'" alt="Konqueror_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$konqueror[1].'%;">'.$konqueror[1].'%</strong></div>
-               <progress class="progress" value="'.$konqueror[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$konqueror[1].'%;">'.$konqueror[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$konqueror[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$konqueror[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$konqueror[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($konqueror[0]).'</td>
          </tr>';
@@ -214,12 +202,10 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> Lynx <img src="'.$imgtmp.'" alt="Lynx_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$lynx[1].'%;"> '.$lynx[1].'%</strong></div>
-               <progress class="progress" value="'.$lynx[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$lynx[1].'%;">'.$lynx[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$lynx[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$lynx[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$lynx[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($lynx[0]).'</td>
          </tr>';
@@ -228,24 +214,20 @@ if (!function_exists("Mysql_Connexion")) {
          <tr>
             <td> '.translate("Search Engines").' <img src="'.$imgtmp.'" alt="'.translate("Search Engines").'_ico" /></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$bot[1].'%;"> '.$bot[1].'%</strong></div>
-               <progress class="progress" value="'.$bot[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$bot[1].'%;">'.$bot[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$bot[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$bot[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$bot[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($bot[0]).'</td>
          </tr>
          <tr>
             <td> '.translate("Unknown").' <i class="fa fa-question fa-3x"></i></td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$b_other[1].'%;"> '.$b_other[1].'%</strong></div>
-               <progress class="progress" value="'.$b_other[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$b_other[1].'%;">'.$b_other[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$b_other[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$b_other[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$b_other[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($b_other[0]).'</td>
          </tr>
@@ -253,7 +235,7 @@ if (!function_exists("Mysql_Connexion")) {
    </table>
    <br />
    <h3 class="my-4">'.translate("Operating Systems").'</h3>
-   <table data-toggle="table" data-striped="true" >
+   <table data-toggle="table" data-mobile-responsive="true" >
       <thead>
          <tr>
             <th data-sortable="true" >'.translate("Operating Systems").'</th>
@@ -265,166 +247,142 @@ if (!function_exists("Mysql_Connexion")) {
    if ($ibid=theme_image("stats/windows.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/windows.gif";}
       echo '
          <tr>
-            <td ><img src="'.$imgtmp.'"  alt="" />&nbsp;Windows</td>
+            <td ><img src="'.$imgtmp.'"  alt="Windows" />&nbsp;Windows</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$windows[1].'%;">'.$windows[1].'%</strong></div>
-               <progress class="progress" value="'.$windows[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$windows[1].'%;">'.$windows[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$windows[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$windows[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$windows[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($windows[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/linux.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/linux.gif";}
       echo '
          <tr>
-            <td ><img src="'.$imgtmp.'"  alt="" />&nbsp;Linux</td>
+            <td ><img src="'.$imgtmp.'"  alt="Linux" />&nbsp;Linux</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$linux[1].'%;">'.$linux[1].'%</strong></div>
-               <progress class="progress" value="'.$linux[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$linux[1].'%;">'.$linux[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$linux[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$linux[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$linux[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($linux[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/mac.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/mac.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;Mac/PPC</td>
+            <td><img src="'.$imgtmp.'"  alt="Mac/PPC" />&nbsp;Mac/PPC</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$mac[1].'%;">'.$mac[1].'%</strong></div>
-               <progress class="progress" value="'.$mac[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$mac[1].'%;">'.$mac[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$mac[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$mac[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$mac[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($mac[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/bsd.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/bsd.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;FreeBSD</td>
+            <td><img src="'.$imgtmp.'"  alt="FreeBSD" />&nbsp;FreeBSD</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$freebsd[1].'%;">'.$freebsd[1].'%</strong></div>
-               <progress class="progress" value="'.$freebsd[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$freebsd[1].'%;">'.$freebsd[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$freebsd[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$freebsd[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$freebsd[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($freebsd[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/sun.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/sun.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;SunOS</td>
+            <td><img src="'.$imgtmp.'"  alt="SunOS" />&nbsp;SunOS</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$sunos[1].'%;">'.$sunos[1].'%</strong></div>
-               <progress class="progress" value="'.$sunos[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$sunos[1].'%;">'.$sunos[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$sunos[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$sunos[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$sunos[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($sunos[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/irix.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/irix.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;IRIX</td>
+            <td><img src="'.$imgtmp.'"  alt="IRIX" />&nbsp;IRIX</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$irix[1].'%;">'.$irix[1].'%</strong></div>
-               <progress class="progress" value="'.$irix[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$irix[1].'%;">'.$irix[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$irix[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$irix[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$irix[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($irix[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/be.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/be.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;BeOS</td>
+            <td><img src="'.$imgtmp.'" alt="BeOS" />&nbsp;BeOS</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$beos[1].'%;">'.$beos[1].'%</strong></div>
-               <progress class="progress" value="'.$beos[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$beos[1].'%;">'.$beos[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$beos[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$beos[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$beos[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($beos[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/os2.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/os2.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;OS/2</td>
+            <td><img src="'.$imgtmp.'" alt="OS/2" />&nbsp;OS/2</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$os2[1].'%;">'.$os2[1].'%</strong></div>
-               <progress class="progress" value="'.$os2[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$os2[1].'%;">'.$os2[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$os2[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$os2[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$os2[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($os2[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/aix.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/aix.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;AIX</td>
+            <td><img src="'.$imgtmp.'" alt="AIX" />&nbsp;AIX</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$aix[1].'%;">'.$aix[1].'%</strong></div>
-               <progress class="progress" value="'.$aix[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$aix[1].'%;">'.$aix[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$aix[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$aix[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$aix[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($aix[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/android.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/android.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" />&nbsp;Android</td>
+            <td><img src="'.$imgtmp.'" alt="Android" />&nbsp;Android</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$andro[1].'%;">'.$andro[1].'%</strong></div>
-               <progress class="progress" value="'.$andro[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$andro[1].'%;">'.$andro[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$andro[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$andro[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$andro[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($andro[0]).'</td>
          </tr>';
    if ($ibid=theme_image("stats/ios.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/ios.gif";}
       echo '
          <tr>
-            <td><img src="'.$imgtmp.'"  alt="" /> Ios</td>
+            <td><img src="'.$imgtmp.'" alt="Ios" /> Ios</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$ios[1].'%;">'.$ios[1].'%</strong></div>
-               <progress class="progress" value="'.$ios[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$ios[1].'%;">'.$ios[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$ios[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$ios[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$ios[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($ios[0]).'</td>
          </tr>
          <tr>
             <td><i class="fa fa-question fa-3x"></i>&nbsp;'.translate("Unknown").'</td>
             <td>
-               <div class="graph"><strong class="bar" style="width: '.$os_other[1].'%;">'.$os_other[1].'%</strong></div>
-               <progress class="progress" value="'.$os_other[1].'" max="100">
-                  <div class="progress">
-                     <span class="progress-bar" style="width:'.$os_other[1].'%;">'.$os_other[1].'%</span>
-                  </div>
-               </progress>
+               <div class="text-center small">'.$os_other[1].' %</div>
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$os_other[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$os_other[1].'%; height:1rem;"></div>
+               </div>
             </td>
             <td>'.wrh($os_other[0]).'</td>
          </tr>

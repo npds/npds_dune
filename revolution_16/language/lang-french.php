@@ -999,6 +999,7 @@ function translate_pass1($phrase) {
    case "Icon": $tmp="Icone"; break;
    case "Social networks": $tmp="Réseaux sociaux"; break;
    case "Select one skin": $tmp="Choisir une charte graphique"; break;
+   case "Sub-section": $tmp="Sous-rubrique"; break;
    
    default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }

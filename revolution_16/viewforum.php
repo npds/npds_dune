@@ -168,7 +168,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    <p class="lead">
       <a href="forum.php" >'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
    </p>
-   <h3>';
+   <h3 class="mb-3">';
    if ($forum_access!=9) {
       $allow_to_post = true;
       if ($forum_access==2)
@@ -196,12 +196,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       }
       if ($user)
          if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    echo '
          </div>
       </div>
-      <h4>'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
+      <h4 class="my-2">'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
       <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
@@ -229,8 +229,6 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($ibid=theme_image("box/right.gif")) {$imgtmpRi=$ibid;} else {$imgtmpRi="images/download/right.gif";}
 
    if ($myrow = sql_fetch_assoc($result)) {
-      $linked = "onmouseover=\"this.className='lignb'; this.style.cursor='default';\" "
-      ." onmouseout=\"this.className='ligna';\"";
       do {
          echo'<tr>';
          $replys = get_total_posts($forum, $myrow['topic_id'], "topic", $Mmod);
@@ -335,7 +333,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    $count = 1;
    $next = $start + $topics_per_page;
    echo '
-   <div class="col-12">
+   <nav>
       <ul class="pagination pagination-sm d-flex flex-wrap">';
    if ($all_topics > $topics_per_page) {
       if ($next >= $all_topics) {
@@ -362,7 +360,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    }
    echo '
       </ul>
-   </div>';
+   </nav>';
    echo searchblock();
    echo '<br />
    <blockquote class="blockquote">

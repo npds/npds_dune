@@ -2713,6 +2713,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $li_mb=''; $li_ic='';
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
    $nb_mb=sql_num_rows ($result);
+   $count=0;
    $li_mb.='
       <div class="my-4">
       <a data-toggle="collapse" data-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ml-3" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Members").'</a><span class="badge badge-default float-right">'.$nb_mb.'</span>';
@@ -2720,7 +2721,59 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $li_mb.='
          <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
-      list($uname, $user_avatar, $mns, $url)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
+/*   
+      $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+      if (!$short_user) {
+         $posterdata_extend = get_userdata_extend_from_id($uid);
+         include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+         if ($posterdata_extend['M2']!='') {
+            $socialnetworks= explode(';',$posterdata_extend['M2']);
+            foreach ($socialnetworks as $socialnetwork) {
+               $res_id[] = explode('|',$socialnetwork);
+            }
+            sort($res_id);
+            sort($rs);
+            foreach ($rs as $v1) {
+               foreach($res_id as $y1) {
+                  $k = array_search( $y1[0],$v1);
+                  if (false !== $k) {
+                     $my_rs.='<a class="mr-3" href="';
+                     if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                     break;
+                  } 
+                  else $my_rs.='';
+               }
+            }
+            $my_rsos[]=$my_rs;
+         }
+         else $my_rsos[]='';
+      }
+*/   
+   
+      list($uname, $user_avatar, $mns, $url, $femail)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url, femail FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
+      
+   $useroutils = '';
+      if ($uid!= 1 and $uid!='') {
+         $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$uname.'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
+      }
+      if ($uid!= 1) {
+         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Send internal Message").'</span></a>';
+      }
+      if ($femail!='') {
+         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($femail,1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
+      }
+      if ($url!='') {
+         if (strstr('http://', $url))
+            $url = 'http://' . $url;
+         $useroutils .= '<a class="list-group-item text-primary" href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+      }
+      if ($mns) {
+          $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+      }
+
+      
+
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
       if (!$user_avatar) {
          $imgtmp="images/forum/avatar/blank.gif";
@@ -2741,20 +2794,12 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       }
       $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
       $li_mb.= '
-            <li class="list-group-item list-group-item-action  d-flex flex-row">
-               <div id="li_mb_'.$uname.'_'.$gr.'">'.$conn.'   <a href="user.php?op=userinfo&uname='.$uname.'" class="tooltip_ws"><em style="width:90px"><img src="'.$imgtmp.'" height="80" width="80" alt="avatar" /></em><img class="n-smil" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" data-toggle="tooltip" data-placement="right" />&nbsp;'.$uname.'</a>
-               </div><br />
-               <span class="ml-auto">
-                  <a href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-envelope-o fa-lg ml-3"></i></a>'."\n";
-      if ($url!='')
-         $li_mb.='
-                  <a href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-external-link fa-lg ml-3"></i></a>';
-      if ($mns==1)
-         $li_mb.='
-                  <a href="minisite.php?op='.$uname.'" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-desktop fa-lg ml-3"></i></a>';
-      $li_mb.='
-            </span>
+            <li class="list-group-item list-group-item-action d-flex flex-row">
+               <div id="li_mb_'.$uname.'_'.$gr.'">
+               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover" data-trigger="focus" data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a>'.$uname.'
+               </div>
          </li>';
+   $count++;
    }
    $li_mb.='
          <li style="clear:left;line-height:6px; background:none;">&nbsp;</li>

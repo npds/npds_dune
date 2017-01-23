@@ -125,13 +125,12 @@ function Only_NewUser() {
       include("header.php");
       showimage();
       echo '
-   <h2>'.translate("User").'</h2>
-   <div class="card card-block">
+   <h2 class="mb-3">'.translate("User").'</h2>
+   <div class="card card-block mb-3">
       <h3>'.translate("Notice").'</h3>
       <p>
       '.translate("Account preferences are cookie based.").' '.translate("We don't sell/give to others your personal info.").' '.translate("As a registered user you can").' : 
          <ul>
-         <blockquote>
             <li>'.translate("Post comments with your name").'</li>
             <li>'.translate("Send news with your name").'</li>
             <li>'.translate("Have a personal box in the Home").'</li>
@@ -140,7 +139,6 @@ function Only_NewUser() {
             <li>'.translate("Customize the comments").'</li>
             <li>'.translate("Select different themes").'</li>
             <li>'.translate("some other cool stuff...").'</li>
-         </blockquote>
          </ul>
       </p>';
       if (!$memberpass) {

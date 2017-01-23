@@ -101,7 +101,6 @@ include('auth.php');
       if (!sql_num_rows($resultID)) {
          echo ''.translate("You don't have any Messages.").'</div>';//à traiter
       } else {
-      
          if ($smilies) {
          if ($posterdata['user_avatar'] != '') {
             if (stristr($posterdata['user_avatar'],"users_private")) {
@@ -113,8 +112,6 @@ include('auth.php');
           <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
          }
       }
-
-      
          if ($posterdata['uid']<>1) 
 
    echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
@@ -133,9 +130,9 @@ include('auth.php');
       echo '</span>
             </div>
             <div class="card-block">
-            <div class="card-text pt-2">';
-         echo '<div class="text-right small">'.translate("Sent").' : '.$myrow['msg_time'].'</div>';
-         echo '<hr /><strong>'.aff_langue($myrow['subject']).'</strong><br />';
+               <div class="card-text pt-2">
+                  <div class="text-right small">'.translate("Sent").' : '.$myrow['msg_time'].'</div>
+                  <hr /><strong>'.aff_langue($myrow['subject']).'</strong><br />';
          $message = stripslashes($myrow['msg_text']);
          if ($allow_bbcode) {
             $message = smilie($message);
@@ -144,10 +141,9 @@ include('auth.php');
          $message = str_replace('[addsig]', '<br />' . nl2br($posterdata['user_sig']), aff_langue($message));
          echo $message;
          echo '
-         </div>
-         </div>
+               </div>
+            </div>
          </div>';
-
 
          $previous = $start-1;
          $next = $start+1;
