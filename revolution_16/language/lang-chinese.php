@@ -999,6 +999,10 @@ function translate_pass1($phrase) {
    /**/case "*": $tmp="multiplied by"; break;
    /**/case "Ban this @IP": $tmp="Ban this @IP"; break;
    // WS
+   
+   case "sub-section": $tmp="sub-section"; break;
+
+   
 
    default: $tmp = "&#x9700;&#x8981;&#x7FFB;&#x8BD1;&#x7A3F; <b>[** $phrase **]</b>"; break;
  }

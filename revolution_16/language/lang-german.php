@@ -1027,6 +1027,7 @@ function translate_pass1($phrase) {
    case "Icon": $tmp="Icon"; break;
    case "Social networks": $tmp="Soziale Netzwerke"; break;
    case "Select one skin": $tmp="Wählen Sie ein Thema Grafik"; break;
+   case "Sub-section": $tmp="Unterrubriken"; break;
 
    default: $tmp = "Es gibt keine Übersetzung <strong>[** $phrase **]</strong>"; break;
  }

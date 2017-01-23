@@ -135,7 +135,7 @@ include('header.php');
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_subject.'
    </p>';
    echo '
-   <h3>';
+   <h3 class="mb-3">';
    if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
@@ -187,7 +187,7 @@ include('header.php');
             if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
          }
       }
-      echo '<img class="img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
+      echo '<img class="img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
       echo '<br />'.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
@@ -535,8 +535,8 @@ include('header.php');
 
     if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
        echo '
-      <nav class="text-center">
-         <ul class="pagination pagination-sm">
+      <nav>
+         <ul class="pagination pagination-sm d-flex justify-content-center">
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 hidden-sm-down">'.translate("Administration Tools").'</span></a>
             </li>';

@@ -1029,7 +1029,8 @@ function translate_pass1($phrase) {
    case "Show this comment": $tmp="Mostrar este comentario"; break;
    case "Icon": $tmp="Icono"; break;
    case "Social networks": $tmp="Redes sociales"; break;
-   case "Select one skin": $tmp="Elegir un tema gr&#xE1;fico"; break; 
+   case "Select one skin": $tmp="Elegir un tema gr&#xE1;fico"; break;
+   case "Sub-section": $tmp="Sub-categor&iacute;a"; break;
    default: $tmp = "Necesita una traducci&oacute;n <b>[** $phrase **]</b>"; break;
  }
  return $tmp;

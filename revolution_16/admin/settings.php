@@ -30,8 +30,8 @@ function Configure() {
    <hr />
    <form id="fad_pref" action="admin.php" method="post">
    <fieldset>
-      <legend><a class="tog" id="show_info_gene" title="'.adm_translate("Replier la liste").'"><i id="i_info_gene" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Informations générales du site").'</legend>
-      <div id="info_gene" class="adminsidefield" style="display:none;">
+      <legend><a class="tog" id="show_info_gene" title="'.adm_translate("Replier la liste").'"><i id="i_info_gene" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Informations générales du site").'</legend>
+      <div id="info_gene" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xparse">Parse algo</label>
             <div class="col-sm-8">
@@ -367,8 +367,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_banner" title="'.adm_translate("Replier la liste").'"><i id="i_banner" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Options pour les Bannières").'</legend>
-      <div id="banner" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_banner" title="'.adm_translate("Replier la liste").'"><i id="i_banner" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options pour les Bannières").'</legend>
+      <div id="banner" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xbanners">'.adm_translate("Options pour les Bannières").'</label>
             <div class="col-sm-4">
@@ -412,8 +412,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Message de pied de page").'</legend>
-      <div id="mes_ppage" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Message de pied de page").'</legend>
+      <div id="mes_ppage" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="xfoot1">'.adm_translate("Ligne 1").'</label>
             <div class="col-sm-12">
@@ -446,8 +446,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_bakend_rs" title="'.adm_translate("Replier la liste").'"><i id="i_bakend_rs" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Configuration des infos en Backend & Réseaux Sociaux").'</legend>
-      <div id="bakend_rs" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_bakend_rs" title="'.adm_translate("Replier la liste").'"><i id="i_bakend_rs" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration des infos en Backend & Réseaux Sociaux").'</legend>
+      <div id="bakend_rs" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xbackend_title">'.adm_translate("Titre du backend").'</label>
             <div class="col-sm-8">
@@ -577,8 +577,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_lien_web" title="'.adm_translate("Replier la liste").'"><i id="i_lien_web" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Configuration par défaut des Liens Web").'</legend>
-      <div id="lien_web" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_lien_web" title="'.adm_translate("Replier la liste").'"><i id="i_lien_web" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration par défaut des Liens Web").'</legend>
+      <div id="lien_web" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xperpage">'.adm_translate("Nombre de liens par page").'</label>
             <div class="col-sm-4">
@@ -744,8 +744,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_sys_mes" title="'.adm_translate("Replier la liste").'"><i id="i_sys_mes" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Système de Messagerie (Email)").'</legend>
-      <div id="sys_mes" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_sys_mes" title="'.adm_translate("Replier la liste").'"><i id="i_sys_mes" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Système de Messagerie (Email)").'</legend>
+      <div id="sys_mes" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
             <div class="col-sm-8">
@@ -858,8 +858,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_opt_comment" title="'.adm_translate("Replier la liste").'"><i id="i_opt_comment" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Options pour les Commentaires").'</legend>
-      <div id="opt_comment" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_opt_comment" title="'.adm_translate("Replier la liste").'"><i id="i_opt_comment" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options pour les Commentaires").'</legend>
+      <div id="opt_comment" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-7" for="xmoderate">'.adm_translate("Type de modération").'</label>
             <div class="col-sm-5">
@@ -929,8 +929,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_opt_sond" title="'.adm_translate("Replier la liste").'"><i id="i_opt_sond" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Options des sondages").'</legend>
-      <div id="opt_sond" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_opt_sond" title="'.adm_translate("Replier la liste").'"><i id="i_opt_sond" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options des sondages").'</legend>
+      <div id="opt_sond" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les sondages").'</label>
             <div class="col-sm-4">
@@ -1009,8 +1009,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_para_illu" title="'.adm_translate("Replier la liste").'"><i id="i_para_illu" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Paramètres liés à l'illustration").'</legend>
-      <div id="para_illu" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_para_illu" title="'.adm_translate("Replier la liste").'"><i id="i_para_illu" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Paramètres liés à l'illustration").'</legend>
+      <div id="para_illu" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
             <div class="col-sm-8">
@@ -1113,8 +1113,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_divers" title="'.adm_translate("Replier la liste").'"><i id="i_divers" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.adm_translate("Divers").'</legend>
-      <div id="divers" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_divers" title="'.adm_translate("Replier la liste").'"><i id="i_divers" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Divers").'</legend>
+      <div id="divers" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xadmart">'.adm_translate("Nombres d'articles en mode administration").'</label>
             <div class="col-sm-4">
@@ -1494,8 +1494,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-   <legend><a class="tog" id="show_divers_http" title="'.adm_translate("Replier la liste").'"><i id="i_divers_http" class="fa fa-caret-down fa-lg" ></i>&nbsp;</a>'.adm_translate("Divers").' HTTP</legend>
-      <div id="divers_http" class="adminsidefield" style="display:none;">
+   <legend><a class="tog" id="show_divers_http" title="'.adm_translate("Replier la liste").'"><i id="i_divers_http" class="fa fa-caret-down fa-lg text-primary" ></i>&nbsp;</a>'.adm_translate("Divers").' HTTP</legend>
+      <div id="divers_http" class="adminsidefield card card-block mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xrss_host_verif">'.adm_translate("Pour les grands titres de sites de news, activer la vérification de l'existance d'un web sur le Port 80").'</label>
             <div class="col-sm-4">
@@ -1591,8 +1591,8 @@ function Configure() {
       </script>
    </fieldset>
    <fieldset>
-      <legend><a class="tog" id="show_divers_syst" title="'.adm_translate("Replier la liste").'"><i id="i_divers_syst" class="fa fa-caret-down fa-lg" ></i>&nbsp;</a>'.adm_translate("Divers").' SYSTEM</legend>
-      <div id="divers_syst" class="adminsidefield" style="display:none;">';
+      <legend><a class="tog" id="show_divers_syst" title="'.adm_translate("Replier la liste").'"><i id="i_divers_syst" class="fa fa-caret-down fa-lg text-primary" ></i>&nbsp;</a>'.adm_translate("Divers").' SYSTEM</legend>
+      <div id="divers_syst" class="adminsidefield card card-block mb-3" style="display:none;">';
     if (!$savemysql_size) {
        $savemysql_size='256';
     } else {
@@ -1733,10 +1733,10 @@ function Configure() {
 switch ($op) {
    case 'Configure':
       Configure();
-      break;
+   break;
    case 'ConfigSave':
       include("admin/settings_save.php");
       ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xsite_font,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb);
-      break;
+   break;
 }
 ?>

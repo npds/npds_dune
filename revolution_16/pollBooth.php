@@ -100,7 +100,7 @@ function pollResults($pollID) {
       list(,$pollTitle) = sql_fetch_row($result);
 
    echo '
-   <h3 class="mb-3">'.$pollTitle.'</h3>';
+   <h3 class="my-3">'.$pollTitle.'</h3>';
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
      echo '
@@ -119,14 +119,12 @@ function pollResults($pollID) {
            }
            echo '
    <div class="row">
-      <div class="col-sm-5">'.aff_langue($optionText).'</div>
+      <div class="col-sm-5 mt-3">'.aff_langue($optionText).'</div>
       <div class="col-sm-7">
-         <span class="badge badge-default text-right">'.wrh($optionCount).'</span>
-         <progress class="progress  progress-striped" value="'.$percentInt.'" max="100" title="'.$percentInt.'%" data-toggle="tooltip">
+         <span class="badge badge-default mb-1">'.wrh($optionCount).'</span>
             <div class="progress">
-               <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" ></span>
+               <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" title="'.$percentInt.'%" data-toggle="tooltip"></span>
             </div>
-         </progress>
       </div>
    </div>';
         }
@@ -182,7 +180,7 @@ function pollboxbooth($pollID,$pollClose) {
    }
    if (!$pollClose) {
       $inputvote = '
-         <button class="btn btn-primary btn-sm" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" /><i class="fa fa-check fa-lg"></i>&nbsp;'.translate("Vote").'</button>';
+         <button class="btn btn-primary btn-sm my-2" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" />'.translate("Vote").'</button>';
    }
    $boxContent .= '
          <div class="form-group">'.$inputvote.'</div>
