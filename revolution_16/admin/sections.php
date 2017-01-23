@@ -473,27 +473,30 @@ function publishcompat($article) {
    if ($enligne == 0) { $online = adm_translate("Hors Ligne");$cla="danger"; } else if ($enligne == 1) { $online = adm_translate("En Ligne");$cla="success"; }
    echo '
       <div class="list-group-item">
-         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#lst_'.$rubid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.aff_langue($rubname).'<span class="badge badge-'.$cla.' float-right">'.$online.'</span>
+         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#lst_'.$rubid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.aff_langue($rubname).'<span class="badge badge-'.$cla.' ml-auto">'.$online.'</span>
       </div>';
       if ($radminsuper==1) {
          $result2 = sql_query("SELECT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
       } else {
-         $result2 = sql_query("SELECT distinct sections.secid, sections.secname FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' AND publisujet.type='1' ORDER BY ordre");
+         $result2 = sql_query("SELECT DISTINCT sections.secid, sections.secname FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' AND publisujet.type='1' ORDER BY ordre");
       }
       if (sql_num_rows($result2) > 0) {
-         echo '<ul id="lst_'.$rubid.'" class="list-group mb-1 collapse">';
+         echo '
+         <ul id="lst_'.$rubid.'" class="list-group mb-1 collapse">';
          while (list($secid, $secname) = sql_fetch_row($result2)) {
-            echo '<li class="list-group-item"><strong class="ml-3" title="'.adm_translate("sous-rubrique").'" data-toggle="tooltip">'.aff_langue($secname).'</strong></li>';
+            echo '
+            <li class="list-group-item"><strong class="ml-3" title="'.adm_translate("sous-rubrique").'" data-toggle="tooltip">'.aff_langue($secname).'</strong></li>';
             $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
             if (sql_num_rows($result3) > 0) {
                while (list($artid, $title) = sql_fetch_row($result3)) {
                   $i++;
                   $result4 = sql_query("SELECT id2 FROM ".$NPDS_Prefix."compatsujet WHERE id2='$artid' AND id1='$article'");
-                  echo '<li class="list-group-item list-group-item-action"><span class="ml-2">'.aff_langue($title).'</span>';
+                  echo '
+            <li class="list-group-item list-group-item-action"><span class="ml-2">'.aff_langue($title).'</span>';
                   if (sql_num_rows($result4) > 0) {
-                     echo '<span class="float-right"><input type="checkbox" name="admin_rub['.$i.']" value="'.$artid.'" checked="checked" /></span></li>';
+                     echo '<span class="ml-auto"><input type="checkbox" name="admin_rub['.$i.']" value="'.$artid.'" checked="checked" /></span></li>';
                   } else {
-                     echo '<span class="float-right"><input type="checkbox" name="admin_rub['.$i.']" value="'.$artid.'" /></span></li>';
+                     echo '<span class="ml-auto"><input type="checkbox" name="admin_rub['.$i.']" value="'.$artid.'" /></span></li>';
                   }
                }
             }
