@@ -925,9 +925,9 @@ function translate_pass1($phrase) {
    case "Update": $tmp="Actualizaci&oacute;n"; break;
    case "Theme(s)": $tmp="Tema(s)"; break;
    case "Status": $tmp="Estado"; break;
-   case "You may be interested in:": $tmp="Esto podr&iacute;a interesarle :"; break;
+   case "You may be interested in": $tmp="Esto podr&iacute;a interesarle"; break;
    case "Back to chapter:": $tmp="Volver a la sub-categor&iacute;a :"; break;
-   case "Other courses in chapter:": $tmp="Otras publicaciones de la sub-categor&iacute;a :"; break;
+   case "Other courses in chapter": $tmp="Otras publicaciones de la sub-categor&iacute;a"; break;
    case "Back to console": $tmp="Volver a la administraci&oacute;n"; break;
    case "in the sub-section": $tmp="En la sub-categor&iacute;a"; break;
    case "Search in Sections": $tmp="Buscar en las secciones"; break;

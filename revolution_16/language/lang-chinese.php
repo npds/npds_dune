@@ -928,9 +928,9 @@ function translate_pass1($phrase) {
    case "Update": $tmp="&#x66F4;&#x65B0;"; break;
    case "Theme(s)": $tmp=""; break;
    case "Status": $tmp=""; break;
-   case "You may be interested in:": $tmp="&#x60A8;&#x53EF;&#x80FD;&#x5BF9;&#x6B64;&#x611F;&#x5174;&#x8DA3;&#xFF1A;"; break;
+   case "You may be interested in": $tmp="&#x60A8;&#x53EF;&#x80FD;&#x5BF9;&#x6B64;&#x611F;&#x5174;&#x8DA3;&#xFF1A;"; break;
    case "Back to chapter:": $tmp="&#x8FD4;&#x56DE;&#x5230;&#x6B21;&#x76EE;&#x5F55;"; break;
-   case "Other courses in chapter:": $tmp="&#x6B21;&#x76EE;&#x5F55;&#x4E2D;&#x7684;&#x5176;&#x4ED6;&#x53D1;&#x5E03;&#x7684;&#x4FE1;&#x606F;"; break;
+   case "Other courses in chapter": $tmp="&#x6B21;&#x76EE;&#x5F55;&#x4E2D;&#x7684;&#x5176;&#x4ED6;&#x53D1;&#x5E03;&#x7684;&#x4FE1;&#x606F;"; break;
    case "Back to console": $tmp="&#x8FD4;&#x56DE;&#x5230;&#x7BA1;&#x7406;"; break;
    case "in the sub-section": $tmp="&#x5728;&#x6B21;&#x76EE;&#x5F55;&#x4E2D;"; break;
    case "Search in Sections": $tmp="&#x5728;&#x76EE;&#x5F55;&#x4E2D;&#x67E5;&#x627E;"; break;

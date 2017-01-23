@@ -903,9 +903,9 @@ function translate_pass1($phrase) {
    case "Theme(s)": $tmp="Thème(s)"; break;
    case "Theme": $tmp="Thème"; break;
    case "Status": $tmp="Status"; break;
-   case "You may be interested in:": $tmp="Cela pourrait vous intéresser :"; break;
+   case "You may be interested in": $tmp="Cela pourrait vous intéresser"; break;
    case "Back to chapter:": $tmp="Retour à la sous-rubrique :"; break;
-   case "Other courses in chapter:": $tmp="Autres publications de la sous-rubrique :"; break;
+   case "Other courses in chapter": $tmp="Autres publications de la sous-rubrique"; break;
    case "Back to console": $tmp="Retour à l'administration"; break;
    case "in the sub-section": $tmp="dans la sous-rubrique"; break;
    case "Search in Sections": $tmp="Rechercher dans les rubriques"; break;
