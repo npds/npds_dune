@@ -185,7 +185,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                <div class="col-sm-6">
                   <div class="input-group">
                      <div id="vis_ic" class="input-group-addon"></div>
-                     <select class="c-select form-control input-lg" name="f_mbg" id="f_mbg">
+                     <select class="custom-select form-control input-lg" name="f_mbg" id="f_mbg">
                         <option selected="selected">'.$f_mbg.'</option>';
       foreach ($fonts_svg as $v) {
          echo '
