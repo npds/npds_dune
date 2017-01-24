@@ -46,11 +46,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
       $(document).ready(function() {
          if($('#map_bloc').length) { 
             console.log('map_bloc est dans la page');
-                        $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr'));
+//               $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language=".language_iso(1,'',0)."'));
 
          }
          else {
-            $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr'));
+            $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language=".language_iso(1,'',0)."'));
          }
       });
    //]]>
@@ -385,7 +385,55 @@ echo '
 <script type="text/javascript">
 //<![CDATA[
 
+    var 
+    map_b,
+    mapdivbl = document.getElementById("map_bloc"),
+    icon_bl = {
+    url: "'.$ch_img.$img_mbgb.'",
+    size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 0),
+    scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+    };
+
+
 function geoloc_conf() {
+
+        map_b = new google.maps.Map(mapdivbl,{
+            center: new google.maps.LatLng(45, 0),
+            zoom :3,
+            zoomControl:false,
+            streetViewControl:false,
+            mapTypeControl: false,
+            scrollwheel: false,
+            disableDoubleClickZoom: true 
+        });
+        map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+        function createMarkerB(point_b) {
+        var marker_b = new google.maps.Marker({
+            position: point_b,
+            map: map_b,
+            icon: icon_bl
+       })
+       return marker_b;
+        }
+        //== Fonction qui traite le fichier JSON ==
+        $.getJSON("modules/'.$ModPath.'/include/data.json", {}, function(data){
+            $.each(data.markers, function(i, item){
+            var point_b = new google.maps.LatLng(item.lat,item.lng);
+            var marker_b = createMarkerB(point_b);
+            });
+        });
+
+    
+
+
+
+
+
+
+
+
     var
     w_ico_size = $("#w_ico").val(),
     h_ico_size = $("#h_ico").val()

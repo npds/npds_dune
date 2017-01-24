@@ -794,12 +794,7 @@ $(\'[data-toggle="tab_ajax"]\').click(function(e) {
     return false;
 });
 
-
-if (!document.getElementById("map_bloc")) {
-   $(document.body).attr("onload", "geoloc_load()");
-} else {
-   $(document.body).attr("onload", "geoloc_load();geoloc_load_bloc();");
-}
+$(document.body).attr("onload", "geoloc_load()");
 
 //]]>
 </script>';
@@ -827,7 +822,7 @@ $affi .= '
    <div id="content">
       <div id="map-wrapper" >
          <div id="map">
-            <div style="z-index:1000;" class="my-auto col-10 col-md-offset-2 alert alert-danger"><i style=" opacity:0.2;" class="fa fa-refresh fa-3x fa-pulse"></i>&nbsp '.geoloc_translate('Chargement en cours...Ou serveurs Google HS...Ou erreur...').'</div>
+            <div style="z-index:1000; position:absolute; right:4px; left:4px; top:3px; bottom:3px;" class=" alert alert-danger"><i style=" opacity:0.2;" class="fa fa-refresh fa-3x fa-pulse"></i>&nbsp '.geoloc_translate('Chargement en cours...Ou serveurs Google HS...Ou erreur...').'</div>
          </div>
          <div id="sidebar" class= "collapse">
             <ul id="sidebar-list list-group"></ul>
