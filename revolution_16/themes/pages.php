@@ -184,15 +184,6 @@ $PAGES['admin.php']['TinyMce-theme']="full";
 $PAGES['admin.php']['css']="admin.css+";
 $PAGES['admin.php']['TinyMceRelurl']="false";
 
-// $PAGES['admin.php?op=Edito_load']['title']=""; // obligatoirement à vide
-// $PAGES['admin.php?op=Edito_load']['blocs']="0";
-// $PAGES['admin.php?op=Edito_load']['run']="yes";
-// $PAGES['admin.php?op=Edito_load']['run']="yes";
-// $PAGES['admin.php?op=op=Edito_load']['TinyMce']=1;
-// $PAGES['admin.php?op=op=Edito_load']['TinyMce-theme']="full";
-// $PAGES['admin.php?op=op=Edito_load']['TinyMceRelurl']="false";
-// $PAGES['admin.php?op=op=Edito_load']['css']="admin.css+";
-
 $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]Forums[/english][spanish]Foros de discusi&oacute;n[/spanish][german]Diskussionsforen[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese]+";
 $PAGES['forum.php']['run']="yes";
 $PAGES['forum.php']['sitemap']="0.9";
@@ -303,4 +294,13 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 // Filtre sur l'URI
 // $PAGES['forum=1']['title']="forum.php";
 // $PAGES['forum=1']['run']="user";
+
+//include('modules/geoloc/geoloc_conf.php');
+global $language;
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array('http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0),"modules/geoloc/include/fontawesome-markers.min.js");
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocalisation[/english]+|$title+";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['run']="yes";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['blocs']="-1";
+$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']="geoloc_style.css+";
+
 ?>
