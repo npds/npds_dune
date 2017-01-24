@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 3.0                                            */
-/* geoloc_bloc.php file 2008-2015 by Jean Pierre Barbary (jpb)          */
+/* geoloc_bloc.php file 2008-2017 by Jean Pierre Barbary (jpb)          */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
 
@@ -20,10 +20,10 @@ $ModPath='geoloc';
 $content = '';
 include ('modules/'.$ModPath.'/geoloc_conf.php'); 
 $content .='
-<div id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>';
-if (((!stristr($_SERVER['QUERY_STRING'],"geoloc")) || (stristr($_SERVER['PHP_SELF'],"admin.php")) || (!stristr($_SERVER['PHP_SELF'],"user.php")))) {
+<div class="mb-2" id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>';
+//if (((!stristr($_SERVER['QUERY_STRING'],"geoloc")) || (stristr($_SERVER['PHP_SELF'],"admin.php")) || (!stristr($_SERVER['PHP_SELF'],"user.php")))) {
 $content .='
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language=fr"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"></script>
 <script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
@@ -71,7 +71,7 @@ $content .='
 //]]>
 </script>
 ';
-}
+//}
 $content .='<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
 if($admin)
 $content .= '&nbsp;&nbsp;<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
