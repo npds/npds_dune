@@ -28,7 +28,7 @@ function HeadlinesAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo'
    <hr />
-   <h3 class="mb-1">'.adm_translate("Liste des Grands Titres de sites de News").'</h3>
+   <h3 class="mb-3">'.adm_translate("Liste des Grands Titres de sites de News").'</h3>
    <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -65,7 +65,7 @@ function HeadlinesAdmin() {
       </tbody>
    </table>
    <hr />
-   <h3 class="mb-1">'.adm_translate("Nouveau Grand Titre").'</h3>
+   <h3 class="mb-3">'.adm_translate("Nouveau Grand Titre").'</h3>
    <form id="fad_newheadline" class="" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
@@ -108,6 +108,12 @@ function HeadlinesAdmin() {
    echo '
    <script type="text/javascript">
    //<![CDATA[
+         $(document).ready(function() {
+         inpandfieldlen("xsitename",30);
+         inpandfieldlen("url",100);
+         inpandfieldlen("headlinesurl",200);
+      });
+
    //]]>
    </script>';
 
@@ -123,7 +129,7 @@ function HeadlinesEdit($hid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-1">'.adm_translate("Editer paramètres Grand Titre").'</h3>
+   <h3 class="mb-3">'.adm_translate("Editer paramètres Grand Titre").'</h3>
    <form action="admin.php" method="post">
       <fieldset>
          <input type="hidden" name="hid" value="'.$hid.'" />

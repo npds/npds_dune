@@ -28,7 +28,7 @@ function FaqAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Liste des catégories").'</h3>
+   <h3 class="mb-3">'.adm_translate("Liste des catégories").'</h3>
    <table id="tad_faq" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead class="thead-infos">
          <tr>
@@ -49,7 +49,7 @@ function FaqAdmin() {
       </tbody>
    </table>
    <hr />
-   <h3>'.adm_translate("Ajouter une catégorie").'</h3>
+   <h3 class="mb-3">'.adm_translate("Ajouter une catégorie").'</h3>
    <form id="fad_faqcatad" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
@@ -99,7 +99,7 @@ function FaqCatGo($id_cat) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.$faq_cat.'</h3>
+   <h3 class="mb-3">'.$faq_cat.'</h3>
    <h4>'.adm_translate("Ajouter une question réponse").'</h4>
    <form action="admin.php" method="post" name="adminForm">
       <fieldset>
@@ -160,7 +160,7 @@ function FaqCatEdit($id_cat) {
    list($categories) = sql_fetch_row($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Editer la catégorie").'</h3>
+   <h3 class="mb-3">'.adm_translate("Editer la catégorie").'</h3>
    <h4><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'">'.$categories.'</a></h4>
    <form id="fad_faqcated" action="admin.php" method="post">
       <fieldset>
@@ -202,14 +202,14 @@ function FaqCatGoEdit($id) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.$faq_cat.'</h3>
+   <h3 class="mb-3">'.$faq_cat.'</h3>
    <h4>'.$question.'</h4>
    <h4>'.adm_translate("Prévisualiser").'</h4>';
    echo'
    <label class="form-control-label" for="">'
       .aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
    </label>
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <p>'.preview_local_langue($local_user_language, $question).'</p>';
    $answer= aff_code($answer);
    echo '<p>'.meta_lang(preview_local_langue($local_user_language, $answer)).'</p>
@@ -234,11 +234,11 @@ function FaqCatGoEdit($id) {
          </div>
          '.aff_editeur('answer','').'
          <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 d-flex flex-row justify-content-center flex-wrap">
                <input type="hidden" name="id" value="'.$id.'" />
                <input type="hidden" name="op" value="FaqCatGoSave" />
-               <button class="btn btn-outline-primary col-12 col-sm-6" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
-               <button class="btn btn-outline-secondary col-12 col-sm-6" href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arrière").'</a>
+               <button class="btn btn-outline-primary col-sm-6 mb-2 " type="submit">'.adm_translate("Sauver les modifications").'</button>
+               <button class="btn btn-outline-secondary col-sm-6 mb-2 " href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" >'.adm_translate("Retour en arrière").'</a>
             </div>
          </div>
       </fieldset>

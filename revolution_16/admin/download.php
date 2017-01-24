@@ -111,10 +111,10 @@ function DownloadAdmin() {
    while(list($dcategory) = sql_fetch_row($resultX)) {
       $pseudocatid++;
       echo '
-   <h4><a class="tog" id="show_cat_'.$pseudocatid.'" title="Déplier la liste"><i id="i_cat_'.$pseudocatid.'" class="fa fa-caret-down fa-lg"></i></a>
+   <h4 class="mb-2"><a class="tog" id="show_cat_'.$pseudocatid.'" title="Déplier la liste"><i id="i_cat_'.$pseudocatid.'" class="fa fa-caret-down fa-lg text-primary"></i></a>
       '.aff_langue(stripslashes($dcategory)).'</h4>';
       echo '
-   <div id="cat_'.$pseudocatid.'" style="display:none;">
+   <div class="mb-3" id="cat_'.$pseudocatid.'" style="display:none;">
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
@@ -175,7 +175,7 @@ function DownloadAdmin() {
    }
    echo '
    <hr />
-   <h3>'.adm_translate("Ajouter un Téléchargement").'</h3>
+   <h3 class="mb-3">'.adm_translate("Ajouter un Téléchargement").'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
@@ -286,7 +286,8 @@ function DownloadEdit($did) {
    list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $privs) = sql_fetch_row($result);
    $ddescription=stripslashes($ddescription);
    echo '
-   <h3>'.adm_translate("Editer un Téléchargement").'</h3>
+   <hr />
+   <h3 class="mb-3">'.adm_translate("Editer un Téléchargement").'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <input type="hidden" name="did" value="'.$did.'" />
       <input type="hidden" name="dcounter" value="'.$dcounter.'" />
