@@ -30,31 +30,25 @@ function displayUsers() {
    <hr />
     <h3>'.adm_translate("Extraire l'annuaire").'</h3>
     <form method="post" class="form-inline" action="admin.php">
-        <fieldset>
             <div class="form-group">
-                <label for="op">'.adm_translate("Format de fichier").'</label>
-                <select class="custom-select form-control" name="op">
+                <label class="mr-2 mt-sm-3" for="op">'.adm_translate("Format de fichier").'</label>
+                <select class="custom-select form-control mr-2 mt-sm-3" name="op">
                     <option value="extractUserCSV">'.adm_translate("Au format CSV").'</option>
                 </select>
             </div>
-            <button class="btn btn-primary" type="submit">'.adm_translate("Ok").' </button>
-        </fieldset>
+            <button class="btn btn-primary ml-2 mt-3" type="submit">'.adm_translate("Ok").' </button>
     </form>
     <hr />
     <h3>'.adm_translate("Rechercher utilisateur").'</h3>
     <form method="post" class="form-inline" action="admin.php">
-        <fieldset>
-            <div class="form-group">
-               <label for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
-               <input class="form-control" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
-            </div>
-            <select class="custom-select form-control" name="op">
-                <option value="modifyUser">'.adm_translate("Modifier un utilisateur").'</option>
-                <option value="unsubUser">'.adm_translate("Désabonner un utilisateur").'</option>
-                <option value="delUser">'.adm_translate("Supprimer un utilisateur").'</option>
-            </select>
-            <button class="btn btn-primary" type="submit" >'.adm_translate("Ok").' </button>
-        </fieldset>
+      <label class="mr-2 mt-sm-1" for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
+      <input class="form-control mr-2 mt-sm-3 mb-2" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
+      <select class="custom-select form-control mr-2 mt-sm-3 mb-2" name="op">
+         <option value="modifyUser">'.adm_translate("Modifier un utilisateur").'</option>
+         <option value="unsubUser">'.adm_translate("Désabonner un utilisateur").'</option>
+         <option value="delUser">'.adm_translate("Supprimer un utilisateur").'</option>
+      </select>
+      <button class="btn btn-primary ml-sm-2 mt-sm-3 mb-2" type="submit" >'.adm_translate("Ok").' </button>
     </form>';
     $chng_is_visible=1;
     echo '

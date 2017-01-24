@@ -133,7 +133,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <h3>'.adm_translate("Ajouter un lien").'</h3>';
       if ($adminform=='') {
        echo '<form method="post" action="admin.php" name="adminForm">';
@@ -209,7 +209,7 @@ function links() {
    }
    // Add a Main category
    echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
       <h3>'.adm_translate("Ajouter une catégorie").'</h3>
       <form action="admin.php" method="post">
          <div class="form-group row">
@@ -238,8 +238,8 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block">
-      <h3>'.adm_translate("Ajouter une Sous-catégorie").'</h3>
+   <div class="card card-block mb-3">
+      <h3 class="mb-3">'.adm_translate("Ajouter une Sous-catégorie").'</h3>
       <form method="post" action="admin.php">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom").'</label>
@@ -278,7 +278,7 @@ function links() {
     $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
    <div class="card card-block">
-      <h3>'.adm_translate("Modifier la Catégorie").'</h3>
+      <h3 class="mb-3">'.adm_translate("Modifier la Catégorie").'</h3>
       <form method="post" action="admin.php">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
@@ -312,7 +312,7 @@ function links() {
    $numrow=sql_num_rows($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Liste des liens").' <span class="badge badge-default pull-right">'.$numrow.'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Liste des liens").' <span class="badge badge-default pull-right">'.$numrow.'</span></h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -349,7 +349,7 @@ function links() {
    $deja_affiches_moin=$deja_affiches-$rupture;
    $precedent=false;
    echo '
-   <ul class="pagination pagination-sm">
+   <ul class="pagination pagination-sm mt-3">
       <li class="page-item disabled"><a class="page-link" href="#">'.$numrow.'</a></li>';
    if ($deja_affiches>=$rupture) {
     echo '
@@ -373,7 +373,7 @@ function LinksModLink($lid) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Modifier le lien").' - '.$lid.'</h3>';
+   <h3 class="mb-3">'.adm_translate("Modifier le lien").' - '.$lid.'</h3>';
     list($cid, $sid, $title, $url, $xtext, $name, $email, $hits) = sql_fetch_row($result);
     $title = stripslashes($title); $xtext = stripslashes($xtext);
     echo '
@@ -470,7 +470,7 @@ function LinksModLink($lid) {
    $recordexist = sql_num_rows($resulted2);
    if ($recordexist == 0) {
       echo '
-   <h3>'.adm_translate("Ajouter un Editorial").'</h3>
+   <h3 class="mb-3">'.adm_translate("Ajouter un Editorial").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
@@ -498,7 +498,7 @@ function LinksModLink($lid) {
          $editorialtext = stripslashes($editorialtext);
 
          echo '
-   <h3>'.adm_translate("Modifier l'Editorial").'</h3> - '.adm_translate("Auteur").' : '.$adminid.' : '.formatTimeStamp($editorialtimestamp);
+   <h3 class="mb-3">'.adm_translate("Modifier l'Editorial").'</h3> - '.adm_translate("Auteur").' : '.$adminid.' : '.formatTimeStamp($editorialtimestamp);
          echo '
    <form action="admin.php" method="post">
       <div class="form-group row">
