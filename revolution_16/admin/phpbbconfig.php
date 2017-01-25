@@ -32,7 +32,7 @@ function ForumConfigAdmin() {
    list($allow_html,$allow_bbcode,$allow_sig,$posts_per_page,$hot_threshold,$topics_per_page,$allow_upload_forum,$allow_forum_hide,$forum_attachments,$rank1,$rank2,$rank3,$rank4,$rank5,$anti_flood,$solved) = sql_fetch_row($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Configuration des Forums").'</h3>
+   <h3 class="mb-3">'.adm_translate("Configuration des Forums").'</h3>
    <form id="fad_forumconf" action="admin.php" method="post">
       <div class="row">
          <label class="form-control-label col-sm-4 col-md-4" for="allow_html">'.adm_translate("Autoriser le HTML").'</label>

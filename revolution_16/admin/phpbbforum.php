@@ -30,7 +30,7 @@ function ForumAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Catégories de Forum").'</h3>
+   <h3 class="mb-3">'.adm_translate("Catégories de Forum").'</h3>
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -56,7 +56,7 @@ function ForumAdmin() {
    echo '
        </tbody>
    </table>
-   <h3>'.adm_translate("Ajouter une catégorie").'</h3>
+   <h3 class="my-3">'.adm_translate("Ajouter une catégorie").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="catagories">'.adm_translate("Nom").'</label>
@@ -85,7 +85,7 @@ function ForumGo($cat_id) {
    $ctg=StripSlashes($cat_title);
    echo '
    <hr />
-   <h3>'.adm_translate("Forum classé en").' '.$ctg.'</h3>
+   <h3 class="mb-3">'.adm_translate("Forum classé en").' '.$ctg.'</h3>
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -165,7 +165,7 @@ function ForumGo($cat_id) {
     echo '
       </tbody>
    </table>
-   <h3>'.adm_translate("Ajouter plus de Forum pour").' '.$ctg.'</h3>
+   <h3 class="my-3">'.adm_translate("Ajouter plus de Forum pour").' '.$ctg.'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="forum_index">'.adm_translate("Index").'</label>
@@ -298,7 +298,7 @@ function ForumGoEdit($forum_id, $ctg) {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Editer").' : <span class="text-muted">'.$forum_name.'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Editer").' : <span class="text-muted">'.$forum_name.'</span></h3>
    <form id="fad_editforu" action="admin.php" method="post">
    <input type="hidden" name="forum_id" value="'.$forum_id.'" />
       <div class="form-group row">
@@ -483,7 +483,7 @@ function ForumCatEdit($cat_id) {
    list($cat_id, $cat_title) = sql_fetch_row($result);
    echo '
    <hr />
-   <h3>'.adm_translate("Editer la catégorie").'</h3>
+   <h3 class="mb-3">'.adm_translate("Editer la catégorie").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="cat_id">ID</label>
@@ -647,11 +647,11 @@ function ForumGoDel($forum_id, $ok=0) {
     if ($ok==1) {
        sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
        sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
-       control_efface_post("forum_npds","","",$forum_id);
+       control_efface_post('forum_npds','','',$forum_id);
        sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
        Q_Clean();
 
-       global $aid; Ecr_Log("security", "DeleteForum($forum_id) by AID : $aid", "");
+       global $aid; Ecr_Log('security', "DeleteForum($forum_id) by AID : $aid", '');
        Header("Location: admin.php?op=ForumAdmin");
     } else {
        include("header.php");

@@ -28,7 +28,7 @@ function poll_createPoll() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
       <hr />
-        <h3>'.adm_translate("Liste des sondages").'</h3>
+        <h3 class="mb-3">'.adm_translate("Liste des sondages").'</h3>
         <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
@@ -58,7 +58,7 @@ function poll_createPoll() {
          </tbody>
       </table>
       <hr />
-      <h3>'.adm_translate("Créer un nouveau Sondage").'</h3>
+      <h3 class="mb-3">'.adm_translate("Créer un nouveau Sondage").'</h3>
       <form action="admin.php" method="post">
          <input type="hidden" name="op" value="createPosted" />
          <div class="form-group row">
@@ -134,7 +134,7 @@ function poll_removePoll() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Retirer un Sondage existant").'</h3>
+   <h3 class="mb-3">'.adm_translate("Retirer un Sondage existant").'</h3>
    <span class="help-block">'.adm_translate("S.V.P. Choisissez un sondage dans la liste suivante.").'</span>
    <p align="center"><span class="text-danger">'.adm_translate("ATTENTION : Le Sondage choisi va être supprimé IMMEDIATEMENT de la base de données !").'</span></p>
    ';
@@ -198,7 +198,7 @@ function poll_editPoll() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Edition des sondages").'</h3>
+   <h3 class="mb-3">'.adm_translate("Edition des sondages").'</h3>
    <span class="help-block">'.adm_translate("S.V.P. Choisissez un sondage dans la liste suivante.").'</span>
    <form id="fad_editpool" action="admin.php" method="post">
       <input type="hidden" name="op" value="editpollPosted" />
@@ -243,7 +243,7 @@ function poll_editPollPosted() {
       $result = sql_query("SELECT optionText, voteID, pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id' ORDER BY voteID ASC");
       echo '
    <hr />
-   <h3>'.adm_translate("Edition des sondages").'</h3>
+   <h3 class="mb-3">'.adm_translate("Edition des sondages").'</h3>
    <form method="post" action="admin.php">
       <input type="hidden" name="op" value="SendEditPoll">
       <input type="hidden" name="pollID" value="'.$id.'" />
