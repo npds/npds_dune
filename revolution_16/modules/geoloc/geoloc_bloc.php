@@ -21,10 +21,17 @@ $content = '';
 include ('modules/'.$ModPath.'/geoloc_conf.php'); 
 $content .='
 <div class="mb-2" id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>';
-//if (((!stristr($_SERVER['QUERY_STRING'],"geoloc")) || (stristr($_SERVER['PHP_SELF'],"admin.php")) || (!stristr($_SERVER['PHP_SELF'],"user.php")))) {
 $content .='
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"></script>
-<script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
+<script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>';
+
+if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRING'],"geoloc_set")) || (stristr($_SERVER['QUERY_STRING'],"geoloc"))) {
+   $loadornot = '';
+} else {
+   $loadornot=' window.onload = geoloc_loadbloc; ';
+}
+
+$content .='
 <script type="text/javascript">
 //<![CDATA[
     var 
@@ -65,9 +72,7 @@ $content .='
         });
 
     }
-    
-    window.onload = geoloc_loadbloc;
-    
+    '.$loadornot.'
 //]]>
 </script>
 ';

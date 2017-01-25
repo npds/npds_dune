@@ -537,7 +537,7 @@ function geoloc_load() {
          ]
      },
      streetViewControl:false,
-     zoom :16,
+     zoom :10,
      scrollwheel: false,
      scaleControl: true,
      disableDoubleClickZoom: true 

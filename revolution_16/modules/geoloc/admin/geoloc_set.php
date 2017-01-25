@@ -51,12 +51,13 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
          }
          else {
             $('head').append($('<script />').attr('src','http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language=".language_iso(1,'',0)."'));
+            $('head').append($('<script />').attr('src','modules/geoloc/include/fontawesome-markers.min.js'));
+
          }
       });
    //]]>
    </script>";
    echo'
-   <script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
    <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;Carte</a>
 
 
@@ -385,20 +386,26 @@ echo '
 <script type="text/javascript">
 //<![CDATA[
 
-    var 
-    map_b,
-    mapdivbl = document.getElementById("map_bloc"),
-    icon_bl = {
-    url: "'.$ch_img.$img_mbgb.'",
-    size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 0),
-    scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-    };
-
+   $(document).ready(function() {
+      if($("#map_bloc").length) { 
+         console.log("map_bloc est dans la page");
+         var 
+         map_b,
+         mapdivbl = document.getElementById("map_bloc"),
+         icon_bl = {
+            url: "'.$ch_img.$img_mbgb.'",
+            size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 0),
+            scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+         };
+      }
+   });
 
 function geoloc_conf() {
 
+   $(document).ready(function() {
+      if($("#map_bloc").length) { 
         map_b = new google.maps.Map(mapdivbl,{
             center: new google.maps.LatLng(45, 0),
             zoom :3,
@@ -424,20 +431,14 @@ function geoloc_conf() {
             var marker_b = createMarkerB(point_b);
             });
         });
-
-    
-
-
+      }
+   });
 
 
-
-
-
-
-    var
-    w_ico_size = $("#w_ico").val(),
-    h_ico_size = $("#h_ico").val()
-    ;
+   var
+   w_ico_size = $("#w_ico").val(),
+   h_ico_size = $("#h_ico").val();
+   
 $(document).ready(function() {
 
     if(img_svg.checked) {$("#para_ima input").prop("readonly", true), $("#para_svg input, #f_mbg").prop("disabled", false)}
@@ -796,9 +797,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
 });
 }
 
-
-//$( window ).load( geoloc_conf );
-    window.onload = geoloc_conf;
+window.onload = geoloc_conf;
 
 //]]>
 </script>';

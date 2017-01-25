@@ -474,10 +474,23 @@ $content .='
 <script type="text/javascript">
 //<![CDATA[
 
+      $(document).ready(function() {
+         if($("#map_bloc").length) { 
+            console.log("map_bloc est dans la page");
+//               $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"));
+
+         }
+         else {
+            $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"));
+            $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
+         }
+      });
+
    var 
    map_u, map_b,
    mapdivu = document.getElementById("map_user"),
    mapdivbl = document.getElementById("map_bloc");
+   
    function geoloc_loaduser() {
    icon_u = {
       path: fontawesome.markers.USER,
