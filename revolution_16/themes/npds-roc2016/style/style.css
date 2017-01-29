@@ -80,10 +80,6 @@ a:hover {text-decoration:none;}
 /** <== Classes NPDS-core                                                   **/
 
 .list-group-item {
-    display: block;
-    position: relative;
-    margin-bottom: -1px;
-    padding: .25rem;
     background-color: transparent;
 }
 
@@ -143,7 +139,7 @@ table tr:nth-of-type(2n) {
 /*jmd work*/
 
 /* adapt JMD pour correspondances avec Rocssti*/
-/* .row {margin-right: auto;margin-left: auto;} */
+ .row1 {margin-right: auto;margin-left: auto;}
 
 /************************************************************************
 Dimension du site 
@@ -187,8 +183,8 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 #decohead {
     margin-right: auto;
     margin-left: auto;
-    padding: 1em;
     max-width: 1600px;
+    
 }
 
 #corps {
@@ -332,7 +328,11 @@ label {
 
 /* pour une liste */
 
-.radio{  }
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
 
 
 /* pour le tutos uniquement*/

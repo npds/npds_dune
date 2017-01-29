@@ -101,12 +101,7 @@ border:0px;
 /** <== Classes NPDS-core                                                   **/
 
 .list-group-item {   /* ajust jmd*/
-    position: relative;
-    display: block;
-    padding:.25rem;
-    margin-bottom: -1px;
-    background-color: transparent;
-    /* border: 1px solid #ddd; */
+background-color: transparent;
 }
 
 /** ==> ID NPDS-Core                                                        **/
@@ -116,8 +111,8 @@ border:0px;
 text-align:center;
 }
 #col_princ{padding: .5rem;background: #f1eedd;border-bottom: 5px solid firebrick;}
-#col_LB{}
-#col_RB{background-color: rgb(219, 216, 196);}
+#col_LB{padding: 0;}
+#col_RB{background-color: rgb(219, 216, 196);padding: 0;}
 /** <== ID NPDS-Core                                                        **/
 
 
@@ -212,12 +207,12 @@ le menu de mon header simple mais responsive
   padding: 0;
   list-style: none;
   font-size: 1.3rem;
-  background: rgb(219, 216, 196);
 }
 .navigation li {
-  display: inline-block;
-  padding: 1rem;
-  
+    display: inline-block;
+    padding: 10px;
+    background: rgb(219, 216, 196);
+    margin: 5px;
 }
 
 @media (max-width: 320px) {
@@ -225,7 +220,6 @@ le menu de mon header simple mais responsive
     display: block;
   }
 }
-
 
 /************************************************************************
 La Partie CENTRALE de votre Site     colonne (s) et partie centrale
@@ -310,6 +304,15 @@ background-color: #ccc;}
 /*****************************************
 Adaptation des css au fil du test
 *********************************************/
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {  /* pour les forum notament*/
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #d88202;
+	border-color: #d8a102;
+}
+
+
 .bg-primary {
     color: beige;
 }
@@ -360,6 +363,7 @@ label {
     line-height: 1.5;
     margin:.3em 0;
 }
+
 
 /* déco des tableaux */
 table {

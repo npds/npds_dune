@@ -25,7 +25,7 @@ break;
 case "1":
 case "2":
     echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo '<aside  class="col w18 notablet nomobile  aside">';
+    echo '<aside  class="col w22 notablet nomobile  aside">';
         rightblocks();
     echo "</aside>";
     echo "</section>";/* Fermeture du corps ouvert dans le header.php  */
@@ -33,10 +33,10 @@ break;
 
 case "4":
     echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo '<aside  class="col w18 notablet nomobile  aside">';
+    echo '<aside  class="col w22 notablet nomobile  aside">';
         leftblocks();
     echo "</aside>";
-    echo '<aside  class="col w18 notablet nomobile  aside">';
+    echo '<aside  class="col w22 notablet nomobile  aside">';
         rightblocks();
     echo "</aside>";
     echo "</section>";/* Fermeture du corps ouvert dans le header.php  */
@@ -44,7 +44,7 @@ break;
 
 case "6":
     echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo '<aside  class="col w18 notablet nomobile aside">';
+    echo '<aside  class="col w22 notablet nomobile aside">';
         leftblocks();
     echo "</aside>";
     echo "</section>";/* Fermeture du corps ouvert dans le header.php  */
