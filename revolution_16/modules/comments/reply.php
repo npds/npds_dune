@@ -163,7 +163,7 @@ if (isset($submitS)) {
    if ($formulaire=='')
       echo '
    <form action="modules.php" method="post" name="coolsus">';
-   echo '<div class="form-group row">';
+   echo '<div class="form-group ">';
    $allow_to_reply=false;
    if ($forum_access==0) {
       $allow_to_reply=true;

@@ -68,7 +68,7 @@ function Caff_pub($topic, $file_name, $archive) {
    if ($total > $comments_per_page) {
       $times = 1; $current_page=0;
       echo '
-      <div id="co-pagihaute">
+      <div id="co-pagihaute" class="my-2">
          <ul class="pagination pagination-sm">
             <li class="page-item">
                <a class="page-link" href="#co-pagibasse"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
@@ -238,7 +238,7 @@ if ($mycount) {
    if ($total > $comments_per_page) {
       echo '
    <nav id="co-pagibasse">
-      <ul class="pagination pagination-sm d-flex flex-wrap">
+      <ul class="pagination pagination-sm d-flex flex-wrap  my-2">
          <li class="page-item">
             <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
          </li>
