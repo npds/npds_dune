@@ -4,22 +4,7 @@
  
  <div class="row1 w100 pb1">
   <div class="col w50  automobile"> <h1>Bienvenu sur Npds Révolution 16</h1> Gestionnaire de contenu & de communauté</div>
-  <div class="col w50 notablet nomobile aligncenter "> <?php
-   global $cookie, $anonymous;
-   global $NPDS_Prefix;
-   $username = $cookie[1];
-   if (autorisation(-1)) {
-      echo "!nb_online! - <a href=\"user.php\">Se connecter</a>";
-   } elseif (autorisation(1)) {
-      echo "Bonjour $username&nbsp;-&nbsp;<a href=\"user.php\">Votre profil</a>&nbsp;-&nbsp;";
-      settype($cookie[0], 'integer');
-      list($nbmes)=sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
-      if ($nbmes>0)
-         echo "<a href=\"viewpmsg.php\" class=\"newmsg\">".$nbmes." nouveau".(($nbmes>1)?'x':'')." message".(($nbmes>1)?'s':'')."</a>";
-      else
-         echo "<a href=\"viewpmsg.php\">Aucun nouveau message</a>";
-      echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
-   } ?></div>
+  <div class="col w50 notablet nomobile aligncenter "> !banner! </div>
 </div>
 
 

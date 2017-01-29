@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
-   theme: BaseRoc
+   theme: Rev16
 ---------------------------------------------------------------------- */
 @charset "utf-8";
 /* CSS npds-boots pour NPDS Revolution                                       */
@@ -398,14 +398,7 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 .leftbloc, .rightbloc   {
 }
 
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: .75rem 1.25rem;
-    margin-bottom: -1px;
-    background-color: transparent;
-    border: 0px;
-}
+
 /***********************************************************************
 La Partie Footer de votre Site
 *************************************************************************/
@@ -521,6 +514,18 @@ code, pre, samp {
 /*****************************************
 Adaptation des css au fil du test
 *********************************************/
+
+.list-group-item {
+    background-color: transparent;
+    border: 0px;
+}
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+    color: #464a4c;
+    text-decoration: none;
+    background-color: RGBA(235, 232, 216, 0.6);
+}
+
  .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     display: block;
     max-width: 100%;

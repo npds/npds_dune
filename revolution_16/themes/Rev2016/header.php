@@ -61,7 +61,7 @@ $ContainerGlobal="\n<div id=\"container\">\n";
 /*           Si Aucune variable pdst dans pages.php                     */
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
-     echo '<section id="corps" class="row w100 automobile" role="main">';
+     echo '<section id="corps" class="row1 w100 automobile" role="main">';
      
 switch ($pdst) {
 case "-1":
