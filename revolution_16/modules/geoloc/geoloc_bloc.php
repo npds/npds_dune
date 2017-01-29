@@ -21,62 +21,60 @@ $content = '';
 include ('modules/'.$ModPath.'/geoloc_conf.php'); 
 $content .='
 <div class="mb-2" id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>';
-$content .='
+if (!stristr($_SERVER['QUERY_STRING'],"ModPath=geoloc&ModStart=geoloc"))
+   $content .='
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"></script>
 <script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>';
-
-if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRING'],"geoloc_set")) || (stristr($_SERVER['QUERY_STRING'],"geoloc"))) {
+if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRING'],"geoloc_set")) || (stristr($_SERVER['QUERY_STRING'],"ModPath=geoloc&ModStart=geoloc"))) {
    $loadornot = '';
 } else {
-   $loadornot=' window.onload = geoloc_loadbloc; ';
+   $loadornot = ' window.onload = geoloc_loadbloc; ';
 }
 
 $content .='
 <script type="text/javascript">
 //<![CDATA[
-    var 
-    map_b,
-    mapdivbl = document.getElementById("map_bloc"),
-    icon_bl = {
-    url: "'.$ch_img.$img_mbgb.'",
-    size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 0),
-    scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-    };
+   var 
+   map_b,
+   mapdivbl = document.getElementById("map_bloc"),
+   icon_bl = {
+   url: "'.$ch_img.$img_mbgb.'",
+   size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+   origin: new google.maps.Point(0, 0),
+   anchor: new google.maps.Point(0, 0),
+   scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+   };
    var geoloc_loadbloc = function() {
-        map_b = new google.maps.Map(mapdivbl,{
-            center: new google.maps.LatLng(45, 0),
-            zoom :3,
-            zoomControl:false,
-            streetViewControl:false,
-            mapTypeControl: false,
-            scrollwheel: false,
-            disableDoubleClickZoom: true 
-        });
-        map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-        function createMarkerB(point_b) {
-        var marker_b = new google.maps.Marker({
+      map_b = new google.maps.Map(mapdivbl,{
+         center: new google.maps.LatLng(45, 0),
+         zoom :3,
+         zoomControl:false,
+         streetViewControl:false,
+         mapTypeControl: false,
+         scrollwheel: false,
+         disableDoubleClickZoom: true 
+      });
+      map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+      function createMarkerB(point_b) {
+         var marker_b = new google.maps.Marker({
             position: point_b,
             map: map_b,
             icon: icon_bl
-       })
-       return marker_b;
-        }
-        //== Fonction qui traite le fichier JSON ==
-        $.getJSON("modules/'.$ModPath.'/include/data.json", {}, function(data){
-            $.each(data.markers, function(i, item){
+         })
+         return marker_b;
+      }
+      //== Fonction qui traite le fichier JSON ==
+      $.getJSON("modules/'.$ModPath.'/include/data.json", {}, function(data){
+         $.each(data.markers, function(i, item){
             var point_b = new google.maps.LatLng(item.lat,item.lng);
             var marker_b = createMarkerB(point_b);
-            });
-        });
-
+         });
+      });
     }
     '.$loadornot.'
 //]]>
-</script>
-';
-//}
+</script>';
+
 $content .='<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
 if($admin)
 $content .= '&nbsp;&nbsp;<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
