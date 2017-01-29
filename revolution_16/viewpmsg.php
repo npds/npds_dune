@@ -49,13 +49,13 @@ include("auth.php");
       <li class="nav-item"><a class="nav-link active" href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-      <div class="card card-block mt-3">
-         <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit"></i></a>&nbsp;'.translate("Private Message")." - ".translate("Inbox").'</h2>
-         <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
-            <div class="form-group">
-               <label class="sr-only" for="dossier" >'.translate("Topic").'</label>
-               <select class="custom-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
-                  <option value="...">'.translate("Choose a folder/topic").'...</option>';
+   <div class="card card-block mt-3">
+      <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-1"></i></a><span class="hidden-sm-down">&nbsp;'.translate("Private Message")." - </span>".translate("Inbox").'</h2>
+      <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
+         <div class="form-group">
+            <label class="sr-only" for="dossier" >'.translate("Topic").'</label>
+            <select class="custom-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
+               <option value="...">'.translate("Choose a folder/topic").'...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {
          if (AddSlashes($dossierX)==$dossier) {$sel='selected="selected"';} else {$sel='';}
@@ -65,45 +65,45 @@ include("auth.php");
       }
       if ($dossier=='All') {$sel='selected="selected"';} else {$sel='';}
       echo '
-                  <option '.$sel.' value="All">'.translate("All Topics").'</option>
-               </select>
-            </div>
-         </form>';
+               <option '.$sel.' value="All">'.translate("All Topics").'</option>
+            </select>
+         </div>
+      </form>';
 
       settype($dossier,'string');
       if ($dossier=="All") {$ibid='';} else {$ibid="and dossier='$dossier'";}
       if (!$dossier) {$ibid="and dossier='...'";}
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
-      if (!$resultID) {
-         forumerror(0005);
-      }
-
-      echo '
-         <form name="prvmsg" method="get" action="replypmsg.php">
-            <table class="table table-hover table-striped table-sm table-responsive" >
-               <thead class="thead-default">
-                  <tr>
-                     <th align="center" ><input name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /></th>
-                     <th align="center" ><i class="fa fa-long-arrow-down"></i></th>';
-      if ($smilies) { echo '
-                     <th align="center" >&nbsp;</th>'; }
-      echo '
-                     <th align="center">'.translate("From").'</th>
-                     <th align="center">'.translate("Subject").'</th>
-                     <th align="center">'.translate("Date").'</th>
-                  </tr>
-               </thead>
-               <tbody>';
+      if (!$resultID) { forumerror(0005);}
+      
+      
+      
       if (!$total_messages = sql_num_rows($resultID)) {
          echo '
-                  <tr>
-                     <td colspan="6" align="center">'.translate("You don't have any Messages.").'</td>
-                  </tr>';
+      <div class="alert alert-danger">
+         '.translate("You don't have any Messages.").'
+      </div>';
          $display=0;
       } else {
          $display=1;
-      }
+
+      echo '
+      <form name="prvmsg" method="get" action="replypmsg.php">
+         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
+            <thead class="thead-default">
+               <tr>
+                  <th align="center" ><input name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /></th>
+                  <th align="center" ><i class="fa fa-long-arrow-down"></i></th>';
+      if ($smilies) { echo '
+                  <th align="center" >&nbsp;</th>'; }
+      echo '
+                  <th data-halign="center" data-sortable="true" data-align="center">'.translate("From").'</th>
+                  <th data-halign="center" data-sortable="true" >'.translate("Subject").'</th>
+                  <th data-halign="center" data-sortable="true" data-align="right">'.translate("Date").'</th>
+               </tr>
+            </thead>
+            <tbody>';
 
       $count=0;
       while ($myrow = sql_fetch_assoc($resultID)) {
@@ -112,27 +112,27 @@ include("auth.php");
          if ($dossier=="All") {$myrow['dossier']="All";}
          if (!array_key_exists($myrow['dossier'],$tempo)) {$tempo[$myrow['dossier']]=0;}
          echo '
-                  <tr>
-                     <td width="2%" align="center"><label class="c-input c-checkbox"><input type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /><span class="c-indicator"></span></label></td>';
+               <tr>
+                  <td width="2%" align="center"><label class="c-input c-checkbox"><input type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /><span class="c-indicator"></span></label></td>';
          if ($myrow['read_msg'] == "1") {
             echo '
-                     <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
+                  <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
          } else {
             echo '
-                     <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a></td>';
+                  <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a></td>';
          }
          if ($smilies) {
             if ($myrow['msg_image']!="") {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
                echo '
-                     <td width="5%" align="center"><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
+                  <td width="5%" align="center"><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else {
                echo '
-                     <td width="5%" align="center">&nbsp;</td>';
+                  <td width="5%" align="center">&nbsp;</td>';
             }
          }
          echo '
-                     <td align="center" width="10%"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
+                  <td align="center" width="10%"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
          if ($posterdata['uid']<>1) {
             echo $posterdata['uname'];
          } else {
@@ -140,50 +140,55 @@ include("auth.php");
          }
          echo '
          </a></td>
-                     <td>'.aff_langue($myrow['subject']).'</td>
-                     <td align="center" width="20%">'.$myrow['msg_time'].'</td>
-                  </tr>';
+                  <td>'.aff_langue($myrow['subject']).'</td>
+                  <td align="center" width="20%">'.$myrow['msg_time'].'</td>
+               </tr>';
          $tempo[$myrow['dossier']]=$tempo[$myrow['dossier']]+1;
          $count++;
       }
+      echo '
+            </tbody>
+         </table>';
       if ($display) {
          echo '
-                  <tr class="table-danger">
-                     <td colspan="6"><input type="hidden" name="total_messages" value="'.$total_messages.'"><button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
-                  </tr>';
+         <div class="form-group mt-3">
+            <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button>
+            <input type="hidden" name="total_messages" value="'.$total_messages.'" />
+            <input type="hidden" name="type" value="inbox" />
+         </div>';
       }
       echo '
-               <tbody>
-            </table>
-         </form>
-      </div>';
+      </form>';
+      }
+      echo '
+   </div>';
 
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid = '".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID) {
          forumerror(0005);
       }
+      $total_messages = sql_num_rows($resultID);
 
       echo '
       <div class="card card-block mt-3">
-      <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit"></i></a>&nbsp;'.translate("Private Message")." - ".translate("Outbox").'</h2>
+      <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-1"></i></a><span class="hidden-sm-down">&nbsp;'.translate("Private Message")." - </span>".translate("Outbox").'<span class="badge badge-default float-right">'.$total_messages.'</span></h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
       <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
          <thead class="thead-default">
             <tr>
-               <th data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>
-               <th data-halign="center" ><i class="fa fa-long-arrow-down"></i></th>';
+               <th data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>';
       if ($smilies) { echo '
                <th align="center" >&nbsp;</th>';
       }
       echo '
-               <th data-halign="center" data-sortable="true" align="center">'.translate("To").'</th>
+               <th data-halign="center" data-sortable="true" data-align="center">'.translate("To").'</th>
                <th data-halign="center" data-sortable="true" align="center">'.translate("Subject").'</th>
                <th data-halign="center" data-align="right" data-sortable="true" align="center">'.translate("Date").'</th>
             </tr>
          </thead>
          <tbody>';
-      if (!$total_messages = sql_num_rows($resultID)) {
+      if (!$total_messages) {
          $display=0;
          echo '
             <tr>
@@ -197,6 +202,7 @@ include("auth.php");
          echo '
             <tr>
                <td width="2%" align="center"><input type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /></td>';
+/*
          if ($myrow['read_msg']=="1") {
             echo '
                <td  width="5%" align="center">&nbsp;</td>';
@@ -204,6 +210,7 @@ include("auth.php");
             if ($ibid=theme_image("forum/read.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/read.gif";}
             echo "<td width=\"5%\" align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
          }
+*/
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
@@ -214,21 +221,20 @@ include("auth.php");
          }
          $myrow['subject']=strip_tags($myrow['subject']);
          $posterdata = get_userdata_from_id($myrow['to_userid']);
-         echo "<td align=\"center\" width=\"10%\"><a href=\"readpmsg.php?start=$count&amp;total_messages=$total_messages&amp;type=outbox\" class=\"noir\">".$posterdata['uname']."</a></td>";
+         echo "<td align=\"center\" width=\"10%\"><a href=\"readpmsg.php?start=$count&amp;total_messages=$total_messages&amp;type=outbox\" >".$posterdata['uname']."</a></td>";
          echo "<td>".aff_langue($myrow['subject'])."</td>";
          echo "<td align=\"center\" width=\"20%\">".$myrow['msg_time']."</td></tr>";
          $count++;
       }
       echo '
          </tbody>
-         </table>
-      ';
+      </table>';
       if ($display) {
          echo '
          <div class="form-group mt-3">
-         <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button></td>
-         <input type="hidden" name="total_messages" value="'.$total_messages.'" />
-         <input type="hidden" name="type" value="outbox" />
+            <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Delete").'</button>
+            <input type="hidden" name="total_messages" value="'.$total_messages.'" />
+            <input type="hidden" name="type" value="outbox" />
          </div>';
       }
       echo '

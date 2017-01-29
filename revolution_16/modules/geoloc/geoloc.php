@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 3.0                                            */
-/* geoloc_geoloc.php file 2008-2015 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2017 by Jean Pierre Barbary (jpb)        */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
 
@@ -45,7 +45,7 @@ $lkadm ='';
 $mess_adm ='';
 // admin tool
 if(autorisation(-127)) {
-$mess_adm ='<span class="text-danger">'.geoloc_translate('Rappel : vous êtes en mode administrateur !').'</span>';
+$mess_adm ='<p class="text-danger">'.geoloc_translate('Rappel : vous êtes en mode administrateur !').'</p>';
 $lkadm = '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i id="cogs" class="fa fa-cogs fa-lg"></i></a>';
 $infooo = geoloc_translate('Modification administrateur');
 $js_dragtrue ='draggable:true,';
@@ -76,10 +76,8 @@ $js_dragfunc ='
         infoWindow.setPosition(myLatLng);
         infoWindow.open(map);
     });
-    
 
     var markers_temp = [];
-    
     google.maps.event.addListener(marker, "dragstart", function(event){
         markers_temp.push(marker);
         var myLatLng = event.latLng;
@@ -98,7 +96,6 @@ $js_dragfunc ='
     });
 ';
 }
-
 
 $username = $cookie[1];//recupere le username
 $f_new_lat = floatval ($_GET['lat']);// lat du form de géoreferencement
@@ -119,76 +116,112 @@ $found = sql_num_rows($resul);
 //mise à jour users_extend si besoin
 if ($found == 0)
 $res = sql_query("INSERT INTO users_extend VALUES ('$uid','','','','','','','','','','','','','')");
+
 //==> georeferencement utilisateur
 if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="neo")
 sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$uid.'"');
 if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="mod")
 sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$f_uid.'"');
 //<== georeferencement utilisateur
-$result = sql_query('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid WHERE uname LIKE "'.$username.'"');
-while ($row = sql_fetch_array($result)) 
-{
-$uid = $row['uid'];
-$user_from = $row['user_from'];
-$ue_lat = $row[''.$ch_lat.''];
-$ue_long = $row[''.$ch_lon.''];
-$user_avatar = $row['user_avatar'];
 
-//determine si c un avatar perso ou standard et fixe l'url de l'image
-if (preg_match('#\/#', $user_avatar) === 1)
-{$the_av_ch = $user_avatar;}else{$the_av_ch = 'images/forum/avatar/'.$user_avatar;};
+$result = sql_query('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid WHERE uname LIKE "'.$username.'"');
+while ($row = sql_fetch_array($result)) {
+   $uid = $row['uid'];
+   $user_from = $row['user_from'];
+   $ue_lat = $row[''.$ch_lat.''];
+   $ue_long = $row[''.$ch_lon.''];
+   $user_avatar = $row['user_avatar'];
+
+   //determine si c un avatar perso ou standard et fixe l'url de l'image
+   if (preg_match('#\/#', $user_avatar) === 1)
+   {$the_av_ch = $user_avatar;}else{$the_av_ch = 'images/forum/avatar/'.$user_avatar;};
 }
 //les membres
-    if ($ibid=theme_image('forum/icons/email.gif')) {$imgtmpEM=$ibid;} else {$imgtmpEM='images/forum/icons/email.gif';}
-    if ($ibid=theme_image('forum/icons/www_icon.gif')) {$imgtmpWW=$ibid;} else {$imgtmpWW='images/forum/icons/www_icon.gif';}
-    if ($ibid=theme_image('forum/icons/ip_logged.gif')) {$imgtmpIP=$ibid;} else {$imgtmpIP='images/forum/icons/ip_logged.gif';}
 
 $mbgr = 0;
-$membre = @sql_query ('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid ORDER BY u.uname');
-$total_membre = @sql_num_rows($membre);//==> membres du site
-
+$membre = sql_query ('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid ORDER BY u.uname');
+$total_membre = sql_num_rows($membre);//==> membres du site
+$k=0;
 while ($row = sql_fetch_array($membre))
 {
-$us_uid = $row['uid'];
-$us_name = $row['name'];
-$us_uname = $row['uname'];
-$us_user_avatar = $row['user_avatar'];
-$us_lat = $row[''.$ch_lat.''];
-$us_long = $row[''.$ch_lon.''];
-$us_url = $row['url'];
-$us_lastvisit = $row['user_lastvisit'];
-if ($us_lastvisit != '')
-$us_visit = getdate($us_lastvisit);
-$visit = $us_visit[mday].'/'.$us_visit[mon].'/'.$us_visit[year];
+   $us_uid = $row['uid'];
+   $us_name = $row['name'];
+   $us_uname = $row['uname'];
+   $us_user_avatar = $row['user_avatar'];
+   $us_lat = $row[''.$ch_lat.''];
+   $us_long = $row[''.$ch_lon.''];
+   $us_url = $row['url'];
+   $us_lastvisit = $row['user_lastvisit'];
+   if ($us_lastvisit != '') $us_visit = getdate($us_lastvisit);
+   $visit = $us_visit[mday].'/'.$us_visit[mon].'/'.$us_visit[year];
+   $us_rs = $row['M2'];
 
-//==> determine si c avatar perso ou standard et fixe l'url de l'image
-if (preg_match('#\/#', $us_user_avatar) === 1)
-{$av_ch = $us_user_avatar;}else{$av_ch = 'images/forum/avatar/'.$us_user_avatar;};
-
- if ($us_lat !='') //==> les membres géoréferencés
- {$mbgr++;
-
- $im = '&nbsp;&nbsp;<a href=\\"user.php?op=userinfo&amp;uname='.$us_uname.'\\"  target=\\"_blank\\"><img src=\\"'.$imgtmpPR.'\\" border=\\"0\\" alt=\\"\\" />'.translate("Profile").'</a>';
- 
- if ($us_url != '') {
-  if (strstr("http://", $us_url))
-  $us_url = 'http://'.$us_url;
-  $im .= '&nbsp;&nbsp;<a href=\\"'.$us_url.'\\" target=\\"_blank\\" ><img src=\\"'.$imgtmpWW.'\\" border=\\"0\\" alt=\\"\\" />www</a>';
+   
+/*  
+   $socialnetworks=array(); $res_id=array();$my_rs='';
+   if (!$short_user) {
+      include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+      if ($us_rs!='') {
+         $socialnetworks= explode(';',$us_rs);
+         foreach ($socialnetworks as $socialnetwork) {
+            $res_id[] = explode('|',$socialnetwork);
+         }
+         sort($res_id);
+         sort($rs);
+         foreach ($rs as $v1) {
+            foreach($res_id as $y1) {
+               $k = array_search( $y1[0],$v1);
+               if (false !== $k) {
+                  $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary mr-2"></i></a>&nbsp;';
+                  break;
+               } 
+               else $my_rs.='';
+            }
+         }
+         $my_rsos[]=$my_rs;
       }
- $im .= '';
- //
+      else $my_rsos[]='';
+   }
+   
+*/  
+   
+   
+   
+
+   //==> determine si c avatar perso ou standard et fixe l'url de l'image
+   if (preg_match('#\/#', $us_user_avatar) === 1)
+      {$av_ch = $us_user_avatar;}else{$av_ch = 'images/forum/avatar/'.$us_user_avatar;};
+
+   if ($us_lat !='') //==> les membres géoréferencés
+   {
+      $mbgr++;
+      //=== menu fenetre info
+      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
+      if ($user)
+         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="fa fa-envelope-o fa-2x mr-2"></i></a>';
+      if ($us_url != '') {
+         if (strstr("http://", $us_url))
+         $us_url = 'http://'.$us_url;
+         $imm .= ' <a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fa fa-external-link fa-2x mr-2"></i></a>';
+      }
+      if ($us_mns != '') {
+         $imm .='&nbsp;<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
+      }
+
+   //
  
- //==> construction du fichier json
- $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" border=\\"0\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"sou_tit\\">Derni&#xE8;re visite : </span>'.$visit.'<br />'.$im.'", "label":"<span class=\\"mbg\\">'. addslashes($us_uname) .'</span>", "icon":"icon"},';
-//construction marker membre
-$mb_gr .='
-var point = new google.maps.LatLng('.$us_lat. ','.$us_long.');
-var marker = createMarker(point,map,infoWindow,"<i style=\"color:#c00000; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg\"></i>&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap;"><br /><img class="img-thumbnail" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br />'.$imm.'Derni&egrave;re visite : '.$visit.'</div><br />'.$imm.'\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
-bounds.extend(point);
-map.fitBounds(bounds);
-'; 
- }
+      //==> construction du fichier json
+      $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"sou_tit\\">Derni&#xE8;re visite : </span>'.$visit.'<br />", "label":"<span class=\\"mbg\\">'. addslashes($us_uname) .'</span>", "icon":"icon"},';
+      //construction marker membre
+      $mb_gr .='
+      var point = new google.maps.LatLng('.$us_lat. ','.$us_long.');
+      var marker = createMarker(point,map,infoWindow,"<i style=\"color:#c00000; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg\"></i>&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br />Derni&egrave;re visite : '.$visit.'</div><br />'.$my_rsos[$k].'\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
+      bounds.extend(point);
+      map.fitBounds(bounds);'; 
+   }
+   $k++;
 }
+
 if ($mbgr == 0)
 $cont_json .='{"lat":0, "lng":0, "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" border=\\"0\\" />&nbsp;NPDS", "label":"NPDS", "icon":"icon"},';
 $ent_json = '{"markers": [';
@@ -239,7 +272,7 @@ while ($row = sql_fetch_array($result))
 
    $socialnetworks=array(); $res_id=array();$my_rs='';
    if (!$short_user) {
-      include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+      include_once('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
       if ($us_rs!='') {
          $socialnetworks= explode(';',$us_rs);
          foreach ($socialnetworks as $socialnetwork) {
@@ -277,11 +310,10 @@ while ($row = sql_fetch_array($result))
          $imm .='&nbsp;<a href="minisite.php?op='.$users_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
       }
 
-
       //construction marker membre on line
       $mb_con_g .='
       var point = new google.maps.LatLng('.$user_lat. ','.$user_long.');
-      var marker = createMarker(point,map, infoWindow,"<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse\"></i>&nbsp;<span>'. addslashes($users_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img src="'.$av_ch.'" class="img-thumbnail" />&nbsp;<br /><a href="user.php?op=userinfo&amp;uname='.$users_uname.'">'. addslashes($users_uname) .'</a> @ '.$session_host_addr.'</div><hr />'.$my_rsos[$k].'\',\'c\',"'. addslashes($us_uid) .'","'. addslashes($users_uname) .'" );
+      var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse\"></i>&nbsp;<span>'. addslashes($users_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<br /><a href="user.php?op=userinfo&amp;uname='.$users_uname.'">'. addslashes($users_uname) .'</a> @ '.$session_host_addr.'</div><hr />'.$my_rsos[$k].'\',\'c\',"'. addslashes($us_uid) .'","'. addslashes($users_uname) .'" );
       marker.setMap(map);
       bounds.extend(point);
       map.fitBounds(bounds);
@@ -476,10 +508,10 @@ var i = 0;
         var html = "";
         for (var i=0; i<gmarkers.length; i++) {
         if (gmarkers[i].getVisible()) {
-            html += \'<a class="list-group-item list-group-item-default" href="javascript:myclick(\' + i + \')">\' + gmarkers[i].myname + \'</a>\';
+            html += \'<a class="list-group-item list-group-item-action" href="javascript:myclick(\' + i + \')">\' + gmarkers[i].myname + \'</a>\';
             }
         }
-      sideba.innerHTML = \'<div class="list-group">\'+ html +\'</div>\';
+      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><img class="mr-1" src="modules/geoloc/images/connect.gif"/> En ligne <span class="badge badge-default ml-auto">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
     }
 
     function myclick(i) {
@@ -528,12 +560,13 @@ function geoloc_load() {
          position: google.maps.ControlPosition.TOP_LEFT
       },
       mapTypeControlOptions: {
-         style: google.maps.MapTypeControlStyle.DEFAULT,
+         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
          position: google.maps.ControlPosition.TOP_LEFT,
          mapTypeIds: [
             google.maps.MapTypeId.ROADMAP,
             google.maps.MapTypeId.TERRAIN,
-            google.maps.MapTypeId.SATELLITE
+            google.maps.MapTypeId.SATELLITE,
+            google.maps.MapTypeId.HYBRID
          ]
      },
      streetViewControl:false,
@@ -659,7 +692,7 @@ show("member");
 show("ac");
 show("c");
 
-show("wpo");
+//show("wpo");
 
 makeSidebar();
 
@@ -766,15 +799,14 @@ $ecr_scr .= '
         document.getElementById("mypoint").innerHTML = DMS_Lat+ " | "+ DMS_Lng;
     });
     
-function setAllMap(map) {
-  for (var i = 0; i < gmarkers.length; i++) {
-    gmarkers[i].setMap(map);
-  }
-    for (var y = 0; y < gmarkers_g.length; y++) {
-    gmarkers_g[y].setMap(map);
-  }
-
-}
+   function setAllMap(map) {
+     for (var i = 0; i < gmarkers.length; i++) {
+       gmarkers[i].setMap(map);
+     }
+       for (var y = 0; y < gmarkers_g.length; y++) {
+       gmarkers_g[y].setMap(map);
+     }
+   }
 
 }
 
@@ -806,66 +838,67 @@ include ('header.php');
 $affi .= '
 <h3 class="mb-4">Géolocalisation des membres du site<span class="float-right badge badge-default" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
 <div class="card mb-4">
-   <div class=" card-header">
+   <div class=" p-2">
       <div class="row">
-         <div class=" col-12 col-sm-9 ">
+         <div class="col-sm-7 ">
             <span style="font-size:1rem">
-            <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>
-            <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>
-            <span class="badge badge-default mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
+               <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>
+               <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>
+               <span class="badge badge-default mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
             </span>
          </div>
-         <div class="col-12 col-sm-3 "><span class="float-right">'.$lkadm.'<a></a><a href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="false" aria-controls="collapsesidebar"><i class="fa fa-bars fa-lg ml-3"></i></a></span></div>
-     </div>
+         <div class="col-sm-5 ">
+            <span class="float-right"><button class="navbar-light navbar-toggler" href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="false" aria-controls="collapsesidebar"><span class="navbar-toggler-icon"></span></button></span>
+         </div>
+      </div>
    </div>
-   <div>
    <div id="content">
       <div id="map-wrapper" >
          <div id="map">
             <div style="z-index:1000; position:absolute; right:4px; left:4px; top:3px; bottom:3px;" class=" alert alert-danger"><i style=" opacity:0.2;" class="fa fa-refresh fa-3x fa-pulse"></i>&nbsp '.geoloc_translate('Chargement en cours...Ou serveurs Google HS...Ou erreur...').'</div>
          </div>
-         <div id="sidebar" class= "collapse">
+         <div id="sidebar" class= "collapse show">
             <ul id="sidebar-list list-group"></ul>
          </div>
       </div>
-      </div>
+   </div>
+   <div class=" p-2">
+      <span>'.$lkadm.'</span>
+      <span class="small text-muted float-right" id="mypoint"></span>
    </div>
 </div>
 
    <ul class="nav nav-tabs">
-      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax">Infos carte</a></li>
-      <li class="nav-item"><a class="nav-link" href="#geolocalisation" data-toggle="tab_ajax">Geolocalisation</a></li>
-      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax">Aide</a></li>
-      <li class="nav-item"><a class="nav-link" href="#iplist" data-toggle="tab_ajax">Ip liste</a></li>
+      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="hidden-xs-down">Infos carte</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="hidden-xs-down">Aide</span></a></li>
+      <li class="nav-item"><a class="nav-link disabled" href="#geolocalisation" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="hidden-xs-down">Geolocalisation</span></a></li>
+      <li class="nav-item"><a class="nav-link disabled" href="#iplist" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="hidden-xs-down">Ip liste</span></a></li>
    </ul>
    <div class="tab-content">
       <div class="tab-pane fade show active" id="infocart">
-         <span class="small text-muted float-right" id="mypoint"></span>
          <div id="mess_info" class=" col-12 mt-3"></div>
       </div>
       <div class="tab-pane fade" id="aide"></div>
       <div class="tab-pane fade" id="iplist">'.$test_ip.'</div>
-      <div class="tab-pane fade" id="geolocalisation"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span>
-   </div>
-</div>
-';
+      <div class="tab-pane fade" id="geolocalisation"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span></div>
+   </div>';
 //==> affichage des div contenants et écriture du script
 echo $affi;
 echo $ecr_scr;
 include ('footer.php');
 
-   switch ($op) {
-       case 'wp':
-   wp_fill();
-    break;
-   }
-/*
-<svg width="32" height="32" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+switch ($op) {
+   case 'wp':
+      wp_fill();
+   break;
+}
+   
+/*echo '<svg width="32" height="32" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
 <path d="M320 256q0 72-64 110v1266q0 13-9.5 22.5t-22.5 9.5h-64q-13 0-22.5-9.5t-9.5-22.5v-1266q-64-38-64-110 0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm1472 64v763q0 25-12.5 38.5t-39.5 27.5q-215 116-369 116-61 0-123.5-22t-108.5-48-115.5-48-142.5-22q-192 0-464 146-17 9-33 9-26 0-45-19t-19-45v-742q0-32 31-55 21-14 79-43 236-120 421-120 107 0 200 29t219 88q38 19 88 19 54 0 117.5-21t110-47 88-47 54.5-21q26 0 45 19t19 45z"
- style="stroke: '.$mbg_t_co.'; stroke-width: '.$mbg_t_ep.'px; fill : '.$mbg_f_co.';"
+style="stroke: '.$mbg_t_co.'; stroke-width: '.$mbg_t_ep.'px; fill : '.$mbg_f_co.';"
 />
-</svg>
+</svg>';
 */
 
-   
+
 ?>
