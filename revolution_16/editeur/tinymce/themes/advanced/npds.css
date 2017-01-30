@@ -1,0 +1,4 @@
+/* after bootstrap.css */
+body#tinymce.mce-content-body {
+padding:0.5rem;
+}
