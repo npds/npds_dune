@@ -2372,7 +2372,7 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li class="list-group-item list-group-item-action justify-content-between align-self-start"><a class="n-hyphenate" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-default">'.$comments.'</span></li>';
+         <li class="list-group-item list-group-item-action justify-content-between align-self-start"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-default">'.$comments.'</span></li>';
       } else {
          if ($a==0) {
             $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default\">($comments)</span></li>\n";
@@ -2721,9 +2721,10 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $li_mb.='
          <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse">'."\n";
    while(list($uid, $groupe) = sql_fetch_row($result)) {
-/*   
+   
       $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
       if (!$short_user) {
+         include_once('functions.php');
          $posterdata_extend = get_userdata_extend_from_id($uid);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
          if ($posterdata_extend['M2']!='') {
@@ -2749,7 +2750,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          }
          else $my_rsos[]='';
       }
-*/   
+   
    
       list($uname, $user_avatar, $mns, $url, $femail)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url, femail FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
       
