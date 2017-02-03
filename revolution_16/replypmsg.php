@@ -189,10 +189,11 @@ include('auth.php');
          }
          include("themes/$tmp_theme/theme.php");
          include("meta/meta.php");
+         include("modules/include/header_head.inc");
          echo import_css($tmp_theme, $language, $site_font, '','');
          echo '
    </head>
-   <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">';
+   <body class="my-4 mx-4">';
       } else {
          include('header.php');
       }
