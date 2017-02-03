@@ -64,7 +64,7 @@ function show_imm($op) {
             $pasfin=true;
             cache_ctrl();
             include("meta/meta.php");
-            include('modules/include/header_head.inc');
+            include("modules/include/header_head.inc");
             echo import_css($theme, $language, $site_font, '','');
             echo '
       </head>

@@ -10,11 +10,59 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-// skins for advanced theme
-// skin : "default" or "o2k7"
-// skin variant : "" or "lightgray" or "custom"
+// skin : "" ou "lightgray" ou "tundora" ou "xenmce" ou "pepper-grinder"
 $tmp.='
-            skin : "lightgray",';
+            skin : "lightgray",
+              template_popup_width: "800",
+
+            templates : [
+               {
+                  title: "Une colonne",
+                  url: "/editeur/tinymce/plugins/template/txt_1_col_12.html",
+                  description: "Texte sur une colonne"
+               },
+               {
+                  title: "Deux colonnes (50% 50%)",
+                  url: "/editeur/tinymce/plugins/template/txt_2_col_6-6.html",
+                  description: "Texte sur deux colonnes de largeurs égales"
+               },
+               {
+                  title: "Trois colonnes (33% 33% 33%)",
+                  url: "/editeur/tinymce/plugins/template/txt_3_col_4-4-4.html",
+                  description: "Texte sur trois colonnes de largeurs égales"
+               },
+               {
+                  title: "Deux colonnes (33% 66%)",
+                  url: "/editeur/tinymce/plugins/template/txt_2_col_4-8.html",
+                  description: "Texte sur deux colonnes de largeurs inégales"
+               },
+               {
+                  title: "Deux colonnes (66% 33%)",
+                  url: "/editeur/tinymce/plugins/template/txt_2_col_8-4.html",
+                  description: "Texte sur deux colonnes de largeurs inégales"
+               },
+               {
+                  title: "Trois colonnes (25% 50% 25%)",
+                  url: "/editeur/tinymce/plugins/template/txt_3_col_3-6-3.html",
+                  description: "Texte sur trois colonnes de largeurs inégales"
+               },
+               {
+                  title: "Deux colonnes image/texte (33% 66%)",
+                  url: "/editeur/tinymce/plugins/template/img_txt_2_col_4-8.html",
+                  description: "Image, texte sur deux colonnes de largeurs inégales"
+               },
+               {
+                  title: "Deux colonnes image/texte (17% 83%)",
+                  url: "/editeur/tinymce/plugins/template/img_txt_2_col_2-10.html",
+                  description: "Image, texte sur deux colonnes de largeurs inégales"
+               },
+               {
+                  title: "Trois colonnes image/texte/image (25% 50% 25%)",
+                  url: "/editeur/tinymce/plugins/template/img_txt_img_3_col_3-6-3.html",
+                  description: "Texte sur trois colonnes de largeurs inégales"
+               }
+               
+               ],';
 
 // Analyse the type of Theme from pages.php and determine if setup inclusion file is request
 $setup=explode('+',$tiny_mce_theme);
@@ -62,10 +110,10 @@ $tmp.="
 
 if ($tiny_mce_relurl=="false")
    $tmp.='
-            relative_urls        : false,';
+            relative_urls : false,';
 else
    $tmp.='
-            relative_urls        : true,';
+            relative_urls : true,';
 
 if ($setup[1]=='setup') {
    global $ModPath;
@@ -74,6 +122,6 @@ if ($setup[1]=='setup') {
       include_once("modules/$ModPath/tiny_mce_setup.php");
    }
 } else {
-   $tmp.="remove_script_host   : false\n";
+   $tmp.="remove_script_host : false\n";
 }
 ?>
