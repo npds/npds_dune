@@ -374,6 +374,7 @@ function HTML_Add() {
          .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg"></i></a>&nbsp;  '
          .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg"></i></a>&nbsp;  '
          .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg"></i></a>&nbsp;  '
+         .'<a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg"></i></a>&nbsp;  '
          .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg"></i></a>&nbsp;  '
          .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg"></i></a>&nbsp;  '
          .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg"></i></a>&nbsp;  '
