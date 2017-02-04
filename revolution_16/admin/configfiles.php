@@ -28,6 +28,7 @@ function ConfigFiles($contents, $files) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    if ($contents=='') {
       echo '
+   <hr />
    <table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -175,7 +176,6 @@ function ConfigFiles_save($Xtxt, $Xfiles) {
       fputs($fp,stripslashes($Xtxt));
       fclose($fp);
    }
-
    elseif ($Xfiles == "new_user") {
       $fp=fopen("modules/include/new_user.inc","w");
       fputs($fp,stripslashes($Xtxt));
@@ -290,127 +290,123 @@ function ConfigFiles_create($modele) {
 }
 
 switch ($op) {
-    case 'ConfigFiles_load':
-       if ($files == 'header_before') {
-          if (file_exists("modules/include/header_before.inc")) {
-             $fp=fopen("modules/include/header_before.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/header_before.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-       elseif ($files == 'header_head') {
-          if (file_exists("modules/include/header_head.inc")) {
-             $fp=fopen("modules/include/header_head.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/header_head.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-       elseif ($files == 'body_onload') {
+   case 'ConfigFiles_load':
+      if ($files == 'header_before') {
+         if (file_exists("modules/include/header_before.inc")) {
+            $fp=fopen("modules/include/header_before.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/header_before.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'header_head') {
+         if (file_exists("modules/include/header_head.inc")) {
+            $fp=fopen("modules/include/header_head.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/header_head.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'body_onload') {
          if (file_exists("modules/include/body_onload.inc")) {
             $fp=fopen("modules/include/body_onload.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/body_onload.inc"));
             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-       elseif ($files == 'header_after') {
-          if (file_exists("modules/include/header_after.inc")) {
-             $fp=fopen("modules/include/header_after.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/header_after.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-       elseif ($files == 'footer_before') {
-          if (file_exists("modules/include/footer_before.inc")) {
-             $fp=fopen("modules/include/footer_before.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/footer_before.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-       elseif ($files == 'footer_after') {
-          if (file_exists("modules/include/footer_after.inc")) {
-             $fp=fopen("modules/include/footer_after.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/footer_after.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-
-       elseif ($files == 'new_user') {
-          if (file_exists("modules/include/new_user.inc")) {
-             $fp=fopen("modules/include/new_user.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/new_user.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-       elseif ($files == 'user') {
-          if (file_exists("modules/include/user.inc")) {
-             $fp=fopen("modules/include/user.inc","r");
-             $Xcontents=fread($fp,filesize("modules/include/user.inc"));
-             fclose($fp);
-          } else {
-             copy_sample($files);
-          }
-       }
-
-       elseif ($files == 'cache.config') {
-          if (file_exists("cache.config.php")) {
-             $fp=fopen("cache.config.php","r");
-             $Xcontents=fread($fp,filesize("cache.config.php"));
-             fclose($fp);
-          }
-       }
-       elseif ($files == 'upload.conf') {
-          if (file_exists("modules/upload/upload.conf.php")) {
-             $fp=fopen("modules/upload/upload.conf.php","r");
-             $Xcontents=fread($fp,filesize("modules/upload/upload.conf.php"));
-             fclose($fp);
-          }
-       }
-       elseif ($files == 'robots') {
-          if (file_exists("robots.txt")) {
-             $fp=fopen("robots.txt","r");
-             $Xcontents=fread($fp,filesize("robots.txt"));
-             fclose($fp);
-          }
-       }
-       elseif ($files == 'humans') {
-          if (file_exists("humans.txt")) {
-             $fp=fopen("humans.txt","r");
-             $Xcontents=fread($fp,filesize("humans.txt"));
-             fclose($fp);
-          }
-       }
-
-       ConfigFiles($Xcontents, $files);
-       break;
-
-    case 'ConfigFiles_save':
-        ConfigFiles_save($Xtxt, $Xfiles);
-        break;
-    case 'ConfigFiles_create':
-        ConfigFiles_create($modele);
-        break;
-    case 'delete_configfile':
-        delete_configfile($file);
-        break;
-    case 'ConfigFiles_delete':
-        ConfigFiles_delete($file);
-        break;
-    default:
-        ConfigFiles('', '');
-        break;
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'header_after') {
+         if (file_exists("modules/include/header_after.inc")) {
+            $fp=fopen("modules/include/header_after.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/header_after.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'footer_before') {
+         if (file_exists("modules/include/footer_before.inc")) {
+            $fp=fopen("modules/include/footer_before.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/footer_before.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'footer_after') {
+         if (file_exists("modules/include/footer_after.inc")) {
+            $fp=fopen("modules/include/footer_after.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/footer_after.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'new_user') {
+         if (file_exists("modules/include/new_user.inc")) {
+            $fp=fopen("modules/include/new_user.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/new_user.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'user') {
+         if (file_exists("modules/include/user.inc")) {
+            $fp=fopen("modules/include/user.inc","r");
+            $Xcontents=fread($fp,filesize("modules/include/user.inc"));
+            fclose($fp);
+         } else {
+            copy_sample($files);
+         }
+      }
+      elseif ($files == 'cache.config') {
+         if (file_exists("cache.config.php")) {
+            $fp=fopen("cache.config.php","r");
+            $Xcontents=fread($fp,filesize("cache.config.php"));
+            fclose($fp);
+         }
+      }
+      elseif ($files == 'upload.conf') {
+         if (file_exists("modules/upload/upload.conf.php")) {
+            $fp=fopen("modules/upload/upload.conf.php","r");
+            $Xcontents=fread($fp,filesize("modules/upload/upload.conf.php"));
+            fclose($fp);
+         }
+      }
+      elseif ($files == 'robots') {
+         if (file_exists("robots.txt")) {
+            $fp=fopen("robots.txt","r");
+            $Xcontents=fread($fp,filesize("robots.txt"));
+            fclose($fp);
+         }
+      }
+      elseif ($files == 'humans') {
+         if (file_exists("humans.txt")) {
+            $fp=fopen("humans.txt","r");
+            $Xcontents=fread($fp,filesize("humans.txt"));
+            fclose($fp);
+         }
+      }
+      ConfigFiles($Xcontents, $files);
+   break;
+   case 'ConfigFiles_save':
+      ConfigFiles_save($Xtxt, $Xfiles);
+   break;
+   case 'ConfigFiles_create':
+      ConfigFiles_create($modele);
+   break;
+   case 'delete_configfile':
+      delete_configfile($file);
+   break;
+   case 'ConfigFiles_delete':
+      ConfigFiles_delete($file);
+   break;
+   default:
+      ConfigFiles('', '');
+   break;
 }
 ?>
