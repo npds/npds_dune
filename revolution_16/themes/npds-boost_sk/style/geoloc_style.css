@@ -120,7 +120,7 @@
 
 #map {
     position: relative;
-    height: 600px;
+    height: 500px;
 }
 
 #map_bloc {
@@ -130,7 +130,7 @@
 
 #map-wrapper {
      position: relative;
-     height: 600px;
+     height: 500px;
      width: 100%;
 }
 
@@ -143,7 +143,7 @@
      top: 0;
      right: 0;
      width: 210px;
-     height: 586px;
+     height: 486px;
      overflow: auto;
 }
 
@@ -231,16 +231,6 @@ display: block;
   text-transform : capitalize;
 }
 
-.voffset  { margin-top: 2px; }
-.voffset1 { margin-top: 5px; }
-.voffset2 { margin-top: 10px; }
-.voffset3 { margin-top: 15px; }
-.voffset4 { margin-top: 30px; }
-.voffset5 { margin-top: 40px; }
-.voffset6 { margin-top: 60px; }
-.voffset7 { margin-top: 80px; }
-.voffset8 { margin-top: 100px; }
-.voffset9 { margin-top: 150px; }
 
 /*<== module geoloc */
 

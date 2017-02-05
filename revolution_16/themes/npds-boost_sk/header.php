@@ -58,8 +58,9 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="hidden-sm-up ml-auto mr-4 my-2">
-         <a class="p-2 small" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+      <div class="col hidden-lg-up mr-2 my-2">
+      <hr />
+         <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
       </div>';
    echo $coltoggle;
 }
@@ -95,52 +96,52 @@ break;
 case '1':
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="n-c col-md-3">';
+         <div id="col_LB" class="n-c col-lg-3">';
      leftblocks();
    echo '
          </div>
-         <div id="col_princ" class="col-md-6">';
+         <div id="col_princ" class="col-lg-6">';
 break;
 case '2': case '6':
    echo '
-      <div id="col_princ" class="col-md-9">';
+      <div id="col_princ" class="col-lg-9">';
 break;
 case '3':
    colsyst('#col_LB');
    echo '
-      <div id="col_LB" class="n-c col-md-3">';
+      <div id="col_LB" class="n-c col-lg-3">';
    leftblocks();
    echo '
       </div>';
    colsyst('#col_RB');
    echo' 
-      <div id="col_RB" class="n-c col-md-3">';
+      <div id="col_RB" class="n-c col-lg-3">';
    rightblocks();
    echo '
       </div>
-      <div id="col_princ" class="col-md-6">';
+      <div id="col_princ" class="col-lg-6">';
 break;
 case '4':
    echo '
-      <div id="col_princ" class="col-md-6">';
+      <div id="col_princ" class="col-lg-6">';
 break;
 case '5':
    colsyst('#col_RB');
    echo '
-      <div id="col_RB" class="n-c col-md-3">';
+      <div id="col_RB" class="n-c col-lg-3">';
    rightblocks();
    echo '
       </div>
-      <div id="col_princ" class="col-md-9">';
+      <div id="col_princ" class="col-lg-9">';
 break;
 default:
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="n-c col-md-3">';
+         <div id="col_LB" class="n-c col-lg-3">';
    leftblocks();
    echo '
          </div>
-         <div id="col_princ" class="col-md-9">';
+         <div id="col_princ" class="col-lg-9">';
 break;
 }
 ?>
