@@ -395,10 +395,10 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 
 
 /*contient les blocs  */
-.leftbloc, .rightbloc   {
+.leftbloc, .rightbloc   {padding-bottom: 1.5rem;
 }
 
-
+.titrebloc{margin: .5em 0 .5em 0;}
 /***********************************************************************
 La Partie Footer de votre Site
 *************************************************************************/
@@ -640,11 +640,7 @@ background-color: rgba(242, 238, 228, 0.69);
 /***********************
 Pour eviter que les images ne débordent
 ***************************/
-.row {
-    width: 100%;
-    margin-right: 0rem;
-    margin-left: 0rem;
-}
+
 /*********************
 pour les formulaires*/
 input, select, textarea {
@@ -1951,33 +1947,7 @@ pagination*/
   font-size: 1.250rem;
   line-height: 1.5; }
   
-/* Boutons je passe les taille en em pour garder les roportions*/
 
- .btn {font-size: 1em; }
-
-
-.btn-sm, .btn {width: auto;}
-
-
-
-.btn-sm, .btn-group-sm > .btn {
-  padding: 0.25rem 0.75rem;
-  font-size: 1.250rem;
-  line-height: 1.5;
-  border-radius: 0.2rem; }
-
-.btn-primary-outline {
-    color: #0275D8;
-    font-size: 1.250rem;
-    background-color: transparent;
-    background-image: none;
-    border-color: #0275D8;
-}
-
-.bg-primary {
-    color: #fff !important;
-    background-color: #176f06 !important;
-}
 
 
 .fa {
