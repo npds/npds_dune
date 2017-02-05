@@ -77,10 +77,11 @@ a:hover {text-decoration:none;}
     white-space: nowrap;
 }
 
-/** <== Classes NPDS-core                                                   **/
+/** <== Classes NPDS-core  **/
 
 .list-group-item {
     background-color: transparent;
+	padding: .75rem .35rem;
 }
 
 .list-group-item-action:hover {
@@ -159,6 +160,15 @@ body {
     background-image: url("../images/fond1.png");
 }
 
+#corps,
+#decofoot,
+#decohead {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1400px;
+    
+}
+
 /************************************************************************
 La Partie HEADER de votre Site
 *************************************************************************/
@@ -178,14 +188,7 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
     padding: 10px;
 }
 
-#corps,
-#decofoot,
-#decohead {
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 1600px;
-    
-}
+
 
 #corps {
     background: #fff;
