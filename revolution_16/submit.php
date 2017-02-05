@@ -127,7 +127,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
 
    if ($topic=='') {
 //      $topicimage='all-topics.gif';
-      $warning = '<strong class="text-danger">'.translate("Select Topic").'</strong>';
+      $warning = '<div class="alert alert-danger"><strong>'.translate("Select Topic").'</strong></div>';
    } else {
       $warning = '';
       $result = sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
@@ -192,18 +192,12 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
    echo ''.Q_spambot().'';
    echo '
-         <div class="form-group">
+         <div class="form-group row">
             <div class="col-sm-12">
-               <input class="btn btn-secondary" type="submit" name="op" value="'.translate("Preview").'" />
+               <input class="btn btn-secondary" type="submit" name="op" value="'.translate("Preview").'" />&nbsp;
+               <input class="btn btn-primary" type="submit" name="op" value="Ok" />
             </div>
-      </div>';
-
-   echo '
-      <div class="form-group">
-         <div class="col-sm-12">
-            <input class="btn btn-primary" type="submit" name="op" value="Ok" />
          </div>
-      </div>
    </form>';
    include ('footer.php');
 }
@@ -219,7 +213,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval,$date_fin
       $uid = -1;
       $name = $anonymous;
       //anti_spambot
-      if (!R_spambot($asb_question, $asb_reponse, "")) {
+      if (!R_spambot($asb_question, $asb_reponse, '')) {
          Ecr_Log("security", "Submit Anti-Spam : name=".$yname." / mail=".$ymail, "");
          redirect_url("index.php");
          die();

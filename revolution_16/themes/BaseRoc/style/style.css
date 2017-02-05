@@ -381,7 +381,7 @@ table tr:nth-of-type(2n) {
 
 /* citation */
 .blockquote{
-  font-size: .9em;
+  font-size: .9rem;
  background: #F6F6EB80 none repeat scroll 0% 0%;
  border-width:1px 1px 1px 3px;
  border-style:solid ;

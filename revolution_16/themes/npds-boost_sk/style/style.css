@@ -100,19 +100,6 @@ a:hover {text-decoration:none;}
 
 
 /* ==> adaptation menu */
-/* 
-nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0rem 1rem;}
- */
-
-/* 
-ul.nav.navbar-nav {
-  line-height: 2.5rem;
-}
-a.navbar-brand {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
- */
 
 @media (min-width: 768px) {
   .page-header {
@@ -195,27 +182,10 @@ ul.dropdown-menu {
 }
 
 /* ==> toggle systeme identique au navbar mais pour les col */
-/* 
-.col.navbar-toggler {
-  position: relative;
-  float: left;
-  margin-right: 0px;
-  padding: 0px 0px;
-  margin-top: 7px;
-  margin-bottom: 0px;
-}
- */
 
- 
-@media (max-width: 48em) {
-  #col_princ.col-md-9,#col_princ.col-md-6,#col_LB.col-md-3,#col_RB.col-md-3 {
-    width:100%;
-    content: "";
-    clear: both;
-  }
+@media (max-width: 991px) {
  .n-c {display:none;}
 }
- 
 /* <== toggle systeme identique au navbar mais pour les col */
 
 #col_LB ul, #col_RB ul{
@@ -1728,3 +1698,4 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
+
