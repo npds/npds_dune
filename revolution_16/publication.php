@@ -228,7 +228,7 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          <div class="col-sm-2"></div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-6">
+         <div class="col-md-6">
                <label class="form-control-label">'.translate("Auto Delete the New at End Date").' ?</label>
                </div>';
          $sel1='';
@@ -238,13 +238,17 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
          else
             $sel1='checked="checked"';
          echo '
-         <div class="col-sm-6">
+         <div class="col-md-6">
             <div class="">
-               <label class="form-check-inline">
-                  <input class="form-check-input" type="radio" name="epur" value="1" '.$sel1.' />&nbsp;'.translate("Yes").'
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="epur" value="1" '.$sel1.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Yes").'</span>
                </label>
-               <label class="form-check-inline">
-                  <input class="form-check-input" type="radio" name="epur" value="0" '.$sel2.' />&nbsp;'.translate("No").'
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="epur" value="0" '.$sel2.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("No").'</span>
                </label>
             </div>
          </div>
