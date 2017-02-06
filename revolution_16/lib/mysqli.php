@@ -98,11 +98,12 @@ $sql_nbREQ=0;
    }
 // Nombre de champs d'une requête
    function sql_num_fields($q_id='') {
+      global $dblink;
       if (empty($q_id)) {
         global $query_id;
         $q_id = $query_id;
       }
-      return @mysqli_field_count($q_id);
+      return mysqli_field_count($dblink);
    }
 // Nombre de lignes affectées par les requêtes de type INSERT, UPDATE et DELETE
    function sql_affected_rows() {
