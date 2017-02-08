@@ -171,7 +171,11 @@ function GraphicAdmin($hlpfile) {
          if ($admingraphic==1) {
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          } else{
-            $li_c .= adm_translate(utf8_encode($SAQ['fnom_affich']));
+            if ($SAQ['fcategorie'] == 6) {
+               $li_c .= $SAQ['fnom_affich'];
+            } else {
+               $li_c .= adm_translate(utf8_encode($SAQ['fnom_affich']));
+            }
          }
          $li_c .='</a></li>';
 //          $X=$j-1;
