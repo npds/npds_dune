@@ -320,7 +320,7 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
    </table>';
 
 $dcategory = StripSlashes($dcategory);
-   echo '<ul class="pagination pagination-sm">';
+   echo '<ul class="pagination pagination-sm mt-3">';
    if ($pages > 1) {
       $pcnt=1;
    if ($page > 1) {

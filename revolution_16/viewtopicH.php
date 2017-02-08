@@ -123,7 +123,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
       $myrow=unserialize($val);
       if ($level!='0') {
          if ($level==1) {
-            $clas ='collapse col-sm-11 offset-sm-1';
+            $clas ='collapse show col-sm-11 offset-sm-1';
             $idtog = $idtog.($count+1);
          } else {
             $idtog = $idtog.$count;
@@ -186,7 +186,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
       }
       
       echo '
-      <div id="tog_'.$idtog.'" class="row '.$clas.'">
+      <div id="tog_'.$idtog.'" class="row ">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
       if ($myrow['post_id']==$max_post_id) echo '<a name="last-post"></a>';
       echo '
