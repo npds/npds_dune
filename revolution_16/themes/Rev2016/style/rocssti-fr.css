@@ -7,7 +7,7 @@
  * inspiré par http://www.knacss.com/
  * 
  * Une Röcssti-quote, juste pour le plaisir :
- * « Merci pour ce moment… d’intégration. » — Valérie Trierweiler 
+ * « 2,21 Ko gzippé ? Nom de Zeus ! » — Emmett Lathrop « Doc » Brown 
  *
  * ROCSSTI est sous licence MIT : https://github.com/nico3333fr/ROCSSTI/blob/master/LICENSE
  * 
@@ -94,16 +94,18 @@ ul, ol { padding-left: 2em; }
   padding-right: 0;
 }
 
-/* la base correspond à 10px    */
+/* la base correspond à 10px */
 html { 
-/*   font-size: 62.5%;
-  font-size: calc(1em * 0.625); */
+  font-size: 62.5%;
+  /* IE9-IE11 math fixing. Voir https://connect.microsoft.com/IE/feedback/details/816709/ */
+  /* Merci à @guardian, @victorbritopro, @eQRoeil & Knacss */
+  font-size: calc(1em * 0.625);
 }
 body {
   background: #fff;
   color: #333;
   font-family: Arial, sans-serif;
-  font-size: 1em; /* taille de base équiv à  */
+  font-size: 1.4rem;
   line-height: 1.5; /* à corriger si besoin est */
 }
 
@@ -120,80 +122,37 @@ body {
 
 }*/
 
-/* calculées via http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
+/* calculées via https://rocssti.net/builder-css
+ * basé sur http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
 
-h1,
-.h1 {
-  display: block;
-  font-size: 1.85714em; /* equiv 26px */
-  line-height: 1.61538;
-  margin: 1.61538em 0 .80769em 0;
-}
-h2,
-.h2 {
-  display: block;
-  font-size: 1.71429em; /* equiv 24px */
-  line-height: 1.75;
-  margin: 1.75em 0 .875em 0;
-}
-h3,
-.h3 {
-  display: block;
-  font-size: 1.57143em; /* equiv 22px */
-  line-height: 1.90909;
-  margin: 1.90909em 0 .95455em 0;
-}
-h4,
-.h4 {
-  display: block;
-  font-size: 1.42857em; /* equiv 20px */
-  line-height: 1.05;
-  margin: 2.1em 0 1.05em 0;
-}
-h5,
-.h5 {
-  display: block;
-  font-size: 1.28571em; /* equiv 18px */
-  line-height: 1.16667;
-  margin: 2.33333em 0 1.16667em 0;
-}
-h6,
-.h6 {
-  display: block;
-  font-size: 1.14286em; /* equiv 16px */
-  line-height: 1.3125;
-  margin: 2.625em 0 1.3125em 0;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
+/*On laisse BS gérer les fonts? */
+ 
+ 
 /* autres classes utiles */
 .smaller {
-  font-size: .71429em; /* equiv 10px */
+  font-size: 1rem; /* equiv 10px */
   line-height: 2.1;
   margin: 2.1em 0;
 }
-/* .small {
-  font-size: .85714em; /* equiv 12px */
+/* .small { pour eviter des conflits avec BS
+  font-size: 1.2rem; 
   line-height: 1.75;
   margin: 1.75em 0;
 } */
 .big {
-  font-size: 1.14286em; /* equiv 16px */
+  font-size: 1.4rem; /* equiv 14px */
+  line-height: 1.5;
+  margin: 1.5em 0;
+}
+.bigger {
+  font-size: 1.6rem; /* equiv 16px */
   line-height: 1.3125;
   margin: 1.3125em 0;
 }
-.bigger {
-  font-size: 1.28571em; /* equiv 18px */
+.biggest {
+  font-size: 1.8rem; /* equiv 18px */
   line-height: 1.16667;
   margin: 1.16667em 0;
-}
-.biggest {
-  font-size: 1.42857em; /* equiv 20px */
-  line-height: 1.05;
-  margin: 1.05em 0;
 }
 
 
@@ -207,10 +166,6 @@ h6,
 
 .noborder,
 iframe { border: 0; }
-
-table {
-  table-layout: fixed;
-}
 
 /*
  * repris de http://tinytypo.tetue.net/ de @tetue
@@ -256,27 +211,6 @@ sub {
   top: .5ex;
 }
 
-
-/* éviter problèmes de margin */
-h1:first-child, .h1:first-child,
-h2:first-child, .h2:first-child,
-h3:first-child, .h3:first-child,
-h4:first-child, .h4:first-child,
-h5:first-child, .h5:first-child,
-h6:first-child, .h6:first-child {
-  margin-top: 0;
-}
-
-/* virer marge basse sur dernier enfant */
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-blockquote:last-child,
-pre:last-child,
-table:last-child {
-  margin-bottom: 0;
-}
 
 
 
@@ -331,6 +265,7 @@ kbd {
 }
 table {
   margin-bottom: 1.5em;
+  table-layout: fixed;
 }
 /* j’y tiens, les abbr c’est bon pour la planète */
 /* seuls ceux ayant un title sont signalés */
@@ -375,6 +310,10 @@ a:link img,
 a:visited img, 
 img {
   border-style: none;
+}
+
+.nodecoration {
+  text-decoration: none;
 }
 
 /* liens avec icônes, on peut utiliser les DATA-URI */
@@ -458,18 +397,22 @@ svg {
 .clear {
   clear: both;
 }
+/*
 .clearleft {
   clear: left;
 }
 .clearright {
   clear: right;
 }
+*/
+
 .clearhidden {
   clear: both;
   margin: 0;
   padding: 0;
   visibility: hidden;
 }
+
 .clearfix:after {
   content: ".";
   display: block;
@@ -485,13 +428,14 @@ svg {
 [dir="rtl"] .right {
   float: left;
 }
-
+/*
 [dir="rtl"] .clearleft {
   clear: right;
 }
 [dir="rtl"] .clearright {
   clear: left;
 }
+*/
 
 
 
@@ -503,6 +447,10 @@ svg {
 /* gestion du table-design en CSS */
 .row1 {
   display: table;
+  table-layout: fixed;
+}
+.inline-row {
+  display: inline-table;
   table-layout: fixed;
 }
 .line {
@@ -614,8 +562,6 @@ svg {
 .m0  { margin: 0; }
 .m1  { margin: 1em; }
 .m2  { margin: 2em; }
-.m01  { margin: 0.5em; }
-.m02  { margin: 0.725em; }
 
 
 /* RTL = attention, utiliser avec précaution */
@@ -660,7 +606,7 @@ hr {
   border: 0;
   color: #000;
   height: 1px;
-  margin: 1 0 1em;
+  margin: 0 0 1em;
   padding: 0;
 }
 
@@ -675,6 +621,7 @@ hr {
   position: absolute;
   width: 1px;
 }
+.nonvisible { visibility: hidden; }
 
 .hidden    { display: none; } /* caché partout */
 .nodesktop { display: none; } /* caché sur desktop */
@@ -767,6 +714,8 @@ input[type="reset"] {
 textarea {
   resize: vertical;
 }
+/* supprime un bug Firefox sur button */
+button::-moz-focus-inner { border: 0; padding: 0; }
 
 label,
 button,
@@ -779,16 +728,16 @@ select {
 input,
 select,
 textarea,
+optgroup,
 button {
-  font-family: inherit;
-  font-size: 1em;
+  font: inherit;
 }
 
 /* à adapter selon le design voulu */
 input,
 select,
 textarea {
-  border: 1px solid #804000;
+  border: 1px solid #800000;
   border-radius: 5px;
   padding: .5em;
   width: 250px;
@@ -797,12 +746,6 @@ textarea {
 /* pour les textes des champs */
 .label {
   display: inline-block;
-}
-
- label, textarea {
-    font-size: 1em;
-    line-height: 1.5;
-    margin: 0px;
 }
 
 /* à adapter selon le design voulu */
@@ -876,9 +819,7 @@ select:focus:required:valid {
 
 
 
-
-
-
+/*
  *****************************************************************
  * 08 -- dans le contenu (contenus spécifiques aux pages)
  *****************************************************************
@@ -906,7 +847,7 @@ select:focus:required:valid {
  *****************************************************************
  */ 
 
-@media (max-width: 47.9375em) { /* equiv 767px */
+@media (max-width: 48em) { /* equiv 768px */
    
   /**
    * layout/modules
@@ -995,6 +936,35 @@ select:focus:required:valid {
  *****************************************************************
  */
 
+@media (max-width: 20em) { /* equiv 320px */
+
+  /**
+   * layout/modules
+   */
+
+  /* affichage des éléments */
+  /*.nomobile { display: block; }*/
+
+  /* cachage des éléments inutiles ! */
+  .notinymobile { display: none; }
+
+  /* linéarisation contenus flottants/table-layout */
+  .autotinymobile {
+    float: none;
+    display: block;
+    width: auto;
+  }
+
+  /**
+   * adaptation structure globale (page / skip links / header / contenu principal / footer)
+   */
+  
+  
+  /**
+   * dans le contenu (contenus spécifiques aux pages)
+   */
+
+}
 
 
 
@@ -1012,7 +982,7 @@ select:focus:required:valid {
    */
   body,
   html,
-  #page,
+  .page,
   .reset4print {
     background-color: #fff;
     background-image: none;

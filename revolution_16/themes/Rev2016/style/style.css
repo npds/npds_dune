@@ -523,7 +523,7 @@ Adaptation des css au fil du test
 .list-group-item-action:focus, .list-group-item-action:hover {
     color: #464a4c;
     text-decoration: none;
-    background-color: RGBA(235, 232, 216, 0.6);
+    background-color: RGBA(235, 232, 216, 0.9);
 }
 
  .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
