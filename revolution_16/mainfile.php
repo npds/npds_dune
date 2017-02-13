@@ -1420,18 +1420,25 @@ function pollMain($pollID,$pollClose) {
    else
       $boxTitle=$block_title;
    $boxContent .= '<legend>'.aff_langue($pollTitle).'</legend>';
-   $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' and optionText<>'') order by voteID");
+   $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' AND optionText<>'') ORDER BY voteID");
    $sum = 0;
    if (!$pollClose) {
-         $boxContent .= '<div class="form-group">';
+         $boxContent .= '
+         <div class="custom-controls-stacked mb-2">';
       while($object=sql_fetch_assoc($result)) {
-         $boxContent .= "<div class=\"radio\"><label><input type=\"radio\" name=\"voteID\" value=\"".$object['voteID']."\" /> ".aff_langue($object['optionText'])."</label></div>\n";
+         $boxContent .= '
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="voteID" value="'.$object['voteID'].'" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.aff_langue($object['optionText']).'</span>
+            </label>';
          $sum = $sum + $object['optionCount']; 
       }
-         $boxContent .= '</div>';
+         $boxContent .= '
+         </div>';
    } else {
       while($object=sql_fetch_assoc($result)) {
-         $boxContent .= "&nbsp;".aff_langue($object['optionText'])."<br />\n";
+         $boxContent .= '&nbsp;'.aff_langue($object['optionText']).'<br />';
          $sum = $sum + $object['optionCount'];
       }
    }
@@ -2793,11 +2800,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if (($timex!==false) and ($timex<60)) {
          $conn= '<i class="fa fa-plug faa-flash animated text-primary" title="'.$uname.' '.translate('is connected !').'" data-toggle="tooltip" ></i>';
       }
-      $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />&nbsp;';
+      $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />';
       $li_mb.= '
-            <li class="list-group-item list-group-item-action d-flex flex-row">
-               <div id="li_mb_'.$uname.'_'.$gr.'">
-               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover" data-trigger="focus" data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a>'.$uname.'
+            <li class="list-group-item list-group-item-action d-flex flex-row p-2">
+               <div id="li_mb_'.$uname.'_'.$gr.'" class="n-ellipses">
+               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover" data-trigger="focus" data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
                </div>
          </li>';
    $count++;
