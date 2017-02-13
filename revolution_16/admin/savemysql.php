@@ -229,7 +229,7 @@ admindroits($aid,$f_meta_nom);
             $count_line = sql_num_fields($result);
             while($row = sql_fetch_row($result))
             {
-               $schema_insert = "INSERT INTO $table VALUES (";
+               $schema_insert ="INSERT INTO $table VALUES (";
                for($j = 0; $j < $count_line; $j++)
                {
                   if(!isset($row[$j]))
