@@ -108,7 +108,7 @@ function reviews() {
       <div class="form-group row">
          <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="30" />
+            <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="60" />
             <span class="help-block text-right"><span id="countcar_email"></span></span>
          </div>
       </div>
@@ -156,7 +156,7 @@ function reviews() {
       $(document).ready(function() {
          inpandfieldlen("title",40);
          inpandfieldlen("reviewer",20);
-         inpandfieldlen("email",30);
+         inpandfieldlen("email",60);
          inpandfieldlen("url",100);
          inpandfieldlen("url_title",50);
          inpandfieldlen("cover",100);
