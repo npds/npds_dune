@@ -26,7 +26,7 @@ $f_meta_nom ='geoloc';
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 include ('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
-$f_titre= geoloc_translate("Configuration du module geoloc");
+$f_titre= geoloc_translate("Configuration du module Geoloc");
 
 
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp) {
@@ -62,11 +62,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
 
 
    <form id="geolocset" name="geoloc_set" action="admin.php" method="post">
-      <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Paramètres syst&#xE8;me').'</h4>
+      <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Paramètres système').'</h4>
       <fieldset id="para_sys" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
    <span class="text-danger">* '.geoloc_translate("requis").'</span>
          <div class="form-group row">
-            <label class="form-control-label col-sm-6" for="api_key">'.geoloc_translate('Clef').'&nbsp;<font color=red>*</font> : '.$api_key.'</label>
+            <label class="form-control-label col-sm-6" for="api_key">'.geoloc_translate("Clef d'API").'&nbsp;<font color=red>*</font> : '.$api_key.'</label>
             <div class="col-sm-6">
                <input type="text" class="form-control" name="api_key" id="ch_lat" placeholder="" value="'.$api_key.'" required="required" />
             </div>
@@ -107,7 +107,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-6" for="co_unit">'.geoloc_translate('Unit&#xE9; des coordonn&#xE9;es').'&nbsp;<font color=red>*</font></label>
+                  <label class="form-control-label col-sm-6" for="co_unit">'.geoloc_translate('Unité des coordonnées').'&nbsp;<font color=red>*</font></label>
                   <div class="col-sm-6">
                      <select class="custom-select form-control" name="co_unit" id="co_unit">
                         <option>dd</option>
@@ -117,7 +117,9 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                   </div>
                </div>
                <div class="form-group row">
-                  <div class="col-sm-6 control-label"><label for="mark_typ">'.geoloc_translate('Type de markers').'</label></div>
+                  <div class="col-sm-6 form-control-label">
+                  <label for="mark_typ">'.geoloc_translate('Type de marqueur').'</label>
+                  </div>
                   <div class="col-sm-6">
                   <label>';
         if ($mark_typ==1) { 
@@ -141,7 +143,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
          </fieldset>
          <fieldset id="para_ima" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
             <div class="form-group row">
-               <label class="form-control-label col-sm-6" for="nm_img_mbg">'.geoloc_translate('Image membre g&#xE9;or&#xE9;f&#xE9;renc&#xE9;').'&nbsp;<font color=red>*</font></label>
+               <label class="form-control-label col-sm-6" for="nm_img_mbg">'.geoloc_translate('Image membre géoréférencé').'&nbsp;<font color=red>*</font></label>
                <div class="col-sm-6">
                   <div class="input-group ">
                      <div id="v_img_mbg" class="input-group-addon "><img src="'.$ch_img.$nm_img_mbg.'" /></div>
@@ -150,7 +152,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label col-sm-6" for="nm_img_mbcg">'.geoloc_translate('Image membre g&#xE9;or&#xE9;f&#xE9;renc&#xE9; en ligne').'&nbsp;<font color=red>*</font></label>
+               <label class="form-control-label col-sm-6" for="nm_img_mbcg">'.geoloc_translate('Image membre géoréférencé en ligne').'&nbsp;<font color=red>*</font></label>
                <div class="col-sm-6">
                   <div class="input-group ">
                      <div id="v_img_mbcg" class="input-group-addon "><img src="'.$ch_img.$nm_img_mbcg.'" /></div>
@@ -159,7 +161,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
                </div>
             </div>
             <div class="form-group row">
-                <label class="form-control-label col-sm-6" for="nm_img_acg">'.geoloc_translate('Image anonyme g&#xE9;or&#xE9;f&#xE9;renc&#xE9; en ligne').'&nbsp;<font color=red>*</font></label>
+                <label class="form-control-label col-sm-6" for="nm_img_acg">'.geoloc_translate('Image anonyme géoréférencé en ligne').'&nbsp;<font color=red>*</font></label>
                 <div class="col-sm-6">
                     <div class="input-group">
                         <div id="v_img_acg" class="input-group-addon"><img src="'.$ch_img.$nm_img_acg.'" /></div>
@@ -182,7 +184,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
          </fieldset>
          <fieldset id="para_svg" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
             <div class="form-group row">
-               <label class="form-control-label col-sm-6" for="f_mbg">'.geoloc_translate('Marker font SVG').'&nbsp;<font color=red>*</font></label>
+               <label class="form-control-label col-sm-6" for="f_mbg">'.geoloc_translate('Marqueur font SVG').'&nbsp;<font color=red>*</font></label>
                <div class="col-sm-6">
                   <div class="input-group">
                      <div id="vis_ic" class="input-group-addon"></div>
@@ -259,30 +261,30 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp)
 
             <div class="row">
                 <div class="col-4 bkmbg">
-                    <label class="form-control-label" for="mbg_f_op">'.geoloc_translate('Opacit&#xE9; du fond').'</label>
+                    <label class="form-control-label" for="mbg_f_op">'.geoloc_translate('Opacité du fond').'</label>
                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_f_op" id="mbg_f_op" value="'.$mbg_f_op.'" required="required" />
                 </div>
                 <div class="col-4" ">
-                    <label class="form-control-label" for="mbgc_f_op">'.geoloc_translate('Opacit&#xE9; du fond').'</label>
+                    <label class="form-control-label" for="mbgc_f_op">'.geoloc_translate('Opacité du fond').'</label>
                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_f_op" id="mbgc_f_op" value="'.$mbgc_f_op.'" required="required" />
                 </div>
                 <div class="col-4" >
-                    <label class="form-control-label" for="acg_f_op">'.geoloc_translate('Opacit&#xE9; du fond').'</label>
+                    <label class="form-control-label" for="acg_f_op">'.geoloc_translate('Opacité du fond').'</label>
                     <input type="number" step="any" min="0" max="1" class="form-control" name="acg_f_op" id="acg_f_op" value="'.$acg_f_op.'" required="required" />
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-4 bkmbg">
-                    <label class="form-control-label" for="mbg_t_op">'.geoloc_translate('Opacit&#xE9; du trait').'</label>
+                    <label class="form-control-label" for="mbg_t_op">'.geoloc_translate('Opacité du trait').'</label>
                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_t_op" id="mbg_t_op" value="'.$mbg_t_op.'" required="required" />
                 </div>
                 <div class="col-4" ">
-                    <label class="form-control-label" for="mbgc_t_op">'.geoloc_translate('Opacit&#xE9; du trait').'</label>
+                    <label class="form-control-label" for="mbgc_t_op">'.geoloc_translate('Opacité du trait').'</label>
                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_t_op" id="mbgc_t_op" value="'.$mbgc_t_op.'" required="required" />
                 </div>
                 <div class="col-4" >
-                    <label class="form-control-label" for="acg_t_op">'.geoloc_translate('Opacit&#xE9; du trait').'</label>
+                    <label class="form-control-label" for="acg_t_op">'.geoloc_translate('Opacité du trait').'</label>
                     <input type="number" step="any" min="0" max="1" class="form-control" name="acg_t_op" id="acg_t_op" value="'.$acg_t_op.'" required="required" />
                 </div>
             </div>

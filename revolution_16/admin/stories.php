@@ -31,11 +31,15 @@ function puthome($ihome) {
    }
    echo '
          <div class="col-sm-8">
-            <label class="radio-inline">
-               <input type="radio" name="ihome" value="0" '.$sel1.' />'.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="ihome" value="0" '.$sel1.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="ihome" value="1" '.$sel2.' />'.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="ihome" value="1" '.$sel2.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>
              <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
          </div>
@@ -428,11 +432,12 @@ function displayStory ($qid) {
    
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>
       '.aff_localzone_langue("local_user_language").'
-      <div class="card card-block">';
+      <div class="card card-block mb-3">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;

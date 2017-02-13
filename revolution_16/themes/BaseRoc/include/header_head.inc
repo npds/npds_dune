@@ -15,9 +15,7 @@ echo '
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/css/octicons.css" />
 <link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />
-<link rel="stylesheet" href="lib/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css" />
 ';
 echo '
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>';
