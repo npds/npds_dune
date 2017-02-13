@@ -77,6 +77,53 @@ case "Aide": $tmp="Help"; break;
 case "Infos carte": $tmp="Map info"; break;
 case "Modification administrateur": $tmp="Admin mode"; break;
 case "Rappel : vous êtes en mode administrateur !": $tmp="Notice: you are in admin mode !"; break;
+
+
+
+
+case "Configuration du module Geoloc": $tmp="Geoloc addon settings"; break;
+case "Paramètres système": $tmp="System parameters"; break;
+case "Clef d'API": $tmp="API key"; break;
+
+case "Champ de table pour latitude": $tmp="DB field for latitude"; break;
+case "Champ de table pour longitude": $tmp="DB field for longitude"; break;
+
+
+case "requis": $tmp="required"; break;
+
+case "Chemin des images": $tmp="Images path"; break;
+
+case "Unité des coordonnées": $tmp="Coordinates unit"; break;
+case "Type de marqueur": $tmp="Marker type"; break;
+
+
+case "Opacité du fond": $tmp="Background opacity"; break;
+case "Opacité du trait": $tmp="Line opacity"; break;
+case "Opacité du fond": $tmp="Background opacity"; break;
+case "Couleur fond": $tmp="Background color"; break;
+case "Couleur du trait": $tmp="Line color"; break;
+case "Epaisseur du trait": $tmp="Background opacity"; break;
+
+case "Membre": $tmp="Member"; break;
+case "Membre en ligne": $tmp="Member on line"; break;
+case "Anonyme en ligne": $tmp="Anonymous on line"; break;
+
+case "Marqueur font SVG": $tmp="Marker SVG font"; break;
+case "Interface carte": $tmp="Map UI"; break;
+case "Interface bloc": $tmp="Map bloc UI"; break;
+
+case "Largeur icone marqueur": $tmp="Map bloc UI"; break;
+
+
+case "Image membre géoréférencé": $tmp="Georeferenced member image"; break;
+case "Image membre géoréférencé en ligne": $tmp="Georeferenced member on line image"; break;
+case "Image anonyme géoréférencé en ligne": $tmp="Georeferenced anonymous on line image"; break;
+
+
+case "Echelle": $tmp="Scale"; break;
+case "Hauteur de la carte dans le bloc": $tmp="Map height in block"; break;
+
+
 default: $tmp = "Need to be translated [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
