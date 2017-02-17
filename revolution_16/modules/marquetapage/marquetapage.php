@@ -54,53 +54,27 @@ function marquetapage() {
       if ($ibid=theme_image("modules/addj.gif")) {$addj=$ibid;} else {$addj="modules/marquetapage/addj.gif";}
       $result=sql_query("SELECT uri, topic FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]' ORDER BY topic ASC");
       if (sql_num_rows($result)) {
-         $tmp_toggle='<a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i></a>';
-         $content="
-   <script type=\"text/javascript\">
-   //<![CDATA[
-   tog = function(lst,sho,hid){
-      $(document).on('click', 'a.tog', function() {
-         var buttonID = $(this).attr('id');
-         lst_id = $('#'+lst);
-         i_id=$('#i_'+lst);
-         btn_show=$('#'+sho);
-         btn_hide=$('#'+hid);
-         if (buttonID == sho) {
-            lst_id.fadeIn(1000);//show();
-            btn_show.attr('id',hid)
-            btn_show.attr('title','".translate("Hide list")."');
-            i_id.attr('class','fa fa-caret-up fa-2x');
-         } else if (buttonID == hid) {
-            lst_id.fadeOut(1000);//hide();
-            btn_hide=$('#'+hid);
-            btn_hide.attr('id',sho);
-            btn_hide.attr('title','".translate("Show list")."');
-            i_id.attr('class','fa fa-caret-down fa-2x');
-        }
-       });
-   };
-   //]]>
-   </script>";
-
+         $content='';
          $content.='
    <h6>
-   <a class="tog" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-right fa-2x" ></i>&nbsp;Bookmarks </a><span class="badge badge-pill badge-default pull-right">'.sql_num_rows($result).'</span>
+   <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-default float-right">'.sql_num_rows($result).'</span>
    </h6>
-   <ul id="lst_fav" style="display:none;" >
-   
-   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
+   <ul id="lst_fav" class="collapse" >
+   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fa fa-trash-o text-danger fa-lg" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
          while(list($uri, $topic)=sql_fetch_row($result)) {
+/*
             $content.='
-      <li><a href="'.$uri.'" style="font-size:.7rem;">'.$topic.'</a>
+      <li><span class="d-inline-block n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></span>
             <span class="float-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
+*/
+            $content.='
+            <div class="row">
+               <div class="col-10 n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></div>
+               <div class="col-2 text-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></div>
+            </div>';
          }
          $content.='
-   </ul>
-   <script type="text/javascript">
-   //<![CDATA[
-      tog("lst_fav","show_fav","hide_fav");
-   //]]>
-   </script>';
+   </ul>';
       }
       global $block_title;
       $uri=urlencode($REQUEST_URI);
