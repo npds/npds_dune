@@ -59,14 +59,9 @@ function marquetapage() {
    <h6>
    <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-default float-right">'.sql_num_rows($result).'</span>
    </h6>
-   <ul id="lst_fav" class="collapse" >
+   <div id="lst_fav" class="collapse" >
    <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fa fa-trash-o text-danger fa-lg" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
          while(list($uri, $topic)=sql_fetch_row($result)) {
-/*
-            $content.='
-      <li><span class="d-inline-block n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></span>
-            <span class="float-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fa fa-trash-o text-danger" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></span></li>';
-*/
             $content.='
             <div class="row">
                <div class="col-10 n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></div>
@@ -74,7 +69,7 @@ function marquetapage() {
             </div>';
          }
          $content.='
-   </ul>';
+   </div>';
       }
       global $block_title;
       $uri=urlencode($REQUEST_URI);
