@@ -47,7 +47,7 @@ $sql = array("CREATE TABLE ".$NPDS_Prefix."marquetapage (uid int(11) NOT NULL de
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
 #autodoc Configuration des blocs
 
-$blocs = array(array("marquetapage"), array("include#modules/marquetapage/marquetapage.php\r\nfunction#marquetapage"), array("1"), array(""), array("0"), array("0"), array("1"), array("Vous permet de gÈrer vos marques-pages"), array("Bloc affichant marquetapage"));
+$blocs = array(array("marquetapage"), array("include#modules/marquetapage/marquetapage.php\r\nfunction#marquetapage"), array("1"), array(""), array("0"), array("0"), array("1"), array("Vous permet de g&#xE9;rer vos marques-pages"), array("Bloc affichant marquetapage"));
 
 
 #autodoc $txtdeb : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera au début de l'install
