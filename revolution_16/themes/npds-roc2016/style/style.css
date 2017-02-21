@@ -52,31 +52,31 @@ a:hover {text-decoration:none;}
 /* ==> pour les troncatures de mots trop longs */
 
 .n-list-compact-no-bord {
-    padding: .35rem 0 .35rem 0;
-    border: 0;
+padding-top: .35rem;
+padding-bottom: .35rem;
+padding-right: 0rem;
+padding-left: 0rem;
+border:0px;
 }
 
 .n-card-compact-no-padside {
-    padding-right: 0;
-    padding-left: 0;
-    border: 0;
+padding-right: 0rem;
+padding-left: 0rem;
+border:0px;
 }
-
 .n-hyphenate {
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -ms-hyphens: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
-
 .n-ellipses {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-
 /** <== Classes NPDS-core  **/
 
 .list-group-item {
@@ -140,7 +140,10 @@ table tr:nth-of-type(2n) {
 /*jmd work*/
 
 /* adapt JMD pour correspondances avec Rocssti*/
- .row1 {margin-right: auto;margin-left: auto;}
+.row1 {
+   display: table;
+  table-layout: fixed;  /* pour ne pas rentrer en conflit avec BS row devient row1  BMAG */
+}
 
 /************************************************************************
 Dimension du site 
@@ -184,7 +187,7 @@ header {
 La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 *************************************************************************/
 
-#centralcol {
+#col_princ {
     padding: 10px;
 }
 
@@ -192,18 +195,19 @@ La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 
 #corps {
     background: #fff;
+    padding-bottom: 0.5rem;
 }
 
 /************************************************************************
 Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 *************************************************************************/
 
-#leftcol ul {
+#col_LB ul {
     padding-left: 0;
     list-style: none;
 }
 
-.rightbloc,
+
 .leftbloc {
     margin-top: 10px;
     margin-right: 5px;
@@ -215,6 +219,16 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
     box-shadow: 0 1px 3px rgba(0,0,0,0.298);
 }
 
+.rightbloc{
+    margin-top: 10px;
+    margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #FFF;
+    border-radius: 3px;
+    color: #333;
+    background-color: #e6eaf066;
+    box-shadow: 0 1px 3px rgb(139, 197, 234);
+}
 /************************************************************************
 La Partie Footer de votre Site
 *************************************************************************/
