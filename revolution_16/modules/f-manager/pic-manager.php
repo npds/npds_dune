@@ -15,6 +15,14 @@ global $ModPath, $ModStart, $language, $Default_Theme, $NPDS_Key;
 include ("modules/$ModPath/lang/f-manager-$language.php");
 include ("modules/$ModPath/class.navigator.php");
 
+if (isset($user)) {
+    include("themes/list.php");
+    $themelist = explode(' ', $themelist);
+    $pos=array_search($cookie[9],$themelist);
+    if ($pos!==false)
+      $Default_Theme=$themelist[$pos];
+}
+
 // Gestion Ascii étendue
 function extend_ascii($ibid) {
    $tmp=urlencode($ibid);
@@ -31,15 +39,15 @@ function extend_ascii($ibid) {
 // Gestion des fichiers autorisés
 function fma_filter($type, $filename, $Extension) {
    $autorise=false;
-   $error="";
-   if ($type=="f") $filename=removeHack($filename);
+   $error='';
+   if ($type=='f') $filename=removeHack($filename);
    $filename=preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($filename));
-   $filename=str_replace("..","",$filename);
+   $filename=str_replace('..','',$filename);
 
    // Liste des extensions autorisées
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
-   if (($suffix!="") or ($type=="d")) {
-      if ((in_array($suffix,$Extension)) or ($Extension[0]=="*") or $type=="d") {
+   if (($suffix!='') or ($type=='d')) {
+      if ((in_array($suffix,$Extension)) or ($Extension[0]=='*') or $type=='d') {
          // Fichiers interdits en fonction de qui est connecté
          if (fma_autorise($type, $filename)) {
             $autorise=true;
@@ -63,29 +71,29 @@ function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
 
-   if ($type=="a") {
+   if ($type=='a') {
       $autorise_arbo=$access_fma;
    }
-   if ($type=="d") {
+   if ($type=='d') {
       $autorise_arbo=$dirlimit_fma[$dir];
    }
-   if ($type=="f") {
+   if ($type=='f') {
       $autorise_arbo=$ficlimit_fma[$dir];
    }
 
    if ($autorise_arbo) {
-      $auto_dir="";
-      if (($autorise_arbo=="membre") and ($user)) {
+      $auto_dir='';
+      if (($autorise_arbo=='membre') and ($user)) {
          $auto_dir=true;
-      } elseif (($autorise_arbo=="anonyme") and (!$user)) {
+      } elseif (($autorise_arbo=='anonyme') and (!$user)) {
          $auto_dir=true;
-      } elseif (($autorise_arbo=="admin") and ($admin)) {
+      } elseif (($autorise_arbo=='admin') and ($admin)) {
          $auto_dir=true;
-      } elseif (($autorise_arbo!="membre") and ($autorise_arbo!="anonyme") and ($autorise_arbo!="admin") and ($user)) {
+      } elseif (($autorise_arbo!='membre') and ($autorise_arbo!='anonyme') and ($autorise_arbo!='admin') and ($user)) {
          $tab_groupe=valid_group($user);
          if ($tab_groupe) {
             foreach($tab_groupe as $groupevalue) {
-               $tab_auto=explode(",",$autorise_arbo);
+               $tab_auto=explode(',',$autorise_arbo);
                while (list(,$gp)=each($tab_auto)) {
                   if ($gp>0) {
                      if ($groupevalue==$gp) {
@@ -108,9 +116,9 @@ function fma_autorise($type, $dir) {
       $auto_dir=true;
    }
    if ($auto_dir!=true) {
-      if ($type=="d")
+      if ($type=='d')
          $dir_minuscptr++;
-      if ($type=="f")
+      if ($type=='f')
          $fic_minuscptr++;
    }
    return($auto_dir);
@@ -139,20 +147,20 @@ function imagesize($name, $Max_thumb) {
    return ($s_img);
 }
 function CreateThumb($Image, $Source, $Destination, $Max, $ext) {
-   $src="";
-   if ($ext=="gif") {
-      if (function_exists("imagecreatefromgif"))
-         $src=@imagecreatefromgif($Source."/".$Image);
+   $src='';
+   if ($ext=='gif') {
+      if (function_exists('imagecreatefromgif'))
+         $src=@imagecreatefromgif($Source.'/'.$Image);
    } else {
-      if (function_exists("imagecreatefromjpeg"))
-         $src=@imagecreatefromjpeg($Source."/".$Image);
+      if (function_exists('imagecreatefromjpeg'))
+         $src=@imagecreatefromjpeg($Source.'/'.$Image);
    }
-   $size = imagesize($Source."/".$Image, $Max);
+   $size = imagesize($Source.'/'.$Image, $Max);
    $h_i = $size['hauteur'][0]; //hauteur
    $w_i = $size['largeur'][0]; //largeur
 
    if ($src) {
-      if (function_exists("imagecreatetruecolor")) {
+      if (function_exists('imagecreatetruecolor')) {
          $im = @imagecreatetruecolor($w_i, $h_i);
       } else {
          $im = @imagecreate($w_i, $h_i);
@@ -160,7 +168,7 @@ function CreateThumb($Image, $Source, $Destination, $Max, $ext) {
 
       @imagecopyresized($im, $src, 0, 0, 0, 0, $w_i, $h_i, $size['largeur'][1], $size['hauteur'][1]);
       @imageinterlace ($im,1);
-      if ($ext=="gif") {
+      if ($ext=='gif') {
          @imagegif($im, $Destination.$Image);
       } else {
          @imagejpeg($im, $Destination.$Image, 75);
@@ -200,7 +208,7 @@ if ($browse!="") {
    } else {
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
    }
-   $ibid=str_replace("..","",$ibid);
+   $ibid=str_replace('..','',$ibid);
    // contraint à rester dans la zone de repertoire définie
    $ibid=$basedir_fma.substr($ibid,strlen($basedir_fma));
    $base=$ibid;
@@ -210,21 +218,21 @@ if ($browse!="") {
 
 // initialisation de la classe
 $obj= new Navigator();
-$obj->Extension=explode(" ",$extension_fma);
+$obj->Extension=explode(' ',$extension_fma);
 
 // Construction de la Classe
 if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)) {
    // Current PWD and Url_back / match by OS determination
    if (substr(@php_uname(),0,7) == "Windows") {
-      $cur_nav=str_replace("\\","/",$obj->Pwd());
+      $cur_nav=str_replace('\\','/',$obj->Pwd());
       $cur_nav_back=dirname($base);
    } else {
       $cur_nav=$obj->Pwd();
-      $cur_nav_back=str_replace("\\","/",dirname($base));
+      $cur_nav_back=str_replace('\\','/',dirname($base));
    }
-   $home="/".basename($basedir_fma);
+   $home='/'.basename($basedir_fma);
    $cur_nav_href_back="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode(encrypt($cur_nav_back))."\">".str_replace(dirname($basedir_fma),"",$cur_nav_back)."</a>/".basename($cur_nav);
-   if ($home_fma!="") {
+   if ($home_fma!='') {
       $cur_nav_href_back=str_replace($home,$home_fma,$cur_nav_href_back);
    }
    $cur_nav_encrypt=rawurlencode(encrypt($cur_nav));
@@ -234,71 +242,77 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
 }
 
 // gestion des types d'extension de fichiers
-$att_icons="";
+$att_icons='';
 $handle=opendir("$racine_fma/images/upload/file_types");
 while (false!==($file = readdir($handle))) {
-   if ($file!="." && $file!="..")  {
+   if ($file!='.' && $file!='..') {
       $prefix = strtoLower(substr($file,0,strpos($file,'.')));
-      $att_icons[$prefix]="<img src=\"images/upload/file_types/".$file."\" border=\"0\" alt=\"\" />";
+      $att_icons[$prefix]="<img src=\"images/upload/file_types/".$file."\" alt=\"\" />";
    }
 }
 closedir($handle);
-$att_icon_dir="<img src=\"images/upload/file_types/dir.gif\" border=\"0\" alt=\"\" />";
+//$att_icon_dir="<img src=\"images/upload/file_types/dir.gif\" border=\"0\" alt=\"\" />";
+$att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
 
 // Répertoires
-$subdirs=""; $sizeofDir=0;
-$linked = "onmouseOver=\"this.className='ligna'; this.style.cursor='default';\" onmouseOut=\"this.className='lignb';\"";
+$subdirs=''; $sizeofDir=0;
 while ($obj->NextDir()) {
-   if (fma_autorise("d", $obj->FieldName)) {
-      $subdirs.= "<tr class=\"lignb\" ".$linked.">";
+   if (fma_autorise('d', $obj->FieldName)) {
+      $subdirs.= '
+      <tr>';
       $clik_url="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode(encrypt("$base/$obj->FieldName"))."\">";
       if ($dirpres_fma[0])
-         $subdirs.="<td width=\"3%\">$clik_url$att_icon_dir</a></td>";
+         $subdirs.='
+         <td width="3%">'.$clik_url.$att_icon_dir.'</a></td>';
       if ($dirpres_fma[1])
-         $subdirs.="<td nowrap=\"nowrap\" width=\"50%\">$clik_url".extend_ascii($obj->FieldName)."</a></td>";
+         $subdirs.="
+         <td nowrap=\"nowrap\" width=\"50%\">$clik_url".extend_ascii($obj->FieldName)."</a></td>";
       if ($dirpres_fma[2])
-         $subdirs.="<td>".$obj->FieldDate."</td>";
+         $subdirs.='
+         <td><small>'.$obj->FieldDate.'</small></td>';
       if ($dirpres_fma[3]) {
          $sizeofD=$obj->FieldSize;
          $sizeofDir=$sizeofDir+$sizeofD;
-         $subdirs.="<td>".$obj->ConvertSize($sizeofDir)."</td>";
+         $subdirs.='
+         <td><small>'.$obj->ConvertSize($sizeofDir).'</small></td>';
       }
-      $subdirs.="</td></tr>";
+      $subdirs.='
+      </tr>';
    }
 }
 
 // Fichiers
 $fp=@file("pic-manager.txt");
    // La première ligne du tableau est un commentaire
-   settype($fp[1],"integer");
+   settype($fp[1],'integer');
    $Max_thumb=$fp[1];
-   settype($fp[2],"integer");
+   settype($fp[2],'integer');
    $refresh=$fp[2];
    if ($refresh==0)
       $refresh=3600;
-$rep_cache=$racine_fma."/cache/";
+$rep_cache=$racine_fma.'/cache/';
 $rep_cache_encrypt=rawurlencode(encrypt($rep_cache));
-$cache_prefix=$cookie[1].md5(str_replace("/",".",str_replace($racine_fma."/","",$cur_nav)));
+$cache_prefix=$cookie[1].md5(str_replace('/','.',str_replace($racine_fma.'/','',$cur_nav)));
 
 if ($Max_thumb>0) {
-   $files="<div id=\"photo\">";
+   $files='<div id="photo">';
    while ($obj->NextFile()) {
-      if (fma_autorise("f", $obj->FieldName)) {
+      if (fma_autorise('f', $obj->FieldName)) {
          $suf=strtolower($obj->FieldView);
-         if (($suf=="gif") or ($suf=="jpg") or ($suf=="png") or ($suf=="swf") or ($suf=="mp3")) {
+         if (($suf=='gif') or ($suf=='jpg') or ($suf=='png') or ($suf=='swf') or ($suf=='mp3')) {
             if ($ficpres_fma[1]) {
-               $ibid=rawurlencode(encrypt(rawurldecode($cur_nav_encrypt)."#fma#".encrypt($obj->FieldName)));
-               $imagette="";
+               $ibid=rawurlencode(encrypt(rawurldecode($cur_nav_encrypt).'#fma#'.encrypt($obj->FieldName)));
+               $imagette='';
 
-               if (($suf=="gif") or ($suf=="jpg")) {
+               if (($suf=='gif') or ($suf=='jpg')) {
                   if ((function_exists('gd_info')) or extension_loaded('gd')) {
                      //cached or not ?
-                     if (file_exists($rep_cache.$cache_prefix.".".$obj->FieldName)) {
-                        if (filemtime($rep_cache.$cache_prefix.".".$obj->FieldName) > time()-$refresh) {
-                           if (filesize($rep_cache.$cache_prefix.".".$obj->FieldName)>0) {
+                     if (file_exists($rep_cache.$cache_prefix.'.'.$obj->FieldName)) {
+                        if (filemtime($rep_cache.$cache_prefix.'.'.$obj->FieldName) > time()-$refresh) {
+                           if (filesize($rep_cache.$cache_prefix.'.'.$obj->FieldName)>0) {
                               $cache=true;
                               $image=imagesize($obj->FieldName, $Max_thumb);
-                              $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt)."#fma#".encrypt($cache_prefix.".".$obj->FieldName)));
+                              $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt).'#fma#'.encrypt($cache_prefix.'.'.$obj->FieldName)));
                            } else {
                               $cache=false;
                            }
@@ -309,14 +323,14 @@ if ($Max_thumb>0) {
                         $cache=false;
                      }
                      if (!$cache) {
-                        $image=CreateThumb($obj->FieldName, $cur_nav, $rep_cache.$cache_prefix.".", $Max_thumb, $suf);
+                        $image=CreateThumb($obj->FieldName, $cur_nav, $rep_cache.$cache_prefix.'.', $Max_thumb, $suf);
                         if ($image['gene-img'][0]==true)
-                           $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt)."#fma#".encrypt($cache_prefix.".".$obj->FieldName)));
+                           $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt).'#fma#'.encrypt($cache_prefix.'.'.$obj->FieldName)));
                      }
                   } else {
                      $image=imagesize($curn_nav.$obj->FieldName, $Max_thumb);
                   }
-               } else if (($suf=="png") or ($suf=="swf")) {
+               } else if (($suf=='png') or ($suf=='swf')) {
                   $image=imagesize($curn_nav.$obj->FieldName, $Max_thumb);
                }
                $h_i=$image['hauteur'][0];
@@ -325,9 +339,9 @@ if ($Max_thumb>0) {
                $w_pi=$image['largeur'][1];;
 
                switch ($suf) {
-                  case "gif":
-                  case "jpg":
-                  case "png":
+                  case 'gif':
+                  case 'jpg':
+                  case 'png':
                      $PopUp="'getfile.php?att_id=$ibid&amp;apli=f-manager','PicManager','menubar=no,location=no,directories=no,status=no,copyhistory=no,height=".($h_pi+40).",width=".($w_pi+40).",toolbar=no,scrollbars=yes,resizable=yes'";
                      $files.="<div class=\"imagethumb\">";
                      $files.="<a href=\"javascript:void(0);\" onclick=\"popup=window.open($PopUp); popup.focus();\"><img src=\"getfile.php?att_id=";
@@ -366,7 +380,8 @@ if ($Max_thumb>0) {
          }
       }
    }
-   $files.="</div>";
+   $files.='
+   </div>';
 }
 
 chdir("$racine_fma/");
@@ -382,20 +397,22 @@ if (file_exists("themes/$Default_Theme/html/modules/f-manager/pic-manager.html")
 }
 
 if ($inclusion) {
-   $Xcontent=join("",file($inclusion));
-   $Xcontent=str_replace("_back",extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace("_refresh","<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."\">".fma_translate("Rafraichir")."</a>",$Xcontent);
-   $Xcontent=str_replace("_nb_subdir",($obj->Count("d")-$dir_minuscptr),$Xcontent);
-   $Xcontent=str_replace("_subdirs",$subdirs,$Xcontent);
+   $Xcontent=join('',file($inclusion));
+   $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="hidden-sm-up"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="hidden-xs-down">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_nb_subdir',($obj->Count('d')-$dir_minuscptr),$Xcontent);
+   if(($obj->Count('d')-$dir_minuscptr)==0)
+      $Xcontent=str_replace('_classempty','collapse',$Xcontent);
+   $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
    if ($uniq_fma)
-      $Xcontent=str_replace("_fileM","<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=f-manager&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode($browse)."\"><b>".fma_translate("F-Manager")."</b></a>",$Xcontent);
+      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="hidden-sm-up"><i class="fa fa-folder-o fa-lg"></i></span><span class="hidden-xs-down">File manager</span></a>',$Xcontent);
    else
-      $Xcontent=str_replace("_fileM","",$Xcontent);
+      $Xcontent=str_replace('_fileM','',$Xcontent);
 
    if (isset($files))
-      $Xcontent=str_replace("_files",$files,$Xcontent);
+      $Xcontent=str_replace('_files',$files,$Xcontent);
    else
-      $Xcontent=str_replace("_files","",$Xcontent);
+      $Xcontent=str_replace('_files','',$Xcontent);
 
    if (!$NPDS_fma) {
       // utilisation de pages.php
@@ -406,7 +423,10 @@ if ($inclusion) {
       include("meta/meta.php");
       echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
       echo ("<link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
-      echo "</head>\n<body>";
+      echo '<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
+      echo '
+      </head>
+      <body class="p-3">';
    } else {
       include ("header.php");
    }
@@ -427,7 +447,9 @@ if ($inclusion) {
    }
 
    if (!$NPDS_fma) {
-      echo "</body></html>";
+      echo '
+      </body>
+   </html>';
    } else {
       include ("footer.php");
    }
