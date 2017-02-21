@@ -288,25 +288,18 @@ function GraphicAdmin($hlpfile) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".adm_translate("Replier la liste")."');
-            i_id.attr('class','fa fa-caret-up fa-lg text-primary');
+            i_id.attr('class','fa fa-caret-up fa-lg text-primary mr-1');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
             btn_hide.attr('title','".adm_translate("Déplier la liste")."');
-            i_id.attr('class','fa fa-caret-down fa-lg text-primary');
+            i_id.attr('class','fa fa-caret-down fa-lg text-primary mr-1');
         }
        });
    };
    //]]>
    </script>\n";
-/*
-<div class="d-flex justify-content-start">
-  <div class="p-2">Flex item</div>
-  <div class="p-2">Flex item</div>
-  <div class="ml-auto p-2">Flex item</div>
-</div>
-*/
    $adm_ent ='';
    $adm_ent .='
    <div id="adm_tit" class="row">
