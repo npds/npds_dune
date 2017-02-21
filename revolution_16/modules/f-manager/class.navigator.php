@@ -123,7 +123,7 @@ function GetPerms($file) {
 }
 
 function PresPerms($ibid) {
-   if ($ibid[0]==766 or $ibid[0]==777) $ibid[0]="<b>$ibid[0]</b>";
+   if ($ibid[0]==766 or $ibid[0]==777) $ibid[0]='<span class="text-success">'.$ibid[0].'</span>';
    return ("$ibid[0]&nbsp;($ibid[1])");
 }
 
