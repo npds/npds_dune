@@ -52,24 +52,32 @@ function groupe($groupe) {
 function droits_bloc($member) {
    echo '
    <div class="form-group">
-      <label class="radio-inline text-danger">';
+      <label class="custom-control custom-radio text-danger">';
    if ($member==-127) {$checked=' checked="checked"';} else {$checked='';}
    echo '
-         <input type="radio" name="members" value="-127" '.$checked.' />'.adm_translate("Administrateurs").'
+         <input type="radio" name="members" value="-127" '.$checked.' class="custom-control-input" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Administrateurs").'</span>
       </label>
-      <label class="radio-inline text-danger">';
+      <label class="custom-control custom-radio text-danger">';
    if ($member==-1) {$checked=' checked="checked"';} else {$checked='';}
    echo '
-         <input type="radio" name="members" value="-1" '.$checked.' />'.adm_translate("Anonymes").'
+         <input type="radio" name="members" value="-1" '.$checked.' class="custom-control-input" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Anonymes").'</span>
       </label>';
    echo '
-      <label class="radio-inline text-danger">';
+      <label class="custom-control custom-radio text-danger">';
    if ($member>0) {
       echo '
-         <input type="radio" name="members" value="1" checked="checked" />'.adm_translate("Membres").'
+         <input type="radio" name="members" value="1" checked="checked" class="custom-control-input"/>
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Membres").'</span>
       </label>
-      <label class="radio-inline">
-         <input type="radio" name="members" value="0" />'.adm_translate("Tous").'
+      <label class="custom-control custom-radio">
+         <input type="radio" name="members" value="0" class="custom-control-input"/>
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Tous").'</span>
       </label>
    </div>
    <div class="form-group row">
@@ -81,10 +89,14 @@ function droits_bloc($member) {
    } else {
       if ($member==0) {$checked=' checked="checked"';} else {$checked='';}
       echo '
-      <input type="radio" name="members" value="1" />'.adm_translate("Membres").'
+         <input type="radio" name="members" value="1" class="custom-control-input" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Membres").'</span>
       </label>
-      <label class="radio-inline">
-         <input type="radio" name="members" value="0"'.$checked.' />'.adm_translate("Tous").'
+      <label class="custom-control custom-radio">
+         <input type="radio" name="members" value="0"'.$checked.' class="custom-control-input" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Tous").'</span>
       </label>
    </div>
    <div class="form-group row">
@@ -112,25 +124,40 @@ function blocks() {
    <script type="text/javascript">
       //<![CDATA[
          $("#adm_workarea").on("click", "a.togxyg",function() {
-            $(".fa.fa-navicon").attr("title","'.adm_translate("Replier la liste").'")
+         if ( $("#all_g").attr("title") !== "'.adm_translate("Replier la liste").'" ) {
+            $("#all_g").attr("title","'.adm_translate("Replier la liste").'")
+            $("#tad_blocgauc td.togxg").attr("style","display: block-inline")
+            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-up fa-lg text-primary mr-1")
+            $("#tad_blocgauc a.tog").attr("title","'.adm_translate("Replier la liste").'")
+            $( "#tad_blocgauc a.tog" ).each(function(index) {
+               var idi= $(this).attr("id")
+               var idir = idi.replace("show", "hide");
+               $(this).attr("id",idir)
+            });
+            } 
+         else {
+            $("#all_g").attr("title","'.adm_translate("Déplier la liste").'")
             $("#tad_blocgauc td.togxg").attr("style","display: none")
-            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-down fa-lg")
+            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-down fa-lg text-primary mr-1")
             $("#tad_blocgauc a.tog").attr("title","'.adm_translate("Déplier la liste").'")
             $( "#tad_blocgauc a.tog" ).each(function(index) {
                var idi= $(this).attr("id")
                var idir = idi.replace("hide", "show");
                $(this).attr("id",idir)
             });
+
+            }
+            
          });
          //]]>
    </script>
    <table id="tad_blocgauc" class="table table-hover table-striped " >
       <thead>
          <tr>
-            <th><a class="togxyg"><i class="fa fa-navicon" title="'.adm_translate("Déplier la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
+            <th><a class="togxyg"><i id="all_g" class="fa fa-navicon" title="'.adm_translate("Déplier la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
             <th class="hidden-sm-down">'.adm_translate("Actif").'</th>
-            <th>Index</th>
-            <th>'.adm_translate("Rétention").'</th>
+            <th class="hidden-sm-down">Index</th>
+            <th class="hidden-sm-down">'.adm_translate("Rétention").'</th>
             <th>ID</th>
          </tr>
       </thead>
@@ -158,8 +185,8 @@ function blocks() {
          echo '
          <tr class="table-danger">';
          echo '
-            <td align="left">';
-         echo '<a class="tog" id="show_bloga_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_bloga_'.$id.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;';
+            <td align="left">
+               <a class="tog" id="show_bloga_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_bloga_'.$id.'" class="fa fa-caret-down fa-lg text-primary mr-1" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
@@ -168,8 +195,8 @@ function blocks() {
             echo '
             <td class="text-danger hidden-sm-down" align="right">'.adm_translate("Non").'</td>';
          echo '
-            <td align="right">'.$Lindex.'</td>
-            <td align="right">'.$Scache.'</td>
+            <td class="hidden-sm-down" align="right">'.$Lindex.'</td>
+            <td class="hidden-sm-down" align="right">'.$Scache.'</td>
             <td align="right">'.$id.'</td>
          </tr>
          <tr>
@@ -230,23 +257,23 @@ function blocks() {
                                  <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
                               </div>
                            </div>
-                           <div class="form-group row">
-                              <div class="col-sm-12">
-                                 <label class="checkbox-inline" for="Sactif">
-                                    <input type="checkbox" name="Sactif" value="ON" ';
+                           <div class="form-group ">
+                              <label class="custom-control custom-checkbox" >
+                                 <input type="checkbox" class="custom-control-input" name="Sactif" value="ON" ';
                               if ($Sactif) echo 'checked="checked" ';
-                              echo '/>'.adm_translate("Activer le Bloc").'
-                                 </label>
-                              </div>
+                              echo '/>
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description">'.adm_translate("Activer le Bloc").'</span>
+                              </label>
                            </div>
-                           <div class="form-group row">
-                              <div class="col-sm-12">
-                                 <label class="checkbox-inline" for="css">
-                                 <input type="checkbox" name="css" value="1" ';
+                           <div class="form-group ">
+                              <label class="custom-control custom-checkbox" >
+                                 <input type="checkbox" class="custom-control-input" name="css" value="1" ';
                               if ($css=='1') echo 'checked="checked" ';
-                              echo '/>'.adm_translate("CSS Specifique").'
-                                 </label>
-                              </div>
+                              echo '/>
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description">'.adm_translate("CSS Specifique").'</span>
+                              </label>
                            </div>
                         </fieldset>
                      </div>
@@ -283,7 +310,7 @@ function blocks() {
          $("#adm_workarea").on("click", "a.togxyd",function() {
             $(".fa.fa-navicon").attr("title","'.adm_translate("Replier la liste").'")
             $("#tad_blocdroi td.togxd").attr("style","display: none")
-            $("#tad_blocdroi a.tog i").attr("class","fa fa-caret-down fa-lg")
+            $("#tad_blocdroi a.tog i").attr("class","fa fa-caret-down fa-lg mr-1 text-primary")
             $("#tad_blocdroi a.tog").attr("title","'.adm_translate("Déplier la liste").'")
             $( "#tad_blocdroi a.tog" ).each(function(index) {
                var idi= $(this).attr("id")
@@ -299,7 +326,7 @@ function blocks() {
             <th><a class="togxyd"><i class="fa fa-navicon fa-lg" title="'.adm_translate("Déplier la liste la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
             <th class="hidden-sm-down">'.adm_translate("Actif").'</th>
             <th>Index</th>
-            <th>'.adm_translate("Rétention").'</th>
+            <th class="hidden-sm-down">'.adm_translate("Rétention").'</th>
             <th>ID</th>
          </tr>
       </thead>
@@ -328,7 +355,7 @@ function blocks() {
          <tr class="table-danger">';
          echo '
             <td align="left">';
-         echo '<a class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;';
+         echo '<a class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
@@ -338,7 +365,7 @@ function blocks() {
             <td class="text-danger hidden-sm-down" align="right">'.adm_translate("Non").'</td>';
          echo '
             <td align="right">'.$Rindex.'</td>
-            <td align="right">'.$Scache.'</td>
+            <td class="hidden-sm-down" align="right">'.$Scache.'</td>
             <td align="right">'.$id.'</td>
          </tr>
          <tr>
@@ -399,23 +426,23 @@ function blocks() {
                                  <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
                               </div>
                            </div>
-                           <div class="form-group row">
-                              <div class="col-sm-12">
-                                 <label class="checkbox-inline" for="Sactif">
-                                    <input type="checkbox" name="Sactif" value="ON" ';
+                           <div class="form-group">
+                              <label class="custom-control custom-checkbox" >
+                                 <input type="checkbox" class="custom-control-input" name="Sactif" value="ON" ';
          if ($Sactif) echo 'checked="checked" ';
-         echo '/>'.adm_translate("Activer le Bloc").'
-                                 </label>
-                              </div>
+         echo '/>
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description">'.adm_translate("Activer le Bloc").'</span>
+                              </label>
                            </div>
-                           <div class="form-group row">
-                              <div class="col-sm-12">
-                                 <label class="checkbox-inline" for="css">
-                                    <input type="checkbox" name="css" value="1" ';
+                           <div class="form-group">
+                              <label class="custom-control custom-checkbox" >
+                                 <input type="checkbox" class="custom-control-input" name="css" value="1" ';
          if ($css=="1") echo 'checked="checked" ';
-         echo '/>'.adm_translate("CSS Specifique").'
+         echo '/>
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description"> '.adm_translate("CSS Specifique").'</span>
                                  </label>
-                              </div>
                            </div>
                         </fieldset>
                      </div>
@@ -475,11 +502,15 @@ function blocks() {
             <div class="form-group row">
                <label class="form-control-label col-sm-12" for="op">'.adm_translate("Position").'</label>
                <div class="col-sm-12">
-                  <label class="radio-inline">
-                     <input type="radio" name="op" value="makelblock" checked="checked" />'.adm_translate("Créer un Bloc gauche").'
+                  <label class="custom-control custom-radio">
+                     <input type="radio" name="op" value="makelblock" checked="checked" class="custom-control-input"/>
+                     <span class="custom-control-indicator"></span>
+                     <span class="custom-control-description">'.adm_translate("Créer un Bloc gauche").'</span>
                   </label>
-                  <label class="radio-inline">
-                     <input type="radio" name="op" value="makerblock" /> '.adm_translate("Créer un Bloc droite").'
+                  <label class="custom-control custom-radio">
+                     <input type="radio" name="op" value="makerblock" class="custom-control-input"/>
+                     <span class="custom-control-indicator"></span>
+                     <span class="custom-control-description">'.adm_translate("Créer un Bloc droite").'</span>
                   </label>
                </div>
             </div>
