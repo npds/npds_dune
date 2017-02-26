@@ -10,58 +10,50 @@
 function upload_translate($phrase) {
  switch($phrase) {
    /////// fichier
-   case "PiËces jointes :": $tmp="Archivos adjuntos :"; break;
-   case "Fichier :": $tmp="Fichero :"; break;
-   case "Type :": $tmp="Tipo :"; break;
-   case "Taille :": $tmp="TamaÒo :"; break;
-   case "Affichage intÈgrÈ :": $tmp="En lÌnea:"; break;
-   case "Oui": $tmp="SÌ"; break;
+   case "Pi√®ces jointes :": $tmp="Archivos adjuntos :"; break;
+   case "Fichier": $tmp="Fichero"; break;
+   case "Type": $tmp="Tipo"; break;
+   case "Taille": $tmp="Tama√±o"; break;
+   case "Affichage int√©gr√©": $tmp="En l√≠nea"; break;
+   case "Oui": $tmp="S√≠"; break;
    case "Non": $tmp="No"; break;
-   case "Supprimer les fichier sÈlectionnÈs": $tmp="Eliminar los ficheros seleccionados"; break;
-   case "Fichier joint :": $tmp="Seleccione un fichero para adjuntar :"; break;
+   case "Supprimer les fichier s√©lectionn√©s": $tmp="Eliminar los ficheros seleccionados"; break;
+   case "Fichier joint": $tmp="Seleccione un fichero para adjuntar :"; break;
    case "Joindre": $tmp="Enviar fichero"; break;
-   case "Adapter": $tmp="ActualizaciÛn"; break;
-   case "Visible :": $tmp="Visibilidad :"; break;
+   case "Adapter": $tmp="Adaptar"; break;
+   case "Visibilit√©": $tmp="Visibilidad"; break;
    case "Total :": $tmp="Total :"; break;
-   case "Fichier non trouvÈ": $tmp="Fichero no encontrado"; break;
+   case "Fichier non trouv√©": $tmp="Fichero no encontrado"; break;
    case "Fichier non visible": $tmp="Fichero no es visible"; break;
-   case "TÈlÈcharg.": $tmp="Descarga(s)"; break;
-   case "PrÈvisualisation :": $tmp="Vista previa :"; break;
-   case "Ces Images sont disponibles sur votre site": $tmp="Estas im·genes est·n disponibles en su sitio Web."; break;
-   case "Ces Documents sont disponibles sur votre site": $tmp="Estos documentos est·n disponibles en su sitio Web."; break;
-   case "Ces Images et ces Documents sont rattachÈs ‡ votre compte.": $tmp="Sus im·genes y documentos."; break;
-   case "TÈlÈcharger un fichier sur le serveur"; $tmp="Cargar el fichero"; break;
+   case "T√©l√©charg.": $tmp="Descarga(s)"; break;
+   case "Pr√©visualisation :": $tmp="Vista previa :"; break;
+   case "Ces Images sont disponibles sur votre site": $tmp="Estas im√°genes est√°n disponibles en su sitio Web."; break;
+   case "Ces Documents sont disponibles sur votre site": $tmp="Estos documentos est√°n disponibles en su sitio Web."; break;
+   case "Ces Images et ces Documents sont rattach√©s √† votre compte.": $tmp="Sus im√°genes y documentos."; break;
+   case "T√©l√©charger un fichier sur le serveur"; $tmp="Cargar el fichero"; break;
+   case 'Extensions autoris√©es'; $tmp='Extensiones de archivo permitidas'; break;
    /////// javascript
-   case "Supprimer les fichiers sÈlectionnÈs ?": $tmp="Eliminar los ficheros seleccionados ?"; break;
-   case "Cette page a dÈj‡ ÈtÈ envoyÈe, veuillez patienter": $tmp="Esta p·gina ha sido presentado, por favor sea paciente"; break;
-   case "Vous devez tout d'abord choisir la PiËce jointe ‡ supprimer": $tmp="Usted debe elegir el fichero adjunto que desea eliminar"; break;
+   case "Supprimer les fichiers s√©lectionn√©s ?": $tmp="Eliminar los ficheros seleccionados ?"; break;
+   case "Cette page a d√©j√† √©t√© envoy√©e, veuillez patienter": $tmp="Esta p√°gina ha sido presentado, por favor sea paciente"; break;
+   case "Vous devez tout d'abord choisir la Pi√®ce jointe √† supprimer": $tmp="Usted debe elegir el fichero adjunto que desea eliminar"; break;
    case "Vous devez selectionner un fichier": $tmp="Debe seleccionar un fichero"; break;
    case "Joindre le fichier maintenant ?": $tmp="Enviar el fichero ahora ?"; break;
-   case "Raffraichir la page": $tmp="Actualizar la p·gina"; break;
-   case "ModËles": $tmp="Plantillas"; break;
+   case "Rafra√Æchir la page": $tmp="Actualizar la p√°gina"; break;
+   case "Mod√®les": $tmp="Plantillas"; break;
    case "Installer": $tmp="Instalar"; break;
-   case "Etes vous certains de vouloir installer le thËme": $tmp="Est· seguro que desea instalar la plantilla ?"; break;
+   case "Etes vous certains de vouloir installer le th√®me": $tmp="Est√° seguro que desea instalar la plantilla ?"; break;
    /////// class upload
-   case "La taille de ce fichier excËde la taille maximum autorisÈe": $tmp="El tamaÒo de este fichero supera el tamaÒo m·ximo de fichero"; break;
-   case "Ce type de fichier n'est pas autorisÈ": $tmp="Este tipo de fichero no se autorizado"; break;
-   case "Le code erreur est : %s": $tmp="CÛdigo de error se : %s"; break;
+   case "La taille de ce fichier exc√®de la taille maximum autoris√©e": $tmp="El tama√±o de este fichero supera el tama√±o m√°ximo de fichero"; break;
+   case "Ce type de fichier n'est pas autoris√©": $tmp="Este tipo de fichero no se autorizado"; break;
+   case "Le code erreur est : %s": $tmp="C√≥digo de error se : %s"; break;
    case "Attention": $tmp="Advertencia"; break;
-   case "Session terminÈe.": $tmp="SesiÛn se detuvo."; break;
-   case "Erreur de tÈlÈchargement du fichier <b>%s</b> (%s) - Le fichier n'a pas ÈtÈ sauvÈ": $tmp="Error al subir fichero <b>%s</b> (%s) - El fichero no guardado"; break;
-   case "<center><b>Fichier {NAME} bien recu ({SIZE} octets transfÈrÈs)</b></center>": $tmp="<center><b>Fichero {NAME} subida ({SIZE} bytes transferidos)</b></center>"; break;
-   case "Erreur de tÈlÈchargement du fichier - fichier non sauvegardÈ.": $tmp="Error al subir fichero - El fichero no guardado"; break;
+   case "Session termin√©e.": $tmp="Sesi√≥n se detuvo."; break;
+   case "Erreur de t√©l√©chargement du fichier %s (%s) - Le fichier n'a pas √©t√© sauv√©": $tmp="Error al subir fichero %s (%s) - El fichero no guardado"; break;
+   case "Fichier {NAME} bien re√ßu ({SIZE} octets transf√©r√©s)": $tmp="Fichero {NAME} subida ({SIZE} bytes transferidos)"; break;
+   case "Erreur de t√©l√©chargement du fichier - fichier non sauvegard√©.": $tmp="Error al subir fichero - El fichero no guardado"; break;
 
-   // NPDS Sable
-   case "Images & Documents": $tmp="Im·genes y Documentos"; break;
-   case "Modules Additionnels": $tmp="Plug-ins"; break;
-   // NPDS Sable
-
-   default: $tmp = "Necesita una traducci&oacute;n <b>[** $phrase **]</b>"; break;
+   default: $tmp = "Necesita una traducci√≥n [** $phrase **]"; break;
  }
- if (cur_charset=="utf-8") {
-    return utf8_encode($tmp);
- } else {
-    return ($tmp);
- }
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>
