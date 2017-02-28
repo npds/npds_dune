@@ -186,7 +186,7 @@ global $NPDS_Prefix, $adminforum;
          </div>
          <div class="row">
            <div class="col-sm-5 text-muted">GeoTool</div>
-           <div class="col-sm-7"><a href="http://geoip.flagfox.net/?ip='.$m['poster_ip'].'" target="_blank" >FlagFox</a></div>
+           <div class="col-sm-7"><a href="http://www.ip-tracker.org/?ip='.$m['poster_ip'].'" target="_blank" >IP tracker</a></div>
          </div>
          <br />
          <a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$forum.'" class="btn btn-secondary">'.translate("Go Back").'</a>
