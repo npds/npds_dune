@@ -25,19 +25,6 @@ function get_total_topics($forum_id) {
    sql_free_result($result);
    return($myrow['total']);
 }
-// probablement ˆ supprimer lol il suffit de prendre le nombre de ligne  de getcontributeurs()
-function get_total_contributeurs($fid, $tid) {
-   global $NPDS_Prefix;
-   $sql = "SELECT COUNT(DISTINCT poster_id) AS total_contributeurs FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'";
-   if (!$result = sql_query($sql))
-      return("ERROR");
-   if (!$myrow = sql_fetch_assoc($result))
-      return("ERROR");
-
-   sql_free_result($result);
-   return($myrow['total_contributeurs']);
-}
-
 function get_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
    $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'",2);
@@ -301,41 +288,29 @@ function aff_video_yt($ibid) {
    }
    return ($ibid);
 }
-// ne fonctionne pas dans tous les contextes car on a pas la variable du theme !!!!
+// ne fonctionne pas dans tous les contextes car on a pas la variable du theme !?
 function putitems_more() {
    global $theme,$tmp_theme;
    if (stristr($_SERVER['PHP_SELF'],"more_emoticon.php")) $theme=$tmp_theme;
-   
-   echo "<p class=\"noir\" align=\"center\">".translate("Click on Smilies to insert it on your Message")."</p>";
+   echo '<p align="center">'.translate("Click on Smilies to insert it on your Message").'</p>';
    if ($ibid=theme_image("forum/smilies/more/smilies.php"))
    {$imgtmp="themes/$theme/images/forum/smilies/more/";} 
    else 
    {$imgtmp="images/forum/smilies/more/";}
-
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
-      $rowcolor = tablos();
-      echo "<table width=\"100%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">";
-      $i=0;
+      echo '
+      <div>';
       foreach ($smilies AS $tab_smilies) {
          if ($tab_smilies[3]) {
-            if ($i==0) echo "<tr $rowcolor>";
-            echo "<td width=\"20%\" align=\"center\">
-            <a href=\"javascript: DoAdd('true','message',' ".$tab_smilies[0]." ');\"><img src=\"".$imgtmp.$tab_smilies[1]."\" width=\"32\" height=\"32\" border=\"0\" alt=\"$tab_smilies[2]";
-            if ($tab_smilies[2]) echo " => ";
-            echo $tab_smilies[0]."\" /></a></td>";
-            $i++;
-            if ($i==5) {
-               $rowcolor = tablos();
-               echo "</tr>";
-               $i=0;
-            }
+            echo '
+         <span class ="d-inline-block m-2"><a href="#" onclick="javascript: DoAdd(\'true\',\'message\',\' '.$tab_smilies[0]. '\');"><img src="'.$imgtmp.$tab_smilies[1].'" width="32" height="32" alt="'.$tab_smilies[2];
+            if ($tab_smilies[2]) echo ' => ';
+            echo $tab_smilies[0].'" /></a></span>';
          }
       }
-      if ($i>0)
-         echo "<td colspan=\"".(5-$i)."\"></td></tr></table>";
-      else
-         echo "</table>";
+      echo '
+      </div>';
    }
 }
 function putitems() {
@@ -371,19 +346,19 @@ function putitems() {
 function HTML_Add() {
    $affich = '
          <div>'
-         .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;p align=\\\'left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;p align=\\\'center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;p align=\\\'right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg"></i></a>&nbsp;  '
-         .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link fa-lg"></i></a>&nbsp;  '
-         ."<a href=\"javascript: addText('&lt;table width=\'90%\' cellspacing=\'1\' cellpadding=\'3\' border=\'0\' align=\'center\' class=\'ligna\'&gt;&lt;tr&gt;&lt;td&gt;Spoiler&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table width=\'100%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\'&gt;&lt;tr&gt;&lt;td style=\'background-color: #FFFFFF;\'&gt;&lt;span style=\'color: #FFFFFF;\'&gt; ...\\n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;','');\"><i class=\"fa fa-table fa-lg\"></i></a>&nbsp;  "
-         ."<a href=\"javascript: addText('&lt;pre&gt;[code]','[/code]&lt;/pre&gt;');\"><i class=\"fa fa-code\"></i></a>&nbsp;  "
+         .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-right").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Table").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>'
+         .'<a href="javascript: addText(\'&lt;pre&gt;[code]\',\'[/code]&lt;/pre&gt;\');" title="'.translate("Code").'" data-toggle="tooltip" ><i class="fa fa-code fa-lg mr-2"></i></a>'
          .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;  
           </div>';
    return($affich);
@@ -442,17 +417,19 @@ function undo_htmlspecialchars($input) {
 
 function searchblock() {
    $ibid='
-   <nav class="navbar navbar-light bg-faded">
-      <form class="form-inline float-right" id="searchblock" action="searchbb.php" method="post" name="forum_search">
-         <input type="hidden" name="addterm" value="any" />
-         <input type="hidden" name="sortby" value="0" />
-         <div class="form-group">
-            <label class="sr-only" for="term">'.translate('Search').'</label>
-            <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
-         </div>
-         <button type="submit" class="btn btn-outline-primary">'.translate("Submit").'</button>
-      </form>
-   </nav>';
+      <div class="card d-flex flex-row-reverse p-1">
+         <form class="form-inline" id="searchblock" action="searchbb.php" method="post" name="forum_search">
+            <input type="hidden" name="addterm" value="any" />
+            <input type="hidden" name="sortby" value="0" />
+            <div class="">
+               <label class="sr-only" for="term">'.translate('Search').'</label>
+               <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
+            </div>
+            <div class=" ml-2">
+               <button type="submit" class="btn btn-outline-primary">'.translate("Submit").'</button>
+            </div>
+         </form>
+      </div>';
    return ($ibid);
 }
 
