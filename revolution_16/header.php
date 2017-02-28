@@ -90,14 +90,12 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       include ("themes/$tmp_theme/include/body_onload.inc");
       echo $body_onloadF;
    }
-   
-      if (isset($user)) {
+
+   if (isset($user)) {
       global $cookie;
       $skin='';
       if (array_key_exists(11,$cookie)) {$skin=$cookie[11];}
-      
    }
-
 
    // include externe file from modules/include or themes/.../include for functions, codes ...+ skin motor
    if (file_exists("modules/include/header_head.inc")) {

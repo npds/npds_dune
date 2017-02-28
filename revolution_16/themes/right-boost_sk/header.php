@@ -35,6 +35,15 @@ if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
    }
 }
 
+function colsyst($coltarget) {
+   $coltoggle ='
+      <div class="col hidden-lg-up mr-2 my-2">
+         <hr />
+         <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+      </div>';
+   echo $coltoggle;
+}
+
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
 $ContainerGlobal="\n".'<div id="container" class="">'."\n";
@@ -51,15 +60,11 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
 switch ($pdst) {
 case '-1':
    echo '
-      <div id="col_princ" class="col-12">';
-break;
-case '2':
-   echo '
-      <div id="col_princ" class="col-12 col-sm-8">';
+         <div id="col_princ" class="col-12">';
 break;
 default:
    echo '
-      <div id="col_princ" class="col-12 col-sm-8">';
+         <div id="col_princ" class="col-12 col-lg-8">';
 break;
 }
 ?>

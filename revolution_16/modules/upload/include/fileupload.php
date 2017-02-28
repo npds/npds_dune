@@ -188,7 +188,7 @@ function uploadFile ($IdPost, $IdTopic, $name, $size, $type, $src_file, $inline=
          return FALSE;
       }
    }
-   Ecr_Log("security","Upload File(s) : ".getip(), $log_filename);
+   Ecr_Log('security','Upload File(s) : '.getip(), $log_filename);
    return TRUE;
 }
 

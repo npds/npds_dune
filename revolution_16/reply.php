@@ -120,14 +120,14 @@ if ($submitS) {
 
       if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
       if (isset($sig) && $userdata['uid']!= 1) $message .= " [addsig]";
-      if (($forum_type!="6") and ($forum_type!="5")) {
+      if (($forum_type!='6') and ($forum_type!='5')) {
          $message = aff_code($message);
          $message = str_replace("\n", "<br />", $message);
       }
-      if (($allow_bbcode==1) and ($forum_type!="6") and ($forum_type!="5")) {
+      if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5')) {
          $message = smile($message);
       }
-      if (($forum_type!="6") and ($forum_type!="5")){
+      if (($forum_type!='6') and ($forum_type!='5')){
          $message = make_clickable($message);
          $message = removeHack($message);
       }

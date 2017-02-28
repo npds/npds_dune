@@ -17,7 +17,7 @@ if (!function_exists("Mysql_Connexion")) {
 include("functions.php");
 
    if (isset($user)) {
-      if ($cookie[9]=="") $cookie[9]=$Default_Theme;
+      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
       if (!$file=@opendir("themes/$cookie[9]")) {
@@ -28,12 +28,12 @@ include("functions.php");
    }
    include('meta/meta.php');
    global $site_font;
-   echo import_css($tmp_theme, $language, $site_font, "","");
-
+   echo '<link rel="stylesheet" href="themes/_skins/default/bootstrap.min.css">';
+   echo import_css($tmp_theme, $language, $site_font, '','');
    include('lib/formhelp.java.php');
    echo '
       </head>
-      <body style="padding: 10px;">
+      <body class="p-2">
       '.putitems_more().'
       </body>
    </html>';

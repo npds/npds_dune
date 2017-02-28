@@ -52,24 +52,32 @@ function groupe($groupe) {
 function droits($member) {
    echo '
    <div class="form-group">
-      <label class="radio-inline text-danger">';
+      <label class="custom-control custom-radio text-danger">';
    if ($member==-127) {$checked=' checked="checked"';} else {$checked='';}
    echo '
-         <input type="radio" name="privs" value="-127" '.$checked.' />'.adm_translate("Administrateurs").'
+         <input type="radio" name="privs" class="custom-control-input" value="-127" '.$checked.' />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Administrateurs").'</span>
       </label>
-      <label class="radio-inline text-danger">';
+      <label class="custom-control custom-radio text-danger">';
    if ($member==-1) {$checked=' checked="checked"';} else {$checked='';}
    echo '
-         <input type="radio" name="privs" value="-1" '.$checked.' />'.adm_translate("Anonymes").'
+         <input type="radio" name="privs" class="custom-control-input" value="-1" '.$checked.' />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Anonymes").'</span>
       </label>';
    echo '
-      <label class="radio-inline text-danger">';
+      <label class="custom-control custom-radio text-danger">';
    if ($member>0) {
       echo '
-         <input type="radio" name="privs" value="1" checked="checked" />'.adm_translate("Membres").'
+         <input type="radio" name="privs" value="1" class="custom-control-input" checked="checked" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Membres").'</span>
       </label>
-      <label class="radio-inline">
-         <input type="radio" name="privs" value="0" />'.adm_translate("Tous").'
+      <label class="custom-control custom-radio">
+         <input type="radio" name="privs" class="custom-control-input" value="0" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Tous").'</span>
       </label>
    </div>
    <div class="form-group row">
@@ -81,10 +89,14 @@ function droits($member) {
    } else {
       if ($member==0) {$checked=' checked="checked"';} else {$checked='';}
       echo '
-      <input type="radio" name="privs" value="1" />'.adm_translate("Membres").'
+         <input type="radio" name="privs" class="custom-control-input" value="1" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Membres").'</span>
       </label>
-      <label class="radio-inline">
-         <input type="radio" name="privs" value="0"'.$checked.' />'.adm_translate("Tous").'
+      <label class="custom-control custom-radio">
+         <input type="radio" name="privs" class="custom-control-input" value="0"'.$checked.' />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Tous").'</span>
       </label>
    </div>
    <div class="form-group row">
@@ -121,9 +133,9 @@ function DownloadAdmin() {
             <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
             <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Compt.").'</th>
             <th data-sortable="true" data-halign="center" data-align="center">Typ.</th>
-            <th data-halign="center" data-align="right">'.adm_translate("URL").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("URL").'</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate("Nom de fichier").'</th>
-            <th data-halign="center" >'.adm_translate("Ver.").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("Ver.").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Taille de fichier").'</th>
             <th data-halign="center" >'.adm_translate("Date").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>

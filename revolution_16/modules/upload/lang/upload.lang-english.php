@@ -10,7 +10,7 @@
 function upload_translate($phrase) {
  switch($phrase) {
    /////// fichier
-   case 'x': $tmp='Attachments:'; break;
+   case 'Pièces jointes': $tmp='Attachments:'; break;
    case 'Fichier': $tmp='File'; break;
    case 'Type': $tmp='Type'; break;
    case 'Taille': $tmp='Size'; break;
@@ -18,10 +18,10 @@ function upload_translate($phrase) {
    case 'Oui': $tmp='Yes'; break;
    case 'Non': $tmp='No'; break;
    case 'Supprimer les fichiers sélectionnés': $tmp='Delete selected files'; break;
-   case 'Fichier joint :': $tmp='Select a file to attach:'; break;
+   case 'Fichier joint': $tmp='Select a file to attach:'; break;
    case 'Joindre': $tmp='Send file'; break;
    case 'Adapter': $tmp='Update'; break;
-   case 'Visible': $tmp='Visibility'; break;
+   case 'Visibilité': $tmp='Visibility'; break;
    case 'Total :': $tmp='Total:'; break;
    case 'Fichier non trouvé': $tmp='File not found'; break;
    case 'Fichier non visible': $tmp='File not visible'; break;
@@ -36,9 +36,9 @@ function upload_translate($phrase) {
    case "Supprimer les fichiers sélectionnés ?": $tmp="Delete selected files ?"; break;
    case "Cette page a déjà été envoyée, veuillez patienter": $tmp="This page has been submitted, please be patient"; break;
    case "Vous devez tout d'abord choisir la Pièce jointe à supprimer": $tmp="You must choose the attachment you want to delete"; break;
-   case "Vous devez selectionner un fichier": $tmp="You must select a file"; break;
+   case "Vous devez sélectionner un fichier": $tmp="You must select a file"; break;
    case "Joindre le fichier maintenant ?": $tmp="Send file now ?"; break;
-   case "Raffraichir la page": $tmp="Reload the page"; break;
+   case "Rafraîchir la page": $tmp="Reload the page"; break;
    case "Modèles": $tmp="Templates"; break;
    case "Installer": $tmp="Install"; break;
    case "Etes vous certains de vouloir installer le thème": $tmp="Are you sure you want to install the template"; break;
@@ -51,12 +51,8 @@ function upload_translate($phrase) {
    case "Erreur de téléchargement du fichier %s (%s) - Le fichier n'a pas été sauvé": $tmp="Error while uploading file %s (%s) - File not saved"; break;
    case "Fichier {NAME} bien reçu ({SIZE} octets transférés)": $tmp="file {NAME} uploaded ({SIZE} bytes transferred)"; break;
    case "Erreur de téléchargement du fichier - fichier non sauvegardé.": $tmp="Error while uploading file - File not saved"; break;
-   // NPDS Sable
-   case "Images & Documents": $tmp="Images & Documents"; break;
-   case "Modules Additionnels": $tmp="PlugIns"; break;
-   case "Pièces jointes": $tmp="Attached documents"; break;
 
-   default: $tmp = "nécessite une traduction [** $phrase **]"; break;
+   default: $tmp = "Need tanslation [** $phrase **]"; break;
  }
    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }

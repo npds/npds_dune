@@ -38,8 +38,8 @@ global $Titlesitename;
    $Titlesitename=upload_translate("Télécharg.");
    include("meta/meta.php");
    $userX = base64_decode($user);
-   $userdata = explode(":", $userX);
-   if ($userdata[9]!="") {
+   $userdata = explode(':', $userX);
+   if ($userdata[9]!='') {
       if (!$file=@opendir("themes/$userdata[9]")) {
          $theme=$Default_Theme;
       } else {
@@ -48,7 +48,23 @@ global $Titlesitename;
    } else {
       $theme=$Default_Theme;
    }
-   echo '<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">';//hardcoded lol
+   
+   
+   if (isset($user)) {
+      global $cookie;
+      $skin='';
+      if (array_key_exists(11,$cookie)) {$skin=$cookie[11];}
+   }
+   echo '
+   <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />';
+   if($skin!='') {
+   echo '
+   <link rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
+   <link rel="stylesheet" href="themes/_skins/'.$skin.'/extra.css" />';
+      } else { echo ' 
+   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';}
+   
+   echo '<link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
    echo import_css($theme, $language, $site_font, '','');
    echo '
    </head>
@@ -61,7 +77,7 @@ global $Titlesitename;
       forumerror(0001);
    $myrow = sql_fetch_assoc($result);
    $moderator=get_moderator($myrow['forum_moderator']);
-   $moderator=explode(" ",$moderator);
+   $moderator=explode(' ',$moderator);
    $Mmod=false;
    for ($i = 0; $i < count($moderator); $i++) {
       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
