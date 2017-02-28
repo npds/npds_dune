@@ -26,27 +26,17 @@ switch ($pdst)
          </div>
       </div>';
    break;
-   case '2':
-      echo '
-      </div>
-         <div id="col_LB" class=" col-sm-4">';
-            leftblocks();
-            rightblocks();
-      echo '
-            </div>
-         </div>
-      </div>';
-   break;
    default:
       echo '
       </div>
-      <div id="col_LB" class=" col-sm-4">';
+      <div id="col_LB" class="n-c col-sm-4">';
          leftblocks();
          rightblocks();
       echo '
             </div>
          </div>
       </div>';
+      echo colsyst('#col_LB');
    break;
 }
 
