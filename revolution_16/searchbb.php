@@ -23,7 +23,7 @@ if ($SuperCache) {
    $cache_obj = new SuperCacheEmpty();
 }
 include("auth.php");
-$Smax="99";
+$Smax='99';
 
 /*jules*/
 function ancre($forum_id,$topic_id,$post_id,$posts_per_page) {
@@ -47,11 +47,10 @@ include('header.php');
    $term = removeHack(stripslashes(htmlspecialchars(urldecode($term),ENT_QUOTES,cur_charset))); // electrobug
    echo '
    <h2>'.translate("Search in").' : Forums</h2>
+   <hr />
    <form name="search" action="'.$_SERVER['PHP_SELF'].'" method="post">
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="term">'.translate("Keyword").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="term">'.translate("Keyword").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="term" name="term" value="'.$term.'" />
          </div>
@@ -61,38 +60,34 @@ include('header.php');
             <label class="form-control-label" for="only_solved">'.translate("Topic status").'</label>
          </div>
          <div class="col-sm-8">
-         <label class="c-input c-checkbox">
-            <input type="checkbox" name="only_solved" value="ON" />
-           <span class="c-indicator"></span>
-           '.translate("Solved").'
-         </label>
+            <label class="custom-control custom-checkbox">
+               <input type="checkbox" id="only_solved" name="only_solved" class="custom-control-input" value="ON" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Solved").'</span>
+            </label>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="addterms">'.translate("Sort by").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="addterms">'.translate("Sort by").'</label>
          <div class="col-sm-8">
-            <div class="c-inputs-stacked">
-               <label class="c-input c-radio">
-                  <input type="radio" name="addterms" value="any" checked="checked" />
-                  <span class="c-indicator"></span>
-                  '.translate("Search for ANY of the terms (Default)").'
+            <div class="custom-controls-stacked">
+               <label class="custom-control custom-radio">
+                  <input type="radio" name="addterms" class="custom-control-input" value="any" checked="checked" />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Search for ANY of the terms (Default)").'</span>
                </label>
-               <label class="c-input c-radio">
-                  <input type="radio" name="addterms" value="all" />
-                  <span class="c-indicator"></span>
-                  '.translate("Search for ALL of the terms").'
+               <label class="custom-control custom-radio">
+                  <input type="radio" name="addterms" class="custom-control-input" value="all" />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Search for ALL of the terms").'</span>
                </label>
             </div>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="forum">'.translate("Forum").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="forum">'.translate("Forum").'</label>
          <div class="col-sm-8">
-            <select class="form-control custom-select" name="forum">
+            <select class="form-control custom-select" name="forum" id="forum">
                <option value="all">'.translate("Search All Forums").'</option>';
    $rowQ1=Q_Select ("SELECT forum_name,forum_id FROM ".$NPDS_Prefix."forums", 3600);
    if (!$rowQ1)
@@ -106,51 +101,44 @@ include('header.php');
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="username">'.translate("Author's Name").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="username">'.translate("Author's Name").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="username" name="username" />
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-4">
-            <label class="form-control-label" for="sortby">'.translate("Sort by").'</label>
-         </div>
+         <label class="form-control-label col-sm-4" for="sortby">'.translate("Sort by").'</label>
          <div class="col-sm-8">
-            <div class="c-inputs-stacked">';
+            <div class="">';
    settype($sortby, "integer");
    echo '
-            <label class="c-input c-radio">
-               <input type="radio" name="sortby" value="0" ';
+            <label class="custom-control custom-radio">
+               <input type="radio" name="sortby" class="custom-control-input" value="0" ';
       if ($sortby=="0") echo 'checked="checked" ';
-      echo '/>
-               <span class="c-indicator"></span>
-                  '.translate("Post Time").'
-            </label>';
-   echo '
-            <label class="c-input c-radio">
-               <input type="radio" name="sortby" value="1" ';
+   echo '/>
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Post Time").'</span>
+            </label>
+            <label class="custom-control custom-radio">
+               <input type="radio" name="sortby" class="custom-control-input" value="1" ';
       if ($sortby=="1") echo 'checked="checked" ';
-      echo '/>
-               <span class="c-indicator"></span>
-                  '.translate("Topics").'
-            </label>';
-   echo '
-            <label class="c-input c-radio">
-               <input type="radio" name="sortby" value="2" ';
+   echo '/>
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Topics").'</span>
+            </label>
+            <label class="custom-control custom-radio">
+               <input type="radio" name="sortby" class="custom-control-input" value="2" ';
       if ($sortby=="2") echo 'checked="checked" ';
-      echo '/>
-               <span class="c-indicator"></span>
-                  '.translate("Forum").'
-            </label>';
-   echo '
-            <label class="c-input c-radio">
-               <input type="radio" name="sortby" value="3" ';
+   echo '/>
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Forum").'</span>
+            </label>
+            <label class="custom-control custom-radio">
+               <input type="radio" name="sortby" class="custom-control-input" value="3" ';
       if ($sortby=="3") echo 'checked="checked" ';
-      echo '/>
-               <span class="c-indicator"></span>
-                  '.translate("Author").'
+   echo '/>
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Author").'</span>
             </label>
             </div>
          </div>
@@ -164,14 +152,14 @@ include('header.php');
    </form>';
 
    $query = "SELECT u.uid, f.forum_id, p.topic_id, p.post_id, u.uname, p.post_time, t.topic_title, f.forum_name, f.forum_type, f.forum_pass, f.arbre FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u, ".$NPDS_Prefix."forums f, ".$NPDS_Prefix."forumtopics t";
-   if (isset($term)&&$term!="") {
-      $terms = explode(" ",stripslashes(removeHack(trim($term))));
+   if (isset($term)&&$term!='') {
+      $terms = explode(' ',stripslashes(removeHack(trim($term))));
       $addquery = "( (p.post_text LIKE '%$terms[0]%' OR strcmp(soundex(p.post_text), soundex('$terms[0]'))=0)";
       if (isset($addterms)) {
-         if ($addterms=="any")
-            $andor = "OR";
+         if ($addterms=='any')
+            $andor = 'OR';
          else
-            $andor = "AND";
+            $andor = 'AND';
       }
       $size = sizeof($terms);
       for ($i=1;$i<$size;$i++)
@@ -179,7 +167,7 @@ include('header.php');
       $addquery.=")";
    }
 
-   if (isset($forum)&&$forum!="all") {
+   if (isset($forum)&&$forum!='all') {
       if (isset($addquery))
          $addquery.=" AND p.forum_id='$forum' AND f.forum_id='$forum'";
       else
@@ -198,14 +186,14 @@ include('header.php');
    }
 
    if (!$user) {
-      if (!isset($addquery)) $addquery="";
+      if (!isset($addquery)) $addquery='';
       $addquery.=" AND f.forum_type!='5' AND f.forum_type!='7' AND f.forum_type!='9'";
    }
 
    if (isset($addquery))
       $query.=" WHERE $addquery AND  ";
    else
-      $query.=" WHERE ";
+      $query.=' WHERE ';
 
    settype($sortby, "integer");
    if ($sortby==0) $sortbyR="p.post_id";
@@ -219,7 +207,7 @@ include('header.php');
    }
 
    $Smax++;
-   settype($Smax,"integer");
+   settype($Smax,'integer');
    $query.=" limit 0,$Smax";
    $result = sql_query($query);
 
@@ -250,10 +238,10 @@ include('header.php');
          <thead>
             <tr>
                <th data-sortable="true">&nbsp;</th>
-               <th data-sortable="true">'.translate("Forum").'</th>
-               <th data-sortable="true">'.translate("Topic").'</th>
+               <th>'.translate("Forum").'</th>
+               <th>'.translate("Topic").'</th>
                <th data-sortable="true">'.translate("Author").'</th>
-               <th data-sortable="true">'.translate("Posted").'</th>
+               <th>'.translate("Posted").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -277,7 +265,6 @@ include('header.php');
       </table>';
    }
    sql_free_result();
-      echo auto_complete ('membre','uname','users','username','86400');
-
+   echo auto_complete ('membre','uname','users','username','86400');
    include('footer.php');
 ?>
