@@ -122,9 +122,9 @@ function aff_pub_in($lock_state, $topic, $forum,$mod) {
    }
 }
 
-$total_contributeurs = get_total_contributeurs($forum, $topic);
 $contributeurs = get_contributeurs($forum, $topic);
 $contributeurs=explode(' ',$contributeurs);
+$total_contributeurs = count($contributeurs);
 
 $title=$forum_name; $post=$topic_subject;
 include('header.php');
@@ -178,7 +178,7 @@ include('header.php');
          <div class="card-block-small">
    '.translate("Contributors").' : '.$total_contributeurs;
 
-   for ($i = 0; $i < count($contributeurs); $i++) {
+   for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
       if ($contri['user_avatar'] != '') {
          if (stristr($contri['user_avatar'],"users_private")) {
