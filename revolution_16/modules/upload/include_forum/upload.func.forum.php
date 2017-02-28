@@ -50,33 +50,36 @@ function getAttachments ($apli, $post_id, $att_id=0, $Mmod=0 ) {
       $att[$i] = $attach;
       $i++;
    }
-   return ($i==0 ) ? "" : $att;
+   return ($i==0 ) ? '' : $att;
 }
 
 /************************************************************************/
-/* Fonction permettant de cree une checkbox                             */
+/* Fonction permettant de créer une checkbox                            */
 /************************************************************************/
-function getCheckBox ($name, $value=1, $current, $text="") {
-   $p =  sprintf ("<input type=\"checkbox\" name=\"%s\" value=\"%s\"%s />%s\n",
+function getCheckBox ($name, $value=1, $current, $text='') {
+   $p =  sprintf ('<input type="checkbox" name="%s" value="%s"%s />%s',
          $name,
-         $value, ("$current"=="$value")? " checked" : "",
-         (empty ($text)) ? "" : " $text" );
+         $value, ("$current"=="$value")? ' checked="checked"' : '',
+         (empty ($text)) ? '' : " $text" );
    return $p;
 }
 /************************************************************************/
 /* Fonction permettant une liste de choix                               */
 /************************************************************************/
-function getListBox ($name, $items, $selected="", $multiple=0, $onChange="") {
-   $oc = empty ($onChange) ? "" : " onchange=\"$onChange\"";
-   $p = sprintf ("<select class=\"custom-select form-control-sm\" name=\"%s%s\"%s%s>\n", $name, ($multiple == 1)?"[]":"",
-                ($multiple == 1)?" multiple":"", $oc);
+function getListBox ($name, $items, $selected='', $multiple=0, $onChange='') {
+   $oc = empty ($onChange) ? '' : ' onchange="'.$onChange.'"';
+   $p = sprintf ('
+               <select class="custom-select form-control-sm" name="%s%s"%s%s>', $name, ($multiple == 1)?'[]':'',
+                ($multiple == 1)?' multiple':'', $oc);
    if (is_array($items)) {
       reset ($items);
       while (list($k, $v) = each($items)) {
-         $p .= sprintf(" <option value=\"%s\"%s>%s\n", $k, strcmp($selected,$k)?"":" selected", $v);
+         $p .= sprintf(' 
+                  <option value="%s"%s>%s</option>', $k, strcmp($selected,$k)?'':' selected="selected"', $v);
       }
    }
-   return $p . "</select>\n";
+   return $p . '
+               </select>';
 }
 /************************************************************************/
 /* Pour la class                                                        */
@@ -127,7 +130,7 @@ function display_upload($apli,$post_id,$Mmod){
          <div class="list-group-item d-flex justify-content-start">
             <img class="n-smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" alt="icon_post" />
             <span class="text-muted p-2">'.upload_translate("Pièces jointes").'</span>
-            <span class="badge badge-default badge-pill ml-auto">'.$att_count.'</span>
+            <span class="badge badge-default ml-auto">'.$att_count.'</span>
          </div>';
 
       $ncell = 0;
@@ -258,9 +261,9 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    }
    if ($Mmod) {
       global $userdata;
-      $marqueurM="&amp;Mmod=".substr($userdata[2],8,6);
+      $marqueurM='&amp;Mmod='.substr($userdata[2],8,6);
    } else {
-      $marqueurM="";
+      $marqueurM='';
    }
    $att_url= "getfile.php?att_id=$att_id&amp;apli=$apli".$marqueurM."&amp;att_name=".rawurlencode($att_name);
 
@@ -312,13 +315,13 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
 /* Copyright 1999 Dominic J. Eidson, use as you wish, but give credit   */
 /* where credit due.                                                    */
 /************************************************************************/
-function word_wrap ($string, $cols = 80, $prefix = "") {
+function word_wrap ($string, $cols = 80, $prefix = '') {
    $t_lines = explode("\n", $string);
-   $outlines = "";
+   $outlines = '';
    while (list(, $thisline) = each($t_lines)) {
       if (strlen($thisline) > $cols) {
-         $newline = "";
-         $t_l_lines = explode(" ", $thisline);
+         $newline = '';
+         $t_l_lines = explode(' ', $thisline);
          while (list(, $thisword) = each($t_l_lines)) {
             while ((strlen($thisword) + strlen($prefix)) > $cols) {
                $cur_pos = 0;
@@ -332,9 +335,9 @@ function word_wrap ($string, $cols = 80, $prefix = "") {
             }
             if ((strlen($newline) + strlen($thisword)) > $cols) {
                $outlines .= $prefix.$newline."\n";
-               $newline = $thisword." ";
+               $newline = $thisword.' ';
             } else {
-               $newline .= $thisword." ";
+               $newline .= $thisword.' ';
             }
          }
          $outlines .= $prefix.$newline."\n";
@@ -349,8 +352,8 @@ function word_wrap ($string, $cols = 80, $prefix = "") {
 /* Affiche la source d une page html           */
 /***********************************************/
 function scr_html ($text) {
-   $text = str_replace ("<", "&lt;", $text);
-   $text = str_replace (">", "&gt;", $text);
+   $text = str_replace ('<', '&lt;', $text);
+   $text = str_replace ('>', '&gt;', $text);
    return $text;
 }
 
@@ -363,8 +366,8 @@ function delete($del_att){
 
    $rep=$DOCUMENTROOT;
    if (is_array($del_att) ) {
-      $del_att = implode ($del_att, ",");
-      $sql = "SELECT att_id, att_name, att_path from $upload_table WHERE att_id IN ($del_att)";
+      $del_att = implode ($del_att, ',');
+      $sql = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($del_att)";
       $result=sql_query($sql);
       while(list($att_id, $att_name, $att_path)=sql_fetch_row($result)){
          @unlink($rep."$att_path/$att_id.$apli.$att_name");
@@ -388,18 +391,18 @@ function update_inline($inline_att) {
    }
 }
 /*****************************************************/
-/* Update la visibilitÈe                             */
+/* Update la visibilité                              */
 /*****************************************************/
 function renomme_fichier($listeV, $listeU) {
    global $upload_table, $apli, $DOCUMENTROOT;
    $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id in ($listeV) and visible=1";
    $result = sql_query($query);
    while ($attach=sql_fetch_assoc($result)) {
-      if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".".$attach['att_name'])) {
-         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".@".$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".".$attach['att_name']);
+      if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'])) {
+         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".".$attach['att_name']);
       }
    }
-   $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id in ($listeU) and visible=0";
+   $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($listeU) AND visible=0";
    $result = sql_query($query);
    while ($attach=sql_fetch_assoc($result)) {
       if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".@".$attach['att_name'])) {
@@ -411,18 +414,17 @@ function update_visibilite($visible_att,$visible_list) {
    global $upload_table;
    if (is_array ($visible_att) ) {
       $visible = implode ($visible_att, ',');
-      $sql = "UPDATE $upload_table SET visible='1' WHERE att_id in ($visible)";
+      $sql = "UPDATE $upload_table SET visible='1' WHERE att_id IN ($visible)";
       sql_query($sql);
-
       $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
       $result=array_diff($visible_lst,$visible_att);
       $unvisible=implode($result, ",");
-      $sql = "UPDATE $upload_table SET visible='0' WHERE att_id in ($unvisible)";
+      $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    } else {
       $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
       $unvisible=implode($visible_lst, ",");
-      $sql = "UPDATE $upload_table SET visible='0' WHERE att_id in ($unvisible)";
+      $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    }
    renomme_fichier($visible,$unvisible);

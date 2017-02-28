@@ -1080,7 +1080,7 @@ if (file_exists($infos_fma)) {
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="upload" />
       <div class="form-group">
-         <span class="help-block"><b>'.fma_translate("Extensions autorisées : ").'</b>'.$extension_fma.'</span>
+         <span class="help-block">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></span>
          <input class="form-control" name="userfile" type="file" size="50" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
@@ -1158,7 +1158,9 @@ if ($inclusion) {
    if ($dircmd_fma[0]) {
       $Xcontent=str_replace('_cre_dir',$create_dir,$Xcontent);
    } else {
-      $Xcontent=str_replace("<div id=\"cre_dir\">","<div id=\"cre_dir\" style=\"display: none;\">",$Xcontent);
+      $Xcontent=str_replace('_classempty','collapse',$Xcontent);
+
+      $Xcontent=str_replace('<div id="cre_dir">','<div id="cre_dir" style="display: none;">',$Xcontent);
       $Xcontent=str_replace('_cre_dir','',$Xcontent);
    }
    $Xcontent=str_replace('_del_dir',$remove_dir,$Xcontent);

@@ -10,6 +10,7 @@
 html{}
 body {}
 a:hover {text-decoration:none;}
+table{table-layout: fixed;}
 /** <== Balise html                                                         **/
 
 /** ==> Classes BS4                                                         **/
@@ -100,19 +101,6 @@ a:hover {text-decoration:none;}
 
 
 /* ==> adaptation menu */
-/* 
-nav#uppernavbar.navbar.navbar-light.navbar-fixed-top.bg-faded {padding: 0rem 1rem;}
- */
-
-/* 
-ul.nav.navbar-nav {
-  line-height: 2.5rem;
-}
-a.navbar-brand {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
- */
 
 @media (min-width: 768px) {
   .page-header {
@@ -122,32 +110,15 @@ a.navbar-brand {
 }
 
 @media (max-width: 767px) {
-  body {margin-top:4rem;}
+  #container {margin-top:4rem;}
   nav#uppernavbar.navbar.navbar-light.navbar-fixed-top.bg-faded {padding: 0.5rem 0.5rem;}
- 
-/* 
-  .navbar-divider {display:none;}
- */
- 
- 
   ul.nav.navbar-nav {
     line-height: 1.5rem;
   }
- 
- 
   a.navbar-brand {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
   }
- 
- 
-/* 
-  .navbar-nav .nav-item {
-    clear: left;
-    margin-left: 1rem;
-  }
- */
- 
   nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
   .page-header {
     margin: 1.5rem 0 20px;
@@ -206,22 +177,11 @@ ul.dropdown-menu {
 }
 
 /* ==> toggle systeme identique au navbar mais pour les col */
-.col.navbar-toggler {
-  position: relative;
-  float: right;
-  margin-right: 0px;
-  padding: 0px 0px;
-  margin-top: 7px;
-  margin-bottom: 0px;
-}
-
-@media (max-width: 48em) {
-  #col_princ.col-sm-8,#col_LB.col-sm-4 {
-    width:100%;
-    content: "";
-    clear: both;
-  }
-  #col_princ {margin-bottom: 1rem;}
+@media (max-width: 991px) {
+  .n-c {
+  display:none;
+  margin-top: 1rem;
+  };
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
