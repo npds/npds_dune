@@ -92,7 +92,7 @@ function List_Meta_Lang() {
             <td>
                <input type="hidden" name="nbr" value="'.$ibid.'" />';
       if ($obligatoire == false) 
-         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fa fa-trash-o fa-lg text-danger" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
+         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fa fa-trash-o fa-lg text-muted" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
       else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>';
       $tablmeta_c.='
             </td>
@@ -109,7 +109,7 @@ function List_Meta_Lang() {
       }
       else {
          $tablmeta_c.= '
-         <td>'.split_string_without_space(aff_langue($description),29).'</td>';
+         <td>'.aff_langue($description).'</td>';
       }
       $tablmeta_c.='
       </tr>';
@@ -132,23 +132,21 @@ function List_Meta_Lang() {
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons" >
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate("Nom").'</th>
-            <th data-sortable="true" data-halign="center" >'.adm_translate("Type").'</th>
+            <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" >'.adm_translate("Type").'</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate("Description").'</th>
          </tr>
       </thead>
       <tbody>';
    $tablmeta.= $tablmeta_c;
    $tablmeta.= '
-         <tr>
-            <td colspan="4">
-               <input type="hidden" name="op" value="Kill_Meta_Lang" />
-               <input type="image" src="images/admin/metalang/delete.gif" name="submit" value="kill" title="'.adm_translate("Tout supprimer").'" alt="'.adm_translate("Tout supprimer").'" />
-            </td>
-         </tr>
       </tbody>
    </table>
+   <div class="">
+      <input type="hidden" name="op" value="Kill_Meta_Lang" />
+      <button class="btn btn-danger my-2" type="submit" value="kill" title="'.adm_translate("Tout supprimer").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-trash-o fa-lg"></i></button>
+   </div>
    </form>';
    echo $tablmeta;
    adminfoot('','','','');
