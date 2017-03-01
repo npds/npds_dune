@@ -10,6 +10,7 @@
 html{}
 body {}
 a:hover {text-decoration:none;}
+table{table-layout: fixed;}
 /** <== Balise html                                                         **/
 
 /** ==> Classes BS4                                                         **/
@@ -106,11 +107,10 @@ a:hover {text-decoration:none;}
     margin: 53px 0 20px;
     padding:1rem;
   }
-  
 }
 
 @media (max-width: 767px) {
-  body {margin-top:4rem;}
+  #container {margin-top:4rem;}
   nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
   .navbar-divider {display:none;}
   ul.nav.navbar-nav {
@@ -184,7 +184,7 @@ ul.dropdown-menu {
 /* ==> toggle systeme identique au navbar mais pour les col */
 
 @media (max-width: 991px) {
- .n-c {display:none;}
+  .n-c {display:none;}
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
@@ -757,7 +757,6 @@ a.tooltip_ws:hover em span {
     transform: rotate(0deg);
   }
 }
-
 @keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);
@@ -868,7 +867,6 @@ a.tooltip_ws:hover em span {
     transform: translate(0,0);
   }
 }
-
 @keyframes vertical {
   0% {
     -webkit-transform: translate(0,-3px);
@@ -1208,7 +1206,6 @@ a.tooltip_ws:hover em span {
     transform: scale(1.1);
   }
 }
-
 @keyframes pulse {
   0% {
     -webkit-transform: scale(1.1);
@@ -1698,4 +1695,3 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
-
