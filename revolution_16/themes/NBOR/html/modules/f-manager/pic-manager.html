@@ -36,21 +36,37 @@ div.mp3 {
   text-align: center;
   width: 100%;
 }
-
 </style>
-<br />
-<table border="0" width="100%" align="center">
-	<tr>
-		<td>
-		<table border="0" width="100%">
-			<tr class="ligna">
-				<td colspan="2"><b>_back</b></td>
-				<td>_nb_subdir [french]r&eacute;pertoire(s)[/french][english]directory(ies)[/english]</td>
-				<td colspan="5"><b>_refresh</b></td>
-			</tr>
-			_subdirs
-		</table>
-		_files
-		</td>
-	</tr>
+<ul class="nav nav-tabs mb-4 d-flex flex-wrap">
+  <li class="nav-item">
+    <a class="nav-link" href="index.php"><i class="fa fa-home fa-lg"></i></a>
+  </li>
+  <li class="nav-item">
+    _fileM
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#"><span class="hidden-sm-up"><i class="fa fa-image fa-lg"></i></span><span class="hidden-xs-down">Pic manager</span></a>
+  </li>
+  <li class="nav-item">
+    _refresh
+  </li>
+</ul>
+<p class="lead">
+   <strong>_back</strong>
+</p>
+<div class="my-2"><span class="text-muted align-middle"><i class="fa fa-folder fa-2x"></i>&nbsp;_nb_subdir [french]r&eacute;pertoire(s)[/french][english]directory(ies)[/english] </span></div>
+
+<table class="mb-3 _classempty" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-classes="table table-sm table-no-bordered table-hover">
+   <thead class="collapse" >
+      <tr>
+         <th data-halign="center" data-align="center">ico.</th>
+         <th data-halign="center" data-align="center">Name</th>
+         <th data-halign="center" data-align="right">Date</th>
+         <th data-halign="center" data-align="center">Poids</th>
+      </tr>
+   </thead>
+   <tbody>
+         _subdirs
+   </tbody>
 </table>
+      _files
