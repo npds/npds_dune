@@ -61,7 +61,7 @@ if (!isset($sid) && !isset($tid)) {
       if ($catid != 0) {
          $resultx = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
          list($title1) = sql_fetch_row($resultx);
-         $title = '<a href="index.php?op=newindex&amp;catid='.$catid.'"><span class="noir">'.aff_langue($title1).'</span></a> : '.$title;
+         $title = '<a href="index.php?op=newindex&amp;catid='.$catid.'"><span>'.aff_langue($title1).'</span></a> : '.$title;
       }
 
       $boxtitle=translate("Related Links");
@@ -70,23 +70,23 @@ if (!isset($sid) && !isset($tid)) {
       $result=sql_query("SELECT name, url FROM ".$NPDS_Prefix."related WHERE tid='$topic'");
       while(list($name, $url) = sql_fetch_row($result)) {
          $boxstuff .= '
-         <li><a href="'.$url.'" target="new"><span class="noir">'.$name.'</span></a></li>';
+         <li><a href="'.$url.'" target="new"><span>'.$name.'</span></a></li>';
       }
       $boxstuff .= '
       </ul>
       <ul>
-         <li><a href="search.php?topic='.$topic.'" class="noir">'.translate("More about").' '.aff_langue($topictext).'</a></li>
-         <li><a href="search.php?member='.$informant.'" class="noir">'.translate("News by").' '.$informant.'</a></li>
+         <li><a href="search.php?topic='.$topic.'" >'.translate("More about").' '.aff_langue($topictext).'</a></li>
+         <li><a href="search.php?member='.$informant.'" >'.translate("News by").' '.$informant.'</a></li>
       </ul>
-      <div class="boxc">'.translate("Most read story about").'&nbsp;&nbsp;'.aff_langue($topictext).' :</div>';
+      <div class="">'.translate("Most read story about").'&nbsp;&nbsp;'.aff_langue($topictext).' :</div>';
 
       $xtab=news_aff("big_story","WHERE topic=$topic",0,1);
       list($topstory, $ttitle) = $xtab[0];
       $boxstuff .= '
       <ul>
-         <li><a href="article.php?sid='.$topstory.'" class="noir">'.aff_langue($ttitle).'</a></li>
+         <li><a href="article.php?sid='.$topstory.'" >'.aff_langue($ttitle).'</a></li>
       </ul>
-      <div class="boxc">'.translate("Last news about").' '.aff_langue($topictext).' :</div>';
+      <div class="">'.translate("Last news about").' '.aff_langue($topictext).' :</div>';
 
       if (!$archive)
          $xtab=news_aff("libre","WHERE topic=$topic AND archive='0' ORDER BY sid DESC LIMIT 0,5",0,5);
@@ -101,7 +101,7 @@ if (!isset($sid) && !isset($tid)) {
          $story_limit++;
          $title1=aff_langue(addslashes($title1));
          $boxstuff.='
-         <li><a href="article.php?sid='.$sid1.'&amp;archive='.$archive.'" class="noir">'.aff_langue(stripslashes($title1)).'</a></li>';
+         <li><a href="article.php?sid='.$sid1.'&amp;archive='.$archive.'" >'.aff_langue(stripslashes($title1)).'</a></li>';
       }
       $boxstuff .='
       </ul>
