@@ -124,7 +124,7 @@ if ($admin) {
     while(list($dcounter, $dfilename) = sql_fetch_row($result)) {
        
        $num_dow++;
-       echo "<tbody><tr><td><span class=\"rouge\">".$xdownload[$num_dow][1]."</span> -/- $dfilename : </td><td><span class=\"rouge\">".$xdownload[$num_dow][2]."</span> -/- $dcounter</td></tr>";
+       echo "<tbody><tr><td><span class=\"text-danger\">".$xdownload[$num_dow][1]."</span> -/- $dfilename : </td><td><span class=\"text-danger\">".$xdownload[$num_dow][2]."</span> -/- $dcounter</td></tr>";
        $xfile.="\$xdownload[$num_dow][1] = \"$dfilename\";\n";
        $xfile.="\$xdownload[$num_dow][2] = \"$dcounter\";\n";
     }
@@ -155,13 +155,13 @@ if ($admin) {
              $name = stripslashes($myrow['forum_name']);
              $xfile.="\$xforum[$num_for][1] = \"$name\";\n";
              $xfile.="\$xforum[$num_for][2] = $total_topics;\n";
-             echo "<td><a href=\"viewforum.php?forum=".$myrow['forum_id']."\" class=\"noir\"><span class=\"rouge\">".$xforum[$num_for][1]."</span> -/- $name </a>\n";
+             echo "<td><a href=\"viewforum.php?forum=".$myrow['forum_id']."\" class=\"noir\"><span class=\"text-danger\">".$xforum[$num_for][1]."</span> -/- $name </a>\n";
              $desc = stripslashes($myrow['forum_desc']);
              echo "<br />$desc</td>\n";
-             echo "<td><span class=\"rouge\">".$xforum[$num_for][2]."</span> -/- $total_topics</td>\n";
+             echo "<td><span class=\"text-danger\">".$xforum[$num_for][2]."</span> -/- $total_topics</td>\n";
              $total_posts = get_total_posts($myrow['forum_id'], "", "forum",false);
              $xfile.="\$xforum[$num_for][3] = $total_posts;\n";
-             echo "<td><span class=\"rouge\">".$xforum[$num_for][3]."</span> -/- $total_posts</td>\n";
+             echo "<td><span class=\"text-danger\">".$xforum[$num_for][3]."</span> -/- $total_posts</td>\n";
 
              echo "<td>$last_post</td>\n";
           } while($myrow = sql_fetch_assoc($sub_result));
