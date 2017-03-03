@@ -33,7 +33,7 @@ function topicsmanager() {
    <div class="">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
-   <div class="card card-block" id="top_'.$topicid.'">
+   <div class="card card-block mb-2" id="top_'.$topicid.'">
       <div class=" topi">
          <div class="media-left media-middle">';
          if (($topicimage) or ($topicimage!='')) {
@@ -58,7 +58,7 @@ function topicsmanager() {
     echo '
     </div>
    <hr />
-   <h3 class="my-3">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
+   <h3 class="my-4">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
@@ -218,7 +218,7 @@ function topicedit($topicid) {
       </fieldset>
       <fieldset>
       <hr />
-      <h4 class="mb-1">'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
+      <h4 class="my-3">'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
          <div class="col-sm-8">
@@ -264,14 +264,14 @@ function topicedit($topicid) {
    
     echo '
     <hr />
-    <h3 class="mb-1">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
+    <h3 class="my-2">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
     $res=sql_query("SELECT rid, name, url FROM ".$NPDS_Prefix."related WHERE tid='$topicid'");
     echo '
    <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <th data-sortable="true" data-halign="center">'.adm_translate('Nom').'</th>
          <th data-sortable="true" data-halign="center">'.adm_translate('Url').'</th>
-         <th data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
+         <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
       </thead>
       <tbody>';
     while (list($rid, $name, $url) = sql_fetch_row($res)) {

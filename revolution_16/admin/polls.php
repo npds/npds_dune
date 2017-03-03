@@ -32,10 +32,10 @@ function poll_createPoll() {
         <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
-               <th data-sortable="true" data-halign="center" data-align="right">ID</th>
+               <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">ID</th>
                <th data-sortable="true" data-halign="center">'.adm_translate("Intitulé du Sondage").'</th>
-               <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Vote").'</th>
-               <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+               <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Vote").'</th>
+               <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -80,13 +80,13 @@ function poll_createPoll() {
             </div>';
    }
    echo '
-            <div class="checkbox">
-               <div class="row">
-                  <div class="col-sm-9 offset-sm-3">
-                     <label>
-                        <input type="checkbox" name="poll_type" value="1" />&nbsp;'.adm_translate("Seulement aux membres").'
-                     </label>
-                  </div>
+            <div class="form-group row">
+               <div class="col-sm-9 offset-sm-3">
+                  <label class="custom-control custom-checkbox">
+                     <input class="custom-control-input" type="checkbox" name="poll_type" value="1" />
+                     <span class="custom-control-indicator"></span>
+                     <span class="custom-control-description">'.adm_translate("Seulement aux membres").'</span>
+                  </label>
                </div>
             </div>
             <div class="form-group row">
@@ -269,26 +269,26 @@ function poll_editPollPosted() {
       $pollClose = (($pollType / 128) >= 1 ? 1 : 0);
       $pollType = $pollType%128;
       echo '
-      <div class="checkbox">
-         <div class="row">
-            <div class="col-sm-9 offset-sm-3">
-               <label>
-                  <input type="checkbox" name="poll_type" value="1"';
+      <div class="form-group row">
+         <div class="col-sm-9 offset-sm-3">
+            <label class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" name="poll_type" value="1"';
       if ($pollType == "1") echo ' checked="checked"';
-      echo ' />&nbsp;'.adm_translate("Seulement aux membres").'
-               </label>
-            </div>
+      echo ' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.adm_translate("Seulement aux membres").'</span>
+            </label>
          </div>
       </div>
-      <div class="checkbox">
-         <div class="row">
-            <div class="col-sm-9 offset-sm-3">
-               <label class="text-danger">
-                  <input type="checkbox" name="poll_close" value="1"';
+      <div class="form-group row">
+         <div class="col-sm-9 offset-sm-3">
+            <label class="custom-control custom-checkbox text-danger">
+               <input class="custom-control-input" type="checkbox" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
-      echo ' />&nbsp;'.adm_translate("Vote fermé").'
-               </label>
-            </div>
+      echo ' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Vote fermé").'</span>
+            </label>
          </div>
       </div>
       <div class="form-group row">

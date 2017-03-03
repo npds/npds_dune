@@ -35,167 +35,216 @@ function ForumConfigAdmin() {
    <h3 class="mb-3">'.adm_translate("Configuration des Forums").'</h3>
    <form id="fad_forumconf" action="admin.php" method="post">
       <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="allow_html">'.adm_translate("Autoriser le HTML").'</label>
-         <div class="col-sm-8">';
+         <label class="form-control-label col-sm-5" for="allow_html">'.adm_translate("Autoriser le HTML").'</label>
+         <div class="col-sm-7">';
    if ($allow_html==1) {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_html" value="1" checked="checked" />'.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_html" value="1" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_html" value="0" />'.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_html" value="0" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    } else {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_html" value="1" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_html" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_html" value="0" checked="checked" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_html" value="0" checked="checked" /> 
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    }
    echo '
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4 col-md-4" for="allow_bbcode">'.adm_translate("Autoriser les Smilies").'</label>
-         <div class="col-sm-8">';
+         <label class="form-control-label col-sm-5 " for="allow_bbcode">'.adm_translate("Autoriser les Smilies").'</label>
+         <div class="col-sm-7">';
    if ($allow_bbcode==1) {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_bbcode" value="1" checked="checked" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_bbcode" value="1" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_bbcode" value="0" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_bbcode" value="0" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    } else {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_bbcode" value="1" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_bbcode" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_bbcode" value="0" checked="checked" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_bbcode" value="0" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    }
    echo '
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4" for="allow_sig">'.adm_translate("Autoriser les Signatures").'</label>
-         <div class="col-sm-8">';
+         <label class="form-control-label col-sm-5" for="allow_sig">'.adm_translate("Autoriser les Signatures").'</label>
+         <div class="col-sm-7">';
 
    if ($allow_sig==1) {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_sig" value="1" checked="checked" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_sig" value="1" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_sig" value="0" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_sig" value="0" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    } else {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_sig" value="1" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_sig" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_sig" value="0" checked="checked" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_sig" value="0" checked="checked" /> 
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    }
    echo '
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="hot_threshold">'.adm_translate("Seuil pour les Sujet 'chauds'").'</label>
-         <div class="col-sm-8">
+         <label class="form-control-label col-sm-5" for="hot_threshold">'.adm_translate("Seuil pour les Sujet 'chauds'").'</label>
+         <div class="col-sm-7">
             <input class="form-control" type="number" min="0" id="hot_threshold" name="hot_threshold" value="'.$hot_threshold.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
-         <div class="col-sm-8">
+         <label class="form-control-label col-sm-5" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
+         <div class="col-sm-7">
             <input class="form-control" type="number" min="0" id="posts_per_page" name="posts_per_page" value="'.$posts_per_page.'" />
          </div>
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-7 offset-sm-5">
             <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="topics_per_page">'.adm_translate("Sujets par forum :").'</label>
-         <div class="col-sm-8">
+         <label class="form-control-label col-sm-5" for="topics_per_page">'.adm_translate("Sujets par forum :").'</label>
+         <div class="col-sm-7">
             <input class="form-control" type="number" min="0" id="topics_per_page" name="topics_per_page" size="4" value="'.$topics_per_page.'" />
          </div>
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-7 offset-sm-5">
             <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
-         <div class="col-sm-8">
+         <label class="form-control-label col-sm-5" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
+         <div class="col-sm-7">
             <input class="form-control" type="number" min="0" id="anti_flood" name="anti_flood" value="'.$anti_flood.'" />
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4" for="solved">'.adm_translate("Activer le tri des contributions 'résolues'").'</label>
-         <div class="col-sm-8">';
+         <label class="form-control-label col-sm-5" for="solved">'.adm_translate("Activer le tri des contributions 'résolues'").'</label>
+         <div class="col-sm-7">';
    if ($solved==1) {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="solved" value="1" checked="checked" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="solved" value="1" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="solved" value="0" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="solved" value="0" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    } else {
       echo '
-            <label class="radio-inline">
-               <input type="radio" name="solved" value="1" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="solved" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="solved" value="0" checked="checked" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="solved" value="0" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    }
    echo '
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4" for="allow_upload_forum">'.adm_translate("Activer l'upload dans les forums ?").'</label>
-         <div class="col-sm-8">';
+         <label class="form-control-label col-sm-5" for="allow_upload_forum">'.adm_translate("Activer l'upload dans les forums ?").'</label>
+         <div class="col-sm-7">';
    if ($allow_upload_forum) {
        echo '
-            <label class="radio-inline">
-                <input type="radio" name="allow_upload_forum" value="1" checked="checked" /> '.adm_translate("Oui").' 
+            <label class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="allow_upload_forum" value="1" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_upload_forum" value="0" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_upload_forum" value="0" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    } else {
        echo '
-            <label class="radio-inline">
-               <input type="radio" name="allow_upload_forum" value="1" /> '.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_upload_forum" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_upload_forum" value="0" checked="checked" /> '.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_upload_forum" value="0" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>';
    }
    echo '
          </div>
       </div>
       <div class="row">
-         <label class="form-control-label col-sm-4" for="allow_forum_hide">'.adm_translate("Activer les textes cachés").'</label>
-         <div class="col-sm-8">
-            <label class="radio-inline">';
+         <label class="form-control-label col-sm-5" for="allow_forum_hide">'.adm_translate("Activer les textes cachés").'</label>
+         <div class="col-sm-7">
+            <label class="custom-control custom-radio">';
    if ($allow_forum_hide==1) {
        echo '
-               <input type="radio" name="allow_forum_hide" value="1" checked="checked" /> '.adm_translate("Oui").'
+               <input class="custom-control-input" type="radio" name="allow_forum_hide" value="1" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_forum_hide" value="0" /> '.adm_translate("Non");
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_forum_hide" value="0" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>';
    } else {
        echo '
-               <input type="radio" name="allow_forum_hide" value="1" /> '.adm_translate("Oui").'
+               <input class="custom-control-input" type="radio" name="allow_forum_hide" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="allow_forum_hide" value="0" checked="checked" /> '.adm_translate("Non");
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="allow_forum_hide" value="0" checked="checked" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>';
+
    }
    echo '
             </label>
