@@ -32,11 +32,11 @@ function HeadlinesAdmin() {
    <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-           <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
+           <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
            <th data-sortable="true" data-halign="center" >'.adm_translate("Nom du site").'</th>
            <th data-sortable="true" data-halign="center" >'.adm_translate("URL").'</th>
            <th data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("Etat").'</th>
-           <th data-align="right" data-halign="center" >'.adm_translate("Fonctions").'</th>
+           <th class="n-t-col-xs-2" data-align="right" data-halign="center" >'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';

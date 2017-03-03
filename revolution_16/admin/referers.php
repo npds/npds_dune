@@ -35,8 +35,7 @@ function hreferer($filter) {
    <h3>'.adm_translate("Qui parle de nous ?").'</h3>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="hreferer" />
-      <div class="form-group">
-      <div class="row>">
+      <div class="form-group row">
          <label class="form-control-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
          <div class="col-sm-4">
             <input type="number" class="form-control" name="filter" min="0" max="99999" value="'.$filter.'" />
@@ -44,13 +43,12 @@ function hreferer($filter) {
          <div class="col-sm-4 xs-hidden"></div>
          <div class="clearfix"></div>
       </div>
-   </div>
    </form>
    <table id ="tad_refe" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
    <thead>
       <tr>
          <th data-sortable="true" data-halign="center">Url</th>
-         <th data-sortable="true" data-halign="center" data-align="right">Hit</th>
+         <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">Hit</th>
       </tr>
    </thead>
    <tbody>';
@@ -74,8 +72,8 @@ function hreferer($filter) {
    </table>
    <br />
    <ul class="nav nav-pills">
-      <li><a href="admin.php?op=delreferer" class="text-danger">'.adm_translate("Effacer les Référants").'</a></li>
-      <li><a href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate("Archiver les Référants").'</a></li>
+      <li class="nav-item"><a class="text-danger nav-link" href="admin.php?op=delreferer" >'.adm_translate("Effacer les Référants").'</a></li>
+      <li class="nav-item"><a class="nav-link" href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate("Archiver les Référants").'</a></li>
    </ul>';
    adminfoot('','','','');;
 }

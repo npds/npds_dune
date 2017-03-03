@@ -88,7 +88,7 @@ function FaqCatGo($id_cat) {
       $faq_cat = aff_langue($categories);
       $answer = aff_code(aff_langue($answer));
       $lst_qr.= '
-      <li id="qr_'.$id.'" class="list-group-item">
+      <li id="qr_'.$id.'" class="list-group-item mb-2">
          <div class="topi">
             <h5 id="q_'.$id.'" class="list-group-item-heading"><a class="" href="admin.php?op=FaqCatGoEdit&amp;id='.$id.'" title="'.adm_translate("Editer la question réponse").'" data-toggle="tooltip">'.aff_langue($question).'</a></h5>
             <p class="list-group-item-text">'.meta_lang($answer).'</p>
@@ -113,17 +113,17 @@ function FaqCatGo($id_cat) {
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="answer">'.adm_translate("Réponse").'</label>
             <div class="col-sm-12">
-               <textarea class="tin form-control" name="answer" rows="15"></textarea>
+               <textarea class="tin form-control" id="answer" name="answer" rows="15"></textarea>
             </div>
          </div>';
    echo aff_editeur("answer","false");
    echo '
          <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 d-flex flex-row justify-content-left flex-wrap">
                <input type="hidden" name="id_cat" value="'.$id_cat.'" />
                <input type="hidden" name="op" value="FaqCatGoAdd" />'."\n".'
-               <button class="btn btn-primary col-6" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
-               <button class="btn btn-secondary col-6" href="admin.php?op=FaqAdmin">'.adm_translate("Retour en arrière").'</button>
+               <button class="btn btn-primary mb-2 " type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>&nbsp;
+               <button class="btn btn-secondary mb-2 " href="admin.php?op=FaqAdmin">'.adm_translate("Retour en arrière").'</button>
             </div>
          </div>
       </fieldset>

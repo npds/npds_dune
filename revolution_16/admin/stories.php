@@ -50,7 +50,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8">
-            <label class="radio-inline">';
+            <label class="custom-control custom-radio">';
    if ($ihome<0) {
       $sel1 = 'checked="checked"';
       $sel2 = '';
@@ -61,10 +61,14 @@ function puthome($ihome) {
       $sel2 = '';
    }
    echo '
-               <input type="radio" name="members" value="1" '.$sel1.' />'.adm_translate("Oui").'
+               <span class="custom-control-indicator"></span>
+               <input class="custom-control-input" type="radio" name="members" value="1" '.$sel1.' />
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="members" value="0" '.$sel2.' />'.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="members" value="0" '.$sel2.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>
          </div>
       </div>';
@@ -749,7 +753,7 @@ function editStory ($sid) {
    }
    global $local_user_language;
    echo '
-   <div id="art_preview" class="card card-block">';
+   <div id="art_preview" class="card card-block mb-3">';
    echo code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
    echo '
    </div>';
@@ -774,7 +778,7 @@ function editStory ($sid) {
       if ($radminsuper) {
          $affiche=true;
       } else {
-         $topicadminX=explode(",",$topicadmin);
+         $topicadminX=explode(',',$topicadmin);
          for ($i = 0; $i < count($topicadminX); $i++) {
             if (trim($topicadminX[$i])==$aid) $affiche=true;
          }
@@ -819,21 +823,25 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-6" for="Cdate">'.adm_translate("Changer la date ? : ").'</label>
          <div class="col-sm-6">
-            <label class="checkbox-inline">
-               <input type="checkbox" name="Cdate" value="true" />&nbsp;'.adm_translate("Oui").'
+            <label class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" id="Cdate" name="Cdate" value="true" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-6" for="Csid">'.adm_translate("Remettre cet article en premiére position ? : ").'</label>
+         <label class="form-control-label col-sm-6" for="Csid">'.adm_translate("Remettre cet article en première position ? : ").'</label>
          <div class="col-sm-6">
-            <label class="checkbox-inline">
-               <input type="checkbox" name="Csid" value="true" />&nbsp;'.adm_translate("Oui").'
+            <label class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" id="Csid" name="Csid" value="true" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
          </div>
       </div>';
 
-    if ($date_finval!="") {
+    if ($date_finval!='') {
        $fin_day=substr($date_finval,8,2);
        $fin_month=substr($date_finval,5,2);
        $fin_year=substr($date_finval,0,4);
