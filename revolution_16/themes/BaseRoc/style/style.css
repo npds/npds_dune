@@ -1,10 +1,10 @@
+@charset "utf-8";
 /* ----------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
    theme: BaseRoc
 ---------------------------------------------------------------------- */
-@charset "utf-8";
 /* CSS npds-boots pour NPDS Revolution                                       */
-/* Theme : Dyna-boost (c) 2015 by jpb                                        */
+/* Theme : BaseRoc (c) 2015 by Bmag                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
 /* pour utiliser les classes et #ID spécifiques à NPDS                       */
@@ -15,11 +15,10 @@
 /*     Balise html                                                           */
 html{font-size: 14px;}
 body {
-font-family: Helvetica,Arial,Tahoma,Sans-Serif;
-font-size: 1rem;
-line-height: 1.5;
-color: #000;
-
+   font-family: Helvetica,Arial,Tahoma,Sans-Serif;
+   font-size: 1rem;
+   line-height: 1.5;
+   color: #000;
 }
 
 a:hover {text-decoration:none;}
@@ -35,39 +34,47 @@ a:hover {text-decoration:none;}
 }
 /* ==> hauteur et scroll des modal */
 .modal-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
+
+.page-link {color:#be2525;}
+.page-link:hover {color:#000000;}
+.custom-control-input:checked~.custom-control-indicator {
+   color: #fff;
+   background-color: #be2525;
+   }
+.card-header, .card-footer {background-color: #dad7c3;}
 
 /** <== Classes BS4                                                         **/
 
 /** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
 .n-ava {
-max-width:64px;
-max-height:64px;
+  max-width:64px;
+  max-height:64px;
 }
 .n-ava-small {
-max-width:48px;
-max-height:48px;
+  max-width:48px;
+  max-height:48px;
 }
 .n-smil {
-width:24px;
-height:24px;
-display:inline;
+  width:24px;
+  height:24px;
+  display:inline;
 }
 .n-sujetsize {
-max-width : 100px;
-height : auto;
+  max-width : 100px;
+  height : auto;
 }
-.fond_emot, .fond_subject {
-line-height:28px;
+.n-fond_emot, .n-fond_subject {
+  line-height:28px;
 }
 /* ==> pour la signature */
 .n-signature {
-font-style: italic;
-text-align: right !important;
-padding-top: 1.1rem !important;
+  font-style: italic;
+  text-align: right !important;
+  padding-top: 1.1rem !important;
 }
 /* ==> pour les troncatures de mots trop longs */
 
@@ -121,8 +128,86 @@ text-align:center;
   color: #be2525 !important  ;
   cursor: pointer;
 }
+.btn-primary {
+color: #be2525;
+background-color: #dad3b1;
+border-color: #dad3b1
+}
+.btn-primary:hover {
+    color: #be2525;
+    background-color: #c9c6b4;
+    border-color: #c9c6b4;
+}
 
-/** ==> classe pr�sente dans le core de npds
+.btn-outline-primary {
+    color: #dad3b1;
+    background-image: none;
+    background-color: transparent;
+    border-color: #dad3b1;
+}
+
+.btn-outline-primary:hover {
+    color: #be2525;
+    background-color: #dad3b1;
+    border-color: #dad3b1;
+}
+
+
+
+
+
+
+
+/* ==> Personalisation menu autocomplete [jquery ui] */
+/* Requis pour tous les thèmes */
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.ui-menu .ui-menu-item {
+  background-color:#fff;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+ui-menu-item-wrapper {
+  background-color:#477779;
+}
+.ui-menu .ui-menu-item div.ui-state-hover,
+.ui-menu .ui-menu-item div.ui-state-active {
+  margin: -1px;
+  background-color:#f5f5f5;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px;
+}
+/* <== Personalisation menu autocomplete [jquery ui]*/
+
+
+
+
+
+/** ==> classe prÈsente dans le core de npds
 ********************************************** */
 /* .ligna {
   font-size: 20px;
@@ -145,9 +230,46 @@ text-align:center;
  ****************************************************/
  /* gestion du table-design en CSS */
 .row1 {
-   display: table;
+/*   display: table;*/
   table-layout: fixed;  /* pour ne pas rentrer en conflit avec BS row devient row1  BMAG */
 }
+
+.w18 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 18%;
+-ms-flex: 0 0 18%;
+flex: 0 0 18%;
+max-width: 18%
+}
+.w64 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 64%;
+-ms-flex: 0 0 64%;
+flex: 0 0 64%;
+max-width: 64%
+}
+.w82 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 82%;
+-ms-flex: 0 0 82%;
+flex: 0 0 82%;
+max-width: 82%
+}
+
+
+@media (max-width: 991px) {
+  .n-c {display:none;}
+  .w64, .w82 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 100%;
+-ms-flex: 0 0 100%;
+flex: 0 0 100%;
+max-width: 100%
+}
+}
+
+
+
 
 .ie7 .row1,
 .ie6 .row1 {
@@ -273,7 +395,7 @@ On customise le Menu bloc gauche il faudra cocher la case dans l'admin
 #LB_24 a {
   font-weight:bold;	
   margin: 1px 0; /* espace les liens d'1 px */
-  padding: 0px 20px; /* marges internes pour a�rer */ 
+  padding: 0px 20px; /* marges internes pour aÈrer */ 
   color: #666;
   text-decoration: none; /* on vire le soulignement */
   line-height: 1.750em;}
@@ -305,16 +427,16 @@ background-color: #ccc;}
 Adaptation des css au fil du test
 *********************************************/
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {  /* pour les forum notament*/
-    z-index: 2;
-    color: #fff;
-    text-decoration: none;
-    background-color: #d88202;
-	border-color: #d8a102;
+   z-index: 2;
+   color: #fff;
+   text-decoration: none;
+   background-color: #dad3B1;
+   border-color: #d8a102;
 }
 
 
 .bg-primary {
-    color: beige;
+   color: beige;
 }
 
 .lignb {
@@ -365,7 +487,7 @@ label {
 }
 
 
-/* d�co des tableaux */
+/* dÈco des tableaux */
 table {
     background: #FFF none repeat scroll 0% 0%;
     border: 1px solid #DDD;
@@ -421,7 +543,6 @@ input[type="radio"], input[type="checkbox"], input[type="image"] {
     border-radius: 0.2rem;
 }
 
- /*travail JBP*/
 /*bloc admin*/
 .adm_img {
 height: 32px;
@@ -441,47 +562,47 @@ box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 
 /*bloc ws*/
 a.tooltip_ws em {
-   display:none;
-   width:90px;
+  display:none;
+  width:90px;
 }
 a.tooltip_ws:hover {
-    border: 0;
-    position: relative;
-    z-index: 1070;
-    text-decoration:none;
+  border: 0;
+  position: relative;
+  z-index: 1070;
+  text-decoration:none;
 }
  a.tooltip_ws:hover em {
-   z-index: 1070;
-   font-style: normal;
-   font-size: 11px;
-   display: block;
-   top: 20px;
-   left: -10px;
-   padding: 5px;
-   color: #000;
-   border: 1px solid #999999;
-   background: #F8F8F8;
-   width:200px;
-   text-align: left;
-   position: absolute; left: 2em; top: 2em;
-   border-radius: 5px;
-   -moz-border-radius: 5px; 
-   -webkit-border-radius: 5px;
-   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
-   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
-   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1070;
+  font-style: normal;
+  font-size: 11px;
+  display: block;
+  top: 20px;
+  left: -10px;
+  padding: 5px;
+  color: #000;
+  border: 1px solid #999999;
+  background: #F8F8F8;
+  width:200px;
+  text-align: left;
+  position: absolute; left: 2em; top: 2em;
+  border-radius: 5px;
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
+  -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
 }
 a.tooltip_ws:hover em span {
-    position: absolute;
-    top: -7px;
-    left: 15px;
-    height: 7px;
-    width: 11px;
-    margin:0;
-    padding: 0;
-    border: 0;
-    }
-/* réimpléméntation pour V4 */    
+  position: absolute;
+  top: -7px;
+  left: 15px;
+  height: 7px;
+  width: 11px;
+  margin:0;
+  padding: 0;
+  border: 0;
+  }
+/* réimpléméntation pour V4 */
 .help-block {
   font-size: .85rem;
   display: block;
@@ -492,25 +613,25 @@ a.tooltip_ws:hover em span {
 
 
 @-webkit-keyframes fa-blink {
-     0% { opacity: 1; }
-     25% { opacity: 0.25; }
-     50% { opacity: 0.5; }
-     75% { opacity: 0.75; }
-     100% { opacity: 0; }
+  0% { opacity: 1; }
+  25% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+  75% { opacity: 0.75; }
+  100% { opacity: 0; }
  }
 @keyframes fa-blink {
-     0% { opacity: 1; }
-     25% { opacity: 0.25; }
-     50% { opacity: 0.5; }
-     75% { opacity: 0.75; }
-     100% { opacity: 0; }
- }
+  0% { opacity: 1; }
+  25% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+  75% { opacity: 0.75; }
+  100% { opacity: 0; }
+}
 .fa-blink {
-   -webkit-animation: fa-blink .75s linear infinite;
-   -moz-animation: fa-blink .75s linear infinite;
-   -ms-animation: fa-blink .75s linear infinite;
-   -o-animation: fa-blink .75s linear infinite;
-   animation: fa-blink .75s linear infinite;
+  -webkit-animation: fa-blink .75s linear infinite;
+  -moz-animation: fa-blink .75s linear infinite;
+  -ms-animation: fa-blink .75s linear infinite;
+  -o-animation: fa-blink .75s linear infinite;
+  animation: fa-blink .75s linear infinite;
 }
 
 /* ==> Animation des web icones fa */
@@ -581,99 +702,83 @@ a.tooltip_ws:hover em span {
     transform: rotate(0deg);
   }
 }
-
 @keyframes wrench {
   0% {
     -webkit-transform: rotate(-12deg);
     -ms-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   8% {
     -webkit-transform: rotate(12deg);
     -ms-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   10% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   18% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   20% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   28% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   30% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   38% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   40% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   48% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   50% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   58% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   60% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   68% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   75%, 100% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
-
 .faa-wrench.animated,
 .faa-wrench.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-wrench {
@@ -683,14 +788,12 @@ a.tooltip_ws:hover em span {
   transform-origin-y: 35%;
   transform-origin-z: initial;
 }
-
 .faa-wrench.animated.faa-fast,
 .faa-wrench.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-wrench.faa-fast {
   -webkit-animation: wrench 1.2s ease infinite;
   animation: wrench 1.2s ease infinite;
 }
-
 .faa-wrench.animated.faa-slow,
 .faa-wrench.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-wrench.faa-slow {
@@ -699,132 +802,109 @@ a.tooltip_ws:hover em span {
 }
 
 /* BELL */
-
 @-webkit-keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);
     transform: rotate(-15deg);
   }
-
   2% {
     -webkit-transform: rotate(15deg);
     transform: rotate(15deg);
   }
-
   4% {
     -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   6% {
     -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   8% {
     -webkit-transform: rotate(-22deg);
     transform: rotate(-22deg);
   }
-
   10% {
     -webkit-transform: rotate(22deg);
     transform: rotate(22deg);
   }
-
   12% {
     -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   14% {
     -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   16% {
     -webkit-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   18% {
     -webkit-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   20%, 100% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
-
 @keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);
     -ms-transform: rotate(-15deg);
     transform: rotate(-15deg);
   }
-
   2% {
     -webkit-transform: rotate(15deg);
     -ms-transform: rotate(15deg);
     transform: rotate(15deg);
   }
-
   4% {
     -webkit-transform: rotate(-18deg);
     -ms-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   6% {
     -webkit-transform: rotate(18deg);
     -ms-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   8% {
     -webkit-transform: rotate(-22deg);
     -ms-transform: rotate(-22deg);
     transform: rotate(-22deg);
   }
-
   10% {
     -webkit-transform: rotate(22deg);
     -ms-transform: rotate(22deg);
     transform: rotate(22deg);
   }
-
   12% {
     -webkit-transform: rotate(-18deg);
     -ms-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   14% {
     -webkit-transform: rotate(18deg);
     -ms-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   16% {
     -webkit-transform: rotate(-12deg);
     -ms-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   18% {
     -webkit-transform: rotate(12deg);
     -ms-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   20%, 100% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
-
 .faa-ring.animated,
 .faa-ring.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-ring {
@@ -834,14 +914,12 @@ a.tooltip_ws:hover em span {
   transform-origin-y: 0px;
   transform-origin-z: initial;
 }
-
 .faa-ring.animated.faa-fast,
 .faa-ring.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-ring.faa-fast {
   -webkit-animation: ring 1s ease infinite;
   animation: ring 1s ease infinite;
 }
-
 .faa-ring.animated.faa-slow,
 .faa-ring.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-ring.faa-slow {
@@ -850,102 +928,85 @@ a.tooltip_ws:hover em span {
 }
 
 /* VERTICAL */
-
 @-webkit-keyframes vertical {
   0% {
     -webkit-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   4% {
     -webkit-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   8% {
     -webkit-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   12% {
     -webkit-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   16% {
     -webkit-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   20% {
     -webkit-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   22%, 100% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
 }
-
 @keyframes vertical {
   0% {
     -webkit-transform: translate(0,-3px);
     -ms-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   4% {
     -webkit-transform: translate(0,3px);
     -ms-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   8% {
     -webkit-transform: translate(0,-3px);
     -ms-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   12% {
     -webkit-transform: translate(0,3px);
     -ms-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   16% {
     -webkit-transform: translate(0,-3px);
     -ms-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   20% {
     -webkit-transform: translate(0,3px);
     -ms-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   22%, 100% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
 }
-
 .faa-vertical.animated,
 .faa-vertical.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-vertical {
   -webkit-animation: vertical 2s ease infinite;
   animation: vertical 2s ease infinite;
 }
-
 .faa-vertical.animated.faa-fast,
 .faa-vertical.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-vertical.faa-fast {
   -webkit-animation: vertical 1s ease infinite;
   animation: vertical 1s ease infinite;
 }
-
 .faa-vertical.animated.faa-slow,
 .faa-vertical.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-vertical.faa-slow {
@@ -954,38 +1015,31 @@ a.tooltip_ws:hover em span {
 }
 
 /* HORIZONTAL */
-
 @-webkit-keyframes horizontal {
   0% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   6% {
     -webkit-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   12% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   18% {
     -webkit-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   24% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   30% {
     -webkit-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   36%, 100% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
@@ -998,58 +1052,49 @@ a.tooltip_ws:hover em span {
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   6% {
     -webkit-transform: translate(5px,0);
     -ms-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   12% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   18% {
     -webkit-transform: translate(5px,0);
     -ms-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   24% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   30% {
     -webkit-transform: translate(5px,0);
     -ms-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   36%, 100% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
 }
-
 .faa-horizontal.animated,
 .faa-horizontal.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-horizontal {
   -webkit-animation: horizontal 2s ease infinite;
   animation: horizontal 2s ease infinite;
 }
-
 .faa-horizontal.animated.faa-fast,
 .faa-horizontal.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-horizontal.faa-fast {
   -webkit-animation: horizontal 1s ease infinite;
   animation: horizontal 1s ease infinite;
 }
-
 .faa-horizontal.animated.faa-slow,
 .faa-horizontal.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-horizontal.faa-slow {
@@ -1058,41 +1103,34 @@ a.tooltip_ws:hover em span {
 }
 
 /* FLASHING */
-
 @-webkit-keyframes flash {
   0%, 100%, 50% {
     opacity: 1;
   }
-
   25%, 75% {
     opacity: 0;
   }
 }
-
 @keyframes flash {
   0%, 100%, 50% {
     opacity: 1;
   }
-
   25%, 75% {
     opacity: 0;
   }
 }
-
 .faa-flash.animated,
 .faa-flash.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-flash {
   -webkit-animation: flash 2s ease infinite;
   animation: flash 2s ease infinite;
 }
-
 .faa-flash.animated.faa-fast,
 .faa-flash.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-flash.faa-fast {
   -webkit-animation: flash 1s ease infinite;
   animation: flash 1s ease infinite;
 }
-
 .faa-flash.animated.faa-slow,
 .faa-flash.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-flash.faa-slow {
@@ -1101,58 +1139,49 @@ a.tooltip_ws:hover em span {
 }
 
 /* BOUNCE */
-
 @-webkit-keyframes bounce {
   0%, 10%, 20%, 50%, 80%, 100% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-
   40% {
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
-
   60% {
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
 }
-
 @keyframes bounce {
   0%, 10%, 20%, 50%, 80%, 100% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
-
   40% {
     -webkit-transform: translateY(-15px);
     -ms-transform: translateY(-15px);
     transform: translateY(-15px);
   }
-
   60% {
     -webkit-transform: translateY(-15px);
     -ms-transform: translateY(-15px);
     transform: translateY(-15px);
   }
 }
-
 .faa-bounce.animated,
 .faa-bounce.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-bounce {
   -webkit-animation: bounce 2s ease infinite;
   animation: bounce 2s ease infinite;
 }
-
 .faa-bounce.animated.faa-fast,
 .faa-bounce.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-bounce.faa-fast {
   -webkit-animation: bounce 1s ease infinite;
   animation: bounce 1s ease infinite;
 }
-
 .faa-bounce.animated.faa-slow,
 .faa-bounce.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-bounce.faa-slow {
@@ -1161,47 +1190,40 @@ a.tooltip_ws:hover em span {
 }
 
 /* SPIN */
-
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(359deg);
     -ms-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 .faa-spin.animated,
 .faa-spin.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-spin {
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
 }
-
 .faa-spin.animated.faa-fast,
 .faa-spin.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-spin.faa-fast {
   -webkit-animation: spin 0.7s linear infinite;
   animation: spin 0.7s linear infinite;
 }
-
 .faa-spin.animated.faa-slow,
 .faa-spin.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-spin.faa-slow {
@@ -1210,58 +1232,49 @@ a.tooltip_ws:hover em span {
 }
 
 /* FLOAT */
-
 @-webkit-keyframes float {
   0% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-
   50% {
     -webkit-transform: translateY(-6px);
     transform: translateY(-6px);
   }
-
   100% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }
-
 @keyframes float {
   0% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
-
   50% {
     -webkit-transform: translateY(-6px);
     -ms-transform: translateY(-6px);
     transform: translateY(-6px);
   }
-
   100% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
 }
-
 .faa-float.animated,
 .faa-float.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-float {
   -webkit-animation: float 2s linear infinite;
   animation: float 2s linear infinite;
 }
-
 .faa-float.animated.faa-fast,
 .faa-float.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-float.faa-fast {
   -webkit-animation: float 1s linear infinite;
   animation: float 1s linear infinite;
 }
-
 .faa-float.animated.faa-slow,
 .faa-float.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-float.faa-slow {
@@ -1270,58 +1283,49 @@ a.tooltip_ws:hover em span {
 }
 
 /* PULSE */
-
 @-webkit-keyframes pulse {
   0% {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
-
   50% {
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
-
   100% {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 }
-
 @keyframes pulse {
   0% {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
-
   50% {
     -webkit-transform: scale(0.8);
     -ms-transform: scale(0.8);
     transform: scale(0.8);
   }
-
   100% {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
 }
-
 .faa-pulse.animated,
 .faa-pulse.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-pulse {
   -webkit-animation: pulse 2s linear infinite;
   animation: pulse 2s linear infinite;
 }
-
 .faa-pulse.animated.faa-fast,
 .faa-pulse.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-pulse.faa-fast {
   -webkit-animation: pulse 1s linear infinite;
   animation: pulse 1s linear infinite;
 }
-
 .faa-pulse.animated.faa-slow,
 .faa-pulse.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-pulse.faa-slow {
@@ -1330,21 +1334,18 @@ a.tooltip_ws:hover em span {
 }
 
 /* SHAKE */
-
 .faa-shake.animated,
 .faa-shake.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-shake {
   -webkit-animation: wrench 2.5s ease infinite;
   animation: wrench 2.5s ease infinite;
 }
-
 .faa-shake.animated.faa-fast,
 .faa-shake.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-shake.faa-fast {
   -webkit-animation: wrench 1.2s ease infinite;
   animation: wrench 1.2s ease infinite;
 }
-
 .faa-shake.animated.faa-slow,
 .faa-shake.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-shake.faa-slow {
@@ -1353,28 +1354,23 @@ a.tooltip_ws:hover em span {
 }
 
 /* TADA */
-
 @-webkit-keyframes tada {
   0% {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
-
   10%, 20% {
     -webkit-transform: scale(.9) rotate(-8deg);
     transform: scale(.9) rotate(-8deg);
   }
-
   30%, 50%, 70% {
     -webkit-transform: scale(1.3) rotate(8deg);
     transform: scale(1.3) rotate(8deg);
   }
-
   40%, 60% {
     -webkit-transform: scale(1.3) rotate(-8deg);
     transform: scale(1.3) rotate(-8deg);
   }
-
   80%, 100% {
     -webkit-transform: scale(1) rotate(0);
     transform: scale(1) rotate(0);
@@ -1387,25 +1383,21 @@ a.tooltip_ws:hover em span {
     -ms-transform: scale(1);
     transform: scale(1);
   }
-
   10%, 20% {
     -webkit-transform: scale(.9) rotate(-8deg);
     -ms-transform: scale(.9) rotate(-8deg);
     transform: scale(.9) rotate(-8deg);
   }
-
   30%, 50%, 70% {
     -webkit-transform: scale(1.3) rotate(8deg);
     -ms-transform: scale(1.3) rotate(8deg);
     transform: scale(1.3) rotate(8deg);
   }
-
   40%, 60% {
     -webkit-transform: scale(1.3) rotate(-8deg);
     -ms-transform: scale(1.3) rotate(-8deg);
     transform: scale(1.3) rotate(-8deg);
   }
-
   80%, 100% {
     -webkit-transform: scale(1) rotate(0);
     -ms-transform: scale(1) rotate(0);
@@ -1435,27 +1427,23 @@ a.tooltip_ws:hover em span {
 }
 
 /* PASSING */
-
 @-webkit-keyframes passing {
   0% {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     opacity: 0;
   }
-
   50% {
     -webkit-transform: translateX(0%);
     transform: translateX(0%);
     opacity: 1;
   }
-
   100% {
     -webkit-transform: translateX(50%);
     transform: translateX(50%);
     opacity: 0;
   }
 }
-
 @keyframes passing {
   0% {
     -webkit-transform: translateX(-50%);
@@ -1463,14 +1451,12 @@ a.tooltip_ws:hover em span {
     transform: translateX(-50%);
     opacity: 0;
   }
-
   50% {
     -webkit-transform: translateX(0%);
     -ms-transform: translateX(0%);
     transform: translateX(0%);
     opacity: 1;
   }
-
   100% {
     -webkit-transform: translateX(50%);
     -ms-transform: translateX(50%);
@@ -1485,14 +1471,12 @@ a.tooltip_ws:hover em span {
   -webkit-animation: passing 2s linear infinite;
   animation: passing 2s linear infinite;
 }
-
 .faa-passing.animated.faa-fast,
 .faa-passing.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-passing.faa-fast {
   -webkit-animation: passing 1s linear infinite;
   animation: passing 1s linear infinite;
 }
-
 .faa-passing.animated.faa-slow,
 .faa-passing.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-passing.faa-slow {
@@ -1506,30 +1490,25 @@ a.tooltip_ws:hover em span {
   0% {
     opacity: .6;
   }
-
   50% {
     -webkit-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-
   100% {
     opacity: 0;
   }
 }
-
 @keyframes burst {
   0% {
     opacity: .6;
   }
-
   50% {
     -webkit-transform: scale(1.8);
     -ms-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-
   100% {
     opacity: 0;
   }
@@ -1555,7 +1534,6 @@ a.tooltip_ws:hover em span {
 
 /* <== Animation des web icones fa */
 
-@charset "utf-8";
 /*! fileicon.css v1.0.0 | MIT License | github.com/picturepan2/fileicon.css */
 /* fileicon.basic */
 .file-icon {
@@ -1694,7 +1672,6 @@ a.tooltip_ws:hover em span {
 .file-icon[data-type=png] {
   background: #F4B400;
 }
-
 
 .fa-stack-1x { top: .35em; }
 .fa-stack {

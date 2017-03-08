@@ -1223,7 +1223,7 @@ function Configure() {
             <label class="form-control-label col-sm-8" for="xAutoRegUser">'.adm_translate("Autoriser la création automatique des membres").'</label>
             <div class="col-sm-4">
                <label class="custom-control custom-radio">';
-   if (($AutoRegUser='') and ($AutoRegUser!=0)) {$AutoRegUser=1;}
+   if (($AutoRegUser=='') and ($AutoRegUser!=0)) {$AutoRegUser=1;}
    if ($AutoRegUser==1) {
       echo '
                   <input type="radio" class="custom-control-input" name="xAutoRegUser" value="1" checked="checked" />
