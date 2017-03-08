@@ -10,9 +10,9 @@
 /************************************************************************/
 
 $theme      = "BaseRoc";
-$long_chain = "15"; // Nombre de caractères affiché avant troncature pour certains blocs
+$long_chain = "15"; // Nombre de caractÃ¨res affichÃ© avant troncature pour certains blocs
 
-// Par defaut NPDS utilise pour une partie de sa présentation les fonctions OpenTable() - CloseTable() ET OpenTable2() - CloseTable2()
+// Par defaut NPDS utilise pour une partie de sa prÃ©sentation les fonctions OpenTable() - CloseTable() ET OpenTable2() - CloseTable2()
 // SAUF si le theme propose ces propres fonction ! - Ce nouveau moteur de theme n'a pas besoin de cela donc les 4 fonctions sont vides
 function opentable_theme() { }   function closetable_theme() { }
 function opentable2_theme() { }  function closetable2_theme() { }
