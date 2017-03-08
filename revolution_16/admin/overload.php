@@ -85,19 +85,27 @@ function main() {
             <div>';
       if ($SuperCache==true) {
          echo '
-               <label class="radio-inline">
-                  <input type="radio" name="xsupercache" value="true" checked="checked" />'.adm_translate("Oui").'
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="xsupercache" value="true" checked="checked" />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.adm_translate("Oui").'</span>
                </label>
-               <label class="radio-inline">
-                  <input type="radio" name="xsupercache" value="false" />'.adm_translate("Non").'
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="xsupercache" value="false" />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.adm_translate("Non").'</span>
                </label>';
       } else {
          echo '
-               <label class="radio-inline">
-                  <input type="radio" name="xsupercache" value="true" />'.adm_translate("Oui").'
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="xsupercache" value="true" />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.adm_translate("Oui").'</span>
                </label>
-               <label class="radio-inline">
-                  <input type="radio" name="xsupercache" value="false" checked="checked" />'.adm_translate("Non").'
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="xsupercache" value="false" checked="checked" />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.adm_translate("Non").'</span>
                </label>';
       }
       echo'

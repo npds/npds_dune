@@ -390,7 +390,7 @@ class form_handler {
          $str.=($this->form_fields[$i]['obligation'])? '&nbsp;<span class="text-danger">*</span></label>' : '</label>';
          $str.='
             <div class="col-sm-8 ">
-               <input type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
+               <input class="" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
          $str.=($this->form_fields[$i]['checked'])? ' checked="checked" />' : ' />';
           if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];
@@ -442,8 +442,10 @@ class form_handler {
           <div class="form-group row">
              <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
              <div class="col-sm-8">
-               <select class="custom-select form-control" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'];
-          $str.=($this->form_fields[$i]['multiple'])? "[]\" multiple" : "\"";
+               <select class="'; 
+          $str.=($this->form_fields[$i]['multiple'])? 'form-control' : 'custom-select form-control';
+          $str.= '" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'];
+          $str.=($this->form_fields[$i]['multiple'])? '[]" multiple="multiple"' : "\"";
           if ($num_extender!='no') {
              $str.=' '.$this->form_fields[$num_extender]['javas'].' ';
           }

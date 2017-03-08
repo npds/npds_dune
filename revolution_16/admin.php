@@ -375,10 +375,10 @@ function adminMain($deja_affiches) {
       <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
                 <thead>
                     <tr>
-                        <th data-sortable="true" data-halign="center" data-align="right">ID</th>
+                        <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">ID</th>
                         <th data-sortable="true" data-halign="center">'.adm_translate("Titre").'</th>
                         <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
-                        <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+                        <th data-halign="center" data-align="right" class="n-t-col-xs-3">'.adm_translate("Fonctions").'</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -452,19 +452,13 @@ function adminMain($deja_affiches) {
       </ul>';
       echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
-         <div class="form-group">
-            <label class="form-control-label">'.adm_translate("ID Article:").'</label>
-               <input class="form-control" type="number" name="sid" size="10" />
-         </div>
-         <div class="form-group">
-            <select class="custom-select form-control" name="op">
-               <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
-               <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
-            </select>
-         </div>
-         <div class="form-group">
-            <button class="btn btn-primary" type="submit">'.adm_translate("Ok").' </button>
-         </div>
+         <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
+         <input class="form-control  mr-2 mt-sm-3 mb-2" type="number" name="sid" />
+         <select class="custom-select form-control mr-2 mt-sm-3 mb-2" name="op">
+            <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
+            <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
+         </select>
+         <button class="btn btn-primary ml-sm-2 mt-sm-3 mb-2" type="submit">'.adm_translate("Ok").' </button>
       </form>';
    }
    echo '</div>';
