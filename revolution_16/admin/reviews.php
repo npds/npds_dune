@@ -80,8 +80,8 @@ function reviews() {
          <label class="form-control-label col-sm-4" for="date">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group input-append date" id="datePicker">
-               <input class="form-control" type="text" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd"  data-date-language="'.language_iso(1,'','').'" />
-               <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+               <input class="form-control" type="text" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-container="#datePicker" data-orient="bottom right" data-date-language="'.language_iso(1,'','').'" />
+               <span class="input-group-addon add-on"><span class="fa fa-calendar-check-o fa-lg"></span></span>
             </div>
          </div>
       </div>
