@@ -6,6 +6,7 @@
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 .datepicker {
+margin-top: 1rem;
   padding: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -72,9 +73,11 @@
   border-bottom: 0;
   border-top: 6px solid #ffffff;
 }
+/* jpb
 .datepicker > div {
   display: none;
 }
+ */
 .datepicker table {
   margin: 0;
   -webkit-touch-callout: none;
