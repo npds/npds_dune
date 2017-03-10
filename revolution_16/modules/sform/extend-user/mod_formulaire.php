@@ -17,17 +17,17 @@ $m->add_mess(translate("* for mandatory field"));
 $m->add_form_field_size(50);
 
 $m->add_field('name', translate("Real Name").' '.translate("(optional)"),$userinfo['name'],'text',false,60,'','');
-$m->add_extender('name', '', '<span class="help-block"><span class="float-xs-right" id="countcar_name"></span></span>');
+$m->add_extender('name', '', '<span class="help-block"><span class="float-right" id="countcar_name"></span></span>');
 
 $m->add_field('email', translate("Real Email"),$userinfo['email'],'email',true,60,'','');
-$m->add_extender('email', '','<span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span>');
+$m->add_extender('email', '','<span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'<span class="float-right" id="countcar_email"></span></span>');
 $m->add_field('femail',translate("Fake Email"),$userinfo['femail'],'email',false,60,"","");
-$m->add_extender('femail', '','<span class="help-block">'.translate("(This Email will be public. Just type what you want, Spam proof)").'</span>');
+$m->add_extender('femail', '','<span class="help-block">'.translate("(This Email will be public. Just type what you want, Spam proof)").'<span class="float-right" id="countcar_femail"></span></span>');
 
 if ($userinfo['user_viewemail']) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), 1, false, $checked);
 
-$m->add_field('url', translate("Your HomePage"),$userinfo['url'],'text',false,100,"","");
+$m->add_field('url', translate("Your HomePage"),$userinfo['url'],'url',false,100,'','');
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($subscribe) {
@@ -78,20 +78,17 @@ if ($smilies) {
    if (!$avatar_size) {$avatar_size='80*100';}
    $m->add_upload('B1', '', '30', $taille_fichier);
    $m->add_extender('B1', '', '<span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octects et <strong>'.$avatar_size.'</strong> pixels</span>');
-
-
-   $m->add_checkbox('raz_avatar','', 1, false, false);
-   $m->add_extender('raz_avatar', '', '&nbsp;'.translate("Re-activate the standard'avatars"));
+   $m->add_checkbox('raz_avatar',translate("Re-activate the standard'avatars"), 1, false, false);
    // ----------------------------------------------------------------------------------------------
 }
 // ---- AVATAR
 
 $m->add_field('user_from', translate("Your Location"),$userinfo['user_from'],'text',false,100,'','');
-$m->add_extender('user_from', '', '<span class="help-block"><span class="float-xs-right" id="countcar_user_from"></span></span>');
+$m->add_extender('user_from', '', '<span class="help-block"><span class="float-right" id="countcar_user_from"></span></span>');
 $m->add_field('user_occ', translate("Your Occupation"),$userinfo['user_occ'],'text',false,100,'','');
-$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-xs-right" id="countcar_user_occ"></span></span>');
+$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-right" id="countcar_user_occ"></span></span>');
 $m->add_field('user_intrest', translate("Your Interest"),$userinfo['user_intrest'],'text',false,150,'','');
-$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-xs-right" id="countcar_user_intrest"></span></span>');
+$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-right" id="countcar_user_intrest"></span></span>');
 
 // ---- SIGNATURE
 $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='".$userinfo['uid']."'");
@@ -105,9 +102,9 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
 $m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-xs-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
-$m->add_extender('pass', '', '<span class="help-block"><span class="float-xs-right" id="countcar_pass"></span></span>');
+$m->add_extender('pass', '', '<span class="help-block"><span class="float-right" id="countcar_pass"></span></span>');
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
-$m->add_extender('vpass', '', '<span class="help-block"><span class="float-xs-right" id="countcar_vpass"></span></span>');
+$m->add_extender('vpass', '', '<span class="help-block"><span class="float-right" id="countcar_vpass"></span></span>');
 
 
 // --- EXTENDER
@@ -147,7 +144,26 @@ $m->add_extra('
          });
       //]]>
       </script>');
-$m->add_extra(adminfoot('fv','','','1'));
+$fv_parameter ='
+         C7: {
+            validators: {
+               between: {
+                  min: -90,
+                  max: 90,
+                  message: "The latitude must be between -90.0 and 90.0"
+               }
+            }
+         },
+         C8: {
+            validators: {
+               between: {
+                  min: -180,
+                  max: 180,
+                  message: "The longitude must be between -180.0 and 180.0"
+               }
+            }
+         },';
+$m->add_extra(adminfoot('fv',$fv_parameter,'','1'));
 
 // ----------------------------------------------------------------
 ?>

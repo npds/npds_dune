@@ -16,20 +16,21 @@ if (!function_exists("Mysql_Connexion")) {
 }
 function message_error($ibid,$op) {
    include("header.php");
-   echo '<h2>'.translate("User").'</h2>';
-   echo "<p class=\"lead text-warning text-center\">";
+   echo '
+   <h2>'.translate("User").'</h2>
+   <div class="alert alert-danger lead">';
    echo $ibid;
-   if (($op=="only_newuser") or ($op=="new user") or ($op=="finish")) {
+   if (($op=='only_newuser') or ($op=='new user') or ($op=='finish')) {
        hidden_form();
-      echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\" />
-      <p class=\"text-center\">
-      <button class=\"btn btn-primary\" type=\"submit\" value=\"".translate("Go Back")."\" /><i class=\"fa fa-lg fa-undo\"></i></button>
-      </p>
-      </form>";
+      echo '
+         <input type="hidden" name="op" value="only_newuser" />
+         <button class="btn btn-secondary mt-2" type="submit">'.translate("Go Back").'</button>
+      </form>';
    } else {
-      echo "<a class=\"btn btn-primary\" href=\"javascript:history.go(-1)\"title=".translate("Go Back")."><i class=\"fa fa-lg fa-undo\"></i></a>";
+      echo '<a class="btn btn-secondary mt-4" href="javascript:history.go(-1)" title="'.translate("Go Back").'">'.translate("Go Back").'</a>';
    }
-   echo "</p>";
+   echo '
+   </div>';
    include("footer.php");
 }
 function message_pass($ibid) {
@@ -67,23 +68,29 @@ function nav($mns) {
 }
 
 function userCheck($uname, $email) {
-    global $NPDS_Prefix;
-    $stop='';
-    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid email")."";
-    if (strrpos($email,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Email addresses do not contain spaces.")."";
-    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Invalid Nickname")."";
-    if (strlen($uname) > 25) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Nickname is too long. It must be less than 25 characters.")."";
-    if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname)) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Name is reserved.")."";
-    if (strrpos($uname,' ') > 0) $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("There cannot be any spaces in the Nickname.")."";
-    if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$uname'")) > 0) {
-       $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Nickname taken")."";
-    }
-    if ($uname!="edituser") {
-       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
-          $stop = "<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("ERROR: Email address already registered")."";
-       }
-    }
-    return($stop);
+   global $NPDS_Prefix;
+   $stop='';
+   if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)))
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid email");
+   if (strrpos($email,' ') > 0)
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Email addresses do not contain spaces.");
+   if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) 
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid Nickname");
+   if (strlen($uname) > 25)
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Nickname is too long. It must be less than 25 characters.");
+   if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname))
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Name is reserved.");
+   if (strrpos($uname,' ') > 0)
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("There cannot be any spaces in the Nickname.");
+   if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$uname'")) > 0) {
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Nickname taken");
+   }
+   if ($uname!='edituser') {
+      if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
+         $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Email address already registered");
+      }
+   }
+   return($stop);
 }
 
 function makePass() {
@@ -125,6 +132,7 @@ function Only_NewUser() {
       include("header.php");
       showimage();
       echo '
+   <div>
    <h2 class="mb-3">'.translate("User").'</h2>
    <div class="card card-block mb-3">
       <h3>'.translate("Notice").'</h3>
@@ -143,12 +151,14 @@ function Only_NewUser() {
       </p>';
       if (!$memberpass) {
          echo '
-      <p class="lead text-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Password will be sent to the email address you enter.").'</p>';
+      <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("Password will be sent to the email address you enter.").'</div>';
       }
       echo '
-   </div>';
+   </div>
+   <div class="card card-block mb-3">';
       include ("modules/sform/extend-user/extend-user.php");
-
+      echo '
+   </div>';
    $fv_parametres = '
    add_aid: {
       validators: {
@@ -205,10 +215,9 @@ function Only_NewUser() {
             }
          }
       }
-   },
-   ';
+   },';
 
-   adminfoot('fv',$fv_parametres,'','1');
+   adminfoot('fv',$fv_parametres,'','');
    } else {
       header("location: user.php");
    }
@@ -244,75 +253,79 @@ function hidden_form() {
       <input type="hidden" name="B1" value="'.StripSlashes(removeHack($B1)).'" />';
 }
 function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
-    global $smilies, $short_user, $minpass, $memberpass;
-    $uname=strip_tags($uname);
-    if ($user_viewemail!=1) {$user_viewemail='0';}
-    $stop=userCheck($uname, $email);
-    if ($memberpass) {
-       if ((isset($pass)) and ($pass != $vpass)) {
-          $stop="<p class=\"text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."</p><br />";
-       } elseif (strlen($pass) < $minpass) {
-          $stop="<p class=\"text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."</p><br />";
-       }
-    }
-    if (!$stop) {
-       include("header.php");
-      echo '<h2>'.translate("User").'</h2>';
-          echo '<h2><i class="fa fa-user"></i>&nbsp;Votre fiche d\'inscription</h2>';
-          include ("modules/sform/extend-user/aff_extend-user.php");
-          hidden_form();
-          global $charte;
-          if (!$charte) {
-             echo "<p class=\"lead text-warning text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You must accept the terms of use of this website")."</p>";
-             echo "<input type=\"hidden\" name=\"op\" value=\"only_newuser\">
-            <input class=\"btn btn-secondary\" type=\"submit\" value=\"".translate("Go Back")."\" />
-            </form>";
-          } else {
-             echo '
-            <input type="hidden" name="op" value="finish">
-            <input class="btn btn-primary" type="submit" value="'.translate("Finish").'" />
-         </form>';
-         }
+   global $smilies, $short_user, $minpass, $memberpass;
+   $uname=strip_tags($uname);
+   if ($user_viewemail!=1) {$user_viewemail='0';}
+   $stop=userCheck($uname, $email);
+   if ($memberpass) {
+      if ((isset($pass)) and ($pass != $vpass)) {
+         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.");
+      } elseif (strlen($pass) < $minpass) {
+         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long");
+      }
+   }
+   if (!$stop) {
+      include("header.php");
+      echo '
+      <h2>'.translate("User").'</h2>
+      <h2><i class="fa fa-user mr-2"></i>Votre fiche d\'inscription</h2>';
+      include ("modules/sform/extend-user/aff_extend-user.php");
+      hidden_form();
+      global $charte;
+      if (!$charte) {
+         echo '
+               <div class="alert alert-danger lead mt-3"><i class="fa fa-exclamation mr-2"></i>'.translate("You must accept the terms of use of this website").'
+                  <input type="hidden" name="op" value="only_newuser" /><br />
+                  <input class="btn btn-secondary mt-2" type="submit" value="'.translate("Go Back").'" />
+               </div>
+            </form>';
+      } else {
+         echo '
+               <input type="hidden" name="op" value="finish" /><br />
+               <input class="btn btn-primary mt-2" type="submit" value="'.translate("Finish").'" />
+            </form>';
+      }
        include("footer.php");
-    } else {
-       message_error($stop,"new user");
-    }
+   } else {
+      message_error($stop,"new user");
+   }
 }
 function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
-    global $NPDS_Prefix;
-    global $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt;
-    $stop=userCheck($uname, $email);
-    $user_regdate = time()+($gmt*3600);
-    $stop=userCheck($uname, $email);
-    if (!$stop) {
-       include("header.php");
-       if (!$memberpass) {
-          $makepass=makepass();
-       } else {
-          $makepass=$pass;
-       }
-       if (!$system)
-          $cryptpass=crypt($makepass,$makepass);
-       else
-          $cryptpass=$makepass;
+   global $NPDS_Prefix;
+   global $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt;
+   $stop=userCheck($uname, $email);
+   $user_regdate = time()+($gmt*3600);
+   $stop=userCheck($uname, $email);
+   if (!$stop) {
+      include("header.php");
+      if (!$memberpass) {
+         $makepass=makepass();
+      } else {
+         $makepass=$pass;
+      }
+      if (!$system)
+         $cryptpass=crypt($makepass,$makepass);
+      else
+         $cryptpass=$makepass;
 
-       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
-       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
-       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
-       if ($user_sig) {
-          $attach = 1;
-       } else {
-          $attach = 0;
-       }
-       if (($AutoRegUser==1) or (!isset($AutoRegUser))) {
-          $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','1','')");
-       } else {
-          $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','0','')");
-       }
-       if ($result) {
-          if (($system==1) or ($memberpass)) {
-            echo '<h2>'.translate("User").'</h2>';
-          echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
+      list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
+      if ($user_sig) {
+         $attach = 1;
+      } else {
+         $attach = 0;
+      }
+      if (($AutoRegUser==1) or (!isset($AutoRegUser))) {
+         $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','1','')");
+      } else {
+         $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','0','')");
+      }
+      if ($result) {
+         if (($system==1) or ($memberpass)) {
+            echo '
+            <h2>'.translate("User").'</h2>
+            <h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';
                 echo "<p class=\"lead\">".translate("Your Password is: ")."<strong>$makepass</strong></p>";
                 echo "<p class=\"lead\">".translate("You can change it after you login at")." : <a href=\"user.php?op=login&uname=$uname&pass=$makepass\"><strong>$sitename</strong></a></p>";
              
@@ -322,10 +335,10 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
              $subject="".translate("User Password for")." $uname";
              send_email($email, $subject, $message, "", true, "html");
 
-      echo '<h2>'.translate("User").'</h2>';
-          echo '<h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';	   
-                echo '<p class="lead text-info"><i class="fa fa-exclamation"></i>&nbsp;'.translate("You are now registered. You should receive your password at the email account you provided.").'</p>';
-
+            echo '
+      <h2>'.translate("User").'</h2>
+      <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
+      <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("You are now registered. You should receive your password at the email account you provided.").'</div>';
           }
           //------------------------------------------------
           if (file_exists("modules/include/new_user.inc")) {
@@ -391,8 +404,8 @@ function userinfo($uname) {
 
       $my_rsos=array();
       $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+      $posterdata_extend = get_userdata_extend_from_id($uid);
       if (!$short_user) {
-         $posterdata_extend = get_userdata_extend_from_id($uid);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
          if ($posterdata_extend['M2']!='') {
             $socialnetworks= explode(';',$posterdata_extend['M2']);

@@ -186,7 +186,8 @@ function Configure() {
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">'.adm_translate("Membres").'</span>
                </label>
-                  <input type="radio" name="xmod_admin_news" value="0" />
+               <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="xmod_admin_news" value="0" />
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">'.adm_translate("Tous").'</span>';
    } elseif ($mod_admin_news==2) {
