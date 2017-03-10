@@ -252,33 +252,33 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
 
 switch ($op) {
    case 'extractUserCSV':
-        extractUserCSV();
-        break;
-
+      extractUserCSV();
+   break;
    case "modifyUser":
-        modifyUser($chng_uid);
-        break;
-
+      modifyUser($chng_uid);
+   break;
    case 'updateUser':
-        if ($add_group) {$add_group=implode(',',$add_group);}
-        updateUser($chng_uid, $add_uname, $add_name, $add_url, $add_email, $add_femail, $add_user_from, $add_user_occ, $add_user_intrest, $add_user_viewemail, $add_avatar, $add_user_sig, $add_bio, $add_pass, $add_pass2, $add_level, $add_open_user, $add_group, $add_send_email, $add_is_visible, $add_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar,$chng_rank,$user_lnl);
-        break;
-
+      if ($add_group) {$add_group=implode(',',$add_group);}
+      updateUser($chng_uid, $add_uname, $add_name, $add_url, $add_email, $add_femail, $add_user_from, $add_user_occ, $add_user_intrest, $add_user_viewemail, $add_avatar, $add_user_sig, $add_bio, $add_pass, $add_pass2, $add_level, $add_open_user, $add_group, $add_send_email, $add_is_visible, $add_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar,$chng_rank,$user_lnl);
+   break;
    case 'delUser':
-        global $hlpfile;
-        include("header.php");
-        GraphicAdmin($hlpfile);
-        opentable();
-        echo "<p align=\"center\"><b>".adm_translate("Supprimer un utilisateur")."</b> : ";
-        echo "<span class=\"rouge\">".adm_translate("Etes-vous sûr de vouloir effacer") . " " . adm_translate("Utilisateur") . " $chng_uid ? </span><br /><br />";
-        echo "[ <a href=\"admin.php?op=delUserConf&amp;del_uid=$chng_uid&amp;referer=".basename($referer)."\" class=\"rouge\">".adm_translate("Oui")."</a> | ";
-        if (basename($referer)!="memberslist.php")
-           echo "<a href=\"admin.php?op=mod_users\" class=\"noir\">".adm_translate("Non")."</a> ]<br />";
-        else
-           echo "<a href=\"memberslist.php\" class=\"noir\">".adm_translate("Non")."</a> ]<br />";
-        closetable();
-        include("footer.php");
-        break;
+      global $hlpfile;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      echo '
+      <h3 class="text-danger mb-3">'.adm_translate("Supprimer un utilisateur").'</h3>
+      <div class="alert alert-danger lead">'.adm_translate("Etes-vous sûr de vouloir effacer"). ' '.adm_translate("Utilisateur").' <strong>'.$chng_uid.'</strong> ? <br />
+         <a class="btn btn-danger mt-3" href="admin.php?op=delUserConf&amp;del_uid='.$chng_uid.'&amp;referer='.basename($referer).'">'.adm_translate("Oui").'</a>';
+      if (basename($referer)!="memberslist.php")
+         echo '
+         <a class="btn btn-secondary mt-3" href="admin.php?op=mod_users">'.adm_translate("Non").'</a>';
+      else
+         echo '
+         <a class="btn btn-secondary mt-3" href="memberslist.php">'.adm_translate("Non").'</a>';
+      echo '
+      </div>';
+      include("footer.php");
+   break;
 
    case 'delUserConf':
         $result = sql_query("SELECT uid, uname FROM ".$NPDS_Prefix."users WHERE uid='$del_uid' or uname='$del_uid'");
@@ -384,17 +384,17 @@ switch ($op) {
    break;
 
    case 'unsubUser':
-        $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uid='$chng_uid' OR uname='$chng_uid'");
-        list($chng_uid) = sql_fetch_row($result);
-        if ($chng_uid!=1) {
-           sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$chng_uid'");
-           global $aid; Ecr_Log("security", "UnsubUser($chng_uid) by AID : $aid", "");
-        }
-        Header("Location: admin.php?op=mod_users");
-        break;
+      $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uid='$chng_uid' OR uname='$chng_uid'");
+      list($chng_uid) = sql_fetch_row($result);
+      if ($chng_uid!=1) {
+         sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$chng_uid'");
+         global $aid; Ecr_Log("security", "UnsubUser($chng_uid) by AID : $aid", "");
+      }
+      Header("Location: admin.php?op=mod_users");
+   break;
    case 'mod_users':
    default:
-        displayUsers();
-        break;
+      displayUsers();
+   break;
 }
 ?>

@@ -750,13 +750,13 @@
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
 				this.picker.css({
-					top: top,
+					top: top+51,
 					right: right,
 					zIndex: zIndex
 				});
 			} else {
 				this.picker.css({
-					top: top,
+					top: top+51,
 					left: left,
 					zIndex: zIndex
 				});

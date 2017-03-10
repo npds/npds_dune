@@ -37,7 +37,7 @@ if ($smilies) {
          if ($file=='blank.gif') {$tmp_tempo[$file]['selected']=true;}
    }
    $m->add_select('user_avatar', translate("Your Avatar"), $tmp_tempo, false, '', false);
-   $m->add_extender('user_avatar', "onkeyup=\"showimage();\" onchange=\"showimage();\"", "&nbsp;&nbsp;<img src=\"$direktori/blank.gif\" name=\"avatar\" align=\"top\" title=\"\" />");
+   $m->add_extender('user_avatar', 'onkeyup="showimage();" onchange="showimage();"', '<img class="img-thumbnail n-ava mt-3" src="'.$direktori.'/blank.gif" name="avatar" alt="avatar" />');
    $m->add_field('B1','B1','','hidden',false);
 }
 // ---- AVATAR
@@ -51,14 +51,15 @@ $m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textar
 // --- MEMBER-PASS
 if ($memberpass) {
    $m->add_field('pass', translate("Password"),'','password',true,40,'','');
-   $m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><progress id="passwordMeter_cont" class="progress password-meter" value="0" max="100"><div class="progress"><span id="passwordMeter" class="progress-bar" style="width: 0%;"></span></div></progress></div></div>');
+   $m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div></div></div></div>');
    $m->add_field('vpass', translate("Retype Password"),'','password',true,40,'','');
 }
+
 // --- MEMBER-PASS
 
 // --- CHARTE du SITE
 $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), "1", false, true);
-$m->add_checkbox('charte','<a href="static.php?op=charte.html" target="_blank" class="rouge">'.translate("You must accept the terms of use of this website").'</a>', "1", false, false);
+$m->add_checkbox('charte','<a href="static.php?op=charte.html" target="_blank" class="text-danger">'.translate("You must accept the terms of use of this website").'</a>', "1", false, false);
 // --- CHARTE du SITE
 
 // --- EXTENDER

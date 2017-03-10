@@ -174,9 +174,12 @@ if ($supadm==1) echo'
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 text-danger" for="cb_radminsuper" >'.adm_translate("Super administrateur").'</label>
-         <div class="col-sm-8">
-            <input id="cb_radminsuper" class="" type="checkbox" name="add_radminsuper" value="1" />
+         <div class="col-sm-8 offset-sm-4">
+            <label class="custom-control custom-checkbox">
+               <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="add_radminsuper" value="1" />
+               <span class="custom-control-indicator bg-danger"></span>
+               <span class="custom-control-description text-danger">'.adm_translate("Super administrateur").'</span>
+            </label>
             <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
          </div>
       </div>
@@ -381,14 +384,13 @@ function modifyadmin($chng_aid) {
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-sm-4 text-danger" for="chng_radminsuper" >'.adm_translate("Super administrateur").'</label>
-            <div class="col-sm-8">
-               <div class="checkbox">
-                  <label>
-                     <input id="cb_radminsuper" class="" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
-                  </label>
-                 <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
-               </div>
+            <div class="col-sm-8 offset-sm-4">
+               <label class="custom-control custom-checkbox">
+                  <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
+                  <span class="custom-control-indicator bg-danger"></span>
+                  <span class="custom-control-description text-danger">'.adm_translate("Super administrateur").'</span>
+               </label>
+               <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
             </div>
          </div>
          <input type="hidden" name="chng_aid" value="'.$chng_aid.'" />

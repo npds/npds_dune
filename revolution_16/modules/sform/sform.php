@@ -306,7 +306,7 @@ class form_handler {
     // todo utilisation de tabindex dans les input
     $str.='
       <fieldset id="'.$this->form_title.'">
-         <legend>'.$this->title.'</legend>';
+         <legend class="mb-4">'.$this->title.'</legend>';
 
     for($i=0;$i<count($this->form_fields);$i++){
       if (array_key_exists('size',$this->form_fields[$i])) {
@@ -322,6 +322,7 @@ class form_handler {
         switch($this->form_fields[$i]['type']){
         case 'text':
         case 'email':
+        case 'url':
          $str.='
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
@@ -330,10 +331,10 @@ class form_handler {
           if ($this->form_fields[$i]['obligation']){
              $requi= 'required="required"';
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
-             $str.='&nbsp;<span class="text-danger">*</span>';
+             $str.='<span class="text-danger ml-2">*</span>';
           }
          $str.='</label>
-         <div class="col-sm-8">';
+            <div class="col-sm-8">';
           // Charge la valeur et analyse la clef
           if ($this->form_fields[$i]['name']==$this->form_key) {
              $this->form_key_value=$this->form_fields[$i]['value'];
@@ -361,7 +362,7 @@ class form_handler {
 
         case 'password-access':
           $this->form_fields[$i]['value']=$this->form_password_access;
-          
+
         case 'password':
          $str.='
           <div class="form-group row">
@@ -384,14 +385,22 @@ class form_handler {
       break;
 
       case 'checkbox':
+      $str.='<div class="form-group row">';
+/*
          $str.='
          <div class="form-group row">
             <label class="form-control-label col-sm-4 " for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
          $str.=($this->form_fields[$i]['obligation'])? '&nbsp;<span class="text-danger">*</span></label>' : '</label>';
+*/
          $str.='
-            <div class="col-sm-8 ">
-               <input class="" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
+            <div class="col-sm-8 offset-sm-4">
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
          $str.=($this->form_fields[$i]['checked'])? ' checked="checked" />' : ' />';
+         $str.= '
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.$this->form_fields[$i]['en'].'</span>
+               </label>';
           if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];
           }
@@ -605,7 +614,7 @@ class form_handler {
   // return ALL FIELDS as HIDDEN
   // public string
   function print_form_hidden() {
-    $str="";
+    $str='';
     for ($i=0;$i<count($this->form_fields);$i++) {
        if (array_key_exists('name',$this->form_fields[$i])) {
           $str.="<input type=\"hidden\" name=\"".$this->form_fields[$i]['name']."\" value=\"".stripslashes(str_replace('\'','&#039;',$this->form_fields[$i]['value']))."\" />";
@@ -978,7 +987,7 @@ class form_handler {
           if (count($date)==3) {
              settype($date[0], 'integer');
              settype($date[1], 'integer');
-             settype($date[2], 'integer');         
+             settype($date[2], 'integer');
              if (!checkdate($date[1],$date[0],$date[2])) {
                 $this->error($nom,"Date non valide");
                 exit();
@@ -986,7 +995,7 @@ class form_handler {
           } else {
              $this->error($nom,"Date non valide");
              exit();
-          }          
+          }
           break;
 
         default:

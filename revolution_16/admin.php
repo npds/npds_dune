@@ -91,8 +91,8 @@ function login() {
       //<![CDATA[
       document.adminlogin.aid.focus();
       $(document).ready(function() {
-      inpandfieldlen("pwd",18);
-      inpandfieldlen("aid",20);
+         inpandfieldlen("pwd",18);
+         inpandfieldlen("aid",20);
       });
       //]]>
       </script>';
