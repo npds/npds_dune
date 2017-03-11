@@ -145,9 +145,77 @@ text-align:center;
 
  /* gestion du table-design en CSS */
 .row1 {
-   display: table;
+ 
+/*   display: table;*/
+
   table-layout: fixed;  /* pour ne pas rentrer en conflit avec BS row devient row1  BMAG */
 }
+
+.w18 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 18%;
+-ms-flex: 0 0 18%;
+flex: 0 0 18%;
+max-width: 18%
+}
+.w19 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 19%;
+-ms-flex: 0 0 19%;
+flex: 0 0 19%;
+max-width: 19%
+}
+.w64 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 64%;
+-ms-flex: 0 0 64%;
+flex: 0 0 64%;
+max-width: 64%
+}
+.w62 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 62%;
+-ms-flex: 0 0 62%;
+flex: 0 0 62%;
+max-width: 62%
+}
+.w82 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 82%;
+-ms-flex: 0 0 82%;
+flex: 0 0 82%;
+max-width: 82%
+}
+.w60 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 60%;
+-ms-flex: 0 0 60%;
+flex: 0 0 60%;
+max-width: 60%
+}
+.w40 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 40%;
+-ms-flex: 0 0 40%;
+flex: 0 0 40%;
+max-width: 40%
+}
+
+@media (max-width: 991px) {
+  .n-c {display:none;}
+  .w64, .w82, .w62 {
+-webkit-box-flex: 0;
+-webkit-flex: 0 0 100%;
+-ms-flex: 0 0 100%;
+flex: 0 0 100%;
+max-width: 100%
+}
+}
+
+
+
+
+
 
 .ie7 .row1,
 .ie6 .row1 {
