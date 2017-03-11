@@ -1,10 +1,10 @@
 <?php
 /************************************************************************/
-/* Theme for NPDS / Net Portal Dynamic System     NBOR                   */
+/* Theme for NPDS / Net Portal Dynamic System     NBOR                  */
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : jpb Jireck Bmag     NBOR            */
+/* Theme : jpb Jireck Bmag     NBOR                                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,25 +13,20 @@
 
 global $pdst;
 $pdst=4;
-if(!$user){
 
-$blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1' AND member ='0'");
+$blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'");
 $nb_blg_actif = sql_num_rows($blg_actif);
-$bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1' AND member ='0'");
+$bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'");
 $nb_bld_actif = sql_num_rows($bld_actif);
 
 /*
-La variable $pdst permet de gérer le nombre et la disposition des colonnes
+La variable $pdst permet de g√©rer le nombre et la disposition des colonnes
  "-1" -> col_princ
- "0"  -> col_LB + col_princ
- "1"  -> col_LB + col_princ + col_RB
  "2"  -> col_princ + col_RB
- "3"  -> col_LB + col_RB + col_princ
  "4"  -> col_princ + col_LB + col_RB
- "5"  -> col_RB + col_princ
  "6"  -> col_princ + col_LB
  
- La gestion de ce paramétre s'effectue dans le fichier "pages.php" du dossier "themes
+ La gestion de ce param√®tre s'effectue dans le fichier "pages.php" du dossier "themes
 
  Nomination des div :
  col_princ contient le contenu principal
@@ -39,32 +34,22 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
  col_RB contient les blocs historiquement dit de droite
 */
 
-
-
 if ($nb_blg_actif == 0) {
     switch ($pdst)
     {
-    case "0": $pdst='-1'; break;
-    case "1": $pdst='2'; break;
-    case "3": $pdst='5'; break;
-    case "4": $pdst='2'; break;
-    case "6": $pdst='-1'; break;
+    case '4': $pdst='2'; break;
     }
 }
 if ($nb_bld_actif == 0) {
     switch ($pdst)
     {
-    case "1": $pdst='0'; break;
     case "2": $pdst='-1'; break;
-    case "3": $pdst='0'; break;
-    case "4": $pdst='6'; break;    
-    case "5": $pdst='-1'; break;
+    case "4": $pdst='6'; break;
     }
 }
-}
 
-// ContainerGlobal permet de transmettre ‡ Theme-Dynbamic un ÈlÈment de personnalisation avant
-// le chargement de header.html / Si vide alors la class body est chargÈe par dÈfaut par Theme dynamique
+// ContainerGlobal permet de transmettre ‚Ä° Theme-Dynbamic un √àl√àment de personnalisation avant
+// le chargement de header.html / Si vide alors la class body est charg√àe par d√àfaut par Theme dynamique
 $ContainerGlobal="\n<div id=\"container\">\n";
 
 // Ne supprimez pas cette ligne / Don't remove this line
@@ -73,69 +58,33 @@ $ContainerGlobal="\n<div id=\"container\">\n";
    if (!isset($powerpack)) {include ("powerpack.php");}
 // Ne supprimez pas cette ligne / Don't remove this line
 
-// Insertion Message "chat en cours" juste en dessous du header - avant la Partie Centrale
-// if (if_chat()) echo "<b>-: Chat en Cours :-</b>";
-   
 /************************************************************************/
 /*     Le corps de page de votre Site - En dessous du Header            */
-/*     On Ouvre les DiffÈrent Blocs en Fonction de la Variable $pdst    */
+/*     On Ouvre les Diff√àrent Blocs en Fonction de la Variable $pdst    */
 /*                         Le corps englobe :                           */
 /*                 col_LB + col_princ + col_RB                          */
 /*           Si Aucune variable pdst dans pages.php                     */
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
-     echo '<section id="corps" class="row1 w100" role="main">';
+     echo '<section id="corps" class="row1 row " role="main">';
 switch ($pdst) {
-case "-1":
-     echo '<section id="col_princ" class="col w100 autotablet">';   /* la partie centrale */
+case '-1':
+   echo '<section id="col_princ" class="col-12 ">';
 break;
-case "0":
-     echo '<aside id="col_LB" class="col w19 notablet nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
-        leftblocks();
-     echo '</aside>';
-     echo '<section id="col_princ" class="col w89 autotablet content">';
+case '2':
+   echo '<section id="col_princ" class="col-lg-9 w81 ">';
 break;
-
-case "1":
-     echo '<aside id="col_LB" class="col w19 notablet nomobile  aside">';  /* la colonne de gauche qui aura les BLOCS de gauche */
-        leftblocks();
-     echo '</aside>';
-     echo '<section id="col_princ" class="col  w61 autotablet">';
+case '4':
+   echo '<section id="col_princ" class="col-lg-6 w62 ">';
 break;
-case "2":
-     echo '<section id="col_princ" class="col w89 autotablet">';
-break;
-case "3":
-     echo '<aside id="col_LB" class="col w19 notablet nomobile  aside">';
-        leftblocks();
-     echo '</aside>';
-     echo '<aside id="col_RB" class="col w19 notablet nomobile   aside">';    /* la colonne de droite qui aura les BLOCS de droites */
-        rightblocks();
-     echo '</aside>';
-     echo '<section id="col_princ" class="col w61 autotablet content">';
-break;
-case "4":
-     echo '<section id="col_princ" class="col w61 autotablet content">';
-break;
-
-case "5":
-     echo '<aside id="col_RB" class="col w19 notablet nomobile   aside">';    /* la colonne de droite qui aura les BLOCS de droites */
-        rightblocks();
-     echo '</aside>';
-     echo '<section id="col_princ" class="col w89 autotablet content">';
-break;
-
- case "6":
-      echo '<section id="col_princ" class="col w89  content">';
+case '6':
+   echo '<section id="col_princ" class="col-lg-9 w81 ">';
  break;
- 
-
-
 default:
-     echo '<aside id="col_LB" class="col w19 notablet nomobile  aside">';
+     echo '<aside id="col_LB" class="n-c col-lg-3 w19 notablet">';
         leftblocks();
      echo '</aside>';
-     echo '<section id="col_princ" class="col w89 autotablet content">';
+     echo '<section id="col_princ" class="col-lg-9 col w81 ">';
 break;
 }
 ?>
