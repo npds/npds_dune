@@ -13,12 +13,12 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Access_Error")) { die(""); }
+if (!function_exists("Access_Error")) { die(''); }
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { Access_Error(); }
 
 global $language, $links_DB, $NPDS_Prefix;
 
-$pos = strpos($ModPath, "/admin");
+$pos = strpos($ModPath, '/admin');
 include_once('modules/'.substr($ModPath,0,$pos).'/links.conf.php');
 if ($links_DB=='') {
    $links_DB=$NPDS_Prefix;
@@ -46,11 +46,9 @@ function links() {
 
    $result=sql_query("SELECT * FROM ".$links_DB."links_links");
    $numrows = sql_num_rows($result);
-   echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\"><tr class=\"header\"><td>\n";
    echo "DB : $links_DB";
    echo translate("There are")." <b>$numrows</b> ".translate("Links in our Database")." ";
    echo "</td><td align=\"left\">[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"box\">".translate("Links Main")."</a> ]</td><td align=\"right\">[ <a href=\"javascript:openwindow();\" class=\"box\">".translate("Online Manual")."</a> ]";
-   echo "</td></tr></table>\n";
 
    $result = sql_query("SELECT * FROM ".$links_DB."links_modrequest WHERE brokenlink=1");
    $totalbrokenlinks = sql_num_rows($result);
@@ -68,7 +66,7 @@ function links() {
       $resultAE = sql_query("SELECT url FROM ".$links_DB."links_links WHERE url='$url'");
       $numrowsAE = sql_num_rows($resultAE);
       echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <h3>'.translate("Links Waiting for Validation").'</h3>
    <form action="modules.php" method="post" name="'.$adminform.'">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -182,7 +180,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
       <h3>'.translate("Add a New Link").'</h3>';
       if ($adminform=='') {
          echo '
@@ -283,7 +281,7 @@ function links() {
    }
    // Add a New Main Category
    echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <h3>'.translate("Add a MAIN Category").'</h3>
    <form method="post" action="modules.php">
       <div class="form-group row">
@@ -314,7 +312,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <h3>'.translate("Modify Category").'</h3>
    <form method="post" action="modules.php">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -353,7 +351,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block">
+   <div class="card card-block mb-3">
    <h3>'.translate("Add a SUB-Category").'</h3>
    <form method="post" action="modules.php">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -396,31 +394,27 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $description, $name, $emai
     // Check if Title exist
     if ($title=='') {
        include("header.php");
-       opentable();
-       echo "<br /><span class=\"rouge\">".translate("ERROR: You need to type a TITLE for your URL!")."</span><br /><br />";
-       echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("Go Back")."</a> ]<br />";
-       closetable();
+       echo '
+       <div class="alert alert-danger">'.translate("ERROR: You need to type a TITLE for your URL!").'</div>
+       <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" class="btn btn-secondary">'.translate("Go Back").'</a>';
        include("footer.php");
        exit();
     }
     // Check if URL exist
     global $links_url;
-    if (($url=="") and ($links_url==1)) {
+    if (($url=='') and ($links_url==1)) {
        include("header.php");
-       opentable();
        echo "<br /><span class=\"rouge\">".translate("ERROR: You need to type a URL for your URL!")."</span><br /><br />";
        echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("Go Back")."</a> ]<br />";
-       closetable();
        include("footer.php");
        exit();
     }
     // Check if Description exist
     if ($description=='') {
        include("header.php");
-       opentable();
-       echo "<br /><span class=\"rouge\">".translate("ERROR: You need to type a DESCRIPTION for your URL!")."</span><br /><br />";
-       echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("Go Back")."</a> ]<br />";
-       closetable();
+       echo '
+       <div class="alert alert-danger">'.translate("ERROR: You need to type a DESCRIPTION for your URL!").'</div>
+       <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" class="btn btn-secondary">'.translate("Go Back").'</a>';
        include("footer.php");
        exit();
     }
@@ -435,9 +429,9 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $description, $name, $emai
     $email = stripslashes(FixQuotes($email));
     sql_query("INSERT INTO ".$links_DB."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$description', now(), '$name', '$email', '0','$submitter',0,0,0,'$topicL')");
     include("header.php");
-    echo translate("New Link added to the Database");
-    echo "<br />";
-    echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath\" class=\"noir\">".translate("Go Back")."</a> ]<br />";
+    echo '
+    <div class="alert alert-success">'.translate("New Link added to the Database").'</div>
+    <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" class="btn btn-secondary">'.translate("Go Back").'</a>';
     if ($new==1) {
        sql_query("DELETE FROM ".$links_DB."links_newlink WHERE lid='$lid'");
        if ($email!='') {
@@ -936,10 +930,10 @@ function LinksListBrokenLinks() {
    } else {
    include ("header.php");
       echo '
-   <h3>'.translate("User Reported Broken Links").' <span class="tag tag-default pull-right"> '.$totalbrokenlinks.'</span></h3>';
-       echo "<br />
-       ".translate("Ignore (Deletes all requests for a given link)")."<br /><br />
-       ".translate("Delete (Deletes broken link and requests for a given link)")."<br /><br />";
+   <h3 class="mb-2">'.translate("User Reported Broken Links").' <span class="badge badge-default float-right"> '.$totalbrokenlinks.'</span></h3>';
+       echo '<hr />
+       '.translate("Ignore (Deletes all requests for a given link)").'
+       '.translate("Delete (Deletes broken link and requests for a given link)");
        echo '
    <table data-toggle="table" >
       <thead>
@@ -1020,67 +1014,67 @@ settype($op,'string');
 switch ($op) {
    case 'LinksDelNew':
       LinksDelNew($lid);
-      break;
+   break;
    case 'LinksAddCat':
       LinksAddCat($title, $cdescription);
-      break;
+   break;
    case 'LinksAddSubCat':
       LinksAddSubCat($cid, $title);
-      break;
+   break;
    case 'LinksAddLink':
       if ($xtext=='') $xtext=$description;
       LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter, $topicL);
-      break;
+   break;
    case 'LinksAddEditorial':
       LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
       break;
    case 'LinksModEditorial':
       LinksModEditorial($linkid, $editorialtitle, $editorialtext);
-      break;
+   break;
    case 'LinksDelEditorial':
       LinksDelEditorial($linkid);
-      break;
+   break;
    case 'LinksListBrokenLinks':
       LinksListBrokenLinks();
-      break;
+   break;
    case 'LinksDelBrokenLinks':
       LinksDelBrokenLinks($lid);
-      break;
+   break;
    case 'LinksIgnoreBrokenLinks':
       LinksIgnoreBrokenLinks($lid);
-      break;
+   break;
    case 'LinksListModRequests':
       LinksListModRequests();
-      break;
+   break;
    case 'LinksChangeModRequests':
       LinksChangeModRequests($requestid);
-      break;
+   break;
    case 'LinksChangeIgnoreRequests':
       LinksChangeIgnoreRequests($requestid);
-      break;
+   break;
    case 'LinksDelCat':
       LinksDelCat($cid, $sid, $sub, $ok);
-      break;
+   break;
    case 'LinksModCat':
       LinksModCat($cat);
-      break;
+   break;
    case 'LinksModCatS':
       LinksModCatS($cid, $sid, $sub, $title, $cdescription);
-      break;
+   break;
    case 'LinksModLink':
    case 'modifylinkrequest':
       settype($modifylinkrequest_adv_infos,'string');
       LinksModLink($lid, $modifylinkrequest_adv_infos);
-      break;
+   break;
    case 'LinksModLinkS':
       LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat, $topicL);
-      break;
+   break;
    case 'LinksDelLink':
       LinksDelLink($lid);
       Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
-      break;
+   break;
    default:
       links();
-      break;
+   break;
 }
 ?>

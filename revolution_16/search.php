@@ -40,16 +40,16 @@ if (!function_exists("Mysql_Connexion")) {
       $topicimage = "all-topics.gif";
    }
    settype($type,'string');
-   if ($type == "users") {
+   if ($type == 'users') {
       echo '<h2 class="mb-3">'.translate("Search in Users Database").'</h2><hr />';
    } elseif ($type == 'sections') {
       echo '<h2 class="mb-3">'.translate("Search in Sections").'</h2><hr />';
    } elseif ($type == 'reviews') {
       echo '<h2 class="mb-3">'.translate("Search in Reviews").'</h2><hr />';
    } elseif ($type == 'archive') {
-      echo '<h2 class="mb-3">'.translate("Search in")." ".translate("Archives").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in").' '.translate("Archives").'</h2><hr />';
    } else {
-      echo '<h2 class="mb-3">'.translate("Search in")." ".aff_langue($topictext).'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in").' '.aff_langue($topictext).'</h2><hr />';
    }
    echo '
    <form action="search.php" method="get">';
@@ -154,22 +154,32 @@ if (!function_exists("Mysql_Connexion")) {
    }
    echo '
       <div class="form-group">
-         <label class="radio-inline">
-            <input type="radio" name="type" value="stories" '.$sel1.' /> '.translate("Stories").'
+         <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" value="stories" '.$sel1.' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.translate("Stories").'</span>
          </label>
-         <label class="radio-inline">
-            <input type="radio" name="type" value="archive" '.$sel6.' /> '.translate("Archives").'
+         <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" value="archive" '.$sel6.' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.translate("Archives").'</span>
          </label>
       </div>
       <div class="form-group">
-         <label class="radio-inline">
-            <input type="radio" name="type" value="sections" '.$sel3.' /> '.translate("Sections").'
+         <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" value="sections" '.$sel3.' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.translate("Sections").'</span>
          </label>
-         </label class="radio-inline">
-            <input type="radio" name="type" value="users" '.$sel4.' /> '.translate("Users").' 
+         <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" value="users" '.$sel4.' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.translate("Users").'</span>
          </label>
-         </label class="radio-inline">
-            <input type="radio" name="type" value="reviews" '.$sel5.' /> '.translate("Reviews").'
+         <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" value="reviews" '.$sel5.' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.translate("Reviews").'</span>
          </label>
       </div>
       <div class="form-group">
@@ -259,7 +269,7 @@ if (!function_exists("Mysql_Connexion")) {
       if ($x==0) {
       echo '
          <div class="alert alert-danger lead" role="alert">
-            <p class="lead"><i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;'.translate("No matches found to your query").' !</p>
+            <i class="fa fa-exclamation-triangle fa-lg mr-2"></i>'.translate("No matches found to your query").' !
          </div>';
       }
 
@@ -274,7 +284,7 @@ if (!function_exists("Mysql_Connexion")) {
          echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\">";
          echo translate("next matches")."</a>";
       }
-      echo "</p>";
+      echo '</p>';
 
    // reviews
    } elseif ($type=='reviews') {
@@ -305,7 +315,7 @@ if (!function_exists("Mysql_Connexion")) {
       </table>';
       } else {
          echo '
-      <div class="alert alert-danger"><strong>'.translate("No matches found to your query").'</strong></div>';
+      <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
       }
       $prev=$min-$offset;
       echo '
@@ -359,11 +369,11 @@ if (!function_exists("Mysql_Connexion")) {
       </table>';
          if ($x==0) {
             echo '
-      <div class="alert alert-danger"><strong>'.translate("No matches found to your query").'</strong></div>';
+      <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
          }
       } else {
       echo '
-      <div class="alert alert-danger"><strong>'.translate("No matches found to your query").'</strong></div>';
+      <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
       }
       $prev=$min-$offset;
       echo '
@@ -385,9 +395,7 @@ if (!function_exists("Mysql_Connexion")) {
    } elseif ($type=='users') {
       if (($member_list and $user) or $admin) {
          $result = sql_query("SELECT uname, name FROM ".$NPDS_Prefix."users WHERE (uname LIKE '%$query_title%' OR name LIKE '%$query_title%' OR bio LIKE '%$query_title%') ORDER BY uname ASC LIMIT $min,$offset");
-         if ($result) {
-            $nrows  = sql_num_rows($result);
-         }
+         if ($result) {$nrows  = sql_num_rows($result);}
          $x=0;
          if ($nrows>0) {
             echo '
@@ -400,19 +408,19 @@ if (!function_exists("Mysql_Connexion")) {
          <tbody>';
             while (list($uname, $name) = sql_fetch_row($result)) {
                $furl = "user.php?op=userinfo&amp;uname=$uname";
-               if ($name=='') {
-                  $name = translate("No name entered");
-               }
+               if ($name=='') {$name = translate("No name entered");}
                echo '
                <tr>
-                  <td><a href="'.$furl.'"><i class="fa fa-user text-muted"></i>&nbsp;'.$uname.'</a> ('.$name.')</td>
+                  <td><a href="'.$furl.'"><i class="fa fa-user text-muted mr-2"></i>'.$uname.'</a> ('.$name.')</td>
                </tr>';
                $x++;
             }
-            echo '</table>';
+            echo '
+         <tbody>
+      </table>';
          } else {
             echo '
-            <div class="alert alert-danger" role="alert"><strong>'.translate("No matches found to your query").'</strong></div>';
+      <div class="alert alert-danger lead" role="alert">'.translate("No matches found to your query").'</div>';
          }
          $prev=$min-$offset;
          echo '
@@ -425,7 +433,7 @@ if (!function_exists("Mysql_Connexion")) {
          }
          if ($x>=($offset-1)) {
             echo '
-               <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
          }
          echo '
          </ul>

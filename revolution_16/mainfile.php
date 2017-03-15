@@ -3121,7 +3121,6 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    $(document).ready(function() {
       $("form")
       .attr("autocomplete", "off")
-   
       .on("init.field.fv", function(e, data) {
          var $parent = data.element.parents(".form-group"),
           $icon   = $parent.find(\'.fv-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
@@ -3136,11 +3135,10 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
          locale: "'.language_iso(1,"_",1).'",
          framework: "bootstrap4",
          icon: {
-            required: "glyphicon glyphicon-asterisk",
-
+            required: "fa fa-asterisk",
             valid: "fa fa-check fa-lg",
             invalid: "fa fa-ban fa-lg",
-            validating: "glyphicon glyphicon-refresh"
+            validating: "fa fa-refresh"
          },
          fields: {
             alpha: {
@@ -3152,11 +3150,10 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
             }
          }
       })
-
       .on("success.validator.fv", function(e, data) {
       // The password passes the callback validator
       // voir si on a plus de champs mot de passe : changer par un array de champs ...
-      if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass") && data.validator === "callback") {
+      if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass" || data.field === "add_pass") && data.validator === "callback") {
          // Get the score
          var score = data.result.score,$pass_level=$("#pass-level"),
              $bar = $("#passwordMeter_cont");
@@ -3188,7 +3185,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                $bar.html("").css("width", "100%").removeClass().addClass("progress-bar bg-success");
                $bar_cont.attr("aria-valuenow","100");
                $bar_cont.attr("value","100").removeClass().addClass("progress-bar bg-success");
-               $pass_level.html("Fort").removeClass().addClass("help-block text-right text-danger");
+               $pass_level.html("Fort").removeClass().addClass("help-block text-right text-success");
                break;
            default:
                break;

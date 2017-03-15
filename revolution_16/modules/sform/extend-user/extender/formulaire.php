@@ -49,6 +49,7 @@ $m->add_extender('C2', '', '<span class="help-block"><span class="float-right" i
 
 $m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english]'),$T1,'date','',false,20);
 $m->add_extender('T1', '','<span class="help-block">JJ/MM/AAAA</span>');
+
 $m->add_extra('<div class="form-group row collapse">');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'text',false);
 $m->add_extra('</div>');

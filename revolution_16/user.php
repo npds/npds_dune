@@ -731,19 +731,20 @@ function logout() {
 function ForgetPassword() {
    include("header.php");
    echo '
-   <h2>'.translate("User").'</h2>
-   <h3 class="lead text-warning text-center">'.translate("Lost your Password?").'</h3>
-   <p class="lead">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</p>
+   <h2 class="mb-3">'.translate("User").'</h2>
+   <div class="card card-block">
+   <div  class="alert alert-danger text-center">'.translate("Lost your Password?").'</div>
+   <div  class="alert alert-success text-center">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</div>
    <form action="user.php" method="post">
       <div class="form-group row">
          <label for="inputuser" class="col-sm-3 form-control-label">'.translate("Nickname").'</label>
-         <div class="col-sm-6">
+         <div class="col-sm-9">
             <input type="text" class="form-control"  name="uname" id="inputuser" placeholder="'.translate("Nickname").'" />
          </div>
       </div>
       <div class="form-group row">
          <label for="inputPassuser" class="col-sm-3 form-control-label">'.translate("Password").'</label>
-         <div class="col-sm-6">
+         <div class="col-sm-9">
             <input type="password" class="form-control" name="code" id="inputPassuser" placeholder="'.translate("Password").'" />
          </div>
       </div>
@@ -753,7 +754,8 @@ function ForgetPassword() {
             <input class="btn btn-primary" type="submit" value ="'.translate("Send").'"  />
          </div>
       </div>
-   </form>';
+   </form>
+   </div>';
    include ('footer.php');
 }
 
@@ -775,11 +777,11 @@ function mail_password($uname, $code) {
        $message.= translate("A web user from")." $host_name ".translate("has just requested a Confirmation to change the password.")."\n\n".translate("Your Confirmation URL is:")." <a href=\"$url\">$url</a> \n\n".translate("If you didn't ask for this, don't worry. Just delete this Email.")."\n\n";
        include("signat.php");
 
-       $subject="".translate("Confirmation Code for")." $uname";
+       $subject=translate("Confirmation Code for").' '.$uname;
 
        send_email($email, $subject, $message, '', true, 'html');
 
-       message_pass('<p class="lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'');
+       message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'</div>');
 
        Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }
@@ -799,17 +801,15 @@ function valid_password ($code) {
       <p class="lead">'.translate("Lost your Password?").'</p>
       <p>'.translate("To valid your new password request, just re-type it.").'</p>
       <form action="user.php" method="post">
-         <div class="form-group">
-         <div class="col-sm-2">
-         <label class="form-control-label">'.translate("Password: ").'</label>
-         </div>
-         <div class="col-sm-2">
-         <input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'">
+         <div class="form-group row">
+         <label class="form-control-label col-sm-3">'.translate("Password").'</label>
+         <div class="col-sm-5">
+            <input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'" />
          </div>
          </div>
          <input type="hidden" name="op" value="updatepasswd" />
          <input type="hidden" name="code" value="'.$code.'" />
-         <div class="form-group">
+         <div class="form-group row">
          <div class="col-sm-1">
          <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
          </div>
@@ -847,8 +847,8 @@ function update_password ($code, $passwd) {
                    $cryptpass=$ibid[1];
                 }
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
-                message_pass("<p class=\"lead text-center\"><i class=\"fa fa-exclamation\"></i>&nbsp;".translate ("Password update, please re-connect you.")."</p>");
-                Ecr_Log('security', "Lost_password_update OK : ".$uname, "");
+                message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'</div>');
+                Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
              } else {
                 message_pass(translate("Error"));
                 Ecr_Log('security', 'Lost_password_update Password not match : '.$uname, '');
@@ -960,9 +960,9 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
     list($vuid, $vemail) = sql_fetch_row($result);
     if (($check == $uname) AND ($uid == $vuid)) {
         if ((isset($pass)) && ("$pass" != "$vpass")) {
-           message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Both passwords are different. They need to be identical.")."<br /><br />","");
+           message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.").'<br />','');
         } elseif (($pass != '') && (strlen($pass) < $minpass)) {
-           message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Sorry, your password must be at least")." <strong>$minpass</strong> ".translate("characters long")."<br /><br />","");
+           message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long").'<br />','');
         } else {
            $stop=userCheck('edituser', $email);
            if (!$stop)  {
@@ -972,7 +972,7 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
               if ($usend_email) {$u = 1;} else {$u = 0;}
               if ($uis_visible) {$v = 0;} else {$v = 1;}
               if ($user_lnl) {$w = 1;} else {$w = 0;}
-              if ($url!="") {
+              if ($url!='') {
                  if (!substr_count($url,'http://')) {$url='http://'.$url;}
                  if (trim($url)=='http://') {$url='';}
               }

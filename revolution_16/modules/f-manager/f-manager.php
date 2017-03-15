@@ -1145,7 +1145,7 @@ if ($inclusion) {
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
    $Xcontent=str_replace('_nb_subdir',($obj->Count("d")-$dir_minuscptr),$Xcontent);
    if(($obj->Count("d")-$dir_minuscptr)==0)
-      $Xcontent=str_replace('_classempty','collapse',$Xcontent);
+      $Xcontent=str_replace('_tabdirclassempty','collapse',$Xcontent);
    $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
    $Xcontent=str_replace('_nb_file',($obj->Count("f")-$fic_minuscptr),$Xcontent);
    $Xcontent=str_replace('_files',$files,$Xcontent);
