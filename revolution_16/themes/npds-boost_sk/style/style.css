@@ -339,7 +339,10 @@ ui-menu-item-wrapper {
 .fixed-table-footer, .fixed-table-header {
   height: 0px;
 }
-/* idem grid BS sans float left */
+/* idem grid BS pour largeur d'élément*/
+.n-t-col-xs-0-5 {
+  width: 4.166666%;
+}
 .n-t-col-xs-1 {
   width: 8.333333%;
 }
@@ -1695,3 +1698,13 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
+
+
+.ui-draggable-dragging {
+z-index: 10000!important}
+
+.ui-draggable {
+z-index: 10;
+}
+
+

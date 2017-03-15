@@ -30,6 +30,8 @@ if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRI
 } else {
    $loadornot = ' window.onload = geoloc_loadbloc; ';
 }
+if ((stristr($_SERVER['PHP_SELF'],"user.php")) and (stristr($_SERVER['QUERY_STRING'],"op=")))
+   $loadornot = ' window.onload = geoloc_loadbloc; ';
 
 $content .='
 <script type="text/javascript">

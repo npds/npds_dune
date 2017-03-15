@@ -16,7 +16,6 @@ echo '
 <link rel="stylesheet" href="lib/css/glyphicons.css" />
 <link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/css/octicons.css" />
 <link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />';
 echo '
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>';
@@ -37,9 +36,10 @@ echo '
 <script type="text/javascript" src="lib/js/bootbox.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>';
 ?>
-	<script type="text/javascript">
+   <script type="text/javascript">
     $(document).ready(function() {
         //Horizontal Tab
         $('#parentHorizontalTab').easyResponsiveTabs({

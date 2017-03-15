@@ -12,6 +12,7 @@
 /************************************************************************/
 
  $PAGES['admin.php']['blocs']="1";
+ $PAGES['index.php']['blocs']="1";
  
  
  // CSS sur fichiers particuliers car n'utilisant pas header.php
