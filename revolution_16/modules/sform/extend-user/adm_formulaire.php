@@ -118,7 +118,7 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 if ($chng_user_viewemail) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres utilisateurs à voir son adresse E-mail"), 1, false, $checked);
 
-$m->add_field('add_url','URL',$chng_url,'text',false,100,'','');
+$m->add_field('add_url','URL',$chng_url,'url',false,100,'','');
 $m->add_extender('add_url', '', '<span class="help-block"><span class="float-right" id="countcar_add_url"></span></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
@@ -146,6 +146,7 @@ $m->add_field('add_bio',adm_translate("Informations supplémentaires"),$chng_bio
 $m->add_extender('add_bio', '', '<span class="help-block"><span class="float-right" id="countcar_add_bio"></span></span>');
 
 $m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',false,40,'','');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
 $m->add_extender('add_pass', '', '<span class="help-block"><span class="float-right" id="countcar_add_pass"></span></span>');
 
 if ($op=="ModifyUser") {
@@ -201,6 +202,58 @@ $m->add_extra('
          });
       //]]>
       </script>');
-$m->add_extra(adminfoot('fv','','','1'));
+$fv_parametres ='
+         add_pass: {
+            validators: {
+               callback: {
+                  callback: function(value, validator, $field) {
+                     var score = 0;
+                     if (value === "") {
+                        return {
+                           valid: true,
+                           score: null
+                        };
+                     }
+                     // Check the password strength
+                     score += ((value.length >= 8) ? 1 : -1);
+                     if (/[A-Z]/.test(value)) {score += 1;}
+                     if (/[a-z]/.test(value)) {score += 1;}
+                     if (/[0-9]/.test(value)) {score += 1;}
+                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
+                     return {
+                     valid: true,
+                     score: score    // We will get the score later
+                     };
+                  }
+               }
+            }
+         },
+         add_pass2: {
+            validators: {
+                identical: {
+                    field: "add_pass",
+                    message: "The password and its confirm are not the same"
+                }
+            }
+         },
+         C7: {
+            validators: {
+               between: {
+                  min: -90,
+                  max: 90,
+                  message: "The latitude must be between -90.0 and 90.0"
+               }
+            }
+         },
+         C8: {
+            validators: {
+               between: {
+                  min: -180,
+                  max: 180,
+                  message: "The longitude must be between -180.0 and 180.0"
+               }
+            }
+         },';
+$m->add_extra(adminfoot('fv',$fv_parametres,'','1'));
 // ----------------------------------------------------------------
 ?>

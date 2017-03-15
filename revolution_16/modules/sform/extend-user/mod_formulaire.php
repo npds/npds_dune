@@ -28,6 +28,7 @@ if ($userinfo['user_viewemail']) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), 1, false, $checked);
 
 $m->add_field('url', translate("Your HomePage"),$userinfo['url'],'url',false,100,'','');
+$m->add_extender('url', '','<span class="help-block"><span class="float-right" id="countcar_url"></span></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($subscribe) {
@@ -96,13 +97,15 @@ list($attsig) = sql_fetch_row($asig);
 if ($attsig==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',translate("Show signature"), 1, false, $checked);
 $m->add_field('user_sig', translate("Signature"),$userinfo['user_sig'],'textarea',false,255,4,'','');
-$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-xs-right" id="countcar_user_sig"></span></span>');
+$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-right" id="countcar_user_sig"></span></span>');
 // ---- SIGNATURE
 
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
-$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-xs-right" id="countcar_bio"></span></span>');
+$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
 $m->add_extender('pass', '', '<span class="help-block"><span class="float-right" id="countcar_pass"></span></span>');
+
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
 $m->add_extender('vpass', '', '<span class="help-block"><span class="float-right" id="countcar_vpass"></span></span>');
 
@@ -133,6 +136,7 @@ $m->add_extra('
             inpandfieldlen("name",60);
             inpandfieldlen("email",60);
             inpandfieldlen("femail",60);
+            inpandfieldlen("url",100);
             inpandfieldlen("user_from",100);
             inpandfieldlen("user_occ",100);
             inpandfieldlen("user_intrest",150);
@@ -141,10 +145,45 @@ $m->add_extra('
             inpandfieldlen("pass",40);
             inpandfieldlen("vpass",40);
             inpandfieldlen("C2",40);
+            inpandfieldlen("C1",100);
+            inpandfieldlen("T1",40);
          });
       //]]>
       </script>');
-$fv_parameter ='
+$fv_parametres ='
+         pass: {
+            validators: {
+               callback: {
+                  callback: function(value, validator, $field) {
+                     var score = 0;
+                     if (value === "") {
+                        return {
+                           valid: true,
+                           score: null
+                        };
+                     }
+                     // Check the password strength
+                     score += ((value.length >= 8) ? 1 : -1);
+                     if (/[A-Z]/.test(value)) {score += 1;}
+                     if (/[a-z]/.test(value)) {score += 1;}
+                     if (/[0-9]/.test(value)) {score += 1;}
+                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
+                     return {
+                     valid: true,
+                     score: score    // We will get the score later
+                     };
+                  }
+               }
+            }
+         },
+         vpass: {
+            validators: {
+                identical: {
+                    field: "pass",
+                    message: "The password and its confirm are not the same"
+                }
+            }
+         },
          C7: {
             validators: {
                between: {
@@ -163,7 +202,7 @@ $fv_parameter ='
                }
             }
          },';
-$m->add_extra(adminfoot('fv',$fv_parameter,'','1'));
+$m->add_extra(adminfoot('fv',$fv_parametres,'','1'));
 
 // ----------------------------------------------------------------
 ?>
