@@ -1,4 +1,4 @@
-/* ----------------------------------------------------------------------
+Ôªø/* ----------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
    theme: Rev16
 ---------------------------------------------------------------------- */
@@ -46,6 +46,35 @@ color: #000;
 .n-fond_subject {
     line-height: 28px;
 }
+
+/* ==> pour les troncatures de mots trop longs */
+
+.n-list-compact-no-bord {
+padding-top: .35rem;
+padding-bottom: .35rem;
+padding-right: 0rem;
+padding-left: 0rem;
+border:0px;
+}
+
+.n-card-compact-no-padside {
+padding-right: 0rem;
+padding-left: 0rem;
+border:0px;
+}
+.n-hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.n-ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 /* ----------------------------------------------------------------------
    2. LIENS - standard
 ---------------------------------------------------------------------- */
@@ -57,12 +86,12 @@ color: #000;
 
 /* ----------------------------------------------------------------------
    3. LIENS - de style noir.
-   => en gÈnÈral les actions ´ positives ª quand se ne sont pas des boutons
+   => en g√©n√©ral les actions ¬´ positives ¬ª quand se ne sont pas des boutons
 ---------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------
    4 LIENS - de style rouge.
-   => en gÈnÈral les actions de type: annulation, suppression,
+   => en general les actions de type: annulation, suppression,
 ---------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------
@@ -71,29 +100,18 @@ color: #000;
 
 /* ----------------------------------------------------------------------
    6 LIENS - de style heada
-   => administration, tÈlÈchargement, annuaire notamment
+   => administration, t√©l√©chargement, annuaire notamment
 ---------------------------------------------------------------------- */
 a.heada, a.heada:visited, a.heada:active {/* Admin (haut et bas) - Download - Annuaire */
 	color: black;
 	font-weight: bold;
 	text-decoration: none;
 }
-/* ----------------------------------------------------------------------
-   7 LIENS - de style ongl
-   => fortement utilisÈ par le CMS
----------------------------------------------------------------------- */
 
-/* ----------------------------------------------------------------------
-   8 LES STYLES SUR DES BALISES DE BASES
----------------------------------------------------------------------- */
-
-/* ----------------------------------------------------------------------
-   9 LES STYLES SUR LES TABLEAUX
----------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------
    9a. LES STYLES SUR LES TABLEAUX
-   => UtilisÈs par la fonction tablos(), permet díalterner les couleurs des lignes de tableau
+   => Utilis√© par la fonction tablos(), permet d'alterner les couleurs des lignes de tableau
 ---------------------------------------------------------------------- */
 
    
@@ -108,18 +126,7 @@ table {
 table tr.even, table tr.alt, table tr:nth-of-type(2n) {
     background: #F9F9F9 none repeat scroll 0% 0%;
 }
-/* ----------------------------------------------------------------------
-   9b. LES STYLES SUR LES TABLEAUX
----------------------------------------------------------------------- */
 
-/* ----------------------------------------------------------------------
-   9c. LES STYLES SUR LES TABLEAUX
-   => TrËs fortement utilisÈ pour la grande majoritÈ des entÍtes de tableaux
----------------------------------------------------------------------- */
-
-/* ----------------------------------------------------------------------
-   10 LIGNE DE SEPARATION (MENU ADMINISTRATION, MENU MEMBRE Ö)
----------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------
    11 LES STYLES SUR LES CHAMPS DE FORMULAIRES
@@ -166,12 +173,12 @@ table tr.even, table tr.alt, table tr:nth-of-type(2n) {
    border-left: #D7B39B 2px solid;
    border-right: #864732 2px solid;
 }
-.titboxc { /* administration, commentaires, tÈlÈchargement notamment */
+.titboxc { /* administration, commentaires, t√©l√©chargement notamment */
    background-color:transparent;
    color: #9e5a42;
    font-weight: bold;
 }
-.titboxcont { /* bloc administrateur, bloc message ‡ un membre notamment */
+.titboxcont { /* bloc administrateur, bloc message √† un membre notamment */
    background-color: transparent;
    color: #C5BF3B;
    font-weight: bold;
@@ -221,7 +228,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(2n) {
 .popover, .popover-title {font-size:12px;}
 .tooltip {font-size:12px;}
 /*------------------------------------------------>
-      CSS ComplÈmentaire pour vos  Formulaires
+      CSS Compl√©mentaire pour vos  Formulaires
               ICI en Version Light
 -------------------------------------------------->*/
 
@@ -230,7 +237,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(2n) {
  }
 
 /*------------------------------------------------>
-      CSS ComplÈmentaire pour vos  Formulaires
+      CSS Compl√©mentaire pour vos  Formulaires
               ICI en Version Light
 -------------------------------------------------->*/
 
@@ -554,7 +561,7 @@ margin-left:0;
 padding-left:0;
 }
 li {
-margin-bottom:5px;/* ‡ adapter */
+margin-bottom:5px;/*√† adapter */
 }
 
 
@@ -592,7 +599,7 @@ Adaptation des css au fil du test
 }
  
 /*------------------------------
-Pour rendre les vidÈo youtube responsives
+Pour rendre les vid√©o youtube responsives
 *******************************************/
     .videocontainer{
       width: 100%;
@@ -638,7 +645,7 @@ background-color: rgba(242, 238, 228, 0.69);
 }
 
 /***********************
-Pour eviter que les images ne dÈbordent
+Pour eviter que les images ne d√©bordent
 ***************************/
 
 /*********************
@@ -807,7 +814,7 @@ a.tooltip_ws:hover em span {
 }
 
 /* ==> class de BS dans le core */
-/* réimpléméntation pour V4.00 et 02 */
+
 .help-block {
   max-width: 98%;
   display: block;
