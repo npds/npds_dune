@@ -94,7 +94,13 @@ function write_short_private_message($to_userid) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-sm-12" ><input type="checkbox" name="copie" /> '.translate("Send a copy to me").'</label>
+         <div class="col-sm-12">
+            <label class="custom-control custom-checkbox" >
+               <input class="custom-control-input" type="checkbox" name="copie" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Send a copy to me").'</span>
+            </label>
+         </div>
       </div>
       <div class="form-group row">
          <input type="hidden" name="to_userid" value="'.$to_userid.'" />
@@ -385,7 +391,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
           $forum_desc =$row[2];
           
           if ($hr) {
-                $boxstuff .= "<hr class=\"titboxcont\" />";
+                $boxstuff .= "<hr />";
              }
           
           if ($parse==0) {
