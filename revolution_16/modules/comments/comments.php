@@ -195,8 +195,6 @@ if ($mycount) {
          $message = smilie($message);
          $message = aff_video_yt($message);
       }
-
-//      $message=split_string_without_space($message, 80);
       $message=str_replace("[addsig]", '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
          echo '
                      <div class="card-text fo-post-mes">';
@@ -238,7 +236,7 @@ if ($mycount) {
    if ($total > $comments_per_page) {
       echo '
    <nav id="co-pagibasse">
-      <ul class="pagination pagination-sm d-flex flex-wrap  my-2">
+      <ul class="pagination pagination-sm d-flex flex-wrap my-2">
          <li class="page-item">
             <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
          </li>
