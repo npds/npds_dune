@@ -205,12 +205,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th></th>
-               <th></th>
+               <th class="n-t-col-xs-1"></th>
+               <th class="n-t-col-xs-1"></th>
                <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
-               <th class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
                <th class="text-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
-               <th class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
                <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
             </tr>
          </thead>
