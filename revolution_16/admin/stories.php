@@ -131,18 +131,18 @@ function AddCategory () {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-1">'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
+   <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
    <form id="adm_ad_cat" action="admin.php" method="post">
       <div class="form-group row">
-         <label class="col-12 form-control-label" for="title">'.adm_translate("Nom").'</label>
-         <div class="col-12">
+         <label class="col-sm-12 form-control-label" for="title">'.adm_translate("Nom").'</label>
+         <div class="col-sm-12">
             <input class="form-control" type="text" id="title" name="title" maxlength="255" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <input type="hidden" name="op" value="SaveCategory" />
       <div class="form-group row">
-         <div class="col-12">
+         <div class="col-sm-12">
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </div>
@@ -158,7 +158,7 @@ function AddCategory () {
 }
 function SaveCategory($title) {
    global $NPDS_Prefix, $aid, $f_meta_nom, $adminimg;
-   
+
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Articles");
    //==> controle droit
@@ -168,23 +168,18 @@ function SaveCategory($title) {
    $title = preg_replace('#"#', '', $title);
    $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
    if ($check) {
-      $what1 = '<div class="alert alert-danger" role="alert">'.adm_translate("Cette Catégorie existe déjà !").'</div>';
-      $what2 = '<a href="javascript:history.go(-1)" class="btn btn-outline-danger">'.adm_translate("Retour en arrière, pour changer le Nom").'</a>';
+      $what1 = '<div class="alert alert-danger lead" role="alert">'.adm_translate("Cette Catégorie existe déjà !").'<br /><a href="javascript:history.go(-1)" class="btn btn-secondary  mt-2">'.adm_translate("Retour en arrière, pour changer le Nom").'</a></div>';
    } else {
-   $what1 = '<div class="alert alert-success" role="alert">'.adm_translate("Nouvelle Catégorie ajoutée").'</div>';
-   $what2 = '<a href="admin.php" class="btn btn-secondary">'.adm_translate("Retour à l'index d'administration").'</a>';
+   $what1 = '<div class="alert alert-success lead" role="alert">'.adm_translate("Nouvelle Catégorie ajoutée").'</div>';
    $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories_cat VALUES (NULL, '$title', '0')");
    }
    include ("header.php");
    GraphicAdmin('');
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-
    echo '
-   <h3>'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
-
-    <p align="center">'.$what1.'<br />';
-
-   echo $what2.'</p>';
+   <hr />
+   <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
+   '.$what1;
    adminfoot('','','','');
 }
 
@@ -201,7 +196,7 @@ function EditCategory($catid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-1">'.adm_translate("Edition des Catégories").'</h3>';
+   <h3 class="mb-3">'.adm_translate("Edition des Catégories").'</h3>';
    $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
    list($title) = sql_fetch_row($result);
    if (!$catid) {
@@ -287,7 +282,7 @@ function DelCategory($cat) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Supprimer une Catégorie").'</h3>';
+   <h3 class="mb-3 text-danger">'.adm_translate("Supprimer une Catégorie").'</h3>';
    if (!$cat) {
       $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
       echo '
@@ -295,7 +290,7 @@ function DelCategory($cat) {
       <div class="form-group row">
       <label class="form-control-label col-sm-12" for="cat">'.adm_translate("Sélectionner une Catégorie à supprimer").'</label>
          <div class="col-sm-12">
-            <select class="custom-select form-control" name="cat">';
+            <select class="custom-select form-control" id="cat" name="cat">';
         while(list($catid, $title) = sql_fetch_row($selcat)) {
             echo '
                <option name="cat" value="'.$catid.'">'.aff_langue($title).'</option>';
@@ -316,12 +311,12 @@ function DelCategory($cat) {
       $numrows = sql_num_rows($result2);
       if ($numrows == 0) {
          sql_query("DELETE FROM ".$NPDS_Prefix."stories_cat WHERE catid='$cat'");
-         global $aid; Ecr_Log("security", "DelCategory($cat) by AID : $aid", "");
+         global $aid; Ecr_Log('security', "DelCategory($cat) by AID : $aid", '');
          echo '
          <div class="alert alert-success" role="alert">'.adm_translate("Suppression effectuée").'</div>';
       } else {
       echo '
-         <div class="alert alert-danger" role="alert">
+         <div class="alert alert-danger lead" role="alert">
             <p class="noir"><strong>'.adm_translate("Attention : ").'</strong> '.adm_translate("la Catégorie").' <strong>'.$title.'</strong> '.adm_translate("a").' <strong>'.$numrows.'</strong> '.adm_translate("Articles !").'<br />';
             echo adm_translate("Vous pouvez supprimer la Catégorie, les Articles et Commentaires").' ';
             echo adm_translate("ou les affecter à une autre Catégorie.").'<br /></p>
@@ -346,7 +341,7 @@ function YesDelCategory($catid) {
             sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
         }
     }
-    global $aid; Ecr_Log("security", "YesDelCategory($catid) by AID : $aid", "");
+    global $aid; Ecr_Log('security', "YesDelCategory($catid) by AID : $aid", '');
     Header("Location: admin.php");
 }
 function NoMoveCategory($catid, $newcat) {
@@ -362,8 +357,9 @@ function NoMoveCategory($catid, $newcat) {
    $result = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
    list($title) = sql_fetch_row($result);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<h3>'.adm_translate("Affectation d'Articles vers une nouvelle Catégorie").'</h3>';
-
+   echo '
+   <hr />
+   <h3 class="mb-3">'.adm_translate("Affectation d'Articles vers une nouvelle Catégorie").'</h3>';
    if (!$newcat) {
       echo '<label>'.adm_translate("Tous les Articles dans").' <strong>'.aff_langue($title).'</strong> '.adm_translate("seront affectés à").'</label>';
       $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
@@ -372,7 +368,7 @@ function NoMoveCategory($catid, $newcat) {
       <div class="form-group row">
          <label class="form-control-label sr-only" for="newcat">'.adm_translate("Sélectionner la nouvelle Catégorie : ").'</label>
          <div class="col-sm-12">
-            <select class="custom-select form-control" name="newcat">
+            <select class="custom-select form-control" id="newcat" name="newcat">
                <option name="newcat" value="0">'.adm_translate("Articles").'</option>';
       while(list($newcat, $title) = sql_fetch_row($selcat)) {
          echo '
@@ -537,11 +533,13 @@ function displayStory ($qid) {
    echo '
    <input type="hidden" name="qid" value="'.$qid.'" />
    <input type="hidden" name="uid" value="'.$uid.'" />
-   <select class="custom-select form-control" name="op">
-      <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-      <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
-      <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
-   </select>
+   <div class="form-group">
+      <select class="custom-select form-control" name="op">
+         <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
+         <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+         <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
+      </select>
+   </div>
    <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
    adminfoot('fv','','','');

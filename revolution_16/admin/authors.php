@@ -318,7 +318,7 @@ function modifyadmin($chng_aid) {
       if($fcategorie==6) {
          $listdroitsmodulo .='
          <div class="col-md-4 col-sm-6">
-            <label class="custom-control custom-checkbox" for="ad_d_m_'.$fid.'">
+            <label class="custom-control custom-checkbox">
                <input class="ckbm custom-control-input" id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" />
                <span class="custom-control-indicator"></span>
                <span class="custom-control-description">'.$fnom_affich.'</span>

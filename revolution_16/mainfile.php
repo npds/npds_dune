@@ -722,7 +722,7 @@ function formatTimestamp($time) {
       $local_gmt=0;
    }
    preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-   $datetime = strftime(translate("datestring"), mktime($datetime[4]+$local_gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
+   $datetime = strftime(translate("datestring"), mktime($datetime[4]+(integer)$local_gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
    return (ucfirst(htmlentities($datetime,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset)));
 }
 #autodoc formatAidHeader($aid) : Affiche URL et Email d'un auteur

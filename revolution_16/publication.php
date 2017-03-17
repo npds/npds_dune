@@ -25,7 +25,7 @@ function publication ($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day
    global $gmt;
    echo '<hr />';
 
-   $today = getdate(time()+($gmt*3600));
+   $today = getdate(time()+((integer)$gmt*3600));
    if (!$deb_day) {
       $deb_day = $today['mday'];
       if ($deb_day < 10){

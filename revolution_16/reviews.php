@@ -435,7 +435,7 @@ function showcontent($id) {
       <br /><br />
       <div class="card card-block mb-3">';
    if ($reviewer != '')
-      echo '<div class="mb-2"><strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" >'.$reviewer.'</a></div>';
+      echo '<div class="mb-2"><strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.anti_spam($email,1).'" >'.$reviewer.'</a></div>';
    if ($score != '')
       echo '<div class="mb-2"><strong>'.translate("Score:").' : </strong>';
    echo '<span class="text-success">';

@@ -240,12 +240,14 @@ if (isset($submitS)) {
       <div class="form-group row">
          <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
         if ($allow_html==1) {
-        if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
+        if (isset($html)) {$sethtml = 'checked="checked"';} else {$sethtml = '';}
            echo '
          <div class="col-sm-12">
             <div class="checkbox">
-               <label class="" for="html">
-                  <input type="checkbox" name="html" '.$sethtml.' /> '.translate("Disable HTML on this Post").'
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
                </label>
             </div>';
         }
@@ -256,9 +258,12 @@ if (isset($submitS)) {
               if ($attachsig == 1 or isset($sig)) {$s = 'checked="checked"';} else $s='';
                echo '
             <div class="checkbox">
-               <label class="">
-                  <input type="checkbox" name="sig" '.$s.' /> '.translate("Show signature").' :<br /><small>'.translate("This can be altered or added in your profile").'</small>
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="sig" '.$s.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description"> '.translate("Show signature").'</span>
                </label>
+               <span class="help-block"><small>'.translate("This can be altered or added in your profile").'</small></span>
             </div>';
            }
         }

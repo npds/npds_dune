@@ -785,18 +785,25 @@ function forum($rowQ1) {
                         if ($myrow['forum_access']=="2" && $myrow['forum_type'] == "0")
                            $ibid.=translate("Moderator");
                         if ($myrow['forum_access']=="9")
-                           $ibid.=' <strong class="text-danger">'.translate("Closed").'</strong>';
+                           $ibid.='<span class="text-danger mx-2"><i class="fa fa-lock mr-2"></i>'.translate("Closed").'</span>';
                         $ibid.=' ] </span>';
                      // Subscribe
                      if (($subscribe) and ($user)) {
                         if (!$redirect) {
-                         $ibid.='<span class="d-flex w-100 mt-1">';
+                         $ibid.='
+                         <span class="d-flex w-100 mt-1">
+                           <label class="custom-control custom-checkbox">';
                            if ($tab_subscribe[$myrow['forum_id']]) {
-                              $ibid.='<input class="n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
+                              $ibid.='
+                              <input class="custom-control-input n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
                            } else {
-                              $ibid.='<input class="n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
+                              $ibid.='
+                              <input class="custom-control-input n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
                            }
-                            $ibid.='</span>';
+                            $ibid.='
+                               <span class="custom-control-indicator"></span>
+                            </label>
+                         </span>';
                         }
                      }
                         $ibid.='<span class="ml-auto">'.$last_post.'</span>';
@@ -814,7 +821,12 @@ function forum($rowQ1) {
       }
    }
     if (($subscribe) and ($user) and ($ok_affich)) {
-      $ibid.='<input type="checkbox" id="ckball_f" />&nbsp;<span class=" text-muted" id="ckb_status_f">Tout cocher</span>';
+      $ibid.='
+      <label class="custom-control custom-checkbox">
+         <input class="custom-control-input" type="checkbox" id="ckball_f" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description text-muted" id="ckb_status_f">Tout cocher</span>
+      </label>';
     }
    return ($ibid);
 }
