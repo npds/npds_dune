@@ -76,7 +76,7 @@ if (!function_exists("Mysql_Connexion")) {
         }
         setlocale (LC_TIME, aff_langue($locale));
         preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-        $datetime = strftime("%d-%m-%Y %H:%M:%S", mktime($datetime[4]+$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
+        $datetime = strftime("%d-%m-%Y %H:%M:%S", mktime($datetime[4]+(integer)$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
         if (cur_charset!="utf-8") {
            $datetime = ucfirst($datetime);
         }

@@ -58,7 +58,7 @@ function automatednews() {
     global $gmt;
     global $NPDS_Prefix;
 
-    $today = getdate(time()+($gmt*3600));
+    $today = getdate(time()+((integer)$gmt*3600));
     $day = $today['mday'];
     if ($day < 10)
        $day = "0$day";
