@@ -320,38 +320,44 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
    </table>';
 
 $dcategory = StripSlashes($dcategory);
-   echo '<ul class="pagination pagination-sm mt-3">';
+   echo '
+   <ul class="pagination pagination-sm mt-3 flex-wrap">';
    if ($pages > 1) {
       $pcnt=1;
    if ($page > 1) {
       echo '
       <li class="page-item">
-      <a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.($page-1).'" aria-label="Previous" title="'.translate("Previous Page").'">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>';
+         <a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.($page-1).'" aria-label="Previous" title="'.translate("Previous Page").'">
+           <span aria-hidden="true">&laquo;</span>
+           <span class="sr-only">Previous</span>
+         </a>
+      </li>';
       }
    while($pcnt < $page) {
-      echo "<li class=\"page-item\"><a class=\"page-link\" href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=$pcnt\">$pcnt</a></li>";
+      echo '
+      <li class="page-item"><a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.$pcnt.'">'.$pcnt.'</a></li>';
         $pcnt++;
       }
-   echo '<li class="page-item active"><a class="page-link" href="#">'.$page.'</a></li>';
+   echo '
+      <li class="page-item active"><a class="page-link" href="#">'.$page.'</a></li>';
       $pcnt++;
    while($pcnt <= $pages) {
-      echo "<li class=\"page-item\"><a class=\"page-link\" href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=$pcnt\">$pcnt</a></li>";
+      echo '
+      <li class="page-item"><a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.$pcnt.'">'.$pcnt.'</a></li>';
       $pcnt++;
       }
    if ($page < $pages) {
-      echo "<li class=\"page-item\">
-      <a class=\"page-link\" href=\"download.php?dcategory=$dcategory&amp;sortby=$sortby&amp;sortorder=$sortorder&amp;page=".($page+1)."\" aria-label=\"Next\" title=\"".translate("Next Page")."\">
-         <span aria-hidden=\"true\">&raquo;</span>
-         <span class=\"sr-only\">Next</span>
-      </a>
-      </li>\n";
+      echo '
+      <li class="page-item">
+         <a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.($page+1).'" aria-label="Next" title="'.translate("Next Page").'">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+         </a>
+      </li>';
       }
    }
-   echo '</ul>';
+   echo '
+   </ul>';
 }
 
 function main() {
