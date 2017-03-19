@@ -76,12 +76,10 @@ include("auth.php");
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID) { forumerror(0005);}
-      
-      
-      
+
       if (!$total_messages = sql_num_rows($resultID)) {
          echo '
-      <div class="alert alert-danger">
+      <div class="alert alert-danger lead">
          '.translate("You don't have any Messages.").'
       </div>';
          $display=0;
@@ -93,10 +91,10 @@ include("auth.php");
          <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
             <thead class="thead-default">
                <tr>
-                  <th align="center" ><input name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /></th>
-                  <th align="center" ><i class="fa fa-long-arrow-down"></i></th>';
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="center" ><label class="custom-control custom-checkbox"><input class="custom-control-input" name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /><span class="custom-control-indicator bg-danger"></span></label></th>
+                  <th class="n-t-col-xs-1" data-align="center" ><i class="fa fa-long-arrow-down"></i></th>';
       if ($smilies) { echo '
-                  <th align="center" >&nbsp;</th>'; }
+                  <th class="n-t-col-xs-1" align="center" >&nbsp;</th>'; }
       echo '
                   <th data-halign="center" data-sortable="true" data-align="center">'.translate("From").'</th>
                   <th data-halign="center" data-sortable="true" >'.translate("Subject").'</th>
@@ -113,22 +111,22 @@ include("auth.php");
          if (!array_key_exists($myrow['dossier'],$tempo)) {$tempo[$myrow['dossier']]=0;}
          echo '
                <tr>
-                  <td width="2%" align="center"><label class="c-input c-checkbox"><input type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /><span class="c-indicator"></span></label></td>';
+                  <td><label class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /><span class="custom-control-indicator bg-danger"></span></label></td>';
          if ($myrow['read_msg'] == "1") {
             echo '
-                  <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
+                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
          } else {
             echo '
-                  <td width="5%" align="center"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a></td>';
+                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a></td>';
          }
          if ($smilies) {
-            if ($myrow['msg_image']!="") {
+            if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
                echo '
-                  <td width="5%" align="center"><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
+                  <td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else {
                echo '
-                  <td width="5%" align="center">&nbsp;</td>';
+                  <td></td>';
             }
          }
          echo '
@@ -138,8 +136,7 @@ include("auth.php");
          } else {
             echo $sitename;
          }
-         echo '
-         </a></td>
+         echo '</a></td>
                   <td>'.aff_langue($myrow['subject']).'</td>
                   <td align="center" width="20%">'.$myrow['msg_time'].'</td>
                </tr>';
@@ -177,9 +174,9 @@ include("auth.php");
       <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
          <thead class="thead-default">
             <tr>
-               <th data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>';
+               <th class="n-t-col-xs-1" data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>';
       if ($smilies) { echo '
-               <th align="center" >&nbsp;</th>';
+               <th class="n-t-col-xs-1" align="center" >&nbsp;</th>';
       }
       echo '
                <th data-halign="center" data-sortable="true" data-align="center">'.translate("To").'</th>
