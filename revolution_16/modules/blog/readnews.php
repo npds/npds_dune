@@ -12,7 +12,7 @@
 function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    global $tiny_mce;
 
-   $content=''; $contentT="!l_new_pages!";
+   $content='';
    $blog_file=$blog_dir."news.txt";
    if (!file_exists($blog_file)) {
       $fp=fopen($blog_file,'w');
@@ -26,7 +26,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    if ($ubound>$perpage) {
       $contentT.='
       <nav>
-         <ul class="pagination pagination-sm">';
+         <ul class="pagination pagination-sm d-flex flex-wrap my-2">';
       for ($j=1;$j<=ceil($ubound/$perpage);$j++) {
           if ($j==$startpage+1)
              $contentT.='
@@ -126,16 +126,16 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $crtsplit=explode("!;!",$xnews[$index]);
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
-            <div class="form-group row">
+            <div class="form-group">
                <label class="form-control-label" for="title">'.translate("Title").'</label>
                <input class="form-control" type="text" name="title" value="'.$crtsplit[1].'" />
             </div>
-            <div class="form-group row">
+            <div class="form-group">
                <label class="form-control-label" for="story" >'.translate("Full Text").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
       $content.='</div>
-            <div class="form-group row">
+            <div class="form-group">
                <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" />
             </div>
          </form>';
@@ -144,22 +144,21 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
 
    // Output
    $new_pages=false;
-   $content.="!v_yt!";
+//   $content.="!v_yt!";
    if ($adminblog) {
-      $content.='<i class="fa fa-plus-square fa-lg"></i>!l_blog_ajouterOK!';
-      $content.='<br />';
+//      $content.=' !l_blog_ajouterOK! ';
+//      $content.='<br />';
    }
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode("!;!",$xnews[$i]);
        $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
        $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
        $content.= '
-      <div class="card">
+      <div class="card  mb-3">
          <div class="card-block">
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
             <h6 class="card-subtitle text-muted">'.translate("Posted on ").' '.$crtsplit[0].'</h6>
          </div>';
-       if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
 
        $content.='<div class=" card-block">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {
@@ -170,8 +169,8 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
        }
        $content.= '</div>';
    }
+   if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
    $content.="\n";
-    if (!$new_pages) {$content.=$contentT;}
    return ($content);
 }
 ?>

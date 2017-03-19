@@ -389,13 +389,13 @@ function userinfo($uname) {
     $user_intrest=stripslashes(removeHack($user_intrest));
     $user_sig=nl2br(removeHack($user_sig));
     $user_journal=stripslashes(removeHack($user_journal));
-    $op="userinfo";
+    $op='userinfo';
 
    if (stristr($user_avatar,"users_private")) {
       $direktori='';
    } else {
       global $theme;
-      $direktori="images/forum/avatar/";
+      $direktori='images/forum/avatar/';
       if (function_exists("theme_image")) {
          if (theme_image("forum/avatar/blank.gif"))
             $direktori="themes/$theme/images/forum/avatar/";
@@ -456,6 +456,7 @@ function userinfo($uname) {
    if ($uname !== $cookie[1])
       echo $useroutils;
       echo $my_rsos[0];
+   if ($uname == $cookie[1])
       echo '
          <p class="lead">'.translate("This is your personal page").'</p>';
    echo '
@@ -589,27 +590,6 @@ echo $content;
    echo '
       </div>
    </div>';
-
-/*   if ($uname == $cookie[1]) {
-   echo '
-   <div class="card text-center">
-      <div class="card-header">
-         <img src="'.$direktori.$user_avatar.'" class="n-ava  thumbnail" />
-         <p class="card-text card-title "></p>
-      </div>
-      <div class="card-block">
-         <h3 class="card-title">'.$name.' <span class="text-muted">alias</span> '.$uname.'</h3>
-         <p class="card-text">You can contact me @ '.$email.'</p>
-         <p class="card-text">Don not forget to visit <a href="'.$url.'" class="oo">my web-site</a>';
-   if ($mns) {echo ' OR my <a href="minisite.php?op='.$uname.'" target="_blank">'.translate("Mini-Web site").'</a>';}
-   echo '
-         </p>
-      </div>
-      <div class="card-footer text-muted">
-         '.$user_sig.'
-      </div>
-   </div>';
-   }; */
    if($uid!=1)
       echo '
       <br />
@@ -1081,7 +1061,7 @@ function edithome() {
       $userinfo['theme'] = "$Default_Theme";
    }
    echo '
-   <h2>'.translate("Change the home").'</h2>
+   <h2 class="mb-3">'.translate("Change the home").'</h2>
    <form action="user.php" method="post">
    <div class="form-group row">
       <label class="form-control-label col-sm-7" for="storynum">'.translate("News number in the Home").' (max. 127) :</label>
@@ -1094,11 +1074,11 @@ function edithome() {
    echo '
    <div class="form-group row">
       <div class="col-sm-10">
-         <div class="checkbox">
-            <label>
-               <input type="checkbox" name="ublockon" value="1" '.$sel.' />&nbsp;'.translate("Activate Personal Menu").'
-            </label>
-         </div>
+         <label class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" name="ublockon" value="1" '.$sel.' />
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">'.translate("Activate Personal Menu").'</span>
+         </label>
       </div>
    </div>
    <ul>
@@ -1265,7 +1245,7 @@ function editjournal(){
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
    echo '
-   <h2>'.translate("Edit your journal").'</h2>
+   <h2 class="mb-3">'.translate("Edit your journal").'</h2>
    <form action="user.php" method="post" name="adminForm">
       <div class="form-group row">
          <div class="col-sm-12">
@@ -1278,11 +1258,11 @@ function editjournal(){
       <input type="hidden" name="op" value="savejournal" />
       <div class="form-group row">
          <div class="col-12">
-            <div class="checkbox">
-               <label>
-               <input type="checkbox" name="datetime" value="1" />&nbsp;'.translate("Add date and time stamp").'
-               </label>
-            </div>
+            <label class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" name="datetime" value="1" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.translate("Add date and time stamp").'</span>
+            </label>
          </div>
       </div>
       <div class="form-group row">

@@ -246,7 +246,6 @@ function instant_members_message() {
       themesidebox($block_title, $boxstuff);
    } else {
       if ($admin) {
-         $boxstuff="<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">";
          $ibid=online_members();
          if ($ibid[0]) {
             for ($i = 1; $i <= $ibid[0]; $i++) {
@@ -255,10 +254,9 @@ function instant_members_message() {
                   $M=substr($N,0,$long_chain).'.';
                else
                   $M=$N;
-               $boxstuff .="<tr><td valign=\"top\" class=\"titboxcont\">$M</td></tr>";
+               $boxstuff .= $M;
             }
-            $boxstuff .="</table>";
-            themesidebox("<i>".$block_title."</i>", $boxstuff);
+            themesidebox('<i>'.$block_title.'</i>', $boxstuff);
          }
       }
    }
@@ -355,13 +353,14 @@ function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, 
     themesidebox($title, $boxstuff);
 }
 function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr) {
-    global $parse, $user;
-    global $NPDS_Prefix;
+    global $parse, $user, $NPDS_Prefix;
 
     $topics = 0;
     settype($maxforums,"integer");
+    settype($maxtopics,"integer");
+
     if ($maxforums==0)
-       $lim="";
+       $lim='';
     else
        $lim=" LIMIT $maxforums";
 
@@ -375,8 +374,8 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
     if (!$result) exit();
 
     $premier=false;
-    $boxstuff = "<ul>\n";
-    
+    $boxstuff = '<ul>';
+
     while ($row = sql_fetch_row($result)) {
        if (($row[6] == "5") or ($row[6] == "7")) {
           $ok_affich=false;
@@ -389,23 +388,22 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
           $forumid = $row[0];
           $forumname = $row[1];
           $forum_desc =$row[2];
-          
           if ($hr) {
-                $boxstuff .= "<hr />";
-             }
-          
+                $boxstuff .= '<hr />';
+          }
+
           if ($parse==0) {
-             $forumname =  FixQuotes($forumname);
-             $forum_desc =  FixQuotes($forum_desc);
+             $forumname = FixQuotes($forumname);
+             $forum_desc = FixQuotes($forum_desc);
           } else {
-             $forumname =  stripslashes($forumname);
-             $forum_desc =  stripslashes($forum_desc);
+             $forumname = stripslashes($forumname);
+             $forum_desc = stripslashes($forum_desc);
           }
 
           $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
-          $boxstuff .= '<li><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'">'.$forumname.'</a><span class="float-right badge badge-default">'.$ibidx.'</span></li>';
-          
+          $boxstuff .= '<li><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-toggle="tooltip">'.$forumname.'</a><span class="float-right badge badge-default">'.$ibidx.'</span></li>';
+
           $topics = 0;
           while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
               $topicid = $topicrow[0];
@@ -419,13 +417,13 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
               }
               if (strlen($topictitle) > $topicmaxchars) {
                  $topictitle = substr($topictitle,0,$topicmaxchars);
-                 $topictitle .= "..";
+                 $topictitle .= '..';
               }
 
               if ($displayposter) {
                  $posterid = $topicrow[2];
                  $RowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid = '$posterid'",3600);
-                 list(,$myrow) = each($rowQ1);
+                 list(,$myrow) = each($RowQ1);
                  $postername = $myrow['uname'];
               }
               if ($parse==0) {
@@ -435,16 +433,15 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
                  $tt =  strip_tags(stripslashes($tt));
                  $topictitle= stripslashes($topictitle);
               }
-              
-              $boxstuff .= "<a href=\"viewtopic.php?topic=$topicid&amp;forum=$forumid\" title=\"$tt\">\"$topictitle\"</a> ($replies)";
-              $boxstuff .= "</li>";
-              if ($displayposter) $boxstuff .="<br />&nbsp;&nbsp;- $postername";
-              
-              $topics++;
+              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 border-bottom -0 list-group-item-action"><span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" title="'.$tt.'" data-toggle="tooltip">'.$topictitle.'</a> <span class="badge badge-default mx-1">'.$replies.'</span></span>';
+              if ($displayposter) $boxstuff .="- $postername";
+              $boxstuff .= '</li>';
+$topics++;
           }
        }
     }
-    $boxstuff .= "</ul>\n";
+    $boxstuff .= '
+    </ul>';
     return ($boxstuff);
 }
 #autodoc:</Powerpack_f.php>

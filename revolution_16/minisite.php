@@ -233,7 +233,7 @@ function MNSremoveHack($Xstring) {
      "'&#160;'i"=>'&nbsp;',
      "'.htaccess'i"=>"",
      "'!blog_editeur!'i"=>$blog_editor,
-     "'!l_blog_ajouterOK!'i"=>'<a class="btn btn-outline-primary" href="minisite.php?op='.$op.'&amp;action=A" class="blog_lien"><i class="fa fa-plus-square fa-lg"></i> '.translate("Add articles").'</a>',
+     "'!l_blog_ajouterOK!'i"=>'<a class="list-group-item list-group-item-action" href="minisite.php?op='.$op.'&amp;action=A"><i class="fa fa-pencil fa-lg mr-2"></i> '.translate("Add articles").'</a>',
      "'\<\?php'i"=>"&lt;?php",
      "'\<\?'i"=>"&lt;?",
      "'\?\>'i"=>"?&gt;",
@@ -257,7 +257,7 @@ function convert_ressources ($Xcontent) {
 }
 
    // NPDS copyright ... don't remove !
-   $copyright= '&nbsp;'.$sitename.'&nbsp;NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a>';
+   $copyright= '<span class="blog_sname">'.$sitename.'</span>&nbsp;<span class="blog_npds">NPDS&nbsp;HUB-BLOG&nbsp;<a href="http://www.npds.org">NPDS</a></span>';
 
    // Troll Control for security
    $affich=false;
@@ -398,7 +398,16 @@ function convert_ressources ($Xcontent) {
          $rupt=strpos($Xcontent, '!v_yt!');
          echo substr($Xcontent, 0, $rupt);
          echo aff_video_yt(substr($Xcontent,$rupt+6));
-
+         if($adminblog)
+            echo '
+               <script>
+               //<![CDATA[
+                  $(".modal-body").load("modules/blog/matrice/readme.french.txt"
+                  , function(dataaide, textStatus, jqxhr) {
+                     $("#aide_mns").html(dataaide.replace(/(\r\n|\n\r|\r|\n)/g, "<br />"));
+                  });
+               //]]>
+               </script>';
          echo '
                <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
             </body>
