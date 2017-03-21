@@ -277,6 +277,17 @@ function convert_ressources ($Xcontent) {
             $userdata=get_userdata($op);
             if ($userdata['mns']==true) {
                $affich=true;
+               if (stristr($userdata['user_avatar'],"users_private")) {
+                  $direktori='';
+               } else {
+                  global $theme;
+                  $direktori='images/forum/avatar/';
+                  if (function_exists("theme_image")) {
+                     if (theme_image("forum/avatar/blank.gif"))
+                        $direktori="themes/$theme/images/forum/avatar/";
+                  }
+               }
+               $avatar_mns=$direktori.$userdata['user_avatar'];
             }
             $userX = base64_decode($user);
             $userdataX = explode(':', $userX);
@@ -287,6 +298,7 @@ function convert_ressources ($Xcontent) {
             // groupe
             if (is_dir($dir)) {
                $affich=true;
+               $avatar_mns='users_private/'.$op.'/groupe.png';
             }
             $tabgp=valid_group($user);
             if (is_array($tabgp)) {
@@ -385,11 +397,14 @@ function convert_ressources ($Xcontent) {
          "'!l_header!'i"=>"$Hcontent",
          "'!l_footer!'i"=>"$Fcontent",
          "'!blog_page!$perpage'i"=>'',
-         "'!l_compteur!'i"=>"$cpt",
-         "'!l_new_pages!'i"=>"$new_pages",
-         "'!l_blog_ajouter!'i"=>"$blog_ajouter",
-         "'!blog!'i"=>"$content",
-         "'!copyright!'i"=>"$copyright"
+         "'!l_compteur!'i"=>$cpt,
+         "'!l_new_pages!'i"=>$new_pages,
+         "'!l_blog_ajouter!'i"=>$blog_ajouter,
+         "'!blog!'i"=> $content,
+         "'!copyright!'i"=> $copyright,
+         "'!avatar!'i"=> $avatar_mns,
+         "'!id_mns!'i"=> $op
+
          );
          $Xcontent=preg_replace(array_keys($MNS_METALANG_words),array_values($MNS_METALANG_words), $Xcontent);
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
