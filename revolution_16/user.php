@@ -657,7 +657,7 @@ function main($user) {
          </div>
           <div class="card card-block">
           <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
-          <form class="" role="form" action="user.php" method="post" name="userlogin">
+          <form action="user.php" method="post" name="userlogin">
              <div class="form-group row">
                <label for="inputuser" class="form-control-label col-sm-4">'.translate("Nickname").'</label>
                <div class="col-sm-8">

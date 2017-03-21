@@ -47,7 +47,7 @@ if (!function_exists("Mysql_Connexion")) {
    } elseif ($type == 'reviews') {
       echo '<h2 class="mb-3">'.translate("Search in Reviews").'</h2><hr />';
    } elseif ($type == 'archive') {
-      echo '<h2 class="mb-3">'.translate("Search in").' '.translate("Archives").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Search in").' <span class="text-lowercase">'.translate("Archives").'</span></h2><hr />';
    } else {
       echo '<h2 class="mb-3">'.translate("Search in").' '.aff_langue($topictext).'</h2><hr />';
    }

@@ -11,15 +11,27 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
 include("functions.php");
 include("auth.php");
 
+$f_meta_nom ='abla';
+$f_titre = translate("Administration BlackBoard");
+//==> controle droit
+admindroits($aid,$f_meta_nom);
+//<== controle droit
+global $language;
+$hlpfile = '';
+
 global $admin;
 if ($admin) {
    include ("header.php");
+   GraphicAdmin($hlpfile);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
 
    global $startdate;
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
@@ -39,8 +51,7 @@ if ($admin) {
       $timex=$timex.' '.translate("Second(s)");
    }
    echo '
-   <h2>'.translate("Administration BlackBoard").'</h2>
-   <p class="lead"><a href="admin.php">'.translate("Administration Tools").'</a></p>
+   <hr />
    <p class="lead mb-3">'.translate("General Stats").' - '.translate("Past Stat").' : '.$timex.' </p>
    <table class="mb-2" data-toggle="table" data-classes="table mb-2">
       <thead class="collapse thead-default">
@@ -216,7 +227,7 @@ if ($admin) {
    fwrite($file, $xfile);
    fclose($file);
 
-   include ("footer.php");
+   adminfoot('','','','');
 } else {
    redirect_url("index.php");
 }

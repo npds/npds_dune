@@ -1,7 +1,7 @@
 -----------------
 | NPDS Hub-Blog |
 -----------------
-Le webmestre de ce site viens de vous autoriser à disposer d'un MiniSite.
+Le webmestre de ce site vient de vous autoriser à disposer d'un MiniSite.
 
 NPDS vous propose donc un espace personnel qui peut servir :
  - au stockage de fichiers (format défini par le webmestre / par exemple : Word, Excel, ...),
@@ -10,10 +10,10 @@ NPDS vous propose donc un espace personnel qui peut servir :
 -------------------------
 | MINI SITE HTML + BLOG |
 -------------------------
-NPDS vous offre une fonction encore plus puissante pour votre MiniSite : un système de publication d'articles Personnel (un BLOG)
+NPDS vous offre une fonction encore plus puissante pour votre MiniSite : un système de publication d'articles personnels (un BLOG)
 Pour gérer votre MiniSite :
- - rendez-vous dans la gestion de compte sur ce site et cliquez sur l'option "Gérer votre MiniSite"
- - Un gestionnaire de fichier s'ouvre dans une fenêtre complémentaire et vous permet :
+ - rendez-vous dans la gestion de votre compte et cliquez sur l'option "Gérer votre MiniSite"
+ - Un gestionnaire de fichier s'ouvrira dans une fenêtre complémentaire et vous permettra :
    - de télécharger dans votre espace des fichiers issus de votre poste de travail,
    - de supprimer des fichiers,
    - de visualiser les documents ainsi stockés.
@@ -33,10 +33,10 @@ Les fichiers de votre BLOG
  - la page footer (facultative) de votre BLOG doit obligatoirement s'appeler : footer.html 
     - pour incorporer un footer (pied de page) - mettre !l_footer! dans la page index.html
 
- - compteur.txt contient le compteur de visite 
+ - compteur.txt contient le compteur de visites 
 
  - news.txt contient vos articles
- - news.txt.bak contient une sauvegarde de vos articles avant la derniêre modification
+ - news.txt.bak contient une sauvegarde de vos articles avant la dernière modification
 
 -----------
 Attention : MiniSite ne gère pas les sous-répertoires !

@@ -247,6 +247,28 @@ function GraphicAdmin($hlpfile) {
    }
 
       $( document ).ready(function () {
+         $('ul.list').sortable({
+            update: function(){
+           Cookies.set('items', getItems('#lst_men_main'));
+           console.log(Cookies.get('items'));
+    }         
+
+});
+
+ var htmmll=[];        
+   // Get all items from a container
+   function getItems(container) {
+      var columns = [];
+      $(container+ ' ul.list').each(function(){
+      columns.push($(this).sortable('toArray').join(','));
+      htmmll.push($(this).html());
+      });
+      return columns.join('|');
+
+   }
+      var itemStr = getItems('#lst_men_main');
+            console.log(htmmll);
+
          $('[data-toggle=\"tooltip\"]').tooltip();
          $('[data-toggle=\"popover\"]').popover();
          $('table').on('all.bs.table', function (e, name, args) {
@@ -487,6 +509,10 @@ if ($admintest) {
          if ($admintest and $filemanager) {
             header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=download");
          }
+      break;
+      //BLACKBOARD
+      case 'abla':
+         include('abla.php');
       break;
       // CRITIQUES
       case 'reviews':

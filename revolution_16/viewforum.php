@@ -200,21 +200,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    }
    echo '
          </div>
-      </div>
-      <h4 class="my-2">'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
-      <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
-         <thead>
-            <tr>
-               <th class="n-t-col-xs-1"></th>
-               <th class="n-t-col-xs-1"></th>
-               <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
-               <th class="text-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
-               <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
-            </tr>
-         </thead>
-         <tbody>';
+      </div>';
    settype($start,"integer");
    settype($topics_per_page,"integer");
    $sql = "SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol ORDER BY topic_first,topic_time DESC LIMIT $start, $topics_per_page";
@@ -229,6 +215,22 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($ibid=theme_image("box/right.gif")) {$imgtmpRi=$ibid;} else {$imgtmpRi="images/download/right.gif";}
 
    if ($myrow = sql_fetch_assoc($result)) {
+      echo '
+      <h4 class="my-2">'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
+      <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+         <thead>
+            <tr>
+               <th class="n-t-col-xs-1"></th>
+               <th class="n-t-col-xs-1"></th>
+               <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
+               <th class="text-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
+               <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
+            </tr>
+         </thead>
+         <tbody>';
+
       do {
          echo'<tr>';
          $replys = get_total_posts($forum, $myrow['topic_id'], "topic", $Mmod);
@@ -311,18 +313,18 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          }
       } while($myrow = sql_fetch_assoc($result));
       sql_free_result($result);
+      echo '
+         </tbody>
+      </table>';
+      if ($user) {
+         echo '<br /><p><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-lg fa-check-square-o"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
+      }
    } else {
       if ($forum_access!=9)
          echo '
-         <td colspan="7"><span class="text-danger">'.translate("There are no topics for this forum. ").'</span><br /><a href="newtopic.php?forum='.$forum.'" >'.translate("You can post one here.").'</a></td></tr>';
+      <div class="alert alert-danger my-3">'.translate("There are no topics for this forum. ").'<br /><a href="newtopic.php?forum='.$forum.'" >'.translate("You can post one here.").'</a></div>';
    }
-   echo '
-         </tbody>
-      </table>';
 
-   if ($user) {
-      echo '<br /><p><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-lg fa-check-square-o"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
-   }
    $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol";
    if (!$r = sql_query($sql))
       forumerror('0001');
@@ -362,14 +364,16 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       </ul>
    </nav>';
    echo searchblock();
-   echo '<br />
-   <blockquote class="blockquote">
+      if ($myrow = sql_fetch_assoc($result)) 
+         echo '
+   <blockquote class="blockquote my-3">
       <i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'<br />
       <i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
       <i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'<br />
       <i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
       <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
    </blockquote>';
+   
    if ($SuperCache) {
       $cache_clef="forum-jump-to";
       $CACHE_TIMINGS[$cache_clef]=3600;
@@ -377,7 +381,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
-   <form class="" role="form" action="viewforum.php" method="post">
+   <form class="my-3" action="viewforum.php" method="post">
       <div class="form-group row">
          <div class="col-12">
             <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
