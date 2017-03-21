@@ -27,6 +27,7 @@ admindroits($aid,$f_meta_nom);
 function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    if (file_exists("modules/$ModPath/archive-stories.conf.php"))
       include ("modules/$ModPath/archive-stories.conf.php");
+      GraphicAdmin($hlpfile);
       adminhead($f_meta_nom, $f_titre, $adminimg);
    echo'
    <hr />
