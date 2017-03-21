@@ -21,10 +21,10 @@ global $powerpack; $powerpack=true;
 settype($op,'string');
 switch ($op) {
    // Instant Members Message
-   case "instant_message":
+   case 'instant_message':
         Form_instant_message($to_userid);
    break;
-   case "write_instant_message":
+   case 'write_instant_message':
       if ($user) {
          $rowQ1=Q_Select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'", 3600);
          list(,$uid)=each($rowQ1);
@@ -39,9 +39,9 @@ switch ($op) {
    break;
    // Instant Members Message
    // Purge Chat Box
-   case "admin_chatbox_write":
+   case 'admin_chatbox_write':
       if ($admin) {
-         if ($chatbox_clearDB=="OK") {
+         if ($chatbox_clearDB=='OK') {
             sql_query("DELETE FROM ".$NPDS_Prefix."chatbox WHERE date <= ".(time()-(60*5))."");
          }
       }
