@@ -403,7 +403,7 @@ function translate_pass1($phrase) {
    case "Vote": $tmp="Voter"; break;
    case "comments:": $tmp="Commentaire(s) : "; break;
    case "You already voted today!": $tmp="Vous avez déjà voté aujourd'hui"; break;
-   case "Results": $tmp="Resultats"; break;
+   case "Results": $tmp="Résultats"; break;
    case "votes": $tmp="votes"; break;
    case "Total Votes: ": $tmp="Nombre total de votes: "; break;
    case "We allow just one vote per day": $tmp="Un seul vote par jour, merci"; break;
