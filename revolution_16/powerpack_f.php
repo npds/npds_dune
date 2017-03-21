@@ -339,10 +339,10 @@ function makeChatBox() {
    sql_free_result($result);
 }
 
-#autodoc RecentForumPosts($title, $maxforums, $maxtopics, $dposter, $topicmaxchars,$hr,) : Bloc Forums <br />=> syntaxe :
+#autodoc RecentForumPosts($title, $maxforums, $maxtopics, $dposter, $topicmaxchars,$hr,$decoration) : Bloc Forums <br />=> syntaxe :
 #autodoc : function#RecentForumPosts<br />params#titre, nb_max_forum (O=tous), nb_max_topic, affiche_l'emetteur(true / false), topic_nb_max_char, affiche_HR(true / false),
-function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration="") {
-    $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr);
+function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration) {
+    $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration);
     global $block_title;
     if ($title=='') {
        if ($block_title=='')
@@ -352,7 +352,7 @@ function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, 
     }
     themesidebox($title, $boxstuff);
 }
-function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr) {
+function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration) {
     global $parse, $user, $NPDS_Prefix;
 
     $topics = 0;
@@ -389,7 +389,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
           $forumname = $row[1];
           $forum_desc =$row[2];
           if ($hr) {
-                $boxstuff .= '<hr />';
+                $boxstuff .= '<li><hr /></li>';
           }
 
           if ($parse==0) {
@@ -402,7 +402,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
 
           $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
-          $boxstuff .= '<li><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-toggle="tooltip">'.$forumname.'</a><span class="float-right badge badge-default">'.$ibidx.'</span></li>';
+          $boxstuff .= '<li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-toggle="tooltip">'.$forumname.'</a><span class="float-right badge badge-default" title="'.translate("Topics").'" data-toggle="tooltip">'.$ibidx.'</span></h6></li>';
 
           $topics = 0;
           while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
@@ -433,8 +433,8 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
                  $tt =  strip_tags(stripslashes($tt));
                  $topictitle= stripslashes($topictitle);
               }
-              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 border-bottom -0 list-group-item-action"><span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" title="'.$tt.'" data-toggle="tooltip">'.$topictitle.'</a> <span class="badge badge-default mx-1">'.$replies.'</span></span>';
-              if ($displayposter) $boxstuff .="- $postername";
+              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge badge-default mx-2" title="'.translate("Replies").'" data-toggle="tooltip">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" title="'.$tt.'" data-toggle="tooltip">'.$topictitle.'</a></div>';
+              if ($displayposter) $boxstuff .= $decoration.'<span class="ml-1">'.$postername.'</span>';
               $boxstuff .= '</li>';
 $topics++;
           }
