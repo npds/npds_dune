@@ -548,7 +548,7 @@ function LinksListBrokenLinks() {
 
    if ($totalbrokenlinks==0) {
       echo '
-   <div class="alert alert-success"><strong>'.adm_translate("Aucun lien brisé rapporté.").'</strong></div>';
+   <div class="alert alert-success lead">'.adm_translate("Aucun lien brisé rapporté.").'</div>';
    } else {
       echo '
    <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">

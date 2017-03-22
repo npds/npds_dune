@@ -733,7 +733,7 @@ function adm_translate($phrase) {
   case "Rôle de l'Utilisateur": $tmp="Papel del Usuario"; break;
   case "Choisir un rôle": $tmp="Elegir un papel"; break;
   case "Extension des fichiers d'image": $tmp="Extensión de los ficheros de imagen"; break;
-  case "Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs": $tmp="Copia de seguridad acabada. Los ficheros están disponibles en el directorio/slogs"; break;
+  case "Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs": $tmp="Copia de seguridad acabada. Los ficheros están disponibles en el directorio/slogs"; break;
   case "Taille maximum des fichiers de sauvegarde SaveMysql": $tmp="Tamaño máximo de los ficheros de protección SaveMysql"; break;
   case "Type de sauvegarde SaveMysql": $tmp="Tipo de copia de seguridad SaveMysql"; break;
   case "Toute tables. Fichier envoyé au navigateur. Pas de limite de taille": $tmp="TODAS las tablas. Fichero enviado directamente al navegador. No hay lÌmite"; break;

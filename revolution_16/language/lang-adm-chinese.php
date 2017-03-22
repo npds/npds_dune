@@ -733,7 +733,7 @@ function adm_translate($phrase) {
   case "Rôle de l'Utilisateur": $tmp="会员的角色"; break;
   case "Choisir un rôle": $tmp=" 选择一个角色"; break;
   case "Extension des fichiers d'image": $tmp=" 图象文件的扩展"; break;
-  case "Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs": $tmp=" 已保存。文件保存在目录/slogs"; break;
+  case "Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs": $tmp=" 已保存。文件保存在目录/slogs"; break;
   case "Taille maximum des fichiers de sauvegarde SaveMysql": $tmp="用SaveMysql可保存的文件最大尺寸为"; break;
   case "Type de sauvegarde SaveMysql": $tmp="用SaveMysql可保存的类型"; break;
   case "Toute tables. Fichier envoyé au navigateur. Pas de limite de taille": $tmp="所有表格。文件发送到浏览器。没有尺寸限制。"; break;
