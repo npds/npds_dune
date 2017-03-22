@@ -302,7 +302,7 @@ admindroits($aid,$f_meta_nom);
             dbSave_tofile("slogs",0, $savemysql_size);
             echo "<script type=\"text/javascript\">
                   //<![CDATA[
-                  alert('".adm_translate("Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs")."');
+                  alert('".html_entity_decode(adm_translate("Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs"),ENT_COMPAT | ENT_HTML401,cur_charset)."');
                   //]]>
                   </script>";
             redirect_url("admin.php");
@@ -310,7 +310,7 @@ admindroits($aid,$f_meta_nom);
             dbSave_tofile("slogs",1, $savemysql_size);
             echo "<script type=\"text/javascript\">
                   //<![CDATA[
-                  alert('".adm_translate("Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs")."');
+                  alert('".html_entity_decode(adm_translate("Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs"),ENT_COMPAT | ENT_HTML401,cur_charset)."');
                   //]]>
                   </script>";
             redirect_url("admin.php");

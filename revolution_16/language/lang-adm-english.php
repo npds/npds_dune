@@ -733,7 +733,7 @@ function adm_translate($phrase) {
   case "Rôle de l'Utilisateur": $tmp="Member' role"; break;
   case "Choisir un rôle": $tmp="Choice a role"; break;
   case "Extension des fichiers d'image": $tmp="Image files'extension"; break;
-  case "Sauvegarde terminée. Les fichiers sont disponibles dans le repertoire /slogs": $tmp="Save ended. Files are in the directory /slogs"; break;
+  case "Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs": $tmp="Save ended. Files are in the directory /slogs"; break;
   case "Taille maximum des fichiers de sauvegarde SaveMysql": $tmp="Maximum files size for SaveMysql"; break;
   case "Type de sauvegarde SaveMysql": $tmp="SaveMysql save type"; break;
   case "Toute tables. Fichier envoyé au navigateur. Pas de limite de taille": $tmp="All tables. file send to navigator. no size limit"; break;
