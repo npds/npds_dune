@@ -36,11 +36,15 @@ function email_user() {
             <div class="form-group row">
                <label class="form-control-label col-sm-4" for="expediteur">'.adm_translate("Expédier en tant").'</label>
                <div class="col-sm-8">
-                  <label class="radio-inline">
-                     <input type="radio" name="expediteur" value="1" checked="checked">'.adm_translate("qu'administrateur").' / 
+                  <label class="custom-control custom-radio">
+                     <input class="custom-control-input" type="radio" name="expediteur" value="1" checked="checked" />
+                     <span class="custom-control-indicator"></span>
+                     <span class="custom-control-description">'.adm_translate("qu'administrateur").'</span>
                   </label>
-                  <label class="radio-inline">
-                     <input type="radio" name="expediteur" value="0">'.adm_translate("que membre").'
+                  <label class="custom-control custom-radio">
+                     <input class="custom-control-input" type="radio" name="expediteur" value="0" />
+                     <span class="custom-control-indicator"></span>
+                     <span class="custom-control-description">'.adm_translate("que membre").'</span>
                   </label>
                </div>
             </div>
@@ -65,9 +69,12 @@ function email_user() {
                </div>
             </div>
             <div id="div_all" class="form-group row">
-               <label class="form-control-label checkbox col-sm-4" for="all">'.adm_translate("Envoyer à tous les membres").'</label>
+               <label class="form-control-label col-sm-4" for="all">'.adm_translate("Envoyer à tous les membres").'</label>
                <div class="col-sm-8 ">
-                  <input id="all" type="checkbox" name="all" value="1" />
+                  <label class="custom-control custom-checkbox">
+                     <input class="custom-control-input" id="all" type="checkbox" name="all" value="1" />
+                    <span class="custom-control-indicator"></span>
+                  </label>
                </div>
             </div>
             <div class="form-group row">
