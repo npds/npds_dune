@@ -89,25 +89,25 @@ function ForumGo($cat_id) {
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true">'.adm_translate("Index").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Nom").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Modérateur(s)").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Accès").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Type").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Mode").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Attachement").'&nbsp;</th>
-            <th data-sortable="true">'.adm_translate("Fonctions").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Index").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate("Nom").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate("Modérateur(s)").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate("Accès").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate("Type").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center">'.adm_translate("Mode").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate("Attachement").'&nbsp;</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Fonctions").'&nbsp;</th>
          </tr>
       </thead>
       <tbody>';
     $result = sql_query("SELECT forum_id, forum_name, forum_access, forum_moderator, forum_type, arbre, attachement, forum_index FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id' ORDER BY forum_index,forum_id");
     while(list($forum_id, $forum_name, $forum_access, $forum_moderator, $forum_type, $arbre, $attachement, $forum_index) = sql_fetch_row($result)) {
-        $moderator=str_replace(" ",", ",get_moderator($forum_moderator));
+        $moderator=str_replace(' ',', ',get_moderator($forum_moderator));
         echo '
          <tr>
             <td>'.$forum_index.'</td>
             <td>'.$forum_name.'</td>
-            <td><i class="glyphicons glyphicons-user-flag"></i>&nbsp;'.$moderator.'</td>';
+            <td><i class="fa fa-balance-scale fa-lg fa-fw mr-1"></i>'.$moderator.'</td>';
         switch($forum_access) {
         case (0):
            echo '
@@ -159,7 +159,7 @@ function ForumGo($cat_id) {
         else
            echo '<td>'.adm_translate("Non").'</td>';
 
-        echo '<td><a href="admin.php?op=ForumGoEdit&amp;forum_id='.$forum_id.'&amp;ctg='.urlencode($ctg).'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=ForumGoDel&amp;forum_id='.$forum_id.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
+        echo '<td><a href="admin.php?op=ForumGoEdit&amp;forum_id='.$forum_id.'&amp;ctg='.urlencode($ctg).'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=ForumGoDel&amp;forum_id='.$forum_id.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
         </tr>';
     }
     echo '
