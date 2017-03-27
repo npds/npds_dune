@@ -1,0 +1,921 @@
+/* CSS Mouset-IT2 pour NPDS REvolution */
+
+/************************************************************************
+Parce qu'on utilise "em" en taille de font
+*************************************************************************/
+html {
+	font-size: 100%;
+}
+
+/************************************************************************
+Aspect GÈnÈral du site : Font, Textes, Marges, etc...
+*************************************************************************/
+body {
+	background: url(../images/LBlocs/background_repeater.jpg) #ffffff  repeat;
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: .75em;
+	font-weight: normal;
+	margin: 0;
+	/* text-align: center;  pour corriger un bug de centrage IE */
+	padding: 0;
+}
+
+/************************************************************************
+RËgle horizontale servant de sÈparation
+*************************************************************************/
+hr {
+	color: #183a55;
+	background-color: #183a55;
+	border: 0;
+	height: 1px;
+}
+
+/* Aspect du Texte de votre Site lorsqu'il n'est pas redÈfini ailleurs, visible dans la Partie Admin par exemple */
+td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em;
+}
+
+/************************************************************************
+Les DiffÈrents LIENS Standards
+*************************************************************************/
+a, a:visited, a:link {
+	color: #0087be;
+	text-decoration: none;
+}
+a:hover {
+	color:#00aef5;
+	text-decoration: none;
+}
+a:active, a.box, a.box:active, a.box:visited {
+	color: #006690;
+	text-decoration: none;
+}
+a.noir, a.noir:visited, a.noir:active {
+	color: #006690;
+	text-decoration: none;
+}
+a.noir:hover, a.box:hover, a.heada:hover {
+	color: #0773a3;
+	text-decoration: underline;
+}
+.rouge, a.rouge, a.rouge:visited, a.rouge:active {/* Annulation, suppression, avertissement...*/
+	color: #ff0000;
+	font-weight: normal;
+	text-decoration: none;
+}
+a.rouge:hover {
+	color: #ff0000;
+	font-weight: normal;
+	text-decoration: underline;
+}
+a.aideans, a.aideans:visited, a.aideans:active {/* Aide en Ligne */
+	background: none transparent;
+	cursor: help;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.heada, a.heada:visited, a.heada:active {/* Admin (haut et bas) - Download - Annuaire */
+	color: #323232;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/************************************************************************
+Liens Tooltip ==> Info Bulles
+Initialement prÈvu pour Download
+fonctionnel ou vous le souhaitez
+*************************************************************************/
+a.tooltip {
+	/*color: gray;*/
+    border-bottom: 1px dotted gray;
+}
+a.tooltip em {
+	display:none;
+}
+a.tooltip:hover {
+	border: 0;
+	position: relative;
+	z-index: 500;
+	text-decoration:none;
+}
+a.tooltip:hover em {
+	font-style: normal;
+	font-size: 11px;
+	display: block;
+	top: 20px;
+	left: -10px;
+	padding: 5px;
+	color: #000;
+	border: 1px solid #bbb;
+	background: #ffffff;
+	width:170px;
+	text-align: left;
+   border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+ 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+	position: absolute; left: 2em; top: 2em;
+}
+a.tooltip:hover em span {
+	position: absolute;
+	top: -7px;
+	left: 15px;
+	height: 7px;
+	width: 11px;
+	margin:0;
+	padding: 0;
+	border: 0;
+}
+
+/************************************************************************
+Alternance des couleurs de ligne Fonction tableaux()
+*************************************************************************/
+.ligna, a.ongl, a.ongl:visited, a.ongl:active {
+	background-color: #f8f8f8;
+	border: #f8f8f8 1px solid;
+	text-decoration: none;
+	text-align: left;
+}
+.lignb {
+	background-color: #C2E2ED;
+	border: #C2E2ED 1px solid;
+	text-decoration: none;
+	text-align: left;
+}
+
+/************************************************************************
+Champs de Formulaires - Champs de Saisies
+*************************************************************************/
+.inputa {/* champ de saisie, Lnl Box, Moteur de recherche, Bloc Login notamment */
+	background-color: #ffffff;
+	border: #000000 1px solid;
+	color: #000000;
+	height: 18px;
+	vertical-align: middle;
+	width: 80px;
+}
+.textbox { /* Champs Formulaire - Message ‡† un membre - forum - Notamment */
+	background-color: #ffffff;
+	border: #000000 1px solid;
+	color: #000000;
+	width: 100%;
+}
+.textbox_standard {/* Champs Formulaire - Contact - forum (sauter ‡†) - Notamment */
+	background-color: #ffffff;
+	border: #000000 1px solid;
+	color: #000000;
+}
+.bouton_standard {/* Boutons : PrÈvisualiser - Valider - Annuler ....*/
+	background-color: #000000;
+	padding:1px 5px 1px 1px;
+	border: #000000 1px solid;
+	color: #ffffff;
+	/*font-weight: bold;*/
+	font-style: normal;
+	text-decoration: none;
+}
+
+/************************************************************************
+CSS ComplÈmentaire pour vos  Formulaires
+*************************************************************************/
+form {  /* DÈlimitation de votre Formulaire*/
+	padding: 2px;
+	width: 99%;
+}
+fieldset { /* Regroupe les diffÈrentes zones de votre Formulaire */
+	padding: 15px;  /* padding in fieldset support spotty in IE *//*margin: 0;*/
+	border: 1px solid #000000;
+}
+legend { /* Titre pour identifier chaque fieldset */
+	font-size:1.1em;
+	color: #183a55;
+	font-weight: bold;
+	padding-bottom:3px;
+}
+label {
+	display: block;
+	float: left;
+	width: 180px;
+	margin-top: 3px;
+	padding-right: 10px;
+	text-align: right;
+}
+input[type=Submit], [type=Reset], [type=Return], [type=Password] { /* Champs de DonnÈes */
+	background-color: #F4B113;
+	padding:1px 5px 1px 1px;
+	border: #ffffff 1px solid;
+	color: #ffffff;
+	text-decoration: none;
+}
+input[type=radio] {
+	border: 0;
+   background-color: transparent; 
+   vertical-align: text-bottom;
+}
+input[type=Image] {
+	border: 0;
+}
+input, select, radio, checkbox, textarea {
+	border: #000000 1px solid;
+	color: #000000;
+	background-color: #ffffff;
+	margin-top: 2px;
+	padding: 0;
+}
+textarea { /* Champs de DonnÈes */
+  width: 98%;
+}
+input[type=text]:focus, textarea:focus{
+background-color: #C2E2ED;
+}
+form p {
+	line-height:100%;
+}
+form label span {
+	color: red;
+}
+form br {
+	clear:left;
+}
+
+/************************************************************************
+Les Autres ElÈments DÈfinis en "Dur" dans le code
+Tableaux & EntÍtes & Titres & Mise en Forme
+*************************************************************************/
+.forum_titre {
+	font-size: 1.30em;
+	font-weight: bold;
+	color: #ffffff;
+	height: 40px;
+	line-height: 28px;
+	padding: 0px 0px 0px 0px;
+	margin: 2px 0px 0px 2px;
+	width:99%;
+}
+.ongl {/*Admin Banners - Download Gauche - Links - Top10...Ligne et Onglet Nominatif*/
+	color: #45445b;
+	font-weight: bold;
+	text-decoration: none;
+}
+.header, a.ongl:hover, .titre {/* header : Entete de Pratiquement Tous les Tableaux Ègalement dans Forum */
+	color: #282828;
+	text-decoration: none;
+   background-color: #F4B113;
+   font-size: 11px;
+   font-weight: bold;
+}
+.box {/*Titre du Style BOX - Links Titres - Bas PollBoth (PollComments) - Memberlist...*/
+	color: #545454;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.titboxc {/* Haut Admin - Download */
+	color: #000;
+	font-weight: bold;
+	background: #C2E2ED;
+	border: 1px solid #000000;
+}
+.titboxcont {/* IntitulÈ Bloc Sondage - Bloc Admin (les chiffres)*/
+	background: none transparent;
+	color: #0e0e0e;
+	font-weight: bold;
+}
+.titrea {/* Titres : Sondages (Poolboth) - Previews - notamment */
+	font-weight: bold;
+	text-decoration: none;
+}
+.titrec {/* Blocs Forums Infos -  Bloc Chat Box (IP + les Chiffres) */
+	color: RED;
+	text-decoration: none;
+}
+.separ {/* Ligne de sÈparation (une Image) Haut Menu Admin - Menu Membres - Haut et Bas Section */
+	background: url('../images/ligne.gif') left repeat-x;
+	height: 5px;
+}
+code {/*UtilisÈe pour mettre en Èvidence une portion de code - Forum Aussi dans AdminModuleInstall*/
+   background-color: #FFFFFF;
+   border: 1px solid #0773A3;
+   display: block;
+   font-family: monospace;
+   font-size: 11px;
+   padding: 1px 1px 1px 1px;
+   width: 90%;
+}
+.quote {/* Citation dans le Forum */
+	border: 1px solid #183a55;
+	margin: 5px 5px 5px 5px;
+	padding: 5px 5px 5px 5px;
+	width: 90%;
+}
+h2 {/* Titre : Map - Forum - Articles (index et dÈtail) */
+	color: #0087be;
+	font-size: 1.25em;
+	font-weight: bold;
+	height: auto;
+	line-height: 25px;
+	padding: 0px;
+	margin: 0px;
+}
+h3 { /* Map - box_article - box_pool */
+	color: #000;
+	font-weight: bold;
+	text-align: left;
+	font-size: 1.25em;
+	margin: 0px;	
+}
+h4 { /* Map  */
+	color: #0773a3;
+	font-weight: bold;
+	font-size: 1.15em;
+}
+
+/************************************************************************
+Mise en Page Globale & Mise en Forme de votre ThËme
+*************************************************************************/
+#container {
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
+	width:980px;
+}
+#header_top{
+	height: 30px;
+	width: 100%;
+}
+#header { /* Ici - Le Header Complet avec Image de Fond */
+	background: url(../images/LBlocs/header.png); 
+	height: 190px;
+	width: 980px;
+}
+#search{ /*Positionnement du bloc login dans le Header*/
+	position: absolute;
+	top:190px;
+	left:425px;
+	height:20px;
+	margin: 6px 0 0 0;	
+}
+#search .input{ /*Positionnement du bloc login dans le Header*/
+	width:120px;
+	background:transparent;
+	border: 0;
+	font-size: 11px;
+	font-style: italic;
+	color: #6c6c6c;
+	margin: 6px 0 0 15px;
+}
+#search .submit{ /*Positionnement du bloc login dans le Header*/
+	width:40px;
+	height: 19px;
+	background: url(../images/LBlocs/btn_submit.png);
+	border: 0;
+	cursor: pointer;
+	vertical-align: middle;
+	margin: 0 0 0 10px;	
+
+}
+#search .submit:hover{ /*Positionnement du bloc login dans le Header*/
+	background: url(../images/LBlocs/btn_submit_on.png);
+}
+#header .sitename { /*Positionnement du Slogan du Site dans le Header*/
+	color: #000;
+	text-align:left;
+	font-weight:bold;
+	font-size: 1.5em;
+	width:100%;
+	padding: 2px 0 0 7px;
+}
+#header .slogan{ /*Positionnement du Slogan du Site dans le Header*/
+	color: #000;
+	text-align:left;
+	font-size: 1.2em;
+	width:100%;
+	padding: 2px 0 0 7px;
+}
+
+/************************************************************************
+Mise en forme du menu
+*************************************************************************/
+/* Menu dÈroulant*/
+#header_menu {
+	padding : 3px 0 0 220px; /* pas de marge intÈrieure */
+	margin : 0; /* ni extÈrieure */
+	list-style : none;
+	line-height : 29px; /* dÈfinit une hauteur pour chaque ÈlÈment */
+	font-weight : bold; /* texte en gras */
+	font-family : Arial;
+	font-size : 12px; /* hauteur du texte : 12 pixels */	
+}
+#header_menu ul { /* Liste */     
+	padding : 0; /* pas de marge intÈrieure */
+	margin : 0; /* ni extÈrieure */
+	list-style : none;
+	line-height : 21px; /* dÈfinit une hauteur pour chaque ÈlÈment */
+}
+#header_menu a { /* Contenu des listes */
+	display : block; /* Les liens deviennent des balises de type block */
+	padding : 0;
+	color : #000000; /* couleur du texte */
+	text-decoration : none;
+}
+#header_menu li { /* …lÈments des listes */      
+	float : left;
+	border-right: 1px solid #000000;
+	width : 130px;
+	background: url(../images/LBlocs/bg_menu_top_hover.png);
+}
+#header_menu li ul { /* Sous-listes */
+	position: absolute;
+	border-left: 1px solid #000000;
+	width: 130px;
+	left: -999em;
+}
+#header_menu li ul li { /* ElÈments de sous-listes */
+	border-bottom: 1px solid #000000;
+}
+#header_menu li ul ul {
+	border-left: 1px solid #000000;
+}
+#header_menu a:hover { /* Lorsque la souris passe sur un des liens */    
+	color: #630809; /* On passe le texte en noir... */
+	background:#f8bf92;
+}
+#header_menu li:hover ul ul, #menu li.sfhover ul ul {
+	left: -999em;
+}
+#header_menu li:hover ul, #header_menu li li:hover ul, #header_menu li.sfhover ul, #header_menu li li.sfhover ul {
+	left: auto;
+	min-height: 0;
+}
+
+/************************************************************************
+Top Menu
+*************************************************************************/
+#top_menu {
+		background: url(../images/LBlocs/menu.jpg);
+		width: 980px;
+		height: 38px;
+}
+/*btn_LB*/
+#ico_men_LB {
+	vertical-align:middle;
+	padding : 0;
+	margin: 0;
+}
+#ico_men_RB {
+	vertical-align:middle;
+	padding : 10px 3px 3px 20px;
+	background:url('../images/LBlocs/bg_menu_top.jpg') no-repeat;
+}
+
+/************************************************************************
+La Partie CENTRALE de votre Site
+*************************************************************************/
+#corps {/*Container Englobant toutes les colonnes*/
+	background:url("../images/LBlocs/repeater.jpg") repeat-y;
+	float: left;
+	width:980px;
+}
+#col_princ {/* La Partie Centrale avec Pdst = -1  uni*/
+	float: left;
+/*	overflow:auto; */
+	padding: 10px 5px 0 40px;
+}
+.uni {/* La Partie Centrale avec Pdst = -1  uni*/
+	float: left;
+	width: 980px;
+}
+.trio {/* La Partie Centrale avec Pdst = 1 - 3 et 4 trio*/
+	float: left;
+	width: 600px;
+}
+.duo {/* La Partie Centrale avec Pdst = 0 ou Pdst=2 duo*/
+	float: left;
+	width: 750px;
+}
+
+/************************************************************************
+Edito se rapporte donc ‡†"editorial.html"
+*************************************************************************/
+#editorial {
+	margin: 2px 2px 15px 2px;
+	padding:2px 4px 2px 4px;
+}
+#editorial .content {
+	width: 100%;
+}
+
+/************************************************************************
+Affichage des Articles en page Index et Detail-news
+*************************************************************************/
+.article_bloc {/*Le contenant*/
+	background:url("../images/LBlocs/post_top.png") repeat-x;
+	margin: 0px 15px 0 20px;
+	height: auto;
+}
+.article_sujet {
+   float: left;
+	width: 90px;
+	height: 90px;
+	text-align: center;
+	padding: 10px;
+}
+.article_texte {
+	min-height: 170px;
+	height: auto !important;
+	padding: 5px 5px 5px 5px;
+	background-color: #ffffff;
+	color: #000000;
+}
+.note { /* Mise en forme si Note */
+	border: 1px solid #F4B113;
+	width:80%;
+	text-align:left;
+	font-style: italic;
+	font-size: .9em;
+	padding: 2px;
+	margin: 2px 110px;
+}
+.note p {
+   display: inline-block;
+	padding: 2px;
+	margin: 2px;
+}
+
+.article_pied { /*Mise en forme du Pied*/
+	background: #C2E2ED;
+	padding: 5px;
+	text-align: center;
+	border-top: 1px dashed #000000;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+}
+.hr_articles{
+	border : none;
+	border-top : dashed 1px #0087be;
+	background: #FFFFFF;
+	height : 1px;
+}
+.meta_Nsuite img  { /* Pour aligner les images par rapport au texte */
+	vertical-align:middle
+}
+.meta_Nsuite {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+.meta_Nsuite  a{
+	color:#0087be;
+	text-decoration:none	
+}
+.meta_Nsuite a:hover{
+	color:#00aef5;
+	text-decoration:none
+}
+.N_titre {
+	background:url("../images/LBlocs/title_bg.jpg") no-repeat;
+	width: 493px;
+	height: 47px;
+	padding: 0 0 0 10px;
+	font-size: 11px;
+}
+.N_titre  a{
+	color:#0087be;
+	text-decoration:none	
+}
+.N_titre a:hover{
+	color:#00aef5;
+	text-decoration:none	
+}
+.meta_Nprevious {
+	background: #ffffff;
+	text-align:right;
+}
+
+/************************************************************************
+Cadre index-news + detail-news
+*************************************************************************/
+.post_top {background: url("../images/LBlocs/post_top.png") repeat-x;background-position-y: 4px;} /* Haut-centre*/
+.post_center_g {background: url("../images/LBlocs/post_center_g.png") repeat-y; width:21px} /* Centre-gauche */
+.post_center_d{background: url("../images/LBlocs/post_center_d.png") repeat-y; width:21px} /* Centre-droite */
+.post_bottom{background: url("../images/LBlocs/post_bottom.png") repeat-x; background-position-y: 1px;} /* Bas-Centre */
+
+/************************************************************************
+"box_Article" corespond au bloc Liens Relatifs
+"box_poll" lui au Bloc sondage (pollBoth)
+*************************************************************************/
+#box_article, #box_poll {/*les 2 Blocs seront identiques*/
+	width: 140px;
+	float: left;
+	margin:0px 2px 0px 2px;
+	padding:0;
+	text-align: left;
+}
+.bloc_title1 {
+	height: 30px;
+	width: 138px;
+	line-height: 30px;
+}
+.bloc_content1 {
+	padding: 0 5px 5px 5px;
+	text-align: left;
+	margin-bottom: 0px;
+}
+#box_poll li, #box_article li {
+	margin-left: 8px;
+	list-style-type: none;
+	color: #000000;
+}
+#box_article ul, #box_poll ul {
+	margin: 0 0 0 5px;
+	padding: 0 0 0 5px;
+}
+#box_article .boxc {
+	color: #000;
+	font-weight: bold;
+	margin: 0 0 0 5px;
+}
+
+/************************************************************************
+Stats.php
+*************************************************************************/
+.graph {
+	width: 200px;
+	border: 1px solid #183a55;
+	padding: 2px;
+}
+.graph .bar {
+	display: block;
+	background: #F3B114;
+	text-align: center;
+	color: #333;
+	height: 1em;
+	line-height: 1em;
+}
+
+/************************************************************************
+Colonnes Gauche - Droite et Vos Blocs
+*************************************************************************/
+#col_LB {
+	width: 193px;
+	float: left;
+	position: relative;
+	padding: 0 0 0 15px;/* Margin et Padding gÈrÈs dans LB_Contain */
+}
+.leftbloc {/* Un Bloc Gauche Global */
+	text-align: left;
+	margin: 8px;
+	width: 193px;
+}
+.leftbloc .LB_title {
+	background:url("../images/LBlocs/sidebar_title.png") no-repeat;
+	text-align: left;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	line-height: 26px;
+	margin: 10px 0 0 5px;
+	padding: 0 0 0 20px;
+}
+.leftbloc .LB_contain {/* Bloc container pour le contenu */
+	padding: 5px 10px 5px 10px;
+	overflow:auto;
+	color: #000000;
+}
+
+.leftbloc .LB_contain ul{
+-webkit-padding-start: 0px;
+}
+
+.leftbloc .LB_contain ul  li{
+	line-height: 1.5em;
+	list-style-type: none;
+ 
+	margin: -5px 0px 0px 0px;
+
+	padding: 0px 3px 0px 12px;
+	background: url('../images/LBlocs/titlearrow.gif') no-repeat 0px 7px;
+}
+.leftbloc .LB_contain ul  li:hover{
+	line-height: 1.5em;
+	list-style-type: none;
+/* 
+	margin: -5px 0px 0px -40px;
+ */
+	padding: 0px 3px 0px 12px;
+	background: url('../images/LBlocs/titlearrow_hover.gif') no-repeat 0px 7px;
+}
+.leftbloc .LB_contain a{
+	color: #000000;
+	text-decoration: none;
+}
+.leftbloc .LB_contain a:hover{
+	color: #717171;
+	text-decoration: none;
+}
+#col_RB { /* L‡†o˘ se trouvent vos Blocs droits*/
+	width: 193px;
+	float: left;
+	position: relative;
+	padding: 0 0 0 15px;/* Margin et Padding gÈrÈs dans RBContain */	
+}
+.rightbloc {/* Un Bloc Droit Global */
+	text-align: left;
+	margin: 8px;
+	width: 193px;
+}
+.rightbloc .RB_title {
+	background:url("../images/LBlocs/sidebar_title.png") no-repeat;
+	text-align: left;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	line-height: 26px;
+	margin: 10px 0 0 5px;
+	padding: 0 0 0 20px;	
+}
+.rightbloc .RB_contain {/* Ajout d'un bloc container pour le contenu */
+	padding: 5px 10px 5px 10px;
+	overflow:auto;
+	color: #000000;
+}
+.rightbloc .RB_contain ul{
+-webkit-padding-start: 0px;
+}
+
+.rightbloc .RB_contain ul li {/* Bloc Droit */
+	line-height: 1.5em;
+	list-style-type: none;
+
+	margin: -5px 0px 0px 0px;
+
+	padding: 0px 3px 0px 12px;
+	background: url('../images/LBlocs/titlearrow.gif') no-repeat 0px 7px;
+}
+.rightbloc .RB_contain ul li:hover {/* Bloc Droit */
+	line-height: 1.5em;
+	list-style-type: none;
+/* 
+	margin: -5px 0px 0px -40px;
+ */
+	padding: 0px 3px 0px 12px;
+	background: url('../images/LBlocs/titlearrow_hover.gif') no-repeat 0px 7px;
+}
+.rightbloc .RB_contain a{
+	color: #000000;
+	text-decoration: none;
+}
+.rightbloc .RB_contain a:hover{
+	color: #717171;
+	text-decoration: none;
+}
+
+/************************************************************************
+CSS sur un Bloc en Particulier
+Ici le Bloc ID 2 donc Menu
+Il suffit de cocher la case css du menu
+*************************************************************************/
+#LB_13 div {
+	overflow:visible;
+}
+#LB_2 div {
+	overflow:visible;
+}
+
+/************************************************************************
+La Partie Footer de votre Site
+*************************************************************************/
+#footer {
+	background:url("../images/LBlocs/repeater.jpg") repeat-y;
+	text-align: right;
+	color: #000;
+	padding: 10px 10px 5px 0px;
+	font-size: 11px;
+/* 
+	width: 970px;
+ */
+}
+#footer a {
+	color: #000;
+	text-decoration: underline;
+}
+#pied {
+	background:url("../images/LBlocs/repeater.jpg") repeat-y;
+	text-align: right;
+	color: #000;
+	padding: 10px 0 10px 0;
+	margin: 0 auto;
+	width: 980px;
+	clear: both;
+}
+
+/************************************************************************
+DÈco de la fonction Mel
+*************************************************************************/
+a.newmsg {
+	color: #ff0000 !important;
+	font-weight: bold;
+	text-decoration: blink !important;
+	text-decoration: blink;
+}
+
+/************************************************************************
+Required 4 REvolution 16 
+*************************************************************************/
+
+/** ==> Classes NPDS-core [prefixe n-]                                      **/
+/* ==> pour les avatars et images */
+.n-ava {
+  max-width:64px;
+  max-height:64px;
+}
+.n-ava-small {
+  max-width:48px;
+  max-height:48px;
+}
+.n-smil {
+  width:24px;
+  height:24px;
+  display:inline;
+}
+.n-sujetsize {
+  max-width : 100px;
+  height : auto;
+}
+.n-fond_emot, .n-fond_subject {
+  line-height:28px;
+}
+/* ==> pour la signature */
+.n-signature {
+  font-style: italic;
+  text-align: right !important;
+  padding-top: 1.1rem !important;
+}
+/* ==> pour les troncatures de mots trop longs */
+.n-hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+.n-ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.n-list-compact-no-bord {
+  padding-top: .35rem;
+  padding-bottom: .35rem;
+  padding-right: 0rem;
+  padding-left: 0rem;
+  border:0px;
+}
+.n-card-compact-no-padside {
+  padding-right: 0rem;
+  padding-left: 0rem;
+  border:0px;
+}
+
+/** <== Classes NPDS-core                                                   **/
+
+/* ==> Personalisation des tooltips bootstrap V4* /
+/* Requis pour tous les thèmes */
+.tooltip {}
+.tooltip.in {}
+.tooltip.tooltip-top, .tooltip.bs-tether-element-attached-bottom {}
+.tooltip.tooltip-top .tooltip-inner::before, .tooltip.bs-tether-element-attached-bottom .tooltip-inner::before {
+  border-top-color: #F3B113
+  color:black;
+}
+.tooltip.tooltip-right, .tooltip.bs-tether-element-attached-left {}
+.tooltip.tooltip-right .tooltip-inner::before, .tooltip.bs-tether-element-attached-left .tooltip-inner::before {
+  border-right-color: #F3B113;
+    color:black;
+
+}
+.tooltip.tooltip-bottom, .tooltip.bs-tether-element-attached-top {}
+.tooltip.tooltip-bottom .tooltip-inner::before, .tooltip.bs-tether-element-attached-top .tooltip-inner::before {
+  border-bottom-color: #F3B113;
+    color:black;
+
+}
+.tooltip.tooltip-left, .tooltip.bs-tether-element-attached-right {}
+.tooltip.tooltip-left .tooltip-inner::before, .tooltip.bs-tether-element-attached-right .tooltip-inner::before {
+  border-left-color: #F3B113;
+    color:black;
+
+}
+.tooltip-inner {
+  background-color: #F3B113;
+    color:black;
+
+}
+.tooltip-inner::before {}
+/* <== Personalisation des tooltips bootstrap V4*/
+
+.list-group-item.active {
+background-color:#1F79AD;
+border-color: #1F79AD;
+}
