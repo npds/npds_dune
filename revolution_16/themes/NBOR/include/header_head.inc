@@ -40,8 +40,7 @@ echo '
 <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
-
-';
+<script type="text/javascript" src="lib/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js"></script>';
 
 
 
