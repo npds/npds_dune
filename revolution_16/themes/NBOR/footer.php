@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : jpb Jireck Bmag     NBOR                                     */
+/* Theme : jpb Jireck Bmag     BaseRoc                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,53 +14,58 @@
 global $pdst;
 switch ($pdst)
 {
-case '-1':
+case '-1':case '3':case '5':
    echo '
-      </section>
-   </section>';
+         </div>
+      </div>
+   </div>';
 break;
 
-case '1': case '2':
+case '1':case '2':
    echo '
-   </section>
-      <aside id="col_RB" class="col-lg-3 w19 notablet nomobile  aside">';
+   </div>
+    <div id="col_RB" class="n-c col-lg-3 w18">';
         rightblocks();
+   echo '
+         </div>
+      </div>
+   </div>';
+break;
+
+case "4":
+   echo '
+         </div>
+         <div id="col_LB" class="n-c col-lg-3 w18">';
+            leftblocks();
+   echo '
+         </div>
+         <div id="col_RB"  class="n-c col-lg-3 w18">';
+        rightblocks();
+   echo '
+         </div>
+      </div>
+   </div>';
+break;
+
+case '6':
+   echo '
+         </div>
+         <div id="col_LB" class="n-c col-lg-3 w18">';
+            leftblocks();
     echo '
-      </aside>
-   </section>';
+         </div>
+      </div>
+   </div>';
 break;
-
-case '4':
-   echo '
-      </section>
-         <aside id="col_LB" class="n-c col-lg-3 w19 notablet nomobile">';
-        leftblocks();
-   echo '
-         </aside>
-         <aside id="col_RB" class="n-c col-lg-3 w19 notablet nomobile">';
-        rightblocks();
-   echo '
-   </aside>
-   </section>';
-break;
-
-case "6":
-    echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo '<aside id="col_LB" class="col w19 notablet nomobile aside">';
-        leftblocks();
-    echo "</aside>";
-    echo "</section>";/* Fermeture du corps ouvert dans le header.php  */
-break;
-
 default :
-    echo "</section>";/* Fermeture de Col_princ ouvert dans le header.php */
-    echo "</section>";/* Fermeture du corps ouvert dans le header.php  */
+   echo '
+         </div>
+      </div>
+   </div>';
 break;
 
 }
-// ContainerGlobal permet de transmettre à Theme-Dynbamic un élément de personnalisation après
-// le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
-$ContainerGlobal="\n</div>\n";
+$ContainerGlobal='</div>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");
