@@ -2,7 +2,7 @@
 ##
 ## Nom : geoloc
 ## Version : 3.0
-## Date : 2008-2015
+## Date : 2008-2017
 ## Auteur: Jean Pierre Barbary (jpb) 
 ## Dev team : Philippe Revilliod (phr)
 ## Description :
@@ -34,13 +34,14 @@ CREATE TABLE IF NOT EXISTS ip_loc (
   ip_long float NOT NULL default '0', 
   ip_lat float NOT NULL default '0',
   ip_visi_pag varchar(100) NOT NULL default '',
-  ip_visite mediumint(9) NOT NULL default '0', 
-  ip_ip varchar(30) NOT NULL default '', 
-  ip_country varchar(100) NOT NULL default '0', 
+  ip_visite mediumint(9) unsigned NOT NULL default '0', 
+  ip_ip varchar(39) NOT NULL default '', 
+  ip_country varchar(100) NOT NULL default '0',
+  ip_code_country varchar(4) NOT NULL,
   ip_city varchar(150) NOT NULL default '0',
   PRIMARY KEY  (ip_id), 
   KEY geoloc_ip (ip_ip) 
-) TYPE=MyISAM; 
+) ENGINE=MyISAM; 
 
 
 ## 3. dans phpmyadmin ou autre effectuez ces requêtes

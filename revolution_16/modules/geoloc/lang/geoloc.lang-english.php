@@ -79,8 +79,6 @@ case "Modification administrateur": $tmp="Admin mode"; break;
 case "Rappel : vous êtes en mode administrateur !": $tmp="Notice: you are in admin mode !"; break;
 
 
-
-
 case "Configuration du module Geoloc": $tmp="Geoloc addon settings"; break;
 case "Paramètres système": $tmp="System parameters"; break;
 case "Clef d'API": $tmp="API key"; break;
@@ -112,7 +110,8 @@ case "Marqueur font SVG": $tmp="Marker SVG font"; break;
 case "Interface carte": $tmp="Map UI"; break;
 case "Interface bloc": $tmp="Map bloc UI"; break;
 
-case "Largeur icone marqueur": $tmp="Map bloc UI"; break;
+case "Largeur icône marqueur": $tmp="Marker icon width"; break;
+case "Hauteur icône marqueur": $tmp="Marker icon height"; break;
 
 
 case "Image membre géoréférencé": $tmp="Georeferenced member image"; break;
