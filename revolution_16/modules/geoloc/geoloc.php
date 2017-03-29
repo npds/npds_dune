@@ -321,8 +321,10 @@ while ($row = sql_fetch_array($result))
       $mb_con_ng .= '&nbsp;'.$session_user_name.'<br />'; $mbcng++;
    }
 //
-//==> cherche si l'adresse IP est dans la base
+if ($geo_ip == 1) {
+// Anonyme géoreferencé en ligne
 
+//==> cherche si l'adresse IP est dans la base
 $tres=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc i WHERE ip_ip LIKE \"$session_host_addr\"");
 //$iptronq = explode('.',$session_host_addr,-1);
 while ($row1 = sql_fetch_array($tres)) {
@@ -353,6 +355,8 @@ while ($row1 = sql_fetch_array($tres)) {
         }
     }
  }//////
+}
+
  $k++;
 };
 
@@ -830,25 +834,35 @@ function clearMarkers() {setAllMap(null);hi();}
 function showMarkers() {setAllMap(map);sh();}
 
 geocode_markers=[];
-function geocodeAddress(geocoder, resultsMap) {
+function geocodeAddress(geocoder, map) {
   var address = document.getElementById("address").value;
   geocoder.geocode({"address": address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
-      resultsMap.setCenter(results[0].geometry.location);
+      map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
-        map: resultsMap,
+        map: map,
         position: results[0].geometry.location
       });
+      geocode_markers.push(marker);
     } else {
       alert("Geocode was not successful for the following reason: " + status);
     }
   });
-   geocode_markers.push(marker);
 }
 
-
-function deleteMarkers() {
-  clearMarkers();
+function setMapOnAll_geo(map) {
+  for (var i = 0; i < geocode_markers.length; i++) {
+    geocode_markers[i].setMap(map);
+  }
+}
+function clearMarkers_geo() {
+  setMapOnAll_geo(null);
+}
+function showMarkers_geo() {
+  setMapOnAll_geo(map);
+}
+function deleteMarkers_geo() {
+  clearMarkers_geo();
   geocode_markers = [];
 }
 
@@ -879,8 +893,11 @@ $affi .= '
       <div class="row">
          <div class="col-sm-11 ">
             <span style="font-size:1rem">
-               <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>
-               <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>
+               <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>';
+if($geo_ip==1) 
+   $affi .='
+               <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>';
+$affi .= '
                <span class="badge badge-default mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
             </span>
          </div>
@@ -901,18 +918,16 @@ $affi .= '
    </div>
    <div class=" p-2">
       <a href="javascript:void()" id="eye" onclick="clearMarkers();" class="fa fa-eye-slash fa-lg mr-2" title="" data-toggle="tooltip"></a>
-      <a href="javascript:void()" id="trash" onclick="deleteMarkers();" class="fa fa-trash-o fa-lg mr-2 text-danger" title="" data-toggle="tooltip"></a>
-
       <span>'.$lkadm.'</span>
       <span class="small text-muted float-right" id="mypoint"></span>
    </div>
 </div>
 
    <ul class="nav nav-tabs">
-      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="hidden-xs-down">Infos carte</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="hidden-xs-down">Aide</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="hidden-xs-down">Geolocalisation</span></a></li>
-      <li class="nav-item"><a class="nav-link disabled" href="#iplist" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="hidden-xs-down">Ip liste</span></a></li>
+      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Infos carte").'</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Aide").'</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Géolocalisation").'</span></a></li>
+      <li class="nav-item"><a class="nav-link disabled" href="#iplist" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Ip liste").'</span></a></li>
    </ul>
    <div class="tab-content">
       <div class="tab-pane fade show active" id="infocart">
@@ -922,8 +937,13 @@ $affi .= '
       <div class="tab-pane fade" id="iplist">'.$test_ip.'</div>
       <div class="tab-pane fade" id="geocodage">
          <div class="form-group mt-3">
-            <input class="form-control" id="address" type="textbox" value="" placeholder="Entrez une adresse ..."/>
-            <input class="btn btn-primary mt-2" id="geocode_submit" type="button" value="Geocode" />
+            <div class="input-group">
+               <span class="input-group-btn">
+                  <button  id="geocode_submit" class="btn btn-primary" type="button">Geocode</button>
+               </span>
+               <input id="address" type="textbox" class="form-control" placeholder="Entrez une adresse..." />
+               <span class="input-group-btn"><button class="btn btn-outline-danger" type="button" id="trash" onclick="deleteMarkers_geo();"><i class="fa fa-trash-o fa-lg"></i></button></span>
+            </div>
          </div>
       </div>
       <div class="tab-pane fade" id="geolocalisation"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span></div>
@@ -938,13 +958,4 @@ switch ($op) {
       wp_fill();
    break;
 }
-   
-/*echo '<svg width="32" height="32" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-<path d="M320 256q0 72-64 110v1266q0 13-9.5 22.5t-22.5 9.5h-64q-13 0-22.5-9.5t-9.5-22.5v-1266q-64-38-64-110 0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm1472 64v763q0 25-12.5 38.5t-39.5 27.5q-215 116-369 116-61 0-123.5-22t-108.5-48-115.5-48-142.5-22q-192 0-464 146-17 9-33 9-26 0-45-19t-19-45v-742q0-32 31-55 21-14 79-43 236-120 421-120 107 0 200 29t219 88q38 19 88 19 54 0 117.5-21t110-47 88-47 54.5-21q26 0 45 19t19 45z"
-style="stroke: '.$mbg_t_co.'; stroke-width: '.$mbg_t_ep.'px; fill : '.$mbg_f_co.';"
-/>
-</svg>';
-*/
-
-
 ?>

@@ -49,12 +49,15 @@ case "Voir ou masquer membres géoréférencés en ligne": $tmp="Show or hide ge
 case "Désolé les API de Google Maps ne sont pas compatibles avec votre navigateur": $tmp="Sorry, the Google Maps API is not compatible with this browser"; break;
 case "En visite ici : ": $tmp="Visiting this page:"; break;
 case "Visites : ": $tmp="Hits:"; break;
-case "Dernière visite : ": $tmp="Last visite:"; break;
+case "Dernière visite": $tmp="Last visit:"; break;
 case "Pays :": $tmp="Country:"; break;
 case "Ville": $tmp="City"; break;
 case "Les adresses IP sont enregistrées.": $tmp="IP adress are registered."; break;
-case "Chargement en cours...<br />Ou serveurs Google HS...<br />Ou erreur...": $tmp="Now Loading...<br />Or Google serveur are down...<br />Or error..."; break;
+case "Chargement en cours...Ou serveurs Google HS...Ou erreur...": $tmp="Now Loading...Or Google serveur are down...Or error..."; break;
 case "Hôte : ": $tmp="Host:"; break;
+case "Javascript doit être activé pour utiliser les API de Google Maps.": $tmp="JavaScript must be enabled in order for you to use Google Maps API."; break;
+case "Il semble qu'il soit désactivé ou que votre navigateur ne soit pas compatible.": $tmp="However, it seems JavaScript is either disabled or not supported by your browser."; break;
+case "Activez Javascript en modifiant les options de votre navigateur et réessayez.": $tmp="To view Google Maps, enable JavaScript by changing your browser options, and then try again."; break;
 case "Zoom :": $tmp="Zoom:"; break;
 case "Zoom avant": $tmp="Zoom in"; break;
 case "Zoom arrière": $tmp="Zoom out"; break;
@@ -77,51 +80,33 @@ case "Aide": $tmp="Help"; break;
 case "Infos carte": $tmp="Map info"; break;
 case "Modification administrateur": $tmp="Admin mode"; break;
 case "Rappel : vous êtes en mode administrateur !": $tmp="Notice: you are in admin mode !"; break;
-
-
 case "Configuration du module Geoloc": $tmp="Geoloc addon settings"; break;
 case "Paramètres système": $tmp="System parameters"; break;
 case "Clef d'API": $tmp="API key"; break;
-
 case "Champ de table pour latitude": $tmp="DB field for latitude"; break;
 case "Champ de table pour longitude": $tmp="DB field for longitude"; break;
-
-
 case "requis": $tmp="required"; break;
-
 case "Chemin des images": $tmp="Images path"; break;
-
 case "Unité des coordonnées": $tmp="Coordinates unit"; break;
 case "Type de marqueur": $tmp="Marker type"; break;
-
-
 case "Opacité du fond": $tmp="Background opacity"; break;
 case "Opacité du trait": $tmp="Line opacity"; break;
-case "Opacité du fond": $tmp="Background opacity"; break;
 case "Couleur fond": $tmp="Background color"; break;
 case "Couleur du trait": $tmp="Line color"; break;
-case "Epaisseur du trait": $tmp="Background opacity"; break;
-
+case "Epaisseur du trait": $tmp="Line thickness"; break;
 case "Membre": $tmp="Member"; break;
 case "Membre en ligne": $tmp="Member on line"; break;
 case "Anonyme en ligne": $tmp="Anonymous on line"; break;
-
 case "Marqueur font SVG": $tmp="Marker SVG font"; break;
 case "Interface carte": $tmp="Map UI"; break;
 case "Interface bloc": $tmp="Map bloc UI"; break;
-
 case "Largeur icône marqueur": $tmp="Marker icon width"; break;
 case "Hauteur icône marqueur": $tmp="Marker icon height"; break;
-
-
 case "Image membre géoréférencé": $tmp="Georeferenced member image"; break;
 case "Image membre géoréférencé en ligne": $tmp="Georeferenced member on line image"; break;
 case "Image anonyme géoréférencé en ligne": $tmp="Georeferenced anonymous on line image"; break;
-
-
 case "Echelle": $tmp="Scale"; break;
 case "Hauteur de la carte dans le bloc": $tmp="Map height in block"; break;
-
 
 default: $tmp = "Need to be translated [** $phrase **]"; break;
  }
