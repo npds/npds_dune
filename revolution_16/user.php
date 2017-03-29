@@ -467,10 +467,11 @@ function userinfo($uname) {
    if ($uname == $cookie[1])
       nav($mns);
 
+   include('modules/geoloc/geoloc_conf.php'); 
    echo '
    <div class="card card-block">
       <div class="row">';
-      if ($posterdata_extend['C7']!='') echo '
+      if ($posterdata_extend[$ch_lat]!='') echo '
          <div class="col-md-6">'; else
          echo '
          <div class="col-md-12">';
@@ -478,9 +479,8 @@ function userinfo($uname) {
    echo '
          </div>';
    
-if ($posterdata_extend['C7']!='') {
+if ($posterdata_extend[$ch_lat]!='') {
 $content = '';
-include('modules/geoloc/geoloc_conf.php'); 
 $content .='
 <div class="col-md-6">
 <div id="map_user" style="width:100%; height:400px;"></div>';
@@ -555,7 +555,7 @@ $content .='
    //<== carte du bloc
    
       map_u = new google.maps.Map(mapdivu,{
-         center: new google.maps.LatLng('.$posterdata_extend['C7'].', '.$posterdata_extend['C8'].'),
+         center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend['C8'].'),
          zoom :7,
          zoomControl:true,
          streetViewControl:true,
@@ -573,7 +573,7 @@ $content .='
          })
          return marker_u;
       }
-      var point_u = new google.maps.LatLng('.$posterdata_extend['C7'].','.$posterdata_extend['C8'].');
+      var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend['C8'].');
       var marker_u = createMarkerU(point_u);
    }
    $(document.body).attr("onload", "geoloc_loaduser()");
