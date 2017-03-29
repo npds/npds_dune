@@ -46,7 +46,8 @@ function colsyst($coltarget) {
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
-$ContainerGlobal="\n".'<div id="container" class="">'."\n";
+$ContainerGlobal='
+<div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
@@ -58,13 +59,13 @@ $ContainerGlobal="\n".'<div id="container" class="">'."\n";
    <div id="corps" class="container-fluid n-hyphenate">
       <div class="row">';
 switch ($pdst) {
-case '-1':
-   echo '
+   case '-1':
+      echo '
          <div id="col_princ" class="col-12">';
-break;
-default:
-   echo '
+   break;
+   default:
+      echo '
          <div id="col_princ" class="col-12 col-lg-8">';
-break;
+   break;
 }
 ?>
