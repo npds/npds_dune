@@ -32,12 +32,22 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg;
    if (file_exists('modules/'.$ModPath.'/geoloc_conf.php'))
    include ('modules/'.$ModPath.'/geoloc_conf.php');
+   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo.html';
+
+   $ar_fields=array('C3','C4','C5','C6','C7','C8');
+   reset($ar_fields);
+   while (list($k, $v) = each($ar_fields)) {
+   $req='';
+   $req=sql_query("SELECT $v FROM users_extend WHERE $v !=''");
+   if(!sql_num_rows($req)) $dispofield[]=$v;
+   }
+
+
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
    $fonts_svg=array('USER','USERS','HEART-O','THUMB-TACK','CIRCLE-O','CAMERA','ANCHOR','MAP-MARKER','PLANE','STAR-O','HOME','FLAG','CROSSHAIRS','ASTERISK','FIRE','COMMENT');
-
-   echo'
+   echo '
    <hr />
    <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg mr-2 "></i>'.geoloc_translate('Carte').'</a>
 
@@ -51,16 +61,33 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <input type="text" class="form-control" name="api_key" id="ch_lat" placeholder="" value="'.$api_key.'" required="required" />
             </div>
          </div>
-         <div class="form-group row">
-            <label class="form-control-label col-sm-6" for="ch_lat">'.geoloc_translate('Champ de table pour latitude').'<span class="text-danger ml-1">*</span> : '.$ch_lat.'</label>
+         
+         <div class="form-group row ">
+            <label class="form-control-label col-sm-6" for="ch_lat">'.geoloc_translate('Champ de table pour latitude').'<span class="text-danger ml-1">*</span></label>
             <div class="col-sm-6">
-               <input type="text" class="form-control" name="ch_lat" id="ch_lat" maxlength="3" placeholder="Nom du champ qui stocke la valeur de latitude" value="'.$ch_lat.'" required="required" />
+               <select class="custom-select form-control" name="ch_lat" id="ch_lat">
+                  <option selected="selected">'.$ch_lat.'</option>';
+   reset($dispofield);
+   while (list($ke, $va) = each($dispofield)) {
+      echo '
+                  <option>'.$va.'</option>';
+   }
+   echo '
+               </select>
             </div>
          </div>
-         <div class="form-group row">
-            <label class="form-control-label col-sm-6" for="ch_lon">'.geoloc_translate('Champ de table pour longitude').'<span class="text-danger ml-1">*</span> : '.$ch_lon.'</label>
+         <div class="form-group row ">
+            <label class="form-control-label col-sm-6" for="ch_lon">'.geoloc_translate('Champ de table pour longitude').'<span class="text-danger ml-1">*</span></label>
             <div class="col-sm-6">
-               <input type="text" class="form-control" name="ch_lon" id="ch_lon" maxlength="3" placeholder="Nom du champ qui stocke la valeur de longitude" value="'.$ch_lon.'" required="required" />
+               <select class="custom-select form-control" name="ch_lon" id="ch_lon">
+                  <option selected="selected">'.$ch_lon.'</option>';
+   reset($dispofield);
+   while (list($ke, $va) = each($dispofield)) {
+      echo '
+                  <option>'.$va.'</option>';
+   }
+   echo '
+               </select>
             </div>
          </div>
          <div class="form-group row">
@@ -112,7 +139,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                         <option>SATELLITE</option>
                         <option>HYBRID</option>
                         <option>TERRAIN</option>
-                        <option selected>'.$cartyp.'</option>
+                        <option selected="selected">'.$cartyp.'</option>
                      </select>
                   </div>
                </div>

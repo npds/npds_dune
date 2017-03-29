@@ -12,12 +12,11 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 3.0                                            */
-/* geoloc.lang-french.php file 2007-2015 by Jean Pierre Barbary (jpb)   */
+/* geoloc.lang-french.php file 2007-2017 by Jean Pierre Barbary (jpb)   */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
 
 function geoloc_translate($phrase) {
-//return $phrase;
   return (htmlentities($phrase,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>
