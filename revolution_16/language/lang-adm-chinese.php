@@ -655,7 +655,7 @@ function adm_translate($phrase) {
   case "Chaque bloc peut utiliser SuperCache.La valeur du délai de rétention <b>0</b> indique que le bloc ne sera <b>pas caché</b> (obligatoire pour le bloc function#adminblock).": $tmp=" 每个栏目框可以应用SuperCache。<br />数值<b>0</b>表明<b>没有cache</b>（为管理栏目框的必要功能）。"; break;
   case "Activer le Bloc": $tmp="激活该栏目框"; break;
   case "Aide en ligne de ce bloc": $tmp="对本栏目框的在线帮助"; break;
-  case "Aide en ligne": $tmp="Online Help"; break;
+  case "Aide en ligne": $tmp="网上帮助"; break;
   case "Abandonner": $tmp="取消"; break;
   case "Membre": $tmp="位用户"; break;
   case "Le jour": $tmp=" 日"; break;
