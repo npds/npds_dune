@@ -57,27 +57,30 @@ function session_manage() {
       $username= $ip;
       $guest=1;
       //==> mod_geoloc
-      $ousursit='';
-      global $ousursit;
-      $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip like \"$ip\"");
-      $controle=sql_num_rows($resultat);
-      while ($row = sql_fetch_array($resultat)) 
-      {$ousursit= preg_replace("#/.*?/#",'',$_SERVER['PHP_SELF']);} 
-      if($controle != 0)
-      sql_query("UPDATE ".$NPDS_Prefix."ip_loc set ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\"   WHERE ip_ip LIKE \"$ip\" ");
-      else
-      { 
-         $querip = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
-         if($querip && $querip['status'] == 'success') {
-            $pay=removeHack($querip['country']);
-            $codepay=removeHack($querip['countryCode']);
-            $vi=removeHack($querip['city']);
-            $lat=(float)$querip['lat'];
-            $long=(float)$querip['lon'];
-            sql_query("INSERT ".$NPDS_Prefix."ip_loc  SET ip_long = \"$long\", ip_lat = \"$lat\", ip_ip = \"$ip\", ip_country = \"$pay\", ip_city =\"$vi\", ip_code_country=\"$codepay\"");
-            sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+      $file = file("modules/geoloc/geoloc_conf.php");
+//      if(strstr('geoloc_ip = 1',$file[24])) {
+         $ousursit='';
+         global $ousursit;
+         $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
+         $controle=sql_num_rows($resultat);
+         while ($row = sql_fetch_array($resultat)) 
+         {$ousursit= preg_replace("#/.*?/#",'',$_SERVER['PHP_SELF']);} 
+         if($controle != 0)
+         sql_query("UPDATE ".$NPDS_Prefix."ip_loc set ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\"   WHERE ip_ip LIKE \"$ip\" ");
+         else
+         { 
+            $querip = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
+            if($querip && $querip['status'] == 'success') {
+               $pay=removeHack($querip['country']);
+               $codepay=removeHack($querip['countryCode']);
+               $vi=removeHack($querip['city']);
+               $lat=(float)$querip['lat'];
+               $long=(float)$querip['lon'];
+               sql_query("INSERT ".$NPDS_Prefix."ip_loc  SET ip_long = \"$long\", ip_lat = \"$lat\", ip_ip = \"$ip\", ip_country = \"$pay\", ip_city =\"$vi\", ip_code_country=\"$codepay\"");
+               sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+            }
          }
-      }
+//      }
       //<== mod_geoloc
    }
 

@@ -263,7 +263,7 @@ if (!function_exists("Mysql_Connexion")) {
             </tr>';
       }
       echo '
-         <tbody>
+         </tbody>
       </table>';
 
       if ($x==0) {

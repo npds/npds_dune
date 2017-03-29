@@ -398,7 +398,7 @@ function adminMain($deja_affiches) {
                 <thead>
                     <tr>
                         <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">ID</th>
-                        <th data-sortable="true" data-halign="center">'.adm_translate("Titre").'</th>
+                        <th data-halign="center">'.adm_translate("Titre").'</th>
                         <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
                         <th data-halign="center" data-align="right" class="n-t-col-xs-3">'.adm_translate("Fonctions").'</th>
                     </tr>

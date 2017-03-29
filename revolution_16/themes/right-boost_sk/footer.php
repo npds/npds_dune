@@ -29,7 +29,7 @@ switch ($pdst)
    default:
       echo '
       </div>
-      <div id="col_LB" class="n-c col-sm-4">';
+      <div id="col_LB" class="n-c col-lg-4">';
          leftblocks();
          rightblocks();
       echo '
@@ -42,7 +42,8 @@ switch ($pdst)
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
 // le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
-$ContainerGlobal="\n</div>\n";
+$ContainerGlobal='
+</div>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");

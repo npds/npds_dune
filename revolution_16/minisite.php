@@ -299,6 +299,11 @@ function convert_ressources ($Xcontent) {
             if (is_dir($dir)) {
                $affich=true;
                $avatar_mns='users_private/'.$op.'/groupe.png';
+               function adm_translate(){};
+               $gX=liste_group();
+               while (list($g_id, $g_name)=each($gX)) {
+                  if ($g_id==basename($op)) $gr_name= $g_name;
+               }
             }
             $tabgp=valid_group($user);
             if (is_array($tabgp)) {
@@ -326,7 +331,7 @@ function convert_ressources ($Xcontent) {
          echo '<style type="text/css">';
             readfile($dir."style.css");
          echo '</style>';
-         $Xcontent='
+         $Xcontent= '
          </head>
          <body>';
 
@@ -403,8 +408,8 @@ function convert_ressources ($Xcontent) {
          "'!blog!'i"=> $content,
          "'!copyright!'i"=> $copyright,
          "'!avatar!'i"=> $avatar_mns,
-         "'!id_mns!'i"=> $op
-
+         "'!id_mns!'i"=> $op,
+         "'!gr_name!'i"=> aff_langue($gr_name)
          );
          $Xcontent=preg_replace(array_keys($MNS_METALANG_words),array_values($MNS_METALANG_words), $Xcontent);
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
@@ -417,7 +422,7 @@ function convert_ressources ($Xcontent) {
             echo '
                <script>
                //<![CDATA[
-                  $(".modal-body").load("modules/blog/matrice/readme.french.txt"
+                  $(".modal-body").load("modules/blog/matrice/readme.'.$language.'.txt"
                   , function(dataaide, textStatus, jqxhr) {
                      $("#aide_mns").html(dataaide.replace(/(\r\n|\n\r|\r|\n)/g, "<br />"));
                   });
