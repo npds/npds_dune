@@ -58,7 +58,7 @@ function session_manage() {
       $guest=1;
       //==> mod_geoloc
       $file = file("modules/geoloc/geoloc_conf.php");
-//      if(strstr('geoloc_ip = 1',$file[24])) {
+      if(strstr($file[24],'geo_ip = 1')) {
          $ousursit='';
          global $ousursit;
          $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
@@ -80,7 +80,7 @@ function session_manage() {
                sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
             }
          }
-//      }
+      }
       //<== mod_geoloc
    }
 

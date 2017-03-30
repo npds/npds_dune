@@ -54,9 +54,10 @@ $m->add_extra('<div class="form-group row collapse">');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'text',false);
 $m->add_extra('</div>');
 
-$m->add_comment(aff_langue('<div class="row"><p class="lead"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-map-marker fa-2x" title="[french]Modifier ou d&#xE9;finir votre position[/french][english]Define or change your geolocation[/english][chinese]Define or change your geolocation[/chinese]" data-toggle="tooltip"></i></a>&nbsp;[french]G&#xE9;olocalisation[/french][english]Geolocation[/english][chinese][/chinese][spanish][/spanish]</p></div>'));
-$m->add_field('C7',aff_langue('[french]Latitude[/french][english]Latitude[/english][chinese]&#x7ECF;&#x5EA6;[/chinese]'),$C7,'text',false);
-$m->add_field('C8',aff_langue('[french]Longitude[/french][english]Longitude[/english][chinese]&#x7EAC;&#x5EA6;[/chinese]'),$C8,'text',false);
+include_once('modules/geoloc/geoloc_conf.php');
+$m->add_comment(aff_langue('<div class="row"><p class="lead"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-map-marker fa-2x" title="[french]Modifier ou d&#xE9;finir votre position[/french][english]Define or change your geolocation[/english][chinese]Define or change your geolocation[/chinese][spanish]Definir o cambiar la geolocalizaci&#243;n[/spanish]" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;[french]G&#xE9;olocalisation[/french][english]Geolocation[/english][chinese]&#x5730;&#x7406;&#x5B9A;&#x4F4D;[/chinese][spanish]Geolocalizaci&#243;n[/spanish]</p></div>'));
+$m->add_field($ch_lat,aff_langue('[french]Latitude[/french][english]Latitude[/english][chinese]&#x7ECF;&#x5EA6;[/chinese][spanish]Latitud[/spanish][german]Breitengrad[/german]'),$$ch_lat,'text',false);
+$m->add_field($ch_lon,aff_langue('[french]Longitude[/french][english]Longitude[/english][chinese]&#x7EAC;&#x5EA6;[/chinese][spanish]Longitud[/spanish][german]L&#228;ngengrad[/german]'),$$ch_lon,'text',false);
 
 // Si vous avez besoin des champs ci-dessous - les définir selon vos besoins - sinon les laisser en hidden
 $m->add_field('C3','C3','','hidden',false);
