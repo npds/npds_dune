@@ -78,4 +78,6 @@ ADDITIONALS META-WORD :
  !l_new_texte!  / displays the text of the New
  !l_new_modif!  / displays the link to change New
  !l_new_suppr!  / displays the link to delete New
+ !avatar!       / displays member or group 's avatar
+ !id_mns!       / displays nickname or groupe/x
 

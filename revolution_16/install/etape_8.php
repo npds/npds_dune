@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,7 +32,7 @@ function etape_8() {
       $rep_log = substr($rep_log, $begin, $end3);
    }
    echo '
-               <h3 class="m-b-2">'.ins_translate('Configuration du module UPload').'</h3>
+               <h3 class="mb-3">'.ins_translate('Configuration du module UPload').'</h3>
                <div class="col-sm-12">
                   <form id="upload_module" name="upload_module" method="post" action="install.php">
                      <div class="form-group row">
@@ -42,7 +42,7 @@ function etape_8() {
                      <div class="form-group row">
                         <label class="form-control-label" for="new_DOCUMENTROOT">'.ins_translate("Chemin physique absolu d'accès depuis la racine de votre site").'</label>
                         <input class="form-control" type="text" name="new_DOCUMENTROOT" id="new_DOCUMENTROOT" maxlength="60" value="'.$DOCUMENTROOT.'" />
-                        <small>'.ins_translate("Exemple par défaut ou SI vous ne savez pas").' : ==><br />'.ins_translate("Exemples SI redirection").' : ==> /data/www/monsite OU c:\web\monsite</small>
+                        <small class="mt-1">'.ins_translate("Exemple par défaut ou SI vous ne savez pas").' : ==><br />'.ins_translate("Exemples SI redirection").' : ==> /data/www/monsite OU c:\web\monsite</small>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_autorise_upload_p">'.ins_translate("Autoriser l'upload dans le répertoire personnel").'</label>
@@ -57,23 +57,27 @@ function etape_8() {
                      <div class="form-group row">
                         <label class="form-control-label" for="new_racine">'.ins_translate("Répertoire de votre site").'</label>
                         <input class="form-control" type="text" name="new_racine" id="new_racine" maxlength="60" value="'.$racine.'" />
-                        <small>'.ins_translate('Exemples :').'<br />www.monsite.com/ ==> <br />www.monsite.com/npds/ ==> <span class="vert">/npds</span><br />www.monsite.com/npds/npds/ ==> <span class="vert">/npds/npds</span></small>
+                        <small class="mt-1">'.ins_translate('Exemples :').'<br />www.monsite.com/ ==> <br />www.monsite.com/npds/ ==> <span class="text-success">/npds</span><br />www.monsite.com/npds/npds/ ==> <span class="text-success">/npds/npds</span></small>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_rep_upload">'.ins_translate("Répertoire de téléchargement").'</label>
                         <input class="form-control" type="text" name="new_rep_upload" id="new_rep_upload" maxlength="60" value="'.$rep_upload.'" />
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_upload"></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_rep_cache">'.ins_translate("Répertoire des fichiers temporaires").'</label>
                         <input class="form-control" type="text" name="new_rep_cache" id="new_rep_cache" maxlength="60" value="'.$rep_cache.'" />
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_cache"></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_rep_log">'.ins_translate("Fichier journal de sécurité").'</label>
                         <input class="form-control" type="text" name="new_rep_log" id="new_rep_log" maxlength="60" value="'.$rep_log.'" />
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_log"></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
-                        <input class="form-control" type="text" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" />
+                        <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" />
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
                      </div>
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />
@@ -84,5 +88,14 @@ function etape_8() {
                   </form>
                </div>
             </div>';
+   $fieldlength = '
+            inpandfieldlen("new_racine",60);
+            inpandfieldlen("new_rep_upload",60);
+            inpandfieldlen("new_rep_cache",60);
+            inpandfieldlen("new_rep_log",60);
+            inpandfieldlen("new_url_upload",60);
+            ';
+            formval('fv','',$fieldlength,'1');
+
 }
 ?>

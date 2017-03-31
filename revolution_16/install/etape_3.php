@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -35,7 +35,7 @@ function etape_3() {
    menu();
    echo $menu;
    echo '
-               <h3 class="m-b-2">'.ins_translate('Vérification des fichiers').'</h3>';
+               <h3 class="mb-3">'.ins_translate('Vérification des fichiers').'</h3>';
    if ($stopphp != 0) {
       echo '
                <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
@@ -47,7 +47,7 @@ function etape_3() {
    }
    echo '
                <form name="path" method="post" action="install.php">
-                  <ul class="list-group form-group m-t-1">';
+                  <ul class="list-group form-group mt-1">';
    if ($stopphp != 1) echo $listfich;
    if ($stopngo == 1) {
       echo '
@@ -64,7 +64,7 @@ function etape_3() {
    else {
       echo '
                </ul>
-               <div class="form-group m-t-1">
+               <div class="form-group mt-2">
                   <input type="hidden" name="langue" value="'.$langue.'" />
                   <input type="hidden" name="stage" value="4" />
                   <button type="submit" class="btn btn-success">'.ins_translate(' Etape suivante ').'</button>

@@ -369,11 +369,11 @@ le menu de mon header simple mais responsive
 **************************************/
 .navbas{padding-top: .2em; background-image: linear-gradient(to bottom, #f6f6f6, #b4b3b3);}
 
-nav {
+#navbas {
 	text-align: center;
 }
 
-nav a {
+#navbas a {
 	display: inline-block;
 	padding: 10px; 
 	margin-bottom: 6px;
@@ -384,21 +384,21 @@ nav a {
 	background: #a70a0a;
 }
 
-nav a:hover{
+#navbas a:hover{
     color: #f0d76a;
 }
 
 /* nav a:first-child {background: #a70a0a;} */
-nav a:nth-child(2) {background: #000;}
-nav a:nth-child(3) {background: #a70a0a;}
-nav a:nth-child(4) {background: #000;}
-nav a:nth-child(5) {background: #a70a0a;}
-nav a:nth-child(6) {background: #000;}
-nav a:nth-child(7) {background: #FFCC00;}
-nav a:nth-child(8) {background: #999;}
+#navbas a:nth-child(2) {background: #000;}
+#navbas a:nth-child(3) {background: #a70a0a;}
+#navbas a:nth-child(4) {background: #000;}
+#navbas a:nth-child(5) {background: #a70a0a;}
+#navbas a:nth-child(6) {background: #000;}
+#navbas a:nth-child(7) {background: #FFCC00;}
+#navbas a:nth-child(8) {background: #999;}
 
 @media (max-width: 800px) {
-	nav {
+	#navbas {
 		-webkit-columns: 3;
 		-moz-columns: 3;
 		columns: 3;
@@ -406,14 +406,14 @@ nav a:nth-child(8) {background: #999;}
 	a {width: 100%}
 }
 @media (max-width: 640px) {
-	nav {
+	#navbas {
 		-webkit-columns: 2;
 		-moz-columns: 2;
 		columns: 2;
 	}
 }
 @media (max-width: 480px) {
-	nav {
+	#navbas {
 		-webkit-columns: 1;
 		-moz-columns: 1;
 		columns: 1;

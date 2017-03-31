@@ -297,11 +297,10 @@ $(document).ready(function() {
       locale: "'.language_iso(1,"_",1).'",
       framework: "bootstrap4",
       icon: {
-         required: "glyphicon glyphicon-asterisk",
-
+         required: "fa fa-asterisk",
          valid: "fa fa-check fa-lg",
          invalid: "fa fa-ban fa-lg",
-         validating: "glyphicon glyphicon-refresh"
+         validating: "fa fa-refresh"
       },
       fields: {
          alpha: {
@@ -313,45 +312,47 @@ echo '
          }
       }
    })
-
    .on("success.validator.fv", function(e, data) {
-   // The password passes the callback validator
-   // voir si on a plus de champs mot de passe : changer par un array de champs ...
-   if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass") && data.validator === "callback") {
-      // Get the score
-      var score = data.result.score,$bar_cont=$("#passwordMeter_cont"),$pass_level=$("#pass-level"),
-          $bar = $("#passwordMeter").find(".progress-bar");
-      switch (true) {
-        case (score === null):
-            $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
-            $bar_cont.attr("value","0");
-            break;
-        case (score <= 0):
-            $bar.html("Tr&#xE8;s faible").css("width", "25%").removeClass().addClass("progress progress-striped progress-danger");
-            $bar_cont.attr("value","25").removeClass().addClass("progress progress-striped progress-danger");
-            $pass_level.html("Tr&#xE8;s faible").addClass("text-danger");
-            break;
-        case (score > 0 && score <= 2):
-            $bar.html("Faible").css("width", "50%").removeClass().addClass("progress progress-striped progress-warning");
-            $bar_cont.attr("value","50").removeClass().addClass("progress progress-striped progress-warning");
-            $pass_level.html("Faible").addClass("text-warning");
-            break;
-        case (score > 2 && score <= 4):
-            $bar.html("Moyen").css("width", "75%").removeClass().addClass("progress progress-striped progress-info");
-            $bar_cont.attr("value","75").removeClass().addClass("progress progress-striped progress-info");
-            $pass_level.html("Moyen").addClass("text-info");
-            break;
-        case (score > 4):
-            $bar.html("Fort").css("width", "100%").removeClass().addClass("progress progress-striped progress-success");
-            $bar_cont.attr("value","100").removeClass().addClass("progress progress-striped progress-success");
-            $pass_level.html("Fort").addClass("text-success");
-            break;
-        default:
-            break;
-      }
-      }
-   });
-
+      // The password passes the callback validator
+      // voir si on a plus de champs mot de passe : changer par un array de champs ...
+      if ((data.field === "adminpass1") && data.validator === "callback") {
+         // Get the score
+         var score = data.result.score,$pass_level=$("#pass-level"),
+             $bar = $("#passwordMeter_cont");
+         switch (true) {
+           case (score === null):
+               $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
+               $bar.attr("value","0");
+               break;
+           case (score <= 0):
+               $bar.html("").css("width", "25%").removeClass().addClass("progress-bar bg-danger");
+               $bar.attr("aria-valuenow","25");
+               $bar.attr("value","25");
+               $pass_level.html("Tr&#xE8;s faible").removeClass().addClass("help-block text-right text-danger");
+               break;
+           case (score > 0 && score <= 2):
+               $bar.html("").css("width", "50%").removeClass().addClass("progress-bar bg-warning");
+               $bar.attr("aria-valuenow","50");
+               $bar.attr("value","50");
+               $pass_level.html("Faible").removeClass().addClass("help-block text-right text-warning");
+               break;
+           case (score > 2 && score <= 4):
+               $bar.html("").css("width", "75%").removeClass().addClass("progress-bar bg-info");
+               $bar.attr("aria-valuenow","75");
+               $bar.attr("value","75");
+               $pass_level.html("Moyen").removeClass().addClass("help-block text-right text-info");
+               break;
+           case (score > 4):
+               $bar.html("").css("width", "100%").removeClass().addClass("progress-bar bg-success");
+               $bar_cont.attr("aria-valuenow","100");
+               $bar_cont.attr("value","100").removeClass().addClass("progress-bar bg-success");
+               $pass_level.html("Fort").removeClass().addClass("help-block text-right text-success");
+               break;
+           default:
+               break;
+         }
+         }
+      });
 })
 
 //]]>

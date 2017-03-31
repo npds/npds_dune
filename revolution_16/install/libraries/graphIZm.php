@@ -62,7 +62,7 @@ function entete() {
             </div>
             <div class="row">
                <div class="col-sm-6"></div>
-               <div class="col-sm-6 text-xs-right">'.$Version_Sub.' '.$Version_Num.'</div>
+               <div class="col-sm-6 text-sm-right">'.$Version_Sub.' '.$Version_Num.'</div>
             </div>
          </div>
          <hr class="lead" />';
