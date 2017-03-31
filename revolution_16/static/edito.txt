@@ -82,4 +82,4 @@
 
 </ul>
 
-<p>comment_system(edito,1)</p>[/nuit]aff_jours=100&aff_jour=checked&aff_nuit=checked&aff_date=1473971416
+<p>comment_system(edito,1)</p>[/nuit]aff_jours=100&aff_jour=checked&aff_nuit=checked&aff_date=1490958719
