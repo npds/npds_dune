@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,35 +23,33 @@ function etape_4() {
    $stage = 4;
    include_once('config.php');
    echo '
-               <h3 class="m-b-2">'.ins_translate("Paramètres de connexion").'</h3>
+               <h3 class="mb-2">'.ins_translate("Paramètres de connexion").'</h3>
                <div class="col-sm-12">
                   <form id="parameters" name="parameters" method="post" action="install.php">
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_dbhost">'.ins_translate("Nom d'hôte du serveur mySQL").'</label>    
+                        <label class="form-control-label" for="new_dbhost">'.ins_translate("Nom d'hôte du serveur mySQL").'</label>
                         <input class="form-control" type="text" name="new_dbhost" id="new_dbhost" maxlength="80" value="'.$dbhost.'" required="required" />
-                        <span class="help-block">'.ins_translate("Exemples :").' ==> sql.domaine.com ==> localhost</span>
-                        <span class="help-block text-xs-right" id="countcar_new_dbhost"></span>
+                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Exemples :").' ==> sql.domaine.com ==> localhost</div><div class="ml-auto" id="countcar_new_dbhost"></div></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_dbuname">'.ins_translate("Nom d'utilisateur (identifiant)").'</label>
                         <input class="form-control" type="text" name="new_dbuname" id="new_dbuname" maxlength="80" value="'.$dbuname.'" required="required" />
-                        <span class="help-block text-xs-right" id="countcar_new_dbuname"></span>
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbuname"></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_dbpass">'.ins_translate("Mot de passe").'</label>
                         <input class="form-control" type="password" name="new_dbpass" id="new_dbpass" maxlength="80" value="'.$dbpass.'" required="required" />
-                        <span class="help-block text-xs-right" id="countcar_new_dbpass"></span>
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbpass"></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_dbname">'.ins_translate("Nom de la base de données").'</label>
                         <input class="form-control" type="text" name="new_dbname" id="new_dbname" maxlength="80" value="'.$dbname.'" required="required" />
-                        <span class="help-block text-xs-right" id="countcar_new_dbname"></span>
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbname"></div>
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_NPDS_Prefix">'.ins_translate("Préfixe des tables sql").'</label>
-                        <small>('.ins_translate("Pour éviter les conflits de nom de table sql...").')</small>
                         <input class="form-control" type="text" name="new_NPDS_Prefix" id="new_NPDS_Prefix" maxlength="10" value="'.$NPDS_Prefix.'" />
-                        <span class="help-block text-xs-right" id="countcar_new_NPDS_Prefix"></span>
+                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Pour éviter les conflits de nom de table sql...").'</div><div class="ml-auto" id="countcar_new_NPDS_Prefix"></div></div>
                      </div>';
    if($mysql_p == 0) {$sel1 = 'selected="selected"';$sel2 = '';}
    else {$sel1 = '';$sel2 = 'selected="selected"';}
@@ -85,8 +83,8 @@ function etape_4() {
                      </div>
                      <div class="form-group row">
                         <label class="form-control-label" for="new_adminmail">'.ins_translate("Adresse e-mail de l'administrateur").'</label>
-                        <input class="form-control" type="email" name="new_adminmail" id="new_adminmail" value="'.$adminmail.'" required="required" />
-                        <span class="help-block text-xs-right" id="countcar_new_adminmail"></span>
+                        <input class="form-control" type="email" name="new_adminmail" id="new_adminmail"  maxlength="60" value="'.$adminmail.'" required="required" />
+                        <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_adminmail"></div>
                      </div>
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />
@@ -104,6 +102,7 @@ function etape_4() {
             inpandfieldlen("new_dbpass",80);
             inpandfieldlen("new_dbname",80);
             inpandfieldlen("new_NPDS_Prefix",10);
+            inpandfieldlen("new_adminmail",60);
             ';
             formval('fv','',$fieldlength,'1');
 }

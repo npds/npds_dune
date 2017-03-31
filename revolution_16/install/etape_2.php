@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -33,7 +33,7 @@ function etape_2() {
       $nohalt = false;
    }
    echo '
-               <h3 class="m-b-2">'.ins_translate('Licence').'</h3>
+               <h3 class="mb-2">'.ins_translate('Licence').'</h3>
                <form name="gpl" method="post" action="install.php">
                   <fieldset class="form-group">
                      <label for="licence">'.ins_translate("L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ").' :</label>
