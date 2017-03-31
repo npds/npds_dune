@@ -181,7 +181,7 @@ $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
 $PAGES['admin.php']['TinyMce']=1;
 $PAGES['admin.php']['TinyMce-theme']="full";
-$PAGES['admin.php']['css']="admin.css+";
+$PAGES['admin.php']['css']=array("admin.css+",$nuke_url."lib/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css+");
 $PAGES['admin.php']['TinyMceRelurl']="false";
 
 $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]Forums[/english][spanish]Foros de discusi&oacute;n[/spanish][german]Diskussionsforen[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese]+";
@@ -295,10 +295,9 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 // $PAGES['forum=1']['title']="forum.php";
 // $PAGES['forum=1']['run']="user";
 
-//include('modules/geoloc/geoloc_conf.php');
 global $language;
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array('http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0),"modules/geoloc/include/fontawesome-markers.min.js");
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocalisation[/english]+|$title+";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocaion[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['blocs']="-1";
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']="geoloc_style.css+";
