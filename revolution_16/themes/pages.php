@@ -300,6 +300,6 @@ $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array('http://
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocaion[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['blocs']="-1";
-$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']="geoloc_style.css+";
+$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']=array($nuke_url.'/modules/geoloc/include/css/geoloc_style.css+');
 
 ?>
