@@ -159,7 +159,7 @@ if($stage == 4) {
          menu();
          echo $menu;
          $out .= '
-                  <h3 class="m-b-2">'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
+                  <h3 class="mb-3">'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
          if($stage4_ok == 1 and $qi !=1) {
             $out.= '
                   <form name="submit" method="post" action="install.php">
@@ -217,11 +217,11 @@ if($stage == 5){
          menu();
          echo $menu;
          $out .= '
-               <h3 class="m-b-2">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
+               <h3 class="mb-3">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
          if($stage5_ok == 1 and $qi !=1) {
             $out.= '
                <form name="next" method="post" action="install.php">
-                  <div class="form-group row">
+                  <div class="form-group ">
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="6" />
                      <button type="submit" class="btn btn-success">'.ins_translate(' Etape suivante ').'</button>
@@ -233,7 +233,7 @@ if($stage == 5){
       echo $out;
       unset($stage5_ok);
       break;
-      case "etape_5":
+      case 'etape_5':
       default:
          entete();
          menu();
@@ -280,7 +280,7 @@ if($stage == 6) {
          menu();
          echo $menu;
          echo '
-               <h3 class="m-b-2">'.ins_translate('Base de données').'</h3>';
+               <h3 class="mb-3">'.ins_translate('Base de données').'</h3>';
          echo $msg;
          if($stage6_ok == 1) {
             $Xinst_log = date('d/m/y  H:j:s').' : Création tables et/ou base de donnée pour '.$cms_name."\n";
@@ -298,7 +298,7 @@ if($stage == 6) {
       </div>';
          unset($stage6_ok);
       break;
-      case "etape_6":
+      case 'etape_6':
       default:
          menu();
          echo $menu;
@@ -337,7 +337,7 @@ if($stage == 7) {
          }
          else {
             echo '
-               <h3 class="m-b-2">'.ins_translate('Compte Admin').'</h3>';
+               <h3 class="mb-3">'.ins_translate('Compte Admin').'</h3>';
             if($stage7_ok == 1) {
                $msg = '
                <div class="alert alert-success">'.ins_translate("Le compte Admin a été modifié avec succès !").'</div>';
@@ -400,7 +400,7 @@ if($stage == 8) {
          include('config.php');
          write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
          echo '
-               <h3 class="m-b-2">'.ins_translate("Configuration du module UPload").'</h3>';
+               <h3 class="mb-3">'.ins_translate("Configuration du module UPload").'</h3>';
          if($stage8_ok == 1) {
              $msg = '
                <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
