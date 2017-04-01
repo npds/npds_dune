@@ -236,7 +236,7 @@ $fv_parametres ='
                 }
             }
          },
-         C7: {
+         '.$ch_lat.': {
             validators: {
                between: {
                   min: -90,
@@ -245,7 +245,7 @@ $fv_parametres ='
                }
             }
          },
-         C8: {
+         '.$ch_lon.': {
             validators: {
                between: {
                   min: -180,

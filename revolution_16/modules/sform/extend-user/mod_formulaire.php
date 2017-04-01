@@ -127,6 +127,9 @@ $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 offset-sm-4 " >');
 $m->add_field('Submit','',translate('Submit'),'submit',false);
+
+//include_once('modules/geoloc/geoloc_conf.php');
+
 $m->add_extra('
          </div>
       </div>
@@ -184,7 +187,7 @@ $fv_parametres ='
                 }
             }
          },
-         C7: {
+       '.$ch_lat.': {
             validators: {
                between: {
                   min: -90,
@@ -193,7 +196,7 @@ $fv_parametres ='
                }
             }
          },
-         C8: {
+         '.$ch_lon.': {
             validators: {
                between: {
                   min: -180,
