@@ -412,6 +412,7 @@ INSERT INTO lblocks VALUES (8, 'Eph&eacute;m&eacute;rides', 'function#ephemblock
 INSERT INTO lblocks VALUES (9, 'headlines', 'function#headlines', '0', 9, 3600, 0, 0, '');
 INSERT INTO lblocks VALUES (10, 'Activit&eacute; du Site', 'function#Site_Activ', '0', 8, 10, 1, 0, '');
 INSERT INTO lblocks VALUES (11, 'Sondage', 'function#pollNewest', '0', 1, 60, 1, 0, '');
+INSERT INTO lblocks VALUES (12, '[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]', 'include#modules/geoloc/geoloc_bloc.php', '0', 0, 86400, 0, 0, '');
 
 CREATE TABLE links_categories (
   cid int(11) NOT NULL AUTO_INCREMENT,
