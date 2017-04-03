@@ -19,14 +19,12 @@
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 include ('config.php');
-   if($NPDS_Prefix!='') {
-      $pre_tab = ins_translate(' Tables préfixées avec : ').'<code class="code">'.$NPDS_Prefix.'. </code>';
-   }
-   else
-   {$pre_tab='';}
+   $pre_tab='';
+   if($NPDS_Prefix!='') 
+      $pre_tab = ins_translate(' Tables préfixées avec : ').'<code class="code">'.$NPDS_Prefix.' </code>.';
 
 function etape_6() {
-   global $list_tab, $langue, $stage, $dbhost, $dbname, $dbuname, $dbpass, $NPDS_Prefix, $pre_tab;
+   global $list_tab, $langue, $stage, $qi, $dbhost, $dbname, $dbuname, $dbpass, $NPDS_Prefix, $pre_tab;
    $stage = 6;
    echo '
                <h3 class="mb-3">'.ins_translate('Base de données').'</h3>
@@ -35,6 +33,7 @@ function etape_6() {
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="'.$stage.'" />
                      <input type="hidden" name="op" value="write_database" />
+                     <input type="hidden" name="qi" value="'.$qi.'" />
                      <button type="submit" class="btn btn-success">'.ins_translate(' Créer ').'</button>
                   </form>
                </div>';

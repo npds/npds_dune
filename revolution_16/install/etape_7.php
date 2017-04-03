@@ -20,7 +20,7 @@ if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 function etape_7() {
    include_once ('config.php');
-   global $langue, $stage, $minpass, $NPDS_Prefix;
+   global $langue, $stage, $minpass, $NPDS_Prefix, $qi;
    $stage = 7;
    echo '
                <h3 class="mb-3">'.ins_translate('Compte Admin').'</h3>
@@ -50,6 +50,7 @@ function etape_7() {
                         <input type="hidden" name="langue" value="'.$langue.'" />
                         <input type="hidden" name="stage" value="'.$stage.'" />
                         <input type="hidden" name="op" value="write_users" />
+                        <input type="hidden" name="qi" value="'.$qi.'" />
                         <button type="submit" class="btn btn-success">'.ins_translate(' Créer ').'</button>
                      </div>
                   </form>

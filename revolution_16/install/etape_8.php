@@ -19,7 +19,7 @@
 if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
 
 function etape_8() {
-   global $langue, $stage;
+   global $langue, $stage,$qi;
    $stage = 8;
    if(file_exists('modules/upload/upload.conf.php')) include_once('modules/upload/upload.conf.php');
    if($racine != '') {
@@ -82,6 +82,7 @@ function etape_8() {
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />
                         <input type="hidden" name="stage" value="'.$stage.'" />
+                        <input type="hidden" name="qi" value="'.$qi.'" />
                         <input type="hidden" name="op" value="write_upload" />
                         <button type="submit" class="btn btn-success">'.ins_translate(" Valider ").'</button>
                      </div>
