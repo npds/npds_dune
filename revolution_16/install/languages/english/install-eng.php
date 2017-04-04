@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,12 +32,12 @@ function ins_translate($phrase) {
   case "Module UPload": $tmp = "Upload module"; break;
   case "Fin": $tmp = "End"; break;
   case "L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ": $tmp = "The use of NPDS is submitted to the acceptance of the terms of the GNU GPL license "; break;
-  case " J'accepte ": $tmp = " I agree "; break;
+  case "J'accepte": $tmp = "I agree"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "This operation can be more or less long. Thanks to have patience."; break;
   case "Le fichier": $tmp = "The file"; break;
   case "est introuvable !": $tmp = "is missing"; break;
   case "Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.": $tmp = "Tip : use your favorite FTP client for made this changes and do 'Reload'."; break;
-  case " Actualiser ": $tmp = " Reload "; break;
+  case "Actualiser": $tmp = "Reload"; break;
   case "Version actuelle de PHP": $tmp = "Actual PHP version"; break;
   case "NPDS nécessite une version 4.0.6 ou supérieure !": $tmp = "PHP version 4.0.6 or greater is recommended for NPDS !"; break;
   case "Préfixe des tables sql": $tmp = "Sql table prefixes"; break;
@@ -54,7 +54,7 @@ function ins_translate($phrase) {
   case "corrects": $tmp = "ok"; break;
   case "incorrects": $tmp = "bad"; break;
   case "Vous devez modifier les droits d'accès (lecture/écriture) du fichier ": $tmp = "You must modify the rights of access (read/write) on the file "; break;
-  case " Etape suivante ": $tmp = " Next stage "; break;
+  case "Etape suivante": $tmp = "Next stage"; break;
   case " Etape suivante >> ": $tmp = " Next stage >> "; break;
   case "Vos paramètres personnels": $tmp = "Your personals parameters"; break;
   case "Nom d'hôte du serveur mySQL": $tmp = "MySQL server host name"; break;
@@ -71,8 +71,8 @@ function ins_translate($phrase) {
   case "Non": $tmp = "No"; break;
   case "Oui": $tmp = "Yes"; break;
   case "Adresse e-mail de l'administrateur": $tmp = "Administrator e-mail"; break;
-  case " Valider ": $tmp = " Ok "; break;
-  case " Modifier ": $tmp = " Change "; break;
+  case "Valider": $tmp = "Ok"; break;
+  case "Modifier": $tmp = "Change"; break;
   case "Fichier de configuration": $tmp = "Configuration file"; break;
   case "Le fichier de configuration a été écrit avec succès !": $tmp = "The config file was written successfully !"; break;
   case "Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.": $tmp = "The config file can not be modicated. Please, verify the rights of access of the file 'config.php', and submit again."; break;
@@ -91,7 +91,7 @@ function ins_translate($phrase) {
    case " Tables préfixées avec : ": $tmp = "Tables with this prefix: "; break;
    case "n'existait pas ce script tentera de la créer pour vous.": $tmp = "not exists this script will try to create for you."; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Now, we will proceed to the database update. Tips : save your database before continuing !"; break;
-  case " Créer ": $tmp = " Create "; break;
+  case "Créer": $tmp = "Create"; break;
   case " Mettre à jour ": $tmp = " Make update "; break;
   case "La base de données a été créée avec succès !": $tmp = "The database was created successfully !"; break;
   case "La base de données n'a pas pu être créée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.": $tmp = "The database creation failed. Verify your parameters and files and proceed again."; break;
@@ -119,21 +119,19 @@ function ins_translate($phrase) {
   case "Exemples :": $tmp = "Examples:"; break;
   case "Exemple par défaut ou SI vous ne savez pas": $tmp = "Example default or if you do not know"; break;
   case "Exemples SI redirection": $tmp = "Example IF redirection"; break;
-  
-  
   case "Répertoire de téléchargement": $tmp = "Upload directory"; break;
   case "Répertoire des fichiers temporaires": $tmp = "Temporary files directory"; break;
   case "Fichier journal de sécurité": $tmp = "Security log file"; break;
   case "URL HTTP de votre site": $tmp = "URL HTTP of your website"; break;
   case "Félicitations, vous avez à présent votre portail NPDS.": $tmp = "Congratulations, you have now your NPDS portal."; break;
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Do not forget to remove with your favorite FTP client the directory 'install/' as well as the file 'install.php' !"; break;
-  case " Quitter ": $tmp = " Exit "; break;
+  case "Quitter": $tmp = "Exit"; break;
   case "Installation rapide": $tmp = "Quick setup"; break;
 
   
   
   default: $tmp = "Need to be translated [** $phrase **]"; break;
  }
- return $tmp;
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>

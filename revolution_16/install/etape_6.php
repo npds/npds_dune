@@ -34,7 +34,7 @@ function etape_6() {
                      <input type="hidden" name="stage" value="'.$stage.'" />
                      <input type="hidden" name="op" value="write_database" />
                      <input type="hidden" name="qi" value="'.$qi.'" />
-                     <button type="submit" class="btn btn-success">'.ins_translate(' Créer ').'</button>
+                     <button type="submit" class="btn btn-success">'.ins_translate('Créer').'</button>
                   </form>
                </div>';
 }

@@ -56,6 +56,9 @@ function verif_php() {
       $phpver = phpversion();
       $stopphp = 1;
    }
+   else
+   $phpver = phpversion();
+   return ($phpver);
 }
 
 function verif_chmod() {
@@ -154,7 +157,7 @@ function mysql_connex() {
    global $dbhost, $dbuname, $dbname, $dbpass;
    $db_connect = sql_connect($dbhost, $dbuname, $dbpass);
    if($db_connect != FALSE) {
-/*      if(!mysql_select_db("$dbname"))
+/*      if(!sql_select_db("$dbname"))
       {
          $request = sql_query("CREATE DATABASE $dbname");
          if(!$request)

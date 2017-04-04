@@ -43,7 +43,7 @@ function etape_2() {
                   <input type="hidden" name="stage" value="3" />';
    if($nohalt) {
       echo '
-                  <button type="submit" class="btn btn-success">'.ins_translate(" J'accepte ").'</button>';
+                  <button type="submit" class="btn btn-success">'.ins_translate("J'accepte").'</button>';
    } else {
    echo '
                   <div style="font-weight: bold; color: #ff0000">stop !</div>';

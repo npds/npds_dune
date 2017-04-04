@@ -84,7 +84,7 @@ function etape_8() {
                         <input type="hidden" name="stage" value="'.$stage.'" />
                         <input type="hidden" name="qi" value="'.$qi.'" />
                         <input type="hidden" name="op" value="write_upload" />
-                        <button type="submit" class="btn btn-success">'.ins_translate(" Valider ").'</button>
+                        <button type="submit" class="btn btn-success">'.ins_translate("Valider").'</button>
                      </div>
                   </form>
                </div>

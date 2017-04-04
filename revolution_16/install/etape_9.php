@@ -28,7 +28,7 @@ function etape_9() {
             <input type="hidden" name="langue" value="'.$langue.'" />
             <input type="hidden" name="stage" value="'.$stage.'" />
             <input type="hidden" name="op" value="write_ok" />
-            <button type="submit" class="btn btn-success">'.ins_translate(" Quitter ").'</button>
+            <button type="submit" class="btn btn-success">'.ins_translate("Quitter").'</button>
          </form>
       </div>';
 }
