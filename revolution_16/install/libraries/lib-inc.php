@@ -18,7 +18,6 @@
 /************************************************************************/
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-   include_once('lib/mysqli.php');
    $file = file("config.php");
    $file[33] ="\$mysql_p = 0;\n";
    $file[34] ="\$mysql_i = 1;\n";
@@ -27,6 +26,7 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
       fwrite($fic, $ligne);
    }
    fclose($fic);
+   include_once('lib/mysqli.php');
 } else {
    include_once('lib/mysql.php');
 }
