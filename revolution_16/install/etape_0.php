@@ -16,14 +16,14 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
 
 function etape_0() {
    global $stage;
    $stage = 0;
    echo '
          <div class="row">
-            <div class="col-sm-3"><img class="img-fluid " src="install/images/carte_monde.png"/></div>
+            <div class="col-sm-3"><img class="img-fluid " src="install/images/carte_monde.png" alt="carte_monde" /></div>
             <div class="col-sm-9">
             <div class="col-sm-12">
                <form name="langue" method="post" action="install.php">
@@ -32,7 +32,7 @@ function etape_0() {
                         <label class="custom-control custom-radio">
                            <input class="custom-control-input" type="radio" name="langue" value="french" checked="checked" />
                            <span class="custom-control-indicator"></span>
-                           <span class="custom-control-description">Français</span>
+                           <span class="custom-control-description">Fran&#231;ais</span>
                         </label>
                      </div>
                      <div class="form-check">
@@ -52,7 +52,7 @@ function etape_0() {
                   </div>
                   <div class="form-group row">
                      <input type="hidden" name="stage" value="1" />
-                     <button type="submit" class="btn btn-success"> Ok </button>
+                     <button type="submit" class="btn btn-success">Ok</button>
                   </div>
                </form>
             </div>

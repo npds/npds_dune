@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,7 +32,7 @@ function ins_translate($phrase) {
   case "Module UPload": $tmp = "Upload Modul"; break;
   case "Fin": $tmp = "Ende"; break;
   case "L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ": $tmp = "Die Nutzung von NPDS setzt Ihre Zustimmung zur GNU GPL Lizenz voraus "; break;
-  case " J'accepte ": $tmp = " Ich stimme zu "; break;
+  case "J'accepte": $tmp = "Ich stimme zu"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "Der Vorgang kann länger dauern. Bitte haben Sie Geduld."; break;
   case "Le fichier": $tmp = "Die Datei"; break;
   case "est introuvable !": $tmp = "ist nicht auffindbar"; break;
@@ -54,7 +54,7 @@ function ins_translate($phrase) {
   case "corrects": $tmp = "OK"; break;
   case "incorrects": $tmp = "schlecht"; break;
   case "Vous devez modifier les droits d'accès (lecture/écriture) du fichier ": $tmp = "Sie müssen die Zugriffsrechte (lesen/schreiben) der Datei ändern "; break;
-  case " Etape suivante ": $tmp = " Nächster Schritt "; break;
+  case "Etape suivante": $tmp = "Nächster Schritt"; break;
   case " Etape suivante >> ": $tmp = " Nächster Schritt >> "; break;
   case "Vos paramètres personnels": $tmp = "Ihre persönlichen Parameter"; break;
   case "Nom d'hôte du serveur mySQL": $tmp = "MySQL Server Hostnamen"; break;
@@ -71,8 +71,8 @@ function ins_translate($phrase) {
   case "Non": $tmp = "Nein"; break;
   case "Oui": $tmp = "Ja"; break;
   case "Adresse e-mail de l'administrateur": $tmp = "Administratoren E-mail"; break;
-  case " Valider ": $tmp = " OK "; break;
-  case " Modifier ": $tmp = " Ändern "; break;
+  case "Valider": $tmp = "OK"; break;
+  case "Modifier": $tmp = "Ändern"; break;
   case "Fichier de configuration": $tmp = "Konfigurationsdatei"; break;
   case "Le fichier de configuration a été écrit avec succès !": $tmp = "Die Konfigurationsdatei wurde erfolgreich geschrieben !"; break;
   case "Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.": $tmp = "Die Konfigurationsdatei konnte nicht geändert werden. Bitte überprüfen Sie die Rechte der 'config.php' und versuchen Sie es erneut."; break;
@@ -91,7 +91,7 @@ function ins_translate($phrase) {
   case " Tables préfixées avec : ": $tmp = "Tabellen mit dem Prefix: "; break;
   case "n'existait pas ce script tentera de la créer pour vous.": $tmp = "existiert nicht und wird für Sie angelegt."; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Nun wird ein Datenbank Update gemacht. Tipp : Sichern Sie vorher die vorhandene Datenbank !"; break;
-  case " Créer ": $tmp = " Erstellen "; break;
+  case "Créer": $tmp = "Erstellen"; break;
   case " Mettre à jour ": $tmp = " Updaten "; break;
   case "La base de données a été créée avec succès !": $tmp = "Die Datenbank wurde erfolgreich angelegt !"; break;
   case "La base de données n'a pas pu être créée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.": $tmp = "Anlegen der Datenbank nicht erfolgreich. Überprüfen Sie die Parameter und versuchen Sie es erneut."; break;
@@ -124,10 +124,10 @@ function ins_translate($phrase) {
   case "URL HTTP de votre site": $tmp = "URL HTTP Ihrer Webseite"; break;
   case "Félicitations, vous avez à présent votre portail NPDS.": $tmp = "Glückwunsch, Ihre NPDS Webseite wurde erstellt."; break;
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Vergessen Sie nicht den 'install/' Ordner und die 'install.php' Datei zu löschen!"; break;
-  case " Quitter ": $tmp = " Beenden "; break;
+  case "Quitter": $tmp = "Beenden"; break;
   case "Installation rapide": $tmp = "Schnelle Einrichtung"; break;
   default: $tmp = "Muss übersetzt werden [** $phrase **]"; break;
  }
- return $tmp;
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>

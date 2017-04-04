@@ -70,7 +70,7 @@ function entete() {
 function pied_depage() {
    global $stage;
    echo '
-         <div class="col-sm-12 text-center"><hr class="lead" /> NPDS IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="sr-only">On work...</span></div>
+         <div class="col-sm-12 text-center"><hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="sr-only">On work...</span></div>
       </div>
    </body>
 </html>';
@@ -83,12 +83,12 @@ function page_message($chaine) {
    pied_depage();
 }
 function menu() {
-   global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst5, $colorst6, $colorst7, $colorst8, $colorst9, $colorst10;
+   global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst5, $colorst6, $colorst7, $colorst8, $colorst9, $colorst10,$phpver;
    $menu='';
    $menu.= '
          <div class="row">
             <div class="col-sm-3">
-               <ul class="list-group mb-1">
+               <ul class="list-group mb-2">
                   <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>
                   <li class="list-group-item list-group-item'.$colorst2.'">'.ins_translate('Bienvenue').'</li>
                   <li class="list-group-item list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
@@ -100,6 +100,9 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
                </ul>
+               <div class ="card card-block">
+               <code class="small">Version Php '.$phpver.'</code>
+               </div>
             </div>
             <div class="col-sm-9">';
    return $menu;

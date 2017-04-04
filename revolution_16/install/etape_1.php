@@ -42,7 +42,7 @@ function etape_1() {
                   </div>
                   <input type="hidden" name="stage" value="2" />
                   <input type="hidden" name="langue" value="'.$langue.'" />
-                  <button type="submit" class="btn btn-success">'.ins_translate(' Etape suivante ').'</button>
+                  <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
                </form>
             </div>';
 }

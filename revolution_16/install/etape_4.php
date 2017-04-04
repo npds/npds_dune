@@ -91,7 +91,7 @@ function etape_4() {
                         <input type="hidden" name="stage" value="'.$stage.'" />
                         <input type="hidden" name="op" value="write_parameters" />
                         <input type="hidden" name="qi" value="'.$qi.'" />
-                        <button type="submit" class="btn btn-success">'.ins_translate(' Modifier ').'</button>
+                        <button type="submit" class="btn btn-success">'.ins_translate('Modifier').'</button>
                      </div>
                   </form>
                </div>

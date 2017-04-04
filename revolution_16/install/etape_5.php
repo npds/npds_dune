@@ -77,7 +77,7 @@ function etape_5() {
                      <input type="hidden" name="new_startdate" value="'.$startdate.'" />
                      <input type="hidden" name="op" value="write_others" />
                      <input type="hidden" name="qi" value="'.$qi.'" />
-                     <button type="submit" class="btn btn-success">'.ins_translate(' Modifier ').'</button>
+                     <button type="submit" class="btn btn-success">'.ins_translate('Modifier').'</button>
                   </div>
                </form>
             </div>

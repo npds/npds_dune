@@ -41,7 +41,7 @@ function etape_3() {
                <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
                <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 4.0.6 ou supérieure !").'</div>
                <form name="reload" method="post">
-                  <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate(' Actualiser ').'</button>
+                  <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>';
       pied_depage();
    }
@@ -55,7 +55,7 @@ function etape_3() {
                </form>
                <div class="alert alert-danger" role="alert">'.ins_translate("Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.").'</div>
                <form name="reload" method="post">
-                  <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate(' Actualiser ').'</button>
+                  <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>
             </div>';
       pied_depage();
@@ -67,7 +67,7 @@ function etape_3() {
                <div class="form-group mt-2">
                   <input type="hidden" name="langue" value="'.$langue.'" />
                   <input type="hidden" name="stage" value="4" />
-                  <button type="submit" class="btn btn-success">'.ins_translate(' Etape suivante ').'</button>
+                  <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
                </div>
             </form>
          </div>';

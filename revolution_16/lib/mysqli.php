@@ -122,6 +122,15 @@ $sql_nbREQ=0;
       }
       return @sql_query("SHOW TABLES FROM $dbnom");
    }
+
+// Controle
+   function sql_select_db() {
+      global $dbname, $dblink;
+      if (!@mysqli_select_db($dblink, $dbname))
+         return (false);
+      else
+         return (true);
+   }
 // Libère toute la mémoire et les ressources utilisées par la requête $query_id
    function sql_free_result($q_id='') {
       return @mysqli_free_result($q_id);

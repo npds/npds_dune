@@ -297,7 +297,7 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 
 global $language;
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array('http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0),"modules/geoloc/include/fontawesome-markers.min.js");
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocaion[/english]+|$title+";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocation[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['blocs']="-1";
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']=array($nuke_url.'/modules/geoloc/include/css/geoloc_style.css+');
