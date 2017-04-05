@@ -57,24 +57,20 @@ $cont= preg_replace ( '#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)(\s[^;]*[^\r]
 foreach ( $cont as $key=>$value )
 {$sql_com.= '$sql=\''.addslashes ( $value) ."';\n".'$result = @sql_query($sql);'."\n";}
 
-//mysql_connex(); 
-// if((int)substr(mysql_get_server_info(), 0, 1) >= 5){ 
-//  $sql_com = preg_replace('#TYPE=MyISAM#i', 'ENGINE=MyISAM', $sql_com); 
-// }
 //==> construction contenu fichier
 $contents = "<?php \n";
 $content .= "/************************************************************************/\n";
 $content .= "/* DUNE by NPDS                                                         */\n";
 $content .= "/* ===========================                                          */\n";
 $content .= "/*                                                                      */\n";
-$content .= "/* NPDS Copyright (c) 2002-2016 by Philippe Brunier                     */\n";
+$content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
 $content .= "/* IZ-Xinstall version : 1.2.0                                          */\n";
 $content .= "/*                                                                      */\n";
 $content .= "/* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */\n";
 $content .= "/*         : v.1.1.1 jpb, phr                                           */\n";
 $content .= "/*         : v.1.1.2 jpb, phr, dev, boris                               */\n";
 $content .= "/*         : v.1.1.3 dev - 2013                                         */\n";
-$content .= "/*         : v.1.2.0 phr, jpb - 2016                                    */\n";
+$content .= "/*         : v.1.2.0 phr, jpb - 2017                                    */\n";
 $content .= "/*                                                                      */\n";
 $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
 $content .= "/* it under the terms of the GNU General Public License as published by */\n";

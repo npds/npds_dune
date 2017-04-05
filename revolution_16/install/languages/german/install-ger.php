@@ -19,11 +19,11 @@
 
 function ins_translate($phrase) {
  switch($phrase) {
-  case "Nouvelle installation": $tmp = "neue Anlag"; break;
+  case "Nouvelle installation": $tmp = "Neue Anlag"; break;
   case "Bienvenue": $tmp = "Willkommen"; break;
   case "Langue": $tmp = "Sprache"; break;
   case "Licence": $tmp = "Lizenz"; break;
-  case "Fichier de licence indisponible !": $tmp = "Lizenz-Datei ist verfŸgbar!"; break;
+  case "Fichier de licence indisponible !": $tmp = "Lizenz-Datei ist verfügbar!"; break;
   case "Vérification des fichiers": $tmp = "Dateien überprüfen"; break;
   case "Paramètres de connexion": $tmp = "Verbindungsparameter"; break;
   case "Autres paramètres": $tmp = "Andere Parameter"; break;
@@ -37,11 +37,11 @@ function ins_translate($phrase) {
   case "Le fichier": $tmp = "Die Datei"; break;
   case "est introuvable !": $tmp = "ist nicht auffindbar"; break;
   case "Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.": $tmp = "Tipp : Benutzen Sie Ihr FTP Programm um die Änderungen vorzunehmen und klicken Sie dann auf 'Aktualisieren'."; break;
-  case " Actualiser ": $tmp = " Aktualisieren "; break;
+  case "Actualiser": $tmp = "Aktualisieren"; break;
   case "Version actuelle de PHP": $tmp = "Aktuelle PHP Version"; break;
   case "NPDS nécessite une version 4.0.6 ou supérieure !": $tmp = "PHP Version 4.0.6 oder höher ist notwendig für NPDS !"; break;
   case "Préfixe des tables sql": $tmp = "Sql Tabellen Prefix"; break;
-  case "Droits d'accès du fichier ": $tmp = "Dateizugriffsrechte f&uuml;r "; break;
+  case "Droits d'accès du fichier ": $tmp = "Dateizugriffsrechte für "; break;
   case "Le fichier 'abla.log.php' est introuvable !": $tmp = "Die Datei 'abla.log.php' fehlt !"; break;
   case "Le fichier 'cache.config.php' est introuvable !": $tmp = "Die Datei 'cache.config.php' fehlt !"; break;
   case "Le fichier 'config.php' est introuvable !": $tmp = "Die Datei 'config.php' fehlt !"; break;
@@ -126,6 +126,7 @@ function ins_translate($phrase) {
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Vergessen Sie nicht den 'install/' Ordner und die 'install.php' Datei zu löschen!"; break;
   case "Quitter": $tmp = "Beenden"; break;
   case "Installation rapide": $tmp = "Schnelle Einrichtung"; break;
+
   default: $tmp = "Muss übersetzt werden [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
