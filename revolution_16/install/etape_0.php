@@ -49,6 +49,13 @@ function etape_0() {
                            <span class="custom-control-description">Deutsch</span>
                         </label>
                      </div>
+                     <div class="form-check">
+                        <label class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" name="langue" value="spanish" />
+                           <span class="custom-control-indicator"></span>
+                           <span class="custom-control-description">Espa&#241;ol</span>
+                        </label>
+                     </div>
                   </div>
                   <div class="form-group row">
                      <input type="hidden" name="stage" value="1" />

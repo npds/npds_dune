@@ -284,7 +284,6 @@ if($stage == 6) {
                }
 //               $conn->close();
             };
-            $stage6_ok = 0;
          };
 
          require('install/sql/sql-create.php');
