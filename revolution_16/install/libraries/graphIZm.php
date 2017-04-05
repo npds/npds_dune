@@ -55,7 +55,7 @@ function entete() {
       <div class="container-fluid">
          <div class="my-2">
             <div class="row">
-               <div class="col-sm-2 hidden-xs-down"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
+               <div class="col-sm-2 hidden-sm-down"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
                   <h1 class="display-4">NPDS<br /><small class="text-muted"><em>installation automatique</em></small></h1>
                </div>
@@ -87,8 +87,8 @@ function menu() {
    $menu='';
    $menu.= '
          <div class="row">
-            <div class="col-sm-3">
-               <ul class="list-group mb-2">
+            <div class="col-md-3">
+               <ul class="list-group mb-3">
                   <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>
                   <li class="list-group-item list-group-item'.$colorst2.'">'.ins_translate('Bienvenue').'</li>
                   <li class="list-group-item list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
@@ -100,11 +100,11 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
                </ul>
-               <div class ="card card-block">
+               <div class ="list-group mb-3">
                <code class="small">Version Php '.$phpver.'</code>
                </div>
             </div>
-            <div class="col-sm-9">';
+            <div class="col-md-9">';
    return $menu;
 }
 ?>

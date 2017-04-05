@@ -16,10 +16,10 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
 
 function etape_9() {
-   global $langue, $stage, $izx;
+   global $langue, $stage, $izx, $qi;
    $stage = 9;
    echo '
       <h3 class="mb-3">'.ins_translate('Fin').'</h3>

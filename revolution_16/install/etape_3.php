@@ -16,7 +16,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"install.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
 
 function etape_3() {
    global $menu, $stage, $langue, $qi, $stopngo, $table_rep, $stopphp, $phpver, $listfich, $colorst1, $colorst2, $colorst3, $colorst4;
