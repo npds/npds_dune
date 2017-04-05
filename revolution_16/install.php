@@ -271,13 +271,10 @@ if($stage == 6) {
             sql_select_db();
             if(sql_select_db()===false) {
                $conn = new mysqli($dbhost, $dbuname, $dbpass);
-               // check connection
                if (mysqli_connect_errno()) {
                  exit('Connect failed: '. mysqli_connect_error());
                }
-               // sql query with CREATE DATABASE
                $sql = "CREATE DATABASE '".$dbname."' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-               // Performs the $sql query on the server to create the database
                if ($conn->query($sql) === TRUE) {
                  echo 'Database "tests" successfully created';
                }
@@ -287,7 +284,6 @@ if($stage == 6) {
                }
 //               $conn->close();
             };
-//            echo $dbname.'yo';
             $stage6_ok = 0;
          };
 
@@ -381,7 +377,6 @@ if($stage == 7) {
             echo $menu;
             $out.= '
                <h3 class="mb-3">'.ins_translate('Compte Admin').'</h3>'.$msg;
-
             if($stage7_ok == 1 and $qi !=1) {
                    $out.= '
                 <form name="next" method="post" action="install.php">
@@ -437,7 +432,7 @@ if($stage == 8) {
          if($stage8_ok == 1) {
              $msg = '
                <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
-               if($qi == 1) {Header('Location: install.php?stage=9&qi=1&langue='.$langue);exit;};
+               if($qi == 1) {Header('Location: install.php?stage=9&qi=1&op=write_ok&langue='.$langue);exit;};
          }
          elseif($stage8_ok == 0) {
             $msg = '

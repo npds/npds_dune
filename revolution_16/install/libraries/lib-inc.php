@@ -63,7 +63,7 @@ function verif_php() {
 
 function verif_chmod() {
    global $stopngo, $listfich;
-   $file_to_check = array("abla.log.php","cache.config.php","config.php","filemanager.conf","slogs/security.log","meta/meta.php","static/edito.txt","modules/upload/upload.conf.php");
+   $file_to_check = array('abla.log.php','cache.config.php','config.php','filemanager.conf','slogs/security.log','meta/meta.php','static/edito.txt','modules/upload/upload.conf.php');
    $i=0; $listfich='';
    foreach ($file_to_check as $v) {
       if(file_exists($v))
@@ -152,32 +152,6 @@ function msg_erreur($message) {
       </body>
 </html>';
    die();
-}
-function mysql_connex() {
-   global $dbhost, $dbuname, $dbname, $dbpass;
-   $db_connect = sql_connect($dbhost, $dbuname, $dbpass);
-   if($db_connect != FALSE) {
-/*      if(!sql_select_db("$dbname"))
-      {
-         $request = sql_query("CREATE DATABASE $dbname");
-         if(!$request)
-         {
-            msg_erreur("Erreur : la base de données est inexistante et n'a pas pu être créée. Vous devez la créer manuellement ou demander à votre hébergeur !");
-         }
-         else
-         {
-            @mysql_select_db("$dbname");
-            return($db_connect);
-         }
-      }
-      else
-      {*/
-         return($db_connect);
-//      }
-   }
-   else {
-      msg_erreur("Erreur : la connexion à la base de données a échoué. Vérifiez vos paramètres !");
-   }
 }
 
 function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix)
@@ -285,7 +259,6 @@ echo '
 $(document).ready(function() {
    $("form")
    .attr("autocomplete", "off")
-   
    .on("init.field.fv", function(e, data) {
       var $parent = data.element.parents(".form-group"),
        $icon   = $parent.find(\'.fv-control-feedback[data-fv-icon-for="\' + data.field + \'"]\');
@@ -362,7 +335,7 @@ echo '
 </script>'."\n";
 }
 if ($foo=='') {
-echo '
+   echo '
 </div>';
 }
 }
