@@ -30,7 +30,7 @@ Corrections :
    # ajout de la connection persistante et globalisation de $dblink dans la fonction sql_connect() car variable non disponible dans certain contexte (install auto)
    # correction fonction sql_num_fields (utilisée dans savemysql)
 - lib mysql
-   # ajout des fonctions clones de mysql
+   # ajout des fonctions clones de (mysql || mysqli_select_db)
 
 
 - bug (Rev13) état de l'icone témoin de connection ne fonctionnait pas dans les blocs groupes
