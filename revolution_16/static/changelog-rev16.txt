@@ -1,6 +1,6 @@
-changelog-rev16  [ révision : 38 - jpb / 21-12-2016 18:18 ]
+changelog-rev16  [ révision : 38 - jpb / 5-4-2016 18:03 ]
 - NPDS REvolution 16 - 
-v.16.0.4-alpha
+v.16.0.6-alpha
 Implémentations majeures impactant sur tout le portail :
 - intégration en backend d'un framework : Bootsrap 4 #requis
 ayant pour conséquence :
@@ -26,8 +26,13 @@ modification des entêtes des fichiers admin des modules (inclusion de la foncti
 modification des fichiers install_conf des modules avec install auto et admin qui doivent envoyer une requete d'identification à la table fonctions
  
 Corrections :
-- lib mysqli 
-ajout de la connection persistante et globalisation de $dblink dans la fonction sql_connect() car variable non disponible dans certain contexte (install auto)
+- lib mysqli
+   # ajout de la connection persistante et globalisation de $dblink dans la fonction sql_connect() car variable non disponible dans certain contexte (install auto)
+   # correction fonction sql_num_fields (utilisée dans savemysql)
+- lib mysql
+   # ajout des fonctions clones de (mysql || mysqli_select_db)
+
+
 - bug (Rev13) état de l'icone témoin de connection ne fonctionnait pas dans les blocs groupes
 - bug (Rev13)  headlines  (la lib feed creator avait changé mais pas la construction du bloc headline) 
   lib/feedcreator.class.php (corrections conformité dans la lib ATOM) 
@@ -40,9 +45,12 @@ ajout de la connection persistante et globalisation de $dblink dans la fonction 
 Evolutions 
 
 - install auto v.1.2
-utilisation des lib (mysql ou mysqli)
-compatibilité php7 (ereg=>preg)
-interface
+   - utilisation des lib (mysql ou mysqli) pour support php7
+   - ajout support langue espagnol
+   - compatibilité php7 (ereg=>preg)
+   - option d'installation rapide
+   - interface
+
 - intégration côté client d'un contrôle des form
 - suppression des commentaires relatifs à un sondage quand on supprime le sondage. 
 - chargement de footer_after.inc à partir du thème
@@ -61,7 +69,7 @@ les feuilles de style doivent se trouver dans le dossier themes/_skins/'monskin'
 
 un theme et toute son infrastructure peut donc supporter les skins
 
-modules/!!!!!include!!!!!/header_head.inc ==> [chargement du framework en backend avec CSS par defaut]
+modules/include/header_head.inc ==> [chargement du framework en backend avec CSS par defaut]
 ===>
 si l'utilisateur choisit un skin dans header.php on remodifie le(s) lien(s) CSS relatif au Framework en lui appliquant deux css du framework customisé (bootstrap.min.css, extra.css)
 
@@ -94,7 +102,7 @@ la variable $name deux fois dans les arguments de fonction Add()
  
 - Tinymce 
 
-version courante 4.3.3
+version courante 4.5.5
 adaptation de l'implémentation
 ajout de commande pour les métamots
 ajout plugins pour font awesome
@@ -104,4 +112,4 @@ modification des templates (responsives)
 mise en majuscule des instruction mySQL
 écriture à double indentation (3 espaces) PHP / html / js
 généralisation des simple quotes (le plus souvent)
-augmentation de la longueur des chaines de sorties réduction des concaténations courtes 
+augmentation de la longueur des chaines de sorties réduction des concaténations courtes.
