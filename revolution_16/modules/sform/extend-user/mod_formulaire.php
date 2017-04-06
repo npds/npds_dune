@@ -128,7 +128,7 @@ $m->add_extra('
          <div class="col-sm-8 offset-sm-4 " >');
 $m->add_field('Submit','',translate('Submit'),'submit',false);
 
-//include_once('modules/geoloc/geoloc_conf.php');
+include_once('modules/geoloc/geoloc_conf.php');
 
 $m->add_extra('
          </div>

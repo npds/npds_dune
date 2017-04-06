@@ -178,6 +178,8 @@ $m->add_extra('
          <div class="col-sm-8 offset-sm-4" >');
 // Submit bouton
 $m->add_field('Submit','',adm_translate("Valider"),'submit',false);
+include_once('modules/geoloc/geoloc_conf.php');
+
 $m->add_extra('
          </div>
       </div>');
