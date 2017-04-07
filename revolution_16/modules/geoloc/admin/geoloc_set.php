@@ -17,7 +17,7 @@
 /************************************************************************/
 
 if (!strstr($PHP_SELF,'admin.php')) { Access_Error(); }
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
    die();
 }
 
@@ -28,20 +28,29 @@ admindroits($aid,$f_meta_nom);
 include ('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
 $f_titre= geoloc_translate("Configuration du module Geoloc");
 
+function vidip(){
+   global $NPDS_Prefix;
+   $sql = "DELETE FROM ".$NPDS_Prefix."ip_loc WHERE ip_id >=1";
+   if ($result = sql_query($sql)) 
+      sql_query( "ALTER TABLE ".$NPDS_Prefix."ip_loc AUTO_INCREMENT = 0;");
+}
+
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip) {
-   global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
    if (file_exists('modules/'.$ModPath.'/geoloc_conf.php'))
    include ('modules/'.$ModPath.'/geoloc_conf.php');
    $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo.html';
 
+   $result=sql_query("SELECT CONCAT(ROUND(((DATA_LENGTH + INDEX_LENGTH - DATA_FREE) / 1024 / 1024), 2), ' Mo') AS TailleMo FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbname' AND TABLE_NAME = ".$NPDS_Prefix."'ip_loc'");
+   $row = sql_fetch_array($result);
+
    $ar_fields=array('C3','C4','C5','C6','C7','C8');
    reset($ar_fields);
    while (list($k, $v) = each($ar_fields)) {
-   $req='';
-   $req=sql_query("SELECT $v FROM users_extend WHERE $v !=''");
-   if(!sql_num_rows($req)) $dispofield[]=$v;
+      $req='';
+      $req=sql_query("SELECT $v FROM users_extend WHERE $v !=''");
+      if(!sql_num_rows($req)) $dispofield[]=$v;
    }
-
 
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -61,7 +70,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <input type="text" class="form-control" name="api_key" id="ch_lat" placeholder="" value="'.$api_key.'" required="required" />
             </div>
          </div>
-         
          <div class="form-group row ">
             <label class="form-control-label col-sm-6" for="ch_lat">'.geoloc_translate('Champ de table pour latitude').'<span class="text-danger ml-1">*</span></label>
             <div class="col-sm-6">
@@ -125,6 +133,9 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    }
    echo '
             </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-sm-12">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].' <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span></div>
          </div>
       </fieldset>
       <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Interface carte').'</h4>
@@ -901,20 +912,20 @@ function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $
    fwrite($file_conf, $content);
    fclose($file_conf);
    //<== modifie le fichier de configuration
-
-   function AfterSaveSetgeoloc($ModPath, $ModStart) {
-      echo '<br /><strong>Votre module est paramétré allez à la <a href = "modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc">Géolocalisation</a> ou modifiez ci-dessous les paramètres nécessaires</strong>';
-   }
 }
 
 if ($admin) {
    switch ($subop) {
+      case 'vidip':
+          vidip();
+          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
+      break;
       case 'SaveSetgeoloc':
          SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon);
-      case 'AfterSaveSetgeoloc':
-         AfterSaveSetgeoloc($ModPath, $ModStart);
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
+      break;
       default:
-         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,$geo_ip);
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
       break;
    }
 }

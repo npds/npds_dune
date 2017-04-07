@@ -19,7 +19,7 @@
 /*
 le géoréférencement des anonymes est basé sur un décodage des adresse ip
 le géoréférencement des membres sur une géolocalisation exacte réalisé par l'utilisateur
-la geolocalisation est réalisé par les api html5 de géolocalisation
+la geolocalisation est réalisé par les api html5 de géolocalisation (!! dommage désactivé depuis la nécessité d'avoir un site en https)
 */
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
@@ -342,7 +342,7 @@ while ($row1 = sql_fetch_array($tres)) {
         //construction marker anonyme on line
         $ano_conn.= '
         var point = new google.maps.LatLng('.$ip_lat1.','.$ip_long1.');
-        var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$acg_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg mr-1\"></i>'.geoloc_translate('Anonyme').$ac.'", \'<div id="infowindow" style="white-space: nowrap;"><br /><i class="fa fa-tv fa-2x text-muted mr-1"></i>'.geoloc_translate('Anonyme').' '.$ac.' @ '.$session_host_addr.' <br /><hr /><span class="sou_tit">Hôte : </span>'.@gethostbyaddr($ip_ip1).'<br /><span class="sou_tit">En visite ici : </span> '.$ip_visi_pag.'<br /><span class="sou_tit">Visites : </span>['.$ip_visite.']<br /><span class="sou_tit">Ville : </span>'.$ip_city1.'<br /><span class="sou_tit">Pays : </span>'.$ip_country1.'<hr /><img src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" class="n-smil" alt="flag" /></p></div>\',\'ac\'); 
+        var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$acg_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg mr-1\"></i>'.geoloc_translate('Anonyme').$ac.'", \'<div id="infowindow" style="white-space: nowrap;"><br /><i class="fa fa-tv fa-2x text-muted mr-1"></i>'.geoloc_translate('Anonyme').' '.$ac.' @ '.$session_host_addr.' <br /><hr /><span class="sou_tit">'.geoloc_translate("Hôte").' : </span>'.@gethostbyaddr($ip_ip1).'<br /><span class="sou_tit">'.geoloc_translate("En visite ici").' : </span> '.$ip_visi_pag.'<br /><span class="sou_tit">'.geoloc_translate("Visites").' : </span>['.$ip_visite.']<br /><span class="sou_tit">'.geoloc_translate("Ville").' : </span>'.$ip_city1.'<br /><span class="sou_tit">'.geoloc_translate("Pays").' : </span>'.$ip_country1.'<hr /><img src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" class="n-smil" alt="flag" /></p></div>\',\'ac\'); 
         marker.setMap(map);
         bounds.extend(point);
         map.fitBounds(bounds);
@@ -511,7 +511,7 @@ var i = 0;
             html += \'<a class="list-group-item list-group-item-action" href="javascript:myclick(\' + i + \')">\' + gmarkers[i].myname + \'</a>\';
             }
         }
-      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><img class="mr-1" src="modules/geoloc/images/connect.gif"/> En ligne <span class="badge badge-default ml-auto">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
+      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><img class="mr-1" src="modules/geoloc/images/connect.gif"/>'.geoloc_translate("En ligne").'<span class="badge badge-default ml-auto">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
     }
 
     function myclick(i) {
@@ -941,7 +941,7 @@ $affi .= '
                <span class="input-group-btn">
                   <button  id="geocode_submit" class="btn btn-primary" type="button">Geocode</button>
                </span>
-               <input id="address" type="textbox" class="form-control" placeholder="Entrez une adresse..." />
+               <input id="address" type="textbox" class="form-control" placeholder="'.geoloc_translate("Entrez une adresse").'..." />
                <span class="input-group-btn"><button class="btn btn-outline-danger" type="button" id="trash" onclick="deleteMarkers_geo();"><i class="fa fa-trash-o fa-lg"></i></button></span>
             </div>
          </div>
