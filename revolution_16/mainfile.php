@@ -2988,7 +2988,7 @@ function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref
             $op=substr($tab_css,-1);
             if ($op=='+' or $op=='-')
                $tab_css=substr($tab_css,0,-1);
-            if (stristr($tab_css, 'http://')) {
+            if (stristr($tab_css, 'http://')||stristr($tab_css, 'https://')) {
                $admtmp="<link href='$tab_css' rel='stylesheet' type='text/css' media='all' />\n";
             } else {
                if (file_exists("themes/$tmp_theme/style/$tab_css") and ($tab_css!='')) {

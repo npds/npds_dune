@@ -117,10 +117,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    if ($js) {
       if (is_array($js)) {
          foreach ($js as $k=>$tab_js) {
-            if (stristr($tab_js, "http://")) {
+            if (stristr($tab_js, "http://")||stristr($tab_js, "https://")) {
                echo "<script type=\"text/javascript\" src=\"$tab_js\"></script>\n";
             } else {
-               if (file_exists("themes/$tmp_theme/js/$tab_js") and ($tab_js!="")) {
+               if (file_exists("themes/$tmp_theme/js/$tab_js") and ($tab_js!='')) {
                    echo "<script type=\"text/javascript\" src=\"themes/$tmp_theme/js/$tab_js\"></script>\n";
                } elseif (file_exists("$tab_js") and ($tab_js!="")) {
                    echo "<script type=\"text/javascript\" src=\"$tab_js\"></script>\n";
