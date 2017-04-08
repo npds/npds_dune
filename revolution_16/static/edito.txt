@@ -1,4 +1,4 @@
-[jour]<p><img class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" src="http://labo.infocapagde.com/images/banners/ban_rev_16.png" alt="REvolution 2016"></p>
+[jour]<p><img class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" src="images/banners/ban_rev_16.png" alt="REvolution 2016"></p>
 <p>Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif. <br>Il s'agit d'un <span class="text-danger"><strong>C</strong></span>ontent &amp; <span class="text-danger"><strong>C</strong></span>ommunity <span class="text-danger"><strong>M</strong></span>anagement <span class="text-danger"><strong>S</strong></span>ystem (CCMS) robuste, sécurisé, complet, performant et parlant vraiment français.</p>
 <p style="text-align: center;"><strong>Gérez votre Communauté d'utilisateurs, vos groupes de travail collaboratif, publiez, gérez et organisez<br>votre contenu dynamique !</strong></p>
 <p>Libre (Open-Source) et gratuit, NPDS est personnalisable grâce à de nombreux thèmes et modules et ne requiert que quelques compétences de base - essentiellement - issues des technologies du web. <br> <strong>Ses points forts </strong>: sa richesse fonctionnelle, sa sécurité, sa rapidité, sa facilité de mise en œuvre et la qualité, la stabilité et la fiabilité de son fonctionnement.</p>
@@ -19,7 +19,7 @@
 <li>Administrateur par défaut : Identifiant : <strong>R</strong>oot / mot de passe : <strong>P</strong>assword. vous devez changer ce mot de passe rapidement.</li>
 <li>Utilisateur par défaut : Identifiant : user / mot de passe : user</li>
 </ul>
-<p>comment_system(edito,1)</p>[/jour][nuit]<p><img class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" src="http://labo.infocapagde.com/images/banners/ban_rev_16.png" alt="REvolution 2016"></p>
+<p>comment_system(edito,1)</p>[/jour][nuit]<p><img class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" src="images/banners/ban_rev_16.png" alt="REvolution 2016"></p>
 <p>Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif.&nbsp;<br>Il s'agit d'un&nbsp;<span class="text-danger"><span>C</span></span>ontent &amp;&nbsp;<span class="text-danger"><span>C</span></span>ommunity&nbsp;<span class="text-danger"><span>M</span></span>anagement&nbsp;<span class="text-danger"><span>S</span></span>ystem (CCMS) robuste, sécurisé, complet, performant et parlant vraiment français.</p>
 <p style="text-align: center;"><span>Gérez votre Communauté d'utilisateurs, vos groupes de travail collaboratif, publiez, gérez et organisez<br>votre contenu dynamique !</span></p>
 <p>Libre (Open-Source) et gratuit, NPDS est personnalisable grâce à de nombreux thèmes et modules et ne requiert que quelques compétences de base - essentiellement - issues des technologies du web.&nbsp;<br><span>Ses points forts&nbsp;</span>: sa richesse fonctionnelle, sa sécurité, sa rapidité, sa facilité de mise en œuvre et la qualité, la stabilité et la fiabilité de son fonctionnement.</p>
@@ -40,4 +40,4 @@
 <li>Administrateur par défaut : Identifiant :&nbsp;<span>R</span>oot / mot de passe :&nbsp;<span>P</span>assword. vous devez changer ce mot de passe rapidement.</li>
 <li>Utilisateur par défaut : Identifiant : user / mot de passe : user</li>
 </ul>
-<p>comment_system(edito,1)</p>[/nuit]aff_jours=200&aff_jour=checked&aff_nuit=checked&aff_date=1473971416
+<p>comment_system(edito,1)</p>[/nuit]aff_jours=600&aff_jour=checked&aff_nuit=checked&aff_date=1473971416
