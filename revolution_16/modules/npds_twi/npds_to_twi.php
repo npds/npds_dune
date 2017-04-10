@@ -43,6 +43,7 @@ if ($npds_twi===1) {
       if(cur_charset!=='utf-8')
       $subj_twi=utf8_encode ($subj_twi);
       $subj_twi=preg_replace ( "#''#", '\'', $subj_twi);
+      $subj_twi=html_entity_decode ($subj_twi);
       $text_twi=strip_tags($hometext);
       $text_twi=html_entity_decode ($text_twi);
       if(cur_charset!=='utf-8')
