@@ -387,7 +387,15 @@ $ecr_scr = '<script type="text/javascript">
     anchor: new google.maps.Point(0, 0),
     scaledSize: new google.maps.Size('.$w_ico.', '.$h_ico.')
     },
-    ';
+    icongeocode ={
+        path: fontawesome.markers.THUMB_TACK,
+        scale: '.$mbg_sc.',
+        strokeWeight: '.$mbg_t_ep.',
+        strokeColor: "'.$mbg_t_co.'",
+        strokeOpacity: '.$mbg_t_op.',
+        fillColor: "'.$mbg_f_co.'",
+        fillOpacity: 1,
+    },';
     if($mark_typ !== 1) { // marker svg
     $f_mbg=str_replace('-', '_',$f_mbg);
     $ecr_scr .='
@@ -511,7 +519,7 @@ var i = 0;
             html += \'<a class="list-group-item list-group-item-action" href="javascript:myclick(\' + i + \')">\' + gmarkers[i].myname + \'</a>\';
             }
         }
-      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><img class="mr-1" src="modules/geoloc/images/connect.gif"/>'.geoloc_translate("En ligne").'<span class="badge badge-default ml-auto">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
+      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><i class="fa fa-plug faa-flash animated text-danger mr-1"></i>'.geoloc_translate("En ligne").'<span class="badge badge-danger ml-auto">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
     }
 
     function myclick(i) {
@@ -692,10 +700,7 @@ $ecr_scr .= $mb_con_g.''.$ano_conn.''.$mb_gr ;
 $ecr_scr .= '
 document.getElementById("mess_info").innerHTML = \''.$mess_mb.' '.$mess_adm.'\';
 
-show("member");
-show("ac");
-show("c");
-
+show("member");show("ac");show("c");
 //show("wpo");
 
 makeSidebar();
@@ -788,10 +793,7 @@ function Coordinates() {
  } // DMSCalculator
 } // Coordinates
 // <== classe de conversion unit
-';
 
-
-$ecr_scr .= '
    var co_unit="'.$co_unit.'";
     google.maps.event.addListener(map, "mousemove", function(point){
         afflatlon = point.latLng.toUrlValue(6);
@@ -804,19 +806,19 @@ $ecr_scr .= '
            DMS_Lng = coords.longitude.getDegrees() + "&#xB0;" + coords.longitude.getMinutes() + \'\\\' \' + Math.round(coords.longitude.getSecondsDecimal()) + "&quot; " + coords.longitude.getDirection();
         }
         else {
-        DMS_Lat=lalo[0];
-        DMS_Lng=lalo[1];
+           DMS_Lat=lalo[0];
+           DMS_Lng=lalo[1];
         }
         document.getElementById("mypoint").innerHTML = DMS_Lat+ " | "+ DMS_Lng;
     });
-    
 
    var geocoder = new google.maps.Geocoder();
    document.getElementById("geocode_submit").addEventListener("click", function() {
       geocodeAddress(geocoder, map);
    });
    
-   
+
+
 
 } //<= geoloc_load
    function setAllMap(map) {
@@ -834,6 +836,8 @@ function clearMarkers() {setAllMap(null);hi();}
 function showMarkers() {setAllMap(map);sh();}
 
 geocode_markers=[];
+geocode_adresses=[];
+
 function geocodeAddress(geocoder, map) {
   var address = document.getElementById("address").value;
   geocoder.geocode({"address": address}, function(results, status) {
@@ -841,11 +845,15 @@ function geocodeAddress(geocoder, map) {
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
         map: map,
+        icon:icongeocode,
+        animation: google.maps.Animation.DROP,
+
         position: results[0].geometry.location
       });
+      geocode_adresses.push(address);
       geocode_markers.push(marker);
     } else {
-      alert("Geocode was not successful for the following reason: " + status);
+      bootbox.alert("Geocode was not successful for the following reason: " + status);
     }
   });
 }
@@ -887,7 +895,7 @@ $(document.body).attr("onload", "geoloc_load()");
 include ('header.php');
 //==> ecriture des div contenants
 $affi .= '
-<h3 class="mb-4">Géolocalisation des membres du site<span class="float-right badge badge-default" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
+<h3 class="mb-4">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right badge badge-default" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
 <div class="card mb-4">
    <div class=" p-2">
       <div class="row">
@@ -927,7 +935,7 @@ $affi .= '
       <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Infos carte").'</span></a></li>
       <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Aide").'</span></a></li>
       <li class="nav-item"><a class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Géolocalisation").'</span></a></li>
-      <li class="nav-item"><a class="nav-link disabled" href="#iplist" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Ip liste").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="#geolocalisation" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Ip liste").'</span></a></li>
    </ul>
    <div class="tab-content">
       <div class="tab-pane fade show active" id="infocart">
@@ -946,7 +954,11 @@ $affi .= '
             </div>
          </div>
       </div>
-      <div class="tab-pane fade" id="geolocalisation"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span></div>
+      <div class="tab-pane fade" id="geolocalisation">
+      <input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span>
+      <input type="checkbox" title="'.geoloc_translate('Activer désactiver la géolocalisation').'" id="geolobox" onclick="" />&nbsp;'.geoloc_translate('Activer désactiver la géolocalisation').'
+      
+      </div>
    </div>';
 //==> affichage des div contenants et écriture du script
 echo $affi;
