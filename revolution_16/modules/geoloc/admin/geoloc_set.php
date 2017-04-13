@@ -61,7 +61,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg mr-2 "></i>'.geoloc_translate('Carte').'</a>
 
    <form id="geolocset" name="geoloc_set" action="admin.php" method="post">
-      <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Paramètres système').'</h4>
+      <h4 class="my-3">'.geoloc_translate('Paramètres système').'</h4>
       <fieldset id="para_sys" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
          <span class="text-danger">* '.geoloc_translate("requis").'</span>
          <div class="form-group row">
@@ -135,10 +135,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-12">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].' <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span></div>
+            <div class="col-sm-12"><span class="form-control-label">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].'</span> <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span></div>
          </div>
       </fieldset>
-      <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Interface carte').'</h4>
+      <hr />
+      <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
       <div class="row">
          <div class="col-sm-8">
             <fieldset id="para_car" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
@@ -369,7 +370,8 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                 </div>
             </div>
         </fieldset>
-   <h4 class="bg-primary" style="line-height:32px; padding-left: 15px;">'.geoloc_translate('Interface bloc').'</h4>
+        <hr />
+   <h4 class="my-3">'.geoloc_translate('Interface bloc').'</h4>
    <fieldset class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
       <div class="form-group row">
          <label class="form-control-label col-sm-6" for="cartyp_b">'.geoloc_translate('Type de carte').'<span class="text-danger ml-1">*</span></label>
