@@ -23,7 +23,7 @@ $content .='
 <div class="mb-2" id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>';
 if (!stristr($_SERVER['QUERY_STRING'],"ModPath=geoloc&ModStart=geoloc"))
    $content .='
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"></script>
 <script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>';
 if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRING'],"geoloc_set")) || (stristr($_SERVER['QUERY_STRING'],"ModPath=geoloc&ModStart=geoloc"))) {
    $loadornot = '';
