@@ -283,6 +283,8 @@ INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, f
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(42, 'brokenlink', 1, '', 1, 1, '6', 'Lien rompu &#xE0; valider', 'Lien rompu', 'links', 'href="admin.php?op=LinksListBrokenLinks"', 9, 'Alerte', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(43, 'archive-stories', 1, '', 1, 1, '', '', 'Archives articles', 'archive-stories', 'href="admin.php?op=Extend-Admin-SubModule&ModPath=archive-stories&ModStart=admin/archive-stories_set"', 1, 'Contenu', 4);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(74, 'reseaux-sociaux', 1, '', 1, 1, '', '', 'Réseaux sociaux', 'reseaux-sociaux', 'href="admin.php?op=Extend-Admin-SubModule&ModPath=reseaux-sociaux&ModStart=admin/reseaux-sociaux_set"', 2, 'Utilisateurs', 4);
+INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(75, 'geoloc', 1, '', 1, 1, '', '', 'geoloc', 'geoloc', 'href="admin.php?op=Extend-Admin-SubModule&ModPath=geoloc&ModStart=admin/geoloc_set"', 6, 'Modules', 0);
+
 
 CREATE TABLE forums (
   forum_id int(10) NOT NULL AUTO_INCREMENT,
