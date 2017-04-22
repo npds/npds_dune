@@ -101,7 +101,7 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
        reset($bad_uri_content);
        $ibid=true;
 
-       // mieux faire face aux techniques d'évasion de code : base64_decode(utf8_decode(bin2hex($arr))));
+       // mieux faire face aux techniques d'Ã©vasion de code : base64_decode(utf8_decode(bin2hex($arr))));
        $arr=rawurldecode($arr);
        $RQ_tmp=strtolower($arr);
        $RQ_tmp_large=strtolower($key)."=".$RQ_tmp;
