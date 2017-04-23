@@ -76,7 +76,7 @@ function session_manage() {
                $vi=removeHack($querip['city']);
                $lat=(float)$querip['lat'];
                $long=(float)$querip['lon'];
-               sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc  SET ip_long = '$long', ip_lat = '$lat', ip_ip = '$ip', ip_country = '$pay', ip_city ='$vi', ip_code_country='$codepay'");
+               sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc SET ip_long = '$long', ip_lat = '$lat', ip_ip = '$ip', ip_country = '$pay', ip_city ='$vi', ip_code_country='$codepay'");
                sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
             }
          }

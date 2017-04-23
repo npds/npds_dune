@@ -328,8 +328,9 @@ function avatar($user_avatar) {
                echo '<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
                   </td>
                   <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
-               if ($admin)
+               if ($admin and $temp_user['user_lastvisit']!='') {
                   echo ' => '.date(translate("dateinternal"),$temp_user['user_lastvisit']);
+               }
                echo '" data-toggle="tooltip">'.$temp_user['uname'].'</a>
                <br />'.$temp_user['name'].'
                   </td>';
