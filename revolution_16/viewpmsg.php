@@ -91,7 +91,12 @@ include("auth.php");
          <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
             <thead class="thead-default">
                <tr>
-                  <th class="n-t-col-xs-1" data-halign="center" data-align="center" ><label class="custom-control custom-checkbox"><input class="custom-control-input" name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" /><span class="custom-control-indicator bg-danger"></span></label></th>
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
+                     <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" />
+                        <span class="custom-control-indicator bg-danger"></span>
+                     </label>
+                  </th>
                   <th class="n-t-col-xs-1" data-align="center" ><i class="fa fa-long-arrow-down"></i></th>';
       if ($smilies) { echo '
                   <th class="n-t-col-xs-1" align="center" >&nbsp;</th>'; }
@@ -111,7 +116,12 @@ include("auth.php");
          if (!array_key_exists($myrow['dossier'],$tempo)) {$tempo[$myrow['dossier']]=0;}
          echo '
                <tr>
-                  <td><label class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /><span class="custom-control-indicator bg-danger"></span></label></td>';
+                  <td>
+                     <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                        <span class="custom-control-indicator bg-danger"></span>
+                     </label>
+                  </td>';
          if ($myrow['read_msg'] == "1") {
             echo '
                   <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
@@ -171,17 +181,22 @@ include("auth.php");
       <div class="card card-block mt-3">
       <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-1"></i></a><span class="hidden-sm-down">&nbsp;'.translate("Private Message")." - </span>".translate("Outbox").'<span class="badge badge-default float-right">'.$total_messages.'</span></h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
-      <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
-         <thead class="thead-default">
-            <tr>
-               <th class="n-t-col-xs-1" data-checkbox="true" ><input name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" /></th>';
+         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
+            <thead class="thead-default">
+               <tr>
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
+                     <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" />
+                        <span class="custom-control-indicator bg-danger"></span>
+                     </label>
+                  </th>';
       if ($smilies) { echo '
-               <th class="n-t-col-xs-1" align="center" >&nbsp;</th>';
+                  <th class="n-t-col-xs-1" align="center" >&nbsp;</th>';
       }
       echo '
-               <th data-halign="center" data-sortable="true" data-align="center">'.translate("To").'</th>
-               <th data-halign="center" data-sortable="true" align="center">'.translate("Subject").'</th>
-               <th data-halign="center" data-align="right" data-sortable="true" align="center">'.translate("Date").'</th>
+                  <th data-halign="center" data-sortable="true" data-align="center">'.translate("To").'</th>
+                  <th data-halign="center" data-sortable="true" align="center">'.translate("Subject").'</th>
+                  <th data-halign="center" data-align="right" data-sortable="true" align="center">'.translate("Date").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -198,16 +213,12 @@ include("auth.php");
       while ($myrow = sql_fetch_assoc($resultID)) {
          echo '
             <tr>
-               <td width="2%" align="center"><input type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" /></td>';
-/*
-         if ($myrow['read_msg']=="1") {
-            echo '
-               <td  width="5%" align="center">&nbsp;</td>';
-         } else {
-            if ($ibid=theme_image("forum/read.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/read.gif";}
-            echo "<td width=\"5%\" align=\"center\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Not Read")."\" /></td>";
-         }
-*/
+               <td>
+                  <label class="custom-control custom-checkbox">
+                     <input class="custom-control-input" type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                     <span class="custom-control-indicator bg-danger"></span>
+                  </label>
+               </td>';
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
