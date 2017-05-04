@@ -90,7 +90,7 @@ $lock_state = $myrow['topic_status'];
    global $site_font;
     echo '
    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
-   echo import_css($tmp_theme, $language, $site_font, '','');
+//   echo import_css($tmp_theme, $language, $site_font, '','');
    echo '
    </head>
    <body>
@@ -171,8 +171,8 @@ $lock_state = $myrow['topic_status'];
    $message=stripslashes($myrow['post_text']);
    if ($allow_bbcode) {
       $message = smilie($message);
-      $message = str_replace("[video_yt]","http://www.youtube.com/watch?v=",$message);
-      $message = str_replace("[/video_yt]","",$message);
+      $message = str_replace('[video_yt]','https://www.youtube.com/watch?v=',$message);
+      $message = str_replace('[/video_yt]','',$message);
    }
    // <a href in the message
    if (stristr($message,"<a href")) {

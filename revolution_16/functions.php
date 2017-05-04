@@ -25,6 +25,7 @@ function get_total_topics($forum_id) {
    sql_free_result($result);
    return($myrow['total']);
 }
+
 function get_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
    $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'",2);
@@ -107,6 +108,7 @@ function convertdateTOtimestamp($myrow) {
    $tmst=mktime($hour,$mns,$sec,$month,$day,$year);
    return ($tmst);
 }
+
 function post_convertdate($tmst) {
    if ($tmst>0)
       $val=date(translate("dateinternal"),$tmst);
@@ -114,6 +116,7 @@ function post_convertdate($tmst) {
       $val="";
    return ($val);
 }
+
 function convertdate($myrow) {
    $tmst=convertdateTOtimestamp($myrow);
    $val=post_convertdate($tmst);
@@ -178,7 +181,6 @@ $myrow= (array)sql_fetch_assoc(sql_query($sql1));
  
  return($myrow);
 }
-
 
 function get_userdata($username) {
    global $NPDS_Prefix;
@@ -280,7 +282,7 @@ function aff_video_yt($ibid) {
          $fragment = substr( $ibid, 0,$pos_deb);
          $fragment2 = substr( $ibid,($pos_fin+11));
          $ibid_code = '<br /><div class="embed-responsive embed-responsive-16by9"><!-- video_yt #'.$id_vid.'# --><object width="'.$w_video.'" height="'.$h_video.'">
-         <param name="movie" value="http://www.youtube.com/v/'.$id_vid.'=en&fs=1" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed class="embed-responsive-item" src=http://www.youtube.com/v/'.$id_vid.'&fs=1 type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'.$w_video.'" height="'.$h_video.'" /></object><!-- /video_yt --><br /></div>';
+         <param name="movie" value="https://www.youtube.com/v/'.$id_vid.'=en&fs=1" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed class="embed-responsive-item" src=https://www.youtube.com/v/'.$id_vid.'&fs=1 type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'.$w_video.'" height="'.$h_video.'" /></object><!-- /video_yt --><br /></div>';
          $ibid= $fragment.$ibid_code.$fragment2;
       } else {
          $pasfin=false;
@@ -313,6 +315,7 @@ function putitems_more() {
       </div>';
    }
 }
+
 function putitems() {
    global $theme;
 //   echo '   <a href="#" class="" title="'.translate("Click on Smilies to insert it on your Message").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i> + </a>';
@@ -400,6 +403,7 @@ function emotion_add($image_subject) {
 }
 
 function fakedmail($r) { return preg_anti_spam($r[1]);}
+
 function make_clickable($text) {
    $ret='';
    $ret = preg_replace('#(^|\s)(http|https|ftp|sftp)(://)([^\s]*)#i',' <a href="$2$3$4" target="_blank">$2$3$4</a>',$text);
@@ -831,7 +835,6 @@ function forum($rowQ1) {
    return ($ibid);
 }
 
-
 // fonction appelée par le meta-mot forum_subfolder()
 function sub_forum_folder($forum) {
    global $user, $NPDS_Prefix;
@@ -857,4 +860,107 @@ function sub_forum_folder($forum) {
    }
    return ($ibid);
 }
+
+function paginate($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) {
+   $prev = $start - $topics_per_page; // page précédente
+   $next = $start + $topics_per_page; // page suivante
+   $penultimate = $total - 1; //avant-dernière page
+   $pagination = '';
+   if ($total > 1) {
+      $pagination .= '
+      <nav class="my-2">
+      <ul class="pagination pagination-sm d-flex flex-wrap mt-3">';
+      if ($current == 1) {
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
+      } elseif ($current > 1) {
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
+      } else {
+         $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
+      }
+
+      /**
+       * Début affichage des pages, l'exemple reprend le cas de 3 numéros de pages adjacents (par défaut) de chaque côté du numéro courant
+       * - CAS 1 : il y a au plus 12 pages, insuffisant pour faire une troncature
+       * - CAS 2 : il y a au moins 13 pages, on effectue la troncature pour afficher 11 numéros de pages au total
+       */
+
+      //  CAS 1 : au plus 12 pages -> pas de troncature
+      if ($total < 7 + ($adj * 2)) {
+         $pagination .= ($current == 0) ? '<li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'">1</a></li>';
+         for ($i=2; $i<=$total; $i++) {
+            if ($i == $current+1) {
+               $pagination .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
+            } else {
+               $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+            }
+         }
+      }
+      //  CAS 2 : au moins 13 pages -> troncature
+      else {
+         /**
+          * Troncature 1 : on se situe dans la partie proche des premières pages, on tronque donc la fin de la pagination.
+          * l'affichage sera de neuf numéros de pages à gauche ... deux à droite
+          * 1 2 3 4 5 6 7 8 9 … 16 17
+          */
+         if ($current < 2 + ($adj * 2)) {
+            $pagination .= ($current == 0) ? '<li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.'">1</a></li>';
+            for ($i = 2; $i < 4 + ($adj * 2); $i++) {
+               if ($i == $current+1) 
+                  $pagination .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
+               else 
+                  $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+            }
+            $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($penultimate*$topics_per_page)-$topics_per_page).$urlmore.'">'.$penultimate.'</a></li>';
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($total*$topics_per_page)-$topics_per_page).$urlmore.'">'.$total.'</a></li>';
+         }
+         /**
+          * Troncature 2 : on se situe dans la partie centrale de notre pagination, on tronque donc le début et la fin de la pagination.
+          * l'affichage sera deux numéros de pages à gauche ... sept au centre ... deux à droite
+          * 1 2 … 5 6 7 8 9 10 11 … 16 17
+          */
+         elseif ( (($adj * 2) + 1 < $current) && ($current < $total - ($adj * 2)) ) {
+            // Affichage des numéros 1 et 2
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'">1</a></li>';
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$topics_per_page.$urlmore.'">2</a></li>';
+            $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
+            // les pages du milieu : les trois précédant la page courante, la page courante, puis les trois lui succédant
+            for ($i = ($current - $adj); $i <= $current + $adj; $i++) {
+               if ($i == $current+1) 
+                  $pagination .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
+               else 
+                  $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+            }
+            $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($penultimate*$topics_per_page)-$topics_per_page).$urlmore.'">'.$penultimate.'</a></li>';
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($total*$topics_per_page)-$topics_per_page).$urlmore.'">'.$total.'</a></li>';
+         }
+         /**
+          * Troncature 3 : on se situe dans la partie de droite, on tronque donc le début de la pagination.
+          * l'affichage sera deux numéros de pages à gauche ... neuf à droite
+          * 1 2 … 9 10 11 12 13 14 15 16 17
+          */
+         else {
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'">1</a></li>';
+            $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$topics_per_page.$urlmore.'">2</a></li>';
+            $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
+            for ($i = $total - (2 + ($adj * 2)); $i <= $total; $i++) {
+               if ($i == $current+1) 
+                  $pagination .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
+                else 
+                  $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+            }
+         }
+      }
+      if ($current+1 == $total)
+         $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
+      else
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Next Page").'" data-toggle="tooltip">►</a></li>';
+   $pagination .= '
+      </ul>
+   </nav>';
+   }
+   return ($pagination);
+}
+
 ?>

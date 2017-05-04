@@ -101,6 +101,16 @@ if ($total > $posts_per_page) {
    $pages=$times;
 }
 
+   $nbPages = ceil($total/$posts_per_page);
+      $current = 1;
+      if ($start >= 1) {
+         $current=$start/$posts_per_page;
+      } else if ($start < 1) {
+         $current=0;
+      } else {
+         $current = $nbPages;
+      }
+
 if (!$result = sql_query($sql))
    forumerror('0001');
 $myrow = sql_fetch_assoc($result);
@@ -108,17 +118,17 @@ $topic_subject = stripslashes($myrow['topic_title']);
 $lock_state = $myrow['topic_status'];
 $original_poster=$myrow['topic_poster'];
 
-function aff_pub($lock_state, $topic, $forum,$mod) {
+function aff_pub($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0) {
-   echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square "></i></a>&nbsp;';
+   echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="hidden-sm-down">'.translate("New Topic").'<br /></span></a>&nbsp;';
    }
 }
-function aff_pub_in($lock_state, $topic, $forum,$mod) {
+function aff_pub_in($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0) {
    echo '
-   <a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply"></i></a>';
+   <a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="hidden-sm-down"></span><i class="fa fa-reply mr-2"></i><span class="hidden-sm-down">'.translate("Reply").'</span></a>';
    }
 }
 
@@ -154,7 +164,7 @@ include('header.php');
       }
    }
 
-   echo $topic_subject.'<span class="text-muted">&nbsp;#'.$topic.'</span>';
+   echo $topic_subject.'<span class="text-muted ml-1">#'.$topic.'</span>';
    if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
@@ -228,9 +238,13 @@ include('header.php');
             $pages_rapide.='<li class="page-item active"><a class="page-link" href="#">'.$times.'</a></li>';
          $times++;
       }
-      echo $pages_rapide.'
+//      echo $pages_rapide;
+
+      echo '
          </ul>
       </div>';
+      
+      echo paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start);
     } 
 
     if ($Mmod) {
@@ -472,16 +486,18 @@ include('header.php');
     if ($total > $posts_per_page) {
        echo '
        <nav>
-         <ul class="pagination pagination-sm d-flex flex-wrap justify-content-start">
+         <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
             <li class="page-item">
                <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
             </li>
             <li class="page-item disabled">
-               <a class="page-link" href="#">'.translate("Goto Page").'</a>
+               <a class="page-link" href="#">'.translate("Back to Top").'</a>
             </li>';
-             echo $pages_rapide.'
+//             echo $pages_rapide;
+         echo '
          </ul>
       </nav>';
+      echo paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start);
     }
     
     if ($forum_access!=9) {
