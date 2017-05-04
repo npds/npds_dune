@@ -952,10 +952,6 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
               if ($usend_email) {$u = 1;} else {$u = 0;}
               if ($uis_visible) {$v = 0;} else {$v = 1;}
               if ($user_lnl) {$w = 1;} else {$w = 0;}
-              if ($url!='') {
-                 if (!substr_count($url,'http://')) {$url='http://'.$url;}
-                 if (trim($url)=='http://') {$url='';}
-              }
 
               include_once("modules/upload/upload.conf.php");
               global $avatar_size;
