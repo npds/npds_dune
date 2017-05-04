@@ -83,7 +83,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
        }
        echo '
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
-       echo import_css($tmp_theme, $language, $site_font, '','');
+//       echo import_css($tmp_theme, $language, $site_font, '','');
        echo '
        </head>
        <body>
