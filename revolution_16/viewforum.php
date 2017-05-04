@@ -174,7 +174,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       if ($forum_access==2)
          if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
       if ($allow_to_post) {
-         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square "></i></a>&nbsp;';
+         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="hidden-sm-down">'.translate("New Topic").'<br /></span></a>';
       }
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
@@ -326,14 +326,24 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    }
 
    $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol";
-   if (!$r = sql_query($sql))
-      forumerror('0001');
+   if (!$r = sql_query($sql)) forumerror('0001');
    list($all_topics) = sql_fetch_row($r);
    sql_free_result($r);
    if (isset($closoled)) $closol='&amp;closoled=on';
    else $closol='';
    $count = 1;
-   $next = $start + $topics_per_page;
+//   $next = $start + $topics_per_page;
+   $nbPages = ceil($all_topics/$topics_per_page);
+
+   $current = 1;
+      if ($start >= 1) {
+         $current=$start/$topics_per_page;
+      } else if ($start < 1) {
+         $current=0;
+      } else {
+         $current = $nbPages;
+      }
+/*   
    echo '
    <nav>
       <ul class="pagination pagination-sm d-flex flex-wrap mt-3">';
@@ -346,26 +356,25 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
           echo '
          <li class="page-item disabled text-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
       }
-    for($x = 0; $x < $all_topics; $x++) {
-      if (!($x % $topics_per_page)) {
-         if ($x == $start)
-            echo '<li class="page-item active"><a class="page-link" href="#">'.$count.'</a></li>';
-         else
-            echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$x.$closol.'">'.$count.'</a></li>';
-         if (($all_topics-($count*$topics_per_page))>0) {
-            if (!($count % 20))
-         echo '<br />';
+      for($x = 0; $x < $all_topics; $x++) {
+         if (!($x % $topics_per_page)) {
+            if ($x == $start)
+               echo '<li class="page-item active"><a class="page-link" href="#">'.$count.'</a></li>';
+            else
+               echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$x.$closol.'">'.$count.'</a></li>';
+            $count++;
          }
-         $count++;
       }
-    }
    }
    echo '
       </ul>
    </nav>';
-   echo searchblock();
-      if ($myrow = sql_fetch_assoc($result)) 
-         echo '
+*/
+echo paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, $adj=3, $topics_per_page, $start);
+
+echo searchblock();
+//      if ($myrow = sql_fetch_assoc($result)) 
+echo '
    <blockquote class="blockquote my-3">
       <i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'<br />
       <i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
