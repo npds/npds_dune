@@ -223,6 +223,7 @@ function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
 
 function viewlink($cid, $min, $orderby, $show) {
    global $ModPath, $ModStart, $links_DB, $admin, $perpage;
+   include('functions.php');
    include("header.php");
    // Include cache manager
    global $SuperCache;
@@ -233,7 +234,6 @@ function viewlink($cid, $min, $orderby, $show) {
       $cache_obj = new SuperCacheEmpty();
    }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      
       if (!isset($max)) $max=$min+$perpage;
       mainheader();
 
@@ -242,22 +242,28 @@ function viewlink($cid, $min, $orderby, $show) {
       $result=sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$cid'");
       list($title) = sql_fetch_row($result);
       echo '
-      <div>'.aff_langue($title).' : '.translate("SubCategories").'</div>';
+      <h3 class="mb-3">'.aff_langue($title).'</h3>';
 
       $subresult=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$cid' ORDER BY title");
       $numrows = sql_num_rows($subresult);
-      if ($numrows != 0) {
-         echo '
-      <table class="table table-bordered">';
+      $affsouscat .= '
+      <ul class="list-group">
+         <li class="list-group-item "><h4 class="w-100">'.translate("SubCategories").'<span class="badge badge-default float-right"> '.$numrows.'</span></h4></li>';
          while(list($sid, $title) = sql_fetch_row($subresult)) {
             $result2 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
-            $numrows="-: ".sql_num_rows($result2);
-            if ($numrows=="-: 0") {$numrows='';}
-            echo "<tr><td width=\"5%\">&nbsp;</td><td class=\"ongl\"><a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid\">".aff_langue($title)."</a> $numrows</td></tr>";
+            $numrows_lst=sql_num_rows($result2);
+            $affsouscat .= '
+         <li class="list-group-item list-group-item-action justify-content-between align-self-start"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($title).'</a></li>';
          }
-         echo '</table>';
+         $affsouscat .= '
+      </ul>';
+      if ($numrows_lst != 0) {
+         echo $affsouscat;
       }
+      
       $orderbyTrans = convertorderbytrans($orderby);
+         $perpage=3;//debug  ####################  
+
       settype($min,"integer");
       settype($perpage,"integer");
       $result=sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE cid='$cid' AND sid=0 ORDER BY $orderby LIMIT $min,$perpage");
@@ -280,6 +286,20 @@ function viewlink($cid, $min, $orderby, $show) {
       } else {
          $linkpages = $linkpagesint;
       }
+   
+   $nbPages = ceil($totalselectedlinks/$perpage);
+   $current = 1;
+   if ($min >= 1) {
+      $current=$min/$perpage;
+   } else if ($min < 1) {
+      $current=0;
+   } else {
+      $current = $nbPages;
+   }
+   $start=($current*$perpage);
+
+
+      
       //Page Numbering
       if ($linkpages!=1 && $linkpages!=0) {
          // à traduire
@@ -303,6 +323,11 @@ function viewlink($cid, $min, $orderby, $show) {
       echo '
                </ul>
             </nav>';
+            
+      echo paginate('modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;min=', '&amp;orderby='.$orderby.'&amp;show='.$perpage, $nbPages, $current, $adj=3, $perpage, $start);
+
+            
+            
       if (isset($sid)) FooterOrderBy($cid, $sid, $orderbyTrans, 'viewlink');
       SearchForm();
       }
@@ -560,7 +585,7 @@ switch ($op) {
    case 'viewlink':
       if (!isset($min)) $min=0;
       if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
-      if (isset($show)) $perpage = $show; else $show=$perpage;
+      //if (isset($show)) $perpage = $show; else $show=$perpage;debug
       viewlink($cid, $min, $orderby, $show);
    break;
    case 'viewslink':
