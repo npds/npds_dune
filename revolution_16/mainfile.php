@@ -2715,7 +2715,7 @@ function bloc_espace_groupe($gr, $i_gr) {
 }
 
 function fab_espace_groupe($gr, $t_gr, $i_gr) {
-   global $NPDS_Prefix, $chat_info;
+   global $NPDS_Prefix;
 
    $rsql=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
 
@@ -2805,8 +2805,6 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($mns) {
           $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
       }
-
-      
 
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
       if (!$user_avatar) {
@@ -2918,11 +2916,8 @@ $content.='<div class="card card-block d-flex flex-row mt-3 flex-wrap">';
    //=> Chat
    if ($rsql['groupe_chat'] == 1) {
       $PopUp = JavaPopUp("chat.php?id=$gr&amp;auto=".encrypt(serialize ($gr)),"chat".$gr,380,480);
-      if ($chat_info)
-         $chat_img='images/admin/ws/comment_reply.gif';
-      else
-         $chat_img='images/admin/ws/comment_user.gif';
-      $content.='<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x"></i></a>';
+      if ($_COOKIE['chat_info_'.$gr]) $chat_img='faa-pulse animated faa-slow';
+         $content.='<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x '.$chat_img.'"></i></a>';
    }
    //<= Chat
    //=> admin
