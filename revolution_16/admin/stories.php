@@ -48,7 +48,7 @@ function puthome($ihome) {
    $sel2 = 'checked="checked"';
    echo '
       <div class="form-group row">
-         <label class="col-sm-4 form-control-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
+         <label class="col-sm-4 form-control-label text-danger" >'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8">
             <label class="custom-control custom-radio">';
    if ($ihome<0) {
@@ -61,8 +61,8 @@ function puthome($ihome) {
       $sel2 = '';
    }
    echo '
-               <span class="custom-control-indicator"></span>
                <input class="custom-control-input" type="radio" name="members" value="1" '.$sel1.' />
+               <span class="custom-control-indicator"></span>
                <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
             <label class="custom-control custom-radio">
