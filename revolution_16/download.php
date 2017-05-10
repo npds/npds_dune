@@ -244,7 +244,7 @@ echo '<p class="lead">';
   echo '&nbsp;'.translate("of").'&nbsp;<i>'.$sortby2.'</i>
   </p>';
  
-  echo '<table class="table table-hover" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
+  echo '<table class="table table-hover mb-3" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
 data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
   sortlinks($dcategory, $sortby);
   echo '<tbody>';
@@ -255,6 +255,7 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
   }
   $result = sql_query($sql);
   list($total) =  sql_fetch_row($result);
+//
   if ($total>$perpage) {
     $pages=ceil($total/$perpage);
     if ($page > $pages) { $page = $pages; }
@@ -265,6 +266,17 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
     $pages=1;
     $page=1;
   }
+//  
+   $nbPages = ceil($total/$perpage);
+   $current = 1;
+   if ($page >= 1) {
+      $current=$page;
+   } else if ($page < 1) {
+      $current=1;
+   } else {
+      $current = $nbPages;
+   }
+
   settype($offset, "integer");
   settype($perpage, "integer");
   if ($dcategory==translate("All")) {
@@ -320,6 +332,9 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
    </table>';
 
 $dcategory = StripSlashes($dcategory);
+   echo paginate_single('download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page=', '', $nbPages, $current, $adj=3, '', $page);
+
+/*
    echo '
    <ul class="pagination pagination-sm mt-3 flex-wrap">';
    if ($pages > 1) {
@@ -333,19 +348,23 @@ $dcategory = StripSlashes($dcategory);
          </a>
       </li>';
       }
+
    while($pcnt < $page) {
       echo '
       <li class="page-item"><a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.$pcnt.'">'.$pcnt.'</a></li>';
         $pcnt++;
       }
+
    echo '
       <li class="page-item active"><a class="page-link" href="#">'.$page.'</a></li>';
       $pcnt++;
+
    while($pcnt <= $pages) {
       echo '
       <li class="page-item"><a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.$pcnt.'">'.$pcnt.'</a></li>';
       $pcnt++;
       }
+
    if ($page < $pages) {
       echo '
       <li class="page-item">
@@ -356,8 +375,11 @@ $dcategory = StripSlashes($dcategory);
       </li>';
       }
    }
+*/
+/*
    echo '
    </ul>';
+*/
 }
 
 function main() {
@@ -404,13 +426,15 @@ function broken($did) {
   settype($did, 'integer');
   if ($user) {
      if ($did) {
-        global $notify_email, $notify_message, $notify_from;
+        global $notify_email, $notify_message, $notify_from, $nuke_url;
         settype ($did, "integer");
-        $message=translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
+        $message=$nuke_url."\n\n".translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
         send_email($notify_email, translate("Report Broken Link"), $message, $notify_from , false, "text");
         include("header.php");
-        echo "<br /><p class=\"lead text-info text-center\">".translate("For security reasons your user name and IP address will also be temporarily recorded.");
-        echo "<br /><br />".translate("Thanks for this information. We'll look into your request shortly.")."</p>";
+        echo '
+        <div class="alert alert-success">
+           <p class="lead">'.translate("For security reasons your user name and IP address will also be temporarily recorded.").'<br />'.translate("Thanks for this information. We'll look into your request shortly.").'</p>
+        </div>';
         include("footer.php");
      } else {
         Header("Location: download.php");
