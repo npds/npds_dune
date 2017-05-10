@@ -392,6 +392,17 @@ function adminMain($deja_affiches) {
    settype($admart,"integer");
    $result = sql_query("SELECT sid, title, hometext, topic, informant, time, archive FROM ".$NPDS_Prefix."stories ORDER BY sid DESC LIMIT $deja_affiches,$admart");
 
+   $nbPages = ceil($nbre_articles/$admart);
+   $current = 1;
+   if ($deja_affiches >= 1) {
+      $current=$deja_affiches/$admart;
+   } else if ($deja_affiches < 1) {
+      $current=0;
+   } else {
+      $current = $nbPages;
+   }
+   $start=($current*$admart);
+      
    if ($nbre_articles) {
       echo '
       <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
@@ -462,7 +473,8 @@ function adminMain($deja_affiches) {
       </table>
       <ul class="pagination pagination-sm mt-3">
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
-         <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches=0">'.adm_translate("Les plus récents").'</a></li>';
+         <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>';
+/*
       if ($deja_affiches>=$admart) echo '
          <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches='.($deja_affiches-$admart).'" >'.adm_translate("Précédent").'</a></li>';
       if (($deja_affiches + $i) < $nbre_articles) {
@@ -470,8 +482,11 @@ function adminMain($deja_affiches) {
          echo '
          <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches='.$deja_affiches.'" >'.adm_translate("Suivant").'</a></li>';
       }
+*/
       echo '
       </ul>';
+      echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, $adj=3, $admart, $start);
+
       echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
          <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>

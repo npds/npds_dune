@@ -50,6 +50,16 @@ if (!function_exists("Mysql_Connexion")) {
          list(,$count)=each($result0);
          $count=$count['count'];
       }
+      
+   $nbPages = ceil($count/$maxcount);
+   $current = 1;
+   if ($start >= 1) {
+      $current=$start/$maxcount;
+   } else if ($start < 1) {
+      $current=0;
+   } else {
+      $current = $nbPages;
+   }
 
       if ($arch==0) {
          $xtab=news_aff("libre", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount);
@@ -91,18 +101,14 @@ if (!function_exists("Mysql_Connexion")) {
       }
       echo '
          </tbody>
-      </table><br />';
-      $start=$start+$maxcount-1;
-      echo '
+      </table>
       <ul class="mt-3 pagination pagination-sm">
-         <li class="page-item disabled"><a class="page-link" href="#" >'.translate("Nb of articles").' '.$count.' </a></li>';
-      if (($count-$start)>0) { echo '
-         <li class="page-item"><a class="page-link" href="modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start='.$start.'&amp;count='.$count.'" >'.translate("next matches").'</a></li>';
-         }
-      echo '
+         <li class="page-item disabled"><a class="page-link" href="#" >'.translate("Nb of articles").' '.$count.' </a></li>
+         <li class="page-item disabled"><a class="page-link" href="#" >'.$nbPages.' '.translate("pages").'</a></li>
       </ul>';
 
-      echo "<p align=\"center\"><br />".translate("Nb of articles")." : $count - [ <a href=\"modules.php?ModPath=archive-stories&amp;ModStart=archive-stories\">".translate("Go Back")."</a> ]</p>";
+      echo paginate('modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start=', '&amp;count='.$count, $nbPages, $current, $adj=3, $maxcount, $start);
+
    }
    if ($SuperCache) {
       $cache_obj->endCachingPage();
