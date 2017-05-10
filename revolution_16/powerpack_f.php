@@ -301,13 +301,8 @@ function makeChatBox() {
       }
       $PopUp = JavaPopUp("chat.php?id=".$auto[0]."&amp;auto=".encrypt(serialize($auto[0])),"chat".$auto[0],380,480);
       if ($une_ligne) {$thing.='<hr class="" />';}
-      
-//      $thing.='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip"><i class="fa fa-comments fa-2x "></i></a>';
-
       $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' AND date >= ".(time()-(60*2))."");
       $numofchatters = sql_num_rows($result);
-      
-      
       if ($numofchatters > 0) {
          $thing.='<a class=" nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a><span class="badge badge-pill badge-primary pull-right" title="'.translate("person chatting right now.").'" data-toggle="tooltip">'.$numofchatters.'</span> ';
       }
