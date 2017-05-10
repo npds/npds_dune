@@ -65,8 +65,18 @@ function Caff_pub($topic, $file_name, $archive) {
    settype($comments_per_page,'integer');
    $result=sql_query ("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic' AND post_aff='1'");
    list($total)=sql_fetch_row($result);
-   if ($total > $comments_per_page) {
-      $times = 1; $current_page=0;
+
+   $nbPages = ceil($total/$comments_per_page);
+   $current = 1;
+   if ($C_start >= 1) {
+      $current=$C_start/$comments_per_page;
+   } else if ($C_start < 1) {
+      $current=0;
+   } else {
+      $current = $nbPages;
+   }
+
+   if($total>=1)
       echo '
       <div id="co-pagihaute" class="my-2">
          <ul class="pagination pagination-sm">
@@ -77,24 +87,12 @@ function Caff_pub($topic, $file_name, $archive) {
                <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
             </li>
             <li class="page-item disabled">
-               <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
-            </li>';
-       $pages_rapide='';
-      for ($x = 0; $x < $total; $x += $comments_per_page) {
-         if (($x>=$C_start) and ($current_page==0)) {
-            $current_page=$times;
-         }
-         if ($current_page!=$times)
-            $pages_rapide.='
-             <li class="page-item"><a class="page-link" href="'.rawurldecode($url_ret).'&amp;C_start='.$x.'">'.$times.'</a></li>';
-         else
-            $pages_rapide.='
-             <li class="page-item active"><a class="page-link" href="#">'.$times.'</a></li>';
-         $times++;
-      }
-      echo $pages_rapide.'
+               <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
+            </li>
          </ul>
       </div>';
+   if ($total > $comments_per_page) {
+      echo paginate(rawurldecode($url_ret).'&amp;C_start=', '', $nbPages, $current, $adj=3, $comments_per_page, $C_start);
    }
 
    if ($Mmod) {
@@ -233,7 +231,6 @@ if ($mycount) {
     } while($myrow = sql_fetch_assoc($result));
     unset ($tmp_imp); // not sure we need ?
 
-   if ($total > $comments_per_page) {
       echo '
    <nav id="co-pagibasse">
       <ul class="pagination pagination-sm d-flex flex-wrap my-2">
@@ -241,13 +238,16 @@ if ($mycount) {
             <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
          </li>
          <li class="page-item disabled">
-            <a class="page-link" href="#">'.translate("Goto Page").'</a>
-         </li>';
-      echo $pages_rapide.'
+            <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
+         </li>
+         <li class="page-item disabled">
+            <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
+         </li>
       </ul>
    </nav>';
+   if ($total > $comments_per_page) {
+      echo paginate(rawurldecode($url_ret).'&amp;C_start=', '', $nbPages, $current, $adj=3, $comments_per_page, $C_start);
    }
-
    if ($allow_to_post) {
       echo '<nav class="text-right mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    }
