@@ -47,11 +47,11 @@ include("functions.php");
    include("lib/formhelp.java.php");
    echo '</head>';
 
-   // cookie chat_info
+   // cookie chat_info (1 par groupe)
    echo '
    <script type="text/javascript" src="lib/cookies.js"></script>';
    echo "
-      <body id=\"chat\" onload=\"setCookie('chat_info', '1', '');\" onUnload=\"deleteCookie('chat_info');\">";
+      <body id=\"chat\" onload=\"setCookie('chat_info_$id', '1', '');\" onUnload=\"deleteCookie('chat_info_$id');\">";
    putitems();
    echo '
          <form name="coolsus" action="chatinput.php" method="post">
