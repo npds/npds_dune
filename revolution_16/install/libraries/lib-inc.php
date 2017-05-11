@@ -52,7 +52,7 @@ function FixQuotes($what = '') {
 function verif_php() {
    global $stopphp, $phpver;
    $stopphp = 0;
-   if(phpversion() < "4.0.6") { 
+   if(phpversion() < "5.3.0") { 
       $phpver = phpversion();
       $stopphp = 1;
    }

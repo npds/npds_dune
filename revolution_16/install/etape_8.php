@@ -78,6 +78,7 @@ function etape_8() {
                         <label class="form-control-label" for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
                         <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
+                        <small>'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</small>
                      </div>
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />

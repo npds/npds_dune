@@ -22,7 +22,7 @@
 global $ModInstall;
 
 #autodoc $name_module: Nom du module
-$name_module = "monmodule";
+$name_module = 'monmodule';
 
 #autodoc $path_adm_module: chemin depuis $ModInstall #required si admin avec interface
 $path_adm_module = 'admin/monmodule_admin';
@@ -39,15 +39,15 @@ $req_adm="INSERT INTO fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fet
 #autodoc et dans le deuxième, A LA MEME POSITION D'INDEX QUE LE PREMIER, tapez le code à insérer dans le fichier.
 #autodoc Si le fichier doit être créé, n'oubliez pas les < ? php et ? > !!! (sans espace!).
 #autodoc Synopsis: $list_fich = array(array("nom_fichier1","nom_fichier2"), array("contenu_fchier1","contenu_fichier2"));
-$list_fich = '';
+
+$list_fich = array(array('',''), array('',''));
 
 #autodoc $sql = array(""): Si votre module doit exécuter une ou plusieurs requêtes SQL, tapez vos requêtes ici.
 #autodoc Attention! UNE requête par élément de tableau!
 #autodoc Synopsis: $sql = array("requête_sql_1","requête_sql_2");
-// pour test ip_locX au lieu de ip_loc
 
 $sql='';
-$sql = array("","");
+$sql = array('','');
 
 if($path_adm_module!='') $sql[]=$req_adm;
 
@@ -59,7 +59,7 @@ $blocs = array(array("[french]Mon module[/french][english]My plugin[/english]"),
 
 #autodoc $txtdeb : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera au début de l'install
 #autodoc Si rien n'est mis, le texte par défaut sera automatiquement affiché
-$txtdeb = "";
+$txtdeb = '';
 
 
 #autodoc $txtfin : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera à la fin de l'install
