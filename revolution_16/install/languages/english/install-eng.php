@@ -39,7 +39,7 @@ function ins_translate($phrase) {
   case "Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.": $tmp = "Tip : use your favorite FTP client for made this changes and do 'Reload'."; break;
   case "Actualiser": $tmp = "Reload"; break;
   case "Version actuelle de PHP": $tmp = "Actual PHP version"; break;
-  case "NPDS nécessite une version 4.0.6 ou supérieure !": $tmp = "PHP version 4.0.6 or greater is recommended for NPDS !"; break;
+  case "NPDS nécessite une version 5.3.0 ou supérieure !": $tmp = "PHP version 5.3.0 or greater is recommended for NPDS !"; break;
   case "Préfixe des tables sql": $tmp = "Sql table prefixes"; break;
   case "Droits d'accès du fichier ": $tmp = "Rights access of "; break;
   case "Le fichier 'abla.log.php' est introuvable !": $tmp = "The file 'abla.log.php' is missing !"; break;
@@ -85,11 +85,11 @@ function ins_translate($phrase) {
   case "Erreur : la base de données est inexistante et n'a pas pu être créée. Vous devez la créer manuellement ou demander à votre hébergeur !": $tmp = "Error : the database is missing and the script can not created it itself. You must created it manually or ask to your web hosting administrator !"; break;
   case "Erreur : la connexion à la base de données a échoué. Vérifiez vos paramètres !": $tmp = "Error : could not connect to the database. Verify your parameters !"; break;
   case "Nous allons maintenant procéder à la création des tables de la base de données ": $tmp = "Now, we proceed to the tables database creation "; break;
-   case "sur le serveur d'hébergement": $tmp = "on the host server"; break;
-   case "Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !": $tmp = "If your database is not empty, make a backup before continue !"; break;
-   case "Si la base de données": $tmp = "If the database"; break;
-   case " Tables préfixées avec : ": $tmp = "Tables with this prefix: "; break;
-   case "n'existait pas ce script tentera de la créer pour vous.": $tmp = "not exists this script will try to create for you."; break;
+  case "sur le serveur d'hébergement": $tmp = "on the host server"; break;
+  case "Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !": $tmp = "If your database is not empty, make a backup before continue !"; break;
+  case "Si la base de données": $tmp = "If the database"; break;
+  case " Tables préfixées avec : ": $tmp = "Tables with this prefix: "; break;
+  case "n'existait pas ce script tentera de la créer pour vous.": $tmp = "not exists this script will try to create for you."; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Now, we will proceed to the database update. Tips : save your database before continuing !"; break;
   case "Créer": $tmp = "Create"; break;
   case " Mettre à jour ": $tmp = " Make update "; break;
@@ -98,8 +98,7 @@ function ins_translate($phrase) {
   case "La base de données a été mise à jour avec succès !": $tmp = "The database was updated successfully !"; break;
   case "La base de données n'a pas pu être modifiée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.": $tmp = "The database update failed. Verify your parameters and files and proceed again."; break;
   case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notice : you must validate the preferences in administration interface to terminate the update process.";
-  case "Copier le contenu de votre dossier /logs dans le dossier /slogs puis supprimer le dossier /logs":
-  $tmp = "Copy the content of /logs folder into /slogs folder and delete the /logs folder"; break;
+  case "Copier le contenu de votre dossier /logs dans le dossier /slogs puis supprimer le dossier /logs": $tmp = "Copy the content of /logs folder into /slogs folder and delete the /logs folder"; break;
   case "Votre version de NPDS est incorrecte, version requise": $tmp = "Bad NPDS version, you must have version"; break;
   case "Administrateur": $tmp = "Administrator"; break;
   case "Identifiant": $tmp = "Login"; break;
@@ -127,9 +126,8 @@ function ins_translate($phrase) {
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Do not forget to remove with your favorite FTP client the directory 'install/' as well as the file 'install.php' !"; break;
   case "Quitter": $tmp = "Exit"; break;
   case "Installation rapide": $tmp = "Quick setup"; break;
+  case "SI installation locale" : $tmp = "IF local install"; break;
 
-  
-  
   default: $tmp = "Need to be translated [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

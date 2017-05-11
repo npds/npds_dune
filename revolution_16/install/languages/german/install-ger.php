@@ -39,7 +39,7 @@ function ins_translate($phrase) {
   case "Conseil : utilisez votre client FTP favori pour effectuer ces modifications puis faites 'Actualiser'.": $tmp = "Tipp : Benutzen Sie Ihr FTP Programm um die Änderungen vorzunehmen und klicken Sie dann auf 'Aktualisieren'."; break;
   case "Actualiser": $tmp = "Aktualisieren"; break;
   case "Version actuelle de PHP": $tmp = "Aktuelle PHP Version"; break;
-  case "NPDS nécessite une version 4.0.6 ou supérieure !": $tmp = "PHP Version 4.0.6 oder höher ist notwendig für NPDS !"; break;
+  case "NPDS nécessite une version 5.3.0 ou supérieure !": $tmp = "PHP Version 5.3.0 oder höher ist notwendig für NPDS !"; break;
   case "Préfixe des tables sql": $tmp = "Sql Tabellen Prefix"; break;
   case "Droits d'accès du fichier ": $tmp = "Dateizugriffsrechte für "; break;
   case "Le fichier 'abla.log.php' est introuvable !": $tmp = "Die Datei 'abla.log.php' fehlt !"; break;
@@ -126,6 +126,7 @@ function ins_translate($phrase) {
   case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = "Vergessen Sie nicht den 'install/' Ordner und die 'install.php' Datei zu löschen!"; break;
   case "Quitter": $tmp = "Beenden"; break;
   case "Installation rapide": $tmp = "Schnelle Einrichtung"; break;
+  case "SI installation locale" : $tmp = "Wenn lokale Einrichtung"; break;
 
   default: $tmp = "Muss übersetzt werden [** $phrase **]"; break;
  }

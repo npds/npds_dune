@@ -39,7 +39,7 @@ function etape_3() {
    if ($stopphp != 0) {
       echo '
                <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
-               <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 4.0.6 ou supérieure !").'</div>
+               <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 5.3.0 ou supérieure !").'</div>
                <form name="reload" method="post">
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>';
