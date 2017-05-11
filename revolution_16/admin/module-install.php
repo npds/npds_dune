@@ -80,12 +80,11 @@ function nmig_License($licence_file) {
    <div class="">
       <p><strong>'.adm_translate("L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :").'</strong></p>
       <div style="text-align: center;">
-         <textarea class="form-control" name="licence" rows="12" readonly="readonly">'.htmlentities($licence_text).'</textarea>
+         <textarea class="form-control" name="licence" rows="12" readonly="readonly">'.htmlentities($licence_text, ENT_QUOTES | ENT_IGNORE, "UTF-8").'</textarea>
          <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e3" class="btn btn-primary">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=modules" class="btn btn-danger">'.adm_translate("Non").'</a><br />
       </div>
       '.nmig_copyright();
 }
-
 //e3
 
 function nmig_AlertSql($sql,$tables) {
