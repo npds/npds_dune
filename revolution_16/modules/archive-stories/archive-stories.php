@@ -17,7 +17,7 @@ if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
-
+   include_once('functions.php');
    include ("modules/$ModPath/archive-stories.conf.php");
    include ("modules/$ModPath/cache.timings.php");
    if (!isset($start)) {$start=0;}
