@@ -33,8 +33,14 @@ if($user_intrest!='')
    $m->add_field('user_intrest', translate("Interest"),$user_intrest,'text',false,150,'','');
 if ($op=='userinfo' and $bio!='')
    $m->add_field('bio',translate("Extra Info"),$bio,'textarea',false,255,7,'','');
+
+// à revoir !! pour prise en compte du champ choisi dans user_extend
+settype($C7,'float');
+settype($C8,'float');
 if($C7!='')
    $m->add_field('C7','Latitude',$C7,'text',false,100,'','','');
 if($C8!='')
    $m->add_field('C8','Longitude',$C8,'text',false,100,'','','');
+// à revoir !! pour prise en compte du champ choisi dans user_extend
+
 ?>

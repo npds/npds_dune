@@ -376,6 +376,8 @@ if ($submitS) {
             </div>';
            }
         }
+         settype($upload,'string');
+         settype($up,'string');
         if ($allow_upload_forum) {
            if ($upload == 'on') {$up = 'checked="checked"';}
          echo '
@@ -481,7 +483,6 @@ if ($submitS) {
             $message = smilie($message);
             $message = aff_video_yt($message);
          }
-//         $message=split_string_without_space($message, 80);
          if (($forum_type=='6') or ($forum_type=='5')) {
             highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
          } else {

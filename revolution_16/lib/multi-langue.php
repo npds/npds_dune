@@ -12,6 +12,7 @@
 
 // Multi-language
 $local_path='';
+settype($user_language,'string');
 if (isset($module_mark)) {$local_path='../../';}
 
 if (file_exists($local_path.'cache/language.php')) {

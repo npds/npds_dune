@@ -1125,7 +1125,6 @@ function chgtheme() {
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
    echo '
-   
    <h2>'.translate("Change Theme").'</h2>
    <form role="form" action="user.php" method="post">
       <div class="form-group row">
@@ -1159,7 +1158,7 @@ function chgtheme() {
    $handle=opendir('themes/_skins');
    while (false!==($file = readdir($handle))) {
       if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
-         $skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $depotskin.$file.'/thumbnail','preview'=> $depotskin.$file.'/','css'=> $depotskin.$file.'/bootstrap.css','cssMin'=> $depotskin.$file.'/bootstrap.min.css','cssxtra'=> $depotskin.$file.'/extra.css','scss'=> $depotskin.$file.'/_bootswatch.scss','scssVariables'=> $depotskin.$file.'/_variables.scss');
+         $skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $file.'/thumbnail','preview'=> $file.'/','css'=> $file.'/bootstrap.css','cssMin'=> $file.'/bootstrap.min.css','cssxtra'=> $file.'/extra.css','scss'=> $file.'/_bootswatch.scss','scssVariables'=> $file.'/_variables.scss');
       }
    }
    closedir($handle);

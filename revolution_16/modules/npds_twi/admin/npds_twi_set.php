@@ -23,10 +23,27 @@ $f_titre='npds_twi';
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 
+GraphicAdmin($hlpfile);
+global $adminimg;
+   //en attente implémentation pour notice php généré
+   settype($tbox_width,'integer');
+   settype($tbox_height,'integer');
+   settype($class_sty_2,'string');
+   settype($class_sty_1,'integer');
+   settype($npds_twi_post,'integer');
+   //
+   settype($npds_twi_urshort,'integer');
+   settype($npds_twi_arti,'integer');
+   settype($consumer_key,'string');
+   settype($consumer_secret,'string');
+   settype($oauth_token_secret,'string');
+   settype($oauth_token,'string');
+
+
 function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height) {
    if (file_exists('modules/'.$ModPath.'/twi_conf.php'))
       include ('modules/'.$ModPath.'/twi_conf.php');
-   global $f_meta_nom, $f_titre, $adminimg;
+   global $f_meta_nom, $f_titre, $adminimg, $npds_twi;
    $checkarti_y='';$checkarti_n='';$checkpost_y='';$checkpost_n='';$urshort_mr='';$urshort_ft='';$urshort_c='';
    if ($npds_twi_arti===1) {$checkarti_y='checked="checked"';} else {$checkarti_n='checked="checked"';};
    if ($npds_twi_post===1) {$checkpost_y='checked="checked"';} else {$checkpost_n='checked="checked"';};
@@ -34,36 +51,57 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    if ($npds_twi_urshort===2) {$urshort_ft='checked="checked"';};
    if ($npds_twi_urshort===3) {$urshort_c='checked="checked"';}
    else {$checkpost_n='checked="checked"';};
-   
+   //en attente implémentation pour notice
+   settype($tbox_width,'integer');
+   settype($tbox_height,'integer');
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   if ($npds_twi!=1) echo'<div class="alert alert-danger">Pour la publication de vos news sur twitter vous devez activer</div>';
-   echo'     <span class="text-danger">*</span> '.twi_trad('requis').'
+   echo '<hr />';
+   if ($npds_twi!==1) 
+      echo "
+   <div class=\"alert alert-danger\">La publication de vos news sur twitter n'est pas autorisée vous devez l'activer <a class=\"alert-link\" href=\"admin.php?op=Configure\">Ici</a></div>";
+   else 
+      echo'
+   <div class="alert alert-success">La publication de vos news sur twitter est autorisée. Vous pouvez révoquer cette autorisation <a class="alert-link" href="admin.php?op=Configure">Ici</a></div>';
 
-   <h3>'.twi_trad('Configuration du module npds_twi').'</h3>
+   echo '
+   <h3 class="mb-3">'.twi_trad('Configuration du module npds_twi').'</h3>
+   <span class="text-danger">*</span> '.twi_trad('requis').'
    <form action="admin.php" method="post">
-
-
       <div class="form-group row">
          <label class="form-control-label col-sm-6" for="npds_twi_arti">'.twi_trad('Activation de la publication auto des articles').'</label>
          <div class="col-sm-6">
-            <label><input type="radio" name="npds_twi_arti" value="1" '.$checkarti_y.' />&nbsp;'.twi_trad('Oui').'</label>
-            <label><input type="radio" name="npds_twi_arti" value="0" '.$checkarti_n.' />&nbsp;'.twi_trad('Non').'</label>
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="npds_twi_arti" value="1" '.$checkarti_y.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.twi_trad('Oui').'</span>
+            </label>
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="npds_twi_arti" value="0" '.$checkarti_n.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.twi_trad('Non').'</span>
+            </label>
          </div>
       </div>
-    
-    
-    <!-- En attente implementation 
-    <tr>
-     <td width="30%">'.twi_trad('Activation de la publication auto des posts').'</td>
-     <td>&nbsp;<input type="radio" name="npds_twi_post" value="1" '.$checkpost_y.' />&nbsp;'.twi_trad('Oui').'&nbsp;&nbsp;<input type="radio" name="npds_twi_post" value="0" '.$checkpost_n.' />&nbsp;'.twi_trad('Non').'</td>
-    </tr>
-    -->
       <div class="form-group row">
          <label class="form-control-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
          <div class="col-sm-6">
-            <label><input type="radio" name="npds_twi_urshort" value="1" '.$urshort_mr.' />&nbsp;'.twi_trad("Réécriture d'url avec mod_rewrite").'</label>
-            <label><input type="radio" name="npds_twi_urshort" value="2" '.$urshort_ft.' />&nbsp;'.twi_trad("Réécriture d'url avec ForceType").'</label>
-            <label><input type="radio" name="npds_twi_urshort" value="3" '.$urshort_c.' />&nbsp;'.twi_trad("Réécriture d'url avec controleur Npds").'</label>
+            <div class="custom-controls-stacked">
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="npds_twi_urshort" value="1" '.$urshort_mr.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.twi_trad("Réécriture d'url avec mod_rewrite").'</span>
+               </label>
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="npds_twi_urshort" value="2" '.$urshort_ft.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.twi_trad("Réécriture d'url avec ForceType").'</span>
+               </label>
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" name="npds_twi_urshort" value="3" '.$urshort_c.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.twi_trad("Réécriture d'url avec controleur Npds").'</span>
+               </label>
+            </div>
          </div>
       </div>
       <div class="form-group row">
@@ -147,6 +185,8 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
 }
 
 function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height, $class_sty_1, $class_sty_2, $ModPath, $ModStart) {
+   
+
    //==> modifie le fichier de configuration
    $file_conf = fopen("modules/$ModPath/twi_conf.php", "w+");
    $content = "<?php \n";
@@ -242,16 +282,21 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
   //<== modifie le fichier controleur
 }
 
+/*
 function AfterSaveSettwi($ModPath, $ModStart) {
    echo '<strong>Votre module est paramétré ou modifiez ci-dessous les paramètres nécessaires</strong>';
 }
+*/
 
 if ($admin) {
+   settype($subop,'string');
    switch ($subop) {
       case "SaveSettwi":
       SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height, $class_sty_1, $class_sty_2, $ModPath, $ModStart);
+/*
       case "AfterSaveSettwi":
       AfterSaveSettwi($ModPath, $ModStart);
+*/
       default:
       Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height);
       break;

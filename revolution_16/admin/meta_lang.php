@@ -34,9 +34,10 @@ function go_back($label) {
 }
 function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
+   $sel='';
    $list = '
    <select class="custom-select" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
-      <option value="'.$url.'">META-MOT</option>';
+      <option value="">META-MOT</option>';
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
    while ($resultat = sql_fetch_row($Q))  {
@@ -63,12 +64,13 @@ function list_meta_type() {
 }
 function list_type_meta($type_meta) {
    global $NPDS_Prefix;
+   $sel = '';
    $list = '
    <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">Type</option>';
    $Q = sql_query("SELECT type_meta FROM ".$NPDS_Prefix."metalang GROUP BY type_meta ORDER BY 'type_meta' ASC");
    while ($resultat = sql_fetch_row($Q))  {
-      if ($type_meta == $resultat[0]) { $sel = "selected "; }
+      if ($type_meta == $resultat[0]) $sel = 'selected="selected"';
       $list .= '<option '.$sel.' value="admin.php?op=Meta-LangAdmin&amp;type_meta='.$resultat[0].'">'.$resultat[0].'</option>';
       $sel = '';
    }

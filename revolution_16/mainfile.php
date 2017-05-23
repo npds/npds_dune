@@ -1468,11 +1468,12 @@ function pollMain($pollID,$pollClose) {
          $sum = $sum + $object['optionCount'];
       }
    }
+   settype($inputvote,'string');
    if (!$pollClose) {
       $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Vote").'" title="'.translate("Vote").'" ><i class="fa fa-check fa-lg"></i> '.translate("Vote").'</button>';
    }
    $boxContent .= '
-   <div class="form-group">'.$inputvote.'</div>
+      <div class="form-group">'.$inputvote.'</div>
    </form>
    <a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Results").'">'.translate("Results").'</a>&nbsp;&nbsp;<a href="pollBooth.php">'.translate("Past Surveys").'</a>';
    if ($pollcomm) {
@@ -2715,7 +2716,7 @@ function bloc_espace_groupe($gr, $i_gr) {
 }
 
 function fab_espace_groupe($gr, $t_gr, $i_gr) {
-   global $NPDS_Prefix;
+   global $NPDS_Prefix, $short_user;
 
    $rsql=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
 
@@ -2783,7 +2784,6 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          }
          else $my_rsos[]='';
       }
-   
    
       list($uname, $user_avatar, $mns, $url, $femail)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url, femail FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
       
@@ -2914,6 +2914,7 @@ $content.='<div class="card card-block d-flex flex-row mt-3 flex-wrap">';
    }
    //<= Minisite
    //=> Chat
+   settype($chat_img,'string');
    if ($rsql['groupe_chat'] == 1) {
       $PopUp = JavaPopUp("chat.php?id=$gr&amp;auto=".encrypt(serialize ($gr)),"chat".$gr,380,480);
       if ($_COOKIE['chat_info_'.$gr]) $chat_img='faa-pulse animated faa-slow';

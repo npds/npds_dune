@@ -174,7 +174,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       if ($forum_access==2)
          if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
       if ($allow_to_post) {
-         echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="hidden-sm-down">'.translate("New Topic").'<br /></span></a>';
+         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="hidden-sm-down">'.translate("New Topic").'<br /></span></a>';
       }
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
@@ -207,10 +207,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if (!$result = sql_query($sql))
      forumerror('0004');
 
-   if ($ibid=theme_image("forum/icons/hot_red_folder.gif")) {$imgtmpHR=$ibid;} else {$imgtmpHR="images/forum/icons/hot_red_folder.gif";}
-   if ($ibid=theme_image("forum/icons/hot_folder.gif")) {$imgtmpH=$ibid;} else {$imgtmpH="images/forum/icons/hot_folder.gif";}
    if ($ibid=theme_image("forum/icons/red_folder.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/red_folder.gif";}
-   if ($ibid=theme_image("forum/icons/folder.gif")) {$imgtmpF=$ibid;} else {$imgtmpF="images/forum/icons/folder.gif";}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("box/right.gif")) {$imgtmpRi=$ibid;} else {$imgtmpRi="images/download/right.gif";}
 
@@ -263,13 +260,13 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             }
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
-            echo '<td class="">'.$image.'</td>';
+            echo '<td>'.$image.'</td>';
 
-            if ($image_subject != "") {
+            if ($image_subject != '') {
                if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
-               echo '<td><img class="n-smil" src="'.$imgtmp.'" border="0" alt="" /></td>';
+               echo '<td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else 
-            echo '<td><img class="n-smil" src="'.$imgtmpP.'" border="0" alt="" /></td>';
+            echo '<td><img class="n-smil" src="'.$imgtmpP.'" alt="" /></td>';
 
             $topic_title = stripslashes($myrow['topic_title']);
             if (!stristr($topic_title,"<a href=")) {
@@ -332,49 +329,18 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if (isset($closoled)) $closol='&amp;closoled=on';
    else $closol='';
    $count = 1;
-//   $next = $start + $topics_per_page;
    $nbPages = ceil($all_topics/$topics_per_page);
 
    $current = 1;
-      if ($start >= 1) {
-         $current=$start/$topics_per_page;
-      } else if ($start < 1) {
-         $current=0;
-      } else {
-         $current = $nbPages;
-      }
-/*   
-   echo '
-   <nav>
-      <ul class="pagination pagination-sm d-flex flex-wrap mt-3">';
-   if ($all_topics > $topics_per_page) {
-      if ($next >= $all_topics) {
-         echo '
-         <li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.($next-2*$topics_per_page).$closol.'">'.translate("Previous Page").'</a></li>';
-      }
-      else {
-          echo '
-         <li class="page-item disabled text-center"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$next.$closol.'">'.translate("Next Page").'</a></li>';
-      }
-      for($x = 0; $x < $all_topics; $x++) {
-         if (!($x % $topics_per_page)) {
-            if ($x == $start)
-               echo '<li class="page-item active"><a class="page-link" href="#">'.$count.'</a></li>';
-            else
-               echo '<li class="page-item"><a class="page-link" href="viewforum.php?forum='.$forum.'&amp;start='.$x.$closol.'">'.$count.'</a></li>';
-            $count++;
-         }
-      }
-   }
-   echo '
-      </ul>
-   </nav>';
-*/
-echo paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, $adj=3, $topics_per_page, $start);
+   if ($start >= 1) {$current=$start/$topics_per_page;}
+   else if ($start < 1) {$current=0;}
+   else {$current = $nbPages;}
 
-echo searchblock();
+   echo paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, $adj=3, $topics_per_page, $start);
+
+   echo searchblock();
 //      if ($myrow = sql_fetch_assoc($result)) 
-echo '
+   echo '
    <blockquote class="blockquote my-3">
       <i class="fa fa-file-text-o fa-lg"></i> = '.translate("New Posts since your last visit.").'<br />
       <i class="fa fa-file-text fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />

@@ -26,6 +26,7 @@ function topicsmanager() {
    GraphicAdmin($hlpfile);
    $result = sql_query("SELECT topicid, topicname, topicimage, topictext FROM ".$NPDS_Prefix."topics ORDER BY topicname");
    adminhead ($f_meta_nom, $f_titre, $adminimg);
+   settype($topicadmin,'string');
    if (sql_num_rows($result) > 0) {
       echo '
    <hr />

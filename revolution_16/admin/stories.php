@@ -75,12 +75,13 @@ function puthome($ihome) {
     // ---- Groupes
     $mX=liste_group();
     $tmp_groupe='';
+    settype($Mmembers,'integer');
     while (list($groupe_id, $groupe_name)=each($mX)) {
        if ($groupe_id=='0') {$groupe_id='';}
        if ($Mmembers==$groupe_id) {$sel3='selected="selected"';} else {$sel3='';}
        $tmp_groupe.='
        <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
-      $nbg++;
+//      $nbg++;
     }
    echo '
       <div class="form-group row">
@@ -976,6 +977,20 @@ function adminStory() {
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
+   settype($hometext,'string');
+   settype($bodytext,'string');
+   settype($deb_day,'integer');
+   settype($deb_month,'integer');
+   settype($deb_year,'integer');
+   settype($deb_hour,'integer');
+   settype($deb_min,'integer');
+   settype($fin_day,'integer');
+   settype($fin_month,'integer');
+   settype($fin_year,'integer');
+   settype($fin_hour,'integer');
+   settype($fin_min,'integer');
+   settype($epur,'integer');
+   settype($ihome,'integer');
 
    echo '
    <hr />

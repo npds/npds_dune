@@ -30,6 +30,8 @@ if ($allow_upload_forum) {
    include("modules/upload/upload_forum.php");
 }
 
+settype($start,'integer');
+
 //==> droits des admin sur les forums (superadmin et admin avec droit gestion forum)
    $adminforum=false;
    if ($admin) {
@@ -127,8 +129,7 @@ function aff_pub($lock_state, $topic, $forum, $mod) {
 function aff_pub_in($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0) {
-   echo '
-   <a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="hidden-sm-down"></span><i class="fa fa-reply mr-2"></i><span class="hidden-sm-down">'.translate("Reply").'</span></a>';
+   echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="hidden-sm-down"></span><i class="fa fa-reply mr-2"></i><span class="hidden-sm-down">'.translate("Reply").'</span></a>';
    }
 }
 

@@ -175,7 +175,7 @@ function SaveSetReseaux($ModPath, $ModStart) {
    Header("Location: modules.php?&ModPath=$ModPath&ModStart=$ModStart");
 
 }
-
+settype($op,'string');
 switch ($op) {
    case 'SaveSetReseaux':
       SaveSetReseaux($ModPath, $ModStart);break;

@@ -114,6 +114,7 @@ function GraphicAdmin($hlpfile) {
    //etat filemanager
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
    //version npds
+   //notice ... à revoir ...
    if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1' WHERE fid=36"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='36'");
    //referant à gérer
    if($httpref = 1) {
@@ -167,7 +168,7 @@ function GraphicAdmin($hlpfile) {
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-         <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
+            <li id="'.$SAQ['fid'].'" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
          if ($admingraphic==1) {
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          } else{
@@ -178,14 +179,14 @@ function GraphicAdmin($hlpfile) {
             }
          }
          $li_c .='</a></li>';
-//          $X=$j-1;
-//          $catX=$cat_n[$X];
+         $ul_f='';
+         if ($j!==0)
          $ul_f ='
          </ul>
          <script type="text/javascript">
          //<![CDATA[
          $( document ).ready(function() {
-         tog(\''.strtolower(substr($cat_n[$j-1],0,3)).'\',\'show_'.strtolower(substr($cat_n[$j-1],0,3)).'\',\'hide_'.strtolower(substr($cat_n[$j-1],0,3)).'\');
+         tog(\''.strtolower(substr($cat_n[($j-1)],0,3)).'\',\'show_'.strtolower(substr($cat_n[$j-1],0,3)).'\',\'hide_'.strtolower(substr($cat_n[$j-1],0,3)).'\');
          })
          //]]>
          </script>'."\n";
@@ -198,10 +199,17 @@ function GraphicAdmin($hlpfile) {
       }
       $j++;
    }
-   if($cat_n) $ca=array_pop(array_unique($cat_n));
+   
+   if($cat_n) {
+      $ca=array();
+      $ca=array_unique($cat_n);
+      $ca=array_pop($ca);
+   }
+   //if($cat_n) $ca=array_pop(array_unique($cat_n));
 
    $bloc_foncts .= '
-   <script type="text/javascript" style="clear:left;">
+   </ul>
+   <script type="text/javascript">
       //<![CDATA[
        $( document ).ready(function() {
          tog(\''.strtolower(substr($ca,0,3)).'\',\'show_'.strtolower(substr($ca,0,3)).'\',\'hide_'.strtolower(substr($ca,0,3)).'\');
@@ -406,15 +414,15 @@ function adminMain($deja_affiches) {
    if ($nbre_articles) {
       echo '
       <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
-                <thead>
-                    <tr>
-                        <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">ID</th>
-                        <th data-halign="center">'.adm_translate("Titre").'</th>
-                        <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
-                        <th data-halign="center" data-align="right" class="n-t-col-xs-3">'.adm_translate("Fonctions").'</th>
-                    </tr>
-                </thead>
-                <tbody>';
+         <thead>
+            <tr>
+               <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">ID</th>
+               <th data-halign="center">'.adm_translate("Titre").'</th>
+               <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
+               <th data-halign="center" data-align="right" class="n-t-col-xs-3">'.adm_translate("Fonctions").'</th>
+            </tr>
+         </thead>
+         <tbody>';
       $i=0;
       while( (list($sid, $title, $hometext, $topic, $informant, $time, $archive) = sql_fetch_row($result)) and ($i<$admart) ) {
          $affiche = false;
@@ -453,7 +461,6 @@ function adminMain($deja_affiches) {
             echo '</td>
             <td>'.$topictext.'<a href="index.php?op=newtopic&amp;topic='.$topic.'" class="tooltip">'.aff_langue($topictext).'</a>';
          }
-         
          if ($affiche) {
             echo '</td>
             <td>
@@ -463,7 +470,6 @@ function adminMain($deja_affiches) {
             echo '</td>
             <td>';
          }
-         
          echo '</td>
          </tr>';
          $i++;
@@ -473,17 +479,7 @@ function adminMain($deja_affiches) {
       </table>
       <ul class="pagination pagination-sm mt-3">
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
-         <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>';
-/*
-      if ($deja_affiches>=$admart) echo '
-         <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches='.($deja_affiches-$admart).'" >'.adm_translate("Précédent").'</a></li>';
-      if (($deja_affiches + $i) < $nbre_articles) {
-         $deja_affiches+=$admart;
-         echo '
-         <li class="page-item"><a class="page-link" href="admin.php?op=suite_articles&amp;deja_affiches='.$deja_affiches.'" >'.adm_translate("Suivant").'</a></li>';
-      }
-*/
-      echo '
+         <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>
       </ul>';
       echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, $adj=3, $admart, $start);
 

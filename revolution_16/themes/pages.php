@@ -108,6 +108,8 @@
 settype($title,'string');
 settype($post,'string');
 settype($nuke_url,'string');
+settype($api_key,'string');
+settype($ModPath,'string');
 // ----------------------------
 
 $PAGES['index.php']['title']="[french]Index[/french][english]Home[/english][spanish]Index[/spanish][german]Index[/german][chinese]&#x7D22;&#x5F15;[/chinese]+";

@@ -28,6 +28,13 @@ admindroits($aid,$f_meta_nom);
 include ('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
 $f_titre= geoloc_translate("Configuration du module Geoloc");
 
+   settype($subop,'string');
+   settype($geo_ip,'integer');
+   settype($cartyp,'string');
+   settype($ch_lat,'string');
+   settype($ch_lon,'string');
+
+
 function vidip(){
    global $NPDS_Prefix;
    $sql = "DELETE FROM ".$NPDS_Prefix."ip_loc WHERE ip_id >=1";
@@ -67,7 +74,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          <div class="form-group row">
             <label class="form-control-label col-sm-6" for="api_key">'.geoloc_translate("Clef d'API").'<span class="text-danger ml-1">*</span> : '.$api_key.'</label>
             <div class="col-sm-6">
-               <input type="text" class="form-control" name="api_key" id="ch_lat" placeholder="" value="'.$api_key.'" required="required" />
+               <input type="text" class="form-control" name="api_key" id="api_key" placeholder="" value="'.$api_key.'" required="required" />
             </div>
          </div>
          <div class="form-group row ">
@@ -849,7 +856,7 @@ adminfoot('','','','');
 
 }
 
-function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon) {
+function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart) {
    //==> modifie le fichier de configuration
    $file_conf = fopen("modules/$ModPath/geoloc_conf.php", "w+");
    $content = "<?php \n";
@@ -884,7 +891,7 @@ function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $
    $content .= "\$w_ico = \"$w_ico\"; // Largeur icone des markers \n";
    $content .= "\$h_ico = \"$h_ico\"; // Hauteur icone des markers\n";
    $content .= "\$f_mbg = \"$f_mbg\"; // Font SVG \n";
-   $content .= "\$svg_path = \"$svg_path\"; // path \n";
+//   $content .= "\$svg_path = \"$svg_path\"; // path \n";
    $content .= "\$mbg_sc = \"$mbg_sc\"; // Echelle du Font SVG du membre \n";
    $content .= "\$mbg_t_ep = \"$mbg_t_ep\"; // Epaisseur trait Font SVG du membre \n";
    $content .= "\$mbg_t_co = \"$mbg_t_co\"; // Couleur trait SVG du membre \n";
@@ -917,13 +924,14 @@ function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $
 }
 
 if ($admin) {
+
    switch ($subop) {
       case 'vidip':
           vidip();
           Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
       break;
       case 'SaveSetgeoloc':
-         SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart, $opt_lat, $opt_lon);
+         SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $ModPath, $ModStart);
          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
       break;
       default:

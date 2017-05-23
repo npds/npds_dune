@@ -297,7 +297,7 @@ function avatar($user_avatar) {
                if ($temp_user['url']!='') {
                   if (strstr('http://', $temp_user['url']))
                      $temp_user['url'] = 'http://' . $temp_user['url'];
-                  $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle=""><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
                }
                if ($temp_user['mns']) {
                    $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
@@ -398,12 +398,12 @@ function avatar($user_avatar) {
                echo '</p>
       </div>';
             }
-
+            settype($total_pages,'integer');
             if ( $num_rows_per_order > $pagesize ) {
                echo "<p class=\"lead\">$num_rows_per_order ".translate("users found for")." <strong>$letter</strong> ($total_pages ".translate("pages").", $num_users ".translate("users shown").").</p>";
                echo '
                <ul class="pagination pagination-sm">';
-               $total_pages = ceil($num_rows_per_order / $pagesize); // How many pages are we dealing with here ??
+               $total_pages = ceil($num_rows_per_order / $pagesize);
                $prev_page = $page - 1;
                if ( $prev_page > 0 ) {
                   echo '

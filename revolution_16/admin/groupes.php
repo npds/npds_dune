@@ -22,6 +22,7 @@ admindroits($aid,$f_meta_nom);
 global $language,$adminimg, $admf_ext;
 $hlpfile = "manuels/$language/groupes.html";
 
+settype($al,'string');
 if ($al) {
    if (preg_match ('#^mod#',$al)) {
       $al=explode ('_',$al);
@@ -38,6 +39,10 @@ function group_liste() {
    $one_gp=false;
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       $one_gp=true;
+/*
+      $tab_groupeII=array();
+      $tab_groupeIII=array();
+*/
       $tab_groupe=explode(',',$groupe);
       if ($tab_groupe) {
          foreach($tab_groupe as $groupevalue) {
@@ -129,7 +134,7 @@ function group_liste() {
             </p>
             </div>
             <div class="col-lg-5">';
-         $tab_groupe=explode(" ",ltrim($tab_groupeII[$gp]));
+         $tab_groupe=explode(' ',ltrim($tab_groupeII[$gp]));
          $nb_mb=(count($tab_groupe))-1;
          echo '
                <a class="tog" id="show_lst_mb_'.$gp.'" title="'.adm_translate("Déplier la liste").'"><i id="i_lst_mb_gr_'.$gp.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;&nbsp;
