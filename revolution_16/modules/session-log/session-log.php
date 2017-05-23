@@ -37,6 +37,7 @@ $language=$old_language;
 include ("modules/$ModPath/lang/session-log-$language.php");
 $ThisFile="admin.php?op=Extend-Admin-SubModule&amp;ModPath=".$ModPath."&amp;ModStart=".$ModStart;
 $f_titre = SessionLog_translate("Gestion des Logs");
+settype($subop,'string');
 
 function action_log($ThisFile,$classe) {
    echo '<p align="center"><br />
@@ -45,7 +46,6 @@ function action_log($ThisFile,$classe) {
    <a class="btn btn-danger btn-sm" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
    </p>';
 }
-
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $cl_a_ses=''; if ($subop=="session") $cl_a_ses='active';

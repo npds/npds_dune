@@ -17,9 +17,11 @@ admindroits($aid,$f_meta_nom);
 //<== controle droit
 include ("modules/$ModPath/lang/ipban.lang-$language.php");
 $f_titre = ipban_translate("Administration de l'IpBan");
+settype($hlpfile,'string');
 
 function ConfigureBan($ModPath, $ModStart) {
-global $f_meta_nom, $f_titre, $adminimg,$language;
+global $f_meta_nom, $f_titre, $adminimg,$language, $hlpfile;
+settype($ip_ban,'string');
    if (file_exists('slogs/spam.log')) {
       $fd = fopen ('slogs/spam.log', 'r');
       while (!feof($fd)) {
@@ -63,6 +65,7 @@ function SaveSetBan($Xip_ban) {
    SC_clean();
 }
 
+settype($subop,'string');
 switch ($subop) {
    case 'SaveSetBan':
    SaveSetBan($ipban);

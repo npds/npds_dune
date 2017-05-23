@@ -18,6 +18,8 @@
 function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $gifbgcolor="", $affiche=true) {
    global $REQUEST_URI;
    $aff='';
+   settype($block_title,'string');
+
    if ($typeBlocNote=="shared") {
       if ($nomBlocNote=="\$username") {
          global $cookie;
@@ -43,7 +45,6 @@ function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $n
    }
    if ($nomBlocNote) {
       global $theme;
-
    if ($block_title=='')
       $title=$nomBlocNote;
    else

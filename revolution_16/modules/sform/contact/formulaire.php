@@ -9,6 +9,20 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
+settype($nom,'string');
+settype($ad1,'string');
+settype($ville,'string');
+settype($dpt,'string');
+settype($cpt,'string');
+settype($tel,'string');
+settype($fax,'string');
+settype($mob,'string');
+settype($email,'string');
+settype($act,'string');
+settype($des,'string');
+settype($ok,'string');
+
+
 $m->add_form_field_size(50);
 $m->add_title("[french]Contactez-nous[/french][english]Contact us[/english]");
 $m->add_field('nom', "[french]Nom / Raison Sociale[/french][english]Name/Corporate name[/english]",$nom,'text',true,150,'','');

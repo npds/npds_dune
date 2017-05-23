@@ -377,6 +377,8 @@ if ($submitS) {
             </div>';
                }
             }
+            settype($up,'string');
+            settype($upload,'string');
             if ($allow_upload_forum) {
                if ($upload == "on") {
                   $up = 'checked="checked"';

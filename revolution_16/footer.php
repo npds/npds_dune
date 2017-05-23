@@ -40,7 +40,7 @@ function foot() {
    } else {
       include("themes/$Default_Theme/footer.php");
    }
-   $cookie9 = $cookie[9];
+   if (isset($user)) $cookie9 = $cookie[9];
 }
 
    global $tiny_mce, $cookie9, $Default_Theme;

@@ -36,7 +36,7 @@ if (file_exists('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php')) {
 }
 else {
    include_once('modules/'.$ModPath.'/lang/geoloc.lang-french.php');
-} 
+}
 
 $infooo='';
 $js_dragtrue ='';
@@ -98,10 +98,11 @@ $js_dragfunc ='
 }
 
 $username = $cookie[1];//recupere le username
-$f_new_lat = floatval ($_GET['lat']);// lat du form de géoreferencement
-$f_new_long = floatval ($_GET['lng']);// long du form de géoreferencement
-$f_geomod = $_GET['mod'];
-$f_uid = $_GET['uid'];
+
+if (array_key_exists('lat',$_GET)) $f_new_lat = floatval ($_GET['lat']);// lat du form de géoreferencement
+if (array_key_exists('lng',$_GET)) $f_new_long = floatval ($_GET['lng']);// long du form de géoreferencement
+if (array_key_exists('mod',$_GET)) $f_geomod = $_GET['mod'];
+if (array_key_exists('uid',$_GET)) $f_uid = $_GET['uid'];
 
 $av_ch = '';//chemin pour l'avatar
 
@@ -118,10 +119,12 @@ if ($found == 0)
 $res = sql_query("INSERT INTO users_extend VALUES ('$uid','','','','','','','','','','','','','')");
 
 //==> georeferencement utilisateur
-if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="neo")
-sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$uid.'"');
-if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="mod")
-sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$f_uid.'"');
+if (array_key_exists('mod',$_GET)) {
+   if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="neo")
+   sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$uid.'"');
+   if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="mod")
+   sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$f_uid.'"');
+}
 //<== georeferencement utilisateur
 
 $result = sql_query('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid WHERE uname LIKE "'.$username.'"');
@@ -142,6 +145,9 @@ $mbgr = 0;
 $membre = sql_query ('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid ORDER BY u.uname');
 $total_membre = sql_num_rows($membre);//==> membres du site
 $k=0;
+$us_visit=array();
+$cont_json = '';$mb_gr='';
+
 while ($row = sql_fetch_array($membre))
 {
    $us_uid = $row['uid'];
@@ -151,40 +157,14 @@ while ($row = sql_fetch_array($membre))
    $us_lat = $row[''.$ch_lat.''];
    $us_long = $row[''.$ch_lon.''];
    $us_url = $row['url'];
+   $us_mns =$row['mns'];
    $us_lastvisit = $row['user_lastvisit'];
-   if ($us_lastvisit != '') $us_visit = getdate($us_lastvisit);
-   $visit = $us_visit[mday].'/'.$us_visit[mon].'/'.$us_visit[year];
+   if ($us_lastvisit != '')  {
+      $us_visit = getdate($us_lastvisit);
+      $visit = $us_visit['mday'].'/'.$us_visit['mon'].'/'.$us_visit['year'];
+   }
    $us_rs = $row['M2'];
 
-   
-/*  
-   $socialnetworks=array(); $res_id=array();$my_rs='';
-   if (!$short_user) {
-      include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-      if ($us_rs!='') {
-         $socialnetworks= explode(';',$us_rs);
-         foreach ($socialnetworks as $socialnetwork) {
-            $res_id[] = explode('|',$socialnetwork);
-         }
-         sort($res_id);
-         sort($rs);
-         foreach ($rs as $v1) {
-            foreach($res_id as $y1) {
-               $k = array_search( $y1[0],$v1);
-               if (false !== $k) {
-                  $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary mr-2"></i></a>&nbsp;';
-                  break;
-               } 
-               else $my_rs.='';
-            }
-         }
-         $my_rsos[]=$my_rs;
-      }
-      else $my_rsos[]='';
-   }
-   
-*/  
-   
 
    //==> determine si c avatar perso ou standard et fixe l'url de l'image
    if (preg_match('#\/#', $us_user_avatar) === 1)
@@ -194,16 +174,16 @@ while ($row = sql_fetch_array($membre))
    {
       $mbgr++;
       //=== menu fenetre info
-      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
+      $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
       if ($user)
-         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="fa fa-envelope-o fa-2x mr-2"></i></a>';
+         $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="fa fa-envelope-o fa-2x mr-2"></i></a>';
       if ($us_url != '') {
          if (strstr("http://", $us_url))
          $us_url = 'http://'.$us_url;
-         $imm .= ' <a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fa fa-external-link fa-2x mr-2"></i></a>';
+         $imm .= '<a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fa fa-external-link fa-2x mr-2"></i></a>';
       }
       if ($us_mns != '') {
-         $imm .='&nbsp;<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
+         $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
       }
 
    //
@@ -213,7 +193,7 @@ while ($row = sql_fetch_array($membre))
       //construction marker membre
       $mb_gr .='
       var point = new google.maps.LatLng('.$us_lat. ','.$us_long.');
-      var marker = createMarker(point,map,infoWindow,"<i style=\"color:#c00000; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg\"></i>&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br /><div class="my-1">'.geoloc_translate("Dernière visite").' : '.$visit.'</div></div>'.$my_rsos[$k].'\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
+      var marker = createMarker(point,map,infoWindow,"<i style=\"color:#c00000; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg\"></i>&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br /><div class="my-1">'.geoloc_translate("Dernière visite").' : '.$visit.'</div></div>\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
       bounds.extend(point);
       map.fitBounds(bounds);'; 
    }
@@ -239,6 +219,7 @@ $mbcng = 0;//==> membre connecté non géoréférencé
 $ac = 0; //==> anonnyme connectés
 $acng = 0; //==> anonnyme connectés non géoréférencés
 $acg = 0; //==> anonnyme connectés géoréférencés
+$mbcg = 0;
 
 //nombre total on line
 $result_con = sql_query ('SELECT * FROM '.$NPDS_Prefix.'session s');
@@ -248,7 +229,7 @@ $total_connect = sql_num_rows($result_con);
 $result = sql_query ('SELECT * FROM '.$NPDS_Prefix.'session s
 LEFT JOIN '.$NPDS_Prefix.'users u ON s.username = u.uname
 LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid');
-$k=0;
+$k=0; $mb_con_g=''; $ano_conn='';
 while ($row = sql_fetch_array($result)) 
 {
    $session_guest = $row['guest'];
@@ -257,7 +238,6 @@ while ($row = sql_fetch_array($result))
    $users_uname = $row['uname'];
    $users_user_avatar = $row['user_avatar'];
    $session_user_name = $row['username'];
-   $session_host_addr = $row['host_addr'];
    $user_lat = $row[''.$ch_lat.''];
    $user_long = $row[''.$ch_lon.''];
    $us_url = $row['url'];
@@ -314,8 +294,7 @@ while ($row = sql_fetch_array($result))
       var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse mr-1\"></i><span>'. addslashes($users_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<br /><a href="user.php?op=userinfo&amp;uname='.$users_uname.'">'. addslashes($users_uname) .'</a> @ '.$session_host_addr.'</div><hr />'.$my_rsos[$k].'\',\'c\',"'. addslashes($us_uid) .'","'. addslashes($users_uname) .'" );
       marker.setMap(map);
       bounds.extend(point);
-      map.fitBounds(bounds);
-      ';
+      map.fitBounds(bounds);';
    }
    if ($session_guest !=1 and !$user_lat) {
       $mb_con_ng .= '&nbsp;'.$session_user_name.'<br />'; $mbcng++;
@@ -360,9 +339,9 @@ while ($row1 = sql_fetch_array($tres)) {
  $k++;
 };
 
-if ($test_ip !='')
-$temp_ip = $test_ip;
+if ($test_ip !='') $temp_ip = $test_ip;
 $test_ip = $temp_ip;
+
 $olng = $mbcng+$acng;//==> on line non géoréférencés anonyme et membres
 $olg = $mbcg+$acg;//==> on line géoréférencés anonyme et membres
 
@@ -450,7 +429,6 @@ $ecr_scr = '<script type="text/javascript">
     anchor: new google.maps.Point(0, 0),
     scaledSize: new google.maps.Size('.$w_ico.', '.$h_ico.')
     },
-    
     icont = {
     url: "'.$ch_img.'connect.gif",
     size: new google.maps.Size(32, 32),
@@ -700,6 +678,25 @@ $ecr_scr .= $mb_con_g.''.$ano_conn.''.$mb_gr ;
 $ecr_scr .= '
 document.getElementById("mess_info").innerHTML = \''.$mess_mb.' '.$mess_adm.'\';
 
+/*
+google.maps.event.addListenerOnce(map, 
+                                  //"idle",
+                                  "zoom_changed",
+                                  //"bounds_changed", 
+                                  function() {
+        //alert("it definitely works");
+        alert("ahoj" + map.getZoom());
+        map.setZoom(16);
+                console.log(map.getZoom());
+
+});
+*/
+
+
+
+
+//map.setZoom(1);
+
 show("member");show("ac");show("c");
 //show("wpo");
 
@@ -894,6 +891,7 @@ $(document.body).attr("onload", "geoloc_load()");
 //==> affichage
 include ('header.php');
 //==> ecriture des div contenants
+$affi='';
 $affi .= '
 <h3 class="mb-4">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right badge badge-default" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
 <div class="card mb-4">
@@ -965,6 +963,7 @@ echo $affi;
 echo $ecr_scr;
 include ('footer.php');
 
+settype($op,'string');
 switch ($op) {
    case 'wp':
       wp_fill();

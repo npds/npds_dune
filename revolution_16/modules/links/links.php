@@ -82,7 +82,6 @@ function SearchForm() {
 
 function mainheader() {
    menu($mainlink);
-//   SearchForm();
 }
 
 function autorise_mod($lid,$aff) {
@@ -237,6 +236,9 @@ function viewlink($cid, $min, $orderby, $show) {
       if (!isset($max)) $max=$min+$perpage;
       mainheader();
 
+      settype($affsouscat,'string');
+
+
       $filen="modules/$ModPath/links.ban_02.php";
       if (file_exists($filen)) {include($filen);}
       $result=sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$cid'");
@@ -286,7 +288,7 @@ function viewlink($cid, $min, $orderby, $show) {
       } else {
          $linkpages = $linkpagesint;
       }
-   
+
    $nbPages = ceil($totalselectedlinks/$perpage);
    $current = 1;
    if ($min >= 1) {
@@ -298,9 +300,8 @@ function viewlink($cid, $min, $orderby, $show) {
    }
    $start=($current*$perpage);
 
-
-      
       //Page Numbering
+/*
       if ($linkpages!=1 && $linkpages!=0) {
          // à traduire
          echo '
@@ -323,11 +324,10 @@ function viewlink($cid, $min, $orderby, $show) {
       echo '
                </ul>
             </nav>';
+*/
             
       echo paginate('modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;min=', '&amp;orderby='.$orderby.'&amp;show='.$perpage, $nbPages, $current, $adj=3, $perpage, $start);
 
-            
-            
       if (isset($sid)) FooterOrderBy($cid, $sid, $orderbyTrans, 'viewlink');
       SearchForm();
       }
@@ -585,7 +585,6 @@ switch ($op) {
    case 'viewlink':
       if (!isset($min)) $min=0;
       if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
-      //if (isset($show)) $perpage = $show; else $show=$perpage;debug
       viewlink($cid, $min, $orderby, $show);
    break;
    case 'viewslink':

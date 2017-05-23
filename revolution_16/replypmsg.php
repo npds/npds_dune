@@ -23,6 +23,9 @@ if ($SuperCache) {
 }
 include('auth.php');
 
+settype($cancel,'string');
+settype($submitS,'string');
+
    if ($cancel) {
       if ($full_interface!='short') {
          header("Location: viewpmsg.php");
@@ -151,7 +154,7 @@ include('auth.php');
             header("Location: viewpmsg.php");
          }
       }
-
+      settype($delete,'integer');
       if ($delete) {
          if ($type=='outbox') {
             $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
@@ -164,9 +167,9 @@ include('auth.php');
             header("Location: viewpmsg.php");
          }
       }
-
+      settype($classement,'string');
       if ($classement) {
-         if ($nouveau_dossier!="") {$dossier=$nouveau_dossier;}
+         if ($nouveau_dossier!='') {$dossier=$nouveau_dossier;}
          $dossier=strip_tags($dossier);
          $sql = "UPDATE ".$NPDS_Prefix."priv_msgs SET dossier='$dossier' WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
          $result = sql_query($sql);
@@ -177,6 +180,7 @@ include('auth.php');
       }
 
       // Interface
+      settype($full_interface,'string');
       if ($full_interface=='short') {
          if ($userdataX[9]!='') {
             if (!$file=@opendir("themes/$userdataX[9]")) {
@@ -226,9 +230,10 @@ include('auth.php');
       <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
          translate("All registered users can post private messages.").'</blockquote>
       <form action="replypmsg.php" method="post" name="coolsus">';
+         settype($submitP,'string');
+
          if ($submitP) {
-            echo "<hr noshade=\"noshade\" class=\"ongl\" /><p align=\"center\" class=\"header\">".translate("Preview")."</p>
-            <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"100%\">";
+            echo "<hr noshade=\"noshade\" class=\"ongl\" /><p align=\"center\" class=\"header\">".translate("Preview")."</p>";
             echo "<b>".StripSlashes($subject)."</b><br /><br />\n";
             $Xmessage=$message=StripSlashes($message);
             if ($allow_html == 0 || isset($html)) $Xmessage = htmlspecialchars($Xmessage,ENT_COMPAT|ENT_HTML401,cur_charset);
@@ -266,6 +271,7 @@ include('auth.php');
          echo '
             </div>
          </div>';
+         settype($copie,'string');
          if ($copie) {$checked='checked="checked"';} else {$checked='';}
          echo '
          <div class="form-group row">
@@ -276,6 +282,7 @@ include('auth.php');
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="subject">'.translate("Subject").'</label>
             <div class="col-sm-12">';
+         settype($subject,'string');
          if ($subject) {$tmp=StripSlashes($subject);} else {if ($reply) $tmp="Re: ".StripSlashes($row['subject']); else $tmp="";}
          echo '
                <input class="form-control" type="text" name="subject" value="'.$tmp.'" maxlength="100" />
@@ -333,8 +340,9 @@ include('auth.php');
          echo '
             </div>
             <div class="card-block">';
+            settype($message,'string');
             
-         if ($reply and $message=="") {
+         if ($reply and $message=='') {
             $sql = "SELECT p.msg_text, p.msg_time, u.uname FROM ".$NPDS_Prefix."priv_msgs p, ".$NPDS_Prefix."users u ";
             $sql .= "WHERE (p.msg_id='$msg_id') AND (p.from_userid=u.uid) AND (p.type_msg='0')";
             if ($result = sql_query($sql)) {
@@ -382,6 +390,7 @@ include('auth.php');
       <div class="form-group row">
          <label class="form-control-label col-sm-3">'.translate("Options").'</label>';
          if ($allow_html==1) {
+            settype($html,'integer');
             if ($html) {$checked='checked="checked"';} else {$checked='';}
             echo '
          <div class="col-sm-9">
@@ -398,6 +407,8 @@ include('auth.php');
             if ($attachsig == 1) {
                $s = "checked";
             }
+            settype($sig,'integer');
+            
             if ($sig) {$checked='checked="checked"';} else {$checked='';}
             echo '
             <div class="checkbox">
@@ -415,9 +426,11 @@ include('auth.php');
          <div class="col-sm-12">
             <input type="hidden" name="msg_id" value="'.$msg_id.'" />
             <input type="hidden" name="full_interface" value="'.$full_interface.'" />';
+              settype($send,'integer');
               if ($send==1)
                  echo '
             <input type="hidden" name="send" value="1" />';
+              settype($reply,'integer');
               if ($reply==1)
                  echo '
             <input type="hidden" name="reply" value="1" />';
