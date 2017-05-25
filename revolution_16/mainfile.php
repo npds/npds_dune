@@ -2917,7 +2917,9 @@ $content.='<div class="card card-block d-flex flex-row mt-3 flex-wrap">';
    settype($chat_img,'string');
    if ($rsql['groupe_chat'] == 1) {
       $PopUp = JavaPopUp("chat.php?id=$gr&amp;auto=".encrypt(serialize ($gr)),"chat".$gr,380,480);
-      if ($_COOKIE['chat_info_'.$gr]) $chat_img='faa-pulse animated faa-slow';
+      if (array_key_exists('chat_info_'.$gr, $_COOKIE)) {
+         if ($_COOKIE['chat_info_'.$gr]) $chat_img='faa-pulse animated faa-slow';
+      }
          $content.='<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x '.$chat_img.'"></i></a>';
    }
    //<= Chat

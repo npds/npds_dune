@@ -255,6 +255,8 @@ include('header.php');
     }
     settype($start,"integer");
     settype($posts_per_page,"integer");
+    settype($pages,"integer");
+
     if (isset($start)) {
        if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; }
        $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
@@ -402,7 +404,6 @@ include('header.php');
          $message = smilie($message);
          $message = aff_video_yt($message);
       }
-//      $message=split_string_without_space($message, 80);
       if (($forum_type=='6') or ($forum_type=='5')) {
           highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
       } else {
@@ -493,9 +494,7 @@ include('header.php');
             </li>
             <li class="page-item disabled">
                <a class="page-link" href="#">'.translate("Back to Top").'</a>
-            </li>';
-//             echo $pages_rapide;
-         echo '
+            </li>
          </ul>
       </nav>';
       echo paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start);
