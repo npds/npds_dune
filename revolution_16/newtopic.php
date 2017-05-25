@@ -212,9 +212,8 @@ if ($submitS) {
       }
    echo '
          </div>
-      </div>';
-
-   echo '<h4>'.translate("Post New Topic in:").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>';
+      </div>
+      <h4 class="my-3">'.translate("Post New Topic in:").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>';
 
    echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
    if ($forum_access == 0) {
@@ -227,8 +226,7 @@ if ($submitS) {
    echo '</p></blockquote>';
 
    echo '
-   <form id="new_top" class="" role="form" action="newtopic.php" method="post" name="coolsus">
-   ';
+   <form id="new_top" class="" role="form" action="newtopic.php" method="post" name="coolsus">';
 
    echo '<br />';
    $userX = base64_decode($user);
@@ -328,14 +326,14 @@ if ($submitS) {
       echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
       echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
-         echo '
+   echo '
                </div>
                <div class="card-block">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.$message.'</textarea>
                </div>
                <div class="card-footer text-muted">';
                  if ($allow_bbcode) putitems();
-         echo '
+   echo '
                </div>
             </div>
          </div>
@@ -344,37 +342,31 @@ if ($submitS) {
          <div class="col-sm-3">
             <label class="form-control-label">'.translate("Options").'</label>
          </div>
-         <div class="col-sm-9">';
-
+         <div class="col-sm-9">
+            <div class="custom-controls-stacked">';
          if (($allow_html==1) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
-         if (isset($html)) {
-            $sethtml = 'checked="checked"';
-         } else {
-            $sethtml = '';
-         }
+            if (isset($html)) $sethtml = 'checked="checked"';
+            else $sethtml = '';
          echo '
-            <div class="checkbox">
-               <label>
-                  <input class="" type="checkbox" name="html" '.$sethtml.' />&nbsp;'.translate("Disable HTML on this Post").'
-               </label>
-            </div>';
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
+               </label>';
          }
          if ($user) {
             if ($allow_sig == 1||$sig == "on") {
                $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
                list($attachsig) = sql_fetch_row($asig);
-               if ($attachsig == 1) {
-                  $s = 'checked="checked"';
-               } else {
-                  $s = '';
-               }
+               if ($attachsig == 1) $s = 'checked="checked"';
+               else $s = '';
                if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
-         echo '
-            <div class="checkbox">
-               <label>
-                  <input class="" type="checkbox" name="html" '.$s.' />&nbsp;'.translate("Show signature").'
-               </label>
-            </div>';
+                  echo '
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$s.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Show signature").'</span>
+               </label>';
                }
             }
             settype($up,'string');
@@ -384,11 +376,11 @@ if ($submitS) {
                   $up = 'checked="checked"';
                }
          echo '
-            <div class="checkbox">
-               <label>
-                  <input class="" type="checkbox" name="html" '.$up.' />&nbsp;'.translate("Upload file after send accepted").'
-               </label>
-            </div>';
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$up.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Upload file after send accepted").'</span>
+               </label>';
             }
             if (isset($notify2)) {
                $selnot='checked="checked"';
@@ -396,13 +388,14 @@ if ($submitS) {
                $selnot='';
             }
          echo '
-            <div class="checkbox">
-               <label>
-                  <input class="" type="checkbox" name="html" '.$selnot.' />&nbsp;'.translate("Notify by email when replies are posted").'
-               </label>
-            </div>';
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$selnot.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Notify by email when replies are posted").'</span>
+               </label>';
          }
          echo '
+            </div>
          </div>
       </div>';
 

@@ -276,11 +276,10 @@ if ($submitS) {
    echo '
    <br />
    <span class="lead">'.translate("Nickname: ");
-     if (isset($user))
-        echo $userdata[1].'</span>';
-     else
-        echo $anonymous.'</span>';
+     if (isset($user)) echo $userdata[1].'</span>';
+     else echo $anonymous.'</span>';
 
+   settype($image_subject,'string');
    if ($smilies) {
       echo '
       <div class="hidden-xs-down form-group row">
@@ -418,6 +417,8 @@ if ($submitS) {
          forumerror('0001');
       $myrow = sql_fetch_assoc($result);
       $count=0;
+      $my_rsos=array();
+
       do {
          echo '
       <div class="row">
@@ -426,6 +427,35 @@ if ($submitS) {
                <div class="card-header">';
          $posterdata = get_userdata_from_id($myrow['poster_id']);
          $posts = $posterdata['posts'];
+         
+               $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+      if (!$short_user) {
+         $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
+         include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+         if ($posterdata_extend['M2']!='') {
+            $socialnetworks= explode(';',$posterdata_extend['M2']);
+            foreach ($socialnetworks as $socialnetwork) {
+               $res_id[] = explode('|',$socialnetwork);
+            }
+            sort($res_id);
+            sort($rs);
+            foreach ($rs as $v1) {
+               foreach($res_id as $y1) {
+                  $k = array_search( $y1[0],$v1);
+                  if (false !== $k) {
+                     $my_rs.='<a class="mr-3" href="';
+                     if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                     break;
+                  } 
+                  else $my_rs.='';
+               }
+            }
+            $my_rsos[]=$my_rs;
+         }
+         else $my_rsos[]='';
+      }
+
          $useroutils = '';
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
             $useroutils .= '<hr />';
