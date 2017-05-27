@@ -13,6 +13,8 @@ if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
 include ("functions.php");
+settype($gr_name,'string');
+settype($new_pages,'string');
 
 function MNSremoveHack($Xstring) {
    global $op, $userdata, $tiny_mce, $tiny_mce_theme, $tiny_mce_relurl;

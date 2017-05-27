@@ -17,7 +17,7 @@
 //   => Votre_titre+ : rajoute le titre de la page devant le titre du site
 //   => Votre_titre- : ne rajoute pas le titre du site
 //   => "" ou pas +- : n'affiche que le titre du site
-// TITRE ALTERENATIF :
+// TITRE ALTERNATIF :
 //   => Il est possible de mettre un titre de cette forme :
 //      $PAGES['index.php']['title']="Index du site+|$title-";
 //      Dans ce cas SI $title n'est pas vide ALORS "$title-" sera utilisé SINON se sera "Index du site+"
@@ -110,6 +110,7 @@ settype($post,'string');
 settype($nuke_url,'string');
 settype($api_key,'string');
 settype($ModPath,'string');
+settype($title,'string');
 // ----------------------------
 
 $PAGES['index.php']['title']="[french]Index[/french][english]Home[/english][spanish]Index[/spanish][german]Index[/german][chinese]&#x7D22;&#x5F15;[/chinese]+";
