@@ -25,8 +25,8 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
 if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
    die();
 }
+global $pdst, $language, $title;
 
-global $pdst, $language;
 if (file_exists('modules/'.$ModPath.'/admin/pages.php')) {
    include ('modules/'.$ModPath.'/admin/pages.php');
 }
@@ -296,8 +296,10 @@ while ($row = sql_fetch_array($result))
       bounds.extend(point);
       map.fitBounds(bounds);';
    }
+
+   settype($mb_con_ng,'string');
    if ($session_guest !=1 and !$user_lat) {
-      $mb_con_ng .= '&nbsp;'.$session_user_name.'<br />'; $mbcng++;
+      $mb_con_ng .= '&nbsp;'.$session_user_name.'<br />'; $mbcng++; // not use ?..
    }
 //
 if ($geo_ip == 1) {
@@ -306,6 +308,10 @@ if ($geo_ip == 1) {
 //==> cherche si l'adresse IP est dans la base
 $tres=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc i WHERE ip_ip LIKE \"$session_host_addr\"");
 //$iptronq = explode('.',$session_host_addr,-1);
+
+settype($test_ip,'string');
+settype($temp_ip,'string');
+
 while ($row1 = sql_fetch_array($tres)) {
    $ip_lat1 = $row1['ip_lat'];
    $ip_long1 = $row1['ip_long'];

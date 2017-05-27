@@ -21,24 +21,32 @@ if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
 }
+include ('functions.php');
 if (!$user) header('location:index.php');
+
+   global $cookie;
+   $userdata = get_userdata_from_id($cookie[0]);
 
 global $language;
 $ModStart='reseaux-sociaux';
 include ("modules/$ModPath/lang/rs-$language.php");
 
 function ListReseaux($ModPath, $ModStart) {
+   global $userdata;
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
    include("header.php");
-   echo '
-      <h2>'.translate("User").'</h2>
 
+   echo '
+   <h2>'.translate("User").'</h2>
    <ul class="nav nav-tabs d-flex flex-wrap"> 
       <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
-   if (($mns) and ($autorise_upload_p)) {
+
+//if ($userdata['mns']) {
+   
+   if (($userdata['mns']) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
@@ -72,6 +80,7 @@ function ListReseaux($ModPath, $ModStart) {
 }
 
 function EditReseaux($ModPath, $ModStart) {
+   global $userdata;
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
    include_once ("functions.php");
@@ -89,14 +98,12 @@ function EditReseaux($ModPath, $ModStart) {
       }
 
    echo '
-
-      <h2>'.translate("User").'</h2>
-
+   <h2>'.translate("User").'</h2>
    <ul class="nav nav-tabs"> 
       <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
-   if (($mns) and ($autorise_upload_p)) {
+   if (($userdata['mns']) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
@@ -132,7 +139,7 @@ function EditReseaux($ModPath, $ModStart) {
    echo '
    <div class="col-sm-6">
    <fieldset>
-   <legend><i class="fa fa-'.$v1[2].' fa-2x text-primary">&nbsp;</i>'.$v1[0].'</legend>
+   <legend><i class="fa fa-'.$v1[2].' fa-2x text-primary mr-2"></i>'.$v1[0].'</legend>
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="rs_uid'.$i.'">'.rs_translate("Identifiant").'</label>
          <div class="col-sm-12">
@@ -143,7 +150,7 @@ function EditReseaux($ModPath, $ModStart) {
       </div>
    </fieldset>
    </div>';
-   if ($nombre%2 == 1) echo '
+   if ($i%2 == 1) echo '
    </div>
    <div class="row">';
    $i++;
@@ -151,7 +158,7 @@ function EditReseaux($ModPath, $ModStart) {
 echo '
    </div>
       <div class="form-group row">
-         <div class="col-sm-6 offset-sm-6">
+         <div class="col-sm-6">
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.rs_translate("Sauvegarder").'</button>
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />

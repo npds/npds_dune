@@ -21,7 +21,7 @@ global $links_DB, $NPDS_Prefix;
 include_once("modules/$ModPath/links.conf.php");
 if ($links_DB=='') $links_DB=$NPDS_Prefix;
 
-function menu($mainlink) {
+function menu() {
    global $ModPath, $ModStart, $links_anonaddlinklock,$op;
    $ad_l='';$ne_l='';$in_l='';
    if($op=='NewLinks') $ne_l='active'; else $ne_l='';
@@ -81,7 +81,7 @@ function SearchForm() {
 }
 
 function mainheader() {
-   menu($mainlink);
+   menu();//
 }
 
 function autorise_mod($lid,$aff) {
@@ -571,6 +571,7 @@ switch ($op) {
       include_once("modules/$ModPath/links-1.php");
       settype($asb_question,'string');
       settype($asb_reponse,'string');
+
       Add($title, $url, $name, $cat, $xtext, $email, $topicL, $asb_question, $asb_reponse);
    break;
    case 'NewLinks':
@@ -583,6 +584,8 @@ switch ($op) {
       NewLinksDate($selectdate);
    break;
    case 'viewlink':
+         settype($show,'string');
+
       if (!isset($min)) $min=0;
       if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
       viewlink($cid, $min, $orderby, $show);

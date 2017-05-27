@@ -961,7 +961,7 @@ while ($obj->NextFile()) {
    if (fma_autorise('f', $obj->FieldName)) {
       $ibid=rawurlencode(encrypt($cur_nav_encrypt."#fma#".encrypt($obj->FieldName)));
       $files.= '
-      <tr '.$linked.'>';
+      <tr>';
       if ($ficpres_fma[0]) {
          $ico_search=false;
          $files.='
