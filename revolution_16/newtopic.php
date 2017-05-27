@@ -223,10 +223,9 @@ if ($submitS) {
    } else if($forum_access == 2) {
       echo translate("Only Moderators can post new topics and replies in this forum.");
    }
-   echo '</p></blockquote>';
-
    echo '
-   <form id="new_top" class="" role="form" action="newtopic.php" method="post" name="coolsus">';
+   </blockquote>
+   <form id="new_top" action="newtopic.php" method="post" name="coolsus">';
 
    echo '<br />';
    $userX = base64_decode($user);
@@ -238,13 +237,13 @@ if ($submitS) {
             <div class="form-group row">
                <label class="control-label col-sm-2" for="username">'.translate("Nickname: ").'</label>
                <div class="col-sm-8 col-md-4">
-                  <input class="form-control" type="text" name="username" placeholder="'.translate("Nickname").'" required="required" value="'.$username.'" />
+                  <input class="form-control" type="text" id="username" name="username" placeholder="'.translate("Nickname").'" required="required" />
                </div>
             </div>
             <div class="form-group row">
                <label class="control-label col-sm-2" for="password">'.translate("Password: ").'</label>
                <div class="col-sm-8">
-                  <input class="form-control" type="password" name="password" placeholder="'.translate("Password").'" required="required" value="'.$password.'" />
+                  <input class="form-control" type="password" id="password" name="password" placeholder="'.translate("Password").'" required="required" />
                </div>
             </div>
          </fieldset>';

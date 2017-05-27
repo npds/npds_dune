@@ -137,12 +137,13 @@ settype($submitS,'string');
          }
       }
 
-      if ($delete_messages.x && $delete_messages.y) {
-         for ($i=0;$i<$total_messages;$i++) {
+      settype($delete_messages,'string');
+      if ($delete_messages!='' and $msg_id) {
+         foreach ($msg_id as $v) {
             if ($type=='outbox') {
-               $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id[$i]' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
+               $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='".$v."' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
             } else {
-               $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id[$i]' AND to_userid='".$userdata['uid']."'";
+               $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='".$v."' AND to_userid='".$userdata['uid']."'";
             }
             if (!sql_query($sql)) {
                forumerror('0021');
@@ -153,7 +154,10 @@ settype($submitS,'string');
          if ($status) {
             header("Location: viewpmsg.php");
          }
+      } else if ($delete_messages !='' and !$msg_id) {
+         header("Location: viewpmsg.php");
       }
+
       settype($delete,'integer');
       if ($delete) {
          if ($type=='outbox') {
@@ -216,8 +220,10 @@ settype($submitS,'string');
                forumerror('0023');
             }
             $fromuserdata = get_userdata_from_id($row['from_userid']);
-            if ($fromuserdata[0]==1) {
-               forumerror('0101');
+            if(array_key_exists(0,$fromuserdata)) {
+               if ($fromuserdata[0]==1) {
+                  forumerror('0101');
+               }
             }
             $touserdata = get_userdata_from_id($row['to_userid']);
             if (($user) and ($userdata['uid']!=$touserdata['uid'])) {
