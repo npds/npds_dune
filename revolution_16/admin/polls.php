@@ -26,6 +26,7 @@ function poll_createPoll() {
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
+   global $id;
    echo '
       <hr />
         <h3 class="mb-3">'.adm_translate("Liste des sondages").'</h3>
@@ -51,7 +52,7 @@ function poll_createPoll() {
                   <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
                </td>
             </tr>';
-        $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$id'");
+        $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='".$object["pollID"]."'");
         list ($sum) = sql_fetch_row($result2);
    }
    echo '
@@ -252,7 +253,7 @@ function poll_editPollPosted() {
          <div class="col-sm-9">
             <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" required="required" />
             <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-            <span class="help-block text-right"><span id="countcar_pollTitle'.$i.'"></span></span>
+            <span class="help-block text-right"><span id="countcar_pollTitle"></span></span>
          </div>
       </div>';
          for ($i = 1; $i <= $maxOptions; $i++) {

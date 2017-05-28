@@ -132,7 +132,6 @@ function display_upload($apli,$post_id,$Mmod){
             <span class="text-muted p-2">'.upload_translate("Pièces jointes").'</span>
             <span class="badge badge-default ml-auto">'.$att_count.'</span>
          </div>';
-
       $ncell = 0;
       for ($i=0; $i<$att_count; $i++) {
          $att_id        = $att[$i]["att_id"];
@@ -147,26 +146,19 @@ function display_upload($apli,$post_id,$Mmod){
          $att_link      = getAttachmentUrl ($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
          // check for full row
          if (++$ncell > $num_cells) {
-//            $attachments .= "</tr>\n<tr>";
             $ncell = 1;
          }
          if (getAttDisplayMode($att_type, $att_inline) != ATT_DSP_LINK) {
             if ($ncell > 1)   {
                while ($ncell++ <= $num_cells)
-//                  $attachments .= "<td>&nbsp;</td>";
                $attachments .= "</tr>\n<tr>";
             }
             $ncell = $num_cells + 1;
-//            $td = "<td colspan=\"".$num_cells."\">";
-         } else {
-//            $td = "<td>";
          }
-//         $attachments .= $td.$att_link."</td>";
          $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
       }
       $attachments .= '</div>';
-
       return $attachments;
    }
 }
@@ -266,7 +258,8 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
       $marqueurM='';
    }
    $att_url= "getfile.php?att_id=$att_id&amp;apli=$apli".$marqueurM."&amp;att_name=".rawurlencode($att_name);
-
+   
+   settype($visible_wrn,'string');
    if ($visible!=1) {
       $visible_wrn = '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non visible").'</span>';
    }
