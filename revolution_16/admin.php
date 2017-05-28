@@ -388,6 +388,7 @@ function adminMain($deja_affiches) {
    global $language, $admart, $hlpfile, $aid, $admf_ext, $NPDS_Prefix;
    $hlpfile = "manuels/$language/admin.html";
    include("header.php");
+   include_once('functions.php');
    global $short_menu_admin;
    $short_menu_admin=false;
    $radminsuper=GraphicAdmin($hlpfile);///????????
