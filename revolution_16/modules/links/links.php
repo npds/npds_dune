@@ -584,8 +584,7 @@ switch ($op) {
       NewLinksDate($selectdate);
    break;
    case 'viewlink':
-         settype($show,'string');
-
+      settype($show,'string');
       if (!isset($min)) $min=0;
       if (isset($orderby)) $orderby = convertorderbyin($orderby); else $orderby = "title ASC";
       viewlink($cid, $min, $orderby, $show);
