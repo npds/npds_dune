@@ -1,29 +1,39 @@
 <?php
    global $cookie, $anonymous, $NPDS_Prefix;
-   $username = $cookie[1];$con='';$ava='';$cha='';
-   $skinname = $cookie[11];
-   switch ($skinname) {
-      case 'cyborg': 
-        $headerclasses ='navbar navbar-toggleable-md navbar-dark fixed-top bg-inverse';
-      break;
-      case 'lumen':
-         $headerclasses ='navbar  navbar-toggleable-md navbar-light bg-inverse fixed-top';
-      break;
-      case 'journal':
-      case 'materia':
-      case 'litera':
-      case 'simplex':
-      case 'spacelab':
-         $headerclasses = 'navbar  navbar-toggleable-md navbar-light fixed-top bg-faded';
-      break;
-      default :
-        $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
-      break;
+   $con='';$ava='';$cha='';$bal='';
+   if ($user) {
+      $username = $cookie[1];
+      $skinname = $cookie[11];
+      switch ($skinname) {
+         case 'cyborg': 
+           $headerclasses ='navbar navbar-toggleable-md navbar-dark fixed-top bg-inverse';
+         break;
+         case 'lumen':
+            $headerclasses ='navbar navbar-toggleable-md navbar-light bg-inverse fixed-top';
+         break;
+         case 'journal':
+         case 'materia':
+         case 'litera':
+         case 'simplex':
+         case 'spacelab':
+            $headerclasses = 'navbar navbar-toggleable-md navbar-light fixed-top bg-faded';
+         break;
+         default :
+           $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+         break;
+      }
    }
-if (!isset($powerpack)) {include_once ("powerpack.php");}
+   else {
+      $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+      $username='';
+   }
+   if (!isset($powerpack)) {include_once ("powerpack.php");}
+
+   $auto=autorisation_block("makeChatBox");
+      $PopUp = JavaPopUp("chat.php?id=".$auto[0]."&amp;auto=".encrypt(serialize($auto[0])),"chat".$auto[0],380,480);
+
    if (if_chat()) $cha= '
-         <li class="navbar-divider"></li>
-         <li class="nav-item"><a class="nav-link faa-pulse animated faa-slow" href="#"><i class="fa fa-comments fa-lg "></i></a></li>';
+         <li class="nav-item"><a class="nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-lg "></i></a></li>';
    if (autorisation(-1)) {
       $con = '!nb_online! - <a href="user.php">Se connecter</a>';
       $btn_con = '<a class="dropdown-item" href="user.php"><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
