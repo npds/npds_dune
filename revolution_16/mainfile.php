@@ -710,8 +710,8 @@ function getusrinfo($user) {
    $cookie = explode(':', base64_decode($user));
    $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($pass) = sql_fetch_row($result);
-   $userinfos='';
-   if (($cookie[2] == md5($pass)) AND ($pass != "")) {
+   $userinfo='';
+   if (($cookie[2] == md5($pass)) AND ($pass != '')) {
       $result = sql_query("SELECT uid, name, uname, email, femail, url, user_avatar, user_occ, user_from, user_intrest, user_sig, user_viewemail, user_theme, pass, storynum, umode, uorder, thold, noscore, bio, ublockon, ublock, theme, commentmax, user_journal, send_email, is_visible, mns, user_lnl FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       if (sql_num_rows($result)==1) {
          $userinfo = sql_fetch_assoc($result);
@@ -2502,26 +2502,25 @@ function category() {
 #autodoc headlines() : Bloc HeadLines <br />=> syntaxe :
 #autodoc : function#headlines<br />params#ID_du_canal
 function headlines($hid='', $block=true) {
-  global $NPDS_Prefix, $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
+   global $NPDS_Prefix, $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
 
-  if (file_exists("proxy.conf.php")) {
-     include("proxy.conf.php");
-  }
-  if ($hid=='') {
-     $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE status=1");
-  } else {
-     $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
-  }
-  while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
-    $boxtitle     = $sitename;
-//    $cache_file   = "cache/$sitename.cache";
+   if (file_exists("proxy.conf.php")) {
+      include("proxy.conf.php");
+   }
+   if ($hid=='') {
+      $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE status=1");
+   } else {
+      $result = sql_query("SELECT sitename, url, headlinesurl, hid FROM ".$NPDS_Prefix."headlines WHERE hid='$hid' AND status=1");
+   }
+   while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
+      $boxtitle = $sitename;
     
-    $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
-    $cache_time   = 3600;//3600
-    $items        = 0;
-    $max_items    = 6;
-    $rss_timeout  = 15;
-    $rss_font     = '<span class="small">';
+      $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
+      $cache_time = 3600;//3600
+      $items = 0;
+      $max_items = 6;
+      $rss_timeout = 15;
+      $rss_font = '<span class="small">';
 
     if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
        $rss=parse_url($url);
@@ -2586,23 +2585,39 @@ function headlines($hid='', $block=true) {
                 }
 */
 
-// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome !
+// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome ! à peaufiner ..
    $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
    $namespaces = $flux->getNamespaces(true); // get namespaces
    $ic='';
    //ATOM//
    if($flux->entry) {
-   $j=0;
-      foreach ($flux->entry as $entry) {
+      $j=0;
       $cont='';
-//      if($entry->children($namespaces['media'])->count() > 0) $srcmedia = (string) $entry->children($namespaces['media'])->thumbnail->attributes()->url;
-      //$srcmedia = (string) $entry->children($namespaces['media'])->thumbnail->attributes()->url;
-      
-//         if($srcmedia!='') {$ic='<img class="img-fluid" src="'.$srcmedia.'" />&nbsp;';} else{$ic='';}
-
+      foreach ($flux->entry as $entry) {
          if($entry->content) $cont=(string) $entry->content;
-
-         fputs($fpwrite,'<li>'.$ic.'<a href="'.(string)$entry->link['href'].'" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+         fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+         if($j==$max_items) break;
+         $j++;
+      }
+   }
+   
+   if($flux->{'item'}) {
+   $j=0;
+   $cont='';
+      foreach ($flux->item as $item) {
+         if($item->description) $cont=(string) $item->description;
+         fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
+         if($j==$max_items) break;
+         $j++;
+      }
+   }
+   //RSS
+   if($flux->{'channel'}) {
+   $j=0;
+   $cont='';
+      foreach ($flux->channel->item as $item) {
+         if($item->description) $cont=(string) $item->description;
+         fputs($fpwrite,'<li><a href="'.(string)$item->link.'" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
          if($j==$max_items) break;
          $j++;
       }
@@ -2624,21 +2639,21 @@ function headlines($hid='', $block=true) {
        }
     }
 
-    if (file_exists($cache_file)) {
-        ob_start();
-        $ibid=readfile($cache_file);
-        $boxstuff=$rss_font.ob_get_contents().'</span>';
-        ob_end_clean();
-    }
-    $boxstuff .= '
+      if (file_exists($cache_file)) {
+         ob_start();
+         $ibid=readfile($cache_file);
+         $boxstuff=$rss_font.ob_get_contents().'</span>';
+         ob_end_clean();
+      }
+      $boxstuff .= '
          <div class="text-right"><a href="'.$url.'" target="_blank">'.translate("read more...").'</a></div>';
-    if ($block) {
-       themesidebox($boxtitle, $boxstuff);
-       $boxstuff='';
-    } else {
-        return ($boxstuff);
-    }
-  }
+      if ($block) {
+         themesidebox($boxtitle, $boxstuff);
+         $boxstuff='';
+      } else {
+         return ($boxstuff);
+      }
+   }
 }
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe :
 #autodoc : function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
@@ -2786,25 +2801,22 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       }
    
       list($uname, $user_avatar, $mns, $url, $femail)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url, femail FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
-      
-   $useroutils = '';
-      if ($uid!= 1 and $uid!='') {
+
+      include('modules/geoloc/geoloc_conf.php');
+      settype($ch_lat,'string');
+      $useroutils = '';
+      if ($uid!= 1 and $uid!='')
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$uname.'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
-      }
-      if ($uid!= 1) {
+      if ($uid!= 1)
          $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
-      }
-      if ($femail!='') {
+      if ($femail!='')
          $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($femail,1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
-      }
-      if ($url!='') {
-         if (strstr('http://', $url))
-            $url = 'http://' . $url;
+      if ($url!='')
          $useroutils .= '<a class="list-group-item text-primary" href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
-      }
-      if ($mns) {
-          $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
-      }
+      if ($mns)
+         $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+      if ($posterdata_extend[$ch_lat] !='')
+         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op='.$uname.'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
 
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
       if (!$user_avatar) {
