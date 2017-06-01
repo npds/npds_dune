@@ -2585,6 +2585,7 @@ function headlines($hid='', $block=true) {
                 }
 */
 
+
 // this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome ! à peaufiner ..
    $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
    $namespaces = $flux->getNamespaces(true); // get namespaces
