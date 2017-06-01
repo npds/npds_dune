@@ -454,7 +454,7 @@ function topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin,
        sql_query("INSERT INTO ".$NPDS_Prefix."related VALUES (NULL, '$topicid','$name','$url')");
     }
 
-   Header("Location: admin.php?op=topicedit&topicid=$topicid");//commenter juste pour debug
+   Header("Location: admin.php?op=topicedit&topicid=$topicid");
 }
 
 function topicdelete($topicid, $ok=0) {

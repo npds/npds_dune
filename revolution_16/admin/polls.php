@@ -330,25 +330,25 @@ function poll_SendEditPoll() {
 
 switch ($op) {
    case 'create':
-        poll_createPoll();
-        break;
+      poll_createPoll();
+   break;
    case 'createPosted':
-        poll_createPosted();
-        break;
+      poll_createPosted();
+   break;
    case 'remove':
-        poll_removePoll();
-        break;
+      poll_removePoll();
+   break;
    case 'removePosted':
-        poll_removePosted();
-        break;
+      poll_removePosted();
+   break;
    case 'editpoll':
-        poll_editPoll();
-        break;
+      poll_editPoll();
+   break;
    case 'editpollPosted':
-        poll_editPollPosted();
-        break;
+      poll_editPollPosted();
+   break;
    case 'SendEditPoll':
-        poll_SendEditPoll();
-        break;
+      poll_SendEditPoll();
+   break;
 }
 ?>
