@@ -491,7 +491,9 @@ function displayStory ($qid) {
             </select>
          </div>
       </div>';
+   settype($cat,'string');
    SelectCategory($cat);
+   settype($ihome,'integer');
    puthome($ihome);
    echo '
    <div class="form-group row">
@@ -505,7 +507,7 @@ function displayStory ($qid) {
    <div class="form-group row">
       <label class="form-control-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
       <div class="col-12">
-         <textarea class="tin form-control" rows="25" name="bodytext" >'.$bodytext.'</textarea>
+         <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
       </div>
    </div>';
    echo aff_editeur('bodytext', '');
@@ -513,7 +515,7 @@ function displayStory ($qid) {
    <div class="form-group row">
       <label class="form-control-label col-12" for="notes">'.adm_translate("Notes").'</label>
       <div class="col-12">
-         <textarea class="tin form-control" rows="7" name="notes"></textarea>
+         <textarea class="tin form-control" rows="7" id="notes" name="notes"></textarea>
       </div>
    </div>';
    echo aff_editeur('notes', '');
