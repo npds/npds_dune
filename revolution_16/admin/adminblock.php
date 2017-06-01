@@ -20,7 +20,7 @@ admindroits($aid,$f_meta_nom);
 global $language;
 $hlpfile = "manuels/$language/adminblock.html";
 
-function ablock() {
+function ablock() {  
    global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include("header.php");
    GraphicAdmin($hlpfile);
@@ -76,10 +76,10 @@ function changeablock($title, $content) {
 
 switch ($op) {
    case "ablock":
-        ablock();
-        break;
+      ablock();
+   break;
    case "changeablock":
-        changeablock($title, $content);
-        break;
+      changeablock($title, $content);
+   break;
 }
 ?>
