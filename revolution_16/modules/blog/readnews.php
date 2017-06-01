@@ -13,7 +13,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    global $tiny_mce;
 
    $content='';
-   $blog_file=$blog_dir."news.txt";
+   $blog_file=$blog_dir.'news.txt';
    if (!file_exists($blog_file)) {
       $fp=fopen($blog_file,'w');
       fclose($fp);
@@ -63,11 +63,11 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             $formatted=str_replace("<img","<img class=\"img-fluid\"",$story);
             $formatted=str_replace("\n","<br />",$formatted);
          } else {
-            $formatted=str_replace("\r\n","",$story);
+            $formatted=str_replace("\r\n",'',$story);
             $formatted=str_replace("<img","<img class=\"img-fluid\"",$story);
-            $formatted=str_replace("\n","",$formatted);
+            $formatted=str_replace("\n",'',$formatted);
          }
-         $newsto=date("d m Y")."!;!".$title."!;!".$formatted;
+         $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
          fwrite($fp,StripSlashes($newsto)."\n");
          fclose($fp);
          redirect_url("minisite.php?op=$op");
@@ -106,11 +106,11 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
             $formatted=str_replace("\n","<br />",$formatted);
          } else {
-            $formatted=str_replace("\r\n","",$story);
+            $formatted=str_replace("\r\n",'',$story);
             $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
-            $formatted=str_replace("\n","",$formatted);
+            $formatted=str_replace("\n",'',$formatted);
          }
-         $newsto=date("d m Y")."!;!".$title."!;!".$formatted;
+         $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
          $xnews[$index]=StripSlashes($newsto)."\n";
          $xnews=array_reverse($xnews);
          $fp=fopen($blog_file,"w");
@@ -150,7 +150,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
 //      $content.='<br />';
    }
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
-       $crtsplit=explode("!;!",$xnews[$i]);
+       $crtsplit=explode('!;!',$xnews[$i]);
        $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
        $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
        $content.= '
@@ -158,16 +158,16 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          <div class="card-block">
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
             <h6 class="card-subtitle text-muted">'.translate("Posted on ").' '.$crtsplit[0].'</h6>
-         </div>';
-
-       $content.='<div class=" card-block">'.convert_ressources($crtsplit[2]).'</div>';
+         </div>
+         <div class=" card-block">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {
        $content.='
-       <div class="card-footer">
-         '.$actionM.'&nbsp;'.$actionD.'
-      </div>';
+          <div class="card-footer">
+            '.$actionM.'&nbsp;'.$actionD.'
+         </div>';
        }
-       $content.= '</div>';
+       $content.= '
+       </div>';
    }
    if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
    $content.="\n";
