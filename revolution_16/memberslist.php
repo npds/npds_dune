@@ -212,14 +212,14 @@ function avatar($user_avatar) {
             $and='';
          else {
             if ($where)
-               $and='AND is_visible=1 ';
+               $and=' AND is_visible=1 ';
             else
-               $and='WHERE is_visible=1 ';
+               $and=' WHERE is_visible=1 ';
          }
       } else {
          $and='';
       }
-      $sort = "ORDER BY $sortby";
+      $sort = " ORDER BY $sortby";
       $limit = ' LIMIT '.$min.', '.$max;
       $count_result = sql_query($count.$where);
       list($num_rows_per_order) = sql_fetch_row($count_result);
@@ -258,8 +258,11 @@ function avatar($user_avatar) {
             while($temp_user = sql_fetch_assoc($result) ) {
                $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
                if (!$short_user) {
+//             if($temp_user['uid']!= 1) {
                   $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
                   include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+                  include('modules/geoloc/geoloc_conf.php');
+
                   if ($posterdata_extend['M2']!='') {
                      $socialnetworks= explode(';',$posterdata_extend['M2']);
                      foreach ($socialnetworks as $socialnetwork) {
@@ -283,31 +286,25 @@ function avatar($user_avatar) {
                   }
                   else $my_rsos[]='';
                }
+//                              }
 
+               settype($ch_lat,'string');
                $useroutils = '';
-               if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
+               if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
                   $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
-               }
-               if ($temp_user['uid']!= 1 and $temp_user['uid']!='') {
+               if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
                   $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
-               }
-               if ($temp_user['femail']!='') {
+               if ($temp_user['femail']!='')
                   $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
-               }
-               if ($temp_user['url']!='') {
-                  if (strstr('http://', $temp_user['url']))
-                     $temp_user['url'] = 'http://' . $temp_user['url'];
+               if ($temp_user['url']!='')
                   $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
-               }
-               if ($temp_user['mns']) {
+               if ($temp_user['mns'])
                    $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
-               }
-               if ($user and $temp_user['uid']!= 1) {
+               if ($user and $temp_user['uid']!= 1)
                   $useroutils .= '<a class="list-group-item text-primary" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" ><i class="fa fa-plus-circle fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Mailing list").'</span></a>';
-               }
-               // !! pas bon on doit avoir la valeur du champ choisi ...!! donc inclure congf geoloc ...
-               if ($posterdata_extend['C7'] !='') {
-                  $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&ModStart=geoloc" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+               if ($user and $temp_user['uid']!= 1) {
+                  if ($posterdata_extend[$ch_lat] !='')
+                     $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op='.$temp_user['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
                }
                $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
                list($open_user) = sql_fetch_row($op_result);
