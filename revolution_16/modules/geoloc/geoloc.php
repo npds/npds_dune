@@ -43,10 +43,12 @@ $js_dragtrue ='';
 $js_dragfunc ='';
 $lkadm ='';
 $mess_adm ='';
+settype($op,'string');
+
 // admin tool
 if(autorisation(-127)) {
 $mess_adm ='<p class="text-danger">'.geoloc_translate('Rappel : vous êtes en mode administrateur !').'</p>';
-$lkadm = '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i id="cogs" class="fa fa-cogs fa-lg"></i></a>';
+$lkadm = '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set" title="'.geoloc_translate("Admin").'" data-toggle="tooltip"><i id="cogs" class="fa fa-cogs fa-lg"></i></a>';
 $infooo = geoloc_translate('Modification administrateur');
 $js_dragtrue ='draggable:true,';
 $js_dragfunc ='
@@ -193,6 +195,8 @@ while ($row = sql_fetch_array($membre))
       //construction marker membre
       $mb_gr .='
       var point = new google.maps.LatLng('.$us_lat. ','.$us_long.');
+      var '.$us_uname.' = {lat: '.$us_lat. ', lng: '.$us_long.'};
+
       var marker = createMarker(point,map,infoWindow,"<i style=\"color:#c00000; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg\"></i>&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br /><div class="my-1">'.geoloc_translate("Dernière visite").' : '.$visit.'</div></div>\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
       bounds.extend(point);
       map.fitBounds(bounds);'; 
@@ -464,6 +468,7 @@ var i = 0;
     function show(type) {
         for (var i=0; i<gmarkers.length; i++) {
             if (gmarkers[i].mytype == type) {gmarkers[i].setVisible(true)}
+            map.fitBounds(bounds);
         }
         for (var i=0; i<gmarkers_g.length; i++) {
             if (gmarkers_g[i].mytype == type) {gmarkers_g[i].setVisible(true)}
@@ -682,30 +687,18 @@ else
 $ecr_scr .= $mb_con_g.''.$ano_conn.''.$mb_gr ;
 //<==
 $ecr_scr .= '
-document.getElementById("mess_info").innerHTML = \''.$mess_mb.' '.$mess_adm.'\';
+document.getElementById("mess_info").innerHTML = \''.$mess_mb.' '.$mess_adm.'\';';
 
-/*
-google.maps.event.addListenerOnce(map, 
-                                  //"idle",
-                                  "zoom_changed",
-                                  //"bounds_changed", 
-                                  function() {
-        //alert("it definitely works");
-        alert("ahoj" + map.getZoom());
-        map.setZoom(16);
-                console.log(map.getZoom());
+if ($op!='') $ecr_scr .= '
+var listener = google.maps.event.addListener(map, "idle", function() { 
+   map.setCenter('.$op.');
+   if (map.getZoom() > 5) map.setZoom(16); 
+   google.maps.event.removeListener(listener); 
+});';
 
-});
-*/
-
-
-
-
-//map.setZoom(1);
-
+$ecr_scr .= '
 show("member");show("ac");show("c");
 //show("wpo");
-
 makeSidebar();
 
 //===> infos cartes
@@ -819,10 +812,6 @@ function Coordinates() {
    document.getElementById("geocode_submit").addEventListener("click", function() {
       geocodeAddress(geocoder, map);
    });
-   
-
-
-
 } //<= geoloc_load
    function setAllMap(map) {
      for (var i = 0; i < gmarkers.length; i++) {
@@ -905,12 +894,12 @@ $affi .= '
       <div class="row">
          <div class="col-sm-11 ">
             <span style="font-size:1rem">
-               <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>';
+               <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>';
 if($geo_ip==1) 
    $affi .='
-               <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>';
+               <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>';
 $affi .= '
-               <span class="badge badge-default mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
+               <span class="badge badge-default mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
             </span>
          </div>
          <div class="col-sm-1 ">
@@ -969,7 +958,6 @@ echo $affi;
 echo $ecr_scr;
 include ('footer.php');
 
-settype($op,'string');
 switch ($op) {
    case 'wp':
       wp_fill();
