@@ -103,6 +103,7 @@ if ($total > $posts_per_page) {
    $pages=$times;
 }
 
+   if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; };
    $nbPages = ceil($total/$posts_per_page);
       $current = 1;
       if ($start >= 1) {
@@ -230,18 +231,7 @@ include('header.php');
             </li>
             <li class="page-item disabled">
                <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
-            </li>';
-      $pages_rapide='';
-      for ($x = 0; $x < $total; $x += $posts_per_page) {
-         if ($current_page!=$times)
-            $pages_rapide.='<li class="page-item"><a class="page-link" href="viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start='.$x.'">'.$times.'</a></li>';
-         else
-            $pages_rapide.='<li class="page-item active"><a class="page-link" href="#">'.$times.'</a></li>';
-         $times++;
-      }
-//      echo $pages_rapide;
-
-      echo '
+            </li>
          </ul>
       </div>';
       
@@ -333,27 +323,24 @@ include('header.php');
          }
          else $my_rsos[]='';
       }
+      include('modules/geoloc/geoloc_conf.php');
+      settype($ch_lat,'string');
 
-   $useroutils = '';
-   $useroutils .= '<hr />';
-      if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
-         $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
-      }
-      if ($posterdata['uid']!= 1) {
-         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
-      }
-      if ($posterdata['femail']!='') {
-         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
-      }
-      if ($posterdata['url']!='') {
-         if (strstr('http://', $posterdata['url']))
-            $posterdata['url'] = 'http://' . $posterdata['url'];
-         $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
-      }
-      if ($posterdata['mns']) {
-          $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
-      }
-      
+      $useroutils = '';
+      $useroutils .= '<hr />';
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
+      if ($posterdata['uid']!= 1)
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
+      if ($posterdata['femail']!='')
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
+      if ($posterdata['url']!='')
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+      if ($posterdata['mns'])
+          $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+      if ($posterdata_extend[$ch_lat] !='')
+         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+
       echo '
       <div class="row mb-3">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
@@ -517,7 +504,7 @@ include('header.php');
     }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
-<form class="" action="viewforum.php" method="post">
+<form action="viewforum.php" method="post">
    <div class="form-group row">
       <div class="col-12">
          <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>

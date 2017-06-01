@@ -76,10 +76,10 @@ function changeablock($title, $content) {
 
 switch ($op) {
    case "ablock":
-        ablock();
-        break;
+      ablock();
+   break;
    case "changeablock":
-        changeablock($title, $content);
-        break;
+      changeablock($title, $content);
+   break;
 }
 ?>

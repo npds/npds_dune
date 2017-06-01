@@ -16,6 +16,8 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
 include ("publication.php");
+settype($admin,'string');
+settype($user,'string');
 
 if ($mod_admin_news>0) {
    if ($admin=='' and $user=='') {
@@ -25,7 +27,7 @@ if ($mod_admin_news>0) {
    if ($mod_admin_news==1) {
       if ($user!='' and $admin=='') {
          global $cookie;
-         $result = sql_query("select level from ".$NPDS_Prefix."users_status where uid='$cookie[0]'");
+         $result = sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
          if (sql_num_rows($result)==1) {
             list($userlevel) = sql_fetch_row($result);
             if ($userlevel==1) {
@@ -42,14 +44,15 @@ function defaultDisplay() {
 
    include ('header.php');
    global $user, $anonymous;
-   if (isset($user)) $userinfo=getusrinfo($user);
+   if ($user) $userinfo=getusrinfo($user);
 
    echo '
    <h2>'.translate("Submit News").'</h2>
+   <hr />
    <form action="submit.php" method="post" name="adminForm">';
    echo '<p class="lead"><strong>'.translate("Your Name").'</strong> : ';
    if ($user) {
-      echo "<a href=\"user.php\">".$userinfo['name']."</a> [ <a href=\"user.php?op=logout\">".translate("Logout")."</a> ]</p>";
+      echo "<a href=\"user.php\">".$userinfo['uname']."</a> [ <a href=\"user.php?op=logout\">".translate("Logout")."</a> ]</p>";
       echo '<input type="hidden" name="name" value="'.$userinfo['name'].'" />';
    } else {
       echo "$anonymous [ <a href=\"user.php\">".translate("New User")."</a> ]</p>";
@@ -79,12 +82,11 @@ function defaultDisplay() {
    echo '
             </select>
          </div>
-      </div>';
-   echo'
+      </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="story" >'.translate("Intro Text").'</label>
          <div class="col-sm-12">
-            <textarea class=" form-control tin" rows="25" name="story"></textarea>
+            <textarea class=" form-control tin" rows="25" id="story" name="story"></textarea>
          </div>
       </div>';
    echo aff_editeur('story', '');
@@ -92,13 +94,11 @@ function defaultDisplay() {
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="bodytext">'.translate("Full Text").'</label>
          <div class="col-sm-12">
-            <textarea class="form-control tin " rows="25" name="bodytext"></textarea>
+            <textarea class="form-control tin " rows="25" id="bodytext" name="bodytext"></textarea>
          </div>
       </div>';
    echo aff_editeur('bodytext', '');
-
    publication(0,0,0,0,0, 0,0,0,0,0, 0);
-
    echo '
       <div class="form-group row">
          <div class="col-sm-12">
@@ -120,13 +120,14 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
 
    echo '
    <h2>'.translate("Submit News").'</h2>
-   <form class="" action="submit.php" method="post" name="adminForm">
+   <hr />
+   <form action="submit.php" method="post" name="adminForm">
       <p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>
-      <input type="hidden" name="name" value="'.$name.'" />';
-   echo '<div class="card card-block mb-4">';
+      <input type="hidden" name="name" value="'.$name.'" />
+      <div class="card card-block mb-4">';
 
    if ($topic=='') {
-//      $topicimage='all-topics.gif';
+      $topicimage='all-topics.gif';
       $warning = '<div class="alert alert-danger"><strong>'.translate("Select Topic").'</strong></div>';
    } else {
       $warning = '';
@@ -231,8 +232,10 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval,$date_fin
          send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "text");
       }
       include ('header.php');
-      echo '<h2>'.translate("Submit News").'</h2>';
-      echo '<p class="lead text-info">'.translate("Thanks for your submission.").'</p>';
+      echo '
+      <h2>'.translate("Submit News").'</h2>
+      <hr />
+      <div class="alert alert-success lead">'.translate("Thanks for your submission.").'</div>';
       include ('footer.php');
    } else {
       include ('header.php');

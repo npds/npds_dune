@@ -1062,7 +1062,7 @@ function edithome() {
    <div class="form-group row">
       <label class="form-control-label col-sm-7" for="storynum">'.translate("News number in the Home").' (max. 127) :</label>
       <div class="col-sm-5">
-         <input class="form-control" type="number" min="0" max="127" name="storynum" value="'.$userinfo['storynum'].'" />
+         <input class="form-control" type="number" min="0" max="127" id="storynum" name="storynum" value="'.$userinfo['storynum'].'" />
       </div>
    </div>';
    if ($userinfo['ublockon']==1) $sel = 'checked="checked"';
