@@ -13,8 +13,8 @@
 /************************************************************************/
 
 #autodoc blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $gifbgcolor="") : Bloc blocnotes<br />=> syntaxe :
-#autodoc : function#blocnotes<br />params#shared OU context (partagé ou contextuel), nom_du_bloc OU le texte : $username (nom du bloc=nom du membre ou de l'admin), largeur (en % ou en pixel), nb de ligne de la textarea, couleur du fond du gif (vide=transparent, sinon RVB)<br />
-#autodoc : function#blocnotes<br />params#shared,TNT,150 (blocnote partagé s'appelant TNT de largeur 150 pixel)
+#autodoc : function#blocnotes<br />params#shared OU context (partagÃ© ou contextuel), nom_du_bloc OU le texte : $username (nom du bloc=nom du membre ou de l'admin), largeur (en % ou en pixel), nb de ligne de la textarea, couleur du fond du gif (vide=transparent, sinon RVB)<br />
+#autodoc : function#blocnotes<br />params#shared,TNT,150 (blocnote partagÃ© s'appelant TNT de largeur 150 pixel)
 function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $gifbgcolor="", $affiche=true) {
    global $REQUEST_URI;
    $aff='';
@@ -52,7 +52,7 @@ function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $n
       $aff.= '
             <form method="post" action="modules.php?ModPath=bloc-notes&amp;ModStart=blocnotes" name="A'.$bnid.'">
             <div class="form-group">
-               <textarea class="form-control" cols="20" rows="'.$nblBlocNote.'" name="texteBlocNote" ></textarea>
+               <textarea class="form-control" cols="20" rows="'.$nblBlocNote.'" name="texteBlocNote" id="texteBlocNote_'.$bnid.'"></textarea>
             </div>
             <div class="form-group">
                <input type="hidden" name="uriBlocNote" value="'.urlencode($REQUEST_URI).'" />
@@ -60,8 +60,8 @@ function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $n
                <input type="hidden" name="nomBlocNote" value="'.$nomBlocNote.'" />
                <div class="row">
                   <div class="col-12">
-                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check"></i>&nbsp;Valider</button>
-                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fa fa-remove"></i>&nbsp; Effacer</button>
+                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check mr-1"></i>'.translate("Submit").'</button>
+                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fa fa-remove mr-1"></i>'.translate("Delete").'</button>
                   </div>
                </div>
             </div>
