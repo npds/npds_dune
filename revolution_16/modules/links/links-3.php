@@ -156,25 +156,25 @@ function brokenlink($lid) {
    mainheader();
    echo '
    <h3>'.translate("Report Broken Link").'</h3>
-   <p align="center">
+   <div class="alert alert-success my-3">
           '.translate("Thank you for helping to maintain this directory's integrity.").'
           <br />
-          '.translate("For security reasons your user name and IP address will also be temporarily recorded.").'
+          <strong>'.translate("For security reasons your user name and IP address will also be temporarily recorded.").'</strong>
           <br />
-   </p>
+   </div>
    <form method="post" action="modules.php">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />
       <input type="hidden" name="lid" value="'.$lid.'" />
       <input type="hidden" name="modifysubmitter" value="'.$ratinguser.'" />
       <input type="hidden" name="op" value="brokenlinkS" />
-      <input type="submit" class="btn btn-primary" value="'.translate("Report Broken Link").'" />
+      <input type="submit" class="btn btn-success" value="'.translate("Report Broken Link").'" />
    </form>';
     include("footer.php");
 }
 
 function brokenlinkS($lid, $modifysubmitter) {
-    global $user, $links_DB;
+    global $user, $links_DB, $ModPath, $ModStart;
     if (isset($user)) {
        global $cookie;
        $ratinguser = $cookie[1];
@@ -186,7 +186,12 @@ function brokenlinkS($lid, $modifysubmitter) {
        sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, 0, 0, '', '', '', '$ratinguser', 1,'')");
     }
     include("header.php");
-    echo "<br /><p align=\"center\">".translate("Thanks for this information. We'll look into your request shortly.")."</p><br />";
+    mainheader();
+    echo '
+    <h3>'.translate("Report Broken Link").'</h3>
+   <div class="alert alert-success my-3">
+   '.translate("Thanks for this information. We'll look into your request shortly.").'
+   </div>';
     include("footer.php");
 }
 ?>

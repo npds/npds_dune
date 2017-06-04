@@ -324,9 +324,10 @@ function removeHack($Xstring) {
   return($Xstring);
 }
 #autodoc getmicrotime() : Retourne le temps en micro-seconde
+// a supprimer remplacé par fonction native php5 microtime(true)
 function getmicrotime() {
    list($usec, $sec) = explode(' ',microtime());
-   return (float)$usec + (float)$sec;
+   return ((float)$usec + (float)$sec);
 }
 #autodoc send_email($email, $subject, $message, $from, $priority, $mime) : Pour envoyer un mail en texte ou html via les fonctions mail ou email  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(piece jointe)
 function send_email($email, $subject, $message, $from="", $priority=false, $mime="text") {
@@ -2585,8 +2586,7 @@ function headlines($hid='', $block=true) {
                 }
 */
 
-
-// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome ! à peaufiner ..
+// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome ! à peaufiner ...
    $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
    $namespaces = $flux->getNamespaces(true); // get namespaces
    $ic='';
