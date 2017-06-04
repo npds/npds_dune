@@ -1,0 +1,41 @@
+@import "/lib/bootstrap/dist/css/bootstrap.min.css"; 
+@import "/lib/font-awesome/css/font-awesome.min.css";
+@import "/lib/bootstrap-table/dist/bootstrap-table.css";
+
+#photo .imagethumb a {
+  height: 17px;
+  width:  17px;
+  padding: 2px;
+  margin: 1px;
+  
+  border: 1px solid #777;
+  background: #E6E7E2;
+
+  float: left;
+  line-height: 0px;
+  text-align: center;
+}
+
+div.mp3 {
+  height: 110px;
+  width:  150px;
+  padding: 10px;
+  margin-bottom: 5px;
+
+  float: left;
+  line-height: 12px;
+  text-align: left;
+
+  border: 1px solid #000;
+  background: #CACDC2;
+}
+
+#photo .imagethumb a:hover {
+  border: 1px solid #000;
+  background: #CACDC2;
+}
+
+#photo {
+  text-align: center;
+  width: 100%;
+}

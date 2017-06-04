@@ -1,0 +1,101 @@
+/*****************
+adaptation libre de JMD alias Bmag  theme :corporate 
+sur la base de JPB npds-boots
+*****************************************/
+
+	
+.feature {
+	background-color: yellowgreen;
+	color: greenyellow;
+	}
+	
+.article-intro {
+    margin-bottom: 25px;
+}
+
+.footer-blurb {
+    padding: 30px 0;
+    background-color: goldenrod;
+    color: black;
+}
+    
+.footer-blurb-item {
+    padding: 30px;
+    }
+ 
+.small-print {
+	background-color: #fff;
+	padding: 30px 0;
+}
+
+
+
+ .jumbotron {
+
+    margin-top: 2rem;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+
+a {
+    color: #4b7b17;
+    text-decoration: none;
+}
+
+#pub a {
+    color: #fff; 
+}
+
+#pub a:focus, a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+a:focus, a:hover {
+    color: #32690d;
+    text-decoration: underline;
+} 
+
+
+
+.navbar-inverse .navbar-nav .nav-link {
+    color: #e7e3e3;;
+}
+#carouselExampleSlidesOnly{padding: 1.5rem;
+margin-right: 0;
+margin-bottom: 0;
+margin-left: 0;
+border-width: .2rem;}
+
+.blockquote {
+    padding: .5rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    border-left: .5rem solid #eceeef;
+    border-bottom: .2rem solid #eceeef;
+}
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #719f08;
+    border-color: #719f08;
+}
+
+.text-primary {
+    color: #32690d !important;
+}
+
+.custom-control-input:checked ~ .custom-control-indicator {
+    color: #fff;
+    background-color: #559e08;
+}
+
+table tr.even, table tr.alt, table tr:nth-of-type(2n) {
+    background: #FCFCFC none repeat scroll 0% 0%;
+}
