@@ -141,14 +141,18 @@ function AddLink() {
                inpandfieldlen("url",100);
             });
          //]]>
-      </script>';
+      </script>
+      </div>';
       SearchForm();
+      adminfoot('fv','','','1');
+      include("footer.php");
    } else {
       echo '
-        <p align="center>'.translate("You are not a registered user or you have not logged in.").'<br />
-        '.translate("If you were registered you could add links on this website.").'</p>';
+        <div class="alert alert-warning">'.translate("You are not a registered user or you have not logged in.").'<br />
+        '.translate("If you were registered you could add links on this website.").'</div>';
+      SearchForm();
+      include("footer.php");
    }
-   adminfoot('fv','','','');
 }
 
 function Add($title, $url, $name, $cat, $description, $email, $topicL, $asb_question, $asb_reponse) {

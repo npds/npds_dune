@@ -16,7 +16,10 @@
 if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
    die();
 }
+//$time_start = getmicrotime();
+
 global $links_DB, $NPDS_Prefix;
+
 
 include_once("modules/$ModPath/links.conf.php");
 if ($links_DB=='') $links_DB=$NPDS_Prefix;
@@ -238,7 +241,6 @@ function viewlink($cid, $min, $orderby, $show) {
 
       settype($affsouscat,'string');
 
-
       $filen="modules/$ModPath/links.ban_02.php";
       if (file_exists($filen)) {include($filen);}
       $result=sql_query("SELECT title FROM ".$links_DB."links_categories WHERE cid='$cid'");
@@ -248,6 +250,7 @@ function viewlink($cid, $min, $orderby, $show) {
 
       $subresult=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$cid' ORDER BY title");
       $numrows = sql_num_rows($subresult);
+      settype($numrows_lst,'integer');
       $affsouscat .= '
       <ul class="list-group">
          <li class="list-group-item "><h4 class="w-100">'.translate("SubCategories").'<span class="badge badge-default float-right"> '.$numrows.'</span></h4></li>';
