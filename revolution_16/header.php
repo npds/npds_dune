@@ -334,6 +334,26 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    }
 
    head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_description,$m_keywords,$skin);
+   global $httpref, $nuke_url, $httprefmax, $admin, $NPDS_Prefix;
+   if ($httpref==1) {
+      $referer= htmlentities(strip_tags(removeHack(getenv("HTTP_REFERER"))),ENT_QUOTES,cur_charset);
+      if ($referer!='' and !strstr($referer,"unknown") and !stristr($referer,$_SERVER['SERVER_NAME'])) {
+         sql_query("INSERT INTO ".$NPDS_Prefix."referer VALUES (NULL, '$referer')");
+      }
+/*
+      if ($admin) {
+         $result=sql_fetch_assoc(sql_query("select count(*) as total from ".$NPDS_Prefix."referer"));
+         if ($result['total']>=$httprefmax) {
+            echo " <span class=\"rouge\">".translate("Referer max count limit : Save your referer via Admin function.")."</span>";
+         }
+      }
+*/
+   }
+   
+   
+   
+   
+   
    include("counter.php");
 
    // include externe file from modules/include for functions, codes ...
