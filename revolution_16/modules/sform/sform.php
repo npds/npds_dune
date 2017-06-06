@@ -462,7 +462,9 @@ class form_handler {
           while(list($key,$val)=each($this->form_fields[$i]['value']) ){
             $str.='
                   <option value="'.$key.'"';
-            $str.=($val['selected'])? ' selected="selected">' : '>';
+                  if(array_key_exists('selected', $val)) $str .=' selected="selected" ';
+$str .=' >';
+//            $str.=($val['selected'])? ' selected="selected">' : '>';
             $str.=str_replace('\'','&#039;',$val['en']).'</option>';
           }
           $str.='
@@ -822,7 +824,7 @@ class form_handler {
   */
   function aff_response($bg,$retour='',$action='') {
     // modif Field en lieu et place des $GLOBALS ....
-
+   settype($str,'string');
     for($i=0;$i<count($this->form_fields);$i++){
       if (array_key_exists('name',$this->form_fields[$i])) {
          $num_extender=$this->interro_fields($this->form_fields[$i]['name']."extender");
@@ -934,7 +936,7 @@ class form_handler {
 
     $i=$this->interro_fields($name);
     if (($this->form_fields[$i]['obligation']!=true) and ($valeur=="")) {
-       $controle="";
+       $controle='';
     }
 
      switch ($controle) {
@@ -965,35 +967,35 @@ class form_handler {
 
         case '0-9':
           if (preg_match_all("/([^0-9])/i", $valeur,$trouve)) {
-             $this->error($nom, implode(" ",$trouve[0]));
+             $this->error($nom, implode(' ',$trouve[0]));
              exit();
           }
           break;
         case '0-9extend':
           if (preg_match_all("/([^0-9_\+\-\*\/\)\]\(\[\& ])/i", $valeur,$trouve)) {
-             $this->error($nom, implode(" ",$trouve[0]));
+             $this->error($nom, implode(' ',$trouve[0]));
              exit();
           }
           break;
         case '0-9number':
           if (preg_match_all("/([^0-9+-., ])/i", $valeur,$trouve)) {
-             $this->error($nom, implode(" ",$trouve[0]));
+             $this->error($nom, implode(' ',$trouve[0]));
              exit();
           }
           break;
 
         case 'date':
-          $date = explode("/",$valeur);
+          $date = explode('/',$valeur);
           if (count($date)==3) {
              settype($date[0], 'integer');
              settype($date[1], 'integer');
              settype($date[2], 'integer');
              if (!checkdate($date[1],$date[0],$date[2])) {
-                $this->error($nom,"Date non valide");
+                $this->error($nom,'Date non valide');
                 exit();
              }
           } else {
-             $this->error($nom,"Date non valide");
+             $this->error($nom,'Date non valide');
              exit();
           }
           break;
