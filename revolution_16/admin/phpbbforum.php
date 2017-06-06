@@ -620,6 +620,9 @@ function ForumCatDel($cat_id, $ok=0) {
            sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
            sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
            control_efface_post("forum_npds","","",$forum_id);
+            // why not here clean also the posts implemented for test => waiting feedback !
+            sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id'");
+            //
        }
        sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
        sql_query("DELETE FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
@@ -632,6 +635,7 @@ function ForumCatDel($cat_id, $ok=0) {
        GraphicAdmin($hlpfile);
        adminhead ($f_meta_nom, $f_titre, $adminimg);
        echo '
+       <hr />
        <div class="jumbotron">
        <p class="text-danger">'.adm_translate("ATTENTION :  êtes-vous sûr de vouloir supprimer cette Catégorie, ses Forums et tous ses Sujets ?").'</p>';
     }
@@ -641,26 +645,27 @@ function ForumCatDel($cat_id, $ok=0) {
 }
 
 function ForumGoDel($forum_id, $ok=0) {
-    global $hlpfile;
-    global $NPDS_Prefix;
-
-    if ($ok==1) {
-       sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
-       sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
-       control_efface_post('forum_npds','','',$forum_id);
-       sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
-       Q_Clean();
-
-       global $aid; Ecr_Log('security', "DeleteForum($forum_id) by AID : $aid", '');
-       Header("Location: admin.php?op=ForumAdmin");
-    } else {
-       include("header.php");
-       GraphicAdmin($hlpfile);
-       opentable();
-       echo "<p align=\"center\" class=\"rouge\"><b>".adm_translate("ATTENTION :  êtes-vous certain de vouloir effacer ce Forum et tous ses Sujets ?")."</b><br /><br />";
-    }
-    echo "[ <a href=\"admin.php?op=ForumGoDel&amp;forum_id=$forum_id&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=ForumAdmin\" class=\"noir\">".adm_translate("Non")."</a> ]<br /><br />";
-    closetable();
-    include("footer.php");
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   if ($ok==1) {
+      sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
+      sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
+      control_efface_post('forum_npds','','',$forum_id);
+      sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
+      // why not here clean also the posts implemented for test => waiting feedback !
+      sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id'");
+      //
+      Q_Clean();
+      global $aid; Ecr_Log('security', "DeleteForum($forum_id) by AID : $aid", '');
+      Header("Location: admin.php?op=ForumAdmin");
+   } else {
+      include('header.php');
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo '
+      <hr />
+      <div class="alert alert-danger"><b>'.adm_translate("ATTENTION :  êtes-vous certain de vouloir effacer ce Forum et tous ses Sujets ?").'</b></div>';
+      echo '<a class="btn btn-danger" href="admin.php?op=ForumGoDel&amp;forum_id='.$forum_id.'&amp;ok=1">'.adm_translate("Oui").'</a> <a class="btn btn-secondary" href="admin.php?op=ForumAdmin" >'.adm_translate("Non").'</a><br />';
+      adminfoot('','','','');
+   }
 }
 ?>
