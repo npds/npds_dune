@@ -36,8 +36,16 @@
 
 if(!isset($C1)) $C1='';
 if(!isset($C2)) $C2='';
+if(!isset($C3)) $C3='';
+if(!isset($C4)) $C4='';
+if(!isset($C5)) $C5='';
+if(!isset($C6)) $C6='';
+if(!isset($C7)) $C7='';
+if(!isset($C8)) $C8='';
 if(!isset($T1)) $T1='';
+if(!isset($T1)) $T2='';
 if(!isset($M2)) $M2='';
+
 
 $m->add_comment(aff_langue('<div class="row"><p class="lead">[french]En savoir plus[/french][english]More[/english]</p></div>'));
 
@@ -47,8 +55,10 @@ $m->add_extender('C1', '', '<span class="help-block"><span class="float-right" i
 $m->add_field('C2',aff_langue('[french]Code postal[/french][english]Postal code[/english]'), $C2, 'text',false,5,'','');
 $m->add_extender('C2', '', '<span class="help-block"><span class="float-right" id="countcar_C2"></span></span>');
 
+$m->add_extra('<div id="embeddingDatePicker">');
 $m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english]'),$T1,'date','',false,20);
 $m->add_extender('T1', '','<span class="help-block">JJ/MM/AAAA</span>');
+$m->add_extra('</div>');
 
 $m->add_extra('<div class="form-group row collapse">');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'text',false);
