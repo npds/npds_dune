@@ -372,8 +372,7 @@ function ForumMaintAdmin() {
    });
    </script>';
    $fv_parametres ='
-   
-              before: {
+            before: {
                 excluded: false,
                 validators: {
                     notEmpty: {
@@ -384,8 +383,7 @@ function ForumMaintAdmin() {
                         message: "The date is not a valid"
                     }
                 }
-            },
-';
+            },';
 
    echo auto_complete("forname","forum_name","forums","forum_name","86400");
    adminfoot('fv',$fv_parametres,'','');
