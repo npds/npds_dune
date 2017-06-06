@@ -54,7 +54,7 @@ if($path_adm_module!='') $sql[]=$req_adm;
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
 #autodoc Configuration des blocs
-$blocs = array(array("[french]Mon module[/french][english]My plugin[/english]"), array("include#modules/geoloc/geoloc_bloc.php"), array(""), array(""), array(""), array(""), array("1"), array(""), array("[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]"));
+$blocs = array(array("[french]Mon module[/french][english]My plugin[/english]"), array("include#modules/monmodule/monmodule_bloc.php"), array(""), array(""), array(""), array(""), array("1"), array(""), array("[french]Mon module[/french][english]My addon[/english]"));
 
 
 #autodoc $txtdeb : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera au début de l'install
@@ -63,9 +63,9 @@ $txtdeb = '';
 
 
 #autodoc $txtfin : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera à la fin de l'install
-$txtfin = "[french]Vous pouvez maintenant aller &#xE0; <a href= \"admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set&amp;subop=Configuregeoloc_sql\"> l'administration </a> du module pour le param&#xE9;trer.[/french][english]Now you can go to the <a href= \"admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set&amp;subop=Configuregeoloc_sql\">settings page</a> of this module.[/english]";
+$txtfin = "[french]Vous pouvez maintenant aller &#xE0; <a href= \"admin.php?op=Extend-Admin-SubModule&amp;ModPath=monmodule&amp;ModStart=admin/monmodule_admin\"> l'administration </a> du module pour le param&#xE9;trer.[/french][english]Now you can go to the <a href= \"admin.php?op=Extend-Admin-SubModule&amp;ModPath=monmodule&amp;ModStart=admin/monmodule_admin\">settings page</a> of this module.[/english]";
 
 #autodoc $link: Lien sur lequel sera redirigé l'utilisateur à la fin de l'install (si laissé vide, redirigé sur index.php)
 #autodoc N'oubliez pas les '\' si vous utilisez des guillemets !!!
-$end_link = "admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set&amp;subop=Configuregeoloc_sql";
+$end_link = "admin.php?op=Extend-Admin-SubModule&amp;ModPath=monmodule&amp;ModStart=admin/monmodule_admin";
 ?>
