@@ -3,17 +3,17 @@
 /* NPDS V : Net Portal Dynamic System                                   */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2010 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-   // Une ligne pour chaque smilie, la derniËre ligne ne devant pas comporter de , ‡ la fin du tableau
+   // Une ligne pour chaque smilie, la derni√®re ligne ne devant pas comporter de , √† la fin du tableau
    // colonne 1 : le code du smiliey
-   // colonne 2 : l'icone
-   // colonne 3 : si nÈcessaire la description (sinon "")
+   // colonne 2 : l'ic√¥ne
+   // colonne 3 : si n√©cessaire la description (sinon "")
    // colonne 4 : visible (1) ou invisible (0)
 
    $smilies=array(
