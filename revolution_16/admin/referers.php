@@ -75,12 +75,11 @@ function hreferer($filter) {
       <li class="nav-item"><a class="text-danger nav-link" href="admin.php?op=delreferer" >'.adm_translate("Effacer les Référants").'</a></li>
       <li class="nav-item"><a class="nav-link" href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate("Archiver les Référants").'</a></li>
    </ul>';
-   adminfoot('','','','');;
+   adminfoot('','','','');
 }
 
 function delreferer() {
     global $NPDS_Prefix;
-
     sql_query("DELETE FROM ".$NPDS_Prefix."referer");
     Header("Location: admin.php?op=AdminMain");
 }
@@ -101,16 +100,16 @@ function archreferer($filter) {
     fclose($file);
     Header("Location: admin.php?op=hreferer&filter=$filter");
 }
-
+settype($filter,'integer');
 switch ($op) {
    case 'hreferer':
-        hreferer($filter);
-        break;
+      hreferer($filter);
+   break;
    case 'archreferer':
-        archreferer($filter);
-        break;
+      archreferer($filter);
+   break;
    case 'delreferer':
-        delreferer();
-        break;
+      delreferer();
+   break;
 }
 ?>

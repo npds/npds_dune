@@ -32,7 +32,6 @@ if(!isset($chng_avatar)) $chng_avatar='';
 if(!isset($chng_send_email)) $chng_send_email='';
 if(!isset($chng_url)) $chng_url='';
 if(!isset($open_user)) $open_user='';
-
 if(!isset($referer)) $referer='';
 
 $m->add_title(adm_translate("Utilisateur"));
@@ -108,7 +107,6 @@ if ($nbg>7) {$nbg=7;}
 $m->add_select('add_group', adm_translate("Groupe"), $tmp_groupe, false, $nbg, true);
 // ---- Groupes
 
-//settype($open_user,'integer');
 if ($open_user) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('add_open_user',adm_translate("Autoriser la connexion"), 1, false, $checked);
 if ($mns) {$checked=true;} else {$checked=false;}
@@ -191,6 +189,15 @@ $m->add_extra('
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
+            $("#embeddingDatePicker input").datepicker({
+               format: "dd/mm/yyyy",
+               autoclose: "true",
+               language:"'.language_iso(1,'','').'"
+            })
+            .on("changeDate", function(e) {
+               $("#register").formValidation("revalidateField", "T1");
+            });
+
             inpandfieldlen("add_uname",25);
             inpandfieldlen("add_name",60);
             inpandfieldlen("add_email",60);
@@ -209,6 +216,15 @@ $m->add_extra('
       //]]>
       </script>');
 $fv_parametres ='
+         T1: {
+            excluded: false,
+            validators: {
+               date: {
+                  format: "DD/MM/YYYY",
+                  message: "The date is not a valid"
+               }
+            }
+         },
          add_pass: {
             validators: {
                callback: {
