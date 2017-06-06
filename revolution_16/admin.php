@@ -118,7 +118,7 @@ function GraphicAdmin($hlpfile) {
    //... à revoir ...réimplémenter le traitement des messages ...
    //if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1' WHERE fid=36"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='36'");
 
-   //referant à gérer
+   //référants à gérer
    if($httpref = 1) {
    $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
    if ($result['total']>=$httprefmax) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' WHERE fid='39'");else sql_query("UPDATE fonctions ".$NPDS_Prefix." SET fetat='0' WHERE fid='39'");
