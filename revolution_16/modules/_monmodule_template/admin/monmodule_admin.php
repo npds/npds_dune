@@ -17,8 +17,8 @@
 /************************************************************************/
 
 // cartouche de sécurité ==> requis !!
-if (!strstr($PHP_SELF,'admin.php')) { Access_Error(); }
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (!strstr($_SERVER['PHP_SELF'],'admin.php')) { Access_Error(); }
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
    die();
 }
 
@@ -36,9 +36,11 @@ else {
 }
 
 $f_titre= monmodule_translate("Configuration du module geoloc");
-
+global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg;
+GraphicAdmin($hlpfile);
+adminhead ($f_meta_nom, $f_titre, $adminimg);
 // ==> le code de monmodule
 ...
 // <== le code de monmodule
-
+adminfoot('','','','');
 ?>

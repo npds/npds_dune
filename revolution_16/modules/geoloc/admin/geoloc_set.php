@@ -16,7 +16,7 @@
 /* dev team : Philippe Revilliod (Phr)                                  */
 /************************************************************************/
 
-if (!strstr($PHP_SELF,'admin.php')) { Access_Error(); }
+if (!strstr($_SERVER['PHP_SELF'],'admin.php')) { Access_Error(); }
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
    die();
 }
