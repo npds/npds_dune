@@ -5,7 +5,11 @@
 	<div id="headhaut" class="mod w100 "> 
 		<div id="date" class="left  w33 aligncenter  automobile">!date! </div>
 		<div id="download"class="left  w33 aligncenter notablet nomobile"><a class="btn btn-warning btn-sm" href="#" role="button">Télécharger la dernière version</a></div>
-		<div id="recherche" class="left w33 aligncenter notablet nomobile">!search!</div>
+		
+<form class="form-inline my-2 my-lg-0" action="search.php" method="get">
+
+ <input class="form-control form-control-sm" type="text" name="query" placeholder="rechercher">
+					</form>
 	 </div>
 	 
 			<div id="decohead" class="row1 w100">
@@ -30,7 +34,7 @@
       echo "<br />!nb_online! - <a href=\"user.php?op=logout\">Se d&eacute;connecter</a>";
    } ?></a>
 					</div>
-					<div id="slogan" class="col w30   alignright automobile ">
+					<div id="slogan" class="col w30   alignright notablet nomobile ">
 					   <h1> !slogan! </h1>
 				  </div>
 				  
