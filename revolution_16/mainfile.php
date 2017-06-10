@@ -2517,7 +2517,7 @@ function headlines($hid='', $block=true) {
       $boxtitle = $sitename;
     
       $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
-      $cache_time = 3600;//3600
+      $cache_time = 1200;//3600 origine
       $items = 0;
       $max_items = 6;
       $rss_timeout = 15;
@@ -2596,7 +2596,7 @@ function headlines($hid='', $block=true) {
       $cont='';
       foreach ($flux->entry as $entry) {
          if($entry->content) $cont=(string) $entry->content;
-         fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+         fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" target="_blank" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
          if($j==$max_items) break;
          $j++;
       }
@@ -2607,7 +2607,7 @@ function headlines($hid='', $block=true) {
    $cont='';
       foreach ($flux->item as $item) {
          if($item->description) $cont=(string) $item->description;
-         fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
+         fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'"  target="_blank" >'.(string) $item->title.'</a><br /></li>');
          if($j==$max_items) break;
          $j++;
       }
@@ -2618,7 +2618,7 @@ function headlines($hid='', $block=true) {
    $cont='';
       foreach ($flux->channel->item as $item) {
          if($item->description) $cont=(string) $item->description;
-         fputs($fpwrite,'<li><a href="'.(string)$item->link.'" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
+         fputs($fpwrite,'<li><a href="'.(string)$item->link.'"  target="_blank" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
          if($j==$max_items) break;
          $j++;
       }
