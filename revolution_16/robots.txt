@@ -5,5 +5,8 @@ Disallow: /images
 Disallow: /themes
 Disallow: /slogs
 Disallow: /cache
+Allow: /cache/sitemap.xml
 Disallow: /sql
-Sitemap: cache/sitemap.xml
+## doit etre une url absolue .!
+#Sitemap: cache/sitemap.xml
+##

@@ -37,12 +37,14 @@ function group_liste() {
    GraphicAdmin($hlpfile);
    $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe!='' ORDER BY uid ASC");
    $one_gp=false;
+   $tab_groupeII=array();
+   $tab_groupeIII = array();
+   $r = sql_query("SELECT groupe_id FROM ".$NPDS_Prefix."groupes ORDER BY groupe_id ASC");
+   while($gl = sql_fetch_assoc($r)) {
+      $tab_groupeII[$gl['groupe_id']]='';
+   }
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       $one_gp=true;
-/*
-      $tab_groupeII=array();
-      $tab_groupeIII=array();
-*/
       $tab_groupe=explode(',',$groupe);
       if ($tab_groupe) {
          foreach($tab_groupe as $groupevalue) {
@@ -53,6 +55,7 @@ function group_liste() {
          }
       }
    }
+
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '<script type="text/javascript">
    //<![CDATA[';

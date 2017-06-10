@@ -339,7 +339,7 @@ include('header.php');
       if ($posterdata['mns'])
           $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
       if ($posterdata_extend[$ch_lat] !='')
-         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
 
       echo '
       <div class="row mb-3">
