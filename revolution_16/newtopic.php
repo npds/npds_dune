@@ -82,7 +82,7 @@ if ($submitS) {
          $modo='';
          include('header.php');
       } else {
-         if (($username=="") or ($password=="")) {
+         if (($username=='') or ($password=='')) {
             forumerror('0027');
          } else {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
@@ -117,7 +117,7 @@ if ($submitS) {
 
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, $message)) {
-         Ecr_Log("security", "Forum Anti-Spam : forum=".$forum." / topic_title=".$subject, "");
+         Ecr_Log('security', 'Forum Anti-Spam : forum='.$forum.' / topic_title='.$subject, '');
          redirect_url("index.php");
          die();
       }
