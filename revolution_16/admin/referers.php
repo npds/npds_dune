@@ -100,6 +100,7 @@ function archreferer($filter) {
     fclose($file);
     Header("Location: admin.php?op=hreferer&filter=$filter");
 }
+
 settype($filter,'integer');
 switch ($op) {
    case 'hreferer':
