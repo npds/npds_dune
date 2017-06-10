@@ -625,7 +625,6 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     if (($members==1) and ($Mmembers=='')) {$ihome="-127";}
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
     puthome($ihome);
-    closetable2();
 
     echo '<br /><b>'.adm_translate("Texte d'introduction").'</b> :<br />
     <textarea class="tin form-control" cols="70" rows="25" name="hometext" >'.$hometext.'</textarea>';
@@ -715,8 +714,8 @@ function editStory ($sid) {
    list($catid, $subject, $hometext, $bodytext, $topic, $notes, $ihome, $date_finval,$epur) = sql_fetch_row($result);
    $subject = stripslashes($subject);
    $hometext = stripslashes($hometext);
-   if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
-   $hometext=str_replace('<img src="'.$imgtmp.'" border="0" align="center" alt="" /> :: ','',$hometext);
+//   if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
+   $hometext=str_replace('<i class="fa fa-thumb-tack fa-2x mr-2 text-muted"></i>','',$hometext);
    $bodytext = stripslashes($bodytext);
    $notes = stripslashes($notes);
 
@@ -940,8 +939,8 @@ function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $cati
        sql_query("UPDATE ".$NPDS_Prefix."stories SET catid='$catid', title='$subject', hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_finval='$date_finval', auto_epur='$epur' WHERE sid='$sid'");
     }
     if ($Csid) {
-       if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
-       sql_query("UPDATE ".$NPDS_Prefix."stories SET hometext='<img src=\"".$imgtmp."\" border=\"0\" align=\"center\" alt=\"\" /> :: $hometext' WHERE sid='$sid'");
+//       if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
+       sql_query("UPDATE ".$NPDS_Prefix."stories SET hometext='<i class=\"fa fa-thumb-tack fa-2x mr-2 text-muted\"></i> $hometext' WHERE sid='$sid'");
        list($Lsid)=sql_fetch_row(sql_query("SELECT sid FROM ".$NPDS_Prefix."stories ORDER BY sid DESC"));
        $Lsid++;
        sql_query("UPDATE ".$NPDS_Prefix."stories SET sid='$Lsid' WHERE sid='$sid'");
