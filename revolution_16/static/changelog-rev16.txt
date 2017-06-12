@@ -1,4 +1,4 @@
-changelog-rev16  [ révision : 38 - jpb / 5-4-2016 18:03 ]
+changelog-rev16  [ révision : 38 - jpb /11-6-2017 10:53 ]
 - NPDS REvolution 16 - 
 v.16.0.6-alpha
 Implémentations majeures impactant sur tout le portail :
@@ -75,6 +75,8 @@ si l'utilisateur choisit un skin dans header.php on remodifie le(s) lien(s) CSS 
 
 note : on peut maintenant avoir des dossiers thèmes non visible par les utilisateurs (pour travaux et désactivation) pour désactiver il suffit de faire précéder le nom du dossier theme par _
 
+ajout d'une landing page : offre la possibilité d'avoir un header.html alternatif sur la page d'accueil (défini pour le site), par l'ajout d'un fichier themes/montheme/html/header_landing.html , si ce fichier existe alors il sera chargé pour la page d'accueil en lieu et place du header.html.
+
 adaptation pour tiny4 jquery et responsive
 
 - Support de PHP 7.x
@@ -113,3 +115,4 @@ mise en majuscule des instruction mySQL
 écriture à double indentation (3 espaces) PHP / html / js
 généralisation des simple quotes (le plus souvent)
 augmentation de la longueur des chaines de sorties réduction des concaténations courtes.
+chasse au notice php (undefined variable, undefined offset, ...)
