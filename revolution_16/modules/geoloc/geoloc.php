@@ -690,9 +690,10 @@ $ecr_scr .= '
 document.getElementById("mess_info").innerHTML = \''.$mess_mb.' '.$mess_adm.'\';';
 
 if ($op!='') $ecr_scr .= '
+console.log(map.getZoom());
 var listener = google.maps.event.addListener(map, "idle", function() { 
    map.setCenter('.$op.');
-   if (map.getZoom() > 5) map.setZoom(16); 
+   if (map.getZoom() > 1) map.setZoom(16); 
    google.maps.event.removeListener(listener); 
 });';
 
@@ -948,9 +949,8 @@ $affi .= '
          </div>
       </div>
       <div class="tab-pane fade" id="geolocalisation">
-      <input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span>
-      <input type="checkbox" title="'.geoloc_translate('Activer désactiver la géolocalisation').'" id="geolobox" onclick="" />&nbsp;'.geoloc_translate('Activer désactiver la géolocalisation').'
-      
+         <input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span>
+         <input type="checkbox" title="'.geoloc_translate('Activer désactiver la géolocalisation').'" id="geolobox" onclick="" />&nbsp;'.geoloc_translate('Activer désactiver la géolocalisation').'
       </div>
    </div>';
 //==> affichage des div contenants et écriture du script
