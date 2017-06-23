@@ -156,7 +156,7 @@ function JavaPopUp($F,$T,$W,$H) {
 #autodoc instant_members_message() : Bloc MI (Message Interne) <br />=> syntaxe : function#instant_members_message
 function instant_members_message() {
    global $user, $admin, $long_chain, $NPDS_Prefix;
-
+   settype($boxstuff,'string');
    if (!$long_chain) {$long_chain=13;}
 
    global $block_title;
