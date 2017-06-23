@@ -3122,7 +3122,7 @@ function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $r
    </script>'."\n";
    return ($scri_js);
 }
-#autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2 $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)
+#autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2 $l=> 0 ou 1(requis), $s (séparateur - | _) , $c=> 0 ou 1 (requis)
 function language_iso($l,$s,$c) {
     global $language;
     $iso_lang='';$iso_country='';$ietf='';

@@ -19,6 +19,7 @@ include_once('functions.php');
 include_once('auth.php');
 
 settype($forum,'integer');
+settype($short_user,'integer');
 if ($forum>=0) die();
 
 // gestion des params du 'forum' : type, accès, modérateur ...
@@ -118,48 +119,50 @@ if ($mycount) {
       if (!$short_user) {
          $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-         if ($posterdata_extend['M2']!='') {
-            $socialnetworks= explode(';',$posterdata_extend['M2']);
-            foreach ($socialnetworks as $socialnetwork) {
-               $res_id[] = explode('|',$socialnetwork);
-            }
-            sort($res_id);
-            sort($rs);
-            foreach ($rs as $v1) {
-               foreach($res_id as $y1) {
-                  $k = array_search( $y1[0],$v1);
-                  if (false !== $k) {
-                     $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a>&nbsp;';
-                     break;
-                  } 
-                  else $my_rs.='';
+         if (array_key_exists('M2', $posterdata_extend)) {
+            if ($posterdata_extend['M2']!='') {
+               $socialnetworks= explode(';',$posterdata_extend['M2']);
+               foreach ($socialnetworks as $socialnetwork) {
+                  $res_id[] = explode('|',$socialnetwork);
                }
+               sort($res_id);
+               sort($rs);
+               foreach ($rs as $v1) {
+                  foreach($res_id as $y1) {
+                     $k = array_search( $y1[0],$v1);
+                     if (false !== $k) {
+                        $my_rs.='<a class="mr-3" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a>';
+                        break;
+                     } 
+                     else $my_rs.='';
+                  }
+               }
+               $my_rsos[]=$my_rs;
             }
-            $my_rsos[]=$my_rs;
-         }
-         else $my_rsos[]='';
+            else $my_rsos[]='';
+         } else $my_rsos[]='';
       }
+      include('modules/geoloc/geoloc_conf.php');
+      settype($ch_lat,'string');
+
 
       $useroutils = '';
       if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
          $useroutils .= '<hr />';
-      if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
-      }
-      if ($posterdata['uid']!= 1 and $posterdata['uid']!='') {
-         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Send internal Message").'</span></a>';
-      }
-      if ($posterdata['femail']!='') {
+      if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
+         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
+      if ($posterdata['femail']!='')
          $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
-      }
-      if ($posterdata['url']!='') {
-         if (strstr('http://', $posterdata['url']))
-            $posterdata['url'] = "http://" . $posterdata['url'];
+      if ($posterdata['url']!='')
          $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
-      }
-      if ($posterdata['mns']) {
+      if ($posterdata['mns'])
           $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
-      }
+      if ($myrow['poster_id']!=1)
+         if ($posterdata_extend[$ch_lat] !='')
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+
       echo '
       <div class="row">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
