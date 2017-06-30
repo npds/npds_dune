@@ -10,90 +10,90 @@
 ## 
 ## Niveau d'installation: complexe
 ## Temps d'installation: 5 minutes
-## Fichiers a Èditer:  1
+## Fichiers a √©diter:  1
 ##
 #######################################################################################
 ##
 ## INSTALLATION MANUELLE:
-## 1. DÈcompresser l'archive
-## 2. CrÈer un rÈpertoire bloc-notes sous modules (modules/bloc-notes)
+## 1. D√©compresser l'archive
+## 2. Cr√©er un r√©pertoire bloc-notes sous modules (modules/bloc-notes)
 ## 2. Copier le contenu de l'archive dans ce dossier (modules/bloc-notes)
 ## 3. CREER la nouvelle table blocnotes via le fichier blocnotes.sql ainsi que le nouveau meta-mot
 ##
 ## INSTALLATION AUTOMATIQUE:
-## 1. ExÈctuez les Ètapes 1. et 2. de l'installation manuelle
+## 1. Ex√©cutez les √©tapes 1. et 2. de l'installation manuelle
 ## 2. Rendez-vous dans la section "Gestion des modules" dans l'administration et cliquez sur "Installer le module" en face de "Bloc-note"
 ##
 ## CONFIGURATION
-## Via le systËme de bloc et la feuille de style
+## Via le syst√®me de bloc et la feuille de style
 ##
 ## UTILISATION
-## Le systËme de bloc-notes comporte deux mode diffÈrents :
-## - le mode bloc-notes partagÈ
+## Le syst√®me de bloc-notes comporte deux mode diff√©rents :
+## - le mode bloc-notes partag√©
 ## - le mode bloc-notes contextuel 
 ##
-## La base du paramËtrage du bloc-notes est le systËme de blocs de NPDS :
-## - pour avoir un bloc-notes ‡ gauche ... crÈe un bloc de gauche ... pour l'avoir ‡ droite ...
-## - le temps de rÈtention doit-Ítre ‡ zÈro
-## - le bloc-notes hÈrite de la configuration du bloc (admin, membre, groupe de membre ...) 
-##   mais ne peut-Ítre Anonyme !
+## La base du param√©trage du bloc-notes est le syst√®me de blocs de NPDS :
+## - pour avoir un bloc-notes √† gauche ... cr√©e un bloc de gauche ... pour l'avoir √† droite ...
+## - le temps de r√©tention doit-√™tre √† z√©ro
+## - le bloc-notes h√©rite de la configuration du bloc (admin, membre, groupe de membre ...) 
+##   mais ne peut-√™tre Anonyme !
 ##
-## la syntaxe de paramËtrage d'un bloc est alors (dans la zone contenu d'un bloc) :
+## la syntaxe de param√©trage d'un bloc est alors (dans la zone contenu d'un bloc) :
 ##  include#modules/bloc-notes/bloc-notes.php
 ##  function#blocnotes
 ##  params#param1, param2, param3(optionnel), param4(optionnel), param5(optionnel)
 ##   - param1 : shared OU context 
 ##   - param2 : nom_du_bloc OU le texte : $username (dans ce cas : nom du bloc=nom du membre ou de l'admin)
-##   - param3 : largeur (en % ou en pixel), par dÈfaut 100%
-##   - param4 : nb de ligne de la zone de saisie, par dÈfaut 5
-##   - param5 : couleur du fond sous le GIF / couleur RVB (FFFFFF par exemple), par dÈfaut transparent
+##   - param3 : largeur (en % ou en pixel), par d√©faut 100%
+##   - param4 : nb de ligne de la zone de saisie, par d√©faut 5
+##   - param5 : couleur du fond sous le GIF / couleur RVB (FFFFFF par exemple), par d√àfaut transparent
 ## 
 ## Bloc-notes PARTAGES (SHARED)
 ## par principe un bloc-notes "shared" est accessible sur l'ensemble du site, mais il y a deux formes de bloc-notes shared :
 ##   params#shared,nom_du_bloc_note
-##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le mÍme bloc-notes est partagÈ par tous ceux qui respectent les contraintes du BLOC NPDS
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le m√™me bloc-notes est partag√© par tous ceux qui respectent les contraintes du BLOC NPDS
 ##
 ##   params#shared,$username
-##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le bloc-notes est affectÈ ‡ un admin ou membre en fonction de son pseudo
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le bloc-notes est affect√© √† un admin ou membre en fonction de son pseudo
 ##
 ## Bloc-notes CONTEXTUEL (CONTEXT)
-## Ce type bloc-notes DOIT quand ‡ lui NECESSAIREMENT Ítre :
+## Ce type bloc-notes DOIT quant √† lui NECESSAIREMENT √™tre :
 ## => DEFINI dans un bloc de DROITE
 ## => NON ACTIF
-## => Temps de cache ‡ ZERO
+## => Temps de cache √† ZERO
 ##   
 ##   params#context,nom_du_bloc_note
-##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le mÍme bloc-notes est partagÈ par tous ceux qui respectent les contraintes du BLOC NPDS
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le m√™me bloc-notes est partag√© par tous ceux qui respectent les contraintes du BLOC NPDS
 ##   
 ##   params#context,$username
-##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le bloc-notes est affectÈ ‡ un admin ou membre en fonction de son pseudo
+##   ==> dans ce cas et en fonction des droits du BLOC NPDS, le bloc-notes est affect√© √† un admin ou membre en fonction de son pseudo
 ##   
-##   l'appel de ce bloc-notes se fait par un meta-mot !blocnote!ID donc partout ou les meta-mots sont opÈrationnels, bloc-notes l'est aussi !
-##   - ID Ètant l'ID du bloc de DROITE dÈfinit de type : CONTEXT
+##   l'appel de ce bloc-notes se fait par un meta-mot !blocnote!ID donc partout ou les meta-mots sont op√©rationnels, bloc-notes l'est aussi !
+##   - ID √©tant l'ID du bloc de DROITE d√©finit de type : CONTEXT
 ##
-##   UN BLOC NPDS de ce Type peut servir ‡ l'ensemble du site car il est liÈ au contexte d'ÈxÈcution (URI) !
-##   MAIS il faut choisir ou mettre son bloc-notes car en fonction de l'URI son contenu sera diffÈrent ...
+##   UN BLOC NPDS de ce Type peut servir √† l'ensemble du site car il est li√© au contexte d'√©x√©cution (URI) !
+##   MAIS il faut choisir o√π mettre son bloc-notes car en fonction de l'URI son contenu sera diff√©rent ...
 ##
 ## ----------
 ## EXEMPLES :
 ## ----------
-##   bloc-notes partagÈ et nommÈ :
+##   bloc-notes partag√© et nomm√© :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
 ##     params#shared,TNT,100%
 ##
-##   bloc-notes partagÈ et associÈ ‡ un utilisateur/admin :
+##   bloc-notes partag√© et associ√© √† un utilisateur/admin :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
 ##     params#shared,$username,100%,8,FFFFFF
 ##
 ##
-##   bloc-notes contextuel et nommÈ :
+##   bloc-notes contextuel et nomm√© :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
 ##     params#context,NPDS,100%
 ##
-##   bloc-notes contextuel et associÈ ‡ un utilisateur/admin :
+##   bloc-notes contextuel et associ√© √† un utilisateur/admin :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
 ##     params#shared,$username,100%,8,FFFFFF
