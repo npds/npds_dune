@@ -19,7 +19,7 @@ if ($uriBlocNote) {
       if ($nomBlocNote=="\$username") {
          global $cookie, $admin;
          $nomBlocNote=$cookie[1];
-         $cur_admin=explode(":",base64_decode($admin));
+         $cur_admin=explode(':',base64_decode($admin));
          if ($cur_admin) {
             $nomBlocNote=$cur_admin[0];
          }
