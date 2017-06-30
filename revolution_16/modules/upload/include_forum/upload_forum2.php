@@ -82,7 +82,7 @@ global $Titlesitename;
    for ($i = 0; $i < count($moderator); $i++) {
       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
    }
-
+settype($actiontype,'string');
 if ($actiontype) {
    switch ($actiontype) {
       case 'delete' : delete($del_att); break;

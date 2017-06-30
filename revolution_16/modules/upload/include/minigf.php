@@ -88,12 +88,12 @@ function uploadFile(f) {
     uniqueSubmit(f);
   } else {
     f.actiontype.value='';
-    alert (htmlDecode("<?php echo upload_translate("Vous devez sélectionner un fichier")?>"));
+    alert (htmlDecode("<?php echo upload_translate('Vous devez sélectionner un fichier')?>"));
    f.pcfile.focus();
   }
 }
 function confirmSendFile(f) {
-  if (window.confirm("<?php echo upload_translate("Joindre le fichier maintenant ?")?>") ) {
+  if (window.confirm("<?php echo upload_translate('Joindre le fichier maintenant ?')?>") ) {
     uploadFile(f);
   }
 }
@@ -113,6 +113,8 @@ function confirmSendFile(f) {
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
    global $ModPath,$ModStart,$IdPost,$IdForum,$apli,$Mmod;
+   settype($att_table,'string');
+   settype($thanks_msg,'string');
    echo '
    <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="form0" onsubmit="return checkForm(this);">
       <input type="hidden" name="actiontype" value="" />
