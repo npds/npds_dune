@@ -80,6 +80,7 @@ function ListReseaux($ModPath, $ModStart) {
 }
 
 function EditReseaux($ModPath, $ModStart) {
+   $res_id = array();
    global $userdata;
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
