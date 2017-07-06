@@ -48,8 +48,7 @@ global $Titlesitename;
    } else {
       $theme=$Default_Theme;
    }
-   
-   
+
    if (isset($user)) {
       global $cookie;
       $skin='';
@@ -82,11 +81,13 @@ global $Titlesitename;
    for ($i = 0; $i < count($moderator); $i++) {
       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
    }
+$thanks_msg='';
+//settype($thanks_msg,'string');
 settype($actiontype,'string');
 if ($actiontype) {
    switch ($actiontype) {
       case 'delete' : delete($del_att); break;
-      case 'upload' : $thanks_msg=forum_upload(); break;
+      case 'upload' : $thanks_msg = forum_upload(); break;
       case 'update' : update_inline($inline_att); break;
       case 'visible': if ($Mmod) { update_visibilite($visible_att,$visible_list); } break;
    }
@@ -107,6 +108,8 @@ function forum_upload() {
       $MAX_FILE_SIZE = $MAX_FILE_SIZE_TOTAL - $sum;
    }
    include "modules/upload/include/fileupload.php";
+//   $thanks_msg='';
+settype($thanks_msg,'string');
 
    // RÈcupÈration des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;

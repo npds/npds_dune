@@ -21,12 +21,14 @@ switch($apli) {
       $att_id=decrypt($fma[0]);
       $att_name=decrypt($fma[1]);
    case 'forum_npds':
-      $userX=base64_decode($user);
-      $userdata=explode(':', $userX);
-      $marqueurM=substr($userdata[2],8,6);
+      if(isset($user)) {
+         $userX=base64_decode($user);
+         $userdata=explode(':', $userX);
+         $marqueurM=substr($userdata[2],8,6);
+      }
    case 'minisite':
    case 'getfile':
-      $att_name=StripSlashes(str_replace("\"","",rawurldecode($att_name)));
+      $att_name=StripSlashes(str_replace("\"",'',rawurldecode($att_name)));
       if ((preg_match('#^[a-z0-9_\.-]#i',$att_name) or ($Mmod==$marqueurM)) and !stristr($att_name,".*://") and !stristr($att_name,"..") and !stristr($att_name,"../") and !stristr($att_name, "script") and !stristr($att_name, "cookie") and !stristr($att_name, "iframe") and  !stristr($att_name, "applet") and !stristr($att_name, "object")) {
          if (preg_match('#^[a-z0-9_/\.-]#i',$att_id) and !stristr($att_id,".*://") and !stristr($att_id,"..") and !stristr($att_id,"../") and !stristr($att_id, "script") and !stristr($att_id, "cookie") and !stristr($att_id, "iframe") and  !stristr($att_id, "applet") and !stristr($att_id, "object")) {
             $fic='';

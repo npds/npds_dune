@@ -150,6 +150,7 @@ function confirmSendFile(f) {
          </thead>
          <tbody>';
       $Fichier = new FileManagement; // essai class PHP7
+      $visu='';
       for ($i=0; $i<$att_count; $i++) {
          $id=$att[$i]['att_id'];
          $tsz+=$att[$i]['att_size'];
@@ -163,7 +164,7 @@ function confirmSendFile(f) {
             $inline_box=getListBox("inline_att[$id]", $inline_list, $att[$i]["inline"]);
          }
          if ($Mmod) {
-            $visu="<td align=\"center\">".getCheckBox ("visible_att[]", $id, ($att[$i]["visible"]==1)?$id:-1, "")."</td>";
+            $visu='<td align="center">'.getCheckBox ("visible_att[]", $id, ($att[$i]["visible"]==1)?$id:-1, "").'</td>';
             $visible_list.=$id.',';
          }
          $att_table.='
@@ -178,7 +179,7 @@ function confirmSendFile(f) {
       }
 //      $total_sz = $Fichier->Pretty_Size($tsz);
       $total_sz = $Fichier->file_size_format($tsz,1);
-      
+      $visu_button='';
       echo '<input type="hidden" name="visible_list" value="'.$visible_list.'">';
       $att_inline_button='<button class="btn btn-outline-primary btn-sm btn-block" onclick="InlineType(this.form);">'.upload_translate("Adapter").'<span class="hidden-sm-up"> '.upload_translate("Affichage intégré").'</span></button>';
       if ($Mmod) {
