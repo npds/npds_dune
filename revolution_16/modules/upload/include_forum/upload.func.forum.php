@@ -144,17 +144,6 @@ function display_upload($apli,$post_id,$Mmod){
          $att_inline    = $att[$i]["inline"];
          if (!$visible) {$marqueurV="@";} else {$marqueurV='';}
          $att_link      = getAttachmentUrl ($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
-         // check for full row
-         if (++$ncell > $num_cells) {
-            $ncell = 1;
-         }
-         if (getAttDisplayMode($att_type, $att_inline) != ATT_DSP_LINK) {
-            if ($ncell > 1)   {
-               while ($ncell++ <= $num_cells)
-               $attachments .= "</tr>\n<tr>";
-            }
-            $ncell = $num_cells + 1;
-         }
          $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
       }
