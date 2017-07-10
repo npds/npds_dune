@@ -25,6 +25,11 @@ include('auth.php');
 
 settype($cancel,'string');
 settype($submitS,'string');
+settype($msg_id,'integer');// voir si c'est le bon type
+settype($reply,'string');
+settype($Xreply,'string');
+settype($to_user,'string');
+
 
    if ($cancel) {
       if ($full_interface!='short') {
@@ -269,8 +274,8 @@ settype($submitS,'string');
             echo '
                <input type="hidden" name="to_user" value="'.$fromuserdata['uname'].'" />'.$fromuserdata['uname'];
          } else {
-            if ($send!=1) { $Xto_user=$send;}
-            if ($to_user) { $Xto_user=$to_user; }
+            if ($send!=1) $Xto_user=$send;
+            if ($to_user) $Xto_user=$to_user;
             echo '
                <input class="form-control" type="text" name="to_user" value="'.$Xto_user.'" maxlength="100" />';
          }
@@ -310,16 +315,19 @@ settype($submitS,'string');
             while (list ($key, $file) = each ($filelist)) {
                if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
                settype($image,'string');
+               $row=array();
                if ($file==$image) {
                   echo '
                   <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
                   $a++;
-               } else if ($file==$row['msg_image'] && $row['msg_image']!="") {
-                  echo '
+               } else if (array_key_exists('msg_image', $row)) {
+                  if ($file==$row['msg_image'] && $row['msg_image']!="") {
+                     echo '
                   <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="n-smil" src="'.$imgtmp.'/'.$file.'"  alt="" />&nbsp;';
+                  }
                } else {
-                  if ($a==1 && $row['msg_image']=='') {
-                     $sel='checked="checked"';
+                  if ($a==1 && !array_key_exists('msg_image', $row)) {
+                     $sel='checked="checked"     ';
                   } else {
                      $sel='';
                   }

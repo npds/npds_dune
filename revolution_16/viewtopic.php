@@ -13,9 +13,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
 if ($SuperCache) {
@@ -26,11 +25,11 @@ if ($SuperCache) {
 include('auth.php');
 global $NPDS_Prefix, $admin, $adminforum;
 
-if ($allow_upload_forum) {
+if ($allow_upload_forum) 
    include("modules/upload/upload_forum.php");
-}
 
 settype($start,'integer');
+settype($pages,'integer');//
 
 //==> droits des admin sur les forums (superadmin et admin avec droit gestion forum)
    $adminforum=false;
@@ -61,9 +60,9 @@ $mod = $myrow['forum_moderator'];
 $forum_type=$myrow['forum_type'];
 $forum_access=$myrow['forum_access'];
 
-if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) ) {
+if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) )
    header("Location: forum.php");
-}
+
 if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
    $tab_groupe=valid_group($user);
@@ -74,9 +73,9 @@ if (($forum_type == 5) or ($forum_type == 7)) {
       header("location: forum.php");
    }
 }
-if (($forum_type==9) and (!$user)) {
+if (($forum_type==9) and (!$user))
    header("location: forum.php");
-}
+
 // Moderator
 if (isset($user)) {
    $userX = base64_decode($user);
@@ -184,8 +183,8 @@ include('header.php');
          aff_pub_in($lock_state,$topic,$forum,$mod);
       }
    }
-   echo '</h3>';
    echo '
+      </h3>
       <div class="card mb-3">
          <div class="card-block-small">
    '.translate("Contributors").' : '.$total_contributeurs;
@@ -238,11 +237,9 @@ include('header.php');
       echo paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start);
     } 
 
-    if ($Mmod) {
-       $post_aff=' ';
-    } else {
-       $post_aff=" AND post_aff='1' ";
-    }
+    if ($Mmod) $post_aff=' ';
+    else $post_aff=" AND post_aff='1' ";
+    
     settype($start,"integer");
     settype($posts_per_page,"integer");
     settype($pages,"integer");
@@ -341,7 +338,7 @@ include('header.php');
           $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
       if ($myrow['poster_id']!=1)
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
 
       echo '
       <div class="row mb-3">

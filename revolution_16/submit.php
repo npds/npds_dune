@@ -98,7 +98,7 @@ function defaultDisplay() {
          </div>
       </div>';
    echo aff_editeur('bodytext', '');
-   publication(0,0,0,0,0, 0,0,0,0,0, 0);
+   publication('','','','', 0);
    echo '
       <div class="form-group row">
          <div class="col-sm-12">
@@ -110,7 +110,7 @@ function defaultDisplay() {
    include ('footer.php');
 }
 
-function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur) {
+function PreviewStory($dd_pub, $fd_pub, $dh_pub, $fh_pub, $name, $subject, $story, $bodytext, $topic, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
    $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
@@ -190,7 +190,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
          </div>';
    echo aff_editeur('bodytext', '');
 
-   publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
+   publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo ''.Q_spambot().'';
    echo '
          <div class="form-group row">
@@ -203,7 +203,7 @@ function PreviewStory($name, $subject, $story, $bodytext,$topic, $deb_day,$deb_m
    include ('footer.php');
 }
 
-function submitStory($subject, $story, $bodytext, $topic, $date_debval,$date_finval,$epur, $asb_question, $asb_reponse) {
+function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_finval, $epur, $asb_question, $asb_reponse) {
    global $user, $EditedMessage, $anonymous, $notify, $NPDS_Prefix;
 
    if ($user) {
@@ -248,28 +248,39 @@ settype($op,'string');
 switch ($op) {
    case "Preview":
    case translate("Preview"):
-      PreviewStory($name, $subject, $story, $bodytext, $topic, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,  $epur);
+      PreviewStory($dd_pub, $fd_pub, $dh_pub, $fh_pub, $name, $subject, $story, $bodytext, $topic, $epur);
         break;
    case "Ok":
         settype($date_debval,'string');
         if (!$date_debval) {
+/*
            if (strlen($deb_day)==1) {
               $deb_day = "0$deb_day";
            }
            if (strlen($deb_month)==1) {
               $deb_month = "0$deb_month";
            }
-           $date_debval = "$deb_year-$deb_month-$deb_day $deb_hour:$deb_min:00";
+*/
+           //$date_debval = "$deb_year-$deb_month-$deb_day $deb_hour:$deb_min:00";
+           //==> new implementation datepub
+           $date_debval = $dd_pub.' '.$dh_pub.':01';
+           //<== new implementation datepub
         }
         settype($date_finval,'string');
         if (!$date_finval) {
+/*
            if (strlen($fin_day)==1) {
               $fin_day = "0$fin_day";
            }
            if (strlen($fin_month)==1) {
               $fin_month = "0$fin_month";
            }
-           $date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
+*/
+           //$date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
+           //==> new implementation datepub
+           $date_finval = $fd_pub.' '.$fh_pub.':01';
+           //<== new implementation datepub
+
         }
         if ($date_finval<$date_debval) {
            $date_finval = $date_debval;
