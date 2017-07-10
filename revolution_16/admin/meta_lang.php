@@ -64,7 +64,7 @@ function list_meta_type() {
 }
 function list_type_meta($type_meta) {
    global $NPDS_Prefix;
-   $sel = '';
+   $sel = ''; settype($url,'string');
    $list = '
    <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">Type</option>';
@@ -238,6 +238,7 @@ function Edit_Meta_Lang() {
       echo '
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="type_uri">'.adm_translate("Restriction").'</label>';
+      $sel0='';$sel1='';
       if ($Q['type_uri'] == '+') {
          if ($Q['obligatoire'] == true) {$sel1 = 'selected="selected"';}
          else  {$sel1 = ' selected';}
