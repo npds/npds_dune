@@ -187,7 +187,7 @@ include('header.php');
       </h3>
       <div class="card mb-3">
          <div class="card-block-small">
-   '.translate("Contributors").' : '.$total_contributeurs;
+            <span class="badge badge-default">'.$total_contributeurs.'</span><span class="mx-2">'.translate("Contributors").'</span>';
 
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
@@ -200,8 +200,9 @@ include('header.php');
       }
       echo '<img class="img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
-      echo '<br />'.translate("Moderated By: ");
-   for ($i = 0; $i < count($moderator); $i++) {
+   $ibidcountmod = count($moderator);
+   echo '<br /><span class="badge badge-default">'.$ibidcountmod.'</span><span class="mx-2">'.translate("Moderator").'</span>';
+   for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
          if (stristr($modera['user_avatar'],"users_private")) {
@@ -210,7 +211,7 @@ include('header.php');
           if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    
    echo '
