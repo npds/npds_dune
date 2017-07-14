@@ -70,15 +70,15 @@ function changeablock($title, $content) {
    $title = stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
    sql_query("UPDATE ".$NPDS_Prefix."adminblock SET title='$title', content='$content'");
-   global $aid; Ecr_Log("security", "ChangeAdminBlock() by AID : $aid", "");
+   global $aid; Ecr_Log('security', "ChangeAdminBlock() by AID : $aid", '');
    Header("Location: admin.php?op=adminMain");
 }
 
 switch ($op) {
-   case "ablock":
+   case 'ablock':
       ablock();
    break;
-   case "changeablock":
+   case 'changeablock':
       changeablock($title, $content);
    break;
 }
