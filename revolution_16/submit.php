@@ -11,12 +11,13 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include ("publication.php");
+/*
 settype($admin,'string');
+*/
 settype($user,'string');
 
 if ($mod_admin_news>0) {
@@ -52,11 +53,11 @@ function defaultDisplay() {
    <form action="submit.php" method="post" name="adminForm">';
    echo '<p class="lead"><strong>'.translate("Your Name").'</strong> : ';
    if ($user) {
-      echo "<a href=\"user.php\">".$userinfo['uname']."</a> [ <a href=\"user.php?op=logout\">".translate("Logout")."</a> ]</p>";
-      echo '<input type="hidden" name="name" value="'.$userinfo['name'].'" />';
+      echo '<a href="user.php">'.$userinfo['uname'].'</a> [ <a href="user.php?op=logout">'.translate("Logout").'</a> ]</p>
+      <input type="hidden" name="name" value="'.$userinfo['name'].'" />';
    } else {
-      echo "$anonymous [ <a href=\"user.php\">".translate("New User")."</a> ]</p>";
-      echo '<input type="hidden" name="name" value="'.$anonymous.'" />';
+      echo $anonymous. '[ <a href="user.php">'.translate("New User").'</a> ]</p>
+      <input type="hidden" name="name" value="'.$anonymous.'" />';
    }
    echo '
       <div class="form-group row">
@@ -110,7 +111,7 @@ function defaultDisplay() {
    include ('footer.php');
 }
 
-function PreviewStory($dd_pub, $fd_pub, $dh_pub, $fh_pub, $name, $subject, $story, $bodytext, $topic, $epur) {
+function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
    $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
@@ -184,14 +185,12 @@ function PreviewStory($dd_pub, $fd_pub, $dh_pub, $fh_pub, $name, $subject, $stor
          <div class="form-group row">
             <label class="form-control-label col-sm-12">'.translate("Full Text").'</label>
             <div class="col-sm-12">
-               <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>';
-   echo '
+               <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>
             </div>
          </div>';
    echo aff_editeur('bodytext', '');
-
    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
-   echo ''.Q_spambot().'';
+   echo Q_spambot();
    echo '
          <div class="form-group row">
             <div class="col-sm-12">
@@ -206,7 +205,7 @@ function PreviewStory($dd_pub, $fd_pub, $dh_pub, $fh_pub, $name, $subject, $stor
 function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_finval, $epur, $asb_question, $asb_reponse) {
    global $user, $EditedMessage, $anonymous, $notify, $NPDS_Prefix;
 
-   if ($user) {
+   if ($user!='') {
       global $cookie;
       $uid = $cookie[0];
       $name = $cookie[1];
@@ -215,7 +214,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
       $name = $anonymous;
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, '')) {
-         Ecr_Log("security", "Submit Anti-Spam : name=".$yname." / mail=".$ymail, "");
+         Ecr_Log('security', "Submit Anti-Spam : name=".$yname." / mail=".$ymail, '');
          redirect_url("index.php");
          die();
       }
@@ -246,50 +245,29 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
 
 settype($op,'string');
 switch ($op) {
-   case "Preview":
+   case 'Preview':
    case translate("Preview"):
-      PreviewStory($dd_pub, $fd_pub, $dh_pub, $fh_pub, $name, $subject, $story, $bodytext, $topic, $epur);
-        break;
-   case "Ok":
-        settype($date_debval,'string');
-        if (!$date_debval) {
-/*
-           if (strlen($deb_day)==1) {
-              $deb_day = "0$deb_day";
-           }
-           if (strlen($deb_month)==1) {
-              $deb_month = "0$deb_month";
-           }
-*/
-           //$date_debval = "$deb_year-$deb_month-$deb_day $deb_hour:$deb_min:00";
-           //==> new implementation datepub
-           $date_debval = $dd_pub.' '.$dh_pub.':01';
-           //<== new implementation datepub
-        }
-        settype($date_finval,'string');
-        if (!$date_finval) {
-/*
-           if (strlen($fin_day)==1) {
-              $fin_day = "0$fin_day";
-           }
-           if (strlen($fin_month)==1) {
-              $fin_month = "0$fin_month";
-           }
-*/
-           //$date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
-           //==> new implementation datepub
-           $date_finval = $fd_pub.' '.$fh_pub.':01';
-           //<== new implementation datepub
-
-        }
-        if ($date_finval<$date_debval) {
-           $date_finval = $date_debval;
-        }
-        SubmitStory($subject, $story, $bodytext, $topic, $date_debval,$date_finval,$epur, $asb_question, $asb_reponse);
-        break;
-
+      if ($user) {
+         $userinfo=getusrinfo($user);
+         $name=$userinfo['uname'];
+      } else
+         $name= $anonymous;
+      PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
+      
+   break;
+   case 'Ok':
+      settype($date_debval,'string');
+      if (!$date_debval) 
+         $date_debval = $dd_pub.' '.$dh_pub.':01';
+      settype($date_finval,'string');
+      if (!$date_finval) 
+         $date_finval = $fd_pub.' '.$fh_pub.':01';
+      if ($date_finval<$date_debval) 
+         $date_finval = $date_debval;
+      SubmitStory($subject, $story, $bodytext, $topic, $date_debval, $date_finval, $epur, $asb_question, $asb_reponse);
+   break;
    default:
       defaultDisplay();
-        break;
+   break;
 }
 ?>

@@ -36,13 +36,17 @@ function puthome($ihome) {
    }
    echo '
          <div class="col-sm-8">
-            <label class="radio-inline">
-               <input type="radio" name="ihome" value="0" '.$sel1.' />'.adm_translate("Oui").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="ihome" value="0" '.$sel1.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="ihome" value="1" '.$sel2.' />'.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="ihome" value="1" '.$sel2.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>
-            <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
+             <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
          </div>
       </div>';
    $sel1 = '';
@@ -51,7 +55,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8">
-            <label class="radio-inline">';
+            <label class="custom-control custom-radio">';
    if ($ihome<0) {
       $sel1 = 'checked="checked"';
       $sel2 = '';
@@ -62,28 +66,33 @@ function puthome($ihome) {
       $sel2 = '';
    }
    echo '
-               <input type="radio" name="members" value="1" '.$sel1.' />'.adm_translate("Oui").'
+               <input class="custom-control-input" type="radio" name="members" value="1" '.$sel1.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <label class="radio-inline">
-               <input type="radio" name="members" value="0" '.$sel2.' />'.adm_translate("Non").'
+            <label class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" name="members" value="0" '.$sel2.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Non").'</span>
             </label>
          </div>
       </div>';
     // ---- Groupes
     $mX=liste_group();
     $tmp_groupe='';
+    $Mmembers='';
    while (list($groupe_id, $groupe_name)=each($mX)) {
       if ($groupe_id=='0') {$groupe_id='';}
-      if ($Mmembers==$groupe_id) {$sel3='selected="selected"';} else {$sel3='';}
+      if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
       $tmp_groupe.='
       <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
-      $nbg++;
+//      $nbg++;
    }
    echo '
       <div class="form-group row">
          <label class="col-sm-4 form-control-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
+            <select class="custom-select form-control" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
       </div>';
 }
@@ -120,6 +129,7 @@ function autoStory() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Liste des articles").'</h3>
    <table id="tab_adm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -133,7 +143,7 @@ function autoStory() {
 
    $result = sql_query("SELECT anid, title, date_debval, topic FROM ".$NPDS_Prefix."autonews ORDER BY date_debval ASC");
     while(list($anid, $title, $time, $topic) = sql_fetch_row($result)) {
-        if ($anid != "") {
+        if ($anid != '') {
            $affiche=false;
            $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
            list ($topicadmin, $topicname)=sql_fetch_row($result2);
@@ -164,6 +174,7 @@ function autoStory() {
         }
     }
    echo '
+      </tbody>
    </table>';
    adminfoot('','','','');
 }
@@ -209,12 +220,11 @@ function autoEdit($anid) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
-    echo '<h3>'.adm_translate("Editer l'Article Automatique").'</h3>';
-
-    echo aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language');
-
-   echo '<div class="card card-block">';
-
+    echo '
+    <hr />
+    <h3>'.adm_translate("Editer l'Article Automatique").'</h3>
+    '. aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
+    <div class="card card-block mb-3">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -223,19 +233,21 @@ function autoEdit($anid) {
    }
 
 
+/*
+    $no_img=false;
+    if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
+      echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
+    } else {
+      $no_img=true;
+    }
+*/
 
-
-//     $no_img=false;
-//     if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-//       echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
-//     } else {
-//       $no_img=true;
-//     }
-    
-    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
+    code_aff('<h3>'.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
+/*
     if ($no_img) {
        echo "<b>".aff_langue($topictext)."</b>";
     }
+*/
 
     echo '<b>'.adm_translate("Utilisateur").'</b>'.$informant.'<br /><br />';
 
@@ -304,6 +316,7 @@ function autoEdit($anid) {
       </div>
       '.aff_editeur('notes', '');
     }
+/*
     $deb_day=substr($date_debval,8,2);
     $deb_month=substr($date_debval,5,2);
     $deb_year=substr($date_debval,0,4);
@@ -315,8 +328,14 @@ function autoEdit($anid) {
     $fin_year=substr($date_finval,0,4);
     $fin_hour=substr($date_finval,11,2);
     $fin_min=substr($date_finval,14,2);
+*/
     //
-    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
+   $dd_pub=substr($date_debval,0,10);
+   $fd_pub=substr($date_finval,0,10);
+   $dh_pub=substr($date_debval,11,5);
+   $fh_pub=substr($date_finval,11,5);
+
+    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
     echo '
       <div class="form-group row">
          <div class="col-sm-12">
@@ -336,8 +355,8 @@ function autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $cati
    $hometext = stripslashes(FixQuotes($hometext));
    $bodytext = stripslashes(FixQuotes($bodytext));
    $notes = stripslashes(FixQuotes($notes));
-   if (($members==1) and ($Mmembers=='')) {$ihome="-127";}
-   if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
+   if (($members==1) and ($Mmembers=='')) $ihome='-127';
+   if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
 
    $result = sql_query("UPDATE ".$NPDS_Prefix."autonews SET catid='$catid', title='$title', time=now(), hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_debval='$date_debval', date_finval='$date_finval', auto_epur='$epur' WHERE anid='$anid'");
    if ($ultramode) {
@@ -358,6 +377,7 @@ switch ($op) {
          break;
     case "autoSaveEdit":
          if (!$date_debval) {
+/*
             if (strlen($deb_day)==1) {
                $deb_day = "0$deb_day";
             }
@@ -365,8 +385,12 @@ switch ($op) {
                $deb_month = "0$deb_month";
             }
             $date_debval = "$deb_year-$deb_month-$deb_day $deb_hour:$deb_min:00";
+*/
+            $date_debval = $dd_pub.' '.$dh_pub.':01';
+
          }
          if (!$date_finval) {
+/*
             if (strlen($fin_day)==1) {
                $fin_day = "0$fin_day";
             }
@@ -374,6 +398,9 @@ switch ($op) {
                $fin_month = "0$fin_month";
             }
             $date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
+*/
+   $date_finval = $fd_pub.' '.$fh_pub.':01';
+
          }
          if ($date_finval<$date_debval) {
             $date_finval = $date_debval;
