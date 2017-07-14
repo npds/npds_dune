@@ -933,12 +933,13 @@ function prepa_aff_news($op,$catid,$marqeur) {
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
        $sid = $s_sid;
+       $oo='';
        if ($catid != 0) {
           $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
           list($title1) = sql_fetch_row($resultm);
-          $title = "<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"\">".aff_langue($title1)."</a> : $title";
+         $title= $title;
           // Attention à cela aussi
-          $morelink[6]="<a href=\"index.php?op=newcategory&amp;catid=$catid\" class=\"\">".aff_langue($title1)."</a>";
+          $morelink[6]=' <a href="index.php?op=newcategory&amp;catid='.$catid.'">&#x200b;'.aff_langue($title1).'</a>';
        } else {
           $morelink[6]='';
        }
@@ -1886,14 +1887,14 @@ function Q_spambot() {
    }
 
    $tmp='';
-   if (!isset($user)) {
+   if ($user=='') {
       $tmp='
       <div class="form-group row">
-         <div class="col-sm-9">
-            <label class="form-control-label text-danger" for="asb_reponse">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;&nbsp;'.$aff.'</label>
+         <div class="col-sm-9 text-right">
+            <label class="form-control-label text-danger" for="asb_reponse">'.translate("Anti-Spam / Thank to reply to the question :").'&nbsp;'.$aff.'</label>
          </div>
-         <div class="col-sm-2 col-md-2 text-right">
-            <input class="form-control" type="text" name="asb_reponse" maxlength="2" onclick="this.value" />
+         <div class="col-sm-3 text-right">
+            <input class="form-control" type="text" id="asb_reponse" name="asb_reponse" maxlength="2" onclick="this.value" />
             <input type="hidden" name="asb_question" value="'.encrypt($ibid[$asb_index].','.time()).'" />
          </div>
       </div>';
@@ -1956,7 +1957,7 @@ function R_spambot($asb_question, $asb_reponse, $message='') {
    global $user;
    global $REQUEST_METHOD;
    if ($REQUEST_METHOD=="POST") {
-      if (!isset($user)) {
+      if ($user=='') {
          if ( ($asb_reponse!='') and (is_numeric($asb_reponse)) and (strlen($asb_reponse)<=2) ) {
             $ibid=decrypt($asb_question);
             $ibid=explode(',',$ibid);

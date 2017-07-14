@@ -292,6 +292,7 @@ function main() {
    <h4><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message de pied de page").'</h4>';
       ShowFooter();
    echo '
+   <hr />
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
    <form action="admin.php" method="post">
       <label class="form-control-label" for="Xheader">'.adm_translate("Entête").'</label>
@@ -303,12 +304,13 @@ function main() {
          <input type="hidden" name="op" value="lnl_Test" />
          <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
    </form>
+   <hr />
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
    <form action="admin.php" method="post">';
-      echo adm_translate("Entête")." : <input class=\"form-control\" type=\"text\" name=\"Xheader\" size=\"12\" max=\"11\" />
-      &nbsp;".adm_translate("Corps")." : <input class=\"form-control\" type=\"text\" name=\"Xbody\" size=\"12\" max=\"11\" />";
+      echo adm_translate("Entête")." <input class=\"form-control\" type=\"text\" name=\"Xheader\" size=\"12\" max=\"11\" />
+      &nbsp;".adm_translate("Corps")." <input class=\"form-control\" type=\"text\" name=\"Xbody\" size=\"12\" max=\"11\" />";
       echo "&nbsp;".adm_translate("Pied")." :&nbsp;&nbsp;<input class=\"form-control\" type=\"text\" name=\"Xfooter\" size=\"12\" max=\"11\" /><br />";
-      echo adm_translate("Sujet")." :<input class=\"form-control\" type=\"text\" size=\"80\" max=\"255\" name=\"Xsubject\" /><hr noshade=\"noshade\" class=\"ongl\" />";
+      echo adm_translate("Sujet")." :<input class=\"form-control\" type=\"text\" size=\"80\" max=\"255\" name=\"Xsubject\" /><hr />";
       echo "<input type=\"radio\" value=\"All\" checked=\"checked\" name=\"Xtype\" /> ".adm_translate("Tous les Utilisateurs")." -";
       echo "<input type=\"radio\" value=\"Mbr\" name=\"Xtype\" /> ".adm_translate("Seulement aux membres")." : ";
       // ---- Groupes
@@ -316,7 +318,7 @@ function main() {
       $tmp_groupe='';
       while (list($groupe_id, $groupe_name)=each($mX)) {
          if ($groupe_id=="0") {$groupe_id='';}
-         $tmp_groupe.="<option value=\"$groupe_id\" $sel3>$groupe_name</option>\n";
+         $tmp_groupe.="<option value=\"$groupe_id\">$groupe_name</option>\n";
       }
       echo '<select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>';
       // ---- Groupes

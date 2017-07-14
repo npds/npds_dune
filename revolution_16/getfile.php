@@ -108,10 +108,10 @@ switch($apli) {
    case 'captcha':
       $mot=rawurldecode(decrypt($att_id));
       
-      $font=2;
+      $font=16;
       $width=imagefontwidth($font)* strlen($mot);
       $height=imagefontheight($font);
-      $img=imagecreate($width+2, $height+2);
+      $img=imagecreate($width+4, $height+4);
       $blanc=imagecolorallocate($img, 255, 255, 255);
       $noir=imagecolorallocate($img, 0, 0, 0);
       imagecolortransparent($img, $blanc);

@@ -134,7 +134,7 @@ function GraphicAdmin($hlpfile) {
    if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
-   //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accés
+   //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    if ($Q['radminsuper']==1) {
    // on prend tout ce qui a une interface 
