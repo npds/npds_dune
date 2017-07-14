@@ -401,12 +401,10 @@ function NoMoveCategory($catid, $newcat) {
 
 // NEWS
 function displayStory ($qid) {
-   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper,$adminimg;
-
+   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg;
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Articles");
    $hlpfile = "manuels/$language/newarticle.html";
-
    $result = sql_query("SELECT qid, uid, uname, subject, story, bodytext, topic, date_debval,date_finval,auto_epur FROM ".$NPDS_Prefix."queue WHERE qid='$qid'");
    list($qid, $uid, $uname, $subject, $story, $bodytext, $topic, $date_debval,$date_finval,$epur) = sql_fetch_row($result);
    sql_free_result($result);
@@ -430,7 +428,6 @@ function displayStory ($qid) {
    $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
-   
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
@@ -448,19 +445,18 @@ function displayStory ($qid) {
     code_aff('<h4>'.$subject.$topiclogo.'</h4>','<div class="text-muted">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
 
     echo '
-      </div>
+         </div>
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="author">'.adm_translate("Utilisateur").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="author" value="'.$uname.'" />
+            <input class="form-control" type="text" id="author" name="author" value="'.$uname.'" />
             <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank" title="'.adm_translate("Diffusion d'un Message Interne").'" data-toggle="tooltip"><i class="fa fa-envelope-o fa-lg"></i></a>
          </div>
       </div>
-
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-         <input class="form-control" type="text" name="subject" value="'.$subject.'" />
+            <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" />
          </div>
       </div>
       <div class="form-group row">
@@ -475,7 +471,7 @@ function displayStory ($qid) {
        if ($radminsuper) {
           $affiche=true;
        } else {
-          $topicadminX=explode(",",$topicadmin);
+          $topicadminX=explode(',',$topicadmin);
           for ($i = 0; $i < count($topicadminX); $i++) {
              if (trim($topicadminX[$i])==$aid) $affiche=true;
           }
@@ -499,7 +495,7 @@ function displayStory ($qid) {
    <div class="form-group row">
       <label class="form-control-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
       <div class="col-12">
-         <textarea class="tin form-control" rows="25" name="hometext">'.$story.'</textarea>
+         <textarea class="tin form-control" rows="25" id="hometext" name="hometext">'.$story.'</textarea>
       </div>
    </div>';
    echo aff_editeur('hometext', '');
@@ -519,70 +515,62 @@ function displayStory ($qid) {
       </div>
    </div>';
    echo aff_editeur('notes', '');
-
-    $deb_day=substr($date_debval,8,2);
-    $deb_month=substr($date_debval,5,2);
-    $deb_year=substr($date_debval,0,4);
-    $deb_hour=substr($date_debval,11,2);
-    $deb_min=substr($date_debval,14,2);
-    //
-    $fin_day=substr($date_finval,8,2);
-    $fin_month=substr($date_finval,5,2);
-    $fin_year=substr($date_finval,0,4);
-    $fin_hour=substr($date_finval,11,2);
-    $fin_min=substr($date_finval,14,2);
-    //
-    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
+   $dd_pub=substr($date_debval,0,10);
+   $fd_pub=substr($date_finval,0,10);
+   $dh_pub=substr($date_debval,11,5);
+   $fh_pub=substr($date_finval,11,5);
+   publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo '
-   <input type="hidden" name="qid" value="'.$qid.'" />
-   <input type="hidden" name="uid" value="'.$uid.'" />
-   <div class="form-group">
-      <select class="custom-select form-control" name="op">
-         <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-         <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
-         <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
-      </select>
-   </div>
-   <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
+      <input type="hidden" name="qid" value="'.$qid.'" />
+      <input type="hidden" name="uid" value="'.$uid.'" />
+      <div class="form-group">
+         <select class="custom-select form-control" name="op">
+            <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
+            <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+            <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
+         </select>
+      </div>
+      <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
    adminfoot('fv','','','');
 }
 
-function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,  $epur) {
-    global $NPDS_Prefix;
-    global $tipath, $hlpfile, $language, $aid, $radminsuper;
-    $hlpfile = "manuels/$language/newarticle.html";
-    $subject = stripslashes(str_replace('"','&quot;',$subject));
-    $hometext = stripslashes($hometext);
-    $bodytext = stripslashes($bodytext);
-    $notes = stripslashes($notes);
+function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
+   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg;
+   $f_meta_nom ='adminStory';
+   $f_titre = adm_translate("Articles");
+   $hlpfile = "manuels/$language/newarticle.html";
+   $subject = stripslashes(str_replace('"','&quot;',$subject));
+   $hometext = stripslashes($hometext);
+   $bodytext = stripslashes($bodytext);
+   $notes = stripslashes($notes);
 
-    if ($topic<1) {$topic = 1;}
-    $affiche=false;
-    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-    list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
-    if ($radminsuper) {
-       $affiche=true;
-    } else {
-       $topicadminX=explode(',',$topicadmin);
-       for ($i = 0; $i < count($topicadminX); $i++) {
-          if (trim($topicadminX[$i])==$aid) $affiche=true;
-       }
-    }
+   if ($topic<1) {$topic = 1;}
+   $affiche=false;
+   $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+   list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
+   if ($radminsuper) {
+      $affiche=true;
+   } else {
+      $topicadminX=explode(',',$topicadmin);
+      for ($i = 0; $i < count($topicadminX); $i++) {
+         if (trim($topicadminX[$i])==$aid) $affiche=true;
+      }
+   }
    if (!$affiche) { header("location: admin.php?op=submissions");}
    $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
-    include ('header.php');
-    GraphicAdmin($hlpfile);
-
-    global $local_user_language;
-
-    echo '
-    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
-    <form action="admin.php" method="post" name="adminForm">
-    
-   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> : '.aff_localzone_langue("local_user_language");
-   echo '<div class="card card-block">';
+   include ('header.php');
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   global $local_user_language;
+   echo '
+   <hr />
+   <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
+   <form action="admin.php" method="post" name="adminForm">
+      <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>
+      '.aff_localzone_langue("local_user_language").'
+      <div class="card card-block mb-3">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -592,15 +580,26 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.meta_lang($hometext).'</div>', meta_lang($bodytext), meta_lang($notes));
 
     echo '
-    <label class="form-control-label col-sm-4">'.adm_translate("Utilisateur").'</label>
-    <input class="textbox_standard" type="text" name="author" size="50" value="'.$author.'" />
-    <label class="form-control-label col-sm-4">'.adm_translate("Titre").'</label>
-    <input class="textbox" type="text" name="subject" size="50" value="'.$subject.'" />
-    <label class="form-control-label col-sm-4">'.adm_translate("Sujet").'</label>
-    <select class="custom-select form-control" name="topic">';
+          </div>
+      <div class="form-group row">
+         <label class="col-sm-4 form-control-label" for="author">'.adm_translate("Utilisateur").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="author" name="author" value="'.$author.'" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="form-control-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
+         <div class="col-sm-8">
+            <select class="custom-select form-control" id="topic" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
-    <option value="">'.adm_translate("Tous les Sujets").'</option>';
+               <option value="">'.adm_translate("Tous les Sujets").'</option>';
     while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
        $affiche=false;
        if ($radminsuper) {
@@ -614,30 +613,47 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
        if ($affiche) {
           if ($topicid==$topic) { $sel = 'selected="selected" '; }
           echo '
-          <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+               <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
           $sel = '';
        }
     }
-    echo '
-    </select>';
-    SelectCategory($catid);
-    echo '<br />';
-    if (($members==1) and ($Mmembers=='')) {$ihome="-127";}
-    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
-    puthome($ihome);
+   echo '
+            </select>
+         </div>
+      </div>';
+   SelectCategory($catid);
 
-    echo '<br /><b>'.adm_translate("Texte d'introduction").'</b> :<br />
-    <textarea class="tin form-control" cols="70" rows="25" name="hometext" >'.$hometext.'</textarea>';
-    echo aff_editeur('hometext', '');
-    echo '<br /><b>'.adm_translate("Texte étendu").'</b> :<br />
-    <textarea class="tin form-control" cols="70" rows="25" name="bodytext" >'.$bodytext.'</textarea>';
-    echo aff_editeur('bodytext', '');
-    echo '<br /><b>'.adm_translate("Notes").'</b> :<br />
-    <textarea class="tin form-control" cols="70" rows="7" name="notes" >'.$notes.'</textarea>';
-    echo aff_editeur('notes', '');
+   if (($members==1) and ($Mmembers=='')) $ihome='-127';
+   if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
+   puthome($ihome);
 
-    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
-    echo '
+   echo '
+    <div class="form-group row">
+      <label class="form-control-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
+      <div class="col-12">
+         <textarea class="tin form-control" cols="70" rows="25" id="hometext" name="hometext" >'.$hometext.'</textarea>
+      </div>
+   </div>';
+   echo aff_editeur('hometext', '');
+   echo '
+   <div class="form-group row">
+      <label class="form-control-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
+      <div class="col-12">
+         <textarea class="tin form-control" cols="70" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
+      </div>
+   </div>';
+   echo aff_editeur('bodytext', '');
+   echo '
+   <div class="form-group row">
+      <label class="form-control-label col-12" for="notes">'.adm_translate("Notes").'</label>
+      <div class="col-12">
+         <textarea class="tin form-control" cols="70" rows="7" id="notes" name="notes" >'.$notes.'</textarea>
+      </div>
+   </div>';
+   echo aff_editeur('notes', '');
+
+   publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
+   echo '
     <input type="hidden" name="qid" value="'.$qid.'" />
     <input type="hidden" name="uid" value="'.$uid.'" />
     <br /><select class="custom-select form-control" name="op">
@@ -645,8 +661,8 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
     <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
     <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
     </select>
-    <input class="btn btn primary" type="submit" value="'.adm_translate("Ok").'" /></form>';
-    closetable();
+    <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
+    </form>';
     include ('footer.php');
 }
 
@@ -659,8 +675,8 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
     $hometext = stripslashes(FixQuotes($hometext));
     $bodytext = stripslashes(FixQuotes($bodytext));
     $notes = stripslashes(FixQuotes($notes));
-    if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
-    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
+    if (($members==1) and ($Mmembers=='')) $ihome='-127';
+    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
 
     if ($type_pub=='pub_immediate') {
        $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic','$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
@@ -697,7 +713,7 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
 }
 
 function editStory ($sid) {
-   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper,$adminimg;
+   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg, $gmt;
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Editer un Article");
    //==> controle droit
@@ -744,7 +760,7 @@ function editStory ($sid) {
    $result=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext, $topicimage) = sql_fetch_row($result);
 
-   echo aff_local_langue('<b>'.adm_translate("Langue de Prévisualisation").'</b>','','local_user_language');
+   echo aff_local_langue('<label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language');
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -818,7 +834,7 @@ function editStory ($sid) {
             <textarea class="tin form-control"  rows="7" name="notes" >'.$notes.'</textarea>
          </div>
       </div>';
-    echo aff_editeur("notes", "true");
+   echo aff_editeur("notes", "true");
    echo '
       <div class="form-group row">
          <label class="form-control-label col-sm-6" for="Cdate">'.adm_translate("Changer la date ? : ").'</label>
@@ -828,6 +844,7 @@ function editStory ($sid) {
                <span class="custom-control-indicator"></span>
                <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
+            <span class="small help-block">'.translate(date("l")).date(" ".translate("dateinternal"),time()+($gmt*3600)).'</span>
          </div>
       </div>
       <div class="form-group row">
@@ -840,23 +857,16 @@ function editStory ($sid) {
             </label>
          </div>
       </div>';
-
-    if ($date_finval!='') {
-       $fin_day=substr($date_finval,8,2);
-       $fin_month=substr($date_finval,5,2);
-       $fin_year=substr($date_finval,0,4);
-       $fin_hour=substr($date_finval,11,2);
-       $fin_min=substr($date_finval,14,2);
-    } else {
-       $fin_day="01";
-       $fin_month="01";
-       $fin_year=date("Y")+99;
-       $fin_hour="00";
-       $fin_min="00";
-    }
-    publication(-1,-1,-1,-1,-1, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
-    global $theme;
-    echo '
+   if ($date_finval!='') {
+      $fd_pub=substr($date_finval,0,10);
+      $fh_pub=substr($date_finval,11,5);
+   } else {
+      $fd_pub=(date("Y")+99).'-01-01';
+      $fh_pub='00:00';
+   }
+   publication(-1, $fd_pub, -1, $fh_pub, $epur);
+   global $theme;
+   echo '
       <input type="hidden" name="sid" value="'.$sid.'" />
       <input type="hidden" name="op" value="ChangeStory" />
       <input type="hidden" name="theme" value="'.$theme.'" />
@@ -886,7 +896,7 @@ function removeStory ($sid, $ok=0) {
     $result=sql_query("SELECT topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
     list($topic)=sql_fetch_row($result);
     $affiche=false;
-    $result2=sql_query("SELECT topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+    $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
     list ($topicadmin, $topicname)=sql_fetch_row($result2);
     if ($radminsuper) {
        $affiche=true;
@@ -923,15 +933,14 @@ function removeStory ($sid, $ok=0) {
     }
 }
 
-function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur,$theme) {
-    global $NPDS_Prefix;
-    global $aid, $ultramode;
+function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur,$theme, $dd_pub, $fd_pub, $dh_pub, $fh_pub) {
+    global $NPDS_Prefix, $aid, $ultramode;
     $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
     $hometext = stripslashes(FixQuotes($hometext));
     $bodytext = stripslashes(FixQuotes($bodytext));
     $notes = stripslashes(FixQuotes($notes));
-    if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
-    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
+    if (($members==1) and ($Mmembers=='')) $ihome='-127';
+    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
 
     if ($Cdate) {
        sql_query("UPDATE ".$NPDS_Prefix."stories SET catid='$catid', title='$subject', hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome',time=now(), date_finval='$date_finval', auto_epur='$epur', archive='0' WHERE sid='$sid'");
@@ -951,7 +960,7 @@ function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $cati
       }
       $sid=$Lsid;
     }
-    global $aid; Ecr_Log("security", "changeStory($sid, $subject, hometext..., bodytext..., $topic, notes..., $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur,$theme) by AID : $aid", "");
+    global $aid; Ecr_Log('security', "changeStory($sid, $subject, hometext..., bodytext..., $topic, notes..., $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur,$theme) by AID : $aid", '');
     if ($ultramode) {
        ultramode();
     }
@@ -967,7 +976,7 @@ function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $cati
 }
 
 function adminStory() {
-   global $NPDS_Prefix, $hlpfile, $language, $aid, $radminsuper,$adminimg;
+   global $NPDS_Prefix, $hlpfile, $language, $aid, $radminsuper, $adminimg;
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Nouvel Article");
    //==> controle droit
@@ -980,16 +989,10 @@ function adminStory() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    settype($hometext,'string');
    settype($bodytext,'string');
-   settype($deb_day,'integer');
-   settype($deb_month,'integer');
-   settype($deb_year,'integer');
-   settype($deb_hour,'integer');
-   settype($deb_min,'integer');
-   settype($fin_day,'integer');
-   settype($fin_month,'integer');
-   settype($fin_year,'integer');
-   settype($fin_hour,'integer');
-   settype($fin_min,'integer');
+   settype($dd_pub,'string');
+   settype($fd_pub,'string');
+   settype($dh_pub,'string');
+   settype($fh_pub,'string');
    settype($epur,'integer');
    settype($ihome,'integer');
 
@@ -1050,7 +1053,7 @@ function adminStory() {
          </div>
       </div>';
    echo aff_editeur('bodytext', '');
-   publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
+   publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo '
       <input type="hidden" name="author" value="'.$aid.'" />
       <input type="hidden" name="op" value="PreviewAdminStory" />
@@ -1070,7 +1073,7 @@ function adminStory() {
    adminfoot('fv','','','');
 }
 
-function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,$epur) {
+function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper,$adminimg, $topicimage;
    $hlpfile = "manuels/$language/newarticle.html";
    $subject = stripslashes(str_replace('"','&quot;',$subject));
@@ -1105,8 +1108,9 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    echo '
    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
    <form action="admin.php" method="post" name="adminForm">
-   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> '.aff_localzone_langue("local_user_language");
-   echo '<div class="card card-block">';
+   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> 
+   '.aff_localzone_langue("local_user_language").'
+   <div class="card card-block mb-3">';
 
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
@@ -1114,7 +1118,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       if (file_exists($imgtmp)) 
       $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
    }
-    
+
    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
    echo '
    </div>
@@ -1137,7 +1141,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
        if ($radminsuper) {
           $affiche=true;
        } else {
-          $topicadminX=explode(",",$topicadmin);
+          $topicadminX=explode(',',$topicadmin);
           for ($i = 0; $i < count($topicadminX); $i++) {
              if (trim($topicadminX[$i])==$aid) $affiche=true;
           }
@@ -1155,9 +1159,8 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       </div>';
     $cat = $catid;
     SelectCategory($catid);
-    echo '<br />';
-    if (($members==1) and ($Mmembers=="")) {$ihome="-127";}
-    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) {$ihome=$Mmembers;}
+    if (($members==1) and ($Mmembers=='')) $ihome='-127';
+    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
     puthome($ihome);
        echo '
       <div class="form-group row">
@@ -1176,7 +1179,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       </div>';
     echo aff_editeur('bodytext', '');
 
-    publication($deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min, $epur);
+    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
     echo '
       <div class="form-group row">
          <input type="hidden" name="author" value="'.$aid.'" />
@@ -1202,90 +1205,86 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
 }
 
 switch ($op) {
-   case "EditCategory":
-        EditCategory($catid);
-        break;
-   case "DelCategory":
-        DelCategory($cat);
-        break;
-   case "YesDelCategory":
-        YesDelCategory($catid);
-        break;
-   case "NoMoveCategory":
-        NoMoveCategory($catid, $newcat);
-        break;
-   case "SaveEditCategory":
-        SaveEditCategory($catid, $title);
-        break;
-   case "AddCategory":
-        AddCategory();
-        break;
-   case "SaveCategory":
-        SaveCategory($title);
-        break;
-   case "DisplayStory":
-        displayStory($qid);
-        break;
-   case "PreviewAgain":
-        previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,  $epur);
-        break;
-   case "PostStory":
-        if (!$date_debval) {
-           if (strlen($deb_day)==1) {
-              $deb_day = "0$deb_day";
-           }
-           if (strlen($deb_month)==1) {
-              $deb_month = "0$deb_month";
-           }
-           $date_debval = "$deb_year-$deb_month-$deb_day $deb_hour:$deb_min:00";
-        }
-        if (!$date_finval) {
-           if (strlen($fin_day)==1) {
-              $fin_day = "0$fin_day";
-           }
-           if (strlen($fin_month)==1) {
-              $fin_month = "0$fin_month";
-           }
-           $date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
-        }
-        if ($date_finval<$date_debval) {
-           $date_finval = $date_debval;
-        }
-        $temp_new=mktime(substr($date_debval,11,2), substr($date_debval,14,2),0,substr($date_debval,5,2),substr($date_debval,8,2),substr($date_debval,0,4));
-        $temp=time();
-        if ($temp>$temp_new) {
-           postStory("pub_immediate",$qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur);
-        } else {
-           postStory("pub_automated",$qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur);
-        }
-        break;
-   case "DeleteStory":
-        deleteStory($qid);
-        Header("Location: admin.php?op=submissions");
-        break;
-   case "EditStory":
-        editStory($sid);
-        break;
-   case "ChangeStory":
-        if (!$date_finval) {
-           if (strlen($fin_day)==1) {
-              $fin_day = "0$fin_day";
-           }
-           if (strlen($fin_month)==1) {
-              $fin_month = "0$fin_month";
-           }
-           $date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
-        }
-        changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur, $theme);
+   case 'EditCategory':
+      EditCategory($catid);
+   break;
+   case 'DelCategory':
+      DelCategory($cat);
+   break;
+   case 'YesDelCategory':
+      YesDelCategory($catid);
+   break;
+   case 'NoMoveCategory':
+      NoMoveCategory($catid, $newcat);
+   break;
+   case 'SaveEditCategory':
+      SaveEditCategory($catid, $title);
+   break;
+   case 'AddCategory':
+      AddCategory();
+   break;
+   case 'SaveCategory':
+      SaveCategory($title);
+   break;
+   case 'DisplayStory':
+      displayStory($qid);
+   break;
+   case 'PreviewAgain':
+      previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
+   break;
+   case 'PostStory':
+      if (!$date_debval) 
+         $date_debval = $dd_pub.' '.$dh_pub.':01';
+      if (!$date_finval) 
+         $date_finval = $fd_pub.' '.$fh_pub.':01';
+      if ($date_finval<$date_debval) 
+         $date_finval = $date_debval;
+      $temp_new=mktime(substr($date_debval,11,2), substr($date_debval,14,2),0,substr($date_debval,5,2),substr($date_debval,8,2),substr($date_debval,0,4));
+      $temp=time();
+      if ($temp>$temp_new) {
+         postStory("pub_immediate",$qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur);
+      } else {
+         postStory("pub_automated",$qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur);
+      }
+   break;
+   case 'DeleteStory':
+      deleteStory($qid);
+      Header("Location: admin.php?op=submissions");
+   break;
+   case 'EditStory':
+      editStory($sid);
+   break;
+   case 'ChangeStory':
+      settype($fd_pub,'string');
+      settype($fh_pub,'string');
+      settype($dd_pub,'string');
+      settype($dh_pub,'string');
+      settype($Cdate,'string');
+      settype($Csid,'boolean');
+//         if (!$date_finval) {
+//            if (strlen($fin_day)==1) {
+//               $fin_day = "0$fin_day";
+//            }
+//            if (strlen($fin_month)==1) {
+//               $fin_month = "0$fin_month";
+//            }
+//            $date_finval = "$fd_pub $fh_pub:00";
+//            
+//         }        
+             $date_finval = "$fd_pub $fh_pub:00";
+      
+        
+        changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur, $theme, $dd_pub, $fd_pub, $dh_pub, $fh_pub);
         break;
    case "RemoveStory":
-        removeStory($sid, $ok);
-        break;
+      settype($ok,'string');
+      removeStory($sid, $ok);
+   break;
    case "adminStory":
-        adminStory();
-        break;
+      adminStory();
+   break;
    case "PreviewAdminStory":
-        previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $deb_day,$deb_month,$deb_year,$deb_hour,$deb_min, $fin_day,$fin_month,$fin_year,$fin_hour,$fin_min,  $epur);
-        break;
+      previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
+   break;
 }
 ?>

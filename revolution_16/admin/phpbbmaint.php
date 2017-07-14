@@ -357,9 +357,14 @@ function ForumMaintAdmin() {
          </div>
       </div>
    </form>
+   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
+   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
    <script>
    $(document).ready(function() {
-    $("#embeddingDatePicker")
+      $("<link>")
+         .appendTo("head")
+         .attr({"id": "datepickfromphpbbmaint", type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+       $("#embeddingDatePicker")
         .datepicker({
             format: "yyyy-mm-dd",
             language:"'.language_iso(1,'','').'",
