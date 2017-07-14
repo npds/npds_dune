@@ -132,10 +132,23 @@ include_once('modules/geoloc/geoloc_conf.php');
 
 $m->add_extra('
          </div>
-      </div>
+      </div>');
+$m->add_extra('
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+            $("#embeddingDatePicker input").datepicker({
+               format: "dd/mm/yyyy",
+               autoclose: "true",
+               language:"'.language_iso(1,'','').'"
+            })
+            .on("changeDate", function(e) {
+               $("#register").formValidation("revalidateField", "T1");
+            });
+         
             inpandfieldlen("name",60);
             inpandfieldlen("email",60);
             inpandfieldlen("femail",60);
@@ -154,6 +167,15 @@ $m->add_extra('
       //]]>
       </script>');
 $fv_parametres ='
+         T1: {
+            excluded: false,
+            validators: {
+               date: {
+                  format: "DD/MM/YYYY",
+                  message: "The date is not a valid"
+               }
+            }
+         },
          pass: {
             validators: {
                callback: {

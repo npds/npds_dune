@@ -151,9 +151,15 @@ function reviews() {
          </div>
       </div>
    </form>
+   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
+   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
    <script type="text/javascript">
       //<![CDATA[
       $(document).ready(function() {
+         $("<link>")
+            .appendTo("head")
+            .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+
          inpandfieldlen("title",40);
          inpandfieldlen("reviewer",20);
          inpandfieldlen("email",60);

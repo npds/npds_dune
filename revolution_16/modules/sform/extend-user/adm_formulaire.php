@@ -185,10 +185,13 @@ include_once('modules/geoloc/geoloc_conf.php');
 $m->add_extra('
          </div>
       </div>');
-      $m->add_extra('
+$m->add_extra('
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" async="async" ></script>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
             $("#embeddingDatePicker input").datepicker({
                format: "dd/mm/yyyy",
                autoclose: "true",
