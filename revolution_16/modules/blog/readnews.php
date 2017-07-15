@@ -169,6 +169,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
        $content.= '
        </div>';
    }
+   settype($contentT,'string');
    if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
    $content.="\n";
    return ($content);
