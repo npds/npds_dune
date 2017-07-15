@@ -1200,7 +1200,7 @@ function chgtheme() {
             $("#skin_choice").removeClass("collapse");
             $("#skin").change(function () {
                sl = $("#skin option:selected").text();
-               $("#skin_thumbnail").html(\'<a href="themes/_skins/\'+sl+\'"><img class="img-fluid img-thumbnail" src="themes/_skins/\'+sl+\'/thumbnail.png" /></a>\');
+               $("#skin_thumbnail").html(\'<a href="themes/_skins/\'+sl+\'" class="btn btn-outline-primary"><img class="img-fluid img-thumbnail" src="themes/_skins/\'+sl+\'/thumbnail.png" /></a>\');
             }).change();
          } else {
             $("#skin_choice").addClass("collapse");
