@@ -55,57 +55,61 @@ function select_start_page($op) {
 }
 
 function automatednews() {
-    global $gmt;
-    global $NPDS_Prefix;
+   global $gmt, $NPDS_Prefix;
 
-    $today = getdate(time()+((integer)$gmt*3600));
-    $day = $today['mday'];
-    if ($day < 10)
-       $day = "0$day";
-    $month = $today['mon'];
-    if ($month < 10)
-       $month = "0$month";
-    $year = $today['year'];
-    $hour = $today['hours'];
-    $min = $today['minutes'];
-    $result = sql_query("SELECT anid, date_debval FROM ".$NPDS_Prefix."autonews WHERE date_debval LIKE '$year-$month%'");
-    while(list($anid, $date_debval) = sql_fetch_row($result)) {
-       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $date_debval, $date);
-       if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) {
-          if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min) OR (($day-$date[3])>=1)) {
-             $result2 = sql_query("SELECT catid, aid, title, hometext, bodytext, topic, informant, notes, ihome, date_finval, auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
-             while (list($catid, $aid, $title, $hometext, $bodytext, $topic, $author, $notes, $ihome, $date_finval, $epur) = sql_fetch_row($result2)) {
-                $subject = stripslashes(FixQuotes($title));
-                $hometext = stripslashes(FixQuotes($hometext));
-                $bodytext = stripslashes(FixQuotes($bodytext));
-                $notes = stripslashes(FixQuotes($notes));
-                sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic', '$author', '$notes', '$ihome', '0', '$date_finval', '$epur')");
-                sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
-                global $subscribe;
-                if ($subscribe) {
-                   subscribe_mail('topic',$topic,'',$subject,'');
-                }
-                // Réseaux sociaux
-                if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
-                if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-                // Réseaux sociaux
-             }
-          }
-       }
-    }
-    // Purge automatique
-    $result = sql_query("SELECT sid, date_finval, auto_epur FROM ".$NPDS_Prefix."stories WHERE date_finval LIKE '$year-$month%'");
-    while(list($sid, $date_finval, $epur) = sql_fetch_row($result)) {
-       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $date_finval, $date);
-       if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) {
-          if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min)) {
-             if ($epur==1)
-                sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
-             else
-                sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");
-          }
-       }
-    }
+   $today = getdate(time()+((integer)$gmt*3600));
+   $day = $today['mday'];
+   if ($day < 10)
+      $day = "0$day";
+   $month = $today['mon'];
+   if ($month < 10)
+      $month = "0$month";
+   $year = $today['year'];
+   $hour = $today['hours'];
+   $min = $today['minutes'];
+   $result = sql_query("SELECT anid, date_debval FROM ".$NPDS_Prefix."autonews WHERE date_debval LIKE '$year-$month%'");
+   while(list($anid, $date_debval) = sql_fetch_row($result)) {
+      preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $date_debval, $date);
+      if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) {
+         if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min) OR (($day-$date[3])>=1)) {
+            $result2 = sql_query("SELECT catid, aid, title, hometext, bodytext, topic, informant, notes, ihome, date_finval, auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
+            while (list($catid, $aid, $title, $hometext, $bodytext, $topic, $author, $notes, $ihome, $date_finval, $epur) = sql_fetch_row($result2)) {
+               $subject = stripslashes(FixQuotes($title));
+               $hometext = stripslashes(FixQuotes($hometext));
+               $bodytext = stripslashes(FixQuotes($bodytext));
+               $notes = stripslashes(FixQuotes($notes));
+               sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic', '$author', '$notes', '$ihome', '0', '$date_finval', '$epur')");
+               sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
+               global $subscribe;
+               if ($subscribe)
+                  subscribe_mail('topic',$topic,'',$subject,'');
+               // Réseaux sociaux
+               if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
+               if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
+               // Réseaux sociaux
+            }
+         }
+      }
+   }
+   // Purge automatique
+   $result = sql_query("SELECT sid, date_finval, auto_epur FROM ".$NPDS_Prefix."stories WHERE date_finval LIKE '$year-$month%'");
+   while(list($sid, $date_finval, $epur) = sql_fetch_row($result)) {
+      preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $date_finval, $date);
+      if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) {
+         if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min)) {
+            if ($epur==1) {
+               sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
+               if (file_exists("modules/comments/article.conf.php")) {
+               include ("modules/comments/article.conf.php");
+               sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
+            }
+            global $aid; Ecr_Log('security', "removeStory ($sid, epur) by automated epur : system", '');
+         }
+         else
+         sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");
+         }
+      }
+   }
 }
 
 function aff_edito() {
@@ -127,12 +131,9 @@ function aff_edito() {
           }
        }
        if ($ret==false) {
-          if (!$notitle) {
+          if (!$notitle)
              echo '<span class="edito">'.translate("EDITO").'</span>';
-          }
-          opentable();
           echo $Xcontents;
-          closetable();
           echo '<br />';
        }
     }
@@ -140,25 +141,24 @@ function aff_edito() {
 
 function aff_news($op,$catid,$marqeur) {
    $url=$op;
-   if ($op=="edito-newindex") {
-      if ($marqeur==0) {aff_edito();}
-      $op="news";
+   if ($op=='edito-newindex') {
+      if ($marqeur==0) aff_edito();
+      $op='news';
    }
    if ($op=="newindex") {
-      if ($catid=="")
-         $op="news";
+      if ($catid=='')
+         $op='news';
        else 
-         $op="categories";
+         $op='categories';
    }
-   if ($op=="newtopic") {
-      $op="topics";
-   }
-   if ($op=="newcategory") {
-      $op="categories";
-   }
+   if ($op=='newtopic')
+      $op='topics';
+   if ($op=='newcategory')
+      $op='categories';
    $news_tab=prepa_aff_news($op,$catid,$marqeur);
    $story_limit=0;
-   while ($story_limit<sizeof($news_tab)) {
+   $newscount=sizeof($news_tab);
+   while ($story_limit<$newscount) {
       $story_limit++;
       $aid=unserialize($news_tab[$story_limit]['aid']);
       $informant=unserialize($news_tab[$story_limit]['informant']);
@@ -179,13 +179,12 @@ function aff_news($op,$catid,$marqeur) {
    $transl1=translate("Next Page");
    $transl2=translate("Home");
    global $storyhome, $cookie;
-   if (isset($cookie[3])) {
+   if (isset($cookie[3]))
       $storynum = $cookie[3];
-   } else {
+   else
       $storynum = $storyhome;
-   }
 
-   if ($op=="categories") {
+   if ($op=='categories') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
          echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=$marqeur\" class=\"page_suivante\" title=\"$transl1\">$transl1</a></p>";
@@ -194,7 +193,7 @@ function aff_news($op,$catid,$marqeur) {
             echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=0\" class=\"page_suivante\" title=\"$transl2\">$transl2</a></p>";
       }
    }
-   if ($op=="news") {
+   if ($op=='news') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
          echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=$marqeur\" class=\"page_suivante\" title=\"$transl1\">$transl1</a></p>";
@@ -203,7 +202,7 @@ function aff_news($op,$catid,$marqeur) {
             echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=0\" class=\"page_suivante\" title=\"$transl2\">$transl2</a></p>";
       }
    }
-   if ($op=="topics") {
+   if ($op=='topics') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
          echo "<p align=\"right\"><a href=\"index.php?op=newtopic&amp;topic=$catid&amp;marqeur=$marqeur\" class=\"page_suivante\" title=\"$transl1\">$transl1</a></p>";
@@ -254,7 +253,7 @@ switch ($op) {
    case 'edito-newindex':
    case 'newcategory':
       theindex($op, $catid, $marqeur);
-      break;
+   break;
    case 'newtopic':
       theindex($op, $topic, $marqeur);
    break;
