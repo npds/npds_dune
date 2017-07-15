@@ -34,7 +34,6 @@
    $skinpath = dirname($_SERVER['PHP_SELF']);
    $parts = explode('/', $skinpath);
    $skinametitre = end($parts);
-//         <link rel="stylesheet" href="/themes/npds-boost_sk/style/style.css" />
 
    switch ($skinametitre) {
       case 'cyborg': 
@@ -66,7 +65,22 @@
       <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="bootstrap.min.css" />
       <link rel="stylesheet" href="../assets/css/custom.min.css" />
-
+      <style>
+         .scrollable-menu {
+           height: auto;
+           max-height: 350px;
+           overflow-x: hidden;
+         }
+         .scrollable-menu::-webkit-scrollbar {
+           -webkit-appearance: none;
+           width: 6px;
+         }
+         .scrollable-menu::-webkit-scrollbar-thumb {
+           border-radius: 4px;
+           background-color: lightgray;
+           -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);
+         }
+      </style>
    </head>
    <body>
       <nav class="<?php echo $headerclasses; ?>">
@@ -107,7 +121,7 @@
                            <li><a class="dropdown-item" href="./bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
                            <li><a class="dropdown-item" href="./extra.css" target="_blank">extra.css</a></li>
                            <li class="dropdown-divider"></li>
-                           <li><a class="dropdown-item" href="._variables.scss">_variables.scss</a></li>
+                           <li><a class="dropdown-item" href="./_variables.scss">_variables.scss</a></li>
                         </ul>
                      </li>
                 </ul>
@@ -1340,7 +1354,6 @@
             <p>Npds fork by <a href="#" rel="nofollow">Jpb</a>. Contact him at <a href="mailto:jpb@npds.org">jpb@npds.org</a>.</p>
             <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE">MIT License</a>.</p>
             <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap 4</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
-            <p>Used Color generators <a href="http://paintstrap.com/" rel="nofollow">Paintstrap</a> <a href="http://www.lavishbootstrap.com//" rel="nofollow">Lavish</a></p>
           </div>
         </div>
       </footer>
