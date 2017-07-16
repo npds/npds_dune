@@ -22,21 +22,21 @@ if (isset($user)) {
     if ($pos!==false)
       $Default_Theme=$themelist[$pos];
 }
-
-// Gestion Ascii Ètendue
+settype($curn_nav,'string');
+// Gestion Ascii √©tendue
 function extend_ascii($ibid) {
    $tmp=urlencode($ibid);
-   $tmp=str_replace("%82","È",$tmp);
-   $tmp=str_replace("%85","‡",$tmp);
-   $tmp=str_replace("%87","Á",$tmp);
-   $tmp=str_replace("%88","Í",$tmp);
-   $tmp=str_replace("%97","˘",$tmp);
-   $tmp=str_replace("%8A","Ë",$tmp);
+   $tmp=str_replace("%82","√à",$tmp);
+   $tmp=str_replace("%85","‚Ä°",$tmp);
+   $tmp=str_replace("%87","√Å",$tmp);
+   $tmp=str_replace("%88","√ç",$tmp);
+   $tmp=str_replace("%97","Àò",$tmp);
+   $tmp=str_replace("%8A","√ã",$tmp);
    $tmp=urldecode($tmp);
    return ($tmp);
 }
 
-// Gestion des fichiers autorisÈs
+// Gestion des fichiers autoris√©s
 function fma_filter($type, $filename, $Extension) {
    $autorise=false;
    $error='';
@@ -44,11 +44,11 @@ function fma_filter($type, $filename, $Extension) {
    $filename=preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($filename));
    $filename=str_replace('..','',$filename);
 
-   // Liste des extensions autorisÈes
+   // Liste des extensions autoris√àes
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
    if (($suffix!='') or ($type=='d')) {
       if ((in_array($suffix,$Extension)) or ($Extension[0]=='*') or $type=='d') {
-         // Fichiers interdits en fonction de qui est connectÈ
+         // Fichiers interdits en fonction de qui est connect√©
          if (fma_autorise($type, $filename)) {
             $autorise=true;
          } else {
@@ -66,7 +66,7 @@ function fma_filter($type, $filename, $Extension) {
    return($tab);
 }
 
-// Gestion des autorisations sur les rÈpertoires et les fichiers
+// Gestion des autorisations sur les r√©pertoires et les fichiers
 function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
@@ -179,7 +179,7 @@ function CreateThumb($Image, $Source, $Destination, $Max, $ext) {
    return ($size);
 }
 
-// Lancement sur un Repertoire en fonction d'un fichier de conf particulier
+// Lancement sur un R√©pertoire en fonction d'un fichier de conf particulier
 if ($FmaRep) {
    if (filtre_module($FmaRep)) {
       if (file_exists("modules/$ModPath/users/".strtolower($FmaRep).".conf.php")) {
@@ -201,7 +201,7 @@ if ($FmaRep) {
    Access_Error();
 }
 
-if ($browse!="") {
+if ($browse!='') {
    $ibid=rawurldecode(decrypt($browse));
    if (substr(@php_uname(),0,7) == "Windows") {
       $ibid=preg_replace('#[\*\?"<>|]#i','', $ibid);
@@ -209,7 +209,7 @@ if ($browse!="") {
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
    }
    $ibid=str_replace('..','',$ibid);
-   // contraint ‡ rester dans la zone de repertoire dÈfinie
+   // contraint ‚Ä° rester dans la zone de repertoire d√àfinie
    $ibid=$basedir_fma.substr($ibid,strlen($basedir_fma));
    $base=$ibid;
 } else {
@@ -237,7 +237,7 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
    }
    $cur_nav_encrypt=rawurlencode(encrypt($cur_nav));
 } else {
-   // le rÈpertoire ou sous rÈpertoire est protÈgÈ (ex : chmod)
+   // le r√©pertoire ou sous r√©pertoire est prot√©g√© (ex : chmod)
    redirect_url("modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode(encrypt(dirname($base))));
 }
 
@@ -254,7 +254,7 @@ closedir($handle);
 //$att_icon_dir="<img src=\"images/upload/file_types/dir.gif\" border=\"0\" alt=\"\" />";
 $att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
 
-// RÈpertoires
+// R√©pertoires
 $subdirs=''; $sizeofDir=0;
 while ($obj->NextDir()) {
    if (fma_autorise('d', $obj->FieldName)) {
@@ -283,7 +283,7 @@ while ($obj->NextDir()) {
 
 // Fichiers
 $fp=@file("pic-manager.txt");
-   // La premiËre ligne du tableau est un commentaire
+   // La premi√®re ligne du tableau est un commentaire
    settype($fp[1],'integer');
    $Max_thumb=$fp[1];
    settype($fp[2],'integer');
@@ -386,7 +386,7 @@ if ($Max_thumb>0) {
 
 chdir("$racine_fma/");
 
-// GÈnÈration de l'interface
+// G√©n√©ration de l'interface
 $inclusion=false;
 if (file_exists("themes/$Default_Theme/html/modules/f-manager/pic-manager.html")) {
    $inclusion="themes/$Default_Theme/html/modules/f-manager/pic-manager.html";
@@ -430,7 +430,7 @@ if ($inclusion) {
    } else {
       include ("header.php");
    }
-   // Head banner de prÈsentation F-Manager
+   // Head banner de pr√©sentation F-Manager
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/head.html")) {
       echo "\n";
       include ("themes/$Default_Theme/html/modules/f-manager/head.html");
@@ -439,7 +439,7 @@ if ($inclusion) {
 
    echo meta_lang(aff_langue($Xcontent));
 
-   // Foot banner de prÈsentation F-Manager
+   // Foot banner de pr√©sentation F-Manager
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/foot.html")) {
       echo "\n";
       include ("themes/$Default_Theme/html/modules/f-manager/foot.html");

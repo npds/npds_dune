@@ -1029,23 +1029,6 @@ while ($obj->NextFile()) {
       // Traitements
       $obj->FieldName=rawurlencode($obj->FieldName);
       $cmd_ibid='';
-/*
-      if ($ficcmd_fma[1])
-         $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=renamefile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/rename.png\" alt=\"$renaM\" title=\"$renaM\" /></a>\n";
-      if ($ficcmd_fma[5])
-         $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=movefile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/move.png\" alt=\"$moveM\" title=\"$moveM\" /></a>\n";
-      if ($ficcmd_fma[2])
-         $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=removefile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/delete.png\" alt=\"$suppM\" title=\"$suppM\" /></a>\n";
-      if ($ficcmd_fma[3])
-         $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=chmodfile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/chmod.png\" alt=\"$chmoM\" title=\"$chmoM\" /></a>\n";
-      if ($ficcmd_fma[4]) {
-         $tabW=explode(' ',$extension_Edit_fma);
-         $suffix = strtoLower(substr(strrchr( $obj->FieldName, '.' ), 1 ));
-         if (in_array($suffix,$tabW))
-            $cmd_ibid.="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".$cur_nav_encrypt."&amp;op=editfile&amp;att_name=".$obj->FieldName."\"><img src=\"modules/$ModPath/images/edit.png\" alt=\"$editM\" title=\"$editM\" /></a>\n";
-      }
-*/
-      
       if ($ficcmd_fma[1])
          $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg ml-2" title="'.$renaM.'" data-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[4]) {
@@ -1128,16 +1111,23 @@ if (file_exists($infos_fma)) {
 chdir("$racine_fma/");
 // Génération de l'interface
 $inclusion=false;
-if (file_exists("themes/$Default_Theme/html/modules/f-manager/$theme_fma")) {
+if (file_exists("themes/$Default_Theme/html/modules/f-manager/$theme_fma"))
    $inclusion="themes/$Default_Theme/html/modules/f-manager/$theme_fma";
-} elseif (file_exists("themes/default/html/modules/f-manager/$theme_fma")) {
+elseif (file_exists("themes/default/html/modules/f-manager/$theme_fma"))
    $inclusion="themes/default/html/modules/f-manager/$theme_fma";
-} else {
+else 
    echo "html/modules/f-manager/$theme_fma manquant / not find !";
-}
 
 if ($inclusion) {
    $Xcontent=join('',file($inclusion));
+   if($FmaRep='minisite-gest') {
+      if ($user)
+         $userdata = explode(':', base64_decode($user));
+      $Xcontent=str_replace('_home','<a class="nav-link" href="minisite.php?op='.$userdata[1].'" target="_blank"><i class="fa fa-desktop fa-lg"></i></a>',$Xcontent);
+   }
+   else
+      $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><i class="fa fa-home fa-lg"></i></a>',$Xcontent);
+   
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
    $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="hidden-sm-up"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="hidden-xs-down">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
@@ -1155,11 +1145,10 @@ if ($inclusion) {
    else
       $Xcontent=str_replace('_cmd','',$Xcontent);
 
-   if ($dircmd_fma[0]) {
+   if ($dircmd_fma[0])
       $Xcontent=str_replace('_cre_dir',$create_dir,$Xcontent);
-   } else {
+   else {
       $Xcontent=str_replace('_classempty','collapse',$Xcontent);
-
       $Xcontent=str_replace('<div id="cre_dir">','<div id="cre_dir" style="display: none;">',$Xcontent);
       $Xcontent=str_replace('_cre_dir','',$Xcontent);
    }
@@ -1176,8 +1165,8 @@ if ($inclusion) {
       $Xcontent=str_replace('_upl_file',$upload_file,$Xcontent);
       $Xcontent=str_replace('_cre_file',$create_file,$Xcontent);
    } else {
-      $Xcontent=str_replace("<div id=\"upl_file\">","<div id=\"upl_file\" style=\"display: none;\">",$Xcontent);
-      $Xcontent=str_replace("<div id=\"cre_file\">","<div id=\"cre_file\" style=\"display: none;\">",$Xcontent);
+      $Xcontent=str_replace('<div id="upl_file">','<div id="upl_file" style="display: none;">',$Xcontent);
+      $Xcontent=str_replace('<div id="cre_file">','<div id="cre_file" style="display: none;">',$Xcontent);
       $Xcontent=str_replace('_upl_file','',$Xcontent);
       $Xcontent=str_replace('_cre_file','',$Xcontent);
    }

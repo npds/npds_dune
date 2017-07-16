@@ -895,54 +895,50 @@ function prepa_aff_news($op,$catid,$marqeur) {
    }
    $story_limit=0;
    while (($story_limit<$storynum) and ($story_limit<sizeof($xtab))) {
-       list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
-       $story_limit++;
+      list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
+      $story_limit++;
 // trop brutal faut faire plus fin et laisser la possibilité des images !!!!
 //       if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
-       $printP = '<a href="print.php?sid='.$s_sid.'" class="mr-3" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
+      $printP = '<a href="print.php?sid='.$s_sid.'" class="mr-3" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
 //       if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
-       $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" class="mr-3" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-envelope-o"></i></a>';
-       getTopics($s_sid);
-       $title = aff_langue(stripslashes($title));
-       $hometext = aff_langue(stripslashes($hometext));
-       $notes = aff_langue(stripslashes($notes));
-       $bodycount = strlen(strip_tags(aff_langue($bodytext),"<img>"));
-       if ($bodycount > 0) {
-          $bodycount = strlen(strip_tags(aff_langue($bodytext)));
-          if ($bodycount > 0 )
-             $morelink[0]=wrh($bodycount).' '.translate("bytes more");
-          else
-             $morelink[0]=' ';
-          $morelink[1]=' <a href="article.php?sid='.$s_sid.'" >'.translate("Read More...").'</a>';
-       } else {
-          $morelink[0]='';
-          $morelink[1]='';
-       }
-       if ($comments==0) {
-           $morelink[2]=0;
-           //article.php?sid='.$s_sid.'
-           //modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$s_sid.'&amp;file_name=article&amp;archive=0
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
+      $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" class="mr-3" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-envelope-o"></i></a>';
+      getTopics($s_sid);
+      $title = aff_langue(stripslashes($title));
+      $hometext = aff_langue(stripslashes($hometext));
+      $notes = aff_langue(stripslashes($notes));
+      $bodycount = strlen(strip_tags(aff_langue($bodytext),'<img>'));
+      if ($bodycount > 0) {
+         $bodycount = strlen(strip_tags(aff_langue($bodytext)));
+         if ($bodycount > 0 )
+            $morelink[0]=wrh($bodycount).' '.translate("bytes more");
+         else
+            $morelink[0]=' ';
+         $morelink[1]=' <a href="article.php?sid='.$s_sid.'" >'.translate("Read More...").'</a>';
+      } else {
+         $morelink[0]='';
+         $morelink[1]='';
+      }
+      if ($comments==0) {
+         $morelink[2]=0;
+         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
        } elseif ($comments==1) {
-           $morelink[2]=$comments;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
+         $morelink[2]=$comments;
+         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
        } else {
-           $morelink[2]=$comments;
-           $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
+         $morelink[2]=$comments;
+         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
        $sid = $s_sid;
-       $oo='';
-       if ($catid != 0) {
+         if ($catid != 0) {
           $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
           list($title1) = sql_fetch_row($resultm);
          $title= $title;
           // Attention à cela aussi
           $morelink[6]=' <a href="index.php?op=newcategory&amp;catid='.$catid.'">&#x200b;'.aff_langue($title1).'</a>';
-       } else {
+       } else
           $morelink[6]='';
-       }
        $news_tab[$story_limit]['aid']=serialize($aid);
        $news_tab[$story_limit]['informant']=serialize($informant);
        $news_tab[$story_limit]['datetime']=serialize($time);
@@ -967,16 +963,15 @@ function valid_group($xuser) {
       $user_temp=Q_select("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$userdata[0]'",3600);
       list(,$groupe) = each($user_temp);
       $tab_groupe=explode(',',$groupe['groupe']);
-   } else {
+   } else
       $tab_groupe='';
-   }
    return ($tab_groupe);
 }
 #autodoc liste_group() : Retourne une liste des groupes disponibles dans un tableau
 function liste_group() {
    global $NPDS_Prefix;
    $r = sql_query("SELECT groupe_id, groupe_name FROM ".$NPDS_Prefix."groupes ORDER BY groupe_id ASC");
-   $tmp_groupe[0]="-> ".adm_translate("Supprimer")."/".adm_translate("Choisir un groupe")." <-";
+   $tmp_groupe[0]='-> '.adm_translate("Supprimer").'/'.adm_translate("Choisir un groupe").' <-';
    while($mX = sql_fetch_assoc($r)) {
       $tmp_groupe[$mX['groupe_id']]=aff_langue($mX['groupe_name']);
    }
@@ -1011,9 +1006,9 @@ function block_fonction($title, $contentX) {
    $block_title=$title;
    //For including PHP functions in block
    if (stristr($contentX,"function#")) {
-      $contentX=str_replace("<br />","",$contentX);
-      $contentX=str_replace("<BR />","",$contentX);
-      $contentX=str_replace("<BR>","",$contentX);
+      $contentX=str_replace('<br />','',$contentX);
+      $contentX=str_replace('<BR />','',$contentX);
+      $contentX=str_replace('<BR>','',$contentX);
       $contentY=trim(substr($contentX,9));
       if (stristr($contentY,"params#")) {
          $pos = strpos($contentY,"params#");
