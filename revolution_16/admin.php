@@ -401,7 +401,7 @@ function adminMain($deja_affiches) {
    $nbre_articles = sql_num_rows($resul);
    settype($deja_affiches,"integer");
    settype($admart,"integer");
-   $result = sql_query("SELECT sid, title, hometext, topic, informant, time, archive FROM ".$NPDS_Prefix."stories ORDER BY sid DESC LIMIT $deja_affiches,$admart");
+   $result = sql_query("SELECT sid, title, hometext, topic, informant, time, archive, catid, ihome FROM ".$NPDS_Prefix."stories ORDER BY sid DESC LIMIT $deja_affiches,$admart");
 
    $nbPages = ceil($nbre_articles/$admart);
    $current = 1;
@@ -413,27 +413,30 @@ function adminMain($deja_affiches) {
       $current = $nbPages;
    }
    $start=($current*$admart);
-      
+
    if ($nbre_articles) {
       echo '
       <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">ID</th>
-               <th data-halign="center">'.adm_translate("Titre").'</th>
-               <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
-               <th data-halign="center" data-align="right" class="n-t-col-xs-3">'.adm_translate("Fonctions").'</th>
+               <th data-halign="center" class="n-t-col-xs-5">'.adm_translate("Titre").'</th>
+               <th data-sortable="true" data-halign="center" class="n-t-col-xs-4">'.adm_translate("Sujet").'</th>
+               <th data-halign="center" data-align="center" class="n-t-col-xs-2">'.adm_translate("Fonctions").'</th>
             </tr>
          </thead>
          <tbody>';
       $i=0;
-      while( (list($sid, $title, $hometext, $topic, $informant, $time, $archive) = sql_fetch_row($result)) and ($i<$admart) ) {
+      while( (list($sid, $title, $hometext, $topic, $informant, $time, $archive, $catid, $ihome) = sql_fetch_row($result)) and ($i<$admart) ) {
          $affiche = false;
          $result2 = sql_query("SELECT topicadmin, topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
          list ($topicadmin, $topictext, $topicimage) = sql_fetch_row($result2);
-         if ($radminsuper) {
+         $result3 = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
+         list ($cat_title) = sql_fetch_row($result3);
+
+         if ($radminsuper)
             $affiche=true;
-         } else {
+         else {
             $topicadminX = explode(',',$topicadmin);
             for ($iX = 0; $iX < count($topicadminX); $iX++) {
                if (trim($topicadminX[$iX])==$aid) $affiche=true;
@@ -441,7 +444,7 @@ function adminMain($deja_affiches) {
          }
          $hometext = strip_tags ( $hometext ,'<br><br />');
          $lg_max = 200;
-         if(strlen($hometext)>$lg_max) $hometext =substr ( $hometext, 0 , $lg_max).' ...';
+         if(strlen($hometext)>$lg_max) $hometext = substr($hometext, 0 , $lg_max).' ...';
          echo '
          <tr>
             <td>'.$sid.'</td>
@@ -453,6 +456,11 @@ function adminMain($deja_affiches) {
          } else {
             if ($affiche) {
                echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.$title.'</a>';
+               if($ihome==1)
+                  echo '<br /><small><span class="badge badge-default" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
+               else
+               if($catid>0)
+                  echo '<br /><small><span class="badge badge-default" title="'.adm_translate("Catégorie").'" data-toggle="tooltip"> '.aff_langue($cat_title).'</span> <span class="text-success"> publié en index</span></small>';
             } else {
                echo '<i>'.$title.'</i>';
             }
@@ -467,7 +475,7 @@ function adminMain($deja_affiches) {
          if ($affiche) {
             echo '</td>
             <td>
-            <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
+            <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
             <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
          } else {
             echo '</td>
@@ -485,7 +493,6 @@ function adminMain($deja_affiches) {
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>
       </ul>';
       echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, $adj=3, $admart, $start);
-
       echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
          <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
