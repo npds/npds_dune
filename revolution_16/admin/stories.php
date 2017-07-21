@@ -654,15 +654,15 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
 
    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo '
-    <input type="hidden" name="qid" value="'.$qid.'" />
-    <input type="hidden" name="uid" value="'.$uid.'" />
-    <br /><select class="custom-select form-control" name="op">
-    <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-    <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
-    <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
-    </select>
-    <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
-    </form>';
+   <input type="hidden" name="qid" value="'.$qid.'" />
+   <input type="hidden" name="uid" value="'.$uid.'" />
+   <select class="custom-select form-control" name="op">
+         <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
+         <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+         <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
+      </select>
+      <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
+   </form>';
     include ('footer.php');
 }
 
@@ -751,16 +751,12 @@ function editStory ($sid) {
 
    include ('header.php');
    GraphicAdmin($hlpfile);
-   
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-
-   
-//   echo adm_translate("Editer un Article");
 
    $result=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext, $topicimage) = sql_fetch_row($result);
 
-   echo aff_local_langue('<label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language');
+   echo '<hr />'.aff_local_langue('<label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language');
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -779,13 +775,13 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="subject" size="50" value="'.$subject.'" />
+            <input class="form-control" type="text" id="subject" name="subject" size="50" value="'.$subject.'" />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="topic">';
+            <select class="custom-select form-control" id="topic" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -801,7 +797,8 @@ function editStory ($sid) {
       }
       if ($affiche) {
          if ($topicid==$topic) { $sel = 'selected="selected"'; }
-         echo '<option value="'.$topicid.'" '.$sel.'>'.aff_langue($topics).'</option>';
+         echo '
+               <option value="'.$topicid.'" '.$sel.'>'.aff_langue($topics).'</option>';
          $sel = '';
       }
    }
@@ -815,7 +812,7 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="form-control-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
          <div class="col-12">
-            <textarea class="tin form-control" rows="25" name="hometext" >'.$hometext.'</textarea>
+            <textarea class="tin form-control" rows="25" id="hometext" name="hometext" >'.$hometext.'</textarea>
          </div>
       </div>';
    echo aff_editeur("hometext", "true");
@@ -876,7 +873,6 @@ function editStory ($sid) {
          </div>
       </div>
    </form>';
-   
    adminfoot('','','','');
 }
 
@@ -925,10 +921,9 @@ function removeStory ($sid, $ok=0) {
        $hlpfile = "manuels/$language/newarticle.html";
        include ('header.php');
        GraphicAdmin($hlpfile);
-
-       echo '<br /><p class="text-center text-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N°").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</p>';
-       echo '<p class="text-center"><a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="btn btn-danger" >'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php" class="btn btn-primary" >'.adm_translate("Non").'</a></p>';
-
+       echo '
+       <div class="alert alert-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N°").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</div>
+       <p class=""><a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="btn btn-danger" >'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php" class="btn btn-secondary" >'.adm_translate("Non").'</a></p>';
        include("footer.php");
     }
 }
@@ -1106,11 +1101,12 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
 
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
+   <hr />
    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
    <form action="admin.php" method="post" name="adminForm">
-   <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> 
-   '.aff_localzone_langue("local_user_language").'
-   <div class="card card-block mb-3">';
+      <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> 
+      '.aff_localzone_langue("local_user_language").'
+      <div class="card card-block mb-3">';
 
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
@@ -1121,21 +1117,21 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
 
    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
    echo '
-   </div>
-      <div class="form-group row">
-         <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
-         <div class="col-sm-8">
-            <input class="form-control" type="text" name="subject" id="subject" value="'.$subject.'" maxlength="255" required="required" />
-            <span class="help-block text-right"><span id="countcar_subject"></span></span>
-         </div>
       </div>
-      <div class="form-group row">
-         <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
-         <div class="col-sm-8">
-            <select class="custom-select form-control" name="topic">';
+         <div class="form-group row">
+            <label class="col-sm-4 form-control-label" for="subject">'.adm_translate("Titre").'</label>
+            <div class="col-sm-8">
+               <input class="form-control" type="text" name="subject" id="subject" value="'.$subject.'" maxlength="255" required="required" />
+               <span class="help-block text-right"><span id="countcar_subject"></span></span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <label class="col-sm-4 form-control-label" for="topic">'.adm_translate("Sujet").'</label>
+            <div class="col-sm-8">
+               <select class="custom-select form-control" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
-               <option value="">'.adm_translate("Tous les Sujets").'</option>';
+                  <option value="">'.adm_translate("Tous les Sujets").'</option>';
     while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
        $affiche=false;
        if ($radminsuper) {
@@ -1149,36 +1145,35 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
        if ($affiche) {
           if ($topicid==$topic) { $sel = 'selected="selected"'; }
           echo '
-               <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+                  <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
           $sel = '';
        }
     }
     echo '
-            </select>
-         </div>
-      </div>';
+               </select>
+            </div>
+         </div>';
     $cat = $catid;
     SelectCategory($catid);
     if (($members==1) and ($Mmembers=='')) $ihome='-127';
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
     puthome($ihome);
        echo '
-      <div class="form-group row">
-         <label class="form-control-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
-         <div class="col-12">
-            <textarea class="tin form-control" rows="25" name="hometext">'.$hometext.'</textarea>
-         </div>
-      </div>';
+         <div class="form-group row">
+            <label class="form-control-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
+            <div class="col-12">
+               <textarea class="tin form-control" rows="25" id="hometext" name="hometext">'.$hometext.'</textarea>
+            </div>
+         </div>';
     echo aff_editeur("hometext", "true");
     echo '
-      <div class="form-group row">
-         <label class="form-control-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
-         <div class="col-12">
-            <textarea class="tin form-control" rows="25" name="bodytext" >'.$bodytext.'</textarea>
-         </div>
-      </div>';
+         <div class="form-group row">
+            <label class="form-control-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
+            <div class="col-12">
+               <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
+            </div>
+         </div>';
     echo aff_editeur('bodytext', '');
-
     publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
     echo '
       <div class="form-group row">
@@ -1261,29 +1256,17 @@ switch ($op) {
       settype($dh_pub,'string');
       settype($Cdate,'string');
       settype($Csid,'boolean');
-//         if (!$date_finval) {
-//            if (strlen($fin_day)==1) {
-//               $fin_day = "0$fin_day";
-//            }
-//            if (strlen($fin_month)==1) {
-//               $fin_month = "0$fin_month";
-//            }
-//            $date_finval = "$fd_pub $fh_pub:00";
-//            
-//         }        
-             $date_finval = "$fd_pub $fh_pub:00";
-      
-        
-        changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur, $theme, $dd_pub, $fd_pub, $dh_pub, $fh_pub);
-        break;
-   case "RemoveStory":
+      $date_finval = "$fd_pub $fh_pub:00";
+         changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur, $theme, $dd_pub, $fd_pub, $dh_pub, $fh_pub);
+      break;
+   case 'RemoveStory':
       settype($ok,'string');
       removeStory($sid, $ok);
    break;
-   case "adminStory":
+   case 'adminStory':
       adminStory();
    break;
-   case "PreviewAdminStory":
+   case 'PreviewAdminStory':
       previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    break;
 }
