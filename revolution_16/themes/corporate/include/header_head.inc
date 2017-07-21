@@ -1,6 +1,6 @@
 <?php
 /************************************************************************/
-/* DUNE by NPDS          corporate                                               */
+/* DUNE by NPDS          corporate                                      */
 /* ===========================                                          */
 /*                                                                      */
 /* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
@@ -11,19 +11,10 @@
 /************************************************************************/
 
 echo '
-<link rel="stylesheet" href="themes/corporate/style/custom.css">
-<link rel="stylesheet" href="themes/corporate/lib/css/glyphicons.css" />
-<link rel="stylesheet" href="themes/corporate/lib/css/glyphicons-bootstrap.css" />
-<link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
 <link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />
-';
-echo '
-<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
-echo '
-<script type="text/javascript" src="lib/js/tether.min.js"></script>';
-echo '
-<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>';
-echo '
+<script type="text/javascript" src="lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="lib/js/popper.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>

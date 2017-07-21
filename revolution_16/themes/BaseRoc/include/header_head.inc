@@ -12,17 +12,10 @@
 
 echo '
 <link rel="stylesheet" href="themes/BaseRoc/style/rocssti-fr.css">
-<link rel="stylesheet" href="lib/css/glyphicons.css" />
-<link rel="stylesheet" href="lib/css/glyphicons-bootstrap.css" />
-<link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />';
-echo '
-<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
-echo '
-<script type="text/javascript" src="lib/js/tether.min.js"></script>';
-echo '
-<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>';
-echo '
+<link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />
+<script type="text/javascript" src="lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="lib/js/popper.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
