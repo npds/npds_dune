@@ -1,6 +1,6 @@
 
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-<script type="text/javascript" src="lib/js/tether.min.js"></script>
+<script type="text/javascript" src="lib/js/popper.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>

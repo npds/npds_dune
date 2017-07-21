@@ -1359,7 +1359,7 @@
       </footer>
     </div>
       <script src="../../../../lib/js/jquery.min.js"></script>
-      <script type="text/javascript" src="../../../../lib/js/tether.min.js"></script>
+      <script type="text/javascript" src="../../../../lib/js/popper.min.js"></script>
       <script src="../../../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
       <script src="../assets/js/bootswatch.js"></script>
    </body>

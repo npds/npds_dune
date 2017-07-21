@@ -22,7 +22,7 @@ echo '
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>
 <script type="text/javascript" src="themes/NBOR/responsivetab/js/easyResponsiveTabs.js"></script>
 
-<script type="text/javascript" src="lib/js/tether.min.js"></script>
+<script type="text/javascript" src="lib/js/popper.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js"></script>
 

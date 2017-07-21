@@ -56,7 +56,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
-   "'!N_emetteur!'i"=>"<a href=\"user.php?op=userinfo&amp;uname=$informant\">$informant</a>",
+   "'!N_emetteur!'i"=>userpopover($informant).'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
 
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
@@ -75,7 +75,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    "'!N_titre!'i"=>$title,
    "'!N_texte!'i"=>$thetext,
    "'!N_id!'i"=>$id,
-   "'!N_sujet!'i"=>"<a href=\"search.php?query=&amp;topic=$topic\"><img class=\"img-fluid\" src=\"".$timage."\" alt=\"".translate("Search in")."&nbsp;".$topictext."\" /></a>",
+   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Search in").'&nbsp;'.$topictext.'" /></a>',
    "'!N_note!'i"=>$notes,
    "'!N_nb_lecture!'i"=>$counter,
    "'!N_suite!'i"=>$morel
@@ -84,7 +84,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
 }
 function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topicname, $topicimage, $topictext, $id, $previous_sid, $next_sid, $archive) {
    global $tipath, $theme, $nuke_url, $counter;
-   global $boxtitle, $boxstuff;
+   global $boxtitle, $boxstuff, $short_user,$user;
    $inclusion=false;
    if (file_exists("themes/".$theme."/html/detail-news.html")) {$inclusion="themes/".$theme."/html/detail-news.html";}
    elseif (file_exists("themes/default/html/detail-news.html")) {$inclusion="themes/default/html/detail-news.html";}
@@ -95,22 +95,20 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    $H_var=local_var($thetext);
    if ($H_var!='') {
       ${$H_var}=true;
-      $thetext=str_replace("!var!$H_var","",$thetext);
+      $thetext=str_replace("!var!$H_var",'',$thetext);
    }
    ob_start();
    include($inclusion);
    $Xcontent=ob_get_contents();
    ob_end_clean();
-   if ($previous_sid) {
-      $prevArt="<a href=\"article.php?sid=".$previous_sid."&amp;archive=$archive\" >".translate("Previous")."</a>";
-      if ($next_sid) {$prevArt.="&nbsp;|&nbsp;";}
-   }
+   if ($previous_sid)
+      $prevArt='<a href="article.php?sid='.$previous_sid.'&amp;archive='.$archive.'" ><i class="fa fa-chevron-left fa-lg mr-2" title="'.translate("Previous").'" data-toggle="tooltip"></i><span class="hidden-xs-down">'.translate("Previous").'</span></a>';
    else $prevArt='';
-   if ($next_sid) {$nextArt="<a href=\"article.php?sid=".$next_sid."&amp;archive=$archive\" >".translate("Next")."</a>";}
+   if ($next_sid) $nextArt='<a href="article.php?sid='.$next_sid.'&amp;archive='.$archive.'" ><span class="hidden-xs-down">'.translate("Next").'</span><i class="fa fa-chevron-right fa-lg ml-2" title="'.translate("Next").'" data-toggle="tooltip"></i></a>';
    else $nextArt='';
 
    if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
-   $printP = "<a href=\"print.php?sid=$id\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Printer Friendly Page")."\" style=\"vertical-align: middle;\" /></a>";
+   $printP = "<a href=\"print.php?sid=$id\"><img src=\"$imgtmp\" alt=\"".translate("Printer Friendly Page")."\" style=\"vertical-align: middle;\" /></a>";
    if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
    $sendF = "<a href=\"friend.php?op=FriendSend&amp;sid=$id\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Send this Story to a Friend")."\" style=\"vertical-align: middle;\" /></a>";
 
@@ -119,7 +117,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
-   "'!N_emetteur!'i"=>'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
+   "'!N_emetteur!'i"=>userpopover($informant).'<a href="user.php?op=userinfo&amp;uname='.$informant.'"><span class="">'.$informant.'</span></a>',
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
    "'!N_date_m!'i"=>strftime("%B", mktime(0,0,0, substr($time,5,2),1,2000)),
@@ -157,7 +155,7 @@ function themesidebox($title, $content) {
    $Xcontent=ob_get_contents();
    ob_end_clean();
    if ($title=='no-title') {
-      $Xcontent=str_replace("<div class=\"LB_title\">!B_title!</div>",'',$Xcontent);
+      $Xcontent=str_replace('<div class="LB_title">!B_title!</div>','',$Xcontent);
       $title='';
    }
    $npds_METALANG_words=array(
@@ -186,5 +184,69 @@ function themedito($content) {
       echo meta_lang(aff_langue(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent)));
    }
    return ($inclusion);
+}
+function userpopover($who) {
+   global $short_user, $user, $NPDS_Prefix;
+   $result=sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname ='$who'");
+   include_once('functions.php');
+   if (sql_num_rows($result)) {
+   $a = 0;
+   $temp_user = get_userdata($who);
+   $my_rsos=array();
+   $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+      if (!$short_user) {
+         if($temp_user['uid']!= 1) {
+            $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
+            include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+            include('modules/geoloc/geoloc_conf.php');
+
+            if ($posterdata_extend['M2']!='') {
+               $socialnetworks= explode(';',$posterdata_extend['M2']);
+               foreach ($socialnetworks as $socialnetwork) {
+                  $res_id[] = explode('|',$socialnetwork);
+               }
+               sort($res_id);
+               sort($rs);
+               foreach ($rs as $v1) {
+                  foreach($res_id as $y1) {
+                     $k = array_search( $y1[0],$v1);
+                     if (false !== $k) {
+                        $my_rs.='<a class="mr-3" href="';
+                        if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                        $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                        break;
+                     } 
+                     else $my_rs.='';
+                  }
+               }
+               $my_rsos[]=$my_rs;
+            }
+            else $my_rsos[]='';
+         }
+      }
+   settype($ch_lat,'string');
+   $useroutils = '';
+   if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
+      $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
+   if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
+      $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
+   if ($temp_user['femail']!='')
+      $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
+   if ($temp_user['url']!='')
+      $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+   if ($temp_user['mns'])
+       $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+   if ($user and $temp_user['uid']!= 1) {
+      if ($posterdata_extend[$ch_lat] !='')
+         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+   }
+   if (stristr($temp_user['user_avatar'],'users_private')) 
+      $imgtmp=$temp_user['user_avatar'];
+   else
+      if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+
+   return $userpop;
+   }
 }
 ?>

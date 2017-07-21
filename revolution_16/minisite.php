@@ -328,7 +328,7 @@ function convert_ressources ($Xcontent) {
       // chargement sauvage lol à voir
          echo '
          <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-         <script type="text/javascript" src="lib/js/tether.min.js"></script>
+         <script type="text/javascript" src="lib/js/popper.min.js"></script>
          <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>';
          echo '<style type="text/css">';
             readfile($dir."style.css");
