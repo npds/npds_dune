@@ -174,7 +174,7 @@ if ($supadm==1) echo'
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <label class="custom-control custom-checkbox">
                <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="add_radminsuper" value="1" />
                <span class="custom-control-indicator bg-danger"></span>
@@ -384,7 +384,7 @@ function modifyadmin($chng_aid) {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4">
+            <div class="col-sm-8 ml-sm-auto">
                <label class="custom-control custom-checkbox">
                   <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
                   <span class="custom-control-indicator bg-danger"></span>
@@ -418,7 +418,7 @@ function modifyadmin($chng_aid) {
          </div>
          <br />
          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4 ">
+            <div class="col-sm-8 ml-sm-auto">
                <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Actualiser l'administrateur").'</button>
                <input type="hidden" name="op" value="UpdateAuthor">
             </div>

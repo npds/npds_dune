@@ -654,16 +654,16 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
 
    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo '
-   <input type="hidden" name="qid" value="'.$qid.'" />
-   <input type="hidden" name="uid" value="'.$uid.'" />
-   <select class="custom-select form-control" name="op">
+      <input type="hidden" name="qid" value="'.$qid.'" />
+      <input type="hidden" name="uid" value="'.$uid.'" />
+      <select class="custom-select form-control" name="op">
          <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
          <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
          <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
       </select>
       <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
-    include ('footer.php');
+   include ('footer.php');
 }
 
 function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur) {

@@ -86,7 +86,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4">
+            <div class="col-sm-8 ml-sm-auto">
                <label class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' />
                   <span class="custom-control-indicator"></span>
@@ -103,12 +103,12 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       <input type="hidden" name="op" value="Edito_save" />
       <input type="hidden" name="edito_type" value="'.$edito_type.'" />
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 ">
+         <div class="col-sm-8 ml-sm-auto ">
             <button class="btn btn-primary col-12" type="submit" name="edito_confirm"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").' </button>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 ">
+         <div class="col-sm-8 ml-sm-auto ">
             <a href="admin.php?op=Edito" class="btn btn-secondary col-12">'.adm_translate("Abandonner").'</a>
          </div>
       </div>

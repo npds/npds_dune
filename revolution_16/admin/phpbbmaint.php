@@ -275,7 +275,7 @@ function MergeForum() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4">
+            <div class="col-sm-8 ml-sm-auto">
                <input type="hidden" name="op" value="MergeForumAction" />
                <button class="btn btn-primary col-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
             </div>
@@ -305,7 +305,7 @@ function MergeForumAction($oriforum,$destforum) {
 }
 
 function ForumMaintAdmin() {
-   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $language;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -351,19 +351,19 @@ function ForumMaintAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="MaintForumTopics" />
             <button class="btn btn-primary" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>
          </div>
       </div>
    </form>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
+   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" ></script>
+   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" ></script>
    <script>
    $(document).ready(function() {
       $("<link>")
          .appendTo("head")
-         .attr({"id": "datepickfromphpbbmaint", type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+         .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
        $("#embeddingDatePicker")
         .datepicker({
             format: "yyyy-mm-dd",
