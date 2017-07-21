@@ -233,7 +233,7 @@ function BannersAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 ">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="BannersAdd" />
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une bannière").' </button>
          </div>
@@ -282,7 +282,7 @@ function BannersAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 ">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="BannerAddClient" />
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un annonceur").'</button>
          </div>
@@ -436,7 +436,7 @@ function BannerEdit($bid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 ">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="bid" value="'.$bid.'" />
             <input type="hidden" name="imptotal" value="'.$imptotal.'" />
             <input type="hidden" name="op" value="BannerChange" />
@@ -537,7 +537,7 @@ function BannerClientEdit($cid) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="cid" value="'.$cid.'" />
             <input type="hidden" name="op" value="BannerClientChange" />
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Modifier annonceur").'" />

@@ -65,7 +65,7 @@ function ForumAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="ForumCatAdd" />
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
          </div>
@@ -238,7 +238,7 @@ function ForumGo($cat_id) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="ctg" value="'.$ctg.'" />
             <input type="hidden" name="cat_id" value="'.$cat_id.'" />
             <input type="hidden" name="op" value="ForumGoAdd" />
@@ -424,7 +424,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <input type="hidden" name="ctg" value="'.StripSlashes($ctg).'" />
       <input type="hidden" name="op" value="ForumGoSave" />
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
              <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>
@@ -500,7 +500,7 @@ function ForumCatEdit($cat_id) {
       <div class="form-group row">
          <input type="hidden" name="old_cat_id" value="'.$cat_id.'" />
          <input type="hidden" name="op" value="ForumCatSave" />
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <button class="btn btn-primary col-sm-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>

@@ -139,7 +139,7 @@ function ForumConfigAdmin() {
          <div class="col-sm-7">
             <input class="form-control" type="number" min="0" id="posts_per_page" name="posts_per_page" value="'.$posts_per_page.'" />
          </div>
-         <div class="col-sm-7 offset-sm-5">
+         <div class="col-sm-7 ml-sm-auto">
             <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'</span>
          </div>
       </div>
@@ -148,7 +148,7 @@ function ForumConfigAdmin() {
          <div class="col-sm-7">
             <input class="form-control" type="number" min="0" id="topics_per_page" name="topics_per_page" size="4" value="'.$topics_per_page.'" />
          </div>
-         <div class="col-sm-7 offset-sm-5">
+         <div class="col-sm-7 ml-sm-auto">
             <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'</span>
          </div>
       </div>

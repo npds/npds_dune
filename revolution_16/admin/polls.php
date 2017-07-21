@@ -82,7 +82,7 @@ function poll_createPoll() {
    }
    echo '
             <div class="form-group row">
-               <div class="col-sm-9 offset-sm-3">
+               <div class="col-sm-9 ml-sm-auto">
                   <label class="custom-control custom-checkbox">
                      <input class="custom-control-input" type="checkbox" name="poll_type" value="1" />
                      <span class="custom-control-indicator"></span>
@@ -91,7 +91,7 @@ function poll_createPoll() {
                </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-9 offset-sm-3">
+               <div class="col-sm-9 ml-sm-auto">
                   <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
                </div>
             </div>
@@ -271,7 +271,7 @@ function poll_editPollPosted() {
       $pollType = $pollType%128;
       echo '
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <label class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" name="poll_type" value="1"';
       if ($pollType == "1") echo ' checked="checked"';
@@ -282,7 +282,7 @@ function poll_editPollPosted() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <label class="custom-control custom-checkbox text-danger">
                <input class="custom-control-input" type="checkbox" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
@@ -293,7 +293,7 @@ function poll_editPollPosted() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <button class="btn btn-primary" type="submit">Ok</button>
          </div>
       </div>

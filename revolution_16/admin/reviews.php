@@ -144,7 +144,7 @@ function reviews() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 ">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="add_review">
             <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
             <a href="admin.php?op=deleteNotice&amp;id='.$id.'&amp;op_back=reviews" class="btn btn-danger" role="button">'.adm_translate("Supprimer").'</a>
