@@ -78,15 +78,14 @@ function puthome($ihome) {
          </div>
       </div>';
     // ---- Groupes
-    $mX=liste_group();
-    $tmp_groupe='';
-    $Mmembers='';
+   $mX=liste_group();
+   $tmp_groupe='';
+   $Mmembers='';
    while (list($groupe_id, $groupe_name)=each($mX)) {
       if ($groupe_id=='0') {$groupe_id='';}
       if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
       $tmp_groupe.='
       <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
-//      $nbg++;
    }
    echo '
       <div class="form-group row">
@@ -104,7 +103,7 @@ function SelectCategory($cat) {
       <div class="form-group row">
          <label class="col-sm-4 form-control-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="catid">';
+            <select class="custom-select form-control" id="catid" name="catid">';
    if ($cat == 0) $sel = 'selected="selected"';
    else $sel = '';
    echo '
@@ -121,7 +120,6 @@ function SelectCategory($cat) {
          </div>
       </div>';
 }
-
 
 function autoStory() {
    global $hlpfile, $aid, $NPDS_Prefix, $radminsuper, $gmt, $f_meta_nom, $f_titre, $adminimg;
@@ -142,37 +140,37 @@ function autoStory() {
       <tbody>';
 
    $result = sql_query("SELECT anid, title, date_debval, topic FROM ".$NPDS_Prefix."autonews ORDER BY date_debval ASC");
-    while(list($anid, $title, $time, $topic) = sql_fetch_row($result)) {
-        if ($anid != '') {
-           $affiche=false;
-           $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-           list ($topicadmin, $topicname)=sql_fetch_row($result2);
-           if ($radminsuper) {
-              $affiche=true;
-           } else {
-              $topicadminX=explode(",",$topicadmin);
-              for ($i = 0; $i < count($topicadminX); $i++) {
-                 if (trim($topicadminX[$i])==$aid) $affiche=true;
-              }
-           }
-           if ($title=='') {$title=adm_translate("Aucun Sujet");}
-           if ($affiche) {
-              echo '
+   while(list($anid, $title, $time, $topic) = sql_fetch_row($result)) {
+      if ($anid != '') {
+         $affiche=false;
+         $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+         list ($topicadmin, $topicname)=sql_fetch_row($result2);
+         if ($radminsuper) {
+            $affiche=true;
+         } else {
+            $topicadminX=explode(",",$topicadmin);
+            for ($i = 0; $i < count($topicadminX); $i++) {
+               if (trim($topicadminX[$i])==$aid) $affiche=true;
+            }
+         }
+         if ($title=='') {$title=adm_translate("Aucun Sujet");}
+         if ($affiche) {
+            echo '
          <tr>
             <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'">'.aff_langue($title).'</a></td>
             <td>'.formatTimestamp("nogmt".$time).'</td>
             <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Afficher l'article").'" data-toggle="tooltip"></i></a><a href="admin.php?op=autoDelete&amp;anid='.$anid.'">&nbsp;<i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer l'Article").'" data-toggle="tooltip" ></i></a></td>
          </tr>';
-           } else {
-              echo '
+         } else {
+            echo '
          <tr>
             <td><i>'.aff_langue($title).'</i></td>
             <td>'.formatTimestamp("nogmt".$time).'</td>
             <td>&nbsp;</td>
          </tr>';
-           }
-        }
-    }
+         }
+      }
+   }
    echo '
       </tbody>
    </table>';
@@ -180,26 +178,25 @@ function autoStory() {
 }
 
 function autoDelete($anid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
-    Header("Location: admin.php?op=autoStory");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
+   Header("Location: admin.php?op=autoStory");
 }
 function autoEdit($anid) {
-    global $aid, $hlpfile, $tipath, $radminsuper, $NPDS_Prefix, $adminimg;
-    
+   global $aid, $hlpfile, $tipath, $radminsuper, $NPDS_Prefix, $adminimg;
    $f_meta_nom ='autoStory';
    $f_titre = adm_translate("Editer un Article");
    //==> controle droit
    admindroits($aid,$f_meta_nom);
    //<== controle droit
 
-    $result = sql_query("SELECT catid, title, time, hometext, bodytext, topic, informant, notes, ihome, date_debval,date_finval,auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
-    list($catid, $title, $time, $hometext, $bodytext, $topic, $informant, $notes, $ihome, $date_debval,$date_finval,$epur) = sql_fetch_row($result);
-    sql_free_result($result);
-    $titre = stripslashes($title);
-    $hometext = stripslashes($hometext);
-    $bodytext = stripslashes($bodytext);
-    $notes = stripslashes($notes);
+   $result = sql_query("SELECT catid, title, time, hometext, bodytext, topic, informant, notes, ihome, date_debval,date_finval,auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
+   list($catid, $title, $time, $hometext, $bodytext, $topic, $informant, $notes, $ihome, $date_debval,$date_finval,$epur) = sql_fetch_row($result);
+   sql_free_result($result);
+   $titre = stripslashes($title);
+   $hometext = stripslashes($hometext);
+   $bodytext = stripslashes($bodytext);
+   $notes = stripslashes($notes);
 
     if ($topic<1) {$topic = 1;}
     $affiche=false;
@@ -252,18 +249,18 @@ function autoEdit($anid) {
     echo '<b>'.adm_translate("Utilisateur").'</b>'.$informant.'<br /><br />';
 
     echo '
-    </div>
+   </div>
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="title">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="title" size="50" value="'.$titre.'" />
+            <input class="form-control" type="text" id="title" name="title" size="50" value="'.$titre.'" />
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="topic">';
+            <select class="custom-select form-control" id="topic" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -272,14 +269,15 @@ function autoEdit($anid) {
        if ($radminsuper) {
           $affiche=true;
        } else {
-          $topicadminX=explode(",",$topicadmin);
+          $topicadminX=explode(',',$topicadmin);
           for ($i = 0; $i < count($topicadminX); $i++) {
              if (trim($topicadminX[$i])==$aid) $affiche=true;
           }
        }
        if ($affiche) {
           if ($topicid==$topic) { $sel = 'selected="selected" '; }
-          echo "<option $sel value=\"$topicid\">".aff_langue($topics)."</option>\n";
+          echo '
+               <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
           $sel = '';
        }
     }
@@ -288,21 +286,19 @@ function autoEdit($anid) {
          </div>
       </div>';
     SelectCategory($catid);
-    echo "<br />";
     puthome($ihome);
-
-    echo '
+   echo '
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" rows="25" name="hometext" >'.$hometext.'</textarea>
+            <textarea class="tin form-control" rows="25" id="hometext" name="hometext" >'.$hometext.'</textarea>
          </div>
       </div>
       '.aff_editeur('hometext', '').'
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" rows="25" name="bodytext" >'.$bodytext.'</textarea>
+            <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
          </div>
       </div>
       '.aff_editeur('bodytext', '');
@@ -311,32 +307,17 @@ function autoEdit($anid) {
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="notes">'.adm_translate("Notes").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" rows="7" name="notes">'.$notes.'</textarea>
+            <textarea class="tin form-control" rows="7" id="notes" name="notes">'.$notes.'</textarea>
          </div>
       </div>
       '.aff_editeur('notes', '');
     }
-/*
-    $deb_day=substr($date_debval,8,2);
-    $deb_month=substr($date_debval,5,2);
-    $deb_year=substr($date_debval,0,4);
-    $deb_hour=substr($date_debval,11,2);
-    $deb_min=substr($date_debval,14,2);
-    //
-    $fin_day=substr($date_finval,8,2);
-    $fin_month=substr($date_finval,5,2);
-    $fin_year=substr($date_finval,0,4);
-    $fin_hour=substr($date_finval,11,2);
-    $fin_min=substr($date_finval,14,2);
-*/
-    //
    $dd_pub=substr($date_debval,0,10);
    $fd_pub=substr($date_finval,0,10);
    $dh_pub=substr($date_debval,11,5);
    $fh_pub=substr($date_finval,11,5);
-
-    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
-    echo '
+   publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
+   echo '
       <div class="form-group row">
          <div class="col-sm-12">
             <input type="hidden" name="anid" value="'.$anid.'" />
@@ -359,53 +340,29 @@ function autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $cati
    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
 
    $result = sql_query("UPDATE ".$NPDS_Prefix."autonews SET catid='$catid', title='$title', time=now(), hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_debval='$date_debval', date_finval='$date_finval', auto_epur='$epur' WHERE anid='$anid'");
-   if ($ultramode) {
+   if ($ultramode)
       ultramode();
-   }
    Header("Location: admin.php?op=autoEdit&anid=$anid");
 }
 
 switch ($op) {
-    case "autoStory":
-         autoStory();
-         break;
-    case "autoDelete":
-         autodelete($anid);
-         break;
-    case "autoEdit":
-         autoEdit($anid);
-         break;
-    case "autoSaveEdit":
-         if (!$date_debval) {
-/*
-            if (strlen($deb_day)==1) {
-               $deb_day = "0$deb_day";
-            }
-            if (strlen($deb_month)==1) {
-               $deb_month = "0$deb_month";
-            }
-            $date_debval = "$deb_year-$deb_month-$deb_day $deb_hour:$deb_min:00";
-*/
-            $date_debval = $dd_pub.' '.$dh_pub.':01';
-
-         }
-         if (!$date_finval) {
-/*
-            if (strlen($fin_day)==1) {
-               $fin_day = "0$fin_day";
-            }
-            if (strlen($fin_month)==1) {
-               $fin_month = "0$fin_month";
-            }
-            $date_finval = "$fin_year-$fin_month-$fin_day $fin_hour:$fin_min:00";
-*/
-   $date_finval = $fd_pub.' '.$fh_pub.':01';
-
-         }
-         if ($date_finval<$date_debval) {
-            $date_finval = $date_debval;
-         }
+   case 'autoStory':
+      autoStory();
+   break;
+   case 'autoDelete':
+      autodelete($anid);
+   break;
+   case 'autoEdit':
+      autoEdit($anid);
+   break;
+   case 'autoSaveEdit':
+      if (!$date_debval)
+         $date_debval = $dd_pub.' '.$dh_pub.':01';
+      if (!$date_finval)
+         $date_finval = $fd_pub.' '.$fh_pub.':01';
+      if ($date_finval<$date_debval)
+         $date_finval = $date_debval;
          autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $informant, $members, $Mmembers, $date_debval,$date_finval,$epur);
-         break;
+   break;
 }
 ?>

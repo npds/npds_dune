@@ -103,7 +103,7 @@ function automatednews() {
                include ("modules/comments/article.conf.php");
                sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
             }
-            global $aid; Ecr_Log('security', "removeStory ($sid, epur) by automated epur : system", '');
+            Ecr_Log('security', "removeStory ($sid, epur) by automated epur : system", '');
          }
          else
          sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");

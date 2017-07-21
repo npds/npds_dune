@@ -47,7 +47,7 @@ if (!isset($sid) && !isset($tid)) {
       $bodytext = aff_code(aff_langue(stripslashes($bodytext)));
       $notes = aff_code(aff_langue(stripslashes($notes)));
 
-      if ($notes!= '') $notes='<div class="note">'.translate("Note").' : "'.$notes.'"</div>';
+      if ($notes!= '') $notes='<div class="note blockquote">'.translate("Note").' : '.$notes.'</div>';
 
       if ($bodytext == '') {
          $bodytext = meta_lang($hometext.'<br />'.$notes);

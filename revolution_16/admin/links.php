@@ -37,6 +37,7 @@ function links() {
    $totalmodrequests = sql_num_rows($result2);
 
    echo '
+   <hr />
    <h3>'.adm_translate("Liens").' <span class="">'.$numrows.'</span></h3>' ;
    echo '[ <a href="admin.php?op=LinksListBrokenLinks">'.adm_translate("Soumission de Liens brisés").' ('.$totalbrokenlinks.')</a> -
    <a href="admin.php?op=LinksListModRequests" class="noir">'.adm_translate("Proposition de modifications de Liens").' ('.$totalmodrequests.')</a> ]';
@@ -316,10 +317,10 @@ function links() {
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" data-align="right">ID</th>
+            <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">ID</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate('Titre').'</th>
             <th data-sortable="true" data-halign="center" >URL</th>
-            <th data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>';
@@ -543,8 +544,10 @@ function LinksListBrokenLinks() {
    echo '
    <hr />
    <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-default pull-right">'.$totalbrokenlinks.'</span></h3>
-   - '.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
-    - '.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)");
+   <div class="blockquote">
+      <i class="fa fa-trash-o fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
+      <i class="fa fa-trash-o fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'
+   </div>';
 
    if ($totalbrokenlinks==0) {
       echo '
@@ -554,11 +557,11 @@ function LinksListBrokenLinks() {
    <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" >'.adm_translate("Liens").'</th>
+            <th class="n-t-col-xs-4" data-sortable="true" data-halign="center" >'.adm_translate("Liens").'</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate("Auteur").'</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate("Propriétaire").'</th>
-            <th data-halign="center" data-align="center" >'.adm_translate("Ignorer").'</th>
-            <th data-halign="center" data-align="center" >'.adm_translate("Effacer").'</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="center" >'.adm_translate("Ignorer").'</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="center" >'.adm_translate("Effacer").'</th>
          </tr>
       </thead>
       <tbody>';

@@ -1120,10 +1120,11 @@ else
 
 if ($inclusion) {
    $Xcontent=join('',file($inclusion));
-   if($FmaRep='minisite-gest') {
-      if ($user)
+   if($FmaRep =='minisite-ges') {
+      if ($user) {
          $userdata = explode(':', base64_decode($user));
-      $Xcontent=str_replace('_home','<a class="nav-link" href="minisite.php?op='.$userdata[1].'" target="_blank"><i class="fa fa-desktop fa-lg"></i></a>',$Xcontent);
+         $Xcontent=str_replace('_home','<a class="nav-link" href="minisite.php?op='.$userdata[1].'" target="_blank"><i class="fa fa-desktop fa-lg"></i></a>',$Xcontent);
+      }
    }
    else
       $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><i class="fa fa-home fa-lg"></i></a>',$Xcontent);
