@@ -163,6 +163,7 @@ if (!empty($sid)) {
       PrintPage("static", $metalang, $nl, $tab[1]);
    } else {
       settype ($sid, 'integer');
+      settype ($archive, 'string');
       if (!$archive) {
          PrintPage("news", '', '', $sid);
       } else {

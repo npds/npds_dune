@@ -653,7 +653,7 @@
               </form>
             </div>
           </div>
-          <div class="col-lg-4 col-lg-offset-1">
+          <div class="col-lg-4 ml-lg-1">
 
               <form class="bs-component">
 

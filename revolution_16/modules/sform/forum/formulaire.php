@@ -113,7 +113,7 @@ $m->add_Qspam();
 // Reset bouton
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4" >');
+         <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Reset','',translate("Cancel"),'reset',false);
 $m->add_extra("&nbsp;&nbsp;&nbsp;");
 // Submit bouton

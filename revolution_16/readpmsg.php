@@ -253,7 +253,7 @@ include('auth.php');
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="col-sm-9 ml-sm-auto">
                <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
                <input type="hidden" name="classement" value="1" />
                <button type="submit" class="btn btn-primary" name="classe">OK</button>

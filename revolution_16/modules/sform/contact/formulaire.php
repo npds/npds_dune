@@ -43,7 +43,7 @@ $m->add_field('des', "[french]Description de votre demande[/french][english]Your
 $m->add_Qspam();
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4" >');
+         <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Reset','',translate("Cancel"),'reset',false);
 $m->add_extra('&nbsp;');
 $m->add_field('','',"[french]Soumettre[/french][english]Submit[/english]",'submit',false);

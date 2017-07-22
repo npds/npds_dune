@@ -17,7 +17,7 @@ $m->add_form_field_size(50);
 $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
 $m->add_field('name', translate("Real Name"),$name,'text',false,60,'','');
 $m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
-$m->add_extra('<div class="row"><div class="col-sm-8 offset-sm-4"><span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span></div></div>');
+$m->add_extra('<div class="row"><div class="col-sm-8 ml-sm-auto"><span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span></div></div>');
 
 // ---- AVATAR
 if ($smilies) {
@@ -51,7 +51,7 @@ $m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textar
 // --- MEMBER-PASS
 if ($memberpass) {
    $m->add_field('pass', translate("Password"),'','password',true,40,'','');
-   $m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div></div></div></div>');
+   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div></div></div></div>');
    $m->add_field('vpass', translate("Retype Password"),'','password',true,40,'','');
 }
 
@@ -74,7 +74,7 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 $m->add_field('op','','new user','hidden',false);
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4" >');
+         <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Submit','',translate("Submit"),'submit',false);
 $m->add_extra('&nbsp;');
 $m->add_field('Reset','',translate("Cancel"),'reset',false);

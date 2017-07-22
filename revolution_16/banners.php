@@ -111,7 +111,7 @@ function clientlogin() {
                   </div>
                </div>
                <div class="form-group row">
-                  <div class="col-sm-8 offset-sm-4">
+                  <div class="col-sm-8 ml-sm-auto">
                      <input type="hidden" name="op" value="Ok" />
                      <button class="btn btn-primary col-sm-6 col-12" type="submit">'.translate("Submit").'</button>
                   </div>

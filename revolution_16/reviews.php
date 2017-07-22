@@ -52,7 +52,7 @@ function write_review() {
          <div class="col-sm-8">
             <textarea class="form-control" name="text" rows="15"></textarea>
          </div>
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <p class="help-block">'.translate("Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.").'</p>
          </div>
       </div>';
@@ -138,7 +138,7 @@ function write_review() {
    }
    echo '
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="preview_review" />
             <button type="submit" class="btn btn-primary" >'.translate("Preview").'</button>
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary" title="'.translate("Go Back").'">'.translate("Go Back").'</button>
@@ -558,7 +558,7 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="preview_review" />
             <input class="btn btn-primary col-12 mb-2" type="submit" value="'.translate("Preview Modifications").'" />
             <input class="btn btn-secondary col-12" type="button" onclick="history.go(-1)" value="'.translate("Cancel").'" />

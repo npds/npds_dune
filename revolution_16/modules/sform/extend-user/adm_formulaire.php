@@ -148,7 +148,7 @@ $m->add_field('add_bio',adm_translate("Informations supplémentaires"),$chng_bio
 $m->add_extender('add_bio', '', '<span class="help-block"><span class="float-right" id="countcar_add_bio"></span></span>');
 
 $m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',false,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
 $m->add_extender('add_pass', '', '<span class="help-block"><span class="float-right" id="countcar_add_pass"></span></span>');
 
 if ($op=="ModifyUser") {
@@ -177,7 +177,7 @@ else
 
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4" >');
+         <div class="col-sm-8 ml-sm-auto" >');
 // Submit bouton
 $m->add_field('Submit','',adm_translate("Valider"),'submit',false);
 include_once('modules/geoloc/geoloc_conf.php');

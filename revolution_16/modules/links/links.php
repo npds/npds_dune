@@ -75,7 +75,7 @@ function SearchForm() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4">
+            <div class="col-sm-8 ml-sm-auto">
                <button class="btn btn-primary" type="submit">'.translate("Search").'</button>
             </div>
          </div>
