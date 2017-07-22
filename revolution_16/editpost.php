@@ -252,7 +252,7 @@ if ($submitS) {
       <input type="hidden" name="topic" value="'.$topic.'" />
       <input type="hidden" name="arbre" value="'.$arbre.'" />
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3 ">
+         <div class="col-sm-9 ml-sm-auto ">
             <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" >'.translate("Submit").'</button>&nbsp;
             <button class="btn btn-primary" type="submit" name="submitP" value="'.translate("Preview").'" >'.translate("Preview").'</button>&nbsp;
             <button class="btn btn-secondary" type="reset" name="clear" value="'.translate("Clear").'" >'.translate("Clear").'</button>

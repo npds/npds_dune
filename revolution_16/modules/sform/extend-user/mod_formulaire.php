@@ -103,7 +103,7 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
 $m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 offset-sm-4" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
 $m->add_extender('pass', '', '<span class="help-block"><span class="float-right" id="countcar_pass"></span></span>');
 
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
@@ -125,7 +125,7 @@ $m->add_field('uid','',$userinfo['uid'],'hidden',false);
 // Submit bouton
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4 " >');
+         <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Submit','',translate('Submit'),'submit',false);
 
 include_once('modules/geoloc/geoloc_conf.php');

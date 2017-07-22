@@ -73,7 +73,7 @@ function FriendSend($sid, $archive) {
    <input type="hidden" name="archive" value="'.$archive.'" />
    <input type="hidden" name="op" value="SendStory" />
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>
@@ -194,7 +194,7 @@ function RecommendSite() {
       </div>
       '.Q_spambot().'
       <div class="form-group row">
-         <div class="col-sm-8 offset-sm-4">
+         <div class="col-sm-8 ml-sm-auto">
             <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>

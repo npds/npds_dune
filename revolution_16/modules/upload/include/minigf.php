@@ -207,7 +207,7 @@ function confirmSendFile(f) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <button type="button" class="btn btn-primary" onclick="uploadFile(this.form);">'.upload_translate("Joindre").'</button>
          </div>
       </div>

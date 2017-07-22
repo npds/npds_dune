@@ -421,7 +421,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       </div>
       </fieldset>
       <div class="form-group row">
-         <div class="col-sm-6 offset-sm-6 ">
+         <div class="col-sm-6 ml-sm-auto">
             <button type="submit" class="btn btn-primary">'.geoloc_translate('Sauver').'</button>
          </div>
       </div>

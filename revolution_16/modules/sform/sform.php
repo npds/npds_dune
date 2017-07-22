@@ -393,7 +393,7 @@ class form_handler {
          $str.=($this->form_fields[$i]['obligation'])? '&nbsp;<span class="text-danger">*</span></label>' : '</label>';
 */
          $str.='
-            <div class="col-sm-8 offset-sm-4">
+            <div class="col-sm-8 ml-sm-auto">
                <label class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
          $str.=($this->form_fields[$i]['checked'])? ' checked="checked" />' : ' />';

@@ -96,7 +96,7 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
             <input type="hidden" name="op" value="Extend-Admin-SubModule" />
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -167,21 +167,21 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    settype($subop,'string');
    switch ($subop) {
       case "SaveSetReseaux":
-      SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
-      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
+         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
       break;
       case "DeleteReseaux":
-      SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
-      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
+         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
       break;
       case "AddReseaux":
-      EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);
+         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);
       break;
       case "EditReseaux":
-      EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);break;
-      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);break;
+         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
       default:
-      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
-    break;
+         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+      break;
    }
 ?>
