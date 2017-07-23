@@ -124,13 +124,13 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    </p>';
 
    echo '
-      <form role="form" action="viewforum.php" method="post">
+      <form action="viewforum.php" method="post">
          <div class="form-group">
          <div class="text-center">
          <label class="form-control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
          </div>
          <div class="row">
-         <div class="col-sm-4 offset-sm-4">
+         <div class="col-sm-4 ml-sm-auto">
          <input class="form-control" type="password" name="Forum_passwd"  placeholder="'.translate("Password").'" />
          </div>
          </div>
@@ -174,7 +174,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       if ($forum_access==2)
          if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
       if ($allow_to_post) {
-         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="hidden-sm-down">'.translate("New Topic").'<br /></span></a>';
+         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="d-none d-sm-inline">'.translate("New Topic").'<br /></span></a>';
       }
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>

@@ -122,7 +122,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
       $myrow=unserialize($val);
       if ($level!='0') {
          if ($level==1) {
-            $clas ='collapse show col-sm-11 offset-sm-1';
+            $clas ='collapse show col-sm-11 ml-sm-auto';
             $idtog = $idtog.($count+1);
          } else {
             $idtog = $idtog.$count;

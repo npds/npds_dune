@@ -123,13 +123,13 @@ $original_poster=$myrow['topic_poster'];
 function aff_pub($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0) {
-   echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="hidden-sm-down">'.translate("New Topic").'<br /></span></a>&nbsp;';
+   echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="d-none d-md-inline">'.translate("New Topic").'<br /></span></a>&nbsp;';
    }
 }
 function aff_pub_in($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0) {
-   echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="hidden-sm-down"></span><i class="fa fa-reply mr-2"></i><span class="hidden-sm-down">'.translate("Reply").'</span></a>';
+   echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="d-none d-md-inline"></span><i class="fa fa-reply mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a>';
    }
 }
 
@@ -328,18 +328,18 @@ include('header.php');
 
       $useroutils = '<hr />';
       if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
       if ($posterdata['uid']!= 1)
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
       if ($posterdata['femail']!='')
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
       if ($posterdata['url']!='')
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
       if ($posterdata['mns'])
-          $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+          $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
       if ($myrow['poster_id']!=1)
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 hidden-sm-down">'.translate("Location").'</span></a>';
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
 
       echo '
       <div class="row mb-3">
@@ -541,7 +541,7 @@ include('header.php');
       <nav>
          <ul class="pagination pagination-sm d-flex justify-content-center">
             <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 hidden-sm-down">'.translate("Administration Tools").'</span></a>
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-md-inline">'.translate("Administration Tools").'</span></a>
             </li>';
       if ($lock_state==0)
          echo '
