@@ -36,7 +36,7 @@ function submissions() {
    } else {
       echo '
    <hr />
-   <h3>'.adm_translate("Nouveaux Articles postés").'&nbsp;<span class="badge badge-pill badge-default">'.sql_num_rows($result).'</span></h3>
+   <h3>'.adm_translate("Nouveaux Articles postés").'<span class="badge badge-danger float-right">'.sql_num_rows($result).'</span></h3>
    <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>

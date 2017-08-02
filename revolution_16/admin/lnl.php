@@ -127,11 +127,11 @@ function Detail_Body($ibid) {
    if ($tmp[1]==1) {
       echo adm_translate("Prévisualiser").' HTML</h3>';
       echo '
-      <div class="card card-block">'.$tmp[0].'</div>';
+      <div class="card card-body">'.$tmp[0].'</div>';
    } else {
       echo adm_translate("Prévisualiser").' '.adm_translate("TEXTE").'</h3>';
       echo '
-      <div class="card card-block">'.nl2br($tmp[0]).'</div>';
+      <div class="card card-body">'.nl2br($tmp[0]).'</div>';
    }
 
    echo '
@@ -371,7 +371,7 @@ function Test($Yheader, $Ybody, $Yfooter) {
       $message=meta_lang(nl2br($Xheader[0]).nl2br($Xbody[0]).nl2br($Xfooter[0]));
    }
    echo '
-   <div class="card card-block">
+   <div class="card card-body">
    '.$message.'
    </div>
    <a class="btn btn-secondary my-3" href="javascript:history.go(-1)" >'.adm_translate("Retour en arrière").'</a>';

@@ -193,7 +193,7 @@ function sections() {
          if ($rubname=='') {$rubname=adm_translate("Sans nom");}
          if ($enligne==0) { $online='<span class="badge badge-danger ml-1">'.adm_translate("Hors Ligne").'</span>'; } else if ($enligne==1) { $online = '<span class="badge badge-success ml-1">'.adm_translate("En Ligne").'</span>'; }
          echo '
-      <div class="list-group-item bg-faded">
+      <div class="list-group-item bg-light">
          <a href="" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="ml-auto">'.$href1.$href2.$href3.'</span>
       </div>';
 
@@ -206,9 +206,9 @@ function sections() {
          if (sql_num_rows($result2) > 0) {
             echo '
             <div id="srub'.$i.'" class=" mb-3 collapse show">
-               <div class="list-group-item">&nbsp;<strong class="">'.adm_translate("Sous-rubriques").'</strong>';
+               <div class="list-group-item d-flex">&nbsp;<strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1) {
-                  echo '<span class="ml-auto"><span class="badge badge-default mr-2">'.sql_num_rows($result2).'</span><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
+                  echo '<span class="ml-auto"><span class="badge badge-secondary mr-2">'.sql_num_rows($result2).'</span><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
                }
                echo '</div>';
 
@@ -218,7 +218,7 @@ function sections() {
               $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
 
                echo '
-               <div class="list-group-item">';
+               <div class="list-group-item d-flex">';
                if (sql_num_rows($result3) > 0) echo'
                   <a href="" class="arrow-toggle text-primary " data-toggle="collapse" data-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>';
                else echo'<span class=""> - </span>';
@@ -239,8 +239,8 @@ function sections() {
                   $ibid=true;
                   echo '
                   <div id="lst_sect_'.$secid.'" class=" collapse">
-                  <li class="list-group-item">
-                  <span class="badge badge-default ml-4">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
+                  <li class="list-group-item d-flex">
+                  <span class="badge badge-secondary ml-4">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
                   if ($radminsuper==1) {
                      echo '
                   <span class="ml-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").'" data-toggle="tooltip" data-placement="left">&nbsp;<i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
@@ -249,7 +249,7 @@ function sections() {
                   while (list($artid, $title) = sql_fetch_row($result3)) {
                      if ($title=='') $title=adm_translate("Sans titre");
                      echo '
-                     <li class="list-group-item list-group-item-action"><span class="ml-4">'.aff_langue($title).'</span>
+                     <li class="list-group-item list-group-item-action d-flex"><span class="ml-4">'.aff_langue($title).'</span>
                         <span class="ml-auto">
                            <a href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;prev=1"><i class="fa fa-eye fa-lg"></i></a>&nbsp;
                            <a href="admin.php?op=secartedit&amp;artid='.$artid.'" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
@@ -553,7 +553,7 @@ function rubriquedit($rubid) {
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
    if ($number)
-      echo '<span class="badge badge-default">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
+      echo '<span class="badge badge-secondary">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
@@ -652,7 +652,7 @@ function sectionedit($secid) {
    $result2 = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'");
    $number = sql_num_rows($result2);
    if ($number)
-      echo '<span class="badge badge-default">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
+      echo '<span class="badge badge-secondary">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group">
@@ -672,7 +672,7 @@ function sectionedit($secid) {
       echo '<input type="hidden" name="rubref" value="'.$rubref.'" />';
       $result = sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubref'");
       list($rubname) = sql_fetch_row($result);
-      echo "".aff_langue($rubname)."";
+      echo aff_langue($rubname);
    }
    echo '
    <div class="form-group">

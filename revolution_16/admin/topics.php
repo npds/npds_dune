@@ -34,7 +34,7 @@ function topicsmanager() {
    <div class="">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
-   <div class="card card-block mb-2" id="top_'.$topicid.'">
+   <div class="card card-body mb-2" id="top_'.$topicid.'">
       <div class=" topi">
          <div class="media-left media-middle">';
          if (($topicimage) or ($topicimage!='')) {
@@ -179,7 +179,7 @@ function topicedit($topicid) {
    <h3 class="mb-1">'.adm_translate("Editer le Sujet :").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
    if ($topicimage!='') {
       echo '
-   <div class="card card-block my-4 py-3"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
+   <div class="card card-body my-4 py-3"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
    }
    echo '
    <form action="admin.php" method="post">

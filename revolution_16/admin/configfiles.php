@@ -252,7 +252,7 @@ function copy_sample($fileX) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <div class="card card-block">
+   <div class="card card-body">
        <p>'.adm_translate("Créer le fichier en utilisant le modèle").' ? <br /><br /><a class="btn btn-primary" href="admin.php?op=ConfigFiles_create&amp;modele='.$fileX.'" >'.adm_translate("Oui").'</a>&nbsp;&nbsp;<a class="btn btn-secondary" href="admin.php?op=ConfigFiles" >'.adm_translate("Non").'</a></p>
    </div>';
    adminfoot('','','','');
