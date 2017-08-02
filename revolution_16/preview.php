@@ -130,7 +130,7 @@ switch ($acc) {
       }
       echo '</span>
       </div>
-      <div class="card-block">
+      <div class="card-body">
          <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
          <div id="post_preview" class="card-text pt-2">';
 

@@ -69,12 +69,12 @@ function show_imm($op) {
             echo '
       </head>
       <body>
-         <div class="card card-block">';
+         <div class="card card-body">';
          }
          $posterdata = get_userdata_from_id($myrow['from_userid']);
          echo '
             <div class="card mb-3">
-               <div class="card-block">
+               <div class="card-body">
                <h3>'.translate("Private Message").' '.translate("From");
          if ($posterdata['uid']==1) {
             global $sitename;

@@ -25,11 +25,11 @@ include('auth.php');
 
 settype($cancel,'string');
 settype($submitS,'string');
-settype($msg_id,'integer');// voir si c'est le bon type
+//$msg_id = array('');// voir si c'est le bon type
 settype($reply,'string');
 settype($Xreply,'string');
 settype($to_user,'string');
-
+settype($send,'string');
 
    if ($cancel) {
       if ($full_interface!='short') {
@@ -54,7 +54,7 @@ settype($to_user,'string');
          $subject = removeHack($subject);
 
          if ($smilies) {
-            if ($image == '' ) {
+            if ($image_subject == '' ) {
                forumerror('0018');
             }
          }
@@ -84,13 +84,13 @@ settype($to_user,'string');
                list($to_userid, $user_langue) = sql_fetch_row($res);
                if (($to_userid != "") and ($to_userid != 1)) {
                   $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
-                  $sql .= "VALUES ('$image', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message')";
+                  $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message')";
                   if(!$result = sql_query($sql)) {
                     forumerror('0020');
                   }
                   if ($copie) {
                      $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
-                     $sql .= "VALUES ('$image', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message', '1', '1')";
+                     $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message', '1', '1')";
                      if (!$result = sql_query($sql)) {
                         forumerror('0020');
                      }
@@ -114,13 +114,13 @@ settype($to_user,'string');
                forumerror('0016');
             } else {
                $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
-               $sql .= "VALUES ('$image', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message')";
+               $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message')";
                if (!$result = sql_query($sql)) {
                   forumerror('0020');
                }
                if ($copie) {
                   $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
-                  $sql .= "VALUES ('$image', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message', '1', '1')";
+                  $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message', '1', '1')";
                   if (!$result = sql_query($sql)) {
                      forumerror('0020');
                   }
@@ -143,23 +143,22 @@ settype($to_user,'string');
       }
 
       settype($delete_messages,'string');
-      if ($delete_messages!='' and $msg_id) {
+      if ($delete_messages and $msg_id) {
+      settype($status,'integer');
          foreach ($msg_id as $v) {
-            if ($type=='outbox') {
+            if ($type=='outbox')
                $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='".$v."' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
-            } else {
+            else
                $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='".$v."' AND to_userid='".$userdata['uid']."'";
-            }
-            if (!sql_query($sql)) {
+            if (!sql_query($sql))
                forumerror('0021');
-            } else {
+            else
                $status=1;
-            }
          }
-         if ($status) {
+         if ($status==1) {
             header("Location: viewpmsg.php");
          }
-      } else if ($delete_messages !='' and !$msg_id) {
+      } else if ($delete_messages ='' and !$msg_id) {
          header("Location: viewpmsg.php");
       }
 
@@ -210,6 +209,7 @@ settype($to_user,'string');
       } else {
          include('header.php');
       }
+
       if ($reply || $send || $to_user) {
          if ($allow_bbcode) {
             include("lib/formhelp.java.php");
@@ -236,7 +236,7 @@ settype($to_user,'string');
             }
          }
          echo '
-      <h3>'.translate("Private Message").'</h3>
+      <h3><a href="viewpmsg.php"><i class="mr-2 fa fa-inbox"></i></a>'.translate("Private Message").'</h3>
       <hr />
       <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
          translate("All registered users can post private messages.").'</blockquote>
@@ -274,6 +274,7 @@ settype($to_user,'string');
             echo '
                <input type="hidden" name="to_user" value="'.$fromuserdata['uname'].'" />'.$fromuserdata['uname'];
          } else {
+            settype($Xto_user,'string');
             if ($send!=1) $Xto_user=$send;
             if ($to_user) $Xto_user=$to_user;
             echo '
@@ -283,11 +284,15 @@ settype($to_user,'string');
             </div>
          </div>';
          settype($copie,'string');
-         if ($copie) {$checked='checked="checked"';} else {$checked='';}
+         if ($copie) $checked='checked="checked"'; else $checked='';
          echo '
          <div class="form-group row">
-            <div class="col-sm-12">
-               <input type="checkbox" name="copie" '.$checked.' /> '.translate("Send a copy to me").'</label>
+            <div class="col-sm-9 ml-auto">
+            <label class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" name="copie" '.$checked.' />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description"> '.translate("Send a copy to me").'</span>
+            </label>
             </div>
          </div>
          <div class="form-group row">
@@ -296,51 +301,22 @@ settype($to_user,'string');
          settype($subject,'string');
          if ($subject) {$tmp=StripSlashes($subject);} else {if ($reply) $tmp="Re: ".StripSlashes($row['subject']); else $tmp="";}
          echo '
-               <input class="form-control" type="text" name="subject" value="'.$tmp.'" maxlength="100" />
+               <input class="form-control" type="text" id="subject" name="subject" value="'.$tmp.'" maxlength="100" />
             </div>
          </div>';
+         settype($image_subject,'string');
          if ($smilies) {
             echo '
          <div class="form-group row">
             <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
             <div class="col-sm-12">
-               <div class="n-fond_subject">';
-            if ($ibid=theme_image("forum/subject/index.html")) {$imgtmp="themes/$theme/images/forum/subject";} else {$imgtmp="images/forum/subject";}
-            $handle=opendir($imgtmp);
-            while (false!==($file=readdir($handle))) {
-               $filelist[] = $file;
-            }
-            asort($filelist);
-            $a=1;
-            while (list ($key, $file) = each ($filelist)) {
-               if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
-               settype($image,'string');
-               $row=array();
-               if ($file==$image) {
-                  echo '
-                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
-                  $a++;
-               } else if (array_key_exists('msg_image', $row)) {
-                  if ($file==$row['msg_image'] && $row['msg_image']!="") {
-                     echo '
-                  <input type="radio" name="image" value="'.$file.'" checked="checked" /><img class="n-smil" src="'.$imgtmp.'/'.$file.'"  alt="" />&nbsp;';
-                  }
-               } else {
-                  if ($a==1 && !array_key_exists('msg_image', $row)) {
-                     $sel='checked="checked"     ';
-                  } else {
-                     $sel='';
-                  }
-                  echo '
-                  <input type="radio" name="image" value="'.$file.'" '.$sel.' /> <img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" />&nbsp;';
-                  $a++;
-               }
-           }
-         }
-         echo '
+               <div class="card card-body n-fond_subject d-flex flex-row flex-wrap">
+               '.emotion_add($image_subject).'
+               </div>
             </div>
-         </div>
-      </div>
+         </div>';
+         }
+      echo '
       <div class="form-group row">
          <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
@@ -353,7 +329,7 @@ settype($to_user,'string');
             echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
          echo '
             </div>
-            <div class="card-block">';
+            <div class="card-body">';
             settype($message,'string');
             
          if ($reply and $message=='') {
@@ -366,8 +342,8 @@ settype($to_user,'string');
                $text = str_replace("<BR />", "\n", $text);
                $text = str_replace("<BR>", "\n", $text);
                $text = stripslashes($text);
-               if ($row['msg_time']!="" && $row['uname']!="") {
-                  $Xreply = $row['msg_time'].", ".$row['uname']." ".translate("wrote:")."\n$text\n";
+               if ($row['msg_time']!='' && $row['uname']!='') {
+                  $Xreply = $row['msg_time'].', '.$row['uname'].' '.translate("wrote:")."\n$text\n";
                } else {
                   $Xreply = $text;
                }
@@ -405,12 +381,14 @@ settype($to_user,'string');
          <label class="form-control-label col-sm-3">'.translate("Options").'</label>';
          if ($allow_html==1) {
             settype($html,'integer');
-            if ($html) {$checked='checked="checked"';} else {$checked='';}
+            if ($html) $checked='checked="checked"'; else $checked='';
             echo '
          <div class="col-sm-9">
             <div class="checkbox">
-               <label class="">
-                  <input type="checkbox" name="html" '.$checked.' />&nbsp;'.translate("Disable HTML on this Post").'
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="html" '.$checked.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
                </label>
             </div>';
          }
@@ -419,17 +397,18 @@ settype($to_user,'string');
             $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
             list($attachsig) = sql_fetch_row($asig);
             if ($attachsig == 1) {
-               $s = "checked";
+               $s = 'checked="checked"';
             }
             settype($sig,'integer');
-            
-            if ($sig) {$checked='checked="checked"';} else {$checked='';}
+            if ($sig) $checked='checked="checked"'; else $checked='';
             echo '
             <div class="checkbox">
-               <label class="">
-                  <input type="checkbox" name="sig" '.$checked.' /> '.translate("Show signature").'<br />
-                  <small>'.translate("This can be altered or added in your profile").'</small>
+               <label class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" name="sig" '.$checked.' />
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">'.translate("Show signature").'</span>
                </label>
+               <small class="help-block">'.translate("This can be altered or added in your profile").'</small>
             </div>';
          }
 
@@ -458,7 +437,7 @@ settype($to_user,'string');
          </div>
       </div>
    </form>';
-         if ($full_interface!="short") {
+         if ($full_interface!='short') {
             include('footer.php');
          }
       }

@@ -93,7 +93,7 @@ function clickbanner($bid) {
 function clientlogin() {
    header_page();
    echo '
-      <div class="card card-block mb-3">
+      <div class="card card-body mb-3">
       <h3 class="mb-4"><i class="fa fa-sign-in fa-lg mr-3"></i>'.translate("Connection").'</h3>
          <form action="banners.php" method="post">
             <fieldset>
@@ -223,7 +223,7 @@ function bannerstats($login, $pass) {
 
          while (list($bid, $imageurl, $clickurl) = sql_fetch_row($result)) {
             $numrows = sql_num_rows($result);
-            echo '<div class="card card-block mb-3">';
+            echo '<div class="card card-body mb-3">';
 
             if ($imageurl!='') {
                echo '

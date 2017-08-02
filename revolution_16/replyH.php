@@ -279,7 +279,7 @@ if ($submitS) {
       <div class="hidden-xs-down form-group row">
          <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
-            <div class="card card-block n-fond_subject d-flex flex-row flex-wrap">
+            <div class="card card-body n-fond_subject d-flex flex-row flex-wrap">
             '.emotion_add($image_subject).'
             </div>
          </div>
@@ -297,7 +297,7 @@ if ($submitS) {
       echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-            <div class="card-block">';
+            <div class="card-body">';
       if ($citation && !$submitP) {
          $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND p.poster_id = u.uid";
          if ($r = sql_query($sql)) {

@@ -187,7 +187,7 @@ include('header.php');
       </h3>
       <div class="card mb-3">
          <div class="card-block-small">
-            <span class="badge badge-default">'.$total_contributeurs.'</span><span class="mx-2">'.translate("Contributors").'</span>';
+            <span class="badge badge-secondary">'.$total_contributeurs.'</span><span class="mx-2">'.translate("Contributors").'</span>';
 
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
@@ -201,7 +201,7 @@ include('header.php');
       echo '<img class="img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
    $ibidcountmod = count($moderator);
-   echo '<br /><span class="badge badge-default">'.$ibidcountmod.'</span><span class="mx-2">'.translate("Moderator").'</span>';
+   echo '<br /><span class="badge badge-secondary">'.$ibidcountmod.'</span><span class="mx-2">'.translate("Moderator").'</span>';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -373,7 +373,7 @@ include('header.php');
             </div>';
       $message=stripslashes($myrow['post_text']);
       echo '
-               <div class="card-block">
+               <div class="card-body">
                   <div class="card-text pt-2">';
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if (isset($last_read)) {

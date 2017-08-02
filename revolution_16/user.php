@@ -134,7 +134,7 @@ function Only_NewUser() {
       echo '
    <div>
    <h2 class="mb-3">'.translate("User").'</h2>
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
       <h3>'.translate("Notice").'</h3>
       <p>
       '.translate("Account preferences are cookie based.").' '.translate("We don't sell/give to others your personal info.").' '.translate("As a registered user you can").' : 
@@ -155,7 +155,7 @@ function Only_NewUser() {
       }
       echo '
    </div>
-   <div class="card card-block mb-3">';
+   <div class="card card-body mb-3">';
       include ("modules/sform/extend-user/extend-user.php");
       echo '
    </div>';
@@ -469,7 +469,7 @@ function userinfo($uname) {
 
    include('modules/geoloc/geoloc_conf.php'); 
    echo '
-   <div class="card card-block">
+   <div class="card card-body">
       <div class="row">';
       if ($posterdata_extend[$ch_lat]!='') echo '
          <div class="col-md-6">'; else
@@ -594,7 +594,7 @@ echo $content;
       echo '
       <br />
       <h4>'.translate("Online journal for").' '.$uname.'.</h4>
-      <div id="online_user_journal" class="card card-block mb-3">'.$user_journal.'</div>';
+      <div id="online_user_journal" class="card card-body mb-3">'.$user_journal.'</div>';
    $file='';
    $handle=opendir('modules/comments');
    while (false!==($file = readdir($handle))) {
@@ -607,7 +607,7 @@ echo $content;
 
    echo '
    <h4 class="mt-3">'.translate("Last 10 comments by").' '.$uname.'.</h4>
-   <div id="last_ten_comment" class="card card-block mb-3">';
+   <div id="last_ten_comment" class="card card-body mb-3">';
    $url='';
    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
    while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
@@ -624,7 +624,7 @@ echo $content;
    echo '
     </div>
     <h4 class="mt-3">'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
-    <div id="last_ten_comment" class="card card-block mb-3">';
+    <div id="last_ten_comment" class="card card-body mb-3">';
    $xtab=news_aff("libre", "WHERE informant='$uname' ORDER BY sid DESC LIMIT 10", '', 10);
    $story_limit=0;
    while (($story_limit<10) and ($story_limit<sizeof($xtab))) {
@@ -652,10 +652,10 @@ function main($user) {
       }
       if (!$user) {
          echo '
-          <div class="card card-block mb-3">
+          <div class="card card-body mb-3">
           <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
          </div>
-          <div class="card card-block">
+          <div class="card card-body">
           <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
           <form action="user.php" method="post" name="userlogin">
              <div class="form-group row">
@@ -712,7 +712,7 @@ function ForgetPassword() {
    include("header.php");
    echo '
    <h2 class="mb-3">'.translate("User").'</h2>
-   <div class="card card-block">
+   <div class="card card-body">
    <div  class="alert alert-danger text-center">'.translate("Lost your Password?").'</div>
    <div  class="alert alert-success text-center">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</div>
    <form action="user.php" method="post">

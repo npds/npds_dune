@@ -104,7 +104,7 @@ function pollResults($pollID) {
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
      echo '
-   <h4><span class="badge badge-default">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>';
+   <h4><span class="badge badge-secondary">'.$sum.'</span>&nbsp;'.translate("Results").'</h4>';
      for ($i = 1; $i <= $maxOptions; $i++) {
         $result = sql_query("SELECT optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID') AND (voteID='$i')");
         $object = sql_fetch_assoc($result);
@@ -121,7 +121,7 @@ function pollResults($pollID) {
    <div class="row">
       <div class="col-sm-5 mt-3">'.aff_langue($optionText).'</div>
       <div class="col-sm-7">
-         <span class="badge badge-default mb-1">'.wrh($optionCount).'</span>
+         <span class="badge badge-secondary mb-1">'.wrh($optionCount).'</span>
             <div class="progress">
                <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" title="'.$percentInt.'%" data-toggle="tooltip"></span>
             </div>
@@ -196,7 +196,7 @@ function pollboxbooth($pollID,$pollClose) {
       $boxContent .= '<li>'.translate("Votes: ").' '.$sum.'</li>';
    }
       $boxContent .= '</ul></div>';
-   echo '<div class="card card-block">'.$boxContent.'</div>'; 
+   echo '<div class="card card-body">'.$boxContent.'</div>'; 
 }
 
 function PollMain_aff($pollID) {
@@ -220,17 +220,14 @@ if (isset($forwarder)) {
    if ($pollID==$ibid) {
       include ("header.php");
       echo '<h2>'.translate("Survey").'</h2><hr />';
+      pollResults($pollID);
       if (!$pollClose) {
          $block_title= '<h3>'.translate("Vote").'</h3>';
          echo $block_title;
         pollboxbooth($pollID,$pollClose);
-         echo '';
       } else {
-         echo '';
          PollMain_aff($pollID);
       }
-      pollResults($pollID);
-      echo '';
       if ($pollcomm) {
          if (file_exists("modules/comments/pollBoth.conf.php")) {
             include ("modules/comments/pollBoth.conf.php");

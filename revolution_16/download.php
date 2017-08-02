@@ -33,7 +33,7 @@ function geninfo($did,$out_template) {
          <h2 class="mb-3">'.translate("Download Section").'</h2>
          <div class="card">
             <div class="card-header"><h4>'.$dfilename.'<span class="ml-3 text-muted small">@'.$durl.'</h4></div>
-            <div class="card-block">
+            <div class="card-body">
          ';
       }
       echo '

@@ -208,7 +208,7 @@ if ($submitS) {
       echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-               <div class="card-block">
+               <div class="card-body">
                   <textarea class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
                </div>
                <div class="card-footer text-muted">';

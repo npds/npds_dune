@@ -385,7 +385,7 @@ function reviews($field, $order) {
          </tbody>
       </table>';
    }
-   echo '<p class="badge badge-default">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
+   echo '<p class="badge badge-secondary">'.$numresults.' '.translate("Total Review(s) found.").'</p>';
 
    sql_free_result($result);
    include ("footer.php");
@@ -421,7 +421,7 @@ function showcontent($id) {
    echo '
    <h2>'.translate("Reviews").'</h2>
    <a href="reviews.php">'.translate("Back to Reviews Index").'</a>
-   <div class="card card-block my-3">
+   <div class="card card-body my-3">
       <div class="card-text text-muted text-right small">
    '.translate("Added:").' '.$fdate.'<br />
       </div>
@@ -433,7 +433,7 @@ function showcontent($id) {
 
    echo '
       <br /><br />
-      <div class="card card-block mb-3">';
+      <div class="card card-body mb-3">';
    if ($reviewer != '')
       echo '<div class="mb-2"><strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.anti_spam($email,1).'" >'.$reviewer.'</a></div>';
    if ($score != '')
@@ -443,7 +443,7 @@ function showcontent($id) {
    echo '</span></div>';
    if ($url != '')
       echo '<div class="mb-2"><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a></div>';
-   echo '<div><strong>'.translate("Hits:").'</strong><span class="badge badge-default">'.$hits.'</span></div>
+   echo '<div><strong>'.translate("Hits:").'</strong><span class="badge badge-secondary">'.$hits.'</span></div>
       </div>';
    if ($admin)
       echo '

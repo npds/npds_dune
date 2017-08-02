@@ -760,8 +760,8 @@ function forum($rowQ1) {
                      if (!$redirect) {
                      $ibid.='
                            <span class="ml-auto"> 
-                              <span class="badge badge-default ml-1" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
-                              <span class="badge badge-default ml-1" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
+                              <span class="badge badge-secondary ml-1" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+                              <span class="badge badge-secondary ml-1" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
                            </span>
                         </span>';}
 

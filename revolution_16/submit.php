@@ -113,7 +113,7 @@ function defaultDisplay() {
 
 function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    $subject = stripslashes(str_replace('"','&quot;',(strip_tags($subject))));
    $story = stripslashes($story);
@@ -125,7 +125,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    <form action="submit.php" method="post" name="adminForm">
       <p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>
       <input type="hidden" name="name" value="'.$name.'" />
-      <div class="card card-block mb-4">';
+      <div class="card card-body mb-4">';
 
    if ($topic=='') {
       $topicimage='all-topics.gif';

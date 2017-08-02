@@ -27,7 +27,7 @@ function FriendSend($sid, $archive) {
    include ("header.php");
 
    echo '
-   <div class="card card-block">
+   <div class="card card-body">
    <h2><i class="fa fa-at fa-lg text-muted"></i>&nbsp;'.translate("Send Story to a Friend").'</h2>
    <hr />
    <p class="lead">'.translate("You will send the story").' : <strong>'.aff_langue($title).'</strong></p>
@@ -159,7 +159,7 @@ function RecommendSite() {
    }
    include ("header.php");
    echo '
-   <div class="card card-block">
+   <div class="card card-body">
    <h2>'.translate("Recommend this Site to a Friend").'</h2>
    <hr />
    <form action="friend.php" method="post">

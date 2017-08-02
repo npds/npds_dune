@@ -170,7 +170,7 @@ global $NPDS_Prefix, $adminforum;
                   forumerror('0014');
                   echo '
       <h2>'.translate("Forum").'</h2>
-      <div class="card card-block">
+      <div class="card card-body">
          <h3 class="card-title" >'.translate("Users IP and Account information").'</h3>
          <div class="row">
            <div class="col-sm-5 text-muted">'.translate("Nickname: ").'</div>
