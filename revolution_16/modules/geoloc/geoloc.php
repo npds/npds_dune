@@ -130,7 +130,7 @@ $js_dragfunc ='
             <span class="d-flex w-100 mt-1">
             <span><a class="" href=""><img class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_code_country1.'" title="" data-toggle="tooltip"></a> '.urldecode($ip_ip1).'</span>
             <span class="ml-auto">
-               <span class="badge badge-default ml-1" title="'.geoloc_translate("Visites").'" data-toggle="tooltip" data-placement="left" >'.$ip_visite.'</span>
+               <span class="badge badge-secondary ml-1" title="'.geoloc_translate("Visites").'" data-toggle="tooltip" data-placement="left" >'.$ip_visite.'</span>
             </span>
             </span>
             <span class="d-flex w-100"><br><a href="" data-toggle="tooltip" title="" data-original-title="">'.$ip_country1.' '.$ip_city1.'</a><span class="ml-auto"><a href="" title="" data-toggle="tooltip" data-original-title=""><i class="fa fa-desktop fa-lg "></i></a></span></span>
@@ -982,18 +982,18 @@ include ('header.php');
 //==> ecriture des div contenants
 $affi='';
 $affi .= '
-<h3 class="mb-4">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right badge badge-default" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
+<h3 class="mb-4">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right badge badge-secondary" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
 <div class="card mb-4">
    <div class=" p-2">
       <div class="row">
          <div class="col-sm-11 ">
             <span style="font-size:1rem">
-               <span class="badge badge-default mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>';
+               <span class="badge badge-secondary mr-2">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4"><input type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>';
 if($geo_ip==1) 
    $affi .='
-               <span class="badge badge-default mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>';
+               <span class="badge badge-secondary mr-2">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input  type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>';
 $affi .= '
-               <span class="badge badge-default mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
+               <span class="badge badge-secondary mr-2">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x"></i> <span class="mr-4" ><input class="mr-4" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
             </span>
          </div>
          <div class="col-sm-1 ">
@@ -1052,7 +1052,7 @@ $affi .= '
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description">'.geoloc_translate('Voir ou masquer les IP').'</span>
          </label>
-         <span class="badge badge-default mr-2 float-right">'.$ipnb.'</span>
+         <span class="badge badge-secondary mr-2 float-right">'.$ipnb.'</span>
       </h5>
             <div class="form-group row">
       <div class="col-sm-12">

@@ -66,7 +66,7 @@ function links() {
       $resultAE = sql_query("SELECT url FROM ".$links_DB."links_links WHERE url='$url'");
       $numrowsAE = sql_num_rows($resultAE);
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <h3>'.translate("Links Waiting for Validation").'</h3>
    <form action="modules.php" method="post" name="'.$adminform.'">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -162,7 +162,7 @@ function links() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="col-sm-9 ml-sm-auto">
                <input type="hidden" name="new" value="1" />
                <input type="hidden" name="lid" value="'.$lid.'" />
                <input type="hidden" name="submitter" value="'.$submitter.'" />
@@ -180,7 +180,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
       <h3>'.translate("Add a New Link").'</h3>';
       if ($adminform=='') {
          echo '
@@ -269,7 +269,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <input type="hidden" name="op" value="LinksAddLink" />
             <input type="hidden" name="new" value="0" />
             <input type="hidden" name="lid" value="0" />
@@ -281,7 +281,7 @@ function links() {
    }
    // Add a New Main Category
    echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <h3>'.translate("Add a MAIN Category").'</h3>
    <form method="post" action="modules.php">
       <div class="form-group row">
@@ -312,7 +312,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <h3>'.translate("Modify Category").'</h3>
    <form method="post" action="modules.php">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -337,7 +337,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <input type="hidden" name="op" value="LinksModCat" />
             <input class="btn btn-primary" type="submit" value="'.translate("Modify").'" />
          </div>
@@ -351,7 +351,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <h3>'.translate("Add a SUB-Category").'</h3>
    <form method="post" action="modules.php">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -377,7 +377,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 offset-sm-3">
+         <div class="col-sm-9 ml-sm-auto">
             <input type="hidden" name="op" value="LinksAddSubCat" />
             <input class="btn btn-primary " type="submit" value="'.translate("Add").'" />
          </div>
@@ -565,7 +565,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4">
+            <div class="col-sm-8 ml-sm-auto">
                <input type="hidden" name="lid" value="'.$lid.'" />
                <input type="hidden" name="op" value="LinksModLinkS" />
                <input class="btn btn-primary" type="submit" value="'.translate("Modify").'" />&nbsp;
@@ -573,12 +573,11 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
             </div>
          </div>
        </form>';
-
-       echo "<hr noshade=\"noshade\" class=\"ongl\" />";
        $resulted2 = sql_query("SELECT adminid, editorialtimestamp, editorialtext, editorialtitle FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
        $recordexist = sql_num_rows($resulted2);
        if ($recordexist == 0) {
           echo '
+      <hr />
       <h4>'.translate("Add Editorial").'</h4>
       <form action="modules.php" method="post">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -625,7 +624,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
          <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&op=LinksDelEditorial&linkid='.$lid.'" >'.translate("Delete").'</a>
          </form>';
        }
-       echo "<hr noshade=\"noshade\" class=\"ongl\" />";
+       echo '<hr />';
        $pos = strpos($ModPath, "/admin");
        $browse_key=$lid;
        include ("modules/sform/".substr($ModPath,0,$pos)."/link_maj.php");
@@ -876,7 +875,7 @@ function LinksListModRequests() {
       echo '
    <div class="card-deck-wrapper">
      <div class="card-deck">
-       <div class="card card-block">
+       <div class="card card-body">
          <h4>'.translate("Original").'</h4>
          <strong>'.translate("Description:").'</strong> <div>'.$origdescription.'</div><br />
          <strong>'.translate("Title:").'</strong> '.$origtitle.'<br />
@@ -889,7 +888,7 @@ function LinksListModRequests() {
          <strong>'.translate("Cat:").'</strong> '.$origcidtitle.'<br />
          <strong>'.translate("Subcat:").'</strong> '.$origsidtitle.'<br />
       </div>
-      <div class="card card-block">
+      <div class="card card-body">
          <h4>'.translate("Proposed").'</h4>
          <strong>'.translate("Description:").'</strong><div'.clformodif($origdescription,$description).'>'.$description.'</div><br />
          <strong>'.translate("Title:").'</strong> <span'.clformodif($origtitle,$title).'>'.$title.'</span><br />
@@ -930,7 +929,7 @@ function LinksListBrokenLinks() {
    } else {
    include ("header.php");
       echo '
-   <h3 class="mb-2">'.translate("User Reported Broken Links").' <span class="badge badge-default float-right"> '.$totalbrokenlinks.'</span></h3>';
+   <h3 class="mb-2">'.translate("User Reported Broken Links").' <span class="badge badge-secondary float-right"> '.$totalbrokenlinks.'</span></h3>';
        echo '<hr />
        '.translate("Ignore (Deletes all requests for a given link)").'
        '.translate("Delete (Deletes broken link and requests for a given link)");
@@ -947,7 +946,6 @@ function LinksListBrokenLinks() {
       </thead>
       <tbody>';
        while (list($requestid, $lid, $modifysubmitter)=sql_fetch_row($resultBrok)) {
-          $rowcolor = tablos();
           $result2 = sql_query("SELECT title, url, submitter FROM ".$links_DB."links_links WHERE lid='$lid'");
           if ($modifysubmitter != '$anonymous') {
              $result3 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");

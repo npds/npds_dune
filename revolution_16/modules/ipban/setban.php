@@ -33,7 +33,7 @@ settype($ip_ban,'string');
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 echo '
    <hr />
-      <div class="card card-block mb-3">
+      <div class="card card-body mb-3">
          '.ipban_translate("Chaque ligne ne doit contenir qu'une adresse IP de la forme : a.b.c.d:X (ex : 168.192.1.1:5).").'<br />
          <span class="text-danger">'.ipban_translate("Si X >= 5 alors l'accès sera refusé !").'</span><br />
          '.ipban_translate("Ce fichier est mis à jour automatiquement par l'anti-spam de NPDS.").'
@@ -68,9 +68,9 @@ function SaveSetBan($Xip_ban) {
 settype($subop,'string');
 switch ($subop) {
    case 'SaveSetBan':
-   SaveSetBan($ipban);
+      SaveSetBan($ipban);
    default:
-   ConfigureBan($ModPath, $ModStart);
+      ConfigureBan($ModPath, $ModStart);
    break;
 }
 ?>

@@ -46,7 +46,7 @@ function menu() {
 function SearchForm() {
    global $ModPath, $ModStart, $NPDS_Prefix, $links_topic;
    echo '
-   <div class="card card-block mb-3" id="linksearchblock">
+   <div class="card card-body mb-3" id="linksearchblock">
       <h3 class="mb-3">'.translate("Search").'</h3>
       <form class="" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
    if ($links_topic) {
@@ -149,7 +149,7 @@ function index() {
             echo '
          <tr>
             <td>
-               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="badge badge-default pull-right">'.$cnumrows.'</span></h4>';
+               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="badge badge-secondary float-right">'.$cnumrows.'</span></h4>';
             categorynewlinkgraphic($cid);
             if ($cdescription)
                 echo '
@@ -194,7 +194,7 @@ function index() {
          $result = sql_query("SELECT lid FROM ".$links_DB."links_newlink");
          $num = sql_num_rows($result);
          echo '
-         <div class="card card-block card-block-small flex-row justify-content-center">
+         <div class="card card-body card-block-small flex-row justify-content-center">
           <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x mr-2" title="Admin" data-toggle="tooltip"></i></a> '.translate("Waiting Links").' : 
           <span class="badge badge-danger ml-2" title="'.translate("Links Waiting for Validation").'" data-toggle="tooltip">'.$num.'</span> 
           <span class="badge badge-danger ml-2" title="'.translate("User Reported Broken Links").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
@@ -524,7 +524,7 @@ function viewlinkeditorial($lid, $ttitle) {
    $recordexist = sql_num_rows($result);
    $displaytitle = stripslashes($ttitle);
    echo '
-   <div class="card card-block">
+   <div class="card card-body">
    <h3>'.translate("EDITO").' : 
       <span class="text-muted">'.aff_langue($displaytitle).'</span>';
    if ($url!='')

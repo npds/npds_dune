@@ -64,7 +64,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
    }
    echo '
    <body topmargin="3" leftmargin="3" rightmargin="3">
-      <div class="card card-block">
+      <div class="card card-body">
          <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="formEdit">
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />

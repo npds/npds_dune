@@ -114,7 +114,7 @@ echo '
          $hostname = $theip;
       }
       echo '
-      <div class="card card-block">
+      <div class="card card-body">
          <div class="row">
            <div class="col-sm-3 text-muted">'.SessionLog_translate("@ IP").'</div>
            <div class="col-sm-9">'.$theip.'</div>
@@ -128,7 +128,7 @@ echo '
            <div class="col-sm-9">'.$provider.'</div>
          </div>
       </div>';
-      $subop="security";
+      $subop='security';
    }
 
    // Vider les Logs
