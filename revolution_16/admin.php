@@ -457,10 +457,10 @@ function adminMain($deja_affiches) {
             if ($affiche) {
                echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.$title.'</a>';
                if($ihome==1)
-                  echo '<br /><small><span class="badge badge-default" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
+                  echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
                else
                if($catid>0)
-                  echo '<br /><small><span class="badge badge-default" title="'.adm_translate("Catégorie").'" data-toggle="tooltip"> '.aff_langue($cat_title).'</span> <span class="text-success"> publié en index</span></small>';
+                  echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip"> '.aff_langue($cat_title).'</span> <span class="text-success"> publié en index</span></small>';
             } else {
                echo '<i>'.$title.'</i>';
             }

@@ -34,13 +34,13 @@ if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
       case '2': $pdst='-1'; break;
    }
 }
-
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col hidden-lg-up mr-2 my-2">
+      <div class="col d-lg-none mr-2 my-2">
          <hr />
          <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
-      </div>';
+      </div>
+   ';
    echo $coltoggle;
 }
 

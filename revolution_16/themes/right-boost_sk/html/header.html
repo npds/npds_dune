@@ -6,25 +6,25 @@
       $skinname = $cookie[11];
       switch ($skinname) {
          case 'cyborg': 
-           $headerclasses ='navbar navbar-toggleable-md navbar-dark fixed-top bg-inverse';
+           $headerclasses ='navbar navbar-expand-md navbar-dark fixed-top bg-inverse';
          break;
          case 'lumen':
-            $headerclasses ='navbar navbar-toggleable-md navbar-light bg-inverse fixed-top';
+            $headerclasses ='navbar navbar-expand-md navbar-light bg-inverse fixed-top';
          break;
          case 'journal':
          case 'materia':
          case 'litera':
          case 'simplex':
          case 'spacelab':
-            $headerclasses = 'navbar navbar-toggleable-md navbar-light fixed-top bg-faded';
+            $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-faded';
          break;
          default :
-           $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+           $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
          break;
       }
    }
    else {
-      $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+      $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
       $username='';
    }
    if (!isset($powerpack)) {include_once ("powerpack.php");}
@@ -60,12 +60,12 @@
 ?>
 
    <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>">
-      <button href="#" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barnav">
+      <a class="navbar-brand" href="index.php" ><span data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
+      <button href="#" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barnav">
          <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="index.php" ><span data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
       <div class="collapse navbar-collapse" id="barnav">
-         <ul class="nav navbar-nav">
+         <ul class="navbar-nav">
             <li class="navbar-divider"></li>
             <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
                <ul class="dropdown-menu" role="menu">

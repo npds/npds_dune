@@ -15,19 +15,18 @@
 /* version 1.0 17/02/2016                                               */
 /************************************************************************/
 
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-}
-if (!function_exists("Mysql_Connexion")) {
+
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
+
 include ('functions.php');
 if (!$user) header('location:index.php');
 
-   global $cookie;
-   $userdata = get_userdata_from_id($cookie[0]);
+global $cookie, $language;
+$userdata = get_userdata_from_id($cookie[0]);
 
-global $language;
 $ModStart='reseaux-sociaux';
 include ("modules/$ModPath/lang/rs-$language.php");
 
@@ -40,24 +39,22 @@ function ListReseaux($ModPath, $ModStart) {
    echo '
    <h2>'.translate("User").'</h2>
    <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
 
-//if ($userdata['mns']) {
-   
    if (($userdata['mns']) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Theme").'</span></a></li>
-      <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Social networks").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
+      <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
    <h3 class="mt-3">'.rs_translate("Réseaux sociaux").'</h3>
    <div class="help-block">'.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'</div>
@@ -68,7 +65,7 @@ function ListReseaux($ModPath, $ModStart) {
         echo '
          <div class="col-sm-3 col-6">
             <div class="card mb-4">
-               <div class="card-block text-center">
+               <div class="card-body text-center">
                <i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></br>'.$v1[0].'
                </div>
             </div>
@@ -100,22 +97,22 @@ function EditReseaux($ModPath, $ModStart) {
 
    echo '
    <h2>'.translate("User").'</h2>
-   <ul class="nav nav-tabs"> 
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Edit User").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Journal").'</span></a></li>';
+   <ul class="nav nav-tabs">
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
    if (($userdata['mns']) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Theme").'</span></a></li>
-      <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Social networks").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x hidden-xl-up"></i><span class="hidden-lg-down">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger hidden-xl-up"></i><span class="hidden-lg-down text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
+      <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
    <h3 class="mt-1">'.rs_translate("Réseaux sociaux").'</h3>
    <div>
@@ -186,9 +183,11 @@ function SaveSetReseaux($ModPath, $ModStart) {
 settype($op,'string');
 switch ($op) {
    case 'SaveSetReseaux':
-      SaveSetReseaux($ModPath, $ModStart);break;
+      SaveSetReseaux($ModPath, $ModStart);
+   break;
    case 'EditReseaux':
-      EditReseaux($ModPath, $ModStart);break;
+      EditReseaux($ModPath, $ModStart);
+   break;
    default:
       ListReseaux($ModPath, $ModStart);
    break;

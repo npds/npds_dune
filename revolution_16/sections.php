@@ -51,7 +51,7 @@ function listsections($rubric) {
          $nb_r = sql_num_rows($result);
       }
       $aff='
-      <h2>'.translate("Sections").'<span class="float-right badge badge-default">'.$nb_r.'</span></h2>';
+      <h2>'.translate("Sections").'<span class="float-right badge badge-secondary">'.$nb_r.'</span></h2>';
       if (sql_num_rows($result) > 0) {
          while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
             $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
@@ -65,7 +65,7 @@ function listsections($rubric) {
             else
                $aff.='<i class="fa fa-caret-down text-muted invisible "></i>';
             $aff.='
-         <a class="ml-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-right">#NEW#<span class="badge badge-default" title="'.translate("Sub-section").'" data-toggle="tooltip" data-placement="left">'.$nb_section.'</span></span>
+         <a class="ml-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-right">#NEW#<span class="badge badge-secondary" title="'.translate("Sub-section").'" data-toggle="tooltip" data-placement="left">'.$nb_section.'</span></span>
       </h3>';
             if ($intro!='') {$aff.='<p class="text-muted">'.aff_langue($intro).'</p>';};
             $aff.= '
@@ -77,12 +77,12 @@ function listsections($rubric) {
                   $result3 = sql_query("SELECT artid, title, counter, userlevel, timestamp FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
                   $nb_art=sql_num_rows($result3);
                   $aff.='
-         <div class="card card-block mb-2" id="rub_'.$rubid.'sec_'.$secid.'">
+         <div class="card card-body mb-2" id="rub_'.$rubid.'sec_'.$secid.'">
             <h4 class="mb-2">';
             if($nb_art!==0)
                $aff.='
                <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
-                  $aff1= aff_langue($secname).'<span class=" float-right">#NEW#<span class="badge badge-default" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></span>';
+                  $aff1= aff_langue($secname).'<span class=" float-right">#NEW#<span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></span>';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
@@ -173,7 +173,7 @@ function listarticles($secid) {
          if (function_exists("themesection_title")) {
             themesection_title($title);
          } else {
-            echo '<h3 class="mb-3">'.$title.'<span class="float-right"><span class="badge badge-default" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></h3>';
+            echo '<h3 class="mb-3">'.$title.'<span class="float-right"><span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></h3>';
          }
          if ($intro!='') {
             echo aff_langue($intro);
@@ -188,7 +188,7 @@ function listarticles($secid) {
          '.translate("Following are the articles published under this section.").'
          </p>
 
-         <div class="card card-block mb-3">';
+         <div class="card card-body mb-3">';
 
          while (list($artid, $secid, $title, $content, $userlevel, $counter, $timestamp) = sql_fetch_row($result)) {
             $okprint2=autorisation_section($userlevel);
@@ -313,7 +313,7 @@ function viewarticle($artid, $page) {
             $nb_article = sql_num_rows($result3);
             if ($nb_article > 0) {
                echo '
-               <h4 class="my-3">'.translate("Other courses in chapter").'<span class="badge badge-default float-right">'.$nb_article.'</span></h4>
+               <h4 class="my-3">'.translate("Other courses in chapter").'<span class="badge badge-secondary float-right">'.$nb_article.'</span></h4>
                <ul class="list-group">';
                while (list($artid, $secid, $title, $userlevel) = sql_fetch_row($result3)) {
                   $okprint2=autorisation_section($userlevel);
@@ -330,7 +330,7 @@ function viewarticle($artid, $page) {
          $resultconnexe = sql_query("SELECT id2 FROM ".$NPDS_Prefix."compatsujet WHERE id1='$artid'");
          if (sql_num_rows($resultconnexe) > 0) {
             echo '
-            <h4 class="my-3">'.translate("You may be interested in").'<span class="badge badge-default float-right">'.sql_num_rows($resultconnexe).'</span></h4>
+            <h4 class="my-3">'.translate("You may be interested in").'<span class="badge badge-secondary float-right">'.sql_num_rows($resultconnexe).'</span></h4>
             <ul class="list-group">';
             while(list($connexe) = sql_fetch_row($resultconnexe)) {
                $resultpdtcompat = sql_query("SELECT artid, title, userlevel FROM ".$NPDS_Prefix."seccont WHERE artid='$connexe'");

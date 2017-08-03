@@ -216,7 +216,7 @@ if ($submitS) {
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_title.'
    </p>
    <div class="card">
-      <div class="card-block-small">
+      <div class="card-body-small">
             '.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
@@ -245,7 +245,7 @@ if ($submitS) {
    } else if($forum_access == 2) {
       echo translate("Only Moderators can post new topics and replies in this forum.");
    }
-   echo '</p></blockquote>';
+   echo '</blockquote>';
 
    $allow_to_reply=false;
    if ($forum_access==0) {
@@ -285,7 +285,7 @@ if ($submitS) {
       <div class="hidden-xs-down form-group row">
          <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
-            <div class="card card-block n-fond_subject d-flex flex-row flex-wrap">
+            <div class="card card-body n-fond_subject d-flex flex-row flex-wrap">
             '.emotion_add($image_subject).'
             </div>
          </div>
@@ -303,7 +303,7 @@ if ($submitS) {
       echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-            <div class="card-block">';
+            <div class="card-body">';
 
      if ($citation && !$submitP) {
         $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND p.poster_id = u.uid";
@@ -499,7 +499,7 @@ if ($submitS) {
          echo '
                   </span>
                </div>
-               <div class="card-block">
+               <div class="card-body">
                   <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
                   <div class="card-text pt-4">';
          $message = stripslashes($myrow['post_text']);

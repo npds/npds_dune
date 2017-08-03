@@ -49,7 +49,7 @@ include("auth.php");
       <li class="nav-item"><a class="nav-link active" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
-   <div class="card card-block mt-3">
+   <div class="card card-body mt-3">
       <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Private Message")." - </span>".translate("Inbox").'</h2>
       <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
          <div class="form-group">
@@ -99,7 +99,7 @@ include("auth.php");
                   </th>
                   <th class="n-t-col-xs-1" data-align="center" ><i class="fa fa-long-arrow-down"></i></th>';
       if ($smilies) { echo '
-                  <th class="n-t-col-xs-1" align="center" >&nbsp;</th>'; }
+                  <th class="n-t-col-xs-1" data-align="center" >&nbsp;</th>'; }
       echo '
                   <th data-halign="center" data-sortable="true" data-align="center">'.translate("From").'</th>
                   <th data-halign="center" data-sortable="true" >'.translate("Subject").'</th>
@@ -124,10 +124,10 @@ include("auth.php");
                   </td>';
          if ($myrow['read_msg'] == "1") {
             echo '
-                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a></td>';
+                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-envelope-open-o fa-lg "></i></a></td>';
          } else {
             echo '
-                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a></td>';
+                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-envelope fa-lg faa-shake animated"></i></a></td>';
          }
          if ($smilies) {
             if ($myrow['msg_image']!='') {
@@ -140,7 +140,7 @@ include("auth.php");
             }
          }
          echo '
-                  <td align="center" width="10%"><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
+                  <td>'.userpopover(2).'<a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
          if ($posterdata['uid']<>1) {
             echo $posterdata['uname'];
          } else {
@@ -178,8 +178,8 @@ include("auth.php");
       $total_messages = sql_num_rows($resultID);
 
       echo '
-      <div class="card card-block mt-3">
-      <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Private Message")." - </span>".translate("Outbox").'<span class="badge badge-default float-right">'.$total_messages.'</span></h2>
+      <div class="card card-body mt-3">
+      <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Private Message")." - </span>".translate("Outbox").'<span class="badge badge-secondary float-right">'.$total_messages.'</span></h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
          <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
             <thead class="thead-default">
@@ -191,7 +191,7 @@ include("auth.php");
                      </label>
                   </th>';
       if ($smilies) { echo '
-                  <th class="n-t-col-xs-1" align="center" >&nbsp;</th>';
+                  <th class="n-t-col-xs-1" data-align="center" >&nbsp;</th>';
       }
       echo '
                   <th data-halign="center" data-sortable="true" data-align="center">'.translate("To").'</th>
@@ -229,9 +229,11 @@ include("auth.php");
          }
          $myrow['subject']=strip_tags($myrow['subject']);
          $posterdata = get_userdata_from_id($myrow['to_userid']);
-         echo "<td align=\"center\" width=\"10%\"><a href=\"readpmsg.php?start=$count&amp;total_messages=$total_messages&amp;type=outbox\" >".$posterdata['uname']."</a></td>";
-         echo "<td>".aff_langue($myrow['subject'])."</td>";
-         echo "<td align=\"center\" width=\"20%\">".$myrow['msg_time']."</td></tr>";
+         echo '
+               <td><a href="readpmsg.php?start='.$count.'&amp;total_messages='.$total_messages.'&amp;type=outbox" >'.$posterdata['uname'].'</a></td>
+               <td>'.aff_langue($myrow['subject']).'</td>
+               <td>'.$myrow['msg_time'].'</td>
+            </tr>';
          $count++;
       }
       echo '

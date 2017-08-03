@@ -141,7 +141,7 @@ function group_liste() {
          $nb_mb=(count($tab_groupe))-1;
          echo '
                <a class="tog" id="show_lst_mb_'.$gp.'" title="'.adm_translate("Déplier la liste").'"><i id="i_lst_mb_gr_'.$gp.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;&nbsp;
-               <i class="fa fa-user fa-2x text-muted"></i> <span class=" align-top badge badge-default">&nbsp;'.$nb_mb.'</span>&nbsp;&nbsp;';
+               <i class="fa fa-user fa-2x text-muted"></i> <span class=" align-top badge badge-secondary">&nbsp;'.$nb_mb.'</span>&nbsp;&nbsp;';
          $lst_uid_json='';
          $lst_uidna_json='';
          
@@ -355,7 +355,7 @@ function group_liste() {
                </p>
             </div>
             <div class="col-lg-4 ">
-               <i class="fa fa-user-o fa-2x text-muted"></i><span class="align-top badge badge-default ml-1">0</span>
+               <i class="fa fa-user-o fa-2x text-muted"></i><span class="align-top badge badge-secondary ml-1">0</span>
             </div>
             <div class="col-lg-3 list-group-item px-0 mt-2">
                <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-pencil fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="#" onclick="confirm_deleteGroup(\''.$gp.'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip" ><i class="fa fa-trash-o fa-lg"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip" ><i class="fa fa-user-plus fa-lg"></i></a>

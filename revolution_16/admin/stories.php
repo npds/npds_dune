@@ -425,7 +425,7 @@ function displayStory ($qid) {
       }
    }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-   $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -435,7 +435,7 @@ function displayStory ($qid) {
    <form action="admin.php" method="post" name="adminForm">
       <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>
       '.aff_localzone_langue("local_user_language").'
-      <div class="card card-block mb-3">';
+      <div class="card card-body mb-3">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -558,7 +558,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       }
    }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-   $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -570,7 +570,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
    <form action="admin.php" method="post" name="adminForm">
       <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>
       '.aff_localzone_langue("local_user_language").'
-      <div class="card card-block mb-3">';
+      <div class="card card-body mb-3">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -747,7 +747,7 @@ function editStory ($sid) {
       }
    }
    if (!$affiche) { header("location: admin.php");}
-   $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -765,7 +765,7 @@ function editStory ($sid) {
    }
    global $local_user_language;
    echo '
-   <div id="art_preview" class="card card-block mb-3">';
+   <div id="art_preview" class="card card-body mb-3">';
    echo code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
    echo '
    </div>';
@@ -1094,7 +1094,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    //==> controle droit
 //   admindroits($aid,$f_meta_nom); // à voir l'intégration avec les droits sur les topics ...
    //<== controle droit
-   $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
    global $local_user_language;
@@ -1106,7 +1106,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    <form action="admin.php" method="post" name="adminForm">
       <label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label> 
       '.aff_localzone_langue("local_user_language").'
-      <div class="card card-block mb-3">';
+      <div class="card card-body mb-3">';
 
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}

@@ -211,7 +211,7 @@ function autoEdit($anid) {
        }
     }
     if (!$affiche) { header("location: admin.php?op=autoStory");}
-   $topiclogo = '<span class="badge badge-default pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -221,7 +221,7 @@ function autoEdit($anid) {
     <hr />
     <h3>'.adm_translate("Editer l'Article Automatique").'</h3>
     '. aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
-    <div class="card card-block mb-3">';
+    <div class="card card-body mb-3">';
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;

@@ -36,10 +36,10 @@ function AddLink() {
    mainheader();
    if (autorisation($links_anonaddlinklock)) {
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
       <h3 class="mb-3">Proposer un lien</h3>
       <div class="card card-outline-secondary mb-3">
-         <div class="card-block">
+         <div class="card-body">
             <span class="help-block">'.translate("Submit a unique link only once.").'<br />'.translate("All links are posted pending verification.").'<br />'.translate("Username and IP are recorded, so please don't abuse the system.").'</span>
          </div>
       </div>
@@ -68,7 +68,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" name="cat">';
+               <select class="custom-select form-control" id="cat" name="cat">';
         while (list($cid, $title) = sql_fetch_row($result)) {
            echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -105,7 +105,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="xtext">'.translate("Description").'</label>
             <div class="col-sm-12">
-               <textarea class="tin form-control" name="xtext" rows="10"></textarea>
+               <textarea class="tin form-control" name="xtext" id="xtext" rows="10"></textarea>
             </div>
          </div>';
         echo aff_editeur('xtext','');

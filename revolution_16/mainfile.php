@@ -1480,8 +1480,8 @@ function pollMain($pollID,$pollClose) {
       list($numcom) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."posts where forum_id='$forum' and topic_id='$pollID' and post_aff='1'"));
       $boxContent .= '
       <ul>
-         <li>'.translate("Votes: ").' <span class="badge badge-pill badge-default float-right">'.$sum.'</span></li>
-         <li>'.translate("comments:").' <span class="badge badge-pill badge-default float-right">'.$numcom.'</span></li>
+         <li>'.translate("Votes: ").' <span class="badge badge-pill badge-secondary float-right">'.$sum.'</span></li>
+         <li>'.translate("comments:").' <span class="badge badge-pill badge-secondary float-right">'.$numcom.'</span></li>
       </ul>';
    } else {
       $boxContent .= '
@@ -2066,11 +2066,11 @@ function Site_Activ() {
    $who_online='
    <p class="text-center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul id="site_active">
-     <li>'.translate("Nb of members").' <span class="badge badge-pill badge-default float-right">'.wrh($membres).'</span></li>
-     <li>'.translate("Nb of articles").' <span class="badge badge-pill badge-default float-right">'.wrh($totala).'</span></li>
-     <li>'.translate("Nb of forums").' <span class="badge badge-pill badge-default float-right">'.wrh($totalc).'</span></li>
-     <li>'.translate("Nb of topics").' <span class="badge badge-pill badge-default float-right">'.wrh($totald).'</span></li>
-     <li>'.translate("Nb of reviews").' <span class="badge badge-pill badge-default float-right">'.wrh($totalb).'</span></li>
+     <li>'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh($membres).'</span></li>
+     <li>'.translate("Nb of articles").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totala).'</span></li>
+     <li>'.translate("Nb of forums").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalc).'</span></li>
+     <li>'.translate("Nb of topics").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totald).'</span></li>
+     <li>'.translate("Nb of reviews").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalb).'</span></li>
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
@@ -2112,7 +2112,7 @@ function online() {
    $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session WHERE guest=0");
    $member_online_num = sql_num_rows($result);
    $who_online_num = $guest_online_num + $member_online_num;
-   $who_online = '<p class="text-center">'.translate("There are currently,").' <span class="badge badge-default">'.$guest_online_num.'</span> '.translate("guest(s) and").' <span class="badge badge-default">'.$member_online_num.' </span> '.translate("member(s) that are online.").'<br />';
+   $who_online = '<p class="text-center">'.translate("There are currently,").' <span class="badge badge-secondary">'.$guest_online_num.'</span> '.translate("guest(s) and").' <span class="badge badge-secondary">'.$member_online_num.' </span> '.translate("member(s) that are online.").'<br />';
    $content = $who_online;
    if ($user) {
       $content .= '<br />'.translate("You are logged as").' <strong>'.$username.'</strong>.<br />';
@@ -2357,9 +2357,9 @@ function topdownload_data($form, $ordre) {
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
          }
          if ($form=='short') {
-            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2">'.$lugar.' <a class="ml-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge badge-default ml-auto">'.$dd.'</span></li>';}
+            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2">'.$lugar.' <a class="ml-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge badge-secondary ml-auto">'.$dd.'</span></li>';}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge badge-default float-right">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge badge-secondary float-right">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;
@@ -2403,14 +2403,14 @@ function oldNews($storynum, $typ_aff='') {
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li class="list-group-item list-group-item-action justify-content-between align-self-start"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-default">'.$comments.'</span></li>';
+         <li class="list-group-item list-group-item-action justify-content-between align-self-start"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-secondary">'.$comments.'</span></li>';
       } else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default\">($comments)</span></li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-secondary\">($comments)</span></li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-default\">($comments)</span></li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-secondary\">($comments)</span></li>\n";
             $time2 = $datetime2;
          }
       }
@@ -2762,7 +2762,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $count=0;
    $li_mb.='
       <div class="my-4">
-      <a data-toggle="collapse" data-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ml-3" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Members").'</a><span class="badge badge-default float-right">'.$nb_mb.'</span>';
+      <a data-toggle="collapse" data-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ml-3" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Members").'</a><span class="badge badge-secondary float-right">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
          <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse ">'."\n";
@@ -2837,7 +2837,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_mb.= '
             <li class="list-group-item list-group-item-action d-flex flex-row p-2">
                <div id="li_mb_'.$uname.'_'.$gr.'" class="n-ellipses">
-               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover" data-trigger="focus" data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
+               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover"  data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
                </div>
          </li>';
    $count++;
@@ -2858,7 +2858,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($nb_foru >= 1) {
          $lst_for_tog='<a data-toggle="collapse" data-target="#lst_for_gr_'.$gr.'" class="text-primary" id="show_lst_for_'.$gr.'" title="'.translate("Show list").'" ><i id="i_lst_for_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
          $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws collapse" style ="list-style-type:none;">';
-         $nb_for_gr='  <span class="badge badge-default float-right">'.$nb_foru.'</span>';
+         $nb_for_gr='  <span class="badge badge-secondary float-right">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
             $lst_for.='
             <li class="list-group-item list-group-item-action"><a href="viewforum.php?forum='.$id_fo.'">'.$fo_name.'</a></li>';
@@ -2881,7 +2881,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          $lst_doc_tog ='<a data-toggle="collapse" data-target="#lst_doc_gr_'.$gr.'" class="text-primary" id="show_lst_doc_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_doc_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
          $lst_doc.='
          <ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws mt-3 collapse">';
-         $nb_doc_gr='  <span class="badge badge-default float-right">'.$nb_doc.'</span>';
+         $nb_doc_gr='  <span class="badge badge-secondary float-right">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='
@@ -2911,7 +2911,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //=> bloc-notes
    
-$content.='<div class="card card-block d-flex flex-row mt-3 flex-wrap">';
+$content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
       $content.='<a class="mr-3" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";

@@ -49,7 +49,7 @@ global $NPDS_Prefix;
          settype($datetime,'string');
          echo '
          <div class="card mb-3">
-            <div class="card-block ibid_descr">';
+            <div class="card-body ibid_descr">';
          if ($url=='') {
             echo '
                <h4 class="text-muted"><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title);
@@ -79,9 +79,9 @@ global $NPDS_Prefix;
             echo '<div class="d-flex justify-content-between">';
                global $popular;
                if ($hits>$popular) {
-                  echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-default">'.$hits.'</span></span>';
+                  echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
                } else {
-                  echo '<span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-default">'.$hits.'</span></span>';
+                  echo '<span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
                }
             echo '</div>';
             }

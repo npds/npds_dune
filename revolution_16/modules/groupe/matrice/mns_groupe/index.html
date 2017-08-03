@@ -1,21 +1,29 @@
 !l_header!
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-sm-3">
-            <div class="page-header">
-               <img src="modules/groupe/matrice/groupe.png" class="img-fluid center-block" alt="" />
+   <div id="corps" class="container-fluid">
+      <div class="row blog_bloc">
+         <div class="col-lg-3 mb-4">
+            <div class="list-group">
+               <div class="list-group-item p-0 justify-content-center">
+                  <img class="img-fluid" alt="logo" src=" !avatar! " />
+               </div>
+               groupe_text()
+               <a class="list-group-item list-group-item-action" href="minisite.php?op=!id_mns!"><i class="fa fa-home fa-lg mr-2"></i>Home</a>
+               !/!
+               no_groupe_text()
+                 <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modallogin" href="#"><i class="fa fa-user-circle fa-lg mr-2"></i>[french]Connexion[/french][english]Log in[/english][chinese]&#x767B;&#x5F55;[/chinese][spanish]Iniciar la sesi&#243;n[/spanish][german]Log in[/german]</a>
+               !/!
+               !l_blog_ajouter!
+               groupe_text()
+                 <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modalaide" href="#"><i class="fa fa-question-circle fa-lg mr-2"></i>[french]Aide[/french][english]Help[/english][chinese]&#x5E2E;&#x52A9;[/chinese][spanish]Ayuda[/spanish][german]Hilfe[/german]</a>
+               !/!
+               <div class="list-group-item">[french]Pages vues[/french][english]Pages views[/english][chinese]&#x9875;&#x9762;&#x8BBF;&#x95EE;&#x91CF;[/chinese][spanish]P&#225;ginas vistas[/spanish][german]Seite Ansichten[/german]<span class="badge badge-secondary ml-auto">!l_compteur!</span></div>
             </div>
          </div>
-         <div class="col-sm-9">
-            <div class="blog_titre_blog"><h1>MINISITE de GROUPE</h1></div>
-            !l_new_pages!
+         <div class="col-lg-9">
+            <div class="blog_titre_blog"><h1>MINISITE GROUPE</h1></div>
             !blog!
-            !l_new_pages!
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-sm-9 offset-sm-3 ">
          </div>
       </div>
    </div>
+!blog_page!3
 !l_footer!

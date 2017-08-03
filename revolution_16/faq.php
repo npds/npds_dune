@@ -36,7 +36,7 @@ function ShowFaqAll($id_cat) {
    while(list($id, $id_cat, $question, $answer) = sql_fetch_row($result)) {
       echo '
       <div class="card mb-3" id="accordion_'.$id.'" role="tablist" aria-multiselectable="true">
-         <div class="card-block">
+         <div class="card-body">
             <h4 class="card-title">
             <a data-toggle="collapse" data-parent="#accordion_'.$id.'" href="#faq_'.$id.'" aria-expanded="true" aria-controls="'.$id.'"><i class="fa fa-caret-down toggle-icon"></i></a>&nbsp;'.aff_langue($question).'
             </h4>
@@ -65,7 +65,7 @@ function ShowFaqAll($id_cat) {
        echo '
        <h2 class="mb-4">'.translate("FAQ (Frequently Ask Question)").'</h2>
        <hr />
-       <h3 class="mb-3">'.translate("Categories").'<span class="badge badge-default float-right">'.sql_num_rows($result).'</span></h3>
+       <h3 class="mb-3">'.translate("Categories").'<span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span></h3>
        <div class="list-group">';
        while(list($id_cat, $categories) = sql_fetch_row($result)) {
           $catname = urlencode(aff_langue($categories));

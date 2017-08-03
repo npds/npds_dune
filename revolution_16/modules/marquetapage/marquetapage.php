@@ -57,7 +57,7 @@ function marquetapage() {
          $content='';
          $content.='
    <h6>
-   <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-default float-right">'.sql_num_rows($result).'</span>
+   <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Show list").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
    </h6>
    <div id="lst_fav" class="collapse" >
    <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fa fa-trash-o text-danger fa-lg" title="'.translate("Delete").'" data-toggle="tooltip"></i></a>';
@@ -73,7 +73,7 @@ function marquetapage() {
       }
       global $block_title;
       $uri=urlencode($REQUEST_URI);
-      if ($post) {$title.="/".$post;}
+      if ($post) {$title.='/'.$post;}
       if ($title=='') {$title_MTP=basename(urldecode($uri));} else {$title_MTP=$title;}
       $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="fa fa-bookmark-o " title="'.translate("Add").' '.translate("favourite").'" data-toggle="tooltip"></i></a></span>';
             if ($block_title=='')
@@ -83,14 +83,11 @@ function marquetapage() {
       themesidebox($boxTitle, $content);
    }
 }
-
-if ($op=='add') {
+settype($op,'string');
+if ($op=='add')
    marquetapage_add(removeHack($uri),removeHack($topic),'ad_tapage');
-}
-if ($op=='supp') {
+if ($op=='supp')
    marquetapage_add(removeHack($uri),'','sp_tapage');
-}
-if ($op=='supp_all') {
+if ($op=='supp_all')
    marquetapage_add(removeHack($uri),'','sp_tespages');
-}
 ?>

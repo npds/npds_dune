@@ -182,7 +182,7 @@ function avatar($user_avatar) {
       <hr />';
       }
       echo '
-      <div class="card card-block">
+      <div class="card card-body">
          <p>';
       alpha();
       echo '</p>';

@@ -31,7 +31,7 @@ function Configure() {
    <form id="fad_pref" action="admin.php" method="post">
    <fieldset>
       <legend><a class="tog" id="show_info_gene" title="'.adm_translate("Replier la liste").'"><i id="i_info_gene" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Informations générales du site").'</legend>
-      <div id="info_gene" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="info_gene" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xparse">Parse algo</label>
             <div class="col-sm-8">
@@ -369,7 +369,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_banner" title="'.adm_translate("Replier la liste").'"><i id="i_banner" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options pour les Bannières").'</legend>
-      <div id="banner" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="banner" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xbanners">'.adm_translate("Options pour les Bannières").'</label>
             <div class="col-sm-4">
@@ -414,7 +414,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Message de pied de page").'</legend>
-      <div id="mes_ppage" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="mes_ppage" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="xfoot1">'.adm_translate("Ligne 1").'</label>
             <div class="col-sm-12">
@@ -448,7 +448,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_bakend_rs" title="'.adm_translate("Replier la liste").'"><i id="i_bakend_rs" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration des infos en Backend & Réseaux Sociaux").'</legend>
-      <div id="bakend_rs" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="bakend_rs" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xbackend_title">'.adm_translate("Titre du backend").'</label>
             <div class="col-sm-8">
@@ -579,7 +579,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_lien_web" title="'.adm_translate("Replier la liste").'"><i id="i_lien_web" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration par défaut des Liens Web").'</legend>
-      <div id="lien_web" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="lien_web" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xperpage">'.adm_translate("Nombre de liens par page").'</label>
             <div class="col-sm-4">
@@ -746,7 +746,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_sys_mes" title="'.adm_translate("Replier la liste").'"><i id="i_sys_mes" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Système de Messagerie (Email)").'</legend>
-      <div id="sys_mes" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="sys_mes" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
             <div class="col-sm-8">
@@ -860,7 +860,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_opt_comment" title="'.adm_translate("Replier la liste").'"><i id="i_opt_comment" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options pour les Commentaires").'</legend>
-      <div id="opt_comment" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="opt_comment" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-7" for="xmoderate">'.adm_translate("Type de modération").'</label>
             <div class="col-sm-5">
@@ -931,7 +931,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_opt_sond" title="'.adm_translate("Replier la liste").'"><i id="i_opt_sond" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options des sondages").'</legend>
-      <div id="opt_sond" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="opt_sond" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les sondages").'</label>
             <div class="col-sm-4">
@@ -1011,7 +1011,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_para_illu" title="'.adm_translate("Replier la liste").'"><i id="i_para_illu" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Paramètres liés à l'illustration").'</legend>
-      <div id="para_illu" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="para_illu" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
             <div class="col-sm-8">
@@ -1115,7 +1115,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_divers" title="'.adm_translate("Replier la liste").'"><i id="i_divers" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Divers").'</legend>
-      <div id="divers" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="divers" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xadmart">'.adm_translate("Nombres d'articles en mode administration").'</label>
             <div class="col-sm-4">
@@ -1496,7 +1496,7 @@ function Configure() {
    </fieldset>
    <fieldset>
    <legend><a class="tog" id="show_divers_http" title="'.adm_translate("Replier la liste").'"><i id="i_divers_http" class="fa fa-caret-down fa-lg text-primary" ></i>&nbsp;</a>'.adm_translate("Divers").' HTTP</legend>
-      <div id="divers_http" class="adminsidefield card card-block mb-3" style="display:none;">
+      <div id="divers_http" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-group row">
             <label class="form-control-label col-sm-8" for="xrss_host_verif">'.adm_translate("Pour les grands titres de sites de news, activer la vérification de l'existance d'un web sur le Port 80").'</label>
             <div class="col-sm-4">
@@ -1593,7 +1593,7 @@ function Configure() {
    </fieldset>
    <fieldset>
       <legend><a class="tog" id="show_divers_syst" title="'.adm_translate("Replier la liste").'"><i id="i_divers_syst" class="fa fa-caret-down fa-lg text-primary" ></i>&nbsp;</a>'.adm_translate("Divers").' SYSTEM</legend>
-      <div id="divers_syst" class="adminsidefield card card-block mb-3" style="display:none;">';
+      <div id="divers_syst" class="adminsidefield card card-body mb-3" style="display:none;">';
     if (!$savemysql_size) {
        $savemysql_size='256';
     } else {

@@ -209,7 +209,7 @@ function FaqCatGoEdit($id) {
    <label class="form-control-label" for="">'
       .aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
    </label>
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <p>'.preview_local_langue($local_user_language, $question).'</p>';
    $answer= aff_code($answer);
    echo '<p>'.meta_lang(preview_local_langue($local_user_language, $answer)).'</p>

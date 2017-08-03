@@ -154,12 +154,12 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
        $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
        $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
        $content.= '
-      <div class="card  mb-3">
-         <div class="card-block">
+      <div class="card mb-3">
+         <div class="card-body">
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
             <h6 class="card-subtitle text-muted">'.translate("Posted on ").' '.$crtsplit[0].'</h6>
          </div>
-         <div class=" card-block">'.convert_ressources($crtsplit[2]).'</div>';
+         <div class=" card-body">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {
        $content.='
           <div class="card-footer">

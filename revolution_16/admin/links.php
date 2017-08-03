@@ -134,7 +134,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <h3>'.adm_translate("Ajouter un lien").'</h3>';
       if ($adminform=='') {
        echo '<form method="post" action="admin.php" name="adminForm">';
@@ -210,7 +210,7 @@ function links() {
    }
    // Add a Main category
    echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
       <h3>'.adm_translate("Ajouter une catégorie").'</h3>
       <form action="admin.php" method="post">
          <div class="form-group row">
@@ -239,7 +239,7 @@ function links() {
    $numrows = sql_num_rows($result);
    if ($numrows>0) {
       echo '
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
       <h3 class="mb-3">'.adm_translate("Ajouter une Sous-catégorie").'</h3>
       <form method="post" action="admin.php">
          <div class="form-group row">
@@ -278,7 +278,7 @@ function links() {
    if ($numrows>0) {
     $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
-   <div class="card card-block">
+   <div class="card card-body">
       <h3 class="mb-3">'.adm_translate("Modifier la Catégorie").'</h3>
       <form method="post" action="admin.php">
          <div class="form-group row">
@@ -313,7 +313,7 @@ function links() {
    $numrow=sql_num_rows($result);
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Liste des liens").' <span class="badge badge-default pull-right">'.$numrow.'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Liste des liens").' <span class="badge badge-secondary pull-right">'.$numrow.'</span></h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -543,7 +543,7 @@ function LinksListBrokenLinks() {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-default pull-right">'.$totalbrokenlinks.'</span></h3>
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-secondary pull-right">'.$totalbrokenlinks.'</span></h3>
    <div class="blockquote">
       <i class="fa fa-trash-o fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
       <i class="fa fa-trash-o fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'

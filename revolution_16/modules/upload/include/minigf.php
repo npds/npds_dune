@@ -198,7 +198,7 @@ function confirmSendFile(f) {
    }
 
    $att_upload_table='
-   <div class="card card-block my-2">
+   <div class="card card-body my-2">
       <p>'.upload_translate("Extensions autorisées").' : <small class="text-success">'.$bn_allowed_extensions.'</small></p>
       <div class="form-group row">
          <label class="form-control-label col-sm-3">'.upload_translate("Fichier joint").'</label>

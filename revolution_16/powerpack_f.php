@@ -397,7 +397,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
 
           $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
-          $boxstuff .= '<li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-toggle="tooltip">'.$forumname.'</a><span class="float-right badge badge-default" title="'.translate("Topics").'" data-toggle="tooltip">'.$ibidx.'</span></h6></li>';
+          $boxstuff .= '<li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-toggle="tooltip">'.$forumname.'</a><span class="float-right badge badge-secondary" title="'.translate("Topics").'" data-toggle="tooltip">'.$ibidx.'</span></h6></li>';
 
           $topics = 0;
           while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
@@ -428,7 +428,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
                  $tt =  strip_tags(stripslashes($tt));
                  $topictitle= stripslashes($topictitle);
               }
-              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge badge-default mx-2" title="'.translate("Replies").'" data-toggle="tooltip">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" title="'.$tt.'" data-toggle="tooltip">'.$topictitle.'</a></div>';
+              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge badge-secondary mx-2" title="'.translate("Replies").'" data-toggle="tooltip">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" title="'.$tt.'" data-toggle="tooltip">'.$topictitle.'</a></div>';
               if ($displayposter) $boxstuff .= $decoration.'<span class="ml-1">'.$postername.'</span>';
               $boxstuff .= '</li>';
 $topics++;

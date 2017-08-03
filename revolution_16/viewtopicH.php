@@ -216,7 +216,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
             </div>';
       $message = stripslashes($myrow['post_text']);
       echo '
-               <div class="card-block">
+               <div class="card-body">
                   <div class="card-text pt-1">';
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if ($last_read!='') {
