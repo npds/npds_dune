@@ -128,13 +128,13 @@ function group_liste() {
          $lst_user_json='';
          $result=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp'"));
          echo '
-         <div id="bloc_gr_'.$gp.'" class="list-group-item p-sm-2 px-0 mb-2 w-100">
-         <div class="col-lg-4 ">
-            <span>'.$gp.'</span>
-            <i class="fa fa-users fa-2x text-muted"></i><h4 class="my-2">'.aff_langue($result['groupe_name']).'</h4><p>'.aff_langue($result['groupe_description']);
+         <div id="bloc_gr_'.$gp.'" class="row border rounded ml-1 p-sm-2 px-0 mb-2 w-100">
+            <div class="col-lg-4 ">
+               <span>'.$gp.'</span>
+               <i class="fa fa-users fa-2x text-muted"></i><h4 class="my-2">'.aff_langue($result['groupe_name']).'</h4><p>'.aff_langue($result['groupe_description']);
          if (file_exists ('users_private/groupe/'.$gp.'/groupe.png'))
             echo'<img class="d-block my-2" src="users_private/groupe/'.$gp.'/groupe.png" width="80" height="80" alt="logo_groupe" />
-            </p>
+               </p>
             </div>
             <div class="col-lg-5">';
          $tab_groupe=explode(' ',ltrim($tab_groupeII[$gp]));
@@ -343,7 +343,7 @@ function group_liste() {
       if ($gpA) {
          $lst_gr_json.='\'mbgr_'.$gp.'\': { gp: \''.$gp.'\'},';
          echo '
-         <div class="list-group-item p-2 mb-2 w-100">
+         <div class="row border rounded ml-1 p-sm-2 px-0 mb-2 w-100">
             <div id="bloc_gr_'.$gp.'" class="col-lg-5">
                <span class="text-danger">'.$gp.'</span>
                <i class="fa fa-users fa-2x text-muted"></i>
@@ -664,13 +664,11 @@ function workspace_create($groupe_id) {
 // PAD
 function pad_create($groupe_id) {
    global $NPDS_Prefix;
-
    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_pad = '1' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log('security', "CreatePadWS($groupe_id) by AID : $aid", '');
 }
 function pad_remove($groupe_id) {
    global $NPDS_Prefix;
-   
    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_pad = '0' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log('security', "DeletePadWS($groupe_id) by AID : $aid", '');
 }

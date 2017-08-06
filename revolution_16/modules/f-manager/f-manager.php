@@ -907,12 +907,12 @@ while ($obj->NextDir()) {
          $sizeofD=$obj->FieldSize;
          $sizeofDir=$sizeofDir+$sizeofD;
          $subdirs.='
-         <td class="hidden-sm-down"><small>'.$obj->ConvertSize($sizeofDir).'</small></td>';
+         <td class="d-none d-sm-table-cell"><small>'.$obj->ConvertSize($sizeofDir).'</small></td>';
       }else{$subdirs.='
-         <td class="hidden-sm-down"><small>#NA#</small></td>';}
+         <td class="d-none d-sm-table-cell"><small>#NA#</small></td>';}
       if ($dirpres_fma[4])
          $subdirs.='
-         <td class="hidden-sm-down"><small>'.$obj->FieldPerms.'</small></td>';
+         <td class="d-none d-sm-table-cell"><small>'.$obj->FieldPerms.'</small></td>';
       // Traitements
       $obj->FieldName=rawurlencode($obj->FieldName);
       $subdirs.='
@@ -1130,7 +1130,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><i class="fa fa-home fa-lg"></i></a>',$Xcontent);
    
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="hidden-sm-up"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="hidden-xs-down">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace('_size',$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
@@ -1185,12 +1185,11 @@ if ($inclusion) {
       $Xcontent=str_replace('_infos',$infos,$Xcontent);
    else
       $Xcontent=str_replace('_infos','',$Xcontent);
-
    if ($dirpres_fma[5]) {
       if ($uniq_fma)
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="hidden-sm-up"><i class="fa fa-image fa-lg"></i></span><span class="hidden-xs-down">'.fma_translate("Pic-Manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-image fa-lg" title="'.fma_translate("Pic-Manager").'" data-toggle="tooltip" data-placement="bottom"></i></span><span class="d-none d-sm-inline">'.fma_translate("Pic-Manager").'</span></a>',$Xcontent);
       else
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="hidden-sm-up"><i class="fa fa-image fa-lg"></i></span><span class="hidden-xs-down">'.fma_translate("Pic-Manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Pic-Manager").'</span></a>',$Xcontent);
    } else
       $Xcontent=str_replace('_picM','',$Xcontent);
 

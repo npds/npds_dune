@@ -155,9 +155,9 @@ function blocks() {
       <thead>
          <tr>
             <th><a class="togxyg"><i id="all_g" class="fa fa-navicon" title="'.adm_translate("Déplier la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
-            <th class="hidden-sm-down">'.adm_translate("Actif").'</th>
-            <th class="hidden-sm-down">Index</th>
-            <th class="hidden-sm-down">'.adm_translate("Rétention").'</th>
+            <th class="d-none d-sm-table-cell">'.adm_translate("Actif").'</th>
+            <th class="d-none d-sm-table-cell">Index</th>
+            <th class="d-none d-sm-table-cell">'.adm_translate("Rétention").'</th>
             <th>ID</th>
          </tr>
       </thead>
@@ -190,13 +190,13 @@ function blocks() {
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
-            <td align="right" class="hidden-sm-down" >'.adm_translate("Oui").'</td>';
+            <td align="right" class="d-none d-sm-table-cell" >'.adm_translate("Oui").'</td>';
          else
             echo '
-            <td class="text-danger hidden-sm-down" align="right">'.adm_translate("Non").'</td>';
+            <td class="text-danger d-none d-sm-table-cell" align="right">'.adm_translate("Non").'</td>';
          echo '
-            <td class="hidden-sm-down" align="right">'.$Lindex.'</td>
-            <td class="hidden-sm-down" align="right">'.$Scache.'</td>
+            <td class="d-none d-sm-table-cell" align="right">'.$Lindex.'</td>
+            <td class="d-none d-sm-table-cell" align="right">'.$Scache.'</td>
             <td align="right">'.$id.'</td>
          </tr>
          <tr>
@@ -321,12 +321,12 @@ function blocks() {
          //]]>
    </script>
    <table id="tad_blocdroi" class="table table-hover table-striped " >
-      <thead>
-         <tr>
+      <thead class="w-100">
+         <tr class="w-100">
             <th><a class="togxyd"><i class="fa fa-navicon fa-lg" title="'.adm_translate("Déplier la liste la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
-            <th class="hidden-sm-down">'.adm_translate("Actif").'</th>
+            <th class="d-none d-sm-table-cell">'.adm_translate("Actif").'</th>
             <th>Index</th>
-            <th class="hidden-sm-down">'.adm_translate("Rétention").'</th>
+            <th class="d-none d-sm-table-cell">'.adm_translate("Rétention").'</th>
             <th>ID</th>
          </tr>
       </thead>
@@ -349,26 +349,26 @@ function blocks() {
          }
          if ($Sactif) 
          echo '
-         <tr class="table-success">'; 
+         <tr class="table-success w-100">'; 
          else 
          echo '
-         <tr class="table-danger">';
+         <tr class="table-danger class="w-100"">';
          echo '
             <td align="left">';
          echo '<a class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
-            <td align="right" class="hidden-sm-down" >'.adm_translate("Oui").'</td>';
+            <td align="right" class="d-none d-sm-table-cell" >'.adm_translate("Oui").'</td>';
          else
             echo '
-            <td class="text-danger hidden-sm-down" align="right">'.adm_translate("Non").'</td>';
+            <td class="text-danger d-none d-sm-table-cell" align="right">'.adm_translate("Non").'</td>';
          echo '
             <td align="right">'.$Rindex.'</td>
-            <td class="hidden-sm-down" align="right">'.$Scache.'</td>
+            <td class="d-none d-sm-table-cell" align="right">'.$Scache.'</td>
             <td align="right">'.$id.'</td>
          </tr>
-         <tr>
+         <tr class="w-100">
             <td id="blodr_'.$id.'" class="togxd" style="display:none;" colspan="5">
                <form id="fad_blodr_'.$id.'" action="admin.php" method="post">
                   <div class="row">

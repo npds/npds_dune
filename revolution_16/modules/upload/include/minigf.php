@@ -140,8 +140,8 @@ function confirmSendFile(f) {
       <table data-toggle="table" data-classes="table table-sm table-no-bordered table-hover table-striped" data-mobile-responsive="true">
          <thead>
             <tr>
-               <th><i class="fa fa-trash-o fa-lg text-muted"></i></th>
-               <th data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Fichier").'</th>
+               <th class="n-t-col-xs-1"><i class="fa fa-trash-o fa-lg text-muted"></i></th>
+               <th class="n-t-col-xs-3" data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Fichier").'</th>
                <th data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Type").'</th>
                <th data-halign="center" data-align="right">'.upload_translate("Taille").'</th>
                <th data-halign="center" data-align="center">'.upload_translate("Affichage intégré").'</th>
@@ -164,7 +164,7 @@ function confirmSendFile(f) {
             $inline_box=getListBox("inline_att[$id]", $inline_list, $att[$i]["inline"]);
          }
          if ($Mmod) {
-            $visu='<td align="center">'.getCheckBox ("visible_att[]", $id, ($att[$i]["visible"]==1)?$id:-1, "").'</td>';
+            $visu='<td>'.getCheckBox ("visible_att[]", $id, ($att[$i]["visible"]==1)?$id:-1, "").'</td>';
             $visible_list.=$id.',';
          }
          $att_table.='
@@ -181,16 +181,16 @@ function confirmSendFile(f) {
       $total_sz = $Fichier->file_size_format($tsz,1);
       $visu_button='';
       echo '<input type="hidden" name="visible_list" value="'.$visible_list.'">';
-      $att_inline_button='<button class="btn btn-outline-primary btn-sm btn-block" onclick="InlineType(this.form);">'.upload_translate("Adapter").'<span class="hidden-sm-up"> '.upload_translate("Affichage intégré").'</span></button>';
+      $att_inline_button='<button class="btn btn-outline-primary btn-sm btn-block" onclick="InlineType(this.form);">'.upload_translate("Adapter").'<span class="d-none d-xl-inline"> '.upload_translate("Affichage intégré").'</span></button>';
       if ($Mmod) {
-         $visu_button='<button class="btn btn-outline-primary btn-sm btn-block" onclick="visibleFile(this.form);">'.upload_translate("Adapter").'<span class="hidden-sm-up"> '.upload_translate("Visibilité").'</span></button>';
+         $visu_button='<button class="btn btn-outline-primary btn-sm btn-block" onclick="visibleFile(this.form);">'.upload_translate("Adapter").'<span class="d-none d-xl-inline"> '.upload_translate("Visibilité").'</span></button>';
       }
       if ($ibid=theme_image("upload/arrow.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/upload/arrow.gif";}
       $att_table.='
          </tbody>
       </table>
       <div class="row p-2">
-         <div class="col-sm-4 col-6 mb-2"><i class="fa fa-level-up fa-2x fa-flip-horizontal text-danger"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="hidden-sm-up" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-trash-o fa-2x ml-1"></i></span><span class="hidden-xs-down">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></div>
+         <div class="col-sm-4 col-6 mb-2"><i class="fa fa-level-up fa-2x fa-flip-horizontal text-danger mr-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-trash-o fa-2x ml-1"></i></span><span class="d-none d-sm-inline">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></div>
          <div class="col-sm-4 text-right col-6 mb-2"><strong>'.upload_translate("Total :").' '.$total_sz.'</strong></div>
          <div class="col-sm-2 text-center-sm mb-2 col-12 ">'.$att_inline_button.'</div>
          <div class="col-sm-2 text-center-sm mb-2 col-12">'.$visu_button.'</div>
