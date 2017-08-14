@@ -12,9 +12,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    die();
-}
 include('functions.php');
 include('auth.php');
 
@@ -70,13 +69,13 @@ elseif ($moderate==2) {
                if (!$m = sql_fetch_assoc($r))
                   forumerror('0014');
                echo '
-      <h3>'.translate("Users IP and Account information").'</h3>
-      <div class="card card-block">
+      <h3 class="mb-3">'.translate("Users IP and Account information").'</h3>
+      <div class="card card-body mb-2">
          <strong>'.translate("Nickname: ").'</strong> '.$m['uname'].'<br />
          <strong>'.translate("User IP: ").'</strong> '.$m['poster_ip'].'<br />
          <strong>'.translate("User DNS: ").'</strong> '.$m['poster_dns'].'<br />
       </div>
-      <p><a href="'.rawurldecode($url_ret).'" class="btn btn-primary">'.translate("Go Back").'</a></p>';
+      <p><a href="'.rawurldecode($url_ret).'" class="btn btn-secondary">'.translate("Go Back").'</a></p>';
                include("footer.php");
                break;
             case 'aff':
