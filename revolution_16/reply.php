@@ -216,7 +216,7 @@ if ($submitS) {
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_title.'
    </p>
    <div class="card">
-      <div class="card-body-small">
+      <div class="card-body p-1">
             '.translate("Moderated By: ");
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
@@ -234,10 +234,10 @@ if ($submitS) {
    echo '
       </div>
    </div>
-   <h4 class="hidden-xs-down my-3">'.translate("Post Reply in Topic").'</h4>
+   <h4 class="d-none d-sm-block my-3">'.translate("Post Reply in Topic").'</h4>
    <form action="reply.php" method="post" name="coolsus">';
 
-   echo '<blockquote class="blockquote hidden-xs-down"><p>'.translate("About Posting:").'<br />';
+   echo '<blockquote class="blockquote d-none d-sm-block"><p>'.translate("About Posting:").'<br />';
    if ($forum_access == 0) {
       echo translate("Anonymous users can post new topics and replies in this forum.");
    } else if($forum_access == 1) {
@@ -275,14 +275,14 @@ if ($submitS) {
 
    echo '
    <br />
-   <span class="lead">'.translate("Nickname: ");
+   <span class="lead d-none d-sm-block">'.translate("Nickname: ");
      if (isset($user)) echo $userdata[1].'</span>';
      else echo $anonymous.'</span>';
 
    settype($image_subject,'string');
    if ($smilies) {
       echo '
-      <div class="hidden-xs-down form-group row">
+      <div class="d-none d-sm-block form-group row">
          <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
             <div class="card card-body n-fond_subject d-flex flex-row flex-wrap">
@@ -462,15 +462,15 @@ if ($submitS) {
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
             $useroutils .= '<hr />';
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 hidden-sm-down">'.translate("Profile").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 d-none d-sm-inline">'.translate("Profile").'</span></a>';
          if ($posterdata['uid']!= 1)
-            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 hidden-sm-down">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 d-none d-sm-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 hidden-sm-down">'.translate("Email").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 d-none d-sm-inline">'.translate("Email").'</span></a>';
          if ($posterdata['url']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 hidden-sm-down">'.translate("Visit this Website").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
          if ($posterdata['mns'])
-            $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 hidden-sm-down">'.translate("Visit the Mini Web Site !").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private")) {

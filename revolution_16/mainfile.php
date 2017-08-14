@@ -2399,18 +2399,18 @@ function oldNews($storynum, $typ_aff='') {
          $datetime2 = ucfirst($datetime2);
       }
 
-      if ($typ_aff=='lecture') $comments=$counter;
+      if ($typ_aff=='lecture') $comments='<span class="badge badge-pill badge-secondary">'.$counter.'</span>'; else $comments='';
 
       if ($time2==$datetime2) {
          $boxstuff .= '
-         <li class="list-group-item list-group-item-action justify-content-between align-self-start"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a><span class="badge badge-pill badge-secondary">'.$comments.'</span></li>';
+         <li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
       } else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-secondary\">($comments)</span></li>\n";
+            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> $comments</li>\n";
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> <span class=\"badge badge-pill badge-secondary\">($comments)</span></li>\n";
+            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> $comments </li>\n";
             $time2 = $datetime2;
          }
       }

@@ -222,7 +222,7 @@ if (isset($submitS)) {
                   <span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-               <div class="card-block">
+               <div class="card-body">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.$reply.'</textarea>
                   <span class="help-block text-right">
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>

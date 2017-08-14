@@ -1019,12 +1019,12 @@ $affi .= '
 </div>
 
    <ul class="nav nav-tabs">
-      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Infos carte").'</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Aide").'</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Géolocalisation").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géolocalisation").'</span></a></li>';
 if(autorisation(-127))
    $affi .= '
-      <li class="nav-item"><a class="nav-link " href="#geolocalisation" data-toggle="tab_ajax"><span class="hidden-sm-up"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="hidden-xs-down">'.geoloc_translate("Ip liste").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link " href="#geolocalisation" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Ip liste").'</span></a></li>';
 $affi .= '
    </ul>
    <div class="tab-content">

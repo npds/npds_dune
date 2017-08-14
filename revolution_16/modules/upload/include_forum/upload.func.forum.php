@@ -17,7 +17,6 @@ if (!isset($upload_conf)) {
    include_once("modules/upload/include_forum/upload.conf.forum.php");
    include_once("lib/file.class.php");
 }
-
 /************************************************************************/
 /* Fonction pour charger en memoire les mimetypes                       */
 /************************************************************************/
@@ -127,11 +126,12 @@ function display_upload($apli,$post_id,$Mmod){
       $att_count = count($att);
       $attachments = '
       <div class="list-group">
-         <div class="list-group-item d-flex justify-content-start">
+         <div class="list-group-item d-flex justify-content-start align-items-center mt-2">
             <img class="n-smil" src="themes/npds-boost_sk/images/forum/subject/1F4CE.png" alt="icon_post" />
-            <span class="text-muted p-2">'.upload_translate("Pièces jointes").'</span>
-            <span class="badge badge-default ml-auto">'.$att_count.'</span>
-         </div>';
+            <span class="text-muted p-2">'.upload_translate("Pièces jointes").'</span><a data-toggle="collapse" href="#lst_pj'.$post_id.'"><i data-toggle="tooltip" data-placement="top" title="" class="toggle-icon fa fa-lg mr-2 fa-caret-up"></i></a>
+            <span class="badge badge-secondary ml-auto">'.$att_count.'</span>
+         </div>
+         <div id="lst_pj'.$post_id.'" class="collapse show">';
       $ncell = 0;
       for ($i=0; $i<$att_count; $i++) {
          $att_id        = $att[$i]["att_id"];
@@ -147,7 +147,9 @@ function display_upload($apli,$post_id,$Mmod){
          $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
       }
-      $attachments .= '</div>';
+      $attachments .= '
+         </div>
+      </div>';
       return $attachments;
    }
 }
@@ -381,14 +383,14 @@ function renomme_fichier($listeV, $listeU) {
    $result = sql_query($query);
    while ($attach=sql_fetch_assoc($result)) {
       if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'])) {
-         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".".$attach['att_name']);
+         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name']);
       }
    }
    $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($listeU) AND visible=0";
    $result = sql_query($query);
    while ($attach=sql_fetch_assoc($result)) {
-      if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".@".$attach['att_name'])) {
-         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".".$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].".".$apli.".@".$attach['att_name']);
+      if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'])) {
+         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name']);
       }
    }
 }
@@ -405,7 +407,7 @@ function update_visibilite($visible_att,$visible_list) {
       sql_query($sql);
    } else {
       $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
-      $unvisible=implode($visible_lst, ",");
+      $unvisible=implode($visible_lst, ',');
       $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    }

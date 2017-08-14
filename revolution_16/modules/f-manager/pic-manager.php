@@ -399,13 +399,13 @@ if (file_exists("themes/$Default_Theme/html/modules/f-manager/pic-manager.html")
 if ($inclusion) {
    $Xcontent=join('',file($inclusion));
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="hidden-sm-up"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="hidden-xs-down">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
    $Xcontent=str_replace('_nb_subdir',($obj->Count('d')-$dir_minuscptr),$Xcontent);
    if(($obj->Count('d')-$dir_minuscptr)==0)
       $Xcontent=str_replace('_classempty','collapse',$Xcontent);
    $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
    if ($uniq_fma)
-      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="hidden-sm-up"><i class="fa fa-folder-o fa-lg"></i></span><span class="hidden-xs-down">File manager</span></a>',$Xcontent);
+      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-folder-o fa-lg"></i></span><span class="d-none d-sm-inline">File manager</span></a>',$Xcontent);
    else
       $Xcontent=str_replace('_fileM','',$Xcontent);
 
