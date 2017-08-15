@@ -285,8 +285,8 @@ function viewarticle($artid, $page) {
             $pageS=substr($Xcontent,$pos_page,$longueur);
             $Xcontent=substr($Xcontent,0,$pos_page);
             $Xcontent.='
-            <nav class="center-block mt-3">
-               <ul class="pagination pagination-sm">
+            <nav class="d-flex mt-3">
+               <ul class="mx-auto pagination pagination-sm">
                <li class="page-item disabled"><a class="page-link" href="#">'.$ndepages.' pages</a></li>';
             if($pageS !== '[page0]')
             $Xcontent.='
