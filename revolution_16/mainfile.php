@@ -2399,7 +2399,7 @@ function oldNews($storynum, $typ_aff='') {
          $datetime2 = ucfirst($datetime2);
       }
 
-      if ($typ_aff=='lecture') $comments='<span class="badge badge-pill badge-secondary">'.$counter.'</span>'; else $comments='';
+      if ($typ_aff=='lecture') $comments='<span class="badge badge-pill badge-secondary" title="'.translate("Read").'" data-toggle="tooltip">'.$counter.'</span>'; else $comments='';
 
       if ($time2==$datetime2) {
          $boxstuff .= '
