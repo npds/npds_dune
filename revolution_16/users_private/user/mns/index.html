@@ -1,21 +1,29 @@
 !l_header!
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-md-3">
-            <div class="page-header">
-               <img title="" src="modules/groupe/matrice/groupe.png" class="img-fluid center-block" alt="" />
+   <div id="corps" class="container-fluid">
+      <div class="row blog_bloc">
+         <div class="col-lg-3 mb-4">
+            <div class="list-group">
+               <div class="list-group-item p-0 text-center">
+                  <img class="img-fluid" alt="logo" src=" !avatar! " />
+               </div>
+               groupe_text()
+               <a class="list-group-item list-group-item-action" href="minisite.php?op=!id_mns!"><i class="fa fa-home fa-lg mr-2"></i>Home</a>
+               !/!
+               no_groupe_text()
+                 <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modallogin" href="#"><i class="fa fa-user-circle fa-lg mr-2"></i>Login</a>
+               !/!
+               !l_blog_ajouter!
+               groupe_text()
+                 <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modalaide" href="#"><i class="fa fa-question-circle fa-lg mr-2"></i>Aide</a>
+               !/!
+               <div class="list-group-item">Pages vues<span class="badge badge-secondary float-right">!l_compteur!</span></div>
             </div>
          </div>
-         <div class="col-md-9">
+         <div class="col-lg-9">
             <div class="blog_titre_blog"><h1>MINISITE UTILISATEUR</h1></div>
-            !l_new_pages!
             !blog!
-            !l_new_pages!
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-offset-3 col-md-9">
          </div>
       </div>
    </div>
+!blog_page!3
 !l_footer!
