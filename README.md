@@ -3,12 +3,12 @@ REvolution 16
 The next version of [NPDS](http://www.npds.org) CMS.
 
 - nouvelle administration
-- utilisation framework Bootstrap 4.0.0 alpha.6
+- utilisation framework Bootstrap v4.0.0-beta
 - utilisation fontawesome
 - abandon YUI pour jquery
-- thèmes responsives au choix (BS4 alpha et Rocssti) et systeme de skins
+- thèmes responsives au choix (BS4 alpha et Rocssti) et système de skins
 
-Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif. 
+Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif.
 Il s'agit d'un Content & Community Management System (CCMS) robuste, sécurisé, complet, performant et parlant vraiment français.
 
 Gérez votre Communauté d'utilisateurs, vos groupes de travail collaboratif, publiez, gérez et organisez
