@@ -159,7 +159,7 @@ function index() {
                $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
                $cnumrows= sql_num_rows($cresult3);
                echo '
-               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-default pull-right">'.$cnumrows.'</span></h5>';
+               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-secondary pull-right">'.$cnumrows.'</span></h5>';
             }
             echo '
             </td>
@@ -253,7 +253,7 @@ function viewlink($cid, $min, $orderby, $show) {
       settype($numrows_lst,'integer');
       $affsouscat .= '
       <ul class="list-group">
-         <li class="list-group-item "><h4 class="w-100">'.translate("SubCategories").'<span class="badge badge-default float-right"> '.$numrows.'</span></h4></li>';
+         <li class="list-group-item "><h4 class="w-100">'.translate("SubCategories").'<span class="badge badge-secondary float-right"> '.$numrows.'</span></h4></li>';
          while(list($sid, $title) = sql_fetch_row($subresult)) {
             $result2 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
             $numrows_lst=sql_num_rows($result2);

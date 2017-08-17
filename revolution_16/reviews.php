@@ -420,6 +420,7 @@ function showcontent($id) {
 
    echo '
    <h2>'.translate("Reviews").'</h2>
+   <hr />
    <a href="reviews.php">'.translate("Back to Reviews Index").'</a>
    <div class="card card-body my-3">
       <div class="card-text text-muted text-right small">
@@ -440,7 +441,8 @@ function showcontent($id) {
       echo '<div class="mb-2"><strong>'.translate("Score:").' : </strong>';
    echo '<span class="text-success">';
    display_score($score);
-   echo '</span></div>';
+   echo '</span>
+   </div>';
    if ($url != '')
       echo '<div class="mb-2"><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a></div>';
    echo '<div><strong>'.translate("Hits:").'</strong><span class="badge badge-secondary">'.$hits.'</span></div>
@@ -450,7 +452,7 @@ function showcontent($id) {
       <nav class="d-flex justify-content-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 hidden-sm-down">'.translate("Administration Tools").'</span></a>
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-lg-inline">'.translate("Administration Tools").'</span></a>
             </li>
             <li class="page-item">
                <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>

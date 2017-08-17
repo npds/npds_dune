@@ -55,7 +55,7 @@ function entete() {
       <div class="container-fluid">
          <div class="my-2">
             <div class="row">
-               <div class="col-sm-2 hidden-sm-down"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
+               <div class="col-sm-2 d-none d-sm-flex"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
                   <h1 class="display-4">NPDS<br /><small class="text-muted"><em>installation automatique</em></small></h1>
                </div>

@@ -60,7 +60,7 @@ function NewLinks($newlinkshowdays) {
    }
    echo '
    
-   <div class="card card-block mb-3">
+   <div class="card card-body mb-3">
    <h3>'.translate("New links").'</h3>
    '.translate("Total new links: Last week").' : '.$allweeklinks.' -/- '.translate("Last 30 days").' : '.$allmonthlinks;
 
