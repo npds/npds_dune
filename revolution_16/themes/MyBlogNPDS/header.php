@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : MyBlogNPDS 2017 by jpb                                   */
+/* Theme : MyBlogNPDS 2017 by Bmag                                      */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,7 +13,6 @@
 /*
    Ce thème :
    NE permet PAS la gestion de la variable $pdst dans page.php.
-   Accepte l'utilisation des skins (_sk).
    La variable $pdst :
    "-1" -> col_princ (en cas de désactivation de TOUS les blocs!)
    "2"  -> col_princ + col_LB (bloc "gauche" et "droit")
@@ -37,10 +36,11 @@ if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
 
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col hidden-lg-up mr-2 my-2">
+      <div class="col d-lg-none mr-2 my-2">
          <hr />
          <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
-      </div>';
+      </div>
+   ';
    echo $coltoggle;
 }
 

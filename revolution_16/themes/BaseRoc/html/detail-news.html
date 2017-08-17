@@ -6,7 +6,11 @@
       !N_texte!  
 	</div>
    <footer> <!-- Le Footer Article (Précédent - Suivant)-->
-      !N_previous_article! !N_next_article! comment_system(article,!N_ID!)<!--Ajout des Commentaires bien mieux que sous Liens Relatifs -->
+		<div class="mod blackborder">    
+		<div class="w50 left "> !N_previous_article! </div>
+		<div class="w50 right alignright "> !N_next_article! </div>
+		</div>
+        comment_system(article,!N_ID!)<!--Ajout des Commentaires bien mieux que sous Liens Relatifs -->
    </footer>
 </article> <!-- Fin Bloc Global Article -->
 
@@ -14,3 +18,5 @@
 <aside class="mod m1 p1 blackborder">
 	!N_boxrel_stuff!
 </aside>
+
+

@@ -1,32 +1,44 @@
  <header class="header1 ">
-
-		   <div id="decohead" class="p1 ">
-				<div class="mod  ">
-					  <div class="left w30  automobile"><img src="themes/!theme!/images/0logohead.png" ></div>				  
-					  <div class="left w40 alignmiddle automobile"><p> !nb_online! // !member! </p></div>				  
-					  <div class="left w30  alignright automobile"><h1> !slogan! </h1> !date! </div>
-				</div>
-
-				<nav class=" navigation pt1 aligncenter" role="navigation">
-				     <ul>
-						<li><a href="index.php">Home</a> </li>
-						<li><a href="forum.php">Forums</a></li>
-						<li><a href="sections.php">Nos Dossiers</a></li>
-						<li><a href="topics.php">Les Sujets</a> </li>
-						<li><a href="submit.php">Ecrire un Article</a>  </li>
-						<li><a href="download.php">Download</a>  </li>
-						<li><a href="map.php">Plan du site</a> </li>
-						<li><a href="modules.php?ModPath=contact&ModStart=contact">Contact</a> </li>
-				    </ul>
-				</nav>
-				
-
-
-
-
-
-
-		   </div>
-   </header>
-
-
+   <div id="decohead" class="p1 ">
+      <div class="mod">
+         <div class="left w30  automobile"><img src="themes/!theme!/images/0logohead.png" ></div>
+         <div class="left w40 alignmiddle automobile"><p> !nb_online! // !member! </p></div>
+         <div class="left w30  alignright automobile"><h1> !slogan! </h1> !date! </div>
+      </div>
+      <nav class="navbar navbar-expand-md navbar-light" style="background-color: #D1C89A;">
+         <a class="navbar-brand" href="index.php">Rev16</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item active">
+               <a class="nav-link" href="forum.php">FORUM <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="sections.php">DOSSIERS</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="modules.php?ModPath=contact&ModStart=contact">CONTACT</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="map.php">PLAN du site</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="faq.php"></a>
+               </li>
+               <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               PARTICIPEZ
+               </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="submit.php">Proposer un article</a>
+                     <a class="dropdown-item" href="reviews.php">Critiques</a>
+                     <a class="dropdown-item" href="topics.php">Les Sujets</a>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </nav>
+   </div>
+</header>
