@@ -869,7 +869,12 @@ $handle=opendir("$racine_fma/images/upload/file_types");
 while (false!==($file = readdir($handle))) {
    if ($file!='.' && $file!='..') {
       $prefix = strtoLower(substr($file,0,strpos($file,'.')));
-      $att_icons[$prefix]='<img src="images/upload/file_types/'.$file.'" alt="" />';
+      $att_icons[$prefix]='<img src="images/upload/file_types/'.$file.'" alt="" />'; // no more used keep if we back
+      $att_icons[$prefix]='
+      <span class="fa-stack">
+        <i class="fa fa-file fa-stack-2x text-muted"></i>
+        <span class="fa-stack-1x filetype-text ">'.$prefix.'</span>
+      </span>';
    }
 }
 closedir($handle);
@@ -978,7 +983,7 @@ while ($obj->NextFile()) {
          }
          if (!$ico_search) {
             if (($obj->FieldView=='jpg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png'))
-               $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"16\" height=\"16\" />";
+               $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" />";
             else {
                if (isset($att_icons[$obj->FieldView])) {
                   $files.=$att_icons[$obj->FieldView];
