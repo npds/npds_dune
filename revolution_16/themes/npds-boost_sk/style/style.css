@@ -69,9 +69,11 @@ table{table-layout: fixed;}
   hyphens: auto;
 }
 .n-ellipses {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  display:inline-block;
+   width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 .n-list-compact-no-bord {
   padding-top: .35rem;
@@ -406,7 +408,7 @@ form .form-control-feedback:hover {
 }
 
 .datepicker {
-width:280px;
+  width:280px;
 }
 .datepicker-inline {
   width:100%;

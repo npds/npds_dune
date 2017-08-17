@@ -1,35 +1,51 @@
 
-	<footer class="bd-footer">
-		<div class="footer-blurb">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-5 footer-blurb-item">
-						<h3><span class="glyphicon glyphicon-fire"></span> Dynamically Procrastinate</h3>
-						<p>!sc_infos!
-						<br />!sc_infos_else!
-						<br />!msg_foot!
-						</p>
-					</div>
-					<div class="col-sm-4 footer-blurb-item">
-						<h3><span class="glyphicon glyphicon-cloud-upload"></span> Efficiently Unleash</h3>
-						<p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. </p>
-						<p><a class="btn btn-default" href="#">Unleash</a></p>
-					</div>
-					<div class="col-sm-3 footer-blurb-item">
-						<h3><span class="glyphicon glyphicon-leaf"></span> Completely Synergize</h3>
-						<p>Professionally cultivate one-to-one customer service with robust ideas. Completely synergize resource taxing relationships via premier niche markets. Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
-						<p><a class="btn btn-default" href="#">Synergize</a></p>
-					</div>
-
-				</div>
-				<!-- /.row -->	
-			</div>
-        </div>
-        
-        <div class="small-print">
-        	<div class="container">
-        		<p><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact</a></p>
-        		<p>Copyright &copy; Example.com 2015 </p>
-        	</div>
-        </div>
-	</footer>
+   <footer class="bd-footer">
+      <div class="footer-blurb">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-5 footer-blurb-item">
+                  <h3><span class="glyphicon glyphicon-fire"></span> Dynamically Procrastinate</h3>
+                  <p>!sc_infos!
+                  <br />!sc_infos_else!
+                  <br />!msg_foot!
+                  </p>
+               </div>
+               <div class="col-sm-4 footer-blurb-item">
+                  <h3><span class="glyphicon glyphicon-cloud-upload"></span> Efficiently Unleash</h3>
+                  <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. </p>
+                  <p><a class="btn btn-default" href="#">Unleash</a></p>
+               </div>
+               <div class="col-sm-3 footer-blurb-item">
+                  <h3><span class="glyphicon glyphicon-leaf"></span> Completely Synergize</h3>
+                  <p>Professionally cultivate one-to-one customer service with robust ideas. Completely synergize resource taxing relationships via premier niche markets. Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
+                  <p><a class="btn btn-default" href="#">Synergize</a></p>
+               </div>
+            </div><!-- /.row -->
+         </div>
+      </div>
+      <div class="small-print">
+         <div class="container">
+            <p><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact</a></p>
+            <p>Copyright &copy; Example.com 2015 </p>
+         </div>
+      </div>
+      <script type="text/javascript" src="lib/js/jquery.translate.js"></script>
+      <script type="text/javascript" src="lib/js/npds-dicotransl.js"></script>
+      <script type="text/javascript">
+         //<![CDATA[
+         $(document).ready(function(){
+            var translator = $('body').translate({lang: "fr", t: dict});
+            translator.lang("<?php echo language_iso(1,'',0); ?>");
+            $('.plusdecontenu').click(function(){
+               var $this = $(this);
+               $this.toggleClass('plusdecontenu');
+               if($this.hasClass('plusdecontenu')){
+                  $this.text(translator.get('Plus de contenu'));
+               } else {
+                  $this.text(translator.get('Moins de contenu'));
+               }
+            });
+            });
+         //]]
+      </script>
+   </footer>
