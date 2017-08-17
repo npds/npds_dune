@@ -1,6 +1,6 @@
 <div class="card mb-3">
    <div class="card-img-top n-sujetsize"> !N_sujet! </div>
-   <div class="card-block">
+   <div class="card-body">
       <h3 class="card-title"> !N_categorie! !N_titre! </h3>
       <div class="card-text article_texte"> !N_texte! </div>
 <?php
@@ -9,12 +9,14 @@
    <blockquote class="blockquote">'.$notes.'</blockquote>';
    }
 ?>
-      <p class="card-text"><small class="text-muted">[french]Publi&eacute; le[/french][english]Published[/english][chinese]Published[/chinese][spanish]Published[/spanish][german]Published[/german] : !N_date! </small></p>
+<hr />
+      <p class="card-text"><small class="text-muted">!N_emetteur! [french]Publi&eacute; le[/french][english]Published on[/english][chinese]&#x53D1;&#x8868;[/chinese][spanish]Publicado[/spanish][german]Ver&#246;ffentlicht[/german] : !N_date! </small></p>
+
    </div>
    <div class="card-footer pied_art">
       <div class="row">
          <div class="col-sm-6">!N_read_more! <small class="text-muted">!N_nb_carac!</small></div>
-         <div class="col-sm-6 text-right">!N_print! !N_friend! <span class="badge badge-pill badge-default">!N_nb_comment!</span> !N_link_comment!</div>
+         <div class="col-sm-6 text-right">!N_print! !N_friend! <span class="badge badge-pill badge-secondary">!N_nb_comment!</span> !N_link_comment!</div>
       </div>
    </div>
 </div>

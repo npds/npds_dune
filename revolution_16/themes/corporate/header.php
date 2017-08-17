@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : corporate 2015 by jpb                                    */
+/* Theme : corporate 2015 by Bmag                                       */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -58,10 +58,11 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col hidden-lg-up mr-2 my-2">
-      <hr />
+      <div class="col d-lg-none mr-2 my-2">
+         <hr />
          <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
-      </div>';
+      </div>
+   ';
    echo $coltoggle;
 }
 
