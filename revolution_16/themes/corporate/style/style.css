@@ -69,9 +69,11 @@ table{table-layout: fixed;}
   hyphens: auto;
 }
 .n-ellipses {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  display:inline-block;
+  width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 .n-list-compact-no-bord {
   padding-top: .35rem;
@@ -199,7 +201,10 @@ div .pull-right.search input.form-control{
   background-color: rgba(2, 117, 216, 0.07);
 }
 .blockquote {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 0.25rem solid #eceeef;
 }
 
 .form-control-label {
@@ -210,31 +215,24 @@ div .pull-right.search input.form-control{
 .fa {text-shadow:2px 2px 4px #d9d9d9;}
 */
 
-/* ==> Personalisation des tooltips bootstrap V4* /
-/* Requis pour tous les thèmes */
-.tooltip {}
-.tooltip.in {}
-.tooltip.tooltip-top, .tooltip.bs-tether-element-attached-bottom {}
-.tooltip.tooltip-top .tooltip-inner::before, .tooltip.bs-tether-element-attached-bottom .tooltip-inner::before {
-  border-top-color: #484848;
-}
-.tooltip.tooltip-right, .tooltip.bs-tether-element-attached-left {}
-.tooltip.tooltip-right .tooltip-inner::before, .tooltip.bs-tether-element-attached-left .tooltip-inner::before {
-  border-right-color: #484848;
-}
-.tooltip.tooltip-bottom, .tooltip.bs-tether-element-attached-top {}
-.tooltip.tooltip-bottom .tooltip-inner::before, .tooltip.bs-tether-element-attached-top .tooltip-inner::before {
-  border-bottom-color: #484848;
-}
-.tooltip.tooltip-left, .tooltip.bs-tether-element-attached-right {}
-.tooltip.tooltip-left .tooltip-inner::before, .tooltip.bs-tether-element-attached-right .tooltip-inner::before {
-  border-left-color: #484848;
-}
+/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V4 */
+.tooltip.show {} /* opacité default 0.9 */
 .tooltip-inner {
   background-color: #484848;
 }
-.tooltip-inner::before {}
-/* <== Personalisation des tooltips bootstrap V4*/
+.tooltip.bs-tooltip-top .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+  border-top-color: #484848;
+}
+.tooltip.bs-tooltip-right .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .arrow::before {
+  border-right-color: #484848;
+}
+.tooltip.bs-tooltip-bottom .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
+  border-bottom-color: #484848;
+}
+.tooltip.bs-tooltip-left .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .arrow::before {
+border-left-color: #484848;
+}
+/* <== Personalisation des tooltips bootstrap V4 */
 
 #adm_men a:hover
 {text-decoration: none;}
@@ -289,10 +287,7 @@ ui-menu-item-wrapper {
 }
 /* <== Personalisation menu autocomplete [jquery ui]*/
 
-/*taille defaut des glyphicons font*/
-.glyphicons{font-size:24px;}
-
-/*ajustement des icones etat form validation*/
+/*ajustement des icones etat form validation en attente update du plugin*/
 .fv-form-bootstrap4 .form-group.row .fv-control-feedback {
   position: absolute;
   display: inline-block;
@@ -333,6 +328,82 @@ ui-menu-item-wrapper {
 }
 .has-warning .form-control-warning {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
+}
+
+.has-success .text-help,
+.has-success .form-control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label,
+.has-success small.help-block,
+.has-success span.help-block {
+  color: #28a745;
+}
+.fv-form-bootstrap4 .has-success .fv-control-feedback, .fv-form-bootstrap4 .has-success label {
+  color: #28a745
+}
+.has-success .text-help, .has-success .form-control-feedback, .has-success .form-control-label {
+  color: #28a745
+}
+.has-success .form-control {
+  border-color: #28a745;
+}
+.has-success .input-group-addon {
+  color: #28a745;
+  background-color: #fdf7f7;
+  border-color: #28a745;
+}
+.has-success .form-control-feedback {
+  color: #28a745;
+}
+
+.has-warning .custom-control-input:invalid ~ .custom-control-indicator, .custom-control-input.is-invalid ~ .custom-control-indicator {
+  background-color: rgba(220, 53, 69, 0.25);
+}
+
+.has-warning .custom-control-input:invalid ~ .custom-control-description, .custom-control-input.is-invalid ~ .custom-control-description {
+  color: #dc3545;
+}
+
+.has-warning .custom-file-input:invalid ~ .custom-file-control, .custom-file-input.is-invalid ~ .custom-file-control {
+  border-color: #dc3545;
+}
+
+.has-warning .custom-file-input:invalid ~ .custom-file-control::before, .custom-file-input.is-invalid ~ .custom-file-control::before {
+  border-color: inherit;
+}
+
+.has-warning .custom-file-input:invalid:focus, .custom-file-input.is-invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.has-success .form-check-input:valid + .form-check-label, .form-check-input.is-valid + .form-check-label {
+  color: #28a745;
+}
+
+.has-success .custom-control-input:valid ~ .custom-control-indicator, .custom-control-input.is-valid ~ .custom-control-indicator {
+  background-color: rgba(40, 167, 69, 0.25);
+}
+
+.has-success .custom-control-input:valid ~ .custom-control-description, .custom-control-input.is-valid ~ .custom-control-description {
+  color: #28a745;
+}
+
+.has-success .custom-file-input:valid ~ .custom-file-control, .custom-file-input.is-valid ~ .custom-file-control {
+  border-color: #28a745;
+}
+
+.has-success .custom-file-input:valid ~ .custom-file-control::before, .custom-file-input.is-valid ~ .custom-file-control::before {
+  border-color: inherit;
+}
+
+.has-success .custom-file-input:valid:focus, .custom-file-input.is-valid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 /* ==> plugins table bootstrap */
@@ -382,29 +453,6 @@ ui-menu-item-wrapper {
 }
 /* <== plugins table bootstrap */
 
-#user_tools {
-position:absolute;
-top:0px;
-right:65px;
-}
-#user_tools.nav > li > a {
-  position: relative;
-  display: inline;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left:5px;
-  padding-right:5px;
-  line-height: 20px;
-  margin-right:0px;
-  margin-top:15px;
-  margin-bottom:15px;
-}
-#user_tools.nav > li {
-  margin-right:10px;
-  margin-top:15px;
-  margin-bottom:15px;
-}
-
 /* ==> pour les menus dropdown trop long (haut) */
 .scrollable-menu {
   height: auto;
@@ -436,25 +484,12 @@ form .form-control-feedback:hover {
   cursor: pointer;
 }
 
+.datepicker {
+  width:320px;
+}
 .datepicker-inline {
   width:100%;
 }
-
-.splash {
-padding: 9em 0 2em;
-background-color: #141D27;
-background-image: url(../images/bg.jpg);
-background-size: cover;
-background-attachment: fixed;
-color: white;
-text-align: center;
-}
-body > .navbar-transparent {
-background-color: transparent;
-}
-
-body>.navbar{-webkit-transition:background-color 300ms ease-in;transition:background-color 300ms ease-in}
-
 
 /*bloc admin*/
 .adm_img {
@@ -1700,12 +1735,9 @@ a.tooltip_ws:hover em span {
   background-color: rgba(0,0,0,0.4);
 }
 
-
 .ui-draggable-dragging {
 z-index: 10000!important}
 
 .ui-draggable {
 z-index: 10;
 }
-
-

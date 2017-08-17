@@ -1,4 +1,4 @@
-﻿/* ----------------------------------------------------------------------
+/* ----------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
    theme: Rev16
 ---------------------------------------------------------------------- */
@@ -731,7 +731,7 @@ input[type="Submit"], [type="Reset"], [type="Return"] {
     border-radius: .25rem;
 }
 
-.smil {
+.n-smil {
 width:24px;
 height:24px;
 display:inline;
@@ -1912,7 +1912,7 @@ img, table, td, blockquote, code, pre, textarea, input, svg {
     padding-left: 0.250em;
 }
 
-/*****jmd* pour d�coler le texte des bordures de Table*/
+/*****jmd* pour décoller le texte des bordures de Table*/
  /* ajustement bmag*/ 
  
 
