@@ -323,6 +323,7 @@ class form_handler {
         case 'text':
         case 'email':
         case 'url':
+        case 'number':
          $str.='
          <div class="form-group row">
             <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
@@ -521,7 +522,7 @@ $str .=' >';
 
         case 'submit':
          $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
-         $str.='<button class="btn btn-primary" id="'.$this->form_fields[$i]['name'].'" type="submit" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"><i class="fa fa-check fa-lg"></i> '.$this->form_fields[$i]['value'].' </button>';
+         $str.='<button class="btn btn-primary" id="'.$this->form_fields[$i]['name'].'" type="submit" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'">'.$this->form_fields[$i]['value'].'</button>';
           break;
 
         case 'reset':
@@ -619,103 +620,109 @@ $str .=' >';
     $str='';
     for ($i=0;$i<count($this->form_fields);$i++) {
        if (array_key_exists('name',$this->form_fields[$i])) {
-          $str.="<input type=\"hidden\" name=\"".$this->form_fields[$i]['name']."\" value=\"".stripslashes(str_replace('\'','&#039;',$this->form_fields[$i]['value']))."\" />";
+          $str.='<input type="hidden" name="'.$this->form_fields[$i]['name'].'" value="';
+          if(array_key_exists('value',$this->form_fields[$i]))
+             $str.= stripslashes(str_replace('\'','&#039;',$this->form_fields[$i]['value'])).'"';
+          else $str.='"';
+          $str.=' />';
        }
     }
     return $str;
   }
 
   /**************************************************************************************/
-  // make the anwer array
+  // make the answer array
   // private string
   function make_response(){
-
     for($i=0;$i<count($this->form_fields);$i++) {
-      $this->answer[$i]="";
-      switch($this->form_fields[$i]['type']){
-        case 'text':
-          // Charge la valeur de la clef
-          if ($this->form_fields[$i]['name']==$this->form_key) {
-             $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
-          }
-        case 'password':
-          if ($this->form_fields[$i]['ctrl']!="") {
-             $this->control($this->form_fields[$i]['name'],$this->form_fields[$i]['en'],$GLOBALS[$this->form_fields[$i]['name']],$this->form_fields[$i]['ctrl']);
-          }
-          $this->answer[$i].="<TEXT>\n";
-          $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$GLOBALS[$this->form_fields[$i]['name']]."</".$this->form_fields[$i]['name'].">\n";
-          $this->answer[$i].="</TEXT>";
-          break;
+      $this->answer[$i]='';
+      // this new if remove noticeS à surveiller !
+      if(array_key_exists('type', $this->form_fields[$i])) {
+         switch($this->form_fields[$i]['type']){
+           case 'text':case 'email':case 'url':case 'number':
+             // Charge la valeur de la clef
+             if ($this->form_fields[$i]['name']==$this->form_key) {
+                $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
+             }
+           case 'password':
+             if ($this->form_fields[$i]['ctrl']!="") {
+                $this->control($this->form_fields[$i]['name'],$this->form_fields[$i]['en'],$GLOBALS[$this->form_fields[$i]['name']],$this->form_fields[$i]['ctrl']);
+             }
+             $this->answer[$i].="<TEXT>\n";
+             $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$GLOBALS[$this->form_fields[$i]['name']]."</".$this->form_fields[$i]['name'].">\n";
+             $this->answer[$i].="</TEXT>";
+             break;
 
-        case 'password-access':
-          if ($this->form_fields[$i]['ctrl']!="") {
-             $this->control($this->form_fields[$i]['name'],$this->form_fields[$i]['en'],$GLOBALS[$this->form_fields[$i]['name']],$this->form_fields[$i]['ctrl']);
-          }
-          $this->form_password_access=$GLOBALS[$this->form_fields[$i]['name']];
-          break;
+           case 'password-access':
+             if ($this->form_fields[$i]['ctrl']!="") {
+                $this->control($this->form_fields[$i]['name'],$this->form_fields[$i]['en'],$GLOBALS[$this->form_fields[$i]['name']],$this->form_fields[$i]['ctrl']);
+             }
+             $this->form_password_access=$GLOBALS[$this->form_fields[$i]['name']];
+             break;
 
-        case 'textarea':
-        case 'textarea_no_mceEditor':
-          $this->answer[$i].="<TEXT>\n";
-          $this->answer[$i].="<".$this->form_fields[$i]['name'].">".str_replace(chr(13).chr(10),"&lt;br /&gt;",$GLOBALS[$this->form_fields[$i]['name']])."</".$this->form_fields[$i]['name'].">\n";
-          $this->answer[$i].="</TEXT>";
-          break;
+           case 'textarea':
+           case 'textarea_no_mceEditor':
+             $this->answer[$i].="<TEXT>\n";
+             $this->answer[$i].="<".$this->form_fields[$i]['name'].">".str_replace(chr(13).chr(10),"&lt;br /&gt;",$GLOBALS[$this->form_fields[$i]['name']])."</".$this->form_fields[$i]['name'].">\n";
+             $this->answer[$i].="</TEXT>";
+             break;
 
-        case 'select':
-          $this->answer[$i].="<SELECT>\n";
-          if( is_array($GLOBALS[$this->form_fields[$i]['name']]) ){
-            for($j=0;$j<count($GLOBALS[$this->form_fields[$i]['name']]);$j++){
-              $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value'][ $GLOBALS[$this->form_fields[$i]['name']][$j] ]['en']."</".$this->form_fields[$i]['name'].">\n";
-            }
-          }else{
-            $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value'][ $GLOBALS[$this->form_fields[$i]['name']] ]['en']."</".$this->form_fields[$i]['name'].">";
-          }
-          $this->answer[$i].="</SELECT>";
-          break;
+           case 'select':
+             $this->answer[$i].="<SELECT>\n";
+             if( is_array($GLOBALS[$this->form_fields[$i]['name']]) ){
+               for($j=0;$j<count($GLOBALS[$this->form_fields[$i]['name']]);$j++){
+                 $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value'][ $GLOBALS[$this->form_fields[$i]['name']][$j] ]['en']."</".$this->form_fields[$i]['name'].">\n";
+               }
+             }else{
+               $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value'][ $GLOBALS[$this->form_fields[$i]['name']] ]['en']."</".$this->form_fields[$i]['name'].">";
+             }
+             $this->answer[$i].="</SELECT>";
+             break;
 
-        case 'radio':
-          $this->answer[$i].="<RADIO>\n";
-          $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value'][ $GLOBALS[$this->form_fields[$i]['name']] ]['en']."</".$this->form_fields[$i]['name'].">\n";
-          $this->answer[$i].="</RADIO>";
-          break;
+           case 'radio':
+             $this->answer[$i].="<RADIO>\n";
+             $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value'][ $GLOBALS[$this->form_fields[$i]['name']] ]['en']."</".$this->form_fields[$i]['name'].">\n";
+             $this->answer[$i].="</RADIO>";
+             break;
 
-        case 'checkbox':
-          $this->answer[$i].="<CHECK>\n";
-          if($GLOBALS[$this->form_fields[$i]['name']]!=""){
-            $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value']."</".$this->form_fields[$i]['name'].">\n";
-          } else {
-            $this->answer[$i].="<".$this->form_fields[$i]['name']."></".$this->form_fields[$i]['name'].">\n";
-          }
-          $this->answer[$i].="</CHECK>";
-          break;
+           case 'checkbox':
+             $this->answer[$i].="<CHECK>\n";
+             if($GLOBALS[$this->form_fields[$i]['name']]!=""){
+               $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$this->form_fields[$i]['value']."</".$this->form_fields[$i]['name'].">\n";
+             } else {
+               $this->answer[$i].="<".$this->form_fields[$i]['name']."></".$this->form_fields[$i]['name'].">\n";
+             }
+             $this->answer[$i].="</CHECK>";
+             break;
 
-        case 'date':
-          if ($this->form_fields[$i]['ctrl']!="") {
-             $this->control($this->form_fields[$i]['name'],$this->form_fields[$i]['en'],$GLOBALS[$this->form_fields[$i]['name']],$this->form_fields[$i]['ctrl']);
-          }
-          if ($this->form_fields[$i]['name']==$this->form_key) {
-             $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
-          }
-          $this->answer[$i].="<DATUM>\n";
-          $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$GLOBALS[$this->form_fields[$i]['name']]."</".$this->form_fields[$i]['name'].">\n";
-          $this->answer[$i].="</DATUM>";
-          break;
+           case 'date':
+             if ($this->form_fields[$i]['ctrl']!="") {
+                $this->control($this->form_fields[$i]['name'],$this->form_fields[$i]['en'],$GLOBALS[$this->form_fields[$i]['name']],$this->form_fields[$i]['ctrl']);
+             }
+             if ($this->form_fields[$i]['name']==$this->form_key) {
+                $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
+             }
+             $this->answer[$i].="<DATUM>\n";
+             $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$GLOBALS[$this->form_fields[$i]['name']]."</".$this->form_fields[$i]['name'].">\n";
+             $this->answer[$i].="</DATUM>";
+             break;
 
-        case 'stamp':
-          if ($this->form_fields[$i]['name']==$this->form_key) {
-             $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
-          }
-          $this->answer[$i].="<TIMESTAMP>\n";
-          $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$GLOBALS[$this->form_fields[$i]['name']]."</".$this->form_fields[$i]['name'].">\n";
-          $this->answer[$i].="</TIMESTAMP>";
-          break;
+           case 'stamp':
+             if ($this->form_fields[$i]['name']==$this->form_key) {
+                $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
+             }
+             $this->answer[$i].="<TIMESTAMP>\n";
+             $this->answer[$i].="<".$this->form_fields[$i]['name'].">".$GLOBALS[$this->form_fields[$i]['name']]."</".$this->form_fields[$i]['name'].">\n";
+             $this->answer[$i].="</TIMESTAMP>";
+             break;
 
-        case 'hidden':
-        case 'submit':
-        case 'reset':
-        default:
-          $this->answer[$i].="no_reg";
-          break;
+           case 'hidden':
+           case 'submit':
+           case 'reset':
+           default:
+             $this->answer[$i].="no_reg";
+             break;
+         }
       }
     }
   }
@@ -1007,11 +1014,12 @@ $str .=' >';
 
   /**************************************************************************************/
   function error($ibid, $car) {
-    echo aff_langue($ibid)." => <span class=\"text-danger\">".stripslashes($car)."</span><br /><br />";
-    if ($this->form_method=="") {$this->form_method="post";}
+    echo '<div class="alert alert-danger">'.aff_langue($ibid).' =&#62; <span>'.stripslashes($car).'</span></div>';
+    if ($this->form_method=='') {$this->form_method="post";}
     echo "<form action=\"".$this->url."\" method=\"".$this->form_method."\" name=\"".$this->form_title."\" enctype=\"multipart/form-data\">";
     echo $this->print_form_hidden();
-    echo "&nbsp;<input type=\"submit\" name=\"sformret\" value=\"Retour\" /></form>";
+    echo '<input class="btn btn-secondary" type="submit" name="sformret" value="Retour" />
+    </form>';
     include("footer.php");
   }
 
