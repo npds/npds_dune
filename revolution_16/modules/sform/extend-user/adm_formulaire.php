@@ -33,6 +33,7 @@ if(!isset($chng_send_email)) $chng_send_email='';
 if(!isset($chng_url)) $chng_url='';
 if(!isset($open_user)) $open_user='';
 if(!isset($referer)) $referer='';
+if(!isset($groupe)) $groupe='';
 
 $m->add_title(adm_translate("Utilisateur"));
 $m->add_mess(adm_translate("* Désigne un champ obligatoire"));

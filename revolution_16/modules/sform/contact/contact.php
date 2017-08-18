@@ -3,13 +3,13 @@
 /* SFORM Extender for NPDS Contact Example .                            */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2015                                               */
+/* P. Brunier 2002 - 2017                                               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* Dont modify this file is you dont know what you make                 */
+/* Dont modify this file if you dont know what you make                 */
 /************************************************************************/
 
 global $ModPath, $ModStart;
@@ -21,7 +21,7 @@ $m=new form_handler();
 $m->add_form_title('CONTACT');
 $m->add_form_method('post');
 $m->add_form_check('true');
-$m->add_mess(utf8_java("[french] * d&#x00E9;signe un champ obligatoire [/french][english] * indicate an obligatory field [/english]"));
+$m->add_mess(utf8_java("[french] * d&#x00E9;signe un champ obligatoire [/french][english] * indicate a required field [/english]"));
 $m->add_submit_value('ok');
 $m->add_url('modules.php');
 $m->add_field('ModStart','',$ModStart,'hidden',false);
@@ -32,9 +32,10 @@ include($sform_path.'contact/formulaire.php');
 /************************************************/
 // Manage the <form>
 switch($ok) {
-
    case 'Soumettre':
    case 'Submit':
+      settype($message,'string');
+      settype($sformret,'string');
       if (!$sformret) {
          $m->make_response();
          //anti_spambot
@@ -45,9 +46,7 @@ switch($ok) {
             $message=$m->aff_response("class=\"ligna\"","not_echo","");
             global $notify_email;
             send_email($notify_email,"Contact site",aff_langue($message),'','',"html");
-
-            echo "<p class=\"lead text-center\">".aff_langue("[french]Votre demande est prise en compte. Nous y r&#xE9;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english]")."</p>";
-
+            echo '<div class="alert alert-success">'.aff_langue("[french]Votre demande est prise en compte. Nous y r&#xE9;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english]").'</div>';
             break;
          }
       } else {
