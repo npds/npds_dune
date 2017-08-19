@@ -868,8 +868,8 @@ function paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_p
    $pagination = '';
    if ($total > 1) {
       $pagination .= '
-      <nav class="my-2">
-      <ul class="pagination pagination-sm d-flex flex-wrap mt-3">';
+      <nav>
+      <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 2) {
          $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
       } elseif ($current > 2) {
@@ -968,8 +968,8 @@ function paginate($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $s
    $pagination = '';
    if ($total > 1) {
       $pagination .= '
-      <nav class="my-2">
-      <ul class="pagination pagination-sm d-flex flex-wrap mt-3">';
+      <nav>
+      <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 1) {
          $pagination .= '
          <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
