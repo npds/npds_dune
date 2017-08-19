@@ -1,10 +1,10 @@
 @charset "utf-8";
-/* ----------------------------------------------------------------------
+/* --------------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
-   theme: BaseRoc
----------------------------------------------------------------------- */
+   thème: BaseRoc
+---------------------------------------------------------------------------- */
 /* CSS npds-boots pour NPDS Revolution                                       */
-/* Theme : BaseRoc (c) 2015 by Bmag                                        */
+/* Theme : BaseRoc (c) 2015 by Bmag                                          */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
 /* pour utiliser les classes et #ID spécifiques à NPDS                       */
@@ -28,9 +28,9 @@ a:hover {text-decoration:none;}
 /*                                                                           */
 /* ==> élément ayant la class btn (boutons, a, input) */
 .btn {
-   -webkit-border-radius: 10px;
-   -moz-border-radius: 10px;
-   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 /* ==> hauteur et scroll des modal */
 .modal-body {
@@ -77,20 +77,6 @@ a:hover {text-decoration:none;}
   padding-top: 1.1rem !important;
 }
 /* ==> pour les troncatures de mots trop longs */
-
-.n-list-compact-no-bord {
-padding-top: .35rem;
-padding-bottom: .35rem;
-padding-right: 0rem;
-padding-left: 0rem;
-border:0px;
-}
-
-.n-card-compact-no-padside {
-padding-right: 0rem;
-padding-left: 0rem;
-border:0px;
-}
 .n-hyphenate {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -100,9 +86,23 @@ border:0px;
   hyphens: auto;
 }
 .n-ellipses {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  display:inline-block;
+  width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.n-list-compact-no-bord {
+  padding-top: .35rem;
+  padding-bottom: .35rem;
+  padding-right: 0rem;
+  padding-left: 0rem;
+  border:0px;
+}
+.n-card-compact-no-padside {
+  padding-right: 0rem;
+  padding-left: 0rem;
+  border:0px;
 }
 
 /** <== Classes NPDS-core                                                   **/
@@ -113,13 +113,21 @@ background-color: transparent;
 
 /** ==> ID NPDS-Core                                                        **/
 #corps{}
-#footer{background-color: rgb(219, 216, 196);border: 0px;}
-#pied{
-text-align:center;
+#footer{
+   background-color: rgb(219, 216, 196);
+   border: 0px;
 }
-#col_princ{padding: .5rem;background: #f1eedd;border-bottom: 5px solid firebrick;}
+#pied{text-align:center;}
+#col_princ{
+   padding: .5rem;
+   background: #f1eedd;
+   border-bottom: 5px solid firebrick;
+}
 #col_LB{padding: 0;}
-#col_RB{background-color: rgb(219, 216, 196);padding: 0;}
+#col_RB{
+   background-color: rgb(219, 216, 196);
+   padding: 0;
+}
 /** <== ID NPDS-Core                                                        **/
 
 
@@ -140,10 +148,10 @@ border-color: #dad3b1
 }
 
 .btn-outline-primary {
-    color: #dad3b1;
+    color: #80690a;
     background-image: none;
     background-color: transparent;
-    border-color: #dad3b1;
+    border-color: #9c905d;;
 }
 
 .btn-outline-primary:hover {
@@ -151,11 +159,6 @@ border-color: #dad3b1
     background-color: #dad3b1;
     border-color: #dad3b1;
 }
-
-
-
-
-
 
 
 /* ==> Personalisation menu autocomplete [jquery ui] */
@@ -203,11 +206,128 @@ ui-menu-item-wrapper {
 }
 /* <== Personalisation menu autocomplete [jquery ui]*/
 
+/*ajustement des icones etat form validation en attente update du plugin*/
+.fv-form-bootstrap4 .form-group.row .fv-control-feedback {
+  position: absolute;
+  display: inline-block;
+  right: 45px;
+}
+
+/*adaptation pour form validation*/
+.has-warning .text-help,
+.has-warning .form-control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label,
+.has-warning small.help-block,
+.has-warning span.help-block {
+  color: #d9534f;
+}
+.fv-form-bootstrap4 .has-warning .fv-control-feedback, .fv-form-bootstrap4 .has-warning label {
+  color: #d9534f
+}
+.has-warning .text-help, .has-warning .form-control-feedback, .has-warning .form-control-label {
+  color: #d9534f
+}
+.has-warning .form-control {
+  border-color: #d9534f;
+}
+.has-warning .input-group-addon {
+  color: #d9534f;
+  background-color: #fdf7f7;
+  border-color: #d9534f;
+}
+.has-warning .form-control-feedback {
+  color: #d9534f;
+}
+.has-warning .form-control-warning {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
+}
+
+.has-success .text-help,
+.has-success .form-control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label,
+.has-success small.help-block,
+.has-success span.help-block {
+  color: #28a745;
+}
+.fv-form-bootstrap4 .has-success .fv-control-feedback, .fv-form-bootstrap4 .has-success label {
+  color: #28a745
+}
+.has-success .text-help, .has-success .form-control-feedback, .has-success .form-control-label {
+  color: #28a745
+}
+.has-success .form-control {
+  border-color: #28a745;
+}
+.has-success .input-group-addon {
+  color: #28a745;
+  background-color: #fdf7f7;
+  border-color: #28a745;
+}
+.has-success .form-control-feedback {
+  color: #28a745;
+}
+
+.has-warning .custom-control-input:invalid ~ .custom-control-indicator, .custom-control-input.is-invalid ~ .custom-control-indicator {
+  background-color: rgba(220, 53, 69, 0.25);
+}
+
+.has-warning .custom-control-input:invalid ~ .custom-control-description, .custom-control-input.is-invalid ~ .custom-control-description {
+  color: #dc3545;
+}
+
+.has-warning .custom-file-input:invalid ~ .custom-file-control, .custom-file-input.is-invalid ~ .custom-file-control {
+  border-color: #dc3545;
+}
+
+.has-warning .custom-file-input:invalid ~ .custom-file-control::before, .custom-file-input.is-invalid ~ .custom-file-control::before {
+  border-color: inherit;
+}
+
+.has-warning .custom-file-input:invalid:focus, .custom-file-input.is-invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.has-success .form-check-input:valid + .form-check-label, .form-check-input.is-valid + .form-check-label {
+  color: #28a745;
+}
+
+.has-success .custom-control-input:valid ~ .custom-control-indicator, .custom-control-input.is-valid ~ .custom-control-indicator {
+  background-color: rgba(40, 167, 69, 0.25);
+}
+
+.has-success .custom-control-input:valid ~ .custom-control-description, .custom-control-input.is-valid ~ .custom-control-description {
+  color: #28a745;
+}
+
+.has-success .custom-file-input:valid ~ .custom-file-control, .custom-file-input.is-valid ~ .custom-file-control {
+  border-color: #28a745;
+}
+
+.has-success .custom-file-input:valid ~ .custom-file-control::before, .custom-file-input.is-valid ~ .custom-file-control::before {
+  border-color: inherit;
+}
+
+.has-success .custom-file-input:valid:focus, .custom-file-input.is-valid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
 
 
 
-
-/** ==> classe prÈsente dans le core de npds
+/** ==> classes présentes dans le core de npds
 ********************************************** */
 /* .ligna {
   font-size: 20px;
@@ -256,20 +376,16 @@ flex: 0 0 82%;
 max-width: 82%
 }
 
-
 @media (max-width: 991px) {
   .n-c {display:none;}
   .w64, .w82 {
--webkit-box-flex: 0;
--webkit-flex: 0 0 100%;
--ms-flex: 0 0 100%;
-flex: 0 0 100%;
-max-width: 100%
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%
+  }
 }
-}
-
-
-
 
 .ie7 .row1,
 .ie6 .row1 {
@@ -280,31 +396,26 @@ Dimension du site    *jmd work
 *************************************************************************/
 body {background: url("../images/site-bg.jpg");}
 
-
 #container {
-	margin-left:auto;
-	margin-right:auto;
-        max-width:1300px;
-        
+   margin-left:auto;
+   margin-right:auto;
+   max-width:1300px;
 }
 
 #corps, #decofoot,#decohead{  /* corps= entre header et footer */
-        max-width: 100%;   /*   A changer si vous voulez divisible par 3 et par 4 */
- 	margin-left:auto;
-	margin-right:auto;
-
-         }
+   max-width: 100%;   /*   A changer si vous voulez divisible par 3 et par 4 */
+   margin-left:auto;
+   margin-right:auto;
+}
 
 /************************************************************************
 La Partie HEADER de votre Site
 *************************************************************************/
 header { /* Le Header Complet */
-
-	width: 100%;
-	height: auto;
-	margin-left:auto;
-	margin-right:auto;
-
+   width: 100%;
+   height: auto;
+   margin-left:auto;
+   margin-right:auto;
 }
 
 /********************
@@ -318,97 +429,99 @@ le  header   et son contenu ( sa taille est ds decoheader)
     height: auto;
   }
 
-
 /*************************************
 le menu de mon header simple mais responsive
 **************************************/
-
-
-.navigation ul {
-  margin:0;
-  padding: 0;
-  list-style: none;
-  font-size: 1.3rem;
+.navbar-brand {
+   padding-bottom: 0rem;
 }
-.navigation li {
-    display: inline-block;
-    padding: 10px;
-    background: rgb(219, 216, 196);
-    margin: 5px;
+.navbar {
+   padding: .25rem 1rem;
 }
 
-@media (max-width: 320px) {
-  .navigation li {
-    display: block;
-  }
+.navbar-nav {
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-orient: vertical;
+   -webkit-box-direction: normal;
+   -webkit-flex-direction: column;
+   -ms-flex-direction: column;
+   flex-direction: column;
+   list-style: none;
+   margin-bottom: 1rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(8, 7, 7, 0.83);
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+   background: #f1eedd;;
+   color: rgba(195, 26, 26, 0.7);
 }
 
 /************************************************************************
 La Partie CENTRALE de votre Site     colonne (s) et partie centrale
 *************************************************************************/
 
-
 /************************************************************************
  Vos Blocs
 *************************************************************************/
 .rightbloc{
-
-    color: #333;
-    padding: 10px;
-    margin:0 0px 5px 5px;
-	background: #f1eedd;
+   color: #333;
+   padding: 10px;
+   margin:0 0px 5px 5px;
+   background: #f1eedd;
 }
-
 .leftbloc{
-
-    color: #333;
-    padding:5px 5px 5px 10px;
-    margin:0 5px 5px 0px;
-	background: #f1eedd;
+   color: #333;
+   padding:5px 5px 5px 10px;
+   margin:0 5px 5px 0px;
+   background: #f1eedd;
 }
-
 #col_LB ul {
     padding-left: 0;
     list-style: none;
 }
-
 #col_RB ul {
     padding-left: 0;
     list-style: none;
 }
 
-
 /************************************
 On customise le Menu bloc gauche il faudra cocher la case dans l'admin
 *****************************************/
 #LB_24 {
-	background-color: #ddd;
-    color: #fff;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #dbd8c4;
-    padding: 10px;
-    margin-top: 10px;
-    margin-right:5px;
+   background-color: #ddd;
+   color: #fff;
+   border-width: 3px;
+   border-style: solid;
+   border-color: #dbd8c4;
+   padding: 10px;
+   margin-top: 10px;
+   margin-right:5px;
 }
 
 #LB_24 a {
-  font-weight:bold;	
-  margin: 1px 0; /* espace les liens d'1 px */
-  padding: 0px 20px; /* marges internes pour aÈrer */ 
-  color: #666;
-  text-decoration: none; /* on vire le soulignement */
-  line-height: 1.750em;}
-  
+   font-weight:bold;	
+   margin: 1px 0; /* espace les liens d'1 px */
+   padding: 0px 20px; /* marges internes pour aÈrer */ 
+   color: #666;
+   text-decoration: none; /* on vire le soulignement */
+   line-height: 1.750em;
+}
+
 #LB_24 a:hover{
-  font-weight:bold;	
+  font-weight:bold;
   background-color: #000;
   color: #F0AD4E;
   text-decoration: none; /* on vire le soulignement */
   line-height: 1.750em;}
 
   #LB_24 li:hover{
-  color: #F0AD4E;	
+  color: #F0AD4E;
   background-color: #000;
 }
 
@@ -416,12 +529,7 @@ On customise le Menu bloc gauche il faudra cocher la case dans l'admin
 La Partie Footer de votre Site
 *************************************************************************/
 #footer{margin-top:0px;}
-
-#decofoot{
-background-color: #ccc;}
-
-
-
+#decofoot{background-color: #ccc;}
 
 /*****************************************
 Adaptation des css au fil du test
@@ -434,7 +542,6 @@ Adaptation des css au fil du test
    border-color: #d8a102;
 }
 
-
 .bg-primary {
    color: beige;
 }
@@ -442,22 +549,21 @@ Adaptation des css au fil du test
 .lignb {
   font-size: 16px;
   text-decoration: underline;  }
-  
+
 .boxc  {
   font-size: 16px;
   text-decoration: underline;  }
 
-
 ul, ol {
-    padding-left: 1rem;
+   padding-left: 1rem;
 }
 
- #footer a {
- color: #be2525;
-  cursor: pointer;
+#footer a {
+   color: #be2525;
+   cursor: pointer;
 }
 
- #footer a:hover {color: #000;}
+#footer a:hover {color: #000;}
 
 
  /* texte et alignements*/
@@ -468,7 +574,6 @@ h2, .h2 {
 h3, .h3 {
     background-color: rgb(219, 216, 196);
     padding: 0px 5px 0px 5px;}
-
 
 .fondart {background-color: rgb(243, 241, 229);}
 .redborder {border: 1px solid red;}
@@ -481,13 +586,12 @@ Adaptation des css au fil du test
 *********************************************/
 
 label {
-    font-size: 1em;
-    line-height: 1.5;
-    margin:.3em 0;
+   font-size: 1em;
+   line-height: 1.5;
+   margin:.3em 0;
 }
 
-
-/* dÈco des tableaux */
+/* déco des tableaux */
 table {
     background: #FFF none repeat scroll 0% 0%;
     border: 1px solid #DDD;
@@ -503,19 +607,20 @@ table tr:nth-of-type(2n) {
 
 /* citation */
 .blockquote{
-  font-size: .9rem;
- background: #F6F6EB80 none repeat scroll 0% 0%;
- border-width:1px 1px 1px 3px;
- border-style:solid ;
- border-color:black grey; }
+   font-size: .9rem;
+   background: #F6F6EB80 none repeat scroll 0% 0%;
+   border-width:1px 1px 1px 3px;
+   border-style:solid ;
+   border-color:black grey;
+}
 
  /* les formulaires */
  
 .form-control {
-    border: 1px solid #C69F13;
-    color: #7E6406;
+   border: 1px solid #C69F13;
+   color: #7E6406;
 }
- 
+
  input, select, textarea {
     border: 1px solid #988029;
     border-radius: 5px;
@@ -533,31 +638,31 @@ input[type="radio"], input[type="checkbox"], input[type="image"] {
 /* les boutons */
 
 .btn-sm, .btn {
-    width: auto;
+   width: auto;
 }
 
 .btn-sm, .btn-group-sm > .btn {
-    padding: 0.25rem 0.45rem;
-    font-size: .875rem;
-    line-height: 1;
-    border-radius: 0.2rem;
+   padding: 0.25rem 0.45rem;
+   font-size: .875rem;
+   line-height: 1;
+   border-radius: 0.2rem;
 }
 
 /*bloc admin*/
 .adm_img {
-height: 32px;
-width: 32px;
+  height: 32px;
+  width: 32px;
 }
 #adm_block li{
-width: 80px;
-margin: 3px;
-padding: 3px;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-border-radius: 4px;
--moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
--webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  width: 80px;
+  margin: 3px;
+  padding: 3px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 /*bloc ws*/
@@ -610,7 +715,6 @@ a.tooltip_ws:hover em span {
   margin-bottom: 10px;
   color: #626262;
 } 
-
 
 @-webkit-keyframes fa-blink {
   0% { opacity: 1; }
@@ -1104,20 +1208,12 @@ a.tooltip_ws:hover em span {
 
 /* FLASHING */
 @-webkit-keyframes flash {
-  0%, 100%, 50% {
-    opacity: 1;
-  }
-  25%, 75% {
-    opacity: 0;
-  }
+  0%, 100%, 50% { opacity: 1;}
+  25%, 75% {opacity: 0;}
 }
 @keyframes flash {
-  0%, 100%, 50% {
-    opacity: 1;
-  }
-  25%, 75% {
-    opacity: 0;
-  }
+  0%, 100%, 50% {opacity: 1;}
+  25%, 75% {opacity: 0;}
 }
 .faa-flash.animated,
 .faa-flash.animated-hover:hover,
@@ -1487,31 +1583,23 @@ a.tooltip_ws:hover em span {
 /* WAVE */
 
 @-webkit-keyframes burst {
-  0% {
-    opacity: .6;
-  }
+  0% {opacity: .6;}
   50% {
     -webkit-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-  100% {
-    opacity: 0;
-  }
+  100% {opacity: 0;}
 }
 @keyframes burst {
-  0% {
-    opacity: .6;
-  }
+  0% {opacity: .6;}
   50% {
     -webkit-transform: scale(1.8);
     -ms-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-  100% {
-    opacity: 0;
-  }
+  100% {opacity: 0;}
 }
 .faa-burst.animated,
 .faa-burst.animated-hover:hover,
@@ -1787,62 +1875,9 @@ a.tooltip_ws:hover em span {
   background-color: rgba(0,0,0,0.4);
 }
 
-/* test des anciennes classes sur les titres
-
-.noir {
-  font-size: 20px;
-  color: #ff0;
-  text-decoration: underline;  }
-
-
-
-.box  {
-  font-size: 20px;
-  color: #f320e9;
-  text-decoration: underline;  }
-
-.heada {
-  font-size: 20px;
-  color: #f9930e;
-  text-decoration: overline;  }
-
-.ongl {
-  font-size: 20px;
-  color: #5fcf43;
-  text-decoration: underline;  }
-
-.ligna {
-  font-size: 20px;
-  color: #f39cef;
-  text-decoration: underline;  }
-
-.lignb {
-  font-size: 20px;
-  color: #f320e9;
-  text-decoration: underline;  }
-
-
-
-.TITRE   {font-size: 20px;
-  color: #f320e9;
-  text-decoration: line-through; }
-
-.titrea    {font-size: 20px;
-  color: #f320e9;
-  text-decoration: line-through; }
-
-.titreb   {font-size: 20px;
-  color: #f320e9;
-  text-decoration: line-through; }
-
-.titrec   {font-size: 20px;
-  color: #f320e9;
-  text-decoration: line-through; }
-
-.titboxc  {font-size: 20px;
-  color: #f320e9;
-  text-decoration: line-through; }
-
-.titboxcont   {font-size: 20px;
-  color: #f320e9;
-  text-decoration: line-through; }               */
+.ui-draggable-dragging {
+   z-index: 10000!important
+}
+.ui-draggable {
+   z-index: 10;
+}
