@@ -17,11 +17,11 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache) {
+if ($SuperCache) 
    $cache_obj = new cacheManager();
-} else {
+else 
    $cache_obj = new SuperCacheEmpty();
-}
+
 include('auth.php');
 global $NPDS_Prefix, $admin, $adminforum;
 
@@ -67,7 +67,7 @@ if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
    $tab_groupe=valid_group($user);
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
-   
+
    //:: ici 
    if ( (!$ok_affiche) and ($adminforum==0) ) {
       header("location: forum.php");
@@ -186,9 +186,10 @@ include('header.php');
    echo '
       </h3>
       <div class="card mb-3">
-         <div class="card-block-small">
-            <span class="badge badge-secondary">'.$total_contributeurs.'</span><span class="mx-2">'.translate("Contributors").'</span>';
-
+         <div class="card-body p-2">
+         <div class="d-flex ">
+            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2"><span class=" mr-1 h6">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
+            <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
       if ($contri['user_avatar'] != '') {
@@ -200,8 +201,14 @@ include('header.php');
       }
       echo '<img class="img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
+   echo '
+            </div>
+         </div>';
    $ibidcountmod = count($moderator);
-   echo '<br /><span class="badge badge-secondary">'.$ibidcountmod.'</span><span class="mx-2">'.translate("Moderator").'</span>';
+   echo '
+         <div class="d-flex ">
+            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2"><span class="  mr-1 h6">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+            <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -213,84 +220,85 @@ include('header.php');
       }
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
-   
    echo '
+            </div>
          </div>
-      </div>';
+      </div>
+   </div>';
 
    if ($total > $posts_per_page) {
       $times = 1;
       echo '
-      <div id="fo-postpagi">
-         <ul class="pagination pagination-sm">
-            <li class="page-item">
-               <a class="page-link" href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
-            </li>
-            <li class="page-item disabled">
-               <a class="page-link" href="#" aria-label="'.translate("Posts").'">'.$total.' '.translate("Posts").'</a>
-            </li>
-            <li class="page-item disabled">
-               <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
-            </li>
-         </ul>
-      </div>';
-      
+      <div class="d-flex my-2 justify-content-between flex-wrap">
+         <div id="fo-postpagi">
+            <ul class="pagination pagination-sm">
+               <li class="page-item">
+                  <a class="page-link" href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
+               </li>
+               <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="'.translate("Posts").'">'.$total.' '.translate("Posts").'</a>
+               </li>
+               <li class="page-item disabled">
+                  <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$pages.' '.translate("pages").'</a>
+               </li>
+            </ul>
+         </div>';
       echo paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start);
-    } 
+      echo '
+      </div>';
+   }
 
-    if ($Mmod) $post_aff=' ';
-    else $post_aff=" AND post_aff='1' ";
-    
-    settype($start,"integer");
-    settype($posts_per_page,"integer");
-    settype($pages,"integer");
+   if ($Mmod) $post_aff=' ';
+   else $post_aff=" AND post_aff='1' ";
 
-    if (isset($start)) {
-       if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; }
-       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
-    } else {
-       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
-    }
-    if (!$result = sql_query($sql))
-       forumerror(0001);
-    $mycount = sql_num_rows($result);
-    $myrow = sql_fetch_assoc($result);
-    $count = 0;
+   settype($start,"integer");
+   settype($posts_per_page,"integer");
+   settype($pages,"integer");
 
-    if ($allow_upload_forum) {
-       $visible = '';
-       if (!$Mmod) {
-          $visible = ' AND visible = 1';
-       }
-       $sql = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
-       $att = sql_num_rows(sql_query($sql));
-       if ($att>0) {
-          include ("modules/upload/include_forum/upload.func.forum.php");
-       }
-    }
-    // Forum Read
-    if (isset($user)) {
-       $time_actu=time()+($gmt*3600);
-       $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
-       $result_LR=sql_query($sqlR);
-       $last_read='';
-       if (sql_num_rows($result_LR)==0) {
-          $sqlR = "INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum', '$topic', '$userdata[0]', '$time_actu', '1')";
-          $resultR = sql_query($sqlR);
-       } else {
-          list($last_read)=sql_fetch_row($result_LR);
-          $sqlR = "UPDATE ".$NPDS_Prefix."forum_read SET last_read='$time_actu', status='1' WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
-          $resultR = sql_query($sqlR);
-       }
-    }
-    
+   if (isset($start)) {
+      if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; }
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
+   } else
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
+
+   if (!$result = sql_query($sql))
+      forumerror(0001);
+   $mycount = sql_num_rows($result);
+   $myrow = sql_fetch_assoc($result);
+   $count = 0;
+
+   if ($allow_upload_forum) {
+      $visible = '';
+      if (!$Mmod)
+         $visible = ' AND visible = 1';
+      $sql = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
+      $att = sql_num_rows(sql_query($sql));
+      if ($att>0)
+         include ("modules/upload/include_forum/upload.func.forum.php");
+   }
+   // Forum Read
+   if (isset($user)) {
+      $time_actu=time()+($gmt*3600);
+      $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
+      $result_LR=sql_query($sqlR);
+      $last_read='';
+      if (sql_num_rows($result_LR)==0) {
+         $sqlR = "INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum', '$topic', '$userdata[0]', '$time_actu', '1')";
+         $resultR = sql_query($sqlR);
+      } else {
+         list($last_read)=sql_fetch_row($result_LR);
+         $sqlR = "UPDATE ".$NPDS_Prefix."forum_read SET last_read='$time_actu', status='1' WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
+         $resultR = sql_query($sqlR);
+      }
+   }
+
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
    if ($ibid=theme_image("forum/icons/gf.gif")) {$imgtmpGF=$ibid;} else {$imgtmpGF="images/forum/icons/gf.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
       $my_rsos=array();
-    do {
+   do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
       $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
@@ -447,9 +455,8 @@ include('header.php');
             echo '<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
          }
       }
-      if ($allow_to_post and !$lock_state and $posterdata['uid']!='') {
+      if ($allow_to_post and !$lock_state and $posterdata['uid']!='')
          echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
-      }
       echo '<a class="mr-3" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
       if ($Mmod) {
          echo '<a class="mr-3" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
@@ -468,41 +475,43 @@ include('header.php');
          </div>
       </div>';
       $count++;
-    } while($myrow = sql_fetch_assoc($result));
-    unset ($tmp_imp);
-    $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_views = topic_views + 1 WHERE topic_id = '$topic'";
-    sql_query($sql);
-    if ($total > $posts_per_page) {
-       echo '
-       <nav>
-         <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
-            <li class="page-item">
-               <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
-            </li>
-            <li class="page-item disabled">
-               <a class="page-link" href="#">'.translate("Back to Top").'</a>
-            </li>
-         </ul>
-      </nav>';
-      echo paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start);
-    }
-    
-    if ($forum_access!=9) {
-       // un anonyme ne peut pas mettre un topic en resolu
-       if (!isset($userdata)) $userdata[0]=0;
-       if ((($Mmod) or ($original_poster==$userdata[0])) and (!$lock_state)) {
-          $sec_clef=md5($forum.$topic.md5($NPDS_Key));
-          echo '
+   } while($myrow = sql_fetch_assoc($result));
+   unset ($tmp_imp);
+   $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_views = topic_views + 1 WHERE topic_id = '$topic'";
+   sql_query($sql);
+   if ($total > $posts_per_page) {
+      echo '
+       <div class="d-flex my-2 justify-content-between flex-wrap">
+          <nav>
+            <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
+               <li class="page-item">
+                  <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+               </li>
+               <li class="page-item disabled">
+                  <a class="page-link" href="#">'.translate("Back to Top").'</a>
+               </li>
+            </ul>
+         </nav>'
+        .paginate('viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;start=', '', $nbPages, $current, $adj=3, $posts_per_page, $start).'
+      </div>';
+   }
+
+   if ($forum_access!=9) {
+      // un anonyme ne peut pas mettre un topic en resolu
+      if (!isset($userdata)) $userdata[0]=0;
+      if ((($Mmod) or ($original_poster==$userdata[0])) and (!$lock_state)) {
+         $sec_clef=md5($forum.$topic.md5($NPDS_Key));
+         echo '
           <p><a href="viewforum.php?forum='.$forum.'&amp;topic_id='.$topic.'&amp;topic_title='.rawurlencode($topic_subject).'&amp;op=solved&amp;sec_clef='.$sec_clef.'"><i class="fa fa-lock fa-2x"></i>&nbsp;'.translate("Solved").'</a></p>';
-          unset($sec_clef);
-       }
-    }   
-    if ($SuperCache) {
-       $cache_clef="forum-jump-to";
-       $CACHE_TIMINGS[$cache_clef]=600;
-       $cache_obj->startCachingBlock($cache_clef);
-    }
-    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+         unset($sec_clef);
+      }
+   }
+   if ($SuperCache) {
+      $cache_clef="forum-jump-to";
+      $CACHE_TIMINGS[$cache_clef]=600;
+      $cache_obj->startCachingBlock($cache_clef);
+   }
+   if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
 <form action="viewforum.php" method="post">
    <div class="form-group row">
@@ -511,33 +520,33 @@ include('header.php');
          <select class="form-control custom-select" name="forum" onchange="submit();">
             <option value="index">'.translate("Jump To: ").'</option>
             <option value="index">'.translate("Forum Index").'</option>';
-       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
-       if ($res = sql_query($sub_sql)) {
-          while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
-             if (($forum_type != "9") or ($userdata)) {
-                if (($forum_type == "7") or ($forum_type == "5")) {
-                   $ok_affich=false;
-                } else {
-                   $ok_affich=true;
-                }
-                if ($ok_affich) echo '
+      $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
+      if ($res = sql_query($sub_sql)) {
+         while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
+            if (($forum_type != "9") or ($userdata)) {
+               if (($forum_type == "7") or ($forum_type == "5")) {
+                  $ok_affich=false;
+               } else {
+                  $ok_affich=true;
+               }
+               if ($ok_affich) echo '
             <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
-             }
-          }
-       }
+            }
+         }
+      }
        echo '
          </select>
       </div>
    </div>
 </form>
 <a name="botofpage"></a>';
-    }
-    if ($SuperCache) {
-       $cache_obj->endCachingBlock($cache_clef);
-    }
+   }
+   if ($SuperCache) {
+      $cache_obj->endCachingBlock($cache_clef);
+   }
 
-    if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
-       echo '
+   if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
+      echo '
       <nav>
          <ul class="pagination pagination-sm d-flex justify-content-center">
             <li class="page-item disabled">
@@ -565,6 +574,6 @@ include('header.php');
             </li>
          </ul>
       </nav>';
-    }
+   }
    include("footer.php");
 ?>

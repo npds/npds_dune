@@ -488,11 +488,15 @@ function adminMain($deja_affiches) {
       echo '
          </tbody>
       </table>
-      <ul class="pagination pagination-sm mt-3">
+      <div class="d-flex my-2 justify-content-between flex-wrap">
+      <ul class="pagination pagination-sm">
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>
       </ul>';
       echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, $adj=3, $admart, $start);
+      echo '
+      </div>';
+
       echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
          <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
