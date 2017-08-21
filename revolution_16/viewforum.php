@@ -251,28 +251,26 @@ $ibidcountmod = count($moderator_data);
                   for ($x = 0; $x < ($replys+1); $x += $posts_per_page)
                      $pages++;
                   $last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum&amp;start=".(($pages-1)*$posts_per_page);
-               }
-            
-            
+               } else {$last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum";}
 
             if ($user) {
                $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='".$myrow['topic_id']."' AND status!='0'";
                if ($replys >= $hot_threshold) {
                   if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost"><i class="fa fa-lg fa-file-text faa-shake animated"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text faa-shake animated"></i></a>';
                   else
-                     $image = '<a href="'.$last_post_url.'#lastpost"><i class="fa fa-lg fa-file"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file"></i></a>';
                } else {
                   if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost"><i class="fa fa-lg fa-file-text-o faa-shake animated"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text-o faa-shake animated"></i></a>';
                   else
-                     $image = '<a href="'.$last_post_url.'#lastpost"><i class="fa fa-lg fa-file-o"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-o"></i></a>';
                }
             } else {
                if ($replys >= $hot_threshold)
-                  $image = '<i class="fa fa-lg fa-file-text"></i>';
+                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text"></i></a>';
                else
-                  $image = '<i class="fa fa-lg fa-file-text-o"></i>';
+                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text-o"></i></a>';
             }
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
@@ -301,14 +299,8 @@ $ibidcountmod = count($moderator_data);
                echo '
                <td>&nbsp;</td>';
             } else {
-               if (($replys+1) > $posts_per_page) {
-                  $pages=0;
-                  for ($x = 0; $x < ($replys+1); $x += $posts_per_page)
-                     $pages++;
-                  $last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum&amp;start=".(($pages-1)*$posts_per_page);
-               }
                echo '
-               <td>'.$replys.'&nbsp;<a href="'.$last_post_url.'#last-post"><img src="'.$imgtmpRi.'" align="center" alt="'.translate("Last Posts").'" /></a></td>';
+               <td>'.$replys.'</td>';
             }
             if ($Sredirection) {
                if (!$Mmod) {
@@ -361,16 +353,24 @@ $ibidcountmod = count($moderator_data);
    else if ($start < 1) {$current=0;}
    else {$current = $nbPages;}
 
-   echo paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, $adj=3, $topics_per_page, $start);
+   echo '<div class="mb-2"></div>'.paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, $adj=3, $topics_per_page, $start);
 
    echo searchblock();
 //      if ($myrow = sql_fetch_assoc($result)) 
    echo '
-   <blockquote class="blockquote my-3">
-      <i class="fa fa-file-text-o fa-lg faa-shake animated "></i> = '.translate("New Posts since your last visit.").'<br />
-      <i class="fa fa-file-text fa-lg faa-shake animated"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-      <i class="fa fa-file-o fa-lg text-muted"></i> = '.translate("No New Posts since your last visit.").'<br />
-      <i class="fa fa-file fa-lg"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+   <blockquote class="blockquote my-3">';
+   if($user) {
+      echo'
+      <i class="fa fa-file-text-o fa-lg faa-shake animated text-primary"></i> = '.translate("New Posts since your last visit.").'<br />
+      <i class="fa fa-file-text fa-lg faa-shake animated text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+      <i class="fa fa-file-o fa-lg text-primary"></i> = '.translate("No New Posts since your last visit.").'<br />
+      <i class="fa fa-file fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />';
+   } else {
+      echo '
+      <i class="fa fa-file-text fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+      <i class="fa fa-file-text-o fa-lg text-primary"></i> = '.translate("Posts").'.<br />';
+   }
+   echo '
       <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
    </blockquote>';
    
