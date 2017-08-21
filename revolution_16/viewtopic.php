@@ -186,9 +186,10 @@ include('header.php');
    echo '
       </h3>
       <div class="card mb-3">
-         <div class="card-block-small">
-            <span class="badge badge-secondary">'.$total_contributeurs.'</span><span class="mx-2">'.translate("Contributors").'</span>';
-
+         <div class="card-body p-2">
+         <div class="d-flex ">
+            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2"><span class=" mr-1 h6">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
+            <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
       if ($contri['user_avatar'] != '') {
@@ -200,8 +201,14 @@ include('header.php');
       }
       echo '<img class="img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
+   echo '
+            </div>
+         </div>';
    $ibidcountmod = count($moderator);
-   echo '<br /><span class="badge badge-secondary">'.$ibidcountmod.'</span><span class="mx-2">'.translate("Moderator").'</span>';
+   echo '
+         <div class="d-flex ">
+            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2"><span class="  mr-1 h6">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+            <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -213,10 +220,11 @@ include('header.php');
       }
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
-   
    echo '
+            </div>
          </div>
-      </div>';
+      </div>
+   </div>';
 
    if ($total > $posts_per_page) {
       $times = 1;
