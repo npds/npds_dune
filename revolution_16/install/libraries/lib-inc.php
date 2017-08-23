@@ -17,7 +17,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
    $file = file("config.php");
    $file[33] ="\$mysql_p = 0;\n";
    $file[34] ="\$mysql_i = 1;\n";
