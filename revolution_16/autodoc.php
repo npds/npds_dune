@@ -25,43 +25,43 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {include ("grab_globals.php");}
 function Access_Error () {
   include("admin/die.php");
 }
-function dochead() {
+
+function dochead($a,$b) {
    if (file_exists("meta/meta.php")) {
       $Titlesitename="NPDS - Doc";
       include ("meta/meta.php");
       include ("modules/include/header_head.inc");
       echo '
-      </head>
-      <body class="my-3 mx-3">
-      ';
+   </head>
+   <body class="my-3 mx-3">
+      <h1 class="mb-3">Documentation des fonctions NPDS</h1>
+      <p class="h4 my-3"><i class="mr-1 fa fa-file-o"></i>'.$a.' '.$b.' <span class="text-muted">[ Documentation ]</span></p>';
    }
 }
 
 function docfoot() {
 echo '
+      <p class="text-right small my-3 text-muted">Autodoc by NPDS</p>
    </body>
-';
+</html>';
 }
 
 function autodoc($fichier, $paragraphe) {
    $fcontents = @file($fichier);
-
-   if ($fcontents=='') {Access_Error();}
+   if ($fcontents=='') Access_Error();
    $pasfin=false;
-   $meta='';
-   dochead();
+   $tabdoc='';
    echo '
-   <table class="table table-striped">
-       <caption>Documentation</caption>
-       <thead>
-       <tr>
-         <th>Fonction</th>
-         <th>Documentation</th>
-       </tr>
-       </thead>
-       <tbody>';
+      <table class="table table-striped table-bordered table-responsive">
+         <thead>
+          <tr>
+            <th>Fonction</th>
+            <th>Documentation</th>
+          </tr>
+         </thead>
+         <tbody>';
    while ( list($line_num, $line)=each($fcontents) ) {
-      if ($paragraphe!="") {
+      if ($paragraphe!='') {
          if (strstr($line,"#autodoc:<$paragraphe>")) {
             $line='';
             $pasfin=true;
@@ -70,61 +70,63 @@ function autodoc($fichier, $paragraphe) {
             $line='';
             $pasfin=false;
          }
-      } else {
+      } else 
          $pasfin=true;
-      }
+
       $line=trim($line);
-      if ((strstr($line,"#autodoc")) and ($pasfin)) {
+      if ((strstr($line,'#autodoc')) and ($pasfin)) {
          $posX=strpos($line,':');
          $morceau1=trim(substr($line,strpos($line,"#autodoc")+8,$posX-8));
          $morceau2=rtrim(substr($line,$posX+1));
-//         if ($morceau1=='' AND $morceau2=='') {$rowcolor="style=\"background-color: #FFFFFF;\"";} else {$rowcolor="style=\"background-color: #F0F0F0;\"";}
-         $meta.='
-         <tr>
-            <td><code>'.$morceau1.'<code></td>
-            <td>'.$morceau2.'</span></td>
-         </tr>';
-      } else if ((strstr($line,"# autodoc")) and ($pasfin)) {
+         $tabdoc.='
+            <tr>
+               <td><code>'.$morceau1.'</code></td>
+               <td>'.$morceau2.'</td>
+            </tr>';
+      } else if ((strstr($line,'# autodoc')) and ($pasfin)) {
          $posX=strpos($line,':');
-         $morceau1=ltrim(substr($line,strpos($line,"# autodoc")+9,$posX-9));
+         $morceau1=ltrim(substr($line,strpos($line,'# autodoc')+9,$posX-9));
          $morceau2=rtrim(substr($line,$posX+1));
-//         if ($morceau1=='' AND $morceau2=='') {$rowcolor="style=\"background-color: #FFFFFF;\"";} else {$rowcolor="style=\"background-color: #F0F0F0;\"";}
-         $meta.="
-         <tr $rowcolor>
-         <td nowrap=\"nowrap\" align=\"left\"><code>$morceau1<code></td>
-         <td><span style=\"font-size: 10px; font-family: Tahoma, Arial;\">$morceau2</span>&nbsp;</td>
-         </tr>";
+         $tabdoc.= '
+            <tr>
+               <td nowrap="nowrap"><code>'.$morceau1.'</code></td>
+               <td>'.$morceau2.'</td>
+            </tr>';
       }
    }
-   echo $meta;
-   echo '</tbody</table>
-   <p align="right" style="font-size: 10px; font-family: Tahoma, Arial;">AutoDoc pour <a href="http://www.npds.org">NPDS</a></p>';
+   echo $tabdoc;
+   echo '
+         </tbody>
+      </table>';
 }
 
 function docu() {
-   if (file_exists("meta/meta.php")) {
-      $Titlesitename="NPDS - Meta-Lang";
-      include ("meta/meta.php");
-   }
-   echo "</head>\n";
-   echo "<body topmargin=\"2\" leftmargin=\"0\" rightmargin=\"0\" style=\"background-color: #FFFFFF;\">";
-   echo "<table cellspacing=\"2\" cellpadding=\"2\" width=\"100%\" align=\"left\" border=\"0\"><tr><td>";
-   echo "<span style=\"font-size: 10px; font-family: Tahoma, Arial;\"><b>&nbsp;Mainfile.php</b></span>";
+   echo '
+      <p class="h5 my-3">Mainfile.php</p>';
       autodoc("mainfile.php", "Mainfile.php");
-   echo "</td></tr><tr><td>";
-   echo "<hr noshade=\"noshade\" class=\"ongl\" />";
-   echo "<span style=\"font-size: 10px; font-family: Tahoma, Arial;\"><b>&nbsp;Powerpack_f.php</b></span>";
+   echo '
+      <p class="h5 my-3">Powerpack_f.php</p>';
       autodoc("powerpack_f.php", "Powerpack_f.php");
-   echo "</td></tr></table>";
-   echo "</body></html>";
+   echo '
+      <div class="alert alert-success mt-3">Rappels :<br />Si votre thème est adapté, chaque bloc peut contenir :<br />- class-title#nom de la classe de la CSS pour le titre du bloc<br />- class-content#nom de la classe de la CSS pour le corps du bloc<br />- uri#uris séparée par un espace</div>
+      <p class="text-right small my-3 text-muted">Autodoc by NPDS</p>
+   </body>
+</html>';
    die();
 }
-
 settype ($op, 'string');
-if ($op=="blocs") {
+if ($op=='blocs') {
+   dochead('mainfile.php','powerpack_f.php');
    docu();
 }
-if ($op=="main") {
+if ($op=='main') {
+   dochead('mainfile.php','');
    autodoc('mainfile.php','');
+   docfoot() ;
+}
+if ($op=='func') {
+   dochead('functions.php','');
+   autodoc('functions.php','');
+   docfoot() ;
 }
 ?>

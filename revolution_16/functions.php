@@ -25,13 +25,13 @@ function get_total_topics($forum_id) {
    sql_free_result($result);
    return($myrow['total']);
 }
-
+#autodoc get_contributeurs($fid, $tid) : Retourne un tableau des id des contributeurs du sujet
 function get_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
    $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'",2);
-   $myrow['poster_id']="";
+   $myrow['poster_id']='';
    while(list(,$poster_id) = each($rowQ1)) {
-      $myrow['poster_id'].= $poster_id['poster_id']." ";
+      $myrow['poster_id'].= $poster_id['poster_id'].' ';
    }
    return(chop($myrow['poster_id']));
 }
@@ -265,9 +265,8 @@ function smile($message) {
    }
    return($message);
 }
-
+#autodoc aff_video_yt($ibid) : analyse et génère un tag  à la volée pour la video youtube $ibid - JPB 01-2011
 function aff_video_yt($ibid) {
-   // analyse et génére un tag video_yt à la volée - JPB 01-2011
    $w_video=320;
    $h_video=265;
    $pasfin=true;
@@ -466,109 +465,74 @@ function member_qualif($poster, $posts, $rank) {
 
 function forumerror($e_code) {
    global $sitename, $header;
-
-   if ($e_code == "0001") {
+   if ($e_code == "0001")
       $error_msg = translate("Could not connect to the forums database.");
-   }
-   if ($e_code == "0002") {
+   if ($e_code == "0002")
       $error_msg = translate("The forum you selected does not exist. Please go back and try again.");
-   }
-   if ($e_code == "0004") {
+   if ($e_code == "0004")
       $error_msg = translate("Could not query the topics database.");
-   }
-   if ($e_code == "0005") {
+   if ($e_code == "0005")
       $error_msg = translate("Error getting messages from the database.");
-   }
-   if ($e_code == "0006") {
+   if ($e_code == "0006")
       $error_msg = translate("Please enter the Nickname and the Password.");
-   }
-   if ($e_code == "0007") {
+   if ($e_code == "0007")
       $error_msg = translate("You are not the Moderator of this forum therefore you can't perform this function.");
-   }
-   if ($e_code == "0008") {
+   if ($e_code == "0008")
       $error_msg = translate("You did not enter the correct password, please go back and try again.");
-   }
-   if ($e_code == "0009") {
+   if ($e_code == "0009")
       $error_msg = translate("Could not remove posts from the database.");
-   }
-   if ($e_code == "0010") {
+   if ($e_code == "0010")
       $error_msg = translate("Could not move selected topic to selected forum. Please go back and try again.");
-   }
-   if ($e_code == "0011") {
+   if ($e_code == "0011")
       $error_msg = translate("Could not lock the selected topic. Please go back and try again.");
-   }
-   if ($e_code == "0012") {
+   if ($e_code == "0012")
       $error_msg = translate("Could not unlock the selected topic. Please go back and try again.");
-   }
-   if ($e_code == "0013") {
+   if ($e_code == "0013")
       $error_msg = translate("Could not query the database.")."<br />Error: sql_error()";
-   }
-   if ($e_code == "0014") {
+   if ($e_code == "0014")
       $error_msg = translate("No such user or post in the database.");
-   }
-   if ($e_code == "0015") {
+   if ($e_code == "0015")
       $error_msg = translate("Search Engine was unable to query the forums database.");
-   }
-   if ($e_code == "0016") {
+   if ($e_code == "0016")
       $error_msg = translate("That user does not exist. Please go back and search again.");
-   }
-   if ($e_code == "0017") {
+   if ($e_code == "0017")
       $error_msg = translate("You must type a subject to post. You can't post an empty subject. Go back and enter the subject");
-   }
-   if ($e_code == "0018") {
+   if ($e_code == "0018")
       $error_msg = translate("You must choose message icon to post. Go back and choose message icon.");
-   }
-   if ($e_code == "0019") {
+   if ($e_code == "0019")
       $error_msg = translate("You must type a message to post. You can't post an empty message. Go back and enter a message.");
-   }
-   if ($e_code == "0020") {
+   if ($e_code == "0020")
       $error_msg = translate("Could not enter data into the database. Please go back and try again.");
-   }
-   if ($e_code == "0021") {
+   if ($e_code == "0021")
       $error_msg = translate("Can't delete the selected message.");
-   }
-   if ($e_code == "0022") {
+   if ($e_code == "0022")
       $error_msg = translate("An error ocurred while querying the database.");
-   }
-   if ($e_code == "0023") {
+   if ($e_code == "0023")
       $error_msg = translate("Selected message was not found in the forum database.");
-   }
-   if ($e_code == "0024") {
+   if ($e_code == "0024")
       $error_msg = translate("You can't reply to that message. It wasn't sent to you.");
-   }
-   if ($e_code == "0025") {
+   if ($e_code == "0025")
       $error_msg = translate("You can't post a reply to this topic, it has been locked. Contact the administrator if you have any question.");
-   }
-   if ($e_code == "0026") {
+   if ($e_code == "0026")
       $error_msg = translate("The forum or topic you are attempting to post to does not exist. Please try again.");
-   }
-   if ($e_code == "0027") {
+   if ($e_code == "0027")
       $error_msg = translate("You must enter your username and password. Go back and do so.");
-   }
-   if ($e_code == "0028") {
+   if ($e_code == "0028")
       $error_msg = translate("You have entered an incorrect password. Go back and try again.");
-   }
-   if ($e_code == "0029") {
+   if ($e_code == "0029")
       $error_msg = translate("Couldn't update post count.");
-   }
-   if ($e_code == "0030") {
+   if ($e_code == "0030")
       $error_msg = translate("The forum you are attempting to post to does not exist. Please try again.");
-   }
-   if ($e_code == "0031") {
+   if ($e_code == "0031")
       return(0);
-   }
-   if ($e_code == "0035") {
+   if ($e_code == "0035")
       $error_msg = translate("You can't edit a post that's not yours.");
-   }
-   if ($e_code == "0036") {
+   if ($e_code == "0036")
       $error_msg = translate("You do not have permission to edit this post.");
-   }
-   if ($e_code == "0037") {
+   if ($e_code == "0037")
       $error_msg = translate("You did not supply the correct password or do not have permission to edit this post. Please go back and try again.");
-   }
-   if ($e_code == "0101") {
+   if ($e_code == "0101")
       $error_msg = translate("You can't reply to that message.");
-   }
    if (!isset($header)) {
       include("header.php");
    }
@@ -578,7 +542,7 @@ function forumerror($e_code) {
    echo $error_msg.'<br /><br />';
    echo '<a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Go Back").'</a><br /></div>';
    include("footer.php");
-   die("");
+   die('');
 }
 
 function control_efface_post($apli,$post_id,$topic_id,$IdForum) {
@@ -860,7 +824,7 @@ function sub_forum_folder($forum) {
    }
    return ($ibid);
 }
-
+#autodoc paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) : Retourne un bloc de pagination
 function paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) {
    $prev = $current - 1; // page précédente
    $next = $current + 1; // page suivante
@@ -961,6 +925,7 @@ function paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_p
    return ($pagination);
 }
 
+#autodoc paginate($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) : Retourne un bloc de pagination
 function paginate($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) {
    $prev = $start - $topics_per_page; // page précédente
    $next = $start + $topics_per_page; // page suivante

@@ -2057,8 +2057,7 @@ function hexfromchr($txt) {
 }
 
 #autodoc:<Mainfile.php>
-#autodoc:
-#autodoc <font color=green>BLOCS NPDS</font>:
+#autodoc <span class="text-success">BLOCS NPDS</span>:
 #autodoc Site_Activ() : Bloc activité du site <br />=> syntaxe : function#Site_Activ
 function Site_Activ() {
    global $startdate, $top;
@@ -2131,7 +2130,6 @@ function online() {
       $title=$block_title;
    themesidebox($title, $content);
 }
-
 #autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox
 function lnlbox() {
    global $block_title;
@@ -2368,8 +2366,7 @@ function topdownload_data($form, $ordre) {
    sql_free_result($result);
    return $ibid;
 }
-#autodoc oldNews($storynum) : Bloc Anciennes News <br />=> syntaxe
-#autodoc : function#oldNews<br />params#$storynum,lecture (affiche le NB de lecture) - facultatif
+#autodoc oldNews($storynum) : Bloc Anciennes News <br />=> syntaxe <br />function#oldNews<br />params#$storynum,lecture (affiche le NB de lecture) - facultatif
 function oldNews($storynum, $typ_aff='') {
    global $locale, $oldnum, $storyhome, $categories, $cat;
    global $user,$cookie;
@@ -2496,8 +2493,7 @@ function category() {
       themesidebox($title, $boxstuff);
    }
 }
-#autodoc headlines() : Bloc HeadLines <br />=> syntaxe :
-#autodoc : function#headlines<br />params#ID_du_canal
+#autodoc headlines() : Bloc HeadLines <br />=> syntaxe :<br />function#headlines<br />params#ID_du_canal
 function headlines($hid='', $block=true) {
    global $NPDS_Prefix, $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
 
@@ -2652,8 +2648,7 @@ function headlines($hid='', $block=true) {
       }
    }
 }
-#autodoc PollNewest() : Bloc Sondage <br />=> syntaxe :
-#autodoc : function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
+#autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
 function PollNewest($id='') {
    global $NPDS_Prefix;
    // snipe : multi-poll evolution
@@ -2714,9 +2709,7 @@ function bloc_rubrique() {
       $title=$block_title;
    themesidebox($title, $boxstuff);
 }
-
-#autodoc espace_groupe() : Bloc du WorkSpace <br />=> syntaxe :
-#autodoc : function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilisé
+#autodoc espace_groupe() : Bloc du WorkSpace <br />=> syntaxe :<br />function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilisé
 function bloc_espace_groupe($gr, $i_gr) {
    global $NPDS_Prefix, $block_title;
    if ($block_title=='') {
@@ -2937,17 +2930,13 @@ $content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap">';
       $content.='<a class="mr-3" href="admin.php?op=groupes" ><i title="'.translate("Groups setting.").'" data-toggle="tooltip" class="fa fa-cogs fa-2x"></i></a>';
    }
    //<= admin
-   
    $content.='</div>
    </div>';
    return ($content);
 }
 
-#autodoc:
-#autodoc <font color=red>Rappels</font> : Si votre thème est adapté, chaque bloc peut contenir :<br />- class-title#nom de la classe de la CSS pour le titre du bloc<br />- class-content#nom de la classe de la CSS pour le corp du bloc<br />- uri#uris séparée par un espace
 #autodoc:</Mainfile.php>
-#autodoc:
-#autodoc <font color=green>NPDS 5.0</font>:
+
 #autodoc tablos() : Permet d'alterner entre les CLASS (CSS) LIGNA et LIGNB
 function tablos() {
    static $colorvalue;
