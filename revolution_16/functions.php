@@ -395,7 +395,7 @@ function emotion_add($image_subject) {
             <span class="custom-control-indicator"></span>';
          $image_subject='no image';
       }
-      $temp .= '<span class="custom-control-description"><img class="n-smil" src="'.$imgtmp.'/'.$file.'" alt="" /></span>';
+      $temp .= '<span class="custom-control-description"><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" /></span>';
       $temp .='</label>';
    }
    return $temp;
