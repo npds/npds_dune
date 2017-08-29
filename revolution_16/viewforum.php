@@ -185,7 +185,7 @@ $ibidcountmod = count($moderator_data);
       <div class="card mb-3">
          <div class="card-body p-2">
             <div class="d-flex ">
-               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted"><span class="  mr-1 h6">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
                <div class=" align-self-center mr-auto">';
                   $Mmod=false;
 
@@ -215,7 +215,6 @@ $ibidcountmod = count($moderator_data);
 
    if ($ibid=theme_image("forum/icons/red_folder.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/red_folder.gif";}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpP=$ibid;} else {$imgtmpP="images/forum/icons/posticon.gif";}
-   if ($ibid=theme_image("box/right.gif")) {$imgtmpRi=$ibid;} else {$imgtmpRi="images/download/right.gif";}
 
    if ($myrow = sql_fetch_assoc($result)) {
       echo '

@@ -188,7 +188,7 @@ include('header.php');
       <div class="card mb-3">
          <div class="card-body p-2">
          <div class="d-flex ">
-            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2"><span class=" mr-1 h6">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
+            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted py-2"><span class=" mr-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
             <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
@@ -206,8 +206,8 @@ include('header.php');
          </div>';
    $ibidcountmod = count($moderator);
    echo '
-         <div class="d-flex ">
-            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2"><span class="  mr-1 h6">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+         <div class="d-flex">
+            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted py-2"><span class="mr-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
             <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
@@ -294,8 +294,6 @@ include('header.php');
 
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
-   if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmpPR=$ibid;} else {$imgtmpPR="images/forum/icons/profile.gif";}
-   if ($ibid=theme_image("forum/icons/gf.gif")) {$imgtmpGF=$ibid;} else {$imgtmpGF="images/forum/icons/gf.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
       $my_rsos=array();
    do {
