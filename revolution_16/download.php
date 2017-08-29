@@ -12,9 +12,8 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 include_once("lib/file.class.php");
 include('functions.php');
 
@@ -33,8 +32,7 @@ function geninfo($did,$out_template) {
          <h2 class="mb-3">'.translate("Download Section").'</h2>
          <div class="card">
             <div class="card-header"><h4>'.$dfilename.'<span class="ml-3 text-muted small">@'.$durl.'</h4></div>
-            <div class="card-body">
-         ';
+            <div class="card-body">';
       }
       echo '
                <p><strong>'.translate("File Size").' : </strong>';
@@ -47,15 +45,14 @@ function geninfo($did,$out_template) {
 //         echo $Fichier->Affiche_Size();//maybe keep for lower php version
          echo $objZF->file_size_auto($durl, 2);
       }
-      echo '
-                  </p>
-                  <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
-                  <p><strong>'.translate("Upload Date").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
-                  <p><strong>'.translate("Downloads").'&nbsp;:</strong>&nbsp;'.wrh($dcounter).'</p>
-                  <p><strong>'.translate("Category").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($dcategory)).'</p>
-                  <p><strong>'.translate("Description").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($ddescription)).'</p>
-                  <strong>'.translate("Author").'&nbsp;:</strong>&nbsp;'.$duser.'</p>
-                  <strong>'.translate("HomePage").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
+      echo '</p>
+               <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
+               <p><strong>'.translate("Upload Date").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
+               <p><strong>'.translate("Downloads").'&nbsp;:</strong>&nbsp;'.wrh($dcounter).'</p>
+               <p><strong>'.translate("Category").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($dcategory)).'</p>
+               <p><strong>'.translate("Description").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($ddescription)).'</p>
+               <p><strong>'.translate("Author").'&nbsp;:</strong>&nbsp;'.$duser.'</p>
+               <p><strong>'.translate("HomePage").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
       if ($out_template==1) {
          echo '
                <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-download"></i></a>
@@ -68,43 +65,35 @@ function geninfo($did,$out_template) {
 }
 
 function tlist() {
-   global $sortby, $dcategory, $download_cat;
-   global $NPDS_Prefix;
+   global $sortby, $dcategory, $download_cat, $NPDS_Prefix;
    if ($dcategory == '') { $dcategory = addslashes($download_cat); }
    $cate = stripslashes($dcategory);
    echo '
    <p class="lead">'.translate("Select Category Folder").'</p>
-   <div class="row">
-      <div class="col-sm-3">';
+   <div class="d-flex flex-column flex-sm-row flex-wrap justify-content-between my-3 border rounded">
+      <p class="p-2 mb-0 ">';
    $acounter = sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads");
    list($acount) = sql_fetch_row($acounter);
-   if (($cate == translate("All")) OR ($cate == '')) {
-     echo '<i class="fa fa-folder-open fa-2x text-muted"></i><strong>'.translate("All").'&nbsp;('.$acount.')</strong>';
-   } else {
-     echo '<a href="download.php?dcategory='.translate("All").'&amp;sortby='.$sortby.'"><i class="fa fa-2x fa-folder"></i>&nbsp;'.translate("All").'</a>&nbsp;('.$acount.')';
+   if (($cate == translate("All")) OR ($cate == ''))
+      echo '<i class="fa fa-folder-open fa-2x text-muted align-middle mr-2"></i><strong><span class="align-middle">'.translate("All").'</span>
+<span class="badge badge-secondary ml-2 float-right my-2">'.$acount.'</span></strong>';
+   else
+      echo '<a href="download.php?dcategory='.translate("All").'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle mr-2"></i><span class="align-middle">'.translate("All").'</span></a><span class="badge badge-secondary ml-2 float-right my-2">'.$acount.'</span>';
+   $result = sql_query("SELECT DISTINCT dcategory, COUNT(dcategory) FROM ".$NPDS_Prefix."downloads GROUP BY dcategory ORDER BY dcategory");
+   echo '</p>';
+   while (list($category, $dcount) = sql_fetch_row($result)) {
+      $category=stripslashes($category);
+      echo '<p class="p-2 mb-0">';
+      if ($category == $cate)
+         echo '<i class="fa fa-folder-open fa-2x text-muted align-middle mr-2"></i><strong class="align-middle">'.aff_langue($category).'<span class="badge badge-secondary ml-2 float-right my-2">'.$dcount.'</span></strong>';
+      else {
+         $category2 = urlencode($category);
+         echo '<a href="download.php?dcategory='.$category2.'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle mr-2"></i><span class="align-middle">'.aff_langue($category).'</span></a><span class="badge badge-secondary ml-2 my-2 float-right">'.$dcount.'</span>';
+      }
+      echo '</p>';
    }
-  $result = sql_query("SELECT DISTINCT dcategory, COUNT(dcategory) FROM ".$NPDS_Prefix."downloads GROUP BY dcategory ORDER BY dcategory");
-echo '</div>';
-  $rup=2;
-  while (list($category, $dcount) = sql_fetch_row($result)) {
-    $rup++;
-    $category=stripslashes($category);
-  echo '<div class="col-sm-3">';
-    if ($category == $cate) {
-        echo '<i class="fa fa-folder-open fa-2x text-muted"></i>&nbsp;<strong>'.aff_langue($category).'&nbsp;('.$dcount.')</strong>';
-    } else {
-        $category2 = urlencode($category);
-        echo '<a href="download.php?dcategory='.$category2.'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x"></i>&nbsp;'.aff_langue($category).'</a>&nbsp;('.$dcount.')';
-    }
-      echo '</div>';
-
-    if ($rup>=5) {
-       $rup=1;
-    }
-  }
-echo '
-   </div>
-   <br />';
+   echo '
+   </div>';
 }
 
 function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
@@ -122,7 +111,8 @@ function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
 }
 
 function dl_tableheader () {
-  echo '</td><td>';
+  echo '</td>
+  <td>';
 }
 
 function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
@@ -130,9 +120,9 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
    $out_template = 0;
    if ($aff) {
       echo '
-         <a class="mr-3" href="#" data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'">
-         <i class="fa fa-lg fa-info-circle"></i></a>
-         <div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
+         <a class="mr-3" href="#" data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'" data-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
+         <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip"><i class="fa fa-download fa-2x"></i></a>
+        <div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
             <div class="modal-dialog">
                <div class="modal-content">
                   <div class="modal-header">
@@ -141,70 +131,73 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
                   </div>
                   <div class="modal-body text-left">';
                geninfo($did,$out_template);
-   echo '
+      echo '
                   </div>
                   <div class="modal-footer">
                      <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'"><i class="fa fa-lg fa-download"></i></a>
                   </div>
                </div>
             </div>
-         </div>
-         <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+         </div>';
    }
 }
 
 function SortLinks($dcategory, $sortby) {
-  $dcategory=stripslashes($dcategory);
-  echo '
+   global $user;
+   $dcategory=stripslashes($dcategory);
+   echo '
       <thead>
          <tr>
             <th class="text-center">'.translate("Functions").'</th>
-            <th class="text-center">'.translate("Type").'</th>
+            <th class="text-center n-t-col-xs-1">'.translate("Type").'</th>
             <th class="text-center">';
-  if ($sortby == 'dfilename' OR !$sortby) {
-     act_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
-  } else {
+   if ($sortby == 'dfilename' OR !$sortby)
+      act_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
+   else
      inact_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
-  }
-  echo '</th>
+   echo '</th>
             <th class="text-center">';
-  if ($sortby == "dfilesize") {
-     act_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
-  } else {
-     inact_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
-  }
-  echo "</th><th class=\"text-center\">";
-  if ($sortby == "dcategory") {
+   if ($sortby == "dfilesize")
+      act_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
+   else
+      inact_dl_tableheader($dcategory, $sortby, "dfilesize", "Size");
+   echo '</th>
+            <th class="text-center">';
+   if ($sortby == "dcategory")
      act_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
-  } else {
+   else
      inact_dl_tableheader($dcategory, $sortby, "dcategory", "Category");
-  }
-  echo "</th><th class=\"text-center\">";
-  if ($sortby == "ddate") {
+   echo '</th>
+            <th class="text-center">';
+   if ($sortby == "ddate")
      act_dl_tableheader($dcategory, $sortby, "ddate", "Date");
-  } else {
+   else
      inact_dl_tableheader($dcategory, $sortby, "ddate", "Date");
-  }
-  echo "</th><th class=\"text-center\">";
-  if ($sortby == "dver") {
+   echo '</th>
+            <th class="text-center">';
+   if ($sortby == "dver")
      act_dl_tableheader($dcategory, $sortby, "dver", "Version");
-  } else {
+   else
      inact_dl_tableheader($dcategory, $sortby, "dver", "Version");
-  }
-  echo "</th><th class=\"text-center\">";
-  if ($sortby == "dcounter") {
-     act_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
-  } else {
+   echo '</th>
+            <th class="text-center">';
+   if ($sortby == "dcounter")
+      act_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
+   else
      inact_dl_tableheader($dcategory, $sortby, "dcounter", "Counter");
-  }
-  echo "</th><th class=\"text-center\">&nbsp;</th></tr></thead>";
+   echo '</th>';
+   if($user or autorisation(-127))
+         echo '
+            <th class="text-center n-t-col-xs-1"></th>';
+   echo '
+         </tr>
+      </thead>';
 }
 
 function listdownloads ($dcategory, $sortby, $sortorder) {
-  global $perpage, $page, $download_cat, $user;
-  global $NPDS_Prefix;
+  global $perpage, $page, $download_cat, $user, $NPDS_Prefix;
 
-  if ($dcategory == "") { $dcategory = addslashes($download_cat); }
+  if ($dcategory == '') { $dcategory = addslashes($download_cat); }
   if (!$sortby) { $sortby = "dfilename"; }
   if (($sortorder!="ASC") && ($sortorder!="DESC")) {
      $sortorder = "ASC";
@@ -212,42 +205,37 @@ function listdownloads ($dcategory, $sortby, $sortorder) {
 echo '<p class="lead">';
   echo translate("Display filtered with")."&nbsp;<i>";
   if ($dcategory==translate("All"))
-     echo translate("All");
+     echo '<b>'.translate("All").'</b>';
   else
-     echo aff_langue(stripslashes($dcategory));
-  echo "</i>&nbsp;&nbsp;".translate("sorted by")."&nbsp;";
+     echo '<b>'.aff_langue(stripslashes($dcategory)).'</b>';
+  echo '</i>&nbsp;'.translate("sorted by").'&nbsp;';
 
   // Shiney SQL Injection 11/2011
-  $sortby2="";
-  if ($sortby == 'dfilename') {
+  $sortby2='';
+  if ($sortby == 'dfilename')
     $sortby2 = translate("Name")."";
-  }
-  if ($sortby == 'dfilesize') {
+  if ($sortby == 'dfilesize')
     $sortby2 = translate("File Size")."";
-  }
-  if ($sortby == 'dcategory') {
+  if ($sortby == 'dcategory')
     $sortby2 = translate("Category")."";
-  }
-  if ($sortby == 'ddate') {
+  if ($sortby == 'ddate')
     $sortby2 = translate("Creation Date")."";
-  }
-  if ($sortby == 'dver') {
+  if ($sortby == 'dver')
     $sortby2 = translate("Version")."";
-  }
-  if ($sortby == 'dcounter') {
+  if ($sortby == 'dcounter')
     $sortby2 = translate("Downloads")."";
-  }
   // Shiney SQL Injection 11/2011
-  if ($sortby2=='') {
+  if ($sortby2=='')
      $sortby = 'dfilename';
-  }
-  echo '&nbsp;'.translate("of").'&nbsp;<i>'.$sortby2.'</i>
+  echo translate("of").'&nbsp;<i><b>'.$sortby2.'</b></i>
   </p>';
  
-  echo '<table class="table table-hover mb-3" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
+  echo '
+   <table class="table table-hover mb-3 table-sm" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
 data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
   sortlinks($dcategory, $sortby);
-  echo '<tbody>';
+  echo '
+      <tbody>';
   if ($dcategory==translate("All")) {
     $sql="SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads";
   } else {
@@ -277,8 +265,8 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
       $current = $nbPages;
    }
 
-  settype($offset, "integer");
-  settype($perpage, "integer");
+  settype($offset, 'integer');
+  settype($perpage, 'integer');
   if ($dcategory==translate("All")) {
     $sql="SELECT * FROM ".$NPDS_Prefix."downloads ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
   } else {
@@ -293,14 +281,14 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
       echo '
          <tr>
             <td class="text-center">';
-      if ($okfile==true) {
+      if ($okfile==true)
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
-      } else {
+      else {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,false);
          echo '<span class="text-danger">'.translate("Private").'</span>';
       }
       echo '</td>
-            <td class="text-center"><img src="'.$Fichier->Affiche_Extention().'" alt="'.$Fichier->Affiche_Extention().'" /></td>
+            <td class="text-center">'.$Fichier->Affiche_Extention('webfont').'</td>
             <td>';
       if ($okfile==true) {
          echo '<a href="download.php?op=mydown&amp;did='.$did.'" target="_blank">'.$dfilename.'</a>';
@@ -318,68 +306,20 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
             <td>'.aff_langue(stripslashes($dcat)).'</td>
             <td>'.convertdate($ddate).'</td>
             <td class="text-center">'.$dver.'</td>
-            <td class="text-center">'.wrh($dcounter).'</td>
-            <td>';
-      if (($okfile==true) and $user) {
-         echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'"><i class="fa fa-lg fa-chain-broken"></i></a>';
+            <td class="text-center">'.wrh($dcounter).'</td>';
+      if ((($okfile==true) and $user) or autorisation(-127)) {
+         echo '
+            <td><a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-lg fa-chain-broken"></i></a></td>';
       }
       echo '
-            </td>
          </tr>';
    }
    echo '
       </tbody>
    </table>';
 
-$dcategory = StripSlashes($dcategory);
-   echo paginate_single('download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page=', '', $nbPages, $current, $adj=3, '', $page);
-
-/*
-   echo '
-   <ul class="pagination pagination-sm mt-3 flex-wrap">';
-   if ($pages > 1) {
-      $pcnt=1;
-   if ($page > 1) {
-      echo '
-      <li class="page-item">
-         <a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.($page-1).'" aria-label="Previous" title="'.translate("Previous Page").'">
-           <span aria-hidden="true">&laquo;</span>
-           <span class="sr-only">Previous</span>
-         </a>
-      </li>';
-      }
-
-   while($pcnt < $page) {
-      echo '
-      <li class="page-item"><a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.$pcnt.'">'.$pcnt.'</a></li>';
-        $pcnt++;
-      }
-
-   echo '
-      <li class="page-item active"><a class="page-link" href="#">'.$page.'</a></li>';
-      $pcnt++;
-
-   while($pcnt <= $pages) {
-      echo '
-      <li class="page-item"><a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.$pcnt.'">'.$pcnt.'</a></li>';
-      $pcnt++;
-      }
-
-   if ($page < $pages) {
-      echo '
-      <li class="page-item">
-         <a class="page-link" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page='.($page+1).'" aria-label="Next" title="'.translate("Next Page").'">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-         </a>
-      </li>';
-      }
-   }
-*/
-/*
-   echo '
-   </ul>';
-*/
+   $dcategory = StripSlashes($dcategory);
+   echo '<div class="mt-3"></div>'.paginate_single('download.php?dcategory='.$dcategory.'&amp;sortby='.$sortby.'&amp;sortorder='.$sortorder.'&amp;page=', '', $nbPages, $current, $adj=3, '', $page);
 }
 
 function main() {
@@ -389,7 +329,9 @@ function main() {
   $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,cur_charset))); // electrobug
 
   include("header.php");
-  echo '<h2>'.translate("Download Section").'</h2>';
+  echo '
+  <h2>'.translate("Download Section").'</h2>
+  <hr />';
   tlist();
   if ($dcategory!=translate("No category")) {
      listdownloads($dcategory, $sortby, $sortorder);
@@ -401,7 +343,6 @@ function main() {
 
 function transferfile($did) {
   global $NPDS_Prefix;
-  
   settype($did, 'integer');
   $result = sql_query("SELECT dcounter, durl, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
   list($dcounter, $durl, $dperm) = sql_fetch_row($result);
@@ -446,20 +387,20 @@ function broken($did) {
 
 settype($op,'string');
 switch ($op) {
-  case 'main':
-       main();
-       break;
-  case 'mydown':
-       transferfile($did);
-       break;
-  case 'geninfo':
-       geninfo($did,$out_template);
-       break;
-  case 'broken':
-       broken($did);
-       break;
-  default:
-       main();
-       break;
+   case 'main':
+      main();
+   break;
+   case 'mydown':
+      transferfile($did);
+   break;
+   case 'geninfo':
+      geninfo($did,$out_template);
+   break;
+   case 'broken':
+      broken($did);
+   break;
+   default:
+      main();
+   break;
 }
 ?>
