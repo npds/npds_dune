@@ -2355,9 +2355,9 @@ function topdownload_data($form, $ordre) {
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
          }
          if ($form=='short') {
-            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2">'.$lugar.' <a class="ml-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge badge-secondary ml-auto">'.$dd.'</span></li>';}
+            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ml-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge badge-secondary ml-auto align-self-center">'.$dd.'</span></li>';}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge badge-secondary float-right">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge badge-secondary float-right align-self-center">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;
