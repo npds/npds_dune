@@ -184,7 +184,7 @@ CREATE TABLE downloads (
   dver varchar(6) DEFAULT NULL,
   dcategory varchar(250) DEFAULT NULL,
   ddescription text,
-  perms tinyint(1) NOT NULL DEFAULT '0',
+  perms varchar(480) NOT NULL DEFAULT '0',
   PRIMARY KEY (did)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
