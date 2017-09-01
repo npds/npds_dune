@@ -457,7 +457,7 @@ function nmig_clean($name_module) {
             nmig_Start($name_module,$txtdeb);
             break;
       }
-   } elseif ($ModInstall == "" && $ModDesinstall != "") {
+   } elseif ($ModInstall == '' && $ModDesinstall != '') {
       if ($subop == "desinst") {
          include("header.php");
          list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
