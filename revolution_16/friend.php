@@ -137,14 +137,10 @@ function StorySent($title, $fname) {
    include ("header.php");
    $title = urldecode($title);
    $fname = urldecode($fname);
-   echo '<p class="lead text-center">';
-   if ($fname=='') {
-      echo '<span class="text-danger">'.translate("ERROR: Invalid email").'</span>';
-   } else {
-      echo '<span class="text-success">'.translate("Story").' <strong>'.stripslashes($title).'</strong> '.translate("has been sent to").'&nbsp;'.$fname.'<br />'.translate("Thanks!").'</span>';
-   }
-   echo "</p>";
-   
+   if ($fname=='')
+      echo '<div class="alert alert-danger">'.translate("ERROR: Invalid email").'</div>';
+   else
+      echo '<div class="alert alert-success">'.translate("Story").' <strong>'.stripslashes($title).'</strong> '.translate("has been sent to").'&nbsp;'.$fname.'<br />'.translate("Thanks!").'</div>';
    include ("footer.php");
 }
 
