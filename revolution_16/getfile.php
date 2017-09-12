@@ -78,9 +78,13 @@ switch($apli) {
                if ($att_type=='text/source') {
                   include ('meta/meta.php');
                   echo import_css($Default_Theme, $language, $site_font, '','');
-                  echo "</head>\n<body>";
+                  echo '
+                  </head>
+                  <body>
+                     <div style="background-color:white; padding:4px;">';
                      show_source($fic);
                   echo '
+                     </div>
                   </body>
                   </html>';
                   die();
