@@ -407,7 +407,7 @@ function userinfo($uname) {
       $posterdata_extend = get_userdata_extend_from_id($uid);
       if (!$short_user) {
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-         if ($posterdata_extend['M2']!='') {
+         if (array_key_exists('M2', $posterdata_extend)) {
             $socialnetworks= explode(';',$posterdata_extend['M2']);
             foreach ($socialnetworks as $socialnetwork) {
                $res_id[] = explode('|',$socialnetwork);
@@ -449,10 +449,10 @@ function userinfo($uname) {
       }
 
    echo '
-   <div class="row">
-      <div class="col-sm-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
-      <div class="col-sm-10">
-         <h2>'.translate("User").'&nbsp;<span class="text-muted">'.$uname.'</span></h2>';
+   <div class="d-flex flex-row flex-wrap">
+      <div class="mr-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
+      <div class="align-self-center">
+         <h2>'.translate("User").'<span class="text-muted ml-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
       echo $useroutils;
       echo $my_rsos[0];
@@ -478,7 +478,7 @@ function userinfo($uname) {
    include("modules/sform/extend-user/aff_extend-user.php");
    echo '
          </div>';
-   
+
 if ($posterdata_extend[$ch_lat]!='') {
 $content = '';
 $content .='
@@ -487,15 +487,12 @@ $content .='
 $content .='
 <script type="text/javascript">
 //<![CDATA[
-
       $(document).ready(function() {
          if($("#map_bloc").length) { 
             console.log("map_bloc est dans la page");
-//               $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"));
-
          }
          else {
-            $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key=AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns&amp;language='.language_iso(1,'',0).'"));
+            $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
             $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
          }
       });
@@ -504,7 +501,7 @@ $content .='
    map_u, map_b,
    mapdivu = document.getElementById("map_user"),
    mapdivbl = document.getElementById("map_bloc");
-   
+
    function geoloc_loaduser() {
    icon_u = {
       path: fontawesome.markers.USER,

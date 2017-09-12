@@ -81,17 +81,17 @@ function droits($member) {
    } else {
       if ($member==0) {$checked=' checked="checked"';} else {$checked='';}
       echo '
-            <input class="custom-control-input" type="radio" name="members" value="1" />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.adm_translate("Membres").'</span>
-         </label>
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="members" value="0"'.$checked.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.adm_translate("Tous").'</span>
-         </label>
-      </div>
-      <div class="form-group">
+         <input class="custom-control-input" type="radio" name="members" value="1" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Membres").'</span>
+      </label>
+      <label class="custom-control custom-radio">
+         <input class="custom-control-input" type="radio" name="members" value="0"'.$checked.' />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Tous").'</span>
+      </label>
+   </div>
+   <div class="form-group">
       <label class="form-control-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
       </div>
@@ -837,7 +837,7 @@ function secartupdate($artid) {
    }
    $testpubli = sql_query("SELECT type FROM ".$NPDS_Prefix."publisujet WHERE secid2='$secid' AND aid='$aid' AND type='2'");
    list($test_publi)=sql_fetch_row($testpubli);
-   if (($test_publi==2) or ($radminsuper==1))  {
+   if (($test_publi==2) or ($radminsuper==1)) {
       $debut = '
       <div class="alert alert-info">'.adm_translate("Vos droits de publications vous permettent de mettre à jour, de supprimer ou de le mettre en ligne sur le site ce contenu.").'<br /></div>';
       $fin = '
@@ -855,21 +855,19 @@ function secartupdate($artid) {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer une publication").'</h3>';
-      echo $debut;
-      
-      $title = stripslashes($title);
-      $content = stripslashes($content);
-      
-      echo '
+   echo $debut;
+   $title = stripslashes($title);
+   $content = stripslashes($content);
+   echo '
    <form action="admin.php" method="post" name="adminForm">
       <input type="hidden" name="artid" value="'.$artid.'" />
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
          <div class="col-sm-8">';
       $tmp_autorise=sousrub_select($secid);
-      if ($tmp_autorise) {
+      if ($tmp_autorise)
          echo $tmp_autorise;
-      } else {
+      else {
          $result = sql_query("SELECT secname FROM ".$NPDS_Prefix."sections WHERE secid='$secid'");
          list($secname) = sql_fetch_row($result);
          echo '
@@ -893,7 +891,7 @@ function secartupdate($artid) {
       </div>
             '.aff_editeur('content','');
       droits($userlevel);
-      echo "</td></tr><tr $rowcolor><td colspan=\"2\">".$fin."</td><tr>";
+      echo $fin;
       echo '
       </form>';
 

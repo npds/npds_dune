@@ -50,7 +50,10 @@ function listsections($rubric) {
          $result=sql_query("SELECT rubid, rubname, intro FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'Divers' AND rubname<>'Presse-papiers' $sqladd ORDER BY ordre");
          $nb_r = sql_num_rows($result);
       }
-      $aff='
+      $aff='';
+      if ($rubric)
+         $aff.='<span class="lead"><a href="sections.php" title="'.translate("Return to Sections Index").'" data-toggle="tooltip">Index</a></span><hr />';
+      $aff.='
       <h2>'.translate("Sections").'<span class="float-right badge badge-secondary">'.$nb_r.'</span></h2>';
       if (sql_num_rows($result) > 0) {
          while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
@@ -130,9 +133,10 @@ function listsections($rubric) {
       }
       echo $aff; //la sortie doit se faire en html !!!
       
-      if ($rubric) {
+/*
+      if ($rubric)
          echo '<a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a>';
-      }
+*/
       sql_free_result($result);
    }
    if ($SuperCache) {
@@ -150,11 +154,9 @@ function listarticles($secid) {
    $result = sql_query("SELECT secname, rubid, image, intro, userlevel FROM ".$NPDS_Prefix."sections WHERE secid='$secid'");
    list($secname, $rubid, $image, $intro, $userlevel) = sql_fetch_row($result);
    list($rubname) = sql_fetch_row(sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubid'"));
-   if ($sections_chemin) {
-      $title =  aff_langue($rubname).' - '.aff_langue($secname);
-   } else {
-      $title =  aff_langue($secname);
-   }
+   if ($sections_chemin==1)
+      $chemin='<span class="lead"><a href="sections.php" title="'.translate("Return to Sections Index").'" data-toggle="tooltip">Index</a>&nbsp;/&nbsp;<a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a></span>'; 
+   $title =  aff_langue($secname);
    include ('header.php');
 
    global $SuperCache;
@@ -173,21 +175,20 @@ function listarticles($secid) {
          if (function_exists("themesection_title")) {
             themesection_title($title);
          } else {
-            echo '<h3 class="mb-3">'.$title.'<span class="float-right"><span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></h3>';
+            echo $chemin.'
+            <hr />
+            <h3 class="mb-3">'.$title.'<span class="float-right"><span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></h3>';
          }
-         if ($intro!='') {
+         if ($intro!='')
             echo aff_langue($intro);
-         }
          if ($image!='') {
             if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
             $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
-               echo '<p class="text-center"><img class="img-fluid" src="'.$imgtmp.'" alt="" /></p>';
+               echo '
+            <p class="text-center"><img class="img-fluid" src="'.$imgtmp.'" alt="" /></p>';
          } 
          echo '
-                  <p>
-         '.translate("Following are the articles published under this section.").'
-         </p>
-
+            <p>'.translate("Following are the articles published under this section.").'</p>
          <div class="card card-body mb-3">';
 
          while (list($artid, $secid, $title, $content, $userlevel, $counter, $timestamp) = sql_fetch_row($result)) {
@@ -208,11 +209,12 @@ function listarticles($secid) {
                </div>';
             }
          }
-         
          echo '
-         </div>
+         </div>';
+/*
+         echo '
          <a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a>';
-         
+*/
       } else {
          redirect_url("sections.php");
       }
@@ -244,16 +246,12 @@ function viewarticle($artid, $page) {
       if ($okprint) break;
    }
    if ($okprint) {
-      $old_title=$title;
          $pindex=substr(substr($page,5),0,-1);
-         if ($pindex!='') {$pindex=' - '.translate("Next Page").' '.$pindex;}
-         if ($sections_chemin) {
-            $title=aff_langue($rubname).' - '.aff_langue($secname).' - '.aff_langue($title).' '.$pindex;
-         } else {
-            $title=aff_langue($title).' '.$pindex;
-         }
+         if ($pindex!='') {$pindex=translate("Page").' '.$pindex;}
+         if ($sections_chemin==1)
+            $chemin='<span class="lead"><a href="sections.php">Index</a>&nbsp;/&nbsp;<a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a>&nbsp;/&nbsp;<a href="sections.php?op=listarticles&amp;secid='.$secid.'">'.aff_langue($secname).'</a></span>'; 
+         $title=aff_langue($title);
          include("header.php");
-      $title=aff_langue($old_title);
 
       global $SuperCache;
       if ($SuperCache) {
@@ -268,8 +266,9 @@ function viewarticle($artid, $page) {
          if (function_exists("themesection_title")) {
             themesection_title($title);
          } else 
-            echo '
-            <h3 class="mb-2">'.$title.'</h3>
+            echo $chemin.'
+            <hr />
+            <h3 class="mb-2">'.$title.'<span class="small text-muted"> - '.$pindex.'</span></h3>
             <p><span class="text-muted small">('.$words.' '.translate("total words in this text)").'&nbsp;-&nbsp;
          '.translate("read:").' '.$counter.' '.translate("times").'</span><span class="float-right"><a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-print fa-lg ml-3"></i></a></span></p><hr />';
             preg_match_all('#\[page.*\]#', $Xcontent, $rs);
@@ -289,25 +288,32 @@ function viewarticle($artid, $page) {
                <ul class="mx-auto pagination pagination-sm">
                <li class="page-item disabled"><a class="page-link" href="#">'.$ndepages.' pages</a></li>';
             if($pageS !== '[page0]')
-            $Xcontent.='
+               $Xcontent.='
                   <li class="page-item"><a class="page-link" href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.translate("Top of the article").'</a></li>';
             $Xcontent.='
-                  <li class="page-item active"><a class="page-link" href="#">'.preg_replace('#\[(page)(.*)(\])#', '\1 \2', $pageS).'</a></li>
+                  <li class="page-item active"><a class="page-link">'.preg_replace('#\[(page)(.*)(\])#', '\1 \2', $pageS).'</a></li>
                   <li class="page-item"><a class="page-link" href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;page='.$pageS.'" >'.translate("Next Page").'</a></li>
                </ul>
             </nav>';
          } else if ($multipage) {
-            $Xcontent.='<br /><br /><p class=""><a href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;page=[page0]">'.translate("Top of the article").'</a></p>';
+            $Xcontent.='
+            <nav class="d-flex mt-3">
+               <ul class="mx-auto pagination pagination-sm">
+               <li class="page-item"><a class="page-link" href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;page=[page0]">'.translate("Top of the article").'</a></li>
+               </ul>
+            </nav>';
          }
          $Xcontent=aff_code(aff_langue($Xcontent));
          echo '<div id="art_sect">'.meta_lang($Xcontent).'</div>';
 
          $artidtempo=$artid;
          if ($rubname!='Divers') {
+/*
             echo '<hr /><p><a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a></p>'; 
 
           echo '<h4>***<strong>'.translate("Back to chapter:").'</strong></h4>';
             echo '<ul class="list-group"><li class="list-group-item"><a href="sections.php?op=listarticles&amp;secid='.$secid.'">'.aff_langue($secname).'</a></li></ul>';
+*/
 
             $result3 = sql_query("SELECT artid, secid, title, userlevel FROM ".$NPDS_Prefix."seccont WHERE (artid<>'$artid' AND secid='$secid') ORDER BY ordre");
             $nb_article = sql_num_rows($result3);
@@ -370,10 +376,14 @@ function PrintSecPage($artid) {
    } else {
       $tmp_theme=$Default_Theme;
    }
-   echo import_css($tmp_theme, $language, $site_font, '','');
+          echo '
+         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
+
+//   echo import_css($tmp_theme, $language, $site_font, '','');
    echo '
       </head>
-      <body style="background-color: #FFFFFF; background-image: none;">
+      <body>
+      <div max-width="640" class="container p-1 n-hyphenate">
       <p class="text-center">';
    $pos = strpos($site_logo, "/");
    if ($pos)
@@ -398,6 +408,7 @@ function PrintSecPage($artid) {
          '.translate("The URL for this story is:").'
          <a href="'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'">'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'</a>
          </p>
+         </div>
       </body>
    </html>';
 }

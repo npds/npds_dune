@@ -227,24 +227,24 @@ function avatar($user_avatar) {
       echo '<br />';
       if ( $letter != 'front' ) {
          echo '
-         <table data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
+         <table class="table table-sm" data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
             <thead>
                <tr>
-                  <th data-halign="center" data-align="center" class="text-muted"><i class="fa fa-share-alt fa-lg"></i></th>
-                  <th data-sortable="true">'.translate("Nickname").'<br /> '.translate("Identity").'</th>';
+                  <th class="n-t-col-xs-2 align-middle text-muted" data-halign="center" data-align="center"><i class="fa fa-share-alt fa-lg"></i></th>
+                  <th class="align-middle" data-sortable="true">'.translate("Nickname").'<br /> '.translate("Identity").'</th>';
          if ($sortby!="user_from ASC") {
             echo '
-                  <th data-sortable="true" data-halign="center">'.translate("Email").'</th>';
+                  <th class="align-middle" data-sortable="true" data-halign="center">'.translate("Email").'</th>';
          } else {
             echo '
-                  <th data-sortable="true" data-halign="center" >'.translate("Location").'</th>';
+                  <th class="align-middle" data-sortable="true" data-halign="center" >'.translate("Location").'</th>';
          }
          echo '
-                  <th data-halign="center">'.translate("URL").'</th>';
+                  <th class="align-middle" data-halign="center">'.translate("URL").'</th>';
          $cols = 6;
          if ($admin) {
             $cols = 7;
-            echo '<th data-halign="center" data-align="right">'.translate("Functions").'</th>';
+            echo '<th class="n-t-col-xs-2 align-middle" data-halign="center" data-align="right">'.translate("Functions").'</th>';
          }
          echo '
                </tr>
@@ -258,12 +258,10 @@ function avatar($user_avatar) {
             while($temp_user = sql_fetch_assoc($result) ) {
                $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
                if (!$short_user) {
-//             if($temp_user['uid']!= 1) {
                   $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
                   include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
                   include('modules/geoloc/geoloc_conf.php');
-
-                  if ($posterdata_extend['M2']!='') {
+                  if (array_key_exists('M2', $posterdata_extend)) {
                      $socialnetworks= explode(';',$posterdata_extend['M2']);
                      foreach ($socialnetworks as $socialnetwork) {
                         $res_id[] = explode('|',$socialnetwork);
@@ -286,7 +284,6 @@ function avatar($user_avatar) {
                   }
                   else $my_rsos[]='';
                }
-//                              }
 
                settype($ch_lat,'string');
                $useroutils = '';

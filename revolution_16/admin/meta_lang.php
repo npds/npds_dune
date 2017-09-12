@@ -130,7 +130,7 @@ function List_Meta_Lang() {
    </div>
    <hr />
    <h3>META-MOT <span class="tag tag-default float-right">'.$ibid.'</span></h3>
-   <form name="admin_meta_lang" action="admin.php" method="post" onsubmit="return confirm(\''.adm_translate("Supprimer").' ?\')">
+   <form name="admin_meta_lang" action="admin.php" method="post" onkeypress="return event.keyCode != 13;" onsubmit="return confirm(\''.adm_translate("Supprimer").' ?\')">
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons" >
       <thead>
          <tr>

@@ -134,7 +134,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
       echo '
                   </div>
                   <div class="modal-footer">
-                     <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'"><i class="fa fa-lg fa-download"></i></a>
+                     <a class="" href="download.php?op=mydown&amp;did='.$did.'" title="'.translate("Download Now!").'"><i class="fa fa-2x fa-download"></i></a>
                   </div>
                </div>
             </div>
@@ -267,25 +267,32 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
 
   settype($offset, 'integer');
   settype($perpage, 'integer');
-  if ($dcategory==translate("All")) {
+  if ($dcategory==translate("All"))
     $sql="SELECT * FROM ".$NPDS_Prefix."downloads ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
-  } else {
+  else
     $sql="SELECT * FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
-  }
 
    $result = sql_query($sql);
    while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcat, $ddescription, $dperm) = sql_fetch_row($result)) {
       $Fichier = new File($durl);// keep for extension
       $FichX = new FileManagement; // essai class
-      $okfile=autorisation($dperm);
+      $okfile='';
+      if(!stristr($dperm,',')) $okfile=autorisation($dperm);
+      else {
+         $ibid=explode(',',$dperm);
+         foreach($ibid as $v) {
+            if(autorisation($v)==true) {$okfile=true; break;}
+         }
+      };
+
       echo '
-         <tr>
+         <tr class="">
             <td class="text-center">';
       if ($okfile==true)
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
       else {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,false);
-         echo '<span class="text-danger">'.translate("Private").'</span>';
+         echo '<span class="text-danger"><i class="fa fa-ban fa-lg mr-1"></i>'.translate("Private").'</span>';
       }
       echo '</td>
             <td class="text-center">'.$Fichier->Affiche_Extention('webfont').'</td>
@@ -293,7 +300,7 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
       if ($okfile==true) {
          echo '<a href="download.php?op=mydown&amp;did='.$did.'" target="_blank">'.$dfilename.'</a>';
       } else {
-         echo '...';
+         echo '<span class="text-danger"><i class="fa fa-ban fa-lg mr-1"></i>...</span>';
       }
       echo '</td>
             <td>';
@@ -342,21 +349,39 @@ function main() {
 }
 
 function transferfile($did) {
-  global $NPDS_Prefix;
-  settype($did, 'integer');
-  $result = sql_query("SELECT dcounter, durl, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
-  list($dcounter, $durl, $dperm) = sql_fetch_row($result);
-  if (!$durl) {
-     include("header.php");
-     echo "<p class=\"lead text-center\">$durl : ".translate("There is no such file...")."</p>\n";
-     include("footer.php");
-  } else {
-     if (autorisation($dperm)) {
-        $dcounter++;
-        sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter' WHERE did='$did'");
-        header("location: ".str_replace(basename($durl),rawurlencode(basename($durl)), $durl));
-     } else {
-        Header("Location: download.php");
+   global $NPDS_Prefix;
+   settype($did, 'integer');
+   $result = sql_query("SELECT dcounter, durl, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
+   list($dcounter, $durl, $dperm) = sql_fetch_row($result);
+   if (!$durl) {
+      include("header.php");
+      echo '
+   <h2>'.translate("Download Section").'</h2>
+   <hr />
+   <div class="lead alert alert-danger">'.translate("There is no such file...").'</div>';
+      include("footer.php");
+   } else {
+   
+      if(stristr($dperm,',')) {
+         $ibid=explode(',',$dperm);
+         foreach($ibid as $v) {
+            $aut=true;
+            if(autorisation($v)==true) {
+               $dcounter++; 
+               sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter' WHERE did='$did'");
+               header("location: ".str_replace(basename($durl),rawurlencode(basename($durl)), $durl));
+               break;
+            } else $aut=false;
+         }
+         if($aut==false) Header("Location: download.php");
+      } else {
+        if (autorisation($dperm)) {
+           $dcounter++;
+           sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter' WHERE did='$did'");
+           header("location: ".str_replace(basename($durl),rawurlencode(basename($durl)), $durl));
+        } else {
+           Header("Location: download.php");
+        }
      }
   }
 }

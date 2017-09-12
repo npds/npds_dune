@@ -43,8 +43,9 @@ function groupe($groupe) {
       $nbg++;
    }
    if ($nbg>5) {$nbg=5;}
+   // si on veux traiter groupe multiple multiple="multiple"  et name="Mprivs"
    return ('
-   <select multiple="multiple" class="form-control" name="Mprivs[]" size="'.$nbg.'">
+   <select multiple="multiple" class="form-control" id="mpri" name="Mprivs[]" size="'.$nbg.'">
    '.$str.'
    </select>');
 }
@@ -81,7 +82,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group row">
-      <label class="form-control-label col-sm-12" for="Mmember[]">'.adm_translate("Groupes").'</label>
+      <label class="form-control-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
       <div class="col-sm-12">';
          echo groupe($member).'
       </div>
@@ -100,7 +101,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group row">
-      <label class="form-control-label col-sm-12" for="Mmember[]">'.adm_translate("Groupes").'</label>
+      <label class="form-control-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
       <div class="col-sm-12">';
          echo groupe($member).'
       </div>
@@ -376,9 +377,12 @@ function DownloadEdit($did) {
        echo '
       </fieldset>
       <div class="form-group row">
-         <div class="col-sm-12">
-            <label>'.adm_translate("Changer la date").'
-               <input type="checkbox" name="ddate" value="yes" />&nbsp;'.adm_translate("Oui").'
+         <label class="form-control-label col-sm-4">'.adm_translate("Changer la date").'</label>
+         <div class="col-sm-8">
+            <label class="custom-control custom-checkbox">
+               <input type="checkbox" name="ddate" class="custom-control-input" value="yes" />
+               <span class="custom-control-indicator"></span>
+               <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
          </div>
       </div>
@@ -408,8 +412,9 @@ function DownloadEdit($did) {
 function DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $ddate, $dver, $dcategory, $sdcategory, $description, $privs, $Mprivs) {
     global $NPDS_Prefix;
    if ($privs==1) {
-       if ($Mprivs>1 and $Mprivs<=127 and $Mprivs!="") {$privs=$Mprivs;}
-    }
+      if ($Mprivs!='')
+         $privs = implode(',', $Mprivs);
+   }
     $sdcategory=addslashes($sdcategory);
     if (!$dcategory) {
        $dcategory = $sdcategory;
