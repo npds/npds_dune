@@ -66,7 +66,6 @@ if (!function_exists("Mysql_Connexion")) {
                   $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,cur_charset)));
                echo $remp;
             }
-            if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
             echo '<p><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" title="'.translate("Printer Friendly Page").'"><i class="fa fa-2x fa-print"></i></a></p>';
 
             // Si vous voulez tracer les appels au pages statiques : supprimer les // devant la ligne ci-dessous
