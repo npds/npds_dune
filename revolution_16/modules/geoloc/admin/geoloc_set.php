@@ -16,10 +16,9 @@
 /* dev team : Philippe Revilliod (Phr)                                  */
 /************************************************************************/
 
-if (!strstr($_SERVER['PHP_SELF'],'admin.php')) { Access_Error(); }
-if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
+if (!strstr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-}
 
 $f_meta_nom ='geoloc';
 //==> controle droit
@@ -443,6 +442,8 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
 <script type="text/javascript">
 //<![CDATA[
    $(document).ready(function() {
+      $("head").append($("<script />").attr("src","lib/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js"));
+
       if($("#map_bloc").length) { 
          console.log("map_bloc est dans la page");//debug
          var 

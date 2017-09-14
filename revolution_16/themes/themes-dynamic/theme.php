@@ -107,12 +107,10 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    if ($next_sid) $nextArt='<a href="article.php?sid='.$next_sid.'&amp;archive='.$archive.'" ><span class="d-none d-sm-inline">'.translate("Next").'</span><i class="fa fa-chevron-right fa-lg ml-2" title="'.translate("Next").'" data-toggle="tooltip"></i></a>';
    else $nextArt='';
 
-   if (!$imgtmp=theme_image("box/print.gif")) { $imgtmp="images/print.gif"; }
-   $printP = "<a href=\"print.php?sid=$id\"><img src=\"$imgtmp\" alt=\"".translate("Printer Friendly Page")."\" style=\"vertical-align: middle;\" /></a>";
-   if (!$imgtmp=theme_image("box/friend.gif")) { $imgtmp="images/friend.gif"; }
-   $sendF = "<a href=\"friend.php?op=FriendSend&amp;sid=$id\"><img src=\"$imgtmp\" border=\"0\" alt=\"".translate("Send this Story to a Friend")."\" style=\"vertical-align: middle;\" /></a>";
+   $printP = '<a href="print.php?sid='.$id.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-2x fa-print"></i></a>';
+   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip"><i class="fa fa-lg fa-envelope-o"></i></a>';
 
-   if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+   if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
    $timage=$imgtmp;
 
    $npds_METALANG_words=array(

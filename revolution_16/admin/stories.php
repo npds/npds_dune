@@ -730,7 +730,6 @@ function editStory ($sid) {
    list($catid, $subject, $hometext, $bodytext, $topic, $notes, $ihome, $date_finval,$epur) = sql_fetch_row($result);
    $subject = stripslashes($subject);
    $hometext = stripslashes($hometext);
-//   if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
    $hometext=str_replace('<i class="fa fa-thumb-tack fa-2x mr-2 text-muted"></i>','',$hometext);
    $bodytext = stripslashes($bodytext);
    $notes = stripslashes($notes);
@@ -943,7 +942,6 @@ function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $cati
        sql_query("UPDATE ".$NPDS_Prefix."stories SET catid='$catid', title='$subject', hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_finval='$date_finval', auto_epur='$epur' WHERE sid='$sid'");
     }
     if ($Csid) {
-//       if ($ibid=theme_image("pick.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/pick.gif";}
        sql_query("UPDATE ".$NPDS_Prefix."stories SET hometext='<i class=\"fa fa-thumb-tack fa-2x mr-2 text-muted\"></i> $hometext' WHERE sid='$sid'");
        list($Lsid)=sql_fetch_row(sql_query("SELECT sid FROM ".$NPDS_Prefix."stories ORDER BY sid DESC"));
        $Lsid++;
