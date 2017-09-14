@@ -95,7 +95,6 @@ $mime_renderers[ATT_DSP_SWF] = "<p align=\"center\"><object classid=\"clsid:D27C
 
 
 // images
-$att_icons='';
 $handle=opendir("images/upload/file_types");
 while (false!==($file = readdir($handle))) {
    if ($file!='.' && $file!='..') {
