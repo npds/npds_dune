@@ -92,7 +92,7 @@ function session_manage() {
          sql_query("UPDATE ".$NPDS_Prefix."session SET username='$username', time='".time()."', host_addr='$ip', guest='$guest', uri='$REQUEST_URI', agent='".getenv("HTTP_USER_AGENT")."' WHERE username='$username'");
          if ($guest==0) {
             global $gmt;
-            sql_query("UPDATE ".$NPDS_Prefix."users SET user_lastvisit='".(time()+$gmt*3600)."' WHERE uname='$username'");
+            sql_query("UPDATE ".$NPDS_Prefix."users SET user_lastvisit='".(time()+(integer)$gmt*3600)."' WHERE uname='$username'");
          }
       }
    } else {
