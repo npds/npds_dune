@@ -16,7 +16,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 include ('config.php');
    $pre_tab='';
@@ -28,7 +28,7 @@ function etape_6() {
    $stage = 6;
    echo '
                <h3 class="mb-3">'.ins_translate('Base de données').'</h3>
-                  <p id="mess_bd">'.ins_translate('Nous allons maintenant procéder à la création des tables de la base de données ').' (&nbsp;<code class="code">'.$dbname.'</code>&nbsp;) '.ins_translate('sur le serveur d\'hébergement').' (&nbsp;<code class="code">'.$dbhost.'</code>&nbsp;). '.$pre_tab.'<br />'. ins_translate('Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !').'<br />'.ins_translate('Si la base de données').' (&nbsp;<code class="code">'.$dbname.'</code>&nbsp;) '.ins_translate('n\'existait pas ce script tentera de la créer pour vous.').'</p>
+                  <p id="mess_bd">'.ins_translate('Nous allons maintenant procéder à la création des tables de la base de données ').' (&nbsp;<code class="code">'.$dbname.'</code>&nbsp;) '.ins_translate('sur le serveur d\'hébergement').' (&nbsp;<code class="code">'.$dbhost.'</code>&nbsp;). '.$pre_tab.'<br />'. ins_translate('Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !').'<br /></p>
                   <form name="database" method="post" action="install.php">
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="'.$stage.'" />

@@ -18,7 +18,7 @@
 /************************************************************************/
 
 // Bloque le lancement de l'install si IZ-Xinstall.ok existe
-if (file_exists('IZ-Xinstall.ok')) {include('admin/die.php');}
+if (file_exists('IZ-Xinstall.ok')) include('admin/die.php');
 
 /*
 # Contrôle des fichiers de base de IZ-Xinstall
@@ -36,7 +36,7 @@ $cms_logo = 'install/images/header.png';
 $cms_name = 'NPDS REvolution 16';
 global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub, $phpver;
 
-if(!isset($stage)) { $stage = 0; }
+if(!isset($stage)) $stage = 0;
 
 /*
 # install/etape_0.php
@@ -72,7 +72,7 @@ if($stage == 1) {
    menu();
    echo $menu;
    require('install/etape_1.php');
-   if(!isset($op)) { $op = 'etape_1'; }
+   if(!isset($op)) $op = 'etape_1';
    switch($op) {
       case 'etape_1':
       default:
@@ -96,7 +96,7 @@ if($stage == 2 and $qi!=1) {
    menu();
    echo $menu;
    require('install/etape_2.php');
-   if(!isset($op)) { $op = 'etape_2'; }
+   if(!isset($op)) $op = 'etape_2';
    switch($op) {
       case 'etape_2':
       default:
@@ -115,7 +115,7 @@ if($stage == 2 and $qi!=1) {
 */
 if(($stage == 3) or ($stage == 2 and $qi==1)){
    require('install/etape_3.php');
-   if(!isset($op)) { $op = 'etape_3'; }
+   if(!isset($op)) $op = 'etape_3';
    switch($op) {
       case 'etape_3':
       default:
@@ -200,7 +200,7 @@ if($stage == 5){
    $colorst5 = '-success';
    $colorst6 = ' active';
    require('install/etape_5.php');
-   if(!isset($op)) { $op = 'etape_5'; }
+   if(!isset($op)) $op = 'etape_5';
    switch($op) {
       case 'write_others':
          global $stage, $langue, $stage5_ok, $qi;
@@ -251,7 +251,7 @@ if($stage == 5){
 */
 if($stage == 6) {
    require('install/etape_6.php');
-   if(!isset($op)) { $op = 'etape_6'; }
+   if(!isset($op)) $op = 'etape_6';
    $colorst1 = '-success';
    $colorst2 = '-success';
    $colorst3 = '-success';
@@ -266,26 +266,6 @@ if($stage == 6) {
          require('install/sql/build_sql-create.php');
          build_sql_create($NPDS_Prefix);
          sql_connect();
-
-         if(sql_connect()===false) {
-            sql_select_db();
-            if(sql_select_db()===false) {
-               $conn = new mysqli($dbhost, $dbuname, $dbpass);
-               if (mysqli_connect_errno()) {
-                 exit('Connect failed: '. mysqli_connect_error());
-               }
-               $sql = "CREATE DATABASE '".$dbname."' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-               if ($conn->query($sql) === TRUE) {
-                 echo 'Database "tests" successfully created';
-               }
-               else {
-                  $stage6_ok = 0;
-                  //echo 'Error: '. $conn->error;
-               }
-//               $conn->close();
-            };
-         };
-
          require('install/sql/sql-create.php');
          write_database();
          if($stage6_ok == 1) {
@@ -347,7 +327,7 @@ if($stage == 7) {
    $colorst8 = ' active';
 
    require('install/etape_7.php');
-   if(!isset($op)) { $op = 'etape_7'; }
+   if(!isset($op)) $op = 'etape_7';
    switch($op) {
       case 'write_users':
       global $stage, $langue, $stage7_ok, $NPDS_Prefix;
@@ -422,7 +402,7 @@ if($stage == 8) {
    $colorst9 = ' active';
 
    require('install/etape_8.php');
-   if(!isset($op)) { $op = 'etape_8'; }
+   if(!isset($op)) $op = 'etape_8';
    switch($op) {
       case 'write_upload':
          global $stage, $langue, $stage8_ok, $qi;
@@ -487,7 +467,7 @@ if($stage == 9) {
    menu();
    echo $menu;
    require('install/etape_9.php');
-   if(!isset($op)) { $op = 'etape_9'; }
+   if(!isset($op)) $op = 'etape_9';
    switch($op) {
       case 'write_ok':
          $fp = fopen('IZ-Xinstall.ok', 'w');
