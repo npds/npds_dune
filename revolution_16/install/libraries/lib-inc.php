@@ -19,7 +19,7 @@
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
    $file = file("config.php");
-   $file[33] ="\$mysql_p = 0;\n";
+   $file[33] ="\$mysql_p = 1;\n";
    $file[34] ="\$mysql_i = 1;\n";
    $fic = fopen("config.php", "w");
    while(list($n,$ligne) = each($file)) {

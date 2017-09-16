@@ -16,7 +16,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_5() {
    global $langue, $stage, $qi;
@@ -52,7 +52,8 @@ function etape_5() {
    include('themes/list.php');
    $themelist = explode(' ', $themelist);
    $sel='';
-   for($i = 0; $i < sizeof($themelist); $i++) {
+   $themelistsize = sizeof($themelist);
+   for($i = 0; $i < $themelistsize; $i++) {
       if($themelist[$i] != '') {
          if($themelist[$i] == 'npds-boost_sk') $sel=' selected="selected"'; else $sel='' ;
             echo '
@@ -63,13 +64,13 @@ function etape_5() {
                      </select>
                   </div>';
    $today = getdate();
-   $tday = $today[mday];
-   $tmon = $today[mon];
-   $tyear = $today[year];
-   if($tday < 10) { $tday = '0'.$tday; }
-   if($tmon < 10) { $tmon = '0'.$tmon; }
-   if($langue == 'english') {$startdate = $tmon.'/'.$tday.'/'.$tyear;}
-   else {$startdate = $tday.'/'.$tmon.'/'.$tyear;}
+   $tday = $today['mday'];
+   $tmon = $today['mon'];
+   $tyear = $today['year'];
+   if($tday < 10) $tday = '0'.$tday;
+   if($tmon < 10) $tmon = '0'.$tmon;
+   if($langue == 'english') $startdate = $tmon.'/'.$tday.'/'.$tyear;
+   else $startdate = $tday.'/'.$tmon.'/'.$tyear;
    echo '
                   <div class="form-group row">
                      <input type="hidden" name="langue" value="'.$langue.'" />
@@ -87,6 +88,6 @@ function etape_5() {
             inpandfieldlen("new_sitename",80);
             inpandfieldlen("new_Titlesitename",80);
             inpandfieldlen("new_slogan",80);';
-            formval('fv','',$fieldlength,'1');
+   formval('fv','',$fieldlength,'1');
 }
 ?>

@@ -188,7 +188,7 @@ include('header.php');
       <div class="card mb-3">
          <div class="card-body p-2">
          <div class="d-flex ">
-            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted py-2"><span class=" mr-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
+            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class=" mr-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
             <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
@@ -207,7 +207,7 @@ include('header.php');
    $ibidcountmod = count($moderator);
    echo '
          <div class="d-flex">
-            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted py-2"><span class="mr-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class="mr-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
             <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
@@ -278,7 +278,7 @@ include('header.php');
    }
    // Forum Read
    if (isset($user)) {
-      $time_actu=time()+($gmt*3600);
+      $time_actu=time()+((integer)$gmt*3600);
       $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
       $result_LR=sql_query($sqlR);
       $last_read='';

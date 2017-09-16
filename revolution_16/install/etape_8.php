@@ -16,10 +16,10 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_8() {
-   global $langue, $stage,$qi;
+   global $langue, $stage, $qi;
    $stage = 8;
    if(file_exists('modules/upload/upload.conf.php')) include_once('modules/upload/upload.conf.php');
    if($racine != '') {
@@ -95,9 +95,7 @@ function etape_8() {
             inpandfieldlen("new_rep_upload",60);
             inpandfieldlen("new_rep_cache",60);
             inpandfieldlen("new_rep_log",60);
-            inpandfieldlen("new_url_upload",60);
-            ';
-            formval('fv','',$fieldlength,'1');
-
+            inpandfieldlen("new_url_upload",60);';
+   formval('fv','',$fieldlength,'1');
 }
 ?>

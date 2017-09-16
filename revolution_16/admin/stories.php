@@ -840,7 +840,7 @@ function editStory ($sid) {
                <span class="custom-control-indicator"></span>
                <span class="custom-control-description">'.adm_translate("Oui").'</span>
             </label>
-            <span class="small help-block">'.translate(date("l")).date(" ".translate("dateinternal"),time()+($gmt*3600)).'</span>
+            <span class="small help-block">'.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'</span>
          </div>
       </div>
       <div class="form-group row">

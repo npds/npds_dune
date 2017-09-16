@@ -16,7 +16,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_2() {
    global $stage, $langue, $qi;
@@ -37,17 +37,16 @@ function etape_2() {
                <form name="gpl" method="post" action="install.php">
                   <fieldset class="form-group">
                      <label for="licence">'.ins_translate("L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ").' :</label>
-                     <textarea  name="licence" class="form-control" id="licence" rows="15" readonly="readonly">'.$licence_text.'</textarea>
+                     <textarea name="licence" class="form-control" id="licence" rows="15" readonly="readonly">'.$licence_text.'</textarea>
                   </fieldset>
                   <input type="hidden" name="langue" value="'.$langue.'" />
                   <input type="hidden" name="stage" value="3" />';
-   if($nohalt) {
+   if($nohalt)
       echo '
                   <button type="submit" class="btn btn-success">'.ins_translate("J'accepte").'</button>';
-   } else {
-   echo '
-                  <div style="font-weight: bold; color: #ff0000">stop !</div>';
-   }
+   else
+      echo '
+                  <div class="alert alert-danger">stop !</div>';
    echo '
                </form>
             </div>';

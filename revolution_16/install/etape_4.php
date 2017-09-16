@@ -16,12 +16,13 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'install.php')) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_4() {
    global $langue, $stage, $qi, $stopngo, $stopphp, $dbhost, $dbuname, $dbname, $adminmail;
    $stage = 4;
    include_once('config.php');
+   global $system, $mysql_p, $system_md5;
    echo '
                <h3 class="mb-2">'.ins_translate("Paramètres de connexion").'</h3>
                <div class="col-sm-12">
@@ -51,6 +52,7 @@ function etape_4() {
                         <input class="form-control" type="text" name="new_NPDS_Prefix" id="new_NPDS_Prefix" maxlength="10" value="'.$NPDS_Prefix.'" />
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Pour éviter les conflits de nom de table sql...").'</div><div class="ml-auto" id="countcar_new_NPDS_Prefix"></div></div>
                      </div>';
+   $sel1='';$sel2='';
    if($mysql_p == 0) {$sel1 = 'selected="selected"';$sel2 = '';}
    else {$sel1 = '';$sel2 = 'selected="selected"';}
    echo '
@@ -61,6 +63,7 @@ function etape_4() {
                            <option value="1" '.$sel2.'>'.ins_translate("Permanente").'</option>
                         </select>
                      </div>';
+   $sel3='';$sel4='';
    if($system == 0) {$sel3 = 'selected="selected"';$sel4 = '';}
    else {$sel3 = '';$sel4 = 'selected="selected"';}
    echo '
@@ -71,6 +74,7 @@ function etape_4() {
                            <option value="1" '.$sel4.'>Windows</option>
                         </select>
                      </div>';
+   $sel5='';$sel6='';
    if($system_md5 == 0) {$sel5 = 'selected="selected"';$sel6 = '';}
    else {$sel5 = '';$sel6 = 'selected="selected"';}
    echo '
@@ -102,8 +106,7 @@ function etape_4() {
             inpandfieldlen("new_dbpass",80);
             inpandfieldlen("new_dbname",80);
             inpandfieldlen("new_NPDS_Prefix",10);
-            inpandfieldlen("new_adminmail",60);
-            ';
-            formval('fv','',$fieldlength,'1');
+            inpandfieldlen("new_adminmail",60);';
+   formval('fv','',$fieldlength,'1');
 }
 ?>
