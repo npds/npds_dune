@@ -488,11 +488,10 @@ $content .='
 <script type="text/javascript">
 //<![CDATA[
       $(document).ready(function() {
-         if($("#map_bloc").length) { 
-            console.log("map_bloc est dans la page");
-         }
+         if($("#map_bloc").length)
+            console.log("map_bloc est dans la page");//debug
          else {
-            $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
+            $("head").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
             $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
          }
       });
