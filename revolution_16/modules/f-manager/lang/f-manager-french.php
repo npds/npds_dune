@@ -11,10 +11,6 @@
 /************************************************************************/
 
 function fma_translate($phrase) {
- if (cur_charset=="utf-8") {
-    return utf8_encode($phrase);
- } else {
-    return ($phrase);
- }
+   return (htmlentities($phrase,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
 ?>

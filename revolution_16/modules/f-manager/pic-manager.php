@@ -242,7 +242,6 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
 }
 
 // gestion des types d'extension de fichiers
-$att_icons='';
 $handle=opendir("$racine_fma/images/upload/file_types");
 while (false!==($file = readdir($handle))) {
    if ($file!='.' && $file!='..') {
@@ -388,18 +387,17 @@ chdir("$racine_fma/");
 
 // Génération de l'interface
 $inclusion=false;
-if (file_exists("themes/$Default_Theme/html/modules/f-manager/pic-manager.html")) {
+if (file_exists("themes/$Default_Theme/html/modules/f-manager/pic-manager.html"))
    $inclusion="themes/$Default_Theme/html/modules/f-manager/pic-manager.html";
-} elseif (file_exists("themes/default/html/modules/f-manager/pic-manager.html")) {
+elseif (file_exists("themes/default/html/modules/f-manager/pic-manager.html"))
    $inclusion="themes/default/html/modules/f-manager/pic-manager.html";
-} else {
+else
    echo "html/modules/f-manager/pic-manager.html manquant / not find !";
-}
 
 if ($inclusion) {
    $Xcontent=join('',file($inclusion));
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
    $Xcontent=str_replace('_nb_subdir',($obj->Count('d')-$dir_minuscptr),$Xcontent);
    if(($obj->Count('d')-$dir_minuscptr)==0)
       $Xcontent=str_replace('_classempty','collapse',$Xcontent);
@@ -421,15 +419,21 @@ if ($inclusion) {
       $Titlesitename=aff_langue($PAGES["modules.php?ModPath=$ModPath&ModStart=$ModStart*"]['title']);
 
       include("meta/meta.php");
-      echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
-      echo ("<link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
-      echo '<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
       echo '
+      <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+      <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+      <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
+      <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />';
+      echo ("<link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
+      echo '
+      <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       </head>
       <body class="p-3">';
-   } else {
-      include ("header.php");
    }
+   else
+      include ("header.php");
+
    // Head banner de présentation F-Manager
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/head.html")) {
       echo "\n";

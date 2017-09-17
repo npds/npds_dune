@@ -133,7 +133,7 @@ if ($submitS) {
       }
       $image_subject=removeHack($image_subject);
       $message = addslashes($message);
-      $time = date("Y-m-d H:i:s",time()+($gmt*3600));
+      $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
 
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql)) {
@@ -193,7 +193,7 @@ if ($submitS) {
       redirect_url("viewforum.php?forum=$forum");
    } else {
       echo '
-   <h4 class="my-3">'.translate("Post Reply in Topic:").' '.$title_topic.'</h4>
+   <h4 class="my-3">'.translate("Post Reply in Topic").'</h4>
    <p class="alert alert-danger">'.translate("You must type a message to post.").'</p>
    <a class="btn btn-outline-primary" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>';
    }
@@ -227,7 +227,7 @@ if ($submitS) {
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava mr-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
       if (isset($user))
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
