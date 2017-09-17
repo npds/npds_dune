@@ -12,9 +12,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include("functions.php");
 if ($SuperCache) {
@@ -46,9 +45,8 @@ if ($submitS) {
    include("header.php");
    $sql = "SELECT poster_id, topic_id FROM ".$NPDS_Prefix."posts WHERE post_id = '$post_id'";
    $result = sql_query($sql);
-   if (!$result) {
-    forumerror('0022');
-   }
+   if (!$result)
+      forumerror('0022');
    $row = sql_fetch_assoc($result);
 
    if ($userdata[0]==$row['poster_id']) {
@@ -70,7 +68,7 @@ if ($submitS) {
       $message = make_clickable($message);
       $message = aff_code($message);
       $message = str_replace("\n", "<br />", removeHack($message));
-      $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600))."</div>";
+      $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
    } else {
       $message .= "\n\n".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600));
    }
@@ -92,7 +90,7 @@ if ($submitS) {
       if (!$r = sql_query($sql))
          forumerror('0001');
 
-      $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_title = '$subject', topic_time = '".date("Y-m-d H:i:s",time()+($gmt*3600))."', current_poster='".$userdata['uid']."' WHERE topic_id = '".$row['topic_id']."'";
+      $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_title = '$subject', topic_time = '".date("Y-m-d H:i:s",time()+((integer)$gmt*3600))."', current_poster='".$userdata['uid']."' WHERE topic_id = '".$row['topic_id']."'";
       if (!$result = sql_query($sql))
          forumerror('0020');
       redirect_url("$hrefX?topic=".$row['topic_id']."&forum=$forum");
@@ -119,21 +117,16 @@ if ($submitS) {
                forumerror('0001');
          }
          redirect_url("$hrefX?topic=".$row['topic_id']."&forum=$forum");
-      } else {
-         opentable();
-         echo "<p align=\"center\">".translate("Your post has NOT been deleted because one or more posts is already attached (TREE forum).")."</p>";
-         closetable();
-      }
+      } else
+         echo '<div class="alert alert-danger">'.translate("Your post has NOT been deleted because one or more posts is already attached (TREE forum).").'</div>';
    }
 } else {
    include("header.php");
-   if ($allow_bbcode==1) {
+   if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
-   }
    $sql = "SELECT p.*, u.uname, u.uid, u.user_sig FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE (p.post_id = '$post_id') AND (p.poster_id = u.uid)";
-   if (!$result = sql_query($sql)) {
+   if (!$result = sql_query($sql))
       forumerror('0001');
-   }
    $myrow = sql_fetch_assoc($result);
    if ((!$Mmod) and ($userdata[0]!=$myrow['uid'])) { forumerror('0035'); }
    if (!$result = sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='".$myrow['topic_id']."'")) {
@@ -219,11 +212,10 @@ if ($submitS) {
          </div>
       </div>';
    if (($allow_html==1) and ($forum_type!=6)) {
-      if (isset($html)) {
+      if (isset($html))
          $sethtml='checked="checked"';
-      } else {
+      else
          $sethtml='';
-      }
    echo '
    <div class="form-group row">
    <label class="form-control-label col-sm-3">'.translate("Options").'</label>

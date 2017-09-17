@@ -18,16 +18,15 @@
 /**************************************************************************/
 
 // For More security
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
-if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
+if (!stristr($_SERVER['PHP_SELF'],"modules.php")) die();
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-}
+
 global $title, $language, $NPDS_Prefix, $user, $admin;
 // For More security
 
-if (file_exists("modules/$ModPath/pages.php")) {
+if (file_exists("modules/$ModPath/pages.php"))
    include ("modules/$ModPath/pages.php");
-}
 
 include_once("modules/$ModPath/lang/$language.php");
 include_once("modules/$ModPath/config.php");
@@ -46,13 +45,13 @@ if ($user or $admin) {
       } elseif ($admin) {
          $groupe=-127;
          $auteur=$aid;
-      } else {
-         header("location: index.php");
       }
+      else
+         header("location: index.php");
    }
-} else {
-   header("location: index.php");
 }
+else
+   header("location: index.php");
 
 $surlignage=$couleur[hexfromchr($auteur)];
 
@@ -159,8 +158,7 @@ function Liste_Page() {
                   </div>
                </div>
             </div>
-         </div>';
-         $aff.='
+         </div>
          <hr />
          <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-toggle="collapse" data-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
             <span class="float-right">
@@ -206,7 +204,7 @@ function Liste_Page() {
                <tr>
                   <td>'.$ibid.$ranq.'</td>
                   <td><div style="float: left; margin-top: 2px; width: 1rem; height: 1.5rem; background-color: '.$couleur[hexfromchr($editedby)].';"></div>&nbsp;'.$editedby.'</td>
-                  <td>'.date(translate("dateinternal"),$modtime+($gmt*3600)).'</td>';
+                  <td>'.date(translate("dateinternal"),$modtime+((integer)$gmt*3600)).'</td>';
             // voir la révision du ranq x
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
             $aff.='
@@ -328,27 +326,25 @@ function Page($page, $ranq) {
    // Analyse des verrous
 
    $row=sql_fetch_assoc(sql_query("SELECT content, modtime, editedby, ranq FROM ".$NPDS_Prefix."wspad WHERE page='$page' AND member='$groupe' AND ranq='$ranq'"));
-   if (!$edition) {
+   if (!$edition)
       $mess=wspad_trans("Mode lecture seulement");
-   }
-   echo '';
    if (!is_array($row)) {
       $row['ranq']=1;
       $row['editedby']=$auteur;
       $row['modtime']=time();
-   } else {
-      $row['ranq']+=1;
    }
+   else
+      $row['ranq']+=1;
    global $surlignage;
    echo '
-   <h4>'.wspad_trans("Document : ").$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+($gmt*3600)).' ] </span> <span style="float: right;"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
+   <h4>'.wspad_trans("Document : ").$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span style="float: right;"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
    <div id="mess" class="alert alert-success" role="alert">test debug'.$mess.'</div>
    <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformcont">
    <div class="form-group">
       <textarea class="tin form-control" rows="30" name="content" ><div class="mceNonEditable">'.$row['content'].'</div></textarea>
    </div>';
    echo aff_editeur('content', '');
-   if ($edition) {
+   if ($edition)
       echo '
       <div class="form-group">
          <input class="btn btn-primary" type="submit" name="sauve" value="'.wspad_trans("Sauvegarder").'" />
@@ -356,8 +352,8 @@ function Page($page, $ranq) {
          <input type="hidden" name="page" value="'.$page.'" />
          <input type="hidden" name="op" value="sauve" />
       </div>';
-   }
-   echo '</form>';
+   echo '
+   </form>';
 }
 
 settype($op,'string');
