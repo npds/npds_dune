@@ -20,20 +20,20 @@ if (file_exists("modules/$ModPath/lang/f-manager-$language.php")) {
 }
 include ("modules/$ModPath/class.navigator.php");
 
-// Gestion Ascii Ètendue
+// Gestion Ascii √©tendue
 function extend_ascii($ibid) {
    $tmp=urlencode($ibid);
-   $tmp=str_replace("%82","È",$tmp);
-   $tmp=str_replace("%85","‡",$tmp);
-   $tmp=str_replace("%87","Á",$tmp);
-   $tmp=str_replace("%88","Í",$tmp);
-   $tmp=str_replace("%97","˘",$tmp);
-   $tmp=str_replace("%8A","Ë",$tmp);
+   $tmp=str_replace("%82","√à",$tmp);
+   $tmp=str_replace("%85","‚Ä°",$tmp);
+   $tmp=str_replace("%87","√Å",$tmp);
+   $tmp=str_replace("%88","√ç",$tmp);
+   $tmp=str_replace("%97","Àò",$tmp);
+   $tmp=str_replace("%8A","√ã",$tmp);
    $tmp=urldecode($tmp);
    return ($tmp);
 }
 
-// Gestion des fichiers autorisÈs
+// Gestion des fichiers autoris√©s
 function fma_filter($type, $filename, $Extension) {
    $autorise=false;
    $error='';
@@ -41,11 +41,11 @@ function fma_filter($type, $filename, $Extension) {
    $filename=preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($filename));
    $filename=str_replace("..","",$filename);
 
-   // Liste des extensions autorisÈes
+   // Liste des extensions autoris√©es
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
    if (($suffix!='') or ($type=='d')) {
       if ((in_array($suffix,$Extension)) or ($Extension[0]=='*') or $type=='d') {
-         // Fichiers interdits en fonction de qui est connectÈ
+         // Fichiers interdits en fonction de qui est connect√©
          if (fma_autorise($type, $filename)) {
             $autorise=true;
          } else {
@@ -63,7 +63,7 @@ function fma_filter($type, $filename, $Extension) {
    return($tab);
 }
 
-// Gestion des autorisations sur les rÈpertoires et les fichiers
+// Gestion des autorisations sur les r√©pertoires et les fichiers
 function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
@@ -182,7 +182,7 @@ if ($FmaRep) {
       if (!file_exists("modules/$ModPath/users/".strtolower($FmaRep).".conf.php")) {
          $tab_groupe=valid_group($user);
          if ($tab_groupe) {
-            // si j'ai au moins un groupe est ce que celui-ci dispose d'un fichier de configuration ?  - je m'arrÍte au premier groupe !
+            // si j'ai au moins un groupe est ce que celui-ci dispose d'un fichier de configuration ?  - je m'arr√çte au premier groupe !
             while (list(,$gp)=each($tab_groupe)) {
                $groupename=Q_select("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp' ORDER BY `groupe_id` ASC",3600);
                if (file_exists("modules/$ModPath/users/".$groupename[0]['groupe_name'].".conf.php")) {
@@ -193,7 +193,7 @@ if ($FmaRep) {
          }
       }
       if (file_exists("modules/$ModPath/users/".strtolower($FmaRep).".conf.php")) {
-         // Est ce que je doit rÈcupÈrer le theme si un utilisateur est connectÈ ?
+         // Est ce que je doit r√©cup√©rer le theme si un utilisateur est connect√© ?
          if (isset($user)) {
              include("themes/list.php");
              $themelist = explode(' ', $themelist);
@@ -227,7 +227,7 @@ if (isset($browse)) {
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
    }
    $ibid=str_replace('..','',$ibid);
-   // contraint ‡ rester dans la zone de repertoire dÈfinie (CHROOT)
+   // contraint √† rester dans la zone de repertoire d√©finie (CHROOT)
    $base=$basedir_fma.substr($ibid,strlen($basedir_fma));
 } else {
    $browse='';
@@ -277,7 +277,7 @@ switch ($op) {
       }
       break;
 
-   // RÈpertoires
+   // R√©pertoires
    case 'createdir':
       if ($dircmd_fma[0]) {
          $auto=fma_filter('d', $userdir, $obj->Extension);
@@ -302,7 +302,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2"></i></span>'.fma_translate("Renommer un rÈpertoire");
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 align-middle"></i></span>'.fma_translate("Renommer un r√©pertoire");
                $rename_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -355,7 +355,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 text-danger"></i></span><span class="text-danger">'.fma_translate("Supprimer un rÈpertoire").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 text-danger"></i></span><span class="text-danger">'.fma_translate("Supprimer un r√©pertoire").'</span>';
                $remove_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -402,7 +402,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2"></i></span>'.fma_translate("Changer les droits d'un rÈpertoire");
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2"></i></span>'.fma_translate("Changer les droits d'un r√©pertoire");
                $chmod_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -421,9 +421,9 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
-            $Err=$auto[1];
          }
+         else
+            $Err=$auto[1];
       }
       break;
    case 'chmoddir-save':
@@ -433,15 +433,14 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                settype($chmoddir,'integer');
-               if (!$obj->ChgPerms($auto[3].'/'.$auto[2],$chmoddir)) {
+               if (!$obj->ChgPerms($auto[3].'/'.$auto[2],$chmoddir))
                   $Err=$obj->Errors;
-               } else {
+               else
                   Ecr_Log('security','Chmod Directory', $log_dir.'/'.$auto[2].' IP=>'.getip());
-               }
             }
-         } else {
-            $Err=$auto[1];
          }
+         else
+         $Err=$auto[1];
       }
       break;
 
@@ -519,7 +518,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2"></i></span>'.fma_translate("DÈplacer / Copier un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2"></i></span>'.fma_translate("D√©placer / Copier un fichier");
                $move_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -529,7 +528,7 @@ switch ($op) {
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <div class="form-group">
                      <select class="custom-select mr-2" name="op">
-                        <option value="movefile-save" selected="selected"> '.fma_translate("DÈplacer").'</option>
+                        <option value="movefile-save" selected="selected"> '.fma_translate("D√©placer").'</option>
                         <option value="copyfile-save">'.fma_translate("Copier").'</option>
                      </select>
                      <code>'.extend_ascii($auto[2]).'</code>
@@ -772,7 +771,7 @@ switch ($op) {
                <div class="form-group">
                   <label class="form-control-label" for="maxthumb">'.fma_translate("Taille maximum (pixel) de l'imagette").'</label>';
             $fp=@file($auto[3].'/'.$auto[2].'/pic-manager.txt');
-            // La premiËre ligne du tableau est un commentaire
+            // La premi√ãre ligne du tableau est un commentaire
             settype($fp[1],'integer');
             $Max_thumb=$fp[1];
             if ($Max_thumb==0)
@@ -818,7 +817,7 @@ switch ($op) {
          array_pop($resp);
          $cpt=0;
          while($fic_resp=each($resp)) {
-            // on limite le retour au niveau immÈdiatement infÈrieur au rep courant
+            // on limite le retour au niveau imm√©diatement inf√©rieur au rep courant
             $rep_niv1=explode('/',str_replace($base,'',$fic_resp[1]));
             if (count($rep_niv1)<4) {
                $dir_search=basename(dirname($fic_resp[1]));
@@ -849,7 +848,7 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
       $cur_nav=$obj->Pwd();
       $cur_nav_back=str_replace("\\","/",dirname($base));
    }
-   // contraint ‡ rester dans la zone de repertoire dÈfinie (CHROOT)
+   // contraint √† rester dans la zone de repertoire d√©finie (CHROOT)
    $cur_nav=$base.substr($cur_nav,strlen($base));
 
    $home='/'.basename($basedir_fma);
@@ -859,12 +858,11 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
    }
    $cur_nav_encrypt=rawurlencode(encrypt($cur_nav));
 } else {
-   // le rÈpertoire ou sous rÈpertoire est protÈgÈ (ex : chmod)
+   // le r√©pertoire ou sous r√©pertoire est prot√©g√© (ex : chmod)
    redirect_url("modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode(encrypt(dirname($base))));
 }
 
 // gestion des types d'extension de fichiers
-//$att_icons='';
 $handle=opendir("$racine_fma/images/upload/file_types");
 while (false!==($file = readdir($handle))) {
    if ($file!='.' && $file!='..') {
@@ -888,9 +886,9 @@ $suppM=fma_translate("Supprimer");
 $renaM=fma_translate("Renommer");
 $chmoM=fma_translate("Chmoder");
 $editM=fma_translate("Editer");
-$moveM=fma_translate("DÈplacer / Copier");
+$moveM=fma_translate("D√©placer / Copier");
 $pictM=fma_translate("Autoriser Pic-Manager");
-// RÈpertoires
+// R√©pertoires
 $subdirs=''; $sizeofDir=0;
 settype($tab_search,'array');
 while ($obj->NextDir()) {
@@ -1068,7 +1066,7 @@ if (file_exists($infos_fma)) {
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="upload" />
       <div class="form-group">
-         <span class="help-block">'.fma_translate("Extensions autorisÈes : ").'<span class="text-success">'.$extension_fma.'</span></span>
+         <span class="help-block">'.fma_translate("Extensions autoris√©es : ").'<span class="text-success">'.$extension_fma.'</span></span>
          <input class="form-control" name="userfile" type="file" size="50" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
@@ -1114,7 +1112,7 @@ if (file_exists($infos_fma)) {
    </form>';
 
 chdir("$racine_fma/");
-// GÈnÈration de l'interface
+// G√©n√©ration de l'interface
 $inclusion=false;
 if (file_exists("themes/$Default_Theme/html/modules/f-manager/$theme_fma"))
    $inclusion="themes/$Default_Theme/html/modules/f-manager/$theme_fma";
@@ -1135,7 +1133,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><i class="fa fa-home fa-lg"></i></a>',$Xcontent);
    
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraichir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafra√Æchir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace('_size',$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
@@ -1207,7 +1205,13 @@ if ($inclusion) {
       $Titlesitename=aff_langue($PAGES["modules.php?ModPath=$ModPath&ModStart=$ModStart*"]['title']);
 
       include("meta/meta.php");
-      echo "<link rel=\"shortcut icon\" href=\"images/favicon.ico\" type=\"image/x-icon\" />\n";
+      echo '
+      <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+      <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+      <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
+      <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />';
+
       echo ("<link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
 
       global $tiny_mce;
@@ -1226,7 +1230,7 @@ if ($inclusion) {
       include ("header.php");
    }
 
-   // Head banner de prÈsentation F-Manager
+   // Head banner de pr√©sentation F-Manager
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/head.html")) {
       echo "\n";
       include ("themes/$Default_Theme/html/modules/f-manager/head.html");
@@ -1251,13 +1255,13 @@ if ($inclusion) {
    </script>
    <?php
 
-   // l'insertion de la FORM d'Èdition doit intervenir ‡ la fin du calcul de l'interface ... sinon on modifie le contenu
-   // Meta_lang n'est pas chargÈ car trop lent pour une utilisation sur de gros rÈpertoires
+   // l'insertion de la FORM d'√©dition doit intervenir √† la fin du calcul de l'interface ... sinon on modifie le contenu
+   // Meta_lang n'est pas charg√© car trop lent pour une utilisation sur de gros r√©pertoires
    $Xcontent=aff_langue($Xcontent);
    $Xcontent=str_replace('_edt_file',$edit_file,$Xcontent);
    echo $Xcontent;
 
-   // Foot banner de prÈsentation F-Manager
+   // Foot banner de pr√©sentation F-Manager
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/foot.html")) {
       echo "\n";
       include ("themes/$Default_Theme/html/modules/f-manager/foot.html");
