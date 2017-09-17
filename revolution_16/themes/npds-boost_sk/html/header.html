@@ -42,11 +42,11 @@
       settype($cookie[0], 'integer');
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
-      if (!$user_avatar) {
+      if (!$user_avatar)
          $imgtmp='images/forum/avatar/blank.gif';
-       } else if (stristr($user_avatar,"users_private")) {
+      else if (stristr($user_avatar,"users_private"))
          $imgtmp=$user_avatar;
-      } else {
+      else {
          if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
          if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
@@ -66,7 +66,6 @@
       </button>
       <div class="collapse navbar-collapse" id="barnav">
          <ul class="navbar-nav">
-            <li class="navbar-divider"></li>
             <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
                <ul class="dropdown-menu" role="menu">
                   <li><a class="dropdown-item" href="index.php?op=index.php">[french]Les articles[/french][english]Stories[/english][chinese]&#x6587;&#x7AE0;[/chinese][spanish]Art&#xED;culo[/spanish][german]Artikel[/german]</a></li>
@@ -74,15 +73,10 @@
                   <li><a class="dropdown-item" href="submit.php">[french]Soumettre un article[/french][english]Submit a New[/english]</a></li>
                </ul>
             </li>
-            <li class="navbar-divider"></li>
             <li class="nav-item"><a class="nav-link" href="forum.php">Forums</a></li>
-            <li class="navbar-divider"></li>
             <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
-            <li class="navbar-divider"></li>
             <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
-            <li class="navbar-divider"></li>
             <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=contact&amp;ModStart=contact">[french]Contact[/french][english]Contact[/english][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese][spanish]Cont&aacute;ctenos[/spanish][german]Kontakt[/german]</a></li>
-            <li class="navbar-divider"></li>
             <li class="nav-item dropdown">
                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
                <ul class="dropdown-menu">
