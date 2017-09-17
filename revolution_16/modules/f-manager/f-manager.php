@@ -864,7 +864,7 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
 }
 
 // gestion des types d'extension de fichiers
-$att_icons='';
+//$att_icons='';
 $handle=opendir("$racine_fma/images/upload/file_types");
 while (false!==($file = readdir($handle))) {
    if ($file!='.' && $file!='..') {

@@ -13,13 +13,10 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-}
-//$time_start = getmicrotime();
 
 global $links_DB, $NPDS_Prefix;
-
 
 include_once("modules/$ModPath/links.conf.php");
 if ($links_DB=='') $links_DB=$NPDS_Prefix;
@@ -181,9 +178,8 @@ function index() {
       }
       SearchForm();
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingPage();
-   }
    global $admin;
    if ($admin) {
       $result = sql_query("SELECT requestid FROM ".$links_DB."links_modrequest WHERE brokenlink=1");
@@ -232,9 +228,9 @@ function viewlink($cid, $min, $orderby, $show) {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
+   } 
+   else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       if (!isset($max)) $max=$min+$perpage;
       mainheader();
@@ -262,10 +258,9 @@ function viewlink($cid, $min, $orderby, $show) {
          }
          $affsouscat .= '
       </ul>';
-      if ($numrows_lst != 0) {
+      if ($numrows_lst != 0)
          echo $affsouscat;
-      }
-      
+
       $orderbyTrans = convertorderbytrans($orderby);
          $perpage=3;//debug  ####################  
 
@@ -294,49 +289,21 @@ function viewlink($cid, $min, $orderby, $show) {
 
    $nbPages = ceil($totalselectedlinks/$perpage);
    $current = 1;
-   if ($min >= 1) {
+   if ($min >= 1)
       $current=$min/$perpage;
-   } else if ($min < 1) {
+   else if ($min < 1)
       $current=0;
-   } else {
+   else
       $current = $nbPages;
-   }
    $start=($current*$perpage);
 
-      //Page Numbering
-/*
-      if ($linkpages!=1 && $linkpages!=0) {
-         // à traduire
-         echo '
-            <nav aria-label="Page navigation links">
-               <ul class="pagination pagination-sm justify-content-end">
-                  <li class="page-item disabled hidden-sm-down"><a class="page-link" href="#" tabindex="-1">'.translate("Select page").'</a></li>';
-         $prev=$min-$perpage;
-         $counter = 1;
-         $currentpage = ($max / $perpage);
-         while ($counter<=$linkpages ) {
-            $cpage = $counter;
-            $mintemp = ($perpage * $counter) - $perpage;
-            if ($counter == $currentpage) echo '
-                  <li class="page-item active"><a class="page-link">'.$counter.' <span class="sr-only">(page courante)</span></a></li>';
-            else echo '
-                  <li class="page-item"><a class="page-link" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;min='.$mintemp.'&amp;orderby='.$orderby.'&amp;show='.$show.'">'.$counter.'</a></li>';
-            $counter++;
-         }
-      }
-      echo '
-               </ul>
-            </nav>';
-*/
-            
       echo paginate('modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;min=', '&amp;orderby='.$orderby.'&amp;show='.$perpage, $nbPages, $current, $adj=3, $perpage, $start);
 
       if (isset($sid)) FooterOrderBy($cid, $sid, $orderbyTrans, 'viewlink');
       SearchForm();
-      }
-   if ($SuperCache) {
-      $cache_obj->endCachingPage();
    }
+   if ($SuperCache)
+      $cache_obj->endCachingPage();
    include("footer.php");
 }
 
@@ -349,14 +316,13 @@ function viewslink($sid, $min, $orderby, $show) {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
-      $cache_obj = new SuperCacheEmpty();
    }
+   else
+      $cache_obj = new SuperCacheEmpty();
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      
       mainheader();
       $filen="modules/$ModPath/links.ban_03.php";
-      if (file_exists($filen)) {include($filen);}
+      if (file_exists($filen)) include($filen);
 
       if (!isset($max)) $max=$min+$perpage;
       $result = sql_query("SELECT cid, title FROM ".$links_DB."links_subcategories WHERE sid='$sid'");
@@ -370,8 +336,8 @@ function viewslink($sid, $min, $orderby, $show) {
       echo "</td></tr></table>";
 
       $orderbyTrans = convertorderbytrans($orderby);
-      settype($min,"integer");
-      settype($perpage,"integer");
+      settype($min,'integer');
+      settype($perpage,'integer');
       $result=sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE sid='$sid' ORDER BY $orderby LIMIT $min,$perpage");
       $fullcountresult=sql_query("SELECT lid, title, description, date, hits FROM ".$links_DB."links_links WHERE sid='$sid'");
       $totalselectedlinks = sql_num_rows($fullcountresult);
@@ -387,12 +353,11 @@ function viewslink($sid, $min, $orderby, $show) {
 
       if ($linkpageremainder != 0) {
          $linkpages = ceil($linkpagesint);
-         if ($totalselectedlinks < $perpage) {
+         if ($totalselectedlinks < $perpage)
             $linkpageremainder = 0;
-         }
-      } else {
-         $linkpages = $linkpagesint;
       }
+      else
+         $linkpages = $linkpagesint;
       //Page Numbering
       if ($linkpages!=1 && $linkpages!=0) {
          echo "<p align=\"center\">";
@@ -410,37 +375,33 @@ function viewslink($sid, $min, $orderby, $show) {
       }
       echo "</p><br />";
       FooterOrderBy($cid, $sid, $orderbyTrans, "viewslink");
-      
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingPage();
-   }
    include("footer.php");
 }
 
 function fiche_detail ($Xlid) {
-    global $ModPath, $ModStart;
-    include("header.php");
-    // Include cache manager
-    global $SuperCache;
-    if ($SuperCache) {
-       $cache_obj = new cacheManager();
-       $cache_obj->startCachingPage();
-    } else {
-       $cache_obj = new SuperCacheEmpty();
-    }
-    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-       settype($xlid,'integer');
-       $browse_key=$Xlid;
-       $link_fiche_detail="fiche_detail";
-       $inter='cid';
-       include ("modules/sform/links/link_detail.php");
-       
-    }
-    if ($SuperCache) {
-       $cache_obj->endCachingPage();
-    }
-    include("footer.php");
+   global $ModPath, $ModStart;
+   include("header.php");
+   // Include cache manager
+   global $SuperCache;
+   if ($SuperCache) {
+      $cache_obj = new cacheManager();
+      $cache_obj->startCachingPage();
+   }
+   else
+      $cache_obj = new SuperCacheEmpty();
+   if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+      settype($xlid,'integer');
+      $browse_key=$Xlid;
+      $link_fiche_detail="fiche_detail";
+      $inter='cid';
+      include ("modules/sform/links/link_detail.php");
+   }
+   if ($SuperCache)
+      $cache_obj->endCachingPage();
+   include("footer.php");
 }
 
 function categorynewlinkgraphic($cat) {
@@ -541,9 +502,9 @@ function viewlinkeditorial($lid, $ttitle) {
          <p><span class="text-muted small">'.translate("Editorial by").' '.$adminid.' - '.$formatted_date.'</span></p>
          <hr noshade="noshade" />'.aff_langue($editorialtext);
       }
-   } else {
-       echo '<p class="text-center">'.translate("No editorial is currently available for this website.").'</p><br />';
    }
+   else
+      echo '<p class="text-center">'.translate("No editorial is currently available for this website.").'</p><br />';
    echo '
    </div>';
    sql_free_result();
@@ -554,10 +515,9 @@ function formatTimestampShort($time) {
    global $datetime, $locale, $gmt;
    setlocale (LC_TIME, aff_langue($locale));
    preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-   $datetime = strftime("".translate("linksdatestring")."", mktime($datetime[4]+$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-   if (cur_charset!='utf-8') {
+   $datetime = strftime("".translate("linksdatestring")."", mktime($datetime[4]+(integer)$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
+   if (cur_charset!='utf-8')
       $datetime = ucfirst($datetime);
-   }
    return($datetime);
 }
 
