@@ -163,8 +163,12 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    fclose($file);
    @chmod("modules/$ModPath/reseaux-sociaux.conf.php",0666);
 }
-   
+
    settype($subop,'string');
+   settype($rs_id,'string');
+   settype($rs_url,'string');
+   settype($rs_ico,'string');
+
    switch ($subop) {
       case "SaveSetReseaux":
          SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
