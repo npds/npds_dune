@@ -481,6 +481,7 @@ function translate_pass1($phrase) {
    case "Sub.": $tmp="Abon."; break;
    case "Type": $tmp="Type"; break;
    case "Moderator": $tmp="Modérateur"; break;
+   case "Moderator(s)": $tmp="Modérateur(s)"; break;
    case "No posts": $tmp="Rien"; break;
    case "Free for All": $tmp="Accessible à tous"; break;
    case "Group": $tmp="Groupe"; break;
@@ -636,6 +637,7 @@ function translate_pass1($phrase) {
    case "registered users so far.": $tmp="membres enregistrés."; break;
    case "URL": $tmp="Url"; break;
    case "Send internal Message": $tmp="Envoyer un message interne"; break;
+   case "Internal Message": $tmp="Message interne"; break;
    case "RAZ member's list": $tmp="Raz de la liste"; break;
    case "Write to the list": $tmp="Ecrire à la liste"; break;
    case "users found for": $tmp="Utilisateurs trouvés pour"; break;
@@ -988,6 +990,7 @@ function translate_pass1($phrase) {
    case "Write a new Private Message": $tmp="Ecrire un nouveau message privé"; break;
    case "Private Messages": $tmp="Messages personnels"; break;
    case "Contributors": $tmp="Contributeurs"; break;
+   case "Contributor(s)": $tmp="Contributeur(s)"; break;
    case "Bottom page": $tmp="Bas de page"; break;
    case "Topic status": $tmp="Etat du topic"; break;
    case "Print": $tmp="Imprimer"; break;

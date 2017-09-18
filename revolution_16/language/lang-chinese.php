@@ -481,6 +481,7 @@ function translate_pass1($phrase) {
    case "Sub.": $tmp="&#x9884;&#x5B9A;&#x8BE5;&#x670D;&#x52A1;"; break;
    case "Type": $tmp="&#x7C7B;&#x578B;"; break;
    case "Moderator": $tmp="&#x957F;&#x8001;"; break;
+   case "Moderator(s)": $tmp="&#x957F;&#x8001;"; break;
    case "No posts": $tmp="&#x6CA1;&#x6709;&#x5E16;&#x5B50;"; break;
    case "Free for All": $tmp="&#x6240;&#x6709;&#x4EBA;&#x81EA;&#x7531;&#x8FDB;&#x5165;"; break;
    case "Group": $tmp="&#x7EC4;"; break;
@@ -635,6 +636,7 @@ function translate_pass1($phrase) {
    case "registered users so far.": $tmp="&#x6CE8;&#x518C;&#x4F1A;&#x5458;"; break;
    case "URL": $tmp="URL&#x5730;&#x5740;"; break;
    case "Send internal Message": $tmp="&#x53D1;&#x9001;&#x4E00;&#x6761;Internet&#x4FE1;&#x606F;"; break;
+   case "Internal Message": $tmp="Internal Message"; break;
    case "RAZ member's list": $tmp="&#x91CD;&#x7F6E;&#x4F1A;&#x5458;&#x5217;&#x8868;"; break;
    case "Write to the list": $tmp="&#x5411;&#x5217;&#x8868;&#x4E2D;&#x5199;&#x5165;"; break;
    case "users found for": $tmp="&#x627E;&#x5230;&#x7684;&#x7528;&#x6237;&#x5173;&#x4E8E;"; break;
@@ -1001,8 +1003,9 @@ function translate_pass1($phrase) {
    // WS
    
    case "sub-section": $tmp="sub-section"; break;
+   case "Contributors": $tmp="Contributeurs"; break;
+   case "Contributor(s)": $tmp="Contributeur(s)"; break;
 
-   
 
    default: $tmp = "&#x9700;&#x8981;&#x7FFB;&#x8BD1;&#x7A3F; <b>[** $phrase **]</b>"; break;
  }

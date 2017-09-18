@@ -13,9 +13,8 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
 if ($SuperCache) {
@@ -27,9 +26,8 @@ include('auth.php');
 global $NPDS_Prefix;
 
 settype($cancel,'string');
-if ($cancel) {
+if ($cancel)
    header("Location: viewtopic.php?topic=$topic&forum=$forum");
-}
 
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
@@ -40,18 +38,14 @@ $forum_access = $myrow['forum_access'];
 $forum_type=$myrow['forum_type'];
 $mod=$myrow['forum_moderator'];
 
-if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) ) {
+if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) )
    header("Location: forum.php");
-}
-if ($forum_access==9) {
+if ($forum_access==9)
    header("Location: forum.php");
-}
-if (is_locked($topic)) {
+if (is_locked($topic))
    forumerror('0025');
-}
-if (!does_exists($forum, "forum") || !does_exists($topic, "topic")) {
+if (!does_exists($forum, "forum") || !does_exists($topic, "topic"))
    forumerror('0026');
-}
 
 settype($submitS,'string');
 settype($stop,'integer');
@@ -63,25 +57,24 @@ if ($submitS) {
          $modo='';;
          include("header.php");
       } else {
-         if (($username=='') or ($password=='')) {
+         if (($username=='') or ($password==''))
             forumerror('0027');
-         } else {
+         else {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
-            if (!$system) {
+            if (!$system)
                $passwd=crypt($password,$pass);
-            } else {
+            else
                $passwd=$password;
-            }
             if ((strcmp($passwd,$pass)==0) and ($pass != '')) {
                $userdata = get_userdata($username);
                if ($userdata['uid']==1)
                   forumerror('0027');
                else
                   include("header.php");
-            } else {
-               forumerror('0028');
             }
+            else
+               forumerror('0028');
             $modo=user_is_moderator($username,$pass,$forum_access);
             if ($forum_access==2) {
                if (!$modo)
@@ -124,9 +117,8 @@ if ($submitS) {
          $message = aff_code($message);
          $message = str_replace("\n", "<br />", $message);
       }
-      if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5')) {
+      if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5'))
          $message = smile($message);
-      }
       if (($forum_type!='6') and ($forum_type!='5')){
          $message = make_clickable($message);
          $message = removeHack($message);
@@ -136,29 +128,25 @@ if ($submitS) {
       $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
 
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0020');
-      } else {
+      else
          $IdPost=sql_last_id();
-      }
+
       $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_time = '$time', current_poster = '".$userdata['uid']."' WHERE topic_id = '$topic'";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0020');
-      }
       $sql = "UPDATE ".$NPDS_Prefix."forum_read SET status='0' where topicid = '$topic' and uid <> '".$userdata['uid']."'";
-      if (!$r = sql_query($sql)) {
+      if (!$r = sql_query($sql))
          forumerror('0001');
-      }
 
       $sql = "UPDATE ".$NPDS_Prefix."users_status SET posts=posts+1 WHERE (uid = '".$userdata['uid']."')";
       $result = sql_query($sql);
-      if (!$result) {
+      if (!$result)
          forumerror('0029');
-      }
       $sql = "SELECT t.topic_notify, u.email, u.uname, u.uid, u.user_langue FROM ".$NPDS_Prefix."forumtopics t, ".$NPDS_Prefix."users u WHERE t.topic_id = '$topic' AND t.topic_poster = u.uid";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0022');
-      }
 
       $m = sql_fetch_assoc($result);
       $sauf = '';
@@ -199,9 +187,8 @@ if ($submitS) {
    }
 } else {
    include('header.php');
-   if ($allow_bbcode==1) {
+   if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
-   }
 
    list($topic_title, $topic_status) = sql_fetch_row(sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'"));
    $userX = base64_decode($user);
@@ -217,7 +204,7 @@ if ($submitS) {
    </p>
    <div class="card">
       <div class="card-body p-1">
-            '.translate("Moderated By: ");
+            '.translate("Moderator(s)");
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -238,13 +225,12 @@ if ($submitS) {
    <form action="reply.php" method="post" name="coolsus">';
 
    echo '<blockquote class="blockquote d-none d-sm-block"><p>'.translate("About Posting:").'<br />';
-   if ($forum_access == 0) {
+   if ($forum_access == 0)
       echo translate("Anonymous users can post new topics and replies in this forum.");
-   } else if($forum_access == 1) {
+   else if($forum_access == 1)
       echo translate("All registered users can post new topics and replies to this forum.");
-   } else if($forum_access == 2) {
+   else if($forum_access == 2)
       echo translate("Only Moderators can post new topics and replies in this forum.");
-   }
    echo '</blockquote>';
 
    $allow_to_reply=false;
@@ -269,9 +255,9 @@ if ($submitS) {
         $acc = 'reply';
         $message=stripslashes($message);
         include ("preview.php");
-     } else {
-        $message='';
      }
+     else
+        $message='';
 
    echo '
    <br />
@@ -427,8 +413,7 @@ if ($submitS) {
                <div class="card-header">';
          $posterdata = get_userdata_from_id($myrow['poster_id']);
          $posts = $posterdata['posts'];
-         
-               $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+         $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
       if (!$short_user) {
          $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');

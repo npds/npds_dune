@@ -172,20 +172,19 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($forum_access!=9) {
       $allow_to_post = true;
       if ($forum_access==2)
-         if (!user_is_moderator($userR[0],$userR[2],$forum_access)) {$allow_to_post = false;}
-      if ($allow_to_post) {
+         if (!user_is_moderator($userR[0],$userR[2],$forum_access)) $allow_to_post = false;
+      if ($allow_to_post)
          echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="d-none d-sm-inline">'.translate("New Topic").'<br /></span></a>';
-      }
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
    </h3>';
-      $moderator_data=explode(' ',$moderator);
-$ibidcountmod = count($moderator_data);
+   $moderator_data=explode(' ',$moderator);
+   $ibidcountmod = count($moderator_data);
    echo '
       <div class="card mb-3">
          <div class="card-body p-2">
             <div class="d-flex ">
-               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 border bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ml-1 d-inline d-md-none" title="'.translate("Moderator(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator(s)").'</span></div>
                <div class=" align-self-center mr-auto">';
                   $Mmod=false;
 
@@ -329,9 +328,8 @@ $ibidcountmod = count($moderator_data);
       echo '
          </tbody>
       </table>';
-      if ($user) {
+      if ($user)
          echo '<p class="mt-1"><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-lg fa-check-square-o"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
-      }
    } else {
       if ($forum_access!=9)
          echo '
@@ -352,23 +350,22 @@ $ibidcountmod = count($moderator_data);
    else if ($start < 1) {$current=0;}
    else {$current = $nbPages;}
 
-   echo '<div class="mb-2"></div>'.paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, $adj=3, $topics_per_page, $start);
+   echo '<div class="mb-2"></div>'.paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, 1, $topics_per_page, $start);
 
    echo searchblock();
 //      if ($myrow = sql_fetch_assoc($result)) 
    echo '
    <blockquote class="blockquote my-3">';
-   if($user) {
+   if($user)
       echo'
       <i class="fa fa-file-text-o fa-lg faa-shake animated text-primary"></i> = '.translate("New Posts since your last visit.").'<br />
       <i class="fa fa-file-text fa-lg faa-shake animated text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
       <i class="fa fa-file-o fa-lg text-primary"></i> = '.translate("No New Posts since your last visit.").'<br />
       <i class="fa fa-file fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />';
-   } else {
+   else
       echo '
       <i class="fa fa-file-text fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
       <i class="fa fa-file-text-o fa-lg text-primary"></i> = '.translate("Posts").'.<br />';
-   }
    echo '
       <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
    </blockquote>';

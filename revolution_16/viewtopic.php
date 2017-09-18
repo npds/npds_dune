@@ -69,9 +69,8 @@ if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
 
    //:: ici 
-   if ( (!$ok_affiche) and ($adminforum==0) ) {
+   if ( (!$ok_affiche) and ($adminforum==0) )
       header("location: forum.php");
-   }
 }
 if (($forum_type==9) and (!$user))
    header("location: forum.php");
@@ -81,11 +80,12 @@ if (isset($user)) {
    $userX = base64_decode($user);
    $userdata = explode(':', $userX);
 }
-$moderator=get_moderator($mod);
-$moderator=explode(' ',$moderator);
-$Mmod=false;
+$moderator = get_moderator($mod);
+$moderator = explode(' ',$moderator);
+$Mmod = false;
+$countmoderator = count($moderator);
 if (isset($user)) {
-   for ($i = 0; $i < count($moderator); $i++) {
+   for ($i = 0; $i < $countmoderator; $i++) {
       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
    }
 }
@@ -94,9 +94,8 @@ $total = get_total_posts($forum, $topic, "topic",$Mmod);
 if ($total > $posts_per_page) {
    $times = 0; $current_page=0;
    for ($x = 0; $x < $total; $x += $posts_per_page) {
-       if (($x>=$start) and ($current_page==0)) {
+       if (($x>=$start) and ($current_page==0))
           $current_page=$times+1;
-       }
        $times++;
    }
    $pages=$times;
@@ -105,13 +104,12 @@ if ($total > $posts_per_page) {
    if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; };
    $nbPages = ceil($total/$posts_per_page);
       $current = 1;
-      if ($start >= 1) {
+      if ($start >= 1)
          $current=$start/$posts_per_page;
-      } else if ($start < 1) {
+      else if ($start < 1)
          $current=0;
-      } else {
+      else
          $current = $nbPages;
-      }
 
 if (!$result = sql_query($sql))
    forumerror('0001');
@@ -122,19 +120,17 @@ $original_poster=$myrow['topic_poster'];
 
 function aff_pub($lock_state, $topic, $forum, $mod) {
    global $language;
-   if ($lock_state==0) {
-   echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="d-none d-md-inline">'.translate("New Topic").'<br /></span></a>&nbsp;';
-   }
+   if ($lock_state==0)
+      echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="d-none d-md-inline">'.translate("New Topic").'<br /></span></a>&nbsp;';
 }
 function aff_pub_in($lock_state, $topic, $forum, $mod) {
    global $language;
-   if ($lock_state==0) {
-   echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="d-none d-md-inline"></span><i class="fa fa-reply mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a>';
-   }
+   if ($lock_state==0)
+      echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Reply").'" data-toggle="tooltip"><span class="d-none d-md-inline"></span><i class="fa fa-reply mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a>';
 }
 
 $contributeurs = get_contributeurs($forum, $topic);
-$contributeurs=explode(' ',$contributeurs);
+$contributeurs = explode(' ',$contributeurs);
 $total_contributeurs = count($contributeurs);
 
 $title=$forum_name; $post=$topic_subject;
@@ -144,8 +140,7 @@ include('header.php');
    <p class="lead">
       <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_subject.'
-   </p>';
-   echo '
+   </p>
    <h3 class="mb-3">';
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -160,9 +155,8 @@ include('header.php');
             $allow_to_post=true;
          }
       }
-      if ($allow_to_post) {
+      if ($allow_to_post)
          aff_pub($lock_state,$topic,$forum,$mod);
-      }
    }
 
    echo $topic_subject.'<span class="text-muted ml-1">#'.$topic.'</span>';
@@ -179,16 +173,15 @@ include('header.php');
             $allow_to_post=true;
          }
       }
-      if ($allow_to_post) {
+      if ($allow_to_post)
          aff_pub_in($lock_state,$topic,$forum,$mod);
-      }
    }
    echo '
       </h3>
       <div class="card mb-3">
          <div class="card-body p-2">
          <div class="d-flex ">
-            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class=" mr-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributors").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributors").'</span></div>
+            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class=" mr-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributor(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributor(s)").'</span></div>
             <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
@@ -207,7 +200,7 @@ include('header.php');
    $ibidcountmod = count($moderator);
    echo '
          <div class="d-flex">
-            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class="mr-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator").'</span></div>
+            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class="mr-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Moderator(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator(s)").'</span></div>
             <div class=" align-self-center mr-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
