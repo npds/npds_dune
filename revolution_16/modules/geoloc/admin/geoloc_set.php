@@ -60,7 +60,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
 
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-
    $fonts_svg=array('USER','USERS','HEART-O','THUMB-TACK','CIRCLE-O','CAMERA','ANCHOR','MAP-MARKER','PLANE','STAR-O','HOME','FLAG','CROSSHAIRS','ASTERISK','FIRE','COMMENT');
    echo '
    <hr />
@@ -71,11 +70,15 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       <fieldset id="para_sys" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
          <span class="text-danger">* '.geoloc_translate("requis").'</span>
          <div class="form-group row">
-            <label class="form-control-label col-sm-6" for="api_key">'.geoloc_translate("Clef d'API").'<span class="text-danger ml-1">*</span> : '.$api_key.'</label>
+            <label class="form-control-label col-sm-6" for="api_key">'.geoloc_translate("Clef d'API").'<span class="text-danger ml-1">*</span></label>
             <div class="col-sm-6">
                <input type="text" class="form-control" name="api_key" id="api_key" placeholder="" value="'.$api_key.'" required="required" />
+               <span class="help-block small muted">'.$api_key.'</span>
             </div>
-         </div>
+         </div>';
+   if($api_key=='AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns') echo '
+         <div class="alert alert-danger">Attention : cette clef d\'API doit être remplacée par votre propre clef au plus tôt !</div>';
+   echo '
          <div class="form-group row ">
             <label class="form-control-label col-sm-6" for="ch_lat">'.geoloc_translate('Champ de table pour latitude').'<span class="text-danger ml-1">*</span></label>
             <div class="col-sm-6">
@@ -109,35 +112,23 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <div class="col-sm-6">
                <input type="text" class="form-control" name="ch_img" id="ch_img" placeholder="Chemin des images" value="'.$ch_img.'" required="required" />
             </div>
-         </div>
+         </div>';
+   $cky_geo=''; $ckn_geo='';
+   if ($geo_ip==1) $cky_geo='checked="checked"'; else $ckn_geo='checked="checked"';
+   echo '
          <div class="form-group row">
             <label class="col-sm-6 form-control-label" for="geo_ip">'.geoloc_translate('Géolocalisation des IP').'</label>
             <div class="col-sm-6">
-               <label class="custom-control custom-radio">';
-   if ($geo_ip==1) { 
-      echo'
-                  <input class="custom-control-input" type="radio" id="geo_oui" name="geo_ip" value="1" checked="checked" />
+               <label class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" id="geo_oui" name="geo_ip" value="1" '.$cky_geo.' />
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">'.geoloc_translate('Oui').'</span>
                </label>
                <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" id="geo_no" name="geo_ip" value="0" />
+                  <input class="custom-control-input" type="radio" id="geo_no" name="geo_ip" value="0" '.$ckn_geo.' />
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">'.geoloc_translate('Non').'</span>
-               </label>';
-   } else {
-      echo'
-                  <input class="custom-control-input" type="radio" id="geo_oui" name="geo_ip" value="1" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.geoloc_translate('Oui').'</span>
                </label>
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" id="geo_no" name="geo_ip" value="0" checked="checked"/>
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.geoloc_translate('Non').'</span>
-               </label>';
-   }
-   echo '
             </div>
          </div>
          <div class="form-group row">
@@ -443,7 +434,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
 //<![CDATA[
    $(document).ready(function() {
       $("head").append($("<script />").attr("src","lib/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js"));
-
       if($("#map_bloc").length) { 
          console.log("map_bloc est dans la page");//debug
          var 
