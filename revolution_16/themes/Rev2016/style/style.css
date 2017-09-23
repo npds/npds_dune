@@ -802,10 +802,6 @@ a.tooltip_ws:hover em span {
     border: 0;
     }
 
-
-
-
-
 /*<== class de NPDS dans le core jmd*/
 
 .lead {
@@ -935,19 +931,16 @@ right: 35px;
     -ms-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   8% {
     -webkit-transform: rotate(12deg);
     -ms-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   10% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   18% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
@@ -1846,37 +1839,30 @@ right: 35px;
   -webkit-animation: passing 3s linear infinite;
   animation: passing 3s linear infinite;
 }
-
 /* WAVE */
-
 @-webkit-keyframes burst {
   0% {
     opacity: .6;
   }
-
   50% {
     -webkit-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-
   100% {
     opacity: 0;
   }
 }
-
 @keyframes burst {
   0% {
     opacity: .6;
   }
-
   50% {
     -webkit-transform: scale(1.8);
     -ms-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-
   100% {
     opacity: 0;
   }
@@ -1936,13 +1922,11 @@ td, th {
     padding: 5px;
 }
 
-
 .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
   position: absolute;
     margin-top: 0.3rem;          /* bmag*/
     margin-left: -1.4rem;        /* bmag*/
 }
-
 
 ol li:nth-child(2n+1){background-color:#f9f9f9;}
 /* pour une liste */
@@ -1953,9 +1937,6 @@ pagination*/
   padding: 0.275rem 0.75rem;
   font-size: 1.250rem;
   line-height: 1.5; }
-  
-
-
 
 .fa {
     display: inline-block;
