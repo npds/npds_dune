@@ -48,9 +48,10 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 
 // ---- AVATAR
 if ($smilies) {
+//var_dump($userinfo['user_avatar']);
    if (stristr($userinfo['user_avatar'],"users_private")) {
       $m->add_field('user_avatar',translate("Your Avatar"), $userinfo['user_avatar'],'show-hidden',false,30,'','');
-      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" />');
+      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="Your next avatar" />');
    } else {
       global $theme;
       $direktori="images/forum/avatar";
@@ -69,16 +70,17 @@ if ($smilies) {
             if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
       }
       $m->add_select('user_avatar',translate("Your Avatar"), $tmp_tempo, false, '', false);
-      $m->add_extender('user_avatar', 'onkeyup="showimage();" onchange="showimage();"', '<div class="help-block"><img class="img-thumbnail n-ava" src="'.$direktori.'/'.$userinfo['user_avatar'].'" name="avatar" align="top" title="" /></div>');
+      $m->add_extender('user_avatar', 'onkeyup="showimage();$(\'#avatar,#tonewavatar\').show();" onchange="showimage();$(\'#avatar,#tonewavatar\').show();"', '<div class="help-block"><img class="img-thumbnail n-ava" src="'.$direktori.'/'.$userinfo['user_avatar'].'" align="top" title="" /><span id="tonewavatar" class="lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="img-thumbnail n-ava " src="'.$direktori.'/'.$userinfo['user_avatar'].'" name="avatar" id="avatar" align="top" title="Your next avatar" data-placement="right" data-toggle="tooltip" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="your next avatar" title="Your next avatar" data-placement="right" data-toggle="tooltip" /></div>');
    }
 
    // Permet à l'utilisateur de télécharger un avatar (photo) personnel
    // - si vous mettez un // devant les deux lignes B1 et raz_avatar celà équivaut à ne pas autoriser cette fonction de NPDS
    // - le champ B1 est impératif ! La taille maxi du fichier téléchargeable peut-être changée (le dernier paramètre) et est en octets (par exemple 20480 = 20 Ko)
    $taille_fichier=8192;
-   if (!$avatar_size) {$avatar_size='80*100';}
+   if (!$avatar_size) $avatar_size='80*100';
    $m->add_upload('B1', '', '30', $taille_fichier);
-   $m->add_extender('B1', '', '<span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octects et <strong>'.$avatar_size.'</strong> pixels</span>');
+   $m->add_extender('B1', '', '<span class="small text-primary"><i id="reset_ava" class="fa fa-refresh fa-lg mr-2"></i>Réinitialiser le selectionneur de fichier</span><span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octets et <strong>'.$avatar_size.'</strong> pixels</span>');
+
    $m->add_checkbox('raz_avatar',translate("Re-activate the standard'avatars"), 1, false, false);
    // ----------------------------------------------------------------------------------------------
 }
@@ -127,9 +129,7 @@ $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Submit','',translate('Submit'),'submit',false);
-
 include_once('modules/geoloc/geoloc_conf.php');
-
 $m->add_extra('
          </div>
       </div>');
@@ -138,6 +138,34 @@ $m->add_extra('
       <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
       <script type="text/javascript">
       //<![CDATA[
+
+         $(document).ready(function() {
+            $("#reset_ava").on("click", function(e) {
+               var $el = $("#B1");
+               $el.wrap("<form>").closest("form").get(0).reset();
+               $(".ava-meca").hide();
+               $("#user_avatar").prop("disabled", false);
+           });
+         });
+         $(".ava-meca, #avatar, #tonewavatar").hide();
+         function readURL(input) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function (e) {
+                   $("#ava_perso").attr("src", e.target.result);
+                   $(".ava-meca").show();
+               }
+            }
+            reader.readAsDataURL(input.files[0]);
+         }
+         $("#B1").change(function() {
+            readURL(this);
+            $("#user_avatar option[value=\''.$userinfo['user_avatar'].'\']").prop("selected", true);
+
+            $("#user_avatar").prop("disabled", "disabled");
+            $("#avatar,#tonewavatar").hide();
+         });
+      
          $(document).ready(function() {
             $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
             $("#embeddingDatePicker input").datepicker({
@@ -167,6 +195,16 @@ $m->add_extra('
       //]]>
       </script>');
 $fv_parametres ='
+         B1: {
+             validators: {
+                 file: {
+                     extension: "jpeg,jpg,png,gif",
+                     type: "image/jpeg,image/png,image/gif",
+                     maxSize: '.$taille_fichier.',
+                     message: "The selected file is not valid"
+                 }
+             }
+         },
          T1: {
             excluded: false,
             validators: {

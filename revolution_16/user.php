@@ -997,7 +997,7 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                           if (($img_size[0]>$avatar_limit[0]) or ($img_size[1]>$avatar_limit[1])) {
                              $raz_avatar=true;
                           }
-                          if ($racine=="") $user_avatar=substr($user_avatar,1);
+                          if ($racine=='') $user_avatar=substr($user_avatar,1);
                        }
                     }
                  }
