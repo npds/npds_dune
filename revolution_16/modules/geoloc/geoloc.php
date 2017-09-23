@@ -128,7 +128,7 @@ $js_dragfunc ='
             $tab_ip .='
          <p class="list-group-item list-group-item-action flex-column align-items-start">
             <span class="d-flex w-100 mt-1">
-            <span><a class="" href=""><img class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_code_country1.'" title="" data-toggle="tooltip"></a> '.urldecode($ip_ip1).'</span>
+            <span><a class="" href=""><img class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_country1.'" title="" data-toggle="tooltip"></a> '.urldecode($ip_ip1).'</span>
             <span class="ml-auto">
                <span class="badge badge-secondary ml-1" title="'.geoloc_translate("Visites").'" data-toggle="tooltip" data-placement="left" >'.$ip_visite.'</span>
             </span>
@@ -352,7 +352,7 @@ while ($row = sql_fetch_array($result)) {
    //$iptronq = explode('.',$session_host_addr,-1);
 
    settype($test_ip,'string');
-   settype($temp_ip,'string');
+//   settype($temp_ip,'string');
 
    while ($row1 = sql_fetch_array($tres)) {
       $ip_lat1 = $row1['ip_lat'];
@@ -387,8 +387,8 @@ while ($row = sql_fetch_array($result)) {
  $krs++;
 };
 
-if ($test_ip !='') $temp_ip = $test_ip;
-$test_ip = $temp_ip;
+//if ($test_ip !='') $temp_ip = $test_ip;
+//$test_ip = $temp_ip;
 
 $olng = $mbcng+$acng;//==> on line non géoréférencés anonyme et membres
 $olg = $mbcg+$acg;//==> on line géoréférencés anonyme et membres
@@ -556,7 +556,7 @@ var i = 0;
             html += \'<a class="list-group-item list-group-item-action" onmouseout="stopmyani(\' + i + \')" onmouseover="myho(\' + i + \')" href="javascript:myclick(\' + i + \')">\' + gmarkers[i].myname + \'</a>\';
             }
         }
-      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><i class="fa fa-plug faa-flash animated text-danger mr-1"></i>'.geoloc_translate("En ligne").'<span class="badge badge-danger ml-auto">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
+      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><i class="fa fa-plug faa-flash animated text-danger mr-1"></i>'.geoloc_translate("En ligne").'<span class="badge badge-danger float-right">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
     }
 
     function myclick(i) {
