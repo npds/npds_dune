@@ -310,7 +310,7 @@ class form_handler {
 
     for($i=0;$i<count($this->form_fields);$i++){
       if (array_key_exists('size',$this->form_fields[$i])) {
-         if ($this->form_fields[$i]['size']>=$this->field_size) {$csize=$this->field_size;} else {$csize=$this->form_fields[$i]['size']+1;}
+         if ($this->form_fields[$i]['size']>=$this->field_size) {$csize=$this->field_size;} else {$csize=(integer)$this->form_fields[$i]['size']+1;}
       }
       if (array_key_exists('name',$this->form_fields[$i])) {
          $num_extender=$this->interro_fields($this->form_fields[$i]['name'].'extender');
@@ -434,13 +434,18 @@ class form_handler {
             </div>
          </div>';
       break;
-
+      //not sure to check if ok on all case
       case 'show-hidden':
-        $str.=$this->form_fields[$i]['en']."<br />";
+        $str.='
+         <div class="form-group row">
+            <label class="form-control-label col-sm-4">'.$this->form_fields[$i]['en'].'</label>
+            <div class="col-sm-8">';
           if ($num_extender!="no") {
-             $str.="".$this->form_fields[$num_extender]['html'];
+             $str.=$this->form_fields[$num_extender]['html'];
           }
-        $str.="\n";
+          $str.='
+            </div>
+         </div>';
 
       case 'hidden':
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
@@ -463,9 +468,9 @@ class form_handler {
           while(list($key,$val)=each($this->form_fields[$i]['value']) ){
             $str.='
                   <option value="'.$key.'"';
-                  if(array_key_exists('selected', $val)) $str .=' selected="selected" ';
-$str .=' >';
-//            $str.=($val['selected'])? ' selected="selected">' : '>';
+//                  if(array_key_exists('selected', $val)) $str .=' selected="selected" ';
+//$str .=' >';
+            $str.=($val['selected'])? ' selected="selected">' : '>';
             $str.=str_replace('\'','&#039;',$val['en']).'</option>';
           }
           $str.='
