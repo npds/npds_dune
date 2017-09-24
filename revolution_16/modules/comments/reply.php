@@ -126,7 +126,7 @@ if (isset($submitS)) {
       $message = removeHack($message);
       $image_subject='';
       $message = addslashes($message);
-      $time = date("Y-m-d H:i:s",time()+($gmt*3600));
+      $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql)) {
          forumerror('0020');
