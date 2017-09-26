@@ -13,7 +13,7 @@
 /************************************************************************/
 $userdatat=$userdata;
 $messageP=$message;
-$time=date(translate("dateinternal"),time()+($gmt*3600));
+$time=date(translate("dateinternal"),time()+((integer)$gmt*3600));
 
 switch ($acc) {
    case "newtopic":
@@ -71,9 +71,8 @@ switch ($acc) {
       settype($post_id,"integer");
       $sql = "SELECT poster_id, topic_id FROM ".$NPDS_Prefix."posts WHERE (post_id = '$post_id')";
       $result = sql_query($sql);
-      if (!$result) {
+      if (!$result)
          forumerror('0022');
-      }
       $row2 = sql_fetch_assoc($result);
 
       $userdata['uid'] = $row2['poster_id'];
