@@ -265,27 +265,27 @@ function smile($message) {
    }
    return($message);
 }
-#autodoc aff_video_yt($ibid) : analyse et génère un tag  à la volée pour la video youtube $ibid - JPB 01-2011
+#autodoc aff_video_yt($ibid) : analyse et génère un tag à la volée pour la video youtube $ibid - JPB 01-2011
 function aff_video_yt($ibid) {
-   $w_video=320;
-   $h_video=265;
    $pasfin=true;
    while ($pasfin) {
       $pos_deb=strpos($ibid,"[video_yt]",0);
       $pos_fin=strpos($ibid,"[/video_yt]",0);
       // ne pas confondre la position ZERO et NON TROUVE !
-      if ($pos_deb===false) {$pos_deb=-1;}
-      if ($pos_fin===false) {$pos_fin=-1;}
+      if ($pos_deb===false) $pos_deb=-1;
+      if ($pos_fin===false) $pos_fin=-1;
       if (($pos_deb>=0) and ($pos_fin>=0)) {
          $id_vid= substr($ibid,$pos_deb+10,($pos_fin-$pos_deb-10));
          $fragment = substr( $ibid, 0,$pos_deb);
          $fragment2 = substr( $ibid,($pos_fin+11));
-         $ibid_code = '<br /><div class="embed-responsive embed-responsive-16by9"><!-- video_yt #'.$id_vid.'# --><object width="'.$w_video.'" height="'.$h_video.'">
-         <param name="movie" value="https://www.youtube.com/v/'.$id_vid.'=en&fs=1" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed class="embed-responsive-item" src=https://www.youtube.com/v/'.$id_vid.'&fs=1 type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'.$w_video.'" height="'.$h_video.'" /></object><!-- /video_yt --><br /></div>';
+         $ibid_code = '
+         <div class="embed-responsive embed-responsive-16by9 my-3">
+           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$id_vid.'?rel=0" allowfullscreen></iframe>
+         </div';
          $ibid= $fragment.$ibid_code.$fragment2;
-      } else {
-         $pasfin=false;
       }
+      else
+         $pasfin=false;
    }
    return ($ibid);
 }
@@ -361,7 +361,7 @@ function HTML_Add() {
          .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link fa-lg mr-2"></i></a>'
          .'<a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Table").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>'
          .'<a href="javascript: addText(\'&lt;pre&gt;[code]\',\'[/code]&lt;/pre&gt;\');" title="'.translate("Code").'" data-toggle="tooltip" ><i class="fa fa-code fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;  
+         .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;
           </div>';
    return($affich);
 }
@@ -824,8 +824,8 @@ function sub_forum_folder($forum) {
    }
    return ($ibid);
 }
-#autodoc paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) : Retourne un bloc de pagination
-function paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) {
+#autodoc paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_page, $start) : Retourne un bloc de pagination
+function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_page, $start) {
    $prev = $current - 1; // page précédente
    $next = $current + 1; // page suivante
    $penultimate = $total - 1; //avant-dernière page
@@ -925,8 +925,8 @@ function paginate_single($url, $urlmore, $total, $current, $adj=3, $topics_per_p
    return ($pagination);
 }
 
-#autodoc paginate($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) : Retourne un bloc de pagination
-function paginate($url, $urlmore, $total, $current, $adj=3, $topics_per_page, $start) {
+#autodoc paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $start) : Retourne un bloc de pagination
+function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $start) {
    $prev = $start - $topics_per_page; // page précédente
    $next = $start + $topics_per_page; // page suivante
    $penultimate = $total - 1; //avant-dernière page
