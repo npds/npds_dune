@@ -3,7 +3,6 @@
       responsivité des anciens site : forçage des dimensions par la classe img-fluid,
       paramétrages de plugins :  tooltips, popover, toggle, boostrap table, highlight
       */
-
       // ==> choix icon boostrap table //
          window.icons = {
             refresh: 'fa-refresh fa-lg',
@@ -19,7 +18,7 @@
             $('.article_texte img,.ibid_descr img').addClass('img-fluid');
             $('#ban img,#art_preview img,#online_user_journal img,#art_sect img').addClass('img-fluid');
             $('iframe').addClass("embed-responsive-item");
-         
+
             $('.fo-post-mes img').addClass('img-fluid');//not sure if usefull to late ...
             // icon toggle 
             $('a[data-toggle="collapse"]').click(function () {
@@ -31,17 +30,12 @@
             // initialisation tooltip et popover (qui ferme au prochain click)
             $('[data-toggle="tooltip"]').tooltip({container:'body'});
             $('[data-toggle="popover"]').popover();
-            $('.popover-dismiss').popover({ trigger: 'focus'})
+            $('.popover-dismiss').popover({ trigger: 'click'})
 
             // fix bug tooltip in table
             $('table').on('all.bs.table', function (e, name, args) {
                $('[data-toggle="tooltip"]').tooltip();
                $('[data-toggle="popover"]').popover();
-            });
-            // ==> colorisation syntaxique du code //
-            $('pre code').each(function(i, block) {
-               hljs.highlightBlock(block);
-               hljs.configure({useBR: true});
             });
          });
       //]]>
