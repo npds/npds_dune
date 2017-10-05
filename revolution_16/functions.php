@@ -113,7 +113,7 @@ function post_convertdate($tmst) {
    if ($tmst>0)
       $val=date(translate("dateinternal"),$tmst);
    else
-      $val="";
+      $val='';
    return ($val);
 }
 
@@ -317,9 +317,7 @@ function putitems_more() {
 
 function putitems() {
    global $theme;
-//   echo '   <a href="#" class="" title="'.translate("Click on Smilies to insert it on your Message").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i> + </a>';
-   
-   echo '<span class ="n-fond_emot">';
+   echo '<span class ="n-fond_emot" title="'.translate("Click on Smilies to insert it on your Message").'" data-toggle="tooltip">';
    if ($ibid=theme_image("forum/smilies/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/";} else {$imgtmp="images/forum/smilies/";}
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
@@ -332,14 +330,12 @@ function putitems() {
       }
    }
    echo '</span>';
-   
 //    global $allow_bbcode;
 //    if ($allow_bbcode) {
       if ($ibid=theme_image("forum/smilies/more/smilies.php")) 
-      {$imgtmp="themes/$theme/images/forum/smilies/more/";} 
+         $imgtmp="themes/$theme/images/forum/smilies/more/";
       else 
-      {$imgtmp="images/forum/smilies/more/";}
-      
+         $imgtmp="images/forum/smilies/more/";
       if (file_exists($imgtmp."smilies.php"))
          echo '&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
 //   }
@@ -347,22 +343,41 @@ function putitems() {
 
 function HTML_Add() {
    $affich = '
-         <div>'
-         .'<a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-right").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\' http://www.\',\'\');" title="'.translate("Web link").'" data-toggle="tooltip" ><i class="fa fa-link fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Table").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'&lt;pre&gt;[code]\',\'[/code]&lt;/pre&gt;\');" title="'.translate("Code").'" data-toggle="tooltip" ><i class="fa fa-code fa-lg mr-2"></i></a>'
-         .'<a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;
-          </div>';
+                  <div>
+                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-right").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2"></i></a>
+                     <div class="dropdown d-inline mr-2" title="'.translate("Web link").'" data-toggle="tooltip" data-placement="left">
+                        <a class=" dropdown-toggle" href="#" role="button" id="protocoletype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-link fa-lg"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="protocoletype">
+                           <a class="dropdown-item" href="javascript: addText(\' http://\',\'\');">http</a>
+                           <a class="dropdown-item" href="javascript: addText(\' https://\',\'\');">https</a>
+                           <a class="dropdown-item" href="javascript: addText(\' ftp://\',\'\');">ftp</a>
+                           <a class="dropdown-item" href="javascript: addText(\' sftp://\',\'\');">sftp</a>
+                        </div>
+                     </div>
+                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Table").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>
+                     <div class="dropdown d-inline mr-2" title="'.translate("Code").'" data-toggle="tooltip" data-placement="left">
+                        <a class=" dropdown-toggle" href="#" role="button" id="codeclasslanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-code fa-lg"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="codeclasslanguage">
+                           <h6 class="dropdown-header">Languages</h6>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code markup]\',\'[/code]&lt;/pre&gt;\');">Markup</a>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code php]\',\'[/code]&lt;/pre&gt;\');">Php</a>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code css]\',\'[/code]&lt;/pre&gt;\');">Css</a>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code js]\',\'[/code]&lt;/pre&gt;\');">js</a>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code sql]\',\'[/code]&lt;/pre&gt;\');">SQL</a>
+                        </div>
+                     </div>
+                     <a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;
+                  </div>';
    return($affich);
 }
 
@@ -378,31 +393,30 @@ function emotion_add($image_subject) {
    $temp='';
    while (list ($key, $file) = each ($filelist)) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
-      $temp .='<label class="custom-control custom-radio">';
+      $temp .='
+         <label class="custom-control custom-radio">';
       if ($image_subject!='') {
-         if ($file == $image_subject) {
+         if ($file == $image_subject)
             $temp .= '
             <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" checked="checked" />
             <span class="custom-control-indicator"></span>';
-         } else {
+         else
             $temp .= '
             <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" />
             <span class="custom-control-indicator"></span>';
-         }
       } else {
          $temp .= '
             <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" checked="checked" />
             <span class="custom-control-indicator"></span>';
          $image_subject='no image';
       }
-      $temp .= '<span class="custom-control-description"><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" /></span>';
-      $temp .='</label>';
+      $temp .= '<span class="custom-control-description"><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" /></span>
+         </label>';
    }
    return $temp;
 }
 
 function fakedmail($r) { return preg_anti_spam($r[1]);}
-
 function make_clickable($text) {
    $ret='';
    $ret = preg_replace('#(^|\s)(http|https|ftp|sftp)(://)([^\s]*)#i',' <a href="$2$3$4" target="_blank">$2$3$4</a>',$text);
@@ -533,9 +547,8 @@ function forumerror($e_code) {
       $error_msg = translate("You did not supply the correct password or do not have permission to edit this post. Please go back and try again.");
    if ($e_code == "0101")
       $error_msg = translate("You can't reply to that message.");
-   if (!isset($header)) {
+   if (!isset($header))
       include("header.php");
-   }
    echo '
    <div class="alert alert-danger"><strong>'.$sitename.'<br />'.translate("Forum Error").'</strong><br />';
    echo translate("Error Code:").' '.$e_code.'<br /><br />';

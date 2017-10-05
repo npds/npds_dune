@@ -11,7 +11,7 @@
 /************************************************************************/
 
 echo '
-<link rel="stylesheet" href="lib/js/highlight-9.0.0/styles/vs.css" />
+<link rel="stylesheet" href="lib/css/prism.css" />
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>
 <script type="text/javascript" src="lib/js/popper.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -23,7 +23,6 @@ echo '
 <script type="text/javascript" src="lib/js/js.cookie.js" async="async"></script>
 <script type="text/javascript" src="lib/js/jquery-ui.min.js" ></script>
 <script type="text/javascript" src="lib/js/bootbox.min.js" async="async"></script>
-<script type="text/javascript" src="lib/js/highlight-9.0.0/highlight.pack.js" async="async"></script>
+<script type="text/javascript" src="lib/js/prism.js"></script>
 ';
-
 ?>
