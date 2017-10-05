@@ -3,40 +3,51 @@
       <meta charset="utf-8">
       <title>Administration - Geoloc</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+      <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" />
    </head>
    <body>
       <div class="container">
-
-
          <h4>Paramètres système</h4>
-         <p>L'utilisation de ce module nécessite une clef d'api que vous devez vous procurer ici. (Et cet obtention de clef nécessite un compte goggle.)<br />
+         <p>L'utilisation de ce module nécessite une clef d'api que vous devez vous procurer ici. (Et cette obtention de clef nécessite un compte goggle.)<br />
          
-         https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr
+         <a href="https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr" target="_blank">https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr</a>
          
          (cette clef permettra l'affichage de 25000 carte par 24 heures)
-         
-         Le module est livré avec une clef générique que vous devez donc remplacer !..
+         <br />
+         <span class="text-danger">Le module est livré avec une clef générique que vous devez donc remplacer !..</span>
          </p>
          
-         <h5>Champ de table pour latitude</h5>
-         <h5>Champ de table pour longitude</h5>
+         <h5>Champ de table pour latitude et longitude</h5>
          <p>
          Présentent les champs disponibles dans la base de données pour le stockage des latitudes et longitudes des membres du site. </p>
          <h5>Géolocalisation des IP</h5>
-                  <p>
+         <p>
          Cette option permet d'activer ou de désactiver :
           - le stockage dans la base de donnée des IP des visiteurs,leur géolocalisation le nombre de visite et leur position de visite sur le site 
           - l'affichage de ces données dans l'interface
-          cette option peut ralentir un peu le site et stocker au fil du temps beaucoup de donnée dans la base. 
+          cette option peut ralentir un peu le site et stocker au fil du temps beaucoup de donnée dans la base. Vous pouvez à tout moment vider la base.
           </p>
-         
          <h4>Interface carte</h4>
-         <p></p>
+         <h5>Type de carte</h5>
+         <p>Vous pouvez définir ici le type d'affichage de la carte par défaut, parmi les 4 principaux types fournis par goggle</p>
+            <ul>
+               <li>ROADMAP : carte routière</li>
+               <li>SATELLITE : vue satellite</li>
+               <li>HYBRID : vue satellite + carte routière</li>
+               <li>TERRAIN : relief</li>
+            </ul>
+         <h5>Unité des coordonnées</h5>
+         
+         <p>Permet de définir l'affichage par défaut des coordonées</p>
+            <ul>
+               <li>dms : degrés minutes secondes (ex : 52°28' 58" S | 9°29' 32" E)</li>
+               <li>dd : degrés décimaux (ex : 63.391522 | 146.953125) </li>
+            </ul>
+
          <h4>Interface bloc</h4>
          <p></p>
-         <center><img src="../../images/admin/manuels.gif" border="0" /></center>
+         <center><img src="/images/admin/manuels.gif" alt="logo du manuel" /></center>
       </div>
    </body>
 </html>

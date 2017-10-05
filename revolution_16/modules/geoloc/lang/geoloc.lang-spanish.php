@@ -53,7 +53,7 @@ case "Dernière visite : ": $tmp="Última visita:"; break;
 case "Pays": $tmp="País"; break;
 case "Ville": $tmp="Ciutad"; break;
 case "Les adresses IP sont enregistrées.": $tmp="Las direcciones IP son registradas."; break;
-case "Chargement en cours...<br />Ou serveurs Google HS...<br />Ou erreur...": $tmp="Now Loading...<br />Or Google serveur are down...<br />Or error..."; break;
+case "Chargement en cours...Ou serveurs Google HS...Ou erreur...": $tmp="Now Loading...<br />Or Google serveur are down...<br />Or error..."; break;
 case "Hôte : ": $tmp="Proveedor de alojamiento web:"; break;
 case "Zoom :": $tmp="Zoom:"; break;
 case "Zoom avant": $tmp="Zoom in"; break;
@@ -115,6 +115,10 @@ case "Ip liste": $tmp="Lista de direcciones IP"; break;
 case "Taille de la table": $tmp="Tamaño de la tabla de base de datos"; break;
 case "Vider la table des IP géoréférencées": $tmp="Vaciar la tabla IP de base de datos de geolocalización IP."; break;
 case "Entrez une adresse": $tmp="Introducir una dirección"; break;
+case "Géolocalisation des membres du site": $tmp="Geolocalización miembros de la sitio web"; break;
+case "Géocodage": $tmp="Geocodificación"; break;
+case "Géocodage a échoué pour la raison suivante": $tmp="Error de geocodificación por la siguiente razón"; break;
+case "Géocoder": $tmp="Geocodificación"; break;
 
 default: $tmp = "Ser necesario traducir [** $phrase **]"; break;
  }

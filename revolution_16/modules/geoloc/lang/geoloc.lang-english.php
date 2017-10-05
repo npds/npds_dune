@@ -118,6 +118,10 @@ case "Ip liste": $tmp="Ip list"; break;
 case "Taille de la table": $tmp="Size of the database table"; break;
 case "Vider la table des IP géoréférencées": $tmp="Truncate the table of georeferenced IP."; break;
 case "Entrez une adresse": $tmp="Enter an address"; break;
+case "Géolocalisation des membres du site": $tmp="Site members geolocation"; break;
+case "Géocodage": $tmp="Geocoding"; break;
+case "Géocodage a échoué pour la raison suivante": $tmp="Geocode was not successful for the following reason"; break;
+case "Géocoder": $tmp="Geocode"; break;
 
 default: $tmp = "Need to be translated [** $phrase **]"; break;
  }
