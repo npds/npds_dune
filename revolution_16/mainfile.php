@@ -288,9 +288,9 @@ function removeHack($Xstring) {
      "'<script'i"=>"&lt;script",
      "'</script'i"=>"&lt;/script",
      "'javascript'i"=>"!javascript!",
-     "'embed'i"=>"!embed!",
-     "'iframe'i"=>"!iframe!",
-     "'refresh'i"=>"!refresh!",
+     "'embed\s'i"=>"!embed!",
+     "'iframe\s'i"=>"!iframe!",
+     "'\srefresh\s'i"=>"!refresh!",
      "'document\.cookie'i"=>"!document.cookie!",
      "'onload'i"=>"!onload!",
      "'onstart'i"=>"!onstart!",
@@ -1657,6 +1657,29 @@ function preview_local_langue($local_user_language,$ibid) {
    }
    return ($ibid);
 }
+#autodoc af_cod($ibid) : Analyse le contenu d'une chaîne et converti les pseudo-balises [code]...[/code] et leur contenu en html
+   function change_cod($r) {
+      return '<'.$r[2].' class="language-'.$r[3].'">'.htmlentities($r[5],ENT_COMPAT|ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset).'</'.$r[2].'>';
+   }
+
+function af_cod($ibid) {
+//   $pat='#(\[)(code)(\])(.*?)\[/\2\]#s';
+   $pat='#(\[)(\w+)\s+([^\]]*)(\])(.*?)\1/\2\4#s';
+   $ibid=preg_replace_callback($pat, "change_cod", $ibid, -1, $nb);
+//   $ibid= str_replace(array("\r\n", "\r", "\n"), "<br />",$ibid);
+   return $ibid;
+}
+#autodoc desaf_cod($ibid) : Analyse le contenu d'une chaîne et converti les balises html <code>...</code> en pseudo-balises [code]...[/code]
+function desaf_cod($ibid) {
+//   $pat='#(<)(\w+)\s+([^>]*)(>)(.*?)\1/\2\4#s';
+   $pat='#(<)(\w+)\s+(class="language-)([^">]*)(">)(.*?)\1/\2>#';
+   function rechange_cod($r) {
+     return '['.$r[2].' '.$r[4].']'.$r[6].'[/'.$r[2].']';
+   }
+   $ibid=preg_replace_callback($pat, 'rechange_cod', $ibid, -1);
+   return $ibid;
+}
+
 #autodoc aff_code($ibid) : Analyse le contenu d'une chaîne et converti les balises [code]...[/code]
 function aff_code($ibid) {
    $pasfin=true;

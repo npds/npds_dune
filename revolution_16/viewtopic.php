@@ -147,9 +147,8 @@ include('header.php');
       if ($forum_access==0) {
          $allow_to_post=true;
       } elseif ($forum_access==1) {
-         if (isset($user)) {
+         if (isset($user))
             $allow_to_post=true;
-         }
       } elseif ($forum_access==2) {
          if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
             $allow_to_post=true;
@@ -165,13 +164,11 @@ include('header.php');
       if ($forum_access==0) {
          $allow_to_post=true;
       } elseif ($forum_access==1) {
-         if (isset($user)) {
+         if (isset($user))
             $allow_to_post=true;
-         }
       } elseif ($forum_access==2) {
-         if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
+         if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
             $allow_to_post=true;
-         }
       }
       if ($allow_to_post)
          aff_pub_in($lock_state,$topic,$forum,$mod);
@@ -288,7 +285,7 @@ include('header.php');
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
-      $my_rsos=array();
+   $my_rsos=array();
    do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
@@ -297,7 +294,6 @@ include('header.php');
          $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
          if (array_key_exists('M2', $posterdata_extend)) {
-
             if ($posterdata_extend['M2']!='') {
                $socialnetworks= explode(';',$posterdata_extend['M2']);
                foreach ($socialnetworks as $socialnetwork) {
@@ -365,9 +361,8 @@ include('header.php');
       if ($myrow['image'] != '') {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
-      } else {
+      } else
          echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="icon_post" />';
-      }
       echo '</span>
             </div>';
       $message=stripslashes($myrow['post_text']);
@@ -389,6 +384,8 @@ include('header.php');
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
          $message = smilie($message);
          $message = aff_video_yt($message);
+         $message = af_cod($message);
+         $message = str_replace("\n", '<br />', $message);
       }
       if (($forum_type=='6') or ($forum_type=='5')) {
           highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
@@ -397,7 +394,6 @@ include('header.php');
          echo '<div class="card-text fo-post-mes">';
          echo $message;
          echo '</div>';
-
       }
       if ($allow_upload_forum and ($att>0)) {
          $post_id=$myrow['post_id'];
@@ -422,13 +418,11 @@ include('header.php');
             $allow_to_post=true;
          }
       } elseif ($forum_access==2) {
-         if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
+         if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
             $allow_to_post=true;
-         }
       }
-      if ($allow_to_post) {
+      if ($allow_to_post)
          aff_pub_in($lock_state,$topic,$forum,$mod);
-      }
    }
 
    if ($forum_access!=9) {
@@ -442,7 +436,7 @@ include('header.php');
       if (($Mmod) or ($postuser) and (!$lock_state) and ($posterdata['uid']!='')) {
          echo '<a class="mr-3" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Edit").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          if ($allow_upload_forum) {
-         $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
+            $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
             echo '<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
          }
       }
@@ -451,11 +445,10 @@ include('header.php');
       echo '<a class="mr-3" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
       if ($Mmod) {
          echo '<a class="mr-3" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
-         if (!$myrow['post_aff']) {
+         if (!$myrow['post_aff'])
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Show this post").'" data-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
-         } else {
+         else
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Hide this post").'" data-toggle="tooltip"><i class="fa fa-eye-slash fa-lg "></i></a>&nbsp;';
-         }
       }
    }
       echo '
@@ -514,12 +507,11 @@ include('header.php');
       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
       if ($res = sql_query($sub_sql)) {
          while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
-            if (($forum_type != "9") or ($userdata)) {
-               if (($forum_type == "7") or ($forum_type == "5")) {
+            if (($forum_type != '9') or ($userdata)) {
+               if (($forum_type == '7') or ($forum_type == '5'))
                   $ok_affich=false;
-               } else {
+               else
                   $ok_affich=true;
-               }
                if ($ok_affich) echo '
             <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
             }
@@ -532,9 +524,8 @@ include('header.php');
 </form>
 <a name="botofpage"></a>';
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingBlock($cache_clef);
-   }
 
    if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
       echo '

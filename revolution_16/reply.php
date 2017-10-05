@@ -112,10 +112,10 @@ if ($submitS) {
       }
 
       if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-      if (isset($sig) && $userdata['uid']!= 1) $message .= " [addsig]";
+      if (isset($sig) && $userdata['uid']!= 1) $message .= ' [addsig]';
       if (($forum_type!='6') and ($forum_type!='5')) {
-         $message = aff_code($message);
-         $message = str_replace("\n", "<br />", $message);
+//         $message = af_cod($message);
+//         $message =  str_replace(array("\r\n", "\r", "\n"), "<br />", $message);
       }
       if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5'))
          $message = smile($message);
@@ -193,6 +193,21 @@ if ($submitS) {
    list($topic_title, $topic_status) = sql_fetch_row(sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'"));
    $userX = base64_decode($user);
    $userdata = explode(':', $userX);
+   
+   $posterdata = get_userdata_from_id($userdata[0]);
+   if ($smilies) {
+      if(isset($user)) {
+         if ($posterdata['user_avatar'] != '') {
+            if (stristr($posterdata['user_avatar'],"users_private"))
+               $imgava=$posterdata['user_avatar'];
+            else
+               if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgava=$ibid;} else {$imgava="images/forum/avatar/".$posterdata['user_avatar'];}
+         }
+      }
+      else
+         if ($ibid=theme_image("forum/avatar/blank.gif")) {$imgava=$ibid;} else {$imgava="images/forum/avatar/blank.gif";}
+   }
+
    $moderator = get_moderator($mod);
    $moderator=explode(' ',$moderator);
    $Mmod=false;
@@ -216,12 +231,12 @@ if ($submitS) {
       }
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava mr-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
       if (isset($user))
-         if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
+         if (($userdata[1]==$moderator[$i])) $Mmod=true;
    }
    echo '
       </div>
    </div>
-   <h4 class="d-none d-sm-block my-3">'.translate("Post Reply in Topic").'</h4>
+   <h4 class="d-none d-sm-block my-3"><img width="48" height="48" class=" rounded-circle mr-3" src="'.$imgava.'" alt="" />'.translate("Post Reply in Topic").'</h4>
    <form action="reply.php" method="post" name="coolsus">';
 
    echo '<blockquote class="blockquote d-none d-sm-block"><p>'.translate("About Posting:").'<br />';
@@ -234,16 +249,14 @@ if ($submitS) {
    echo '</blockquote>';
 
    $allow_to_reply=false;
-   if ($forum_access==0) {
+   if ($forum_access==0)
       $allow_to_reply=true;
-   } elseif ($forum_access==1) {
-      if (isset($user)) {
+   elseif ($forum_access==1) {
+      if (isset($user))
          $allow_to_reply=true;
-      }
    } elseif ($forum_access==2) {
-      if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
+      if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
          $allow_to_reply=true;
-      }
    }
    if ($topic_status!=0)
       $allow_to_reply=false;
@@ -259,11 +272,13 @@ if ($submitS) {
      else
         $message='';
 
+/*
    echo '
    <br />
    <span class="lead d-none d-sm-block">'.translate("Nickname: ");
      if (isset($user)) echo $userdata[1].'</span>';
      else echo $anonymous.'</span>';
+*/
 
    settype($image_subject,'string');
    if ($smilies) {
@@ -271,7 +286,7 @@ if ($submitS) {
       <div class="d-none d-sm-block form-group row">
          <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
-            <div class="card card-body n-fond_subject d-flex flex-row flex-wrap">
+            <div class="border rounded pt-2 px-2 n-fond_subject d-flex flex-row flex-wrap">
             '.emotion_add($image_subject).'
             </div>
          </div>
@@ -283,13 +298,13 @@ if ($submitS) {
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
-   if ($allow_html == 1) {
+   if ($allow_html == 1)
       echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
-   } else
+   else
       echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-            <div class="card-body">';
+               <div class="card-body">';
 
      if ($citation && !$submitP) {
         $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND p.poster_id = u.uid";
@@ -298,10 +313,10 @@ if ($submitS) {
            $text = $m['post_text'];
            if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
               $text = smile($text);
+//              $text = desaf_cod($text);
               $text = str_replace('<br />', "\n", $text);
-           } else {
+           } else
               $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
-           }
            $text = stripslashes($text);
            if ($m['post_time']!='' && $m['uname']!='') {
               $reply = '<blockquote class="blockquote">'.translate("Quote").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
@@ -313,7 +328,7 @@ if ($submitS) {
            $reply = translate("Error Connecting to DB")."\n";
         }
      }
-     if (!isset($reply)) {$reply=$message;}
+     if (!isset($reply)) $reply=$message;
      if ($allow_bbcode)
         $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
@@ -332,11 +347,11 @@ if ($submitS) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
+         <label class="form-control-label col-sm-12">'.translate("Options").'</label>
+         <div class="col-sm-12">';
       if (($allow_html==1) and ($forum_type!='6') and ($forum_type!='5')) {
-         if (isset($html)) {$sethtml = 'checked';} else {$sethtml = '';}
+         if (isset($html)) $sethtml = 'checked'; else $sethtml = '';
          echo '
-         <div class="col-sm-12">
             <div class="checkbox">
                <label class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
@@ -377,8 +392,8 @@ if ($submitS) {
      }
      echo '
          </div>
-      </div>'
-      .Q_spambot().'
+      </div>
+      '.Q_spambot().'
       <div class="form-group row">
          <div class="col-sm-12">
             <input type="hidden" name="forum" value="'.$forum.'" />
@@ -469,7 +484,6 @@ if ($submitS) {
          }
        echo '
                   &nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-     
          echo '
                   <span class="float-right">';
          if ($myrow['image'] != '') {
@@ -491,6 +505,8 @@ if ($submitS) {
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
             $message = smilie($message);
             $message = aff_video_yt($message);
+            $message = af_cod($message);
+            $message= str_replace("\n",'<br />',$message);
          }
          if (($forum_type=='6') or ($forum_type=='5')) {
             highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';

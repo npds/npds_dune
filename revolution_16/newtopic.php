@@ -13,20 +13,18 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 settype($cancel, "string");
-if ($cancel) {
+if ($cancel)
    header("Location: viewforum.php?forum=$forum");
-}
 
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
+
 include('auth.php');
 global $NPDS_Prefix;
 
@@ -52,15 +50,12 @@ if (isset($user)) {
    $userdata = get_userdata($userdata[1]);
 }
 
-if ( ($myrow['forum_type'] == 1) and ($Forum_passwd != $myrow['forum_pass']) ) {
+if ( ($myrow['forum_type'] == 1) and ($Forum_passwd != $myrow['forum_pass']) )
    header("Location: forum.php");
-}
-if ($forum_access== 9) {
+if ($forum_access== 9)
    header("Location: forum.php");
-}
-if (!does_exists($forum, "forum")) {
+if (!does_exists($forum, "forum"))
    forumerror('0030');
-}
 // Forum ARBRE
 if ($myrow['arbre'])
    $hrefX="viewtopicH.php";
@@ -70,34 +65,31 @@ else
 settype($submitS,'string');
 settype($stop,'integer');
 if ($submitS) {
-   if ($message == '')  {
+   if ($message == '')
       $stop=1;
-   }
-   if ($subject == '') {
+   if ($subject == '')
       $stop=1;
-   }
    if (!isset($user)) {
       if ($forum_access == 0) {
          $userdata = array("uid" => 1);
          $modo='';
          include('header.php');
       } else {
-         if (($username=='') or ($password=='')) {
+         if (($username=='') or ($password==''))
             forumerror('0027');
-         } else {
+         else {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
-            if (!$system) {
+            if (!$system)
                $passwd=crypt($password,$pass);
-            } else {
+            else
               $passwd=$password;
-            }
             if ((strcmp($passwd,$pass)==0) and ($pass != '')) {
                $userdata = get_userdata($username);
                include('header.php');
-            } else {
-               forumerror('0028');
             }
+            else
+               forumerror('0028');
          }
       }
    } else {
@@ -106,7 +98,7 @@ if ($submitS) {
    }
    // Either valid user/pass, or valid session. continue with post.
    if ($stop != 1) {
-      $poster_ip =  getip();
+      $poster_ip = getip();
       if ($dns_verif)
          $hostname=@gethostbyaddr($poster_ip);
       else
@@ -126,56 +118,50 @@ if ($submitS) {
          $formulaire=$myrow['forum_pass'];
          include ("modules/sform/forum/forum_extender.php");
       }
+/*
       if ($allow_html == 0 || isset($html))
          $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-      if (isset($sig) && $userdata['uid'] != 1 && $myrow['forum_type']!=6 && $myrow['forum_type']!=5) {
+*/
+      if (isset($sig) && $userdata['uid'] != 1 && $myrow['forum_type']!=6 && $myrow['forum_type']!=5)
          $message .= " [addsig]";
-      }
       if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
-         $message = aff_code($message);
-         $message = str_replace("\n", "<br />", $message);
+//         $message = af_cod($message);
       }
-      if (($allow_bbcode) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
+      if (($allow_bbcode) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5))
          $message = smile($message);
-      }
       if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
          $message = make_clickable($message);
          $message = removeHack($message);
       }
       $message = addslashes($message);
-      if (!isset($Mmod)) {
+      if (!isset($Mmod))
          $subject = removeHack(strip_tags($subject));
-      }
 
       $Msubject = $subject;
-      $time = date("Y-m-d H:i",time()+($gmt*3600));
+      $time = date("Y-m-d H:i",time()+((integer)$gmt*3600));
       $sql = "INSERT INTO ".$NPDS_Prefix."forumtopics (topic_title, topic_poster, current_poster, forum_id, topic_time, topic_notify) VALUES ('$subject', '".$userdata['uid']."', '".$userdata['uid']."', '$forum', '$time'";
-      if (isset($notify2) && $userdata['uid'] != 1) {
+      if (isset($notify2) && $userdata['uid'] != 1)
          $sql .= ", '1'";
-      } else {
+      else
          $sql .= ", '0'";
-      }
       $sql .= ')';
-      if(!$result = sql_query($sql)) {
+      if(!$result = sql_query($sql))
          forumerror('0020');
-      }
       $topic_id = sql_last_id();
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('$topic_id', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0020');
-      } else {
+      else
          $IdPost=sql_last_id();
-      }
+
       $sql = "UPDATE ".$NPDS_Prefix."users_status SET posts=posts+1 WHERE (uid='".$userdata['uid']."')";
       $result = sql_query($sql);
-      if (!$result) {
+      if (!$result)
          forumerror('0029');
-      }
       $topic = $topic_id;
       global $subscribe;
-      if ($subscribe) {
+      if ($subscribe)
          subscribe_mail("forum",$topic,stripslashes($forum),stripslashes($Msubject),$userdata['uid']);
-      }
       if (isset($upload)) {
          include("modules/upload/upload_forum.php");
          win_upload("forum_npds",$IdPost,$forum,$topic,"win");
@@ -191,6 +177,22 @@ if ($submitS) {
 } else {
    include('header.php');
    if ($allow_bbcode) include("lib/formhelp.java.php");
+   $userX = base64_decode($user);
+   $userdata = explode(':', $userX);
+   $posterdata = get_userdata_from_id($userdata[0]);
+   if ($smilies) {
+      if(isset($user)) {
+         if ($posterdata['user_avatar'] != '') {
+            if (stristr($posterdata['user_avatar'],"users_private"))
+               $imgava=$posterdata['user_avatar'];
+            else
+               if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgava=$ibid;} else {$imgava="images/forum/avatar/".$posterdata['user_avatar'];}
+         }
+      }
+      else
+         if ($ibid=theme_image("forum/avatar/blank.gif")) {$imgava=$ibid;} else {$imgava="images/forum/avatar/blank.gif";}
+   }
+
    echo '
    <p class="lead">
       <a href="forum.php" >'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;<a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>
@@ -202,37 +204,33 @@ if ($submitS) {
    for ($i = 0; $i < count($moderator_data); $i++) {
       $modera = get_userdata($moderator_data[$i]);
       if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],"users_private")) {
+         if (stristr($modera['user_avatar'],"users_private"))
             $imgtmp=$modera['user_avatar'];
-         } else {
+         else
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-         }
       }
-            echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+            echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava mr-1 mx-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
       }
    echo '
          </div>
       </div>
-      <h4 class="my-3">'.translate("Post New Topic in:").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>';
-
-   echo '<blockquote class="blockquote"><p>'.translate("About Posting:").'<br />';
-   if ($forum_access == 0) {
+      <h4 class="my-3"><img width="48" height="48" class=" rounded-circle mr-3" src="'.$imgava.'" alt="" />'.translate("Post New Topic in:").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>
+         <blockquote class="blockquote">'.translate("About Posting:").'<br />';
+   if ($forum_access == 0)
       echo translate("Anonymous users can post new topics and replies in this forum.");
-   } else if($forum_access == 1) {
+   else if($forum_access == 1)
       echo translate("All registered users can post new topics and replies to this forum.");
-   } else if($forum_access == 2) {
+   else if($forum_access == 2)
       echo translate("Only Moderators can post new topics and replies in this forum.");
-   }
    echo '
-   </blockquote>
-   <form id="new_top" action="newtopic.php" method="post" name="coolsus">';
+      </blockquote>
+      <form id="new_top" action="newtopic.php" method="post" name="coolsus">';
 
    echo '<br />';
-   $userX = base64_decode($user);
-   $userdata = explode(':', $userX);
+   
    if ($forum_access == 1) {
       if (!isset($user)) {
-      echo '
+         echo '
          <fieldset>
             <div class="form-group row">
                <label class="control-label col-sm-2" for="username">'.translate("Nickname: ").'</label>
@@ -249,19 +247,19 @@ if ($submitS) {
          </fieldset>';
          $allow_to_post = 1;
       } else {
+         $allow_to_post = 1;
+      }
+   }
+   elseif ($forum_access==2) {
+      if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
          echo '<strong>'.translate("Author").' :</strong>';
          echo $userdata[1];
          $allow_to_post = 1;
       }
-   } elseif ($forum_access==2) {
-         if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
-            echo '<strong>'.translate("Author").' :</strong>';
-            echo $userdata[1];
-            $allow_to_post = 1;
-         }
-   } elseif ($forum_access == 0) {
-      $allow_to_post = 1;
    }
+   elseif ($forum_access == 0)
+      $allow_to_post = 1;
+
    settype($submitP,'string');
    if ($allow_to_post) {
       if ($submitP) {
@@ -283,52 +281,50 @@ if ($submitS) {
         $subject='';
         $message='';
       }
-      echo '';
       if ($myrow['forum_type']==8) {
          $formulaire=$myrow['forum_pass'];
          include ("modules/sform/forum/forum_extender.php");
       } else {
-      echo ' 
+         echo ' 
          <div class="form-group row">
-            <div class="col-sm-3">
-               <label class="form-control-label" for="subject">'.translate("Subject").'</label>
-            </div>
-            <div class="col-sm-9">
-               <input class="form-control" type="text" name="subject" placeholder="'.translate("Subject").'" required="required" value="'.$subject.'" />
+            <label class="form-control-label col-sm-12" for="subject">'.translate("Subject").'</label>
+            <div class="col-sm-12">
+               <input class="form-control" type="text" id="subject" name="subject" placeholder="'.translate("Subject").'" required="required" value="'.$subject.'" />
             </div>
          </div>';
          if ($smilies) {
-         echo '
-            <div class="form-group row">
-               <div class="col-sm-3">
-                  <label class="form-control-label">'.translate("Message Icon").'</label>
+            settype($image_subject,'string');
+            echo '
+         <div class="d-none d-sm-block form-group row">
+            <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
+            <div class="col-sm-12">
+               <div class="border rounded pt-2 px-2 n-fond_subject d-flex flex-row flex-wrap">
+               '.emotion_add($image_subject).'
                </div>
-               <div class="col-sm-9">';
-               settype($image_subject,'string');
-               echo emotion_add($image_subject);
-         echo '
-               </div>
-            </div>';
+            </div>
+         </div>';
          }
-        echo ' 
-            <div class="form-group row">
-               <div class="col-sm-3">
-                  <label class="form-control-label" for="message">'.translate("Message").'</label>
-               </div>';
+         echo ' 
+         <div class="form-group row">
+            <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>';
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
-   echo '
-         <div class="col-sm-9">
+         echo '
+         <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
-   if ($allow_html==1) {
+   if ($allow_html==1)
       echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
-   } else
+   else
       echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.$message.'</textarea>
+                  <span class="help-block text-right">
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+                  </span>
                </div>
                <div class="card-footer text-muted">';
                  if ($allow_bbcode) putitems();
@@ -338,15 +334,13 @@ if ($submitS) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-3">
-            <label class="form-control-label">'.translate("Options").'</label>
-         </div>
-         <div class="col-sm-9">
+         <label class="form-control-label col-sm-12">'.translate("Options").'</label>
+         <div class="col-sm-12">
             <div class="custom-controls-stacked">';
          if (($allow_html==1) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
             if (isset($html)) $sethtml = 'checked="checked"';
             else $sethtml = '';
-         echo '
+            echo '
                <label class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
                   <span class="custom-control-indicator"></span>
@@ -354,7 +348,7 @@ if ($submitS) {
                </label>';
          }
          if ($user) {
-            if ($allow_sig == 1||$sig == "on") {
+            if ($allow_sig == 1 || $sig == 'on') {
                $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
                list($attachsig) = sql_fetch_row($asig);
                if ($attachsig == 1) $s = 'checked="checked"';
@@ -362,7 +356,7 @@ if ($submitS) {
                if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
                   echo '
                <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$s.' />
+                  <input class="custom-control-input" type="checkbox" name="sig" '.$s.' />
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">'.translate("Show signature").'</span>
                </label>';
@@ -371,21 +365,19 @@ if ($submitS) {
             settype($up,'string');
             settype($upload,'string');
             if ($allow_upload_forum) {
-               if ($upload == "on") {
+               if ($upload == "on")
                   $up = 'checked="checked"';
-               }
-         echo '
+               echo '
                <label class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" name="html" '.$up.' />
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description">'.translate("Upload file after send accepted").'</span>
                </label>';
             }
-            if (isset($notify2)) {
+            if (isset($notify2))
                $selnot='checked="checked"';
-            } else {
+            else
                $selnot='';
-            }
          echo '
                <label class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" name="html" '.$selnot.' />
@@ -396,20 +388,15 @@ if ($submitS) {
          echo '
             </div>
          </div>
-      </div>';
-
-   echo ''.Q_spambot().'';
-
-   echo'
-      <fieldset>
-      <div class="btn-group-sm text-center" role="group">
-         <input type="hidden" name="forum" value="'.$forum.'" />
-         <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
-         <input class="btn btn-secondary" type="submit" name="submitP" value="'.translate("Preview").'" />
-         <input class="btn btn-warning" type="reset" value="'.translate("Clear").'" />
-         <input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
       </div>
-      </fieldset>';
+      '.Q_spambot().'
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <input type="hidden" name="forum" value="'.$forum.'" />
+            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />
+            <input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
+         </div>
+      </div>';
       }
    }
    echo '

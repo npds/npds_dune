@@ -11,10 +11,10 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
+
 $userdatat=$userdata;
 $messageP=$message;
 $time=date(translate("dateinternal"),time()+((integer)$gmt*3600));
-
 switch ($acc) {
    case "newtopic":
       $forum_type=$myrow['forum_type'];
@@ -22,42 +22,41 @@ switch ($acc) {
          $formulaire=$myrow['forum_pass'];
          include ("modules/sform/forum/forum_extender.php");
       }
+/*
       if ($allow_html == 0 || isset($html))
          $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
+*/
 
-      if (isset($sig) && $userdata['0'] != 1 && $myrow['forum_type']!=6 && $myrow['forum_type']!=5) {
-         $messageP .= " [addsig]";
-      }
+      if (isset($sig) && $userdata['0'] != 1 && $myrow['forum_type']!=6 && $myrow['forum_type']!=5)
+         $messageP .= ' [addsig]';
       if (($forum_type!=6) and ($forum_type!=5)) {
-         $messageP = aff_code($messageP);
-         $messageP = str_replace("\n", '<br />', $messageP);
+         $messageP = af_cod($messageP);
+//         $messageP = str_replace("\n", '<br />', $messageP);
       }
-      if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
+      if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5))
          $messageP = smile($messageP);
-      }
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = make_clickable($messageP);
          $messageP = removeHack($messageP);
          if ($allow_bbcode) $messageP = aff_video_yt($messageP);
       }
-      if (!isset($Mmod)) {
+      if (!isset($Mmod))
          $subject = removeHack(strip_tags($subject));
-      }
+
       $subject = htmlspecialchars($subject,ENT_COMPAT|ENT_HTML401,cur_charset);
    break;
 
-   case "reply":
+   case 'reply':
 //      if (array_key_exists(1,$userdata))// why make an error ? car le tableau est déclaré après le array key exist ...
          $userdata = get_userdata($userdata[1]);
       if ($allow_html == 0 || isset($html)) $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
       if (isset($sig) && $userdata['uid'] != 1) $messageP .= " [addsig]";
       if (($forum_type!='6') and ($forum_type!='5')) {
-         $messageP = aff_code($messageP);
+         $messageP = af_cod($messageP);
          $messageP = str_replace("\n", '<br />', $messageP);
       }
-      if (($allow_bbcode) and ($forum_type!='6') and ($forum_type!='5')) {
+      if (($allow_bbcode) and ($forum_type!='6') and ($forum_type!='5'))
          $messageP = smile($messageP);
-      }
       if (($forum_type!=6) and ($forum_type!=5)){
          $messageP = make_clickable($messageP);
          $messageP = removeHack($messageP);
@@ -81,28 +80,28 @@ switch ($acc) {
       $myrow2 = sql_fetch_assoc(sql_query("SELECT forum_type FROM ".$NPDS_Prefix."forums WHERE (forum_id = '$forum')"));
       $forum_type = $myrow2['forum_type'];
 
-      if ($allow_html == 0 || isset($html)) {
+      if ($allow_html == 0 || isset($html))
          $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
-      }
-      if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
+      if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5))
          $messageP = smile($messageP);
-      }
+
       if (($forum_type!=6) and ($forum_type!=5)) {
-         $messageP = aff_code($messageP);
+         $messageP = af_cod($messageP);
          $messageP = str_replace("\n", '<br />', removeHack($messageP));
-         $messageP .= "<br /><p>".translate("This message was edited by").' : '.$userdata['uname']."</p>";
+         $messageP .= '<br /><div class=" text-muted text-right small"><i class="fa fa-edit"></i> '.translate("This message was edited by").' : '.$userdata['uname'].'</div';
          if ($allow_bbcode) $messageP = aff_video_yt($messageP);
-      } else {
+      } 
+      else
          $messageP .= "\n\n".translate("This message was edited by").' : '.$userdata['uname'];
-      }
       $messageP = addslashes($messageP);
    break;
 }
 
       $theposterdata = get_userdata_from_id($userdatat[0]);
       echo '
-      <h4>'.translate("Preview").'</h4>
-      <div class="row">
+      <div class="mb-3">
+      <h4 class="mb-3">'.translate("Preview").'</h4>
+      <div class="row mb-3">
          <div class="col-12">
             <div class="card">
                <div class="card-header">';
@@ -131,12 +130,12 @@ switch ($acc) {
       </div>
       <div class="card-body">
          <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
-         <div id="post_preview" class="card-text pt-2">';
+         <div id="post_preview" class="card-text pt-3">';
 
       $messageP=stripslashes($messageP);
-      if (($forum_type=='6') or ($forum_type=='5')) {
+      if (($forum_type=='6') or ($forum_type=='5'))
          highlight_string(stripslashes($messageP));
-      } else {
+      else {
          if ($allow_bbcode) $messageP=smilie($messageP);
          $messageP=str_replace('[addsig]', '<div class="n-signature">'.nl2br($theposterdata['user_sig']).'</div>', $messageP);
          echo $messageP.'
@@ -146,8 +145,9 @@ switch ($acc) {
             </div>
          </div>
       </div>
+   </div>
    </div>';
 
-if ($acc=='reply'||$acc=='editpost')
+if ($acc=='reply'|| $acc=='editpost')
    $userdata=$userdatat;
 ?>
