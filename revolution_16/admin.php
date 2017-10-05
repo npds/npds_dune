@@ -493,7 +493,7 @@ function adminMain($deja_affiches) {
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>
       </ul>';
-      echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, $adj=3, $admart, $start);
+      echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, 1, $admart, $start);
       echo '
       </div>';
 
