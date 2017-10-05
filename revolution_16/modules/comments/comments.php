@@ -12,9 +12,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    die();
-}
 include_once('functions.php');
 include_once('auth.php');
 
@@ -48,18 +47,16 @@ function Caff_pub($topic, $file_name, $archive) {
    $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Comment").'</a>';
    return ($tmp);
 }
-   if ($forum_access==0) {
+   if ($forum_access==0)
       $allow_to_post=true;
-   } else {
-      if ($user) {
+   else
+      if ($user)
          $allow_to_post=true;
-      }
-   }
+
    global $anonymous;
    settype($archive,'integer');
-   if ($allow_to_post) {
+   if ($allow_to_post)
       echo '<nav class="text-right my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
-   }
 
    // Pagination
    settype($C_start,'integer');
@@ -69,18 +66,18 @@ function Caff_pub($topic, $file_name, $archive) {
 
    $nbPages = ceil($total/$comments_per_page);
    $current = 1;
-   if ($C_start >= 1) {
+   if ($C_start >= 1)
       $current=$C_start/$comments_per_page;
-   } else if ($C_start < 1) {
+   else if ($C_start < 1)
       $current=0;
-   } else {
+   else
       $current = $nbPages;
-   }
 
-   if($total>=1)
+   if($total>=1) {
       echo '
-      <div id="co-pagihaute" class="my-2">
-         <ul class="pagination pagination-sm">
+      <div class="d-flex mt-4 justify-content-between flex-wrap">
+      <nav id="co-pagihaute">
+         <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
             <li class="page-item">
                <a class="page-link" href="#co-pagibasse"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
             </li>
@@ -91,16 +88,13 @@ function Caff_pub($topic, $file_name, $archive) {
                <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
             </li>
          </ul>
+      </nav>';
+   if ($total > $comments_per_page)
+      echo paginate(rawurldecode($url_ret).'&amp;C_start=', '', $nbPages, $current, 2, $comments_per_page, $C_start);
+   echo '
       </div>';
-   if ($total > $comments_per_page) {
-      echo paginate(rawurldecode($url_ret).'&amp;C_start=', '', $nbPages, $current, $adj=3, $comments_per_page, $C_start);
    }
-
-   if ($Mmod) {
-      $post_aff=' ';
-   } else {
-      $post_aff=" AND post_aff='1' ";
-   }
+   if ($Mmod) $post_aff=' '; else $post_aff=" AND post_aff='1' ";
    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id = '$topic'".$post_aff."ORDER BY post_id LIMIT $C_start, $comments_per_page";
    if (!$result = sql_query($sql)) forumerror(0001);
    $mycount = sql_num_rows($result);
@@ -108,9 +102,8 @@ function Caff_pub($topic, $file_name, $archive) {
    $count = 0;
 
 if ($mycount) {
-
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
-      $my_rsos=array();
+   $my_rsos=array();
    do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
@@ -198,7 +191,7 @@ if ($mycount) {
       $message=str_replace("[addsig]", '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
          echo '
                      <div class="card-text fo-post-mes">';
-         echo nl2br($message);
+         echo $message;
          echo '
                      </div>
                   </div>
@@ -207,20 +200,18 @@ if ($mycount) {
                   <div class="row">
                      <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
                      <div class=" col-sm-6 text-right">';
-      if ($allow_to_post) {
+      if ($allow_to_post)
          echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="fa fa-comment-o fa-lg"></i></a>';
-      }
       if ($allow_to_post and $posterdata['uid']!='') {
          if ($formulaire=='') 
             echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
       }
       if ($Mmod) {
          echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
-         if (!$myrow['post_aff']) {
+         if (!$myrow['post_aff'])
             echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
-         } else {
+         else
             echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
-         }
       }
       echo '
                      </div>
@@ -234,41 +225,40 @@ if ($mycount) {
     unset ($tmp_imp); // not sure we need ?
 
       echo '
-   <nav id="co-pagibasse">
-      <ul class="pagination pagination-sm d-flex flex-wrap my-2">
-         <li class="page-item">
-            <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
-         </li>
-         <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
-         </li>
-         <li class="page-item disabled">
-            <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
-         </li>
-      </ul>
-   </nav>';
-   if ($total > $comments_per_page) {
-      echo paginate(rawurldecode($url_ret).'&amp;C_start=', '', $nbPages, $current, $adj=3, $comments_per_page, $C_start);
-   }
-   if ($allow_to_post) {
-      echo '<nav class="text-right mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
-   }
+      <div class="d-flex my-2 justify-content-between flex-wrap">
+         <nav id="co-pagibasse">
+            <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
+               <li class="page-item">
+                  <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+               </li>
+               <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
+               </li>
+               <li class="page-item disabled">
+                  <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
+               </li>
+            </ul>
+         </nav>';
+   if ($total > $comments_per_page)
+      echo paginate(rawurldecode($url_ret).'&amp;C_start=', '', $nbPages, $current, 2, $comments_per_page, $C_start);
    echo '
-   <br />
-   <blockquote class="blockquote">'.translate("The comments are owned by the poster. We aren't responsible for their content.").'</blockquote>';
-
-   if ($Mmod) {
+      </div>';
+   if ($allow_to_post)
+      echo '
+      <nav class="text-right mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+   echo '
+      <blockquote class="blockquote my-3">'.translate("The comments are owned by the poster. We aren't responsible for their content.").'</blockquote>';
+   if ($Mmod)
        echo '
-   <nav class="text-center">
-      <ul class="pagination pagination-sm">
-         <li class="page-item disabled">
-            <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
-         </li>
-         <li class="page-item">
-            <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Delete comments.").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" ></i></a>
-         </li>
-      </ul>
-   </nav>';
-   }
+      <nav class="text-center">
+         <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+            </li>
+            <li class="page-item">
+               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Delete comments.").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" ></i></a>
+            </li>
+         </ul>
+      </nav>';
 }
 ?>
