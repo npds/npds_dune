@@ -11,15 +11,13 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 settype($sid, "integer");
 settype($archive, "integer");
-if (!isset($sid) && !isset($tid)) {
+if (!isset($sid) && !isset($tid))
    header ("Location: index.php");
-}
 
    if (!$archive)
       $xtab=news_aff("libre","WHERE sid='$sid'",1,1);
@@ -27,9 +25,8 @@ if (!isset($sid) && !isset($tid)) {
       $xtab=news_aff("archive","WHERE sid='$sid'",1,1);
 
    list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
-   if (!$aid) {
+   if (!$aid)
       header ("Location: index.php");
-   }
    sql_query("UPDATE ".$NPDS_Prefix."stories SET counter=counter+1 WHERE sid='$sid'");
 
    include ("header.php");
@@ -38,9 +35,9 @@ if (!isset($sid) && !isset($tid)) {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
+   } 
+   else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       $title = aff_langue(stripslashes($title));
       $hometext = aff_code(aff_langue(stripslashes($hometext)));

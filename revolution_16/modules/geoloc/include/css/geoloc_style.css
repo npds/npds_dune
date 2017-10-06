@@ -1,143 +1,28 @@
 @charset"utf-8";
 /*==> module geoloc V3 2017 */
 /*==> general*/
- .res_accon
- {
-    line-height: 40px;
-    padding: 22px 0 22px 36px; 
-    background: url('../../../modules/geoloc/images/acg.png') left center no-repeat;
-    text-align: left;
-    margin-left: 2px;
- }
- .res_mbcon {
-       line-height: 40px; 
-       padding: 22px 0 22px 36px; 
-       background: url('../../../modules/geoloc/images/mbcg.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
- .res_wificon {
-       line-height: 40px; 
-       padding: 22px 0 15px 56px; 
-       background: url('../../../modules/geoloc/images/wifi.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
- .res_mbg {
-       line-height: 35px; 
-       padding: 30px 0 22px 36px; 
-       background: url('../../../modules/geoloc/images/mbg.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
- .con
- {
-    line-height: 17px;
-    padding: 0 0 0 20px;
-    background: url('../../../modules/geoloc/images/connect.gif') left center no-repeat;
-    text-align: left;
-    margin-left: 2px;
- }
- .accon
- {
-    line-height: 17px;
-    padding: 0 0 0 20px;
-    background: url('../../../modules/geoloc/images/acg_mini.png') left center no-repeat;
-    text-align: left;
-    margin-left: 2px;
- }
-.mbcon
-{
-       line-height: 17px; 
-       padding: 1px 0 1px 20px; 
-       background: url('../../../modules/geoloc/images/mbcg_small.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
-.mbcon
-{
-       line-height: 17px; 
-       padding: 1px 0 1px 20px; 
-       background: url('../../../modules/geoloc/images/mbcg_small.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
-  .mbg {
-       line-height: 17px; 
-       padding: 1px 0 1px 20px; 
-       background: url('../../../modules/geoloc/images/mbg_small.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
-   .ancre {
-       line-height: 17px; 
-       padding: 1px 0 1px 20px; 
-       background: url('../../../modules/geoloc/images/ancre_small.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
- 
- 
- .mb {
-       line-height: 17px; 
-       padding: 1px 0 1px 20px; 
-       background: url('../../../modules/geoloc/images/mb_small.png') left center no-repeat;
-       text-align: left;
-       margin-left: 2px;
- }
-    .mb_stat {
-       line-height: 17px; 
-       padding: 1px 15px 1px 2px; 
-       background: url('../../../modules/geoloc/images/mb_small.png') right center no-repeat;
-       text-align: left;
-       margin-right: 2px;
- }
-   .mbg_stat {
-       line-height: 17px; 
-       padding: 1px 20px 1px 2px; 
-       background: url('../../../modules/geoloc/images/mbg_small.png') right center no-repeat;
-       text-align: left;
-       margin-right: 2px;
- }
- 
-.help_mod {
-    line-height: 20px; 
-    padding: 1px 0px 1px 20px; 
-    background: url('../../../modules/geoloc/images/help.png') left center no-repeat;
-    text-align: left;
-    margin-right: 2px;
-    font-weight: bold;
-}
-
-.info_mod {
-    line-height: 20px;
-    padding: 1px 0px 1px 20px;
-    background: url('../../../modules/geoloc/images/info.png') left center no-repeat;
-    text-align: left;
-    margin-right: 2px;
-    font-weight: bold;
-}
 
 #map {
     position: relative;
     height: 500px;
 }
-
 #map_bloc {
      width: 100%;
      height: 180px;
 }
-
 #map-wrapper {
      position: relative;
      height: 500px;
      width: 100%;
 }
 
-@media (max-width: 991px) {
-  .n-c {display:none;}
-}
 
+/* 
+.n-media-repere {color:green;};
+ */
+@media (max-width: 576px) {
+   .n-media-repere {color:red;}
+}
 
 #sidebar {
      filter : alpha(opacity=80);
@@ -147,12 +32,15 @@
      position: absolute;
      top: 0;
      right: 0;
+/* 
      width: 210px;
+ */
      height: 486px;
      overflow: auto;
 }
 
 
+/* 
 body.sidebar-right #map-wrapper { margin-right: 140px; }
 body.sidebar-right #sidebar { right: 0; }
 
@@ -166,6 +54,7 @@ cartinf #btn-infcar-hide{ display: none; }
 
 nocartinf a#btn-infcar-hide{ display: none; }
 
+ */
 #alert {
      position: absolute;
      top: 50%;
@@ -183,49 +72,21 @@ nocartinf a#btn-infcar-hide{ display: none; }
      border: 1px solid #aaa;
 }
 
-
 #mypoint {
-     font : monospace;
-     font-size: 14px;
-     text-align: right;
+   font-family: "Courier New", Lucida, console, Monaco, monospace;
+   text-align: right;
 }
+#mess_info {}
 
-#inf_map {
-     display: block;
-     background: white;
-     padding: 0;
-     width: 100%;
-     height: 100%;
-     position: relative;
-     top: 0;
-     font : monospace;
-     font-size: 10px;
-}
+
 .non {
 display: none;
 }
 .oui {
 display: block;
 }
-#aid_map {
-     display: block;
-     background: white;
-     padding: 0;
-     width: 100%;
-     height: 100%;
-     position: relative;
-     top: 0;
-}
 
-#mess_info {
-/* 
-  background-color: #white;
-  line-height: 10px;
-  top: 0;
- */
-}
-.sou_tit
-{
+.sou_tit {
     color: gray;
     margin-left: 2px;
 }
@@ -312,12 +173,16 @@ background: url('../../../modules/geoloc/images/geoloc_ico.png') no-repeat;
 .sprite_loader_grey { background-position: 0 -1068px; } 
 .sprite_mbgb { background-position: 0 -1130px; }
 
-.fldtit {
-font-size: 120%;
+#markerLayer img {
+  -webkit-animation: pulse 1s linear infinite;
+  animation: pulse 1s linear infinite;
 }
-.fldset {
-padding-top: 16px; 
-padding-right: 3px; 
-padding-bottom: 6px;
-padding-left: 3px;
+
+/* 
+#markerLayer canvas {
+   animation: pulse 2s infinite alternate;
+   -webkit-animation: pulse 2s infinite alternate;
+   transform-origin: center;
+   -webkit-transform-origin: center;
 }
+ */

@@ -66,7 +66,7 @@ if ($submitS) {
    }
    if (($forum_type!=6) and ($forum_type!=5)) {
       $message = make_clickable($message);
-      $message = aff_code($message);
+      $message = af_cod($message);
       $message = str_replace("\n", "<br />", removeHack($message));
       $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
    } else {
@@ -74,7 +74,7 @@ if ($submitS) {
    }
    $message = addslashes($message);
 
-   if ($subject=='') {$subject=translate("Untitled");}
+   if ($subject=='') $subject=translate("Untitled");
 
    // Forum ARBRE
    if ($arbre)
@@ -146,41 +146,43 @@ if ($submitS) {
       $image_subject = $myrow['image'];
       $title = stripslashes($title);
       $message = $myrow['post_text'];
-      if (($forum_type!=6) and ($forum_type!=5))  {
+      if (($forum_type!=6) and ($forum_type!=5)) {
          $message = str_replace("<br />", "\n", $message);
          $message = smile($message);
+         $message = desaf_cod($message);
          $message = undo_htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-      } else {
+      } else
          $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-      }
+
       $message = stripslashes($message);
    }
    if ( (($Mmod) or ($userdata[0]==$myrow['uid'])) and ($forum_access!=9) ) {
       echo '
+      <div>
       <h3>'.translate("Editing Post").' de <span class="text-muted">'.$myrow['uname'].'</span></h3>
       <hr />
       <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
          echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="subject">'.translate("Title").'</label>
-            <div class="col-sm-9">
-               <input class="form-control textbox_standard" type="text" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
+            <label class="form-control-label col-sm-12" for="subject">'.translate("Title").'</label>
+            <div class="col-sm-12">
+               <input class="form-control textbox_standard" type="text" id="subject" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
             </div>
          </div>';
       else {
          echo '<strong>'.translate("Editing Post").'</strong> : '.$title;
          echo "<input type=\"hidden\" name=\"subject\" value=\"".htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset)."\" />";
       }
-   } else {
+   } else
       forumerror('0036');
-   }
+
    if ($smilies) {
       echo '
-      <div class="form-group row">
-         <label class="form-control-label col-sm-3">'.translate("Message Icon").'</label>
-         <div class="col-sm-9">
-            <div class="n-fond_subject">
+      <div class="d-none d-sm-block form-group row">
+         <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
+         <div class="col-sm-12">
+            <div class="border rounded pt-2 px-2 n-fond_subject">
             '.emotion_add($image_subject).'
             </div>
          </div>
@@ -188,11 +190,11 @@ if ($submitS) {
    }
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="message">'.translate("Message").'</label>';
+         <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>';
    if ($allow_bbcode)
       $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
    echo '
-         <div class="col-sm-9">
+         <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
    if ($allow_html == 1) {
@@ -201,8 +203,12 @@ if ($submitS) {
       echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-               <div class="card-body">
+               <div class="card-body pb-0">
                   <textarea class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
+                  <div class="text-right my-3">
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" >'.translate("Preview").'</button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" >'.translate("Clear").'</button>
+                  </div>
                </div>
                <div class="card-footer text-muted">';
                  if ($allow_bbcode) putitems();
@@ -218,8 +224,8 @@ if ($submitS) {
          $sethtml='';
    echo '
    <div class="form-group row">
-   <label class="form-control-label col-sm-3">'.translate("Options").'</label>
-      <div class="col-sm-9">
+      <label class="form-control-label col-sm-12">'.translate("Options").'</label>
+      <div class="col-sm-12">
          <div class="checkbox">
             <label class="custom-control custom-checkbox text-danger">
                <input class="custom-control-input" type="checkbox" name="delete" />
@@ -244,13 +250,12 @@ if ($submitS) {
       <input type="hidden" name="topic" value="'.$topic.'" />
       <input type="hidden" name="arbre" value="'.$arbre.'" />
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto ">
+         <div class="col-sm-12 ml-sm-auto ">
             <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" >'.translate("Submit").'</button>&nbsp;
-            <button class="btn btn-primary" type="submit" name="submitP" value="'.translate("Preview").'" >'.translate("Preview").'</button>&nbsp;
-            <button class="btn btn-secondary" type="reset" name="clear" value="'.translate("Clear").'" >'.translate("Clear").'</button>
          </div>
       </div>
-   </form>';
+   </form>
+   </div>';
 }
 include("footer.php");
 ?>
