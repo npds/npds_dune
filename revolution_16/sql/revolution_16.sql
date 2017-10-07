@@ -1100,7 +1100,7 @@ CREATE TABLE ip_loc (
   ip_lat float NOT NULL DEFAULT '0',
   ip_visi_pag varchar(100) NOT NULL DEFAULT '',
   ip_visite mediumint(9) UNSIGNED NOT NULL DEFAULT '0',
-  ip_ip varchar(44) NOT NULL DEFAULT '',
+  ip_ip varchar(54) NOT NULL DEFAULT '',
   ip_country varchar(100) NOT NULL DEFAULT '0',
   ip_code_country varchar(4) NOT NULL,
   ip_city varchar(150) NOT NULL DEFAULT '0',

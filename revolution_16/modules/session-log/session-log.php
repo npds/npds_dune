@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='session_log';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -23,11 +23,10 @@ $old_language=$language;
 include_once("modules/upload/upload.conf.php");
 if ($DOCUMENTROOT=='') {
    global $DOCUMENT_ROOT;
-   if ($DOCUMENT_ROOT) {
+   if ($DOCUMENT_ROOT)
       $DOCUMENTROOT=$DOCUMENT_ROOT;
-   } else {
+   else
       $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-   }
 }
 $FileSecure = $DOCUMENTROOT.$racine.'/slogs/security.log';
 $FileUpload = $DOCUMENTROOT.$rep_log;
@@ -39,11 +38,11 @@ $ThisFile="admin.php?op=Extend-Admin-SubModule&amp;ModPath=".$ModPath."&amp;ModS
 $f_titre = SessionLog_translate("Gestion des Logs");
 settype($subop,'string');
 
-function action_log($ThisFile,$classe) {
+function action_log($ThisFile,$logtype) {
    echo '<p align="center"><br />
-   <a class="btn btn-danger btn-sm" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$classe.'" >'.SessionLog_translate("Vider le fichier").'</a>
-   <a class="btn btn-primary btn-sm" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$classe.'">'.SessionLog_translate("Recevoir le fichier par mail").'</a>
-   <a class="btn btn-danger btn-sm" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
+   <a class="btn btn-danger btn-sm mt-2" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$logtype.'" >'.SessionLog_translate("Vider le fichier").'</a>
+   <a class="btn btn-primary btn-sm mt-2" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$logtype.'">'.SessionLog_translate("Recevoir le fichier par mail").'</a>
+   <a class="btn btn-danger btn-sm mt-2" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
    </p>';
 }
    GraphicAdmin($hlpfile);
@@ -55,7 +54,7 @@ echo '
 <hr />
 <ul class="nav nav-tabs">
    <li class="nav-item"><a href="'.$ThisFile.'&subop=session" class="nav-link '.$cl_a_ses.'">'.SessionLog_translate("Liste des Sessions").'</a></li>
-   <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").' : '.SessionLog_translate("SECURITE").'</a></li>
+   <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").'</a></li>
 </ul>';
 
    if ($FileUpload!=$FileSecure) {
@@ -66,15 +65,15 @@ echo '
    if ($subop=='session') {
       echo '
       <br />
-      <h3>'.SessionLog_translate("Liste des Sessions").'</h3>
+      <h3>'.SessionLog_translate("Liste des Sessions").' <code>TABLE session</code></h3>
       <table id="tad_ses" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th data-sortable="true">'.SessionLog_translate("Nom").'</th>
-               <th data-sortable="true">@ IP</th>
+               <th class="n-t-col-xs-2" data-sortable="true">'.SessionLog_translate("Nom").'</th>
+               <th class="n-t-col-xs-2" data-sortable="true">@ IP</th>
                <th data-sortable="true">'.SessionLog_translate("@ IP résolue").'</th>
                <th data-sortable="true">URI</th>
-               <th data-sortable="true">'.SessionLog_translate("Agent").'</th>
+               <th class="n-t-col-xs-2" data-sortable="true">'.SessionLog_translate("Agent").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -87,7 +86,7 @@ echo '
                <td class="small">'.$username.'</td>
                <td class="small">'.$host_addr.'</td>
                <td class="small">'.gethostbyaddr($host_addr).'</td>
-               <td class="small">'.split_string_without_space($uri,40).'</td>
+               <td class="small">'.$uri.'</td>
                <td class="small">'.$agent.'</td>
            </tr>';
       }
@@ -177,6 +176,8 @@ echo '
 
    // Voir le contenu du fichier security.log
    if ($subop=='security') {
+      $UpLog='';
+      $SecLog='';
       if (file_exists($FileSecure)) {
          if (filesize($FileSecure) != 0) {
             $fd = fopen($FileSecure, "r");
@@ -189,8 +190,8 @@ echo '
                     $ip=substr(strrchr($buffer,"=>"),2);
                     $SecLog.='
                     <tr>
-                    <td style="font-size:10px;">'.$buffer.'</td>
-                    <td><a href="'.$ThisFile.'&amp;subop=info&amp;theip='.$ip.'" class="noir">'.SessionLog_translate("Infos").'</a></td>
+                    <td class="small">'.$buffer.'</td>
+                    <td><a href="'.$ThisFile.'&amp;subop=info&amp;theip='.$ip.'" >'.SessionLog_translate("Infos").'</a></td>
                     </tr>'."\n";
                   }
                }
@@ -200,13 +201,13 @@ echo '
       }
       echo '
       <hr />
-      <h3><a class="btn" data-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="fa fa-bars fa-lg"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <i>security.log</i></h3>
+      <h3 class="mb-3"><a class="btn" data-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="fa fa-bars fa-lg align-top"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></h3>
       <div id="tog_tad_slog" class="collapse">
          <table id="tad_slog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true">
             <thead>
                <tr>
-                  <th data-sortable="true">Logs</th>
-                  <th>Fonctions</th>
+                  <th class="n-t-col-xs-10" data-sortable="true">Logs</th>
+                  <th data-align="center" class="n-t-col-xs-2">Fonctions</th>
                </tr>
             </thead>
             <tbody>';
@@ -215,7 +216,7 @@ echo '
             </tbody>
          </table>
       </div>
-      <h3><a class="btn" data-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="fa fa-bars fa-lg"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <i>security.log</i></h3>
+      <h3 class="mb-3"><a class="btn" data-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="fa fa-bars fa-lg align-top"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></h3>
       <div id="tog_tad_tlog" class="collapse">
          <table id="tad_tlog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
             <thead>
@@ -247,13 +248,12 @@ echo '
                @fclose($fd);
             }
          }
-         echo SessionLog_translate("Liste des Logs")." ".SessionLog_translate("TELECHARGEMENT")." : <i>$FileUpload</i>";
+         echo SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code class="code">'.$FileUpload.'</code>';
          echo '<table>';
          echo $UpLog;
          echo '</table>';
          action_log($ThisFile,"upload");
       }
    }
-
 adminfoot('','','','');
 ?>
