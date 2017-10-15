@@ -325,18 +325,18 @@ include('header.php');
 
       $useroutils = '<hr />';
       if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
       if ($posterdata['uid']!= 1)
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
       if ($posterdata['femail']!='')
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
       if ($posterdata['url']!='')
-         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+         $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
       if ($posterdata['mns'])
-          $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+          $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
       if ($myrow['poster_id']!=1)
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
 
       echo '
       <div class="row mb-3">
