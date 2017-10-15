@@ -63,9 +63,6 @@ function session_manage() {
    $guest=0;
    $ip=getip();
    $username=$cookie[1];
-   if (!isset($username)) {
-      $username= $ip;
-      $guest=1;
       //==> mod_geoloc
       $file_path = 'https://ipapi.co/'.$ip.'/json';
       $file = file("modules/geoloc/geoloc_conf.php");
@@ -95,6 +92,9 @@ function session_manage() {
          }
       }
       //<== mod_geoloc
+   if (!isset($username)) {
+      $username= $ip;
+      $guest=1;
    }
 
    $past = time()-300;
@@ -2829,17 +2829,17 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($ch_lat,'string');
       $useroutils = '';
       if ($uid!= 1 and $uid!='')
-         $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$uname.'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user"></i><span class="ml-3 d-none d-sm-inline">'.translate("Profile").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$uname.'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Profile").'</span></a>';
       if ($uid!= 1)
-         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 d-none d-sm-inline">'.translate("Message").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Message").'</span></a>';
       if ($femail!='')
-         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($femail,1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x"></i><span class="ml-3 d-none d-sm-inline">'.translate("Email").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($femail,1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Email").'</span></a>';
       if ($url!='')
-         $useroutils .= '<a class="list-group-item text-primary" href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
       if ($mns)
-         $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
       if ($posterdata_extend[$ch_lat] !='')
-         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$uid.'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 d-none d-sm-inline">'.translate("Location").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$uid.'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-sm-inline">'.translate("Location").'</span></a>';
 
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
       if (!$user_avatar) {

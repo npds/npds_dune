@@ -151,47 +151,36 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                         <option selected="selected">'.$cartyp.'</option>
                      </select>
                   </div>
-               </div>
+               </div>';
+               $s_dd='';$s_dm='';
+               if($co_unit =='dd') $s_dd='selected="selected"';
+               else if($co_unit =='dms') $s_dm='selected="selected"'; 
+               echo '
                <div class="form-group row">
                   <label class="form-control-label col-sm-6" for="co_unit">'.geoloc_translate('Unité des coordonnées').'<span class="text-danger ml-1">*</span></label>
                   <div class="col-sm-6">
                      <select class="custom-select form-control" name="co_unit" id="co_unit">
-                        <option>dd</option>
-                        <option>dms</option>
-                        <option selected>'.$co_unit.'</option>
+                        <option '.$s_dd.'>dd</option>
+                        <option '.$s_dm.'>dms</option>
                      </select>
                   </div>
-               </div>
+               </div>';
+               $cky_mar=''; $ckn_mar='';
+               if ($mark_typ==1) $cky_mar='checked="checked"'; else $ckn_mar='checked="checked"';
+               echo '
                <div class="form-group row">
-                  <div class="col-sm-12 form-control-label">
-                  <label for="mark_typ">'.geoloc_translate('Type de marqueur').'</label>
-                  </div>
+                  <label class="col-sm-12 form-control-label" for="mark_typ">'.geoloc_translate('Type de marqueur').'</label>
                   <div class="col-sm-12">
-                  <label class="custom-control custom-radio">';
-   if ($mark_typ==1) { 
-      echo'
-                     <input class="custom-control-input" type="radio" id="img_img" name="mark_typ" value="1" checked="checked" />
+                  <label class="custom-control custom-radio">
+                     <input class="custom-control-input" type="radio" id="img_img" name="mark_typ" value="1" '.$cky_mar.' checked="checked" />
                      <span class="custom-control-indicator"></span>
                      <span class="custom-control-description">'.geoloc_translate('Marqueur images de type png, gif, jpeg.').'</span>
                   </label><br />
                   <label class="custom-control custom-radio">
-                     <input class="custom-control-input" type="radio" id="img_svg" name="mark_typ" value="0" />
+                     <input class="custom-control-input" type="radio" id="img_svg" name="mark_typ" value="0" '.$ckn_mar.' />
                      <span class="custom-control-indicator"></span>
                      <span class="custom-control-description">'.geoloc_translate('Marqueur SVG font ou objet vectoriel.').'</span>
-                  </label>';
-   } else {
-      echo'
-                     <input class="custom-control-input" type="radio" id="img_img" name="mark_typ" value="1" />
-                     <span class="custom-control-indicator"></span>
-                     <span class="custom-control-description">'.geoloc_translate('Marqueur images de type png, gif, jpeg.').'</span>
-                  </label><br />
-                  <label class="custom-control custom-radio">
-                     <input class="custom-control-input" type="radio" id="img_svg" name="mark_typ" value="0" checked="checked"/>
-                     <span class="custom-control-indicator"></span>
-                     <span class="custom-control-description">'.geoloc_translate('Marqueur SVG font ou objet vectoriel.').'</span>
-                  </label>';
-   }
-   echo'
+                  </label>
                </div>
             </div>
          </fieldset>
@@ -489,30 +478,26 @@ function geoloc_conf() {
    h_ico_size = $("#h_ico").val();
 
 $(document).ready(function() {
-
-    if(img_svg.checked) {$("#para_ima input").prop("readonly", true), $("#para_svg input, #f_mbg").prop("disabled", false)}
-    if(img_img.checked) {$("#para_svg input, #f_mbg").prop("disabled", true)}
+    if(img_svg.checked) {$("#para_ima input").prop("readonly", true), $("#para_svg input").prop("readonly", false), $("#f_mbg").prop("disabled", false)}
+    if(img_img.checked) {$("#para_svg input").prop("readonly", true), $("#f_mbg").prop("disabled", true)}
 
     $("#geolocset").on("submit", function() {
         $(".pickol").colorpicker("enable");
         $("#f_mbg").prop("disabled", false);
     });
-
     $("#img_img").on("click", function(){
         $("#para_svg input").prop("readonly", true);
-//        $("#para_svg input").prop("disabled", true);
         $("#f_mbg").prop("disabled", true);
         $(".pickol").colorpicker("disable");
         $("#para_ima input").prop("readonly", false);
     });
-
     $("#img_svg").on("click", function(){
         $("#para_svg input").prop("readonly", false);
-        $("#para_svg input").prop("disabled", false);
         $("#f_mbg").prop("disabled", false);
         $(".pickol").colorpicker("enable");
         $("#para_ima input").prop("readonly", true);
     });
+
 
     $("#f_mbg").change(function() {
         var str = $("#f_mbg option:selected").text();
@@ -639,7 +624,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
         });
        return marker;
         }
-        
+
         var point = new google.maps.LatLng(48,12);
         var mark_cmbg = createMarkerconf(point,map_c,icon_cmbg,infoWindow,"Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;.");
         var point = new google.maps.LatLng(45,6);
@@ -799,39 +784,37 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
         mark_acg_svg.setIcon(icon_cacg_svg);
     });
 
-    $( "#cartyp" ).change(function() {
-    cartyp = $( "#cartyp option:selected" ).text();
-    switch (cartyp)
-    {
-        case "TERRAIN":
-        map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-        break;
-        case "SATELLITE":
-        map_c.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-        break;
-        case "ROADMAP":
-        map_c.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-        break;
-        case "HYBRID":
-        map_c.setMapTypeId(google.maps.MapTypeId.HYBRID);
-        break;
-    }
+    $("#cartyp").change(function() {
+       cartyp = $( "#cartyp option:selected" ).text();
+       switch (cartyp) {
+           case "TERRAIN":
+              map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+           break;
+           case "SATELLITE":
+              map_c.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+           break;
+           case "ROADMAP":
+              map_c.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+           break;
+           case "HYBRID":
+              map_c.setMapTypeId(google.maps.MapTypeId.HYBRID);
+           break;
+       }
     })
-    $( "#cartyp_b" ).change(function() {
-        cartyp_b = $( "#cartyp_b option:selected" ).text();
-        switch (cartyp_b)
-        {
+    $("#cartyp_b").change(function() {
+        cartyp_b = $("#cartyp_b option:selected").text();
+        switch (cartyp_b) {
         case "TERRAIN":
-        map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+           map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
         break;
         case "SATELLITE":
-        map_c.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+           map_c.setMapTypeId(google.maps.MapTypeId.SATELLITE);
         break;
         case "ROADMAP":
-        map_c.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+           map_c.setMapTypeId(google.maps.MapTypeId.ROADMAP);
         break;
         case "HYBRID":
-        map_c.setMapTypeId(google.maps.MapTypeId.HYBRID);
+           map_c.setMapTypeId(google.maps.MapTypeId.HYBRID);
         break;
         }
     })
@@ -878,11 +861,10 @@ function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $
    $content .= "\$nm_img_acg = \"$nm_img_acg\"; // Nom fichier image anonyme géoréférencé en ligne \n";
    $content .= "\$nm_img_mbcg = \"$nm_img_mbcg\"; // Nom fichier image membre géoréférencé en ligne \n";
    $content .= "\$nm_img_mbg = \"$nm_img_mbg\"; // Nom fichier image membre géoréférencé \n";
-   $content .= "\$mark_typ = \"$mark_typ\"; // Type de marker \n";
+   $content .= "\$mark_typ = $mark_typ; // Type de marker \n";
    $content .= "\$w_ico = \"$w_ico\"; // Largeur icone des markers \n";
    $content .= "\$h_ico = \"$h_ico\"; // Hauteur icone des markers\n";
    $content .= "\$f_mbg = \"$f_mbg\"; // Font SVG \n";
-//   $content .= "\$svg_path = \"$svg_path\"; // path \n";
    $content .= "\$mbg_sc = \"$mbg_sc\"; // Echelle du Font SVG du membre \n";
    $content .= "\$mbg_t_ep = \"$mbg_t_ep\"; // Epaisseur trait Font SVG du membre \n";
    $content .= "\$mbg_t_co = \"$mbg_t_co\"; // Couleur trait SVG du membre \n";

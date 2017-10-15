@@ -108,7 +108,7 @@ if (!function_exists("Mysql_Connexion")) {
          <li class="page-item disabled"><a class="page-link" href="#" >'.$nbPages.' '.translate("pages").'</a></li>
       </ul>';
 
-      echo paginate('modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start=', '&amp;count='.$count, $nbPages, $current, $adj=3, $maxcount, $start);
+      echo paginate('modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start=', '&amp;count='.$count, $nbPages, $current, 1, $maxcount, $start);
 echo '</div>';
    }
    if ($SuperCache) {

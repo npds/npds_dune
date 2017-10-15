@@ -1,8 +1,8 @@
 <svg id="SVG-Circus-67cd7ad3-c318-9dc9-df05-3c86865534d6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-<circle id="actor_6" cx="50" cy="50" r="25" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0,2)" stroke-width="0.2" stroke-opacity="1" stroke-dasharray=""></circle>
-<circle id="actor_5" cx="50" cy="50" r="20" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0.2)" stroke-width="0.4" stroke-opacity="1" stroke-dasharray=""></circle>
+<circle id="actor_6" cx="50" cy="50" r="25" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0,2)" stroke-width="0.6" stroke-opacity="1" stroke-dasharray=""></circle>
+<circle id="actor_5" cx="50" cy="50" r="20" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0.2)" stroke-width="0.6" stroke-opacity="1" stroke-dasharray=""></circle>
 <circle id="actor_4" cx="50" cy="50" r="15" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0.4)" stroke-width="0.6" stroke-opacity="1" stroke-dasharray=""></circle>
 <circle id="actor_3" cx="50" cy="50" r="10" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0.6)" stroke-width="0.6" stroke-opacity="1" stroke-dasharray=""></circle>
-<circle id="actor_2" cx="50" cy="50" r="6" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0.8)" stroke-width="2" stroke-opacity="1" stroke-dasharray=""></circle>
+<circle id="actor_2" cx="50" cy="50" r="6" opacity="1" fill="rgba(0,0,0,0)" fill-opacity="1" stroke="rgba(255,44,44,0.6)" stroke-width="0.6" stroke-opacity="1" stroke-dasharray=""></circle>
 <circle id="actor_1" cx="50" cy="50" r="2" opacity="1" fill="rgba(255,44,44,1)" fill-opacity="1" stroke="rgba(255,44,44,1)" stroke-width="1" stroke-opacity="1" stroke-dasharray=""></circle>
 </svg>

@@ -21,6 +21,9 @@ admindroits($aid,$f_meta_nom);
 global $language, $ModPath, $ModStart;
 $old_language=$language;
 include_once("modules/upload/upload.conf.php");
+
+include('modules/geoloc/geoloc_locip.php');
+
 if ($DOCUMENTROOT=='') {
    global $DOCUMENT_ROOT;
    if ($DOCUMENT_ROOT)
@@ -104,27 +107,23 @@ echo '
       if ($theip != $hostname) {
          $domfai = explode('.',$hostname);
          $prov = $domfai[count($domfai)-2].'.'.$domfai[count($domfai)-1];
-         if ($prov == 'co.jp' or $prov == 'co.uk' ) {
+         if ($prov == 'co.jp' or $prov == 'co.uk' )
             $provider = $domfai[sizeof($domfai)-3].'.'.$prov;
-         } else {
+         else
             $provider = $prov;
-         }
-      } else {
-         $hostname = $theip;
       }
+      else
+         $hostname = $theip;
       echo '
       <div class="card card-body">
          <div class="row">
-           <div class="col-sm-3 text-muted">'.SessionLog_translate("@ IP").'</div>
-           <div class="col-sm-9">'.$theip.'</div>
-         </div>
-         <div class="row">
-           <div class="col-sm-3 text-muted">'.SessionLog_translate("@ IP résolue").'</div>
-           <div class="col-sm-9">'.$hostname.'</div>
-         </div>
-         <div class="row">
-           <div class="col-sm-3 text-muted">'.SessionLog_translate("Fournisseur").'</div>
-           <div class="col-sm-9">'.$provider.'</div>
+            <div class="col mb-3">
+              <span class="text-muted">'.SessionLog_translate("@ IP").'</span> : <span>'.$theip.'</span><br />
+              <span class="text-muted">'.SessionLog_translate("@ IP résolue").'</span> : <span>'.$hostname.'</span><br />
+              <span class="text-muted">'.SessionLog_translate("Fournisseur").'</span> : <span>'.$provider.'</span><br />
+            </div>';
+      echo localiser_ip($iptoshow=$theip);
+      echo '
          </div>
       </div>';
       $subop='security';

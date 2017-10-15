@@ -161,7 +161,6 @@ $m->add_extra('
          $("#B1").change(function() {
             readURL(this);
             $("#user_avatar option[value=\''.$userinfo['user_avatar'].'\']").prop("selected", true);
-
             $("#user_avatar").prop("disabled", "disabled");
             $("#avatar,#tonewavatar").hide();
          });

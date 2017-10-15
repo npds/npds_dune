@@ -116,34 +116,52 @@
 <div id="visu" class="collapse">
 <div class="card card-body">
    <h4 class="mb-3">Comment interpr&eacute;ter la visualisation des informations ?</h4>
-    <img alt="tableau.gif" src="modules/geoloc/doc/images/tableau.gif" border="1" />
-    <p>Sur la droite de la carte, vous avez un tableau de synth&egrave;se des informations   de g&eacute;olocalisation qui se d&eacute;compose en deux parties.<br />
-      Ce tableau est escamotable en cliquant sur le triangle invers&eacute;.<img src="modules/geoloc/doc/images/fl_b.gif" width="16" height="16" /><br />
-      <br />
-      Les informations disponibles dans le cadre sup&eacute;rieur :<br />
-      <br />
-      <img src="modules/geoloc/doc/images/connect.gif" width="17" height="17" /> nombre total de personnes en ligne<br />
-      <img src="modules/geoloc/images/mbcg.png" width="24" height="24" /> nombre de membres g&eacute;or&eacute;f&eacute;renc&eacute;s en ligne<br />
-      <img src="modules/geoloc/images/acg.png" width="24" height="24" /> nombre d'anonymes g&eacute;or&eacute;f&eacute;renc&eacute;s en ligne<br />
-      -nombre de membres non r&eacute;f&eacute;renc&eacute;s en ligne<br />
-      -nombre d'anonymes non r&eacute;f&eacute;renc&eacute;s en ligne<br />
-      <br />
-      Dans la deuxi&egrave;me partie du tableau vous avez des icones <img src="modules/geoloc/images/mbg_small.png" width="16" height="16" /> <img src="modules/geoloc/images/mbcg_small.png" width="16" height="16" />  qui sont affich&eacute;es selon vos choix (voir ci dessus cases &agrave; cocher). Ces icones sont int&eacute;ractives avec la carte.<br />
-      Il est possible d'afficher la liste de tous les membres g&eacute;or&eacute;f&eacute;renc&eacute;s et de visualiser en cons&eacute;quence la position d'un membre s&eacute;lectionn&eacute; en cliquant sur son icone qu'il soit ou non connect&eacute;.<br />
-      <br />
-      Cette op&eacute;ration vous positionne automatiquement sur la carte et ouvre une fen&ecirc;tre d'informations sur le membre. Il est conseill&eacute; de bien zoomer la carte avant de faire cette op&eacute;ration.<br />
-      <br />
-    Les IP de personnes non identifi&eacute;es sont &eacute;galement affich&eacute;es. <img src="modules/geoloc/images/ip_ng.png" width="32" height="32" /></p>
+   <div class="row">
+      <div class="col-md-7">
+       <p>Sur la droite de la carte, vous avez un panneau de synth&egrave;se des informations de g&eacute;olocalisation qui se d&eacute;compose en deux parties.<br />
+         Ce panneau est escamotable en cliquant sur l'icone <i class="fa fa-navicon fa-lg text-muted"></i><br />
+         <br />
+         dans le cadre sup&eacute;rieur du panneau :<br />
+         <i class="fa fa-plug faa-flash animated text-danger mr-1"></i>nombre total anonyme+membre en ligne<br />
+         <br />
+         dans le cadre inf&eacute;rieur du panneau :<br />
+         <i style="color:#ff0000;" class="fa fa-user fa-lg animated faa-pulse mr-1"></i>membre g&eacute;or&eacute;f&eacute;renc&eacute; en ligne<br />
+         <i style="color:#c00000; opacity:0.4;" class="fa fa-user fa-lg mr-1"></i>membre g&eacute;or&eacute;f&eacute;renc&eacute; hors ligne<br />
+         <i style="color:#99928e;" class="fa fa-user animated faa-pulse fa-lg mr-1"></i>anonyme g&eacute;or&eacute;f&eacute;renc&eacute;s en ligne<br /><br />
+         Ces icônes sont affich&eacute;es selon vos choix (voir ci-dessus cases &agrave; cocher). Elles sont int&eacute;ractives avec la carte :<br />
+         - un survol de la souris sur l'icône localise sur la carte<br />
+         - un click sur l'icone localise et ouvre une fenêtre d'informaton sur la carte<br />
+         <br />
+      </div>
+      <div class="col-md-5">
+         <img class="img-fluid" alt="panneau" src="modules/geoloc/doc/images/panneau.jpg" />
+      </div>
+   </div>
+
+
+
+        <h5>Les trois types de fen&ecirc;tres affich&eacute;es sur la carte :</h5>
         <br />
-        <strong>Les deux types de fen&ecirc;tres affich&eacute;es sur la carte :</strong><br />
-        <br />
-                <img alt="fenetre_paslig.gif" src="modules/geoloc/doc/images/fenetre_paslig.gif" border="0" />
-                <img alt="fenetre_enligne.gif" src="modules/geoloc/doc/images/fenetre_enligne.gif" border="0" />
-                <div align="center"><strong>Fen&ecirc;tre membre g&eacute;olocalis&eacute; hors ligne</strong></div>
-                <div align="center"><strong>Fen&ecirc;tre membre g&eacute;olocalis&eacute; connect&eacute;</strong></div>
+      <div class="row">
+         <div class="col-sm-5 mb-3">
+             <img class="img-fluid" alt="fenetre info membre" src="modules/geoloc/doc/images/fenetre_mem.jpg" border="0" />
+            <p class="text-center my-2"><strong>Fen&ecirc;tre membre g&eacute;olocalis&eacute; en ligne</strong></p>
+         </div>
+         <div class="col-sm-5 mb-3">
+            <img class="img-fluid" alt="fenetre info anonyme" src="modules/geoloc/doc/images/fenetre_ano.jpg" border="0" />
+            <p class="text-center my-2"><strong>Fen&ecirc;tre anonyme g&eacute;olocalis&eacute; connect&eacute;</strong></p>
+            <p>Dans cette fenêtre on trouve : l'adresse IP ainsi que le nom de l'hôte, le nombre de visiste de cette IP et quelques infos géographiques.</p>
+         </div>
+      </div>
+
+        
         <br />
         Vous pouvez consulter le profil du membre inscrit et la date de sa derni&egrave;re connexion au site est affich&eacute;e.<br />
         Si le membre est connect&eacute;, vous pouvez en plus lui envoyer un message priv&eacute; en cliquant sur la petite enveloppe.<br /><br />
+
+         NB : les formes et couleurs des icones peuvent varier car elles dépendent du choix des paramètres par les administrateurs et/ou des thèmes utilisés.<br />
+
+
 <hr />
 <div class="text-right"><a  href="#" data-toggle="collapse" data-target="#visu"><i class="fa fa-angle-double-up fa-lg"></i><span class="ml-2">Haut de page</span></a></div>
 </div>
