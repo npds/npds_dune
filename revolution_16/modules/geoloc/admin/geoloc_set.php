@@ -151,14 +151,17 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                         <option selected="selected">'.$cartyp.'</option>
                      </select>
                   </div>
-               </div>
+               </div>';
+               $s_dd='';$s_dm='';
+               if($co_unit =='dd') $s_dd='selected="selected"';
+               else if($co_unit =='dms') $s_dm='selected="selected"'; 
+               echo '
                <div class="form-group row">
                   <label class="form-control-label col-sm-6" for="co_unit">'.geoloc_translate('Unité des coordonnées').'<span class="text-danger ml-1">*</span></label>
                   <div class="col-sm-6">
                      <select class="custom-select form-control" name="co_unit" id="co_unit">
-                        <option>dd</option>
-                        <option>dms</option>
-                        <option selected="selected">'.$co_unit.'</option>
+                        <option '.$s_dd.'>dd</option>
+                        <option '.$s_dm.'>dms</option>
                      </select>
                   </div>
                </div>';
