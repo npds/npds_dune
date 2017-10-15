@@ -293,8 +293,9 @@ function convert_ressources ($Xcontent) {
             }
             $userX = base64_decode($user);
             $userdataX = explode(':', $userX);
-            if ($userdataX[1]==$op) {
-               $adminblog=true;
+            if(array_key_exists(1, $userdataX)) {
+               if ($userdataX[1]==$op)
+                  $adminblog=true;
             }
          } else {
             // groupe
@@ -324,9 +325,8 @@ function convert_ressources ($Xcontent) {
          $Titlesitename="Minisite - $op";
          $nuke_url=$nuke_url.'/minisite.php?op='.$op;
          include("meta/meta.php");
-         echo '<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />';
-      // chargement sauvage lol à voir
          echo '
+         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
          <script type="text/javascript" src="lib/js/jquery.min.js"></script>
          <script type="text/javascript" src="lib/js/popper.min.js"></script>
          <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>';
