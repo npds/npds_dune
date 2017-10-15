@@ -21,7 +21,7 @@
    } else {
       $tmp_theme=$Default_Theme;
    }
-   $optskins='';
+   $optskins=array('');
    $handle=opendir('../../../themes/_skins');
    while (false!==($file = readdir($handle))) {
       if ( (!strstr($file,'.')) and (!strstr($file,'bower_components')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
@@ -37,20 +37,20 @@
 
    switch ($skinametitre) {
       case 'cyborg': 
-        $headerclasses ='navbar navbar-toggleable-md navbar-dark fixed-top bg-inverse';
+        $headerclasses ='navbar navbar-expand-md navbar-dark fixed-top bg-inverse';
       break;
       case 'lumen':
-         $headerclasses ='navbar navbar-toggleable-md navbar-light bg-inverse fixed-top';
+         $headerclasses ='navbar navbar-expand-md navbar-light bg-inverse fixed-top';
       break;
       case 'journal':
       case 'materia':
       case 'litera':
       case 'simplex':
       case 'spacelab':
-         $headerclasses = 'navbar navbar-toggleable-md navbar-light fixed-top bg-faded';
+         $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-primary';
       break;
       default :
-        $headerclasses = 'navbar navbar-toggleable-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+        $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
       break;
    }
 
@@ -179,7 +179,7 @@
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+              <nav class="navbar navbar-expand-md navbar-dark bg-primary">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -209,7 +209,7 @@
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+              <nav class="navbar navbar-expand-md navbar-dark bg-inverse">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -985,7 +985,7 @@
         <div>
           <h2>Badges</h2>
           <div class="bs-component" style="margin-bottom: 40px;">
-            <span class="badge badge-default">Default</span>
+            <span class="badge badge-secondary">Default</span>
             <span class="badge badge-primary">Primary</span>
             <span class="badge badge-success">Success</span>
             <span class="badge badge-warning">Warning</span>
@@ -993,7 +993,7 @@
             <span class="badge badge-info">Info</span>
           </div>
           <div class="bs-component">
-            <span class="badge badge-pill badge-default">Default</span>
+            <span class="badge badge-pill badge-secondary">Default</span>
             <span class="badge badge-pill badge-primary">Primary</span>
             <span class="badge badge-pill badge-success">Success</span>
             <span class="badge badge-pill badge-warning">Warning</span>
@@ -1158,7 +1158,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="card card-inverse card-primary text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1166,7 +1166,7 @@
                 </div>
               </div>
               <div class="card card-inverse card-success text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1174,7 +1174,7 @@
                 </div>
               </div>
               <div class="card card-inverse card-info text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1182,7 +1182,7 @@
                 </div>
               </div>
               <div class="card card-inverse card-warning text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1190,7 +1190,7 @@
                 </div>
               </div>
               <div class="card card-inverse card-danger text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1202,7 +1202,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="card card-outline-primary text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1210,7 +1210,7 @@
                 </div>
               </div>
               <div class="card card-outline-success text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1218,7 +1218,7 @@
                 </div>
               </div>
               <div class="card card-outline-info text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1226,7 +1226,7 @@
                 </div>
               </div>
               <div class="card card-outline-warning text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1234,7 +1234,7 @@
                 </div>
               </div>
               <div class="card card-outline-danger text-xs-center">
-                <div class="card-block">
+                <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
@@ -1248,12 +1248,12 @@
             <div class="bs-component">
               <div class="card">
                 <h3 class="card-header">Card header</h3>
-                <div class="card-block">
+                <div class="card-body">
                   <h5 class="card-title">Special title treatment</h5>
                   <h6 class="card-subtitle text-muted">Support card subtitle</h6>
                 </div>
                 <img style="height: 200px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image">
-                <div class="card-block">
+                <div class="card-body">
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                   <a href="#" class="card-link">Card link</a>
                   <a href="#" class="card-link">Another link</a>
