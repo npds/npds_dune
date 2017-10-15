@@ -9,15 +9,15 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],"modules.php")) die();
 
 global $ModPath, $ModStart, $language, $Default_Theme, $NPDS_Key, $NPDS_Prefix;
 
-if (file_exists("modules/$ModPath/lang/f-manager-$language.php")) {
+if (file_exists("modules/$ModPath/lang/f-manager-$language.php"))
    include ("modules/$ModPath/lang/f-manager-$language.php");
-} else {
+else
    include ("modules/$ModPath/lang/f-manager-english.php");
-}
+
 include ("modules/$ModPath/class.navigator.php");
 
 // Gestion Ascii étendue
@@ -175,14 +175,14 @@ function chmod_pres($ibid, $champ) {
    return ($chmod);
 }
 
-// Lancement sur un Repertoire en fonction d'un fichier de conf particulier
+// Lancement sur un Répertoire en fonction d'un fichier de conf particulier
 if ($FmaRep) {
    if (filtre_module($FmaRep)) {
       // Si je ne trouve pas de fichier - est-ce que l'utilisateur fait partie d'un groupe ?
       if (!file_exists("modules/$ModPath/users/".strtolower($FmaRep).".conf.php")) {
          $tab_groupe=valid_group($user);
          if ($tab_groupe) {
-            // si j'ai au moins un groupe est ce que celui-ci dispose d'un fichier de configuration ?  - je m'arrÍte au premier groupe !
+            // si j'ai au moins un groupe est ce que celui-ci dispose d'un fichier de configuration ?  - je m'arrête au premier groupe !
             while (list(,$gp)=each($tab_groupe)) {
                $groupename=Q_select("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp' ORDER BY `groupe_id` ASC",3600);
                if (file_exists("modules/$ModPath/users/".$groupename[0]['groupe_name'].".conf.php")) {
@@ -549,8 +549,7 @@ switch ($op) {
                   }
                $move_file.='
                      </select>
-                  </div>';
-               $move_file.='
+                  </div>
                   <div class="form-group">
                      <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
                   </div>
@@ -771,7 +770,7 @@ switch ($op) {
                <div class="form-group">
                   <label class="form-control-label" for="maxthumb">'.fma_translate("Taille maximum (pixel) de l'imagette").'</label>';
             $fp=@file($auto[3].'/'.$auto[2].'/pic-manager.txt');
-            // La premiËre ligne du tableau est un commentaire
+            // La première ligne du tableau est un commentaire
             settype($fp[1],'integer');
             $Max_thumb=$fp[1];
             if ($Max_thumb==0)
@@ -807,9 +806,9 @@ switch ($op) {
          fputs($fp, $refresh."\n");
          fclose($fp);
          Ecr_Log('security','Pic-Manager', $log_dir.'/'.$auto[2].' IP=>'.getip());
-      } else {
-         $Err=$auto[1];
       }
+      else
+         $Err=$auto[1];
    case 'searchfile':
       $resp=$obj->SearchFile($base,$filesearch);
       if ($resp) {
@@ -848,7 +847,7 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
       $cur_nav=$obj->Pwd();
       $cur_nav_back=str_replace("\\","/",dirname($base));
    }
-   // contraint à rester dans la zone de repertoire définie (CHROOT)
+   // contraint à rester dans la zone de répertoire définie (CHROOT)
    $cur_nav=$base.substr($cur_nav,strlen($base));
 
    $home='/'.basename($basedir_fma);
