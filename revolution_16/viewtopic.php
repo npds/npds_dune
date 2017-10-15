@@ -122,6 +122,8 @@ function aff_pub($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0)
       echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("New Topic").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="d-none d-md-inline">'.translate("New Topic").'<br /></span></a>&nbsp;';
+   else if ($lock_state==1)
+      echo '<i class="fa fa-lock fa-lg text-danger mr-2" aria-hidden="true" title="'.translate("You can't post a reply to this topic, it has been locked. Contact the administrator if you have any question.").'" data-toggle="tooltip"></i>';
 }
 function aff_pub_in($lock_state, $topic, $forum, $mod) {
    global $language;
@@ -202,9 +204,9 @@ include('header.php');
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],"users_private")) {
+         if (stristr($modera['user_avatar'],"users_private"))
           $imgtmp=$modera['user_avatar'];
-         } else {
+         else {
           if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
@@ -443,7 +445,7 @@ include('header.php');
       if ($allow_to_post and !$lock_state and $posterdata['uid']!='')
          echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Quote").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
       echo '<a class="mr-3" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Print").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
-      if ($Mmod) {
+      if ($Mmod or $adminforum) {
          echo '<a class="mr-3" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
          if (!$myrow['post_aff'])
             echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Show this post").'" data-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
