@@ -9,14 +9,16 @@
            $headerclasses ='navbar navbar-expand-md navbar-dark fixed-top bg-inverse';
          break;
          case 'lumen':
-            $headerclasses ='navbar navbar-expand-md navbar-light bg-inverse fixed-top';
+            $headerclasses ='navbar navbar-expand-md navbar-dark bg-inverse fixed-top';
          break;
          case 'journal':
          case 'materia':
+            $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
+         break;
          case 'litera':
          case 'simplex':
          case 'spacelab':
-            $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-faded';
+            $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-primary';
          break;
          default :
            $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default

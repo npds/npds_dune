@@ -5,26 +5,26 @@
       $username = $cookie[1];
       $skinname = $cookie[11];
       switch ($skinname) {
-         case 'cyborg': 
-           $headerclasses ='navbar navbar-expand-md navbar-dark fixed-top bg-inverse';
-         break;
+         case 'cyborg':
          case 'lumen':
-            $headerclasses ='navbar navbar-expand-md navbar-light bg-inverse fixed-top';
+           $headerclasses ='navbar navbar-expand-md navbar-dark bg-inverse fixed-top';
          break;
          case 'journal':
          case 'materia':
+            $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
+         break;
          case 'litera':
          case 'simplex':
          case 'spacelab':
-            $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-faded';
+            $headerclasses = 'navbar navbar-expand-md navbar-light bg-primary fixed-top';
          break;
          default :
-           $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+           $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
          break;
       }
    }
    else {
-      $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+      $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
       $username='';
    }
    if (!isset($powerpack)) {include_once ("powerpack.php");}
@@ -42,11 +42,11 @@
       settype($cookie[0], 'integer');
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
-      if (!$user_avatar) {
+      if (!$user_avatar)
          $imgtmp='images/forum/avatar/blank.gif';
-       } else if (stristr($user_avatar,"users_private")) {
+      else if (stristr($user_avatar,"users_private"))
          $imgtmp=$user_avatar;
-      } else {
+      else {
          if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
          if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
