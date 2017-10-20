@@ -44,6 +44,8 @@
       break;
       case 'journal':
       case 'materia':
+         $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary';
+      break;
       case 'litera':
       case 'simplex':
       case 'spacelab':
@@ -1334,8 +1336,8 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Source Code</h4>
+            <h4 class="modal-title">Source Code</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
               <pre></pre>

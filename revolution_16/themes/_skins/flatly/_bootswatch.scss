@@ -22,8 +22,8 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
     margin-right: 2rem;
   }
 
-  &-nav .nav-item + .nav-item {
-    margin-left: 2rem;
+  &-nav .nav-item {
+    margin-right: 2rem;
   }
 
   &-nav .nav-link {
@@ -48,6 +48,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
 
 .thead-inverse th {
   background-color: theme-color("primary");
+  color :$white;
 }
 
 
@@ -85,6 +86,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
   }
 }
 
+/* 
 .alert {
 
   .alert-link {
@@ -92,6 +94,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
     text-decoration: underline;
   }
 }
+ */
 
 // Progress bars ===============================================================
 
