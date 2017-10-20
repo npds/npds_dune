@@ -12,16 +12,17 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
-if ($SuperCache) {
+include('modules/geoloc/geoloc_locip.php');
+
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
+
 include('auth.php');
 global $NPDS_Prefix, $adminforum;
 
@@ -39,33 +40,31 @@ global $NPDS_Prefix, $adminforum;
    }
 //<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
 
-   if (isset($arbre) and ($arbre=="1")) {$url_ret="viewtopicH.php";} else {$url_ret="viewtopic.php";}
+   if (isset($arbre) and ($arbre=='1')) $url_ret="viewtopicH.php"; else $url_ret="viewtopic.php";
 
    $Mmod=false;
    $userX = base64_decode($user);
    $userdata = explode(':', $userX);
-   settype($forum, "integer");
+   settype($forum, 'integer');
    $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
    if (!$rowQ1)
       forumerror('0001');
    list(,$myrow) = each($rowQ1);
-   $moderator=explode(" ",get_moderator($myrow['forum_moderator']));
+   $moderator=explode(' ',get_moderator($myrow['forum_moderator']));
    for ($i = 0; $i < count($moderator); $i++) {
        if (($userdata[1] == $moderator[$i])) {
-          if (user_is_moderator($userdata[0],$userdata[2],$myrow['forum_access'])) {
+          if (user_is_moderator($userdata[0],$userdata[2],$myrow['forum_access']))
              $Mmod=true;
-          }
           break;
        }
    }
-   if ((!$Mmod) and ($adminforum==0)) {
+   if ((!$Mmod) and ($adminforum==0))
       forumerror('0007');
-   }
 
-   if ((isset($submit)) and ($mode=="move")) {
+   if ((isset($submit)) and ($mode=='move')) {
       $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$newforum' WHERE topic_id='$topic'";
       if (!$r = sql_query($sql))
-         forumerro('0010');
+         forumerror('0010');
       $sql = "UPDATE ".$NPDS_Prefix."posts SET forum_id='$newforum' WHERE topic_id='$topic' AND forum_id='$forum'";
       if (!$r = sql_query($sql))
          forumerror('0010');
@@ -168,29 +167,22 @@ global $NPDS_Prefix, $adminforum;
                   forumerror('0013');
                if (!$m = sql_fetch_assoc($r))
                   forumerror('0014');
-                  echo '
-      <h2>'.translate("Forum").'</h2>
-      <div class="card card-body">
-         <h3 class="card-title" >'.translate("Users IP and Account information").'</h3>
+               echo '
+      <h2 class="mb-3">'.translate("Forum").'</h2>
+      <div class="card card-body mb-3">
+         <h3 class="card-title mb-3" >'.translate("Users IP and Account information").'</h3>
          <div class="row">
-           <div class="col-sm-5 text-muted">'.translate("Nickname: ").'</div>
-           <div class="col-sm-7">'.$m['uname'].'</div>
+            <div class="col mb-3">
+              <span class="text-muted">'.translate("Nickname: ").'</span><span class="">'.$m['uname'].'</span><br />
+              <span class="text-muted">'.translate("User IP: ").'</span><span class="">'.$m['poster_ip'].' => <a class="text-danger" href="topicadmin.php?mode=banip&topic='.$topic.'&post='.$post.'&forum='.$forum.'&arbre='.$arbre.'" >'.translate("Ban this @IP").'</a></span><br />
+              <span class=" text-muted">'.translate("User DNS: ").'</span><span class="">'.$m['poster_dns'].'</span><br />
+              <span class="text-muted">GeoTool : </span><span class=""><a href="http://www.ip-tracker.org/?ip='.$m['poster_ip'].'" target="_blank" >IP tracker</a><br />
+            </div>';
+               echo localiser_ip($iptoshow=$m['poster_ip']);
+               echo '
          </div>
-         <div class="row">
-           <div class="col-sm-5 text-muted">'.translate("User IP: ").'</div>
-           <div class="col-sm-7">'.$m['poster_ip'].' => <a href="topicadmin.php?mode=banip&topic='.$topic.'&post='.$post.'&forum='.$forum.'&arbre='.$arbre.'" >'.translate("Ban this @IP").'</a></div>
-         </div>
-         <div class="row">
-           <div class="col-sm-5 text-muted">'.translate("User DNS: ").'</div>
-           <div class="col-sm-7">'.$m['poster_dns'].'</div>
-         </div>
-         <div class="row">
-           <div class="col-sm-5 text-muted">GeoTool</div>
-           <div class="col-sm-7"><a href="http://www.ip-tracker.org/?ip='.$m['poster_ip'].'" target="_blank" >IP tracker</a></div>
-         </div>
-         <br />
-         <a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$forum.'" class="btn btn-secondary">'.translate("Go Back").'</a>
-      </div>';
+      </div>
+      <a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$forum.'" class="btn btn-secondary">'.translate("Go Back").'</a>';
                include("footer.php");
                break;
             case 'banip':

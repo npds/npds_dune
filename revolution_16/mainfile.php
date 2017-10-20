@@ -2236,9 +2236,9 @@ function adminblock() {
       if ($SAQ['fcategorie'] == 9) {
          //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
-         $li_c ='<li class=" btn btn-light" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
+            $li_c ='<li class=" btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          else 
-         $li_c ='<li class="alerte btn btn-light" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
+            $li_c ='<li class="alerte btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
          $li_c .='<span class="alerte-para badge badge-pill badge-danger">'.$SAQ['fretour'].'</span>'."\n";
          $li_c .='</a></li>'."\n";
@@ -2256,7 +2256,7 @@ function adminblock() {
    $content .= '
       <ul id="adm_block">
       '.$bloc_foncts_A.'
-         <li class="alerte btn btn-light" title="'.translate("Clear Chat DB").'" data-toggle="tooltip"><a class="adm-img" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png"/>&nbsp;<span class="alerte-para badge badge-pill badge-danger">X</span></a></li>
+         <li class="alerte btn btn-outline-primary" title="'.translate("Clear Chat DB").'" data-toggle="tooltip"><a class="adm-img" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png"/>&nbsp;<span class="alerte-para badge badge-pill badge-danger">X</span></a></li>
       </ul>
       <ul>
          <li><small class="text-muted"><i class="fa fa-user fa-2x"></i> '.$aid.'</small></li>

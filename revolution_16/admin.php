@@ -156,9 +156,9 @@ function GraphicAdmin($hlpfile) {
       if ($SAQ['fcategorie'] == 9) {
          //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
-         $li_c ='<li class=" btn btn-light" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
+         $li_c ='<li class=" btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          else 
-         $li_c ='<li class="alerte btn btn-light" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
+         $li_c ='<li class="alerte btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
          $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
          $li_c .='<span class="alerte-para badge badge-pill badge-danger">'.$SAQ['fretour'].'</span>'."\n";
          $li_c .='</a></li>'."\n";
@@ -170,7 +170,7 @@ function GraphicAdmin($hlpfile) {
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
+            <li id="'.$SAQ['fid'].'" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
          if ($admingraphic==1) {
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          } else{
@@ -346,10 +346,10 @@ function GraphicAdmin($hlpfile) {
          </div>
          <div id="adm_men_man" class="col-6 col-lg-6 men_man text-right">
             <ul class="liste" id="lst_men_top">
-               <li class="btn btn-light" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
+               <li class="btn btn-outline-primary" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
    if ($hlpfile) {
       $adm_ent .='
-              <li class="btn btn-light" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a href="javascript:openwindow();">&nbsp;<i class="fa fa-question-circle fa-2x text-primary"></i></a></li>';
+              <li class="btn btn-outline-primary" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a href="javascript:openwindow();">&nbsp;<i class="fa fa-question-circle fa-2x text-primary"></i></a></li>';
    }
    $adm_ent .='
             </ul>

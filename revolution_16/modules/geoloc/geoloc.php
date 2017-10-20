@@ -28,8 +28,6 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
 
 global $pdst, $language, $title;
 
-if (file_exists('modules/'.$ModPath.'/admin/pages.php'))
-   include ('modules/'.$ModPath.'/admin/pages.php');
 include ('modules/'.$ModPath.'/geoloc_conf.php');
 if (file_exists('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php'))
    include_once('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
@@ -46,7 +44,7 @@ $ano_ip='';
 settype($op,'string');
 settype($ipnb,'integer');
 
-// admin tool
+// admin tools
 if(autorisation(-127)) {
 $mess_adm ='<p class="text-danger">'.geoloc_translate('Rappel : vous êtes en mode administrateur !').'</p>';
 $lkadm = '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set" title="'.geoloc_translate("Admin").'" data-toggle="tooltip"><i id="cogs" class="fa fa-cogs fa-lg"></i></a>';
@@ -98,7 +96,7 @@ $js_dragfunc ='
         });
     });
 ';
-
+   // IP géoréférencées
    if($geo_ip==1) {
       $affi_ip='';$ano_ip='';
       $tab_ip='';
@@ -112,12 +110,13 @@ $js_dragfunc ='
          $ip_code_country1 = $row_ip['ip_code_country'];
          $ip_city1 = $row_ip['ip_city'];
          $ip_visite = $row_ip['ip_visite'];
+//         $ip_hote = @gethostbyaddr(urldecode($ip_ip1));
 
          if ($ip_lt != 0 and $ip_lg != 0) {
             //construction marker ip géoréférencés
             $ano_ip.= '
             var point = new google.maps.LatLng('.$ip_lt.','.$ip_lg.');
-            var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$acg_f_co.';\" class=\"fa fa-desktop fa-lg mr-1\"></i>'.urldecode($ip_ip1).'", \'<div id="infowindow" style="white-space: nowrap;"><br /><i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>IP<br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>'.urldecode($ip_ip1).'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>'.$ip_visite.'</span><br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>'.addslashes($ip_city1).'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>'.addslashes($ip_country1).'<hr /><img src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" class="n-smil" alt="flag" /></p></div>\',\'ip\',\''.urldecode($row_ip['ip_ip']).'\'); 
+            var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$acg_f_co.';\" class=\"fa fa-desktop fa-lg mr-1\"></i>'.urldecode($ip_ip1).'", \'<div id="infowindow" style="white-space: nowrap;"><br /><i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>IP @ '.urldecode($ip_ip1).'<br /><hr /><span class="text-muted">'.geoloc_translate("Visites").' : </span>'.$ip_visite.'</span><br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>'.addslashes($ip_city1).'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>'.addslashes($ip_country1).'<hr /><img src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" class="n-smil" alt="flag" /></p></div>\',\'ip\',\''.urldecode($row_ip['ip_ip']).'\'); 
             marker.setMap(map);
             bounds.extend(point);
             map.fitBounds(bounds);
@@ -125,7 +124,7 @@ $js_dragfunc ='
             $tab_ip .='
          <p class="list-group-item list-group-item-action flex-column align-items-start">
             <span class="d-flex w-100 mt-1">
-            <span><img class=" img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_country1.'" title="" data-toggle="tooltip"> '.urldecode($ip_ip1).'</span>
+            <span><img class=" img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_country1.'"> '.urldecode($ip_ip1).'</span>
             <span class="ml-auto">
                <span class="badge badge-secondary ml-1" title="'.geoloc_translate("Visites").'" data-toggle="tooltip" data-placement="left" >'.$ip_visite.'</span>
             </span>
@@ -150,8 +149,8 @@ $av_ch = '';//chemin pour l'avatar
 //cherche info user
 if(isset($cookie)) {
    $result = sql_query('SELECT uid FROM '.$NPDS_Prefix.'users WHERE uname LIKE "'.$username.'"');
-   while ($row = sql_fetch_array($result)) 
-   {$uid = $row['uid'];}
+   $row = sql_fetch_array($result); 
+   $uid = $row['uid'];
    // voir si user existe dans users_extend
    $resul = sql_query('SELECT uid FROM '.$NPDS_Prefix.'users_extend WHERE uid = "'.$uid.'"');
    $found = sql_num_rows($resul);
@@ -166,7 +165,6 @@ if (array_key_exists('mod',$_GET)) {
    if ($f_new_lat !='' and $f_new_long !='' and $f_geomod="mod")
    sql_query('UPDATE '.$NPDS_Prefix.'users_extend SET '.$ch_lat.' = "'.$f_new_lat.'", '.$ch_lon.' = "'.$f_new_long.'" WHERE uid = "'.$f_uid.'"');
 }
-//<== georeferencement utilisateur
 
 $result = sql_query('SELECT * FROM '.$NPDS_Prefix.'users u LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid WHERE uname LIKE "'.$username.'"');
 while ($row = sql_fetch_array($result)) {
@@ -178,8 +176,10 @@ while ($row = sql_fetch_array($result)) {
 
    //determine si c un avatar perso ou standard et fixe l'url de l'image
    if (preg_match('#\/#', $user_avatar) === 1)
-   {$the_av_ch = $user_avatar;}else{$the_av_ch = 'images/forum/avatar/'.$user_avatar;};
+      $the_av_ch = $user_avatar; else $the_av_ch = 'images/forum/avatar/'.$user_avatar;
 }
+//<== georeferencement utilisateur
+
 //les membres
 
 $mbgr = 0;
@@ -189,8 +189,7 @@ $k=0;
 $us_visit=array();
 $cont_json = '';$mb_gr='';
 
-while ($row = sql_fetch_array($membre))
-{
+while ($row = sql_fetch_array($membre)) {
    $us_uid = $row['uid'];
    $us_name = $row['name'];
    $us_uname = $row['uname'];
@@ -216,32 +215,31 @@ while ($row = sql_fetch_array($membre))
       $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
       if ($user)
          $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="fa fa-envelope-o fa-2x mr-2"></i></a>';
-      if ($us_url != '') {
-         if (strstr("http://", $us_url))
-         $us_url = 'http://'.$us_url;
+      if ($us_url != '')
          $imm .= '<a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fa fa-external-link fa-2x mr-2"></i></a>';
-      }
       if ($us_mns != '')
          $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
-
-   //
  
       //==> construction du fichier json
       $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"text-muted\\">'.geoloc_translate("Dernière visite").' : </span>'.$visit.'<br />", "label":"<span>'. addslashes($us_uname) .'</span>", "icon":"icon"},';
       //construction marker membre
+
+      if($mark_typ !==1) $ic_sb_mbg ='<i style=\"color:'.$mbg_f_co.'; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg mr-1\"></i>';
+      else $ic_sb_mbg ='<img src=\"'.$ch_img.$nm_img_mbg.'\" /> ';
+
       $mb_gr .='
       var point = new google.maps.LatLng('.$us_lat. ','.$us_long.');
       var u'.$us_uid.' = {lat: '.$us_lat. ', lng: '.$us_long.'};
-
-      var marker = createMarker(point,map,infoWindow,"<i style=\"color:#c00000; opacity:0.4;\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg\"></i>&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br /><div class="my-1">'.geoloc_translate("Dernière visite").' : '.$visit.'</div></div>\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
+      var marker = createMarker(point,map,infoWindow,"'.$ic_sb_mbg.'&nbsp;<span>'. addslashes($us_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<a href="user.php?op=userinfo&amp;uname='.$us_uname.'">'. addslashes($us_uname) .'</a><br /><div class="my-2">'.geoloc_translate("Dernière visite").' : '.$visit.'</div></div>\',\'member\',"'. addslashes($us_uid) .'","'. addslashes($us_uname) .'");
       bounds.extend(point);
-      map.fitBounds(bounds);'; 
+      map.fitBounds(bounds);
+      '; 
    }
    $k++;
 }
 
 if ($mbgr == 0)
-$cont_json .='{"lat":0, "lng":0, "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;NPDS", "label":"NPDS", "icon":"icon"},';
+   $cont_json .='{"lat":0, "lng":0, "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;NPDS", "label":"NPDS", "icon":"icon"},';
 $ent_json = '{"markers": [';
 $ent_json .= $cont_json;
 $file_json = $ent_json;
@@ -256,9 +254,9 @@ $w = fwrite($f, $file_json);
 //les membres
 //cherche les connectés dans session
 $mbcng = 0;//==> membre connecté non géoréférencé
-$ac = 0; //==> anonnyme connectés
-$acng = 0; //==> anonnyme connectés non géoréférencés
-$acg = 0; //==> anonnyme connectés géoréférencés
+$ac = 0; //==> anonyme connectés
+$acng = 0; //==> anonyme connectés non géoréférencés
+$acg = 0; //==> anonyme connectés géoréférencés
 $mbcg = 0;
 
 //nombre total on line
@@ -324,9 +322,11 @@ while ($row = sql_fetch_array($result)) {
          $imm .='&nbsp;<a href="minisite.php?op='.$users_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
 
       //construction marker membre on line
+      if($mark_typ !==1) $ic_sb_mbgc ='<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse mr-1\"></i>';
+      else $ic_sb_mbgc ='<img src=\"'.$ch_img.$nm_img_mbcg.'\" /> ';
       $mb_con_g .='
       var point = new google.maps.LatLng('.$user_lat. ','.$user_long.');
-      var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse mr-1\"></i><span>'. addslashes($users_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" />&nbsp;<br /><a href="user.php?op=userinfo&amp;uname='.$users_uname.'">'. addslashes($users_uname) .'</a> @ '.$session_host_addr.'</div><hr />'.$my_rsos[$krs].'\',\'c\',"'. addslashes($us_uid) .'","'. addslashes($users_uname) .'" );
+      var marker = createMarker(point,map,infoWindow,"'.$ic_sb_mbgc.'<span>'. addslashes($users_uname) .'</span>", \'<div id="infowindow" style="white-space: nowrap; text-align:center;">'.$imm.'<hr /><img class="img-thumbnail n-ava" src="'.$av_ch.'" align="middle" /><br /><div class="mt-2"><a href="user.php?op=userinfo&amp;uname='.$users_uname.'">'. addslashes($users_uname) .'</a> @ '.$session_host_addr.'<hr />'.$my_rsos[$krs].'</div>\',\'c\',"'. addslashes($us_uid) .'","'. addslashes($users_uname) .'" );
       marker.setMap(map);
       bounds.extend(point);
       map.fitBounds(bounds);';
@@ -337,15 +337,19 @@ while ($row = sql_fetch_array($result)) {
       $mb_con_ng .= '&nbsp;'.$session_user_name.'<br />'; $mbcng++; // not use ?..
    }
 //
-   if ($geo_ip == 1) {
+//   if ($geo_ip == 1) {
    // Anonyme géoreferencé en ligne
 
    //==> cherche si l'adresse IP est dans la base
    $tres=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc i WHERE ip_ip LIKE \"$session_host_addr\"");
-
    settype($test_ip,'string');
-//   settype($temp_ip,'string');
-
+   $r=sql_num_rows($tres);
+   if($r == 0) {
+      if ($users_uname != $session_user_name) {
+         $acg++;
+         $test_ip .='<br /><i class="fa fa-tv fa-lg" title="IP non géoréférencé en ligne"></i> IP '.$acng.' <small>'.$session_host_addr.'</small>';
+      }
+   }
    while ($row1 = sql_fetch_array($tres)) {
       $ip_lat1 = $row1['ip_lat'];
       $ip_long1 = $row1['ip_long'];
@@ -357,35 +361,31 @@ while ($row = sql_fetch_array($result)) {
       $ip_visite = $row1['ip_visite'];
 
       if ($ip_lat1 != 0 and $ip_long1 != 0) {
-         $ac++;$acg++;
-         //construction marker anonyme on line
+      if(!strstr($mb_con_g, $ip_ip1)) {
+         $acg++;
          $ano_conn.= '
-           var point = new google.maps.LatLng('.$ip_lat1.','.$ip_long1.');
-           var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$acg_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg mr-1\"></i>'.geoloc_translate('Anonyme').$ac.'", \'<div id="infowindow" style="white-space: nowrap;"><br /><i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>'.geoloc_translate('Anonyme').' '.$ac.' @ '.$session_host_addr.' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>'.@gethostbyaddr($ip_ip1).'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> '.$ip_visi_pag.'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>['.$ip_visite.']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>'.$ip_city1.'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>'.$ip_country1.'<hr /><img src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" class="n-smil" alt="flag" /></p></div>\',\'ac\'); 
-           marker.setMap(map);
-           bounds.extend(point);
-           map.fitBounds(bounds);
-           ';
+      var point = new google.maps.LatLng('.$ip_lat1.','.$ip_long1.');
+      var marker = createMarker(point,map,infoWindow,"<i style=\"color:'.$acg_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse mr-1\"></i>'.geoloc_translate('Anonyme').$ac.'", \'<div id="infowindow" style="white-space: nowrap;"><br /><i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>'.geoloc_translate('Anonyme').' '.$ac.' @ '.$session_host_addr.' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>'.@gethostbyaddr($ip_ip1).'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> '.$ip_visi_pag.'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>['.$ip_visite.']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>'.$ip_city1.'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>'.$ip_country1.'<hr /><img src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" class="n-smil" alt="flag" /></p></div>\',\'ac\'); 
+      marker.setMap(map);
+      bounds.extend(point);
+      map.fitBounds(bounds);
+      ';
       }
-      else {
-         if ($users_uname != $session_user_name) {
-            $acng++;
-            $test_ip.='<i class="fa fa-tv fa-lg" title="IP non géoréférencé en ligne"></i> IP '.$acng.' '.$session_host_addr.' '.@gethostbyaddr($ip_ip1).' '.$ousursit.'<br />';
-         }
+         $ac++;
+         //construction marker anonyme on line
       }
-   }//////
    }
-
- $krs++;
-};
+   $krs++;
+}
 
 $olng = $mbcng+$acng;//==> on line non géoréférencés anonyme et membres
 $olg = $mbcg+$acg;//==> on line géoréférencés anonyme et membres
 
 //==> construction script pour google
-$ecr_scr = '<script type="text/javascript">
+$ecr_scr = '
+<script type="text/javascript">
 //<![CDATA[
-    var 
+    var
     map_b,
     mapdiv = document.getElementById("map"),
     sideba = document.getElementById("sidebar"),
@@ -420,11 +420,10 @@ $ecr_scr = '<script type="text/javascript">
         strokeOpacity: '.$acg_t_op.',
         fillColor: "'.$acg_f_co.'",
         fillOpacity: 1,
-    },
-    ';
+    },';
     if($mark_typ !== 1) { // marker svg
-    $f_mbg=str_replace('-', '_',$f_mbg);
-    $ecr_scr .='
+       $f_mbg=str_replace('-', '_',$f_mbg);
+       $ecr_scr .='
     iconmb = {
         path: fontawesome.markers.'.$f_mbg.',
         scale: '.$mbg_sc.',
@@ -454,7 +453,7 @@ $ecr_scr = '<script type="text/javascript">
     },';
     } 
     else { // marker image
-    $ecr_scr .='
+       $ecr_scr .='
     iconmb = {
     url: "'.$ch_img.$nm_img_mbg.'",
     size: new google.maps.Size('.$w_ico.', '.$h_ico.'),
@@ -529,11 +528,10 @@ var i = 0;
 
 //== checkbox avec coche
     function boxclick(box,type) {
-        if (box.checked) {
+        if (box.checked)
           show(type);
-        } else {
+        else
           hide(type);
-        }
        makeSidebar();
     }
 
@@ -545,26 +543,25 @@ var i = 0;
             html += \'<a class="list-group-item list-group-item-action" onmouseout="stopmyani(\' + i + \')" onmouseover="myho(\' + i + \')" href="javascript:myclick(\' + i + \')">\' + gmarkers[i].myname + \'</a>\';
             }
         }
-      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><i class="fa fa-plug faa-flash animated text-danger mr-1"></i>'.geoloc_translate("En ligne").'<span class="badge badge-danger float-right">'.($olg+$olng).'</span></a>\'+ html +\'</div>\';
+      sideba.innerHTML = \'<div class="list-group"><a class="list-group-item text-muted" ><i class="fa fa-plug faa-flash animated text-danger mr-1"></i>'.geoloc_translate("En ligne").'<span class="badge badge-danger float-right">'.$total_connect.'</span>'.$test_ip.'</a>\'+ html +\'</div>\';
     }
 
-    function myclick(i) {
-        google.maps.event.trigger(gmarkers[i],"click");
-        gmarkers[i].setMap(map);
-        gmarkers[i].setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function(){ gmarkers[i].setAnimation(null); }, 3500);
-    }
+   function myclick(i) {
+      google.maps.event.trigger(gmarkers[i],"click");
+      gmarkers[i].setMap(map);
+      gmarkers[i].setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ gmarkers[i].setAnimation(null); }, 3500);
+   }
    function myho(i) {
-        google.maps.event.trigger(gmarkers[i],"mouseover");
-        gmarkers[i].setMap(map);
-        gmarkers[i].setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function(){ gmarkers[i].setAnimation(null); }, 3500);
-    }
+      google.maps.event.trigger(gmarkers[i],"mouseover");
+      gmarkers[i].setMap(map);
+      gmarkers[i].setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ gmarkers[i].setAnimation(null); }, 3500);
+   }
    function stopmyani(i) {
-        google.maps.event.trigger(gmarkers[i],"mouseout");
-        gmarkers[i].setAnimation(null);
-    }
-    
+      google.maps.event.trigger(gmarkers[i],"mouseout");
+      gmarkers[i].setAnimation(null);
+   }
 
 function geoloc_load() {
 //==> carte du bloc
@@ -865,19 +862,14 @@ $ecr_scr .= '
       coords.setLatitude (lalo[0]);
       coords.setLongitude (lalo[1]);
       if (co_unit=="dms") {
-         DMS_Lat = coords.latitude.getDegrees() + "&#xB0;" + coords.latitude.getMinutes() + \'\\\' \' + Math.round(coords.latitude.getSecondsDecimal()) + "&quot; " + coords.latitude.getDirection();
-         DMS_Lng = coords.longitude.getDegrees() + "&#xB0;" + coords.longitude.getMinutes() + \'\\\' \' + Math.round(coords.longitude.getSecondsDecimal()) + "&quot; " + coords.longitude.getDirection();
+         DMS_Lat = coords.latitude.getDegrees() + "&#xB0;" + coords.latitude.getMinutes() + \'\\\'\' + Math.round(coords.latitude.getSecondsDecimal()) + "&quot; " + coords.latitude.getDirection();
+         DMS_Lng = coords.longitude.getDegrees() + "&#xB0;" + coords.longitude.getMinutes() + \'\\\'\' + Math.round(coords.longitude.getSecondsDecimal()) + "&quot; " + coords.longitude.getDirection();
       }
       else {
          DMS_Lat=lalo[0];
          DMS_Lng=lalo[1];
       }
       document.getElementById("mypoint").innerHTML = DMS_Lat+ " | "+ DMS_Lng;
-
-/*
-        document.getElementById("coordisplayer").options[0].innerHTML = DMS_Lat+ " | "+ DMS_Lng;
-        document.getElementById("coordisplayer").options[1].innerHTML = lalo[0] + "&#xB0;" + " | "+ lalo[1] + "&#xB0;";
-*/
    });
 
    var geocoder = new google.maps.Geocoder();
@@ -973,9 +965,6 @@ function checkSize(){
     }
 }
 
-
-
-
 $(document.body).attr("onload", "geoloc_load()");
 
 //]]>
@@ -985,22 +974,33 @@ $(document.body).attr("onload", "geoloc_load()");
 //==> affichage
 include ('header.php');
 //==> ecriture des div contenants
+      if($mark_typ !==1) {
+         $ic_b_mbg ='<i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x align-middle"></i>';
+         $ic_b_mbgc ='<i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x align-middle"></i>';
+         $ic_b_acg ='<i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x align-middle"></i>';
+      }
+      else {
+         $ic_b_mbg ='<img src="'.$ch_img.$nm_img_mbg.'" title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé').'" /> ';
+         $ic_b_mbgc ='<img src="'.$ch_img.$nm_img_mbcg.'" title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé en ligne').'" /> ';
+         $ic_b_acg ='<img src="'.$ch_img.$nm_img_acg.'" title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Anonyme géoréférencé en ligne').'" /> ';
+      }
+
 $affi='';
 $affi .= '
 <h3 class="mb-4">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right badge badge-secondary" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span></h3>
 <div class="card mb-4">
    <div class="d-flex flex-row justify-content-start">
       <div class="p-2">
-         <span class="badge badge-secondary mr-1">'.$mbcg.'</span><i title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.'; opacity:'.$mbgc_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x align-middle"></i> <span class="mr-2"><input type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>
+         <span class="badge badge-secondary mr-1">'.$mbcg.'</span>'.$ic_b_mbgc.' <span class="mr-2"><input type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" onclick="boxclick(this,\'c\')" /></span>
       </div>';
 //if($geo_ip==1) 
    $affi .='
       <div class="p-2">
-         <span class="badge badge-secondary mr-1">'.$acg.'</span><i title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; opacity:'.$acg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x align-middle"></i> <span class="mr-2" ><input  type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>
+         <span class="badge badge-secondary mr-1">'.$acg.'</span>'.$ic_b_acg.' <span class="mr-2" ><input  type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" onclick="boxclick(this,\'ac\')" /></span>
       </div>';
 $affi .= '
       <div class="p-2">
-         <span class="badge badge-secondary mr-1">'.$mbgr.'</span><i title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.'; opacity:'.$mbg_f_op.';" class="fa fa-'.str_replace('_', '-',strtolower($f_mbg)).' fa-2x align-middle"></i> <span class="mr-2" ><input class="mr-4" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
+         <span class="badge badge-secondary mr-1">'.$mbgr.'</span>'.$ic_b_mbg.' <span class="mr-2" ><input class="mr-4" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" onclick="boxclick(this,\'member\')" /></span>
       </div>
       <div class="ml-auto p-2">
          <span class="float-right"><button class="navbar-light navbar-toggler" href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="true" aria-controls="collapsesidebar"><span class="navbar-toggler-icon"></span></button></span>
@@ -1018,7 +1018,7 @@ $affi .= '
       </div>
    </div>
    <div class=" p-2">
-      <a href="javascript:void()" id="eye" onclick="clearMarkers();" class="fa fa-eye-slash fa-lg mr-2" title="" data-toggle="tooltip"></a>
+      <button id="eye" onclick="clearMarkers();" class="btn-link fa fa-eye-slash fa-lg mr-2" title="" data-toggle="tooltip"></button>
       <span>'.$lkadm.'</span>
       <span class="small text-muted float-right" id="mypoint"></span>
    </div>

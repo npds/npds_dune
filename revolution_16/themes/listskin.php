@@ -52,7 +52,7 @@
          $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-primary';
       break;
       default :
-        $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+        $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
       break;
    }
 
@@ -86,10 +86,10 @@
    </head>
    <body>
       <nav class="<?php echo $headerclasses; ?>">
-         <button href="#" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barnav">
+         <a class="navbar-brand" href="index.php" data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt&lt/i&gt"><span>NPDS 16</span></a>
+         <button href="#" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barnav">
             <span class="navbar-toggler-icon"></span>
          </button>
-         <a class="navbar-brand" href="index.php" data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt&lt/i&gt"><span>NPDS 16</span></a>
 
             <div class="collapse navbar-collapse" id="barnav">
                <ul class="nav navbar-nav">
@@ -182,10 +182,10 @@
 
             <div class="bs-component">
               <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
                 <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <div class="collapse navbar-collapse" id="navbarColor01">
                   <ul class="navbar-nav mr-auto">
@@ -212,12 +212,12 @@
 
             <div class="bs-component">
               <nav class="navbar navbar-expand-md navbar-dark bg-inverse">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-                <a class="navbar-brand" href="#">Navbar</a>
 
-                <div class="collapse navbar-collapse" id="navbarColor01">
+                <div class="collapse navbar-collapse" id="navbarColor02">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -673,22 +673,16 @@
                   </fieldset>
                 </div>
 
-                <div class="form-group has-success">
-                  <label class="form-control-label" for="inputSuccess1">Input with success</label>
-                  <input type="text" class="form-control form-control-success" id="inputSuccess1">
-                  <div class="form-control-feedback">Success! You've done it.</div>
+                <div class="form-group">
+                  <label for="inputSuccess1">Input with success</label>
+                  <input type="text" class="form-control is-valid" id="inputSuccess1">
+                  <div class="valid-feedback">Success! You've done it.</div>
                 </div>
 
-                <div class="form-group has-warning">
-                  <label class="form-control-label" for="inputWarning1">Input with warning</label>
-                  <input type="text" class="form-control form-control-warning" id="inputWarning1">
-                  <div class="form-control-feedback">Shucks, try again.</div>
-                </div>
-
-                <div class="form-group has-danger">
-                  <label class="form-control-label" for="inputDanger1">Input with danger</label>
-                  <input type="text" class="form-control form-control-danger" id="inputDanger1">
-                  <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
+                <div class="form-group">
+                  <label for="inputDanger1">Input with danger</label>
+                  <input type="text" class="form-control is-invalid" id="inputDanger1">
+                  <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
                 </div>
 
                 <div class="form-group">
@@ -987,7 +981,7 @@
         <div>
           <h2>Badges</h2>
           <div class="bs-component" style="margin-bottom: 40px;">
-            <span class="badge badge-secondary">Default</span>
+            <span class="badge badge-secondary">Secondary</span>
             <span class="badge badge-primary">Primary</span>
             <span class="badge badge-success">Success</span>
             <span class="badge badge-warning">Warning</span>
@@ -995,7 +989,7 @@
             <span class="badge badge-info">Info</span>
           </div>
           <div class="bs-component">
-            <span class="badge badge-pill badge-secondary">Default</span>
+            <span class="badge badge-pill badge-secondary">Secondary</span>
             <span class="badge badge-pill badge-primary">Primary</span>
             <span class="badge badge-pill badge-success">Success</span>
             <span class="badge badge-pill badge-warning">Warning</span>
@@ -1107,15 +1101,15 @@
             <div class="bs-component">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <span class="tag tag-default tag-pill float-xs-right">14</span>
+                  <span class="badge badge-secondary badge-pill float-right">14</span>
                   Cras justo odio
                 </li>
                 <li class="list-group-item">
-                  <span class="tag tag-default tag-pill float-xs-right">2</span>
+                  <span class="badge badge-secondary badge-pill float-right">2</span>
                   Dapibus ac facilisis in
                 </li>
                 <li class="list-group-item">
-                  <span class="tag tag-default tag-pill float-xs-right">1</span>
+                  <span class="badge badge-secondary badge-pill float-right">1</span>
                   Morbi leo risus
                 </li>
               </ul>
@@ -1159,7 +1153,7 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card card-inverse card-primary text-xs-center">
+              <div class="card text-white bg-primary text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1167,7 +1161,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-success text-xs-center">
+              <div class="card text-white bg-success text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1175,7 +1169,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-info text-xs-center">
+              <div class="card text-white bg-info text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1183,7 +1177,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-warning text-xs-center">
+              <div class="card text-white bg-warning text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1191,7 +1185,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-inverse card-danger text-xs-center">
+              <div class="card text-white bg-danger text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1203,7 +1197,7 @@
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card card-outline-primary text-xs-center">
+              <div class="card text-primary border-primary text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1211,7 +1205,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-success text-xs-center">
+              <div class="card text-success border-success text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1219,7 +1213,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-info text-xs-center">
+              <div class="card text-info border-info text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1227,7 +1221,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-warning text-xs-center">
+              <div class="card text-warning border-warning text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -1235,7 +1229,7 @@
                   </blockquote>
                 </div>
               </div>
-              <div class="card card-outline-danger text-xs-center">
+              <div class="card text-danger border-danger text-sm-center mb-2">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
