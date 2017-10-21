@@ -211,7 +211,7 @@
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-expand-md navbar-dark bg-inverse">
+              <nav class="navbar navbar-expand-md navbar-light bg-inverse">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -260,32 +260,39 @@
           <div class="col-lg-7">
 
             <p class="bs-component">
-              <button type="button" class="btn btn-primary">Primary</button>
-              <button type="button" class="btn btn-secondary">Secondary</button>
-              <button type="button" class="btn btn-success">Success</button>
-              <button type="button" class="btn btn-info">Info</button>
-              <button type="button" class="btn btn-warning">Warning</button>
-              <button type="button" class="btn btn-danger">Danger</button>
-              <button type="button" class="btn btn-link">Link</button>
+              <button type="button" class="btn btn-primary mb-3">Primary</button>
+              <button type="button" class="btn btn-secondary mb-3">Secondary</button>
+              <button type="button" class="btn btn-success mb-3">Success</button>
+              <button type="button" class="btn btn-info mb-3">Info</button>
+              <button type="button" class="btn btn-warning mb-3">Warning</button>
+              <button type="button" class="btn btn-danger mb-3">Danger</button>
+              <button type="button" class="btn btn-dark mb-3">Dark</button>
+              <button type="button" class="btn btn-light mb-3">Light</button>
+              <button type="button" class="btn btn-link mb-3">Link</button>
             </p>
 
             <p class="bs-component">
-              <button type="button" class="btn btn-primary disabled">Primary</button>
-              <button type="button" class="btn btn-secondary disabled">Secondary</button>
-              <button type="button" class="btn btn-success disabled">Success</button>
-              <button type="button" class="btn btn-info disabled">Info</button>
-              <button type="button" class="btn btn-warning disabled">Warning</button>
-              <button type="button" class="btn btn-danger disabled">Danger</button>
-              <button type="button" class="btn btn-link disabled">Link</button>
+              <button type="button" class="btn btn-primary disabled mb-3">Primary</button>
+              <button type="button" class="btn btn-secondary disabled mb-3">Secondary</button>
+              <button type="button" class="btn btn-success disabled mb-3">Success</button>
+              <button type="button" class="btn btn-info disabled mb-3">Info</button>
+              <button type="button" class="btn btn-warning disabled mb-3">Warning</button>
+              <button type="button" class="btn btn-danger disabled mb-3">Danger</button>
+              <button type="button" class="btn btn-dark disabled mb-3">Dark</button>
+              <button type="button" class="btn btn-light disabled mb-3">Light</button>
+              <button type="button" class="btn btn-link disabled mb-3">Link</button>
             </p>
 
             <p class="bs-component">
-              <button type="button" class="btn btn-outline-primary">Primary</button>
-              <button type="button" class="btn btn-outline-secondary">Secondary</button>
-              <button type="button" class="btn btn-outline-success">Success</button>
-              <button type="button" class="btn btn-outline-info">Info</button>
-              <button type="button" class="btn btn-outline-warning">Warning</button>
-              <button type="button" class="btn btn-outline-danger">Danger</button>
+              <button type="button" class="btn btn-outline-primary mb-3">Primary</button>
+              <button type="button" class="btn btn-outline-secondary mb-3">Secondary</button>
+              <button type="button" class="btn btn-outline-success mb-3">Success</button>
+              <button type="button" class="btn btn-outline-info mb-3">Info</button>
+              <button type="button" class="btn btn-outline-warning mb-3">Warning</button>
+              <button type="button" class="btn btn-outline-danger mb-3">Danger</button>
+              <button type="button" class="btn btn-outline-dark mb-3">Dark</button>
+              <button type="button" class="btn btn-outline-light mb-3">Light</button>
+
             </p>
 
             <div class="bs-component">
