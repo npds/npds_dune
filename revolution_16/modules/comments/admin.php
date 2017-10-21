@@ -16,13 +16,14 @@ if (!function_exists("Mysql_Connexion"))
    die();
 include('functions.php');
 include('auth.php');
+include('modules/geoloc/geoloc_locip.php');
 
 filtre_module($file_name);
-if (file_exists("modules/comments/$file_name.conf.php")) {
+if (file_exists("modules/comments/$file_name.conf.php"))
    include ("modules/comments/$file_name.conf.php");
-} else {
+else
    die();
-}
+
 
 settype($forum,"integer");
 if ($forum>=0)
@@ -69,11 +70,27 @@ elseif ($moderate==2) {
                if (!$m = sql_fetch_assoc($r))
                   forumerror('0014');
                echo '
-      <h3 class="mb-3">'.translate("Users IP and Account information").'</h3>
-      <div class="card card-body mb-2">
-         <strong>'.translate("Nickname: ").'</strong> '.$m['uname'].'<br />
-         <strong>'.translate("User IP: ").'</strong> '.$m['poster_ip'].'<br />
-         <strong>'.translate("User DNS: ").'</strong> '.$m['poster_dns'].'<br />
+      <h2 class="mb-3">'.translate("Comment").'</h2>
+      <div class="card mb-3">
+         <div class="card-body">
+            <h3 class="card-title mb-3">'.translate("Users IP and Account information").'</h3>
+            <div class="row">
+               <div class="col mb-3">
+                  <span class="text-muted">'.translate("Nickname: ").'</span> '.$m['uname'].'<br />
+                  <span class="text-muted">'.translate("User IP: ").'</span> '.$m['poster_ip'].'<br />
+                  <span class="text-muted">'.translate("User DNS: ").'</span> '.$m['poster_dns'].'<br />
+               </div>';
+               echo localiser_ip($iptoshow=$m['poster_ip']);
+               echo '
+            </div>
+         </div>';
+      include('modules/geoloc/geoloc_conf.php');
+      if($geo_ip==1)
+         echo'
+         <div class="card-footer text-right">
+            <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=allip"><span><i class=" fa fa-globe fa-lg mr-1"></i><i class=" fa fa-tv fa-lg mr-2"></i></span><span class="d-none d-sm-inline">Carte des IP</span></a>
+         </div>';
+      echo '
       </div>
       <p><a href="'.rawurldecode($url_ret).'" class="btn btn-secondary">'.translate("Go Back").'</a></p>';
                include("footer.php");
@@ -95,10 +112,9 @@ elseif ($moderate==2) {
          }
    } else {
       include("header.php");
-      opentable();
-      echo "<p align=\"center\">".translate("You are not the moderator of this forum therefor you cannot perform this function.")."<br /><br />";
-      echo "<a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a></p>";
-      closetable();
+      echo '
+      <p class="text-center">'.translate("You are not the moderator of this forum therefor you cannot perform this function.").'<br /><br />
+      <a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Go Back").'</a></p>';
       include("footer.php");
    }
 ?>
