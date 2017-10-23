@@ -455,7 +455,7 @@ function ForumGoEdit($forum_id, $ctg) {
             break;
             case "8":
             lab="'.adm_translate("Fichier de formulaire").'";
-            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass" />\n<span class="help-block">=> modules/sform/forum</span>\n\';
+            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass" value="'.$forum_pass.'"/>\n<span class="help-block">=> modules/sform/forum</span>\n\';
             inp.html(htmh+lab+htmhe+inp_para+htmf);
             break;
             default:
@@ -469,8 +469,7 @@ function ForumGoEdit($forum_id, $ctg) {
       });
    //]]>
    </script>';
-   
-   
+
    adminfoot('fv','','','');
 }
 
