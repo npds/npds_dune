@@ -2863,7 +2863,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_mb.= '
             <li class="list-group-item list-group-item-action d-flex flex-row p-2">
                <div id="li_mb_'.$uname.'_'.$gr.'" class="n-ellipses">
-               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover"  data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
+               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover"  data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-outline-secondary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
                </div>
          </li>';
    $count++;
