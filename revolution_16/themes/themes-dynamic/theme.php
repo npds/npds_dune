@@ -225,24 +225,24 @@ function userpopover($who) {
    settype($ch_lat,'string');
    $useroutils = '';
    if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user"></i><span class="ml-3 d-none d-sm-inline">'.translate("Profile").'</span></a>';
+      $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Profile").'</span></a>';
    if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o"></i><span class="ml-3 d-none d-sm-inline">'.translate("Message").'</span></a>';
+      $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Message").'</span></a>';
    if ($temp_user['femail']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x"></i><span class="ml-3 d-none d-sm-inline">'.translate("Email").'</span></a>';
+      $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Email").'</span></a>';
    if ($temp_user['url']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
+      $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
    if ($temp_user['mns'])
-       $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+       $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
    if ($user and $temp_user['uid']!= 1) {
       if ($posterdata_extend[$ch_lat] !='')
-         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x">&nbsp;</i><span class="ml-3 d-none d-sm-inline">'.translate("Location").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-sm-inline">'.translate("Location").'</span></a>';
    }
    if (stristr($temp_user['user_avatar'],'users_private')) 
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
 
    return $userpop;
    }
