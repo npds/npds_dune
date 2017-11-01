@@ -239,8 +239,9 @@ function translate_pass1($phrase) {
    case "Extra Info:": $tmp="&#x5176;&#x5B83;&#x4FE1;&#x606F; : "; break;
    case "There is no available info for": $tmp="&#x6CA1;&#x6709;&#x4FE1;&#x606F;&#x5173;&#x4E8E;"; break;
    case "Online journal for": $tmp="&#x5728;&#x7EBF;&#x8BFB;&#x7269;&#xFF0C;&#x4E3A; "; break;
-   case "Last 10 comments by": $tmp="&#x6700;&#x8FD1;10&#x7BC7;&#x8BC4;&#x8BBA;&#x6765;&#x81EA;"; break;
-   case "Last 10 news submissions sent by": $tmp="&#x6700;&#x8FD1;10&#x7BC7;&#x65B0;&#x95FB;&#x6765;&#x81EA;"; break;
+   case "Last comments by": $tmp="&#x6700;&#x8FD1;10&#x7BC7;&#x8BC4;&#x8BBA;&#x6765;&#x81EA;"; break;
+   case "Last news submissions sent by": $tmp="&#x6700;&#x8FD1;10&#x7BC7;&#x65B0;&#x95FB;&#x6765;&#x81EA;"; break;
+   case "Last articles sent by":$tmp="Last articles sent by"; break;
    case "User not yet allowed by Administrator": $tmp="&#x60A8;&#x672A;&#x88AB;&#x5141;&#x8BB8;&#x8FDE;&#x63A5;&#x5230;&#x8FD9;&#x4E2A;&#x9875;&#x9762;&#x3002;"; break;
    case "Incorrect Login!": $tmp="&#x767B;&#x5F55;&#x5931;&#x8D25;&#xFF01; !"; break;
    case "User Login": $tmp="&#x7528;&#x6237;&#x767B;&#x5F55;"; break;
