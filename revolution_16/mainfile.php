@@ -835,7 +835,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    }
    if ($type_req=='libre') {
       $Xstorynum=$oldnum*$coef;
-      $result=Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel",3600);
+      $result=Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
    }
    if ($type_req=='archive') {
@@ -848,6 +848,8 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
       $s_sid=$myrow['sid'];
       $catid=$myrow['catid'];
       $ihome=$myrow['ihome'];
+      if(array_key_exists('time', $myrow))
+         $time=$myrow['time'];
       if ($ibid==$Znum) {break;}
       if ($type_req=="libre") {$catid=0;}
       if ($type_req=="archive") {$ihome=0;}
