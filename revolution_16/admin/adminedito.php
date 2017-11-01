@@ -57,7 +57,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          <fieldset>
          <legend>'.adm_translate("Edito").' :'.$edito_typeL.'</legend>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="XeditoJ">'.adm_translate("Le jour").'</label>
+            <label class="col-form-label col-sm-12" for="XeditoJ">'.adm_translate("Le jour").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="XeditoJ" rows="20" >';
       echo htmlspecialchars($contentJ,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
@@ -67,7 +67,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       echo aff_editeur('XeditoJ','');
       echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="XeditoN">'.adm_translate("La nuit").'</label>';
+            <label class="col-form-label col-sm-12" for="XeditoN">'.adm_translate("La nuit").'</label>';
       echo aff_editeur('XeditoN','');
       echo '
             <div class="col-sm-12">
@@ -77,7 +77,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-sm-4 form-control-label" for="aff_jours">'.adm_translate("Afficher pendant").'</label>
+            <label class="col-sm-4 col-form-label" for="aff_jours">'.adm_translate("Afficher pendant").'</label>
             <div class="col-sm-8">
                <div class="input-group">
                   <span class="input-group-addon">'.adm_translate("jour(s)").'</span>

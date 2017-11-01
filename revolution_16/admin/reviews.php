@@ -45,13 +45,13 @@ function reviews() {
    <form id="fad_pagereviews" class="" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="tit_cri">'.adm_translate("Titre de la Page des Critiques").'</label>
+            <label class="col-form-label col-sm-12" for="tit_cri">'.adm_translate("Titre de la Page des Critiques").'</label>
             <div class="col-sm-12">
                <input id="tit_cri" type="text" class="form-control" name="title" value="'.$title.'" maxlength="100" />
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="description">'.adm_translate("Description de la Page des Critiques").'</label>
+            <label class="col-form-label col-sm-12" for="description">'.adm_translate("Description de la Page des Critiques").'</label>
             <div class="col-sm-12">
                <textarea id="description" class="form-control" name="description" rows="10">'.$description.'</textarea>
             </div>
@@ -77,7 +77,7 @@ function reviews() {
    <form id="fad_valreviews'.$id.'" action="admin.php" method="post">
    <input type="hidden" name="id" value="'.$id.'" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="date">'.adm_translate("Date").'</label>
+         <label class="col-form-label col-sm-4" for="date">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group input-append date" id="datePicker">
                <input class="form-control" type="text" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
@@ -86,34 +86,34 @@ function reviews() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom du produit").'</label>
+         <label class="col-form-label col-sm-4" for="title">'.adm_translate("Nom du produit").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="title" name="title" value="'.$title.'" maxlength="40" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="text'.$id.'">'.adm_translate("Texte").'</label>
+         <label class="col-form-label col-sm-4 " for="text'.$id.'">'.adm_translate("Texte").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="text" rows="6">'.$text.'</textarea>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="reviewer">'.adm_translate("Le critique").'</label>
+         <label class="col-form-label col-sm-4 " for="reviewer">'.adm_translate("Le critique").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="reviewer" name="reviewer" value="'.$reviewer.'" maxlength="20" />
             <span class="help-block text-right"><span id="countcar_reviewer"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" id="email" name="email" value="'.$email.'" maxlength="60" />
             <span class="help-block text-right"><span id="countcar_email"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="score">'.adm_translate("Note").'</label>
+         <label class="col-form-label col-sm-4 " for="score">'.adm_translate("Note").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" id="score" name="score" value="'.$score.'"  min="1" max="10" />
          </div>
@@ -121,14 +121,14 @@ function reviews() {
          if ($url != '') {
             echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("Liens relatifs").'</label>
+         <label class="col-form-label col-sm-4 " for="url">'.adm_translate("Liens relatifs").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" />
             <span class="help-block text-right"><span id="countcar_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="url_title">'.adm_translate("Titre du lien").'</label>
+         <label class="col-form-label col-sm-4 " for="url_title">'.adm_translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="url_title" name="url_title" value="'.$url_title.'" maxlength="50" />
             <span class="help-block text-right"><span id="countcar_url_title"></span></span>
@@ -137,7 +137,7 @@ function reviews() {
         }
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="cover">'.adm_translate("Image de garde").'</label>
+         <label class="col-form-label col-sm-4" for="cover">'.adm_translate("Image de garde").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="cover" name="cover" maxlength="100" />
             <span class="help-block">150*150 pixel => images/covers<span id="countcar_cover"></span></span>

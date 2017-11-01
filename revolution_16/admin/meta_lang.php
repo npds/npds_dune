@@ -166,7 +166,7 @@ function Edit_Meta_Lang() {
    if ($Q['obligatoire'] != true) 
    echo '
    <h3>'.adm_translate("Modifier un ").' META-MOT</h3>';
-   echo aff_local_langue('<label class="form-control-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language').'<br />';
+   echo aff_local_langue('<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language').'<br />';
    echo '
    <div class="row">
       <div class="text-muted col-sm-3">META</div>
@@ -202,19 +202,19 @@ function Edit_Meta_Lang() {
       echo '
    <form name="edit_meta_lang" action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="def">META</label>
+         <label class="col-form-label col-sm-12" for="def">META</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" name="def" value="'.$Q['def'].'" readonly="readonly" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="type_meta">'.adm_translate("Type").'</label>
+         <label class="col-form-label col-sm-12" for="type_meta">'.adm_translate("Type").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" name="type_meta" value="'.$Q['type_meta'].'" maxlength="10" readonly="readonly" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
          <div class="col-sm-12">';
       if ($Q['type_meta']=='smil') {
           eval($Q['content']);
@@ -229,7 +229,7 @@ function Edit_Meta_Lang() {
       if ($Q['type_meta']!="docu" and $Q['type_meta']!="them") {
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Script").'</label>
+         <label class="col-form-label col-sm-12" for="content">'.adm_translate("Script").'</label>
          <div class="col-sm-12">
             <textarea class="form-control" name="content" rows="20" >'.$Q['content'].'</textarea>
          </div>
@@ -237,7 +237,7 @@ function Edit_Meta_Lang() {
       }
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="type_uri">'.adm_translate("Restriction").'</label>';
+         <label class="col-form-label col-sm-4" for="type_uri">'.adm_translate("Restriction").'</label>';
       $sel0='';$sel1='';
       if ($Q['type_uri'] == '+') {
          if ($Q['obligatoire'] == true) {$sel1 = 'selected="selected"';}
@@ -294,7 +294,7 @@ function Creat_Meta_Lang() {
    if ($type_meta) {
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="def">META-MOT</label>
+         <label class="col-form-label col-sm-12" for="def">META-MOT</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" name="def" id="def" maxlength="50" />
          </div>
@@ -302,7 +302,7 @@ function Creat_Meta_Lang() {
       if ($type_meta != "smil") {
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
             <textarea class="form-control" name="desc" id="desc" rows="7">[french]...[/french][english]...[/english]</textarea>
          </div>
@@ -311,7 +311,7 @@ function Creat_Meta_Lang() {
       if ($type_meta != "them") {
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Script").'</label>
+         <label class="col-form-label col-sm-12" for="content">'.adm_translate("Script").'</label>
          <div class="col-sm-12">';
          if ($type_meta == "smil") {
             echo adm_translate("Chemin et nom de l'image du Smiley").'&nbsp;&nbsp;<span class="text-danger">Ex. : forum/smilies/pafmur.gif</span>';
@@ -325,7 +325,7 @@ function Creat_Meta_Lang() {
       }
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="type_uri">'.adm_translate("Restriction").'</label>
+         <label class="col-form-label col-sm-12" for="type_uri">'.adm_translate("Restriction").'</label>
          <div class="col-sm-12">
             <select class="custom-select form-control" name="type_uri">
                <option'.$sel.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>

@@ -315,7 +315,7 @@ function membre_add($gp) {
       <fieldset>
          <legend><i class="fa fa-users fa-2x text-muted"></i></legend>
          <div class="form-group">
-            <label class="form-control-label" for="luname">'.adm_translate("Liste des membres").'</label>
+            <label class="col-form-label" for="luname">'.adm_translate("Liste des membres").'</label>
             <input type="text" class="form-control" id="luname" name="luname" maxlength="255" value="" />
          </div>
          <input type="hidden" name="op" value="membre_add_finish" />
@@ -468,11 +468,11 @@ function groupe_edit($groupe_id) {
          </div>';
       echo '
          <div class="form-group">
-            <label class="form-control-label" for="inp_gr_na">'.adm_translate("Nom").'</label>
+            <label class="col-form-label" for="inp_gr_na">'.adm_translate("Nom").'</label>
             <input id="inp_gr_na" type="text" class="form-control" name="groupe_name" maxlength="30" value="'.$result['groupe_name'].'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
          </div>
          <div class="form-group">
-            <label class="form-control-label" for="groupe_description">'.adm_translate("Description").'</label>
+            <label class="col-form-label" for="groupe_description">'.adm_translate("Description").'</label>
             <textarea class="form-control" name="groupe_description" id="groupe_description" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">'.$result['groupe_description'].'</textarea>
          </div>';
    if ($groupe_id != 'groupe_add')

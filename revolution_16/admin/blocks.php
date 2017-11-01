@@ -81,7 +81,7 @@ function droits_bloc($member) {
       </label>
    </div>
    <div class="form-group row">
-      <label for="Mmember[]" class="form-control-label col-sm-12">'.adm_translate("Groupes").'</label>
+      <label for="Mmember[]" class="col-form-label col-sm-12">'.adm_translate("Groupes").'</label>
       <div class="col-sm-12">
          '.groupe($member).'
       </div>
@@ -100,7 +100,7 @@ function droits_bloc($member) {
       </label>
    </div>
    <div class="form-group row">
-      <label for="Mmember[]" class="form-control-label col-sm-12">'.adm_translate("Groupes").'</label>
+      <label for="Mmember[]" class="col-form-label col-sm-12">'.adm_translate("Groupes").'</label>
       <div class="col-sm-12">
          '.groupe($member).'
       </div>
@@ -207,20 +207,20 @@ function blocks() {
                         <fieldset>
                            <legend>'.adm_translate("Contenu").'</legend>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
+                              <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
                               <div class="col-sm-12">
                                  <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" />
                               </div>
                            </div>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
+                              <label class="col-form-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
                               <div class="col-sm-12">
                                  <textarea class="form-control" rows="5" name="content">'.$content.'</textarea>
                                  <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                               </div>
                            </div>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="BLaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
+                              <label class="col-form-label col-sm-12" for="BLaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
                               <div class="col-sm-12">
                                  <textarea class="form-control" rows="2" name="BLaide">'.$BLaide.'</textarea>
                               </div>
@@ -245,13 +245,13 @@ function blocks() {
                         <fieldset>
                            <legend>'.adm_translate("Paramètres").'</legend>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="Lindex">Index</label>
+                              <label class="col-form-label col-sm-12" for="Lindex">Index</label>
                               <div class="col-sm-12">
                                  <input class="form-control" type="number" name="Lindex" max="9999" value="'.$Lindex.'" />
                               </div>
                            </div>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="Scache">'.adm_translate("Rétention").'</label>
+                              <label class="col-form-label col-sm-12" for="Scache">'.adm_translate("Rétention").'</label>
                               <div class="col-sm-12">
                                  <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="'.$Scache.'" />
                                  <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
@@ -376,20 +376,20 @@ function blocks() {
                         <fieldset>
                            <legend>'.adm_translate("Contenu").'</legend>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
+                              <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
                               <div class="col-sm-12">
                                  <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" />
                               </div>
                            </div>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
+                              <label class="col-form-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
                               <div class="col-sm-12">
                                  <textarea class="form-control" cols="70" rows="5" name="content">'.$content.'</textarea>
                                  <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                               </div>
                            </div>
                            <div class="form-group row">
-                              <label class="form-control-label col-sm-12" for="BRaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
+                              <label class="col-form-label col-sm-12" for="BRaide">'.adm_translate("Aide en ligne de ce bloc").'</label>
                               <div class="col-sm-12">
                                  <textarea class="form-control" rows="2" name="BRaide">'.$BRaide.'</textarea>
                               </div>
@@ -414,13 +414,13 @@ function blocks() {
                         <fieldset>
                            <legend>'.adm_translate("Paramètres").'</legend>
                            <div class="form-group row">
-                              <label class="form-control-label" for="Rindex">Index</label>
+                              <label class="col-form-label" for="Rindex">Index</label>
                               <div class="col-sm-12">
                                  <input class="form-control" type="number" name="Rindex" min="0" max="9999" value="'.$Rindex.'" />
                               </div>
                            </div>
                            <div class="form-group row">
-                              <label class="form-control-label" for="Scache">'.adm_translate("Rétention").'</label>
+                              <label class="col-form-label" for="Scache">'.adm_translate("Rétention").'</label>
                               <div class="col-sm-12">
                                  <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="'.$Scache.'" />
                                  <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
@@ -475,20 +475,20 @@ function blocks() {
             <fieldset>
                <legend>'.adm_translate("Contenu").'</legend>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
+                  <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="title" id="title" maxlength="255" />
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-12" for="xtext">'.adm_translate("Contenu").'</label>
+                  <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Contenu").'</label>
                   <div class="col-sm-12">
                      <textarea class="form-control" name="xtext" id="xtext" rows="5"></textarea>
                      <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-12" for="Baide">'.adm_translate("Aide en ligne").'</label>
+                  <label class="col-form-label col-sm-12" for="Baide">'.adm_translate("Aide en ligne").'</label>
                   <div class="col-sm-12">
                      <textarea class="form-control" rows="2" name="Baide" id="Baide"></textarea>
                   </div>
@@ -500,7 +500,7 @@ function blocks() {
    echo '
             </fieldset>
             <div class="form-group row">
-               <label class="form-control-label col-sm-12" for="op">'.adm_translate("Position").'</label>
+               <label class="col-form-label col-sm-12" for="op">'.adm_translate("Position").'</label>
                <div class="col-sm-12">
                   <label class="custom-control custom-radio">
                      <input type="radio" name="op" value="makelblock" checked="checked" class="custom-control-input"/>
@@ -519,13 +519,13 @@ function blocks() {
             <fieldset>
                <legend>'.adm_translate("Paramètres").'</legend>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-12" for="index">Index</label>
+                  <label class="col-form-label col-sm-12" for="index">Index</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="number" name="index" id="index" min="0" max="9999" />
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-12" for="Scache">'.adm_translate("Rétention").'</label>
+                  <label class="col-form-label col-sm-12" for="Scache">'.adm_translate("Rétention").'</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="60" />
                      <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
@@ -533,11 +533,15 @@ function blocks() {
                </div>
                <div class="form-group row">
                   <div class="col-sm-12">
-                     <label class="checkbox-inline text-danger" for="SHTML">
-                        <input class="" type="checkbox" name="SHTML" id="SHTML" value="ON" />HTML
+                     <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" name="SHTML" id="SHTML" value="ON" />
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">HTML</span>
                      </label>
-                     <label class="checkbox-inline text-danger" for="CSS">
-                        <input class="" type="checkbox" name="CSS" id="CSS" value="ON" />CSS
+                     <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" name="CSS" id="CSS" value="ON" />
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">CSS</span>
                      </label>
                   </div>
                </div>

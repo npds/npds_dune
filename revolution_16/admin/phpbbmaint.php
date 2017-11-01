@@ -230,7 +230,7 @@ function MergeForum() {
    <form id="fad_mergeforum" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
+            <label class="col-form-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="oriforum">';
    $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id";
@@ -253,7 +253,7 @@ function MergeForum() {
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
+            <label class="col-form-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="destforum">';
     if ($result = sql_query($sql)) {
@@ -338,13 +338,13 @@ function ForumMaintAdmin() {
    <form id="fad_forumdelete" action="admin.php" method="post">
       <legend>'.adm_translate("Supprimer massivement les Topics").'</legend>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+         <label class="col-form-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="forum_name" id="forum_name" maxlength="150" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="before">'.adm_translate("Date").'</label>
+         <label class="col-form-label col-sm-4" for="before">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div id="embeddingDatePicker"></div>
             <input type="hidden" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" />

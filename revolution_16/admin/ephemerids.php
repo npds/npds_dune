@@ -32,7 +32,7 @@ function Ephemerids() {
    <form action="admin.php" method="post">
       <div class="form-group row">
          <div class="col-4">
-            <label class="form-control-label" for="did">'.adm_translate("Jour").'</label>
+            <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
             <select class="custom-select form-control" id="did" name="did">';
    while ($nday<=31) {
       echo '
@@ -45,7 +45,7 @@ function Ephemerids() {
     $nmonth = "1";
     echo '
          <div class="col-4">
-            <label class="form-control-label" for="mid">'.adm_translate("Mois").'</label>
+            <label class="col-form-label" for="mid">'.adm_translate("Mois").'</label>
             <select class="custom-select form-control" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
@@ -56,12 +56,12 @@ function Ephemerids() {
             </select>
          </div>
          <div class="col-4">
-            <label class="form-control-label" for="yid">'.adm_translate("Année").'</label>
+            <label class="col-form-label" for="yid">'.adm_translate("Année").'</label>
             <input class="form-control" type="number" id="yid" name="yid" maxlength="4" size="5" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
+         <label class="col-form-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
          <div class="col-sm-12">
             <textarea name="content" class="form-control" cols="55" rows="10"></textarea>
          </div>
@@ -80,7 +80,7 @@ function Ephemerids() {
    echo '
       <div class="form-group row">
          <div class="col-4">
-            <label class="form-control-label" for="did">'.adm_translate("Jour").'</label>
+            <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
             <select class="custom-select form-control" id="did" name="did">';
    while ($nday<=31) {
       echo '
@@ -93,7 +93,7 @@ function Ephemerids() {
     $nmonth = "1";
     echo '
          <div class="col-4">
-            <label class="form-control-label" for="mid">'.adm_translate("Mois").'</label>
+            <label class="col-form-label" for="mid">'.adm_translate("Mois").'</label>
             <select class="custom-select form-control" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
@@ -173,13 +173,13 @@ function Ephemeridsedit($eid, $did, $mid) {
    <h3>'.adm_translate("Editer éphéméride").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
-          <label class="form-control-label col-sm-3" for="yid">'.adm_translate("Année").'</label>
+          <label class="col-form-label col-sm-3" for="yid">'.adm_translate("Année").'</label>
           <div class="col-sm-9">
              <input class="form-control" type="number" name="yid" value="'.$yid.'" max="2500" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
+         <label class="col-form-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
          <div class="col-sm-12">
             <textarea name="content" id="content" class="form-control" rows="10">'.$content.'</textarea>
          </div>

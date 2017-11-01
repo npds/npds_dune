@@ -53,7 +53,7 @@ function FaqAdmin() {
    <form id="fad_faqcatad" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
+            <label class="col-form-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" placeholder="'.adm_translate("Catégories").'" rows="3" required="required" ></textarea>
                <span class="help-block text-right"><span id="countcar_categories"></span></span>
@@ -104,14 +104,14 @@ function FaqCatGo($id_cat) {
    <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="question">'.adm_translate("Question").'</label>
+            <label class="col-form-label col-sm-12" for="question">'.adm_translate("Question").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="question" id="question" maxlength="255"></textarea>
                <span class="help-block text-right"><span id="countcar_question"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="answer">'.adm_translate("Réponse").'</label>
+            <label class="col-form-label col-sm-12" for="answer">'.adm_translate("Réponse").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" id="answer" name="answer" rows="15"></textarea>
             </div>
@@ -165,7 +165,7 @@ function FaqCatEdit($id_cat) {
    <form id="fad_faqcated" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
+            <label class="col-form-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" rows="3" required="required" >'.$categories.'</textarea>
                <span class="help-block text-right"><span id="countcar_categories"></span></span>
@@ -206,7 +206,7 @@ function FaqCatGoEdit($id) {
    <h4>'.$question.'</h4>
    <h4>'.adm_translate("Prévisualiser").'</h4>';
    echo'
-   <label class="form-control-label" for="">'
+   <label class="col-form-label" for="">'
       .aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
    </label>
    <div class="card card-body mb-3">
@@ -220,14 +220,14 @@ function FaqCatGoEdit($id) {
    <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-12" for="question">'.adm_translate("Question").'</label>
+            <label class="col-form-label col-12" for="question">'.adm_translate("Question").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="question" id="question" maxlength="255">'.$question.'</textarea>
                <span class="help-block text-right"><span id="countcar_question"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-12" for="answer">'.adm_translate("Réponse").'</label>
+            <label class="col-form-label col-12" for="answer">'.adm_translate("Réponse").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="answer" rows="15">'.$answer.'</textarea>
             </div>

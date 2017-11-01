@@ -194,7 +194,7 @@ function BannersAdmin() {
    <span class="help-block">'.adm_translate("Pour les bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier .txt (fichier de code php) dans la zone URL du clic et laisser la zone image vide.").'</span>
    <form id="fad_newbanner" action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="cid">'.adm_translate("Nom de l'annonceur").'</label>
+         <label class="col-form-label col-sm-4 " for="cid">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" name="cid">';
    $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient");
@@ -207,26 +207,26 @@ function BannersAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="imptotal">'.adm_translate("Impressions réservées").'</label>
+         <label class="col-form-label col-sm-4 " for="imptotal">'.adm_translate("Impressions réservées").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" name="imptotal" min="0" max="99999999999" required="required" />
             <span class="help-block">0 = '.adm_translate("Illimité").'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
+         <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" name="imageurl" maxlength="200" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
+         <label class="col-form-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="clickurl" maxlength="200" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
+         <label class="col-form-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" name="userlevel" min="0" max="9" value="0" required="required" /> 
             <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
@@ -246,37 +246,37 @@ function BannersAdmin() {
    <h3 class="my-2">'.adm_translate("Ajouter un nouvel Annonceur").'</h3>
    <form id="fad_bananno" action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
+         <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" maxlength="60" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
+         <label class="col-form-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="contact" maxlength="60" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" name="email" maxlength="60" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
+         <label class="col-form-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="login" maxlength="10" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
+         <label class="col-form-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="password" name="passwd" maxlength="10" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
+         <label class="col-form-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="extrainfo" rows="10"></textarea>
          </div>
@@ -385,7 +385,7 @@ function BannerEdit($bid) {
    <span class="help-block">'.adm_translate("Pour les bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier .txt (fichier de code php) dans la zone URL du clic et laisser la zone image vide.").'</span>
    <form action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="cid">'.adm_translate("Nom de l'annonceur").'</label>
+         <label class="col-form-label col-sm-4 " for="cid">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" name="cid">';
    $result = sql_query("SELECT cid, name FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
@@ -410,26 +410,26 @@ function BannerEdit($bid) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
+         <label class="col-form-label col-sm-4 " for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" name="impadded" min="0" max="99999999999" required="required" />
             <span class="help-block">'.adm_translate("Réservé : ").'<strong>'.$impressions.'</strong> '.adm_translate("Fait : ").'<strong>'.$impmade.'</strong></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
+         <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" name="imageurl" size="50" maxlength="200" value="'.$imageurl.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
+         <label class="col-form-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="clickurl" size="50" maxlength="200" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
          </div>
       </div>
       <div class="form-group row"> 
-         <label class="form-control-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
+         <label class="col-form-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" name="userlevel" min="0" max="9" value="'.$userlevel.'" required="required" />
             <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
@@ -501,37 +501,37 @@ function BannerClientEdit($cid) {
    <h3 class="mb-3">'.adm_translate("Editer l'annonceur").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
+         <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" value="'.$name.'" maxlength="60" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
+         <label class="col-form-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="contact" value="'.$contact.'" maxlength="60" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="email" maxlength="60" value="'.$email.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
+         <label class="col-form-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="login" maxlength="10" value="'.$login.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
+         <label class="col-form-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="password" name="passwd" maxlength="10" value="'.$passwd.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
+         <label class="col-form-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="extrainfo" rows="10">'.$extrainfo.'</textarea>
          </div>

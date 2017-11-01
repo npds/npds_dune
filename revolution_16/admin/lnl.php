@@ -31,20 +31,30 @@ function ShowHeader() {
    global $NPDS_Prefix;
    $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' ORDER BY ref ");
    echo '
-   <table width="100%" cellspacing="0" cellpadding="2" border="0">';
+   <table data-toggle="table" class="table-no-bordered">
+      <thead class="d-none">
+         <tr>
+            <th class="n-t-col-xs-1" data-align="">ID</th>
+            <th class="n-t-col-xs-8" data-align="">'.adm_translate("Entête").'</th>
+            <th class="n-t-col-xs-1" data-align="">Type</th>
+            <th class="n-t-col-xs-2" data-align="right">'.adm_translate("Fonctions").'</th>
+         </tr>
+      </thead>
+      <tbody>';
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
       if (strlen($text)>100) {$text=substr($text,0,100).'<span class="text-danger"> .....</span>';};
-      if ($html==1) {$html="htm";} else {$html="txt";}
+      if ($html==1) $html="htm"; else $html="txt";
       echo '
          <tr>
-            <td width="5%" >'.$ref.'</td>
-            <td width="85%">'.$text.'</td>
-            <td align="center" nowrap="nowrap">[ '.$html.' ]</td>
-            <td nowrap="nowrap"><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" >'.adm_translate("Editer").'</a> | <a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger">'.adm_translate("Effacer").'</a></td>
+            <td>'.$ref.'</td>
+            <td>'.$text.'</td>
+            <td><code>'.$html.'</code></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
    }
    echo '
+      </tbody>
    </table>';
 }
 
@@ -95,22 +105,32 @@ function Detail_Header_Footer($ibid, $type) {
 }
 function ShowBody() {
    global $NPDS_Prefix;
-
    $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_body ORDER BY ref ");
    echo '
-   <table cellspacing="0" cellpadding="2" border="0">';
+   <table data-toggle="table" class="table-no-bordered">
+      <thead class="d-none">
+         <tr>
+            <th class="n-t-col-xs-1" data-align="">ID</th>
+            <th class="n-t-col-xs-8" data-align="">'.adm_translate("Corps de message").'</th>
+            <th class="n-t-col-xs-1" data-align="">Type</th>
+            <th class="n-t-col-xs-2" data-align="right">'.adm_translate("Fonctions").'</th>
+         </tr>
+      </thead>
+      <tbody>';
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
       if (strlen($text)>200) {$text=substr($text,0,200).'<span class="text-danger"> .....</span>';};
       if ($html==1) {$html="htm";} else {$html="txt";}
       echo '
       <tr>
-         <td width="5%" align="center">'.$ref.'</td>
-         <td width="85%">'.$text.'&nbsp;</td>
-         <td align="center" nowrap="nowrap">[ '.$html.' ]</td>';
-      echo"<td nowrap=\"nowrap\"><a href=\"admin.php?op=lnl_Shw_Body&amp;Bodyid=$ref\" class=\"noir\">".adm_translate("Editer")."</a> | <a href=\"admin.php?op=lnl_Sup_Body&amp;Bodyid=$ref\" class=\"text-danger\">".adm_translate("Effacer")."</a></td></tr>";
+         <td>'.$ref.'</td>
+         <td>'.$text.'</td>
+         <td><code>'.$html.'</code></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+      </tr>';
    }
    echo '
+      </tbody>
    </table>';
 }
 
@@ -137,7 +157,7 @@ function Detail_Body($ibid) {
    echo '
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="xtext">'.adm_translate("Corps de message").'</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Corps de message").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="30" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
          </div>
@@ -172,14 +192,14 @@ Function Add_Body() {
    <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="html">'.adm_translate("Format de données").'</label>
+            <label class="col-form-label col-sm-4" for="html">'.adm_translate("Format de données").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" min="0" max="1" value="1" name="html" required="required" />
                <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
+            <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" rows="30" name="xtext" ></textarea>
             </div>
@@ -205,18 +225,33 @@ Function Add_Body_Submit($Ytext, $Yhtml) {
 
 function ShowFooter() {
    global $NPDS_Prefix;
-
    $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' ORDER BY ref ");
-   echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"2\" border=\"0\">";
+   echo '
+   <table data-toggle="table" class="table-no-bordered">
+      <thead class="d-none">
+         <tr>
+            <th class="n-t-col-xs-1" data-align="">ID</th>
+            <th class="n-t-col-xs-8" data-align="">'.adm_translate("Pied").'</th>
+            <th class="n-t-col-xs-1" data-align="">Type</th>
+            <th class="n-t-col-xs-2" data-align="right">'.adm_translate("Fonctions").'</th>
+         </tr>
+      </thead>
+      <tbody>';
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
-      $rowcolor = tablos();
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
       if (strlen($text)>100) {$text=substr($text,0,100).'<span class="text-danger"> .....</span>';};
-      if ($html==1) {$html="htm";} else {$html="txt";}
-      echo "<tr><td width=\"5%\" align=\"center\">$ref</td><td width=\"85%\">$text&nbsp;</td><td align=\"center\" nowrap=\"nowrap\"><code>[ $html ]</code></td>";
-      echo "<td nowrap=\"nowrap\"><a href=\"admin.php?op=lnl_Shw_Footer&amp;Footerid=$ref\" class=\"noir\">".adm_translate("Editer")."</a> | <a href=\"admin.php?op=lnl_Sup_Footer&amp;Footerid=$ref\" class=\"rouge\">".adm_translate("Effacer")."</a></td></tr>";
+      if ($html==1) $html='htm'; else $html='txt';
+      echo '
+         <tr>
+            <td>'.$ref.'</td>
+            <td>'.$text.'</td>
+            <td><code>$html</code></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" >'.adm_translate("Editer").'</a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger">'.adm_translate("Effacer").'</a></td>
+         </tr>';
    }
-   echo "</table>";
+   echo '
+      </tbody>
+   </table>';
 }
 
 Function Add_Header_Footer($ibid) {
@@ -238,14 +273,14 @@ Function Add_Header_Footer($ibid) {
       <form action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group">
-               <label class="form-control-label" for="html">'.adm_translate("Format de données").'</label>
+               <label class="col-form-label" for="html">'.adm_translate("Format de données").'</label>
                <div>
                   <input class="form-control" type="number" min="0" max="1" value="1" name="html" required="required" />
                   <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
                </div>
             </div>
          <div class="form-group">
-               <label class="form-control-label" for="xtext">'.adm_translate("Texte").'</label>
+               <label class="col-form-label" for="xtext">'.adm_translate("Texte").'</label>
                <div>
                   <textarea class="form-control" rows="20" name="xtext" ></textarea>
                </div>
@@ -283,49 +318,88 @@ function main() {
    <h3 class="mb-2">'.adm_translate("Petite Lettre D'information").'</h3>
    <a href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
    <a href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
-   <h4><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message d'entête").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message d'entête").'</h4>';
       ShowHeader();
    echo '
-   <h4><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Corps de message").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Corps de message").'</h4>';
       ShowBody();
       echo '
-   <h4><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message de pied de page").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message de pied de page").'</h4>';
       ShowFooter();
    echo '
    <hr />
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
    <form action="admin.php" method="post">
-      <label class="form-control-label" for="Xheader">'.adm_translate("Entête").'</label>
-      <input class="form-control" type="text" name="Xheader" id="Xheader" size="12" max="11" />
-      <label class="form-control-label" for="Xbody">'.adm_translate("Corps").'</label>
-      <input class="form-control" type="text" name="Xbody" id="Xbody" size="12" max="11" />
-      <label class="form-control-label" for="Xfooter">'.adm_translate("Pied").'</label>
-      <input class="form-control" type="text" name="Xfooter" id="Xfooter" size="12" max="11" />
-         <input type="hidden" name="op" value="lnl_Test" />
-         <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
+   <div class="form-row">
+      <div class="col">
+         <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
+         <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
+      </div>
+      <div class="col">
+         <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
+         <input class="form-control" type="number" name="Xbody" id="Xbody" max="11" />
+      </div>
+      <div class="col">
+         <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
+         <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
+      </div>
+   </div>
+      <input type="hidden" name="op" value="lnl_Test" />
+      <button class="btn btn-primary my-3" type="submit">'.adm_translate("Valider").'</button>
    </form>
    <hr />
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
-   <form action="admin.php" method="post">';
-      echo adm_translate("Entête")." <input class=\"form-control\" type=\"text\" name=\"Xheader\" size=\"12\" max=\"11\" />
-      &nbsp;".adm_translate("Corps")." <input class=\"form-control\" type=\"text\" name=\"Xbody\" size=\"12\" max=\"11\" />";
-      echo "&nbsp;".adm_translate("Pied")." :&nbsp;&nbsp;<input class=\"form-control\" type=\"text\" name=\"Xfooter\" size=\"12\" max=\"11\" /><br />";
-      echo adm_translate("Sujet")." :<input class=\"form-control\" type=\"text\" size=\"80\" max=\"255\" name=\"Xsubject\" /><hr />";
-      echo "<input type=\"radio\" value=\"All\" checked=\"checked\" name=\"Xtype\" /> ".adm_translate("Tous les Utilisateurs")." -";
-      echo "<input type=\"radio\" value=\"Mbr\" name=\"Xtype\" /> ".adm_translate("Seulement aux membres")." : ";
-      // ---- Groupes
+   <form action="admin.php" method="post">
+   <div class="form-row">
+      <div class="col">
+         <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
+         <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
+      </div>
+      <div class="col">
+         <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
+         <input class="form-control" type="number" name="Xbody" id="Xbody" max="11" />
+      </div>
+      <div class="col">
+         <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
+         <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
+      <input class="form-control" type="text" max="255" id="Xsubject" name="Xsubject" />
+   </div>';
+      echo "<hr />";
+      
+      echo '
+      <label class="custom-control custom-radio">
+         <input type="radio" class="custom-control-input" value="All" checked="checked" name="Xtype" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Tous les Utilisateurs").'</span>
+      </label>
+      <label class="custom-control custom-radio">
+         <input type="radio" class="custom-control-input" value="Mbr" name="Xtype" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Seulement aux membres").'</span>
+      </label>
+      <label class="custom-control custom-radio">
+         <input type="radio" class="custom-control-input" value="Out" name="Xtype" />
+         <span class="custom-control-indicator"></span>
+         <span class="custom-control-description">'.adm_translate("Seulement aux prospects").'</span>
+      </label>';
       $mX=liste_group();
       $tmp_groupe='';
       while (list($groupe_id, $groupe_name)=each($mX)) {
-         if ($groupe_id=="0") {$groupe_id='';}
+         if ($groupe_id=="0") $groupe_id='';
          $tmp_groupe.="<option value=\"$groupe_id\">$groupe_name</option>\n";
       }
-      echo '<select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>';
-      // ---- Groupes
-      echo "<input type=\"radio\" value=\"Out\" name=\"Xtype\" /> ".adm_translate("Seulement aux prospects")." - ";
       echo '
+      <div class="form-group">
+         <select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>
+      </div>
       <input type="hidden" name="op" value="lnl_Send" />
-      <input class="btn btn-primary" type="submit" value="'.adm_translate("Valider").'" />
+      <div class="form-group">
+         <input class="btn btn-primary" type="submit" value="'.adm_translate("Valider").'" />
+      </div>
       </form>';
    adminfoot('','','','');
 
@@ -393,10 +467,10 @@ function lnl_list() {
    <table data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-halign="center" data-align="right">ID</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Entête").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Corps").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Pied").'</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="right">ID</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Entête").'</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Corps").'</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Pied").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Nbre d'envois effectués").'</th>
             <th data-halign="center" data-align="center">'.adm_translate("Type").'</th>
             <th data-halign="center" data-align="right">Date</th>
@@ -442,10 +516,10 @@ function lnl_user_list() {
    <table id="tad_prospect" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th class="n-col-md-6" data-sortable="true">'.adm_translate("E-mail").'</th>
-            <th class="n-col-md-4" data-sortable="true">'.adm_translate("Date").'</th>
-            <th class="n-col-md-1" data-sortable="true">'.adm_translate("Status").'</th>
-            <th class="n-col-md-1" data-sortable="true">'.adm_translate("Fonctions").'</th>
+            <th class="n-t-col-xs-5" data-halign="center" data-sortable="true">'.adm_translate("E-mail").'</th>
+            <th class="n-t-col-xs-3" data-halign="center" data-align="right" data-sortable="true">'.adm_translate("Date").'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center" data-sortable="true">'.adm_translate("Status").'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
