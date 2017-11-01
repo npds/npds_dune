@@ -62,28 +62,28 @@ function topicsmanager() {
    <h3 class="my-4">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
+         <label class="col-form-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
          <div class="col-sm-8">
             <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" required="required"/>
             <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
+         <label class="col-form-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
          <div class="col-sm-8">
             <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'" >'.$topictext.'</textarea>
             <span class="help-block">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
+         <label class="col-form-label col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
          <div class="col-sm-8">
             <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
             <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
+         <label class="col-form-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s)").'</label>
          <div class="col-sm-8">
             <span class="help-block"><span id="countcar_topicadmin"></span></span>
             <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
@@ -185,28 +185,28 @@ function topicedit($topicid) {
    <form action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
+            <label class="col-form-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
             <div class="col-sm-8">
                <input id="topicname" class="form-control" type="text" name="topicname" maxlength="20" value="'.$topicname.'" placeholder="'.adm_translate("cesiteestgénial").'" />
                <span class="help-block">'.adm_translate("(un simple nom sans espaces)").' - '.adm_translate("max caractères").' : <span id="countcar_topicname"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
+            <label class="col-form-label col-sm-4" for="topictext">'.adm_translate("Texte").'</label>
             <div class="col-sm-8">
                <textarea id="topictext" class="form-control" rows="3" name="topictext" maxlength="250" placeholder="'.adm_translate("ce site est génial").'">'.$topictext.'</textarea>
                <span class="help-block">'.adm_translate("(description ou nom complet du sujet)").' - '.adm_translate("max caractères").' : <span id="countcar_topictext"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
+            <label class="col-form-label col-sm-4" for="topicimage">'.adm_translate("Image").'</label>
             <div class="col-sm-8">
                <input id="topicimage" class="form-control" type="text" name="topicimage" maxlength="20" value="'.$topicimage.'" placeholder="genial.png" />
                <span class="help-block">'.adm_translate("(nom de l'image + extension)").' ('.$tipath.'). - '.adm_translate("max caractères").' : <span id="countcar_topicimage"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
+            <label class="col-form-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
             <div class="col-sm-8">
                <div class="input-group">
                   <span class="input-group-btn">
@@ -221,14 +221,14 @@ function topicedit($topicid) {
       <hr />
       <h4 class="my-3">'.adm_translate("Ajouter des Liens relatifs au Sujet").'</h4>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
+         <label class="col-form-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" id="name" maxlength="30" />
             <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+         <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" name="url" id="url" maxlength="200" placeholder="http://www.valideurl.org" />
             <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_url"></span></span>
@@ -354,14 +354,14 @@ function relatededit($tid, $rid) {
    <form class="form-horizontal" action="admin.php" method="post">
        <fieldset>
        <div class="form-group row">
-           <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
+           <label class="col-form-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
            <div class="col-sm-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
               <span class="help-block text-right"><span id="countcar_name"></span></span>
            </div>
        </div>
        <div class="form-group row">
-           <label class="form-control-label col-sm-4" for="url">'.adm_translate("URL").'</label>
+           <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
            <div class="col-sm-8">
               <div class="input-group">
                  <span class="input-group-btn">

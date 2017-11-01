@@ -57,32 +57,32 @@ function links() {
        adm_translate("Lien N° : ").'<b>'.$lid.'</b> - '.adm_translate("Auteur").' : '.$submitter.' <br /><br />
 
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="100" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="url" value="'.$url.'" maxlength="100" /><a href="'.$url.'" target="_blank" >'.adm_translate("Visite").'</a>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12 " for="xtext">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-12 " for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" name="xtext" rows="10">'.$xtext.'</textarea>
          </div>
       </div>
       '.aff_editeur('xtext','').'
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
+         <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" maxlength="100" value="'.$name.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="email" maxlength="100" value="'.$email.'">
          </div>
@@ -93,7 +93,7 @@ function links() {
       <input type="hidden" name="lid" value="'.$lid.'">
       <input type="hidden" name="submitter" value="'.$submitter.'">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="cat">'.adm_translate("Catégorie").'</label>
+         <label class="col-form-label col-sm-4 " for="cat">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" name="cat">';
        while(list($ccid, $ctitle) = sql_fetch_row($result2)) {
@@ -143,14 +143,14 @@ function links() {
       }
     echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" name="url" id="url" maxlength="100" placeholder="http://" required="required" />
             <span class="help-block text-right"><span id="countcar_url"></span></span>
@@ -159,7 +159,7 @@ function links() {
       <div class="form-group row">';
     $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
-         <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
+         <label class="col-form-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
@@ -176,7 +176,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="xtext">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-4" for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-8">
             <textarea class="tin form-control" name="xtext" rows="6"></textarea>
          </div>
@@ -184,14 +184,14 @@ function links() {
    if ($adminform=='') echo aff_editeur('xtext','');
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="name">'.adm_translate("Nom").'</label>
+         <label class="col-form-label col-sm-4" for="name">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" id="name" maxlength="60" />
             <span class="help-block text-right"><span id="countcar_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" name="email" id="email" maxlength="60" />
             <span class="help-block text-right"><span id="countcar_email"></span></span>
@@ -214,13 +214,13 @@ function links() {
       <h3>'.adm_translate("Ajouter une catégorie").'</h3>
       <form action="admin.php" method="post">
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 " for="title" >'.adm_translate("Nom").'</label>
+            <label class="col-form-label col-sm-4 " for="title" >'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" maxlength="100" required="required"/>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 " for="cdescription">'.adm_translate("Description").'</label>
+            <label class="col-form-label col-sm-4 " for="cdescription">'.adm_translate("Description").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" name="cdescription" rows="7"></textarea>
             </div>
@@ -243,7 +243,7 @@ function links() {
       <h3 class="mb-3">'.adm_translate("Ajouter une Sous-catégorie").'</h3>
       <form method="post" action="admin.php">
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="title">'.adm_translate("Nom").'</label>
+            <label class="col-form-label col-sm-4" for="title">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="title" maxlength="100">
             </div>
@@ -251,7 +251,7 @@ function links() {
       $result=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
       echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="cid">'.adm_translate("Catégorie").'</label>
+            <label class="col-form-label col-sm-4" for="cid">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="cid">';
       while(list($ccid, $ctitle) = sql_fetch_row($result)) {
@@ -282,7 +282,7 @@ function links() {
       <h3 class="mb-3">'.adm_translate("Modifier la Catégorie").'</h3>
       <form method="post" action="admin.php">
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
+            <label class="col-form-label col-sm-4" for="cat">'.adm_translate("Catégorie").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="cat">';
     while(list($cid, $title) = sql_fetch_row($result)) {
@@ -380,14 +380,14 @@ function LinksModLink($lid) {
     echo '
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" value="'.$title.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <div class="input-group">
                <span class="input-group-btn">
@@ -399,7 +399,7 @@ function LinksModLink($lid) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="xtext">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-4 " for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-8">
             <textarea class="form-control tin" name="xtext" rows="10">'.$xtext.'</textarea>
          </div>
@@ -407,14 +407,14 @@ function LinksModLink($lid) {
     echo aff_editeur('xtext','');
     echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
+         <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="name" id="name" maxlength="100" value="'.$name.'" />
             <span class="help-block text-right"><span id="countcar_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
+         <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" name="email" id="email" maxlength="100" value="'.$email.'" />
             <span class="help-block text-right"><span id="countcar_email"></span></span>
@@ -422,7 +422,7 @@ function LinksModLink($lid) {
       </div>
       <div class="form-group">
          <div class="row">
-            <label class="form-control-label col-sm-4 " for="hits">'.adm_translate("Nombre de Hits").'</label>
+            <label class="col-form-label col-sm-4 " for="hits">'.adm_translate("Nombre de Hits").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" name="hits" value="'.$hits.'" min="0" max="99999999999" />
             </div>
@@ -432,7 +432,7 @@ function LinksModLink($lid) {
     $result2=sql_query("SELECT cid, title FROM ".$NPDS_Prefix."links_categories ORDER BY title");
     echo '
          <input type="hidden" name="lid" value="'.$lid.'" />
-         <label class="form-control-label col-sm-4 " for="hits">'.adm_translate("Catégorie").'</label>
+         <label class="col-form-label col-sm-4 " for="hits">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" name="cat">';
     while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
@@ -474,14 +474,14 @@ function LinksModLink($lid) {
    <h3 class="mb-3">'.adm_translate("Ajouter un Editorial").'</h3>
    <form action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
+         <label class="col-form-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" maxlength="100" />
             <span class="help-block text-right"><span id="countcar_editorialtitle"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="editorialtext">'.adm_translate("Texte complet").'</label>
+         <label class="col-form-label col-sm-4 " for="editorialtext">'.adm_translate("Texte complet").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="editorialtext" rows="10"></textarea>
          </div>
@@ -503,14 +503,14 @@ function LinksModLink($lid) {
          echo '
    <form action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
+         <label class="col-form-label col-sm-4 " for="editorialtitle">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="editorialtitle" id="editorialtitle" value="'.$editorialtitle.'" maxlength="100" />
             <span class="help-block text-right"><span id="countcar_editorialtitle"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="editorialtext">'.adm_translate("Texte complet").'</label>
+         <label class="col-form-label col-sm-4 " for="editorialtext">'.adm_translate("Texte complet").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="editorialtext" rows="10">'.$editorialtext.'</textarea>
          </div>
@@ -759,13 +759,13 @@ function LinksModCat($cat) {
         echo '
    <form action="admin.php" method="get">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Nom").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" value="'.$title.'" maxlength="50" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="cdescription">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-4 " for="cdescription">'.adm_translate("Description").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="cdescription" rows="10" >'.$cdescription.'</textarea>
          </div>
@@ -791,7 +791,7 @@ function LinksModCat($cat) {
    <h3>'.adm_translate("Modifier la Catégorie")." - ".adm_translate("Nom de la Catégorie : ").aff_langue($ctitle).'</h3>
    <form action="admin.php" method="get">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4 " for="title">'.adm_translate("Nom de la Sous-catégorie").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Nom de la Sous-catégorie").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" value="'.$stitle.'" maxlength="50">
          </div>

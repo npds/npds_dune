@@ -36,7 +36,7 @@ function hreferer($filter) {
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="hreferer" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
+         <label class="col-form-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
          <div class="col-sm-4">
             <input type="number" class="form-control" name="filter" min="0" max="99999" value="'.$filter.'" />
          </div>

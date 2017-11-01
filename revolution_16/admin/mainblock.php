@@ -34,14 +34,14 @@ function mblock() {
          echo '
          <form id="fad_mblock" action="admin.php" method="post">
             <div class="form-group row">
-               <label class="form-control-label col-12" for="title">'.adm_translate("Titre").'</label>
+               <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class="col-12">
                   <textarea class="form-control" type="text" id="title" name="title" maxlength="255" placeholder="'.adm_translate("Titre :").'">'.$title.'</textarea>
                   <span class="help-block text-right"><span id="countcar_title"></span></span>
                </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label col-12" for="content">'.adm_translate("Contenu").'</label>
+               <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
                <div class="col-12">
                   <textarea class="form-control" rows="25" id="content" name="content">'.$content.'</textarea>
                </div>

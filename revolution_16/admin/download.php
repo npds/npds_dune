@@ -82,7 +82,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group row">
-      <label class="form-control-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
+      <label class="col-form-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
       <div class="col-sm-12">';
          echo groupe($member).'
       </div>
@@ -101,7 +101,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group row">
-      <label class="form-control-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
+      <label class="col-form-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
       <div class="col-sm-12">';
          echo groupe($member).'
       </div>
@@ -191,7 +191,7 @@ function DownloadAdmin() {
    <h3 class="mb-3">'.adm_translate("Ajouter un Téléchargement").'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
+         <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="durl" name="durl" maxlength="255" required="required" />
    &nbsp;<a href="javascript:void(0);" onclick="window.open(\'admin.php?op=FileManagerDisplay\', \'wdir\', \'width=650, height=450, menubar=no, location=no, directories=no, status=no, copyhistory=no, toolbar=no, scrollbars=yes, resizable=yes\');">
@@ -200,47 +200,47 @@ function DownloadAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dcounter">'.adm_translate("Compteur").'</label>
+         <label class="col-form-label col-sm-4" for="dcounter">'.adm_translate("Compteur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" name="dcounter" maxlength="30" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
+         <label class="col-form-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" id="dfilename" name="dfilename" maxlength="255" required="required" />
                <span class="help-block text-right"><span id="countcar_dfilename"></span></span>
             </div>
          </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
+         <label class="col-form-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dver" id="dver" maxlength="6" />
             <span class="help-block text-right"><span id="countcar_dver"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dfilesize">'.adm_translate("Taille de fichier").' (bytes)</label>
+         <label class="col-form-label col-sm-4" for="dfilesize">'.adm_translate("Taille de fichier").' (bytes)</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dfilesize" maxlength="31" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
+         <label class="col-form-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dweb" name="dweb" maxlength="255" />
             <span class="help-block text-right"><span id="countcar_dweb"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
+         <label class="col-form-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="duser" name="duser" maxlength="30" />
             <span class="help-block text-right"><span id="countcar_duser"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
+         <label class="col-form-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" maxlength="250" />
             <span class="help-block text-right"><span id="countcar_dcategory"></span></span>
@@ -256,7 +256,7 @@ function DownloadAdmin() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="xtext">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" name="xtext" rows="20" ></textarea>
          </div>
@@ -305,48 +305,48 @@ function DownloadEdit($did) {
       <input type="hidden" name="did" value="'.$did.'" />
       <input type="hidden" name="dcounter" value="'.$dcounter.'" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
+         <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="durl" name="durl" value="'.$durl.'" maxlength="255" required="required" />
             <span class="help-block text-right"><span id="countcar_durl"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
+         <label class="col-form-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dfilename" name="dfilename" id="dfilename" value="'.$dfilename.'" maxlength="255" required="required" />
             <span class="help-block text-right"><span id="countcar_dfilename"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
+         <label class="col-form-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dver" id="dver" value="'.$dver.'" maxlength="6" />
             <span class="help-block text-right"><span id="countcar_dver"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dfilesize">'.adm_translate("Taille de fichier").' (bytes)</label>
+         <label class="col-form-label col-sm-4" for="dfilesize">'.adm_translate("Taille de fichier").' (bytes)</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dfilesize" value="'.$dfilesize.'" maxlength="31" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
+         <label class="col-form-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dweb" name="dweb" value="'.$dweb.'" maxlength="255" />
             <span class="help-block text-right"><span id="countcar_dweb"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
+         <label class="col-form-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="duser" name="duser" value="'.$duser.'" maxlength="30" />
             <span class="help-block text-right"><span id="countcar_duser"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
+         <label class="col-form-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" value="'.stripslashes($dcategory).'" maxlength="250" />
             <span class="help-block text-right"><span id="countcar_dcategory"></span></span>
@@ -364,7 +364,7 @@ function DownloadEdit($did) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="xtext">'.adm_translate("Description").'</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" name="xtext" rows="20" >'.$ddescription.'</textarea>
          </div>
@@ -377,7 +377,7 @@ function DownloadEdit($did) {
        echo '
       </fieldset>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4">'.adm_translate("Changer la date").'</label>
+         <label class="col-form-label col-sm-4">'.adm_translate("Changer la date").'</label>
          <div class="col-sm-8">
             <label class="custom-control custom-checkbox">
                <input type="checkbox" name="ddate" class="custom-control-input" value="yes" />

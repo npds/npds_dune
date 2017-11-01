@@ -75,7 +75,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
+      <label class="col-form-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
    </div>';
    } else {
@@ -92,7 +92,7 @@ function droits($member) {
       </label>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
+      <label class="col-form-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
       </div>
    </fielset>';
@@ -274,7 +274,7 @@ function sections() {
       <h3 class="my-3">'.adm_translate("Editer une publication").'</h3>
       <form action="admin.php" method="post">
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="artid">ID</label>
+            <label class="col-form-label col-sm-4" for="artid">ID</label>
             <div class="col-sm-8">
                <input type="number" class="form-control" name="artid" min="0" max="999999999" />
             </div>
@@ -289,19 +289,19 @@ function sections() {
          <h3 class="mb-3">'.adm_translate("Ajouter une publication").'</h3>
          <form action="admin.php" method="post" name="adminForm">
             <div class="form-group row">
-               <label class="form-control-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
+               <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
                <div class="col-sm-8">
                '.$autorise_pub.'
                </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label col-12" for="title">'.adm_translate("Titre").'</label>
+               <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class=" col-12">
                   <textarea class="form-control" name="title" rows="2"></textarea>
                </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label col-12" for="content">'.adm_translate("Contenu").'</label>
+               <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
                <div class=" col-12">
                   <textarea class="tin form-control" name="content" rows="30"></textarea>
                </div>
@@ -371,7 +371,7 @@ function new_rub_section($type) {
       <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</h3>
       <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
+            <label class="col-form-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="rubref">';
       if ($radminsuper==1) {
@@ -388,18 +388,18 @@ function new_rub_section($type) {
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 col-md-4" for="image">'.adm_translate("Image pour la Sous-Rubrique").'</label>
+            <label class="col-form-label col-sm-4 col-md-4" for="image">'.adm_translate("Image pour la Sous-Rubrique").'</label>
             <div class="col-sm-8">
                <input type="text" class="form-control" name="image" />
             </div>
          </div>
          <div class="form-group">
-            <label class="form-control-label" for="secname">'.adm_translate("Titre").'</label>
+            <label class="col-form-label" for="secname">'.adm_translate("Titre").'</label>
             <textarea id="secname" class="form-control" name="secname" maxlength="255" rows="2" required="required"></textarea>
             <span class="help-block text-right"><span id="countcar_secname"></span></span>
          </div>
          <div class="form-group">
-            <label class="form-control-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
+            <label class="col-form-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
             <textarea class="tin form-control" name="introd" rows="30"></textarea>';
             echo aff_editeur("introd",'');
       echo '
@@ -419,12 +419,12 @@ function new_rub_section($type) {
          <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Rubrique").'</h3>
          <form action="admin.php" method="post" name="adminForm">
             <div class="form-group">
-               <label class="form-control-label" for="rubname">'.adm_translate("Nom de la Rubrique").'</label>
+               <label class="col-form-label" for="rubname">'.adm_translate("Nom de la Rubrique").'</label>
                <textarea id="rubname" class="textbox_no_mceEditor form-control" name="rubname" rows="2" maxlength="255" required="required"></textarea>
                <span class="help-block text-right"><span id="countcar_rubname"></span></span>
             </div>
             <div class="form-group">
-               <label class="form-control-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
+               <label class="col-form-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
                <textarea class="tin form-control" name="introc" rows="30" ></textarea>
             </div>';
          echo aff_editeur("introc","false");
@@ -557,21 +557,21 @@ function rubriquedit($rubid) {
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="rubname">'.adm_translate("Titre").'</label>
+            <label class="col-form-label col-sm-12" for="rubname">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
                <textarea id="rubname" class="form-control" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
                <span class="help-block text-right"><span id="countcar_rubname"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="introc">'.adm_translate("Texte d'introduction").'</label>
+            <label class="col-form-label col-sm-12" for="introc">'.adm_translate("Texte d'introduction").'</label>
             <div class="col-sm-12">
                <textarea name="introc" class="tin form-control" rows="30" >'.$intro.'</textarea>
             </div>
          </div>
          '.aff_editeur('introc','').'
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="enligne">'.adm_translate("En Ligne").'</label>';
+            <label class="col-form-label col-sm-3" for="enligne">'.adm_translate("En Ligne").'</label>';
    if ($radminsuper==1) {
       if ($enligne==1) {
          $sel1 = 'checked="checked"'; $sel2 = '';
@@ -656,7 +656,7 @@ function sectionedit($secid) {
    echo '
          <form action="admin.php" method="post" name="adminForm">
          <div class="form-group">
-            <label class="form-control-label" for="rubref">'.adm_translate("Rubriques").'</label>';
+            <label class="col-form-label" for="rubref">'.adm_translate("Rubriques").'</label>';
    if ($radminsuper==1) {
       echo '
       <select class="custom-select form-control" name="rubref">';
@@ -676,17 +676,17 @@ function sectionedit($secid) {
    }
    echo '
    <div class="form-group">
-      <label class="form-control-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
+      <label class="col-form-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
       <textarea class="form-control" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
       <span class="help-block text-right"><span id="countcar_secname"></span></span>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="image">'.adm_translate("Image").'</label>
+      <label class="col-form-label" for="image">'.adm_translate("Image").'</label>
       <input type="text" class="form-control" id="image" name="image" maxlength="255" value="'.$image.'" />
       <span class="help-block text-right"><span id="countcar_image"></span></span>
    </div>
    <div class="form-group">
-      <label class="form-control-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
+      <label class="col-form-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
       <textarea class="tin form-control" id="introd" name="introd" rows="20">'.$intro.'</textarea>
    </div>';
    echo aff_editeur('introd','');
@@ -770,7 +770,7 @@ function secartedit($artid) {
          <input type="hidden" name="artid" value="'.$artid.'" />
          <input type="hidden" name="op" value="secartchange" />
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="secid">'.adm_translate("Sous-rubriques").'</label>
+            <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubriques").'</label>
             <div class="col-sm-8">';
 
    $tmp_autorise=sousrub_select($secid);
@@ -790,13 +790,13 @@ function secartedit($artid) {
 
   echo'
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
+            <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" name="title" rows="2">'.$title.'</textarea>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
+            <label class="col-form-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="content" rows="30" >'.$content.'</textarea>
             </div>
@@ -862,7 +862,7 @@ function secartupdate($artid) {
    <form action="admin.php" method="post" name="adminForm">
       <input type="hidden" name="artid" value="'.$artid.'" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
+         <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
          <div class="col-sm-8">';
       $tmp_autorise=sousrub_select($secid);
       if ($tmp_autorise)
@@ -878,13 +878,13 @@ function secartupdate($artid) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-12" for="title">'.adm_translate("Titre").'</label>
+         <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
          <div class=" col-12">
             <textarea class="form-control" name="title" rows="2">'.$title.'</textarea>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-12" for="content">'.adm_translate("Contenu").'</label>
+         <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
          <div class=" col-12">
             <textarea class="tin form-control" name="content" rows="30">'.$content.'</textarea>
          </div>

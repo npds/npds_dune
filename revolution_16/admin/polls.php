@@ -63,7 +63,7 @@ function poll_createPoll() {
       <form action="admin.php" method="post">
          <input type="hidden" name="op" value="createPosted" />
          <div class="form-group row">
-            <label class="form-control-label col-sm-3 " for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+            <label class="col-form-label col-sm-3 " for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
             <div class="col-sm-9 ">
                <input class="form-control" type="text" id="pollTitle" name="pollTitle" id="pollTitle" maxlength="100" required="required" />
                <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
@@ -73,7 +73,7 @@ function poll_createPoll() {
    for ($i = 1; $i <= $maxOptions; $i++) {
       echo '
             <div class="form-group row">
-               <label class="form-control-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
+               <label class="col-form-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
                <div class="col-sm-9" >
                   <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
                   <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
@@ -249,7 +249,7 @@ function poll_editPollPosted() {
       <input type="hidden" name="op" value="SendEditPoll">
       <input type="hidden" name="pollID" value="'.$id.'" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
+         <label class="col-form-label col-sm-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" required="required" />
             <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
@@ -260,7 +260,7 @@ function poll_editPollPosted() {
          list($optionText, $voteID, $pollType) = sql_fetch_row($result);
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
+         <label class="col-form-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
          <div class="col-sm-9 ">
             <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" />
             <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
