@@ -551,7 +551,7 @@ $content .='
    //<== carte du bloc
    
       map_u = new google.maps.Map(mapdivu,{
-         center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend['C8'].'),
+         center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend[$ch_lon].'),
          zoom :7,
          zoomControl:true,
          streetViewControl:true,
@@ -569,7 +569,7 @@ $content .='
          })
          return marker_u;
       }
-      var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend['C8'].');
+      var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend[$ch_lon].');
       var marker_u = createMarkerU(point_u);
    }
    $(document.body).attr("onload", "geoloc_loaduser()");
@@ -577,7 +577,7 @@ $content .='
 </script>';
 $content .='<div class="mt-3"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
 if($admin)
-$content .= '&nbsp;&nbsp;<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
+   $content .= '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
 $content .= '</div></div>';
 $content = aff_langue($content);
 echo $content;
@@ -602,8 +602,8 @@ echo $content;
    closedir($handle);
 
    echo '
-   <h4 class="mt-3">'.translate("Last 10 comments by").' '.$uname.'.</h4>
-   <div id="last_ten_comment" class="card card-body mb-3">';
+   <h4 class="my-3">'.translate("Last comments by").' '.$uname.'.</h4>
+   <div id="last_comment_by" class="card card-body mb-3">';
    $url='';
    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
    while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
@@ -619,18 +619,76 @@ echo $content;
    }
    echo '
     </div>
-    <h4 class="mt-3">'.translate("Last 10 news submissions sent by").' '.$uname.'.</h4>
-    <div id="last_ten_comment" class="card card-body mb-3">';
+    <h4 class="my-3">'.translate("Last articles sent by").' '.$uname.'.</h4>
+    <div id="last_article_by" class="card card-body mb-3">';
    $xtab=news_aff("libre", "WHERE informant='$uname' ORDER BY sid DESC LIMIT 10", '', 10);
    $story_limit=0;
    while (($story_limit<10) and ($story_limit<sizeof($xtab))) {
-      list($sid, $catid, $aid, $title) = $xtab[$story_limit];
+      list($sid, $catid, $aid, $title,$time) = $xtab[$story_limit];
       $story_limit++;
       echo '
-      <p><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></p>';
+      <div class="d-flex">
+        <div class="p-2"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></div>
+        <div class="ml-auto p-2">'.$time.'</div>
+      </div>';
    }
    echo '
    </div>
+   <h4 class="my-3">'.translate("Last news submissions sent by").' '.$uname.'</h4>';
+   $nbp = 10;
+   $content ='';
+   $result = sql_query("SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id > 0 AND poster_id=$uid ORDER BY post_time DESC LIMIT 0,50");
+   $j=1;
+   while (list($post_id,$post_text) = sql_fetch_row($result) and $j<=$nbp)
+   {
+      /*Requete detail dernier post*/
+      $res = sql_query("SELECT 
+            us.topic_id, us.forum_id, us.poster_id, us.post_time, 
+            uv.topic_title, 
+            ug.forum_name, ug.forum_type, ug.forum_pass, 
+            ut.uname 
+         FROM 
+            ".$NPDS_Prefix."posts us, 
+            ".$NPDS_Prefix."forumtopics uv, 
+            ".$NPDS_Prefix."forums ug, 
+            ".$NPDS_Prefix."users ut 
+         WHERE 
+            us.post_id = $post_id 
+            AND uv.topic_id = us.topic_id 
+            AND uv.forum_id = ug.forum_id 
+            AND ut.uid = us.poster_id LIMIT 1");
+      list($topic_id, $forum_id, $poster_id, $post_time, $topic_title, $forum_name, $forum_type, $forum_pass, $uname) = sql_fetch_row($res);
+      if (($forum_type == '5') or ($forum_type == '7')) {
+         $ok_affich = false;
+         $tab_groupe = valid_group($user);
+         $ok_affich = groupe_forum($forum_pass, $tab_groupe);
+      }
+      else $ok_affich = true;
+      if ($ok_affich) {
+         /*Nbre de postes par sujet*/
+         $TableRep = sql_query("SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id > 0 AND topic_id = '$topic_id'");
+         $replys = sql_num_rows($TableRep)-1;
+         $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$cookie[0]' AND status != '0'";
+            if (sql_num_rows(sql_query($sqlR))==0)
+               $image = '<a href="" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a>';
+            else
+               $image = '<a title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
+         $content .='
+         <p class="list-group-item list-group-item-action flex-column align-items-start" >
+            <span class="d-flex w-100 mt-1">
+            <span>'.$post_time.'</span>
+            <span class="ml-auto">
+               <span class="badge badge-secondary ml-1" title="'.translate("Replies").'" data-toggle="tooltip" data-placement="left">'.$replys.'</span>
+            </span>
+         </span>
+         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ml-auto">'.$image.'</span></span>
+         </p>';
+      $j++;
+      }
+   }
+   echo $content;
+
+   echo'
    <hr />
    <p class="n-signature">'.$user_sig.'</p>';
    include("footer.php");

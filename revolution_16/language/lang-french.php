@@ -237,8 +237,9 @@ function translate_pass1($phrase) {
    case "Extra Info": $tmp="Informations supplémentaires"; break;
    case "There is no available info for": $tmp="Il n'y a pas d'informations disponibles pour"; break;
    case "Online journal for": $tmp="Journal en ligne de "; break;
-   case "Last 10 comments by": $tmp="Les 10 derniers Commentaires de"; break;
-   case "Last 10 news submissions sent by": $tmp="Les dix dernières contributions de"; break;
+   case "Last comments by": $tmp="Les derniers commentaires de"; break;
+   case "Last news submissions sent by": $tmp="Les dernières contributions de"; break;
+   case "Last articles sent by":$tmp="Les derniers articles de"; break;
    case "User not yet allowed by Administrator": $tmp="Vous n'êtes pas encore autorisé à vous connecter."; break;
    case "Incorrect Login!": $tmp="Identifiant incorrect !"; break;
    case "User Login": $tmp="Identifiant utilisateur"; break;

@@ -5,37 +5,38 @@
       $username = $cookie[1];
       $skinname = $cookie[11];
       switch ($skinname) {
-         case 'cyborg': 
-           $headerclasses ='navbar navbar-expand-md navbar-dark fixed-top bg-inverse';
+         case 'cyborg':
+         case 'solar':
+            $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
          break;
          case 'lumen':
-            $headerclasses ='navbar navbar-expand-md navbar-dark bg-inverse fixed-top';
-         break;
          case 'journal':
          case 'materia':
             $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
          break;
-         case 'litera':
          case 'simplex':
+         case 'litera':
          case 'spacelab':
-            $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-primary';
+            $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
          break;
          default :
-           $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+            $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
          break;
       }
    }
    else {
-      $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+      $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top';
       $username='';
    }
-   if (!isset($powerpack)) {include_once ("powerpack.php");}
+   if (!isset($powerpack)) include_once ("powerpack.php");
 
-   $auto=autorisation_block("makeChatBox");
+   $auto=autorisation_block("chat_membres");
       $PopUp = JavaPopUp("chat.php?id=".$auto[0]."&amp;auto=".encrypt(serialize($auto[0])),"chat".$auto[0],380,480);
 
-   if (if_chat()) $cha= '
+   if (if_chat('chat_membres')) $cha= '
          <li class="nav-item"><a class="nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-lg "></i></a></li>';
+
+
    if (autorisation(-1)) {
       $con = '!nb_online! - <a href="user.php">Se connecter</a>';
       $btn_con = '<a class="dropdown-item" href="user.php"><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
@@ -55,7 +56,7 @@
 
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
-         $bal = '<a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="tag-pill tag-default">'.$nbmes.'</span></a>';
+         $bal = '<li class="dropdown-divider"></li><li><a class="dropdown-item" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated"></i> '.translate("Private Message").' <span class="tag-pill tag-default">'.$nbmes.'</span></a></li>';
       $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" title="'.translate("Your account").'" data-toggle="tooltip" data-placement="right" /></a>';
       $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
    }
@@ -83,8 +84,8 @@
                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
                <ul class="dropdown-menu">
                   <li><?php echo $ava; ?></li>
-                  <li class="dropdown-divider"></li>
-                  <li><?php echo $bal; ?></li>
+                  
+                  <?php echo $bal; ?>
                   <li class="dropdown-divider"></li>
                   <li><?php echo $btn_con; ?></li>
                </ul>

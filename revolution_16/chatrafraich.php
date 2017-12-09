@@ -46,16 +46,15 @@ settype($connectes,'integer');
    $thing='';
    if ($result){
       while(list($username, $message, $dbname, $date_message) = sql_fetch_row($result)) {
-         $thing.="<div class='chatmessage'><div class='chatheure'>".date(translate("Chatdate"),$date_message+($gmt*3600))."</div>";
+         $thing.="<div class='chatmessage'><div class='chatheure'>".date(translate("Chatdate"),$date_message+((integer)$gmt*3600))."</div>";
          if ($dbname==1) {
-            if ((!$user) and ($member_list==1) and (!$admin)) {
+            if ((!$user) and ($member_list==1) and (!$admin))
                $thing.="<div class='chatnom'>$username</div>";
-            } else {
+            else
                $thing.="<div class='chatnom'><a href='user.php?op=userinfo&amp;uname=$username' target='_blank'>$username</a></div>";
-            }
-         } else {
+         } else
             $thing.="<div class='chatnom'>$username</div>";
-         }
+
          $message=smilie($message);
          $chat_forbidden_words=array(
          "'\"'i"=>'&quot;',
@@ -72,8 +71,9 @@ settype($connectes,'integer');
       $thing="\"".$thing."\"";
    }
 
-   if ($aff_entetes=="1") {
+   if ($aff_entetes=='1') {
       $meta_op=true;
+      settype($Xthing,'string');
       include("meta/meta.php");
       $Xthing.=$l_meta;
       $Xthing.=str_replace("\n","",import_css_javascript($tmp_theme, $language, $site_font, basename($_SERVER['PHP_SELF']),""));

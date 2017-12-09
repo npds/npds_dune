@@ -6,20 +6,21 @@
       $skinname = $cookie[11];
       switch ($skinname) {
          case 'cyborg':
-         case 'lumen':
-           $headerclasses ='navbar navbar-expand-md navbar-dark bg-inverse fixed-top';
+         case 'solar':
+            $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
          break;
+         case 'lumen':
          case 'journal':
          case 'materia':
             $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
          break;
-         case 'litera':
          case 'simplex':
+         case 'litera':
          case 'spacelab':
-            $headerclasses = 'navbar navbar-expand-md navbar-light bg-primary fixed-top';
+            $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
          break;
          default :
-           $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo custom darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+            $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
          break;
       }
    }

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2013 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -240,8 +240,9 @@ function translate_pass1($phrase) {
    case "Extra Info:": $tmp="Weitere Informationen : "; break;
    case "There is no available info for": $tmp="Es gibt keine Informationen zu"; break;
    case "Online journal for": $tmp="Online Journal für "; break;
-   case "Last 10 comments by": $tmp="Die letzten 10 Kommentare von"; break;
-   case "Last 10 news submissions sent by": $tmp="Die letzten 10 Einsendungen von"; break;
+   case "Last comments by": $tmp="Die letzten Kommentare von"; break;
+   case "Last news submissions sent by": $tmp="Die letzten Einsendungen von"; break;
+   case "Last articles sent by":$tmp="Last articles sent by"; break;
    case "User not yet allowed by Administrator": $tmp="Sie haben keine Berechtigung durch den Administrator."; break;
    case "Incorrect Login!": $tmp="Login Fehler !"; break;
    case "User Login": $tmp="Benutzer Login"; break;

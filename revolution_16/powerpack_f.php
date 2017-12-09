@@ -114,10 +114,9 @@ function write_short_private_message($to_userid) {
 }
 
 #autodoc if_chat() : Retourne le nombre de connect&eacute; au Chat
-function if_chat() {
+function if_chat($pour) {
    global $NPDS_Prefix;
-
-   $auto=autorisation_block("makeChatBox");
+   $auto=autorisation_block("params#".$pour);
    $dimauto=count($auto);
    $numofchatters=0;
 
@@ -260,16 +259,14 @@ function instant_members_message() {
    }
 }
 
-#autodoc makeChatBox() : Bloc ChatBox <br />=> syntaxe : function#makeChatBox
-function makeChatBox() {
-   global $user, $admin, $member_list, $long_chain;
-   global $NPDS_Prefix;
+#autodoc makeChatBox($pour) : Bloc ChatBox <br />=> syntaxe : function#makeChatBox <br />params#chat_membres <br /> le parametre doit etre en accord avec l'autorisation donc (chat_membres, chat_tous, chat_admin, chat_anonyme)
+function makeChatBox($pour) {
+   global $user, $admin, $member_list, $long_chain, $NPDS_Prefix;
    include_once('functions.php');
-
-   $auto=autorisation_block("makeChatBox");
+   $auto=autorisation_block('params#'.$pour);
    $dimauto=count($auto);
 
-   if (!$long_chain) {$long_chain=12;}
+   if (!$long_chain) $long_chain=12;
    $thing=''; $une_ligne=false;
 
    if ($dimauto<=1) {
@@ -298,15 +295,13 @@ function makeChatBox() {
          }
       }
       $PopUp = JavaPopUp("chat.php?id=".$auto[0]."&amp;auto=".encrypt(serialize($auto[0])),"chat".$auto[0],380,480);
-      if ($une_ligne) {$thing.='<hr class="" />';}
+      if ($une_ligne) $thing.='<hr />';
       $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' AND date >= ".(time()-(60*2))."");
       $numofchatters = sql_num_rows($result);
-      if ($numofchatters > 0) {
-         $thing.='<a class=" nav-link faa-pulse animated faa-slow" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a><span class="badge badge-pill badge-primary pull-right" title="'.translate("person chatting right now.").'" data-toggle="tooltip">'.$numofchatters.'</span> ';
-      }
-      else {
-         $thing.='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a>';
-      }
+      if ($numofchatters > 0)
+         $thing.='<div class="d-flex"><a id="'.$pour.'_encours" class=" " href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").' '.$pour.'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x nav-link faa-pulse animated faa-slow"></i></a><span class="badge badge-pill badge-primary ml-auto align-self-center" title="'.translate("person chatting right now.").'" data-toggle="tooltip">'.$numofchatters.'</span></div>';
+      else
+         $thing.='<div><a id="'.$pour.'" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("click here to open the chat window...").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a></div>';
    } else {
       if (count($auto)>1) {
          $numofchatters=0;
