@@ -1283,15 +1283,15 @@ function Pre_fab_block($Xid, $Xblock) {
     }
     sql_free_result($result);
 }
-#autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le paramètre est le contenu du bloc (function#....)
+#autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le paramètre (une expression régulière) est le contenu du bloc (function#....)
 function niv_block($Xcontent) {
    global $NPDS_Prefix;
-   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."rblocks WHERE (content like '%$Xcontent%')");
+   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."rblocks WHERE content REGEXP '$Xcontent'");
    if (sql_num_rows($result)) {
       list($content, $member, $actif) = sql_fetch_row($result);
       return ($member.','.$actif);
    }
-   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."lblocks WHERE (content like '%$Xcontent%')");
+   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."lblocks WHERE content REGEXP '$Xcontent'");
    if (sql_num_rows($result)) {
       list($content, $member, $actif) = sql_fetch_row($result);
       return ($member.','.$actif);
@@ -1309,11 +1309,10 @@ function autorisation_block($Xcontent) {
       if (autorisation($autovalue))
          $autoX[]=$autovalue;
    }
-   if ($actif) {
+   if ($actif)
       return ($autoX);
-   } else {
+   else
       return('');
-   }
 }
 #autodoc autorisation($auto) : Retourne true ou false en fonction des paramètres d'autorisation de NPDS (Administrateur, anonyme, Membre, Groupe de Membre, Tous)
 function autorisation($auto) {
