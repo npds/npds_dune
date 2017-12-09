@@ -156,6 +156,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    $text = stripslashes(removeHack(conv2br($text)));
    $reviewer = stripslashes(strip_tags($reviewer));
    $url_title = stripslashes(strip_tags($url_title));
+   $error='';
 
    include ('header.php');
    echo '
@@ -198,9 +199,9 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    echo '<button class="btn btn-secondary" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';
    } else {
       global $gmt;
-      $fdate=date(str_replace('%','',translate("linksdatestring")),time()+($gmt*3600));
+      $fdate=date(str_replace('%','',translate("linksdatestring")),time()+((integer)$gmt*3600));
 
-      echo ''.translate("Waiting Reviews").'';
+      echo translate("Waiting Reviews");
 
       echo '
       <br />'.translate("Added:").' '.$fdate.'
@@ -588,6 +589,10 @@ function del_review($id_del) {
 }
 
 settype($op,'string');
+settype($hits,'integer');
+settype($id,'integer');
+
+
 switch ($op) {
    case 'showcontent':
       showcontent($id);
