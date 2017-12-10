@@ -78,10 +78,23 @@ $nav-tabs-border-color:                       transparent !default;
 
 // Navbar
 
-$navbar-padding-y:                  $spacer !default;
+$navbar-padding-y:                  1rem !default;
 
 $navbar-dark-color:                 rgba($white,.75) !default;
 $navbar-dark-hover-color:           $white !default;
+
+// Cards
+
+$card-border-width:                 0;
+$card-border-color:                 transparent;
+
+// Tooltips
+
+$tooltip-bg:                        $gray-700 !default;
+
+// Modals
+
+$modal-content-border-color:        transparent !default;
 
 // Progress bars
 

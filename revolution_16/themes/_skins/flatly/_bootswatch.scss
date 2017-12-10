@@ -9,12 +9,20 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
 
 // Navbar =======================================================================
 
+.bg-primary {
+  .navbar-nav .active > .nav-link {
+    color: $success !important;
+  }
+}
+
 .bg-dark {
   background-color: $success !important;
-
-  &.navbar-inverse .navbar-nav .nav-link:focus,
-  &.navbar-inverse .navbar-nav .nav-link:hover {
-    color: $primary !important;
+  &.navbar-dark .navbar-nav {
+    .nav-link:focus,
+    .nav-link:hover,
+    .active > .nav-link {
+      color: $primary !important;
+    }
   }
 }
 
@@ -121,7 +129,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
 .nav-tabs {
   .nav-link.active,
   .nav-link.active:focus,
-  .nav-link.active:hover, 
+  .nav-link.active:hover,
   .nav-item.open .nav-link,
   .nav-item.open .nav-link:focus,
   .nav-item.open .nav-link:hover {
@@ -165,31 +173,16 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic"
     text-decoration: underline;
   }
 
-  &-primary {
-    background-color: $primary;
-  }
-
-  &-success {
-    background-color: $success;
-  }
-
-  &-danger {
-    background-color: $danger;
-  }
-
-  &-warning {
-    background-color: $warning;
-  }
-
-  &-info {
-    background-color: $info;
-  }
-
-  &-dark {
-    background-color: $dark;
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      background-color: $value;
+    }
   }
 }
 
 // Progress bars ===============================================================
 
 // Containers ==================================================================
+.modal .close{
+  color: $black;
+}
