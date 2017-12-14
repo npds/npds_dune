@@ -29,7 +29,7 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
  "5"  -> col_RB + col_princ
  "6"  -> col_princ + col_LB
  
- La gestion de ce paramétre s'effectue dans le fichier "pages.php" du dossier "themes
+ La gestion de ce paramètre s'effectue dans le fichier "pages.php" du dossier "themes
 
  Nomination des div :
  col_princ contient le contenu principal
@@ -39,39 +39,42 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
 
 if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
     switch ($pdst) {
-    case "2": $pdst='-1'; break;
+    case '2': $pdst='-1'; break;
     }
 }
 
-// ContainerGlobal permet de transmettre ‡ Theme-Dynbamic un ÈlÈment de personnalisation avant
-// le chargement de header.html / Si vide alors la class body est chargÈe par dÈfaut par Theme dynamique
-$ContainerGlobal="\n<div id=\"container\">\n";
+// ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
+// le chargement de header.html / Si vide alors la class body est chargée par défaut par Theme dynamique
+$ContainerGlobal='
+<div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
    global $powerpack;
    if (!isset($powerpack)) {include ("powerpack.php");}
 
-
 /************************************************************************/
 /*     Le corps de page de votre Site - En dessous du Header            */
 /*     On Ouvre les Différent Blocs en Fonction de la Variable $pdst    */
 /*                         Le corps englobe :                           */
-/*                 col_LB + col_princ + col_RB                          */
+/*                 col_princ + col_RB                                   */
 /*           Si Aucune variable pdst dans pages.php                     */
-/*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
+/*   ==> Alors affichage par defaut : col_princ + col_RB soit $pdst=0   */
 /* =====================================================================*/
-     echo '<section id="corps" class="row1 w100 automobile" role="main">';
-     
-switch ($pdst) {
-case "-1":
-     echo '<section id="col_princ" class="col w100 autotablet">';   /* la partie centrale */
-break;
-case "2":
-     echo '<section id="col_princ" class="col w78 autotablet">';
-break;
-default:
-     echo '<section id="col_princ" class="col w78 autotablet">';
-break;
-}
+   echo '
+   <div id="corps" class="row" role="main">';
+   switch ($pdst) {
+      case '-1':
+        echo '
+     <div id="col_princ" class="col-sm-12">';
+      break;
+      case '2':
+        echo '
+     <div id="col_princ" class="col-sm-9">';
+      break;
+      default:
+        echo '
+     <div id="col_princ" class="col-sm-9">';
+      break;
+   }
 ?>
