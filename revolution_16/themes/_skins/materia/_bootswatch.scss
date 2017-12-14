@@ -116,7 +116,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
 .btn {
   text-transform: uppercase;
   border: none;
-  box-shadow: 1px 1px 4px rgba(0,0,0,.4);
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
   transition: all 0.4s;
 
   &-link {
@@ -194,6 +194,10 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
       margin-top: 0;
     }
   }
+}
+
+.border-secondary {
+  border: 1px solid #dfdfdf !important;
 }
 
 // Typography ==================================================================
@@ -373,7 +377,7 @@ input[type="radio"],
   &:before {
     position: absolute;
     left: 0;
-    top: 2px;
+    top: -2px;
     background-color: $primary;
     transform: scale(0);
   }
@@ -433,7 +437,7 @@ input[type="checkbox"],
   &:checked:before {
     content: "";
     position: absolute;
-    top: 5px;
+    top: 2px;
     left: 6px;
     display: table;
     width: 6px;
@@ -585,28 +589,10 @@ input[type="checkbox"],
     color: #fff;
   }
 
-  &-primary {
-    background-color: $primary;
-  }
-
-  &-success {
-    background-color: $success;
-  }
-
-  &-danger {
-    background-color: $danger;
-  }
-
-  &-warning {
-    background-color: $warning;
-  }
-
-  &-info {
-    background-color: $info;
-  }
-
-  &-dark {
-    background-color: $dark;
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      background-color: $value;
+    }
   }
 
   a:not(.close):not(.btn),
@@ -630,6 +616,10 @@ input[type="checkbox"],
   &-light {
     background-color: $gray-200;
   }
+
+  &-warning {
+    color: $white;
+  }
 }
 
 .tag {
@@ -650,6 +640,21 @@ input[type="checkbox"],
   }
 }
 
+.card {
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
+
+  &.border-primary,
+  &.border-secondary,
+  &.border-success,
+  &.border-info,
+  &.border-warning,
+  &.border-danger,
+  &.border-light,
+  &.border-dark {
+    border-width: 1px;
+  }
+}
+
 .alert-dismissible {
   .close {
     padding: 0.5rem 0.75rem;
@@ -662,6 +667,11 @@ input[type="checkbox"],
       color: $white;
     }
   }
+}
+
+.modal-content {
+  border-radius: 0.2rem;
+  box-shadow: 0 6px 36px rgba(0,0,0,.3);
 }
 
 .popover {
