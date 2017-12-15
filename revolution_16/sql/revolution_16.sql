@@ -405,7 +405,7 @@ CREATE TABLE lblocks (
 INSERT INTO lblocks VALUES (1, 'Un Bloc ...', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
 INSERT INTO lblocks VALUES (2, 'Menu', 'function#mainblock', '0', 1, 86400, 1, 0, 'Ce menu contient presque toutes les fonctions de base disponibles dans NPDS');
 INSERT INTO lblocks VALUES (3, 'Msg &agrave; un Membre', 'function#instant_members_message', '0', 4, 0, 1, 0, '');
-INSERT INTO lblocks VALUES (4, 'Chat Box', 'function#makeChatBox', '0', 2, 10, 1, 0, '');
+INSERT INTO lblocks VALUES (4, 'Chat Box', 'function#makeChatBox\r\nparams#chat_tous', '0', 2, 10, 1, 0, '');
 INSERT INTO lblocks VALUES (5, 'Forums Infos', 'function#RecentForumPosts\r\nparams#Forums Infos,15,0,false,10,false,-:\r\n', '0', 5, 60, 1, 0, '');
 INSERT INTO lblocks VALUES (6, 'Les plus t&eacute;l&eacute;charg&eacute;s', 'function#topdownload', '0', 6, 3600, 0, 0, '');
 INSERT INTO lblocks VALUES (7, 'Administration', 'function#adminblock', '0', 3, 0, 1, 0, '');
