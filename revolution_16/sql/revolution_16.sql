@@ -756,13 +756,13 @@ CREATE TABLE posts (
   KEY post_aff (post_aff)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-INSERT INTO posts VALUES (1, 0, '1F577.png', 1, 1, 2, 'Demo', '2011-10-26 17:00', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (2, 0, '1F310.png', 1, 1, 2, 'R&eacute;ponse', '2012-03-05 22:36', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (3, 0, 'icon1.gif', 2, 2, 1, 'Message 1', '2013-05-14 22:54', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (4, 3, 'icon1.gif', 2, 2, 1, 'R&eacute;ponse au Message 1', '2003-05-14 22:54', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (5, 4, 'icon1.gif', 2, 2, 1, 'R&eacute;ponse &agrave; la r&eacute;ponse du Message 1', '2013-05-14 22:55', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (6, 0, 'icon1.gif', 2, 2, 1, 'R&eacute;ponse au Message 1', '2013-05-14 22:55', '1.1.76.115', '', 1);
-INSERT INTO posts VALUES (7, 0, '         ', 2, -2, 2, 'Bien, bien et m&ecirc;me mieux encore', '2012-07-22 13:42:22', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (1, 0, '00.png', 1, 1, 2, 'Demo', '2011-10-26 17:00', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (2, 0, '01.png', 1, 1, 2, 'R&eacute;ponse', '2012-03-05 22:36', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (3, 0, '00.png', 2, 2, 1, 'Message 1', '2013-05-14 22:54', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (4, 3, '01.png', 2, 2, 1, 'R&eacute;ponse au Message 1', '2003-05-14 22:54', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (5, 4, '02.png', 2, 2, 1, 'R&eacute;ponse &agrave; la r&eacute;ponse du Message 1', '2013-05-14 22:55', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (6, 0, '03.png', 2, 2, 1, 'R&eacute;ponse au Message 1', '2013-05-14 22:55', '1.1.76.115', '', 1);
+INSERT INTO posts VALUES (7, 0, '04.png', 2, -2, 2, 'Bien, bien et m&ecirc;me mieux encore', '2012-07-22 13:42:22', '1.1.76.115', '', 1);
 
 CREATE TABLE priv_msgs (
   msg_id int(10) NOT NULL AUTO_INCREMENT,
