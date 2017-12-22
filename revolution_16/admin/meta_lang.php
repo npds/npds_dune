@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='MetaLangAdmin';
 $f_titre = 'META-LANG';
 //==> controle droit
@@ -22,7 +22,7 @@ $hlpfile = "manuels/".$language."/meta_lang.html";
 
 function go_back($label) {
    if (!$label) $label = adm_translate("Retour en arrière");
-   echo '
+      echo '
    <script type="text/javascript">
    //<![CDATA[
    function precedent() {
@@ -41,7 +41,7 @@ function list_meta($meta, $type_meta) {
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
    while ($resultat = sql_fetch_row($Q))  {
-      if ($meta == $resultat[0]) { $sel = 'selected="selected"'; }
+      if ($meta == $resultat[0]) $sel = 'selected="selected"';
       $list .= '
       <option '.$sel.' value="admin.php?op=Meta-LangAdmin&amp;meta='.$resultat[0].'">'.$resultat[0].'</option>';
       $sel = '';
@@ -71,11 +71,13 @@ function list_type_meta($type_meta) {
    $Q = sql_query("SELECT type_meta FROM ".$NPDS_Prefix."metalang GROUP BY type_meta ORDER BY 'type_meta' ASC");
    while ($resultat = sql_fetch_row($Q))  {
       if ($type_meta == $resultat[0]) $sel = 'selected="selected"';
-      $list .= '<option '.$sel.' value="admin.php?op=Meta-LangAdmin&amp;type_meta='.$resultat[0].'">'.$resultat[0].'</option>';
+      $list .= '
+      <option '.$sel.' value="admin.php?op=Meta-LangAdmin&amp;type_meta='.$resultat[0].'">'.$resultat[0].'</option>';
       $sel = '';
    }
    sql_free_result($Q);
-   $list .= '</select>';
+   $list .= '
+   </select>';
    return $list;
 }
 function List_Meta_Lang() {
@@ -240,12 +242,12 @@ function Edit_Meta_Lang() {
          <label class="col-form-label col-sm-4" for="type_uri">'.adm_translate("Restriction").'</label>';
       $sel0='';$sel1='';
       if ($Q['type_uri'] == '+') {
-         if ($Q['obligatoire'] == true) {$sel1 = 'selected="selected"';}
-         else  {$sel1 = ' selected';}
+         if ($Q['obligatoire'] == true) $sel1 = 'selected="selected"';
+         else $sel1 = ' selected';
       }
       else {
-         if ($Q['obligatoire'] == true) {$sel0 = 'selected="selected"';}
-         else {$sel0 = ' selected';}
+         if ($Q['obligatoire'] == true) $sel0 = 'selected="selected"';
+         else $sel0 = ' selected';
       }
       echo '
       <div class="col-sm-8">
@@ -328,8 +330,8 @@ function Creat_Meta_Lang() {
          <label class="col-form-label col-sm-12" for="type_uri">'.adm_translate("Restriction").'</label>
          <div class="col-sm-12">
             <select class="custom-select form-control" name="type_uri">
-               <option'.$sel.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
-               <option'.$sel.' value="plus">'.adm_translate("Seulement pour ...").'</option>
+               <option value="moins">'.adm_translate("Tous sauf pour ...").'</option>
+               <option value="plus">'.adm_translate("Seulement pour ...").'</option>
             </select>
          </div>
       </div>
