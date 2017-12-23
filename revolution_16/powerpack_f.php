@@ -216,7 +216,7 @@ function instant_members_message() {
                 $PopUp=JavaPopUp("readpmsg_imm.php?op=new_msg","IMM",600,500);
                 $PopUp="<a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">";
                 if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon="";}
-                $icon.='<i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i>';
+                $icon.='<i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("New").'<span class=\'badge-pill badge-danger ml-2\'>'.$new_messages.'</span>" data-html="true" data-toggle="tooltip"></i>';
                 if ($ibid[$i]['username']==$cookie[1]) {$icon.='</a>';}
              } else {
                 $messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND type_msg='0' AND dossier='...'"));

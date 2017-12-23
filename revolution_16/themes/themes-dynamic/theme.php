@@ -197,52 +197,54 @@ function userpopover($who) {
             $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
             include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
             include('modules/geoloc/geoloc_conf.php');
-
-            if ($posterdata_extend['M2']!='') {
-               $socialnetworks= explode(';',$posterdata_extend['M2']);
-               foreach ($socialnetworks as $socialnetwork) {
-                  $res_id[] = explode('|',$socialnetwork);
-               }
-               sort($res_id);
-               sort($rs);
-               foreach ($rs as $v1) {
-                  foreach($res_id as $y1) {
-                     $k = array_search( $y1[0],$v1);
-                     if (false !== $k) {
-                        $my_rs.='<a class="mr-3" href="';
-                        if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                        $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
-                        break;
-                     } 
-                     else $my_rs.='';
+            if($user or autorisation(-127)) {
+               if ($posterdata_extend['M2']!='') {
+                  $socialnetworks= explode(';',$posterdata_extend['M2']);
+                  foreach ($socialnetworks as $socialnetwork) {
+                     $res_id[] = explode('|',$socialnetwork);
                   }
-               }
-               $my_rsos[]=$my_rs;
-            }
-            else $my_rsos[]='';
-         }
+                  sort($res_id);
+                  sort($rs);
+                  foreach ($rs as $v1) {
+                     foreach($res_id as $y1) {
+                        $k = array_search( $y1[0],$v1);
+                        if (false !== $k) {
+                           $my_rs.='<a class="mr-3 " href="';
+                           if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                           $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary mb-2"></i></a> ';
+                           break;
+                        } 
+                        else $my_rs.='';
+                     }
+                  }
+                  $my_rsos[]=$my_rs;
+               } else $my_rsos[]='';
+         } else $my_rsos[]='';
+         } else $my_rsos[]='';
       }
    settype($ch_lat,'string');
    $useroutils = '';
-   if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Profile").'</span></a>';
-   if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Message").'</span></a>';
-   if ($temp_user['femail']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Email").'</span></a>';
-   if ($temp_user['url']!='')
-      $useroutils .= '<a class="list-group-item text-primary" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
-   if ($temp_user['mns'])
-       $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
-   if ($user and $temp_user['uid']!= 1) {
-      if ($posterdata_extend[$ch_lat] !='')
-         $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-sm-inline">'.translate("Location").'</span></a>';
+   if($user or autorisation(-127)) {
+      if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+      if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+      if ($temp_user['femail']!='')
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+      if ($temp_user['uid']!= 1)
+         if ($posterdata_extend[$ch_lat] !='')
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
    }
+   if ($temp_user['url']!='')
+      $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+   if ($temp_user['mns'])
+       $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+
    if (stristr($temp_user['user_avatar'],'users_private')) 
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="<h4>'.$temp_user['uname'].'</h4>" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$a].'\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rsos[$a].'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
 
    return $userpop;
    }

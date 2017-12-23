@@ -11,19 +11,17 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 include("functions.php");
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
 include("auth.php");
-   if (!$user) {
+   if (!$user)
       Header("Location: user.php");
-   } else {
+   else {
       include("header.php");
       $userX = base64_decode($user);
       $userdata = explode(':', $userX);
@@ -58,12 +56,12 @@ include("auth.php");
                <option value="...">'.translate("Choose a folder/topic").'...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {
-         if (AddSlashes($dossierX)==$dossier) {$sel='selected="selected"';} else {$sel='';}
+         if (AddSlashes($dossierX)==$dossier) $sel='selected="selected"'; else $sel='';
          echo '
                <option '.$sel.' value="'.$dossierX.'">'.$dossierX.'</option>';
          $tempo[$dossierX]=0;
       }
-      if ($dossier=='All') {$sel='selected="selected"';} else {$sel='';}
+      if ($dossier=='All') $sel='selected="selected"'; else $sel='';
       echo '
                <option '.$sel.' value="All">'.translate("All Topics").'</option>
             </select>
@@ -75,7 +73,7 @@ include("auth.php");
       if (!$dossier) {$ibid="and dossier='...'";}
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
-      if (!$resultID) { forumerror(0005);}
+      if (!$resultID) forumerror(0005);
 
       if (!$total_messages = sql_num_rows($resultID)) {
          echo '
@@ -112,8 +110,8 @@ include("auth.php");
       while ($myrow = sql_fetch_assoc($resultID)) {
          $myrow['subject']=strip_tags($myrow['subject']);
          $posterdata = get_userdata_from_id($myrow['from_userid']);
-         if ($dossier=="All") {$myrow['dossier']="All";}
-         if (!array_key_exists($myrow['dossier'],$tempo)) {$tempo[$myrow['dossier']]=0;}
+         if ($dossier=="All") $myrow['dossier']="All";
+         if (!array_key_exists($myrow['dossier'],$tempo)) $tempo[$myrow['dossier']]=0;
          echo '
                <tr>
                   <td>
@@ -141,11 +139,10 @@ include("auth.php");
          }
          echo '
                   <td>'.userpopover(2).'<a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
-         if ($posterdata['uid']<>1) {
+         if ($posterdata['uid']<>1)
             echo $posterdata['uname'];
-         } else {
+         else
             echo $sitename;
-         }
          echo '</a></td>
                   <td>'.aff_langue($myrow['subject']).'</td>
                   <td align="center" width="20%">'.$myrow['msg_time'].'</td>
@@ -172,9 +169,8 @@ include("auth.php");
 
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid = '".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
-      if (!$resultID) {
+      if (!$resultID)
          forumerror(0005);
-      }
       $total_messages = sql_num_rows($resultID);
 
       echo '
@@ -190,9 +186,9 @@ include("auth.php");
                         <span class="custom-control-indicator bg-danger"></span>
                      </label>
                   </th>';
-      if ($smilies) { echo '
+      if ($smilies) 
+         echo '
                   <th class="n-t-col-xs-1" data-align="center" >&nbsp;</th>';
-      }
       echo '
                   <th data-halign="center" data-sortable="true" data-align="center">'.translate("To").'</th>
                   <th data-halign="center" data-sortable="true" align="center">'.translate("Subject").'</th>
@@ -206,9 +202,8 @@ include("auth.php");
             <tr>
                <td colspan="6" align="center">'.translate("You don't have any Messages.").'</td>
             </tr>';
-      } else {
+      } else
          $display=1;
-      }
       $count=0;
       while ($myrow = sql_fetch_assoc($resultID)) {
          echo '

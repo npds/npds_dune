@@ -16,11 +16,10 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
 include('functions.php');
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
 include('auth.php');
 
 settype($cancel,'string');
@@ -32,46 +31,40 @@ settype($to_user,'string');
 settype($send,'string');
 
    if ($cancel) {
-      if ($full_interface!='short') {
+      if ($full_interface!='short')
          header("Location: viewpmsg.php");
-      } else {
+      else
          header("Location: readpmsg_imm.php?op=new_msg");
-      }
       die();
    }
 
-   if (!$user) {
+   if (!$user)
       Header("Location: user.php");
-   } else {
+   else {
       $userX = base64_decode($user);
       $userdataX = explode(':', $userX);
       $userdata = get_userdata($userdataX[1]);
 
       if ($submitS) {
-         if ($subject == '') {
+         if ($subject == '')
             forumerror('0017');
-         }
          $subject = removeHack($subject);
 
          if ($smilies) {
-            if ($image_subject == '' ) {
+            if ($image_subject == '' )
                forumerror('0018');
-            }
          }
 
-         if ($message == '') {
+         if ($message == '')
             forumerror('0019');
-         }
 
          if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-         if ($sig) {
+         if ($sig)
             $message .= '<br /><br />'.$userdata['user_sig'];
-         }
          $message = aff_code($message);
          $message = str_replace('\n', '<br />', $message);
-         if ($allow_bbcode) {
+         if ($allow_bbcode)
             $message = smile($message);
-         }
          $message = make_clickable($message);
          $message = removeHack(addslashes($message));
          $time = date(translate("dateinternal"),time()+($gmt*3600));
@@ -85,15 +78,13 @@ settype($send,'string');
                if (($to_userid != "") and ($to_userid != 1)) {
                   $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
                   $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message')";
-                  if(!$result = sql_query($sql)) {
+                  if(!$result = sql_query($sql))
                     forumerror('0020');
-                  }
                   if ($copie) {
                      $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
                      $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message', '1', '1')";
-                     if (!$result = sql_query($sql)) {
+                     if (!$result = sql_query($sql))
                         forumerror('0020');
-                     }
                   }
                   global $nuke_url, $subscribe;
                   if ($subscribe) {
@@ -110,20 +101,18 @@ settype($send,'string');
             $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_user'");
             list($to_userid, $user_langue) = sql_fetch_row($res);
 
-            if (($to_userid == '') or ($to_userid == 1)) {
+            if (($to_userid == '') or ($to_userid == 1))
                forumerror('0016');
-            } else {
+            else {
                $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
                $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message')";
-               if (!$result = sql_query($sql)) {
+               if (!$result = sql_query($sql))
                   forumerror('0020');
-               }
                if ($copie) {
                   $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
                   $sql .= "VALUES ('$image_subject', '$subject', '".$userdata['uid']."', '$to_userid', '$time', '$message', '1', '1')";
-                  if (!$result = sql_query($sql)) {
+                  if (!$result = sql_query($sql))
                      forumerror('0020');
-                  }
                }
                global $nuke_url, $subscribe;
                if ($subscribe) {
@@ -135,11 +124,10 @@ settype($send,'string');
             }
          }
          unset($message);unset($sujet);
-         if ($full_interface!='short') {
+         if ($full_interface!='short')
             header("Location: viewpmsg.php");
-         } else {
+         else
             header("Location: readpmsg_imm.php?op=new_msg");
-         }
       }
 
       settype($delete_messages,'string');
@@ -155,25 +143,22 @@ settype($send,'string');
             else
                $status=1;
          }
-         if ($status==1) {
+         if ($status==1)
             header("Location: viewpmsg.php");
-         }
       } else if ($delete_messages ='' and !$msg_id) {
          header("Location: viewpmsg.php");
       }
 
       settype($delete,'integer');
       if ($delete) {
-         if ($type=='outbox') {
+         if ($type=='outbox')
             $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
-         } else {
+         else
             $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
-         }
-         if (!sql_query($sql)) {
+         if (!sql_query($sql))
             forumerror('0021');
-         } else {
+         else
             header("Location: viewpmsg.php");
-         }
       }
       settype($classement,'string');
       if ($classement) {
@@ -181,9 +166,8 @@ settype($send,'string');
          $dossier=strip_tags($dossier);
          $sql = "UPDATE ".$NPDS_Prefix."priv_msgs SET dossier='$dossier' WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
          $result = sql_query($sql);
-         if (!$result) {
+         if (!$result)
             forumerror('0005');
-         }
          header("Location: viewpmsg.php");
       }
 
@@ -217,18 +201,15 @@ settype($send,'string');
          if ($reply) {
             $sql = "SELECT msg_image, subject, from_userid, to_userid FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND msg_id='$msg_id' AND type_msg='0'";
             $result = sql_query($sql);
-            if (!$result) {
+            if (!$result)
                forumerror('0022');
-            }
             $row = sql_fetch_assoc($result);
-            if (!$row) {
+            if (!$row)
                forumerror('0023');
-            }
             $fromuserdata = get_userdata_from_id($row['from_userid']);
             if(array_key_exists(0,$fromuserdata)) {
-               if ($fromuserdata[0]==1) {
+               if ($fromuserdata[0]==1)
                   forumerror('0101');
-               }
             }
             $touserdata = get_userdata_from_id($row['to_userid']);
             if (($user) and ($userdata['uid']!=$touserdata['uid'])) {
@@ -437,9 +418,8 @@ settype($send,'string');
          </div>
       </div>
    </form>';
-         if ($full_interface!='short') {
+         if ($full_interface!='short')
             include('footer.php');
-         }
       }
    }
 ?>

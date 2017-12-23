@@ -36,23 +36,22 @@
    $skinametitre = end($parts);
 
    switch ($skinametitre) {
-      case 'cyborg': 
-        $headerclasses ='navbar navbar-expand-md navbar-dark fixed-top bg-inverse';
+      case 'cyborg':
+      case 'solar':
+         $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
       break;
       case 'lumen':
-         $headerclasses ='navbar navbar-expand-md navbar-light bg-inverse fixed-top';
-      break;
       case 'journal':
       case 'materia':
-         $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary';
+         $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
       break;
-      case 'litera':
       case 'simplex':
+      case 'litera':
       case 'spacelab':
-         $headerclasses = 'navbar navbar-expand-md navbar-light fixed-top bg-primary';
+         $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-        $headerclasses = 'navbar navbar-expand-md navbar-dark fixed-top bg-primary navbar-inverse'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate solar superhero united yeti default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
       break;
    }
 
@@ -292,7 +291,6 @@
               <button type="button" class="btn btn-outline-danger mb-3">Danger</button>
               <button type="button" class="btn btn-outline-dark mb-3">Dark</button>
               <button type="button" class="btn btn-outline-light mb-3">Light</button>
-
             </p>
 
             <div class="bs-component">
