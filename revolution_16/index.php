@@ -45,7 +45,7 @@ if (!function_exists("Mysql_Connexion")) {
 function select_start_page($op) {
     global $Start_Page, $index;
     if (!AutoReg()) { global $user; unset($user); }
-    if (($Start_Page=='') or ($op=="index.php") or ($op=="edito")or ($op=="edito-nonews")) {
+    if (($Start_Page=='') or ($op=="index.php") or ($op=="edito") or ($op=="edito-nonews")) {
        $index = 1;
        theindex($op, '', '');
        die('');
@@ -187,28 +187,34 @@ function aff_news($op,$catid,$marqeur) {
    if ($op=='categories') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
-         echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=$marqeur\" class=\"page_suivante\" title=\"$transl1\">$transl1</a></p>";
+         echo '
+            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ml-2" title="'.$transl1.'" data-toggle="tooltip"></i></a></div>';
       } else {
          if ($marqeur>=$storynum)
-            echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=0\" class=\"page_suivante\" title=\"$transl2\">$transl2</a></p>";
+            echo '
+            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur=0" class="page_suivante" title="'.$transl2.'">'.$transl2.'</a></div>';
       }
    }
    if ($op=='news') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
-         echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=$marqeur\" class=\"page_suivante\" title=\"$transl1\">$transl1</a></p>";
+         echo '
+            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ml-2" title="'.$transl1.'" data-toggle="tooltip"></i></a></div>';
       } else {
          if ($marqeur>=$storynum)
-            echo "<p align=\"right\"><a href=\"index.php?op=$url&amp;catid=$catid&amp;marqeur=0\" class=\"page_suivante\" title=\"$transl2\">$transl2</a></p>";
+            echo '
+            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur=0" class="page_suivante" title="'.$transl2.'">'.$transl2.'</a></div>';
       }
    }
    if ($op=='topics') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
-         echo "<p align=\"right\"><a href=\"index.php?op=newtopic&amp;topic=$catid&amp;marqeur=$marqeur\" class=\"page_suivante\" title=\"$transl1\">$transl1</a></p>";
+         echo '
+            <div align="right"><a href="index.php?op=newtopic&amp;topic='.$topic.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ml-2" title="'.$transl1.'" data-toggle="tooltip"></i></a></div>';
       } else {
          if ($marqeur>=$storynum)
-            echo "<p align=\"right\"><a href=\"index.php?op=newtopic&amp;topic=$catid&amp;marqeur=0\" class=\"page_suivante\" title=\"$transl2\">$transl2</a></p>";
+            echo '
+            <div class="text-right"><a href="index.php?op=newtopic&amp;topic='.$topic.'&amp;marqeur=0" class="page_suivante" title="'.$transl2.'">'.$transl2.'</a></div>';
       }
    }
 }
