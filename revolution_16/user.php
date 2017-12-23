@@ -699,15 +699,14 @@ function main($user) {
    if (!isset($user)) {
       include("header.php");
       echo '<h2>'.translate("User").'</h2>';
-      if ($stop==99) {
+      if ($stop==99)
          echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
-      } elseif ($stop) {
+      elseif ($stop)
          echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
-      }
       if (!$user) {
          echo '
-          <div class="card card-body mb-3">
-          <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
+         <div class="card card-body mb-3">
+            <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
          </div>
           <div class="card card-body">
           <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
@@ -715,14 +714,14 @@ function main($user) {
              <div class="form-group row">
                <label for="inputuser" class="form-control-label col-sm-4">'.translate("Nickname").'</label>
                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'">
+                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'" required="required" />
                </div>
             </div>
             <div class="form-group row">
                <label for="inputPassuser" class="form-control-label col-sm-4">'.translate("Password").'</label>
                <div class="col-sm-8">
-                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'">
-                  <span class="help-block small"><a href="user.php?op=forgetpassword" role="button" title="'.translate("Lost your Password?").'">'.translate("Lost your Password?").'</a></span>
+                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'" required="required" />
+                  <span class="help-block small"><a href="user.php?op=forgetpassword" title="'.translate("Lost your Password?").'">'.translate("Lost your Password?").'</a></span>
                </div>
             </div>
             <input type="hidden" name="op" value="login" />
@@ -737,11 +736,8 @@ function main($user) {
           echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
 
          // include externe file from modules/include for functions, codes ...
-         /*
-         if (file_exists("modules/include/user.inc")) {
+         if (file_exists("modules/include/user.inc"))
             include ("modules/include/user.inc");
-         }
-         */
       }
       include("footer.php");
    } elseif (isset($user)) {
@@ -752,9 +748,8 @@ function main($user) {
 
 function logout() {
    global $NPDS_Prefix, $user, $cookie;
-   if ($cookie[1]!='') {
+   if ($cookie[1]!='')
       sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE username='$cookie[1]'");
-   }
    setcookie('user','',0);
    unset($user);
    setcookie('user_language','',0);
@@ -827,7 +822,7 @@ function valid_password ($code) {
    $ibid=explode("#fpwd#",$code);
    $result = sql_query("SELECT email,pass FROM ".$NPDS_Prefix."users WHERE uname='".decrypt($ibid[0])."'");
    list($email, $pass) = sql_fetch_row($result);
-   if ($email!="") {
+   if ($email!='') {
       $ibid=explode("#fpwd#",decryptK($ibid[1],$pass));
       if ($email==$ibid[0]) {
          include("header.php");
@@ -861,8 +856,7 @@ function valid_password ($code) {
 }
 
 function update_password ($code, $passwd) {
-    global $system;
-    global $NPDS_Prefix;
+    global $system, $NPDS_Prefix;
 
     $ibid=explode("#fpwd#",$code);
     $uname=urlencode(decrypt($ibid[0]));
@@ -875,11 +869,10 @@ function update_password ($code, $passwd) {
           if ((time()-$ibid[2])<86400) {
              // le mot de passe est-il identique
              if ($ibid[1]==$passwd) {
-                if (!$system) {
+                if (!$system)
                    $cryptpass=crypt($ibid[1],$ibid[1]);
-                } else {
+                else
                    $cryptpass=$ibid[1];
-                }
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
                 message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'</div>');
                 Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
@@ -913,8 +906,7 @@ function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuor
 }
 
 function login($uname, $pass) {
-    global $NPDS_Prefix;
-    global $setinfo, $system;
+    global $NPDS_Prefix, $setinfo, $system;
 
     $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
     if (sql_num_rows($result)==1) {
@@ -927,18 +919,16 @@ function login($uname, $pass) {
        }
        $dbpass=$setinfo['pass'];
        if (cur_charset=="utf-8") {
-          if (!$system) {
+          if (!$system)
              $passwd=crypt($pass,$dbpass);
-          } else {
+          else
              $passwd=$pass;
-          }
           if (strcmp($dbpass,$passwd)!=0) {
              $pass=utf8_decode($pass);
-             if (!$system) {
+             if (!$system)
                 $passwd=crypt($pass,$dbpass);
-             } else {
+             else
                 $passwd=$pass;
-             }
              if (strcmp($dbpass,$passwd)!=0) {
                 Header("Location: user.php?stop=1");
                 return;
@@ -946,14 +936,13 @@ function login($uname, $pass) {
           }
           docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
        } else {
-          if (!$system) {
+          if (!$system)
              $passwd=crypt($pass,$dbpass);
-          } else {
+          else
              $passwd=$pass;
-          }
-          if (strcmp($dbpass,$passwd)==0) {
+          if (strcmp($dbpass,$passwd)==0)
              docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
-          } else {
+          else {
              Header("Location: user.php?stop=1");
              return;
           }
@@ -961,23 +950,20 @@ function login($uname, $pass) {
 
        $ip = getip();
        $result = sql_query("SELECT * FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
-       if (sql_num_rows($result)==1) {
+       if (sql_num_rows($result)==1)
           sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
-       }
 
        Header("Location: index.php");
-    } else {
+    } else
        Header("Location: user.php?stop=1");
-    }
 }
 
 function edituser() {
-    global $NPDS_Prefix;
-    global $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
+    global $NPDS_Prefix, $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
     include("header.php");
     $userinfo=getusrinfo($user);
     nav($userinfo['mns']);
-    
+
     global $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2,$B1;
     $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='".$userinfo['uid']."'");
     list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
