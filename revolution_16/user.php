@@ -120,7 +120,7 @@ function showimage() {
    if ($ibid=theme_image("forum/avatar/blank.gif")) {$imgtmp=substr($ibid,0,strrpos($ibid,"/")+1);} else {$imgtmp="images/forum/avatar/";}
    echo "'$imgtmp' + document.Register.user_avatar.options[document.Register.user_avatar.selectedIndex].value\n";
    echo "}
-   //]]
+   //]]>
    </script>";
 }
 
