@@ -11,9 +11,8 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 include("language/lang-adm-$language.php");
 function Access_Error () {
    include("admin/die.php");
@@ -50,9 +49,8 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
 }
 
 $filemanager=false;
-if (file_exists("filemanager.conf")) {
+if (file_exists("filemanager.conf"))
    include_once("filemanager.conf");
-}
 
 function login() {
    global $adminimg;
@@ -136,12 +134,11 @@ function GraphicAdmin($hlpfile) {
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-   if ($Q['radminsuper']==1) {
    // on prend tout ce qui a une interface 
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");}
-   else {
+   if ($Q['radminsuper']==1)
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");
+   else
       $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
-   }
 
    $j=0;
    while($SAQ=sql_fetch_assoc($R)) {
