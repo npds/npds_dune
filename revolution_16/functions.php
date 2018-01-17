@@ -38,11 +38,10 @@ function get_contributeurs($fid, $tid) {
 
 function get_total_posts($fid, $tid, $type, $Mmod) {
    global $NPDS_Prefix;
-   if ($Mmod) {
+   if ($Mmod)
       $post_aff='';
-   } else {
+   else
       $post_aff=" AND post_aff='1'";
-   }
    switch($type) {
       case 'forum':
            $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$fid'$post_aff";
@@ -81,9 +80,9 @@ function get_last_post($id, $type, $cmd, $Mmod) {
       return("ERROR");
 
    if ($cmd=='infos') {
-      if (!$myrow = sql_fetch_row($result)) {
+      if (!$myrow = sql_fetch_row($result))
          $val=translate("No posts");
-      } else {
+      else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
          $val='<span class="small">'.convertdate($myrow[0]).' <a href="user.php?op=userinfo&amp;uname='.$rowQ1[0]['uname'].'" >'.$rowQ1[0]['uname'].'</a></span>';
       }
@@ -144,11 +143,10 @@ function user_is_moderator($uidX,$passwordX,$forum_accessX) {
    $userX=sql_fetch_assoc($result1);
    $password = $userX['pass'];
    $userX=sql_fetch_assoc($result2);
-   if ((md5($password) == $passwordX) and ($forum_accessX<=$userX['level']) and ($userX['level']>1)) {
+   if ((md5($password) == $passwordX) and ($forum_accessX<=$userX['level']) and ($userX['level']>1))
       return ($userX['level']);
-   } else {
+   else
       return(false);
-   }
 }
 
 function get_userdata_from_id($userid) {
@@ -458,11 +456,11 @@ function member_qualif($poster, $posts, $rank) {
    $tmp='<img class="n-smil" src="'.$imgtmpP.'" alt="" />'.$posts.'&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
-      if ($posts>=10 and $posts<30) {$nux=1;}
-      if ($posts>=30 and $posts<100) {$nux=2;}
-      if ($posts>=100 and $posts<300) {$nux=3;}
-      if ($posts>=300 and $posts<1000) {$nux=4;}
-      if ($posts>=1000) {$nux=5;}
+      if ($posts>=10 and $posts<30) $nux=1;
+      if ($posts>=30 and $posts<100) $nux=2;
+      if ($posts>=100 and $posts<300) $nux=3;
+      if ($posts>=300 and $posts<1000) $nux=4;
+      if ($posts>=1000) $nux=5;
       for ($i=0; $i<$nux; $i++) {
          $tmp.='<i class="fa fa-star-o text-success mr-1"></i>';
       }
@@ -591,16 +589,15 @@ function autorize() {
       $myrow = sql_fetch_assoc(sql_query("SELECT forum_moderator FROM ".$NPDS_Prefix."forums WHERE (forum_id='$IdForum')"));
       if ($myrow) {
          $moderator = get_moderator($myrow['forum_moderator']);
-         $moderator=explode(" ",$moderator);
+         $moderator=explode(' ',$moderator);
          if (isset($user)) {
             $userX = base64_decode($user);
             $userdata = explode(":", $userX);
             for ($i = 0; $i < count($moderator); $i++) {
                if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
             }
-            if ($userdata[0]==$poster_id) {
+            if ($userdata[0]==$poster_id)
                $Mmod=true;
-            }
          }
       }
    }
@@ -610,8 +607,7 @@ function autorize() {
 function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
    // anti_flood : nd de post dans les 90 puis 30 dernières minutes / les modérateurs echappent à cette règle
    // security.log est utilisée pour enregistrer les tentatives
-   global $NPDS_Prefix;
-   global $anonymous;
+   global $NPDS_Prefix, $anonymous;
    if (!array_key_exists('uname',$userdataX)) $compte=$anonymous; else $compte=$userdataX['uname'];
 
    if ((!$modoX) AND ($paramAFX>0)) {
@@ -624,13 +620,13 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
       $timebase=date("Y-m-d H:i",time()+($gmtX*3600)-5400);
       list($time90)=sql_fetch_row(sql_query ($sql.$timebase.$sql2));
       if ($time90>($paramAFX*2)) {
-         Ecr_Log("security", "Forum Anti-Flood : ".$compte, "");
+         Ecr_Log("security", "Forum Anti-Flood : ".$compte, '');
          forumerror(translate("You are not allowed to post in this forum"));
       } else {
          $timebase=date("Y-m-d H:i",time()+($gmtX*3600)-1800);
          list($time30)=sql_fetch_row(sql_query($sql.$timebase.$sql2));
          if ($time30>$paramAFX) {
-            Ecr_Log("security", "Forum Anti-Flood : ".$compte, "");
+            Ecr_Log("security", "Forum Anti-Flood : ".$compte, '');
             forumerror(translate("You are not allowed to post in this forum"));
          }
       }
@@ -774,13 +770,12 @@ function forum($rowQ1) {
                          $ibid.='
                          <span class="d-flex w-100 mt-1">
                            <label class="custom-control custom-checkbox">';
-                           if ($tab_subscribe[$myrow['forum_id']]) {
+                           if ($tab_subscribe[$myrow['forum_id']])
                               $ibid.='
                               <input class="custom-control-input n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
-                           } else {
+                           else
                               $ibid.='
                               <input class="custom-control-input n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
-                           }
                             $ibid.='
                                <span class="custom-control-indicator"></span>
                             </label>
@@ -830,11 +825,10 @@ function sub_forum_folder($forum) {
    if ($ibid=theme_image("forum/icons/red_sub_folder.gif")) {$imgtmpR=$ibid;} else {$imgtmpR="images/forum/icons/red_sub_folder.gif";}
    if ($ibid=theme_image("forum/icons/sub_folder.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/sub_folder.gif";}
 
-   if (($totalT-$totalF)>0)  {
+   if (($totalT-$totalF)>0)
       $ibid='<img src="'.$imgtmpR.'" alt="" />';
-   } else {
+   else
       $ibid='<img src="'.$imgtmp.'" alt="" />';
-   }
    return ($ibid);
 }
 #autodoc paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_page, $start) : Retourne un bloc de pagination
