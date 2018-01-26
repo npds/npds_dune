@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='mod_users';
 $f_titre = adm_translate("Edition des Utilisateurs");
 
@@ -82,9 +82,8 @@ function extractUserCSV() {
       if ($temp_user2) {
          foreach($temp_user2 as $val2) {
            $val2 = str_replace("\r\n", "\n", $val2);
-           if (preg_match("#[$deliminator\"\n\r]#",$val2)) {
+           if (preg_match("#[$deliminator\"\n\r]#",$val2))
               $val2 = '"'.str_replace('"', '""', $val2).'"';
-           }
            $line .= $val2.$deliminator;
           }
       }
@@ -112,9 +111,8 @@ function modifyUser($chng_user) {
       $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='$chng_uid'");
       list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
       include ("modules/sform/extend-user/adm_extend-user.php");
-   } else {
+   } else
       error_handler("Utilisateur inexistant !"."<br />");
-   }
    adminfoot('','','','');
 }
 
@@ -170,9 +168,8 @@ function Minisites($chng_mns,$chng_uname) {
       while (false!==($file = readdir($handle))) $filelist[] = $file;
       asort($filelist);
       while (list ($key, $file) = each ($filelist)) {
-         if ($file<>'.' and $file<>'..') {
+         if ($file<>'.' and $file<>'..')
             @copy($DOCUMENTROOT.$directory.'/'.$file, $repertoire.'/'.$file);
-         }
       }
       closedir($handle);
       unset ($filelist);
@@ -198,20 +195,17 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
    
    $result = sql_query("SELECT mns FROM ".$NPDS_Prefix."users WHERE uid='$chng_uid'");
    list($tmp_mns)=sql_fetch_row($result);
-   if ($tmp_mns==0 and $chng_mns==1) {
+   if ($tmp_mns==0 and $chng_mns==1)
       Minisites($chng_mns,$chng_uname);
-   }
 
-   if ($chng_send_email=='') {$chng_send_email='0';}
-   if ($chng_is_visible=='') {
+   if ($chng_send_email=='') $chng_send_email='0';
+   if ($chng_is_visible=='')
       $chng_is_visible='1';
-   } else {
+   else
       $chng_is_visible='0';
-   }
-   if ($raz_avatar) {$chng_avatar="blank.gif";}
-   if ($tmp==0) {
+   if ($raz_avatar) $chng_avatar="blank.gif";
+   if ($tmp==0)
       sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
-   }
    if ($tmp==1) {
       global $system;
       if (!$system) {
@@ -232,9 +226,9 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       $tab_groupe=explode(',',$chng_groupe);
       if ($tab_groupe) {
          foreach($tab_groupe as $groupevalue) {
-           if ( ($groupevalue=="0") and ($groupevalue!='') ) {$chng_groupe='';}
-           if ($groupevalue=="1") {$chng_groupe='';}
-           if ($groupevalue>"127") {$chng_groupe='';}
+           if ( ($groupevalue=="0") and ($groupevalue!='') ) $chng_groupe='';
+           if ($groupevalue=="1") $chng_groupe='';
+           if ($groupevalue>"127") $chng_groupe='';
          }
       }
    }
@@ -296,11 +290,10 @@ switch ($op) {
            include ("modules/upload/upload.conf.php");
            if ($DOCUMENTROOT=='') {
               global $DOCUMENT_ROOT;
-              if ($DOCUMENT_ROOT) {
+              if ($DOCUMENT_ROOT)
                  $DOCUMENTROOT=$DOCUMENT_ROOT;
-              } else {
+              else
                  $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-              }
            }
            $user_dir=$DOCUMENTROOT.$racine.'/users_private/'.$del_uname;
 
@@ -353,9 +346,8 @@ switch ($op) {
          adminfoot('','','','');
          return;
       }
-      if (!$system) {
+      if (!$system)
          $add_pass = crypt($add_pass,$add_pass);
-      }
       if ($add_is_visible=='') {
          $add_is_visible='1';
       } else {
@@ -368,13 +360,12 @@ switch ($op) {
       $result = sql_query($sql);
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
-      if ($add_user_viewemail) {
+      if ($add_user_viewemail)
          $attach = 1;
-      } else {
+      else
          $attach = 0;
-      }
       if ($add_group==0) $add_group='';
-      if ($add_group) {$add_group=implode(',',$add_group);}
+      if ($add_group) $add_group=implode(',',$add_group);
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','$chng_rank','$add_level','1','$add_group')");
 
       Minisites($add_mns,$add_uname);

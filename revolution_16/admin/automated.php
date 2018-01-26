@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -36,17 +36,15 @@ function puthome($ihome) {
    }
    echo '
          <div class="col-sm-8">
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="ihome" value="0" '.$sel1.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="ihome" value="1" '.$sel2.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Non").'</span>
-            </label>
-             <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
+            <div class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" id="ihome" name="ihome" value="0" '.$sel1.' />
+               <label class="custom-control-label" for="ihome">'.adm_translate("Oui").'</label>
+            </div>
+            <div class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" id="ihome1" name="ihome" value="1" '.$sel2.' />
+               <label class="custom-control-label" for="ihome1">'.adm_translate("Non").'</label>
+            </div>
+            <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
          </div>
       </div>';
    $sel1 = '';
@@ -55,7 +53,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8">
-            <label class="custom-control custom-radio">';
+            <div class="custom-control custom-radio">';
    if ($ihome<0) {
       $sel1 = 'checked="checked"';
       $sel2 = '';
@@ -66,15 +64,13 @@ function puthome($ihome) {
       $sel2 = '';
    }
    echo '
-               <input class="custom-control-input" type="radio" name="members" value="1" '.$sel1.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="members" value="0" '.$sel2.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Non").'</span>
-            </label>
+               <input class="custom-control-input" type="radio" id="members" name="members" value="1" '.$sel1.' />
+               <label class="custom-control-label" for="members">'.adm_translate("Oui").'</label>
+            </div>
+            <div class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" id="members1" name="members" value="0" '.$sel2.' />
+               <label class="custom-control-label" for="members1">'.adm_translate("Non").'</label>
+            </div>
          </div>
       </div>';
     // ---- Groupes

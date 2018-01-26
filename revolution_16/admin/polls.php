@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='create';
 $f_titre = adm_translate("Les sondages");
 //==> controle droit
@@ -83,11 +83,10 @@ function poll_createPoll() {
    echo '
             <div class="form-group row">
                <div class="col-sm-9 ml-sm-auto">
-                  <label class="custom-control custom-checkbox">
-                     <input class="custom-control-input" type="checkbox" name="poll_type" value="1" />
-                     <span class="custom-control-indicator"></span>
-                     <span class="custom-control-description">'.adm_translate("Seulement aux membres").'</span>
-                  </label>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                     <input class="custom-control-input" type="checkbox" id="poll_type" name="poll_type" value="1" />
+                     <label class="custom-control-label" for="poll_type">'.adm_translate("Seulement aux membres").'</label>
+                  </div>
                </div>
             </div>
             <div class="form-group row">
@@ -272,24 +271,22 @@ function poll_editPollPosted() {
       echo '
       <div class="form-group row">
          <div class="col-sm-9 ml-sm-auto">
-            <label class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" name="poll_type" value="1"';
+            <div class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" id="poll_type" name="poll_type" value="1"';
       if ($pollType == "1") echo ' checked="checked"';
       echo ' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.adm_translate("Seulement aux membres").'</span>
-            </label>
+               <label class="custom-control-label" for="poll_type">'.adm_translate("Seulement aux membres").'</label>
+            </div>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-9 ml-sm-auto">
-            <label class="custom-control custom-checkbox text-danger">
-               <input class="custom-control-input" type="checkbox" name="poll_close" value="1"';
+            <div class="custom-control custom-checkbox text-danger">
+               <input class="custom-control-input" type="checkbox" id="poll_close" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
       echo ' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Vote fermé").'</span>
-            </label>
+               <label class="custom-control-label" for="poll_close">'.adm_translate("Vote fermé").'</label>
+            </div>
          </div>
       </div>
       <div class="form-group row">

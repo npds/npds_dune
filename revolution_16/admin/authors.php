@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -30,21 +30,19 @@ $hlpfile = "manuels/$language/authors.html";
       if($fcategorie==6) {
          $listdroitsmodulo .= '
          <div class="col-md-4 col-sm-6">
-            <label class="custom-control custom-checkbox" for="ad_d_m_'.$fnom.'">
+            <div class="custom-control custom-checkbox">
                <input class="ckbm custom-control-input" id="ad_d_m_'.$fnom.'" type="checkbox" name="ad_d_m_'.$fnom.'" value="'.$fid.'" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.$fnom_affich.'</span>
-            </label>
+               <label class="custom-control-label" for="ad_d_m_'.$fnom.'">'.$fnom_affich.'</label>
+            </div>
          </div>';
       } else {
          if ($fid!=12)
          $listdroits .='
          <div class="col-md-4 col-sm-6">
-            <label class="custom-control custom-checkbox" for="ad_d_'.$fid.'">
+            <div class="custom-control custom-checkbox">
                <input class="ckbf custom-control-input" id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.$fnom_affich.'</span>
-            </label>
+               <label class="custom-control-label" for="ad_d_'.$fid.'">'.$fnom_affich.'</label>
+            </div>
          </div>';
       }
    }
@@ -175,11 +173,10 @@ if ($supadm==1) echo'
       </div>
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto">
-            <label class="custom-control custom-checkbox">
+            <div class="custom-control custom-checkbox">
                <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="add_radminsuper" value="1" />
-               <span class="custom-control-indicator bg-danger"></span>
-               <span class="custom-control-description text-danger">'.adm_translate("Super administrateur").'</span>
-            </label>
+               <label class="custom-control-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
+            </div>
             <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
          </div>
       </div>
@@ -318,22 +315,20 @@ function modifyadmin($chng_aid) {
       if($fcategorie==6) {
          $listdroitsmodulo .='
          <div class="col-md-4 col-sm-6">
-            <label class="custom-control custom-checkbox">
+            <div class="custom-control custom-checkbox">
                <input class="ckbm custom-control-input" id="ad_d_m_'.$fnom.'" type="checkbox" '.$chec.' name="ad_d_m_'.$fnom.'" value="'.$fid.'" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.$fnom_affich.'</span>
-            </label>
+               <label class="custom-control-label" for="ad_d_m_'.$fnom.'">'.$fnom_affich.'</label>
+            </div>
          </div>';
       }
       else { 
          if ($fid!=12)
          $listdroits .='
          <div class="col-md-4 col-sm-6">
-               <label class="custom-control custom-checkbox" for="ad_d_'.$fid.'">
+            <div class="custom-control custom-checkbox">
                <input class="ckbf custom-control-input" id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.$fnom_affich.'</span>
-            </label>
+               <label class="custom-control-label" for="ad_d_'.$fid.'">'.$fnom_affich.'</label>
+            </div>
          </div>';
       }
    } 
@@ -385,11 +380,10 @@ function modifyadmin($chng_aid) {
          </div>
          <div class="form-group row">
             <div class="col-sm-8 ml-sm-auto">
-               <label class="custom-control custom-checkbox">
+               <div class="custom-control custom-checkbox">
                   <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
-                  <span class="custom-control-indicator bg-danger"></span>
-                  <span class="custom-control-description text-danger">'.adm_translate("Super administrateur").'</span>
-               </label>
+                  <label class="custom-control-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
+               </div>
                <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
             </div>
          </div>

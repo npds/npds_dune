@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='ForumAdmin';
 $f_titre = adm_translate('Gestion des forums');
 //==> controle droit
@@ -573,15 +573,14 @@ function ForumCatAdd($catagories) {
 }
 
 function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg) {
-    global $hlpfile;
-    global $NPDS_Prefix;
+    global $hlpfile, $NPDS_Prefix;
 
     // il faut supprimer le dernier , à cause de l'auto-complete
     $forum_mod=rtrim(chop($forum_mod),",");
     $moderator=explode(",",$forum_mod);
 
-    $forum_mod="";
-    $error_mod="";
+    $forum_mod='';
+    $error_mod='';
     for ($i = 0; $i < count($moderator); $i++) {
        $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
        list($forum_moderator) = sql_fetch_row($result);
@@ -592,7 +591,7 @@ function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id
           $error_mod.=$moderator[$i]." ";
        }
     }
-    if ($error_mod!="") {
+    if ($error_mod!='') {
        include ("header.php");
        GraphicAdmin($hlpfile);
        opentable();

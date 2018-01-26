@@ -4,13 +4,13 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Major changes from ALAT 2004-2005                                    */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='sections';
 $f_titre = adm_translate("Rubriques actives");
 //==> controle droit
@@ -27,17 +27,16 @@ function groupe($groupe) {
       $selectionne=0;
       if ($les_groupes) {
          foreach ($les_groupes as $groupevalue) {
-            if (($groupe_id==$groupevalue) and ($groupe_id!=0)) {$selectionne=1;}
+            if (($groupe_id==$groupevalue) and ($groupe_id!=0)) $selectionne=1;
          }
       }
-      if ($selectionne==1) {
+      if ($selectionne==1)
          $str.='<option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>';
-      } else {
+      else
          $str.='<option value="'.$groupe_id.'">'.$groupe_name.'</option>';
-      }
       $nbg++;
    }
-   if ($nbg>5) {$nbg=5;}
+   if ($nbg>5) $nbg=5;
    return ('<select class="form-control" name="Mmembers[]" multiple size="'.$nbg.'">'.$str.'</select>');
 }
 
@@ -46,56 +45,50 @@ function droits($member) {
    <fieldset>
    <legend>'.adm_translate("Droits").'</legend>
    <div class="form-group">
-      <label class="custom-control custom-radio text-danger">';
-   if ($member==-127) {$checked=' checked="checked"';} else {$checked='';}
+      <div class="custom-control custom-radio custom-control-inline">';
+   if ($member==-127) $checked=' checked="checked"'; else $checked='';
       echo '
-         <input class="custom-control-input" type="radio" name="members" value="-127" '.$checked.' />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Administrateurs").'</span>
-      </label>
-      <label class="custom-control custom-radio text-danger">';
-   if ($member==-1) {$checked=' checked="checked"';} else {$checked='';}
+         <input class="custom-control-input" type="radio" id="adm" name="members" value="-127" '.$checked.' />
+         <label class="custom-control-label" for="adm">'.adm_translate("Administrateurs").'</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">';
+   if ($member==-1) $checked=' checked="checked"'; else $checked='';
    echo '
-         <input class="custom-control-input" type="radio" name="members" value="-1" '.$checked.' />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Anonymes").'</span>
-      </label>';
+         <input class="custom-control-input" type="radio" id="ano" name="members" value="-1" '.$checked.' />
+         <label class="custom-control-label" for="ano">'.adm_translate("Anonymes").'</label>
+      </div>';
    echo '
-      <label class="custom-control custom-radio text-danger">';
+      <div class="custom-control custom-radio custom-control-inline">';
    if ($member>0) {
       echo '
-         <input class="custom-control-input" type="radio" name="members" value="1" checked="checked" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Membres").'</span>
-      </label>
-      <label class="custom-control custom-radio">
-         <input class="custom-control-input" type="radio" name="members" value="0" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Tous").'</span>
-      </label>
+         <input class="custom-control-input" type="radio" id="mem" name="members" value="1" checked="checked" />
+         <label class="custom-control-label" for="mem">'.adm_translate("Membres").'</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+         <input class="custom-control-input" type="radio" id="tous" name="members" value="0" />
+         <label class="custom-control-label" for="tous">'.adm_translate("Tous").'</label>
+      </div>
    </div>
    <div class="form-group">
       <label class="col-form-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
    </div>';
    } else {
-      if ($member==0) {$checked=' checked="checked"';} else {$checked='';}
+      if ($member==0) $checked=' checked="checked"'; else $checked='';
       echo '
-         <input class="custom-control-input" type="radio" name="members" value="1" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Membres").'</span>
-      </label>
-      <label class="custom-control custom-radio">
-         <input class="custom-control-input" type="radio" name="members" value="0"'.$checked.' />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Tous").'</span>
-      </label>
+         <input class="custom-control-input" type="radio" id="mem" name="members" value="1" />
+         <label class="custom-control-label" for="mem">'.adm_translate("Membres").'</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+         <input class="custom-control-input" type="radio" id="tous" name="members" value="0"'.$checked.' />
+         <label class="custom-control-label" for="tous">'.adm_translate("Tous").'</label>
+      </div>
    </div>
    <div class="form-group">
       <label class="col-form-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
       </div>
-   </fielset>';
+   </fieldset>';
    }
 }
 
@@ -145,9 +138,9 @@ function droits_publication($secid) {
             $droits=$droits+$type;
          }
       }
-   } else {
-      $droits=7;
    }
+   else
+      $droits=7;
    return ($droits);
 }
 
@@ -531,15 +524,13 @@ function updatecompat($article, $admin_rub, $idx) {
 function rubriquedit($rubid) {
    global $hlpfile, $NPDS_Prefix, $radminsuper, $f_meta_nom, $f_titre, $adminimg;
 
-   if ($radminsuper!=1) {
+   if ($radminsuper!=1)
       Header("Location: admin.php?op=sections");
-   }
 
    $result = sql_query("SELECT rubid, rubname, intro, enligne, ordre FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubid'");
    list($rubid, $rubname, $intro, $enligne, $ordre) = sql_fetch_row($result);
-   if (!sql_num_rows($result)) {
+   if (!sql_num_rows($result))
       Header("Location: admin.php?op=sections");
-   }
 
    include("header.php");
    GraphicAdmin($hlpfile);
@@ -581,16 +572,14 @@ function rubriquedit($rubid) {
    }
    echo '
             <div class="col-sm-9">
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="enligne" value="0" '.$sel2.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Non").'</span>
-               </label>
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="enligne" value="1" '.$sel1.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Oui").'</span>
-               </label>
+               <div class="custom-control custom-radio custom-control-inline">
+                  <input class="custom-control-input" type="radio" id="enligne_n" name="enligne" value="0" '.$sel2.' />
+                  <label class="custom-control-label" for="enligne_n">'.adm_translate("Non").'</label>
+               </div>
+               <div class="custom-control custom-radio custom-control-inline">
+                  <input class="custom-control-input" type="radio" id="enligne_y" name="enligne" value="1" '.$sel1.' />
+                  <label class="custom-control-label" for="enligne_y">'.adm_translate("Oui").'</label>
+               </div>
             </div>
          </div>
          <div class="form-group row">

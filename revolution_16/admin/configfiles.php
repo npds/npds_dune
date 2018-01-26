@@ -6,13 +6,13 @@
 /* Manage other configuration and customisation files                   */
 /* by Hotfirenet 2004                                                   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='ConfigFiles';
 $f_titre = adm_translate("Les fichiers de configuration");
 //==> controle droit
@@ -32,9 +32,9 @@ function ConfigFiles($contents, $files) {
    <table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-halign="center" data-align="center" >'.adm_translate('Nom').'</th>
-            <th data-halign="center" >'.adm_translate('Description').'</th>
-            <th data-halign="center" data-align="right" >'.adm_translate('Fonctions').'</th>
+            <th class="n-t-col-xs-4" data-halign="center" data-align="center" >'.adm_translate('Nom').'</th>
+            <th class="n-t-col-xs-6" data-halign="center" >'.adm_translate('Description').'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="right" >'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>
@@ -223,23 +223,22 @@ function delete_configfile($fileX) {
    adminfoot('','','','');
 }
 function ConfigFiles_delete($modele) {
-   if ($modele=='header_before') {
+   if ($modele=='header_before')
       @unlink("modules/include/header_before.inc");
-   } elseif ($modele=='header_head')  {
+   elseif ($modele=='header_head')
       @unlink("modules/include/header_head.inc");
-   } elseif ($modele=='body_onload')  {
+   elseif ($modele=='body_onload')
       @unlink("modules/include/body_onload.inc");
-   } elseif ($modele=='header_after')  {
+   elseif ($modele=='header_after')
       @unlink("modules/include/header_after.inc");
-   } elseif ($modele=='footer_before')  {
+   elseif ($modele=='footer_before')
       @unlink("modules/include/footer_before.inc");
-   } elseif ($modele=='footer_after')  {
+   elseif ($modele=='footer_after')
       @unlink("modules/include/footer_after.inc");
-   } elseif ($modele=='new_user')  {
+   elseif ($modele=='new_user')
       @unlink("modules/include/new_user.inc");
-   } elseif ($modele=='user')  {
+   elseif ($modele=='user')
       @unlink("modules/include/user.inc");
-   }
 
    global $aid; Ecr_Log('security', "DeleteConfigFile($modele) by AID : $aid", '');
    header("location: admin.php?op=ConfigFiles");

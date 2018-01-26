@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='mblock';
 $f_titre = adm_translate("Bloc Principal");
 //==> controle droit
@@ -66,20 +66,20 @@ function mblock() {
 }
 
 function changemblock($title, $content) {
-    global $NPDS_Prefix;
-    $title = stripslashes(FixQuotes($title));
-    $content = stripslashes(FixQuotes($content));
-    sql_query("UPDATE ".$NPDS_Prefix."mainblock SET title='$title', content='$content'");
-    global $aid; Ecr_Log("security", "ChangeMainBlock($title) by AID : $aid", "");
-    Header("Location: admin.php?op=adminMain");
+   global $NPDS_Prefix;
+   $title = stripslashes(FixQuotes($title));
+   $content = stripslashes(FixQuotes($content));
+   sql_query("UPDATE ".$NPDS_Prefix."mainblock SET title='$title', content='$content'");
+   global $aid; Ecr_Log('security', "ChangeMainBlock($title) by AID : $aid", '');
+   Header("Location: admin.php?op=adminMain");
 }
 
 switch ($op) {
-    case "mblock":
-         mblock();
-         break;
-    case "changemblock":
-         changemblock($title, $content);
-         break;
+   case 'mblock':
+      mblock();
+   break;
+    case 'changemblock':
+      changemblock($title, $content);
+   break;
 }
 ?>

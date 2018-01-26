@@ -3,13 +3,13 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='supercache';
 $f_titre = adm_translate("SuperCache");
 //==> controle droit
@@ -24,7 +24,7 @@ function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt
     $content .= "$line";
     $content .= "/* DUNE by NPDS / SUPER-CACHE engine                                    */\n";
     $content .= "/*                                                                      */\n";
-    $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+    $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
     $content .= "/*                                                                      */\n";
     $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
     $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -83,32 +83,17 @@ function main() {
       <legend>'.adm_translate("Activation").'</legend>
          <div class="form-group">
             <div>';
-      if ($SuperCache==true) {
-         echo '
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="xsupercache" value="true" checked="checked" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Oui").'</span>
-               </label>
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="xsupercache" value="false" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Non").'</span>
-               </label>';
-      } else {
-         echo '
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="xsupercache" value="true" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Oui").'</span>
-               </label>
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="xsupercache" value="false" checked="checked" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Non").'</span>
-               </label>';
-      }
-      echo'
+   $cky=''; $ckn='';
+   if ($SuperCache==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
+   echo '
+               <div class="custom-control custom-radio custom-control-inline">
+                  <input class="custom-control-input" type="radio" id="xsupercache_y" name="xsupercache" value="true" '.$cky.' />
+                  <label class="custom-control-label" for="xsupercache_y">'.adm_translate("Oui").'</label>
+               </div>
+               <div class="custom-control custom-radio custom-control-inline">
+                  <input class="custom-control-input" type="radio" id="xsupercache_n" name="xsupercache" value="false" '.$ckn.' />
+                  <label class="custom-control-label" for="xsupercache_n">'.adm_translate("Non").'</label>
+               </div>
             </div>
          </div>
       </fieldset>';

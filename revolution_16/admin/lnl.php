@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='lnl';
 $f_titre = adm_translate("Petite Lettre D'information");
 
@@ -43,8 +43,9 @@ function ShowHeader() {
       <tbody>';
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
-      if (strlen($text)>100) {$text=substr($text,0,100).'<span class="text-danger"> .....</span>';};
-      if ($html==1) $html="htm"; else $html="txt";
+      if (strlen($text)>100) 
+      $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
+      if ($html==1) $html='html'; else $html='txt';
       echo '
          <tr>
             <td>'.$ref.'</td>
@@ -59,50 +60,59 @@ function ShowHeader() {
 }
 
 function Detail_Header_Footer($ibid, $type) {
-   global $hlpfile, $NPDS_Prefix;
-
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
    GraphicAdmin($hlpfile);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
    // $type = HED or FOT
    $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='$type' and ref='$ibid'");
    $tmp=sql_fetch_row($result);
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-   if ($type=="HED") {
+   echo '
+   <hr />
+   <h3 class="mb-2">';
+   if ($type=="HED")
       echo adm_translate("Message d'entête");
-   } else {
+   else
       echo adm_translate("Message de pied de page");
-   }
-   echo " - ";
-   if ($tmp[1]==1) {
-      echo adm_translate("Prévisualiser")." HTML<hr noshade=\"noshade\" />";
-      echo $tmp[0];
-   } else {
-      echo adm_translate("Prévisualiser")." ".adm_translate("TEXTE")."<hr noshade=\"noshade\" />";
-      echo nl2br($tmp[0]);
-   }
-   echo "</td></tr></table>\n";
-   echo "<br />\n";
-   echo "<form action=\"admin.php\" method=\"post\" name=\"adminForm\">";
-   echo "<b>Code Detail</b><br />";
-   echo "<textarea class=\"textbox\" cols=\"70\" rows=\"20\" name=\"xtext\" style=\"width: 100%;\">".htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset)."</textarea>";
+   echo ' - '.adm_translate("Prévisualiser");
+   if ($tmp[1]==1)
+      echo '<code> HTML</code></h3>
+      <div class="card card-body">'.$tmp[0].'</div>';
+   else
+      echo '<code>'.adm_translate("TEXTE").'</code></h3>
+      <div class="card card-body">'.nl2br($tmp[0]).'</div>';
+   echo '
+   <hr />
+   <form action="admin.php" method="post" name="adminForm">
+      <div class="form-group row">
+      <label class="col-form-label col-sm-12" for="xtext">Code Detail</label>
+         <div class="col-sm-12">
+            <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
+         </div>
+      </div>';
    if ($tmp[1]==1) {
       global $tiny_mce_relurl;
-      $tiny_mce_relurl="false";
-      echo aff_editeur("xtext", "false");
-      echo "<br />";
+      $tiny_mce_relurl='false';
+      echo aff_editeur('xtext', '');
    }
-   echo "<br />";
-   if ($type=='HED') {
-      echo '<input type="hidden" name="op" value="lnl_Add_Header_Mod" />';
-   } else {
-      echo '<input type="hidden" name="op" value="lnl_Add_Footer_Mod" />';
-   }
-   echo '<input type="hidden" name="ref" value="'.$ibid.'" />';
-   echo "<input class=\"btn btn-primary\" type=\"submit\" value=\"".adm_translate("Valider")."\"> - ";
-   echo "[ <a href=\"admin.php?op=lnl\" >".adm_translate("Retour en arrière")."</a> ]";
-   echo '</form>';
+   if ($type=='HED')
+      echo '
+      <input type="hidden" name="op" value="lnl_Add_Header_Mod" />';
+   else
+      echo '
+      <input type="hidden" name="op" value="lnl_Add_Footer_Mod" />';
+   echo '
+      <input type="hidden" name="ref" value="'.$ibid.'" />
+      <div class="form-group row">
+         <div class="col-sm-12">
+            <button class="btn btn-primary mr-1" type="submit">'.adm_translate("Valider").'</button>
+            <a class="btn btn-secondary" href="admin.php?op=lnl" >'.adm_translate("Retour en arrière").'</a>
+         </div>
+      </div>
+   </form>';
    include ("footer.php");
 }
+
 function ShowBody() {
    global $NPDS_Prefix;
    $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_body ORDER BY ref ");
@@ -119,8 +129,9 @@ function ShowBody() {
       <tbody>';
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
-      if (strlen($text)>200) {$text=substr($text,0,200).'<span class="text-danger"> .....</span>';};
-      if ($html==1) {$html="htm";} else {$html="txt";}
+      if (strlen($text)>200) 
+         $text=substr($text,0,200).'<span class="text-danger"> .....</span>';
+      if ($html==1) $html='html'; else $html='txt';
       echo '
       <tr>
          <td>'.$ref.'</td>
@@ -144,16 +155,12 @@ function Detail_Body($ibid) {
    <h3 class="mb-2">'.adm_translate("Corps de message").' - ';
    $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE ref='$ibid'");
    $tmp=sql_fetch_row($result);
-   if ($tmp[1]==1) {
-      echo adm_translate("Prévisualiser").' HTML</h3>';
-      echo '
+   if ($tmp[1]==1)
+      echo adm_translate("Prévisualiser").' <code>HTML</code></h3>
       <div class="card card-body">'.$tmp[0].'</div>';
-   } else {
-      echo adm_translate("Prévisualiser").' '.adm_translate("TEXTE").'</h3>';
-      echo '
+   else
+      echo adm_translate("Prévisualiser").' <code>'.adm_translate("TEXTE").'</code></h3>
       <div class="card card-body">'.nl2br($tmp[0]).'</div>';
-   }
-
    echo '
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
@@ -239,14 +246,15 @@ function ShowFooter() {
       <tbody>';
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
-      if (strlen($text)>100) {$text=substr($text,0,100).'<span class="text-danger"> .....</span>';};
-      if ($html==1) $html='htm'; else $html='txt';
+      if (strlen($text)>100) 
+         $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
+      if ($html==1) $html='html'; else $html='txt';
       echo '
          <tr>
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
-            <td><code>$html</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" >'.adm_translate("Editer").'</a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger">'.adm_translate("Effacer").'</a></td>
+            <td><code>'.$html.'</code></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
    }
    echo '
@@ -300,12 +308,10 @@ Function Add_Header_Footer($ibid) {
 
 Function Add_Header_Footer_Submit($ibid, $xtext, $xhtml) {
    global $NPDS_Prefix;
-
-   if ($ibid=="HED") {
+   if ($ibid=="HED")
       sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('', 'HED','$xhtml', '$xtext', 'OK')");
-   } else {
+   else
       sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('', 'FOT', '$xhtml', '$xtext', 'OK')");
-   }
 }
 
 function main() {
@@ -318,13 +324,13 @@ function main() {
    <h3 class="mb-2">'.adm_translate("Petite Lettre D'information").'</h3>
    <a href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
    <a href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message d'entête").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
       ShowHeader();
    echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Corps de message").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Corps de message").'</h4>';
       ShowBody();
       echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-1"></i></a>'.adm_translate("Message de pied de page").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Message de pied de page").'</h4>';
       ShowFooter();
    echo '
    <hr />
@@ -350,47 +356,45 @@ function main() {
    <hr />
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
    <form action="admin.php" method="post">
-   <div class="form-row">
-      <div class="col">
-         <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
-         <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
+      <div class="form-row">
+         <div class="col">
+            <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
+            <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
+         </div>
+         <div class="col">
+            <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
+            <input class="form-control" type="number" name="Xbody" id="Xbody" max="11" />
+         </div>
+         <div class="col">
+            <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
+            <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
+         </div>
       </div>
-      <div class="col">
-         <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
-         <input class="form-control" type="number" name="Xbody" id="Xbody" max="11" />
+      <div class="form-group">
+         <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
+         <input class="form-control" type="text" max="255" id="Xsubject" name="Xsubject" />
       </div>
-      <div class="col">
-         <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
-         <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
-      </div>
-   </div>
-   <div class="form-group">
-      <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
-      <input class="form-control" type="text" max="255" id="Xsubject" name="Xsubject" />
-   </div>';
-      echo "<hr />";
-      
-      echo '
-      <label class="custom-control custom-radio">
-         <input type="radio" class="custom-control-input" value="All" checked="checked" name="Xtype" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Tous les Utilisateurs").'</span>
-      </label>
-      <label class="custom-control custom-radio">
-         <input type="radio" class="custom-control-input" value="Mbr" name="Xtype" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Seulement aux membres").'</span>
-      </label>
-      <label class="custom-control custom-radio">
-         <input type="radio" class="custom-control-input" value="Out" name="Xtype" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Seulement aux prospects").'</span>
-      </label>';
+      <hr />
+      <div class="form-group">
+         <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" value="All" checked="checked" id="tous" name="Xtype" />
+            <label class="custom-control-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
+         </div>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" value="Mbr" id="mem" name="Xtype" />
+            <label class="custom-control-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
+         </div>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" value="Out" id="prosp" name="Xtype" />
+            <label class="custom-control-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
+         </div>
+      </div>';
       $mX=liste_group();
       $tmp_groupe='';
       while (list($groupe_id, $groupe_name)=each($mX)) {
-         if ($groupe_id=="0") $groupe_id='';
-         $tmp_groupe.="<option value=\"$groupe_id\">$groupe_name</option>\n";
+         if ($groupe_id=='0') $groupe_id='';
+         $tmp_groupe.='
+         <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
       }
       echo '
       <div class="form-group">
@@ -402,19 +406,19 @@ function main() {
       </div>
       </form>';
    adminfoot('','','','');
-
 }
 
 function Del_Question($retour,$param) {
-   global $hlpfile;
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
    GraphicAdmin($hlpfile);
-   opentable();
-   echo "<p align=\"center\"><span class=\"rouge\">".adm_translate("Etes-vous sûr de vouloir effacer cet Article ?")."</span><br /><br />";
-   echo "[ <a href=\"admin.php?op=$retour&amp;$param\" class=\"rouge\">".adm_translate("Oui")."</a> | ";
-   echo "<a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Non")."</a> ]</p>";
-   closetable();
-   include("footer.php");
+   adminhead($f_meta_nom, $f_titre, $adminimg);
+   echo '
+   <hr />
+   <div class="alert alert-danger">'.adm_translate("Etes-vous sûr de vouloir effacer cet Article ?").'</div>
+   <a href="admin.php?op='.$retour.'&amp;'.$param.'" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>
+   <a href="javascript:history.go(-1)" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>';
+   adminfoot('','','','');
 }
 
 function Test($Yheader, $Ybody, $Yfooter) {
@@ -528,13 +532,12 @@ function lnl_user_list() {
          <tr>
             <td>'.$email.'</td>
             <td>'.$date.'</td>';
-      if ($status=="NOK") {
+      if ($status=="NOK")
          echo '
             <td class="text-danger">'.$status.'</td>';
-      } else {
+      else
          echo '
             <td class="text-success">'.$status.'</td>';
-      }
       echo '
             <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fa fa-trash-o fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
          </tr>';
@@ -575,32 +578,32 @@ switch ($op) {
       Detail_Body($Bodyid);
    break;
    case "Shw_Footer":
-         Detail_Header_Footer($Footerid, "FOT");
-         break;
+      Detail_Header_Footer($Footerid, "FOT");
+   break;
 
    case "Add_Header":
-         Add_Header_Footer("HED");
-         break;
-         case "Add_Header_Submit":
-            Add_Header_Footer_Submit("HED", $xtext, $html);
-            header("location: admin.php?op=lnl");
-            break;
-         case "Add_Header_Mod":
-            sql_query("UPDATE ".$NPDS_Prefix."lnl_head_foot SET text='$xtext' WHERE ref='$ref'");
-            header("location: admin.php?op=lnl_Shw_Header&Headerid=$ref");
-            break;
+      Add_Header_Footer("HED");
+   break;
+   case "Add_Header_Submit":
+      Add_Header_Footer_Submit("HED", $xtext, $html);
+      header("location: admin.php?op=lnl");
+   break;
+   case "Add_Header_Mod":
+      sql_query("UPDATE ".$NPDS_Prefix."lnl_head_foot SET text='$xtext' WHERE ref='$ref'");
+      header("location: admin.php?op=lnl_Shw_Header&Headerid=$ref");
+   break;
 
    case "Add_Body":
-         Add_Body();
-         break;
-         case "Add_Body_Submit":
-            Add_Body_Submit($xtext, $html);
-            header("location: admin.php?op=lnl");
-            break;
-         case "Add_Body_Mod":
-            sql_query("UPDATE ".$NPDS_Prefix."lnl_body SET text='$xtext' WHERE ref='$ref'");
-            header("location: admin.php?op=lnl_Shw_Body&Bodyid=$ref");
-            break;
+      Add_Body();
+   break;
+   case "Add_Body_Submit":
+      Add_Body_Submit($xtext, $html);
+      header("location: admin.php?op=lnl");
+   break;
+   case "Add_Body_Mod":
+      sql_query("UPDATE ".$NPDS_Prefix."lnl_body SET text='$xtext' WHERE ref='$ref'");
+      header("location: admin.php?op=lnl_Shw_Body&Bodyid=$ref");
+   break;
 
    case "Add_Footer":
          Add_Header_Footer("FOT");
@@ -615,20 +618,19 @@ switch ($op) {
             break;
 
    case "Test":
-         Test($Xheader, $Xbody, $Xfooter);
-         break;
-
+      Test($Xheader, $Xbody, $Xfooter);
+   break;
    case "List":
-         lnl_list();
-         break;
+      lnl_list();
+   break;
 
    case "User_List":
-         lnl_user_list();
-         break;
+      lnl_user_list();
+   break;
    case "Sup_User":
-         sql_query("DELETE FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$lnl_user_email'");
-         header("location: admin.php?op=lnl_User_List");
-         break;
+      sql_query("DELETE FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$lnl_user_email'");
+      header("location: admin.php?op=lnl_User_List");
+   break;
 
    case "Send":
          $deb=0;
@@ -648,11 +650,10 @@ switch ($op) {
          $message =$Yheader[0].$Ybody[0].$Yfooter[0];
 
          global $sitename;
-         if ($Yheader[1]==1) {
-            $Xmime="html-nobr";
-         } else {
-            $Xmime="text";
-         }
+         if ($Yheader[1]==1)
+            $Xmime='html-nobr';
+         else
+            $Xmime='text';
 
          if ($Xtype=="All") {
             $Xtype="Out";
@@ -700,7 +701,7 @@ switch ($op) {
                   }
                }
                $fonction="each";
-               if (is_array($result)) {$boucle=true;} else {$boucle=false;}
+               if (is_array($result)) $boucle=true; else $boucle=false;
             } else {
                $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND u.user_lnl='1'");
                $nrows=sql_num_rows($mysql_result);
@@ -760,7 +761,7 @@ switch ($op) {
          break;
 
    default:
-         main();
-         break;
+      main();
+   break;
 }
 ?>

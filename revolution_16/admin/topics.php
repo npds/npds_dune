@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='topicsmanager';
 $f_titre = adm_translate("Gestion des sujets");
 //==> controle droit
@@ -209,10 +209,10 @@ function topicedit($topicid) {
             <label class="col-form-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
             <div class="col-sm-8">
                <div class="input-group">
-                  <span class="input-group-btn">
-                     <button class="btn btn-primary"><i class="fa fa-user fa-lg"></i></button>
-                  </span>
-                  <input id="topicadmin" class="form-control" type="text" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
+                  <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="fa fa-user fa-lg"></i></span>
+                  </div>
+                  <input class="form-control" type="text" id="topicadmin" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
                </div>
             </div>
          </div>
@@ -364,9 +364,11 @@ function relatededit($tid, $rid) {
            <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
            <div class="col-sm-8">
               <div class="input-group">
-                 <span class="input-group-btn">
-                      <button class="btn"><a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></button>
+               <div class="input-group-prepend">
+                 <span class="input-group-text">
+                      <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>
                  </span>
+                 </div>
                  <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
                </div>
                <span class="help-block text-right"><span id="countcar_url"></span></span>
@@ -469,7 +471,7 @@ function topicdelete($topicid, $ok=0) {
       sql_query("DELETE FROM ".$NPDS_Prefix."topics WHERE topicid='$topicid'");
       Ecr_Log("security", "topicDelete (topic, $topicid) by AID : $aid", "");
       sql_query("DELETE FROM ".$NPDS_Prefix."related WHERE tid='$topicid'");
-      Ecr_Log("security", "topicDelete (related, $topicid) by AID : $aid", "");
+      Ecr_Log("security", "topicDelete (related, $topicid) by AID : $aid", '');
       // commentaires
       if (file_exists("modules/comments/article.conf.php")) {
          include ("modules/comments/article.conf.php");
@@ -502,28 +504,28 @@ function topicdelete($topicid, $ok=0) {
 }
 
 switch ($op) {
-   case "topicsmanager":
+   case 'topicsmanager':
       topicsmanager();
    break;
-   case "topicedit":
+   case 'topicedit':
       topicedit($topicid);
    break;
-   case "topicmake":
+   case 'topicmake':
       topicmake($topicname, $topicimage, $topictext, $topicadmin);
    break;
-   case "topicdelete":
+   case 'topicdelete':
       topicdelete($topicid, $ok);
    break;
-   case "topicchange":
+   case 'topicchange':
       topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin, $name, $url);
    break;
-   case "relatedsave":
+   case 'relatedsave':
       relatedsave($tid, $rid, $name, $url);
    break;
-   case "relatededit":
+   case 'relatededit':
       relatededit($tid, $rid);
    break;
-   case "relateddelete":
+   case 'relateddelete':
       relateddelete($tid, $rid);
    break;
 }

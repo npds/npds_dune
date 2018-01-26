@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='DownloadAdmin';
 $f_titre = adm_translate('Téléchargements');
 //==> controle droit
@@ -33,16 +33,15 @@ function groupe($groupe) {
             if (($groupe_id==$groupevalue) and ($groupe_id!=0)) {$selectionne=1;}
          }
       }
-      if ($selectionne==1) {
+      if ($selectionne==1)
          $str.='
          <option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>';
-      } else {
+      else
          $str.='
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
-      }
       $nbg++;
    }
-   if ($nbg>5) {$nbg=5;}
+   if ($nbg>5) $nbg=5;
    // si on veux traiter groupe multiple multiple="multiple"  et name="Mprivs"
    return ('
    <select multiple="multiple" class="form-control" id="mpri" name="Mprivs[]" size="'.$nbg.'">
@@ -53,33 +52,29 @@ function groupe($groupe) {
 function droits($member) {
    echo '
    <div class="form-group">
-      <label class="custom-control custom-radio text-danger">';
-   if ($member==-127) {$checked=' checked="checked"';} else {$checked='';}
+      <div class="custom-control custom-radio custom-control-inline">';
+   if ($member==-127) $checked=' checked="checked"'; else $checked='';
    echo '
-         <input type="radio" name="privs" class="custom-control-input" value="-127" '.$checked.' />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Administrateurs").'</span>
-      </label>
-      <label class="custom-control custom-radio text-danger">';
-   if ($member==-1) {$checked=' checked="checked"';} else {$checked='';}
+         <input type="radio" id="adm" name="privs" class="custom-control-input" value="-127" '.$checked.' />
+         <label class="custom-control-label" for="adm">'.adm_translate("Administrateurs").'</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">';
+   if ($member==-1) $checked=' checked="checked"'; else $checked='';
    echo '
-         <input type="radio" name="privs" class="custom-control-input" value="-1" '.$checked.' />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Anonymes").'</span>
-      </label>';
+         <input type="radio" id="ano" name="privs" class="custom-control-input" value="-1" '.$checked.' />
+         <label class="custom-control-label" for="ano">'.adm_translate("Anonymes").'</label>
+      </div>';
    echo '
-      <label class="custom-control custom-radio text-danger">';
+      <div class="custom-control custom-radio custom-control-inline">';
    if ($member>0) {
       echo '
-         <input type="radio" name="privs" value="1" class="custom-control-input" checked="checked" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Membres").'</span>
-      </label>
-      <label class="custom-control custom-radio">
-         <input type="radio" name="privs" class="custom-control-input" value="0" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Tous").'</span>
-      </label>
+         <input type="radio" id="mem" name="privs" value="1" class="custom-control-input" checked="checked" />
+         <label class="custom-control-label" for="mem">'.adm_translate("Membres").'</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+         <input type="radio" id="tous" name="privs" class="custom-control-input" value="0" />
+         <label class="custom-control-label" for="tous">'.adm_translate("Tous").'</label>
+      </div>
    </div>
    <div class="form-group row">
       <label class="col-form-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
@@ -88,17 +83,15 @@ function droits($member) {
       </div>
    </div>';
    } else {
-      if ($member==0) {$checked=' checked="checked"';} else {$checked='';}
+      if ($member==0) $checked=' checked="checked"'; else $checked='';
       echo '
-         <input type="radio" name="privs" class="custom-control-input" value="1" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Membres").'</span>
-      </label>
-      <label class="custom-control custom-radio">
-         <input type="radio" name="privs" class="custom-control-input" value="0"'.$checked.' />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description">'.adm_translate("Tous").'</span>
-      </label>
+         <input type="radio" id="mem" name="privs" class="custom-control-input" value="1" />
+         <label class="custom-control-label" for="mem">'.adm_translate("Membres").'</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+         <input type="radio" id="tous" name="privs" class="custom-control-input" value="0"'.$checked.' />
+         <label class="custom-control-label" for="tous">'.adm_translate("Tous").'</label>
+      </div>
    </div>
    <div class="form-group row">
       <label class="col-form-label col-sm-12" for="mpri">'.adm_translate("Groupes").'</label>
@@ -379,11 +372,10 @@ function DownloadEdit($did) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4">'.adm_translate("Changer la date").'</label>
          <div class="col-sm-8">
-            <label class="custom-control custom-checkbox">
-               <input type="checkbox" name="ddate" class="custom-control-input" value="yes" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
+            <div class="custom-control custom-checkbox my-2">
+               <input type="checkbox" id="ddate" name="ddate" class="custom-control-input" value="yes" />
+               <label class="custom-control-label" for="ddate">'.adm_translate("Oui").'</label>
+            </div>
          </div>
       </div>
       <div class="form-group row">
@@ -434,14 +426,13 @@ function DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $du
 function DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $dver, $dcategory, $sdcategory, $description, $privs, $Mprivs) {
     global $NPDS_Prefix;
    if ($privs==1) {
-       if ($Mprivs>1 and $Mprivs<=127 and $Mprivs!='') {$privs=$Mprivs;}
+       if ($Mprivs>1 and $Mprivs<=127 and $Mprivs!='') $privs=$Mprivs;
     }
     $sdcategory=addslashes($sdcategory);
-    if (!$dcategory) {
+    if (!$dcategory)
        $dcategory = $sdcategory;
-    } else {
+    else
        $dcategory=addslashes($dcategory);
-    }
     $description=addslashes($description);
     $time = date("Y-m-d");
     if (($durl) and ($dfilename))
