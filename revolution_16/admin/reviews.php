@@ -4,14 +4,14 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='reviews';
 $f_titre = adm_translate("Critiques");
 //==> controle droit
@@ -31,8 +31,7 @@ function mod_main($title, $description) {
 }
 
 function reviews() {
-   global $hlpfile;
-   global $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -79,9 +78,11 @@ function reviews() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="date">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
-            <div class="input-group input-append date" id="datePicker">
+            <div class="input-group">
+               <div class="input-group-prepend date" id="datePicker">
+                  <span class="input-group-text"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+               </div>
                <input class="form-control" type="text" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
-               <span class="input-group-addon add-on"><span class="fa fa-calendar-check-o fa-lg"></span></span>
             </div>
          </div>
       </div>

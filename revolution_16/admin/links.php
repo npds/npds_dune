@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='links';
 $f_titre = 'Liens';
 //==> controle droit
@@ -28,7 +28,7 @@ function links() {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   
+
    $results=sql_query("SELECT * FROM ".$NPDS_Prefix."links_links");
    $numrows = sql_num_rows($results);
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink=1");
@@ -390,9 +390,11 @@ function LinksModLink($lid) {
          <label class="col-form-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <span class="input-group-btn">
-                 <button class="btn btn-secondary" ><a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></button>
-               </span>
+               <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>
+                  </span>
+               </div>
                <input class="form-control" type="text" name="url" id="url" value="'.$url.'" maxlength="100" required="required" />
              </div>
              <span class="help-block text-right"><span id="countcar_url"></span></span>

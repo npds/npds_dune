@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Manage the EDITO (static/edito.txt) of your web site                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -80,23 +80,23 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             <label class="col-sm-4 col-form-label" for="aff_jours">'.adm_translate("Afficher pendant").'</label>
             <div class="col-sm-8">
                <div class="input-group">
-                  <span class="input-group-addon">'.adm_translate("jour(s)").'</span>
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">'.adm_translate("jour(s)").'</span>
+                  </div>
                   <input class="form-control" type="number" name="aff_jours" id="aff_jours" min="0" step="1" max="999" value="'.$Xaff_jours.'" data-fv-digits="true" required="required" />
                </div>
             </div>
          </div>
          <div class="form-group row">
             <div class="col-sm-8 ml-sm-auto">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="aff_jour" value="checked" '.$Xaff_jour.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("Le jour").'</span>
-               </label>
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="aff_nuit" value="checked" '.$Xaff_nuit.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.adm_translate("La nuit").'</span>
-               </label>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="aff_jour" name="aff_jour" value="checked" '.$Xaff_jour.' />
+                  <label class="custom-control-label" for="aff_jour">'.adm_translate("Le jour").'</label>
+               </div>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="aff_nuit" name="aff_nuit" value="checked" '.$Xaff_nuit.' />
+                  <label class="custom-control-label" for="aff_nuit">'.adm_translate("La nuit").'</label>
+               </div>
             </div>
          </div>
 

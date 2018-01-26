@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,7 +15,7 @@
 /* originally inspired by the build_dump librarie of phpMyAdmin (http://www.phpmyadmin.org)  */
 /* Adapted by : M. PASCAL aKa EBH (plan.net@free.fr)                                         */
 /*********************************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='SavemySQL';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -33,10 +33,10 @@ admindroits($aid,$f_meta_nom);
       global $dbname, $crlf, $crlf2;
 
       $k = 0;
-      $result = sql_query("SELECT * FROM $table limit 1");
+      $result = sql_query("SELECT * FROM $table LIMIT 1");
       $count = sql_num_fields($result);
 
-      $schema_create = "";
+      $schema_create = '';
       $schema_create .= "DROP TABLE IF EXISTS $table;$crlf";
       $schema_create .= "CREATE TABLE $table ($crlf";
       $result = sql_query("SHOW FIELDS FROM $table");
@@ -44,18 +44,12 @@ admindroits($aid,$f_meta_nom);
       {
          $schema_create .= " ".$row['Field']." ".$row['Type'];
          if(isset($row['Default']) && (!empty($row['Default']) || $row['Default'] == "0"))
-         {
             $schema_create .= " DEFAULT '".$row['Default']."'";
-         }
          if($row["Null"] != "YES")
-         {
             $schema_create .= " NOT NULL";
-         }
          if($row["Extra"] != "")
-         {
             $schema_create .= " ".$row['Extra'];
-         }
-         if ($k < ($count - 1)) { $schema_create .= ",$crlf"; }
+         if ($k < ($count - 1)) $schema_create .= ",$crlf";
          $k++;
       }
       $result = sql_query("SHOW KEYS FROM $table");
@@ -63,30 +57,20 @@ admindroits($aid,$f_meta_nom);
       {
          $kname = $row['Key_name'];
          if(($kname != "PRIMARY") && ($row['Non_unique'] == 0))
-         {
             $kname="UNIQUE|$kname";
-         }
          if(!isset($index[$kname]))
-         {
             $index[$kname] = array();
-         }
          $index[$kname][] = $row['Column_name'];
       }
       while(list($x, $columns) = @each($index))
       {
          $schema_create .= ",$crlf";
          if($x == "PRIMARY")
-         {
             $schema_create .= " PRIMARY KEY (".implode($columns, ", ").")";
-         }
          elseif (substr($x,0,6) == "UNIQUE")
-         {
             $schema_create .= " UNIQUE ".substr($x,7)." (".implode($columns, ", ").")";
-         }
          else
-         {
             $schema_create .= " KEY $x (".implode($columns, ", ").")";
-         }
       }
       $schema_create .= "$crlf)";
       $schema_create = stripslashes($schema_create);
@@ -96,23 +80,18 @@ admindroits($aid,$f_meta_nom);
    }
 
 
-   function get_table_content($table)
-   {
+   function get_table_content($table) {
       global $dbname, $crlf, $crlf2;
 
-     $table_list = "";
-      $schema_insert = "";
+      $table_list = '';
+      $schema_insert = '';
       $result = sql_query("SELECT * FROM $table");
       $count = sql_num_fields($result);
-      while($row = sql_fetch_row($result))
-      {
+      while($row = sql_fetch_row($result)) {
          $schema_insert .= "INSERT INTO $table VALUES (";
-         for($j = 0; $j < $count; $j++)
-         {
+         for($j = 0; $j < $count; $j++) {
             if(!isset($row[$j]))
-            {
                $schema_insert .= " NULL";
-            }
             else
             if ($row[$j] != "")
             {
@@ -189,14 +168,10 @@ admindroits($aid,$f_meta_nom);
       $tables = sql_list_tables($dbname);
       $num_tables = sql_num_rows($tables);
       if($num_tables == 0)
-      {
          echo "&nbsp;".adm_translate("Aucune table n'a été trouvée")."\n";
-      }
-      else
-      {
+      else {
          if ((!isset($repertoire)) or ($repertoire=="")) $repertoire=".";
-         if (!is_dir($repertoire))
-         {
+         if (!is_dir($repertoire)) {
             @umask("0000");
             @mkdir($repertoire,0777);
             $fp = fopen($repertoire."/index.html", 'w');
@@ -212,8 +187,7 @@ admindroits($aid,$f_meta_nom);
             ."# ========================================================$crlf";
          $data1="";
          $ifile=0;
-         while($row = sql_fetch_row($tables))
-         {
+         while($row = sql_fetch_row($tables)) {
             $table = $row[0];
             $data1 .= "$crlf"
                ."# --------------------------------------------------------$crlf"
@@ -227,35 +201,24 @@ admindroits($aid,$f_meta_nom);
                ."# $crlf$crlf";
             $result = sql_query("SELECT * FROM $table");
             $count_line = sql_num_fields($result);
-            while($row = sql_fetch_row($result))
-            {
+            while($row = sql_fetch_row($result)) {
                $schema_insert ="INSERT INTO $table VALUES (";
-               for($j = 0; $j < $count_line; $j++)
-               {
+               for($j = 0; $j < $count_line; $j++) {
                   if(!isset($row[$j]))
-                  {
                      $schema_insert .= " NULL";
-                  }
                   else
-                  if ($row[$j] != "")
-                  {
+                  if ($row[$j] != '')
                      $schema_insert .= " '". PrepareString($row[$j])."'";
-                  }
                   else
-                  {
                      $schema_insert .= " ''";
-                  }
                   if($j < ($count_line -1))
-                  {
                      $schema_insert .= ",";
-                  }
                }
                $schema_insert .= ");$crlf";
 
                $data1 .= $schema_insert;
 
-               if ($linebyline==1)
-               {
+               if ($linebyline==1) {
                   if ( strlen($data1) > ($savemysql_size*1024))
                   {
                      send_tofile($data0.$data1,$repertoire,$filename."-".sprintf("%03d", $ifile),"sql",$MSos);
@@ -268,10 +231,8 @@ admindroits($aid,$f_meta_nom);
             $data1 .= "$crlf$crlf"
                ."# --------------------------------------------------------$crlf";
 
-            if ($linebyline==0)
-            {
-               if ( strlen($data1) > ($savemysql_size*1024))
-               {
+            if ($linebyline==0) {
+               if ( strlen($data1) > ($savemysql_size*1024)) {
                   send_tofile($data0.$data1,$repertoire,$filename."-".sprintf("%03d", $ifile),"sql",$MSos);
                   $data1="";
                   $ifile++;

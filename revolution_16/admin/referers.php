@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='hreferer';
 $f_titre = adm_translate("Sites Référents");
 //==> controle droit
@@ -29,7 +29,7 @@ function hreferer($filter) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
    settype($filter,'integer');
-   if (!$filter) {$filter=2048;}
+   if (!$filter) $filter=2048;
    echo '
    <hr />
    <h3>'.adm_translate("Qui parle de nous ?").'</h3>

@@ -5,14 +5,14 @@
 /*                                                                      */
 /* M. PASCAL aKa EBH (plan.net@free.fr)                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-   if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+   if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
    $f_meta_nom ='OptimySQL';
    $f_titre = adm_translate("Optimisation de la base de données").' : '.$dbname;
    //==> controle droit
@@ -61,7 +61,7 @@
          $total_gain += $gain;
          $gain = round($gain,3);
          $resultat = sql_query("OPTIMIZE TABLE ".$row['Name']." ");
-         if ($gain == 0) {
+         if ($gain == 0)
             $li_tab_opti.= '
             <tr>
                <td align="right">'.$row['Name'].'</td>
@@ -69,7 +69,7 @@
                <td align="center">'.adm_translate("optimisée").'</td>
                <td align="center"> -- </td>
             </tr>';
-          } else {
+          else
              $li_tab_opti.= '
              <tr>
                 <td align="right">'.$row['Name'].'</td>
@@ -77,7 +77,6 @@
                 <td class="text-danger" align="center">'.adm_translate("non optimisée").'</td>
                 <td align="right">'.$gain.' Ko</td>
              </tr>';
-         }
       }
    }
    $total_gain = round($total_gain,3);

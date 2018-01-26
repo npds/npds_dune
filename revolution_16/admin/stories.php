@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='adminStory';
 include ("publication.php");
 //==> controle droit
@@ -30,17 +30,15 @@ function puthome($ihome) {
       $sel2 = 'checked="checked"';
    }
    echo '
-         <div class="col-sm-8">
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="ihome" value="0" '.$sel1.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="ihome" value="1" '.$sel2.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Non").'</span>
-            </label>
+         <div class="col-sm-8 my-2">
+            <div class="custom-control custom-radio custom-control-inline">
+               <input class="custom-control-input" type="radio" id="ihome_y" name="ihome" value="0" '.$sel1.' />
+               <label class="custom-control-label" for="ihome_y">'.adm_translate("Oui").'</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+               <input class="custom-control-input" type="radio" id="ihome_n" name="ihome" value="1" '.$sel2.' />
+               <label class="custom-control-label" for="ihome_n">'.adm_translate("Non").'</label>
+            </div>
              <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
          </div>
       </div>';
@@ -49,8 +47,9 @@ function puthome($ihome) {
    echo '
       <div class="form-group row">
          <label class="col-sm-4 col-form-label text-danger" >'.adm_translate("Seulement aux membres").'</label>
-         <div class="col-sm-8">
-            <label class="custom-control custom-radio">';
+         <div class="col-sm-8 my-2">
+            <div class="custom-control custom-radio custom-control-inline">';
+//?? à revoir comprends pas ...
    if ($ihome<0) {
       $sel1 = 'checked="checked"';
       $sel2 = '';
@@ -61,15 +60,13 @@ function puthome($ihome) {
       $sel2 = '';
    }
    echo '
-               <input class="custom-control-input" type="radio" name="members" value="1" '.$sel1.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="members" value="0" '.$sel2.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Non").'</span>
-            </label>
+               <input class="custom-control-input" type="radio" id="mem_y" name="members" value="1" '.$sel1.' />
+               <label class="custom-control-label" for="mem_y">'.adm_translate("Oui").'</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+               <input class="custom-control-input" type="radio"  id="mem_n" name="members" value="0" '.$sel2.' />
+               <label class="custom-control-label" for="mem_n">'.adm_translate("Non").'</label>
+            </div>
          </div>
       </div>';
     // ---- Groupes
@@ -77,8 +74,8 @@ function puthome($ihome) {
     $tmp_groupe='';
     settype($Mmembers,'integer');
     while (list($groupe_id, $groupe_name)=each($mX)) {
-       if ($groupe_id=='0') {$groupe_id='';}
-       if ($Mmembers==$groupe_id) {$sel3='selected="selected"';} else {$sel3='';}
+       if ($groupe_id=='0') $groupe_id='';
+       if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
        $tmp_groupe.='
        <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
 //      $nbg++;
@@ -786,16 +783,16 @@ function editStory ($sid) {
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
    while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
       $affiche=false;
-      if ($radminsuper) {
+      if ($radminsuper)
          $affiche=true;
-      } else {
+      else {
          $topicadminX=explode(',',$topicadmin);
          for ($i = 0; $i < count($topicadminX); $i++) {
             if (trim($topicadminX[$i])==$aid) $affiche=true;
          }
       }
       if ($affiche) {
-         if ($topicid==$topic) { $sel = 'selected="selected"'; }
+         if ($topicid==$topic) $sel = 'selected="selected"';
          echo '
                <option value="'.$topicid.'" '.$sel.'>'.aff_langue($topics).'</option>';
          $sel = '';
@@ -827,30 +824,28 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="col-form-label col-12" for="notes">'.adm_translate("Notes").'</label>
          <div class="col-12">
-            <textarea class="tin form-control"  rows="7" name="notes" >'.$notes.'</textarea>
+            <textarea class="tin form-control"  rows="7" id="notes" name="notes" >'.$notes.'</textarea>
          </div>
       </div>';
-   echo aff_editeur("notes", "true");
+   echo aff_editeur('notes', '');
    echo '
       <div class="form-group row">
          <label class="col-form-label col-sm-6" for="Cdate">'.adm_translate("Changer la date ? : ").'</label>
-         <div class="col-sm-6">
-            <label class="custom-control custom-checkbox">
+         <div class="col-sm-6 my-2">
+            <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="Cdate" name="Cdate" value="true" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
+               <label class="custom-control-label" for="Cdate">'.adm_translate("Oui").'</label>
+            </div>
             <span class="small help-block">'.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'</span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-6" for="Csid">'.adm_translate("Remettre cet article en première position ? : ").'</label>
-         <div class="col-sm-6">
-            <label class="custom-control custom-checkbox">
+         <div class="col-sm-6 my-2">
+            <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="Csid" name="Csid" value="true" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.adm_translate("Oui").'</span>
-            </label>
+               <label class="custom-control-label" for="Csid">'.adm_translate("Oui").'</label>
+            </div>
          </div>
       </div>';
    if ($date_finval!='') {

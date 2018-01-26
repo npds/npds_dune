@@ -3,13 +3,13 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='MetaTagAdmin';
 $f_titre = adm_translate("Administration des MétaTags");
 //==> controle droit
@@ -24,9 +24,8 @@ function MetaTagAdmin($saved = false) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />';
-   if ($saved){
-      echo '<p align="center " class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</p>';
-   }
+   if ($saved)
+      echo '<div class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</div>';
    echo '
    <form id="fad_metatags" action="admin.php" method="post">
       <div class="form-group row">
@@ -160,7 +159,7 @@ function MetaTagAdmin($saved = false) {
     adminfoot('fv','','','');
 }
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 include ("admin/settings_save.php");
 
 global $language;

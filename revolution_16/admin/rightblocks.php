@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='blocks';// à voir si on réimplémente les droits spécifique droit et gauche
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -27,7 +27,7 @@ function makerblock($title, $content, $members, $Mmember, $Rindex, $Scache, $BRa
       $members=implode(',',$Mmember);
       if ($members==0) $members=1;
    }
-   if (empty($Rindex)) {$Rindex=0;}
+   if (empty($Rindex)) $Rindex=0;
    $title=stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
    if ($SHTML!='ON')
@@ -42,12 +42,12 @@ function changerblock($id, $title, $content, $members, $Mmember, $Rindex, $Scach
    global $NPDS_Prefix;
 
    if (is_array($Mmember) and ($members==1)) {
-      $members=implode(",",$Mmember);
+      $members=implode(',',$Mmember);
       if ($members==0) $members=1;
    }
-   if (empty($Rindex)) {$Rindex=0;}
+   if (empty($Rindex)) $Rindex=0;
    $title=stripslashes(FixQuotes($title));
-   if ($Sactif=='ON') {$Sactif=1;} else {$Sactif=0;}
+   if ($Sactif=='ON') $Sactif=1; else $Sactif=0;
    $content = stripslashes(FixQuotes($content));
    sql_query("UPDATE ".$NPDS_Prefix."rblocks SET title='$title', content='$content', member='$members', Rindex='$Rindex', cache='$Scache', actif='$Sactif', css='$css', aide='$BRaide' WHERE id='$id'");
 
@@ -62,9 +62,9 @@ function changegaucherblock($id, $title, $content, $members, $Mmember, $Rindex, 
       $members=implode(',',$Mmember);
       if ($members==0) $members=1;
    }
-   if (empty($Rindex)) {$Rindex=0;}
+   if (empty($Rindex)) $Rindex=0;
    $title=stripslashes(FixQuotes($title));
-   if ($Sactif=='ON') {$Sactif=1;} else {$Sactif=0;}
+   if ($Sactif=='ON') $Sactif=1; else $Sactif=0;
    $content = stripslashes(FixQuotes($content));
    sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL,'$title','$content','$members', '$Rindex', '$Scache', '$Sactif', '$css', '$BRaide')");
    sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE id='$id'");
@@ -83,16 +83,16 @@ function deleterblock($id) {
 
 switch ($op) {
    case 'makerblock':
-         makerblock($title, $xtext, $members, $Mmember, $index, $Scache, $Baide, $SHTML, $css);
-         break;
+      makerblock($title, $xtext, $members, $Mmember, $index, $Scache, $Baide, $SHTML, $css);
+   break;
    case 'deleterblock':
-         deleterblock($id);
-         break;
+      deleterblock($id);
+   break;
    case 'changerblock':
-         changerblock($id, $title, $content, $members, $Mmember, $Rindex, $Scache, $Sactif, $BRaide, $css);
-         break;
+      changerblock($id, $title, $content, $members, $Mmember, $Rindex, $Scache, $Sactif, $BRaide, $css);
+   break;
    case 'gaucherblock':
-         changegaucherblock($id, $title, $content, $members, $Mmember, $Rindex, $Scache, $Sactif, $BRaide, $css);
-         break;
+      changegaucherblock($id, $title, $content, $members, $Mmember, $Rindex, $Scache, $Sactif, $BRaide, $css);
+   break;
 }
 ?>

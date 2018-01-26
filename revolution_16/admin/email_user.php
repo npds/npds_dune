@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -35,17 +35,15 @@ function email_user() {
             <input type="hidden" name="op" value="send_email_to_user" />
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="expediteur">'.adm_translate("Expédier en tant").'</label>
-               <div class="col-sm-8">
-                  <label class="custom-control custom-radio">
-                     <input class="custom-control-input" type="radio" name="expediteur" value="1" checked="checked" />
-                     <span class="custom-control-indicator"></span>
-                     <span class="custom-control-description">'.adm_translate("qu'administrateur").'</span>
-                  </label>
-                  <label class="custom-control custom-radio">
-                     <input class="custom-control-input" type="radio" name="expediteur" value="0" />
-                     <span class="custom-control-indicator"></span>
-                     <span class="custom-control-description">'.adm_translate("que membre").'</span>
-                  </label>
+               <div class="col-sm-8 my-2">
+                  <div class="custom-control custom-radio custom-control-inline">
+                     <input class="custom-control-input" type="radio" id="adm" name="expediteur" value="1" checked="checked" />
+                     <label class="custom-control-label" for="adm">'.adm_translate("qu'administrateur").'</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                     <input class="custom-control-input" type="radio" id="mem" name="expediteur" value="0" />
+                     <label class="custom-control-label" for="mem">'.adm_translate("que membre").'</label>
+                  </div>
                </div>
             </div>
             <div id="div_username" class="form-group row">
@@ -71,10 +69,10 @@ function email_user() {
             <div id="div_all" class="form-group row">
                <label class="col-form-label col-sm-4" for="all">'.adm_translate("Envoyer à tous les membres").'</label>
                <div class="col-sm-8 ">
-                  <label class="custom-control custom-checkbox">
+                  <div class="custom-control custom-checkbox my-2">
                      <input class="custom-control-input" id="all" type="checkbox" name="all" value="1" />
-                    <span class="custom-control-indicator"></span>
-                  </label>
+                    <label class="custom-control-label" for="all"></label>
+                  </div>
                </div>
             </div>
             <div class="form-group row">

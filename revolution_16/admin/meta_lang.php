@@ -5,20 +5,20 @@
 /*                                                                      */
 /* NEO - 2007                                                           */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='MetaLangAdmin';
 $f_titre = 'META-LANG';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 global $language, $NPDS_Prefix;
-$hlpfile = "manuels/".$language."/meta_lang.html";
+$hlpfile = 'manuels/'.$language.'/meta_lang.html';
 
 function go_back($label) {
    if (!$label) $label = adm_translate("Retour en arrière");
@@ -275,9 +275,9 @@ function Edit_Meta_Lang() {
          </div>
       </div>
    </form>';
-   } else {
-      go_back('');
    }
+   else
+      go_back('');
    adminfoot('','','','');
 }
 function Creat_Meta_Lang() {

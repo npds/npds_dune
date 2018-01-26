@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011 and cast MySql engine type        */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,7 +24,7 @@
 /* Version 2.0 - 30/08/2015 by jpb                                      */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='modules';
 $f_titre = adm_translate("Gestion, Installation Modules");
 //==> controle droit
@@ -37,9 +37,8 @@ admindroits($aid,$f_meta_nom);
 
 function nmig_copyright() {
       $clspin =' text-success';
-      if ($ModInstall == "" && $ModDesinstall != "") {
+      if ($ModInstall == '' && $ModDesinstall != '')
       $clspin =' text-danger';
-      }
    $display = '
    <br /><div class="text-center">
       <i class="fa fa-spinner fa-pulse '.$clspin.' "></i> NPDS Module Installer v2.0
@@ -53,14 +52,13 @@ function nmig_Start($name_module,$txtdeb) {
    global $ModInstall, $display;
    $display = '
    <div class="">';
-   if (isset($txtdeb) && $txtdeb != "") {
+   if (isset($txtdeb) && $txtdeb != "")
       $display .= aff_langue($txtdeb);
-   } else {
+   else 
       $display .= '
       <p><strong>'.adm_translate("Bonjour et bienvenue dans l'installation automatique du module").' "'.$name_module.'"</strong></p>
       <p>'.adm_translate("Ce programme d'installation va configurer votre site internet pour utiliser ce module.").'</p>
       <p><em>'.adm_translate("Cliquez sur \"Etape suivante\" pour continuer.").'</em></p>';
-   }
    $display .= '
    </div>
    <div style="text-align: center;">

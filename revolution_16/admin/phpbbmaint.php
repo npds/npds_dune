@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='MaintForumAdmin';
 $f_titre = adm_translate('Maintenance des Forums');
 //==> controle droit
@@ -89,11 +89,10 @@ function ForumMaintTopics($before,$forum_name) {
        $add_sql='';
        $topic_check='';
     }
-    if ($forum_name!='') {
+    if ($forum_name!='')
        $add_sql2="WHERE forum_name='$forum_name'";
-    } else {
+    else
        $add_sql2='';
-    }
 
    echo '<form action="admin.php" method="post">';
     echo "<table>\n";
