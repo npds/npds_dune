@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Sur une idée originale de PSTL                                       */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -57,9 +57,13 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    <div class="form-group row">
       <label class="form-control-label col-md-5">'.translate("Start Date for this New").'</label>
       <div class="input-group input-daterange col-md-7">
-         <div class="input-group-addon"><i class="fa fa-calendar-o fa-lg"></i></div>
-          <input type="text" class="form-control" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" />
-          <div class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></div>
+         <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
+         </div>
+            <input type="text" class="form-control" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" />
+          <div class="input-group-prepend">
+             <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
+          </div>
           <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
       </div>
    </div>';
@@ -67,9 +71,13 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    <div class="form-group row">
       <label class="form-control-label col-md-5">'.translate("End Date for this New").'</label>
       <div class="input-group input-daterange col-md-7">
-         <div class="input-group-addon"><i class="fa fa-calendar-o fa-lg"></i></div>
-          <input type="text" class="form-control" id="fd_pub" name="fd_pub" value="'.$fd_pub.'"/>
-          <div class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></div>
+         <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
+         </div>
+         <input type="text" class="form-control" id="fd_pub" name="fd_pub" value="'.$fd_pub.'"/>
+         <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
+         </div>
           <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
       </div>
    </div>
@@ -101,23 +109,21 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </script>
    <div class="form-group row">
       <div class="col-md-5">
-            <label class="form-control-label">'.translate("Auto Delete the New at End Date").'</label>
-            </div>';
+         <label class="form-control-label">'.translate("Auto Delete the New at End Date").'</label>
+      </div>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';
       else $sel1='checked="checked"';
       echo '
-      <div class="col-md-7">
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="epur" value="1" '.$sel1.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Yes").'</span>
-         </label>
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="epur" value="0" '.$sel2.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("No").'</span>
-         </label>
+      <div class="col-md-7 my-2">
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
+            <label class="custom-control-label" for="epur_y">'.translate("Yes").'</label>
+         </div>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="epur_n" name="epur" value="0" '.$sel2.' />
+            <label class="custom-control-label" for="epur_n">'.translate("No").'</label>
+         </div>
       </div>
    </div>
    <hr />';

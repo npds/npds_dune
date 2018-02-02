@@ -5,15 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 function autorisation_section($userlevel) {
    $okprint=false;
@@ -35,9 +34,8 @@ function listsections($rubric) {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
+   } else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       settype($rubric,'integer');
       settype($nb_r,'integer');
@@ -373,10 +371,9 @@ function PrintSecPage($artid) {
       if (!$file=@opendir("themes/$cookie[9]")) {
          $tmp_theme=$Default_Theme;
       }
-   } else {
+   } else
       $tmp_theme=$Default_Theme;
-   }
-          echo '
+   echo '
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
 
 //   echo import_css($tmp_theme, $language, $site_font, '','');

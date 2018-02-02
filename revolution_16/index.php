@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -37,9 +37,8 @@ if (file_exists("IZ-Xinstall.ok")) {
    }
 }
 
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 // Redirect for default Start Page of the portal - look at Admin Preferences for choice
 function select_start_page($op) {
@@ -49,9 +48,8 @@ function select_start_page($op) {
        $index = 1;
        theindex($op, '', '');
        die('');
-    } else {
+    } else
        Header("Location: $Start_Page");
-    }
 }
 
 function automatednews() {
@@ -226,9 +224,8 @@ function theindex($op, $catid, $marqeur) {
     if ($SuperCache) {
        $cache_obj = new cacheManager();
        $cache_obj->startCachingPage();
-    } else {
+    } else
        $cache_obj = new SuperCacheEmpty();
-    }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
        // Appel de la publication de News et la purge automatique
        automatednews();

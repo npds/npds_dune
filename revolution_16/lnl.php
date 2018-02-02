@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,9 +16,8 @@ if (!function_exists("Mysql_Connexion")) {
 }
 
 function SuserCheck($email) {
-    global $NPDS_Prefix;
-    global $stop;
-    $stop="";
+    global $NPDS_Prefix, $stop;
+    $stop='';
     if ((!$email) || ($email=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = translate("ERROR: Invalid email")."<br />";
     if (strrpos($email,' ') > 0) $stop = translate("ERROR: Email addresses do not contain spaces.")."<br />";
     if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
@@ -132,11 +131,11 @@ function unsubscribe($xemail) {
 
 settype($op,'string');
 switch ($op) {
-   case "subscribe":
+   case 'subscribe':
       subscribe($email);
-      break;
+   break;
 
-   case "subscribeOK":
+   case 'subscribeOK':
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse,"")) {
          Ecr_Log("security", "LNL Anti-Spam : email=".$email, "");
@@ -144,10 +143,10 @@ switch ($op) {
          die();
       }
       subscribe_ok($email);
-      break;
+   break;
 
-   case "unsubscribe":
+   case 'unsubscribe':
       unsubscribe($email);
-      break;
+   break;
 }
 ?>

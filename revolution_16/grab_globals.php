@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
@@ -22,8 +22,8 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
 
    // Modify the report level of PHP
    // error_reporting(0);// report NO ERROR
-   //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); // Devel report
-   error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
+   error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); // Devel report
+   //error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
 
     function getip() {
        if (isset($_SERVER)) {

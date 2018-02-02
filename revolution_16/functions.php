@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
@@ -388,28 +388,26 @@ function emotion_add($image_subject) {
       $filelist[] = $file;
    }
    asort($filelist);
-   $temp='';
+   $temp=''; $j=0;
    while (list ($key, $file) = each ($filelist)) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
       $temp .='
-         <label class="custom-control custom-radio">';
+         <div class="custom-control custom-radio custom-control-inline mb-3">';
       if ($image_subject!='') {
          if ($file == $image_subject)
             $temp .= '
-            <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" checked="checked" />
-            <span class="custom-control-indicator"></span>';
+            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" checked="checked" />';
          else
             $temp .= '
-            <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" />
-            <span class="custom-control-indicator"></span>';
+            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" />';
       } else {
          $temp .= '
-            <input type="radio" value="'.$file.'" name="image_subject" class="custom-control-input" checked="checked" />
-            <span class="custom-control-indicator"></span>';
+            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" checked="checked" />';
          $image_subject='no image';
       }
-      $temp .= '<span class="custom-control-description"><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" /></span>
-         </label>';
+      $temp .= '<label class="custom-control-label" for="image_subject'.$j.'" ><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" /></label>
+         </div>';
+      $j++;
    }
    return $temp;
 }
@@ -798,11 +796,10 @@ function forum($rowQ1) {
    }
     if (($subscribe) and ($user) and ($ok_affich)) {
       $ibid.='
-      <label class="custom-control custom-checkbox">
+      <div class="custom-control custom-checkbox mt-1">
          <input class="custom-control-input" type="checkbox" id="ckball_f" />
-         <span class="custom-control-indicator"></span>
-         <span class="custom-control-description text-muted" id="ckb_status_f">Tout cocher</span>
-      </label>';
+         <label class="custom-control-label text-muted" for="ckball_f" id="ckb_status_f">Tout cocher</label>
+      </div>';
     }
    return ($ibid);
 }

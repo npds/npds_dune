@@ -5,15 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 function FriendSend($sid, $archive) {
    global $NPDS_Prefix;
@@ -21,9 +20,8 @@ function FriendSend($sid, $archive) {
    settype($archive, "integer");
    $result=sql_query("SELECT title, aid FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
    list($title, $aid) = sql_fetch_row($result);
-   if (!$aid) {
-       header ("Location: index.php");
-   }
+   if (!$aid)
+      header ("Location: index.php");
    include ("header.php");
 
    echo '

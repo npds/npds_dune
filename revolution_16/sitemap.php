@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /* Based on Script for NPDS by Alexandre Pirard  / www.pascalex.net     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (stristr($_SERVER['PHP_SELF'],"sitemap.php")) { die(); }
+if (stristr($_SERVER['PHP_SELF'],'sitemap.php')) die();
 
 function sitemapforum($prio) {
     global $NPDS_Prefix, $nuke_url;
@@ -24,7 +24,7 @@ function sitemapforum($prio) {
           $tmp .= "<lastmod>".date("Y-m-d",time())."</lastmod>\n";
           $tmp .= "<changefreq>hourly</changefreq>\n";
           $tmp .= "<priority>$prio</priority>\n";
-          $tmp .= "</url>\n\n";       
+          $tmp .= "</url>\n\n";
        $sub_result = sql_query("SELECT topic_id, topic_time FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' AND topic_status!='2' ORDER BY topic_id");
        while (list($topic_id, $topic_time) = sql_fetch_row($sub_result)) {
           // Topics
@@ -161,9 +161,9 @@ $refresh=21600;
 
 if (file_exists($filename)) {
    if (time()-filemtime($filename)-$refresh > 0) {
-      sitemap_create($PAGES, $filename);   
+      sitemap_create($PAGES, $filename);
    }
-} else {
-   sitemap_create($PAGES, $filename);   
-}
+} else
+   sitemap_create($PAGES, $filename);
+
 ?>

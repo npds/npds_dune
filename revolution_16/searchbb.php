@@ -6,22 +6,21 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include("functions.php");
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
+
 include("auth.php");
 $Smax='99';
 
@@ -60,27 +59,24 @@ include('header.php');
             <label class="form-control-label" for="only_solved">'.translate("Topic status").'</label>
          </div>
          <div class="col-sm-8">
-            <label class="custom-control custom-checkbox">
+            <div class="custom-control custom-checkbox">
                <input type="checkbox" id="only_solved" name="only_solved" class="custom-control-input" value="ON" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Solved").'</span>
-            </label>
+               <label class="custom-control-label" for="only_solved">'.translate("Solved").'</label>
+            </div>
          </div>
       </div>
       <div class="form-group row">
          <label class="form-control-label col-sm-4" for="addterms">'.translate("Sort by").'</label>
          <div class="col-sm-8">
             <div class="custom-controls-stacked">
-               <label class="custom-control custom-radio">
-                  <input type="radio" name="addterms" class="custom-control-input" value="any" checked="checked" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Search for ANY of the terms (Default)").'</span>
-               </label>
-               <label class="custom-control custom-radio">
-                  <input type="radio" name="addterms" class="custom-control-input" value="all" />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Search for ALL of the terms").'</span>
-               </label>
+               <div class="custom-control custom-radio mb-2">
+                  <input type="radio" id="any" name="addterms" class="custom-control-input" value="any" checked="checked" />
+                  <label class="custom-control-label" for="any">'.translate("Search for ANY of the terms (Default)").'</label>
+               </div>
+               <div class="custom-control custom-radio mb-2">
+                  <input type="radio" id="all" name="addterms" class="custom-control-input" value="all" />
+                  <label class="custom-control-label" for="all">'.translate("Search for ALL of the terms").'</label>
+               </div>
             </div>
          </div>
       </div>
@@ -112,34 +108,30 @@ include('header.php');
             <div class="">';
    settype($sortby, "integer");
    echo '
-            <label class="custom-control custom-radio">
+            <div class="custom-control custom-radio mb-2">
                <input type="radio" name="sortby" class="custom-control-input" value="0" ';
       if ($sortby=="0") echo 'checked="checked" ';
    echo '/>
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Post Time").'</span>
-            </label>
-            <label class="custom-control custom-radio">
+               <label class="custom-control-label">'.translate("Post Time").'</label>
+            </div>
+            <div class="custom-control custom-radio mb-2">
                <input type="radio" name="sortby" class="custom-control-input" value="1" ';
       if ($sortby=="1") echo 'checked="checked" ';
    echo '/>
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Topics").'</span>
-            </label>
-            <label class="custom-control custom-radio">
+               <label class="custom-control-label">'.translate("Topics").'</label>
+            </div>
+            <div class="custom-control custom-radio mb-2">
                <input type="radio" name="sortby" class="custom-control-input" value="2" ';
       if ($sortby=="2") echo 'checked="checked" ';
    echo '/>
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Forum").'</span>
-            </label>
-            <label class="custom-control custom-radio">
+               <label class="custom-control-label">'.translate("Forum").'</label>
+            </div>
+            <div class="custom-control custom-radio mb-2">
                <input type="radio" name="sortby" class="custom-control-input" value="3" ';
       if ($sortby=="3") echo 'checked="checked" ';
    echo '/>
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Author").'</span>
-            </label>
+               <label class="custom-control-label">'.translate("Author").'</label>
+            </div>
             </div>
          </div>
       </div>

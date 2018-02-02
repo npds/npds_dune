@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -26,7 +26,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    
    settype($m_keywords, 'string');
    settype($m_description, 'string');
-   if ($gzhandler==1) {ob_start("ob_gzhandler");}
+   if ($gzhandler==1) ob_start("ob_gzhandler");
    include("themes/$tmp_theme/theme.php");
 
    // Meta
@@ -36,11 +36,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    }
 
    // Favicon
-   if (file_exists("themes/$tmp_theme/images/favicon.ico")) {
+   if (file_exists("themes/$tmp_theme/images/favicon.ico"))
       $favico="themes/$tmp_theme/images/favicon.ico";
-   } else {
+   else
       $favico='images/favicon.ico';
-   }
    echo '
 <link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />';
 
@@ -50,41 +49,39 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    // Canonical
    $uri = $REQUEST_URI;
    $drname=dirname($uri);
-   if ($drname=='.') {
+   if ($drname=='.')
       $uri=$nuke_url.'/'.$uri;
-   } elseif($drname=='/') {
+   elseif($drname=='/')
       $uri=$nuke_url.$uri;
-   } else {
+   else
       $uri='http://'.$_SERVER['SERVER_NAME'].$uri;
-   }
    echo '
 <link rel="canonical" href="'.str_replace('&','&amp;',str_replace('&amp;','&',$uri)).'" />';
 
    // humans.txt
-   if (file_exists("humans.txt")) {
+   if (file_exists("humans.txt"))
       echo '
 <link type="text/plain" rel="author" href="'.$nuke_url.'/humans.txt" />';
-   }
 
    echo '
 <link href="backend.php?op=RSS0.91" title="'.$sitename.' - RSS 0.91" rel="alternate" type="text/xml" />
 <link href="backend.php?op=RSS1.0" title="'.$sitename.' - RSS 1.0" rel="alternate" type="text/xml" />
 <link href="backend.php?op=RSS2.0" title="'.$sitename.' - RSS 2.0" rel="alternate" type="text/xml" />
 <link href="backend.php?op=ATOM" title="'.$sitename.' - ATOM" rel="alternate" type="application/atom+xml" />';
-   
-//   echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);//move down
 
    // Tiny_mce
    if ($tiny_mce_init)
       echo aff_editeur("tiny_mce", "begin");
 
    // include externe JAVASCRIPT file from modules/include or themes/.../include for functions, codes in the <body onload="..." event...
-   $body_onloadH="<script type=\"text/javascript\">\n";
-   $body_onloadH.="//<![CDATA[\n";
-   $body_onloadH.="function init() {\n";
-   $body_onloadF="}\n";
-   $body_onloadF.="//]]>\n";
-   $body_onloadF.="</script>\n";
+   $body_onloadH ='
+   <script type="text/javascript">
+      //<![CDATA[
+         function init() {';
+   $body_onloadF ='
+         }
+      //]]>
+   </script>';
    if (file_exists("modules/include/body_onload.inc")) {
       echo $body_onloadH;
       include ("modules/include/body_onload.inc");
@@ -122,26 +119,29 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    if ($js) {
       if (is_array($js)) {
          foreach ($js as $k=>$tab_js) {
-            if (stristr($tab_js, "http://")||stristr($tab_js, "https://")) {
-               echo "<script type=\"text/javascript\" src=\"$tab_js\"></script>\n";
-            } else {
-               if (file_exists("themes/$tmp_theme/js/$tab_js") and ($tab_js!='')) {
-                   echo "<script type=\"text/javascript\" src=\"themes/$tmp_theme/js/$tab_js\"></script>\n";
-               } elseif (file_exists("$tab_js") and ($tab_js!="")) {
-                   echo "<script type=\"text/javascript\" src=\"$tab_js\"></script>\n";
-               }
+            if (stristr($tab_js, 'http://')||stristr($tab_js, 'https://'))
+               echo '
+      <script type="text/javascript" src="'.$tab_js.'"></script>';
+            else {
+               if (file_exists("themes/$tmp_theme/js/$tab_js") and ($tab_js!=''))
+                  echo '
+      <script type="text/javascript" src="themes/'.$tmp_theme.'/js/'.$tab_js.'"></script>';
+               elseif (file_exists("$tab_js") and ($tab_js!=""))
+                  echo '
+      <script type="text/javascript" src="'.$tab_js.'"></script>';
             }
          }
       } else {
-         if (file_exists("themes/$tmp_theme/js/$js")) {
-            echo "<script type=\"text/javascript\" src=\"themes/$tmp_theme/js/$js\"></script>\n";
-         } elseif (file_exists("$js")) {
-            echo "<script type=\"text/javascript\" src=\"$js\"></script>\n";
-         }
+         if (file_exists("themes/$tmp_theme/js/$js"))
+            echo '
+      <script type="text/javascript" src="themes/'.$tmp_theme.'/js/'.$js.'"></script>';
+         elseif (file_exists("$js"))
+            echo '
+      <script type="text/javascript" src="'.$js.'"></script>';
       }
    }
-   
-   echo "</head>\n";
+   echo '
+   </head>';
    include("themes/$tmp_theme/header.php");
 }
 
@@ -161,8 +161,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
       if (!$file=@opendir("themes/$cookie[9]")) $tmp_theme=$Default_Theme;
-      
-      if (array_key_exists(11,$cookie)) {$skin=$cookie[11];}
+      if (array_key_exists(11,$cookie)) $skin=$cookie[11];
       
    } else {
       $tmp_theme=$Default_Theme;
@@ -174,22 +173,30 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    require_once("themes/pages.php");
 
    // import pages.php specif values from theme
-   if (file_exists("themes/".$tmp_theme."/pages.php")) {
+   if (file_exists("themes/".$tmp_theme."/pages.php"))
       include ("themes/".$tmp_theme."/pages.php");
-   }
 
-   $page_uri=preg_split("#(&|\?)#",$REQUEST_URI);
+   $page_uri=preg_split("#(&|\?)#",$REQUEST_URI);//var_dump($page_uri);
    $Npage_uri=count($page_uri);
-   $pages_ref=basename($page_uri[0]);
+   $pages_ref=basename($page_uri[0]);//var_dump($pages_ref);
+
+
+/*
+   if(!strstr($page_uri[1],'op='))
+      $pages_ref=basename($page_uri[0]);
+   else
+      $pages_ref=basename($page_uri[0]).'?'.$page_uri[1];
+*/
+
+
 
    // Static page and Module can have Bloc, Title ....
-   if ($pages_ref=="static.php") {
+   if ($pages_ref=="static.php")
       $pages_ref=substr($REQUEST_URI,strpos($REQUEST_URI,"static.php"));
-   }
    if ($pages_ref=="modules.php") {
-      if (isset($PAGES["modules.php?ModPath=$ModPath&ModStart=$ModStart*"]['title'])) {
+      if (isset($PAGES["modules.php?ModPath=$ModPath&ModStart=$ModStart*"]['title']))
          $pages_ref="modules.php?ModPath=$ModPath&ModStart=$ModStart*";
-      } else
+      else
          $pages_ref=substr($REQUEST_URI,strpos($REQUEST_URI,"modules.php"));
    }
 
@@ -197,9 +204,17 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    if ($pages_ref=="admin.php") {
       if (array_key_exists(1,$page_uri)) {
          if (array_key_exists($pages_ref."?".$page_uri[1],$PAGES)) {
-            if (array_key_exists('title',$PAGES[$pages_ref."?".$page_uri[1]])) {
+            if (array_key_exists('title',$PAGES[$pages_ref."?".$page_uri[1]]))
+
                $pages_ref.="?".$page_uri[1];
-            }
+/*
+             
+               $PAGES[$pages_ref]['title']="";
+               $PAGES[$pages_ref]['blocs']="0";
+               $PAGES[$pages_ref]['run']="yes";
+               $PAGES[$pages_ref]['css']="admin.css+";//cette entrée DOIT etre dans pages.php pour faire fonctionner le chargeur de page spécifique du mainfile
+*/
+
          }
       }
    }
@@ -219,11 +234,9 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    // A partir de ce niveau - $PAGES[$pages_ref] doit exister - sinon c'est que la page n'est pas dans pages.php
    // -----------------------
    if (array_key_exists($pages_ref,$PAGES)) {
-
       // what a bloc ... left, right, both, ...
-      if (array_key_exists('blocs',$PAGES[$pages_ref])) {
+      if (array_key_exists('blocs',$PAGES[$pages_ref]))
          $pdst=$PAGES[$pages_ref]['blocs'];
-      }
 
       // block execution of page with run attribute = no
       if ($PAGES[$pages_ref]['run']=="no") {
@@ -234,32 +247,29 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
             if (file_exists("static/webclosed.txt"))
                include("static/webclosed.txt");
             die();
-         } else {
+         } else
             header("location: index.php");
-         }
       // run script to another 'location'
-      } elseif (($PAGES[$pages_ref]['run']!="yes") and (($PAGES[$pages_ref]['run']!=""))) {
+      } elseif (($PAGES[$pages_ref]['run']!="yes") and (($PAGES[$pages_ref]['run']!="")))
          header("location: ".$PAGES[$pages_ref]['run']);
-      }
 
       // Assure la gestion des titres ALTERNATIFS
       $tab_page_ref=explode("|",$PAGES[$pages_ref]['title']);
       if (count($tab_page_ref)>1) {
-         if (strlen($tab_page_ref[1])>1) {
+         if (strlen($tab_page_ref[1])>1)
             $PAGES[$pages_ref]['title']=$tab_page_ref[1];
-         } else {
+         else
             $PAGES[$pages_ref]['title']=$tab_page_ref[0];
-         }
          $PAGES[$pages_ref]['title']=strip_tags($PAGES[$pages_ref]['title']);
       }
       $fin_title=substr($PAGES[$pages_ref]['title'],-1);
       $TitlesitenameX=aff_langue(substr($PAGES[$pages_ref]['title'],0,strlen($PAGES[$pages_ref]['title'])-1));
       if ($fin_title=="+") {
          $Titlesitename=$TitlesitenameX." - ".$Titlesitename;
-      } else if ($fin_title=="-") {
+      } else if ($fin_title=='-') {
          $Titlesitename=$TitlesitenameX;
       }
-      if ($Titlesitename=="") {$Titlesitename=$sitename;}
+      if ($Titlesitename=='') $Titlesitename=$sitename;
       // globalisation de la variable title pour marquetapage mais protection pour la zone admin
       if ($pages_ref!="admin.php")
          global $title;
@@ -273,14 +283,12 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    
       // meta description
       settype($m_description, 'string');
-      if (array_key_exists('meta-description',$PAGES[$pages_ref]) and ($m_description=='')) {
+      if (array_key_exists('meta-description',$PAGES[$pages_ref]) and ($m_description==''))
          $m_description=aff_langue($PAGES[$pages_ref]['meta-description']);
-      }
       // meta keywords
       settype($m_keywords, 'string');
-      if (array_key_exists('meta-keywords',$PAGES[$pages_ref]) and ($m_keywords=='')) {
+      if (array_key_exists('meta-keywords',$PAGES[$pages_ref]) and ($m_keywords==''))
          $m_keywords=aff_langue($PAGES[$pages_ref]['meta-keywords']);
-      }
    }
 
    // Initialisation de TinyMce
@@ -306,6 +314,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
    }
 
    // Chargeur de CSS via PAGES.PHP
+
    if (array_key_exists($pages_ref,$PAGES)) {
       if (array_key_exists('css',$PAGES[$pages_ref])) {
          $css_pages_ref=$pages_ref;
@@ -318,6 +327,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $js, $m_descript
       $css_pages_ref='';
       $css='';
    }
+
 
    // Mod by Jireck - Chargeur de JS via PAGES.PHP
    if (array_key_exists($pages_ref,$PAGES)) {

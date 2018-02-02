@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -34,15 +34,14 @@ function Admin_alert($motif) {
 if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
    if ($aid!='' and $pwd!='') {
       $result=sql_query("SELECT pwd FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
-      if (!$result) {
+      if (!$result)
          Admin_Alert("DB not ready #1 : $aid");
-      } else {
+      else {
          list($pass)=sql_fetch_row($result);
-         if ($system_md5) {
+         if ($system_md5)
             $passwd=crypt($pwd,$pass);
-         } else {
+         else
             $passwd=$pwd;
-         }
 
          if ((strcmp($passwd,$pass)==0) and ($pass != '')) {
             $admin = base64_encode("$aid:".md5($passwd));
@@ -50,9 +49,8 @@ if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
             $timeX=time()+(3600*$admin_cook_duration);
             setcookie('admin',$admin,$timeX);
             setcookie('adm_exp',$timeX,$timeX);
-         } else {
+         } else
             Admin_Alert("Passwd not in DB#1 : $aid");
-         }
       }
    }
 }
@@ -66,20 +64,18 @@ if (isset($admin) and ($admin!='')) {
    $Xadmin = explode(':', $Xadmin);
    $aid = urlencode($Xadmin[0]);
    $AIpwd = $Xadmin[1];
-   if ($aid=='' or $AIpwd=='') {
+   if ($aid=='' or $AIpwd=='')
       Admin_Alert('Null Aid or Passwd');
-   }
    $result=sql_query("SELECT pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
-   if (!$result) {
+   if (!$result)
       Admin_Alert("DB not ready #2 : $aid / $AIpwd");
-   } else {
+   else {
      list($AIpass, $Xsuper_admintest)=sql_fetch_row($result);
      if (md5($AIpass) == $AIpwd and $AIpass != '') {
         $admintest = true;
         $super_admintest = $Xsuper_admintest;
-     } else {
+     } else
         Admin_Alert("Password in Cookies not Good #1 : $aid / $AIpwd");
-     }
    }
    unset ($AIpass);
    unset ($AIpwd);

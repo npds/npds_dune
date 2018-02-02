@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -45,13 +45,11 @@ if (!isset($sid) && !isset($tid))
       $notes = aff_code(aff_langue(stripslashes($notes)));
 
       if ($notes!= '') $notes='<div class="note blockquote">'.translate("Note").' : '.$notes.'</div>';
-
-      if ($bodytext == '') {
+      if ($bodytext == '')
          $bodytext = meta_lang($hometext.'<br />'.$notes);
-      } else {
+      else
          $bodytext = meta_lang($hometext.'<br />'.$bodytext.'<br />'.$notes);
-      }
-      if ($informant == '') {$informant = $anonymous;}
+      if ($informant == '') $informant = $anonymous;
 
       getTopics($sid);
 
@@ -133,8 +131,7 @@ if (!isset($sid) && !isset($tid))
          }
       }
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingPage();
-   }
    include ("footer.php");
 ?>

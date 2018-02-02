@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -184,9 +184,9 @@ function GraphicAdmin($hlpfile) {
          </ul>
          <script type="text/javascript">
          //<![CDATA[
-         $( document ).ready(function() {
-         tog(\''.strtolower(substr($cat_n[($j-1)],0,3)).'\',\'show_'.strtolower(substr($cat_n[$j-1],0,3)).'\',\'hide_'.strtolower(substr($cat_n[$j-1],0,3)).'\');
-         })
+            $( document ).ready(function() {
+               tog(\''.strtolower(substr($cat_n[($j-1)],0,3)).'\',\'show_'.strtolower(substr($cat_n[$j-1],0,3)).'\',\'hide_'.strtolower(substr($cat_n[$j-1],0,3)).'\');
+            })
          //]]>
          </script>'."\n";
 
@@ -258,11 +258,11 @@ function GraphicAdmin($hlpfile) {
             update: function(){
            Cookies.set('items', getItems('#lst_men_main'));
            console.log(Cookies.get('items'));
-    }         
+    }
 
 });
 
- var htmmll=[];        
+ var htmmll=[];
    // Get all items from a container
    function getItems(container) {
       var columns = [];
@@ -523,14 +523,12 @@ if ($admintest) {
       break;
       // FILES MANAGER
       case 'FileManager':
-         if ($admintest and $filemanager) {
+         if ($admintest and $filemanager)
             header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=$aid");
-         }
       break;
       case 'FileManagerDisplay':
-         if ($admintest and $filemanager) {
+         if ($admintest and $filemanager)
             header("location: modules.php?ModPath=f-manager&ModStart=f-manager&FmaRep=download");
-         }
       break;
       //BLACKBOARD
       case 'abla':
@@ -1082,7 +1080,6 @@ if ($admintest) {
          adminMain(0);
       break;
    }
-} else {
+} else
    login();
-}
 ?>

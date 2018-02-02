@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -16,11 +16,10 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include("functions.php");
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
 include("auth.php");
 global $NPDS_Prefix;
 
@@ -49,21 +48,19 @@ if ($submitS) {
       forumerror('0022');
    $row = sql_fetch_assoc($result);
 
-   if ($userdata[0]==$row['poster_id']) {
+   if ($userdata[0]==$row['poster_id'])
       $ok_maj=true;
-   } else {
+   else {
       if (!$Mmod) { forumerror('0035'); }
       if ((user_is_moderator($userdata[0],$userdata[2],$forum_access)<2) ) { forumerror('0036'); }
    }
    $userdata = get_userdata($userdata[1]);
 
-   if ($allow_html == 0 || isset($html)) {
+   if ($allow_html == 0 || isset($html))
       $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
-   }
 
-   if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5')) {
+   if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5'))
       $message = smile($message);
-   }
    if (($forum_type!=6) and ($forum_type!=5)) {
       $message = make_clickable($message);
       $message = af_cod($message);
@@ -227,18 +224,16 @@ if ($submitS) {
       <label class="form-control-label col-sm-12">'.translate("Options").'</label>
       <div class="col-sm-12">
          <div class="checkbox">
-            <label class="custom-control custom-checkbox text-danger">
-               <input class="custom-control-input" type="checkbox" name="delete" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Delete this Post").'</span>
-            </label>
+            <div class="custom-control custom-checkbox text-danger">
+               <input class="custom-control-input" type="checkbox" id="delete_p" name="delete" />
+               <label class="custom-control-label" for="delete_p">'.translate("Delete this Post").'</label>
+            </div>
          </div>
          <div class="checkbox">
-            <label class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
-            </label>
+            <div class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+               <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+            </div>
          </div>
       </div>
    </div>';
