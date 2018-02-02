@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
 /* =========================                                            */
 /* Snipe 2003                                                           */
 /*                                                                      */
@@ -10,9 +10,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 switch($apli) {
    case 'f-manager':

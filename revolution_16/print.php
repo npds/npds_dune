@@ -5,15 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 function PrintPage($oper, $DB, $nl, $sid) {
     global $user,$cookie, $theme,$Default_Theme, $language, $site_logo, $sitename, $datetime, $nuke_url, $site_font, $Titlesitename;
@@ -26,9 +25,8 @@ function PrintPage($oper, $DB, $nl, $sid) {
        if ($topic!='') {
           $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
           list($topictext) = sql_fetch_row($result2);
-       } else {
+       } else
           $aff=false;
-       }
     }
     if ($oper=='archive') {
        $xtab=news_aff('archive',"WHERE sid='$sid'",1,1);
@@ -36,9 +34,8 @@ function PrintPage($oper, $DB, $nl, $sid) {
        if ($topic!='') {
           $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
           list($topictext) = sql_fetch_row($result2);
-       } else {
+       } else
           $aff=false;
-       }
     }
     if ($oper=='links') {
        $DB=removeHack(stripslashes(htmlentities(urldecode($DB),ENT_NOQUOTES,cur_charset)));

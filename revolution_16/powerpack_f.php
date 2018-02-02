@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -95,11 +95,10 @@ function write_short_private_message($to_userid) {
       </div>
       <div class="form-group row">
          <div class="col-sm-12">
-            <label class="custom-control custom-checkbox" >
-               <input class="custom-control-input" type="checkbox" name="copie" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Send a copy to me").'</span>
-            </label>
+            <div class="custom-control custom-checkbox" >
+               <input class="custom-control-input" type="checkbox" id="copie" name="copie" />
+               <label class="custom-control-label" for="copie">'.translate("Send a copy to me").'</label>
+            </div>
          </div>
       </div>
       <div class="form-group row">
@@ -350,12 +349,10 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
        $lim='';
     else
        $lim=" LIMIT $maxforums";
-
-    if ($user) {
+    if ($user)
        $query = "SELECT * FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim;
-    } else {
+    else
        $query = "SELECT * FROM ".$NPDS_Prefix."forums WHERE forum_type!='9' AND forum_type!='7' AND forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
-    }
     $result = sql_query($query);
 
     if (!$result) exit();

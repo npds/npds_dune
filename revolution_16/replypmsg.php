@@ -5,15 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
 if ($SuperCache)
@@ -269,11 +268,10 @@ settype($send,'string');
          echo '
          <div class="form-group row">
             <div class="col-sm-9 ml-auto">
-            <label class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" name="copie" '.$checked.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description"> '.translate("Send a copy to me").'</span>
-            </label>
+            <div class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" id="copie" name="copie" '.$checked.' />
+               <label class="custom-control-label" for="copie"> '.translate("Send a copy to me").'</label>
+            </div>
             </div>
          </div>
          <div class="form-group row">
@@ -365,13 +363,11 @@ settype($send,'string');
             if ($html) $checked='checked="checked"'; else $checked='';
             echo '
          <div class="col-sm-9">
-            <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$checked.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
-               </label>
-            </div>';
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$checked.' />
+                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+               </div>
+            ';
          }
 
          if ($allow_sig==1) {
@@ -383,14 +379,12 @@ settype($send,'string');
             settype($sig,'integer');
             if ($sig) $checked='checked="checked"'; else $checked='';
             echo '
-            <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="sig" '.$checked.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Show signature").'</span>
-               </label>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$checked.' />
+                  <label class="custom-control-label" for="sig">'.translate("Show signature").'</label>
+               </div>
                <small class="help-block">'.translate("This can be altered or added in your profile").'</small>
-            </div>';
+            ';
          }
 
          echo '

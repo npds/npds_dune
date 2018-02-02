@@ -5,30 +5,28 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
+
 include('auth.php');
 global $NPDS_Prefix;
 
 settype($cancel,'string');
-if ($cancel) {
+if ($cancel)
    header("Location: viewtopicH.php?topic=$topic&forum=$forum");
-}
 
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
@@ -345,11 +343,10 @@ if ($submitS) {
          echo '
          <div class="col-sm-12">
             <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
-               </label>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+               </div>
             </div>';
       }
       if ($user) {
@@ -360,23 +357,22 @@ if ($submitS) {
             if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="sig" '.$s.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Show signature").'<br /><small>'.translate("This can be altered or added in your profile").'</small>
-               </label>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <label class="custom-control-label" for="sig">'.translate("Show signature").'</label>
+                  <small class="help-text">'.translate("This can be altered or added in your profile").'</small>
+               </div>
             </div>';
             }
          }
          if ($allow_upload_forum) {
-            if ($upload == 'on') {$up = 'checked="checked"';}
-         echo '
+            if ($upload == 'on') $up = 'checked="checked"';
+            echo '
             <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="upload" '.$up.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Upload file after send accepted").'</span>
-               </label>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="upload" name="upload" '.$up.' />
+                  <label class="custom-control-label" for="upload">'.translate("Upload file after send accepted").'</label>
+               </div>
             </div>';
          }
       }

@@ -5,29 +5,26 @@
 /*                                                                      */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 include('functions.php');
-if ($SuperCache) {
+if ($SuperCache)
    $cache_obj = new cacheManager();
-} else {
+else
    $cache_obj = new SuperCacheEmpty();
-}
 include('auth.php');
 global $NPDS_Prefix;
 
-if ($allow_upload_forum) {
+if ($allow_upload_forum)
    include("modules/upload/upload_forum.php");
-}
 
 $rowQ1=Q_Select ("SELECT forum_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'", 3600);
 if (!$rowQ1)
@@ -55,9 +52,8 @@ if (($forum_type == 5) or ($forum_type == 7)) {
       redirect_url("forum.php");
    }
 }
-if (($forum_type==9) and (!$user)) {
+if (($forum_type==9) and (!$user))
    redirect_url("forum.php");
-}
 // Moderator
 if (isset($user)) {
    $userX = base64_decode($user);

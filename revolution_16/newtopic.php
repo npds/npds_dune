@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-settype($cancel, "string");
+settype($cancel, 'string');
 if ($cancel)
    header("Location: viewforum.php?forum=$forum");
 
@@ -298,7 +298,7 @@ if ($submitS) {
          <div class="d-none d-sm-block form-group row">
             <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
             <div class="col-sm-12">
-               <div class="border rounded pt-2 px-2 n-fond_subject d-flex flex-row flex-wrap">
+               <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
                '.emotion_add($image_subject).'
                </div>
             </div>
@@ -341,11 +341,10 @@ if ($submitS) {
             if (isset($html)) $sethtml = 'checked="checked"';
             else $sethtml = '';
             echo '
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
-               </label>';
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+               </div>';
          }
          if ($user) {
             if ($allow_sig == 1 || $sig == 'on') {
@@ -355,11 +354,10 @@ if ($submitS) {
                else $s = '';
                if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
                   echo '
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="sig" '.$s.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Show signature").'</span>
-               </label>';
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <label class="custom-control-label" for="sig">'.translate("Show signature").'</label>
+               </div>';
                }
             }
             settype($up,'string');
@@ -368,22 +366,20 @@ if ($submitS) {
                if ($upload == "on")
                   $up = 'checked="checked"';
                echo '
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$up.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Upload file after send accepted").'</span>
-               </label>';
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="upload" name="upload" '.$up.' />
+                  <label class="custom-control-label" for="upload">'.translate("Upload file after send accepted").'</label>
+               </div>';
             }
             if (isset($notify2))
                $selnot='checked="checked"';
             else
                $selnot='';
          echo '
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$selnot.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Notify by email when replies are posted").'</span>
-               </label>';
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="notify2" name="notify2" '.$selnot.' />
+                  <label class="custom-control-label" for="notify2">'.translate("Notify by email when replies are posted").'</label>
+               </div>';
          }
          echo '
             </div>

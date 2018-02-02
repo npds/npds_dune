@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -90,10 +90,10 @@ include("auth.php");
             <thead class="thead-default">
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
-                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" />
-                        <span class="custom-control-indicator bg-danger"></span>
-                     </label>
+                     <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" />
+                        <label class="custom-control-label bg-danger" for="allbox"></label>
+                     </div>
                   </th>
                   <th class="n-t-col-xs-1" data-align="center" ><i class="fa fa-long-arrow-down"></i></th>';
       if ($smilies) { echo '
@@ -115,18 +115,17 @@ include("auth.php");
          echo '
                <tr>
                   <td>
-                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
-                        <span class="custom-control-indicator bg-danger"></span>
-                     </label>
+                     <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" id="msg_id'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                        <label class="custom-control-label bg-danger" for="msg_id'.$count.'"></label>
+                     </div>
                   </td>';
-         if ($myrow['read_msg'] == "1") {
+         if ($myrow['read_msg'] == "1")
             echo '
                   <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-envelope-open-o fa-lg "></i></a></td>';
-         } else {
+         else
             echo '
                   <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-envelope fa-lg faa-shake animated"></i></a></td>';
-         }
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
@@ -181,10 +180,10 @@ include("auth.php");
             <thead class="thead-default">
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
-                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" />
-                        <span class="custom-control-indicator bg-danger"></span>
-                     </label>
+                     <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input is-invalid" id="allbox_b" name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" />
+                        <label class="custom-control-label" for="allbox_b"></label>
+                     </div>
                   </th>';
       if ($smilies) 
          echo '
@@ -209,10 +208,10 @@ include("auth.php");
          echo '
             <tr>
                <td>
-                  <label class="custom-control custom-checkbox">
-                     <input class="custom-control-input" type="checkbox" onclick="CheckCheckAllB();" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
-                     <span class="custom-control-indicator bg-danger"></span>
-                  </label>
+                  <div class="custom-control custom-checkbox">
+                     <input class="custom-control-input is-invalid" type="checkbox" onclick="CheckCheckAllB();" id="msg_idB'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                     <label class="custom-control-label text-danger" for="msg_idB'.$count.'"></label>
+                  </div>
                </td>';
          if ($smilies) {
             if ($myrow['msg_image']!='') {

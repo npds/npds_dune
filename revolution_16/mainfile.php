@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -1455,18 +1455,18 @@ function pollMain($pollID,$pollClose) {
       $boxTitle=$block_title;
    $boxContent .= '<legend>'.aff_langue($pollTitle).'</legend>';
    $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' AND optionText<>'') ORDER BY voteID");
-   $sum = 0;
+   $sum = 0; $j=0;
    if (!$pollClose) {
          $boxContent .= '
-         <div class="custom-controls-stacked mb-2">';
+         <div class="mb-3">';
       while($object=sql_fetch_assoc($result)) {
          $boxContent .= '
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="voteID" value="'.$object['voteID'].'" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.aff_langue($object['optionText']).'</span>
-            </label>';
-         $sum = $sum + $object['optionCount']; 
+            <div class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" id="voteID'.$j.'" name="voteID" value="'.$object['voteID'].'" />
+               <label class="custom-control-label" for="voteID'.$j.'" >'.aff_langue($object['optionText']).'</label>
+            </div>';
+         $sum = $sum + $object['optionCount'];
+         $j++; 
       }
          $boxContent .= '
          </div>';
@@ -1497,7 +1497,7 @@ function pollMain($pollID,$pollClose) {
    } else {
       $boxContent .= '
       <ul>
-         <li>'.translate("Votes: ").' <span class="badge badge-pill tag-default float-right">'.$sum.'</span></li>
+         <li>'.translate("Votes: ").' <span class="badge badge-pill badge-secondary float-right">'.$sum.'</span></li>
       <ul>';
    }
    themesidebox($boxTitle, $boxContent);

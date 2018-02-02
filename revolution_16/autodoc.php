@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -20,7 +20,7 @@
 /* Le mainfile.php est un bon exemple (extraction des fonctions de type BLOCS)                                                   */
 /*                                                                                                                               */
 /*********************************************************************************************************************************/
-if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {include ("grab_globals.php");}
+if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) include ("grab_globals.php");
 
 function Access_Error () {
   include("admin/die.php");

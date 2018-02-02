@@ -5,15 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 function message_error($ibid,$op) {
    include("header.php");
    echo '
@@ -311,16 +310,14 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
-      if ($user_sig) {
+      if ($user_sig)
          $attach = 1;
-      } else {
+      else
          $attach = 0;
-      }
-      if (($AutoRegUser==1) or (!isset($AutoRegUser))) {
+      if (($AutoRegUser==1) or (!isset($AutoRegUser)))
          $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','1','')");
-      } else {
+      else
          $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','0','')");
-      }
       if ($result) {
          if (($system==1) or ($memberpass)) {
             echo '
@@ -1110,11 +1107,10 @@ function edithome() {
    echo '
    <div class="form-group row">
       <div class="col-sm-10">
-         <label class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" name="ublockon" value="1" '.$sel.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Activate Personal Menu").'</span>
-         </label>
+         <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="ublockon" name="ublockon" value="1" '.$sel.' />
+            <label class="custom-control-label" for="ublockon">'.translate("Activate Personal Menu").'</label>
+         </div>
       </div>
    </div>
    <ul>
@@ -1293,11 +1289,10 @@ function editjournal(){
       <input type="hidden" name="op" value="savejournal" />
       <div class="form-group row">
          <div class="col-12">
-            <label class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" name="datetime" value="1" />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.translate("Add date and time stamp").'</span>
-            </label>
+            <div class="custom-control custom-checkbox">
+               <input class="custom-control-input" type="checkbox" id="datetime" name="datetime" value="1" />
+               <label class="custom-control-label" for="datetime">'.translate("Add date and time stamp").'</label>
+            </div>
          </div>
       </div>
       <div class="form-group row">

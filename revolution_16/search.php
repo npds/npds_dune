@@ -5,15 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
    $offset=3;//25 
    $limit_full_search=250;
 
@@ -40,17 +39,16 @@ if (!function_exists("Mysql_Connexion")) {
       $topicimage = "all-topics.gif";
    }
    settype($type,'string');
-   if ($type == 'users') {
+   if ($type == 'users')
       echo '<h2 class="mb-3">'.translate("Search in Users Database").'</h2><hr />';
-   } elseif ($type == 'sections') {
+   elseif ($type == 'sections')
       echo '<h2 class="mb-3">'.translate("Search in Sections").'</h2><hr />';
-   } elseif ($type == 'reviews') {
+   elseif ($type == 'reviews')
       echo '<h2 class="mb-3">'.translate("Search in Reviews").'</h2><hr />';
-   } elseif ($type == 'archive') {
+   elseif ($type == 'archive')
       echo '<h2 class="mb-3">'.translate("Search in").' <span class="text-lowercase">'.translate("Archives").'</span></h2><hr />';
-   } else {
+   else
       echo '<h2 class="mb-3">'.translate("Search in").' '.aff_langue($topictext).'</h2><hr />';
-   }
    echo '
    <form action="search.php" method="get">';
    /*
@@ -141,54 +139,49 @@ if (!function_exists("Mysql_Connexion")) {
          </select>
       </div>';
 
-   if (($type == 'stories') or ($type=='')) {
+   if (($type == 'stories') or ($type==''))
       $sel1 = 'checked="checked"';
-   } elseif ($type == 'sections') {
+   elseif ($type == 'sections')
       $sel3 = 'checked="checked"';
-   } elseif ($type == 'users') {
+   elseif ($type == 'users')
       $sel4 = 'checked="checked"';
-   } elseif ($type == 'reviews') {
+   elseif ($type == 'reviews')
       $sel5 = 'checked="checked"';
-   } elseif ($type == 'archive') {
+   elseif ($type == 'archive')
       $sel6 = 'checked="checked"';
-   }
+
    echo '
       <div class="form-group">
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="type" value="stories" '.$sel1.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Stories").'</span>
-         </label>
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="type" value="archive" '.$sel6.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Archives").'</span>
-         </label>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="sto" name="type" value="stories" '.$sel1.' />
+            <label class="custom-control-label" for="sto">'.translate("Stories").'</label>
+         </div>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="arc" name="type" value="archive" '.$sel6.' />
+            <label class="custom-control-label" for="arc">'.translate("Archives").'</label>
+         </div>
       </div>
       <div class="form-group">
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="type" value="sections" '.$sel3.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Sections").'</span>
-         </label>
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="type" value="users" '.$sel4.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Users").'</span>
-         </label>
-         <label class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" name="type" value="reviews" '.$sel5.' />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.translate("Reviews").'</span>
-         </label>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="sec" name="type" value="sections" '.$sel3.' />
+            <label class="custom-control-label" for="sec">'.translate("Sections").'</label>
+         </div>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="use" name="type" value="users" '.$sel4.' />
+            <label class="custom-control-label" for="use">'.translate("Users").'</label>
+         </div>
+         <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" id="rev" name="type" value="reviews" '.$sel5.' />
+            <label class="custom-control-label" for="rev">'.translate("Reviews").'</label>
+         </div>
       </div>
       <div class="form-group">
          <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
       </div>
    </form>';
 
-   settype($min,"integer");
-   settype($offset,"integer");
+   settype($min,'integer');
+   settype($offset,'integer');
    if ($type=="stories" OR $type=="archive" OR !$type) {
       if ($category > 0) {
          $categ = "AND catid='$category' ";
@@ -218,9 +211,8 @@ if (!function_exists("Mysql_Connexion")) {
          $cache_obj = new cacheManager();
          $tab_sid=$cache_obj->startCachingObjet($cache_clef);
          if ($tab_sid!='') $x=count($tab_sid);
-      } else {
+      } else
          $cache_obj = new SuperCacheEmpty();
-      }
       if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
          $result = sql_query($q);
          if ($result) {
@@ -336,9 +328,8 @@ if (!function_exists("Mysql_Connexion")) {
    // sections
    } elseif ($type=='sections') {
       $result = sql_query("SELECT artid, secid, title, content FROM ".$NPDS_Prefix."seccont WHERE (title LIKE '%$query_title%' OR content LIKE '%$query_body%') ORDER BY artid DESC LIMIT $min,$offset");
-      if ($result) {
+      if ($result)
          $nrows  = sql_num_rows($result);
-      }
       $x=0;
       if ($nrows>0) {
          echo '
@@ -418,23 +409,20 @@ if (!function_exists("Mysql_Connexion")) {
             echo '
          <tbody>
       </table>';
-         } else {
+         } else
             echo '
       <div class="alert alert-danger lead" role="alert">'.translate("No matches found to your query").'</div>';
-         }
          $prev=$min-$offset;
          echo '
       <p align="left">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
-      if ($prev>=0) {
-         echo '
+         if ($prev>=0)
+            echo '
             <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("previous matches").'</a></li>';
-         }
-         if ($x>=($offset-1)) {
+         if ($x>=($offset-1))
             echo '
             <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
-         }
          echo '
          </ul>
       </p>';
