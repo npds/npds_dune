@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -34,26 +34,24 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
       adminhead($f_meta_nom, $f_titre, $adminimg);
    echo'
    <hr />
-   <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fa fa-external-link fa-lg" title="Voir le module en mode utilisation." data-toggle="tooltip" data-placement="right"></i></a>
-   <h3>'.adm_translate("Paramètres").'</h3>
+   <h3 mb-3>'.adm_translate("Paramètres").'</h3>
    <form id="archive_adm" class="form-horizontal" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
+            <label class="col-form-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
             <div class="col-sm-8">
                <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
                <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
+            <label class="col-form-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="arch">';
-   if ($arch == 1) {
+   if ($arch == 1)
       $sel_a = 'selected="selected"';
-   } else {
+   else
       $sel_i = 'selected="selected"';
-   }
    echo '
                   <option name="status" value="1" '.$sel_a.'>'.adm_translate("Les articles en archive").'</option>
                   <option name="status" value="0" '.$sel_i.'>'.adm_translate("Les articles en ligne").'</option>
@@ -61,13 +59,13 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
+            <label class="col-form-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
             <div class="col-sm-8">
               <input id="maxcount" class="form-control" type="number" name="maxcount" value="'.$maxcount.'" min="0" max="500" required="required" />
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
+            <label class="col-form-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
             <div class="col-sm-8">
               <input id="retcache" class="form-control" type="number" name="retcache" value="'.$retcache.'" min="0" required="required" />
                <span class="help-block text-right">'.adm_translate("Temps de rétention en secondes").'</span>
@@ -75,7 +73,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
          </div>
          <div class="form-group row">
             <div class="col-sm-8 ml-sm-auto">
-               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
+               <button class="btn btn-primary col-12" type="submit">'.adm_translate("Sauver").'</button>
                <input type="hidden" name="op" value="Extend-Admin-SubModule" />
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
                <input type="hidden" name="ModStart" value="'.$ModStart.'" />
@@ -84,7 +82,9 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             </div>
          </div>
       </fieldset>
-   </form>';
+   </form>
+   <hr />
+   <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fa fa-external-link fa-lg mr-1" title="Voir le module en mode utilisation." data-toggle="tooltip" data-placement="right"></i>Voir le module en mode utilisation.</a>';
    $arg1='inpandfieldlen("arch_titre",400);';
    adminfoot('fv','',$arg1,'');
 }
@@ -98,7 +98,7 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    $content .= "/*                                                                      */\n";
    $content .= "/* From ALL STORIES Add-On ... ver. 1.4.1a                              */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -106,13 +106,13 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* archives-stories                                                     */\n";
-   $content .= "/* archives-stories_conf 2015 by                                        */\n";
+   $content .= "/* archives-stories_conf 2015                                           */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* version 3.0 30/08/2015                                               */\n";
    $content .= "/************************************************************************/\n";
    $content .= "// Nombre de Stories par page \n";
    $content .= "\$maxcount = $maxcount;\n";
-   $content .= "// Les news en ligne ($arch=0;) ou les archive ($arch=1;) ? \n";
+   $content .= "// Les news en ligne ($arch=0;) ou les archives ($arch=1;) ? \n";
    $content .= "\$arch = $arch;\n";
    $content .= "// Titre de la liste des news (par exemple : \"<h2>Les Archives</h2>\") / si \$arch_titre est vide rien ne sera affiché \n";
    $content .= "\$arch_titre = \"$arch_titre\";\n";
@@ -131,7 +131,7 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    $content .= "/*                                                                      */\n";
    $content .= "/* From ALL STORIES Add-On ... ver. 1.4.1a                              */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
