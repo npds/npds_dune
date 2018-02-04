@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,9 +13,9 @@
 /************************************************************************/
 
 if ($uriBlocNote) {
-   if ($typeBlocNote=="shared") {
+   if ($typeBlocNote=="shared")
       $bnid=md5($nomBlocNote);
-   } elseif ($typeBlocNote=="context") {
+   elseif ($typeBlocNote=="context") {
       if ($nomBlocNote=="\$username") {
          global $cookie, $admin;
          $nomBlocNote=$cookie[1];
@@ -29,9 +29,8 @@ if ($uriBlocNote) {
       } else {
          $bnid=md5($nomBlocNote.urldecode($uriBlocNote));
       }
-   } else {
+   } else
       $bnid='';
-   }
 
    if ($bnid) {
       if ($supBlocNote=='RAZ') {
@@ -54,7 +53,7 @@ if ($uriBlocNote) {
       }
    }
    header ("location: ".urldecode($uriBlocNote));
-} else {
-   header ("location: index.php");
 }
+else
+   header ("location: index.php");
 ?>
