@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 3.0                                            */
-/* geoloc_geoloc_loc.php file 2008-2017 by Jean Pierre Barbary (jpb)    */
+/* geoloc_geoloc_loc.php file 2008-2018 by Jean Pierre Barbary (jpb)    */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
 
@@ -115,7 +115,6 @@ function localiser_ip($iptoshow) {
                   title: "'.$iptoshow.'",
                   icon: icon_ip,
                   optimized: false
-//                  icon: icon_u
                })
                return marker_u;
             }
