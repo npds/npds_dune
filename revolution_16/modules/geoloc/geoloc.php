@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 3.0                                            */
-/* geoloc_geoloc.php file 2008-2017 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2018 by Jean Pierre Barbary (jpb)        */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
 
@@ -1052,13 +1052,12 @@ $affi .= '
       <div class="tab-pane fade mt-2" id="geolocalisation">
       <h5 class="mt-3">
          <i title="'.geoloc_translate('IP géoréférencées').'" data-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg mr-2 align-middle"></i>
-         <label class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" onclick="boxclick(this,\'ip\')" />
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">'.geoloc_translate('Voir ou masquer les IP').'</span>
-         </label>
          <span class="badge badge-secondary mr-2 float-right">'.$ipnb.'</span>
       </h5>
+         <div class="custom-control custom-checkbox my-2">
+            <input class="custom-control-input" type="checkbox" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" onclick="boxclick(this,\'ip\')" />
+            <label class="custom-control-label" for="ipbox">'.geoloc_translate('Voir ou masquer les IP').'</label>
+         </div>
       <div class="form-group row">
       <div class="col-sm-12">
          <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />

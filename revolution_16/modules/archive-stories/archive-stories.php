@@ -5,18 +5,16 @@
 /*                                                                      */
 /* From ALL STORIES Add-On ... ver. 1.4.1a                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-}
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
    include_once('functions.php');
    include ("modules/$ModPath/archive-stories.conf.php");
    include ("modules/$ModPath/cache.timings.php");
@@ -26,11 +24,11 @@ if (!function_exists("Mysql_Connexion")) {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
+   } else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      if ($arch_titre) { echo $arch_titre; }
+      if ($arch_titre) 
+         echo $arch_titre;
       echo '
    <hr />
    <table id ="lst_art_arch" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
@@ -53,19 +51,17 @@ if (!function_exists("Mysql_Connexion")) {
       
    $nbPages = ceil($count/$maxcount);
    $current = 1;
-   if ($start >= 1) {
+   if ($start >= 1)
       $current=$start/$maxcount;
-   } else if ($start < 1) {
+   else if ($start < 1)
       $current=0;
-   } else {
+   else
       $current = $nbPages;
-   }
 
-      if ($arch==0) {
+      if ($arch==0)
          $xtab=news_aff("libre", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount);
-      } else {
+      else
          $xtab=news_aff("archive", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount);
-      }
 
       $ibid=0;
       $story_limit=0;
@@ -109,10 +105,9 @@ if (!function_exists("Mysql_Connexion")) {
       </ul>';
 
       echo paginate('modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start=', '&amp;count='.$count, $nbPages, $current, 1, $maxcount, $start);
-echo '</div>';
+      echo '</div>';
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingPage();
-   }
    include("footer.php");
 ?>
