@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,8 +32,6 @@ if ($cancel)
 settype($forum,'integer');
 if ($forum>=0)
    die();
-
-//var_dump($admin);
 
 // gestion des params du 'forum' : type, accès, modérateur ...
 $forum_name = 'comments';
@@ -276,13 +274,12 @@ if (isset($submitS)) {
         if ($allow_html==1) {
            if (isset($html)) $sethtml = 'checked="checked"'; else $sethtml = '';
            echo '
-         <div class="col-sm-12">
+         <div class="col-sm-12 my-2">
             <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="html" '.$sethtml.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.translate("Disable HTML on this Post").'</span>
-               </label>
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+               </div>
             </div>';
         }
         if ($user) {
@@ -291,12 +288,11 @@ if (isset($submitS)) {
               list($attachsig) = sql_fetch_row($asig);
               if ($attachsig == 1 or isset($sig)) $s = 'checked="checked"'; else $s='';
                echo '
-            <div class="checkbox">
-               <label class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="sig" '.$s.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description"> '.translate("Show signature").'</span>
-               </label>
+            <div class="checkbox my-2">
+               <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <label class="custom-control-label" for="sig"> '.translate("Show signature").'</label>
+               </div>
                <span class="help-block"><small>'.translate("This can be altered or added in your profile").'</small></span>
             </div>';
            }
@@ -304,7 +300,7 @@ if (isset($submitS)) {
       echo '</div>
       </div>';
 
-        echo ''.Q_spambot().'';
+        echo Q_spambot();
         echo '
       <div class="form-group row">
          <div class="col-sm-12">
@@ -334,16 +330,15 @@ if (isset($submitS)) {
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum='$forum' ORDER BY post_id DESC LIMIT 0,10";
       $result = sql_query($sql);
       if (sql_num_rows($result)) {
-         echo "".translate("Topic Review")."";
+         echo translate("Topic Review");
 
          while($myrow = sql_fetch_assoc($result)) {
 
             $posterdata = get_userdata_from_id($myrow['poster_id']);
-            if ($posterdata['uname']!=$anonymous) {
+            if ($posterdata['uname']!=$anonymous)
                echo "<a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\" class=\"noir\">".$posterdata['uname']."</a>";
-            } else {
+            else
                echo $posterdata['uname'];
-            }
             echo '<br />';
             $posts = $posterdata['posts'];
             echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
@@ -360,7 +355,7 @@ if (isset($submitS)) {
             }
 
             echo "&nbsp;".translate("Posted: ").convertdate($myrow['post_time']);
-            echo '<hr id="debug"/> ';
+            echo '<hr /> ';
             $message = stripslashes($myrow['post_text']);
             if ($allow_bbcode) {
                $message = smilie($message);

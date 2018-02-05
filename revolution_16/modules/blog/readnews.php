@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,6 +13,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    global $tiny_mce;
 
    $content='';
+   settype($contentT,'string');
    $blog_file=$blog_dir.'news.txt';
    if (!file_exists($blog_file)) {
       $fp=fopen($blog_file,'w');
@@ -151,7 +152,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    }
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode('!;!',$xnews[$i]);
-       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
+       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-1"></i></a>';
        $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
        $content.= '
       <div class="card mb-3">

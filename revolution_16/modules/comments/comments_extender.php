@@ -3,7 +3,7 @@
 /* SFORM Extender for Dune comments.                                    */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2017                                               */
+/* P. Brunier 2002 - 2018                                               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -27,9 +27,8 @@ $m->add_url("modules.php");
 include("modules/comments/$formulaire");
 /************************************************/
 
-if( !isset($GLOBALS["submitS"]) ){
+if( !isset($GLOBALS["submitS"]) )
   echo aff_langue($m->print_form(''));
-} else {
+else
   $message=aff_langue($m->aff_response('',"not_echo",''));
-}
 ?>

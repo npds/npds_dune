@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -31,7 +31,7 @@ $url_ret="article.php?sid=$topic&archive=$archive";
 $formulaire='';
 
 // $comments_per_page : Nombre de commentaire sur chaque page
-$comments_per_page=5;
+$comments_per_page=2;
 
 // Mise à jour de champ d'une table externe à la table des commentaires
 // $req_add = opération à effectuer lorsque je rajoute un commentaire
