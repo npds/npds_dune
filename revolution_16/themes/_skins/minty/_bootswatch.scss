@@ -167,12 +167,6 @@ legend {
   }
 }
 
-.pagination {
-  .page-link:hover {
-    text-decoration: none;
-  }
-}
-
 // Indicators ==================================================================
 
 .alert {
@@ -185,6 +179,18 @@ legend {
   a,
   .alert-link {
     color: $white;
+  }
+
+  &-primary {
+    &, > th, > td {
+      background-color: $primary;
+    }
+  }
+
+  &-secondary {
+    &, > th, > td {
+      background-color: $secondary;
+    }
   }
 
   &-success {
@@ -210,6 +216,26 @@ legend {
       background-color: $warning;
     }
   }
+
+  &-dark {
+    &, > th, > td {
+      background-color: $dark;
+    }
+  }
+
+  &-light {
+    &, > th, > td {
+      background-color: $light;
+    }
+  }
+
+  &-light {
+    &,
+    & a:not(.btn),
+    & .alert-link {
+      color: $body-color;
+    }
+  }
 }
 
 .badge {
@@ -224,6 +250,7 @@ legend {
 
 // Containers ==================================================================
 
+.card,
 .list-group-item {
   h1, h2, h3, h4, h5, h6 {
     color: inherit;
