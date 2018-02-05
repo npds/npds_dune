@@ -35,7 +35,7 @@ $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $white !default;
-$dark:          $gray-700;
+$dark:          $gray-700 !default;
 
 // Links
 
@@ -144,12 +144,11 @@ $progress-bar-bg:                   $gray-400 !default;
 
 $list-group-border-color:           $gray-800 !default;
 
-$list-group-hover-bg:               $gray-800 !default;
+$list-group-hover-bg:               $gray-300 !default;
 $list-group-active-color:           $white !default;
 $list-group-active-bg:              $gray-800 !default;
 
 $list-group-action-color:           $gray-800 !default;
-$list-group-action-hover-color:     $white !default;
 
 // Breadcrumbs
 
