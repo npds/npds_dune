@@ -9,7 +9,9 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
+global $nuke_url, $multi_langue;
 
+if($multi_langue!==false) $tinylangmenu='npds_langue'; else $tinylangmenu='';
 // skin : "" ou "lightgray" ou "tundora" ou "xenmce" ou "pepper-grinder"
 $tmp.='
             skin : "lightgray",
@@ -18,50 +20,49 @@ $tmp.='
             templates : [
                {
                   title: "Une colonne",
-                  url: "/editeur/tinymce/plugins/template/txt_1_col_12.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/txt_1_col_12.html",
                   description: "Texte sur une colonne"
                },
                {
                   title: "Deux colonnes (50% 50%)",
-                  url: "/editeur/tinymce/plugins/template/txt_2_col_6-6.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/txt_2_col_6-6.html",
                   description: "Texte sur deux colonnes de largeurs égales"
                },
                {
                   title: "Trois colonnes (33% 33% 33%)",
-                  url: "/editeur/tinymce/plugins/template/txt_3_col_4-4-4.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/txt_3_col_4-4-4.html",
                   description: "Texte sur trois colonnes de largeurs égales"
                },
                {
                   title: "Deux colonnes (33% 66%)",
-                  url: "/editeur/tinymce/plugins/template/txt_2_col_4-8.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/txt_2_col_4-8.html",
                   description: "Texte sur deux colonnes de largeurs inégales"
                },
                {
                   title: "Deux colonnes (66% 33%)",
-                  url: "/editeur/tinymce/plugins/template/txt_2_col_8-4.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/txt_2_col_8-4.html",
                   description: "Texte sur deux colonnes de largeurs inégales"
                },
                {
                   title: "Trois colonnes (25% 50% 25%)",
-                  url: "/editeur/tinymce/plugins/template/txt_3_col_3-6-3.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/txt_3_col_3-6-3.html",
                   description: "Texte sur trois colonnes de largeurs inégales"
                },
                {
                   title: "Deux colonnes image/texte (33% 66%)",
-                  url: "/editeur/tinymce/plugins/template/img_txt_2_col_4-8.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/img_txt_2_col_4-8.html",
                   description: "Image, texte sur deux colonnes de largeurs inégales"
                },
                {
                   title: "Deux colonnes image/texte (17% 83%)",
-                  url: "/editeur/tinymce/plugins/template/img_txt_2_col_2-10.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/img_txt_2_col_2-10.html",
                   description: "Image, texte sur deux colonnes de largeurs inégales"
                },
                {
                   title: "Trois colonnes image/texte/image (25% 50% 25%)",
-                  url: "/editeur/tinymce/plugins/template/img_txt_img_3_col_3-6-3.html",
+                  url: "'.$nuke_url.'/editeur/tinymce/plugins/template/img_txt_img_3_col_3-6-3.html",
                   description: "Texte sur trois colonnes de largeurs inégales"
                }
-               
                ],';
 
 // Analyse the type of Theme from pages.php and determine if setup inclusion file is request
@@ -91,13 +92,13 @@ if ($tiny_mce_theme=='full') {
             }}],
             font_formats: 'Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats',
             fontsize_formats: '0.4rem 0.5rem 0.6rem 0.7rem 0.8rem 0.9rem 1rem 1.1rem 1.2rem 1.3rem 1.4rem 1.5rem 1.6rem 1.7rem 1.8rem 1.9rem 2rem',
-            toolbar : 'insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug npds_langue fontawesome',";
+            toolbar : 'insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug ".$tinylangmenu." fontawesome',";
 
 } else if ($tiny_mce_theme=='short') {
    // Short Theme
    $tmp.=" 
             plugins : ['autolink wordcount npds image link media paste'],
-            toolbar : 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_plug',\n";
+            toolbar : 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_plug ".$tinylangmenu."',\n";
 }
 $tmp.="
             content_css : ' lib/font-awesome/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css,editeur/tinymce/themes/advanced/npds.css',
