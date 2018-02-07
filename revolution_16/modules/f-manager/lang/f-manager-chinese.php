@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,28 +19,28 @@ function fma_translate($phrase) {
       case "Supprimer" : $tmp = "Delete"; break;
       case "Chmoder" : $tmp = "Chmod"; break;
       case "Editer" : $tmp = "Edit"; break;
-      case "Déplacer" : $tmp = "Move"; break;
+      case "D√©placer" : $tmp = "Move"; break;
       case "Copier" : $tmp = "Copy"; break;
-      case "Déplacer / Copier" : $tmp = "Move / Copy"; break;
+      case "D√©placer / Copier" : $tmp = "Move / Copy"; break;
       case "Renommer un fichier" : $tmp = "Rename file"; break;
-      case "Déplacer / Copier un fichier" : $tmp = "Move / Copy file"; break;
-      case "Renommer un répertoire" : $tmp = "Rename directory"; break;
+      case "D√©placer / Copier un fichier" : $tmp = "Move / Copy file"; break;
+      case "Renommer un r√©pertoire" : $tmp = "Rename directory"; break;
       case "Supprimer un fichier" : $tmp = "Delete file"; break;
-      case "Supprimer un répertoire" : $tmp = "Delete directory"; break;
+      case "Supprimer un r√©pertoire" : $tmp = "Delete directory"; break;
       case "Confirmez-vous la suppression de" : $tmp = "Are you sure you want to delete"; break;
       case "Changer les droits d'un fichier" : $tmp = "Chmod file"; break;
-      case "Changer les droits d'un répertoire" : $tmp = "Chmod directory"; break;
+      case "Changer les droits d'un r√©pertoire" : $tmp = "Chmod directory"; break;
       case "Editer un fichier" : $tmp = "Edit file"; break;
       case "Impossible d'appliquer le chmod" : $tmp = "Cannot chmod"; break;
       case "Impossible de renommer" : $tmp = "Cannot rename"; break;
-      case "Impossible de déplacer" : $tmp = "Cannot move"; break;
-      case "Impossible de créer" : $tmp = "Cannot create"; break;
+      case "Impossible de d√©placer" : $tmp = "Cannot move"; break;
+      case "Impossible de cr√©er" : $tmp = "Cannot create"; break;
       case "Impossible de supprimer" : $tmp = "Cannot delete"; break;
       case "Impossible de copier" : $tmp = "Cannot copy"; break;
       case "Le fichier n'existe pas" : $tmp = "File doesn't exist"; break;
-      case "existe déjà" : $tmp = "already exist"; break;
-      case "Rafraîchir" : $tmp = "Update"; break;
-      case "Extensions autorisées : " : $tmp = "Authorised files type: "; break;
+      case "existe d√©j√†" : $tmp = "already exist"; break;
+      case "Rafra√Æchir" : $tmp = "Update"; break;
+      case "Extensions autoris√©es : " : $tmp = "Authorised files type: "; break;
       case "Go" : $tmp = "Gb"; break;
       case "Mo" : $tmp = "Mb"; break;
       case "Ko" : $tmp = "Kb"; break;
