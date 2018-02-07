@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -387,7 +387,7 @@ function Rename($old, $new) {
 function Move($old, $new) {
    if (file_exists($old)) {
       if (!file_exists($new)) rename($old,$new);
-      else $this->Errors=basename($new)." : ".fma_translate("Impossible de déplacer");
+      else $this->Errors=basename($new)." : ".fma_translate("Impossible de dÃ©placer");
    } else {
       $this->Errors=basename($old)." : ".fma_translate("Le fichier n'existe pas");
    }
@@ -415,17 +415,17 @@ function Create($what, $name) {
    switch ($what) {
       case "f":
       if (!file_exists($name)) {
-         if (!$fp=fopen($name,"w")) $this->Errors=fma_translate("Impossible de créer")." : ".basename($name);
+         if (!$fp=fopen($name,"w")) $this->Errors=fma_translate("Impossible de crÃ©er")." : ".basename($name);
          else fclose($fp);
       } else
-         $this->Errors=basename($name)." : ".fma_translate("existe déjà");
+         $this->Errors=basename($name)." : ".fma_translate("existe dÃ©jÃ ");
       break;
 
       case "d":
       if (!file_exists($name)) {
-         if (!mkdir($name, 0777)) $this->Errors=fma_translate("Impossible de créer")." : ".basename($name);
+         if (!mkdir($name, 0777)) $this->Errors=fma_translate("Impossible de crÃ©er")." : ".basename($name);
       } else
-         $this->Errors=basename($name)." : ".fma_translate("existe déjà");
+         $this->Errors=basename($name)." : ".fma_translate("existe dÃ©jÃ ");
       break;
    }
    if ($this->Errors!="") return (false); else return (true);

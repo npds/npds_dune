@@ -3,13 +3,13 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 
 global $ModPath, $ModStart, $language, $Default_Theme, $NPDS_Key;
 include ("modules/$ModPath/lang/f-manager-$language.php");
