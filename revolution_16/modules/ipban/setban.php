@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='setban';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -40,7 +40,7 @@ echo '
       </div>
       <form id="ipban_mod" action="admin.php" method="post">
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="ip_ban">'.ipban_translate("Liste des IP").'</label>
+            <label class="col-form-label col-sm-12" for="ip_ban">'.ipban_translate("Liste des IP").'</label>
             <div class="col-sm-12">
                <textarea id="ip_ban" class="form-control" name="ipban" rows="15">'.$ip_ban.'</textarea>
             </div>
