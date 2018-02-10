@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,7 +16,6 @@
    // or better
    $time = round($time_end - TIMESTART,3);
 */
-
 // for php => 5
    $time_end = microtime(true);
    $time = round($time_end - TIMESTART,3);

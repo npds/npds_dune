@@ -1,6 +1,6 @@
 <?php
 /************************************************************************/
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /* ===========================                                          */
 /*                                                                      */
 /* UPLOAD Language File                                                 */
