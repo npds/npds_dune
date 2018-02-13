@@ -15,17 +15,15 @@
       if ($cookie[9]=='') $cookie[9]=$Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
       $tmp_theme=$cookie[9];
-      if (!$file=@opendir("themes/$cookie[9]")) {
+      if (!$file=@opendir("themes/$cookie[9]"))
          $tmp_theme=$Default_Theme;
-      }
-   } else {
+   } else
       $tmp_theme=$Default_Theme;
-   }
    $optskins=array('');
    $handle=opendir('../../../themes/_skins');
    while (false!==($file = readdir($handle))) {
       if ( (!strstr($file,'.')) and (!strstr($file,'bower_components')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
-         $optskins[] = '<li><a class="dropdown-item" href="../'.$file.'">'.ucfirst ($file).'</a></li> ';
+         $optskins[] = '<a class="dropdown-item" href="../'.$file.'">'.ucfirst ($file).'</a> ';
       }
    }
    closedir($handle);
@@ -60,7 +58,7 @@
 <html lang="en">
    <head>
       <meta charset="utf-8" />
-      <title>Bootswatch skins for NPDS - skin : <?php echo $skinametitre; ?></title>
+      <title>NPDS <?php echo $skinametitre; ?> skin by Bootswatch</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
@@ -96,27 +94,26 @@
                   <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
-                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Themes</a>
+                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Th&egrave;mes</a>
                      <ul class="dropdown-menu" role="menu">
                         <li><a class="dropdown-item disabled" href="#">npds-boost_sk</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item disabled" href="#">other npds themes</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Autres th&egrave;mes npds</a></li>
                      </ul>
                   </li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
-                     <ul class="dropdown-menu scrollable-menu" role="menu">
-                        <li><a class="dropdown-item" href="../default">Default</a></li>
-                        <li class="dropdown-divider"></li>
+                     <div class="dropdown-menu" aria-labelledby="skins"  role="menu">
+                        <a class="dropdown-item" href="../default">Default</a>
                         <?php echo $optskins; ?>
-                     </ul>
+                     </div>
                   </li>
                   <li class="navbar-divider"></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Aide</a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
-                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Download</a>
+                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">T&eacute;l&eacute;chargement</a>
                         <ul class="dropdown-menu">
                            <li><a class="dropdown-item" href="./bootstrap.css" target="_blank">bootstrap.css</a></li>
                            <li><a class="dropdown-item" href="./bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
@@ -152,7 +149,6 @@
       </div>
       <div class="container">
 
-
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-4">
             <div class="list-group table-of-contents">
@@ -176,17 +172,17 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="navbars">Navbars</h1>
+              <h1 id="navbars">Barre de navigation</h1>
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation" style="">
+                  <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarColor01">
+                <div class="navbar-collapse collapse show" id="navbarColor01" style="">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -201,7 +197,7 @@
                       <a class="nav-link" href="#">About</a>
                     </li>
                   </ul>
-                  <form class="form-inline">
+                  <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                   </form>
@@ -210,13 +206,13 @@
             </div>
 
             <div class="bs-component">
-              <nav class="navbar navbar-expand-md navbar-light bg-inverse">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation" style="">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <div class="collapse navbar-collapse" id="navbarColor02">
+                <div class="navbar-collapse collapse show" id="navbarColor02" style="">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -231,7 +227,37 @@
                       <a class="nav-link" href="#">About</a>
                     </li>
                   </ul>
-                  <form class="form-inline">
+                  <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+                </div>
+              </nav>
+            </div>
+
+            <div class="bs-component">
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation" style="">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse show" id="navbarColor03" style="">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">About</a>
+                    </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                   </form>
@@ -242,15 +268,13 @@
           </div>
         </div>
       </div>
-
-
       <!-- Buttons
       ================================================== -->
       <div class="bs-docs-section">
         <div class="page-header">
           <div class="row">
             <div class="col-lg-12">
-              <h1 id="buttons">Buttons</h1>
+              <h1 id="buttons">Boutons</h1>
             </div>
           </div>
         </div>
@@ -259,38 +283,32 @@
           <div class="col-lg-7">
 
             <p class="bs-component">
-              <button type="button" class="btn btn-primary mb-3">Primary</button>
-              <button type="button" class="btn btn-secondary mb-3">Secondary</button>
-              <button type="button" class="btn btn-success mb-3">Success</button>
-              <button type="button" class="btn btn-info mb-3">Info</button>
-              <button type="button" class="btn btn-warning mb-3">Warning</button>
-              <button type="button" class="btn btn-danger mb-3">Danger</button>
-              <button type="button" class="btn btn-dark mb-3">Dark</button>
-              <button type="button" class="btn btn-light mb-3">Light</button>
-              <button type="button" class="btn btn-link mb-3">Link</button>
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary">Secondary</button>
+              <button type="button" class="btn btn-success">Success</button>
+              <button type="button" class="btn btn-info">Info</button>
+              <button type="button" class="btn btn-warning">Warning</button>
+              <button type="button" class="btn btn-danger">Danger</button>
+              <button type="button" class="btn btn-link">Link</button>
             </p>
 
             <p class="bs-component">
-              <button type="button" class="btn btn-primary disabled mb-3">Primary</button>
-              <button type="button" class="btn btn-secondary disabled mb-3">Secondary</button>
-              <button type="button" class="btn btn-success disabled mb-3">Success</button>
-              <button type="button" class="btn btn-info disabled mb-3">Info</button>
-              <button type="button" class="btn btn-warning disabled mb-3">Warning</button>
-              <button type="button" class="btn btn-danger disabled mb-3">Danger</button>
-              <button type="button" class="btn btn-dark disabled mb-3">Dark</button>
-              <button type="button" class="btn btn-light disabled mb-3">Light</button>
-              <button type="button" class="btn btn-link disabled mb-3">Link</button>
+              <button type="button" class="btn btn-primary disabled">Primary</button>
+              <button type="button" class="btn btn-secondary disabled">Secondary</button>
+              <button type="button" class="btn btn-success disabled">Success</button>
+              <button type="button" class="btn btn-info disabled">Info</button>
+              <button type="button" class="btn btn-warning disabled">Warning</button>
+              <button type="button" class="btn btn-danger disabled">Danger</button>
+              <button type="button" class="btn btn-link disabled">Link</button>
             </p>
 
             <p class="bs-component">
-              <button type="button" class="btn btn-outline-primary mb-3">Primary</button>
-              <button type="button" class="btn btn-outline-secondary mb-3">Secondary</button>
-              <button type="button" class="btn btn-outline-success mb-3">Success</button>
-              <button type="button" class="btn btn-outline-info mb-3">Info</button>
-              <button type="button" class="btn btn-outline-warning mb-3">Warning</button>
-              <button type="button" class="btn btn-outline-danger mb-3">Danger</button>
-              <button type="button" class="btn btn-outline-dark mb-3">Dark</button>
-              <button type="button" class="btn btn-outline-light mb-3">Light</button>
+              <button type="button" class="btn btn-outline-primary">Primary</button>
+              <button type="button" class="btn btn-outline-secondary">Secondary</button>
+              <button type="button" class="btn btn-outline-success">Success</button>
+              <button type="button" class="btn btn-outline-info">Info</button>
+              <button type="button" class="btn btn-outline-warning">Warning</button>
+              <button type="button" class="btn btn-outline-danger">Danger</button>
             </p>
 
             <div class="bs-component">
@@ -298,7 +316,7 @@
                 <button type="button" class="btn btn-primary">Primary</button>
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
                   </div>
@@ -309,29 +327,29 @@
                 <button type="button" class="btn btn-success">Success</button>
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop2" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
                   </div>
                 </div>
               </div>
-              
+
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-info">Info</button>
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
                   </div>
                 </div>
               </div>
-              
+
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-danger">Danger</button>
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop4">
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
                   </div>
@@ -353,29 +371,29 @@
             </p>
 
             <div class="bs-component" style="margin-bottom: 15px;">
-              <div class="btn-group" data-toggle="buttons">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-primary active">
-                  <input type="checkbox" checked> Checkbox 1
+                  <input type="checkbox" checked="" autocomplete="off"> Active
                 </label>
                 <label class="btn btn-primary">
-                  <input type="checkbox"> Checkbox 2
+                  <input type="checkbox" autocomplete="off"> Check
                 </label>
                 <label class="btn btn-primary">
-                  <input type="checkbox"> Checkbox 3
+                  <input type="checkbox" autocomplete="off"> Check
                 </label>
               </div>
             </div>
 
             <div class="bs-component" style="margin-bottom: 15px;">
-              <div class="btn-group" data-toggle="buttons">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-primary active">
-                  <input type="radio" name="options" id="option1" checked> Radio 1
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Active
                 </label>
                 <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option2"> Radio 2
+                  <input type="radio" name="options" id="option2" autocomplete="off"> Radio
                 </label>
                 <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option3"> Radio 3
+                  <input type="radio" name="options" id="option3" autocomplete="off"> Radio
                 </label>
               </div>
             </div>
@@ -401,13 +419,13 @@
 
             <div class="bs-component" style="margin-bottom: 15px;">
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group" role="group" aria-label="First group">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
                   <button type="button" class="btn btn-secondary">1</button>
                   <button type="button" class="btn btn-secondary">2</button>
                   <button type="button" class="btn btn-secondary">3</button>
                   <button type="button" class="btn btn-secondary">4</button>
                 </div>
-                <div class="btn-group" role="group" aria-label="Second group">
+                <div class="btn-group mr-2" role="group" aria-label="Second group">
                   <button type="button" class="btn btn-secondary">5</button>
                   <button type="button" class="btn btn-secondary">6</button>
                   <button type="button" class="btn btn-secondary">7</button>
@@ -421,14 +439,13 @@
           </div>
         </div>
       </div>
-
       <!-- Typography
       ================================================== -->
       <div class="bs-docs-section">
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="typography">Typography</h1>
+              <h1 id="typography">Typographie</h1>
             </div>
           </div>
         </div>
@@ -449,7 +466,7 @@
                 <small class="text-muted">with muted text</small>
               </h3>
               <p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            </div>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
@@ -484,102 +501,125 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="bs-component">
               <blockquote class="blockquote">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
               </blockquote>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="bs-component">
-              <blockquote class="blockquote blockquote-reverse">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+              <blockquote class="blockquote text-center">
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <blockquote class="blockquote text-right">
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
               </blockquote>
             </div>
           </div>
         </div>
       </div>
-
       <!-- Tables
       ================================================== -->
       <div class="bs-docs-section">
-
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="tables">Tables</h1>
+              <h1 id="tables">Tableaux</h1>
             </div>
 
             <div class="bs-component">
-              <table class="table table-striped table-hover table-bordered">
-                <thead class="thead-inverse">
+              <table class="table table-hover">
+                <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Column heading</th>
-                    <th>Column heading</th>
-                    <th>Column heading</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Column heading</th>
+                    <th scope="col">Column heading</th>
+                    <th scope="col">Column heading</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
+                  <tr class="table-active">
+                    <th scope="row">Active</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
                   <tr>
-                    <td>2</td>
+                    <th scope="row">Default</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="table-info">
-                    <td>3</td>
+                  <tr class="table-primary">
+                    <th scope="row">Primary</th>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="table-secondary">
+                    <th scope="row">Secondary</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
                   <tr class="table-success">
-                    <td>4</td>
+                    <th scope="row">Success</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
                   <tr class="table-danger">
-                    <td>5</td>
+                    <th scope="row">Danger</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
                   <tr class="table-warning">
-                    <td>6</td>
+                    <th scope="row">Warning</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
-                  <tr class="table-active">
-                    <td>7</td>
+                  <tr class="table-info">
+                    <th scope="row">Info</th>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="table-light">
+                    <th scope="row">Light</th>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="table-dark">
+                    <th scope="row">Dark</th>
                     <td>Column content</td>
                     <td>Column content</td>
                     <td>Column content</td>
                   </tr>
                 </tbody>
               </table> 
-            </div><!-- /example -->
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div><!-- /example -->
           </div>
         </div>
       </div>
-
       <!-- Forms
       ================================================== -->
       <div class="bs-docs-section">
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="forms">Forms</h1>
+              <h1 id="forms">Formulaires</h1>
             </div>
           </div>
         </div>
@@ -589,7 +629,13 @@
             <div class="bs-component">
               <form>
                 <fieldset>
-                  <legend>Legend</legend>
+                  <legend>L&eacute;gende</legend>
+                  <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                    </div>
+                  </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -611,7 +657,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleSelect2">Example multiple select</label>
-                    <select multiple class="form-control" id="exampleSelect2">
+                    <select multiple="" class="form-control" id="exampleSelect2">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -629,11 +675,11 @@
                     <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
                   </div>
                   <fieldset class="form-group">
-                    <legend>Radio buttons</legend>
+                    <legend>Boutons radio</legend>
                     <div class="form-check">
                       <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        Option one is this and that&mdash;be sure to include why it's great
+                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                        Option one is this and that—be sure to include why it's great
                       </label>
                     </div>
                     <div class="form-check">
@@ -644,88 +690,141 @@
                     </div>
                     <div class="form-check disabled">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
                         Option three is disabled
                       </label>
                     </div>
                   </fieldset>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input">
-                      Check me out
-                    </label>
-                  </div>
+                  <fieldset class="form-group">
+                    <legend>Case &agrave; cocher</legend>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" checked="">
+                        Option one is this and that—be sure to include why it's great
+                      </label>
+                    </div>
+                    <div class="form-check disabled">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" disabled="">
+                        Option two is disabled
+                      </label>
+                    </div>
+                  </fieldset>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </fieldset>
               </form>
-            </div>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
-          <div class="col-lg-4 ml-lg-1">
+          <div class="col-lg-4 offset-lg-1">
 
-              <form class="bs-component">
+            <form class="bs-component">
+              <div class="form-group">
+                <fieldset disabled="">
+                  <label class="control-label" for="disabledInput">Disabled input</label>
+                  <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
+                </fieldset>
+              </div>
 
+              <div class="form-group">
+                <fieldset>
+                  <label class="control-label" for="readOnlyInput">Readonly input</label>
+                  <input class="form-control" id="readOnlyInput" type="text" placeholder="Readonly input here…" readonly="">
+                </fieldset>
+              </div>
+
+              <div class="form-group has-success">
+                <label class="form-control-label" for="inputSuccess1">Valid input</label>
+                <input type="text" value="correct value" class="form-control is-valid" id="inputValid">
+                <div class="valid-feedback">Success! You've done it.</div>
+              </div>
+
+              <div class="form-group has-danger">
+                <label class="form-control-label" for="inputDanger1">Invalid input</label>
+                <input type="text" value="wrong value" class="form-control is-invalid" id="inputInvalid">
+                <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label col-form-label-lg" for="inputLarge">Large input</label>
+                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" id="inputLarge">
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Default input</label>
+                <input type="text" class="form-control" placeholder="Default input" id="inputDefault">
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label col-form-label-sm" for="inputSmall">Small input</label>
+                <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" id="inputSmall">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Input addons</label>
                 <div class="form-group">
-                  <fieldset disabled>
-                    <label class="control-label" for="disabledInput">Disabled input</label>
-                    <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
-                  </fieldset>
-                </div>
-
-                <div class="form-group">
-                  <fieldset>
-                    <label class="control-label" for="readOnlyInput">Readonly input</label>
-                    <input class="form-control" id="readOnlyInput" type="text" placeholder="Readonly input here…" readonly>
-                  </fieldset>
-                </div>
-
-                <div class="form-group">
-                  <label for="inputSuccess1">Input with success</label>
-                  <input type="text" class="form-control is-valid" id="inputSuccess1">
-                  <div class="valid-feedback">Success! You've done it.</div>
-                </div>
-
-                <div class="form-group">
-                  <label for="inputDanger1">Input with danger</label>
-                  <input type="text" class="form-control is-invalid" id="inputDanger1">
-                  <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label col-form-label-lg" for="inputLarge">Large input</label>
-                  <input class="form-control form-control-lg" type="text" id="inputLarge">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label" for="inputDefault">Default input</label>
-                  <input type="text" class="form-control" id="inputDefault">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label col-form-label-sm" for="inputSmall">Small input</label>
-                  <input class="form-control form-control-sm" type="text" id="inputSmall">
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Input addons</label>
-                  <div class="form-group">
-                    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">$</div>
-                      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
-                      <div class="input-group-addon">.00</div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
+            </form>
+
+            <div class="bs-component">
+              <fieldset>
+                <legend>Custom forms</legend>
+                <div class="form-group">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
+                    <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" disabled="">
+                    <label class="custom-control-label" for="customRadio3">Disabled custom radio</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
+                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck2" disabled="">
+                    <label class="custom-control-label" for="customCheck2">Disabled custom checkbox</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <select class="custom-select">
+                    <option selected="">Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="custom-file">
+                    <input type="file" id="file2" class="custom-file-input">
+                    <span class="custom-file-control"></span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
 
           </div>
         </div>
       </div>
-
       <!-- Navs
       ================================================== -->
       <div class="bs-docs-section">
-
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
@@ -733,7 +832,6 @@
             </div>
           </div>
         </div>
-
         <div class="row" style="margin-bottom: 2rem;">
           <div class="col-lg-6">
             <h2 id="nav-tabs">Tabs</h2>
@@ -760,7 +858,7 @@
                 </li>
               </ul>
               <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade active in" id="home">
+                <div class="tab-pane fade show active" id="home">
                   <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
                 </div>
                 <div class="tab-pane fade" id="profile">
@@ -803,7 +901,7 @@
             </div>
             <br>
             <div class="bs-component">
-              <ul class="nav nav-pills nav-stacked">
+              <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                   <a class="nav-link active" href="#">Active</a>
                 </li>
@@ -844,7 +942,7 @@
                 <li class="breadcrumb-item"><a href="#">Library</a></li>
                 <li class="breadcrumb-item active">Data</li>
               </ol>
-            </div>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
 
           <div class="col-lg-6">
@@ -853,7 +951,7 @@
               <div>
                 <ul class="pagination">
                   <li class="page-item disabled">
-                    <a class="page-link" href="#">&laquo;</a>
+                    <a class="page-link" href="#">«</a>
                   </li>
                   <li class="page-item active">
                     <a class="page-link" href="#">1</a>
@@ -871,7 +969,7 @@
                     <a class="page-link" href="#">5</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">&raquo;</a>
+                    <a class="page-link" href="#">»</a>
                   </li>
                 </ul>
               </div>
@@ -879,7 +977,7 @@
               <div>
                 <ul class="pagination pagination-lg">
                   <li class="page-item disabled">
-                    <a class="page-link" href="#">&laquo;</a>
+                    <a class="page-link" href="#">«</a>
                   </li>
                   <li class="page-item active">
                     <a class="page-link" href="#">1</a>
@@ -897,7 +995,7 @@
                     <a class="page-link" href="#">5</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">&raquo;</a>
+                    <a class="page-link" href="#">»</a>
                   </li>
                 </ul>
               </div>
@@ -905,7 +1003,7 @@
               <div>
                 <ul class="pagination pagination-sm">
                   <li class="page-item disabled">
-                    <a class="page-link" href="#">&laquo;</a>
+                    <a class="page-link" href="#">«</a>
                   </li>
                   <li class="page-item active">
                     <a class="page-link" href="#">1</a>
@@ -923,7 +1021,7 @@
                     <a class="page-link" href="#">5</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">&raquo;</a>
+                    <a class="page-link" href="#">»</a>
                   </li>
                 </ul>
               </div>
@@ -932,27 +1030,24 @@
           </div>
         </div>
       </div>
-
       <!-- Indicators
       ================================================== -->
       <div class="bs-docs-section">
-
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="indicators">Indicators</h1>
+              <h1 id="indicators">Indicateurs</h1>
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-lg-12">
-            <h2>Alerts</h2>
+            <h2>Alertes</h2>
             <div class="bs-component">
               <div class="alert alert-dismissible alert-warning">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4>Warning!</h4>
-                <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4 class="alert-heading">Warning!</h4>
+                <p class="mb-0">Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
               </div>
             </div>
           </div>
@@ -961,7 +1056,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
               </div>
             </div>
@@ -969,7 +1064,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
               </div>
             </div>
@@ -977,7 +1072,33 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-primary">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-secondary">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-light">
+                <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
               </div>
             </div>
@@ -986,42 +1107,42 @@
         <div>
           <h2>Badges</h2>
           <div class="bs-component" style="margin-bottom: 40px;">
-            <span class="badge badge-secondary">Secondary</span>
             <span class="badge badge-primary">Primary</span>
+            <span class="badge badge-secondary">Secondary</span>
             <span class="badge badge-success">Success</span>
-            <span class="badge badge-warning">Warning</span>
             <span class="badge badge-danger">Danger</span>
+            <span class="badge badge-warning">Warning</span>
             <span class="badge badge-info">Info</span>
-          </div>
+            <span class="badge badge-light">Light</span>
+            <span class="badge badge-dark">Dark</span>
+          <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           <div class="bs-component">
-            <span class="badge badge-pill badge-secondary">Secondary</span>
             <span class="badge badge-pill badge-primary">Primary</span>
+            <span class="badge badge-pill badge-secondary">Secondary</span>
             <span class="badge badge-pill badge-success">Success</span>
-            <span class="badge badge-pill badge-warning">Warning</span>
             <span class="badge badge-pill badge-danger">Danger</span>
+            <span class="badge badge-pill badge-warning">Warning</span>
             <span class="badge badge-pill badge-info">Info</span>
+            <span class="badge badge-pill badge-light">Light</span>
+            <span class="badge badge-pill badge-dark">Dark</span>
           </div>
         </div>
       </div>
-
       <!-- Progress
       ================================================== -->
       <div class="bs-docs-section">
-
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="progress">Progress</h1>
+              <h1 id="progress">Barre de progression</h1>
             </div>
-
-            <h3 id="progress-basic">Basic</h3>
+            <h3 id="progress-basic">Basique</h3>
             <div class="bs-component">
               <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-
-            <h3 id="progress-alternatives">Contextual alternatives</h3>
+            <h3 id="progress-alternatives">Alternatives contextuelles</h3>
             <div class="bs-component">
               <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1035,9 +1156,8 @@
               <div class="progress">
                 <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div>
-
-            <h3 id="progress-multiple">Multiple bars</h3>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <h3 id="progress-multiple">Multiple</h3>
             <div class="bs-component">
               <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1045,8 +1165,7 @@
                 <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-
-            <h3 id="progress-striped">Striped</h3>
+            <h3 id="progress-striped">Hachurée</h3>
             <div class="bs-component">
               <div class="progress">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1064,8 +1183,7 @@
                 <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-
-            <h3 id="progress-animated">Animated</h3>
+            <h3 id="progress-animated">Anim&eacute;e</h3>
             <div class="bs-component">
               <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
@@ -1074,48 +1192,47 @@
           </div>
         </div>
       </div>
-
       <!-- Containers
       ================================================== -->
       <div class="bs-docs-section">
-
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header">
-              <h1 id="containers">Containers</h1>
+              <h1 id="containers">Conteneurs</h1>
             </div>
             <div class="bs-component">
               <div class="jumbotron">
-                <h1 class="display-3">Jumbotron</h1>
-                <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <p><a class="btn btn-primary btn-lg" href="#">Learn more</a></p>
+                <h1 class="display-3">Hello, world!</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <p class="lead">
+                  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                </p>
               </div>
-            </div>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
         </div>
-
-
         <div class="row">
           <div class="col-lg-12">
-            <h2>List groups</h2>
+            <h2 class="my-3">List groups</h2>
           </div>
         </div>
-
         <div class="row">
           <div class="col-lg-4">
             <div class="bs-component">
               <ul class="list-group">
-                <li class="list-group-item">
-                  <span class="badge badge-secondary badge-pill float-right">14</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                   Cras justo odio
+                  <span class="badge badge-primary badge-pill">14</span>
                 </li>
-                <li class="list-group-item">
-                  <span class="badge badge-secondary badge-pill float-right">2</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                   Dapibus ac facilisis in
+                  <span class="badge badge-primary badge-pill">2</span>
                 </li>
-                <li class="list-group-item">
-                  <span class="badge badge-secondary badge-pill float-right">1</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                   Morbi leo risus
+                  <span class="badge badge-primary badge-pill">1</span>
                 </li>
               </ul>
             </div>
@@ -1123,7 +1240,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="list-group">
-                <a href="#" class="list-group-item  list-group-item-action active">
+                <a href="#" class="list-group-item list-group-item-action active">
                   Cras justo odio
                 </a>
                 <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in
@@ -1136,118 +1253,156 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active">
-                  <h4 class="list-group-item-heading">List group item heading</h4>
-                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">List group item heading</h5>
+                    <small>3 days ago</small>
+                  </div>
+                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                  <small>Donec id elit non mi porta.</small>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                  <h4 class="list-group-item-heading">List group item heading</h4>
-                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">List group item heading</h5>
+                    <small class="text-muted">3 days ago</small>
+                  </div>
+                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                  <small class="text-muted">Donec id elit non mi porta.</small>
                 </a>
               </div>
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-lg-12">
-            <h2>Cards</h2>
+            <h2 class="my-3">Cards</h2>
           </div>
         </div>
-
         <div class="row">
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card text-white bg-primary text-sm-center mb-2">
+              <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
                 <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+                  <h4 class="card-title">Primary card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-white bg-success text-sm-center mb-2">
+              <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
                 <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+                  <h4 class="card-title">Secondary card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-white bg-info text-sm-center mb-2">
+              <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
                 <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+                  <h4 class="card-title">Success card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-white bg-warning text-sm-center mb-2">
+              <div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
                 <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+                  <h4 class="card-title">Danger card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-white bg-danger text-sm-center mb-2">
+              <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
                 <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+                  <h4 class="card-title">Warning card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h4 class="card-title">Info card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card bg-light mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h4 class="card-title">Light card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h4 class="card-title">Dark card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card text-primary border-primary text-sm-center mb-2">
-                <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+              <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-primary">
+                  <h4 class="card-title">Primary card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-success border-success text-sm-center mb-2">
-                <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+              <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-secondary">
+                  <h4 class="card-title">Secondary card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-info border-info text-sm-center mb-2">
-                <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+              <div class="card border-success mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-success">
+                  <h4 class="card-title">Success card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-warning border-warning text-sm-center mb-2">
-                <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+              <div class="card border-danger mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-danger">
+                  <h4 class="card-title">Danger card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-              <div class="card text-danger border-danger text-sm-center mb-2">
-                <div class="card-body">
-                  <blockquote class="card-blockquote">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                  </blockquote>
+              <div class="card border-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-warning">
+                  <h4 class="card-title">Warning card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-            </div>
+              <div class="card border-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-info">
+                  <h4 class="card-title">Info card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card border-light mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h4 class="card-title">Light card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card border-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body text-dark">
+                  <h4 class="card-title">Dark card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
 
           <div class="col-lg-4">
             <div class="bs-component">
-              <div class="card">
+              <div class="card mb-3">
                 <h3 class="card-header">Card header</h3>
                 <div class="card-body">
                   <h5 class="card-title">Special title treatment</h5>
@@ -1256,41 +1411,54 @@
                 <img style="height: 200px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image">
                 <div class="card-body">
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Cras justo odio</li>
+                  <li class="list-group-item">Dapibus ac facilisis in</li>
+                  <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+                <div class="card-body">
                   <a href="#" class="card-link">Card link</a>
                   <a href="#" class="card-link">Another link</a>
                 </div>
-                <div class="card-footer text-muted text-xs-center">
+                <div class="card-footer text-muted">
                   2 days ago
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
       <!-- Dialogs
       ================================================== -->
       <div class="bs-docs-section">
-
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="page-header">
-              <h1 id="dialogs">Dialogs</h1>
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="page-header">
+                  <h1 id="dialogs">Dialogues</h1>
+               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <h2>Modals</h2>
+         </div>
+         <div class="row">
+            <div class="col-lg-6">
+            <h2 class="my-3">Modals</h2>
             <div class="bs-component">
-              <div class="modal">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
+               <div class="modal">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title">Modal title</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">×</span>
                       </button>
                     </div>
                     <div class="modal-body">
@@ -1303,29 +1471,29 @@
                   </div>
                 </div>
               </div>
-            </div>
+            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
-          <div class="col-lg-6">
-            <h2>Popovers</h2>
+            <div class="col-lg-6">
+            <h2 class="my-3">Popovers</h2>
             <div class="bs-component" style="margin-bottom: 3em;">
-              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Left</button>
+              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Left</button>
 
-              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Top</button>
+              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Top</button>
 
-              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-              sagittis lacus vel augue laoreet rutrum faucibus.">Bottom</button>
+              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+              sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Bottom</button>
 
-              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Right</button>
+              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Right</button>
             </div>
             <h2>Tooltips</h2>
             <div class="bs-component">
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Left</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Left</button>
 
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Top</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">Top</button>
 
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Bottom</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">Bottom</button>
 
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Right</button>
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Right</button>
             </div>
           </div>
         </div>
@@ -1359,9 +1527,8 @@
         </div>
       </footer>
     </div>
-      <script src="../../../../lib/js/jquery.min.js"></script>
-      <script type="text/javascript" src="../../../../lib/js/popper.min.js"></script>
-      <script src="../../../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
-      <script src="../assets/js/bootswatch.js"></script>
+      <script type="text/javascript" src="../../../../lib/js/jquery.min.js"></script>
+      <script type="text/javascript" src="../../../../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script type="text/javascript" src="../assets/js/bootswatch.js"></script>
    </body>
 </html>

@@ -71,7 +71,7 @@ function subscribe_ok($xemail) {
          // Troll Control
          list($troll) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."lnl_outside_users WHERE (host_name='$host_name') AND (to_days(now()) - to_days(date) < 3)"));
          if ($troll < 6) {
-            sql_query("INSEERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
+            sql_query("INSERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
             // Email validation + url to unsubscribe
             global $sitename, $nuke_url;
             $subject = "".translate("NewsLetter")." / $sitename";
