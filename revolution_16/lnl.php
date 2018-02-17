@@ -59,13 +59,12 @@ function subscribe($var) {
 }
 
 function subscribe_ok($xemail) {
-   global $NPDS_Prefix;
-   global $stop;
+   global $NPDS_Prefix, $stop;
 
    include("header.php");
-   if ($xemail!="") {
+   if ($xemail!='') {
       SuserCheck($xemail);
-      if ($stop=="") {
+      if ($stop=='') {
          $host_name=getip();
          $timeX=strftime("%Y-%m-%d %H:%M:%S",time());
          // Troll Control
