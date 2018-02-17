@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,8 +13,8 @@
 /* npds-twi_set.php file 2015 by Jean Pierre Barbary (jpb)              */
 /* dev team :                                                           */
 /************************************************************************/
-if (!function_exists("Access_Error")) { die(); }
-if (!strstr($_SERVER['PHP_SELF'],'admin.php')) { die(); }
+if (!function_exists("Access_Error")) die();
+if (!strstr($_SERVER['PHP_SELF'],'admin.php')) die();
 
 include ('modules/'.$ModPath.'/lang/twi.lang-'.$language.'.php');
 $f_meta_nom ='npds_twi';
@@ -45,11 +45,11 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
       include ('modules/'.$ModPath.'/twi_conf.php');
    global $f_meta_nom, $f_titre, $adminimg, $npds_twi;
    $checkarti_y='';$checkarti_n='';$checkpost_y='';$checkpost_n='';$urshort_mr='';$urshort_ft='';$urshort_c='';
-   if ($npds_twi_arti===1) {$checkarti_y='checked="checked"';} else {$checkarti_n='checked="checked"';};
-   if ($npds_twi_post===1) {$checkpost_y='checked="checked"';} else {$checkpost_n='checked="checked"';};
-   if ($npds_twi_urshort===1) {$urshort_mr='checked="checked"';};
-   if ($npds_twi_urshort===2) {$urshort_ft='checked="checked"';};
-   if ($npds_twi_urshort===3) {$urshort_c='checked="checked"';}
+   if ($npds_twi_arti===1) $checkarti_y='checked="checked"'; else $checkarti_n='checked="checked"';
+   if ($npds_twi_post===1) $checkpost_y='checked="checked"'; else $checkpost_n='checked="checked"';
+   if ($npds_twi_urshort===1) $urshort_mr='checked="checked"';
+   if ($npds_twi_urshort===2) $urshort_ft='checked="checked"';
+   if ($npds_twi_urshort===3) $urshort_c='checked="checked"';
    else {$checkpost_n='checked="checked"';};
    //en attente implémentation pour notice
    settype($tbox_width,'integer');
@@ -68,67 +68,62 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    <span class="text-danger">*</span> '.twi_trad('requis').'
    <form action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-6" for="npds_twi_arti">'.twi_trad('Activation de la publication auto des articles').'</label>
-         <div class="col-sm-6">
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="npds_twi_arti" value="1" '.$checkarti_y.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.twi_trad('Oui').'</span>
-            </label>
-            <label class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" name="npds_twi_arti" value="0" '.$checkarti_n.' />
-               <span class="custom-control-indicator"></span>
-               <span class="custom-control-description">'.twi_trad('Non').'</span>
-            </label>
-         </div>
-      </div>
-      <div class="form-group row">
-         <label class="form-control-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
-         <div class="col-sm-6">
-            <div class="custom-controls-stacked">
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="npds_twi_urshort" value="1" '.$urshort_mr.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.twi_trad("Réécriture d'url avec mod_rewrite").'</span>
-               </label>
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="npds_twi_urshort" value="2" '.$urshort_ft.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.twi_trad("Réécriture d'url avec ForceType").'</span>
-               </label>
-               <label class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" name="npds_twi_urshort" value="3" '.$urshort_c.' />
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.twi_trad("Réécriture d'url avec controleur Npds").'</span>
-               </label>
+         <label class="col-form-label col-sm-6" for="npds_twi_arti">'.twi_trad('Activation de la publication auto des articles').'</label>
+         <div class="col-sm-6 my-2">
+            <div class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" id="npds_twi_arti_y" name="npds_twi_arti" value="1" '.$checkarti_y.' />
+               <label class="custom-control-label" for="npds_twi_arti_y">'.twi_trad('Oui').'</label>
+            </div>
+            <div class="custom-control custom-radio">
+               <input class="custom-control-input" type="radio" id="npds_twi_arti_n" name="npds_twi_arti" value="0" '.$checkarti_n.' />
+               <label class="custom-control-label" for="npds_twi_arti_n">'.twi_trad('Non').'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="consumer_key">'.twi_trad('Votre clef de consommateur').'&nbsp;<span class="text-danger">*</span></label>
+         <label class="col-form-control-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
+         <div class="col-sm-6">
+            <div class="custom-controls-stacked">
+               <div class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" id="npds_twi_mod" name="npds_twi_urshort" value="1" '.$urshort_mr.' />
+                  <label class="custom-control-label" for="npds_twi_mod">'.twi_trad("Réécriture d'url avec mod_rewrite").'</label>
+               </div>
+               <div class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" id="npds_twi_force" name="npds_twi_urshort" value="2" '.$urshort_ft.' />
+                  <label class="custom-control-label" for="npds_twi_force">'.twi_trad("Réécriture d'url avec ForceType").'</label>
+               </div>
+               <div class="custom-control custom-radio">
+                  <input class="custom-control-input" type="radio" id="npds_twi_npd" name="npds_twi_urshort" value="3" '.$urshort_c.' />
+                  <label class="custom-control-label" for="npds_twi_npd">'.twi_trad("Réécriture d'url avec contrôleur Npds").'</label>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="col-form-label col-sm-12" for="consumer_key">'.twi_trad('Votre clef de consommateur').'&nbsp;<span class="text-danger">*</span></label>
          <div class="col-sm-12">
-            <input type="text" class="form-control" name="consumer_key" value="'.$consumer_key.'" required="required" />
+            <input type="text" class="form-control" id="consumer_key" name="consumer_key" value="'.$consumer_key.'" required="required" />
             <span class="help-block small">'.$consumer_key.'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="consumer_secret">'.twi_trad('Votre clef secrète de consommateur').'&nbsp;<span class="text-danger">*</span></label>
+         <label class="col-form-label col-sm-12" for="consumer_secret">'.twi_trad('Votre clef secrète de consommateur').'&nbsp;<span class="text-danger">*</span></label>
          <div class="col-sm-12">
-            <input type="text" class="form-control" name="consumer_secret" value="'.$consumer_secret.'" required="required" />
+            <input type="text" class="form-control" id="consumer_secret" name="consumer_secret" value="'.$consumer_secret.'" required="required" />
             <span class="help-block small">'.$consumer_secret.'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="oauth_token" >'.twi_trad("Jeton d'accès pour Open Authentification (oauth_token)").'&nbsp;<span class="text-danger">*</span></label>
+         <label class="col-form-label col-sm-12" for="oauth_token" >'.twi_trad("Jeton d'accès pour Open Authentification (oauth_token)").'&nbsp;<span class="text-danger">*</span></label>
          <div class="col-sm-12">
-            <input type="text" class="form-control" name="oauth_token" value="'.$oauth_token.'" required="required" />
+            <input type="text" class="form-control" id="oauth_token" name="oauth_token" value="'.$oauth_token.'" required="required" />
             <span class="help-block small">'.$oauth_token.'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="oauth_token_secret" >'.twi_trad("Jeton d'accès secret pour Open Authentification (oauth_token_secret)").' <span class="text-danger">*</span></label>
+         <label class="col-form-label col-sm-12" for="oauth_token_secret" >'.twi_trad("Jeton d'accès secret pour Open Authentification (oauth_token_secret)").' <span class="text-danger">*</span></label>
          <div class="col-sm-12">
-            <input type="text" class="form-control" name="oauth_token_secret" value="'.$oauth_token_secret.'" />
+            <input type="text" class="form-control" id="oauth_token_secret" name="oauth_token_secret" value="'.$oauth_token_secret.'" />
             <span class="help-block small">'.$oauth_token_secret.'</span>
          </div>
       </div>
@@ -194,7 +189,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/* DUNE by NPDS                                                         */\n";
    $content .= "/* ===========================                                          */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -237,7 +232,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -261,7 +256,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
