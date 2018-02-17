@@ -61,14 +61,14 @@ function defaultDisplay() {
    }
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="subject">'.translate("Title").' </label>
+         <label class="col-form-label col-sm-3" for="subject">'.translate("Title").' </label>
          <div class="col-sm-9">
-            <input type="text" name="subject" class="form-control">
+            <input type="text" id="subject" name="subject" class="form-control">
             <p class="help-block">'.translate ("Be Descriptive, Clear and Simple").'! '.translate("bad titles='Check This Out!' or 'An Article'.").'</p>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="topic">'.translate("Topic").'</label>
+         <label class="col-form-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
@@ -85,7 +85,7 @@ function defaultDisplay() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="story" >'.translate("Intro Text").'</label>
+         <label class="col-form-label col-sm-12" for="story" >'.translate("Intro Text").'</label>
          <div class="col-sm-12">
             <textarea class=" form-control tin" rows="25" id="story" name="story"></textarea>
          </div>
@@ -93,7 +93,7 @@ function defaultDisplay() {
    echo aff_editeur('story', '');
    echo'
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="bodytext">'.translate("Full Text").'</label>
+         <label class="col-form-label col-sm-12" for="bodytext">'.translate("Full Text").'</label>
          <div class="col-sm-12">
             <textarea class="form-control tin " rows="25" id="bodytext" name="bodytext"></textarea>
          </div>
