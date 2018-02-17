@@ -2098,12 +2098,12 @@ function Site_Activ() {
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
    $who_online='
    <p class="text-center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
-   <ul id="site_active">
-     <li>'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh($membres).'</span></li>
-     <li>'.translate("Nb of articles").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totala).'</span></li>
-     <li>'.translate("Nb of forums").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalc).'</span></li>
-     <li>'.translate("Nb of topics").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totald).'</span></li>
-     <li>'.translate("Nb of reviews").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalb).'</span></li>
+   <ul class="list-group mb-3" id="site_active">
+     <li class="my-1">'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh($membres).'</span></li>
+     <li class="my-1">'.translate("Nb of articles").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totala).'</span></li>
+     <li class="my-1">'.translate("Nb of forums").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalc).'</span></li>
+     <li class="my-1">'.translate("Nb of topics").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totald).'</span></li>
+     <li class="my-1">'.translate("Nb of reviews").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalb).'</span></li>
    </ul>';
    if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
    if ($imgtmp) {
@@ -2391,7 +2391,7 @@ function topdownload_data($form, $ordre) {
          if ($form=='short') {
             if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ml-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge badge-secondary ml-auto align-self-center">'.$dd.'</span></li>';}
          } else {
-            if ($okfile) { $ibid.='<li class=""><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge badge-secondary float-right align-self-center">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) { $ibid.='<li class="ml-4 my-1"><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Category"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge badge-secondary float-right align-self-center">'.wrh($dcounter).'</span></li>';}
          }
          if ($okfile)
             $lugar++;
