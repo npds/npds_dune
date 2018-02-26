@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -133,6 +133,7 @@ function translate_pass1($phrase) {
    case "For security reasons your user name and IP address will also be temporarily recorded.": $tmp="Por razones de seguridad, su nombre de usuario y su direcci&oacute;n IP ser&aacute;n guardados moment&aacute;neamente."; break;
    case "Online Manual": $tmp="Manual en linea"; break;
    case "Links Waiting for Validation": $tmp="V&iacute;nculos en espera de validaci&oacute;n"; break;
+   case "waiting for Validation": $tmp="en espera de validaci&oacute;n"; break;
    case "Author": $tmp="Autor"; break;
    case "Visit": $tmp="Visita"; break;
    case "Name: ": $tmp="Apellido : "; break;

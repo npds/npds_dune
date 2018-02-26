@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -131,6 +131,7 @@ function translate_pass1($phrase) {
    case "For security reasons your user name and IP address will also be temporarily recorded.": $tmp="&#x51FA;&#x4E8E;&#x7F51;&#x7EDC;&#x5B89;&#x5168;&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x60A8;&#x7684;&#x62E5;&#x62A4;&#x540D;&#x548C;IP&#x5730;&#x5740;&#x5C06;&#x4E34;&#x65F6;&#x4FDD;&#x5B58;&#x3002;"; break;
    case "Online Manual": $tmp="&#x5728;&#x7EBF;&#x624B;&#x518C;"; break;
    case "Links Waiting for Validation": $tmp="&#x8BE5;&#x94FE;&#x63A5;&#x5728;&#x7B49;&#x5F85;&#x5B9E;&#x73B0;&#x4E2D;&#x3002;"; break;
+   case "waiting for Validation": $tmp="&#x5728;&#x7B49;&#x5F85;&#x5B9E;&#x73B0;&#x4E2D;&#x3002;"; break;
    case "Author": $tmp="&#x4F5C;&#x8005; "; break;
    case "Visit": $tmp="&#x8BBF;&#x95EE;"; break;
    case "Name: ": $tmp="&#x59D3;&#x540D; : "; break;
