@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -10,8 +10,8 @@
 /************************************************************************/
 /* Dont modify this file is you dont know what you make                 */
 /************************************************************************/
-$sform_path="modules/sform/";
-include_once($sform_path."sform.php");
+$sform_path='modules/sform/';
+include_once($sform_path.'sform.php');
 
 global $m;
 $m=new form_handler();

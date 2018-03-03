@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,8 +16,10 @@ $m->add_form_field_size(50);
 
 $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
 $m->add_field('name', translate("Real Name"),$name,'text',false,60,'','');
-$m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
-$m->add_extra('<div class="row"><div class="col-sm-8 ml-sm-auto"><span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'</span></div></div>');
+$m->add_extender('name', '', '<span class="help-block"><span class="float-right" id="countcar_name"></span></span>');
+$m->add_field('email', translate("Real Email"),$email,'email',true,60,'','');
+$m->add_extender('email', '','<span class="help-block">'.translate("(This Email will not be public but is required, will be used to send your password if you lost it)").'<span class="float-right" id="countcar_email"></span></span>');
+$m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), "1", false, false);
 
 // ---- AVATAR
 if ($smilies) {
@@ -43,15 +45,20 @@ if ($smilies) {
 // ---- AVATAR
 
 $m->add_field('user_from', translate("Your Location"),StripSlashes($user_from),'text',false,100,'','');
+$m->add_extender('user_from', '', '<span class="help-block"><span class="float-right" id="countcar_user_from"></span></span>');
+
 $m->add_field('user_occ', translate("Your Occupation"),StripSlashes($user_occ),'text',false,100,'','');
+$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-right" id="countcar_user_occ"></span></span>');
 $m->add_field('user_intrest', translate("Your Interest"),StripSlashes($user_intrest),'text',false,150,'','');
-$m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), "1", false, false);
-$m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textarea',false,255,7,'','');
+$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-right" id="countcar_user_intrest"></span></span>');
+
+$m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textarea',false,255,'7','');
+$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-right" id="countcar_user_sig"></span></span>');
 
 // --- MEMBER-PASS
 if ($memberpass) {
    $m->add_field('pass', translate("Password"),'','password',true,40,'','');
-   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div></div></div></div>');
+   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 10px;"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></div></div>');
    $m->add_field('vpass', translate("Retype Password"),'','password',true,40,'','');
 }
 
@@ -82,5 +89,103 @@ $m->add_extra('
          </div>
       </div>
       <br />');
+$m->add_extra('
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
+      <script type="text/javascript">
+      //<![CDATA[
+         $(document).ready(function() {
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+            $("#embeddingDatePicker input").datepicker({
+               format: "dd/mm/yyyy",
+               autoclose: "true",
+               language:"'.language_iso(1,'','').'"
+            })
+            .on("changeDate", function(e) {
+               $("#register").formValidation("revalidateField", "T1");
+            })
+            
+            inpandfieldlen("name",60);
+            inpandfieldlen("email",60);
+            inpandfieldlen("femail",60);
+            inpandfieldlen("url",100);
+            inpandfieldlen("user_from",100);
+            inpandfieldlen("user_occ",100);
+            inpandfieldlen("user_intrest",150);
+            inpandfieldlen("bio",255);
+            inpandfieldlen("user_sig",255);
+            inpandfieldlen("pass",40);
+            inpandfieldlen("vpass",40);
+            inpandfieldlen("C2",40);
+            inpandfieldlen("C1",100);
+            inpandfieldlen("T1",40);
+
+         })
+      //]]>
+      </script>');
+      $fv_parametres ='
+         T1: {
+            excluded: false,
+            validators: {
+               date: {
+                  format: "DD/MM/YYYY",
+                  message: "The date is not a valid"
+               }
+            }
+         },
+         pass: {
+            validators: {
+               callback: {
+                  callback: function(value, validator, $field) {
+                     var score = 0;
+                     if (value === "") {
+                        return {
+                           valid: true,
+                           score: null
+                        };
+                     }
+                     // Check the password strength
+                     score += ((value.length >= 8) ? 1 : -1);
+                     if (/[A-Z]/.test(value)) {score += 1;}
+                     if (/[a-z]/.test(value)) {score += 1;}
+                     if (/[0-9]/.test(value)) {score += 1;}
+                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
+                     return {
+                     valid: true,
+                     score: score    // We will get the score later
+                     };
+                  }
+               }
+            }
+         },
+         vpass: {
+            validators: {
+                identical: {
+                    field: "pass",
+                    message: "The password and its confirm are not the same"
+                }
+            }
+         },
+       '.$ch_lat.': {
+            validators: {
+               between: {
+                  min: -90,
+                  max: 90,
+                  message: "The latitude must be between -90.0 and 90.0"
+               }
+            }
+         },
+         '.$ch_lon.': {
+            validators: {
+               between: {
+                  min: -180,
+                  max: 180,
+                  message: "The longitude must be between -180.0 and 180.0"
+               }
+            }
+         },';
+      
+      $m->add_extra(adminfoot('fv',$fv_parametres,'','1'));
+
 // ----------------------------------------------------------------
 ?>
