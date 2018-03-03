@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -139,9 +139,9 @@ function EditReseaux($ModPath, $ModStart) {
    <fieldset>
    <legend><i class="fa fa-'.$v1[2].' fa-2x text-primary mr-2"></i>'.$v1[0].'</legend>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="rs_uid'.$i.'">'.rs_translate("Identifiant").'</label>
+         <label class="col-form-label col-sm-12" for="rs_uid'.$i.'">'.rs_translate("Identifiant").'</label>
          <div class="col-sm-12">
-            <input id="rs_uid'.$i.'" class="form-control" type="text" name="rs['.$i.'][uid]"  maxlength="50"  placeholder="'.rs_translate("Identifiant").' '.$v1[0].'" value="'.$ident.'"/>
+            <input class="form-control" type="text" id="rs_uid'.$i.'" name="rs['.$i.'][uid]"  maxlength="50"  placeholder="'.rs_translate("Identifiant").' '.$v1[0].'" value="'.$ident.'"/>
             <span class="help-block text-right"><span id="countcar_rs_uid'.$i.'"></span></span>
             <input type="hidden" name="rs['.$i.'][id]" value="'.$v1[0].'" />
          </div>
