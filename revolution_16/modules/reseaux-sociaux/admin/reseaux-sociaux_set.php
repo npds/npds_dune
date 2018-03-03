@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,8 +15,9 @@
 /* version 1.0 17/02/2016                                               */
 /************************************************************************/
 // For More security
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {die();}
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
+   die();
 // For More security
 $f_meta_nom ='reseaux-sociaux';
 $f_titre = adm_translate("Module").' : '.$ModPath;
@@ -36,10 +37,10 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    <table id ="lst_rs_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Nom").'</th>
-            <th data-sortable="true" data-halign="center">'.adm_translate("URL").'</th>
-            <th data-halign="center" data-align="center">'.adm_translate("Icône").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th class="n-t-col-xs-3" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Nom").'</th>
+            <th class="n-t-col-xs-5" data-sortable="true" data-halign="center">'.adm_translate("URL").'</th>
+            <th class="n-t-col-xs-1" data-halign="center" data-align="center">'.adm_translate("Icône").'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -49,10 +50,10 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
          <tr>
             <td>'.$v1[0].'</td>
             <td>'.$v1[1].'</td>
-            <td><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></td>
+            <td><i class="fa fa-'.$v1[2].' fa-2x text-muted align-middle"></i></td>
             <td>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-2x mr-2 align-middle" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-trash-o fa-2x text-danger align-middle" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
             </td>
         </tr>';
    }
@@ -68,30 +69,32 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
    adminhead($f_meta_nom, $f_titre, $adminimg);
    if($subop=='AddReseaux')
       echo '
-   <hr /><h3>'.adm_translate("Ajouter").'</h3>'; 
+   <hr />
+   <h3 class="mb-3">'.adm_translate("Ajouter").'</h3>'; 
    else 
-   echo '
-   <hr /><h3>'.adm_translate("Editer").'</h3>';
+      echo '
+   <hr />
+   <h3 class="mb-3">'.adm_translate("Editer").'</h3>';
    echo '
    <form id="reseaux_adm" action="admin.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="rs_id">'.adm_translate("Nom").'</label>
+         <label class="col-form-label col-sm-3" for="rs_id">'.adm_translate("Nom").'</label>
          <div class="col-sm-9">
-            <input id="rs_id" class="form-control" type="text" name="rs_id"  maxlength="50"  placeholder="'.adm_translate("").'" value="'.urldecode($rs_id).'" required="required" />
+            <input class="form-control" type="text" id="rs_id" name="rs_id"  maxlength="50"  placeholder="'.adm_translate("").'" value="'.urldecode($rs_id).'" required="required" />
             <span class="help-block text-right"><span id="countcar_rs_id"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
+         <label class="col-form-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
          <div class="col-sm-9">
-            <input id="rs_url" class="form-control" type="text" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
+            <input class="form-control" type="text" id="rs_url" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
             <span class="help-block text-right"><span id="countcar_rs_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="rs_ico">'.adm_translate("Icône").'</label>
+         <label class="col-form-label col-sm-3" for="rs_ico">'.adm_translate("Icône").'</label>
          <div class="col-sm-9">
-            <input id="rs_ico" class="form-control" type="text" name="rs_ico"  maxlength="40" placeholder="'.adm_translate("").'" value="'.stripcslashes(urldecode($rs_ico)).'" required="required" />
+            <input class="form-control" type="text" id="rs_ico" name="rs_ico"  maxlength="40" placeholder="'.adm_translate("").'" value="'.stripcslashes(urldecode($rs_ico)).'" required="required" />
             <span class="help-block text-right"><span id="countcar_rs_ico"></span></span>
          </div>
       </div>
@@ -136,7 +139,7 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    $content .= "/*                                                                      */\n";
    $content .= "/* Reseaux-sociaux Add-On ... ver. 1.0                                  */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
