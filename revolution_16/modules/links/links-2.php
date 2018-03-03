@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -13,7 +13,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 
 function NewLinksDate($selectdate) {
    global $ModPath, $ModStart, $links_DB, $admin;

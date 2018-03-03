@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -18,5 +18,5 @@
 
 // Exemple de TEXTE
    echo '
-   <p align="center"><strong> [ Annonceur -::- Votre publicit&eacute; <a href=mailto:>ICI</a> ]</strong></p>';
+   <p class="text-center"><strong> [ Annonceur -::- Votre publicit&eacute; <a href=mailto:>ICI</a> ]</strong></p>';
 ?>

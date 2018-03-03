@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -45,11 +45,11 @@ function SearchForm() {
    echo '
    <div class="card card-body mb-3" id="linksearchblock">
       <h3 class="mb-3">'.translate("Search").'</h3>
-      <form class="" action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
+      <form action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
    if ($links_topic) {
       echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="topicL" >'.translate("Select Topic").'</label>
+            <label class="col-form-label col-sm-4" for="topicL" >'.translate("Select Topic").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" name="topicL">';
       $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
@@ -66,9 +66,9 @@ function SearchForm() {
    }
    echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-4">'.translate("Your request").'</label>
+            <label class="col-form-label col-sm-4" for="query">'.translate("Your request").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="query" />
+               <input class="form-control" type="text" id="query" name="query" />
             </div>
          </div>
          <div class="form-group row">
@@ -190,18 +190,16 @@ function index() {
          $result = sql_query("SELECT lid FROM ".$links_DB."links_newlink");
          $num = sql_num_rows($result);
          echo '
-         <div class="card card-body card-block-small flex-row justify-content-center">
-          <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x mr-2" title="Admin" data-toggle="tooltip"></i></a> '.translate("Waiting Links").' : 
-          <span class="badge badge-danger ml-2" title="'.translate("Links Waiting for Validation").'" data-toggle="tooltip">'.$num.'</span> 
-          <span class="badge badge-danger ml-2" title="'.translate("User Reported Broken Links").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
-          <span class="badge badge-danger ml-2" title="'.translate("Request Link Modification").'" data-toggle="tooltip">'.$totalmodrequests.'</span>
-         ';
+      <p class="lead p-2 text-center border rounded bg-light">
+         <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x mr-2 align-middle" title="Admin" data-toggle="tooltip"></i></a> '.translate("Waiting Links").' : 
+         <span class="badge badge-danger ml-2" title="'.translate("Links Waiting for Validation").'" data-toggle="tooltip">'.$num.'</span> 
+         <span class="badge badge-danger ml-2" title="'.translate("User Reported Broken Links").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
+         <span class="badge badge-danger ml-2" title="'.translate("Request Link Modification").'" data-toggle="tooltip">'.$totalmodrequests.'</span>';
          if($links_DB!='') echo 'Ref Tables => <strong>'.$links_DB.'</strong>';
          echo '
-         </div>';
-      } else {
+      </p>';
+      } else
          echo "<p align=\"center\"><span> -: [ <a href=\"modules.php?ModStart=create_tables&amp;ModPath=$ModPath/admin/\">".translate("Create")."</a> Tables : $links_DB ] :-</span></p>";
-      }
    }
    include("footer.php");
 }

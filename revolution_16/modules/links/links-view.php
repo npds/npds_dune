@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -13,7 +13,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 global $NPDS_Prefix;
    $x=0;
    while (list($lid, $url, $title, $description, $time, $hits, $topicid_card, $xcid, $xsid)=sql_fetch_row($result)) {
@@ -50,13 +50,12 @@ global $NPDS_Prefix;
          echo '
          <div class="card mb-3">
             <div class="card-body ibid_descr">';
-         if ($url=='') {
+         if ($url=='')
             echo '
                <h4 class="text-muted"><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title);
-         } else {
+         else
             echo '
                <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" ><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title).'</a>';
-         }
          
          echo '&nbsp;'.newlinkgraphic($datetime, $time).'</h4>';
 
@@ -65,7 +64,7 @@ global $NPDS_Prefix;
             $result4 = sql_query("SELECT title FROM ".$links_DB."links_subcategories WHERE sid='$xsid'");
             list($ctitle) = sql_fetch_row($result3);
             list($stitle) = sql_fetch_row($result4);
-            if ($stitle=='') {$slash = '';}else{$slash = '/';}
+            if ($stitle=='') $slash = ''; else $slash = '/';
             echo translate("Category: ")."<strong>".aff_langue($ctitle)."</strong> $slash <b>".aff_langue($stitle)."</b>";
          }
             global $links_topic;
@@ -78,11 +77,10 @@ global $NPDS_Prefix;
             if ($url!='') {
             echo '<div class="d-flex justify-content-between">';
                global $popular;
-               if ($hits>$popular) {
+               if ($hits>$popular)
                   echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
-               } else {
+               else
                   echo '<span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
-               }
             echo '</div>';
             }
          echo '
