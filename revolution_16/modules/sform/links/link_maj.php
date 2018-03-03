@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -12,10 +12,10 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 global $ModPath, $ModStart;
-$pos = strpos($ModPath, "/admin");
-if ($pos>0) {$ModPathX=substr($ModPath,0,$pos);} else {$ModPathX=$ModPath;}
+$pos = strpos($ModPath, '/admin');
+if ($pos>0) $ModPathX=substr($ModPath,0,$pos); else $ModPathX=$ModPath;
 global $sform_path;
-$sform_path="modules/sform/";
+$sform_path='modules/sform/';
 include_once($sform_path."sform.php");
 //********************
 global $m;
@@ -40,23 +40,22 @@ include_once($sform_path.$ModPathX."/formulaire.php");
 
 // Fabrique le formulaire et assure sa gestion
 function interface_function($browse_key) {
-      global $m;
-      if ($m->sform_read_mysql($browse_key)) {
-         $m->add_field('','',translate("Update"),'submit',false);
-         $m->add_extra(' - ');
-         $m->add_field('','',translate("Delete"),'submit',false);
-      } else {
-         $m->add_field('','',translate("Add"),'submit',false);
-      }
-      $m->key_lock('close');
-      echo $m->print_form('class="ligna"');
+   global $m;
+   if ($m->sform_read_mysql($browse_key)) {
+      $m->add_field('','',translate("Update"),'submit',false);
+      $m->add_extra(' - ');
+      $m->add_field('','',translate("Delete"),'submit',false);
+   } else
+      $m->add_field('','',translate("Add"),'submit',false);
+   $m->key_lock('close');
+   echo $m->print_form('class="ligna"');
 }
 
 function Supprimer_function($browse_key) {
-      global $m;
-      $m->sform_read_mysql($browse_key);
-      $m->form_key_value=$browse_key;
-      $m->sform_delete_mysql();
+   global $m;
+   $m->sform_read_mysql($browse_key);
+   $m->form_key_value=$browse_key;
+   $m->sform_delete_mysql();
 }
 
 switch($modifylinkrequest_adv_infos) {
@@ -64,22 +63,22 @@ switch($modifylinkrequest_adv_infos) {
       $m->make_response();
       $m->sform_insert_mysql($m->answer);
       interface_function($browse_key);
-      break;
+   break;
    case translate("Delete"):
       $m->make_response();
       $m->sform_delete_mysql();
       interface_function($browse_key);
-      break;
+   break;
    case 'Supprimer_MySql':
       // C'est normal que ce case soit vide !
-      break;
+   break;
    case translate("Update"):
       $m->make_response();
       $m->sform_modify_mysql($m->answer);
       interface_function($browse_key);
-      break;
+   break;
    default:
       interface_function($browse_key);
-      break;
+   break;
 }
 ?>

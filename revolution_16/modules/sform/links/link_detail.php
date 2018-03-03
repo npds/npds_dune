@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -13,7 +13,7 @@
 /************************************************************************/
 global $ModPath, $ModStart;
 $pos = strpos($ModPath, '/admin');
-if ($pos>0) {$ModPathX=substr($ModPath,0,$pos);} else {$ModPathX=$ModPath;}
+if ($pos>0) $ModPathX=substr($ModPath,0,$pos); else $ModPathX=$ModPath;
 global $sform_path;
 $sform_path='modules/sform/';
 include_once($sform_path.'sform.php');
@@ -41,9 +41,8 @@ switch($link_fiche_detail) {
          $m->add_extra("</td></tr>");
          $m->key_lock("close");
          echo aff_langue($m->print_form("class=\"ligna\""));
-      } else {
+      } else
          redirect_url($m->url);
-      }
       break;
 
    default:
