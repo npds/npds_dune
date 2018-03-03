@@ -2,7 +2,7 @@
 ################################################################################################
 // Simple Form generator  SFORM / version 1.6 for DUNE
 // Class to manage several Form in a single database(MySql) in XML Format
-// P.Brunier 2001 - 2017
+// P.Brunier 2001 - 2018
 //
 // This program is free software. You can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,9 +16,8 @@
 ################################################################################################
 // Constante
    define('CRLF', "\n", TRUE);
-   if (!isset($sform_path)) {
+   if (!isset($sform_path))
       $sform_path='';
-   }
 ################################################################################################
 class form_handler {
   var $form_fields=array();// form fields
@@ -56,7 +55,7 @@ class form_handler {
   }
 
   function interro_array($ibid0,$ibid1) {
-    $number="no";
+    $number='no';
     while(list($key,$val)=each($ibid0) ){
        if ($ibid1==$val['en']) {
           $number=$key;
@@ -125,11 +124,10 @@ class form_handler {
   // Lock the Key of <form> for disable edit
   // public void
   function key_lock($en) {
-     if ($en=="open") {
-        $this->form_key_status="open";
-     } else {
-        $this->form_key_status="close";
-     }
+     if ($en=='open')
+        $this->form_key_status='open';
+     else
+        $this->form_key_status='close';
   }
 
   /**************************************************************************************/
@@ -143,7 +141,7 @@ class form_handler {
   // add fields text,hidden,textarea,password,submit,reset,email
   // public void
   function add_field($name,$en, $value='', $type='text', $obligation=false, $size='50', $diviseur='5', $ctrl='') {
-    if ($type=="submit") {$name=$this->submit_value;}
+    if ($type=='submit') $name=$this->submit_value;
     $this->form_fields[count($this->form_fields)]=array(
       'name'=>$name,
       'type'=>$type,
@@ -289,19 +287,17 @@ class form_handler {
   // print <form> into html output / IF no method (form_method) is affected : the <form>  </form> is not write (useful to insert SFORM in existing form)
   // public string
   function print_form($bg) {
-    if (isset($this->form_id)){
+    if (isset($this->form_id))
         $id_form = 'id="'.$this->form_id.'"';
-    } else {
+    else
         $id_form = '';
-    }
     $str='';
     if ($this->form_method!='') {
       $str.="\n<form action=\"".$this->url."\" ".$id_form."  method=\"".$this->form_method."\" name=\"".$this->form_title."\" enctype=\"multipart/form-data\"";
-       if ($this->form_check=='true') {
+       if ($this->form_check=='true')
            $str.=' onsubmit="return check();">';
-       } else {
+       else
            $str.='>';
-       }
     }
     // todo utilisation de tabindex dans les input
     $str.='
@@ -326,7 +322,7 @@ class form_handler {
         case 'number':
          $str.='
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
+            <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
           $requi='';
           if ($this->form_fields[$i]['obligation']){
@@ -339,13 +335,12 @@ class form_handler {
           // Charge la valeur et analyse la clef
           if ($this->form_fields[$i]['name']==$this->form_key) {
              $this->form_key_value=$this->form_fields[$i]['value'];
-             if ($this->form_key_status=='close') {
+             if ($this->form_key_status=='close')
                 $str.='
                 <input class="form-control" readonly="readonly" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" ';
-             } else {
+             else
                 $str.='
                 <input class="form-control" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" '.$requi;
-             }
           } else {
              $str.='
              <input class="form-control" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" '.$requi;
@@ -367,7 +362,7 @@ class form_handler {
         case 'password':
          $str.='
           <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
+            <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
           if ($this->form_fields[$i]['obligation']){
             $requi= 'required="required"';
@@ -390,18 +385,17 @@ class form_handler {
 /*
          $str.='
          <div class="form-group row">
-            <label class="form-control-label col-sm-4 " for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
+            <label class="col-form-label col-sm-4 " for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
          $str.=($this->form_fields[$i]['obligation'])? '&nbsp;<span class="text-danger">*</span></label>' : '</label>';
 */
          $str.='
             <div class="col-sm-8 ml-sm-auto">
-               <label class="custom-control custom-checkbox">
+               <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
          $str.=($this->form_fields[$i]['checked'])? ' checked="checked" />' : ' />';
          $str.= '
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">'.$this->form_fields[$i]['en'].'</span>
-               </label>';
+                  <label class="custom-control-label" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
+               </div>';
           if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];
           }
@@ -411,10 +405,10 @@ class form_handler {
       break;
 
       case 'textarea':
-      case 'textarea_no_mceEditor':
+//      case 'textarea_no_mceEditor':
          $str.='
          <div class="form-group row">';
-         $str.="<label class=\"form-control-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en']."\n";
+         $str.="<label class=\"col-form-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en']."\n";
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
 
           if ($this->form_fields[$i]['obligation']){
@@ -438,7 +432,7 @@ class form_handler {
       case 'show-hidden':
         $str.='
          <div class="form-group row">
-            <label class="form-control-label col-sm-4">'.$this->form_fields[$i]['en'].'</label>
+            <label class="col-form-label col-sm-4">'.$this->form_fields[$i]['en'].'</label>
             <div class="col-sm-8">';
           if ($num_extender!="no") {
              $str.=$this->form_fields[$num_extender]['html'];
@@ -455,7 +449,7 @@ class form_handler {
       case 'select':
          $str.='
           <div class="form-group row">
-             <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
+             <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
              <div class="col-sm-8">
                <select class="'; 
           $str.=($this->form_fields[$i]['multiple'])? 'form-control' : 'custom-select form-control';
@@ -468,9 +462,9 @@ class form_handler {
           while(list($key,$val)=each($this->form_fields[$i]['value']) ){
             $str.='
                   <option value="'.$key.'"';
-//                  if(array_key_exists('selected', $val)) $str .=' selected="selected" ';
-//$str .=' >';
-            $str.=($val['selected'])? ' selected="selected">' : '>';
+                  if(array_key_exists('selected', $val)) $str .=' selected="selected" >';
+else $str .=' >';
+//            $str.=($val['selected'])? ' selected="selected">' : '>';
             $str.=str_replace('\'','&#039;',$val['en']).'</option>';
           }
           $str.='
@@ -487,7 +481,7 @@ class form_handler {
          $first_radio=true;
          $str.='
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
+            <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
             <div class="col-sm-8">';
          while(list($key,$val)=each($this->form_fields[$i]['value']) ){
             $str.='
@@ -548,7 +542,7 @@ class form_handler {
           if ($this->form_fields[$i]['value']=="") $this->form_fields[$i]['value']=date($this->form_fields[$i]['model']);
          $str.='
           <div class="form-group row">';
-         $str.="<label class=\"form-control-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
+         $str.="<label class=\"col-form-label col-sm-4\" for=\"".$this->form_fields[$i]['name']."\">".$this->form_fields[$i]['en'];
           if ($this->form_fields[$i]['obligation']){
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
              $str.="&nbsp;<span class=\"text-danger\">*</span></label>";
@@ -579,7 +573,7 @@ class form_handler {
       case 'upload':
          $str.='
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
+            <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
             <div class="col-sm-8">
                <input class="form-control" id="'.$this->form_fields[$i]['name'].'" type="file" name="'.$this->form_fields[$i]['name'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />
                <input type="hidden" name="MAX_FILE_SIZE" value="'.$this->form_fields[$i]['file_size'].'" />';
@@ -842,23 +836,21 @@ class form_handler {
          $num_extender=$this->interro_fields($this->form_fields[$i]['name']."extender");
          if (array_key_exists($this->form_fields[$i]['name'], $GLOBALS)) {
             $field=$GLOBALS[$this->form_fields[$i]['name']];
-         } else {
+         } else
             $field='';
-         }
       } else {
          $num_extender='no';
       }
       if (array_key_exists('type',$this->form_fields[$i])) {
          switch($this->form_fields[$i]['type']) {
-         case 'text':
-          $str.='<div class="m-b-1">'.$this->form_fields[$i]['en'];
-          $str.='<br />';
-          $str.="<strong>".stripslashes($field)."&nbsp;</strong>";
-          if ($num_extender!='no') {
-             $str.=' '.$this->form_fields[$num_extender]['html'];
-          }
-          $str.='</div>';
-          break;
+            case 'text':
+               $str.='<p class="mb-1">'.$this->form_fields[$i]['en'];
+               $str.='<br />';
+               $str.='<strong>'.stripslashes($field).'&nbsp;</strong>';
+               if ($num_extender!='no')
+                  $str.=' '.$this->form_fields[$num_extender]['html'];
+               $str.='</p>';
+             break;
 
          case 'password':
           $str.='<br />'.$this->form_fields[$i]['en'];
@@ -868,15 +860,13 @@ class form_handler {
           }
           break;
 
-         case 'checkbox':
-          $str.='<br />'.$this->form_fields[$i]['en'];
-          if ($field!='') {
-            $str.='&nbsp;<strong>'.$this->form_fields[$i]['value'].'&nbsp;</strong>';
-          }
-          if ($num_extender!='no') {
-             $str.=' '.$this->form_fields[$num_extender]['html'];
-          }
-          break;
+            case 'checkbox':
+               $str.='<br />'.$this->form_fields[$i]['en'];
+               if ($field!='')
+                  $str.='&nbsp;<strong>'.$this->form_fields[$i]['value'].'&nbsp;</strong>';
+               if ($num_extender!='no')
+                  $str.=' '.$this->form_fields[$num_extender]['html'];
+            break;
 
          case 'textarea':
           $str.='<br />'.$this->form_fields[$i]['en'];

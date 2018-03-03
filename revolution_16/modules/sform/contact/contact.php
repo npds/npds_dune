@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS Contact Example .                            */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2017                                               */
+/* P. Brunier 2002 - 2018                                               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */

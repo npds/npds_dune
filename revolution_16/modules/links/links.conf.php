@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2007 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,7 +13,7 @@
 /************************************************************************/
 
 // The Mysql-table prefix for all THIS instance of the module
-$links_DB = "";
+$links_DB = '';
 
 // Allow to register http links (yes=>true, no=>false, both=>false-true => -1)
 $links_url=false-true;
@@ -23,7 +23,7 @@ $links_topic=true;
 
 // Allow to limit the number of subcat showed in main page ("limit 0,0" => no subcat / "limit 0,3" => 3 subcat ... / "" => no limit )
 // You can also do a more complexe query : for exemple $subcat_limit="ASC limit 0,5" because the $subcat_limit complete the sql query !
-$subcat_limit="";
+$subcat_limit='';
 
 // $links_anonaddlinklock
 // From config.php : Is Anonymous autorise to post new links? (0=Yes 1=No)

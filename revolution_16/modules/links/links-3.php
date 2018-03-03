@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -13,15 +13,14 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 
 function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
    global $ModPath, $ModStart, $links_DB, $NPDS_Prefix;
 
    if (autorise_mod($lid,false)) {
-      if ($author=='-9') {
+      if ($author=='-9')
          Header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath/admin&op=LinksModLink&lid=$lid");
-      }
       include("header.php");
       mainheader();
       $result = sql_query("SELECT cid, sid, title, url, description, topicid_card FROM ".$links_DB."links_links WHERE lid='$lid'");
@@ -29,36 +28,34 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       $title = stripslashes($title);
       $description = stripslashes($description);
       echo '
-   <h3>'.translate("Request Link Modification").' : <span class="text-muted">'.$title.'</span></h3>
+   <h3 class="my-3">'.translate("Request Link Modification").' : <span class="text-muted">'.$title.'</span></h3>
    <form action="modules.php" method="post" name="adminForm">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="title">'.translate("Title").'</label>
+         <label class="col-form-label col-sm-3" for="title">'.translate("Title").'</label>
          <div class="col-sm-9">
-            <input class="form-control" type="text" name="title" value="'.$title.'"  maxlength="100" />
+            <input class="form-control" type="text" id="title" name="title" value="'.$title.'"  maxlength="100" required="required" />
          </div>
       </div>';
       global $links_url;
       if ($links_url)
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="url">URL</label>
+         <label class="col-form-label col-sm-3" for="url">URL</label>
          <div class="col-sm-9">
-            <input class="form-control" type="url" name="url" value="'.$url.'" maxlength="100" />
+            <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" required="required" />
          </div>
       </div>';
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
+         <label class="col-form-label col-sm-3" for="cat">'.translate("Category").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" name="cat">';
+            <select class="custom-select form-control" id="cat" name="cat">';
       $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
       while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
          $sel = '';
-         if ($cid==$ccid AND $sid==0) {
-            $sel = 'selected';
-         }
+         if ($cid==$ccid AND $sid==0) $sel = 'selected';
          echo '
                <option value="'.$ccid.'" '.$sel.'>'.aff_langue($ctitle).'</option>';
          $result3=sql_query("SELECT sid, title FROM ".$links_DB."links_subcategories WHERE cid='$ccid' ORDER BY title");
@@ -79,9 +76,9 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       if ($links_topic) {
          echo'
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
+         <label class="col-form-label col-sm-3" for="topicL">'.translate("Topics").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" name="topicL">';
+            <select class="custom-select form-control" id="topicL" name="topicL">';
          $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
          echo '
                <option value="">'.translate("All Topics").'</option>';
@@ -98,9 +95,9 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       }
       echo'
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="xtext">'.translate("Description: (255 characters max)").'</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.translate("Description: (255 characters max)").'</label>
          <div class="col-sm-12">
-            <textarea class="form-control tin" name="xtext" rows="10">'.$description.'</textarea>
+            <textarea class="form-control tin" id="xtext" name="xtext" rows="10">'.$description.'</textarea>
          </div>
       </div>';
       aff_editeur('xtext','');
@@ -127,18 +124,22 @@ function modifylinkrequestS($lid, $cat, $title, $url, $description, $modifysubmi
    global $links_DB;
    if (autorise_mod($lid,false)) {
       $cat = explode('-', $cat);
-      if (!array_key_exists(1,$cat)) {
+      if (!array_key_exists(1,$cat))
          $cat[1] = 0;
-      }
       $title = stripslashes(FixQuotes($title));
       $url = stripslashes(FixQuotes($url));
       $description = stripslashes(FixQuotes($description));
-      if ($modifysubmitter==-9) {$modifysubmitter='';}
+      if ($modifysubmitter==-9) $modifysubmitter='';
       $result=sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, $cat[0], $cat[1], '$title', '$url', '$description', '$modifysubmitter', '0', '$topicL')");
 
       global $ModPath, $ModStart;
       include("header.php");
-      echo "<br /><p align=\"center\">".translate("Thanks for this information. We'll look into your request shortly.")."</p><br />";
+      echo '
+      <h3 class="my-3">'.translate("Links").'</h3>
+      <hr />
+      <h4 class="my-3">'.translate("Request Link Modification").'</h4>
+      <div class="alert alert-success">'.translate("Thanks for this information. We'll look into your request shortly.").'</div>
+      <a class="btn btn-primary" href="modules.php?ModPath=links&amp;ModStart=links">Index </a>';
       include("footer.php");
    }
 }

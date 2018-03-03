@@ -2,13 +2,13 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* Dont modify this file is you dont know what you make                 */
+/* Dont modify this file if you dont know what you do                   */
 /************************************************************************/
 global $NPDS_Prefix;
 
@@ -32,11 +32,11 @@ $m->add_extender('url', '','<span class="help-block"><span class="float-right" i
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($subscribe) {
-   if ($userinfo['send_email']==1) {$checked=true;} else {$checked=false;}
+   if ($userinfo['send_email']==1) $checked=true; else $checked=false;
    $m->add_checkbox('usend_email',translate("Send me an email when Internal Message arrive"), 1, false, $checked);
 }
 if ($member_invisible) {
-   if ($userinfo['is_visible']==1) {$checked=false;} else {$checked=true;}
+   if ($userinfo['is_visible']==1) $checked=false; else $checked=true;
    $m->add_checkbox('uis_visible',translate("Invisible' member")." (".translate("not showed in memberlist, members' message bloc ...").")", 1, false, $checked);
 }
 // ---- SUBSCRIBE and INVISIBLE
@@ -48,7 +48,6 @@ $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, 
 
 // ---- AVATAR
 if ($smilies) {
-//var_dump($userinfo['user_avatar']);
    if (stristr($userinfo['user_avatar'],"users_private")) {
       $m->add_field('user_avatar',translate("Your Avatar"), $userinfo['user_avatar'],'show-hidden',false,30,'','');
       $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="Your next avatar" />');
@@ -105,7 +104,7 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
 $m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 20px;"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></div>');
 $m->add_extender('pass', '', '<span class="help-block"><span class="float-right" id="countcar_pass"></span></span>');
 
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');

@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -12,9 +12,7 @@
 /* module npds_twi version 1.0                                          */
 /* npds_to_twi.php file 2015 by Jean Pierre Barbary jpb                 */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
-   die();
-}
+if (!function_exists("Mysql_Connexion")) die();
 
 // Initialisation
 global $nuke_url, $npds_twi;

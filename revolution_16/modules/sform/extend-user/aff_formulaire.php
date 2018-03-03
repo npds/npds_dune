@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,18 +13,40 @@
 $m->add_form_field_size(50);
 
 settype($op,'string');
-if (($op=="userinfo") and ($user)) {
+
+if ($op!='userinfo') {
+   global $theme;
+   $direktori="images/forum/avatar";
+   if (function_exists("theme_image")) {
+      if (theme_image("forum/avatar/blank.gif"))
+         $direktori="themes/$theme/images/forum/avatar";
+   }
+   $m->add_extra('<img class="img-thumbnail n-ava mb-2" src="'.$direktori.'/'.$user_avatar.'" align="top" title="" />');
+}
+
+if (($op=='userinfo') and ($user)) {
    global $act_uname;
    $act_uname="<a href='powerpack.php?op=instant_message&amp;to_userid=$uname' title='".translate("Send internal Message")."'>$uname</a>";
    $m->add_field('act_uname', translate("User ID"),$act_uname,'text',true,25,'','');
-} else {
+} else
    $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
-}
-$m->add_field('name', translate("Identity"),$name,'text',false,60,'','');
-$m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
+
+if($name!='')
+   $m->add_field('name', translate("Identity"),$name,'text',false,60,'','');
+
+if($email!='')
+   $m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
+
+// if ($user_viewemail===1) $checked=true; else $checked=false;
+// $m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), 1, false, $checked);
+
+
 settype($url,'string');
-$url='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-$m->add_field('url',  translate("HomePage"),$url,'text',false,100,'','');
+
+if($url!='') {
+   $url='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+   $m->add_field('url',  translate("HomePage"),$url,'text',false,100,'','');
+}
 if($user_from!='')
    $m->add_field('user_from', translate("Location"),$user_from,'text',false,100,'','');
 if($user_occ!='')
@@ -33,6 +55,11 @@ if($user_intrest!='')
    $m->add_field('user_intrest', translate("Interest"),$user_intrest,'text',false,150,'','');
 if ($op=='userinfo' and $bio!='')
    $m->add_field('bio',translate("Extra Info"),$bio,'textarea',false,255,7,'','');
+
+if ($op!="userinfo")
+   if ($user_sig!='')
+      $m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textarea',false,255,'','');
+
 
 // à revoir !! pour prise en compte du champ choisi dans user_extend
 settype($C7,'float');

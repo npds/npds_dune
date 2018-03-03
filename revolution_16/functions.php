@@ -694,15 +694,14 @@ function forum($rowQ1) {
                   if ($ok_affich) {
                      if ($title_aff) {
                         $title = stripslashes($row['cat_title']);
-                        if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html"))) {
+                        if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html")))
                            $ibid.='
                            <div class=" mt-3" id="catfo_'.$row['cat_id'].'" >
                               <a class="list-group-item list-group-item-action active" href="forum.php?catid='.$row['cat_id'].'"><h5 class="list-group-item-heading" >'.$title.'</h5></a>';
-                        } else {
+                        else
                            $ibid.='
                            <div class=" mt-3" id="catfo_'.$row['cat_id'].'">
                               <div class="list-group-item list-group-item-action active"><h5 class="list-group-item-heading" >'.$title.'</h5></div>';
-                        }
                         $title_aff=false;
                      }
                      $forum_moderator=explode(' ',get_moderator($myrow['forum_moderator']));
@@ -715,19 +714,17 @@ function forum($rowQ1) {
                      $ibid.='
                      <p class="list-group-item list-group-item-action flex-column align-items-start">
                         <span class="d-flex w-100 mt-1">';
-                     if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)  {
+                     if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
                         $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
-                     } else {
+                     else
                         $ibid.='<i class="fa fa-folder-o text-primary fa-lg mr-2 mt-1" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
-                     }
                      $name = stripslashes($myrow['forum_name']);
                      $redirect=false;
-                     if (strstr(strtoupper($name),"<a HREF")) {
+                     if (strstr(strtoupper($name),"<a HREF"))
                         $redirect=true;
-                     } else {
+                     else
                         $ibid.= '
                         <a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
-                     }
                      if (!$redirect) {
                      $ibid.='
                            <span class="ml-auto"> 
@@ -767,23 +764,22 @@ function forum($rowQ1) {
                         if (!$redirect) {
                          $ibid.='
                          <span class="d-flex w-100 mt-1">
-                           <label class="custom-control custom-checkbox">';
+                           <span class="custom-control custom-checkbox">';
                            if ($tab_subscribe[$myrow['forum_id']])
                               $ibid.='
-                              <input class="custom-control-input n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
+                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
                            else
                               $ibid.='
-                              <input class="custom-control-input n-ckbf" type="checkbox" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
+                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
                             $ibid.='
-                               <span class="custom-control-indicator"></span>
-                            </label>
+                               <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'"></label>
+                            </span>
                          </span>';
                         }
                      }
                         $ibid.='<span class="ml-auto">'.$last_post.'</span>';
-                     } else {
+                     } else
                         $ibid.='';
-                     }
                   }
                }
             }

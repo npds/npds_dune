@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2010 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions : Create Table            */
 /*                                                                      */
@@ -11,20 +11,18 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Access_Error")) { die(""); }
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { Access_Error(); }
+if (!function_exists('Access_Error')) die();
+if (!stristr($_SERVER['PHP_SELF'],'modules.php')) Access_Error();
 
-global $ModPath, $ModStart;
-global $NPDS_Prefix;
-$pos = strpos($ModPath, "/admin");
+global $ModPath, $ModStart, $NPDS_Prefix;
+$pos = strpos($ModPath, '/admin');
 global $links_DB; include_once('modules/'.substr($ModPath,0,$pos).'/links.conf.php');
-if ($links_DB=="") {
-   $links_DB=$NPDS_Prefix;
-}
+if ($links_DB=='')
+   $links_DB = $NPDS_Prefix;
 
 include("header.php");
-   echo "<p align=\"center\">Création des tables en cours pour / Tables' Creation running for : <b>$links_DB</b><br /><br />";
-   echo ".";
+   echo '
+   <p class="text-center">Cr&eacute;ation des tables en cours pour / Tables Creation running for : <b>'.$links_DB.'</b><br /><br />.';
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_categories (
      cid int(11) NOT NULL auto_increment,
      title varchar(250) NOT NULL default '',
@@ -32,7 +30,7 @@ include("header.php");
      PRIMARY KEY  (cid)
    )";
    $result = sql_query($sql_query);
-   echo ".";
+   echo '.';
 
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_editorials (
      linkid int(11) NOT NULL default '0',
@@ -43,7 +41,7 @@ include("header.php");
      PRIMARY KEY  (linkid)
    )";
    $result = sql_query($sql_query);
-   echo ".";
+   echo '.';
 
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_links (
      lid int(11) NOT NULL auto_increment,
@@ -64,7 +62,7 @@ include("header.php");
      PRIMARY KEY  (lid)
    )";
    $result = sql_query($sql_query);
-   echo ".";
+   echo '.';
 
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_modrequest (
      requestid int(11) NOT NULL auto_increment,
@@ -81,7 +79,7 @@ include("header.php");
      UNIQUE KEY requestid (requestid)
    )";
    $result = sql_query($sql_query);
-   echo ".";
+   echo '.';
 
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_newlink (
      lid int(11) NOT NULL auto_increment,
@@ -97,7 +95,7 @@ include("header.php");
      PRIMARY KEY  (lid)
    )";
    $result = sql_query($sql_query);
-   echo ".";
+   echo '.';
 
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_subcategories (
      sid int(11) NOT NULL auto_increment,
@@ -106,10 +104,10 @@ include("header.php");
      PRIMARY KEY  (sid)
    )";
    $result = sql_query($sql_query);
-   echo ".<br /><br />";
-
-   echo ".: Création des tables terminé / Tables' Creation Ended :.<br /><br />";
-   echo "[ <a href=\"modules.php?ModStart=links&amp;ModPath=".substr($ModPath,0,$pos)."\" class=\"noir\">".translate("Go Back")."</a>]</p>";
+   echo '.<br /><br />
+   .: Cr&eacute;ation des tables termin&eacute; / Tables Creation Ended :.<br /><br />
+   <a href="modules.php?ModStart=links&amp;ModPath='.substr($ModPath,0,$pos).'" class="btn btn-secondary">'.translate("Go Back").'</a>
+   </p>';
 
 include("footer.php");
 ?>

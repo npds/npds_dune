@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2017 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -13,7 +13,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],"modules.php")) die();
 function error_head($class) {
    global $ModPath, $ModStart;
    include("header.php");
@@ -47,7 +47,7 @@ function AddLink() {
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="title">'.translate("Title").'</label>
+            <label class="col-form-label col-sm-3" for="title">'.translate("Title").'</label>
             <div class="col-sm-9">
                <input class="form-control" type="text" id="title" name="title" maxlength="100" required="required" />
                <span class="help-block text-right"><span id="countcar_title"></span></span>
@@ -57,7 +57,7 @@ function AddLink() {
         if (($links_url) or ($links_url==-1))
         echo'
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="url">URL</label>
+            <label class="col-form-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
                <input class="form-control" type="url" id="url" name="url" maxlength="100" value="http://" required="required" />
                <span class="help-block text-right"><span id="countcar_url"></span></span>
@@ -66,7 +66,7 @@ function AddLink() {
         $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
         echo'
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="cat">'.translate("Category").'</label>
+            <label class="col-form-label col-sm-3" for="cat">'.translate("Category").'</label>
             <div class="col-sm-9">
                <select class="custom-select form-control" id="cat" name="cat">';
         while (list($cid, $title) = sql_fetch_row($result)) {
@@ -86,7 +86,7 @@ function AddLink() {
         if ($links_topic) {
            echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="topicL">'.translate("Topics").'</label>
+            <label class="col-form-label col-sm-3" for="topicL">'.translate("Topics").'</label>
             <div class="col-sm-9">
                <select class="custom-select form-control" name="topicL">';
            $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
@@ -103,7 +103,7 @@ function AddLink() {
         }
         echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="xtext">'.translate("Description").'</label>
+            <label class="col-form-label col-sm-12" for="xtext">'.translate("Description").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="xtext" id="xtext" rows="10"></textarea>
             </div>
@@ -112,13 +112,13 @@ function AddLink() {
         global $cookie;
         echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="name">'.translate("Your Name").'</label>
+            <label class="col-form-label col-sm-3" for="name">'.translate("Your Name").'</label>
             <div class="col-sm-9">
                <input type="text" class="form-control" id="name" name="name" maxlength="60" value="'.$cookie[1].'" required="required" />
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="email">'.translate("Your Email").'</label>
+            <label class="col-form-label col-sm-3" for="email">'.translate("Your Email").'</label>
             <div class="col-sm-9">
                <input type="email" class="form-control" id="email" name="email" maxlength="60" required="required" />
             </div>

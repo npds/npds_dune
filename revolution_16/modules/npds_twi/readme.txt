@@ -1,18 +1,18 @@
 ###################################################################################
 ##
 ## Nom : npds_twi
-## Version : beta 1.0
+## Version : 1.0
 ## Date : 20/03/11
 ## Auteur: Jean Pierre Barbary (jpb) 
-## Dev team :  
+## Dev team :
 ## Description :
 ## Ce Module permet :
 ##   au niveau du site :
-##    - d'envoyer automatiquement un tweet quand un article est publié. 
-##      Ce tweet contient le titre et l'intro de l'article dans la limite des 140 caractères dont un linkback vers le site.
+##    - d'envoyer automatiquement un tweet quand un article est publiÃ©. 
+##      Ce tweet contient le titre et l'intro de l'article dans la limite des 140 caractÃ¨res dont un linkback vers le site.
 ##
 ###################################################################################
-!!!Attention !!! ceci est une version beta : seule la publication automatique des articles est implémentée et testée
+!!!Attention !!! seule la publication automatique des articles est implÃ©mentÃ©e et testÃ©e
 
 I. Notes techniques :
 
@@ -24,30 +24,28 @@ I. Notes techniques :
      */
 
 - requis :
-    PHP 5.2.x (non testé dans les versions inférieur), cURL, OpenSSL, PHP sessions activées.
+    PHP 5.2.x (non testÃ© dans les versions infÃ©rieures), cURL, OpenSSL, PHP sessions activÃ©es.
 
-- implémentation dans le core NPDS (déjà réalisée dans REvolution 11)
+- implÃ©mentation dans le core NPDS (dÃ©jÃ  rÃ©alisÃ©e)
     admin/stories.php
-      ligne 537 :
-       // RÈseaux sociaux
+       // RÃ©seaux sociaux
           if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
           if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-       // RÈseaux sociaux
-      ligne 756 :
-       // RÈseaux sociaux
+       // RÃ©seaux sociaux
+       // RÃ©seaux sociaux
           if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
           if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-       // RÈseaux sociaux
+       // RÂ»seaux sociaux
     index.php
       ligne 83 :
-       // RÈseaux sociaux
+       // RÃ©seaux sociaux
           if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
           if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-       // RÈseaux sociaux
+       // RÃ©seaux sociaux
 
 - to do : 
-    implémentation des posts automatique...
-    pas testé avec un site en iso ....
+    implÃ©mentation des posts automatique...
+    pas testÃ© avec un site en iso ....
     interface utilisateur 
     
 - NB : Don't edit or move any file ... Only if you known what you do ...

@@ -55,7 +55,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    if($dd_pub!=-1 and $dh_pub!=-1)
       echo '
    <div class="form-group row">
-      <label class="form-control-label col-md-5">'.translate("Start Date for this New").'</label>
+      <label class="col-form-label col-md-5">'.translate("Start Date for this New").'</label>
       <div class="input-group input-daterange col-md-7">
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
@@ -69,7 +69,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </div>';
    echo '
    <div class="form-group row">
-      <label class="form-control-label col-md-5">'.translate("End Date for this New").'</label>
+      <label class="col-form-label col-md-5">'.translate("End Date for this New").'</label>
       <div class="input-group input-daterange col-md-7">
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
@@ -109,7 +109,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </script>
    <div class="form-group row">
       <div class="col-md-5">
-         <label class="form-control-label">'.translate("Auto Delete the New at End Date").'</label>
+         <label class="col-form-label">'.translate("Auto Delete the New at End Date").'</label>
       </div>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';
