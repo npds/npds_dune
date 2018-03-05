@@ -40,11 +40,11 @@ $m->add_field('fax', "[french]Fax[/french][english]Fax[/english]",$fax,'text',fa
 $m->add_extender('fax', '', '<span class="help-block"><span class="float-right" id="countcar_fax"></span></span>');
 $m->add_field('mob', "[french]Mobile[/french][english]Gsm[/english]",$mob,'text',false,25,'',"0-9extend");
 $m->add_extender('mob', '', '<span class="help-block"><span class="float-right" id="countcar_mob"></span></span>');
-$m->add_field('email', "[french]Adresse de messagerie[/french][english]Email address[/english]",$email,'email',false,255,'','email');
+$m->add_field('email', "[french]Adresse de messagerie[/french][english]Email address[/english]",$email,'email',true,255,'','email');
 $m->add_extender('email', '', '<span class="help-block"><span class="float-right" id="countcar_email"></span></span>');
 $m->add_field('act', "[french]Activit&#xE9;[/french][english]Activity[/english]",$act,'text',true,150,'','');
 $m->add_extender('act', '', '<span class="help-block"><span class="float-right" id="countcar_act"></span></span>');
-$m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english]",$des,'textarea',false,430,10,'','');
+$m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english]",$des,'textarea',false,430,10,'');
 $m->add_extender('des', '', '<span class="help-block"><span class="float-right" id="countcar_des"></span></span>');
 
 // ----------------------------------------------------------------

@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS Contact Example .                            */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2018                                               */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -43,7 +43,7 @@ switch($ok) {
             Ecr_Log('security', 'Contact', '');
             $ok='';
          } else {
-            $message=$m->aff_response("class=\"ligna\"","not_echo","");
+            $message=$m->aff_response('','not_echo','');
             global $notify_email;
             send_email($notify_email,"Contact site",aff_langue($message),'','',"html");
             echo '<div class="alert alert-success">'.aff_langue("[french]Votre demande est prise en compte. Nous y r&#xE9;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english]").'</div>';
@@ -54,7 +54,7 @@ switch($ok) {
       }
 
    default:
-      echo aff_langue($m->print_form('class="ligna"'));
+      echo aff_langue($m->print_form(''));
       break;
 }
 ?>
