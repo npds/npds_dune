@@ -76,7 +76,8 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <span class="help-block small muted">'.$api_key.'</span>
             </div>
          </div>';
-   if($api_key=='AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns') echo '
+   if($api_key=='AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns') 
+      echo '
          <div class="alert alert-danger">Attention : cette clef d\'API doit être remplacée par votre propre clef au plus tôt !</div>';
    echo '
          <div class="form-group row ">
@@ -443,14 +444,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          console.log("map_bloc est dans la page");//debug
          var 
          map_b,
-         mapdivbl = document.getElementById("map_bloc"),
-         icon_bl = {
-            url: "'.$ch_img.$img_mbgb.'",
-            size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 0),
-            scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-         }
+         mapdivbl = document.getElementById("map_bloc");
       }
       else {
          $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
@@ -460,7 +454,14 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
 
 function geoloc_conf() {
    $(document).ready(function() {
-      if($("#map_bloc").length) { 
+      if($("#map_bloc").length) {
+         icon_bl = {
+            url: "'.$ch_img.$img_mbgb.'",
+            size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 0),
+            scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+         };
         map_b = new google.maps.Map(mapdivbl,{
             center: new google.maps.LatLng(45, 0),
             zoom :3,

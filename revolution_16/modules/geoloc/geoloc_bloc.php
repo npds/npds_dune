@@ -16,15 +16,19 @@
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
 
+if(autorisation_block('include#modules/geoloc/geoloc_bloc.php') !='') define('GEO_BL',true);
+
 $ModPath='geoloc';
 $content = '';
 include ('modules/'.$ModPath.'/geoloc_conf.php'); 
 $content .='
 <div class="mb-2" id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>';
+/*
 if (!stristr($_SERVER['QUERY_STRING'],"ModPath=geoloc&ModStart=geoloc"))
    $content .='
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"></script>
 <script type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>';
+
 if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRING'],"geoloc_set")) || (stristr($_SERVER['QUERY_STRING'],"ModPath=geoloc&ModStart=geoloc"))) {
    $loadornot = '';
 } else {
@@ -32,21 +36,21 @@ if  ((stristr($_SERVER['PHP_SELF'],"user.php")) || (stristr($_SERVER['QUERY_STRI
 }
 if ((stristr($_SERVER['PHP_SELF'],"user.php")) and (stristr($_SERVER['QUERY_STRING'],"op=")))
    $loadornot = ' window.onload = geoloc_loadbloc; ';
-
-$content .='
+*/
+$content .= '
 <script type="text/javascript">
 //<![CDATA[
    var 
    map_b,
-   mapdivbl = document.getElementById("map_bloc"),
-   icon_bl = {
-   url: "'.$ch_img.$img_mbgb.'",
-   size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-   origin: new google.maps.Point(0, 0),
-   anchor: new google.maps.Point(0, 0),
-   scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-   };
-   var geoloc_loadbloc = function() {
+   mapdivbl = document.getElementById("map_bloc");
+   function geoloc_loadbloc() {
+      var icon_bl = {
+         url: "'.$ch_img.$img_mbgb.'",
+         size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(0, 0),
+         scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+      };
       map_b = new google.maps.Map(mapdivbl,{
          center: new google.maps.LatLng(45, 0),
          zoom :3,
@@ -73,13 +77,12 @@ $content .='
          });
       });
     }
-    '.$loadornot.'
 //]]>
 </script>';
 
 $content .='<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg mr-1"></i>[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
 if($admin)
-$content .= '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-1"></i>&nbsp;[french]Admin[/french][english]Admin[/english][chinese]Admin[/chinese][spanish]Admin[/spanish]</a>';
+   $content .= '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-1"></i>&nbsp;[french]Admin[/french][english]Admin[/english][chinese]Admin[/chinese][spanish]Admin[/spanish]</a>';
 $content .= '</div>';
 $content = aff_langue($content);
 ?>

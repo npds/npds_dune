@@ -24,11 +24,13 @@ function localiser_ip($iptoshow) {
    if($geo_ip==1) {
       $ip_location = sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"".$iptoshow."\"");
       if (sql_num_rows($ip_location) !== 0) {
+         define('GEO_IP',true);
          $row = sql_fetch_assoc($ip_location);
          $aff_location .= '
       <div class="col-md-5">
          <div id="map_ip" style="width:100%; height:240px;"></div>
       </div>
+
       <script type="text/javascript">
       //<![CDATA[
          $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
@@ -36,67 +38,69 @@ function localiser_ip($iptoshow) {
             if($("#map_bloc").length)
                console.log("map_bloc est dans la page");//debug
             else {
-               $("head").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
-               $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
+//               $("body").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
+//               $("body").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;callback=geoloc_loadipuser&amp;language='.language_iso(1,'',0).'").attr("asynch", "asynch"));
             }
          });
          var 
          map_ip, map_b,
          mapdivip = document.getElementById("map_ip"),
          mapdivbl = document.getElementById("map_bloc");
-         function geoloc_loaduser() {
-         icon_u = {
-            path: fontawesome.markers.DESKTOP,
-            scale: '.$acg_sc.',
-            strokeWeight: '.$acg_t_ep.',
-            strokeColor: "'.$acg_t_co.'",
-            strokeOpacity: '.$acg_t_op.',
-            fillColor: "red",
-            fillOpacity: '.$acg_f_op.',
-         };
-         icon_ip = {
-            url: "'.$ch_img.'ip_loc.svg",
-            size: new google.maps.Size(200, 200),
-            scaledSize: new google.maps.Size(200, 200),
-            anchor: new google.maps.Point(100,100),
-            origin: new google.maps.Point(0,0)
-         };
-         icon_bl = {
-            url: "'.$ch_img.$img_mbgb.'",
-            size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 0),
-            scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-         };
 
-         //==> carte du bloc
-         if (document.getElementById("map_bloc")) {
-            map_b = new google.maps.Map(mapdivbl,{
-               center: new google.maps.LatLng(45, 0),
-               zoom :3,
-               zoomControl:false,
-               streetViewControl:false,
-               mapTypeControl: false,
-               disableDoubleClickZoom: true 
-            });
-            map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-            function createMarkerB(point_b) {
-               var marker_b = new google.maps.Marker({
-                  position: point_b,
-                  map: map_b,
-                  icon: icon_bl
-               })
-               return marker_b;
-            }
-            //== Fonction qui traite le fichier JSON ==
-            $.getJSON("modules/geoloc/include/data.json", {}, function(data){
-               $.each(data.markers, function(i, item){
-                  var point_b = new google.maps.LatLng(item.lat,item.lng);
-                  var marker_b = createMarkerB(point_b);
+         function geoloc_init() {
+            var
+            icon_ip = {
+               url: "'.$ch_img.'ip_loc.svg",
+               size: new google.maps.Size(200, 200),
+               scaledSize: new google.maps.Size(200, 200),
+               anchor: new google.maps.Point(100,100),
+               origin: new google.maps.Point(0,0)
+            },
+            icon_bl = {
+               url: "'.$ch_img.$img_mbgb.'",
+               size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+               origin: new google.maps.Point(0, 0),
+               anchor: new google.maps.Point(0, 0),
+               scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+            },
+            icon_u = {
+               path: fontawesome.markers.DESKTOP,
+               scale: '.$acg_sc.',
+               strokeWeight: '.$acg_t_ep.',
+               strokeColor: "'.$acg_t_co.'",
+               strokeOpacity: '.$acg_t_op.',
+               fillColor: "red",
+               fillOpacity: '.$acg_f_op.',
+            };
+
+            //==> carte du bloc
+            if (document.getElementById("map_bloc")) {
+               map_b = new google.maps.Map(mapdivbl,{
+                  center: new google.maps.LatLng(45, 0),
+                  zoom :3,
+                  zoomControl:false,
+                  streetViewControl:false,
+                  mapTypeControl: false,
+                  disableDoubleClickZoom: true 
                });
-            });
-         };
-         //<== carte du bloc
+               map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+               function createMarkerB(point_b) {
+                  var marker_b = new google.maps.Marker({
+                     position: point_b,
+                     map: map_b,
+                     icon: icon_bl
+                  })
+                  return marker_b;
+               }
+               //== Fonction qui traite le fichier JSON ==
+               $.getJSON("modules/geoloc/include/data.json", {}, function(data){
+                  $.each(data.markers, function(i, item){
+                     var point_b = new google.maps.LatLng(item.lat,item.lng);
+                     var marker_b = createMarkerB(point_b);
+                  });
+               });
+            };
+            //<== carte du bloc
 
             map_ip = new google.maps.Map(mapdivip,{
                center: new google.maps.LatLng('.$row['ip_lat'].', '.$row['ip_long'].'),
@@ -126,7 +130,6 @@ function localiser_ip($iptoshow) {
             };
             myoverlay.setMap(map_ip);
          }
-         $(document.body).attr("onload", "geoloc_loaduser()");
       //]]>
       </script>';
       }
