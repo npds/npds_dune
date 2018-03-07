@@ -39,28 +39,28 @@ function FriendSend($sid, $archive) {
    }
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
+         <label class="col-form-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
+         <label class="col-form-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fmail"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name").'</label>
+         <label class="col-form-label col-sm-4" for="yname">'.translate("Your Name").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
+         <label class="col-form-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span class="muted" id="countcar_ymail"></span></span>
@@ -110,7 +110,7 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    list($topictext) = sql_fetch_row($result3);
    $subject = translate("Interesting Article at")." $sitename";
    $fname=removeHack($fname);
-   $message = "".translate("Hello")." $fname :\n\n".translate("Your Friend")." $yname ".translate("considered the following article interesting and wanted to send it to you.")."\n\n".aff_langue($title)."\n".translate("Date:")." $time\n".translate("Topic:")." ".aff_langue($topictext)."\n\n".translate("The Article")." : <a href=\"$nuke_url/article.php?sid=$sid&amp;archive=$archive\">$nuke_url/article.php?sid=$sid&amp;archive=$archive</a>\n\n";
+   $message = translate("Hello")." $fname :\n\n".translate("Your Friend")." $yname ".translate("considered the following article interesting and wanted to send it to you.")."\n\n".aff_langue($title)."\n".translate("Date:")." $time\n".translate("Topic:")." ".aff_langue($topictext)."\n\n".translate("The Article")." : <a href=\"$nuke_url/article.php?sid=$sid&amp;archive=$archive\">$nuke_url/article.php?sid=$sid&amp;archive=$archive</a>\n\n";
    include("signat.php");
    $fmail=removeHack($fmail);
    $subject=removeHack($subject);
@@ -159,28 +159,28 @@ function RecommendSite() {
    <form action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="yname">'.translate("Your Name").'</label>
+         <label class="col-form-label col-sm-4" for="yname">'.translate("Your Name").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
+         <label class="col-form-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_ymail"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
+         <label class="col-form-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
+         <label class="col-form-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fmail"></span></span>

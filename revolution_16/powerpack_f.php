@@ -9,9 +9,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    header("location: index.php");
-}
 
 #autodoc Form_instant_message($to_userid) : Ouvre la page d'envoi d'un MI (Message Interne)
 function Form_instant_message($to_userid) {
@@ -79,18 +78,18 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
 function write_short_private_message($to_userid) {
    echo '
    <h2>'.translate("Message to Member").'</h2>
-   <h3><i class="fa fa-at"></i>&nbsp'.$to_userid.'</h3>
+   <h3><i class="fa fa-at mr-1"></i>'.$to_userid.'</h3>
    <form id="sh_priv_mess" action="powerpack.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="subject" >'.translate("Subject").'</label>
+         <label class="col-form-label col-sm-12" for="subject" >'.translate("Subject").'</label>
          <div class="col-sm-12">
-            <input class="form-control" type="text" name="subject" maxlength="100" />
+            <input class="form-control" type="text" id="subject" name="subject" maxlength="100" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="message" >'.translate("Message").'</label>
+         <label class="col-form-label col-sm-12" for="message" >'.translate("Message").'</label>
          <div class="col-sm-12">
-            <textarea class="form-control" name="message" rows="10"></textarea>
+            <textarea class="form-control"  id="message" name="message" rows="10"></textarea>
          </div>
       </div>
       <div class="form-group row">
@@ -328,15 +327,15 @@ function makeChatBox($pour) {
 
 #autodoc RecentForumPosts($title, $maxforums, $maxtopics, $dposter, $topicmaxchars,$hr,$decoration) : Bloc Forums <br />=> syntaxe :<br />function#RecentForumPosts<br />params#titre, nb_max_forum (O=tous), nb_max_topic, affiche_l'emetteur(true / false), topic_nb_max_char, affiche_HR(true / false),
 function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration) {
-    $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration);
-    global $block_title;
-    if ($title=='') {
-       if ($block_title=='')
-          $title=translate("Forums infos");
-       else
-          $title=$block_title;
-    }
-    themesidebox($title, $boxstuff);
+   $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration);
+   global $block_title;
+   if ($title=='') {
+      if ($block_title=='')
+         $title=translate("Forums infos");
+      else
+         $title=$block_title;
+   }
+   themesidebox($title, $boxstuff);
 }
 function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration) {
     global $parse, $user, $NPDS_Prefix;
@@ -421,7 +420,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
               $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge badge-secondary mx-2" title="'.translate("Replies").'" data-toggle="tooltip" data-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
               if ($displayposter) $boxstuff .= $decoration.'<span class="ml-1">'.$postername.'</span>';
               $boxstuff .= '</li>';
-$topics++;
+               $topics++;
           }
        }
     }

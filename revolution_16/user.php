@@ -254,46 +254,51 @@ function hidden_form() {
 function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
    global $smilies, $short_user, $minpass, $memberpass;
    $uname=strip_tags($uname);
-   if ($user_viewemail!=1) {$user_viewemail='0';}
+   if ($user_viewemail!=1) $user_viewemail='0';
    $stop=userCheck($uname, $email);
    if ($memberpass) {
-      if ((isset($pass)) and ($pass != $vpass)) {
+      if ((isset($pass)) and ($pass != $vpass))
          $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.");
-      } elseif (strlen($pass) < $minpass) {
+      elseif (strlen($pass) < $minpass)
          $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long");
-      }
    }
    if (!$stop) {
       include("header.php");
       echo '
       <h2>'.translate("User").'</h2>
-      <h2><i class="fa fa-user mr-2"></i>Votre fiche d\'inscription</h2>';
+      <hr />
+      <h3 class="mb-3"><i class="fa fa-user mr-2"></i>Votre fiche d\'inscription</h3>
+      <div class="card">
+         <div class="card-body">';
       include ("modules/sform/extend-user/aff_extend-user.php");
+      echo '
+         </div>
+      </div>';
       hidden_form();
       global $charte;
-      if (!$charte) {
+      if (!$charte)
          echo '
-               <div class="alert alert-danger lead mt-3"><i class="fa fa-exclamation mr-2"></i>'.translate("You must accept the terms of use of this website").'
-                  <input type="hidden" name="op" value="only_newuser" /><br />
-                  <input class="btn btn-secondary mt-2" type="submit" value="'.translate("Go Back").'" />
+               <div class="alert alert-danger lead mt-3">
+                  <i class="fa fa-exclamation mr-2"></i>'.translate("You must accept the terms of use of this website").'
                </div>
+               <input type="hidden" name="op" value="only_newuser" />
+               <input class="btn btn-secondary mt-1" type="submit" value="'.translate("Go Back").'" />
             </form>';
-      } else {
+      else
          echo '
                <input type="hidden" name="op" value="finish" /><br />
                <input class="btn btn-primary mt-2" type="submit" value="'.translate("Finish").'" />
             </form>';
-      }
-       include("footer.php");
-   } else {
+      include("footer.php");
+   } else
       message_error($stop,"new user");
-   }
 }
+
 function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
    global $NPDS_Prefix;
    global $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt;
    $stop=userCheck($uname, $email);
-   $user_regdate = time()+($gmt*3600);
+   $user_regdate = time()+((integer)$gmt*3600);
    $stop=userCheck($uname, $email);
    if (!$stop) {
       include("header.php");
@@ -341,7 +346,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
           if (file_exists("modules/include/new_user.inc")) {
              include ("modules/include/new_user.inc");
              global $gmt;
-             $time = date(translate("dateinternal"),time()+($gmt*3600));
+             $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
              $message = meta_lang(AddSlashes(str_replace("\n","<br />", $message)));
              $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
              $sql .= "VALUES ('', '$sujet', '$emetteur_id', '$usr_id', '$time', '$message')";
@@ -370,27 +375,26 @@ function userinfo($uname) {
    $uname=removeHack($uname);
    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
    list($uid, $name, $femail, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $mns) = sql_fetch_row($result);
-   if (!$uid) {
+   if (!$uid)
       header ("location: index.php");
-   }
    global $cookie;
    include("header.php");
    include_once("functions.php");
 
-    $email=removeHack($femail);
-    $name=stripslashes(removeHack($name));
-    $url=removeHack($url);
-    $bio=stripslashes(removeHack($bio));
-    $user_from=stripslashes(removeHack($user_from));
-    $user_occ=stripslashes(removeHack($user_occ));
-    $user_intrest=stripslashes(removeHack($user_intrest));
-    $user_sig=nl2br(removeHack($user_sig));
-    $user_journal=stripslashes(removeHack($user_journal));
-    $op='userinfo';
+   $email=removeHack($femail);
+   $name=stripslashes(removeHack($name));
+   $url=removeHack($url);
+   $bio=stripslashes(removeHack($bio));
+   $user_from=stripslashes(removeHack($user_from));
+   $user_occ=stripslashes(removeHack($user_occ));
+   $user_intrest=stripslashes(removeHack($user_intrest));
+   $user_sig=nl2br(removeHack($user_sig));
+   $user_journal=stripslashes(removeHack($user_journal));
+   $op='userinfo';
 
-   if (stristr($user_avatar,"users_private")) {
+   if (stristr($user_avatar,"users_private"))
       $direktori='';
-   } else {
+   else {
       global $theme;
       $direktori='images/forum/avatar/';
       if (function_exists("theme_image")) {
@@ -399,51 +403,48 @@ function userinfo($uname) {
       }
    }
 
-      $my_rsos=array();
-      $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
-      $posterdata_extend = get_userdata_extend_from_id($uid);
-      if (!$short_user) {
-         include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-         if (array_key_exists('M2', $posterdata_extend)) {
-            $socialnetworks= explode(';',$posterdata_extend['M2']);
-            foreach ($socialnetworks as $socialnetwork) {
-               $res_id[] = explode('|',$socialnetwork);
-            }
-            sort($res_id);
-            sort($rs);
-            foreach ($rs as $v1) {
-               foreach($res_id as $y1) {
-                  $k = array_search( $y1[0],$v1);
-                  if (false !== $k) {
-                     $my_rs.='<a class="mr-3" href="';
-                     if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
-                     break;
-                  } 
-                  else $my_rs.='';
-               }
-            }
-            $my_rsos[]=$my_rs;
+   $my_rsos=array();
+   $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+   $posterdata_extend = get_userdata_extend_from_id($uid);
+   if (!$short_user) {
+      include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+      if (array_key_exists('M2', $posterdata_extend)) {
+         $socialnetworks= explode(';',$posterdata_extend['M2']);
+         foreach ($socialnetworks as $socialnetwork) {
+            $res_id[] = explode('|',$socialnetwork);
          }
-         else $my_rsos[]='';
+         sort($res_id);
+         sort($rs);
+         foreach ($rs as $v1) {
+            foreach($res_id as $y1) {
+               $k = array_search( $y1[0],$v1);
+               if (false !== $k) {
+                  $my_rs.='<a class="mr-3" href="';
+                  if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
+                  $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                  break;
+               } 
+               else $my_rs.='';
+            }
+         }
+         $my_rsos[]=$my_rs;
       }
+      else $my_rsos[]='';
+   }
 
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
-      if (($user) and ($uid!=1)) {
-         $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
-      }
-      if ($posterdata['femail']!='') {
-         $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
-      }
-      if ($posterdata['url']!='') {
-         if (strstr('http://', $posterdata['url']))
-            $posterdata['url'] = 'http://' . $posterdata['url'];
-         $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
-      }
-      if ($posterdata['mns']) {
-          $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
-      }
+   if (($user) and ($uid!=1))
+      $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
+   if ($posterdata['femail']!='')
+      $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
+   if ($posterdata['url']!='') {
+      if (strstr('http://', $posterdata['url']))
+         $posterdata['url'] = 'http://' . $posterdata['url'];
+      $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
+   }
+   if ($posterdata['mns'])
+       $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
@@ -468,28 +469,31 @@ function userinfo($uname) {
    echo '
    <div class="card card-body">
       <div class="row">';
-      if ($posterdata_extend[$ch_lat]!='') echo '
-         <div class="col-md-6">'; else
+      if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') 
+         echo '
+         <div class="col-md-6">';
+      else
          echo '
          <div class="col-md-12">';
    include("modules/sform/extend-user/aff_extend-user.php");
    echo '
          </div>';
 
-if ($posterdata_extend[$ch_lat]!='') {
-$content = '';
-$content .='
-<div class="col-md-6">
-<div id="map_user" style="width:100%; height:400px;"></div>';
-$content .='
+   if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
+      define('GEO_US', true);
+      $content = '';
+      $content .='
+         <div class="col-md-6">
+            <div id="map_user" style="width:100%; height:400px;"></div>';
+      $content .='
 <script type="text/javascript">
 //<![CDATA[
       $(document).ready(function() {
          if($("#map_bloc").length)
             console.log("map_bloc est dans la page");//debug
          else {
-            $("head").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
-            $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
+//               $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
+//               $("head").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
          }
       });
 
@@ -498,25 +502,25 @@ $content .='
    mapdivu = document.getElementById("map_user"),
    mapdivbl = document.getElementById("map_bloc");
 
-   function geoloc_loaduser() {
-   icon_u = {
-      path: fontawesome.markers.USER,
-      scale: '.$acg_sc.',
-      strokeWeight: '.$acg_t_ep.',
-      strokeColor: "'.$acg_t_co.'",
-      strokeOpacity: '.$acg_t_op.',
-      fillColor: "'.$acg_f_co.'",
-      fillOpacity: '.$acg_f_op.',
-   };
+   function geoloc_init() {
+      var 
+      icon_u = {
+         path: fontawesome.markers.USER,
+         scale: '.$acg_sc.',
+         strokeWeight: '.$acg_t_ep.',
+         strokeColor: "'.$acg_t_co.'",
+         strokeOpacity: '.$acg_t_op.',
+         fillColor: "'.$acg_f_co.'",
+         fillOpacity: '.$acg_f_op.'
+      },
+      icon_bl = {
+         url: "'.$ch_img.$img_mbgb.'",
+         size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(0, 0),
+         scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+      };
 
-   icon_bl = {
-      url: "'.$ch_img.$img_mbgb.'",
-      size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0),
-      scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-   };
-      
    //==> carte du bloc
    if (document.getElementById("map_bloc")) {
 
@@ -569,16 +573,25 @@ $content .='
       var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend[$ch_lon].');
       var marker_u = createMarkerU(point_u);
    }
-   $(document.body).attr("onload", "geoloc_loaduser()");
+//   $(document.body).attr("onload", "geoloc_loaduser()");
 //]]>
-</script>';
-$content .='<div class="mt-3"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
-if($admin)
-   $content .= '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
-$content .= '</div></div>';
-$content = aff_langue($content);
-echo $content;
-}
+</script>
+
+
+
+';
+      $content .='
+         <div class="mt-3">
+            <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
+      if($admin)
+         $content .= '
+            <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
+      $content .= '
+            </div>
+         </div>';
+      $content = aff_langue($content);
+      echo $content;
+   }
 
    echo '
       </div>
@@ -684,9 +697,10 @@ echo $content;
       }
    }
    echo $content;
-
    echo'
-   <hr />
+   <hr />';
+   if($posterdata['attachsig']==1)
+      echo'
    <p class="n-signature">'.$user_sig.'</p>';
    include("footer.php");
 }
@@ -709,13 +723,13 @@ function main($user) {
           <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
           <form action="user.php" method="post" name="userlogin">
              <div class="form-group row">
-               <label for="inputuser" class="form-control-label col-sm-4">'.translate("Nickname").'</label>
+               <label for="inputuser" class="col-form-label col-sm-4">'.translate("Nickname").'</label>
                <div class="col-sm-8">
                   <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'" required="required" />
                </div>
             </div>
             <div class="form-group row">
-               <label for="inputPassuser" class="form-control-label col-sm-4">'.translate("Password").'</label>
+               <label for="inputPassuser" class="col-form-label col-sm-4">'.translate("Password").'</label>
                <div class="col-sm-8">
                   <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'" required="required" />
                   <span class="help-block small"><a href="user.php?op=forgetpassword" title="'.translate("Lost your Password?").'">'.translate("Lost your Password?").'</a></span>
@@ -968,19 +982,19 @@ function edituser() {
     include ("modules/sform/extend-user/mod_extend-user.php");
     include("footer.php");
 }
+
 function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar) {
-    global $NPDS_Prefix;
-    global $user, $userinfo, $system, $minpass;
-    $cookie=cookiedecode($user);
-    $check = $cookie[1];
-    $result = sql_query("SELECT uid, email FROM ".$NPDS_Prefix."users WHERE uname='$check'");
-    list($vuid, $vemail) = sql_fetch_row($result);
-    if (($check == $uname) AND ($uid == $vuid)) {
-        if ((isset($pass)) && ("$pass" != "$vpass")) {
-           message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.").'<br />','');
-        } elseif (($pass != '') && (strlen($pass) < $minpass)) {
-           message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long").'<br />','');
-        } else {
+   global $NPDS_Prefix, $user, $userinfo, $system, $minpass;
+   $cookie=cookiedecode($user);
+   $check = $cookie[1];
+   $result = sql_query("SELECT uid, email FROM ".$NPDS_Prefix."users WHERE uname='$check'");
+   list($vuid, $vemail) = sql_fetch_row($result);
+   if (($check == $uname) AND ($uid == $vuid)) {
+      if ((isset($pass)) && ("$pass" != "$vpass"))
+         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.").'<br />','');
+      elseif (($pass != '') && (strlen($pass) < $minpass))
+         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long").'<br />','');
+      else {
            $stop=userCheck('edituser', $email);
            if (!$stop)  {
               if ($bio) { $bio=FixQuotes(strip_tags($bio)); }
@@ -1080,9 +1094,8 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                message_error($stop, '');
            }
         }
-    } else {
+    } else
        Header("Location: index.php");
-    }
 }
 
 function edithome() {
@@ -1336,6 +1349,8 @@ switch ($op) {
       // CheckBox
       settype($user_viewemail,'integer');
       settype($user_lnl,'integer');
+      settype($pass,'string');
+      settype($vpass,'string');
       confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1);
    break;
    case 'finish':
@@ -1435,9 +1450,9 @@ switch ($op) {
    break;
    case 'only_newuser':
       global $CloseRegUser;
-      if ($CloseRegUser==0) {
+      if ($CloseRegUser==0)
          Only_NewUser();
-      } else {
+      else {
          include("header.php");
          if (file_exists("static/closed.txt"))
             include("static/closed.txt");
@@ -1445,7 +1460,7 @@ switch ($op) {
       }
    break;
    default:
-      if (!AutoReg()) { unset($user); }
+      if (!AutoReg()) unset($user);
       main($user);
    break;
 }

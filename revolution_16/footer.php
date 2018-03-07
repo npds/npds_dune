@@ -44,18 +44,18 @@ function foot() {
    if ($tiny_mce)
       echo aff_editeur('tiny_mce', 'end');
    // include externe file from modules/include for functions, codes ...
-   if (file_exists("modules/include/footer_before.inc")) {include ("modules/include/footer_before.inc");}
+   if (file_exists("modules/include/footer_before.inc")) include ("modules/include/footer_before.inc");
    foot();
    // include externe file from modules/themes include for functions, codes ...
       if (isset($user)) {
-         if (file_exists("themes/$cookie9/include/footer_after.inc")) {include ("themes/$cookie9/include/footer_after.inc");} 
+         if (file_exists("themes/$cookie9/include/footer_after.inc")) include ("themes/$cookie9/include/footer_after.inc");
          else
-         if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
+         if (file_exists("modules/include/footer_after.inc")) include ("modules/include/footer_after.inc");
       }
-         else {
-            if (file_exists("themes/$Default_Theme/include/footer_after.inc")) {include ("themes/$Default_Theme/include/footer_after.inc");} 
+      else {
+         if (file_exists("themes/$Default_Theme/include/footer_after.inc")) include ("themes/$Default_Theme/include/footer_after.inc"); 
          else
-            if (file_exists("modules/include/footer_after.inc")) {include ("modules/include/footer_after.inc");}
+         if (file_exists("modules/include/footer_after.inc")) include ("modules/include/footer_after.inc");
       }
    echo '
       </body>
@@ -64,5 +64,5 @@ function foot() {
    include("sitemap.php");
 
    global $mysql_p, $dblink;
-   if (!$mysql_p) {sql_close($dblink);}
+   if (!$mysql_p) sql_close($dblink);
 ?>

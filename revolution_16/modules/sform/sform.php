@@ -31,7 +31,7 @@ class form_handler {
   var $form_key_status='open'; // Status of the key (open or close)
   var $submit_value=''; // the name off all submit buttons of the form
   var $form_password_access=''; // Protect the data with a password
-  var $answer=''; // answer table
+  var $answer=array(); // answer table
   var $form_check='true'; // sring which will be inserted into javascript check function
   var $url; // path at 'action' option of form
   var $field_size=50; // Value of the size attribute of a form-field
@@ -41,9 +41,6 @@ class form_handler {
   function interro_fields($ibid) {
     $number="no";
     for(Reset($this->form_fields),$node=0;$node<count($this->form_fields);Next($this->form_fields),$node++) {
-
-       // modif - rajout de key_exist
-
        if (array_key_exists('name',$this->form_fields[$node])) {
           if ($ibid==$this->form_fields[$node]['name']) {
              $number=$node;
@@ -633,12 +630,12 @@ else $str .=' >';
   // make the answer array
   // private string
   function make_response(){
+
     for($i=0;$i<count($this->form_fields);$i++) {
       $this->answer[$i]='';
-      // this new if remove noticeS à surveiller !
       if(array_key_exists('type', $this->form_fields[$i])) {
          switch($this->form_fields[$i]['type']){
-           case 'text':case 'email':case 'url':case 'number':
+           case 'text': case 'email': case 'url': case 'number':
              // Charge la valeur de la clef
              if ($this->form_fields[$i]['name']==$this->form_key) {
                 $this->form_key_value=$GLOBALS[$this->form_fields[$i]['name']];
@@ -722,6 +719,7 @@ else $str .=' >';
              $this->answer[$i].="no_reg";
              break;
          }
+         
       }
     }
   }
@@ -843,7 +841,7 @@ else $str .=' >';
       }
       if (array_key_exists('type',$this->form_fields[$i])) {
          switch($this->form_fields[$i]['type']) {
-            case 'text':
+            case 'text': case 'email': case 'url': case 'number':
                $str.='<p class="mb-1">'.$this->form_fields[$i]['en'];
                $str.='<br />';
                $str.='<strong>'.stripslashes($field).'&nbsp;</strong>';
@@ -1024,7 +1022,7 @@ else $str .=' >';
   function sform_browse_mysql($pas,$mess_passwd,$mess_ok,$presentation='') {
      global $NPDS_Prefix;
 
-     $result=sql_query("select key_value, passwd from ".$NPDS_Prefix."sform where id_form='".$this->form_title."' and id_key='".$this->form_key."' ORDER BY key_value ASC");
+     $result=sql_query("SELECT key_value, passwd FROM ".$NPDS_Prefix."sform WHERE id_form='".$this->form_title."' AND id_key='".$this->form_key."' ORDER BY key_value ASC");
      echo "<form action=\"".$this->url."\" method=\"post\" name=\"browse\" enctype=\"multipart/form-data\">";
      echo "<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"1\" class=\"ligna\"><tr><td>";
      echo "<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"1\" class=\"lignb\">";
@@ -1075,9 +1073,8 @@ else $str .=' >';
               $op=$this->read_load_sform_data(stripslashes($line),$op);
            }
            return(true);
-        } else {
+        } else
            return(false);
-        }
      }
   }
 
@@ -1088,9 +1085,8 @@ else $str .=' >';
      $content=$this->write_sform_data($response);
      $sql = "INSERT INTO ".$NPDS_Prefix."sform (id_form, id_key, key_value, passwd, content) ";
      $sql .= "VALUES ('".$this->form_title."', '".$this->form_key."', '".$this->form_key_value."', '".$this->form_password_access."', '$content')";
-     if (!$result = sql_query($sql)) {
+     if (!$result = sql_query($sql))
         return ("Error Sform : Insert DB");
-     }
   }
 
   /**************************************************************************************/
