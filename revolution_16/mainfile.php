@@ -1298,8 +1298,9 @@ function niv_block($Xcontent) {
    }
    sql_free_result($result);
 }
-#autodoc autorisation_block($Xcontent) : Retourne une chaine contenant la liste des autorisations (-127,-1,0,1,2...126)) SI le bloc est actif SINON "" / le paramètre est le contenu du bloc (function#....)
+#autodoc autorisation_block($Xcontent) : Retourne une chaine?? // array ou vide contenant la liste des autorisations (-127,-1,0,1,2...126)) SI le bloc est actif SINON "" / le paramètre est le contenu du bloc (function#....)
 function autorisation_block($Xcontent) {
+   $autoX=array();//notice .... to follow
    $auto=explode(',', niv_block($Xcontent));
    // le dernier indice indique si le bloc est actif
    $actif=$auto[count($auto)-1];
