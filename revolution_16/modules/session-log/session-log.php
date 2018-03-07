@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Session and log Viewer Copyright (c) 2009 - Tribal-Dolphin           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='session_log';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -20,8 +20,7 @@ admindroits($aid,$f_meta_nom);
 
 global $language, $ModPath, $ModStart;
 $old_language=$language;
-include_once("modules/upload/upload.conf.php");
-
+include('modules/upload/upload.conf.php');
 include('modules/geoloc/geoloc_locip.php');
 
 if ($DOCUMENTROOT=='') {
@@ -42,12 +41,17 @@ $f_titre = SessionLog_translate("Gestion des Logs");
 settype($subop,'string');
 
 function action_log($ThisFile,$logtype) {
-   echo '<p align="center"><br />
-   <a class="btn btn-danger btn-sm mt-2" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$logtype.'" >'.SessionLog_translate("Vider le fichier").'</a>
-   <a class="btn btn-primary btn-sm mt-2" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$logtype.'">'.SessionLog_translate("Recevoir le fichier par mail").'</a>
-   <a class="btn btn-danger btn-sm mt-2" href="'.$ThisFile.'&amp;subop=vidtemp">'.SessionLog_translate("Effacer les fichiers temporaires").'</a>
-   </p>';
+   global $FileSecure, $FileUpload, $RepTempFil, $rep_cache;
+   $whatlog='security';$whatfile='';
+   if($FileUpload!=$FileSecure) $whatlog='upload';
+   $task= '
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at mr-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times mr-1 fa-lg"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fa fa-trash-o mr-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
+   return $task;
 }
+
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $cl_a_ses=''; if ($subop=="session") $cl_a_ses='active';
@@ -57,26 +61,34 @@ echo '
 <hr />
 <ul class="nav nav-tabs">
    <li class="nav-item"><a href="'.$ThisFile.'&subop=session" class="nav-link '.$cl_a_ses.'">'.SessionLog_translate("Liste des Sessions").'</a></li>
-   <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").'</a></li>
+   <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").'</a>
+   <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench fa-lg"></i></a>
+      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+      '.action_log($ThisFile,'').'
+      </div>
+   </li>
 </ul>';
 
+/*
    if ($FileUpload!=$FileSecure) {
-      echo " | <a href=\"".$ThisFile."&subop=upload\" class=\"box\">".SessionLog_translate("Liste des Logs")." : ".SessionLog_translate("TELECHARGEMENT")."</a>";
+      echo "<a href=\"".$ThisFile."&subop=upload\">".SessionLog_translate("Liste des Logs")." : ".SessionLog_translate("TELECHARGEMENT")."</a>";
    }
+*/
 
    // Voir les sessions
    if ($subop=='session') {
       echo '
       <br />
-      <h3>'.SessionLog_translate("Liste des Sessions").' <code>TABLE session</code></h3>
-      <table id="tad_ses" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code></h3>
+      <table id="tad_ses" class="table table-sm" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th class="n-t-col-xs-2" data-sortable="true">'.SessionLog_translate("Nom").'</th>
-               <th class="n-t-col-xs-2" data-sortable="true">@ IP</th>
-               <th data-sortable="true">'.SessionLog_translate("@ IP résolue").'</th>
-               <th data-sortable="true">URI</th>
-               <th class="n-t-col-xs-2" data-sortable="true">'.SessionLog_translate("Agent").'</th>
+               <th class="n-t-col-xs-1" data-halign="center" data-align="center" data-sortable="true">'.SessionLog_translate("Nom").'</th>
+               <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">@ IP</th>
+               <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.SessionLog_translate("@ IP résolue").'</th>
+               <th data-halign="center" data-sortable="true">URI</th>
+               <th class="n-t-col-xs-1" data-halign="center" data-align="center" data-sortable="true">'.SessionLog_translate("Agent").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -104,6 +116,7 @@ echo '
       <br />
       <h3>'.SessionLog_translate("Informations sur l'IP").'</h3>';
       $hostname = gethostbyaddr($theip);
+      settype($provider,'string');
       if ($theip != $hostname) {
          $domfai = explode('.',$hostname);
          $prov = $domfai[count($domfai)-2].'.'.$domfai[count($domfai)-1];
@@ -147,17 +160,13 @@ echo '
 
    // Email du contenu des Logs
    if ($subop=='mailog') {
-      if ($log=="security") {
-         if (file_exists($FileSecure)) {
+      if ($log=='security')
+         if (file_exists($FileSecure))
             $Mylog=$FileSecure;
-         }
-      }
-      if ($log=='upload') {
-         if (file_exists($FileUpload)) {
+      if ($log=='upload') 
+         if (file_exists($FileUpload))
             $Mylog=$FileUpload;
-         }
-      }
-      $subject = SessionLog_translate("Fichier de Log de")." ".$sitename;
+      $subject = SessionLog_translate("Fichier de Log de").' '.$sitename;
       send_email($adminmail, $subject, $Mylog, '', true, 'mixed');
    }
 
@@ -183,15 +192,18 @@ echo '
             while (!feof ($fd)) {
                $buffer = fgets($fd, 4096);
                if (strlen($buffer)>10) {
-                  if (stristr($buffer,'Upload')) {
-                     $UpLog.='<tr><td style="font-size:10px;">'.$buffer.'</td></tr>'."\n";
-                  } else {
+                  if (stristr($buffer,'Upload'))
+                     $UpLog.='
+                  <tr>
+                  <td style="font-size:10px;">'.$buffer.'</td>
+                  </tr>';
+                  else {
                     $ip=substr(strrchr($buffer,"=>"),2);
                     $SecLog.='
                     <tr>
-                    <td class="small">'.$buffer.'</td>
-                    <td><a href="'.$ThisFile.'&amp;subop=info&amp;theip='.$ip.'" >'.SessionLog_translate("Infos").'</a></td>
-                    </tr>'."\n";
+                       <td class="small">'.$buffer.'</td>
+                       <td><a href="'.$ThisFile.'&amp;subop=info&amp;theip='.$ip.'" >'.SessionLog_translate("Infos").'</a></td>
+                    </tr>';
                   }
                }
             }
@@ -199,8 +211,7 @@ echo '
          }
       }
       echo '
-      <hr />
-      <h3 class="mb-3"><a class="btn" data-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="fa fa-bars fa-lg align-top"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></h3>
+      <h3 class="my-3"><a data-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></span></h3>
       <div id="tog_tad_slog" class="collapse">
          <table id="tad_slog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true">
             <thead>
@@ -215,7 +226,7 @@ echo '
             </tbody>
          </table>
       </div>
-      <h3 class="mb-3"><a class="btn" data-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="fa fa-bars fa-lg align-top"></i></a>'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></h3>
+      <h3 class="mt-3"><a data-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></span></h3>
       <div id="tog_tad_tlog" class="collapse">
          <table id="tad_tlog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
             <thead>
@@ -229,11 +240,12 @@ echo '
             </tbody>
          </table>
       </div>';
-      action_log($ThisFile,"security");
+      action_log($ThisFile,'security');
    }
 
    // Voir le contenu du fichier d'upload si différent de security.log (upload.conf.php)
    if ($subop=="upload") {
+      $UpLog='';
       if ($FileUpload!=$FileSecure) {
          if (file_exists($FileUpload)) {
             if (filesize($FileUpload) != 0) {
@@ -248,9 +260,10 @@ echo '
             }
          }
          echo SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code class="code">'.$FileUpload.'</code>';
-         echo '<table>';
-         echo $UpLog;
-         echo '</table>';
+         echo '
+         <table>
+         '.$UpLog.'
+         </table>';
          action_log($ThisFile,"upload");
       }
    }
