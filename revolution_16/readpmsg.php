@@ -33,49 +33,46 @@ include('auth.php');
       settype($type,'string');
       settype($dossier,'string');
 
-      if ($type=='outbox') {
+      if ($type=='outbox')
          $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid='".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC LIMIT $start,1";
-      } else {
-         if ($dossier=='All') {$ibid='';} else {$ibid="AND dossier='$dossier'";}
-         if (!$dossier) {$ibid="AND dossier='...'";}
+      else {
+         if ($dossier=='All') $ibid=''; else $ibid="AND dossier='$dossier'";
+         if (!$dossier) $ibid="AND dossier='...'";
          $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC LIMIT $start,1";
       }
       $resultID = sql_query($sql);
-      if (!$resultID) {
+      if (!$resultID)
          forumerror(0005);
-      } else {
+      else {
          $myrow = sql_fetch_assoc($resultID);
          if ($myrow['read_msg']!='1') {
             $sql = "UPDATE ".$NPDS_Prefix."priv_msgs SET read_msg='1' WHERE msg_id='".$myrow['msg_id']."'";
             $result = sql_query($sql);
-            if (!$result) {
+            if (!$result)
                forumerror(0005);
-            }
          }
       }
       $myrow['subject']=strip_tags($myrow['subject']);
+      if ($dossier=='All') $Xdossier=translate("All Topics"); else $Xdossier=StripSlashes($dossier);
       echo '
-      <h3>';
-      if ($dossier=='All') {$Xdossier=translate("All Topics");} else {$Xdossier=StripSlashes($dossier);}
-      echo translate("Private Message");
-      echo '
-      </h3>
-      <hr />
+      <h3>'.translate("Private Message").'</h3>
+      <hr />';
+      if (!sql_num_rows($resultID))
+         echo '<div class="alert alert-danger lead">'.translate("You don't have any Messages.").'</div>';
+      else {
+         echo '
       <p class="lead">
          <a href="viewpmsg.php">'.translate("Private Messages").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
       </p>
       <div class="card mb-3">
          <div class="card-header">';
-      if ($type=='outbox') {
+      if ($type=='outbox')
          $posterdata = get_userdata_from_id($myrow['to_userid']);
-//         echo translate("Recipient");
-      } else {
+      else
          $posterdata = get_userdata_from_id($myrow['from_userid']);
-//         echo translate("Sender");
-//         if ($posterdata['uid']==1) echo ' : <span class="text-muted"><strong>'.$sitename.'</strong></span>';
-      }
+
       $posts = $posterdata['posts'];
-      
+      if ($posterdata['uid']<>1) {
       $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
       if (!$short_user) {
          $posterdata_extend = get_userdata_extend_from_id($posterdata['uid']);
@@ -104,7 +101,6 @@ include('auth.php');
          else $my_rsos[]='';
       }
 
-      if ($posterdata['uid']<>1) {
          $useroutils = '';
          $useroutils .= '<hr />';
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
@@ -119,30 +115,34 @@ include('auth.php');
              $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
       }
 
-      if (!sql_num_rows($resultID)) {
-         echo ''.translate("You don't have any Messages.").'</div>';//à traiter
-      } else {
-         if ($smilies) {
-         if ($posterdata['user_avatar'] != '') {
-            if (stristr($posterdata['user_avatar'],"users_private")) {
-             $imgtmp=$posterdata['user_avatar'];
-         } else {
-             if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-         }
-          echo '
-          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[0].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
-         }
-      }
-         if ($posterdata['uid']<>1) 
 
-   echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+//         if ($smilies) {
+      if ($posterdata['user_avatar'] != '') {
+         if (stristr($posterdata['user_avatar'],"users_private")) {
+            $imgtmp=$posterdata['user_avatar'];
+      } else {
+         if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$posterdata['user_avatar'];
+      }
+         
+      if ($posterdata['uid']<>1) 
+         echo '
+          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[0].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+      else 
+         echo '
+         <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="tooltip" data-html="true" data-placement="top" title=\'<i class="fa fa-cogs fa-lg"></i>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+      }
+//      }
+   if ($posterdata['uid']<>1) 
+      echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+   else 
+      echo'&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$sitename.'</strong></span>';
    echo '<span class="float-right">';
       if ($smilies) {
          if ($myrow['msg_image']!='') {
             if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
             echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
             } else {
-               if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
+               if ($ibid=theme_image("forum/subject/00.png")) $imgtmpPI=$ibid; else $imgtmpPI="images/forum/subject/00.png";
                echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="icon_post" />';
             }
          }
@@ -166,11 +166,10 @@ include('auth.php');
 
          $previous = $start-1;
          $next = $start+1;
-         if ($type=='outbox') {
+         if ($type=='outbox')
             $tmpx='&amp;type=outbox';
-         } else {
+         else
             $tmpx='&amp;dossier='.urlencode(StripSlashes($dossier));
-         }
          echo '
          <ul class="pagination d-flex justify-content-center">';
          if ($type!='outbox') {
@@ -224,9 +223,9 @@ include('auth.php');
       <div class="card card-body">
       <form action="replypmsg.php" method="post">
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="dossier">'.translate("Topic").'</label>
+            <label class="col-form-label col-sm-3" for="dossier">'.translate("Topic").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" name="dossier">';
+               <select class="custom-select form-control" id="dossier" name="dossier">';
             while (list($dossier)=sql_fetch_row($result)) {
                echo '
                   <option value="'.$dossier.'">'.$dossier.'</option>';
@@ -236,9 +235,9 @@ include('auth.php');
             </div>
          </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-3" for="dossier"></label>
+            <label class="col-form-label col-sm-3" for="nouveau_dossier"></label>
             <div class="col-sm-9">
-               <input type="texte" class="form-control" name="nouveau_dossier" value="" size="24" />
+               <input type="texte" class="form-control" id="nouveau_dossier" name="nouveau_dossier" value="" size="24" />
             </div>
          </div>
          <div class="form-group row">
