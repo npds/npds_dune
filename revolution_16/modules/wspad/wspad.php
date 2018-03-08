@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Collab WS-Pad 1.44 by Developpeur and Jpb                            */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -76,13 +76,13 @@ function Liste_Page() {
    //]]>
    </script>';
    $aff='
-   <h3><a class="arrow-toggle text-primary" id="show_cre_page" data-toggle="collapse" data-target="#cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
+   <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_cre_page" data-toggle="collapse" data-target="#cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
    <div id="cre_page" class="collapse" style ="padding-left:10px;">
       <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformfic">
          <div class="form-group row">
-            <label class="form-control-label col-sm-4" for="page">'.wspad_trans("Nom du document").'</label>
+            <label class="col-form-label col-sm-4" for="page">'.wspad_trans("Nom du document").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="page" size="30" maxlength="255" value="" />
+               <input class="form-control" type="text" id="page" name="page" maxlength="255" required="required" />
                <span class="help-block small">'.wspad_trans("Caractères autorisés : a-z, A-Z, 0-9, -_.").'</span>
             </div>
          </div>
@@ -94,10 +94,10 @@ function Liste_Page() {
          </div>
       </form>
    </div>';
-   echo $aff.'<br />';
+   echo $aff;
 
    $aff='
-   <h3><a class="arrow-toggle text-primary" id="show_paddoc" data-toggle="collapse" data-target="#lst_paddoc" title="'.wspad_trans("Déplier la liste").'">&nbsp;<i id="i_lst_paddoc" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;';
+   <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_paddoc" data-toggle="collapse" data-target="#lst_paddoc" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_paddoc" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;';
    $nb_pages=sql_num_rows(sql_query("SELECT COUNT(page) FROM ".$NPDS_Prefix."wspad WHERE member='$groupe' GROUP BY page"));
    if ($groupe>0) {
       $gp=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe'"));
@@ -125,24 +125,23 @@ function Liste_Page() {
          // Supression des verrous de mon groupe
 
          $pgibid=$pgibid+1;
-         
+
          $aff.='
-         <div class="modal fade" id="renomeModal_'.$page.'" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+         <div class="modal fade" id="renomeModal_'.$page.'" tabindex="-1" role="dialog" aria-labelledby="'.$page.'" aria-hidden="true">
             <div class="modal-dialog">
                <div class="modal-content">
                   <div class="modal-header">
+                     <h5 class="modal-title">'.$page.'</h5>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                      </button>
-                     <h5 class="modal-title">'.$page.'</h5>
                   </div>
                   <div class="modal-body">
-                     <!-- The form is placed inside the body of modal -->
-                     <form id="renameForm" method="post" class="form-horizontal" name="wspadformfic">
+                     <form id="renameForm" method="post" name="wspadformfic">
                         <div class="form-group row">
-                           <label class="col-3 control-label">Nouveau nom</label>
-                           <div class="col-9">
-                              <input type="text" class="form-control" name="newpage" />
+                           <label class="col-form-label col-12" for="newpage">Nouveau nom</label>
+                           <div class="col-12">
+                              <input type="text" class="form-control" id="newpage" name="newpage" />
                               <span class="help-block" >'.wspad_trans("Caractères autorisés : a-z, A-Z, 0-9, -_.").'</span>
                            </div>
                         </div>
@@ -173,7 +172,7 @@ function Liste_Page() {
          <table class=" table-sm" data-toggle="table" data-striped="true">
             <thead>
                <tr>
-                  <th data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Rev.").'</th>
+                  <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Rev.").'</th>
                   <th data-sortable="true" data-halign="center">'.wspad_trans("Auteur").'</th>
                   <th data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Date").'</th>';
          $act=0;
@@ -185,14 +184,14 @@ function Liste_Page() {
                   $divid=uniqid(mt_rand());
                   $aff.='
                </tr>
-               </thead>
-               <tbody>';
+            </thead>
+            <tbody>';
                } else {
                   $aff.='
                   <th>&nbsp;</th>
                </tr>
-               </thead>
-               <tbody>';
+            </thead>
+            <tbody>';
                }
                $act=1;
             }
@@ -300,9 +299,8 @@ function Page($page, $ranq) {
          if ($cont[0]==$auteur) {
             $edition=true;
             echo $tmp;
-         } else {
+         } else
             $edition=false;
-         }
       } else {
          // pose le verrou
          $fp=fopen($filename,"w");
@@ -332,6 +330,7 @@ function Page($page, $ranq) {
       $row['ranq']=1;
       $row['editedby']=$auteur;
       $row['modtime']=time();
+      $row['content']='';
    }
    else
       $row['ranq']+=1;
