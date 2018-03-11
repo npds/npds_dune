@@ -100,11 +100,11 @@ switch ($acc) {
       $theposterdata = get_userdata_from_id($userdatat[0]);
       echo '
       <div class="mb-3">
-      <h4 class="mb-3">'.translate("Preview").'</h4>
-      <div class="row mb-3">
-         <div class="col-12">
-            <div class="card">
-               <div class="card-header">';
+         <h4 class="mb-3">'.translate("Preview").'</h4>
+         <div class="row mb-3">
+            <div class="col-12">
+               <div class="card">
+                  <div class="card-header">';
          if ($smilies) {
             if ($theposterdata['user_avatar'] != '') {
                if (stristr($theposterdata['user_avatar'],"users_private")) {
@@ -127,10 +127,10 @@ switch ($acc) {
          echo '<img class="n-smil" src="'.$imgtmpP.'" alt="" />';
       }
       echo '</span>
-      </div>
-      <div class="card-body">
-         <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
-         <div id="post_preview" class="card-text pt-3">';
+                  </div>
+                  <div class="card-body">
+                     <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
+                     <div id="post_preview" class="card-text pt-3">';
 
       $messageP=stripslashes($messageP);
       if (($forum_type=='6') or ($forum_type=='5'))
@@ -139,13 +139,13 @@ switch ($acc) {
          if ($allow_bbcode) $messageP=smilie($messageP);
          $messageP=str_replace('[addsig]', '<div class="n-signature">'.nl2br($theposterdata['user_sig']).'</div>', $messageP);
          echo $messageP.'
-         </div>';
+         </div></div>';
       }
       echo '
+               </div>
             </div>
          </div>
       </div>
-   </div>
    </div>';
 
 if ($acc=='reply'|| $acc=='editpost')
