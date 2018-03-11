@@ -2793,7 +2793,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       <a data-toggle="collapse" data-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Show list").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ml-3 align-middle" title="'.translate("Group members list.").'" data-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Members").'</a><span class="badge badge-secondary float-right">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
-         <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse ">'."\n";
+         <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse ">';
    while(list($uid, $groupe) = sql_fetch_row($result)) {
    
       $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
@@ -2844,11 +2844,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$uid.'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-sm-inline">'.translate("Location").'</span></a>';
 
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
-      if (!$user_avatar) {
+      if (!$user_avatar)
          $imgtmp="images/forum/avatar/blank.gif";
-      } else if (stristr($user_avatar,"users_private")) {
+      else if (stristr($user_avatar,"users_private"))
          $imgtmp=$user_avatar;
-      } else {
+      else {
          if ($ibid=theme_image("forum/avatar/$user_avatar")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/$user_avatar";}
          if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
@@ -2865,9 +2865,9 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_mb.= '
             <li class="list-group-item list-group-item-action d-flex flex-row p-2">
                <div id="li_mb_'.$uname.'_'.$gr.'" class="n-ellipses">
-               '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover"  data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-outline-secondary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
+                  '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover"  data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
                </div>
-         </li>';
+            </li>';
    $count++;
    }
    $li_mb.='
