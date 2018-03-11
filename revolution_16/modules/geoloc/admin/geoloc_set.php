@@ -19,7 +19,7 @@
 if (!strstr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-
+define('GEO_AD', true);
 $f_meta_nom ='geoloc';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -447,8 +447,10 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          mapdivbl = document.getElementById("map_bloc");
       }
       else {
+/*
          $("head").append($("<script />").attr("src","http://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
          $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
+*/
       }
    });
 
@@ -839,7 +841,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
 });
 }
 
-window.onload = geoloc_conf;
+//window.onload = geoloc_conf;
 
 //]]>
 </script>';
