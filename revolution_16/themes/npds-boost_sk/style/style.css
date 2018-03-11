@@ -1727,5 +1727,5 @@ a.tooltip_ws:hover em span {
 }
 
 input[required='required'] {
-   border-color: #d9534f;
+border: 1px solid ;
 }

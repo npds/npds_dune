@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,8 +14,7 @@ echo '
 <link rel="stylesheet" href="themes/BaseRoc/style/rocssti-fr.css" />
 <link rel="stylesheet" href="lib/css/prism.css" />
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-<script type="text/javascript" src="lib/js/popper.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js" async="async"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js" async="async"></script>
