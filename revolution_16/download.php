@@ -56,7 +56,8 @@ function geninfo($did,$out_template) {
       if ($out_template==1) {
          echo '
                <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-download"></i></a>
-            </div>';
+            </div>
+         </div>';
          include('footer.php');
       }
    } else {
