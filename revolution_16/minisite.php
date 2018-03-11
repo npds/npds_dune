@@ -327,8 +327,7 @@ function convert_ressources ($Xcontent) {
          echo '
          <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
          <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-         <script type="text/javascript" src="lib/js/popper.min.js"></script>
-         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>';
+         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>';
          echo '<style type="text/css">';
             readfile($dir."style.css");
          echo '</style>';
