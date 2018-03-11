@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -28,27 +28,27 @@ function etape_4() {
                <div class="col-sm-12">
                   <form id="parameters" name="parameters" method="post" action="install.php">
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_dbhost">'.ins_translate("Nom d'hôte du serveur mySQL").'</label>
+                        <label class="col-form-label" for="new_dbhost">'.ins_translate("Nom d'hôte du serveur mySQL").'</label>
                         <input class="form-control" type="text" name="new_dbhost" id="new_dbhost" maxlength="80" value="'.$dbhost.'" required="required" />
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Exemples :").' ==> sql.domaine.com ==> localhost</div><div class="ml-auto" id="countcar_new_dbhost"></div></div>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_dbuname">'.ins_translate("Nom d'utilisateur (identifiant)").'</label>
+                        <label class="col-form-label" for="new_dbuname">'.ins_translate("Nom d'utilisateur (identifiant)").'</label>
                         <input class="form-control" type="text" name="new_dbuname" id="new_dbuname" maxlength="80" value="'.$dbuname.'" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbuname"></div>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_dbpass">'.ins_translate("Mot de passe").'</label>
+                        <label class="col-form-label" for="new_dbpass">'.ins_translate("Mot de passe").'</label>
                         <input class="form-control" type="password" name="new_dbpass" id="new_dbpass" maxlength="80" value="'.$dbpass.'" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbpass"></div>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_dbname">'.ins_translate("Nom de la base de données").'</label>
+                        <label class="col-form-label" for="new_dbname">'.ins_translate("Nom de la base de données").'</label>
                         <input class="form-control" type="text" name="new_dbname" id="new_dbname" maxlength="80" value="'.$dbname.'" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbname"></div>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_NPDS_Prefix">'.ins_translate("Préfixe des tables sql").'</label>
+                        <label class="col-form-label" for="new_NPDS_Prefix">'.ins_translate("Préfixe des tables sql").'</label>
                         <input class="form-control" type="text" name="new_NPDS_Prefix" id="new_NPDS_Prefix" maxlength="10" value="'.$NPDS_Prefix.'" />
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Pour éviter les conflits de nom de table sql...").'</div><div class="ml-auto" id="countcar_new_NPDS_Prefix"></div></div>
                      </div>';
@@ -57,7 +57,7 @@ function etape_4() {
    else {$sel1 = '';$sel2 = 'selected="selected"';}
    echo '
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_mysql_p">'.ins_translate("Type de connexion au serveur mySQL").'</label>
+                        <label class="col-form-label" for="new_mysql_p">'.ins_translate("Type de connexion au serveur mySQL").'</label>
                         <select class="custom-select form-control" name="new_mysql_p">
                            <option value="0" '.$sel1.'>'.ins_translate("Non permanente").'</option>
                            <option value="1" '.$sel2.'>'.ins_translate("Permanente").'</option>
@@ -68,7 +68,7 @@ function etape_4() {
    else {$sel3 = '';$sel4 = 'selected="selected"';}
    echo '
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_system">'.ins_translate('Système hôte').'</label>
+                        <label class="col-form-label" for="new_system">'.ins_translate('Système hôte').'</label>
                         <select class="custom-select form-control" name="new_system">
                            <option value="0" '.$sel3.'>Unix / Linux</option>
                            <option value="1" '.$sel4.'>Windows</option>
@@ -79,14 +79,14 @@ function etape_4() {
    else {$sel5 = '';$sel6 = 'selected="selected"';}
    echo '
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_system_md5">'.ins_translate("Cryptage des mots de passe administrateur(s)/auteur(s)").' (MD5)</label>
+                        <label class="col-form-label" for="new_system_md5">'.ins_translate("Cryptage des mots de passe administrateur(s)/auteur(s)").' (MD5)</label>
                         <select class="custom-select form-control" name="new_system_md5">
                            <option value="0" '.$sel5.'>'.ins_translate('Non').'</option>
                            <option value="1" '.$sel6.'>'.ins_translate('Oui').'</option>
                         </select>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="new_adminmail">'.ins_translate("Adresse e-mail de l'administrateur").'</label>
+                        <label class="col-form-label" for="new_adminmail">'.ins_translate("Adresse e-mail de l'administrateur").'</label>
                         <input class="form-control" type="email" name="new_adminmail" id="new_adminmail"  maxlength="60" value="'.$adminmail.'" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_adminmail"></div>
                      </div>
