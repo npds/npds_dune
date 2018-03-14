@@ -1,7 +1,6 @@
 
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-<script type="text/javascript" src="lib/js/popper.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
@@ -105,7 +104,7 @@ function confirmSendFile(f) {
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -201,7 +200,7 @@ function confirmSendFile(f) {
    <div class="card card-body my-2">
       <p>'.upload_translate("Extensions autorisées").' : <small class="text-success">'.$bn_allowed_extensions.'</small></p>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3">'.upload_translate("Fichier joint").'</label>
+         <label class="col-form-label col-sm-3">'.upload_translate("Fichier joint").'</label>
          <div class="col-sm-9">
             <input type="file" class="form-control" name="pcfile" size="30" onchange="confirmSendFile(this.form);" />
          </div>

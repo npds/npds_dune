@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -15,11 +15,10 @@
    // Répertoire serveur de la racine du site (avec le / terminal)
    if ($DOCUMENTROOT=='') {
       global $DOCUMENT_ROOT;
-      if ($DOCUMENT_ROOT) {
+      if ($DOCUMENT_ROOT)
          $DOCUMENTROOT=$DOCUMENT_ROOT;
-      } else {
+      else
          $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-      }
    }
    // Répertoire de téléchargement (avec le / terminal)
    $rep_upload_forum = $racine."/modules/upload/upload_forum/";

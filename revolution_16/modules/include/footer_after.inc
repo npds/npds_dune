@@ -22,17 +22,23 @@
 
 // this for php => 5.4 more simple ($time_start ou TIMESTART remplacé par $_SERVER["REQUEST_TIME_FLOAT"] toujours dispo !
 //   $time = round(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"],5);
-//==> geoloc module dont remove
-if (defined('GEO_IP') or defined('GEO_US') or defined('GEO_BL')) {
-   $fcall='';
-   include('modules/geoloc/geoloc_conf.php');
-   if (defined('GEO_IP') or defined('GEO_US'))
-      $fcall='geoloc_init';
-   else if(defined('GEO_BL'))
-      $fcall='geoloc_loadbloc'; 
-   echo '
-   <script id="fa_gog" type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>
-   <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key='.$api_key.'&callback='.$fcall.'&amp;language='.language_iso(1,'',0).'"></script>';
+
+//==> geoloc module required dont remove
+if(!defined('GEO')) {
+   if (defined('GEO_IP') or defined('GEO_US') or defined('GEO_BL') or defined('GEO_AD') or defined('GEO') ) {
+      $fcall='';
+      include('modules/geoloc/geoloc_conf.php');
+      echo '
+         <script id="fa_gog" type="text/javascript" src="modules/geoloc/include/fontawesome-markers.min.js"></script>';
+      if (defined('GEO_IP') or defined('GEO_US'))
+         $fcall='geoloc_init';
+      else if(defined('GEO_BL') and !defined('GEO_AD') and !defined('GEO'))
+         $fcall='geoloc_loadbloc';
+      else if(defined('GEO_AD'))
+         $fcall='geoloc_conf';
+      echo '
+      <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key='.$api_key.'&callback='.$fcall.'&amp;language='.language_iso(1,'',0).'"></script>';
+   }
 }
 //<== geoloc module
 

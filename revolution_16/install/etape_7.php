@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -27,22 +27,22 @@ function etape_7() {
                <div class="col-sm-12">
                   <form id="admin_password" name="admin_password" method="post" action="install.php">
                      <div class="form-group row">
-                        <label class="form-control-label" for="adminlogin">'.ins_translate('Identifiant').'</label>
+                        <label class="col-form-label" for="adminlogin">'.ins_translate('Identifiant').'</label>
                         <input class="form-control" type="text" name="adminlogin" id="adminlogin" maxlength="40" value="Root" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_adminlogin"></div>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="adminpass1">'.ins_translate('Mot de passe').'</label>
+                        <label class="col-form-label" for="adminpass1">'.ins_translate('Mot de passe').'</label>
                         <input class="form-control" type="password" name="adminpass1" id="adminpass1" minlength="'.$minpass.'" maxlength="40" required="required" />
-                        <div class="w-100 mt-1">
-                           <div class="progress">
-                              <div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div>
+                        <div class="w-100 mt-2">
+                           <div class="progress" style="height: 10px;">
+                              <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                            </div>
                         </div>
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ml-auto" id="countcar_adminpass1"></div></div>
                      </div>
                      <div class="form-group row">
-                        <label class="form-control-label" for="adminpass2">'.ins_translate("Une seconde fois").'</label>
+                        <label class="col-form-label" for="adminpass2">'.ins_translate("Une seconde fois").'</label>
                         <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="40" required="required" />
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ml-auto" id="countcar_adminpass2"></div></div>
                      </div>

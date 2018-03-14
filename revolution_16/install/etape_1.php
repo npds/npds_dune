@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -33,12 +33,12 @@ function etape_1() {
                   </div>
                </div>
                <form name="welcome" method="post" action="install.php">
-                  <div class="form-check">
-                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="qi" value="1" />
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description"> '.ins_translate("Installation rapide").'</span>
-                    </label>
+                  <div class="form-group">
+                     <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" id="qi" name="qi" value="1" />
+                        <label class="custom-control-label" for="qi">'.ins_translate("Installation rapide").'</label>
+                        <span class="help-block small">'.ins_translate("Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation.").'</span>
+                    </div>
                   </div>
                   <input type="hidden" name="stage" value="2" />
                   <input type="hidden" name="langue" value="'.$langue.'" />

@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -127,9 +127,10 @@ function ins_translate($phrase) {
   case "Quitter": $tmp = "Beenden"; break;
   case "Installation rapide": $tmp = "Schnelle Einrichtung"; break;
   case "SI installation locale" : $tmp = "Wenn lokale Einrichtung"; break;
+  case "Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation." : $tmp = "Diese Option validiert die Akzeptanz der GNU / GPL V3-Lizenz und entfernt die Anzeige der Ergebnisse einiger Installationsvorgänge."; break;
 
   default: $tmp = "Muss übersetzt werden [** $phrase **]"; break;
  }
-  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

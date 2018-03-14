@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -48,14 +48,13 @@ function entete() {
       <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-      <script type="text/javascript" src="lib/js/popper.min.js"></script>
-      <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
    </head>
    <body>
       <div class="container-fluid">
          <div class="my-2">
             <div class="row">
-               <div class="col-sm-2 d-none d-sm-flex"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
+               <div class="col-sm-2 d-none d-sm-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
                   <h1 class="display-4">NPDS<br /><small class="text-muted"><em>installation automatique</em></small></h1>
                </div>

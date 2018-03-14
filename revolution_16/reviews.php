@@ -39,17 +39,18 @@ function write_review() {
    include ('header.php');
    echo '
    <h2>'.translate("Write a Review").'</h2>
+   <hr />
    <form class="" method="post" action="reviews.php">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="title">'.translate("Product Title").'</label>
+         <label class="col-form-label col-sm-4" for="title_rev">'.translate("Product Title").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="title">
+            <input type="text" class="form-control" id="title_rev" name="title" required="required">
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="text">'.translate("Text").'</label>
+         <label class="col-form-label col-sm-4" for="text_rev">'.translate("Text").'</label>
          <div class="col-sm-8">
-            <textarea class="form-control" name="text" rows="15"></textarea>
+            <textarea class="form-control" id="text" id="text_rev" name="text" rows="15" required="required"></textarea>
          </div>
          <div class="col-sm-8 ml-sm-auto">
             <p class="help-block">'.translate("Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.").'</p>
@@ -62,37 +63,37 @@ function write_review() {
 
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Your name").'</label>
+         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Your name").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="reviewer" value="'.$uname.'" />
+            <input type="text" class="form-control" id="reviewer_rev" name="reviewer" value="'.$uname.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="email">'.translate("Your email").'</label>
+         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Your email").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="email" value="'.$email.'" />
+            <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" required="required" />
          </div>
       </div>';
    } else {
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Your name").'</label>
+         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Your name").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="reviewer" value="'.$name.'">
+            <input class="form-control" type="text" id="reviewer_rev" name="reviewer" value="'.$name.'">
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="email">'.translate("Your email").'</label>
+         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Your email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" name="email" value="'.$email.'">
+            <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'">
          </div>
       </div>';
    }
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="score">'.translate("Score").'</label>
+         <label class="col-form-label col-sm-4" for="score_rev">'.translate("Score").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="score">
+            <select class="custom-select form-control" id="score_rev" name="score">
                <option value="10">10</option>
                <option value="9">9</option>
                <option value="8">8</option>
@@ -111,23 +112,23 @@ function write_review() {
    if (!$short_review) {
       echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url">'.translate("Related Link").'</label>
+         <label class="col-form-label col-sm-4" for="url_rev">'.translate("Related Link").'</label>
          <div class="col-sm-8">
-            <input type="url" class="form-control" name="url">
+            <input type="url" class="form-control" id="url_rev" name="url">
             <p class="help-block">'.translate("Product Official Website. Make sure your URL starts by").' http(s)://</p>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url_title">'.translate("Link title").'</label>
+         <label class="col-form-label col-sm-4" for="url_title_rev">'.translate("Link title").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="url_title">
+            <input type="text" class="form-control" id="url_title_rev" name="url_title">
             <p class="help-block">'.translate("Required if you have a related link, otherwise not required.").'</p>
          </div>
       </div>';
       if ($admin) {
          echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="cover">'.translate("Image filename").'</label>
+         <label class="col-form-label col-sm-4" for="cover">'.translate("Image filename").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="cover">
             <p class="help-block">'.translate("Name of the cover image, located in images/reviews/. Not required.").'</p>
@@ -204,13 +205,13 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
 
       echo '
       <br />'.translate("Added:").' '.$fdate.'
-      <hr noshade="noshade" />
+      <hr />
       <h3>'.$title.'</h3>';
       if ($cover != '')
          echo '<img class="img-fluid" src="images/reviews/'.$cover.'" alt="img_" />';
       echo $text;
       echo '
-      <hr noshade="noshade" />
+      <hr />
       <strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" target="_blank">'.$reviewer.'</a><br />
       <strong>'.translate("Score:").'</strong>
       <span class="text-success">';
@@ -315,26 +316,27 @@ function reviews($field, $order) {
 
    echo '
    <h2>'.translate("Reviews").'</h2>
+   <hr />
    <h3>'.aff_langue($title).'</h3>
    <p class="lead">'.aff_langue($description).'</p>
    <h4><a href="reviews.php?op=write_review"><i class="fa fa-edit"></i></a>&nbsp;'.translate("Write a Review").'</h4><br />';
    if ($order!="ASC" and $order!="DESC") $order="ASC";
    switch ($field) {
-          case 'reviewer':
-               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by reviewer $order");
-               break;
-          case 'score':
-               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by score $order");
-               break;
-          case 'hits':
-               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by hits $order");
-               break;
-          case 'date':
-               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by id $order");
-               break;
-          default:
-               $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER by title $order");
-               break;
+      case 'reviewer':
+         $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY reviewer $order");
+      break;
+      case 'score':
+         $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY score $order");
+      break;
+      case 'hits':
+         $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY hits $order");
+      break;
+      case 'date':
+         $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY id $order");
+      break;
+      default:
+         $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY title $order");
+      break;
    }
    $numresults = sql_num_rows($result);
    if ($numresults > 0) {
@@ -351,10 +353,10 @@ function reviews($field, $order) {
                <th data-align="center" data-sortable="true">
                   <a href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-asc"></i></a> '.translate("Posted by").' <a href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-desc"></i></a>
                </th>
-               <th data-align="center" data-sortable="true">
+               <th class="n-t-col-xs-2" data-align="center" data-sortable="true">
                   <a href="reviews.php?op=sort&amp;field=score&amp;order=ASC"><i class="fa fa-sort-amount-asc"></i></a> Score <a href="reviews.php?op=sort&amp;field=score&amp;order=DESC"><i class="fa fa-sort-amount-desc"></i></a>
                </th>
-               <th data-align="right" data-sortable="true">
+               <th class="n-t-col-xs-2" data-align="right" data-sortable="true">
                   <a href="reviews.php?op=sort&amp;field=hits&amp;order=ASC"><i class="fa fa-sort-amount-asc"></i></a> Hits <a href="reviews.php?op=sort&amp;field=hits&amp;order=DESC"><i class="fa fa-sort-amount-desc"></i></a>
                </th>
             </tr>
@@ -500,61 +502,61 @@ function mod_review($id) {
    <form class="" method="post" action="reviews.php?op=preview_review">
    <input type="hidden" name="id" value="'.$id.'">
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="date">'.translate("Date").'</label>
+         <label class="col-form-label col-sm-4" for="date">'.translate("Date").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="date" value="'.$date.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="title">'.translate("Title").'</label>
+         <label class="col-form-label col-sm-4" for="title">'.translate("Title").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="title" value="'.$title.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="text">'.translate("Text").'</label>
+         <label class="col-form-label col-sm-4" for="text">'.translate("Text").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" name="text">'.$text.'</textarea>
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="reviewer">'.translate("Reviewer").'</label>
+         <label class="col-form-label col-sm-4" for="reviewer">'.translate("Reviewer").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="reviewer" value="'.$reviewer.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="email">'.translate("Email").'</label>
+         <label class="col-form-label col-sm-4" for="email">'.translate("Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" name="email" value="'.$email.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="score">'.translate("Score").'</label>
+         <label class="col-form-label col-sm-4" for="score">'.translate("Score").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="score" value="'.$score.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url">'.translate("Link").'</label>
+         <label class="col-form-label col-sm-4" for="url">'.translate("Link").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="url" value="'.$url.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="url_title">'.translate("Link title").'</label>
+         <label class="col-form-label col-sm-4" for="url_title">'.translate("Link title").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="url_title" value="'.$url_title.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="cover">'.translate("Cover image").'</label>
+         <label class="col-form-label col-sm-4" for="cover">'.translate("Cover image").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="cover" value="'.$cover.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-4" for="hits">'.translate("Hits").'</label>
+         <label class="col-form-label col-sm-4" for="hits">'.translate("Hits").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="hits" value="'.$hits.'" />
          </div>

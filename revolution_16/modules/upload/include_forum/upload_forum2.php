@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
+if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 
 global $Titlesitename;
 /*****************************************************/
@@ -40,30 +40,30 @@ global $Titlesitename;
    $userX = base64_decode($user);
    $userdata = explode(':', $userX);
    if ($userdata[9]!='') {
-      if (!$file=@opendir("themes/$userdata[9]")) {
+      if (!$file=@opendir("themes/$userdata[9]"))
          $theme=$Default_Theme;
-      } else {
+      else
          $theme=$userdata[9];
-      }
-   } else {
-      $theme=$Default_Theme;
    }
+   else
+      $theme=$Default_Theme;
 
    if (isset($user)) {
       global $cookie;
       $skin='';
-      if (array_key_exists(11,$cookie)) {$skin=$cookie[11];}
+      if (array_key_exists(11,$cookie)) $skin=$cookie[11];
    }
    echo '
    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />';
    if($skin!='') {
-   echo '
+      echo '
    <link rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
    <link rel="stylesheet" href="themes/_skins/'.$skin.'/extra.css" />';
-      } else { echo ' 
-   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';}
-   
-   echo '<link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
+   } else 
+      echo ' 
+   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
+   echo '
+   <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
    echo import_css($theme, $language, $site_font, '','');
    echo '
    </head>
@@ -111,7 +111,7 @@ function forum_upload() {
 //   $thanks_msg='';
 settype($thanks_msg,'string');
 
-   // RÈcupÈration des valeurs de PCFILE
+   // Récupération des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;
    if (!empty($HTTP_POST_FILES))
        $fic=$HTTP_POST_FILES;

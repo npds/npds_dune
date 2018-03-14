@@ -67,7 +67,7 @@ if ($submitS) {
       $message = str_replace("\n", "<br />", removeHack($message));
       $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
    } else {
-      $message .= "\n\n".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+($gmt*3600));
+      $message .= "\n\n".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600));
    }
    $message = addslashes($message);
 
@@ -194,10 +194,12 @@ if ($submitS) {
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
-   if ($allow_html == 1) {
-      echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
-   } else
-      echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+   if ($allow_html == 1)
+      echo '
+                  <span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+   else
+      echo '
+                  <span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body pb-0">
@@ -208,7 +210,7 @@ if ($submitS) {
                   </div>
                </div>
                <div class="card-footer text-muted">';
-                 if ($allow_bbcode) putitems();
+   if ($allow_bbcode) putitems();
    echo '
                </div>
             </div>

@@ -27,7 +27,7 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
    die();
 
 global $pdst, $language, $title;
-
+define('GEO', true);
 include ('modules/'.$ModPath.'/geoloc_conf.php');
 if (file_exists('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php'))
    include_once('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
@@ -133,6 +133,11 @@ $js_dragfunc ='
          </p>';
          }
       }
+      $f = fopen("modules/".$ModPath."/include/iplist.html", "w");
+      $w = fwrite($f, $tab_ip);
+      @fclose($f);
+      @chmod('modules/'.$ModPath.'/include/iplist.html', 0666);
+
    }
 }
 
@@ -564,9 +569,16 @@ var i = 0;
    }
 
 function geoloc_load() {
-//==> carte du bloc
-    if (document.getElementById("map_bloc")) {
-        mapdivbl = document.getElementById("map_bloc");
+   //==> carte du bloc
+   $(document).ready(function() {
+      if($("#map_bloc").length) {
+         icon_bl = {
+            url: "'.$ch_img.$img_mbgb.'",
+            size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 0),
+            scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+         };
         map_b = new google.maps.Map(mapdivbl,{
             center: new google.maps.LatLng(45, 0),
             zoom :3,
@@ -578,22 +590,23 @@ function geoloc_load() {
         });
         map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
         function createMarkerB(point_b) {
-            var marker_b = new google.maps.Marker({
-                position: point_b,
-                map: map_b,
-                icon: icon_bl
-            })
-            return marker_b;
+        var marker_b = new google.maps.Marker({
+            position: point_b,
+            map: map_b,
+            icon: icon_bl
+       })
+       return marker_b;
         }
         //== Fonction qui traite le fichier JSON ==
         $.getJSON("modules/'.$ModPath.'/include/data.json", {}, function(data){
             $.each(data.markers, function(i, item){
-                var point_b = new google.maps.LatLng(item.lat,item.lng);
-                var marker_b = createMarkerB(point_b);
+            var point_b = new google.maps.LatLng(item.lat,item.lng);
+            var marker_b = createMarkerB(point_b);
             });
         });
-    };
-//<== carte du bloc
+      }
+   });
+   //<== carte du bloc
 
    map = new google.maps.Map(mapdiv,{
       center: new google.maps.LatLng(43.27, 3.5056),
@@ -1050,22 +1063,22 @@ $affi .= '
          </div>
       </div>
       <div class="tab-pane fade mt-2" id="geolocalisation">
-      <h5 class="mt-3">
-         <i title="'.geoloc_translate('IP géoréférencées').'" data-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg mr-2 align-middle"></i>
-         <span class="badge badge-secondary mr-2 float-right">'.$ipnb.'</span>
-      </h5>
+         <h5 class="mt-3">
+            <i title="'.geoloc_translate('IP géoréférencées').'" data-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg mr-2 align-middle"></i>
+            <span class="badge badge-secondary mr-2 float-right">'.$ipnb.'</span>
+         </h5>
          <div class="custom-control custom-checkbox my-2">
             <input class="custom-control-input" type="checkbox" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" onclick="boxclick(this,\'ip\')" />
             <label class="custom-control-label" for="ipbox">'.geoloc_translate('Voir ou masquer les IP').'</label>
          </div>
-      <div class="form-group row">
-      <div class="col-sm-12">
-         <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />
-      </div>
-   </div>
-   <div class="n-filtrable">
-      '.$tab_ip.'
-   </div>
+         <div class="form-group row">
+            <div class="col-sm-12">
+               <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />
+            </div>
+         </div>
+         <div class="n-filtrable">
+            '.$tab_ip.'
+         </div>
       </div>
       <div class="tab-pane fade" id="tracker">
          <input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" onclick="boxclick(this,\'wpo\')" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span>

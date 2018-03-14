@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -25,39 +25,35 @@ function etape_0() {
          <div class="row">
             <div class="col-sm-3"><img class="img-fluid " src="install/images/carte_monde.png" alt="carte_monde" /></div>
             <div class="col-sm-9">
-            <div class="col-sm-12">
+            <div class="col-sm-12 mt-3">
                <form name="langue" method="post" action="install.php">
                   <div class="form-group row">
                      <div class="form-check">
-                        <label class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" name="langue" value="french" checked="checked" />
-                           <span class="custom-control-indicator"></span>
-                           <span class="custom-control-description">Fran&#231;ais</span>
-                        </label>
+                        <div class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" id="langue_fr" name="langue" value="french" checked="checked" />
+                           <label class="custom-control-label" for="langue_fr">Fran&#231;ais</label>
+                        </div>
                      </div>
                      <div class="form-check">
-                        <label class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" name="langue" value="english" />
-                           <span class="custom-control-indicator"></span>
-                           <span class="custom-control-description">English</span>
-                        </label>
+                        <div class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" id="langue_en" name="langue" value="english" />
+                           <label class="custom-control-label" for="langue_en">English</label>
+                        </div>
                      </div>
                      <div class="form-check">
-                        <label class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" name="langue" value="german" />
-                           <span class="custom-control-indicator"></span>
-                           <span class="custom-control-description">Deutsch</span>
-                        </label>
+                        <div class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" id="langue_de" name="langue" value="german" />
+                           <label class="custom-control-label" for="langue_de">Deutsch</label>
+                        </div>
                      </div>
                      <div class="form-check">
-                        <label class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" name="langue" value="spanish" />
-                           <span class="custom-control-indicator"></span>
-                           <span class="custom-control-description">Espa&#241;ol</span>
-                        </label>
+                        <div class="custom-control custom-radio">
+                           <input class="custom-control-input" type="radio" id="langue_sp" name="langue" value="spanish" />
+                           <label class="custom-control-label" for="langue_sp">Espa&#241;ol</label>
+                        </div>
                      </div>
                   </div>
-                  <div class="form-group row">
+                  <div class="form-group">
                      <input type="hidden" name="stage" value="1" />
                      <button type="submit" class="btn btn-success">Ok</button>
                   </div>

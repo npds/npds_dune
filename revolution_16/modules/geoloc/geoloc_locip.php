@@ -34,14 +34,6 @@ function localiser_ip($iptoshow) {
       <script type="text/javascript">
       //<![CDATA[
          $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
-         $(document).ready(function() {
-            if($("#map_bloc").length)
-               console.log("map_bloc est dans la page");//debug
-            else {
-//               $("body").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
-//               $("body").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;callback=geoloc_loadipuser&amp;language='.language_iso(1,'',0).'").attr("asynch", "asynch"));
-            }
-         });
          var 
          map_ip, map_b,
          mapdivip = document.getElementById("map_ip"),
