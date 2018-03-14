@@ -258,6 +258,8 @@ function SiteSent($fname) {
 }
 
 settype($op,'string');
+settype($archive,'string');
+
 switch ($op) {
    case 'FriendSend':
       FriendSend($sid, $archive);
