@@ -21,6 +21,9 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_4() {
    global $langue, $stage, $qi, $stopngo, $stopphp, $dbhost, $dbuname, $dbname, $adminmail;
    $stage = 4;
+   settype($dbpass,'string');
+   settype($NPDS_Prefix,'string');
+
    include_once('config.php');
    global $system, $mysql_p, $system_md5;
    echo '

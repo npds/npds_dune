@@ -88,6 +88,7 @@ if($stage == 1) {
 #   => install/languages/english/licence-eng.txt
 #   => install/languages/french/licence-fra.txt
 */
+settype($qi,'integer');
 if($stage == 2 and $qi!=1) {
    $colorst1 = '-success';
    $colorst2 = '-success';
@@ -263,6 +264,7 @@ if($stage == 6) {
    switch($op) {
       case 'write_database':
          global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi;
+         settype($out,'string');
          require('install/sql/build_sql-create.php');
          build_sql_create($NPDS_Prefix);
          sql_connect();
@@ -332,6 +334,7 @@ if($stage == 7) {
       case 'write_users':
       global $stage, $langue, $stage7_ok, $NPDS_Prefix;
       if(($adminpass1 != '') AND ($adminpass2 != '')) {
+         settype($out,'string');
          include('config.php');
          write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix);
          if($stage7_ok == 2) {
@@ -406,6 +409,7 @@ if($stage == 8) {
    switch($op) {
       case 'write_upload':
          global $stage, $langue, $stage8_ok, $qi;
+         settype($out,'string');
          include('config.php');
          write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
          if($stage8_ok == 1) {

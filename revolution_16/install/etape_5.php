@@ -21,6 +21,10 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_5() {
    global $langue, $stage, $qi;
    $stage = 5;
+   settype($nuke_url, 'string');
+   settype($sitename, 'string');
+   settype($Titlesitename, 'string');
+   settype($slogan, 'string');
    include_once('config.php');
    echo '
                <h3 class="mb-2">'.ins_translate('Autres paramètres').'</h3>
@@ -48,7 +52,7 @@ function etape_5() {
                   </div>
                   <div class="form-group row">
                      <label class="col-form-label" for="new_Default_Theme">'.ins_translate('Thème graphique').'</label>
-                     <select class="custom-select form-control" name="new_Default_Theme" />';
+                     <select class="custom-select form-control" id="new_Default_Theme" name="new_Default_Theme" />';
    include('themes/list.php');
    $themelist = explode(' ', $themelist);
    $sel='';

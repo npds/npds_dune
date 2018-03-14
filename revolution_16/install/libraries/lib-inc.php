@@ -27,17 +27,18 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
    }
    fclose($fic);
    include_once('lib/mysqli.php');
-} else {
+} else
    include_once('lib/mysql.php');
-}
 
+settype($langue,'string');
+if($langue) {
    $lang_symb = substr($langue, 0, 3);
    if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
       include_once $fichier_lang;
    }
-   else {
+   else
       include_once('install/languages/french/install-fre.php');
-   }
+}
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
 function FixQuotes($what = '') {
