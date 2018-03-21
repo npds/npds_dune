@@ -35,32 +35,31 @@ switch($apli) {
                // Forum
                case 'forum_npds':
                   $fic="modules/upload/upload_forum/$att_id.$apli.$att_name";
-                  break;
+               break;
                // MiniSite
                case 'minisite':
                   $fic="users_private/$att_id/mns/$att_name";
-                  break;
+               break;
                // Application générique : la présence de getfile.conf.php est nécessaire
                case 'getfile':
                   if (file_exists("$att_id/getfile.conf.php") or file_exists("$att_id/.getfile.conf.php"))
                      $fic="$att_id/$att_name";
                   else
                      header("location: index.php");
-                  break;
+               break;
                case 'f-manager';
                   $fic="$att_id/$att_name";
-                  break;
+               break;
             }
             include ("modules/upload/lang/upload.lang-$language.php");
             include ("modules/upload/include/mimetypes.php");
             $suffix=strtoLower(substr(strrchr( $att_name, '.' ),1));
             if (isset($type))
                list ($type, $garbage) = explode(';',$type);      // strip "; name=.... " (Opera6)
-            if (isset($mimetypes[$suffix]) ) {
+            if (isset($mimetypes[$suffix]) )
                $type=$mimetypes[$suffix];
-            } elseif ( empty($type) || ($type=='application/octet-stream') ) {
+            elseif (empty($type) || ($type=='application/octet-stream'))
                $type=$mimetype_default;
-            }
             $att_type = $type;
             $att_size = @filesize ($fic);
             if (file_exists ($fic)) {
@@ -89,28 +88,23 @@ switch($apli) {
                   die();
                }
 
-               if ($att_type=="application/x-shockwave-flash") {
+               if ($att_type=="application/x-shockwave-flash")
                   header("Content-type: application/x-shockwave-flash");
-               } else {
+               else
                   header("Content-Type: $att_type; name=\"".basename($att_name)."\"");
-               }
                header ("Content-length: $att_size");
                header("Content-Disposition: inline; filename=\"".basename($att_name)."\"");
                readfile($fic);
-            } else {
+            } else
                header("location: index.php");
-            }
-         } else {
+         } else
             header("location: index.php");
-         }
-      } else {
+      } else
          header("location: index.php");
-      }
-      break;
+   break;
 
    case 'captcha':
       $mot=rawurldecode(decrypt($att_id));
-      
       $font=16;
       $width=imagefontwidth($font)* strlen($mot);
       $height=imagefontheight($font);
@@ -118,19 +112,16 @@ switch($apli) {
       $blanc=imagecolorallocate($img, 255, 255, 255);
       $noir=imagecolorallocate($img, 0, 0, 0);
       imagecolortransparent($img, $blanc);
-
-      if (cur_charset=="utf-8") {
+      if (cur_charset=="utf-8")
          $mot=utf8_decode($mot);
-      }
-      
       imagestring($img, $font, 1 , 1, $mot, $noir);
       imagepng($img);
       imagedestroy($img);
-      header('Content-type: image/png');
-      break;
+//      header('Content-type: image/png');// no need ? as included in other pages we have header already send ..?!
+   break;
    
    default:
       header('location: index.php');
-      break;
+   break;
 }
 ?>
