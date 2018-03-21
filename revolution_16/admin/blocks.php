@@ -295,7 +295,7 @@ function blocks() {
    echo '
    <hr />
    <h3>'.adm_translate("Edition des Blocs de droite").'</h3>';
-   $result = sql_query("SELECT id, title, content, member, Rindex, cache, actif, aide, css  FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
+   $result = sql_query("SELECT id, title, content, member, Rindex, cache, actif, aide, css FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
    $num_row=sql_num_rows($result);
    if ($num_row>0) {
       echo '
@@ -423,7 +423,7 @@ function blocks() {
                            </div>
                            <div class="form-group">
                               <div class="custom-control custom-checkbox" >
-                                 <input type="checkbox" class="custom-control-input" id="Sactif'.$j.'R" name="Sactif'.$j.'R" value="ON" ';
+                                 <input type="checkbox" class="custom-control-input" id="Sactif'.$j.'R" name="Sactif" value="ON" ';
          if ($Sactif) echo 'checked="checked" ';
          echo '/>
                                  <label class="custom-control-label" for="Sactif'.$j.'R">'.adm_translate("Activer le Bloc").'</label>

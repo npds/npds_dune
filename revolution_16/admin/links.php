@@ -536,16 +536,15 @@ function LinksListBrokenLinks() {
    global $NPDS_Prefix, $hlpfile, $anonymous, $f_meta_nom, $f_titre, $adminimg;
    $resultBrok = sql_query("SELECT requestid, lid, modifysubmitter FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink='1' ORDER BY requestid");
    $totalbrokenlinks = sql_num_rows($resultBrok);
-   if ($totalbrokenlinks==0) {
+   if ($totalbrokenlinks==0)
       header("location: admin.php?op=links");
-   }
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
 
    echo '
    <hr />
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-secondary pull-right">'.$totalbrokenlinks.'</span></h3>
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-danger pull-right">'.$totalbrokenlinks.'</span></h3>
    <div class="blockquote">
       <i class="fa fa-trash-o fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
       <i class="fa fa-trash-o fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'
@@ -579,25 +578,23 @@ function LinksListBrokenLinks() {
          echo '
          <tr>
             <td><div>'.$title.'&nbsp;<span class="pull-right"><a href="'.$url.'" target="_blank" ><i class="fa fa-external-link fa-lg"></i></a></span></div></td>';
-         if ($email=='') {
+         if ($email=='')
             echo '
             <td>'.$modifysubmitter;
-         } else {
+         else
             echo '
             <td><div>'.$modifysubmitter.'&nbsp;<span class="pull-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
-         }
          echo '</td>';
-         if ($owneremail=='') {
+         if ($owneremail=='')
             echo '
              <td>'.$owner;
-         } else {
+         else
             echo '
              <td><div>'.$owner.'&nbsp;<span class="pull-right"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
-         }
          echo '
             </td>
-            <td align="center"><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip"></i></a></td>
-            <td align="center"><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip"></i></a></td>
+            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip"></i></a></td>
          </tr>';
       }
    }
@@ -622,38 +619,36 @@ function LinksIgnoreBrokenLinks($lid) {
 }
 
 function LinksListModRequests() {
-    global $NPDS_Prefix, $hlpfile;
-    $resultLink = sql_query("SELECT requestid, lid, cid, sid, title, url, description, modifysubmitter FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink='0' ORDER BY requestid");
-    $totalmodrequests = sql_num_rows($resultLink);
-    if ($totalmodrequests==0) {
-       header("location: admin.php?op=links");
-    }
-    include ("header.php");
-    GraphicAdmin($hlpfile);
-    opentable();
-    echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-    echo adm_translate("Requête de modification d'un Lien Utilisateur")." ($totalmodrequests)";
-    echo "</td></tr></table>\n";
-    while(list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter)=sql_fetch_row($resultLink)) {
-       $result2 = sql_query("SELECT cid, sid, title, url, description, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
-       list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner)=sql_fetch_row($result2);
-       $result3 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
-       $result4 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' AND sid='$sid'");
-       $result5 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$origcid'");
-       $result6 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$origcid' AND sid='$origsid'");
-       $result7 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
-       $result8 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
-       list($cidtitle)=sql_fetch_row($result3);
-       list($sidtitle)=sql_fetch_row($result4);
-       list($origcidtitle)=sql_fetch_row($result5);
-       list($origsidtitle)=sql_fetch_row($result6);
-       list($modifysubmitteremail)=sql_fetch_row($result7);
-       list($owneremail)=sql_fetch_row($result8);
-       $title = stripslashes($title);
-       $description = stripslashes($description);
-       if ($owner=="") { $owner="administration"; }
-       if ($origsidtitle=="") { $origsidtitle= "-----"; }
-       if ($sidtitle=="") { $sidtitle= "-----"; }
+   global $NPDS_Prefix, $hlpfile;
+   $resultLink = sql_query("SELECT requestid, lid, cid, sid, title, url, description, modifysubmitter FROM ".$NPDS_Prefix."links_modrequest WHERE brokenlink='0' ORDER BY requestid");
+   $totalmodrequests = sql_num_rows($resultLink);
+   if ($totalmodrequests==0)
+      header("location: admin.php?op=links");
+   include ("header.php");
+   GraphicAdmin($hlpfile);
+   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
+   echo adm_translate("Requête de modification d'un Lien Utilisateur")." ($totalmodrequests)";
+   echo "</td></tr></table>\n";
+   while(list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter)=sql_fetch_row($resultLink)) {
+      $result2 = sql_query("SELECT cid, sid, title, url, description, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
+      list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner)=sql_fetch_row($result2);
+      $result3 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
+      $result4 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid' AND sid='$sid'");
+      $result5 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$origcid'");
+      $result6 = sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$origcid' AND sid='$origsid'");
+      $result7 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$modifysubmitter'");
+      $result8 = sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE uname='$owner'");
+      list($cidtitle)=sql_fetch_row($result3);
+      list($sidtitle)=sql_fetch_row($result4);
+      list($origcidtitle)=sql_fetch_row($result5);
+      list($origsidtitle)=sql_fetch_row($result6);
+      list($modifysubmitteremail)=sql_fetch_row($result7);
+      list($owneremail)=sql_fetch_row($result8);
+      $title = stripslashes($title);
+      $description = stripslashes($description);
+      if ($owner=='') $owner='administration';
+      if ($origsidtitle=='') $origsidtitle= '-----';
+      if ($sidtitle=="") $sidtitle= '-----';
        echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n";
        $rowcolor=tablos();
        echo "<tr $rowcolor><td><hr noshade class=\"ongl\">
@@ -693,72 +688,67 @@ function LinksListModRequests() {
        echo "<td align=\"right\">[ <a href=\"admin.php?op=LinksChangeModRequests&amp;requestid=$requestid\" class=\"rouge\">".adm_translate("Accepter")."</a> | <a href=\"admin.php?op=LinksChangeIgnoreRequests&amp;requestid=$requestid\" class=\"noir\">".adm_translate("Ignorer")."</a> ]</td>
        </tr></table><hr noshade class=\"ongl\"><br />\n";
     }
-    closetable();
     include ("footer.php");
 }
 
 function LinksChangeModRequests($Xrequestid) {
-    global $NPDS_Prefix;
-    $result = sql_query("SELECT requestid, lid, cid, sid, title, url, description FROM ".$NPDS_Prefix."links_modrequest WHERE requestid='$Xrequestid'");
-    while (list($requestid, $lid, $cid, $sid, $title, $url, $description)=sql_fetch_row($result)) {
-       $title = stripslashes($title);
-       $description = stripslashes($description);
-       sql_query("UPDATE ".$NPDS_Prefix."links_links SET cid='$cid', sid='$sid', title='$title', url='$url', description='$description' WHERE lid = '$lid'");
-    }
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE requestid='$Xrequestid'");
+   global $NPDS_Prefix;
+   $result = sql_query("SELECT requestid, lid, cid, sid, title, url, description FROM ".$NPDS_Prefix."links_modrequest WHERE requestid='$Xrequestid'");
+   while (list($requestid, $lid, $cid, $sid, $title, $url, $description)=sql_fetch_row($result)) {
+      $title = stripslashes($title);
+      $description = stripslashes($description);
+      sql_query("UPDATE ".$NPDS_Prefix."links_links SET cid='$cid', sid='$sid', title='$title', url='$url', description='$description' WHERE lid = '$lid'");
+   }
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE requestid='$Xrequestid'");
 
-    global $aid; Ecr_Log('security', "UpdateModRequestLinks($Xrequestid) by AID : $aid", '');
-    Header("Location: admin.php?op=LinksListModRequests");
+   global $aid; Ecr_Log('security', "UpdateModRequestLinks($Xrequestid) by AID : $aid", '');
+   Header("Location: admin.php?op=LinksListModRequests");
 }
 
 function LinksChangeIgnoreRequests($requestid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE requestid='$requestid'");
-    Header("Location: admin.php?op=LinksListModRequests");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_modrequest WHERE requestid='$requestid'");
+   Header("Location: admin.php?op=LinksListModRequests");
 }
 
 function LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat) {
-    global $NPDS_Prefix;
-    $cat = explode("-", $cat);
-    if (!array_key_exists(1,$cat)) {
-       $cat[1] = 0;
-    }
-    $title = stripslashes(FixQuotes($title));
-    $url = stripslashes(FixQuotes($url));
-    $xtext = stripslashes(FixQuotes($xtext));
-    $name = stripslashes(FixQuotes($name));
-    $email = stripslashes(FixQuotes($email));
-    sql_query("UPDATE ".$NPDS_Prefix."links_links SET cid='$cat[0]', sid='$cat[1]', title='$title', url='$url', description='$xtext', name='$name', email='$email', hits='$hits' WHERE lid='$lid'");
-
-    global $aid; Ecr_Log('security', "UpdateLinks($lid, $title) by AID : $aid", '');
-    Header("Location: admin.php?op=links");
+   global $NPDS_Prefix;
+   $cat = explode("-", $cat);
+   if (!array_key_exists(1,$cat))
+      $cat[1] = 0;
+   $title = stripslashes(FixQuotes($title));
+   $url = stripslashes(FixQuotes($url));
+   $xtext = stripslashes(FixQuotes($xtext));
+   $name = stripslashes(FixQuotes($name));
+   $email = stripslashes(FixQuotes($email));
+   sql_query("UPDATE ".$NPDS_Prefix."links_links SET cid='$cat[0]', sid='$cat[1]', title='$title', url='$url', description='$xtext', name='$name', email='$email', hits='$hits' WHERE lid='$lid'");
+   global $aid; Ecr_Log('security', "UpdateLinks($lid, $title) by AID : $aid", '');
+   Header("Location: admin.php?op=links");
 }
 
 function LinksDelLink($lid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
-
-    global $aid; Ecr_Log('security', "DeleteLinks($lid) by AID : $aid", '');
-    Header("Location: admin.php?op=links");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
+   global $aid; Ecr_Log('security', "DeleteLinks($lid) by AID : $aid", '');
+   Header("Location: admin.php?op=links");
 }
 
 function LinksModCat($cat) {
-    global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-    include ("header.php");
-    GraphicAdmin($hlpfile);
-    $cat = explode('-', $cat);
-    if (!array_key_exists(1,$cat)) {
-       $cat[1] = 0;
-    }
-    adminhead($f_meta_nom, $f_titre, $adminimg);
-    if ($cat[1]==0) {
-        echo '
+   global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
+   include ("header.php");
+   GraphicAdmin($hlpfile);
+   $cat = explode('-', $cat);
+   if (!array_key_exists(1,$cat))
+      $cat[1] = 0;
+   adminhead($f_meta_nom, $f_titre, $adminimg);
+   if ($cat[1]==0) {
+      echo '
         <hr />
         <h3>'.adm_translate("Modifier la Catégorie").'</h3>';
         $result=sql_query("SELECT title, cdescription FROM ".$NPDS_Prefix."links_categories WHERE cid='$cat[0]'");
         list($title,$cdescription) = sql_fetch_row($result);
         $cdescription = stripslashes($cdescription);
-        echo '
+      echo '
    <form action="admin.php" method="get">
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Nom").'</label>
@@ -782,13 +772,12 @@ function LinksModCat($cat) {
          </div>
       </div>
    </form>';
-    } else {
-        $result=sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cat[0]'");
-        list($ctitle) = sql_fetch_row($result);
-        $result2=sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE sid='$cat[1]'");
-        list($stitle) = sql_fetch_row($result2);
-
-        echo '
+   } else {
+      $result=sql_query("SELECT title FROM ".$NPDS_Prefix."links_categories WHERE cid='$cat[0]'");
+      list($ctitle) = sql_fetch_row($result);
+      $result2=sql_query("SELECT title FROM ".$NPDS_Prefix."links_subcategories WHERE sid='$cat[1]'");
+      list($stitle) = sql_fetch_row($result2);
+      echo '
    <hr />
    <h3>'.adm_translate("Modifier la Catégorie")." - ".adm_translate("Nom de la Catégorie : ").aff_langue($ctitle).'</h3>
    <form action="admin.php" method="get">
@@ -809,71 +798,68 @@ function LinksModCat($cat) {
          </div>
       </div>
    </form>';
-    }
+   }
    adminfoot('','','','');
 }
 
 function LinksModCatS($cid, $sid, $sub, $title, $cdescription) {
-    global $NPDS_Prefix;
-    if ($sub==0) {
-        sql_query("UPDATE ".$NPDS_Prefix."links_categories SET title='$title', cdescription='$cdescription' WHERE cid='$cid'");
-        global $aid; Ecr_Log('security', "UpdateCatLinks($cid, $title) by AID : $aid", '');
-    } else {
-        sql_query("UPDATE ".$NPDS_Prefix."links_subcategories SET title='$title' WHERE sid='$sid'");
-        global $aid; Ecr_Log('security', "UpdateSubCatLinks($cid, $title) by AID : $aid", '');
-    }
-    Header("Location: admin.php?op=links");
+   global $NPDS_Prefix;
+   if ($sub==0) {
+      sql_query("UPDATE ".$NPDS_Prefix."links_categories SET title='$title', cdescription='$cdescription' WHERE cid='$cid'");
+      global $aid; Ecr_Log('security', "UpdateCatLinks($cid, $title) by AID : $aid", '');
+   } else {
+      sql_query("UPDATE ".$NPDS_Prefix."links_subcategories SET title='$title' WHERE sid='$sid'");
+      global $aid; Ecr_Log('security', "UpdateSubCatLinks($cid, $title) by AID : $aid", '');
+   }
+   Header("Location: admin.php?op=links");
 }
 
 function LinksDelCat($cid, $sid, $sub, $ok=0) {
-    global $NPDS_Prefix;
-    if ($ok==1) {
-        if ($sub>0) {
-           sql_query("DELETE FROM ".$NPDS_Prefix."links_subcategories WHERE sid='$sid'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE sid='$sid'");
-           global $aid; Ecr_Log('security', "DeleteSubCatLinks($sid) by AID : $aid", '');
-        } else {
-           sql_query("DELETE FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE cid='$cid' AND sid=0");
-           global $aid; Ecr_Log('security', "DeleteCatLinks($cid) by AID : $aid", '');
-        }
-        Header("Location: admin.php?op=links");
-    } else {
-        message_error("<span class=\"rouge\"><b>".adm_translate("ATTENTION : Etes-vous sûr de vouloir effacer cette Catégorie et tous ses Liens ?")."</b></span><br /><br />
-        [ <a href=\"admin.php?op=LinksDelCat&amp;cid=$cid&amp;sid=$sid&amp;sub=$sub&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=links\" class=\"noir\">".adm_translate("Non")."</a> ]");
-    }
+   global $NPDS_Prefix;
+   if ($ok==1) {
+      if ($sub>0) {
+         sql_query("DELETE FROM ".$NPDS_Prefix."links_subcategories WHERE sid='$sid'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE sid='$sid'");
+         global $aid; Ecr_Log('security', "DeleteSubCatLinks($sid) by AID : $aid", '');
+      } else {
+         sql_query("DELETE FROM ".$NPDS_Prefix."links_categories WHERE cid='$cid'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."links_subcategories WHERE cid='$cid'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."links_links WHERE cid='$cid' AND sid=0");
+         global $aid; Ecr_Log('security', "DeleteCatLinks($cid) by AID : $aid", '');
+      }
+   Header("Location: admin.php?op=links");
+   } else
+      message_error("<span class=\"rouge\"><b>".adm_translate("ATTENTION : Etes-vous sûr de vouloir effacer cette Catégorie et tous ses Liens ?")."</b></span><br /><br />
+      [ <a href=\"admin.php?op=LinksDelCat&amp;cid=$cid&amp;sid=$sid&amp;sub=$sub&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=links\" class=\"noir\">".adm_translate("Non")."</a> ]");
 }
 
 function LinksDelNew($lid) {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
-
-    global $aid; Ecr_Log('security', "DeleteNewLinks($lid) by AID : $aid", '');
-    Header("Location: admin.php?op=links");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
+   global $aid; Ecr_Log('security', "DeleteNewLinks($lid) by AID : $aid", '');
+   Header("Location: admin.php?op=links");
 }
 
 function LinksAddCat($title, $cdescription) {
-    global $NPDS_Prefix;
-    $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_categories WHERE title='$title'");
-    $numrows = sql_num_rows($result);
-    if ($numrows>0) {
+   global $NPDS_Prefix;
+   $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_categories WHERE title='$title'");
+   $numrows = sql_num_rows($result);
+   if ($numrows>0)
         message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : La Catégorie")." $title ".adm_translate("existe déjà !").'</strong></div>');
-    } else {
-        sql_query("INSERT INTO ".$NPDS_Prefix."links_categories VALUES (NULL, '$title', '$cdescription')");
-
-        global $aid; Ecr_Log('security', "AddCatLinks($title) by AID : $aid", '');
-        Header("Location: admin.php?op=links");
-    }
+   else {
+      sql_query("INSERT INTO ".$NPDS_Prefix."links_categories VALUES (NULL, '$title', '$cdescription')");
+      global $aid; Ecr_Log('security', "AddCatLinks($title) by AID : $aid", '');
+      Header("Location: admin.php?op=links");
+   }
 }
 
 function LinksAddSubCat($cid, $title) {
    global $NPDS_Prefix;
    $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_subcategories WHERE title='$title' AND cid='$cid'");
    $numrows = sql_num_rows($result);
-   if ($numrows>0) {
+   if ($numrows>0)
       message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : La Sous-catégorie")." $title ".adm_translate("existe déjà !").'</strong></div>');
-   } else {
+   else {
       sql_query("INSERT INTO ".$NPDS_Prefix."links_subcategories VALUES (NULL, '$cid', '$title')");
       global $aid; Ecr_Log('security', "AddSubCatLinks($title) by AID : $aid", '');
       Header("Location: admin.php?op=links");
@@ -884,7 +870,7 @@ function LinksAddEditorial($linkid, $editorialtitle, $editorialtext) {
    global $NPDS_Prefix, $aid;
    $editorialtext = stripslashes(FixQuotes($editorialtext));
    sql_query("INSERT INTO ".$NPDS_Prefix."links_editorials VALUES ('$linkid', '$aid', now(), '$editorialtext', '$editorialtitle')");
-   Ecr_Log("security", "AddEditorialLinks($linkid, $editorialtitle) by AID : $aid", "");
+   Ecr_Log('security', "AddEditorialLinks($linkid, $editorialtitle) by AID : $aid", '');
    message_error('<div class="alert alert-success"><strong>'.adm_translate("Editorial ajouté à la base de données").'</strong></div>');
 }
 
@@ -899,7 +885,7 @@ function LinksModEditorial($linkid, $editorialtitle, $editorialtext) {
 function LinksDelEditorial($linkid) {
    global $NPDS_Prefix;
    sql_query("DELETE FROM ".$NPDS_Prefix."links_editorials WHERE linkid='$linkid'");
-   global $aid; Ecr_Log("security", "DeteteEditorialLinks($linkid) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "DeteteEditorialLinks($linkid) by AID : $aid", '');
    message_error('<div class="alert alert-success"><strong>'.adm_translate("Editorial supprimé de la base de données").'</strong></div>');
 }
 
@@ -918,104 +904,100 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
    global $NPDS_Prefix;
    $result = sql_query("SELECT url FROM ".$NPDS_Prefix."links_links WHERE url='$url'");
    $numrows = sql_num_rows($result);
-    if ($numrows>0) {
+   if ($numrows>0)
         message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : cette URL est déjà présente dans la base de données !").'</strong></div>');
-    } else {
-       if ($title=='') {
-           message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : vous devez saisir un TITRE pour votre Lien !").'</strong></div>');
-       }
-       if ($url=='') {
-          message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : vous devez saisir une URL pour votre Lien !").'</strong></div>');
-       }
-       if ($xtext=='') {
+   else {
+      if ($title=='')
+         message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : vous devez saisir un TITRE pour votre Lien !").'</strong></div>');
+      if ($url=='')
+         message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : vous devez saisir une URL pour votre Lien !").'</strong></div>');
+      if ($xtext=='')
           message_error('<div class="alert alert-danger"><strong>'.adm_translate("Erreur : vous devez saisir une DESCRIPTION pour votre Lien !").'</strong></div>');
-       }
-       $cat = explode('-', $cat);
-       if (!array_key_exists(1,$cat)) {
-          $cat[1] = 0;
-       }
-       $title = stripslashes(FixQuotes($title));
-       $url = stripslashes(FixQuotes($url));
-       $xtext = stripslashes(FixQuotes($xtext));
-       $name = stripslashes(FixQuotes($name));
-       $email = stripslashes(FixQuotes($email));
-       sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,'')");
-       if ($new==1) {
-          sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
-          if ($email!='') {
-             global $sitename, $nuke_url;
-             $subject = adm_translate("Votre Lien")." : $sitename";
-             $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la Page : ")."$title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
-             include("signat.php");
-             send_email($email, $subject, $message, "", false, "html");
-          }
-       }
-       global $aid; Ecr_Log("security", "AddLinks($title) by AID : $aid", "");
-       message_error('<div class="alert alert-success"><strong>'.adm_translate("Nouveau Lien ajouté dans la base de données").'</strong></div>');
-    }
+      $cat = explode('-', $cat);
+      if (!array_key_exists(1,$cat))
+         $cat[1] = 0;
+      $title = stripslashes(FixQuotes($title));
+      $url = stripslashes(FixQuotes($url));
+      $xtext = stripslashes(FixQuotes($xtext));
+      $name = stripslashes(FixQuotes($name));
+      $email = stripslashes(FixQuotes($email));
+      sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,'')");
+      if ($new==1) {
+         sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
+         if ($email!='') {
+            global $sitename, $nuke_url;
+            $subject = adm_translate("Votre Lien")." : $sitename";
+            $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la Page : ")."$title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
+            include("signat.php");
+            send_email($email, $subject, $message, '', false, 'html');
+         }
+      }
+      global $aid; Ecr_Log('security', "AddLinks($title) by AID : $aid", '');
+      message_error('<div class="alert alert-success"><strong>'.adm_translate("Nouveau Lien ajouté dans la base de données").'</strong></div>');
+   }
 }
 
 switch ($op) {
    case 'links':
    case 'suite_links':
-        links();
-        break;
+      links();
+   break;
    case 'LinksDelNew':
-        LinksDelNew($lid);
-        break;
+      LinksDelNew($lid);
+   break;
    case 'LinksAddCat':
-        LinksAddCat($title, $cdescription);
-        break;
+      LinksAddCat($title, $cdescription);
+   break;
    case 'LinksAddSubCat':
-        LinksAddSubCat($cid, $title);
-        break;
+      LinksAddSubCat($cid, $title);
+   break;
    case 'LinksAddLink':
-        LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter);
-        break;
+      LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $submitter);
+   break;
    case 'LinksAddEditorial':
-        LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
-        break;
+      LinksAddEditorial($linkid, $editorialtitle, $editorialtext);
+   break;
    case 'LinksModEditorial':
-        LinksModEditorial($linkid, $editorialtitle, $editorialtext);
-        break;
+      LinksModEditorial($linkid, $editorialtitle, $editorialtext);
+   break;
    case 'LinksDelEditorial':
-        LinksDelEditorial($linkid);
-        break;
+      LinksDelEditorial($linkid);
+   break;
    case 'LinksListBrokenLinks':
-        LinksListBrokenLinks();
-        break;
+      LinksListBrokenLinks();
+   break;
    case 'LinksDelBrokenLinks':
-        LinksDelBrokenLinks($lid);
-        break;
+      LinksDelBrokenLinks($lid);
+   break;
    case 'LinksIgnoreBrokenLinks':
-        LinksIgnoreBrokenLinks($lid);
-        break;
+      LinksIgnoreBrokenLinks($lid);
+   break;
    case 'LinksListModRequests':
-        LinksListModRequests();
-        break;
+      LinksListModRequests();
+   break;
    case 'LinksChangeModRequests':
-        LinksChangeModRequests($requestid);
-        break;
+      LinksChangeModRequests($requestid);
+   break;
    case 'LinksChangeIgnoreRequests':
-        LinksChangeIgnoreRequests($requestid);
-        break;
+      LinksChangeIgnoreRequests($requestid);
+   break;
    case 'LinksDelCat':
-        LinksDelCat($cid, $sid, $sub, $ok);
-        break;
+      LinksDelCat($cid, $sid, $sub, $ok);
+   break;
    case 'LinksModCat':
-        LinksModCat($cat);
-        break;
+      LinksModCat($cat);
+   break;
    case 'LinksModCatS':
-        LinksModCatS($cid, $sid, $sub, $title, $cdescription);
-        break;
+      LinksModCatS($cid, $sid, $sub, $title, $cdescription);
+   break;
    case 'LinksModLink':
-        LinksModLink($lid);
-        break;
+      LinksModLink($lid);
+   break;
    case 'LinksModLinkS':
-        LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat);
-        break;
+      LinksModLinkS($lid, $title, $url, $xtext, $name, $email, $hits, $cat);
+   break;
    case 'LinksDelLink':
-        LinksDelLink($lid);
-        break;
+      LinksDelLink($lid);
+   break;
 }
 ?>

@@ -206,26 +206,21 @@ if ($FmaRep) {
             $theme_fma=$themeG_fma;
             $fic_minuscptr=0;
             $dir_minuscptr=0;
-         } else {
+         } else
             Access_Error();
-         }
-      } else {
+      } else
          Access_Error();
-      }
-   } else {
+   } else
       Access_Error();
-   }
-} else {
+} else
    Access_Error();
-}
 
 if (isset($browse)) {
    $ibid=rawurldecode(decrypt($browse));
-   if (substr(@php_uname(),0,7) == 'Windows') {
+   if (substr(@php_uname(),0,7) == 'Windows')
       $ibid=preg_replace('#[\*\?"<>|]#i','', $ibid);
-   } else {
+   else
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
-   }
    $ibid=str_replace('..','',$ibid);
    // contraint à rester dans la zone de repertoire définie (CHROOT)
    $base=$basedir_fma.substr($ibid,strlen($basedir_fma));
@@ -242,11 +237,10 @@ $obj->Extension=explode(' ',$extension_fma);
 $rename_dir=''; $remove_dir=''; $chmod_dir='';
 $remove_file=''; $move_file=''; $rename_file=''; $chmod_file=''; $edit_file='';
 
-if (substr(@php_uname(),0,7)=="Windows") {
+if (substr(@php_uname(),0,7)=="Windows")
    $log_dir=str_replace($basedir_fma,'',$base);
-} else {
-   $log_dir=str_replace("\\","/",str_replace($basedir_fma,"",$base));
-}
+else
+   $log_dir=str_replace("\\","/",str_replace($basedir_fma,'',$base));
 
 include_once("modules/upload/upload.conf.php");
 
@@ -264,14 +258,12 @@ switch ($op) {
                $upload->maxupload_size=$max_size;
                $auto=fma_filter('f', $filename, $obj->Extension);
                if ($auto[0]) {
-                  if (!$upload->saveAs($auto[2], $base.'/', 'userfile', true)) {
+                  if (!$upload->saveAs($auto[2], $base.'/', 'userfile', true))
                      $Err=$upload->errors;
-                  } else {
+                  else
                      Ecr_Log('security','Upload File', $log_dir.'/'.$filename.' IP=>'.getip());
-                  }
-               } else {
+               } else
                   $Err=$auto[1];
-               }
             }
          }
       }
@@ -282,17 +274,16 @@ switch ($op) {
       if ($dircmd_fma[0]) {
          $auto=fma_filter('d', $userdir, $obj->Extension);
          if ($auto[0]) {
-            if (!$obj->Create('d',$base.'/'.$auto[2])) {
+            if (!$obj->Create('d',$base.'/'.$auto[2]))
                $Err=$obj->Errors;
-            } else {
+            else {
                Ecr_Log('security','Create Directory', $log_dir.'/'.$userdir.' IP=>'.getip());
                $fp = fopen($base.'/'.$auto[2].'/.htaccess', 'w');
                fputs($fp, 'Deny from All');
                fclose($fp);
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
       break;
    case 'renamedir':
@@ -355,7 +346,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 text-danger"></i></span><span class="text-danger">'.fma_translate("Supprimer un répertoire").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un répertoire").'</span>';
                $remove_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -372,9 +363,8 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
       break;
    case 'removedir-save':
@@ -386,12 +376,10 @@ switch ($op) {
             @unlink($auto[3].'/'.$auto[2].'/pic-manager.txt');
             if (!$obj->RemoveDir($auto[3].'/'.$auto[2])) {
                $Err=$obj->Errors;
-            } else {
+            } else
                Ecr_Log('security','Delete Directory', $log_dir.'/'.$auto[2].' IP=>'.getip());
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
       break;
 
@@ -402,7 +390,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2"></i></span>'.fma_translate("Changer les droits d'un répertoire");
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un répertoire");
                $chmod_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -466,7 +454,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2"></i></span>'.fma_translate("Renommer un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 align-middle"></i></span>'.fma_translate("Renommer un fichier");
                $rename_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -518,7 +506,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2"></i></span>'.fma_translate("Déplacer / Copier un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 align-middle"></i></span>'.fma_translate("Déplacer / Copier un fichier");
                $move_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -601,7 +589,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists("$auto[3]/$auto[2]")) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 text-danger"></i></span><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
                $remove_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="$ModPath" />
@@ -610,7 +598,7 @@ switch ($op) {
                   <input type="hidden" name="browse" value="$browse" />
                   <input type="hidden" name="att_name" value="$att_name" />
                   <input type="hidden" name="op" value="removefile-save" />
-                  <div class="form-group">
+                  <div class="form-group lead">
                      '.fma_translate("Confirmez-vous la suppression de").' <code>'.extend_ascii($auto[2]).'</code>
                   </div>
                   <div class="form-group">
@@ -645,7 +633,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2"></i></span>'.fma_translate("Changer les droits d'un fichier").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un fichier").'</span>';
                $chmod_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -695,7 +683,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2"></i></span>'.fma_translate("Editer un fichier").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 align-middle"></i></span>'.fma_translate("Editer un fichier").'</span>';
                $fp=fopen($auto[3].'/'.$auto[2],'r');
                if (filesize($auto[3].'/'.$auto[2])>0)
                   $Fcontent=fread($fp,filesize($auto[3].'/'.$auto[2]));
@@ -758,7 +746,7 @@ switch ($op) {
          $auto[3]=decrypt($browse);
          if (file_exists($auto[3].'/'.$auto[2])) {
             $theme_fma=$themeC_fma;
-            $cmd='<span class="text-muted"><i class="fa fa-image fa-2x mr-2"></i></span>'.fma_translate("Autoriser Pic-Manager").' >> '.$auto[2];
+            $cmd='<span class="text-muted"><i class="fa fa-image fa-2x mr-2 align-middle"></i></span>'.fma_translate("Autoriser Pic-Manager").' >> '.$auto[2];
             $pict_dir ='
             <form method="post" action="modules.php">
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -907,7 +895,7 @@ while ($obj->NextDir()) {
          <td><small>'.$obj->FieldDate.'</small></td>';
       if ($dirpres_fma[3]) {
          $sizeofD=$obj->FieldSize;
-         $sizeofDir=$sizeofDir+$sizeofD;
+         $sizeofDir=$sizeofDir+(integer)$sizeofD;
          $subdirs.='
          <td class="d-none d-sm-table-cell"><small>'.$obj->ConvertSize($sizeofDir).'</small></td>';
       }else{$subdirs.='
@@ -982,11 +970,10 @@ while ($obj->NextFile()) {
             if (($obj->FieldView=='jpg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png'))
                $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" />";
             else {
-               if (isset($att_icons[$obj->FieldView])) {
+               if (isset($att_icons[$obj->FieldView]))
                   $files.=$att_icons[$obj->FieldView];
-               } else {
+               else
                   $files.=$att_icon_default;
-               }
             }
          }
          $files.='</td>';
@@ -1225,9 +1212,8 @@ if ($inclusion) {
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       </head>
       <body class="p-3">';
-   } else {
+   } else
       include ("header.php");
-   }
 
    // Head banner de présentation F-Manager
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/head.html")) {
@@ -1271,12 +1257,10 @@ if ($inclusion) {
       echo '
    </body>
 </html>';
-      if ($tiny_mce) {
+      if ($tiny_mce)
          if ($tiny_mce_init)
             echo aff_editeur("tiny_mce", "end");
-      }
-   } else {
+   } else
       include ("footer.php");
-   }
 }
 ?>
