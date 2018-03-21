@@ -403,8 +403,7 @@ function userinfo($uname) {
       }
    }
 
-   $my_rsos=array();
-   $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+   $socialnetworks=array(); $posterdata_extend=array(); $res_id=array(); $my_rs='';
    $posterdata_extend = get_userdata_extend_from_id($uid);
    if (!$short_user) {
       include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
@@ -427,9 +426,7 @@ function userinfo($uname) {
                else $my_rs.='';
             }
          }
-         $my_rsos[]=$my_rs;
       }
-      else $my_rsos[]='';
    }
 
    $posterdata = get_userdata_from_id($uid);
@@ -438,11 +435,8 @@ function userinfo($uname) {
       $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['femail']!='')
       $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['url']!='') {
-      if (strstr('http://', $posterdata['url']))
-         $posterdata['url'] = 'http://' . $posterdata['url'];
+   if ($posterdata['url']!='')
       $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
-   }
    if ($posterdata['mns'])
        $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
 
@@ -453,7 +447,7 @@ function userinfo($uname) {
          <h2>'.translate("User").'<span class="text-muted ml-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
       echo $useroutils;
-      echo $my_rsos[0];
+   echo $my_rs;
    if ($uname == $cookie[1])
       echo '
          <p class="lead">'.translate("This is your personal page").'</p>';
