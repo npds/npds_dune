@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -244,7 +244,7 @@ function userpopover($who) {
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rsos[$a].'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-secondary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rsos[$a].'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-primary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
 
    return $userpop;
    }
