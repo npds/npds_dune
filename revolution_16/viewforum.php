@@ -86,9 +86,12 @@ if (($op=="solved") and ($topic_id) and ($forum) and ($sec_clef)) {
 // Pour les forums de type Extended Text, le Mot de Passe stock le nom du fichier de formulaire ...
 if (($myrow['forum_type'] == 5) or ($myrow['forum_type'] == 7)) {
    $ok_affiche=false;
-   $tab_groupe=valid_group($user);
-   $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
-   if ($ok_affiche) {$Forum_passwd=$myrow['forum_pass'];}
+   if(isset($user)) {
+      $tab_groupe=valid_group($user);
+      $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
+   }
+   if ($ok_affiche)
+      $Forum_passwd=$myrow['forum_pass'];
 }
 
 if ($myrow['forum_type'] == 8) {$Forum_passwd=$myrow['forum_pass'];} else {settype($Forum_passwd,'string');}
