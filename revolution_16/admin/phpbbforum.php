@@ -450,7 +450,7 @@ function ForumGoEdit($forum_id, $ctg) {
             break;
             case "7": case"5":
             lab="'.adm_translate("Groupe ID").'";
-            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required" />\n\';
+            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required" value="'.$forum_pass.'" />\n\';
             inp.html(htmh+lab+htmhe+inp_para+htmf);
             break;
             case "8":
