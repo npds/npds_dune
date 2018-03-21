@@ -188,10 +188,8 @@ function userpopover($who) {
    $result=sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname ='$who'");
    include_once('functions.php');
    if (sql_num_rows($result)) {
-   $a = 0;
    $temp_user = get_userdata($who);
-   $my_rsos=array();
-   $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+   $socialnetworks=array(); $posterdata_extend=array();$res_id=array(); $my_rs='';
       if (!$short_user) {
          if($temp_user['uid']!= 1) {
             $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
@@ -217,10 +215,9 @@ function userpopover($who) {
                         else $my_rs.='';
                      }
                   }
-                  $my_rsos[]=$my_rs;
-               } else $my_rsos[]='';
-         } else $my_rsos[]='';
-         } else $my_rsos[]='';
+               }
+            }
+         }
       }
    settype($ch_lat,'string');
    $useroutils = '';
@@ -244,7 +241,7 @@ function userpopover($who) {
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rsos[$a].'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-primary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-primary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
 
    return $userpop;
    }
