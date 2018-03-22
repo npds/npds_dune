@@ -103,17 +103,15 @@ function Caff_pub($topic, $file_name, $archive) {
 
 if ($mycount) {
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
-   $my_rsos=array();
    do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
 
-      $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
+      $socialnetworks=array(); $posterdata_extend=array(); $res_id=array(); $my_rs='';
       if (!$short_user) {
          $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
          if($user or autorisation(-127)) {
-
             if (array_key_exists('M2', $posterdata_extend)) {
                if ($posterdata_extend['M2']!='') {
                   $socialnetworks= explode(';',$posterdata_extend['M2']);
@@ -129,14 +127,11 @@ if ($mycount) {
                            $my_rs.='<a class="mr-3" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a>';
                            break;
                         } 
-                        else $my_rs.='';
                      }
                   }
-                  $my_rsos[]=$my_rs;
                }
-               else $my_rsos[]='';
-            } else $my_rsos[]='';
-         } else $my_rsos[]='';
+            }
+         }
       }
       include('modules/geoloc/geoloc_conf.php');
       settype($ch_lat,'string');
@@ -175,7 +170,7 @@ if ($mycount) {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
              }
               echo '
-             <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rsos[$count].'</div>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+             <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
           }
       }
              echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
