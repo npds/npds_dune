@@ -15,7 +15,9 @@ include('functions.php');
 
 // Make Member_list Private or not
 if (!AutoReg()) { unset($user); }
-if (($member_list==1) AND ($user=='') AND ($admin=='')) {
+
+if ( ($member_list==1) and !isset($user) and !isset($admin) )
+{
    Header("Location: user.php");
 }
 
