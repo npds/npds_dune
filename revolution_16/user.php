@@ -1171,7 +1171,7 @@ function chgtheme() {
    <h2>'.translate("Change Theme").'</h2>
    <form role="form" action="user.php" method="post">
       <div class="form-group row">
-         <label class="form-control-label col-sm-5" for="theme">'.translate("Select One Theme").'</label>
+         <label class="col-form-label col-sm-5" for="theme">'.translate("Select One Theme").'</label>
          <div class="col-sm-7">
             <select class="custom-select form-control" id="theme" name="theme">';
    include("themes/list.php");
@@ -1208,7 +1208,7 @@ function chgtheme() {
    asort($skins);
       echo '
       <div class="form-group row" id="skin_choice">
-         <label class="form-control-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
+         <label class="col-form-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
          <div class="col-sm-7">
             <select class="custom-select form-control" id="skin" name="skin">';
    $cookie=cookiedecode($user);
