@@ -79,13 +79,13 @@ function write_review() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Your name").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="reviewer_rev" name="reviewer" value="'.$name.'">
+            <input class="form-control" type="text" id="reviewer_rev" name="reviewer" required="required" />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="email_rev">'.translate("Your email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'">
+            <input type="email" class="form-control" id="email_rev" name="email" required="required" />
          </div>
       </div>';
    }
@@ -237,7 +237,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
             <input type="hidden" name="url_title" value="'.$url_title.'" />
             <input type="hidden" name="cover" value="'.$cover.'" />
             <input type="hidden" name="op" value="add_reviews" />
-            <br />'.translate("Does this look right?");
+            <p class="my-3">'.translate("Does this look right?").'</p>';
       if (!$admin) echo Q_spambot();
       echo '
       <div class="form-group row">
@@ -592,7 +592,9 @@ function del_review($id_del) {
 settype($op,'string');
 settype($hits,'integer');
 settype($id,'integer');
-
+settype($cover,'string');
+settype($asb_question,'string');
+settype($asb_reponse,'string');
 
 switch ($op) {
    case 'showcontent':
