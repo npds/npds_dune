@@ -15,7 +15,7 @@ echo '
 <link rel="stylesheet" href="lib/css/prism.css" />
 <script type="text/javascript" src="lib/js/jquery.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.js"></script>
+<script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js" async="async"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js" async="async"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js" async="async"></script>

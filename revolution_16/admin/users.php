@@ -252,7 +252,13 @@ switch ($op) {
       modifyUser($chng_uid);
    break;
    case 'updateUser':
-      if ($add_group) {$add_group=implode(',',$add_group);}
+      settype($add_user_viewemail,'integer');
+      settype($add_is_visible,'string');
+      settype($add_mns,'integer');
+      settype($B1,'string');
+      settype($raz_avatar,'integer');
+   
+      if (isset($add_group)) $add_group=implode(',',$add_group); else $add_group='';
       updateUser($chng_uid, $add_uname, $add_name, $add_url, $add_email, $add_femail, $add_user_from, $add_user_occ, $add_user_intrest, $add_user_viewemail, $add_avatar, $add_user_sig, $add_bio, $add_pass, $add_pass2, $add_level, $add_open_user, $add_group, $add_send_email, $add_is_visible, $add_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar,$chng_rank,$user_lnl);
    break;
    case 'delUser':
@@ -275,68 +281,76 @@ switch ($op) {
    break;
 
    case 'delUserConf':
-        $result = sql_query("SELECT uid, uname FROM ".$NPDS_Prefix."users WHERE uid='$del_uid' or uname='$del_uid'");
-        list($del_uid, $del_uname) = sql_fetch_row($result);
-        if ($del_uid!=1) {
-           sql_query("DELETE FROM ".$NPDS_Prefix."users WHERE uid='$del_uid'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."users_status WHERE uid='$del_uid'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."users_extend WHERE uid='$del_uid'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$del_uid'");
+      $result = sql_query("SELECT uid, uname FROM ".$NPDS_Prefix."users WHERE uid='$del_uid' or uname='$del_uid'");
+      list($del_uid, $del_uname) = sql_fetch_row($result);
+      if ($del_uid!=1) {
+         sql_query("DELETE FROM ".$NPDS_Prefix."users WHERE uid='$del_uid'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."users_status WHERE uid='$del_uid'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."users_extend WHERE uid='$del_uid'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$del_uid'");
 
-           //  Changer les articles et reviews pour les affecter à un pseudo utilisateurs  ( 0 comme uid et ' ' comme uname )
-           sql_query("UPDATE ".$NPDS_Prefix."stories SET informant=' ' WHERE informant='$del_uname'");
-           sql_query("UPDATE ".$NPDS_Prefix."reviews SET reviewer=' ' WHERE reviewer='$del_uname'");
+         //  Changer les articles et reviews pour les affecter à un pseudo utilisateurs  ( 0 comme uid et ' ' comme uname )
+         sql_query("UPDATE ".$NPDS_Prefix."stories SET informant=' ' WHERE informant='$del_uname'");
+         sql_query("UPDATE ".$NPDS_Prefix."reviews SET reviewer=' ' WHERE reviewer='$del_uname'");
 
-           include ("modules/upload/upload.conf.php");
-           if ($DOCUMENTROOT=='') {
-              global $DOCUMENT_ROOT;
-              if ($DOCUMENT_ROOT)
-                 $DOCUMENTROOT=$DOCUMENT_ROOT;
-              else
-                 $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-           }
-           $user_dir=$DOCUMENTROOT.$racine.'/users_private/'.$del_uname;
+         include ("modules/upload/upload.conf.php");
+         if ($DOCUMENTROOT=='') {
+            global $DOCUMENT_ROOT;
+            if ($DOCUMENT_ROOT)
+               $DOCUMENTROOT=$DOCUMENT_ROOT;
+            else
+               $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
+         }
+         $user_dir=$DOCUMENTROOT.$racine.'/users_private/'.$del_uname;
 
-           // Supprimer son ministe s'il existe
-           if (is_dir($user_dir.'/mns')) {
-              $dir = opendir($user_dir.'/mns');
-              while(false!==($nom = readdir($dir))) {
-                 if ($nom != '.' && $nom != '..' && $nom != '') {
-                    @unlink($user_dir.'/mns/'.$nom);
-                 }
-              }
-              closedir($dir);
-              @rmdir($user_dir.'/mns');
-           }
-
-           // Mettre un fichier 'delete' dans sa home_directory si elle existe
-           if (is_dir($user_dir)) {
-              $fp = fopen($repertoire.$user_dir.'/delete', 'w');
-              fclose($fp);
-           }
-
-           // Changer les posts, les commentaires, ... pour les affecter à un pseudo utilisateurs  ( 0 comme uid et ' ' comme uname)
-           sql_query("UPDATE ".$NPDS_Prefix."posts SET poster_id='0' WHERE poster_id='$del_uid'");
-
-           // Met à jour les modérateurs des forums
-           $pat='#\b'.$del_uid.'\b#';
-           $res=sql_query("SELECT forum_id, forum_moderator FROM ".$NPDS_Prefix."forums");
-           while ($row = sql_fetch_row($res)) {
-               $tmp_moder = explode(',',$row[1]);
-               if (preg_match($pat, $row[1])) {
-                  unset($tmp_moder[array_search($del_uid, $tmp_moder)]);
-                  sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_moderator='".implode (',',$tmp_moder)."' WHERE forum_id='$row[0]'");
+         // Supprimer son ministe s'il existe
+         if (is_dir($user_dir.'/mns')) {
+            $dir = opendir($user_dir.'/mns');
+            while(false!==($nom = readdir($dir))) {
+               if ($nom != '.' && $nom != '..' && $nom != '') {
+                  @unlink($user_dir.'/mns/'.$nom);
                }
-           }
-           global $aid; Ecr_Log('security', "DeleteUser($del_uid) by AID : $aid", '');
-        }
-        if ($referer!="memberslist.php")
-           Header("Location: admin.php?op=mod_users");
-        else
-           Header("Location: memberslist.php");
-        break;
+            }
+            closedir($dir);
+            @rmdir($user_dir.'/mns');
+         }
+
+         // Mettre un fichier 'delete' dans sa home_directory si elle existe
+         if (is_dir($user_dir)) {
+            $fp = fopen($repertoire.$user_dir.'/delete', 'w');
+            fclose($fp);
+         }
+
+         // Changer les posts, les commentaires, ... pour les affecter à un pseudo utilisateurs  ( 0 comme uid et ' ' comme uname)
+         sql_query("UPDATE ".$NPDS_Prefix."posts SET poster_id='0' WHERE poster_id='$del_uid'");
+
+         // Met à jour les modérateurs des forums
+         $pat='#\b'.$del_uid.'\b#';
+         $res=sql_query("SELECT forum_id, forum_moderator FROM ".$NPDS_Prefix."forums");
+         while ($row = sql_fetch_row($res)) {
+            $tmp_moder = explode(',',$row[1]);
+            if (preg_match($pat, $row[1])) {
+               unset($tmp_moder[array_search($del_uid, $tmp_moder)]);
+               sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_moderator='".implode (',',$tmp_moder)."' WHERE forum_id='$row[0]'");
+            }
+         }
+         global $aid; Ecr_Log('security', "DeleteUser($del_uid) by AID : $aid", '');
+      }
+      if ($referer!="memberslist.php")
+         Header("Location: admin.php?op=mod_users");
+      else
+         Header("Location: memberslist.php");
+   break;
 
    case 'addUser':
+      settype($add_user_viewemail,'integer');
+      settype($add_is_visible,'string');
+      settype($add_mns,'integer');
+      settype($B1,'string');
+      settype($raz_avatar,'integer');
+      settype($add_send_email,'string');
+
+      
       if (!($add_uname && $add_email && $add_pass) or (preg_match('#[^a-zA-Z0-9_-]#',$add_uname))) {
          global $hlpfile;
          include("header.php");
@@ -348,12 +362,12 @@ switch ($op) {
       }
       if (!$system)
          $add_pass = crypt($add_pass,$add_pass);
-      if ($add_is_visible=='') {
+      if ($add_is_visible=='')
          $add_is_visible='1';
-      } else {
+      else
          $add_is_visible='0';
-      }
-      $user_regdate = time()+$gmt*3600;
+
+      $user_regdate = time()+((integer)$gmt*3600);
       $sql= 'INSERT INTO '.$NPDS_Prefix.'users ';
       $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,send_email,is_visible,mns) ";
       $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$add_send_email','$add_is_visible','$add_mns')";
@@ -364,8 +378,7 @@ switch ($op) {
          $attach = 1;
       else
          $attach = 0;
-      if ($add_group==0) $add_group='';
-      if ($add_group) $add_group=implode(',',$add_group);
+      if (isset($add_group)) $add_group=implode(',',$add_group); else $add_group='';
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','$chng_rank','$add_level','1','$add_group')");
 
       Minisites($add_mns,$add_uname);

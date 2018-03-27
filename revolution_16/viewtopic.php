@@ -65,7 +65,7 @@ if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) )
 
 if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
-   $tab_groupe=valid_group($user);
+   $tab_groupe=valid_group($user);// en ano et admin $user n'existe pas ?  notice ....
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
 
    //:: ici 
@@ -287,7 +287,7 @@ include('header.php');
    if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
-   $my_rsos=array();
+//   $my_rsos=array();
    do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
@@ -295,6 +295,7 @@ include('header.php');
       if (!$short_user) {
          $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
          include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+         include('modules/geoloc/geoloc_conf.php');
          if($user or autorisation(-127)) {
             if (array_key_exists('M2', $posterdata_extend)) {
                if ($posterdata_extend['M2']!='') {
@@ -316,15 +317,11 @@ include('header.php');
                         else $my_rs.='';
                      }
                   }
-                  $my_rsos[]=$my_rs;
                }
-               else $my_rsos[]='';
-            } else $my_rsos[]='';
-         } else $my_rsos[]='';
+            }
+         }
       }
-      include('modules/geoloc/geoloc_conf.php');
       settype($ch_lat,'string');
-
       $useroutils = '';
       if($user or autorisation(-127)) {
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
@@ -333,9 +330,10 @@ include('header.php');
             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-envelope-o fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
-         if ($myrow['poster_id']!=1)
+         if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
             if ($posterdata_extend[$ch_lat] !='')
                $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+         }
       }
       if ($posterdata['url']!='')
          $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-external-link fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
@@ -358,7 +356,7 @@ include('header.php');
                if ($ibid=theme_image('forum/avatar/'.$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$posterdata['user_avatar'];}
          }
           echo '
-          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rsos[$count].'</div> \'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div> \'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
          }
       }
 
@@ -444,6 +442,11 @@ include('header.php');
          if ($allow_upload_forum) {
             $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
             echo '<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+
+/*
+            echo '
+            <a class="mr-3" href="#themodal" data-remote="" data-toggle="modal" data-target="#themodal" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+*/
          }
       }
       if ($allow_to_post and !$lock_state and $posterdata['uid']!='')

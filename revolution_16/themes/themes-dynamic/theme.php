@@ -228,9 +228,10 @@ function userpopover($who) {
          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
       if ($temp_user['femail']!='')
          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
-      if ($temp_user['uid']!= 1)
+      if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
          if ($posterdata_extend[$ch_lat] !='')
             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+      }
    }
    if ($temp_user['url']!='')
       $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
