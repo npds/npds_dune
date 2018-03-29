@@ -22,5 +22,5 @@ echo '
 echo '
 <link rel="stylesheet" href="lib/jquery-ui.min.css">';
 echo '
-<link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />'; // table
+<link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />'; // table
 ?>
