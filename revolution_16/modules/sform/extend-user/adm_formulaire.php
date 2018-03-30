@@ -49,7 +49,7 @@ $m->add_extender('add_uname', '', '<span class="help-block"><span class="float-r
 $m->add_field('add_name', adm_translate("Nom"),$chng_name,'text',false,60,'','');
 $m->add_extender('add_name', '', '<span class="help-block"><span class="float-right" id="countcar_add_name"></span></span>');
 
-$m->add_field('add_email', adm_translate("E-mail"),$chng_email,'email',false,60,'','');
+$m->add_field('add_email', adm_translate("E-mail"),$chng_email,'email',true,60,'','');
 $m->add_extender('add_email', '', '<span class="help-block"><span class="float-right" id="countcar_add_email"></span></span>');
 
 $m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),$chng_femail,'email',false,60,'','');
@@ -141,7 +141,7 @@ $m->add_extender('add_user_occ', '', '<span class="help-block"><span class="floa
 $m->add_field('add_user_intrest', adm_translate("Centres d'intérêt"),$chng_user_intrest,'text',false,150,'','');
 $m->add_extender('add_user_intrest', '', '<span class="help-block"><span class="float-right" id="countcar_add_user_intrest"></span></span>');
 
-if ($attach==1) {$checked=true;} else {$checked=false;}
+if ($attach==1) $checked=true; else $checked=false;
 $m->add_checkbox('attach',adm_translate("Afficher signature"), 1, false, $checked);
 $m->add_field('add_user_sig', adm_translate("Signature"),$chng_user_sig,'textarea',false,255,7,'','');
 $m->add_extender('add_user_sig', '', '<span class="help-block"><span class="float-right" id="countcar_add_user_sig"></span></span>');
@@ -149,8 +149,10 @@ $m->add_extender('add_user_sig', '', '<span class="help-block"><span class="floa
 $m->add_field('add_bio',adm_translate("Informations supplémentaires"),$chng_bio,'textarea',false,255,7,'','');
 $m->add_extender('add_bio', '', '<span class="help-block"><span class="float-right" id="countcar_add_bio"></span></span>');
 
-$m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',false,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 10px;"></div></div></div></div>');
+$requi='';
+if ($op=="ModifyUser") $requi=false; else $requi=true;
+$m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',$requi,40,'','');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></div>');
 $m->add_extender('add_pass', '', '<span class="help-block"><span class="float-right" id="countcar_add_pass"></span></span>');
 
 if ($op=="ModifyUser") {
