@@ -900,47 +900,46 @@ function update_password ($code, $passwd) {
 }
 
 function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue, $skin) {
-    $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax:$skin");
-    global $user_cook_duration;
-    if ($user_cook_duration<=0) {$user_cook_duration=1;}
-    $timeX=time()+(3600*$user_cook_duration);
-    setcookie("user","$info",$timeX);
-    if ($user_langue!='') {
+   $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax:$skin");
+   global $user_cook_duration;
+   if ($user_cook_duration<=0) $user_cook_duration=1;
+   $timeX=time()+(3600*$user_cook_duration);
+   setcookie("user","$info",$timeX);
+   if ($user_langue!='')
        setcookie('user_language',"$user_langue",$timeX);
-    }
 }
 
 function login($uname, $pass) {
-    global $NPDS_Prefix, $setinfo, $system;
-
-    $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
-    if (sql_num_rows($result)==1) {
-       $setinfo = sql_fetch_assoc($result);
-       $result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$setinfo['uid']."'");
-       list($open_user) = sql_fetch_row($result);
-       if ($open_user==0) {
-          Header("Location: user.php?stop=99");
-          return;
-       }
-       $dbpass=$setinfo['pass'];
-       if (cur_charset=="utf-8") {
-          if (!$system)
-             $passwd=crypt($pass,$dbpass);
-          else
-             $passwd=$pass;
-          if (strcmp($dbpass,$passwd)!=0) {
-             $pass=utf8_decode($pass);
-             if (!$system)
-                $passwd=crypt($pass,$dbpass);
-             else
-                $passwd=$pass;
-             if (strcmp($dbpass,$passwd)!=0) {
-                Header("Location: user.php?stop=1");
-                return;
-             }
-          }
-          docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
-       } else {
+   global $NPDS_Prefix, $setinfo, $system;
+   settype($skin,'string');
+   $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
+   if (sql_num_rows($result)==1) {
+      $setinfo = sql_fetch_assoc($result);
+      $result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$setinfo['uid']."'");
+      list($open_user) = sql_fetch_row($result);
+      if ($open_user==0) {
+         Header("Location: user.php?stop=99");
+         return;
+      }
+      $dbpass=$setinfo['pass'];
+      if (cur_charset=="utf-8") {
+         if (!$system)
+            $passwd=crypt($pass,$dbpass);
+         else
+            $passwd=$pass;
+         if (strcmp($dbpass,$passwd)!=0) {
+            $pass=utf8_decode($pass);
+            if (!$system)
+               $passwd=crypt($pass,$dbpass);
+            else
+               $passwd=$pass;
+            if (strcmp($dbpass,$passwd)!=0) {
+               Header("Location: user.php?stop=1");
+               return;
+            }
+         }
+         docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
+      } else {
           if (!$system)
              $passwd=crypt($pass,$dbpass);
           else
@@ -950,8 +949,8 @@ function login($uname, $pass) {
           else {
              Header("Location: user.php?stop=1");
              return;
-          }
-       }
+         }
+      }
 
        $ip = getip();
        $result = sql_query("SELECT * FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
@@ -959,22 +958,22 @@ function login($uname, $pass) {
           sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
 
        Header("Location: index.php");
-    } else
-       Header("Location: user.php?stop=1");
+   } else
+      Header("Location: user.php?stop=1");
 }
 
 function edituser() {
-    global $NPDS_Prefix, $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
-    include("header.php");
-    $userinfo=getusrinfo($user);
-    nav($userinfo['mns']);
+   global $NPDS_Prefix, $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
+   include("header.php");
+   $userinfo=getusrinfo($user);
+   nav($userinfo['mns']);
 
-    global $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2,$B1;
-    $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='".$userinfo['uid']."'");
-    list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
-    showimage();
-    include ("modules/sform/extend-user/mod_extend-user.php");
-    include("footer.php");
+   global $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2,$B1;
+   $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='".$userinfo['uid']."'");
+   list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
+   showimage();
+   include ("modules/sform/extend-user/mod_extend-user.php");
+   include("footer.php");
 }
 
 function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar) {
