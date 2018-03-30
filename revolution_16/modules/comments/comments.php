@@ -144,10 +144,11 @@ if ($mycount) {
             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-envelope-o fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
-         if ($myrow['poster_id']!=1)
+         if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
             if ($posterdata_extend[$ch_lat] !='')
                $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
          }
+      }
       if ($posterdata['url']!='')
          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-external-link fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
       if ($posterdata['mns'])
