@@ -287,11 +287,12 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
    }
    echo '
    <h2>'.translate("Write a Review").'</h2>
+   <hr />
    <div class="alert alert-success">'.translate("Thanks for submitting this review").'';
    if ($id != 0)
-      echo " ".translate("modification")."";
+      echo ' '.translate("modification");
    else
-      echo ", $reviewer";
+      echo ', '.$reviewer;
    echo '<br />';
    if (($admin) && ($id == 0)) {
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
@@ -303,8 +304,9 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews_add VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$url', '$url_title')");
       echo translate("The editors will look at your submission. It should be available soon!");
    }
-   echo '</div><a class="btn btn-secondary" role="button" href="reviews.php" title="'.translate("Back to Reviews Index").'"><i class="fa fa-lg fa-undo"></i>
-</a>';
+   echo '
+   </div>
+   <a class="btn btn-secondary" href="reviews.php" title="'.translate("Back to Reviews Index").'"><i class="fa fa-lg fa-undo"></i>  '.translate("Back to Reviews Index").'</a>';
    include ("footer.php");
 }
 
