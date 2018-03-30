@@ -361,6 +361,7 @@ class form_handler {
           <div class="form-group row">
             <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
           $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
+         $requi='';
           if ($this->form_fields[$i]['obligation']){
             $requi= 'required="required"';
              $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
@@ -368,7 +369,7 @@ class form_handler {
           } else $str.='</label>';
          $str.='
             <div class="col-sm-8">
-               <input class="form-control" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />';
+               <input class="form-control" type="'.$this->form_fields[$i]['type'].'" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" '.$requi.' />';
           if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];
           }
