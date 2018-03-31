@@ -24,16 +24,16 @@ a:hover {text-decoration:none;}
 
 /** ==> Classes BS4                                                         **/
 /*                                                                           */
-/* ==> élément ayant la class btn (boutons, a, input) */
+/* ==> élément ayant la class btn (boutons, a, input) */ 
 .btn {
-   -webkit-border-radius: 10px;
-   -moz-border-radius: 10px;
-   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 /* ==> hauteur et scroll des modal */
 .modal-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
 
 /** <== Classes BS4                                                         **/
@@ -41,47 +41,48 @@ a:hover {text-decoration:none;}
 /** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
 .n-ava {
-max-width:64px;
-max-height:64px;
+  max-width:64px;
+  max-height:64px;
 }
 .n-ava-small {
-max-width:48px;
-max-height:48px;
+  max-width:48px;
+  max-height:48px;
+}
+.n-ava-64 {
+  max-width:64px;
+  max-height:64px;
+}
+.n-ava-48 {
+  max-width:48px;
+  max-height:48px;
+}
+.n-ava-40 {
+  max-width:40px;
+  max-height:40px;
+}
+.n-ava-36 {
+  max-width:36px;
+  max-height:36px;
 }
 .n-smil {
-width:24px;
-height:24px;
-display:inline;
+  width:24px;
+  height:24px;
+  display:inline;
 }
 .n-sujetsize {
-max-width : 100px;
-height : auto;
+  max-width : 100px;
+  height : auto;
 }
-.fond_emot, .fond_subject {
-line-height:28px;
+.n-fond_emot, .n-fond_subject {
+  line-height:28px;
 }
 /* ==> pour la signature */
 .n-signature {
-font-style: italic;
-text-align: right !important;
-padding-top: 1.1rem !important;
+  font-style: italic;
+  text-align: right !important;
+  padding-top: 1.1rem !important;
 }
 /* ==> pour les troncatures de mots trop longs */
-
-.n-list-compact-no-bord {
-padding-top: .35rem;
-padding-bottom: .35rem;
-padding-right: 0rem;
-border:0px;
-
-
-}
-
-.n-card-compact-no-padside {
-padding-right: 0rem;
-padding-left: 0rem;
-border:0px;
-}
 .n-hyphenate {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -91,9 +92,23 @@ border:0px;
   hyphens: auto;
 }
 .n-ellipses {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  display:inline-block;
+  width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.n-list-compact-no-bord {
+  padding-top: .35rem;
+  padding-bottom: .35rem;
+  padding-right: 0rem;
+  padding-left: 0rem;
+  border:0px;
+}
+.n-card-compact-no-padside {
+  padding-right: 0rem;
+  padding-left: 0rem;
+  border:0px;
 }
 
 /** <== Classes NPDS-core                                                   **/
@@ -255,11 +270,6 @@ max-width: 100%
 }
 }
 
-
-
-
-
-
 .ie7 .row1,
 .ie6 .row1 {
   overflow: auto;
@@ -269,98 +279,88 @@ max-width: 100%
 Dimension du site    *jmd work
 *************************************************************************/
 
-
-
 #container {
-	margin-left:auto;
-	margin-right:auto;
-        width:100%;
+   margin-left:auto;
+   margin-right:auto;
+   width:100%;
 }
 
 #corps, #decofoot,#decohead{  /* corps= entre header et footer */
-        max-width: 1440px;   /*   A changer si vous voulez divisible par 3 et par 4 */
- 	margin-left:auto;
-	margin-right:auto;
-	padding: 1em;
-         }
-#decohead{
-     color:white ;
-     width:80%;
-	 background:  url("../images/header.png") no-repeat;
-	 background-position: left top;
+   max-width: 1440px;   /*   A changer si vous voulez divisible par 3 et par 4 */
+   margin-left:auto;
+   margin-right:auto;
+   padding: 1em;
+}
+#decohead {
+   color:white ;
+   width:80%;
+   background:  url("../images/header.png") no-repeat;
+   background-position: left top;
 }
 
-#decohead a{
-color:white ;}
+#decohead a {color:white ;}
 
 /************************************************************************
 La Partie HEADER de votre Site
 *************************************************************************/
 header { /* Le Header Complet */
-
-	width: 100%;
-	height: auto;
-	margin-left:auto;
-	margin-right:auto;
-
+   width: 100%;
+   height: auto;
+   margin-left:auto;
+   margin-right:auto;
 }
 
 #headhaut {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    margin-top: 0em;
-    padding-top: .75rem;
-    background: #333;
-    color: white;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 50px;
+   margin-top: 0em;
+   padding-top: .75rem;
+   background: #333;
+   color: white;
 }
 #recherche input {
-	max-width:180px;
-	padding: 0;}
+   max-width:180px;
+   padding: 0;
+}
 
 
 /********************
 le  header   et son contenu ( sa taille est ds decoheader)
 **********************/
 .header1{
-    background: #b90909;
-  	margin:0px;
-	padding: 0px;
-	height: auto;
-	font-size: 1.125em;
-	
+   background: #b90909;
+   margin:0px;
+   padding: 0px;
+   height: auto;
+   font-size: 1.125em;
   }
 .slogan{
-	font-size: 1.5em;
-	font-weight:700;
+   font-size: 1.5em;
+   font-weight:700;
 }
 
-.search{
-	font-size: 1.0em;
-}
+.search{font-size: 1.0em;}
 
-
-.header-wrap {
-   
-}
+.header-wrap {}
 
 .header-menu-wrap {
-    background: #4d4d4d;
-    padding-top: 45px;
-    position: relative;
+   background: #4d4d4d;
+   padding-top: 45px;
+   position: relative;
 }
 
 .header-menu-wrap::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 15%;
-    height: 100%;
-    background: #B90909;
+   content: "";
+   display: block;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 15%;
+   height: 100%;
+   background: #B90909;
 }
 
 
@@ -370,18 +370,18 @@ le menu de mon header simple mais responsive
 .navbas{padding-top: .2em; background-image: linear-gradient(to bottom, #f6f6f6, #b4b3b3);}
 
 #navbas {
-	text-align: center;
+   text-align: center;
 }
 
 #navbas a {
-	display: inline-block;
-	padding: 10px; 
-	margin-bottom: 6px;
-	border-radius: 4px;
-	color: #fff; 
-	text-decoration: none;
-	font-weight: bold;
-	background: #a70a0a;
+   display: inline-block;
+   padding: 10px; 
+   margin-bottom: 6px;
+   border-radius: 4px;
+   color: #fff; 
+   text-decoration: none;
+   font-weight: bold;
+   background: #a70a0a;
 }
 
 #navbas a:hover{
@@ -470,59 +470,59 @@ Colonnes Gauche - Droite et Vos Blocs       voir le fichier php
 On customise le Menu bloc gauche il faudra cocher la case dans l'admin
 *****************************************/
 #LB_2 {
-	background-color: #ddd;
-    color: #fff;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #dbd8c4;
-    padding: 10px;
-    margin: 0px 10px 5px 10px;
+   background-color: #ddd;
+   color: #fff;
+   border-width: 2px;
+   border-style: solid;
+   border-color: #dbd8c4;
+   padding: 10px;
+   margin: 0px 10px 5px 10px;
 }
 
 #LB_2 a {
   font-weight:bold;	
   margin: 1px 0; /* espace les liens d'1 px */
-  padding: 0px 20px; /* marges internes pour a�rer */ 
+  padding: 0px 20px; /* marges internes pour aÈrer */ 
   color: #666;
   text-decoration: none; /* on vire le soulignement */
-  line-height: 1.750em;}
-  
+  line-height: 1.750em;
+}
 
-
-  #LB_2 li:hover{
-  color: #F0AD4E;	
-  background-color: #000;
+#LB_2 li:hover{
+   color: #F0AD4E;
+   background-color: #000;
 }
  #LB_2 a:hover{
-  font-weight:bold;	
+  font-weight:bold;
   background-color: #000;
   color: #F0AD4E;
-  text-decoration: none;  
-  line-height: 1.750em;}
+  text-decoration: none;
+  line-height: 1.750em;
+}
 
 /************************************************************************
 La Partie Footer de votre Site
 *************************************************************************/
 footer {
-	text-align: left;
-	padding-top: 0;
-	width: 100%;
-	clear: both;
+   text-align: left;
+   padding-top: 0;
+   width: 100%;
+   clear: both;
 }
 
 #footer {
-    background: #24221F none repeat scroll 0% 0%;
-    border-top: 15px solid #777;
-    color: #E9E5CD;
-    margin-top: 15px;
+   background: #24221F none repeat scroll 0% 0%;
+   border-top: 15px solid #777;
+   color: #E9E5CD;
+   margin-top: 15px;
 }
 
 #footer a {
-    color: #b3b11f;
+   color: #b3b11f;
 }
 
 #footer a:hover {
-    color: #808000;
+   color: #808000;
 }
 
 /***********************************
@@ -530,117 +530,109 @@ mes articles
 ***********************/
 
 .card {
-    position: relative;
-    /* display: block; */
-    background: #fefefe;
-	border: 1px solid #666;
-	border-top: 9px solid #666;
-	border-bottom: 4px solid #666;
-	border-radius: .025rem;
-
+   position: relative;
+   background: #fefefe;
+   border: 1px solid #666;
+   border-top: 9px solid #666;
+   border-bottom: 4px solid #666;
+   border-radius: .025rem;
 }
 
 .card-article {
-    position: relative;
-    display: block;
-	padding:0;
-    background: #fefefe;
-	border: 1px solid #969696;
-
+   position: relative;
+   display: block;
+   padding:0;
+   background: #fefefe;
+   border: 1px solid #969696;
 }
 
 .card-title {
-    margin-bottom: .75rem;
-    color: #9b0313;
+   margin-bottom: .75rem;
+   color: #9b0313;
 }
 
 .subune {   /* présentation des articles*/
-    overflow: hidden;
-    clear: both;
-    margin-bottom: 3.125em;
+   overflow: hidden;
+   clear: both;
+   margin-bottom: 3.125em;
 }
 .subune h2 {
-	font-size: 1.325em;
-	background: #4d4d4d;
-	color:#cacaca;
-    text-transform: uppercase;
-    font-family: "ProximaNova Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;
-    line-height: 1;
-	padding: 8px 10px;
+   font-size: 1.325em;
+   background: #4d4d4d;
+   color:#cacaca;
+   text-transform: uppercase;
+   font-family: "ProximaNova Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;
+   line-height: 1;
+   padding: 8px 10px;
 }
 
 .subune h2 a {
-    display: block;
-    background: #4d4d4d;
-    color: #cacaca;
-    padding: 8px 10px;
+   display: block;
+   background: #4d4d4d;
+   color: #cacaca;
+   padding: 8px 10px;
 }
 .subune h2 a:hover {
-    color: #fff;
-    padding: 8px 10px;
+   color: #fff;
+   padding: 8px 10px;
 }
-
 
 .bd-article {
-    position: relative;
-    margin: 1rem -1rem;
-    border: solid #f7f7f9;
-   
+   position: relative;
+   margin: 1rem -1rem;
+   border: solid #f7f7f9;
 }
-
 
 /*****************************************
 Adaptation des css au fil du test
 *********************************************/
 
 .list-group-item.active {   /* pour les titres des forum par exemple*/
-    z-index: 2;
-    color: #fff;
-    background-color: #9b0313;
-    border-color: #9b0313;
+   z-index: 2;
+   color: #fff;
+   background-color: #9b0313;
+   border-color: #9b0313;
 }
 
 ul {
-    list-style: none;
-    margin: 0;
-    padding-left:0;
+   list-style: none;
+   margin: 0;
+   padding-left:0;
 }
 
-
-
  /* texte et alignements*/
- 
- h1, .h1 {
+h1, .h1 {
     margin: 0 0 1.2rem 0;
 }
  
 h2, .h2 {
-    background: #ccc;
-    padding: 0px 5px 0px 5px;}
+   background: #ccc;
+   padding: 0px 5px 0px 5px;}
 h3, .h3 {
-    background: rgba(218, 228, 237, 0.59);
-    padding: 0px 5px 0px 5px;}
+   background: rgba(218, 228, 237, 0.59);
+   padding: 0px 5px 0px 5px;
+}
 
-.h4-blocL{display: block;
-font-size: 1.4rem;
-line-height: 1.71429;
-margin: 0 0 1.15rem 0;}
+.h4-blocL{
+   display: block;
+   font-size: 1.4rem;
+   line-height: 1.71429;
+   margin: 0 0 1.15rem 0;
+}
 
 #nav{background-color:#FFE667;}
 
-
 .sidebox {
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
-    background-color: #FAFAFA;
-    color: #333;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #FFF;
-    border-radius: 3px;
-    padding: 18px;
-    margin-top: 28px;
+   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.298);
+   background-color: #FAFAFA;
+   color: #333;
+   border-width: 1px;
+   border-style: solid;
+   border-color: #FFF;
+   border-radius: 3px;
+   padding: 18px;
+   margin-top: 28px;
 }
-
 
 .redborder {border: 1px solid red;}
 
@@ -649,27 +641,29 @@ margin: 0 0 1.15rem 0;}
 
 .beige {background-color:Beige;}
 
-.bU {background-color: #f7f7f7;
-border-left: 1px dotted black;
-border-right: 1px dotted black;
-border-bottom: 1px dotted black;}
+.bU {
+   background-color: #f7f7f7;
+   border-left: 1px dotted black;
+   border-right: 1px dotted black;
+   border-bottom: 1px dotted black;
+}
 
 /*****************************************
 Adaptation des css au fil du test
 *********************************************/
 
 label {
-    font-size: 1em;
-    line-height: 1.5;
-    margin:.3em 0;
+   font-size: 1em;
+   line-height: 1.5;
+   margin:.3em 0;
 }
 
-/* déco des tableaux */
+/* dé©co des tableaux */
 table {
-    background: #FFF none repeat scroll 0% 0%;
-    border: 1px solid #DDD;
-    margin-bottom: 1.25rem;
-    table-layout: auto;
+   background: #FFF none repeat scroll 0% 0%;
+   border: 1px solid #DDD;
+   margin-bottom: 1.25rem;
+   table-layout: auto;
 }
 
 table tr.even,
@@ -679,103 +673,104 @@ table tr:nth-of-type(2n) {
 }
 
 /* citation */
-.blockquote{
-  font-size: .9em;
- background: #F6F6EB80 none repeat scroll 0% 0%;
- border-width:1px 1px 1px 3px;
- border-style:solid ;
- border-color:black grey; }
+.blockquote {
+   font-size: .9em;
+   background: #F6F6EB80 none repeat scroll 0% 0%;
+   border-width:1px 1px 1px 3px;
+   border-style:solid ;
+   border-color:black grey;
+}
 
  /* les formulaires */
  
 .form-control {
-    border: 1px solid #C61913;
-    color: #000;
+   border: 1px solid #C61913;
+   color: #000;
 }
  
- input, select, textarea {
-    border: 1px solid #988029;
-    border-radius: 5px;
-    padding: .5em;
-    max-width: 100%;
+input, select, textarea {
+   border: 1px solid #988029;
+   border-radius: 5px;
+   padding: .5em;
+   max-width: 100%;
 }
 
 /* les boutons */
 
 .btn-sm, .btn {
-    width: auto;
+   width: auto;
 }
 
 .btn-sm, .btn-group-sm > .btn {
-    padding: 0.25rem 0.45rem;
-    font-size: .875rem;
-    line-height: 1;
-    border-radius: 0.2rem;
+   padding: 0.25rem 0.45rem;
+   font-size: .875rem;
+   line-height: 1;
+   border-radius: 0.2rem;
 }
 
  /********************************
-      travail JBP
+      travail Jpb
  ******************************/
 /*bloc admin*/
 .adm_img {
-height: 32px;
-width: 32px;
+  height: 32px;
+  width: 32px;
 }
 #adm_block li{
-width: 80px;
-margin: 3px;
-padding: 3px;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-border-radius: 4px;
--moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
--webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  width: 80px;
+  margin: 3px;
+  padding: 3px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 /*bloc ws*/
 a.tooltip_ws em {
-   display:none;
-   width:90px;
+  display:none;
+  width:90px;
 }
 a.tooltip_ws:hover {
-    border: 0;
-    position: relative;
-    z-index: 1070;
-    text-decoration:none;
+  border: 0;
+  position: relative;
+  z-index: 1070;
+  text-decoration:none;
 }
  a.tooltip_ws:hover em {
-   z-index: 1070;
-   font-style: normal;
-   font-size: 11px;
-   display: block;
-   top: 20px;
-   left: -10px;
-   padding: 5px;
-   color: #000;
-   border: 1px solid #999999;
-   background: #F8F8F8;
-   width:200px;
-   text-align: left;
-   position: absolute; left: 2em; top: 2em;
-   border-radius: 5px;
-   -moz-border-radius: 5px; 
-   -webkit-border-radius: 5px;
-   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
-   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
-   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1070;
+  font-style: normal;
+  font-size: 11px;
+  display: block;
+  top: 20px;
+  left: -10px;
+  padding: 5px;
+  color: #000;
+  border: 1px solid #999999;
+  background: #F8F8F8;
+  width:200px;
+  text-align: left;
+  position: absolute; left: 2em; top: 2em;
+  border-radius: 5px;
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
+  -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
 }
 a.tooltip_ws:hover em span {
-    position: absolute;
-    top: -7px;
-    left: 15px;
-    height: 7px;
-    width: 11px;
-    margin:0;
-    padding: 0;
-    border: 0;
-    }
-/* réimpléméntation pour V4 */    
+  position: absolute;
+  top: -7px;
+  left: 15px;
+  height: 7px;
+  width: 11px;
+  margin:0;
+  padding: 0;
+  border: 0;
+  }
+/* réimpléméntation pour V4 */
 .help-block {
   font-size: .85rem;
   display: block;
@@ -784,27 +779,26 @@ a.tooltip_ws:hover em span {
   color: #626262;
 } 
 
-
 @-webkit-keyframes fa-blink {
-     0% { opacity: 1; }
-     25% { opacity: 0.25; }
-     50% { opacity: 0.5; }
-     75% { opacity: 0.75; }
-     100% { opacity: 0; }
+  0% { opacity: 1; }
+  25% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+  75% { opacity: 0.75; }
+  100% { opacity: 0; }
  }
 @keyframes fa-blink {
-     0% { opacity: 1; }
-     25% { opacity: 0.25; }
-     50% { opacity: 0.5; }
-     75% { opacity: 0.75; }
-     100% { opacity: 0; }
- }
+  0% { opacity: 1; }
+  25% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+  75% { opacity: 0.75; }
+  100% { opacity: 0; }
+}
 .fa-blink {
-   -webkit-animation: fa-blink .75s linear infinite;
-   -moz-animation: fa-blink .75s linear infinite;
-   -ms-animation: fa-blink .75s linear infinite;
-   -o-animation: fa-blink .75s linear infinite;
-   animation: fa-blink .75s linear infinite;
+  -webkit-animation: fa-blink .75s linear infinite;
+  -moz-animation: fa-blink .75s linear infinite;
+  -ms-animation: fa-blink .75s linear infinite;
+  -o-animation: fa-blink .75s linear infinite;
+  animation: fa-blink .75s linear infinite;
 }
 
 /* ==> Animation des web icones fa */
@@ -875,99 +869,83 @@ a.tooltip_ws:hover em span {
     transform: rotate(0deg);
   }
 }
-
 @keyframes wrench {
   0% {
     -webkit-transform: rotate(-12deg);
     -ms-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   8% {
     -webkit-transform: rotate(12deg);
     -ms-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   10% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   18% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   20% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   28% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   30% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   38% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   40% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   48% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   50% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   58% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   60% {
     -webkit-transform: rotate(-24deg);
     -ms-transform: rotate(-24deg);
     transform: rotate(-24deg);
   }
-
   68% {
     -webkit-transform: rotate(24deg);
     -ms-transform: rotate(24deg);
     transform: rotate(24deg);
   }
-
   75%, 100% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
-
 .faa-wrench.animated,
 .faa-wrench.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-wrench {
@@ -977,14 +955,12 @@ a.tooltip_ws:hover em span {
   transform-origin-y: 35%;
   transform-origin-z: initial;
 }
-
 .faa-wrench.animated.faa-fast,
 .faa-wrench.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-wrench.faa-fast {
   -webkit-animation: wrench 1.2s ease infinite;
   animation: wrench 1.2s ease infinite;
 }
-
 .faa-wrench.animated.faa-slow,
 .faa-wrench.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-wrench.faa-slow {
@@ -993,132 +969,109 @@ a.tooltip_ws:hover em span {
 }
 
 /* BELL */
-
 @-webkit-keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);
     transform: rotate(-15deg);
   }
-
   2% {
     -webkit-transform: rotate(15deg);
     transform: rotate(15deg);
   }
-
   4% {
     -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   6% {
     -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   8% {
     -webkit-transform: rotate(-22deg);
     transform: rotate(-22deg);
   }
-
   10% {
     -webkit-transform: rotate(22deg);
     transform: rotate(22deg);
   }
-
   12% {
     -webkit-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   14% {
     -webkit-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   16% {
     -webkit-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   18% {
     -webkit-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   20%, 100% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
-
 @keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);
     -ms-transform: rotate(-15deg);
     transform: rotate(-15deg);
   }
-
   2% {
     -webkit-transform: rotate(15deg);
     -ms-transform: rotate(15deg);
     transform: rotate(15deg);
   }
-
   4% {
     -webkit-transform: rotate(-18deg);
     -ms-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   6% {
     -webkit-transform: rotate(18deg);
     -ms-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   8% {
     -webkit-transform: rotate(-22deg);
     -ms-transform: rotate(-22deg);
     transform: rotate(-22deg);
   }
-
   10% {
     -webkit-transform: rotate(22deg);
     -ms-transform: rotate(22deg);
     transform: rotate(22deg);
   }
-
   12% {
     -webkit-transform: rotate(-18deg);
     -ms-transform: rotate(-18deg);
     transform: rotate(-18deg);
   }
-
   14% {
     -webkit-transform: rotate(18deg);
     -ms-transform: rotate(18deg);
     transform: rotate(18deg);
   }
-
   16% {
     -webkit-transform: rotate(-12deg);
     -ms-transform: rotate(-12deg);
     transform: rotate(-12deg);
   }
-
   18% {
     -webkit-transform: rotate(12deg);
     -ms-transform: rotate(12deg);
     transform: rotate(12deg);
   }
-
   20%, 100% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 }
-
 .faa-ring.animated,
 .faa-ring.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-ring {
@@ -1128,14 +1081,12 @@ a.tooltip_ws:hover em span {
   transform-origin-y: 0px;
   transform-origin-z: initial;
 }
-
 .faa-ring.animated.faa-fast,
 .faa-ring.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-ring.faa-fast {
   -webkit-animation: ring 1s ease infinite;
   animation: ring 1s ease infinite;
 }
-
 .faa-ring.animated.faa-slow,
 .faa-ring.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-ring.faa-slow {
@@ -1144,102 +1095,85 @@ a.tooltip_ws:hover em span {
 }
 
 /* VERTICAL */
-
 @-webkit-keyframes vertical {
   0% {
     -webkit-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   4% {
     -webkit-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   8% {
     -webkit-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   12% {
     -webkit-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   16% {
     -webkit-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   20% {
     -webkit-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   22%, 100% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
 }
-
 @keyframes vertical {
   0% {
     -webkit-transform: translate(0,-3px);
     -ms-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   4% {
     -webkit-transform: translate(0,3px);
     -ms-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   8% {
     -webkit-transform: translate(0,-3px);
     -ms-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   12% {
     -webkit-transform: translate(0,3px);
     -ms-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   16% {
     -webkit-transform: translate(0,-3px);
     -ms-transform: translate(0,-3px);
     transform: translate(0,-3px);
   }
-
   20% {
     -webkit-transform: translate(0,3px);
     -ms-transform: translate(0,3px);
     transform: translate(0,3px);
   }
-
   22%, 100% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
 }
-
 .faa-vertical.animated,
 .faa-vertical.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-vertical {
   -webkit-animation: vertical 2s ease infinite;
   animation: vertical 2s ease infinite;
 }
-
 .faa-vertical.animated.faa-fast,
 .faa-vertical.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-vertical.faa-fast {
   -webkit-animation: vertical 1s ease infinite;
   animation: vertical 1s ease infinite;
 }
-
 .faa-vertical.animated.faa-slow,
 .faa-vertical.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-vertical.faa-slow {
@@ -1248,38 +1182,31 @@ a.tooltip_ws:hover em span {
 }
 
 /* HORIZONTAL */
-
 @-webkit-keyframes horizontal {
   0% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   6% {
     -webkit-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   12% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   18% {
     -webkit-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   24% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   30% {
     -webkit-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   36%, 100% {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
@@ -1292,58 +1219,49 @@ a.tooltip_ws:hover em span {
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   6% {
     -webkit-transform: translate(5px,0);
     -ms-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   12% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   18% {
     -webkit-transform: translate(5px,0);
     -ms-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   24% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
-
   30% {
     -webkit-transform: translate(5px,0);
     -ms-transform: translate(5px,0);
     transform: translate(5px,0);
   }
-
   36%, 100% {
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
     transform: translate(0,0);
   }
 }
-
 .faa-horizontal.animated,
 .faa-horizontal.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-horizontal {
   -webkit-animation: horizontal 2s ease infinite;
   animation: horizontal 2s ease infinite;
 }
-
 .faa-horizontal.animated.faa-fast,
 .faa-horizontal.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-horizontal.faa-fast {
   -webkit-animation: horizontal 1s ease infinite;
   animation: horizontal 1s ease infinite;
 }
-
 .faa-horizontal.animated.faa-slow,
 .faa-horizontal.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-horizontal.faa-slow {
@@ -1352,41 +1270,26 @@ a.tooltip_ws:hover em span {
 }
 
 /* FLASHING */
-
 @-webkit-keyframes flash {
-  0%, 100%, 50% {
-    opacity: 1;
-  }
-
-  25%, 75% {
-    opacity: 0;
-  }
+  0%, 100%, 50% { opacity: 1;}
+  25%, 75% {opacity: 0;}
 }
-
 @keyframes flash {
-  0%, 100%, 50% {
-    opacity: 1;
-  }
-
-  25%, 75% {
-    opacity: 0;
-  }
+  0%, 100%, 50% {opacity: 1;}
+  25%, 75% {opacity: 0;}
 }
-
 .faa-flash.animated,
 .faa-flash.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-flash {
   -webkit-animation: flash 2s ease infinite;
   animation: flash 2s ease infinite;
 }
-
 .faa-flash.animated.faa-fast,
 .faa-flash.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-flash.faa-fast {
   -webkit-animation: flash 1s ease infinite;
   animation: flash 1s ease infinite;
 }
-
 .faa-flash.animated.faa-slow,
 .faa-flash.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-flash.faa-slow {
@@ -1395,58 +1298,49 @@ a.tooltip_ws:hover em span {
 }
 
 /* BOUNCE */
-
 @-webkit-keyframes bounce {
   0%, 10%, 20%, 50%, 80%, 100% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-
   40% {
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
-
   60% {
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
 }
-
 @keyframes bounce {
   0%, 10%, 20%, 50%, 80%, 100% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
-
   40% {
     -webkit-transform: translateY(-15px);
     -ms-transform: translateY(-15px);
     transform: translateY(-15px);
   }
-
   60% {
     -webkit-transform: translateY(-15px);
     -ms-transform: translateY(-15px);
     transform: translateY(-15px);
   }
 }
-
 .faa-bounce.animated,
 .faa-bounce.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-bounce {
   -webkit-animation: bounce 2s ease infinite;
   animation: bounce 2s ease infinite;
 }
-
 .faa-bounce.animated.faa-fast,
 .faa-bounce.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-bounce.faa-fast {
   -webkit-animation: bounce 1s ease infinite;
   animation: bounce 1s ease infinite;
 }
-
 .faa-bounce.animated.faa-slow,
 .faa-bounce.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-bounce.faa-slow {
@@ -1455,47 +1349,40 @@ a.tooltip_ws:hover em span {
 }
 
 /* SPIN */
-
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(359deg);
     -ms-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 .faa-spin.animated,
 .faa-spin.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-spin {
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
 }
-
 .faa-spin.animated.faa-fast,
 .faa-spin.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-spin.faa-fast {
   -webkit-animation: spin 0.7s linear infinite;
   animation: spin 0.7s linear infinite;
 }
-
 .faa-spin.animated.faa-slow,
 .faa-spin.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-spin.faa-slow {
@@ -1504,58 +1391,49 @@ a.tooltip_ws:hover em span {
 }
 
 /* FLOAT */
-
 @-webkit-keyframes float {
   0% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-
   50% {
     -webkit-transform: translateY(-6px);
     transform: translateY(-6px);
   }
-
   100% {
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }
-
 @keyframes float {
   0% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
-
   50% {
     -webkit-transform: translateY(-6px);
     -ms-transform: translateY(-6px);
     transform: translateY(-6px);
   }
-
   100% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
 }
-
 .faa-float.animated,
 .faa-float.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-float {
   -webkit-animation: float 2s linear infinite;
   animation: float 2s linear infinite;
 }
-
 .faa-float.animated.faa-fast,
 .faa-float.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-float.faa-fast {
   -webkit-animation: float 1s linear infinite;
   animation: float 1s linear infinite;
 }
-
 .faa-float.animated.faa-slow,
 .faa-float.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-float.faa-slow {
@@ -1564,37 +1442,31 @@ a.tooltip_ws:hover em span {
 }
 
 /* PULSE */
-
 @-webkit-keyframes pulse {
   0% {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
-
   50% {
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
-
   100% {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 }
-
 @keyframes pulse {
   0% {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
-
   50% {
     -webkit-transform: scale(0.8);
     -ms-transform: scale(0.8);
     transform: scale(0.8);
   }
-
   100% {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
@@ -1608,14 +1480,12 @@ a.tooltip_ws:hover em span {
   -webkit-animation: pulse 2s linear infinite;
   animation: pulse 2s linear infinite;
 }
-
 .faa-pulse.animated.faa-fast,
 .faa-pulse.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-pulse.faa-fast {
   -webkit-animation: pulse 1s linear infinite;
   animation: pulse 1s linear infinite;
 }
-
 .faa-pulse.animated.faa-slow,
 .faa-pulse.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-pulse.faa-slow {
@@ -1624,21 +1494,18 @@ a.tooltip_ws:hover em span {
 }
 
 /* SHAKE */
-
 .faa-shake.animated,
 .faa-shake.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-shake {
   -webkit-animation: wrench 2.5s ease infinite;
   animation: wrench 2.5s ease infinite;
 }
-
 .faa-shake.animated.faa-fast,
 .faa-shake.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-shake.faa-fast {
   -webkit-animation: wrench 1.2s ease infinite;
   animation: wrench 1.2s ease infinite;
 }
-
 .faa-shake.animated.faa-slow,
 .faa-shake.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-shake.faa-slow {
@@ -1647,28 +1514,23 @@ a.tooltip_ws:hover em span {
 }
 
 /* TADA */
-
 @-webkit-keyframes tada {
   0% {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
-
   10%, 20% {
     -webkit-transform: scale(.9) rotate(-8deg);
     transform: scale(.9) rotate(-8deg);
   }
-
   30%, 50%, 70% {
     -webkit-transform: scale(1.3) rotate(8deg);
     transform: scale(1.3) rotate(8deg);
   }
-
   40%, 60% {
     -webkit-transform: scale(1.3) rotate(-8deg);
     transform: scale(1.3) rotate(-8deg);
   }
-
   80%, 100% {
     -webkit-transform: scale(1) rotate(0);
     transform: scale(1) rotate(0);
@@ -1681,25 +1543,21 @@ a.tooltip_ws:hover em span {
     -ms-transform: scale(1);
     transform: scale(1);
   }
-
   10%, 20% {
     -webkit-transform: scale(.9) rotate(-8deg);
     -ms-transform: scale(.9) rotate(-8deg);
     transform: scale(.9) rotate(-8deg);
   }
-
   30%, 50%, 70% {
     -webkit-transform: scale(1.3) rotate(8deg);
     -ms-transform: scale(1.3) rotate(8deg);
     transform: scale(1.3) rotate(8deg);
   }
-
   40%, 60% {
     -webkit-transform: scale(1.3) rotate(-8deg);
     -ms-transform: scale(1.3) rotate(-8deg);
     transform: scale(1.3) rotate(-8deg);
   }
-
   80%, 100% {
     -webkit-transform: scale(1) rotate(0);
     -ms-transform: scale(1) rotate(0);
@@ -1729,27 +1587,23 @@ a.tooltip_ws:hover em span {
 }
 
 /* PASSING */
-
 @-webkit-keyframes passing {
   0% {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     opacity: 0;
   }
-
   50% {
     -webkit-transform: translateX(0%);
     transform: translateX(0%);
     opacity: 1;
   }
-
   100% {
     -webkit-transform: translateX(50%);
     transform: translateX(50%);
     opacity: 0;
   }
 }
-
 @keyframes passing {
   0% {
     -webkit-transform: translateX(-50%);
@@ -1757,14 +1611,12 @@ a.tooltip_ws:hover em span {
     transform: translateX(-50%);
     opacity: 0;
   }
-
   50% {
     -webkit-transform: translateX(0%);
     -ms-transform: translateX(0%);
     transform: translateX(0%);
     opacity: 1;
   }
-
   100% {
     -webkit-transform: translateX(50%);
     -ms-transform: translateX(50%);
@@ -1779,14 +1631,12 @@ a.tooltip_ws:hover em span {
   -webkit-animation: passing 2s linear infinite;
   animation: passing 2s linear infinite;
 }
-
 .faa-passing.animated.faa-fast,
 .faa-passing.animated-hover.faa-fast:hover,
 .faa-parent.animated-hover:hover > .faa-passing.faa-fast {
   -webkit-animation: passing 1s linear infinite;
   animation: passing 1s linear infinite;
 }
-
 .faa-passing.animated.faa-slow,
 .faa-passing.animated-hover.faa-slow:hover,
 .faa-parent.animated-hover:hover > .faa-passing.faa-slow {
@@ -1795,38 +1645,24 @@ a.tooltip_ws:hover em span {
 }
 
 /* WAVE */
-
 @-webkit-keyframes burst {
-  0% {
-    opacity: .6;
-  }
-
+  0% {opacity: .6;}
   50% {
     -webkit-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-
-  100% {
-    opacity: 0;
-  }
+  100% {opacity: 0;}
 }
-
 @keyframes burst {
-  0% {
-    opacity: .6;
-  }
-
+  0% {opacity: .6;}
   50% {
     -webkit-transform: scale(1.8);
     -ms-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-
-  100% {
-    opacity: 0;
-  }
+  100% {opacity: 0;}
 }
 .faa-burst.animated,
 .faa-burst.animated-hover:hover,
@@ -1849,7 +1685,6 @@ a.tooltip_ws:hover em span {
 
 /* <== Animation des web icones fa */
 
-@charset "utf-8";
 /*! fileicon.css v1.0.0 | MIT License | github.com/picturepan2/fileicon.css */
 /* fileicon.basic */
 .file-icon {
@@ -1989,7 +1824,6 @@ a.tooltip_ws:hover em span {
   background: #F4B400;
 }
 
-
 .fa-stack-1x { top: .35em; }
 .fa-stack {
   font-size: .9em;
@@ -2103,3 +1937,40 @@ a.tooltip_ws:hover em span {
   transform: scale(1);
   background-color: rgba(0,0,0,0.4);
 }
+
+.ui-draggable-dragging {
+   z-index: 10000!important
+}
+.ui-draggable {
+   z-index: 10;
+}
+
+input[required='required'] {
+border: 1px solid ;
+}
+
+
+/* ==> personalisation responsivité des colonnes de card */
+
+@media (min-width: 576px) and (max-width: 640px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+@media (min-width: 760px) and (max-width: 991px) {
+.card-columns {
+ column-count: 4;
+ }
+}
+@media (min-width: 991px) and (max-width: 1080px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+
+
+@media (min-width: 1200px) { card-columns {
+ column-count: 3;
+ }}
+/* <== personalisation responsivité des colonnes de card */
+
