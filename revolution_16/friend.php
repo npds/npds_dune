@@ -32,6 +32,7 @@ function FriendSend($sid, $archive) {
    <form action="friend.php" method="post">
       <input type="hidden" name="sid" value="'.$sid.'" />';
    global $user;
+   $yn=''; $ye='';
    if ($user) {
       global $cookie;
       $result=sql_query("SELECT name, email FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
