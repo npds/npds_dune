@@ -122,6 +122,7 @@ function group_liste() {
    <h3 class="my-3"><a class="tog small" id="hide_lst_gr" title="'.adm_translate("Replier la liste").'" ><i id="i_lst_gr" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Liste des groupes").'</h3>
    <div id="lst_gr" class="row">
       <div id="gr_dat" class="p-3">';
+   $lst_gr_json='';
    if ($one_gp) {
       sort($tab_groupeIII);
       while (list($bidon,$gp)=each($tab_groupeIII)) {
@@ -146,7 +147,7 @@ function group_liste() {
          $lst_uidna_json='';
          
          //==> liste membres du groupe
-         $lst_gr_json='';
+//         $lst_gr_json='';
          echo '<ul id="lst_mb_gr_'.$gp.'" style ="display:none; padding-left:0px; -webkit-padding-start: 0px;">';
          while (list($bidon,$uidX)=each($tab_groupe)) {
             if ($uidX) {
