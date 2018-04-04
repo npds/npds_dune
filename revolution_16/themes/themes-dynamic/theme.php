@@ -56,7 +56,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
-   "'!N_emetteur!'i"=>userpopover($informant).'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
+   "'!N_emetteur!'i"=>userpopover($informant,40).'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
 
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
@@ -115,7 +115,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
-   "'!N_emetteur!'i"=>userpopover($informant).'<a href="user.php?op=userinfo&amp;uname='.$informant.'"><span class="">'.$informant.'</span></a>',
+   "'!N_emetteur!'i"=>userpopover($informant,40).'<a href="user.php?op=userinfo&amp;uname='.$informant.'"><span class="">'.$informant.'</span></a>',
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
    "'!N_date_m!'i"=>strftime("%B", mktime(0,0,0, substr($time,5,2),1,2000)),
@@ -183,7 +183,7 @@ function themedito($content) {
    }
    return ($inclusion);
 }
-function userpopover($who) {
+function userpopover($who,$dim) {
    global $short_user, $user, $NPDS_Prefix;
    $result=sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname ='$who'");
    include_once('functions.php');
@@ -242,7 +242,7 @@ function userpopover($who) {
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-primary img-thumbnail img-fluid n-ava-small mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
 
    return $userpop;
    }

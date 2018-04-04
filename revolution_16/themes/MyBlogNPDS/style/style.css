@@ -60,6 +60,22 @@ a:active, a:hover {
   max-width:48px;
   max-height:48px;
 }
+.n-ava-64 {
+  max-width:64px;
+  max-height:64px;
+}
+.n-ava-48 {
+  max-width:48px;
+  max-height:48px;
+}
+.n-ava-40 {
+  max-width:40px;
+  max-height:40px;
+}
+.n-ava-36 {
+  max-width:36px;
+  max-height:36px;
+}
 .n-smil {
   width:24px;
   height:24px;
@@ -112,9 +128,7 @@ a:active, a:hover {
 /** ==> ID NPDS-Core                                                        **/
 #corps{background-color:white;}
 #footer{}
-#pied{
-  text-align:center;
-}
+#pied{text-align:center;}
 #col_princ{}
 #col_LB{}
 #col_RB{}
@@ -181,10 +195,7 @@ a:active, a:hover {
 /* ==> toggle systeme identique au navbar mais pour les col */
 
 @media (max-width: 991px) {
-  .n-c {
-  display:none;
-  margin-top: 1rem;
-  };
+  .n-c {display:none;}
 }
 /* <== toggle systeme identique au navbar mais pour les col */
 
@@ -204,8 +215,8 @@ div .pull-right.search input.form-control{
   border-left: 0.25rem solid #eceeef;
 }
 
-.form-control-label {
-  font-weight: 500;
+.col-form-label {
+  font-weight: 400;
 }
 
 /* ombre sur tout les icones
@@ -406,7 +417,22 @@ ui-menu-item-wrapper {
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
 .fixed-table-footer, .fixed-table-header {
-  height: 0px;
+  height: 1px;
+  border:1px;
+}
+
+.fixed-table-container{border-top:0px;}
+ */ 
+ 
+.bootstrap-table .table{
+border-bottom:0px;
+}
+
+
+.card-views .card-view 
+{
+    margin-bottom: .25rem;
+    margin-top: .25rem;
 }
 /* idem grid BS pour largeur d'élément*/
 .n-t-col-xs-0-5 {
@@ -490,19 +516,19 @@ form .form-control-feedback:hover {
 
 /*bloc admin*/
 .adm_img {
-height: 32px;
-width: 32px;
+  height: 32px;
+  width: 32px;
 }
 #adm_block li{
-width: 80px;
-margin: 3px;
-padding: 3px;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-border-radius: 4px;
--moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
--webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  width: 80px;
+  margin: 3px;
+  padding: 3px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 /*bloc ws*/
@@ -555,7 +581,6 @@ a.tooltip_ws:hover em span {
   margin-bottom: 10px;
   color: #626262;
 } 
-
 
 @-webkit-keyframes fa-blink {
   0% { opacity: 1; }
@@ -1049,20 +1074,12 @@ a.tooltip_ws:hover em span {
 
 /* FLASHING */
 @-webkit-keyframes flash {
-  0%, 100%, 50% {
-    opacity: 1;
-  }
-  25%, 75% {
-    opacity: 0;
-  }
+  0%, 100%, 50% { opacity: 1;}
+  25%, 75% {opacity: 0;}
 }
 @keyframes flash {
-  0%, 100%, 50% {
-    opacity: 1;
-  }
-  25%, 75% {
-    opacity: 0;
-  }
+  0%, 100%, 50% {opacity: 1;}
+  25%, 75% {opacity: 0;}
 }
 .faa-flash.animated,
 .faa-flash.animated-hover:hover,
@@ -1259,6 +1276,7 @@ a.tooltip_ws:hover em span {
     transform: scale(1.1);
   }
 }
+
 .faa-pulse.animated,
 .faa-pulse.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-pulse {
@@ -1430,33 +1448,24 @@ a.tooltip_ws:hover em span {
 }
 
 /* WAVE */
-
 @-webkit-keyframes burst {
-  0% {
-    opacity: .6;
-  }
+  0% {opacity: .6;}
   50% {
     -webkit-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-  100% {
-    opacity: 0;
-  }
+  100% {opacity: 0;}
 }
 @keyframes burst {
-  0% {
-    opacity: .6;
-  }
+  0% {opacity: .6;}
   50% {
     -webkit-transform: scale(1.8);
     -ms-transform: scale(1.8);
     transform: scale(1.8);
     opacity: 0;
   }
-  100% {
-    opacity: 0;
-  }
+  100% {opacity: 0;}
 }
 .faa-burst.animated,
 .faa-burst.animated-hover:hover,
@@ -1733,8 +1742,38 @@ a.tooltip_ws:hover em span {
 }
 
 .ui-draggable-dragging {
-z-index: 10000!important}
-
-.ui-draggable {
-z-index: 10;
+   z-index: 10000!important
 }
+.ui-draggable {
+   z-index: 10;
+}
+
+input[required='required'] {
+border: 1px solid ;
+}
+
+
+/* ==> personalisation responsivité des colonnes de card */
+
+@media (min-width: 576px) and (max-width: 640px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+@media (min-width: 760px) and (max-width: 991px) {
+.card-columns {
+ column-count: 4;
+ }
+}
+@media (min-width: 991px) and (max-width: 1080px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+
+
+@media (min-width: 1200px) { card-columns {
+ column-count: 3;
+ }}
+/* <== personalisation responsivité des colonnes de card */
+

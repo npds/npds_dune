@@ -195,9 +195,9 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       echo '<div class="alert alert-danger">'.translate("Product Official Website. Make sure your URL starts by").' http(s)://</div>';
    }
 
-   if ($error == 1) {
-   echo '<button class="btn btn-secondary" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';
-   } else {
+   if ($error == 1)
+      echo '<button class="btn btn-secondary" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';
+   else {
       global $gmt;
       $fdate=date(str_replace('%','',translate("linksdatestring")),time()+((integer)$gmt*3600));
 
@@ -252,7 +252,8 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
          echo '
          <div class="alert alert-success"><strong>'.translate("Note:").'</strong> '.translate("Currently logged in as admin... this review will be").' '.$word.' '.translate("immediately").'.</div>';
    }
-   echo '</form>';
+   echo '
+   </form>';
    include ("footer.php");
 }
 

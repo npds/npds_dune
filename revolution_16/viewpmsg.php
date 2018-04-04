@@ -86,12 +86,14 @@ include("auth.php");
 
       echo '
       <form name="prvmsg" method="get" action="replypmsg.php">
-         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
+         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-search="true" data-search-align="left"
+               data-buttons-align="left"
+               data-toolbar-align="left">
             <thead class="thead-default">
                <tr>
-                  <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="center">
                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="Check All" />
+                        <input class="custom-control-input" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="" />
                         <label class="custom-control-label bg-danger" for="allbox"></label>
                      </div>
                   </th>
@@ -99,7 +101,7 @@ include("auth.php");
       if ($smilies) { echo '
                   <th class="n-t-col-xs-1" data-align="center" >&nbsp;</th>'; }
       echo '
-                  <th data-halign="center" data-sortable="true" data-align="center">'.translate("From").'</th>
+                  <th data-halign="center" data-sortable="true" data-align="left">'.translate("From").'</th>
                   <th data-halign="center" data-sortable="true" >'.translate("Subject").'</th>
                   <th data-halign="center" data-sortable="true" data-align="right">'.translate("Date").'</th>
                </tr>
@@ -128,7 +130,7 @@ include("auth.php");
                   <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-envelope fa-lg faa-shake animated"></i></a></td>';
          if ($smilies) {
             if ($myrow['msg_image']!='') {
-               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
+               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) $imgtmp=$ibid; else $imgtmp="images/forum/subject/".$myrow['msg_image'];
                echo '
                   <td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else {
@@ -137,12 +139,12 @@ include("auth.php");
             }
          }
          echo '
-                  <td>'.userpopover(2).'<a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" >';
+                  <td>'.userpopover($posterdata['uname'],40);
          if ($posterdata['uid']<>1)
             echo $posterdata['uname'];
          else
             echo $sitename;
-         echo '</a></td>
+         echo '</td>
                   <td>'.aff_langue($myrow['subject']).'</td>
                   <td align="center" width="20%">'.$myrow['msg_time'].'</td>
                </tr>';
@@ -176,7 +178,7 @@ include("auth.php");
       <div class="card card-body mt-3">
       <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Private Message")." - </span>".translate("Outbox").'<span class="badge badge-secondary float-right">'.$total_messages.'</span></h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
-         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" >
+         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
             <thead class="thead-default">
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
@@ -215,7 +217,7 @@ include("auth.php");
                </td>';
          if ($smilies) {
             if ($myrow['msg_image']!='') {
-               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['msg_image'];}
+               if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) $imgtmp=$ibid; else $imgtmp="images/forum/subject/".$myrow['msg_image'];
                echo '<td width="5%" align="center"><img class="n-smil" src="'.$imgtmp.'" alt="Image du topic" /></td>';
             } else {
                echo '<td width="5%" align="center">&nbsp;</td>';

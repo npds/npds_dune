@@ -175,34 +175,34 @@ include('auth.php');
          if ($type!='outbox') {
             if ($posterdata['uid']<>1)
             echo '
-            <li class="page-item"><a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-reply fa-lg"></i></a></li>';
+            <li class="page-item"><a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a></li>';
          }
          if ($previous >= 0) echo '
             <li class="page-item">
                <a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >
-                  <span class="d-none d-lg-inline">'.translate("Previous Messages").'</span>
-                  <span class="d-lg-none" title="'.translate("Previous Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Previous Messages").'</span>
+                  <span class="d-md-none" title="'.translate("Previous Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
                </a>
             </li>';
          else echo '
             <li class="page-item">
                <a class="page-link disabled" href="#">
-                  <span class="d-none d-lg-inline">'.translate("Previous Messages").'</span>
-                  <span class="d-lg-none" title="'.translate("Previous Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Previous Messages").'</span>
+                  <span class="d-md-none" title="'.translate("Previous Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
                </a>
             </li>';
          if ($next < $total_messages) echo '
             <li class="page-item" >
                <a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >
-                  <span class="d-none d-lg-inline">'.translate("Next Messages").'</span>
-                  <span class="d-lg-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Next Messages").'</span>
+                  <span class="d-md-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
          else echo '
             <li class="page-item">
                <a class="page-link disabled" href="#">
-                  <span class="d-none d-lg-inline">'.translate("Next Messages").'</span>
-                  <span class="d-lg-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Next Messages").'</span>
+                  <span class="d-md-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
          if ($type!='outbox') {
