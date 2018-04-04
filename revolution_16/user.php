@@ -463,6 +463,7 @@ function userinfo($uname) {
    echo '
    <div class="card card-body">
       <div class="row">';
+   if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
       if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') 
          echo '
          <div class="col-md-6">';
@@ -472,14 +473,14 @@ function userinfo($uname) {
    include("modules/sform/extend-user/aff_extend-user.php");
    echo '
          </div>';
-
-   if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
-      define('GEO_US', true);
-      $content = '';
-      $content .='
+   if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
+      if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
+         define('GEO_US', true);
+         $content = '';
+         $content .='
          <div class="col-md-6">
             <div id="map_user" style="width:100%; height:400px;"></div>';
-      $content .='
+         $content .='
 <script type="text/javascript">
 //<![CDATA[
       $(document).ready(function() {
@@ -569,22 +570,18 @@ function userinfo($uname) {
    }
 //   $(document.body).attr("onload", "geoloc_loaduser()");
 //]]>
-</script>
-
-
-
-';
-      $content .='
+</script>';
+         $content .='
          <div class="mt-3">
             <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
-      if($admin)
-         $content .= '
+         if($admin)
+            $content .= '
             <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
-      $content .= '
+         $content .= '
             </div>
          </div>';
-      $content = aff_langue($content);
-      echo $content;
+         $content = aff_langue($content);
+         echo $content;
    }
 
    echo '
