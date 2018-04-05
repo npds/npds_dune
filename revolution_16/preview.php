@@ -31,7 +31,7 @@ switch ($acc) {
          $messageP .= ' [addsig]';
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = af_cod($messageP);
-//         $messageP = str_replace("\n", '<br />', $messageP);
+         $messageP = str_replace("\n", '<br />', $messageP);
       }
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5))
          $messageP = smile($messageP);
@@ -139,14 +139,14 @@ switch ($acc) {
          if ($allow_bbcode) $messageP=smilie($messageP);
          $messageP=str_replace('[addsig]', '<div class="n-signature">'.nl2br($theposterdata['user_sig']).'</div>', $messageP);
          echo $messageP.'
-         </div></div>';
+                     </div>
+                  </div>';
       }
       echo '
                </div>
             </div>
          </div>
-      </div>
-   </div>';
+      </div>';
 
 if ($acc=='reply'|| $acc=='editpost')
    $userdata=$userdatat;

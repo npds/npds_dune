@@ -29,6 +29,8 @@ settype($Xreply,'string');
 settype($to_user,'string');
 settype($send,'string');
 settype($sig,'string');
+settype($copie,'string');
+
 
 if ($cancel) {
    if ($full_interface!='short')
@@ -69,8 +71,6 @@ else {
       $message = make_clickable($message);
       $message = removeHack(addslashes($message));
       $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-
-//      var_dump($time);
 
       include_once("language/lang-multi.php");
       if (strstr($to_user,',')) {
@@ -239,36 +239,6 @@ else {
          }
          $Xmessage = make_clickable($Xmessage);
          echo $Xmessage;
-            
-            /*
-            echo '
-            <div class="row mb-3">
-               <div class="col-12">
-                  <div class="card">
-                     <div class="card-header">
-                         <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="jpb" data-content="<img class=\'n-smil\' src=&quot;themes/npds-boost_sk/images/forum/rank/post.gif&quot; alt=&quot;&quot; />1915&nbsp;<i class=&quot;fa fa-star-o text-success mr-1&quot;></i><i class=&quot;fa fa-star-o text-success mr-1&quot;></i><i class=&quot;fa fa-star-o text-success mr-1&quot;></i><i class=&quot;fa fa-star-o text-success mr-1&quot;></i><i class=&quot;fa fa-star-o text-success mr-1&quot;></i><br /><img src=&quot;themes/npds-boost_sk/images/forum/rank/5.gif&quot; border=&quot;&quot; alt=&quot;&quot; />&nbsp;" data-original-title="" title=""><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="images/forum/avatar/108.gif" alt="jpb"></a>
-                        &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>jpb</strong></span>
-                        <span class="float-right">';
-            if ($row['msg_image'] != '') {
-               if ($ibid=theme_image("forum/subject/".$row['msg_image'])) $imgtmp=$ibid; else $imgtmp="images/forum/subject/".$row['msg_image'];
-               echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />';
-            } 
-            else {
-               if ($ibid=theme_image("forum/subject/00.png")) $imgtmp=$ibid; else $imgtmp="images/forum/subject/00.png";
-               echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
-            }
-            echo '
-                        </span>
-                     </div>
-                     <div class="card-body">
-                        <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").'</span>
-                        <div id="post_preview" class="card-text pt-3">'.$Xmessage.'</div>
-                     </div>
-                  </div>
-               </div>
-            </div>';
-            
-            */
             echo '<hr />';
          }
          echo '

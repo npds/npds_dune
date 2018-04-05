@@ -223,20 +223,20 @@ function userpopover($who,$dim) {
    $useroutils = '';
    if($user or autorisation(-127)) {
       if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Profile").'</span></a>';
       if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-2x fa-envelope-o align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Message").'</span></a>';
       if ($temp_user['femail']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Email").'</span></a>';
       if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-2 d-none d-md-inline">'.translate("Location").'</span></a>';
       }
    }
    if ($temp_user['url']!='')
-      $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+      $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-2x fa-external-link align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
    if ($temp_user['mns'])
-       $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+       $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
 
    if (stristr($temp_user['user_avatar'],'users_private')) 
       $imgtmp=$temp_user['user_avatar'];
