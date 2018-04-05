@@ -124,7 +124,7 @@ function mapcategories() {
       </div>
       <hr />';
     sql_free_result($result);
-    sql_free_result($result2);
+    sql_free_result($result2);// notice quand il n'y a pas de catégories !!
 }
 
 function mapfaq() {
@@ -159,9 +159,9 @@ if ($SuperCache) {
    $CACHE_TIMINGS['map.php'] = 3600;
    $CACHE_QUERYS['map.php'] = '^';
    $cache_obj->startCachingPage();
-} else {
+} else
    $cache_obj = new SuperCacheEmpty();
-}
+
 if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
    echo '
    <h2>'.translate("Site map").'</h2>
