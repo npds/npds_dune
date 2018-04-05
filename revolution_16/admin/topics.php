@@ -31,29 +31,25 @@ function topicsmanager() {
       echo '
    <hr />
    <h3 class="my-3">'.adm_translate("Sujets actifs").'</h3>
-   <div class="">';
+   <div class="card-columns">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
    <div class="card card-body mb-2" id="top_'.$topicid.'">
       <div class=" topi">
-         <div class="media-left media-middle">';
-         if (($topicimage) or ($topicimage!='')) {
+         <div class="">';
+         if (($topicimage) or ($topicimage!=''))
             echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.$topicimage.'" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
-         } else {
+         else
             echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.'topics.png" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
-         };
          echo '
          </div>
-         <div class="media-body">
-            <h4 class="media-heading"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" ><i class="fa fa-edit mr-1"></i>'.aff_langue($topicname).'</a></h4>
+         <div class="">
+            <h4 class="my-3"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" ><i class="fa fa-edit mr-1 align-middle"></i>'.aff_langue($topicname).'</a></h4>
             <p>'.aff_langue($topictext).'</p>
             <div id="shortcut-tools_'.$topicid.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid='.$topicid.'&amp;ok=0" ><i class="fa fa-trash-o fa-2x"></i></a></div>
          </div>
       </div>
    </div>';
-         
-//            if ($topictext=="") {$topictext=adm_translate("Sans titre");}
-//            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" title="ID : '.$topicid.'">'.aff_langue($topictext).'"</a>';
        }
     }
     echo '
