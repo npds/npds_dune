@@ -75,10 +75,11 @@ function defaultDisplay() {
    echo '
                <option value="">'.translate("Select Topic").'</option>';
    while (list($topicid, $topics) = sql_fetch_row($toplist)) {
-      if ($topicid==$topic) { $sel = 'selected="selected" '; }
+      $sel = '';
+      if(isset($topic))
+         if ($topicid==$topic) $sel = 'selected="selected" ';
       echo '
                <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
-      $sel = '';
    }
    echo '
             </select>
