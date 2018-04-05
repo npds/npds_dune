@@ -152,13 +152,13 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    echo '
    </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="subject">'.translate("Title").'</label>
+         <label class="col-form-label col-sm-3" for="subject">'.translate("Title").'</label>
          <div class="col-sm-9">
             <input type="text" name="subject" class="form-control" value="'.$subject.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-3" for="topic">'.translate("Topic").'</label>
+         <label class="col-form-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
@@ -176,7 +176,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
          </div>
       </div>
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="story">'.translate("Intro Text").'</label>
+         <label class="col-form-label col-sm-12" for="story">'.translate("Intro Text").'</label>
          <div class="col-sm-12">
             <span class="help-block">'.translate("HTML is fine, but double check those URLs and HTML tags!").'</span>
             <textarea class="tin form-control" rows="25" name="story">'.$story.'</textarea>';
@@ -184,7 +184,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    echo '</div>
       </div>
          <div class="form-group row">
-            <label class="form-control-label col-sm-12">'.translate("Full Text").'</label>
+            <label class="col-form-label col-sm-12">'.translate("Full Text").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>
             </div>
