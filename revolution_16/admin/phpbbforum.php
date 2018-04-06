@@ -31,13 +31,13 @@ function ForumAdmin() {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Catégories de Forum").'</h3>
-   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <table data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Index").'&nbsp;</th>
-            <th data-sortable="true" data-halign="center" data-align="">'.adm_translate("Nom").'&nbsp;</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Nombre de Forum(s)").'&nbsp;</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'&nbsp;</th>
+            <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Index").'&nbsp;</th>
+            <th class="n-t-col-xs-5" data-sortable="true" data-halign="center">'.adm_translate("Nom").'&nbsp;</th>
+            <th class="n-t-col-xs-3" data-halign="center" data-align="right">'.adm_translate("Nombre de Forum(s)").'&nbsp;</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center">'.adm_translate("Fonctions").'&nbsp;</th>
          </tr>
       </thead>
       <tbody>';
@@ -47,10 +47,10 @@ function ForumAdmin() {
       $numbers= sql_fetch_assoc($gets);
       echo '
          <tr>
-            <td align="left">'.$cat_id.'</td>
-            <td align="left">'.StripSlashes($cat_title).'</td>
-            <td align="center">'.$numbers['total'].' <a href="admin.php?op=ForumGo&amp;cat_id='.$cat_id.'"><i class="fa fa-eye fa-lg" title="'.adm_translate("Voir les forums de cette catégorie").': '.StripSlashes($cat_title).'." data-toggle="tooltip"></i></a></td>
-            <td align="right"></a><a href="admin.php?op=ForumCatEdit&amp;cat_id='.$cat_id.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a> <a href="admin.php?op=ForumCatDel&amp;cat_id='.$cat_id.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
+            <td>'.$cat_id.'</td>
+            <td>'.StripSlashes($cat_title).'</td>
+            <td>'.$numbers['total'].' <a href="admin.php?op=ForumGo&amp;cat_id='.$cat_id.'"><i class="fa fa-eye fa-lg align-middle" title="'.adm_translate("Voir les forums de cette catégorie").': '.StripSlashes($cat_title).'." data-toggle="tooltip" data-placement="right"></i></a></td>
+            <td><a href="admin.php?op=ForumCatEdit&amp;cat_id='.$cat_id.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=ForumCatDel&amp;cat_id='.$cat_id.'&amp;ok=0"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
          </tr>';
    }
    echo '

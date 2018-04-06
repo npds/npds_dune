@@ -34,9 +34,9 @@ function cache_ctrl() {
 function show_imm($op) {
    global $smilies, $user, $allow_bbcode, $language, $Default_Theme, $theme, $site_font, $short_user, $Titlesitename;
    global $NPDS_Prefix;
-   if (!$user) {
+   if (!$user)
       Header("Location: user.php");
-   } else {
+   else {
       $userX = base64_decode($user);
       $userdata = explode(':', $userX);
       if ($userdata[9]!='') {
@@ -70,10 +70,12 @@ function show_imm($op) {
          <div class="card card-body">';
          }
          $posterdata = get_userdata_from_id($myrow['from_userid']);
+//         var_dump($posterdata);
          echo '
             <div class="card mb-3">
                <div class="card-body">
                <h3>'.translate("Private Message").' '.translate("From");
+
          if ($posterdata['uid']==1) {
             global $sitename;
             echo ' <span class="text-muted">'.$sitename.'</span></h3>';
@@ -134,22 +136,18 @@ function show_imm($op) {
 
             if (!$short_user) {
             
-/*
-
-*/
                
             }
          }
          echo '
          </div>
          <div class="card-footer">';
-         if ($posterdata['uid']<>1) {
+         if ($posterdata['uid']<>1)
             echo '
-         <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg"></i></a>';
-         }
+            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg mr-1"></i>'.translate("Reply").'</a>';
          echo '
-         <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-check-square-o fa-lg"></i></a>
-         <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-check-square-o fa-lg"></i></a>
+            <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
          </div>
          </div>';
 

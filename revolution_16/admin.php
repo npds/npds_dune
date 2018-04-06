@@ -590,6 +590,7 @@ if ($admintest) {
          MergeForumAction($oriforum,$destforum);
       break;
       case "ForumGoAdd":
+         settype($forum_pass,'string');
          include ("admin/phpbbforum.php");
          ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
       break;

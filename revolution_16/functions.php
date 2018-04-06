@@ -449,8 +449,7 @@ function searchblock() {
 function member_qualif($poster, $posts, $rank) {
    global $anonymous;
    $tmp='';
-   if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
-   if ($ibid=theme_image('forum/rank/level.gif')) {$imgtmpN=$ibid;} else {$imgtmpN='images/forum/rank/level.gif';}
+   if ($ibid=theme_image('forum/rank/post.gif')) $imgtmpP=$ibid; else $imgtmpP='images/forum/rank/post.gif';
    $tmp='<img class="n-smil" src="'.$imgtmpP.'" alt="" />'.$posts.'&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
@@ -462,12 +461,11 @@ function member_qualif($poster, $posts, $rank) {
       for ($i=0; $i<$nux; $i++) {
          $tmp.='<i class="fa fa-star-o text-success mr-1"></i>';
       }
-
       if ($rank) {
-         if ($ibid=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibid;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
+         if ($ibid=theme_image("forum/rank/".$rank.".gif") or $ibid=theme_image("forum/rank/".$rank.".png")) $imgtmpA=$ibid; else $imgtmpA="images/forum/rank/".$rank.".png";
          $rank='rank'.$rank;
          global $$rank;
-         $tmp.='<br /><img src="'.$imgtmpA.'" border="" alt="" />&nbsp;'.aff_langue($$rank);
+         $tmp.='<div class="my-2"><img class="n-smil" src="'.$imgtmpA.'" alt="logo rôle" />&nbsp;'.aff_langue($$rank).'</div>';
       }
    }
    return ($tmp);

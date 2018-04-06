@@ -420,7 +420,7 @@ function userinfo($uname) {
                if (false !== $k) {
                   $my_rs.='<a class="mr-3" href="';
                   if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                  $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                  $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x"></i></a> ';
                   break;
                } 
                else $my_rs.='';
