@@ -230,20 +230,22 @@ if ( $letter != 'front' ) {
    <table class="table table-no-bordered table-sm " data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-show-columns="true">
       <thead>
          <tr>
-            <th class="n-t-col-xs-2 align-middle text-muted" data-halign="center" data-align="center"><i class="fa fa-share-alt fa-lg"></i></th>
-            <th class="align-middle" data-sortable="true">'.translate("Nickname").'<br /> '.translate("Identity").'</th>';
+            <th class="n-t-col-xs-1 align-middle text-muted" data-halign="center" data-align="center"><i class="fa fa-user-o fa-lg"></i></th>
+            <th class="align-middle" data-sortable="true">'.translate("Nickname").'</th>
+            <th class="align-middle" data-sortable="true">'.translate("Identity").'</th>
+            ';
    if ($sortby!='user_from ASC')
       echo '
-            <th class="align-middle" data-sortable="true" data-halign="center">'.translate("Email").'</th>';
+            <th class="align-middle " data-sortable="true" data-halign="center">'.translate("Email").'</th>';
    else
       echo '
-            <th class="align-middle" data-sortable="true" data-halign="center" >'.translate("Location").'</th>';
+            <th class="align-middle " data-sortable="true" data-halign="center" >'.translate("Location").'</th>';
    echo '
-            <th class="align-middle" data-halign="center">'.translate("URL").'</th>';
+            <th class="align-middle " data-halign="center">'.translate("URL").'</th>';
    $cols = 6;
    if ($admin) {
       $cols = 7;
-      echo '<th class="n-t-col-xs-2 align-middle" data-halign="center" data-align="right">'.translate("Functions").'</th>';
+      echo '<th class="n-t-col-xs-2 align-middle " data-halign="center" data-align="right">'.translate("Functions").'</th>';
    }
    echo '
          </tr>
@@ -316,36 +318,37 @@ if ( $letter != 'front' ) {
             <td>';
             }
          if ($ibid_avatar=avatar($temp_user['user_avatar']))
-         echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="click" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-small" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+         echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="click" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
             </td>
             <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
          if ($admin and $temp_user['user_lastvisit']!='') {
             echo ' => '.date(translate("dateinternal"),$temp_user['user_lastvisit']);
          }
          echo '" data-toggle="tooltip">'.$temp_user['uname'].'</a>
-         <br />'.$temp_user['name'].'
-            </td>';
+            </td>
+            <td>'.$temp_user['name'].'</td>
+            ';
          if ($sortby!='user_from ASC') {
             if ($admin) {
                echo '
-            <td>'.preg_anti_spam($temp_user['email']).'</td>';
+            <td><small>'.preg_anti_spam($temp_user['email']).'</small></td>';
             } else {
                if ($temp_user['user_viewemail']) {
                   echo '
-            <td>'.preg_anti_spam($temp_user['email']).'</td>';
+            <td><small>'.preg_anti_spam($temp_user['email']).'</small></td>';
                } else {
                   echo '
-            <td>'.substr($temp_user['femail'],0,strpos($temp_user['femail'],"@")).'</td>';
+            <td><small>'.substr($temp_user['femail'],0,strpos($temp_user['femail'],"@")).'</small></td>';
                }
             }
          } else
             echo '
-            <td>'.$temp_user['user_from'].'&nbsp;</td>';
+            <td><small>'.$temp_user['user_from'].'</small></td>';
          echo '
-            <td>';
+            <td><small>';
          if($temp_user['url']!='')
             echo '<a href="'.$temp_user['url'].'" target="_blank">'.$temp_user['url'].'</a>';
-         echo '</td>';
+         echo '</small></td>';
          if ($admin) {
             echo '
             <td>
