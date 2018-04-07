@@ -225,37 +225,30 @@ function group_liste() {
          </div>
          <div class="col-lg-3 list-group-item px-0 mt-2">
             <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-pencil fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="javascript:void(0);" onclick="bootbox.alert(\''.adm_translate("Avant de supprimer le groupe").' '.$gp.' '.adm_translate("vous devez supprimer TOUS ses membres !").'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-trash-o fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-user-plus fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=bloc_groupe_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Créer le bloc WS").' ('.$gp.')" data-toggle="tooltip"  ><i class="fa fa-clone fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
-         if ($result['groupe_pad']==1) {
+         if ($result['groupe_pad']==1)
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=pad_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("Désactiver PAD du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-edit fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
-         } else {
+         else
             echo'<a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=pad_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer PAD du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-edit fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
-         }
-         if ($result['groupe_blocnote']==1) {
+         if ($result['groupe_blocnote']==1)
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=note_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("Désactiver bloc-note du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-sticky-note-o fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
-         } else {
+         else
             echo'<a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=note_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer bloc-note du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-sticky-note-o fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
-         }
-         
-         if (file_exists('modules/f-manager/users/groupe_'.$gp.'.conf.php')) {
+         if (file_exists('modules/f-manager/users/groupe_'.$gp.'.conf.php'))
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=workspace_archive&amp;groupe_id='.$gp.'" title="'.adm_translate("Désactiver gestionnaire de fichiers du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-folder-o fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
-         } else {
+         else
             echo'<a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=workspace_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer gestionnaire de fichiers du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-folder-o fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
-         }
-         if ($result['groupe_forum']==1) {
+         if ($result['groupe_forum']==1)
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=forum_groupe_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("Supprimer forum du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-list-alt fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
-         } else {
+         else
             echo'<a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="javascript:void(0);" onclick="javascript:choisir_mod_forum(\''.$gp.'\',\''.$result['groupe_name'].'\',\''.$lst_user_json.'\',\''.$lst_uid_json.'\');" title="'.adm_translate("Créer forum du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-list-alt fa-lg fa-fw"></i> <i class="fa fa-plus"></i></a>';
-         }
-         if ($result['groupe_mns']==1) {
+         if ($result['groupe_mns']==1)
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_mns_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("Supprimer MiniSite du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-desktop fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
-         } else {
+         else
             echo'<a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_mns_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Créer MiniSite du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-desktop fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
-         }
-         if ($result['groupe_chat']==0) {
+         if ($result['groupe_chat']==0)
             echo'<a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_chat_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Activer chat du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-comments-o fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
-         } else {
+         else
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_chat_delete&amp;groupe_id='.$gp.'" title="'.adm_translate("Désactiver chat du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-comments-o fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
-         }
          echo '
             </div>
          </div>';
@@ -332,7 +325,7 @@ function membre_add($gp) {
 function membre_add_finish($groupe_id, $luname) {
    global $NPDS_Prefix;
    include('powerpack_f.php');
-
+   $image='18.png';
    $luname=rtrim ( $luname ,', ');
    $luname=str_replace(' ','',$luname);
    $list_membres=explode(',',$luname);
@@ -371,7 +364,7 @@ function membre_add_finish($groupe_id, $luname) {
 function retiredugroupe($groupe_id, $uid, $uname) {
    global $NPDS_Prefix;
    include('powerpack_f.php');
-
+   $image='18.png';
    $pat='#^\b'.$uid.'\b$#';
    $mes_sys='';
    $q='';
