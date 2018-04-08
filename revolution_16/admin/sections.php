@@ -1377,6 +1377,9 @@ function updaterights($chng_aid, $maxindex, $creation, $publication, $modificati
 // Fonctions DROIT des AUTEURS
 
 settype($Mmembers,'array');
+settype($artid,'integer');
+settype($secid,'integer');
+settype($rubid,'integer');
 
 switch ($op) {
    case "new_rub_section":    new_rub_section($type); break;
