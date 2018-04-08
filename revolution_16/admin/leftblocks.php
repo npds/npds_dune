@@ -84,6 +84,12 @@ function deletelblock($id) {
    Header("Location: admin.php?op=blocks");
 }
 
+
+settype($css,'string');
+settype($Mmember,'string');
+settype($Sactif,'string');
+settype($SHTML,'string');
+
 switch ($op) {
    case 'makelblock':
       makelblock($title, $xtext, $members, $Mmember, $index, $Scache, $Baide, $SHTML, $css);
