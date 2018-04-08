@@ -271,9 +271,9 @@ if ( $letter != 'front' ) {
                   foreach($res_id as $y1) {
                      $k = array_search( $y1[0],$v1);
                      if (false !== $k) {
-                        $my_rs.='<a class="mr-3" href="';
+                        $my_rs.='<a class="mr-2" href="';
                         if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                        $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                        $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
                         break;
                      } 
                   }
@@ -284,22 +284,22 @@ if ( $letter != 'front' ) {
          settype($ch_lat,'string');
          $useroutils = '';
          if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-user fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
          if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-envelope-o fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="fa fa-envelope-o fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($temp_user['femail']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
          if ($temp_user['url']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-external-link fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fa fa-external-link fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
          if ($temp_user['mns'])
-             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-desktop fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
          if($user)
             if ($temp_user['uid']!= 1)
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" ><i class="fa fa-plus-circle fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Mailing list").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Add to mailing list").'" ><i class="fa fa-plus-circle fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Mailing list").'</span></a>';
 
          if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
             if ($posterdata_extend[$ch_lat] !='')
-               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
          }
          $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
          list($open_user) = sql_fetch_row($op_result);
@@ -318,7 +318,7 @@ if ( $letter != 'front' ) {
             <td>';
             }
          if ($ibid_avatar=avatar($temp_user['user_avatar']))
-         echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="click" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
+         echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
             </td>
             <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
          if ($admin and $temp_user['user_lastvisit']!='') {

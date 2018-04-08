@@ -2809,9 +2809,9 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
                foreach($res_id as $y1) {
                   $k = array_search( $y1[0],$v1);
                   if (false !== $k) {
-                     $my_rs.='<a class="mr-3" href="';
+                     $my_rs.='<a class="mr-2" href="';
                      if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
                      break;
                   } 
                   else $my_rs.='';
@@ -2862,7 +2862,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $li_mb.= '
             <li class="list-group-item list-group-item-action d-flex flex-row p-2">
                <div id="li_mb_'.$uname.'_'.$gr.'" class="n-ellipses">
-                  '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover"  data-html="true" data-content=\'<div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[$count].'\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
+                  '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover" data-trigger="focus" data-html="true" data-content=\'<div class="list-group mb-3">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rsos[$count].'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
                </div>
             </li>';
    $count++;
@@ -2936,15 +2936,15 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //=> bloc-notes
    
-$content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap">';
+$content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap text-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
-      $content.='<a class="mr-3" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
+      $content.='<a class="mx-2" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
    }
    //<= Filemanager
    //=> Minisite
    if ($rsql['groupe_mns'] == 1) {
-      $content.='<a class="mr-3" href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
+      $content.='<a class="mx-2" href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
    }
    //<= Minisite
    //=> Chat
@@ -2954,12 +2954,12 @@ $content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap">';
       if (array_key_exists('chat_info_'.$gr, $_COOKIE)) {
          if ($_COOKIE['chat_info_'.$gr]) $chat_img='faa-pulse animated faa-slow';
       }
-         $content.='<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x '.$chat_img.'"></i></a>';
+         $content.='<a class="mx-2" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x '.$chat_img.'"></i></a>';
    }
    //<= Chat
    //=> admin
    if (autorisation(-127)) {
-      $content.='<a class="mr-3" href="admin.php?op=groupes" ><i title="'.translate("Groups setting.").'" data-toggle="tooltip" class="fa fa-cogs fa-2x"></i></a>';
+      $content.='<a class="mx-2" href="admin.php?op=groupes" ><i title="'.translate("Groups setting.").'" data-toggle="tooltip" class="fa fa-cogs fa-2x"></i></a>';
    }
    //<= admin
    $content.='</div>
