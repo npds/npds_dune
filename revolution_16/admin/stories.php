@@ -1004,9 +1004,9 @@ function adminStory() {
             <option value="">'.adm_translate("Sélectionner un Sujet").'</option>';
    while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
       $affiche=false;
-      if ($radminsuper) {
+      if ($radminsuper)
          $affiche=true;
-      } else {
+      else {
          $topicadminX=explode(',',$topicadmin);
          for ($i = 0; $i < count($topicadminX); $i++) {
             if (trim($topicadminX[$i])==$aid) $affiche=true;
