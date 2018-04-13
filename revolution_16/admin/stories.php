@@ -983,6 +983,8 @@ function adminStory() {
    settype($fh_pub,'string');
    settype($epur,'integer');
    settype($ihome,'integer');
+   settype($sel,'string');
+   settype($topic,'string');
 
    echo '
    <hr />
@@ -1013,7 +1015,7 @@ function adminStory() {
          }
       }
       if ($affiche) {
-         if ($topicid==$topic) { $sel = 'selected="selected"'; }
+         if ($topicid==$topic) $sel = 'selected="selected"';
             echo '<option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
             $sel = '';
          }
@@ -1067,6 +1069,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    $subject = stripslashes(str_replace('"','&quot;',$subject));
    $hometext = stripslashes($hometext);
    $bodytext = stripslashes($bodytext);
+   settype($sel, 'string');
 
    if ($topic<1) {$topic = 1;}
    $affiche=false;
