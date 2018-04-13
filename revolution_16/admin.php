@@ -881,6 +881,7 @@ if ($admintest) {
       case 'addUser':
       case 'extractUserCSV':
       case 'unsubUser':
+      case 'nonallowed_users':
          include("admin/users.php");
       break;
       // SONDAGES

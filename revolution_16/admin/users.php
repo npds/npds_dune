@@ -244,6 +244,44 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       Header("Location: memberslist.php");
 }
 
+function nonallowedUsers() {
+   global $hlpfile, $admf_ext, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix;
+   include("header.php");
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   $newsuti = sql_query("SELECT u.uid, u.uname, u.name, u.user_regdate FROM ".$NPDS_Prefix."users AS u LEFT JOIN users_status AS us ON u.uid = us.uid WHERE us.open='0' ORDER BY u.user_regdate DESC");
+   echo '
+   <hr />
+   <h3>'.adm_translate("Utilisateur(s) en attente de validation").'<span class="badge badge-secondary float-right">'.sql_num_rows($newsuti).'</span></h3>
+   <table class="table table-no-bordered table-sm " data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-show-columns="true">
+      <thead>
+         <tr>
+            <th data-halign="center" data-align="center" class="n-t-col-xs-1" ><i class="fa fa-user-o fa-lg mr-1 align-middle"></i>ID</th>
+            <th data-halign="center" data-sortable="true">'.adm_translate("Identifiant").'</th>
+            <th data-halign="center" data-align="left" data-sortable="true">'.adm_translate("Name").'</th>
+            <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
+            <th data-halign="center" data-align="center" class="n-t-col-xs-2" >'.adm_translate("Fonctions").'</th>
+         </tr>
+      </thead>
+      <tbody>';
+   while($unallowed_users = sql_fetch_assoc($newsuti) ) {
+      echo '
+         <tr class="table-danger">
+            <td>'.$unallowed_users['uid'].'</td>
+            <td>'.$unallowed_users['uname'].'</td>
+            <td>'.$unallowed_users['name'].'</td>
+            <td>'.date('d/m/Y @ h:m',$unallowed_users['user_regdate']).'</td>
+            <td>
+               <a class="mr-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-toggle="tooltip"></i></a>
+            </td>
+         </tr>';
+   }
+   echo '
+      </body>
+   </table>';
+   adminfoot('','','','');
+}
+
 switch ($op) {
    case 'extractUserCSV':
       extractUserCSV();
@@ -350,13 +388,12 @@ switch ($op) {
       settype($raz_avatar,'integer');
       settype($add_send_email,'string');
 
-      
       if (!($add_uname && $add_email && $add_pass) or (preg_match('#[^a-zA-Z0-9_-]#',$add_uname))) {
          global $hlpfile;
          include("header.php");
          GraphicAdmin($hlpfile);
          adminhead ($f_meta_nom, $f_titre, $adminimg);
-         echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
+         echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");// ce message n'est pas très précis ..
          adminfoot('','','','');
          return;
       }
@@ -395,6 +432,9 @@ switch ($op) {
          global $aid; Ecr_Log("security", "UnsubUser($chng_uid) by AID : $aid", "");
       }
       Header("Location: admin.php?op=mod_users");
+   break;
+   case'nonallowed_users':
+      nonallowedUsers();
    break;
    case 'mod_users':
    default:

@@ -975,7 +975,7 @@ function adm_translate($phrase) {
   case "Vote": $tmp="Voto"; break;
   case "Filtre": $tmp="Filtro"; break;
   case "Rétention": $tmp="Retención"; break;
-  case "Temps de rétention en secondes": $tmp="Retention time in seconds"; break;
+  case "Temps de rétention en secondes": $tmp="Tiempo de retención en segundos"; break;
   case "Actif": $tmp="Activate"; break;
   case "Activation": $tmp="Activation"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
@@ -1008,7 +1008,9 @@ function adm_translate($phrase) {
   case "Interface": $tmp="Interface"; break;
   case "Connexion": $tmp="Conexión"; break;
   case "Système": $tmp="Sistema"; break;
-  case "Critique en attente de validation.": $tmp="Review awaiting validation"; break;
+  case "Critique en attente de validation.": $tmp="Crítico esperando la validación"; break;
+  case "Utilisateur(s) en attente de validation": $tmp="Usuario (s) esperando la validación"; break;
+  case "Identifiant": $tmp="Apodo"; break;
   case "Page(s)": $tmp="página(s)";
 
   default: $tmp="Necesita una traducción [** $phrase **]"; break;
