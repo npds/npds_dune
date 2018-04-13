@@ -116,6 +116,10 @@ function GraphicAdmin($hlpfile) {
    //... à revoir ...réimplémenter le traitement des messages ...
    //if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1' WHERE fid=36"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='36'");
 
+   //utilisateur à valider
+   $newsuti=sql_num_rows(sql_query("SELECT uid FROM ".$NPDS_Prefix."users_status WHERE uid!='1' AND open='0'"));
+   if($newsuti) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newsuti."',fretour_h='".adm_translate("Utilisateur en attente de validation !")."' WHERE fid='44'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='44'");
+
    //référants à gérer
    if($httpref = 1) {
    $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
@@ -147,9 +151,8 @@ function GraphicAdmin($hlpfile) {
       $fid_ar[]=$SAQ['fid'];
       if ($SAQ['fcategorie'] == 6) {
          if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
-      } else {
+      } else
          $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
-      };
       if ($SAQ['fcategorie'] == 9) {
          //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
@@ -878,6 +881,7 @@ if ($admintest) {
       case 'addUser':
       case 'extractUserCSV':
       case 'unsubUser':
+      case 'nonallowed_users':
          include("admin/users.php");
       break;
       // SONDAGES

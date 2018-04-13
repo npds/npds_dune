@@ -1130,7 +1130,7 @@ function ordremodule() {
                <td width="20%">
                <div class="form-group">
                   <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
-                  <input type="number" class="form-control" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
+                  <input type="number" class="form-control" id="ordre['.$i.']" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
                </div>
                </td>
            </tr>';
@@ -1377,6 +1377,9 @@ function updaterights($chng_aid, $maxindex, $creation, $publication, $modificati
 // Fonctions DROIT des AUTEURS
 
 settype($Mmembers,'array');
+settype($artid,'integer');
+settype($secid,'integer');
+//settype($rubid,'integer');// hot hot
 
 switch ($op) {
    case "new_rub_section":    new_rub_section($type); break;
