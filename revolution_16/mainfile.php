@@ -2235,12 +2235,12 @@ function adminblock() {
       if ($SAQ['fcategorie'] == 9) {
          //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
          if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
-            $li_c ='<li class=" btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
+            $li_c ='<a class=" btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip"';
          else 
-            $li_c ='<li class="alerte btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
-         $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
-         $li_c .='<span class="alerte-para badge badge-pill badge-danger">'.$SAQ['fretour'].'</span>'."\n";
-         $li_c .='</a></li>'."\n";
+            $li_c ='<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip"';
+         $li_c .=' '.$SAQ['furlscript'].'><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
+         $li_c .='<span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>';
+         $li_c .='</a>';
          $bloc_foncts_A .= $li_c;
       } 
    }
@@ -2253,13 +2253,12 @@ function adminblock() {
    //must work from php 4 to 7 !..?..
    $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
    $content .= '
-      <ul id="adm_block">
-      '.$bloc_foncts_A.'
-         <li class="alerte btn btn-outline-primary" title="'.translate("Clear Chat DB").'" data-toggle="tooltip"><a class="adm-img" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png"/>&nbsp;<span class="alerte-para badge badge-pill badge-danger">X</span></a></li>
-      </ul>
-      <ul>
-         <li><small class="text-muted"><i class="fa fa-user fa-2x"></i> '.$aid.'</small></li>
-      </ul>';
+      <div class="d-flex justify-content-start flex-wrap" id="adm_block">
+      '.$bloc_foncts_A.'<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Clear Chat DB").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>
+      </div>
+      <div class="mt-3">
+         <small class="text-muted"><i class="fa fa-user fa-2x align-middle"></i> '.$aid.'</small>
+      </div>';
    themesidebox($title, $content);
    }
 }
