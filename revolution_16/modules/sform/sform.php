@@ -460,16 +460,15 @@ class form_handler {
           while(list($key,$val)=each($this->form_fields[$i]['value']) ){
             $str.='
                   <option value="'.$key.'"';
-                  if(array_key_exists('selected', $val)) $str .=' selected="selected" >';
-else $str .=' >';
-//            $str.=($val['selected'])? ' selected="selected">' : '>';
+            if(array_key_exists('selected', $val) and $val['selected']) 
+               $str .=' selected="selected" >';
+            else $str .=' >';
             $str.=str_replace('\'','&#039;',$val['en']).'</option>';
           }
           $str.='
                </select>';
-          if ($num_extender!='no') {
+          if ($num_extender!='no')
              $str.=$this->form_fields[$num_extender]['html'];
-          }
           $str.='
             </div>
          </div>';
