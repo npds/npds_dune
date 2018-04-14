@@ -134,8 +134,8 @@ function group_liste() {
                <span>'.$gp.'</span>
                <i class="fa fa-users fa-2x text-muted"></i><h4 class="my-2">'.aff_langue($result['groupe_name']).'</h4><p>'.aff_langue($result['groupe_description']);
          if (file_exists ('users_private/groupe/'.$gp.'/groupe.png'))
-            echo'<img class="d-block my-2" src="users_private/groupe/'.$gp.'/groupe.png" width="80" height="80" alt="logo_groupe" />
-               </p>
+            echo'<img class="d-block my-2" src="users_private/groupe/'.$gp.'/groupe.png" width="80" height="80" alt="logo_groupe" />';
+         echo '
             </div>
             <div class="col-lg-5">';
          $tab_groupe=explode(' ',ltrim($tab_groupeII[$gp]));
