@@ -20,7 +20,7 @@ function Access_Error () {
 
 function admindroits($aid,$f_meta_nom) {
    global $NPDS_Prefix, $radminsuper;
-   $res = sql_query("SELECT fnom, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fid WHERE a.aid='$aid'");
+   $res = sql_query("SELECT fnom, radminsuper FROM ".$NPDS_Prefix."authors a LEFT JOIN ".$NPDS_Prefix."droits d ON a.aid = d.d_aut_aid LEFT JOIN ".$NPDS_Prefix."fonctions f ON d.d_fon_fid = f.fdroits1 WHERE a.aid='$aid'");
    $foncts=array();$supers=array();
    while ($data = sql_fetch_row($res)) {
       $foncts[] = $data[0];
@@ -112,14 +112,63 @@ function GraphicAdmin($hlpfile) {
    //etat filemanager
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
 
-   //version npds
-   //... à revoir ...réimplémenter le traitement des messages ...
-   //if (($vs != $Version_Sub) or ($vn != $Version_Num)) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1' WHERE fid=36"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='36'");
+   //==> recuperation traitement des messages de NPDS
+   $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
+   settype($f_mes, "array");
+   while ($SQM=sql_fetch_assoc($QM)) {
+      $f_mes[]=$SQM['fretour_h'];
+   }
+   
+   $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
+   $messages_npds = explode("\n", $messagerie_npds);
+   array_pop($messages_npds);
+   // traitement specifique car fonction permanente versus
+   $versus_info = explode('|', $messages_npds[0]);
+   if ($versus_info[1] != $Version_Sub or $versus_info[2] != $Version_Num) 
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', fretour_h='Une nouvelle version NPDS est disponible ! Cliquez pour télécharger.' WHERE fid='36'"); 
+   else
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."' WHERE fid='36'");
+   
+$mess=array_slice($messages_npds, 1);
+//var_dump($mess);
+
+/*
+   if ($messages_npds[1]) {
+      settype($mes_x, 'array');
+// a revoir je n'arrive pas à changer l'icone du message....
+      $fico ='';
+      for ($i=0;$i<count($mess);$i++) {
+      
+         $zob = explode('|',$mess[$i]);
+
+         $mes_x[]=$zob;//var_dump($mes_x);
+         
+         if($mes_x[($i)][0] = 'Note') $fico='flag_red';
+         else $fico='flag_green';
+         //echo $mes_x[($i-1)]['0'];//debug
+
+         if (in_array ($mes_x[($i)][1],$f_mes,true)) {
+            $k=(array_search ($mes_x[($i)][1], $f_mes));
+            unset ($f_mes[$k]);
+         } else {
+         //sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$mes_x[($i)]['1'].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
+         }
+         
+         
+      }
+      
+      if(count ($f_mes)!==0) {
+         foreach ( $f_mes as $v ) {
+           //        sql_query('delete from '.$NPDS_Prefix.'fonctions where fretour_h="'.$v.'" and fcategorie="9"');
+         }
+      }
+   }
+*/
+   //<== recuperation traitement des messages de NPDS
 
    //utilisateur à valider
    $newsuti=sql_num_rows(sql_query("SELECT uid FROM ".$NPDS_Prefix."users_status WHERE uid!='1' AND open='0'"));
    if($newsuti) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newsuti."',fretour_h='".adm_translate("Utilisateur en attente de validation !")."' WHERE fid='44'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='44'");
-
    //référants à gérer
    if($httpref = 1) {
    $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
@@ -142,9 +191,10 @@ function GraphicAdmin($hlpfile) {
    if ($Q['radminsuper']==1)
       $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");
    else
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
 
    $j=0;
+
    while($SAQ=sql_fetch_assoc($R)) {
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
@@ -154,15 +204,11 @@ function GraphicAdmin($hlpfile) {
       } else
          $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9) {
-         //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
-         if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
-         $li_c ='<li class=" btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
-         else 
-         $li_c ='<li class="alerte btn btn-outline-primary" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip">';
-         $li_c .='<a '.$SAQ['furlscript'].' class="adm_img"><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />'."\n";
-         $li_c .='<span class="alerte-para badge badge-pill badge-danger">'.$SAQ['fretour'].'</span>'."\n";
-         $li_c .='</a></li>'."\n";
-         $bloc_foncts_A .= $li_c;
+         $bloc_foncts_A .='
+         <a class=" btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip" '.$SAQ['furlscript'].' >
+            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+         </a>';
          array_pop($cat_n);
       } 
       else {
@@ -170,15 +216,14 @@ function GraphicAdmin($hlpfile) {
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a '.$SAQ['furlscript'].'>';
-         if ($admingraphic==1) {
+            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
+         if ($admingraphic==1)
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
-         } else{
-            if ($SAQ['fcategorie'] == 6) {
+         else {
+            if ($SAQ['fcategorie'] == 6)
                $li_c .= $SAQ['fnom_affich'];
-            } else {
+            else
                $li_c .= adm_translate(utf8_encode($SAQ['fnom_affich']));
-            }
          }
          $li_c .='</a></li>';
          $ul_f='';
@@ -191,7 +236,7 @@ function GraphicAdmin($hlpfile) {
                tog(\''.strtolower(substr($cat_n[($j-1)],0,3)).'\',\'show_'.strtolower(substr($cat_n[$j-1],0,3)).'\',\'hide_'.strtolower(substr($cat_n[$j-1],0,3)).'\');
             })
          //]]>
-         </script>'."\n";
+         </script>';
 
          if ($j==0) {$bloc_foncts .= $ul_o.$li_c;} 
          else { 
@@ -201,7 +246,7 @@ function GraphicAdmin($hlpfile) {
       }
       $j++;
    }
-   
+
    if($cat_n) {
       $ca=array();
       $ca=array_unique($cat_n);
@@ -276,8 +321,8 @@ function GraphicAdmin($hlpfile) {
       return columns.join('|');
 
    }
-      var itemStr = getItems('#lst_men_main');
-            console.log(htmmll);
+   var itemStr = getItems('#lst_men_main');
+   //console.log(htmmll);
 
          $('[data-toggle=\"tooltip\"]').tooltip();
          $('[data-toggle=\"popover\"]').popover();
@@ -301,7 +346,7 @@ function GraphicAdmin($hlpfile) {
           h = Math.floor ((sec - (j * n)) / 3600);
           mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
           sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
-          $('#car').text(j +'j '+ h +':'+ mn +':'+sec);
+          $('#tempsconnection').text(j +'j '+ h +':'+ mn +':'+sec);
         }
       t_deCompte=setTimeout (deCompte, 1000);
       }
@@ -341,37 +386,34 @@ function GraphicAdmin($hlpfile) {
    </div>
    <div id ="adm_men" class="mb-4">
       <div id="adm_header" class="row justify-content-end">
-         <div class="col-6 col-lg-6 men_tit">
+         <div class="col-6 col-lg-6 men_tit align-self-center">
             <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
          </div>
          <div id="adm_men_man" class="col-6 col-lg-6 men_man text-right">
             <ul class="liste" id="lst_men_top">
-               <li class="btn btn-outline-primary" data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a href="admin.php?op=logout" >&nbsp;<i class="fa fa-sign-out fa-2x text-danger"></i></a></li>';
+               <li data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fa fa-sign-out fa-2x"></i></a></li>';
    if ($hlpfile) {
       $adm_ent .='
-              <li class="btn btn-outline-primary" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a href="javascript:openwindow();">&nbsp;<i class="fa fa-question-circle fa-2x text-primary"></i></a></li>';
+              <li class="ml-2" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
    }
    $adm_ent .='
             </ul>
          </div>
       </div>
-      <div class="col-12" id="adm_men_dial">
+      <div class="border rounded px-2 py-2" id="adm_men_dial">
          <div id="adm_men_alert" >
-            <ul id="Alerte">
+            <div id="alertes">
             '.aff_langue($bloc_foncts_A).'
-            </ul>
-         </div>
-            <div id="adm_men_info"></div>
-            <div class="contenair-fluid" id ="mes_perm" >
-                <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="car" class="car"></span>
             </div>
-        </div>';
-// <img style="float:left" src="'.$adminimg.'message_npds.'.$admf_ext.'" width="32" height="32" title="'.adm_translate("Nouvelle version !").'" alt="icon_'.adm_translate("logo_npds").'" />
-//<li id ="mes_perm" ><img style="float:left" src="'.$adminimg.'message_npds.'.$admf_ext.'" width="32" height="32" title="'.adm_translate("Nouvelle version !").'" alt="icon_'.adm_translate("logo_npds").'" /><span class="car">'.$Version_Sub.' '.$Version_Num.'<br />'.$aid.'<br /></span><span id="car" class="car" ></span></li>
+         </div>
+     </div>
+      <div class="contenair-fluid text-muted" id ="mes_perm" >
+          <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
+      </div>';
 
       echo $adm_ent;
      if ($short_menu_admin!=false) {
-     echo"</div>\n";
+        echo '</div>';
         return;
      }
      echo '
