@@ -2222,27 +2222,21 @@ function adminblock() {
    global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext;
    if ($admin) {
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-   if ($Q['radminsuper']==1) {
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");}
-   else {
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fid = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
-   }
+   if ($Q['radminsuper']==1)
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");
+   else
+      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
    while($SAQ=sql_fetch_assoc($R)) {
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
       $fid_ar[]=$SAQ['fid'];
       $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
-      if ($SAQ['fcategorie'] == 9) {
-         //==<euh je ne sais plus comment j'avais envisager l'arrivée des messages dans la base ???? arghhhhhh 
-         if(preg_match ( '#^mes_npds_#', $SAQ['fnom']))
-            $li_c ='<a class=" btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip"';
-         else 
-            $li_c ='<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip"';
-         $li_c .=' '.$SAQ['furlscript'].'><img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
-         $li_c .='<span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>';
-         $li_c .='</a>';
-         $bloc_foncts_A .= $li_c;
-      } 
+      if ($SAQ['fcategorie'] == 9)
+         $bloc_foncts_A .='
+         <a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip" '.$SAQ['furlscript'].'>
+            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+         </a>';
    }
    
    $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");

@@ -131,87 +131,86 @@ if ($supadm==1) echo'
    <h3>'.adm_translate("Nouvel administrateur").'</h3>
    <form id="nou_adm" action="admin.php" method="post">
       <fieldset>
-      <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" /> '.adm_translate("Informations").' </legend>
-       <br /><div class="form-group row">
+         <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" /> '.adm_translate("Informations").' </legend>
+         <div class="form-group row mt-3">
            <label class="col-form-label col-sm-4" for="add_aid">'.adm_translate("Surnom").'</label>
            <div class="col-sm-8">
                <input id="add_aid" class="form-control" type="text" name="add_aid" maxlength="30" placeholder="'.adm_translate("Surnom").'" required="required" />
                <span class="help-block text-right"><span id="countcar_add_aid"></span></span>
            </div>
-      </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="add_name">'.adm_translate("Nom").'</label>
-         <div class="col-sm-8">
-            <input id="add_name" class="form-control" type="text" name="add_name" maxlength="50" placeholder="'.adm_translate("Nom").'" required="required" />
-            <span class="help-block text-right"><span id="countcar_add_name"></span></span>
          </div>
-      </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="add_email">'.adm_translate("E-mail").'</label>
-         <div class="col-sm-8">
-            <input id="add_email" class="form-control" type="email" name="add_email" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
-            <span class="help-block text-right"><span id="countcar_add_email"></span></span>
-         </div>
-      </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="add_url">'.adm_translate("URL").'</label>
-         <div class="col-sm-8">
-            <input id="add_url" class="form-control" type="url" name="add_url" maxlength="60" placeholder="'.adm_translate("URL").'" />
-            <span class="help-block text-right"><span id="countcar_add_url"></span></span>
-         </div>
-      </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="add_pwd">'.adm_translate("Mot de Passe").'</label>
-         <div class="col-sm-8">
-            <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-            <span class="help-block text-right"><span id="countcar_add_pwd"></span></span>
-               <div class="progress">
-                  <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div>
-               </div>
-            <span id="pass-level" class="help-block text-right"></span>
-         </div>
-      </div>
-      <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
-            <div class="custom-control custom-checkbox">
-               <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="add_radminsuper" value="1" />
-               <label class="custom-control-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
+         <div class="form-group row">
+            <label class="col-form-label col-sm-4 " for="add_name">'.adm_translate("Nom").'</label>
+            <div class="col-sm-8">
+               <input id="add_name" class="form-control" type="text" name="add_name" maxlength="50" placeholder="'.adm_translate("Nom").'" required="required" />
+               <span class="help-block text-right"><span id="countcar_add_name"></span></span>
             </div>
-            <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
          </div>
-      </div>
-   </fieldset>
-   <fieldset>
-   <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
-   <div id="adm_droi_f" class="container-fluid ">
-   <div class="form-group">
-      <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-muted" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
-   </div>
-   <div class="row">
-   '.$listdroits.'
-   </div>
-   </div>
-   </fieldset>
-   <fieldset>
-   <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits modules").'" /> '.adm_translate("Droits modules").' </legend>
-   <div id="adm_droi_m" class="container-fluid">
-      <div class="form-group">
-         <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-muted" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
-      </div>
-      <div class="row">
-      '.$listdroitsmodulo.'
-      </div>
-   </div>
-   <br />
-      <div class="form-group">
-         <div class=" col-md-6 col-12">
-            <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un administrateur").'</button>
+         <div class="form-group row">
+            <label class="col-form-label col-sm-4 " for="add_email">'.adm_translate("E-mail").'</label>
+            <div class="col-sm-8">
+               <input id="add_email" class="form-control" type="email" name="add_email" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
+               <span class="help-block text-right"><span id="countcar_add_email"></span></span>
+            </div>
          </div>
-      </div>
-      <input type="hidden" name="op" value="AddAuthor" />
-   </fieldset>
+         <div class="form-group row">
+            <label class="col-form-label col-sm-4 " for="add_url">'.adm_translate("URL").'</label>
+            <div class="col-sm-8">
+               <input id="add_url" class="form-control" type="url" name="add_url" maxlength="60" placeholder="'.adm_translate("URL").'" />
+               <span class="help-block text-right"><span id="countcar_add_url"></span></span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <label class="col-form-label col-sm-4 " for="add_pwd">'.adm_translate("Mot de Passe").'</label>
+            <div class="col-sm-8">
+               <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
+               <span class="help-block text-right"><span id="countcar_add_pwd"></span></span>
+                  <div class="progress">
+                     <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div>
+                  </div>
+               <span id="pass-level" class="help-block text-right"></span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-sm-8 ml-sm-auto">
+               <div class="custom-control custom-checkbox">
+                  <input id="cb_radminsuper" class="custom-control-input" type="checkbox" name="add_radminsuper" value="1" />
+                  <label class="custom-control-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
+               </div>
+               <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
+            </div>
+         </div>
+      </fieldset>
+      <fieldset>
+         <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
+         <div id="adm_droi_f" class="container-fluid ">
+            <div class="form-group">
+               <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-muted" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
+            </div>
+            <div class="row">
+               '.$listdroits.'
+            </div>
+         </div>
+      </fieldset>
+      <fieldset>
+         <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits modules").'" /> '.adm_translate("Droits modules").' </legend>
+         <div id="adm_droi_m" class="container-fluid">
+            <div class="form-group">
+               <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-muted" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
+            </div>
+            <div class="row">
+            '.$listdroitsmodulo.'
+            </div>
+         </div>
+         <br />
+         <div class="form-group">
+            <div class=" col-md-6 col-12">
+               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un administrateur").'</button>
+            </div>
+         </div>
+         <input type="hidden" name="op" value="AddAuthor" />
+      </fieldset>
    </form>
-   </div>
    '.$scri_check.'
    <script type="text/javascript">
    //<![CDATA[
@@ -276,8 +275,7 @@ if ($supadm==1) echo'
             }
          }
       }
-   },
-   ';
+   },';
    echo auto_complete ('admin', 'aid', 'authors', '', '0');
    echo auto_complete ('adminname', 'name', 'authors', '', '0');
    adminfoot('fv',$fv_parametres,'','');
@@ -295,11 +293,10 @@ function modifyadmin($chng_aid) {
    $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminfilem, $chng_radminsuper) = sql_fetch_row($result);
 
-   if ($chng_radminsuper==1) {
+   if ($chng_radminsuper==1)
       $supadm_inp = ' checked="checked"';
-   } else {
+   else
       $supadm_inp ='';
-   };
     
    //==> construction des check-box des droits
    $listdroits ='';$listdroitsmodulo='';
@@ -333,13 +330,11 @@ function modifyadmin($chng_aid) {
       }
    } 
    //<== construction des check-box des droits
-    
    echo '
    <form id="mod_adm" class="" action="admin.php" method="post">
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" title="'.$chng_aid.'" /> '.adm_translate("Informations").'</legend>
-         <br />
-         <div class="form-group row">
+         <div class="form-group row mt-3">
             <label class="col-sm-4 col-form-label " for="chng_name">'.adm_translate("Nom").'</label>
             <div class="col-sm-8">
                <input id="chng_name" class="form-control" type="text" name="chng_name" value="'.$chng_name.'" maxlength="30" placeholder="'.adm_translate("Nom").'" required="required" />
@@ -418,8 +413,7 @@ function modifyadmin($chng_aid) {
             </div>
          </div>
       </fieldset>
-   </form>
-   </div>';
+   </form>';
    echo $scri_check;
    echo '
    <script type="text/javascript">
