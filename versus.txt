@@ -1,1 +1,3 @@
 Versus|REvolution|v.16.0.3-beta
+Security|Migration des serveurs NPDS à partir du 15 mars 2016 !.
+Note|Ceci est une note d'information provenant de NPDS.
