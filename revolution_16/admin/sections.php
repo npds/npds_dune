@@ -1352,7 +1352,7 @@ function publishrights($author) {
    //]]>
    </script>';
 
-   include("footer.php");
+   adminfoot('','','','');
 }
 
 function updaterights($chng_aid, $maxindex, $creation, $publication, $modification, $suppression) {
