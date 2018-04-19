@@ -31,7 +31,7 @@ function makerblock($title, $content, $members, $Mmember, $Rindex, $Scache, $BRa
    $title=stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
    if ($SHTML!='ON')
-      $content = strip_tags(str_replace('<br />','\n',$content));
+      $content = strip_tags(str_replace('<br />',"\n",$content));
    sql_query("INSERT INTO ".$NPDS_Prefix."rblocks VALUES (NULL,'$title','$content', '$members', '$Rindex', '$Scache', '1', '$css', '$BRaide')");
 
    global $aid; Ecr_Log('security', "MakeRightBlock($title) by AID : $aid", '');
@@ -80,6 +80,11 @@ function deleterblock($id) {
    global $aid; Ecr_Log('security', "DeleteRightBlock($id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
+
+settype($css,'string');
+settype($Mmember,'string');
+settype($Sactif,'string');
+settype($SHTML,'string');
 
 switch ($op) {
    case 'makerblock':
