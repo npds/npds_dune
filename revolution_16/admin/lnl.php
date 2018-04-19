@@ -505,7 +505,7 @@ function lnl_list() {
    echo '
       </tbody>
    </table>';
-   include ("footer.php");
+   adminfoot('','','','');
 }
 
 function lnl_user_list() {

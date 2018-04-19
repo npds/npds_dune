@@ -43,6 +43,7 @@ function ancre($forum_id,$topic_id,$post_id,$posts_per_page) {
 /*jules*/
 
 include('header.php');
+settype($term,'string');
    $term = removeHack(stripslashes(htmlspecialchars(urldecode($term),ENT_QUOTES,cur_charset))); // electrobug
    echo '
    <h2>'.translate("Search in").' : Forums</h2>
