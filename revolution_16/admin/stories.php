@@ -240,7 +240,7 @@ function EditCategory($catid) {
      </div>
    </form>';
    }
-   include("footer.php");
+   adminfoot('','','','');
 }
 function SaveEditCategory($catid, $title) {
     global $NPDS_Prefix;
@@ -1194,7 +1194,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    </script>';
    adminfoot('fv','','','');
 }
-
+settype($catid,'integer');
 switch ($op) {
    case 'EditCategory':
       EditCategory($catid);
