@@ -166,10 +166,10 @@ function group_liste() {
                echo '
                <li id="'.$uname.$uidX.'_'.$gp.'" style="list-style-type:none;">
                   <div style="float:left;">
-                     <a class="adm_tooltip">&nbsp;<em style="width:90px;"><img src="'.$imgtmp.'"  height="80" width="80" alt="avatar"/></em></a>
+                     <a class="adm_tooltip"><em style="width:90px;"><img src="'.$imgtmp.'"  height="80" width="80" alt="avatar"/></em>- </a>
                   </div>
                   <div class="text-truncate" style="min-width:110px; width:110px; float:left;">
-                     <a href="admin.php?chng_uid='.$uidX.'&amp;op=modifyUser">'.$uname.'</a>
+                     '.$uname.'
                   </div>
                   <div>
                      <a href="admin.php?chng_uid='.$uidX.'&amp;op=modifyUser" title="'.adm_translate("Editer les informations concernant").' '.$uname.'" data-toggle="tooltip"><i class="fa fa-edit fa-lg fa-fw mr-1"></i></a>
