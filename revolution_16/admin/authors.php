@@ -533,10 +533,11 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 }
 
 function error_handler($ibid) {
-   opentable();
-   echo "<p class=\"errorhandler\" align=\"center\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
-   echo "$ibid<br /><a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Retour en arrière")."</a></p>";
-   closetable();
+   echo '
+   <div class="alert alert-danger mb-1">
+   '.adm_translate("Merci d'entrer l'information en fonction des spécifications").'<br />'.$ibid.'
+   </div>
+   <a class="btn btn-outline-secondary" href="admin.php?op=mod_authors" >'.adm_translate("Retour en arrière").'</a>';
 }
 
 switch ($op) {
