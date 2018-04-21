@@ -2233,7 +2233,7 @@ function adminblock() {
       $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9)
          $bloc_foncts_A .='
-         <a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip" '.$SAQ['furlscript'].'>
+         <a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-html="true" data-toggle="tooltip" '.$SAQ['furlscript'].'>
             <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
             <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
          </a>';
