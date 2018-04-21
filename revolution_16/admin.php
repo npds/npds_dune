@@ -113,53 +113,88 @@ function GraphicAdmin($hlpfile) {
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
 
    //==> recuperation traitement des messages de NPDS
+   /*
    $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
-   settype($f_mes, "array");
+   settype($f_mes, 'array');
    while ($SQM=sql_fetch_assoc($QM)) {
       $f_mes[]=$SQM['fretour_h'];
    }
+   */
    
+   //==> recuperation
    $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    $messages_npds = explode("\n", $messagerie_npds);
    array_pop($messages_npds);
    // traitement specifique car fonction permanente versus
    $versus_info = explode('|', $messages_npds[0]);
    if ($versus_info[1] != $Version_Sub or $versus_info[2] != $Version_Num) 
-      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', fretour_h='Une nouvelle version NPDS est disponible ! Cliquez pour télécharger.' WHERE fid='36'"); 
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
    else
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."' WHERE fid='36'");
+   $mess=array_slice($messages_npds, 1);
+   if(empty($mess)) {
+//       var_dump($zz);
+      //si pas de message on nettoie la base
+      sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
+      sql_query("ALTER TABLE ".$NPDS_Prefix."fonctions AUTO_INCREMENT = (SELECT MAX(fid)+1 FROM ".$NPDS_Prefix."fonctions)");
+   }
+   else {
+      $fico='';
+      $o=0;
+      foreach($mess as $v) {
+         $ibid = explode('|',$v);
+         if($ibid[0] = 'Note') 
+            $fico='flag_red';
+         else 
+            $fico='flag_green';
+
+//         var_dump($ibid);
+//         sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1');\n");
+         $o++;
+      }
+   }
    
-$mess=array_slice($messages_npds, 1);
-//var_dump($mess);
+   
+/*$o=0;
+foreach($mess as $v){
+$ibid = explode('|',$v);
+   if($ibid[0] = 'Note') 
+      $fico='flag_red';
+   else $fico='flag_green';
+   sql_query('INSERT INTO '.$NPDS_Prefix.'fonctions(fnom,fretour_h,fcategorie,ficone,fetat,finterface) VALUES("mes_npds_'.$o.'","'.$ibid['1'].'",9,"Alerte","'.$fico.'",1,1)');
+   $o++;
+}
+*/
 
-/*
-   if ($messages_npds[1]) {
+// si message on compare avec la base
+/*   if ($mess) {
       settype($mes_x, 'array');
-// a revoir je n'arrive pas à changer l'icone du message....
       $fico ='';
-      for ($i=0;$i<count($mess);$i++) {
       
-         $zob = explode('|',$mess[$i]);
+      for ($i=0;$i<count($mess);$i++) {
+         $ibid = explode('|',$mess[$i]);
+         $mes_x[$i]=$ibid;
+//         var_dump($ibid[$i]);
 
-         $mes_x[]=$zob;//var_dump($mes_x);
-         
-         if($mes_x[($i)][0] = 'Note') $fico='flag_red';
+         if($mes_x[0] = 'Note') $fico='flag_red';
          else $fico='flag_green';
-         //echo $mes_x[($i-1)]['0'];//debug
 
-         if (in_array ($mes_x[($i)][1],$f_mes,true)) {
-            $k=(array_search ($mes_x[($i)][1], $f_mes));
+         if (in_array ($ibid[$i][1],$f_mes,true)) {//si on trouve le contenu du fichier dans la requete
+//          var_dump($ibid[$i]);
+
+            $k=(array_search ($ibid[$i][1], $f_mes));
             unset ($f_mes[$k]);
          } else {
-         //sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$mes_x[($i)]['1'].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
+         sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[($i)].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
          }
-         
-         
       }
+      
+               var_dump($mes_x);
+
       
       if(count ($f_mes)!==0) {
          foreach ( $f_mes as $v ) {
-           //        sql_query('delete from '.$NPDS_Prefix.'fonctions where fretour_h="'.$v.'" and fcategorie="9"');
+//                   sql_query('DELETE from '.$NPDS_Prefix.'fonctions where fretour_h="'.$v.'" and fcategorie="9"');
          }
       }
    }
@@ -205,7 +240,7 @@ $mess=array_slice($messages_npds, 1);
          $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9) {
          $bloc_foncts_A .='
-         <a class=" btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-toggle="tooltip" '.$SAQ['furlscript'].' >
+         <a class=" btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-html="true" data-toggle="tooltip" '.$SAQ['furlscript'].' >
             <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
             <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
          </a>';
@@ -400,14 +435,14 @@ $mess=array_slice($messages_npds, 1);
             </ul>
          </div>
       </div>
-      <div class="border rounded px-2 py-2" id="adm_men_dial">
+      <div id="adm_men_dial" class="border rounded px-2 py-2" >
          <div id="adm_men_alert" >
             <div id="alertes">
             '.aff_langue($bloc_foncts_A).'
             </div>
          </div>
      </div>
-      <div class="contenair-fluid text-muted" id ="mes_perm" >
+      <div id ="mes_perm" class="contenair-fluid text-muted" >
           <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
       </div>';
 
@@ -417,7 +452,7 @@ $mess=array_slice($messages_npds, 1);
         return;
      }
      echo '
-    <div class="my-3" id="adm_men_corps">
+    <div id="adm_men_corps" class="my-3" >
       <div id="lst_men_main">
          '.$bloc_foncts.'
       </div>
@@ -493,9 +528,9 @@ function adminMain($deja_affiches) {
             <td>';
 
          $title=aff_langue($title);
-         if ($archive) {
+         if ($archive)
             echo $title.' <i>(archive)</i>';
-         } else {
+         else {
             if ($affiche) {
                echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.$title.'</a>';
                if($ihome==1)
@@ -514,15 +549,14 @@ function adminMain($deja_affiches) {
             echo '</td>
             <td>'.$topictext.'<a href="index.php?op=newtopic&amp;topic='.$topic.'" class="tooltip">'.aff_langue($topictext).'</a>';
          }
-         if ($affiche) {
+         if ($affiche)
             echo '</td>
             <td>
             <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
             <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
-         } else {
+         else
             echo '</td>
             <td>';
-         }
          echo '</td>
          </tr>';
          $i++;
