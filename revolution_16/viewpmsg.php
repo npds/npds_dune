@@ -85,7 +85,7 @@ include("auth.php");
          $display=1;
 
       echo '
-      <form name="prvmsg" method="get" action="replypmsg.php">
+      <form name="prvmsg" method="get" action="replypmsg.php" onkeypress="return event.keyCode != 13;">
          <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-search="true" data-search-align="left"
                data-buttons-align="left"
                data-toolbar-align="left">

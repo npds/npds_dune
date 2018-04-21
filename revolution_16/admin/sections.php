@@ -160,12 +160,12 @@ function sections() {
    <hr />
    <ul class="list-group">
       <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
-   if ($nb_rub > 0) {
+   if ($nb_rub > 0)
       echo '
       <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
-   };
-   if ($radminsuper==1) { echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-desc fa-lg mr-1"></i>'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("rubriques").'</a></li>'; }
+   if ($radminsuper==1) 
+      echo '
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-desc fa-lg mr-1"></i>'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("rubriques").'</a></li>';
    echo '
    </ul>';
 
@@ -176,7 +176,7 @@ function sections() {
       <h3 class="my-3">'.adm_translate("Liste des rubriques").'</h3>';
       while (list($rubid, $rubname, $enligne, $ordre) = sql_fetch_row($result)) {$i++;
          if ($radminsuper==1) {
-            $href1='<a href="admin.php?op=rubriquedit&amp;rubid='.$rubid.'" title="'.adm_translate("Editer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg ml-3"></i>&nbsp;';
+            $href1='<a href="admin.php?op=rubriquedit&amp;rubid='.$rubid.'" title="'.adm_translate("Editer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg mr-2"></i>&nbsp;';
             $href2='</a>';
             $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg"></i></a>';
          } else {
@@ -187,7 +187,7 @@ function sections() {
          if ($enligne==0) { $online='<span class="badge badge-danger ml-1">'.adm_translate("Hors Ligne").'</span>'; } else if ($enligne==1) { $online = '<span class="badge badge-success ml-1">'.adm_translate("En Ligne").'</span>'; }
          echo '
       <div class="list-group-item bg-light">
-         <a href="" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="ml-auto">'.$href1.$href2.$href3.'</span>
+         <a href="" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-right">'.$href1.$href2.$href3.'</span>
       </div>';
 
          if ($radminsuper==1) {
@@ -200,9 +200,8 @@ function sections() {
             echo '
             <div id="srub'.$i.'" class=" mb-3 collapse show">
                <div class="list-group-item d-flex">&nbsp;<strong class="">'.adm_translate("Sous-rubriques").'</strong>';
-               if ($radminsuper==1) {
+               if ($radminsuper==1)
                   echo '<span class="ml-auto"><span class="badge badge-secondary mr-2">'.sql_num_rows($result2).'</span><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
-               }
                echo '</div>';
 
            while (list($secid, $secname) = sql_fetch_row($result2)) {
@@ -219,10 +218,10 @@ function sections() {
                   &nbsp;
                '.$secname.'&nbsp;
                <span class=" ml-auto">
-               <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg"></i>&nbsp;</a>
+               <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg mr-2"></i></a>
                <a class="" href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
               if (($droit_pub==7) or ($droit_pub==4)) {
-                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
+                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger ml-2"></i></a>';
               }
               echo '</span>
               </div>';
@@ -1365,10 +1364,16 @@ function updaterights($chng_aid, $maxindex, $creation, $publication, $modificati
 
    $result=sql_query("DELETE FROM ".$NPDS_Prefix."publisujet WHERE aid='$chng_aid'");
    for ($j = 1; $j < ($maxindex+1); $j++) {
-      if ($creation[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$creation[$j]','1')"); }
-      if ($publication[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$publication[$j]','2')"); }
-      if ($modification[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$modification[$j]','3')"); }
-      if ($suppression[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$suppression[$j]','4')"); }
+   
+      if(array_key_exists($j, $creation))
+         if ($creation[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$creation[$j]','1')"); }
+      if(array_key_exists($j, $publication))
+         if ($publication[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$publication[$j]','2')"); }
+      if(array_key_exists($j, $modification))
+         if ($modification[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$modification[$j]','3')"); }
+      if(array_key_exists($j, $suppression))
+         if ($suppression[$j]!='') { $result=sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$suppression[$j]','4')"); }
+
    }
 
    global $aid; Ecr_Log('security', "UpdateRightsPubliSujet($chng_aid) by AID : $aid", '');
@@ -1380,6 +1385,9 @@ settype($Mmembers,'array');
 settype($artid,'integer');
 settype($secid,'integer');
 //settype($rubid,'integer');// hot hot
+settype($suppression,'array');
+settype($modification,'array');
+settype($publication,'array');
 
 switch ($op) {
    case "new_rub_section":    new_rub_section($type); break;

@@ -11,13 +11,13 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='mod_authors';
 $f_titre = adm_translate("Administrateurs");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-if($radminsuper!=1) { Access_Error(); }
+if($radminsuper!=1) Access_Error();
 
 global $language, $adminimg, $admf_ext;
 $listdroits='';$listdroitsmodulo='';
@@ -482,7 +482,7 @@ function updatedroits($chng_aid) {
 }
 
 function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5) {
-    global $NPDS_Prefix, $modu;
+   global $NPDS_Prefix, $modu;
 
     if (!($chng_aid && $chng_name && $chng_email))
        Header("Location: admin.php?op=mod_authors");
@@ -533,10 +533,11 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 }
 
 function error_handler($ibid) {
-   opentable();
-   echo "<p class=\"errorhandler\" align=\"center\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
-   echo "$ibid<br /><a href=\"admin.php?op=mod_authors\" class=\"noir\">".adm_translate("Retour en arrière")."</a></p>";
-   closetable();
+   echo '
+   <div class="alert alert-danger mb-1">
+   '.adm_translate("Merci d'entrer l'information en fonction des spécifications").'<br />'.$ibid.'
+   </div>
+   <a class="btn btn-outline-secondary" href="admin.php?op=mod_authors" >'.adm_translate("Retour en arrière").'</a>';
 }
 
 switch ($op) {
@@ -558,15 +559,14 @@ switch ($op) {
          include("footer.php");
          return;
       }
-      if ($system_md5) {
+      if ($system_md5)
          $add_pwdX=crypt($add_pwd,$add_pwdX);
-      }
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','$add_radminfilem', '$add_radminsuper')");
       updatedroits($add_aid);
       // Copie du fichier pour filemanager
       if ($add_radminsuper or $add_radminfilem)
          @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($add_aid).".conf.php");
-      global $aid; Ecr_Log("security", "AddAuthor($add_aid) by AID : $aid", "");
+      global $aid; Ecr_Log('security', "AddAuthor($add_aid) by AID : $aid", '');
       Header("Location: admin.php?op=mod_authors");
    break;
 
@@ -587,9 +587,10 @@ switch ($op) {
    case 'deladminconf':
       sql_query("DELETE FROM ".$NPDS_Prefix."authors WHERE aid='$del_aid'");
       deletedroits($chng_aid=$del_aid);
+      sql_query("DELETE FROM ".$NPDS_Prefix."publisujet WHERE aid='$del_aid'");
       // Supression du fichier pour filemanager
       @unlink("modules/f-manager/users/".strtolower($del_aid).".conf.php");
-      global $aid; Ecr_Log("security", "DeleteAuthor($del_aid) by AID : $aid", "");
+      global $aid; Ecr_Log('security', "DeleteAuthor($del_aid) by AID : $aid", '');
       Header("Location: admin.php?op=mod_authors");
    break;
 }
