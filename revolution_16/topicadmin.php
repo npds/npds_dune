@@ -145,7 +145,7 @@ global $NPDS_Prefix, $adminforum;
                header("location: $url_ret?topic=$topic&forum=$forum");
                break;
             case 'unlock':
-               $topic_title="";
+               $topic_title='';
                $sql = "SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic'";
                $r=sql_fetch_assoc(sql_query($sql));
                $topic_title=str_replace("[".translate("Solved")."] - ","",$r['topic_title']);

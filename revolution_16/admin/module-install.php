@@ -36,11 +36,12 @@ admindroits($aid,$f_meta_nom);
 // *****************************
 
 function nmig_copyright() {
+   global $ModInstall, $ModDesinstall;
       $clspin =' text-success';
       if ($ModInstall == '' && $ModDesinstall != '')
       $clspin =' text-danger';
    $display = '
-   <br /><div class="text-center">
+   <div class="text-center mt-4">
       <i class="fa fa-spinner fa-pulse '.$clspin.' "></i> NPDS Module Installer v2.0
    </div>';
    return $display;
@@ -51,6 +52,7 @@ function nmig_Start($name_module,$txtdeb) {
    include("header.php");
    global $ModInstall, $display;
    $display = '
+   <hr />
    <div class="">';
    if (isset($txtdeb) && $txtdeb != "")
       $display .= aff_langue($txtdeb);
@@ -62,7 +64,7 @@ function nmig_Start($name_module,$txtdeb) {
    $display .= '
    </div>
    <div style="text-align: center;">
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary col-12 col-sm-4 offset-sm-4">'.adm_translate("Etape suivante").'</a><br />
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
    </div>
    '.nmig_copyright();
 }
@@ -75,19 +77,24 @@ function nmig_License($licence_file) {
    $licence_text = fread($myfile, filesize($licence_file));
    fclose($myfile);
    $display = '
-   <div class="">
-      <p><strong>'.adm_translate("L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :").'</strong></p>
-      <div style="text-align: center;">
+   <hr />
+   <div class="mb-3">
+      <p class="lead">'.adm_translate("L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :").'</p>
+      <div class="text-center">
          <textarea class="form-control" name="licence" rows="12" readonly="readonly">'.htmlentities($licence_text, ENT_QUOTES | ENT_IGNORE, "UTF-8").'</textarea>
          <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e3" class="btn btn-primary">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=modules" class="btn btn-danger">'.adm_translate("Non").'</a><br />
       </div>
-      '.nmig_copyright();
+   </div>
+   '.nmig_copyright();
+
+      
 }
 //e3
 
 function nmig_AlertSql($sql,$tables) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
+   $reqsql='';
 //   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
    $type_engine=5;
    for ($i = 0; $i < count($sql); $i++) {
@@ -99,6 +106,7 @@ function nmig_AlertSql($sql,$tables) {
       $reqsql.='<code>'.$sql[$i].'</code><br />';
    }
    $display = '
+   <hr />
    <div class="">
       <p><strong>'.adm_translate("Le programme d'installation va maintenant exécuter le script SQL pour configurer la base de données MySql.").'</strong></p>
       <p>'.adm_translate("Si vous le souhaitez, vous pouvez exécuter ce script vous même, si vous souhaitez par exemple l'exécuter sur une autre base que celle du site. Dans ce cas, pensez à reparamétrer le fichier de configuration du module.").'</p>
@@ -121,6 +129,7 @@ function nmig_WriteSql($sql,$tables) {
 //   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
 $type_engine= 5;// à revoir
    $display = '
+   <hr />
    <div class="">';
    for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
       for ($j = 0; $j < count($tables); $j++) {
@@ -141,9 +150,8 @@ $type_engine= 5;// à revoir
       }
       $display .= $reqsql;
       $display .= "<br />\n";
-   } else {
+   } else
       $display .= '<p class="text-success"><strong>'.adm_translate("La configuration de la base de données MySql a réussie !").'</strong></p>';
-   }
    $display .= '
    </div><div style="text-align: center;">
    <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
@@ -157,17 +165,18 @@ function nmig_AlertConfig($list_fich) {
    include("header.php");
    global $ModInstall, $display;
    $display = '
-   <div style="text-align: left;">
-   <p><strong>'.adm_translate("Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :").'</p>';
+   <hr />
+   <div class="mb-3">
+   <p class="lead">'.adm_translate("Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :").'</p>';
    for ($i = 0; $i < count($list_fich[0]); $i++) {
-      $display .= '<code>'.$list_fich[0][$i]."</code><br />\n";
+      $display .= '
+      <code>'.$list_fich[0][$i].'</code><br />';
    }
    $display .= '
    </div>
-   <div style="text-align: center;"><br />';
-   $display .= "<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6\" class=\"rouge\">".adm_translate("Modifier le(s) fichier(s)")."</a><br />\n";
-   $display .= "</div><br />\n";
-   $display .= nmig_copyright();
+   <div class="text-center mb-3">
+      <a class="btn btn-primary" href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e6">'.adm_translate("Modifier le(s) fichier(s)").'</a>
+   </div>'.nmig_copyright();
 }
 
 // e6
@@ -176,11 +185,13 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
    include("header.php");
    global $ModInstall, $display;
    $writeAllFiles = 1;
-   $display .= "<div style=\"text-align: left;\">\n";
+   $display = '
+   <hr />
+   <div class="mb-3">';
    $file_created = 0;
    for ($i = 0; $i < count($list_fich[0]); $i++) {
       if (!file_exists($list_fich[0][$i])) {
-         $file = fopen($list_fich[0][$i7], "w");
+         $file = fopen($list_fich[0][$i], "w");//change to debug i7 to i
          fclose($file);
          $file_created = 1;
       }
@@ -191,11 +202,10 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
          $debut = strpos($list_fich[1][$i],"[nom]") + 5;
          $fin = strpos($list_fich[1][$i],"[/nom]");
          if (preg_match("#".substr($list_fich[1][$i],$debut,$fin-$debut)."#",$txtconfig)) {
-            $display .= adm_translate("Les paramètres sont déjà inscrits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
+            $display .= '<p class="lead">'.adm_translate("Les paramètres sont déjà inscrits dans le fichier").'</p><code>'.$list_fich[0][$i].'</code><br />';
          } else {
-            if ($try_Chmod) {
+            if ($try_Chmod)
                chmod($list_fich[0][$i], 666);
-            }
             $file = fopen($list_fich[0][$i], "r+");
             fread($file,filesize($list_fich[0][$i]));
             if (fwrite($file, $list_fich[1][$i])) {
@@ -203,9 +213,9 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
                $display .= adm_translate("Les paramètres ont été correctement écrits dans le fichier \"").$list_fich[0][$i]."\".<br />\n";
             } else {
                $writeAllFiles = 0;
-               $display .= adm_translate("Impossible d'écrire dans le fichier \"").$list_fich[0][$i]."\". ".adm_translate("Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.")."<br /><br />\n";
+               $display .= adm_translate("Impossible d'écrire dans le fichier \"").$list_fich[0][$i]."\". ".adm_translate("Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.")."<br />";
                $display .= adm_translate("Voici le code à taper dans le fichier :")."<br /><br />\n";
-               $display .= "</div>\n";
+               $display .= '</div>';
                $display .= "<div class=\"code\">\n";
                ob_start();
                highlight_string($list_fich[1][$i]);
@@ -221,12 +231,10 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
          if (!$file_created) {
             $debut = strpos($txtconfig,"?>");
             $txtconfig = substr($txtconfig,0,$debut-1).chr(13).$list_fich[1][$i].chr(13)."?>";
-         } else {
+         } else
             $txtconfig = "<?php \n".$list_fich[1][$i]."\n ?>";
-         }
-         if ($try_Chmod) {
+         if ($try_Chmod)
             chmod($list_fich[0][$i], 666);
-         }
          $file = fopen($list_fich[0][$i], "w");
          fread($file,filesize($list_fich[0][$i]));
          if (fwrite($file, $txtconfig)) {
@@ -246,17 +254,16 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
          }
       }
    }
-   $display .= "</div><br />\n";
-   $display .= "<div style=\"text-align: center;\">\n";
-   if (!$writeAllFiles) {
-      $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6&amp;try_Chmod=1\" class=\"rouge\">".adm_translate("Réessayer avec chmod automatique")."</a>&nbsp;] | [";
-   }
-   $display .= "&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e7\"";
-   if (!$writeAllFiles) {
+   $display .= '
+   </div>
+   <div class="text-center mb-3">';
+   if (!$writeAllFiles)
+      $display .= "<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6&amp;try_Chmod=1\" class=\"rouge\">".adm_translate("Réessayer avec chmod automatique")."</a>";
+   $display .= '<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e7"';
+   if (!$writeAllFiles)
       $display .= 'class="btn btn-primary">';
-   } else {
-      $display .= "class=\"rouge\">";
-   }
+   else
+      $display .= 'class="btn btn-primary">';
    $display .= adm_translate("Etape suivante").'</a><br />
    </div><br />';
    $display .= nmig_copyright();
@@ -356,14 +363,12 @@ function nmig_WriteBloc($blocs,$posbloc) {
 function nmig_txt($txtfin) {
    include("header.php");
    global $ModInstall, $display;
-   $display = "<div style=\"text-align: left;\">\n";
-   $display .= "<b>".aff_langue($txtfin)."</b>\n";
-   $display .= "<br /><br />\n";
-   $display .= "</div><div style=\"text-align: center;\">\n";
-   $display .= "<br />[&nbsp;<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e10\" class=\"noir\">".adm_translate("Etape suivante")."</a>&nbsp;]<br />\n";
-   $display .= "</div>\n";
-   $display .= "<br />\n";
-   $display .= nmig_copyright();
+   $display = '
+   <hr />
+   <div class="lead mb-3">'.aff_langue($txtfin).'</div>
+   <div class="text-center mb-3">
+      <a class="btn btn-primary" href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e10" >'.adm_translate("Etape suivante").'</a><br />
+   </div>'.nmig_copyright();
 }
 
 // e10
@@ -372,13 +377,12 @@ function nmig_End($name_module, $end_link) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
    sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='1' WHERE mnom='".$ModInstall."'");
-   $display = ' 
-   <div class="">
-      <p class="text-success"><strong>'.adm_translate("L'installation automatique du module").' "'.$name_module.'" '.adm_translate("est terminée !").'</strong></p>
+   $display = '
+   <hr /> 
+   <div class="alert alert-success lead">'.adm_translate("L'installation automatique du module").' <b>'.$name_module.'</b> '.adm_translate("est terminée !").'</div>
+   <div class="mb-3">
+      <a href="'.$end_link.'" class="btn btn-success">'.adm_translate("Ok").'</a>
    </div>
-   <div style="text-align: center;">
-      <a href="'.$end_link.'" class="btn btn-primary">'.adm_translate("Ok").'</a>
-   </div><br />
    '.nmig_copyright();
 }
 
@@ -390,70 +394,75 @@ function nmig_clean($name_module) {
 // ************************
 // * Affichage de la page *
 // ************************
-
-   if (!isset($try_Chmod)) {
+   settype($subop,'string');
+   settype($ModInstall,'string');
+   settype($ModDesinstall,'string');
+   if (!isset($try_Chmod))
       $try_Chmod = 0;
-   }
-   if ($ModInstall != "" && $ModDesinstall == "") {
-      if ($subop == "install") {
+
+   if ($ModInstall != '' && $ModDesinstall == '') {
+      if ($subop == 'install')
          $result = sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='1' WHERE mnom= '".$ModInstall."'");
-      }
-      if (file_exists("modules/".$ModInstall."/install.conf.php")) {
+      if (file_exists("modules/".$ModInstall."/install.conf.php"))
          include("modules/".$ModInstall."/install.conf.php");
-      } else {
+      else {
          include("header.php");
          GraphicAdmin($hlpfile);
-         echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-         echo adm_translate("Gestion, Installation Modules");
-         echo "</td></tr></table>\n";
-         echo "<div style=\"text-align: center;\">".adm_translate("Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.")."<br /><br />[ <a href=\"JavaScript:history.go(-1)\" class=\"rouge\">".adm_translate("Retour en arriére")."</a> ]</div><br /><br />".nmig_copyright();
-         include("footer.php");
+         adminhead ($f_meta_nom, $f_titre, $adminimg);
+         echo '
+         <hr />
+         <div class="lead mb-3">'.adm_translate("Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.").'</div>
+         <div class="mb-3">
+            <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a>
+         </div>'.nmig_copyright();
+         adminfoot('','','','');
          die();
       }
-      if (file_exists("modules/".$ModInstall."/licence-".$language.".txt")) {
+      if (file_exists("modules/".$ModInstall."/licence-".$language.".txt"))
          $licence_file = "modules/".$ModInstall."/licence-".$language.".txt";
-      } else {
+      else 
          $licence_file = "modules/".$ModInstall."/licence-english.txt";
-      }
+      settype($nmig,'string');
+//      settype($tables,'string');
       switch($nmig) {
-         case "e2":
+         case 'e2':
             nmig_License($licence_file);
-            break;
-         case "e3":
-            if (isset($sql[0]) && $sql[0] != "") { nmig_AlertSql($sql,$tables); }
+         break;
+         case 'e3':
+            if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql,$tables);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>"; }
-            break;   
-         case "e4":
-            if (isset($sql[0]) && $sql[0] != "") { nmig_WriteSql($sql,$tables); }
+         break;
+         case 'e4':
+            if (isset($sql[0]) && $sql[0] != '') nmig_WriteSql($sql,$tables);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>"; }
-            break;
-         case "e5":
-            if (isset($list_fich) && count($list_fich[0]) && $list_fich[0][0] != "") { nmig_AlertConfig($list_fich); }
+         break;
+         case 'e5':
+            if (isset($list_fich) && count($list_fich[0]) && $list_fich[0][0] != '') nmig_AlertConfig($list_fich);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>"; }
-            break;
-         case "e6":
-            if (isset($list_fich) && count($list_fich[0])) { nmig_WriteConfig($list_fich, $try_Chmod); }
+         break;
+         case 'e6':
+            if (isset($list_fich) && count($list_fich[0])) nmig_WriteConfig($list_fich, $try_Chmod);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>"; }
-            break;
-         case "e7":
-            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != "") { nmig_AlertBloc($blocs); }
+         break;
+         case 'e7':
+            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_AlertBloc($blocs);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>"; }
-            break;
-         case "e8":
-            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != "") { nmig_WriteBloc($blocs, $posbloc); }
+         break;
+         case 'e8':
+            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_WriteBloc($blocs, $posbloc);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>"; }
-            break;
-         case "e9":
-            if (isset($txtfin) && $txtfin != "") { nmig_txt($txtfin); }
+         break;
+         case 'e9':
+            if (isset($txtfin) && $txtfin != '') nmig_txt($txtfin);
             else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e10\";\n//]]>\n</script>"; }
-            break;
-         case "e10":
-            if (!isset($end_link) || $end_link == "") { $end_link = "admin.php?op=modules"; }
+         break;
+         case 'e10':
+            if (!isset($end_link) || $end_link == '') $end_link = "admin.php?op=modules";
             nmig_End($name_module, $end_link);
-            break;
+         break;
          default:
             nmig_Start($name_module,$txtdeb);
-            break;
+         break;
       }
    } elseif ($ModInstall == '' && $ModDesinstall != '') {
       if ($subop == "desinst") {
@@ -466,27 +475,24 @@ function nmig_clean($name_module) {
       }
       include("header.php");
       $display = '
-      <div style="text-align: left;">
+         <hr />
          <h4 class="text-danger">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>
          <p><strong>'.adm_translate("La désinstallation automatique des modules n'est pas prise en charge à l'heure actuelle.").'</strong>
          <p>'.adm_translate("Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.").'
          <p>'.adm_translate("Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".").'</p>
+      <div class="text-center mb-3">
+         <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Marquer le module comme désinstallé").'</a>
       </div>
-      <div style="text-align: center;">
-      <a href="JavaScript:history.go(-1)" class="btn btn-primary col-12 col-md-6">'.adm_translate("Retour en arriére").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger col-12 col-md-6">'.adm_translate("Marquer le module comme désinstallé").'</a><br />
-      </div>
-      <br /><br />
       '.nmig_copyright();
    }
 
       GraphicAdmin($hlpfile);
       adminhead ($f_meta_nom, $f_titre, $adminimg);
       $clspin =' text-success';
-      if ($ModInstall == "" && $ModDesinstall != "") {
-      $clspin =' text-danger';
-      }
-      
-      echo '<h3><i class="fa fa-spinner fa-pulse '.$clspin.' "></i> '.$name_module.'</h3>';
+      if ($ModInstall == '' && $ModDesinstall != '')
+         $clspin =' text-danger';
+
+//      echo '<h3><i class="fa fa-spinner fa-pulse '.$clspin.' "></i> '.$name_module.'</h3>';
       echo $display;
       adminfoot('','','','');
 ?>

@@ -539,33 +539,32 @@ include('header.php');
 
    if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
       echo '
-      <nav>
-         <ul class="pagination pagination-sm d-flex justify-content-center">
-            <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-md-inline">'.translate("Administration Tools").'</span></a>
+         <ul class="nav justify-content-center border rounded">
+            <li class="nav-item ">
+               <a class="nav-link disabled" href="#"><i class="fa fa-cogs fa-lg" title="'.translate("Administration Tools").'" data-toggle="tooltip"></i><span class="d-none d-md-inline">&nbsp;</span></a>
             </li>';
       if ($lock_state==0)
          echo '
-            <li class="page-item">
-               <a class="page-link" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Lock this Topic").'" data-toggle="tooltip" ><i class="fa fa-lock fa-lg" aria-hidden="true"></i></a>
+            <li class="nav-item">
+               <a class="nav-link" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-lock fa-lg d-md-none" title="'.translate("Lock this Topic").'" data-toggle="tooltip" ></i><span class="ml-2 d-none d-md-inline">'.translate("Lock this Topic").'</span></a>
             </li>';
       else
          echo '
-            <li class="page-item">
-               <a class="page-link" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"><i class ="fa fa-unlock fa-lg" aria-hidden="true"></i></a>
+            <li class="nav-item">
+               <a class="nav-link" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class ="fa fa-unlock fa-lg d-md-none" title="'.translate("Unlock this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Unlock this Topic").'</span></a>
             </li>';
       echo '
-            <li class="page-item">
-               <a class="page-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Move this Topic").'" data-toggle="tooltip"><i class="fa fa-share fa-lg" aria-hidden="true"></i></a>
+            <li class="nav-item">
+               <a class="nav-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-share fa-lg d-md-none" title="'.translate("Move this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Move this Topic").'</span></a>
             </li>
-            <li class="page-item">
-               <a class="page-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"><i class="fa fa-level-up fa-lg" aria-hidden="true"></i></a>
+            <li class="nav-item">
+               <a class="nav-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-level-up fa-lg d-md-none" title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Make this Topic the first one").'</span></a>
             </li>
-            <li class="page-item">
-               <a class="page-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Delete this Topic").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" aria-hidden="true"></i></a>
+            <li class="nav-item">
+               <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-trash-o fa-lg d-md-none" title="'.translate("Delete this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Delete this Topic").'</span></a>
             </li>
          </ul>
-      </nav>';
+';
    }
    include("footer.php");
 ?>
