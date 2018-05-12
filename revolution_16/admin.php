@@ -220,6 +220,31 @@ $ibid = explode('|',$v);
    if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
+   //==> Pour les modules
+   // voir les modules installés sur le nom
+   // le module est installé et a une alerte
+/*
+    $alert_modules=sql_query("SELECT * FROM fonctions f LEFT JOIN modules m ON m.mnom = f.fnom WHERE m.minstall=1");// and fcategorie=9
+   if($alert_modules) {
+      while($am=sql_fetch_row($alert_modules)) {
+      var_dump($am);
+      $ibid=
+      
+      }
+   }
+*/
+   //
+   // voir si il ont des alertes
+   // traiter
+   //<== Pour les modules
+
+
+
+
+
+
+
+
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    // on prend tout ce qui a une interface 

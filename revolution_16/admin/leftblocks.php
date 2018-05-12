@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='blocks';// à voir si on réimplémente les droits spécifique droit et gauche
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -83,7 +83,6 @@ function deletelblock($id) {
    global $aid; Ecr_Log('security', "DeleteLeftBlock($id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
-
 
 settype($css,'string');
 settype($Mmember,'string');
