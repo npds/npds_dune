@@ -563,8 +563,7 @@ include('header.php');
             <li class="nav-item">
                <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-trash-o fa-lg d-md-none" title="'.translate("Delete this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Delete this Topic").'</span></a>
             </li>
-         </ul>
-';
+         </ul>';
    }
    include("footer.php");
 ?>
