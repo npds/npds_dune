@@ -47,7 +47,7 @@ global $language,$adminimg, $admf_ext;
 
    $whatondb = sql_query("SELECT mnom FROM ".$NPDS_Prefix."modules" );
    while ($row=sql_fetch_row($whatondb)) {
-      if(!in_array($row[0],$modlist)){sql_query("DELETE FROM ".$NPDS_Prefix."modules WHERE mnom='".$row[0]."'");};
+      if(!in_array($row[0],$modlist)) sql_query("DELETE FROM ".$NPDS_Prefix."modules WHERE mnom='".$row[0]."'");
    }
    foreach ($modlist as $value) {
       $queryexiste=sql_query("SELECT mnom FROM ".$NPDS_Prefix."modules WHERE mnom='".$value."'");

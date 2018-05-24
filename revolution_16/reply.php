@@ -362,7 +362,7 @@ if ($submitS) {
          if ($allow_sig == 1||$sig == 'on') {
             $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
             list($attachsig) = sql_fetch_row($asig);
-            if ($attachsig == 1) {$s = 'checked="checked"';} else {$s = '';}
+            if ($attachsig == 1) $s = 'checked="checked"'; else $s = '';
             if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox my-2">
@@ -374,8 +374,8 @@ if ($submitS) {
             </div>';
            }
         }
-         settype($upload,'string');
-         settype($up,'string');
+        settype($upload,'string');
+        settype($up,'string');
         if ($allow_upload_forum) {
            if ($upload == 'on') $up = 'checked="checked"';
          echo '

@@ -226,7 +226,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
                <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
-               <th class="text-center" data-sortable="true" data-align="center" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
+               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
                <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
                <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
             </tr>
@@ -294,13 +294,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                $Sredirection=true;
             }
 
-            if ($Sredirection) {
+            if ($Sredirection)
                echo '
                <td>&nbsp;</td>';
-            } else {
+            else
                echo '
                <td>'.$replys.'</td>';
-            }
             if ($Sredirection) {
                if (!$Mmod) {
                   echo '<td>&nbsp;</td>';
@@ -311,7 +310,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             } else {
                $rowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='".$myrow['topic_poster']."'", 3600);
                $uname=$rowQ1[0]['uname'];
-               echo '<td>'.$uname.'</td>';
+               echo '<td>'.userpopover($uname,40).$uname.'</td>';
                echo '<td>'.$myrow['topic_views'].'</td>';
             }
             if ($Sredirection) {
