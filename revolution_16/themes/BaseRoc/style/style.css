@@ -58,22 +58,6 @@ a:hover {text-decoration:none;}
   max-width:48px;
   max-height:48px;
 }
-.n-ava-64 {
-  max-width:64px;
-  max-height:64px;
-}
-.n-ava-48 {
-  max-width:48px;
-  max-height:48px;
-}
-.n-ava-40 {
-  max-width:40px;
-  max-height:40px;
-}
-.n-ava-36 {
-  max-width:36px;
-  max-height:36px;
-}
 .n-smil {
   width:24px;
   height:24px;
@@ -452,7 +436,7 @@ le menu de mon header simple mais responsive
    padding-bottom: 0rem;
 }
 .navbar {
-   padding: .25rem 1rem;
+   padding: .25rem ;
 }
 
 .navbar-nav {
@@ -1426,7 +1410,6 @@ a.tooltip_ws:hover em span {
     transform: scale(1.1);
   }
 }
-
 .faa-pulse.animated,
 .faa-pulse.animated-hover:hover,
 .faa-parent.animated-hover:hover > .faa-pulse {
@@ -1598,6 +1581,7 @@ a.tooltip_ws:hover em span {
 }
 
 /* WAVE */
+
 @-webkit-keyframes burst {
   0% {opacity: .6;}
   50% {
@@ -1897,33 +1881,3 @@ a.tooltip_ws:hover em span {
 .ui-draggable {
    z-index: 10;
 }
-
-input[required='required'] {
-border: 1px solid ;
-}
-
-
-/* ==> personalisation responsivité des colonnes de card */
-
-@media (min-width: 576px) and (max-width: 640px) {
-.card-columns {
- column-count: 2;
- }
-}
-@media (min-width: 760px) and (max-width: 991px) {
-.card-columns {
- column-count: 4;
- }
-}
-@media (min-width: 991px) and (max-width: 1080px) {
-.card-columns {
- column-count: 2;
- }
-}
-
-
-@media (min-width: 1200px) { card-columns {
- column-count: 3;
- }}
-/* <== personalisation responsivité des colonnes de card */
-
