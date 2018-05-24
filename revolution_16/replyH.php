@@ -130,7 +130,7 @@ if ($submitS) {
       }
       $image_subject=removeHack($image_subject);
       $message = addslashes($message);
-      $time = date("Y-m-d H:i:s",time()+($gmt*3600));
+      $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns, post_idH) VALUES ('$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname', $post)";
       if (!$result = sql_query($sql)) {
          forumerror('0020');
@@ -272,6 +272,7 @@ if ($submitS) {
       else
          echo $anonymous.'</span>';
 
+   settype($image_subject,'string');
    if ($smilies) {
       echo '
       <div class="hidden-xs-down form-group row">
@@ -353,7 +354,7 @@ if ($submitS) {
          if ($allow_sig == 1) {
             $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
             list($attachsig) = sql_fetch_row($asig);
-            if ($attachsig == 1||$sig == "on") { $s = 'checked="checked"';}
+            if ($attachsig == 1) $s = 'checked="checked"'; else $s = '';
             if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox">
@@ -365,6 +366,8 @@ if ($submitS) {
             </div>';
             }
          }
+         settype($upload,'string');
+         settype($up,'string');
          if ($allow_upload_forum) {
             if ($upload == 'on') $up = 'checked="checked"';
             echo '
