@@ -1272,7 +1272,7 @@ function Pre_fab_block($Xid, $Xblock) {
             <div id="'.$Xblock.'_'.$id.'">'; // modif Jireck
          } else {
             $htvar = '
-            <div class="'.strtolower($bloc_side).'bloc">'; // modif Jireck
+            <div class="card mb-3 '.strtolower($bloc_side).'bloc">'; // modif Jireck
          }
          fab_block($title, $member, $content, $cache);
          // echo "</div>"; // modif Jireck
