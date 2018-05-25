@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* CSS pour administration de NPDS Revolution                                */
+/* Theme : requis pour tous                                                  */
+/* Chargement par pages.php : requis                                         */
+/* admin.css                                                                 */
+
+.vam {
+   vertical-align: middle;
+   border:none;
+}
+
+#adm_men, .adm_workarea {
+   padding:1rem;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   border-radius: 4px;
+   border: 1px solid rgba(0, 0, 0, .125);
+}
+
+#adm_men_corps ul {
+   list-style: none;
+   display: inline-block;
+   margin:3px;
+   padding:6px;
+   border: solid 1px #E5E6F1;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   border-radius: 4px; 
+}
+
+#adm_men_man ul {
+   list-style: none;
+   display: inline-block;
+   margin:3px;
+}
+#adm_men_man li {
+   float: left;
+}
+
+#adm_men_corps li{
+   margin:3px;
+   float:left;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   border-radius: 4px;
+   -moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+   -webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+   box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+#alertes a {
+   -moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+   -webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+   box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+#adm_men_corps li span {
+   display: block;
+}
+#adm_men_corps .adm_img {
+   vertical-align: middle;
+   width: 32px;
+   height: 32px;
+   border: 1px;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   border-radius: 3px;
+}
+
+#car, .car {
+   font-family: Courier, MS Courier New, Prestige, monospace;
+   font-size: 90%;
+   text-align: right;
+   line-height: 11px;
+}
+
+#mes_perm {
+   text-align: right;
+}
+
+.adm_img {
+   height: 32px;
+   width: 32px;
+}
+
+a.adm_tooltip em {
+   display:none;
+}
+a.adm_tooltip:hover {
+   border: 0;
+   position: relative;
+   z-index: 1070;
+   text-decoration:none;
+}
+a.adm_tooltip:hover em {
+   z-index: 1070;
+   font-style: normal;
+   font-size: 11px;
+   display: block;
+   top: 20px;
+   left: -10px;
+   padding: 5px;
+   color: #000;
+   border: 1px solid #999999;
+   background: #F8F8F8;
+   width:200px;
+   text-align: left;
+   position: absolute; left: 2em; top: 2em;
+   border-radius: 5px;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
+   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+}
+a.adm_tooltip:hover em span {
+   position: absolute;
+   top: -7px;
+   left: 15px;
+   height: 7px;
+   width: 11px;
+   margin:0;
+   padding: 0;
+   border: 0;
+}

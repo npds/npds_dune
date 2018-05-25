@@ -1,0 +1,26 @@
+
+<footer id="footer" class="footer text-center pb-3 bg-primary text-white">
+   <div class="container">
+      <p>!sc_infos!
+         <br />!sc_infos_else!
+         <br />!msg_foot!
+      </p>
+      <script type="text/javascript" src="lib/js/jquery.translate.js"></script>
+      <script type="text/javascript" src="lib/js/npds-dicotransl.js"></script>
+      <script type="text/javascript">
+   //<![CDATA[
+      $(document).ready(function(){
+         var translator = $('body').translate({lang: "fr", t: dict});
+         translator.lang("<?php echo language_iso(1,'',0); ?>");
+         $('.plusdecontenu').click(function(){
+            var $this = $(this);
+            $this.toggleClass('plusdecontenu');
+            if($this.hasClass('plusdecontenu')){
+               $this.text(translator.get('Plus de contenu'));
+            } else {
+               $this.text(translator.get('Moins de contenu'));
+            }
+         });
+         });
+      //]]
+      </script>

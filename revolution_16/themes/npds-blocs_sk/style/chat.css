@@ -1,0 +1,36 @@
+.n-smil {
+width:24px;
+height:24px;
+}
+#chat {
+font-size: 0.9rem;
+margin: 0;
+padding: 0.5rem;
+}
+#chat a:hover {
+text-decoration: none;
+}
+#chat .chatmessage {
+background-color: White;
+border-bottom: #C0C0C0 .2px solid;
+padding-bottom: .5rem;
+padding-top: .5rem;
+} 
+#chat .chatheure {
+font-size: 0.7rem;
+float: right;
+padding-bottom: .5rem;
+padding-top: .5rem;
+}
+#chat .chatnom, .chatnom a:visited, .chatnom a:link, .chatnom a:active, .chatnom a:hover {
+float: left;
+}
+#chat .chattexte {
+  clear:left;
+}
+/* 
+.n-fond_emot {
+  background-color: #DBB489;
+  width: 100%;
+}
+ */
