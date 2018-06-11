@@ -101,48 +101,7 @@ body {}
 /* calculées via https://rocssti.net/builder-css
  * basé sur http://soqr.fr/vertical-rhythm/ merci @goetter & @eQRoeil */
 
-h1,
-.h1 {
-  display: block;
-  font-size: 2rem; /* equiv 20px */
-  line-height: 1.2;
-  margin: 0 0 1.2em 0;
-}
-h2,
-.h2 {
-  display: block;
-  font-size: 1.8rem; /* equiv 18px */
-  line-height: 1.33333;
-  margin: 0 0 1.33333em 0;
-}
-h3,
-.h3 {
-  display: block;
-  font-size: 1.6rem; /* equiv 16px */
-  line-height: 1.5;
-  margin: 0 0 1.5em 0;
-}
-h4,
-.h4 {
-  display: block;
-  font-size: 1.4rem; /* equiv 14px */
-  line-height: 1.71429;
-  margin: 0 0 1.71429em 0;
-}
-h5,
-.h5 {
-  display: block;
-  font-size: 1.2rem; /* equiv 12px */
-  line-height: 2;
-  margin: 0 0 1.2em 0;
-}
-h6,
-.h6 {
-  display: block;
-  font-size: 1rem; /* equiv 10px */
-  line-height: 1.4;
-  margin: 0 0 1em 0;
-}
+
 
 .uppercase {
   text-transform: uppercase;

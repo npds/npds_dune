@@ -263,27 +263,58 @@ function smile($message) {
    }
    return($message);
 }
-#autodoc aff_video_yt($ibid) : analyse et génère un tag à la volée pour la video youtube $ibid - JPB 01-2011
+#autodoc aff_video_yt($ibid) : analyse et génère un tag à la volée pour les video youtube,vimeo, dailymotion $ibid - JPB 01-2011/18
 function aff_video_yt($ibid) {
-   $pasfin=true;
-   while ($pasfin) {
-      $pos_deb=strpos($ibid,"[video_yt]",0);
-      $pos_fin=strpos($ibid,"[/video_yt]",0);
-      // ne pas confondre la position ZERO et NON TROUVE !
-      if ($pos_deb===false) $pos_deb=-1;
-      if ($pos_fin===false) $pos_fin=-1;
-      if (($pos_deb>=0) and ($pos_fin>=0)) {
-         $id_vid= substr($ibid,$pos_deb+10,($pos_fin-$pos_deb-10));
-         $fragment = substr( $ibid, 0,$pos_deb);
-         $fragment2 = substr( $ibid,($pos_fin+11));
-         $ibid_code = '
-         <div class="embed-responsive embed-responsive-16by9 my-3">
-           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$id_vid.'?rel=0" allowfullscreen></iframe>
-         </div';
-         $ibid= $fragment.$ibid_code.$fragment2;
+   $videoprovider=array('yt','vm','dm');
+   foreach($videoprovider as $v) {
+      $pasfin=true;
+      while ($pasfin) {
+         $pos_deb=strpos($ibid,"[video_$v]",0);
+         $pos_fin=strpos($ibid,"[/video_$v]",0);
+         // ne pas confondre la position ZERO et NON TROUVE !
+         if ($pos_deb===false) $pos_deb=-1;
+         if ($pos_fin===false) $pos_fin=-1;
+         if (($pos_deb>=0) and ($pos_fin>=0)) {
+            $id_vid= substr($ibid,$pos_deb+10,($pos_fin-$pos_deb-10));
+            $fragment = substr( $ibid, 0,$pos_deb);
+            $fragment2 = substr( $ibid,($pos_fin+11));
+            switch($v) {
+               case 'yt':
+                  if(!defined('CITRON'))
+                     $ibid_code = '
+                     <div class="embed-responsive embed-responsive-16by9 my-3">
+                       <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$id_vid.'?rel=0" allowfullscreen></iframe>
+                     </div>';
+                  else
+                     $ibid_code = '
+                     <div class="youtube_player" videoID="'.$id_vid.'"></div>';
+               break;
+               case 'vm':
+                  if(!defined('CITRON'))
+                     $ibid_code = '
+                     <div class="embed-responsive embed-responsive-16by9 my-3">
+                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/'.$id_vid.'" allowfullscreen="" frameborder="0"></iframe>
+                     </div>';
+                  else
+                     $ibid_code = '
+                     <div class="vimeo_player" videoID="'.$id_vid.'"></div>';
+               break;
+               case 'dm':
+                  if(!defined('CITRON'))
+                     $ibid_code = '
+                     <div class="embed-responsive embed-responsive-16by9 my-3">
+                        <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/'.$id_vid.'" allowfullscreen="" frameborder="0"></iframe>
+                     </div>';
+                  else
+                     $ibid_code = '
+                     <div class="dailymotion_player" videoID="'.$id_vid.'"></div>';
+               break;
+            }
+            $ibid= $fragment.$ibid_code.$fragment2;
+         }
+         else
+            $pasfin=false;
       }
-      else
-         $pasfin=false;
    }
    return ($ibid);
 }
@@ -374,7 +405,16 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code sql]\',\'[/code]&lt;/pre&gt;\');">SQL</a>
                         </div>
                      </div>
-                     <a href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');" title="'.translate("Youtube video").' ID : [video_yt]_pnVFFgz[/video_yt] " data-toggle="tooltip"><i class="fa fa-youtube fa-lg"></i></a>&nbsp;
+                     <div class="dropdown d-inline mr-2" title="'.translate("Videos").'" data-toggle="tooltip" data-placement="left">
+                        <a class=" dropdown-toggle" href="#" role="button" id="typevideo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-film fa-lg"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="typevideo">
+                           <p class="dropdown-header">'.translate("Paste the video ID between the tags").' : <br />[video_yt]xxxx[/video_yt]<br />[video_vm]xxxx[/video_vm]<br />[video_dm]xxxx[/video_dm]</p>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');"><i class="fa fa-youtube fa-lg fa-fw mr-1"></i>Youtube</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_vm]\',\'[/video_vm]\');"><i class="fa fa-vimeo fa-lg fa-fw mr-1"></i>Vimeo</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_dm]\',\'[/video_dm]\');"><i class="fa fa-video-camera fa-fw fa-lg mr-1"></i>Dailymotion</a>
+                        </div>
+                     </div>
                   </div>';
    return($affich);
 }

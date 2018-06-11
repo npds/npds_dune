@@ -111,8 +111,13 @@ table{table-layout: fixed;}
 #footer{}
 #pied{text-align:center;}
 #col_princ{}
-#col_LB{border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;}
+#col_LB{
+   border: 1px solid rgba(0,0,0,.125);
+   border-radius: .25rem;
+   padding-top:1rem;
+   margin-bottom: 1rem;
+}
+#col_LB .card, #col_RB .card {border:0;}
 #col_RB{}
 /** <== ID NPDS-Core                                                        **/
 
