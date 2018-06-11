@@ -74,12 +74,13 @@ function defaultDisplay() {
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Select Topic").'</option>';
+   settype($topic,'string');
+   settype($sel,'string');
    while (list($topicid, $topics) = sql_fetch_row($toplist)) {
-      $sel = '';
-      if(isset($topic))
-         if ($topicid==$topic) $sel = 'selected="selected" ';
+      if ($topicid==$topic) { $sel = 'selected="selected" '; }
       echo '
                <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+      $sel = '';
    }
    echo '
             </select>
