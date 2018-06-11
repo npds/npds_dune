@@ -58,6 +58,22 @@ a:hover {text-decoration:none;}
   max-width:48px;
   max-height:48px;
 }
+.n-ava-64 {
+  max-width:64px;
+  max-height:64px;
+}
+.n-ava-48 {
+  max-width:48px;
+  max-height:48px;
+}
+.n-ava-40 {
+  max-width:40px;
+  max-height:40px;
+}
+.n-ava-36 {
+  max-width:36px;
+  max-height:36px;
+}
 .n-smil {
   width:24px;
   height:24px;
