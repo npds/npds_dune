@@ -60,12 +60,12 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          @copy ($blog_file,$blog_file.'.bak');
          $fp=fopen($blog_file,"a");
          if (!$tiny_mce) {
-            $formatted=str_replace("\r\n","<br />",$story);
-            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story);
-            $formatted=str_replace("\n","<br />",$formatted);
+            $formatted=str_replace("\r\n",'<br />',$story);
+            $formatted=str_replace('<img','<img class="img-fluid" ',$story);
+            $formatted=str_replace("\n",'<br />',$formatted);
          } else {
             $formatted=str_replace("\r\n",'',$story);
-            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story);
+            $formatted=str_replace('<img','<img class="img-fluid" ',$story);
             $formatted=str_replace("\n",'',$formatted);
          }
          $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
@@ -103,12 +103,12 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          global $title, $story, $index;
          @copy ($blog_file,$blog_file.".bak");
          if (!$tiny_mce) {
-            $formatted=str_replace("\r\n","<br />",$story);
-            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
-            $formatted=str_replace("\n","<br />",$formatted);
+            $formatted=str_replace("\r\n",'<br />',$story);
+            $formatted=str_replace('<img','<img class="img-fluid" ',$story); // a revoir ??
+            $formatted=str_replace("\n",'<br />',$formatted);
          } else {
             $formatted=str_replace("\r\n",'',$story);
-            $formatted=str_replace("<img","<img class=\"img-fluid\"",$story); // a revoir
+            $formatted=str_replace("<img",'<img class="img-fluid" ',$story); // a revoir ??
             $formatted=str_replace("\n",'',$formatted);
          }
          $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
@@ -125,6 +125,10 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
       if (substr($action,0,1)=='M') {
          $index=substr($action,1);
          $crtsplit=explode("!;!",$xnews[$index]);
+         $videoprovider=array('yt','vm','dm');
+         foreach($videoprovider as $v) {
+            $crtsplit[2]= preg_replace('#('.$v.')_(video)\((.*[^\)])\)#m', '[\2_\1]\3[/\2_\1]', $crtsplit[2]);
+         }
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
             <div class="form-group">
@@ -135,21 +139,18 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
                <label class="form-control-label" for="story" >'.translate("Full Text").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
-      $content.='</div>
+      $content.='
+            </div>
             <div class="form-group">
                <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" />
             </div>
-         </form>';
+         </form>
+         #v_yt#';
       }
    }
 
    // Output
    $new_pages=false;
-//   $content.="!v_yt!";
-   if ($adminblog) {
-//      $content.=' !l_blog_ajouterOK! ';
-//      $content.='<br />';
-   }
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode('!;!',$xnews[$i]);
        $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-1"></i></a>';

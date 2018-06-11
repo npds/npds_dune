@@ -14,6 +14,7 @@ if (!function_exists("Mysql_Connexion"))
 include ("functions.php");
 settype($gr_name,'string');
 settype($new_pages,'string');
+define('CITRON','tarteaucitron');
 
 function MNSremoveHack($Xstring) {
    global $op, $userdata, $tiny_mce, $tiny_mce_theme, $tiny_mce_relurl;
@@ -331,6 +332,27 @@ function convert_ressources ($Xcontent) {
          echo '<style type="text/css">';
             readfile($dir."style.css");
          echo '</style>';
+         
+         if(defined('CITRON')){
+            echo '
+            <script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
+            <script type="text/javascript" src="/lib/tarteaucitron/tarteaucitron.js"></script>
+            <script type="text/javascript">
+               //<![CDATA[
+               tarteaucitron.init({
+                   "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
+                   "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
+                   "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
+                   "adblocker": false, /* Afficher un message si un adblocker est détecté */
+                   "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
+                   "cookieslist": true, /* Afficher la liste des cookies installés ? */
+                   "removeCredit": true, /* supprimer le lien vers la source ? */
+                   "cookieDomain": "labo.infocapagde.com" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
+               });
+               //]]
+            </script>';
+         }
+         
          $Xcontent= '
          </head>
          <body>';
@@ -391,11 +413,10 @@ function convert_ressources ($Xcontent) {
                fclose($fp);
             }
          }
-         if (($adminblog) and (strstr($Xcontent,'!l_blog_ajouter!'))) {
+         if (($adminblog) and (strstr($Xcontent,'!l_blog_ajouter!')))
             $blog_ajouter='!l_blog_ajouterOK!';
-         } else {
+         else
             $blog_ajouter='';
-         }
          $Xcontent=convert_ressources($Xcontent);
          // Meta-lang et removehack local
          $MNS_METALANG_words=array(
@@ -413,20 +434,38 @@ function convert_ressources ($Xcontent) {
          );
          $Xcontent=preg_replace(array_keys($MNS_METALANG_words),array_values($MNS_METALANG_words), $Xcontent);
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
-
          //applique aff_video que sur la partie affichage
-         $rupt=strpos($Xcontent, '!v_yt!');
-         echo substr($Xcontent, 0, $rupt);
-         echo aff_video_yt(substr($Xcontent,$rupt+6));
+         $rupt=strpos($Xcontent, '#v_yt#');
+/*
+         $a=substr($Xcontent, 0, $rupt);
+         $b=aff_video_yt(substr($Xcontent,$rupt+6));
+*/
+
+//echo $a.$b;         
+        echo substr($Xcontent, 0, $rupt);
+        echo aff_video_yt(substr($Xcontent,$rupt+6));
+
          if($adminblog)
             echo '
-               <script>
-               //<![CDATA[
-                  $(".modal-body").load("modules/blog/matrice/readme.'.$language.'.txt"
-                  , function(dataaide, textStatus, jqxhr) {
-                     $("#aide_mns").html(dataaide.replace(/(\r\n|\n\r|\r|\n)/g, "<br />"));
-                  });
-               //]]>
+               <script type="text/javascript">
+                  //<![CDATA[
+                     $(".modal-body").load("modules/blog/matrice/readme.'.$language.'.txt"
+                     , function(dataaide, textStatus, jqxhr) {
+                        $("#aide_mns").html(dataaide.replace(/(\r\n|\n\r|\r|\n)/g, "<br />"));
+                     });
+                  //]]>
+               </script>';
+         if(defined('CITRON'))
+            echo '
+               <script type="text/javascript">
+                  //<![CDATA[
+                     (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
+                     (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
+                     (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
+                     tarteaucitron.user.gtagUa = "UA-6423983-2";
+                     tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
+                     (tarteaucitron.job = tarteaucitron.job || []).push("gtag");
+                  //]]
                </script>';
          echo '
                <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
