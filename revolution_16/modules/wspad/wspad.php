@@ -117,7 +117,7 @@ function Liste_Page() {
          $filename="modules/$ModPath/locks/$page-vgp-$groupe.txt";
          if (file_exists($filename)) {
             if ((time()-$refresh)>filemtime($filename)) {
-               sql_query("UPDATE ".$NPDS_Prefix."wspad SET verrou='' WHERE page='$page' and member='$groupe'");
+               sql_query("UPDATE ".$NPDS_Prefix."wspad SET verrou='' WHERE page='$page' AND member='$groupe'");
                @unlink($filename);
                $verrou='';
             }
@@ -150,7 +150,7 @@ function Liste_Page() {
                               <input type="hidden" name="page" value="'.$page.'" />
                               <input type="hidden" name="op" value="renomer" />
                               <button type="submit" class="btn btn-primary" name="creer">'.wspad_trans("Renommer").'</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">'.wspad_trans("Cancel").'</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">'.wspad_trans("Abandonner").'</button>
                            </div>
                         </div>
                      </form>
