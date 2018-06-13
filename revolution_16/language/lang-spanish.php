@@ -51,7 +51,6 @@ function translate_pass1($phrase) {
    case "October": $tmp="Octubre"; break;
    case "November": $tmp="Noviembre"; break;
    case "December": $tmp="Diciembre"; break;
-
    case "Printer Friendly Page": $tmp="P&aacute;gina  especial para imprimir"; break;
    case "Send this Story to a Friend": $tmp="Enviar esta noticia a un amigo"; break;
    case "next matches": $tmp="respuestas siguientes"; break;
@@ -106,8 +105,8 @@ function translate_pass1($phrase) {
    case "Page URL: ": $tmp="URL de la P&aacute;gina  : "; break;
    case "Category: ": $tmp="Categor&iacute;a : "; break;
    case "Description: (255 characters max)": $tmp="Descripci&oacute;n :  (255 caracteres m&aacute;ximo)"; break;
-   case "Your Name: ": $tmp="Su nombre : "; break;
-   case "Your Email: ": $tmp="Su correo electr&oacute;nico : "; break;
+   case "Your Name": $tmp="Su nombre"; break;
+   case "Your Email": $tmp="Su correo electr&oacute;nico"; break;
    case "Add URL": $tmp="Insertar une URL"; break;
    case "You are not a registered user or you have not logged in.": $tmp="No esta registrado o no se conecto."; break;
    case "If you were registered you could add links on this website.": $tmp="Si estuviera conectado, podr&iacute;a proponer v&iacute;nculos"; break;
@@ -147,7 +146,7 @@ function translate_pass1($phrase) {
    case "Add a SUB-Category": $tmp="A&ntilde;adir una sub-categoria"; break;
    case "in": $tmp="en"; break;
    case "Add a New Link": $tmp="A&ntilde;adir une nuevo vinculo"; break;
-   case "E-Mail: ": $tmp="E-mail : "; break;
+   case "E-Mail": $tmp="E-mail"; break;
    case "New Link added to the Database": $tmp="Nuevo vinculo a&ntilde;adido en la base de datos"; break;
    case "Your Link at": $tmp="Su vinculo"; break;
    case "Hello": $tmp="Buenos d&iacute;as"; break;
@@ -217,13 +216,9 @@ function translate_pass1($phrase) {
    case "Real Name": $tmp="Su verdadera identidad"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Website: ": $tmp="Su p&aacute;gina  web : "; break;
-   case "Your ICQ": $tmp="Su ICQ"; break;
-   case "Your AIM": $tmp="Su AIM"; break;
-   case "Your YIM": $tmp="Su YIM"; break;
-   case "Your MSNM": $tmp="Su MSNM"; break;
-   case "Location: ": $tmp="Su situaci&oacute;n geogr&aacute;fica : "; break;
-   case "Occupation: ": $tmp="Su actividad : "; break;
-   case "Interest: ": $tmp="Sus centros de inter&eacute;s : "; break;
+   case "Location": $tmp="Su situaci&oacute;n geogr&aacute;fica"; break;
+   case "Occupation": $tmp="Su actividad"; break;
+   case "Interest": $tmp="Sus centros de inter&eacute;s"; break;
    case "Signature": $tmp="Firma"; break;
    case "Finish": $tmp="Terminar"; break;
    case "You or someone else has used your email account": $tmp="Usted, o otra persona, utilizo su cuenta de correo electr&oacute;nico"; break;
@@ -275,11 +270,8 @@ function translate_pass1($phrase) {
    case "at": $tmp="de"; break;
    case "has this email associated with it.": $tmp="est&aacute; asociada a su cuenta electr&oacute;nica."; break;
    case "A web user from": $tmp="Un usuario Web con la direcci&oacute;n IP"; break;
-
-   // A traduire
-   case "Password update, please re-connect you.": $tmp="Mot de passe mis à jour. Merci de vous re-connecter"; break;
-   case "To valid your new password request, just re-type it.": $tmp="Pour valider votre nouveau mot depasse, merci de le re-saisir."; break;
-
+   /**/case "Password update, please re-connect you.": $tmp="Mot de passe mis à jour. Merci de vous re-connecter"; break;
+   /**/case "To valid your new password request, just re-type it.": $tmp="Pour valider votre nouveau mot depasse, merci de le re-saisir."; break;
    case "If you didn't ask for this, don't worry. You are seeing this message, not 'them'. If this was an error just login with your new password.": $tmp="Si usted no pidi&oacute; nada, tranquilo :  Solo usted vio este mensaje. Conecte se simplemente con este c&oacute;digo."; break;
    case "mail_password: could not update user entry. Contact the Administrator": $tmp="La funci&oacute;n Mail_Password no puede actualizar la base de datos. Contacte con el Webmaster."; break;
    case "Password for": $tmp="Contrase&ntilde;a para"; break;
@@ -308,8 +300,8 @@ function translate_pass1($phrase) {
    case "characters long": $tmp="caracteres"; break;
    case "News number in the Home": $tmp="Cantidad de noticias en la p&aacute;gina  principal"; break;
    case "Activate Personal Menu": $tmp="Activar el Men&uacute; personal"; break;
-   case "(Check this option and the following text will appear in the Home)": $tmp="(Valide esta opci&oacute;n y el siguiente texto aparecer&aacute; en la p&aacute;gina  de inicio)"; break;
-   case "(You can use HTML code to put links, for example)": $tmp="(Puede utilizar c&oacute;digo HTML, para crear un vinculo por ejemplo)"; break;
+   case "Check this option and the following text will appear in the Home": $tmp="Valide esta opci&oacute;n y el siguiente texto aparecer&aacute; en la p&aacute;gina  de inicio"; break;
+   case "You can use HTML code to put links, for example": $tmp="Puede utilizar c&oacute;digo HTML, para crear un vinculo por ejemplo"; break;
    case "Save Changes!": $tmp="Guardar cambios"; break;
    case "Select One Theme": $tmp="Seleccione un tema"; break;
    case "This option will change the look for the whole site.": $tmp="Esta opci&oacute;n cambiara el aspecto de la p&aacute;gina  web."; break;
@@ -319,6 +311,7 @@ function translate_pass1($phrase) {
    case "Edit your journal": $tmp="Editar su diario"; break;
    case "Add date and time stamp": $tmp="A&ntilde;adir la fecha y la hora"; break;
    case "Save Journal": $tmp="Registrar el diario"; break;
+   case "Journal": $tmp="Diario"; break;
    case "Moderated By: ": $tmp="Moderado por : "; break;
    case "Forum Index": $tmp="Índice del foro"; break;
    case "This is a Private Forum. Please enter the password to gain access": $tmp="Este es un foro privado. Incorporar por favor la contrase&ntilde;a para acceder"; break;
@@ -406,6 +399,7 @@ function translate_pass1($phrase) {
    case "Survey": $tmp="Encuesta"; break;
    case "Past Surveys": $tmp="Encuestas anteriores"; break;
    case "Votes: ": $tmp="Votos : "; break;
+   case "Vote": $tmp="Voto"; break;
    case "comments:": $tmp="Comentario(s) : "; break;
    case "You already voted today!": $tmp="Usted ya voto hoy !"; break;
    case "Results": $tmp="Resultados"; break;
@@ -495,7 +489,6 @@ function translate_pass1($phrase) {
    case "Hidden": $tmp="Escondido"; break;
    case "Registered User": $tmp="Usuario registrado"; break;
    case "Submit / Manage Item": $tmp="Someter / Gestionar un anuncio"; break;
-   case "Check a Forum and Click on [Sub.] button for receive an Email when a new submission is made in it.": $tmp="Haga click en la casilla de un foro y apriete sobre [Abon.] para ser advertido de nuevas contribuciones del foro"; break;
    case "To: ": $tmp="a : "; break;
    case "Send a copy to me": $tmp="Conservar una copia"; break;
    case "Save": $tmp="Grabar"; break;
@@ -510,12 +503,13 @@ function translate_pass1($phrase) {
    case "No records match that query. Please broaden your search.": $tmp="Ninguna respuesta por las palabras que indico. Ensanche su b&uacute;squeda."; break;
    case "Posted": $tmp="Insertado"; break;
    case "pages": $tmp="p&aacute;gina s"; break;
+   case "Page": $tmp="Pagina"; break;
    case "Anonymous": $tmp="An&oacute;nimo"; break;
    case "Posted: ": $tmp="Insertado : "; break;
    case "Profile": $tmp="Perfil"; break;
    case "Email": $tmp="Email"; break;
    case "Quote": $tmp="Citaci&oacute;n"; break;
-   case "Goto Page: ": $tmp="Ir a la p&aacute;gina  : "; break;
+   case "Goto Page": $tmp="Ir a la p&aacute;gina"; break;
    case "Jump To: ": $tmp="Saltar a: "; break;
    case "Administration Tools": $tmp="Herramientas de administraci&oacute;n"; break;
    case "Lock this Topic": $tmp="Cerrar este Asunto"; break;
@@ -587,8 +581,8 @@ function translate_pass1($phrase) {
    case "Send Story to a Friend": $tmp="Enviar esta noticia a un amigo"; break;
    case "You will send the story": $tmp="Va a enviar esta noticia"; break;
    case "to a specified friend:": $tmp="a esta persona : "; break;
-   case "Friend Name: ": $tmp="Nombre del destinatario : "; break;
-   case "Friend Email: ": $tmp="Email del destinatario : "; break;
+   case "Friend Name": $tmp="Nombre del destinatario"; break;
+   case "Friend Email": $tmp="Email del destinatario"; break;
    case "Send": $tmp="Enviar"; break;
    case "Interesting Article at": $tmp="Noticia interesante de"; break;
    case "Your Friend": $tmp="Su amigo"; break;
@@ -640,8 +634,8 @@ function translate_pass1($phrase) {
    case "We have": $tmp="Actualmente hay"; break;
    case "registered users so far.": $tmp="miembros inscritos."; break;
    case "URL": $tmp="URL"; break;
-   case "Internal Message": $tmp="Mensaje interno"; break;
    case "Send internal Message": $tmp="Enviar un mensaje interno"; break;
+   case "Internal Message": $tmp="Mensaje interno"; break;
    case "RAZ member's list": $tmp="Poner a cero la lista de miembros"; break;
    case "Write to the list": $tmp="Escribir a la lista"; break;
    case "users found for": $tmp="Usuarios encontrados por"; break;
@@ -687,7 +681,7 @@ function translate_pass1($phrase) {
    case "Invalid email (eg: you@hotmail.com)": $tmp="Su email no es valido (Por ejemplo.: nombre.apellido@servidor.com)"; break;
    case "You must enter BOTH a link title and a related link or leave both blank": $tmp="Debe incorporar un t&iacute;tulo de vinculo y un vinculo relacionado o dejar ambos en blanco"; break;
    case "Added:": $tmp="Insertado :"; break;
-   case "Reviewer:": $tmp="La critica : "; break;
+   case "Reviewer": $tmp="La critica"; break;
    case "Score:": $tmp="Evaluaci&oacute;n : "; break;
    case "Review ID": $tmp="ID de la critica"; break;
    case "Hits": $tmp="Nombre de clics"; break;
@@ -846,14 +840,9 @@ function translate_pass1($phrase) {
    case "Back to": $tmp="Volver a"; break;
    case "Sections Index": $tmp="P&aacute;gina  principal de las secciones"; break;
    case "Counter": $tmp="Contador"; break;
-
-   // NPDS 4.8 P3
    case "Submission in progress. After Uploading your files, please click on the OK button to finish.": $tmp="Sumisi&oacute;n en curso. al final de la descarga de sus ficheros en el servidor, haga clic sobre el bot&oacute;n ok para acabar."; break;
    case "Join us ! As a registered user, cool stuff like : forum'subscribing, special forums (hidden, members ...), post and read status, ... are avaliable.": $tmp="Inscriba se ahora ! Dispondr&aacute; de funciones especiales : Abonos, foros especiales (Escondidos, miembros, ..), status de lectura, ..."; break;
    case "Unsubscribe": $tmp="Desabonarse"; break;
-   // NPDS 4.8 P3
-
-   // NPDS 4.8 P4
    case "Closed": $tmp="Cerrado"; break;
    case "Only Moderators can post new topics and replies in this forum.": $tmp="Solo los moderadores pueden insertar nuevos asuntos y responder en este foro."; break;
    case "Normal post": $tmp="Mensaje visible"; break;
@@ -873,16 +862,10 @@ function translate_pass1($phrase) {
    case "Auto Delete the New at End Date": $tmp="Limpiar la noticia al final de la publicaci&oacute;n."; break;
    case "Make this Topic the first one": $tmp="Poner la noticia en primer lugar"; break;
    case "We allow just one vote per poll.": $tmp="Solo un voto por encuesta."; break;
-   // NPDS 4.8 P4
-
-   // NPDS 5.0
    case "* for mandatory field": $tmp="* Campo obligatorio"; break;
    case "Retype Password": $tmp="Reescriba la contrase&ntilde;a"; break;
    case "Re-activate the standard'avatars": $tmp="Reactivar los avatares standares"; break;
    case "the page": $tmp="la p&aacute;gina "; break;
-   // NPDS 5.0
-
-   // NPDS 5.0 P1
    case "Bookmark": $tmp="Carnet de direcciones"; break;
    case "Upload file after send accepted": $tmp="Descargar un fichero una vez el env&iacute;o aceptado"; break;
    case "Avatar": $tmp="Avatar"; break;
@@ -895,24 +878,15 @@ function translate_pass1($phrase) {
    case "Mini-Web site"; $tmp="Mini-p&aacute;gina  Web"; break;
    case "Manage my Mini-Web site"; $tmp="Gesti&oacute;n de su Mini-p&aacute;gina  Web"; break;
    case "Your account"; $tmp="Su cuenta"; break;
-   // NPDS 5.0 P1
-
-   // NPDS 5.0 Runner
    case "Question": $tmp="Pregunta"; break;
    case "EDITO": $tmp="EDITO"; break;
    case "Top of the article": $tmp="Principio de la noticia"; break;
-   // NPDS 5.0 Runner
-
-   // NPDS 5.0 Narval
    case "No category": $tmp="Ninguna categor&iacute;a"; break;
    case "Select a language": $tmp="Escoja un idioma"; break;
    case "No language": $tmp="Ning&uacute;n idioma"; break;
    case "Login box": $tmp="Conectarse"; break;
    case "More smilies": $tmp="Mas emoticones"; break;
    case "favourite": $tmp="favorito"; break;
-   // NPDS 5.0 Narval
-
-   // NPDS Sable
    case "All to develop": $tmp="Descomprimir todo"; break;
    case "All to gather": $tmp="Comprimir todo"; break;
    case "Site map": $tmp="Plan de la p&aacute;gina  Web"; break;
@@ -928,6 +902,7 @@ function translate_pass1($phrase) {
    case "Register to web site' mailing list" : $tmp="Inscribirse a la lista de difusi&oacute;n de la p&aacute;gina  web"; break;
    case "Update": $tmp="Actualizaci&oacute;n"; break;
    case "Theme(s)": $tmp="Tema(s)"; break;
+   case "Theme": $tmp="Tema"; break;
    case "Status": $tmp="Estado"; break;
    case "You may be interested in": $tmp="Esto podr&iacute;a interesarle"; break;
    case "Back to chapter:": $tmp="Volver a la sub-categor&iacute;a :"; break;
@@ -935,21 +910,13 @@ function translate_pass1($phrase) {
    case "Back to console": $tmp="Volver a la administraci&oacute;n"; break;
    case "in the sub-section": $tmp="En la sub-categor&iacute;a"; break;
    case "Search in Sections": $tmp="Buscar en las secciones"; break;
-   // NPDS Sable
-
-   // NPDS Dune
    case "Ok": $tmp="Ok"; break;
    case "Anti-Spam / Thank to reply to the question :": $tmp="Anti-Spam / Merci de r&eacute;pondre &agrave; la question suivante : "; break;
    case "Guest": $tmp="Visiteur"; break;
    case "Last articles": $tmp="Derniers articles"; break;
-
-   // Phrases modifiées :
    case "Check a forum and click on button for receive an Email when a new submission is made in it.": $tmp="Cochez un forum et cliquez sur le bouton pour recevoir un Email lors d'une nouvelle soumission dans celui-ci."; break;
    case "Error": $tmp="Erreur"; break;
    case "Check me and click on OK button to receive an Email when is a new submission in this forum.": $tmp="Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum."; break;
-   // NPDS Dune
-
-   // Fusion PP_translate
    case "Message to Member": $tmp = "Mensaje a un miembro"; break;
    case "person chatting right now.": $tmp = "persona conectada."; break;
    case "people chatting right now.": $tmp = "personas conectadas."; break;
@@ -959,8 +926,6 @@ function translate_pass1($phrase) {
    case "Chat box": $tmp = "Chat bloc"; break;
    case "M2M box": $tmp = "M2M bloc"; break;
    case "Forums infos": $tmp = "Foros infos"; break;
-
-   // WS
    case "Groups setting.": $tmp = "Grupos de ajuste."; break;
    case "Group blog.": $tmp = "Grupo blog."; break;
    case "File manager": $tmp = "gestor de archivos"; break;
@@ -1016,6 +981,8 @@ function translate_pass1($phrase) {
    case "Table": $tmp="Tabla"; break;
    case "Code": $tmp="C&#xF3;digo"; break;
    case "Youtube video": $tmp="Youtube video"; break;
+   case "Videos": $tmp="Videos"; break;
+   case "Paste the video ID between the tags": $tmp="Pegue la identificaci&#xF3;n del video entre las etiquetas"; break;
    case "Hide this post": $tmp="Ocultar este mensaje"; break;
    case "Show this post": $tmp="Mostrar este mensaje"; break;
    case "Read": $tmp="Le&#xED;do"; break;
@@ -1036,6 +1003,7 @@ function translate_pass1($phrase) {
    case "Social networks": $tmp="Redes sociales"; break;
    case "Select one skin": $tmp="Elegir un tema gr&#xE1;fico"; break;
    case "Sub-section": $tmp="Sub-categor&iacute;a"; break;
+
    default: $tmp = "Necesita una traducci&oacute;n <b>[** $phrase **]</b>"; break;
  }
  return $tmp;
