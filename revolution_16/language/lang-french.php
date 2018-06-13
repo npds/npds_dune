@@ -985,6 +985,8 @@ function translate_pass1($phrase) {
    case "Table": $tmp="Tableau"; break;
    case "Code": $tmp="Code"; break;
    case "Youtube video": $tmp="Vidéo Youtube"; break;
+   case "Videos": $tmp="Vidéos"; break;
+   case "Paste the video ID between the tags": $tmp="Coller l'ID de votre vidéo entre les deux balises"; break;
    case "Hide this post": $tmp="Masquer ce post"; break;
    case "Show this post": $tmp="Afficher ce post"; break;
    case "Read": $tmp="Lu"; break;
@@ -1005,7 +1007,7 @@ function translate_pass1($phrase) {
    case "Social networks": $tmp="Réseaux sociaux"; break;
    case "Select one skin": $tmp="Choisir une charte graphique"; break;
    case "Sub-section": $tmp="Sous-rubrique"; break;
-   
+
    default: $tmp="Nécessite une traduction <strong>[** $phrase **]</strong>"; break;
  }
  return $tmp;

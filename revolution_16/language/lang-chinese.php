@@ -29,7 +29,7 @@ function translate_pass1($phrase) {
    case "datestring2": $tmp="%A, %d %B"; break;
    case "linksdatestring": $tmp="%d-%m-%Y"; break;
    case "dateinternal": $tmp="d-m-Y H:i"; break;
-   case "Chatdate" : $tmp = "G:i d-m" ;break;
+   case "Chatdate": $tmp="G:i d-m"; break;
    case "Monday": $tmp="&#26143;&#26399;&#19968;"; break;
    case "Tuesday": $tmp="&#26143;&#26399;&#20108;"; break;
    case "Wednesday": $tmp="&#26143;&#26399;&#19977;"; break;
@@ -49,7 +49,6 @@ function translate_pass1($phrase) {
    case "October": $tmp="&#x5341;&#x6708;"; break;
    case "November": $tmp="&#x5341;&#x4E00;&#x6708;"; break;
    case "December": $tmp="&#x5341;&#x4E8C;&#x6708;"; break;
-
    case "Printer Friendly Page": $tmp="&#x663E;&#x793A;&#x53EF;&#x6253;&#x5370;&#x7248;&#x672C;"; break;
    case "Send this Story to a Friend": $tmp="&#x53D1;&#x9001;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x7ED9;&#x670B;&#x53CB;"; break;
    case "next matches": $tmp="&#x4E0B;&#x4E00;&#x4E2A;&#x7B54;&#x590D;"; break;
@@ -104,8 +103,8 @@ function translate_pass1($phrase) {
    case "Page URL: ": $tmp="&#x7F51;&#x9875;URL : "; break;
    case "Category: ": $tmp="&#x5206;&#x7C7B; : "; break;
    case "Description: (255 characters max)": $tmp="&#x63CF;&#x8FF0;&#xFF1A;(&#x6700;&#x591A;255 &#x5B57;&#x7B26;)"; break;
-   case "Your Name: ": $tmp="&#x60A8;&#x7684;&#x59D3;&#x540D; : "; break;
-   case "Your Email: ": $tmp="&#x4F60;&#x7684;&#x96FB;&#x90F5; : "; break;
+   case "Your Name": $tmp="&#x60A8;&#x7684;&#x59D3;&#x540D;"; break;
+   case "Your Email": $tmp="&#x4F60;&#x7684;&#x96FB;&#x90F5;"; break;
    case "Add URL": $tmp="&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x7F51;&#x5740;"; break;
    case "You are not a registered user or you have not logged in.": $tmp="&#x60A8;&#x4E0D;&#x662F;&#x6CE8;&#x518C;&#x7528;&#x6237;&#x6216;&#x8005;&#x60A8;&#x6CA1;&#x6709;&#x767B;&#x5F55;&#x3002;"; break;
    case "If you were registered you could add links on this website.": $tmp="&#x5982;&#x679C;&#x60A8;&#x662F;&#x6CE8;&#x518C;&#x7528;&#x6237;&#x60A8;&#x53EF;&#x4EE5;&#x5728;&#x672C;&#x7AD9;&#x63D0;&#x4EA4;&#x94FE;&#x63A5;&#x3002;"; break;
@@ -145,7 +144,7 @@ function translate_pass1($phrase) {
    case "Add a SUB-Category": $tmp="&#x6DFB;&#x52A0;&#x5B50;&#x5206;&#x7C7B;"; break;
    case "in": $tmp="&#x5728;"; break;
    case "Add a New Link": $tmp="&#x6DFB;&#x52A0;&#x65B0;&#x94FE;&#x63A5;"; break;
-   case "E-Mail: ": $tmp="E-mail : "; break;
+   case "E-Mail": $tmp="E-mail"; break;
    case "New Link added to the Database": $tmp="&#x65B0;&#x94FE;&#x63A5;&#x5DF2;&#x6DFB;&#x52A0;&#x5230;&#x6570;&#x636E;&#x5E93;"; break;
    case "Your Link at": $tmp="&#x60A8;&#x7684;&#x94FE;&#x63A5;&#x5728;"; break;
    case "Hello": $tmp="&#x60A8;&#x597D;"; break;
@@ -213,15 +212,12 @@ function translate_pass1($phrase) {
    case "ERROR: Email address already registered": $tmp="&#x9519;&#x8BEF;: &#x5DF2;&#x7ECF;&#x6709;&#x4EBA;&#x7528;&#x8FD9;&#x4E2A;Email&#x6CE8;&#x518C;&#x8FC7;"; break;
    case "User ID": $tmp="&#x7528;&#x6237;ID"; break;
    case "Real Name": $tmp="&#x771F;&#x5B9E;&#x59D3;&#x540D;"; break;
+   case "Identity": $tmp="&#x8EAB;&#x5206;"; break;
    case "Avatar": $tmp="&#x5934;&#x50CF;"; break;
    case "Website: ": $tmp="&#x7F51;&#x7AD9; : "; break;
-   case "Your ICQ": $tmp="&#x60A8;&#x7684;ICQ&#x53F7;"; break;
-   case "Your AIM": $tmp="&#x60A8;&#x7684;AIM&#x53F7;"; break;
-   case "Your YIM": $tmp="YIM &#x53F7;"; break;
-   case "Your MSNM": $tmp="&#x60A8;&#x7684;MSNM&#x53F7;"; break;
-   case "Location: ": $tmp="&#x60A8;&#x7684;&#x4F4F;&#x5740; : "; break;
-   case "Occupation: ": $tmp="&#x804C;&#x4E1A; : "; break;
-   case "Interest: ": $tmp="&#x60A8;&#x7684;&#x5174;&#x8DA3; : "; break;
+   case "Location": $tmp="&#x60A8;&#x7684;&#x4F4F;&#x5740;"; break;
+   case "Occupation": $tmp="&#x804C;&#x4E1A;"; break;
+   case "Interest": $tmp="&#x60A8;&#x7684;&#x5174;&#x8DA3;"; break;
    case "Signature": $tmp="&#x7B7E;&#x540D;"; break;
    case "Finish": $tmp="&#x5B8C;&#x6210;"; break;
    /**/case "You or someone else has used your email account": $tmp="&#x60A8;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x67D0;&#x4E2A;&#x4EBA;&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;&#x4E86;&#x60A8;&#x7684;email&#x5E10;&#x53F7;"; break;
@@ -237,7 +233,7 @@ function translate_pass1($phrase) {
    case "My HomePage:": $tmp="&#x6211;&#x7684;&#x4E3B;&#x9875;&#xFF1A; : "; break;
    case "My E-Mail:": $tmp="&#x6211;&#x7684; Email&#xFF1A; : "; break;
    case "Signature: ": $tmp="&#x7B7E;&#x540D; : "; break;
-   case "Extra Info:": $tmp="&#x5176;&#x5B83;&#x4FE1;&#x606F; : "; break;
+   case "Extra Info": $tmp="&#x5176;&#x5B83;&#x4FE1;&#x606F;"; break;
    case "There is no available info for": $tmp="&#x6CA1;&#x6709;&#x4FE1;&#x606F;&#x5173;&#x4E8E;"; break;
    case "Online journal for": $tmp="&#x5728;&#x7EBF;&#x8BFB;&#x7269;&#xFF0C;&#x4E3A; "; break;
    case "Last comments by": $tmp="&#x6700;&#x8FD1;10&#x7BC7;&#x8BC4;&#x8BBA;&#x6765;&#x81EA;"; break;
@@ -847,14 +843,9 @@ function translate_pass1($phrase) {
    case "Back to": $tmp="&#x8FD4;&#x56DE;&#x5230;"; break;
    case "Sections Index": $tmp="&#x7CBE;&#x534E;&#x533A;&#x7D22;&#x5F15;"; break;
    case "Counter": $tmp="&#x8BA1;&#x6570;&#x5668;"; break;
-
-   // NPDS 4.8 P3
    case "Submission in progress. After Uploading your files, please click on the OK button to finish.": $tmp="&#x63D0;&#x4EA4;&#x4E2D;&#x3002;&#x7B49;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x540E;&#xFF0C;&#x8BF7;&#x70B9;&#x51FB;ok&#x4EE5;&#x7ED3;&#x675F;&#x64CD;&#x4F5C;&#x3002;"; break;
    case "Join us ! As a registered user, cool stuff like : forum'subscribing, special forums (hidden, members ...), post and read status, ... are avaliable.": $tmp="&#x6CE8;&#x518C;&#x4E3A;&#x4F1A;&#x5458;&#xFF01;&#x60A8;&#x5C06;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BB8;&#x591A;&#x7279;&#x522B;&#x7684;&#x529F;&#x80FD;&#xFF1A;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#xFF0C;&#x7279;&#x522B;&#x8BBA;&#x575B;&#xFF08;&#x9690;&#x85CF;&#x7B49;&#xFF09;&#xFF0C;&#x67E5;&#x770B;&#x5F20;&#x8D34;&#x548C;&#x6D4F;&#x89C8;&#x7684;&#x72B6;&#x51B5;&#x2026;"; break;
    case "Unsubscribe": $tmp="&#x53D6;&#x6D88;&#x6CE8;&#x518C;&#x670D;&#x52A1;"; break;
-   // NPDS 4.8 P3
-
-   // NPDS 4.8 P4
    case "Closed": $tmp="&#x5173;&#x95ED;"; break;
    case "Only Moderators can post new topics and replies in this forum.": $tmp="&#x53EA;&#x6709;&#x7248;&#x4E3B;&#x624D;&#x80FD;&#x5728;&#x672C;&#x8BBA;&#x575B;&#x4E2D;&#x5F20;&#x8D34;&#x65B0;&#x4E3B;&#x9898;&#x5E76;&#x56DE;&#x590D;"; break;
    case "Normal post": $tmp="&#x663E;&#x793A;&#x7684;&#x5F20;&#x8D34;&#xFF08;&#x4F4D;&#x7F6E;&#xFF09;"; break;
@@ -874,48 +865,31 @@ function translate_pass1($phrase) {
    case "Auto Delete the New at End Date": $tmp="&#x5728;&#x7ED3;&#x675F;&#x65E5;&#x81EA;&#x52A8;&#x5220;&#x9664;&#x8BE5;&#x6D88;&#x606F;"; break;
    case "Make this Topic the first one": $tmp="&#x5C06;&#x8BE5;&#x4E3B;&#x9898;&#x6392;&#x5217;&#x5728;&#x5148;"; break;
    case "We allow just one vote per poll.": $tmp="&#x6BCF;&#x4E2A;&#x8C03;&#x67E5;&#x53EA;&#x6709;&#x4E00;&#x6B21;&#x6295;&#x7968;&#x673A;&#x4F1A;"; break;
-   // NPDS 4.8 P4
-
-   // NPDS 5.0
    case "* for mandatory field": $tmp="* &#x6307;&#x5B9A;&#x5FC5;&#x8981;&#x533A;&#x57DF;"; break;
    case "Retype Password": $tmp="&#x91CD;&#x65B0;&#x8F93;&#x5165;&#x5BC6;&#x7801;"; break;
    case "Re-activate the standard'avatars": $tmp="&#x6062;&#x590D;&#x6807;&#x51C6;&#x5934;&#x50CF; "; break;
    case "the page": $tmp="&#x8BE5;&#x9875;"; break;
-   // NPDS 5.0
-
-   // NPDS 5.0 P1
    case "Bookmark": $tmp="&#x5730;&#x5740;&#x7C3F;"; break;
    case "Upload file after send accepted": $tmp="&#x5728;&#x53D1;&#x9001;&#x88AB;&#x63A5;&#x53D7;&#x540E;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;"; break;
    case "Avatar": $tmp="&#x5934;&#x50CF;"; break;
    case "Files": $tmp="&#x6587;&#x4EF6;"; break;
-   
    case "You can upload a file carnet.txt in your Mini-Web site": $tmp="&#x60A8;&#x53EF;&#x4EE5;&#x5728;&#x60A8;&#x7684;&#x5C0F;&#x578B;&#x7F51;&#x7AD9;&#x4E2D;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;carnet.txt&#x3002;"; break;
    case "The data structure of any line : name_of_the_member;email;comments": $tmp="&#x8BE5;&#x6587;&#x4EF6;&#x7684;&#x884C;&#x683C;&#x5F0F;: &nbsp;&nbsp;&#x4F1A;&#x5458;&#x540D;;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;; &#x7B80;&#x8BC4;"; break;   
-   
    case "Pages showed since"; $tmp="&#x9875;&#x9762;&#x8BBF;&#x95EE;&#x91CF;&#x81EA;&#x4ECE;"; break;
    case "Statistics"; $tmp="&#x884C;&#x7EDF;&#x8BA1;"; break;
    case "Top"; $tmp="&#x9875;&#x9762;&#x9876;&#x90E8;"; break;
    case "Mini-Web site"; $tmp="&#x5C0F;&#x578B;&#x7F51;&#x7AD9;"; break;
    case "Manage my Mini-Web site"; $tmp="&#x7BA1;&#x7406;&#x60A8;&#x7684;&#x5C0F;&#x578B;&#x7F51;&#x7AD9;"; break;
    case "Your account"; $tmp="&#x60A8;&#x7684;&#x5E10;&#x53F7;"; break;
-   // NPDS 5.0 P1
-
-   // NPDS 5.0 Runner
    case "Question": $tmp="&#x95EE;&#x9898;"; break;
    case "EDITO": $tmp="&#x7BA1;&#x7406;&#x5458;&#x8BC4;&#x8BBA;"; break;
    case "Top of the article": $tmp="&#x76FC;&#x607C;&#x788C;&#x94A0;&#x9E57;"; break;
-   // NPDS 5.0 Runner
-
-   // NPDS 5.0 Narval
    case "No category": $tmp="&#x6CA1;&#x6709;&#x76EE;&#x5F55;"; break;
    case "Select a language": $tmp="&#x9009;&#x62E9;&#x8BED;&#x8A00;(Select language)"; break;
    case "No language": $tmp="&#x6CA1;&#x6709;&#x8BED;&#x8A00;"; break;
    case "Login box": $tmp="&#x8FDE;&#x63A5;"; break;
    case "More smilies": $tmp="&#x66F4;&#x591A;&#x7684;&#x8868;&#x60C5;"; break;
    case "favourite": $tmp="&#x6536;&#x85CF;"; break;
-   // NPDS 5.0 Narval
-
-   // NPDS Sable
    case "All to develop": $tmp="&#x5F00;&#x53D1;&#x6240;&#x6709;"; break;
    case "All to gather": $tmp=" &#x91CD;&#x7EC4;&#x6240;&#x6709;"; break;
    case "Site map": $tmp="&#x7F51;&#x7AD9;&#x5730;&#x56FE;"; break;
@@ -938,21 +912,13 @@ function translate_pass1($phrase) {
    case "Back to console": $tmp="&#x8FD4;&#x56DE;&#x5230;&#x7BA1;&#x7406;"; break;
    case "in the sub-section": $tmp="&#x5728;&#x6B21;&#x76EE;&#x5F55;&#x4E2D;"; break;
    case "Search in Sections": $tmp="&#x5728;&#x76EE;&#x5F55;&#x4E2D;&#x67E5;&#x627E;"; break;
-   // NPDS Sable
-
-   // NPDS Dune
    case "Ok": $tmp="Ok"; break;
-   case "Anti-Spam / Thank to reply to the question :": $tmp="Anti-Spam / Thank to reply to the question :"; break;
+   case "Anti-Spam / Thank to reply to the question :": $tmp="&#x53CD;&#x5783;&#x573E;&#x90AE;&#x4EF6; / &#x611F;&#x8C22;&#x60A8;&#x56DE;&#x7B54;&#x8FD9;&#x4E2A;&#x95EE;&#x9898; :"; break;
    case "Guest": $tmp="Guest"; break;
    case "Last articles": $tmp="Last articles"; break;
-
-   // Phrases modifiées :
    /**/case "Check a forum and click on button for receive an Email when a new submission is made in it.": $tmp="Check a forum and click on button for receive an Email when a new submission is made in it."; break;
    /**/case "Check me and click on OK button to receive an Email when is a new submission in this forum.": $tmp="Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum."; break;
-   /**/case "Error": $tmp="Error"; break;
-   // NPDS Dune
-
-   // Fusion PP_translate
+   case "Error": $tmp="&#x9519;&#x8BEF;"; break;
    case "Message to Member": $tmp = "&#x7ED9;&#x4F1A;&#x5458;&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;"; break;
    case "person chatting right now.": $tmp = "&#x4EBA;&#x6B63;&#x5728;&#x804A;&#x5929;&#x5BA4;"; break;
    case "people chatting right now.": $tmp = "&#x4EBA;&#x6B63;&#x5728;&#x804A;&#x5929;&#x5BA4;"; break;
@@ -962,19 +928,17 @@ function translate_pass1($phrase) {
    case "Chat box": $tmp = "&#x804A;&#x5929;&#x5BA4;"; break;
    case "M2M box": $tmp = "M2M &#x5BA4;"; break;
    case "Forums infos": $tmp = "&#x8BBA;&#x575B;&#x4FE1;&#x606F;"; break;
-
-   // WS
    /**/case "Groups setting.": $tmp = "Groups setting."; break;
    /**/case "Group blog.": $tmp = "Group blog."; break;
-   /**/case "File manager": $tmp = "File manager"; break;
+   case "File manager": $tmp = "&#x6587;&#x4EF6;&#x7BA1;&#x7406;&#x5668;"; break;
    /**/case "Group forum.": $tmp = "Group forum."; break;
    /**/case "forum": $tmp = "forum"; break;
-   /**/case "Group file manager.": $tmp = "Group file manager."; break;
+   case "Group file manager.": $tmp = "&#x7EC4;&#x6587;&#x4EF6;&#x7BA1;&#x7406;&#x5668;."; break;
    /**/case "Group chat.": $tmp = "Group chat."; break;
-   /**/case "Group members list.": $tmp = "Group members list."; break;
+   case "Group members list.": $tmp = "&#x5C0F;&#x7EC4;&#x6210;&#x5458;&#x540D;&#x5355;."; break;
    /**/case "Members": $tmp = "Members"; break;
-   /**/case "is connected !": $tmp = "is connected !"; break;
-   /**/case "is not connected !": $tmp = "is not connected !"; break;
+   case "is connected !": $tmp = "&#x5DF2;&#x8FDE;&#x63A5; !"; break;
+   case "is not connected !": $tmp = "&#x6CA1;&#x6709;&#x8FDE;&#x63A5; !"; break;
    /**/case "Visit the Mini Web Site !": $tmp = "Visit the Mini Web Site !"; break;
    /**/case "Co-writing": $tmp = "Co-writing"; break;
    /**/case "Hide list": $tmp = "Hide list"; break;
@@ -983,31 +947,64 @@ function translate_pass1($phrase) {
    /**/case "Open a chat for the group.": $tmp = "Open a chat for the groupe."; break;
    /**/case "Last editor": $tmp = "Last editor"; break;
    /**/case "for group": $tmp = "for group"; break;
-   /**/case "Mailing list": $tmp = "Mailing list"; break;
-   /**/case "Add to mailing list": $tmp = "Add to mailing list"; break;
-   /**/case "Connection allowed": $tmp = "Connection allowed"; break;
-   /**/case "Connection not allowed": $tmp = "Connection not allowed"; break;
-   /**/case "0": $tmp="zero"; break;
-   /**/case "1": $tmp="one"; break;
-   /**/case "2": $tmp="twho"; break;
-   /**/case "3": $tmp="three"; break;
-   /**/case "4": $tmp="four"; break;
-   /**/case "5": $tmp="five"; break;
-   /**/case "6": $tmp="six"; break;
-   /**/case "7": $tmp="seven"; break;
-   /**/case "8": $tmp="eight"; break;
-   /**/case "9": $tmp="nine"; break;
-   /**/case "+": $tmp="plus"; break;
-   /**/case "-": $tmp="minus"; break;
-   /**/case "/": $tmp="divided by"; break;
-   /**/case "*": $tmp="multiplied by"; break;
-   /**/case "Ban this @IP": $tmp="Ban this @IP"; break;
-   // WS
-   
-   case "sub-section": $tmp="sub-section"; break;
-   case "Contributors": $tmp="Contributeurs"; break;
-   case "Contributor(s)": $tmp="Contributeur(s)"; break;
-
+   case "Mailing list": $tmp = "&#x90AE;&#x4EF6;&#x5217;&#x8868;"; break;
+   case "Add to mailing list": $tmp = "&#x6DFB;&#x52A0;&#x5230;&#x90AE;&#x4EF6;&#x5217;&#x8868;"; break;
+   case "Connection allowed": $tmp = "&#x8FDE;&#x63A5;&#x662F;&#x5141;&#x8BB8;&#x7684;"; break;
+   case "Connection not allowed": $tmp = "&#x8FDE;&#x63A5;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x7684;"; break;
+   case "0": $tmp="&#x96F6;"; break;
+   case "1": $tmp="&#x4E00;"; break;
+   case "2": $tmp="&#x4E8C;"; break;
+   case "3": $tmp="&#x4E09;"; break;
+   case "4": $tmp="&#x56DB;"; break;
+   case "5": $tmp="&#x4E94;"; break;
+   case "6": $tmp="&#x516D;"; break;
+   case "7": $tmp="&#x4E03;"; break;
+   case "8": $tmp="&#x516B;"; break;
+   case "9": $tmp="&#x4E5D;"; break;
+   case "+": $tmp="&#x52A0;"; break;
+   case "-": $tmp="&#x51CF;&#x53BB;"; break;
+   case "/": $tmp="&#x9664;&#x4EE5;"; break;
+   case "*": $tmp="&#x4E58;&#x4EE5;"; break;
+   case "Ban this @IP": $tmp="&#x7981;&#x6B62;&#x8FD9;&#x4E2A;IP&#x5730;&#x5740;"; break;
+   /**/case "New Topic": $tmp="Nouveau sujet"; break;
+   case "Recipient": $tmp="&#x63A5;&#x53D7;&#x8005;"; break;
+   case "Registration": $tmp="&#x6CE8;&#x518C;"; break;
+   case "Smilies": $tmp="&#x8868;&#x60C5;&#x7B26;&#x53F7;"; break;
+   /**/case "Bold": $tmp="Gras"; break;
+   case "Italic": $tmp="&#x659C;&#x4F53;"; break;
+   /**/case "Underline": $tmp="Souligné"; break;
+   case "Text align-left": $tmp="&#x6587;&#x5B57;&#x5DE6;&#x5BF9;&#x9F50;"; break;
+   case "Text center": $tmp="&#x5C45;&#x4E2D;&#x7684;&#x6587;&#x5B57;"; break;
+   case "Text align-right": $tmp="&#x6587;&#x672C;&#x5BF9;&#x9F50;&#xFF0C;&#x53F3;"; break;
+   /**/case "Text justified": $tmp="Text justifié"; break;
+   /**/case "Unordered list": $tmp="Liste non ordonnnée"; break;
+   /**/case "Ordered list": $tmp="Liste ordonnnée"; break;
+   case "Web link": $tmp="&#x7F51;&#x9875;&#x94FE;&#x63A5;"; break;
+   /**/case "Table": $tmp="Tableau"; break;
+   /**/case "Code": $tmp="Code"; break;
+   case "Youtube video": $tmp="&#x89C6;&#x9891; Youtube"; break;
+   case "Videos": $tmp="&#x89C6;&#x9891;"; break;
+   case "Paste the video ID between the tags": $tmp="&#x5C06;&#x89C6;&#x9891;ID&#x7C98;&#x8D34;&#x5230;&#x6807;&#x7B7E;&#x4E4B;&#x95F4;"; break;
+   /**/case "Hide this post": $tmp="Masquer ce post"; break;
+   /**/case "Show this post": $tmp="Afficher ce post"; break;
+   /**/case "Read": $tmp="Lu"; break;
+   /**/case "Choose a folder/topic": $tmp="Choisir un dossier/sujet"; break;
+   /**/case "Write a new Private Message": $tmp="Ecrire un nouveau message privé"; break;
+   case "Private Messages": $tmp="&#x79C1;&#x4EBA;&#x6D88;&#x606F;"; break;
+   /**/case "Contributors": $tmp="Contributeurs"; break;
+   /**/case "Contributor(s)": $tmp="Contributeur(s)"; break;
+   case "Bottom page": $tmp="&#x9875;&#x811A;"; break;
+   /**/case "Topic status": $tmp="Etat du topic"; break;
+   case "Print": $tmp="&#x6253;&#x5370;"; break;
+   /**/case "Your request": $tmp="Votre requête"; break;
+   case "Sender": $tmp="&#x5BC4;&#x4EF6;&#x4EBA;"; break;
+   case "Delete comments.": $tmp="&#x6E05;&#x9664;&#x8BC4;&#x8BBA;."; break;
+   case "Hide this comment": $tmp="&#x9690;&#x85CF;&#x6B64;&#x8BC4;&#x8BBA;"; break;
+   case "Show this comment": $tmp="&#x67E5;&#x770B;&#x6B64;&#x8BC4;&#x8BBA;"; break;
+   case "Icon": $tmp="&#x56FE;&#x6807;"; break;
+   case "Social networks": $tmp="&#x793E;&#x4EA4;&#x7F51;&#x7EDC;"; break;
+   /**/case "Select one skin": $tmp="Choisir une charte graphique"; break;
+   /**/case "Sub-section": $tmp="Sous-rubrique"; break;
 
    default: $tmp = "&#x9700;&#x8981;&#x7FFB;&#x8BD1;&#x7A3F; <b>[** $phrase **]</b>"; break;
  }
