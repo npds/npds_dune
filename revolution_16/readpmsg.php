@@ -123,7 +123,7 @@ include('auth.php');
       } else {
          if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$posterdata['user_avatar'];
       }
-         
+
       if ($posterdata['uid']<>1) 
          echo '
           <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[0].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
@@ -175,7 +175,9 @@ include('auth.php');
          if ($type!='outbox') {
             if ($posterdata['uid']<>1)
             echo '
-            <li class="page-item"><a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a></li>';
+            <li class="page-item">
+               <a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a>
+            </li>';
          }
          if ($previous >= 0) echo '
             <li class="page-item">
@@ -205,14 +207,16 @@ include('auth.php');
                   <span class="d-md-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
-         if ($type!='outbox') {
-            echo '
-            <li class="page-item" ><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
-         }
-         else{
          echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
-         }
+            <li class="page-item">
+               <a class="page-link" data-toggle="collapse" href="#sortbox"><i class="fa fa-cogs fa-lg" title="'.translate("Order your message").'" data-toggle="tooltip"></i></a>
+            </li>';
+         if ($type!='outbox')
+            echo '
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Delete this Post").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
+         else
+            echo '
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Delete this Post").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a></li>';
          echo '
          </ul>';
 
@@ -220,34 +224,37 @@ include('auth.php');
             $sql = "SELECT DISTINCT dossier FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' ORDER BY dossier";
             $result = sql_query($sql);
             echo '
-      <div class="card card-body">
-      <form action="replypmsg.php" method="post">
-         <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="dossier">'.translate("Topic").'</label>
-            <div class="col-sm-9">
-               <select class="custom-select form-control" id="dossier" name="dossier">';
-            while (list($dossier)=sql_fetch_row($result)) {
-               echo '
-                  <option value="'.$dossier.'">'.$dossier.'</option>';
-            }
-            echo '
-               </select>
-            </div>
+      <div class="collapse" id="sortbox">
+         <div class="card card-body" >
+         <p class="lead">'.translate("Order your message").'</p>
+            <form action="replypmsg.php" method="post">
+               <div class="form-group row">
+                  <label class="col-form-label col-sm-4" for="dossier">'.translate("Topic").'</label>
+                  <div class="col-sm-8">
+                     <select class="custom-select form-control" id="dossier" name="dossier">';
+                  while (list($dossier)=sql_fetch_row($result)) {
+                     echo '
+                        <option value="'.$dossier.'">'.$dossier.'</option>';
+                  }
+                  echo '
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label class="col-form-label col-sm-4" for="nouveau_dossier">'.translate("New folder/topic").'</label>
+                  <div class="col-sm-8">
+                     <input type="texte" class="form-control" id="nouveau_dossier" name="nouveau_dossier" value="" size="24" />
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <div class="col-sm-8 ml-sm-auto">
+                     <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
+                     <input type="hidden" name="classement" value="1" />
+                     <button type="submit" class="btn btn-primary" name="classe">OK</button>
+                  </div>
+               </div>
+            </form>
          </div>
-         <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="nouveau_dossier"></label>
-            <div class="col-sm-9">
-               <input type="texte" class="form-control" id="nouveau_dossier" name="nouveau_dossier" value="" size="24" />
-            </div>
-         </div>
-         <div class="form-group row">
-            <div class="col-sm-9 ml-sm-auto">
-               <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
-               <input type="hidden" name="classement" value="1" />
-               <button type="submit" class="btn btn-primary" name="classe">OK</button>
-            </div>
-         </div>
-      </form>
       </div>';
          }
       }

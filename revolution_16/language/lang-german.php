@@ -988,6 +988,8 @@ function translate_pass1($phrase) {
    case "Read": $tmp="Lesen"; break;
    case "Choose a folder/topic": $tmp="Wählen Sie einen Ordner / Thema"; break;
    case "Write a new Private Message": $tmp="Neue private Nachricht schreiben"; break;
+   case "Order your message": $tmp="Klassifizieren Sie diese Nachricht"; break;
+   case "New folder/topic": $tmp="Neue Ordner/Thema"; break;
    case "Private Messages": $tmp="Private Nachrichten"; break;
    case "Contributors": $tmp="Mitarbeiter"; break;
    case "Contributor(s)": $tmp="Contributor(s)"; break;
