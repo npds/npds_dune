@@ -215,6 +215,7 @@ function translate_pass1($phrase) {
    case "ERROR: Email address already registered": $tmp="Fehler : Die E-mail Adresse wird schon verwendet"; break;
    case "User ID": $tmp="User ID "; break;
    case "Real Name": $tmp="Ihr richtiger Name"; break;
+   case "Identity": $tmp="Identit&#xE4;t"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Website: ": $tmp="Webseite : "; break;
    case "Location": $tmp="Wo kommen Sie her?"; break;
