@@ -992,6 +992,8 @@ function translate_pass1($phrase) {
    case "Read": $tmp="Lu"; break;
    case "Choose a folder/topic": $tmp="Choisir un dossier/sujet"; break;
    case "Write a new Private Message": $tmp="Ecrire un nouveau message privé"; break;
+   case "Order your message": $tmp="Classer ce message"; break;
+   case "New folder/topic": $tmp="Nouveau dossier/sujet"; break;
    case "Private Messages": $tmp="Messages personnels"; break;
    case "Contributors": $tmp="Contributeurs"; break;
    case "Contributor(s)": $tmp="Contributeur(s)"; break;

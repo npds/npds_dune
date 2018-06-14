@@ -481,102 +481,92 @@ function userinfo($uname) {
          <div class="col-md-6">
             <div id="map_user" style="width:100%; height:400px;"></div>';
          $content .='
-<script type="text/javascript">
-//<![CDATA[
-      $(document).ready(function() {
-         if($("#map_bloc").length)
-            console.log("map_bloc est dans la page");//debug
-         else {
-//               $("head").append($("<script />").attr("src","modules/geoloc/include/fontawesome-markers.min.js"));
-//               $("head").append($("<script />").attr("src","https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0).'"));
-         }
-      });
+            <script type="text/javascript">
+            //<![CDATA[
+               var 
+               map_u, map_b,
+               mapdivu = document.getElementById("map_user"),
+               mapdivbl = document.getElementById("map_bloc");
 
-   var 
-   map_u, map_b,
-   mapdivu = document.getElementById("map_user"),
-   mapdivbl = document.getElementById("map_bloc");
+               function geoloc_init() {
+                  var 
+                  icon_u = {
+                     path: fontawesome.markers.USER,
+                     scale: '.$acg_sc.',
+                     strokeWeight: '.$acg_t_ep.',
+                     strokeColor: "'.$acg_t_co.'",
+                     strokeOpacity: '.$acg_t_op.',
+                     fillColor: "'.$acg_f_co.'",
+                     fillOpacity: '.$acg_f_op.'
+                  },
+                  icon_bl = {
+                     url: "'.$ch_img.$img_mbgb.'",
+                     size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
+                     origin: new google.maps.Point(0, 0),
+                     anchor: new google.maps.Point(0, 0),
+                     scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
+                  };
 
-   function geoloc_init() {
-      var 
-      icon_u = {
-         path: fontawesome.markers.USER,
-         scale: '.$acg_sc.',
-         strokeWeight: '.$acg_t_ep.',
-         strokeColor: "'.$acg_t_co.'",
-         strokeOpacity: '.$acg_t_op.',
-         fillColor: "'.$acg_f_co.'",
-         fillOpacity: '.$acg_f_op.'
-      },
-      icon_bl = {
-         url: "'.$ch_img.$img_mbgb.'",
-         size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(0, 0),
-         scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-      };
+               //==> carte du bloc
+               if (document.getElementById("map_bloc")) {
 
-   //==> carte du bloc
-   if (document.getElementById("map_bloc")) {
+                  map_b = new google.maps.Map(mapdivbl,{
+                     center: new google.maps.LatLng(45, 0),
+                     zoom :3,
+                     zoomControl:false,
+                     streetViewControl:false,
+                     mapTypeControl: false,
+                     disableDoubleClickZoom: true 
+                  });
+                  map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+                  function createMarkerB(point_b) {
+                     var marker_b = new google.maps.Marker({
+                        position: point_b,
+                        map: map_b,
+                        icon: icon_bl
+                     })
+                     return marker_b;
+                 }
+                    //== Fonction qui traite le fichier JSON ==
+                  $.getJSON("modules/geoloc/include/data.json", {}, function(data){
+                     $.each(data.markers, function(i, item){
+                        var point_b = new google.maps.LatLng(item.lat,item.lng);
+                        var marker_b = createMarkerB(point_b);
+                     });
+                  });
+               };
+               //<== carte du bloc
 
-      map_b = new google.maps.Map(mapdivbl,{
-         center: new google.maps.LatLng(45, 0),
-         zoom :3,
-         zoomControl:false,
-         streetViewControl:false,
-         mapTypeControl: false,
-         disableDoubleClickZoom: true 
-      });
-      map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-      function createMarkerB(point_b) {
-         var marker_b = new google.maps.Marker({
-            position: point_b,
-            map: map_b,
-            icon: icon_bl
-         })
-         return marker_b;
-     }
-        //== Fonction qui traite le fichier JSON ==
-      $.getJSON("modules/geoloc/include/data.json", {}, function(data){
-         $.each(data.markers, function(i, item){
-            var point_b = new google.maps.LatLng(item.lat,item.lng);
-            var marker_b = createMarkerB(point_b);
-         });
-      });
-   };
-   //<== carte du bloc
-   
-      map_u = new google.maps.Map(mapdivu,{
-         center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend[$ch_lon].'),
-         zoom :7,
-         zoomControl:true,
-         streetViewControl:true,
-         mapTypeControl: true,
-         scrollwheel: false,
-         disableDoubleClickZoom: true 
-      });
-      map_u.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-      function createMarkerU(point_u) {
-         var marker_u = new google.maps.Marker({
-            position: point_u,
-            map: map_u,
-            title: "'.$uname.'",
-            icon: icon_u
-         })
-         return marker_u;
-      }
-      var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend[$ch_lon].');
-      var marker_u = createMarkerU(point_u);
-   }
-//   $(document.body).attr("onload", "geoloc_loaduser()");
-//]]>
-</script>';
+                  map_u = new google.maps.Map(mapdivu,{
+                     center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend[$ch_lon].'),
+                     zoom :7,
+                     zoomControl:true,
+                     streetViewControl:true,
+                     mapTypeControl: true,
+                     scrollwheel: false,
+                     disableDoubleClickZoom: true 
+                  });
+                  map_u.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+                  function createMarkerU(point_u) {
+                     var marker_u = new google.maps.Marker({
+                        position: point_u,
+                        map: map_u,
+                        title: "'.$uname.'",
+                        icon: icon_u
+                     })
+                     return marker_u;
+                  }
+                  var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend[$ch_lon].');
+                  var marker_u = createMarkerU(point_u);
+               }
+            //]]>
+            </script>';
          $content .='
          <div class="mt-3">
-            <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]</a>';
+            <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
          if($admin)
             $content .= '
-            <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french] [english]Admin[/english] [chinese]Admin[/chinese]</a>';
+            <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french][english]Admin[/english][chinese]Admin[/chinese][spanish]Admin[/spanish][german]Admin[/german]</a>';
          $content .= '
             </div>
          </div>';

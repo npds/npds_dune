@@ -214,6 +214,7 @@ function translate_pass1($phrase) {
    case "ERROR: Email address already registered": $tmp="Error :  este E-mail ya esta en uso"; break;
    case "User ID": $tmp="ID Usuario (Apodo)"; break;
    case "Real Name": $tmp="Su verdadera identidad"; break;
+   case "Identity": $tmp="Identidad"; break;
    case "Avatar": $tmp="Avatar"; break;
    case "Website: ": $tmp="Su p&aacute;gina  web : "; break;
    case "Location": $tmp="Su situaci&oacute;n geogr&aacute;fica"; break;
@@ -988,6 +989,8 @@ function translate_pass1($phrase) {
    case "Read": $tmp="Le&#xED;do"; break;
    case "Choose a folder/topic": $tmp="Elegir carpeta / sujeto"; break;
    case "Write a new Private Message": $tmp="Escribir un nuevo mensaje privado"; break;
+   case "Order your message": $tmp="Clasificar este mensaje"; break;
+   case "New folder/topic": $tmp="Nuevo carpeta/sujeto"; break;
    case "Private Messages": $tmp="Mensajes personales"; break;
    case "Contributors": $tmp="Colaboradores"; break;
    case "Contributor(s)": $tmp="Colaborador(es)"; break;
