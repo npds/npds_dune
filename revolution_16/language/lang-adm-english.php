@@ -1011,7 +1011,7 @@ function adm_translate($phrase) {
   case "Critique en attente de validation.": $tmp="Review awaiting validation"; break;
   case "Utilisateur(s) en attente de validation": $tmp="User(s) awaiting validation"; break;
   case "Identifiant": $tmp="Nickname"; break;
-  case "Page(s)": $tmp="Page(s)";
+  case "Page(s)": $tmp="Page(s)"; break;
 
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }

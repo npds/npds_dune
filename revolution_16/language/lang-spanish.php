@@ -255,8 +255,9 @@ function translate_pass1($phrase) {
    case "Option: ": $tmp="Opci&oacute;n : "; break;
    case "Allow other users to view my email address": $tmp="Autorizar los otros usuarios a ver mi E-mail"; break;
    case "(Password will be sent to the email address you enter.)": $tmp="(La contrase&ntilde;a le sera enviada a la direcci&oacute;n E-mail que dio.)"; break;
-   case "Notice: Account preferences are cookie based.": $tmp="Nota : Las preferencias del usuario funcionan con Cookies."; break;
-   case "As a registered user you can:": $tmp="En tanto que nuevo usuario usted puede :"; break;
+   case "Notice": $tmp="Nota"; break;
+   case "Account preferences are cookie based.": $tmp="Las preferencias del usuario funcionan con Cookies."; break;
+   case "As a registered user you can": $tmp="En tanto que nuevo usuario usted puede"; break;
    case "Post comments with your name": $tmp="A&ntilde;adir comentarios firmados"; break;
    case "Send news with your name": $tmp="Proponer noticias en su nombre"; break;
    case "Have a personal box in the Home": $tmp="Disponer de un bloque especial para usted solo (para especialistas, necesita conocimientos en HTML)"; break;
@@ -266,6 +267,7 @@ function translate_pass1($phrase) {
    case "Select different themes": $tmp="Escoger un tema diferente para el sitio web (si varios propuestos)"; break;
    case "some other cool stuff...": $tmp="Acceso a la gesti&oacute;n de otras opciones y aplicaciones"; break;
    case "We don't sell/give to others your personal info.": $tmp="Sus informaciones personales, no son ni vendidas<BR>ni cedidas a tercias personas."; break;
+   case "No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.": $tmp="No hay problema. Simplemente escriba su Nickname, la nueva contrase&#xF1;a que desea y haga clic en el bot&#xF3;n Enviar para recibir un correo electr&#xF3;nico con el c&#xF3;digo de confirmaci&#xF3;n."; break;
    case "Sorry, no corresponding user info was found": $tmp="Lo sentimos, no se encontr&oacute; ninguna informaci&oacute;n correspondiente a este usuario"; break;
    case "The user account": $tmp="La cuenta de usuario"; break;
    case "at": $tmp="de"; break;
@@ -653,7 +655,7 @@ function translate_pass1($phrase) {
    case "Next Messages": $tmp="Siguiente mensaje"; break;
    case "Reply Posted.": $tmp="Respuesta enviada."; break;
    case "You must type a message to post.": $tmp="Debe especificar une mensaje para enviarlo."; break;
-   case "Post Reply in Topic:": $tmp="Enviar la respuesta en el Asunto :"; break;
+   case "Post Reply in Topic": $tmp="Enviar la respuesta en el Asunto"; break;
    case "You are not allowed to reply in this forum": $tmp="No tiene ninguna autorizaci&oacute;n para responder en este foro"; break;
    case "wrote:": $tmp="Escribi&oacute; :"; break;
    case "Topic Review": $tmp="Pre visualizar los asuntos"; break;
@@ -950,6 +952,7 @@ function translate_pass1($phrase) {
    case "Add to mailing list": $tmp = "Agregar al lista de correo"; break;
    case "Connection allowed": $tmp = "Conexi&oacute;n permitido"; break;
    case "Connection not allowed": $tmp = "Conexi&oacute;n no autorizada"; break;
+   case "Connection": $tmp="Conexi&oacute;n"; break;
    case "0": $tmp="cero"; break;
    case "1": $tmp="uno"; break;
    case "2": $tmp="dos"; break;

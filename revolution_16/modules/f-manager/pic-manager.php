@@ -44,7 +44,7 @@ function fma_filter($type, $filename, $Extension) {
    $filename=preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($filename));
    $filename=str_replace('..','',$filename);
 
-   // Liste des extensions autorisÈes
+   // Liste des extensions autorisées
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
    if (($suffix!='') or ($type=='d')) {
       if ((in_array($suffix,$Extension)) or ($Extension[0]=='*') or $type=='d') {
@@ -70,7 +70,7 @@ function fma_filter($type, $filename, $Extension) {
 function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
-
+   //var_dump($type);//notice sur $type f ...coriace ...le tableau $ficlimit_fma est celui des répertoires?..
    if ($type=='a') {
       $autorise_arbo=$access_fma;
    }
@@ -250,7 +250,6 @@ while (false!==($file = readdir($handle))) {
    }
 }
 closedir($handle);
-//$att_icon_dir="<img src=\"images/upload/file_types/dir.gif\" border=\"0\" alt=\"\" />";
 $att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
 
 // Répertoires
@@ -342,15 +341,17 @@ if ($Max_thumb>0) {
                   case 'jpg':
                   case 'png':
                      $PopUp="'getfile.php?att_id=$ibid&amp;apli=f-manager','PicManager','menubar=no,location=no,directories=no,status=no,copyhistory=no,height=".($h_pi+40).",width=".($w_pi+40).",toolbar=no,scrollbars=yes,resizable=yes'";
-                     $files.="<div class=\"imagethumb\">";
-                     $files.="<a href=\"javascript:void(0);\" onclick=\"popup=window.open($PopUp); popup.focus();\"><img src=\"getfile.php?att_id=";
+                     $files.='
+                     <div class="imagethumb">
+                        <a href="javascript:void(0);" onclick="popup=window.open('.$PopUp.'); popup.focus();"><img src="getfile.php?att_id=';
                      if ($imagette)
-                        $files.=$imagette;
+                        $files.= $imagette;
                      else
-                        $files.=$ibid;
+                        $files.= $ibid;
                      $files.="&amp;apli=f-manager\" border=\"0\" width=\"$w_i\" height=\"$h_i\" alt=\"$obj->FieldName\" /></a>\n";
-                     $files.="</div>";
-                     break;
+                     $files.='
+                     </div>';
+                  break;
 
                   case "swf":
                      $img_size="width=\"$w_i\" height=\"$h_i\"";
@@ -459,4 +460,3 @@ if ($inclusion) {
    }
 }
 ?>
-

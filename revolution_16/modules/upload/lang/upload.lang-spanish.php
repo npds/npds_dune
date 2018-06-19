@@ -10,7 +10,7 @@
 function upload_translate($phrase) {
  switch($phrase) {
    /////// fichier
-   case "Pièces jointes :": $tmp="Archivos adjuntos :"; break;
+   case "Pièces jointes": $tmp="Archivos adjuntos :"; break;
    case "Fichier": $tmp="Fichero"; break;
    case "Type": $tmp="Tipo"; break;
    case "Taille": $tmp="Tamaño"; break;

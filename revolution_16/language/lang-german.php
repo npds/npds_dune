@@ -107,7 +107,7 @@ function translate_pass1($phrase) {
    case "Category: ": $tmp="Kategorie : "; break;
    case "Description: (255 characters max)": $tmp="Beschreibung :  (max. 255 Buchstaben)"; break;
    case "Your Name: ": $tmp="Ihr Name : "; break;
-   case "Your Email: ": $tmp="Ihre E-mail Adresse : "; break;
+   case "Your Email": $tmp="Ihre E-mail Adresse"; break;
    case "Add URL": $tmp="Fügen Sie eine URL hinzu"; break;
    case "You are not a registered user or you have not logged in.": $tmp="Sie sind noch nicht registriert, oder momentan nicht angemeldet."; break;
    case "If you were registered you could add links on this website.": $tmp="Nach der Registrierung können Sie Links hinzufügen."; break;
@@ -255,7 +255,8 @@ function translate_pass1($phrase) {
    case "Option: ": $tmp="Option : "; break;
    case "Allow other users to view my email address": $tmp="Andere User können meine E-mail Adresse sehen"; break;
    case "Password will be sent to the email address you enter.": $tmp="Das Passort wird an die angegebene E-mail Adresse gesendet."; break;
-   case "Notice: Account preferences are cookie based.": $tmp="Notiz : Für diese Funktion müssen Cookies erlaubt sein."; break;
+   case "Notice": $tmp="Notiz"; break;
+   case "Account preferences are cookie based.": $tmp="Für diese Funktion müssen Cookies erlaubt sein."; break;
    case "As a registered user you can": $tmp="Als registrierter User können Sie"; break;
    case "Post comments with your name": $tmp="Kommentare abgeben mit Ihrem Namen"; break;
    case "Send news with your name": $tmp="Artikel schreiben unter Ihrem Namen"; break;
@@ -402,6 +403,7 @@ function translate_pass1($phrase) {
    case "Survey": $tmp="Umfrage"; break;
    case "Past Surveys": $tmp="Alte Umfragen"; break;
    case "Votes: ": $tmp="Abstimmungen : "; break;
+   case "Vote": $tmp="Abstimmung"; break;
    case "comments:": $tmp="Kommentar (e) : "; break;
    case "You already voted today!": $tmp="Sie haben heute schon abgestimmt !"; break;
    case "Results": $tmp="Resultate"; break;
@@ -584,8 +586,8 @@ function translate_pass1($phrase) {
    case "Send Story to a Friend": $tmp="Diesen Artikel an einen Freund senden"; break;
    case "You will send the story": $tmp="Sie senden diesen Artikel"; break;
    case "to a specified friend:": $tmp="An diese Person : "; break;
-   case "Friend Name: ": $tmp="Name des Freundes : "; break;
-   case "Friend Email: ": $tmp="E-mail des Freundes : "; break;
+   case "Friend Name": $tmp="Name des Freundes"; break;
+   case "Friend Email": $tmp="E-mail des Freundes"; break;
    case "Send": $tmp="Senden"; break;
    case "Interesting Article at": $tmp="Interessanter Artikel bei"; break;
    case "Your Friend": $tmp="Ihr Freund"; break;
@@ -654,7 +656,7 @@ function translate_pass1($phrase) {
    case "Next Messages": $tmp="Vorherige Nachricht"; break;
    case "Reply Posted.": $tmp="Antwort gesendet."; break;
    case "You must type a message to post.": $tmp="Sie müssen eine Nachricht schreiben um sie zu senden."; break;
-   case "Post Reply in Topic:": $tmp="Antwort zu diesem Beitrag senden :"; break;
+   case "Post Reply in Topic": $tmp="Antwort zu diesem Beitrag senden"; break;
    case "You are not allowed to reply in this forum": $tmp="Sie haben keine Berechtigung für dieses Forum"; break;
    case "wrote:": $tmp="Schreiben Sie :"; break;
    case "Topic Review": $tmp="Themenübersicht"; break;
@@ -950,6 +952,7 @@ function translate_pass1($phrase) {
    case "Add to mailing list": $tmp = "zu Mailing-Liste hinzufügen"; break;
    case "Connection allowed": $tmp = "Connection erlaubt"; break;
    case "Connection not allowed": $tmp = "Connection nicht erlaubt"; break;
+   case "Connection": $tmp="Verbindung"; break;
    case "0": $tmp="null"; break;
    case "1": $tmp="eins"; break;
    case "2": $tmp="zwei"; break;
