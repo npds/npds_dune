@@ -46,12 +46,13 @@ function fma_translate($phrase) {
       case "Ko" : $tmp = "Kb"; break;
       case "Copie de " : $tmp = "Copy of "; break;
       case "Taille maximum d'un fichier : " : $tmp = "Maximum file size: "; break;
-      case "Pic-Manager" : $tmp = "Pic-Manager"; break;
-      case "Autoriser Pic-Manager" : $tmp = "Enable Pic-Manager"; break;
+      case "Images manager" : $tmp = "Pictures Manager"; break;
+      case "Autoriser Pic-Manager" : $tmp = "Enable pictures Manager"; break;
       case "Taille maximum (pixel) de l'imagette" : $tmp = "Maximum size (pixel) for thumb"; break;
       case "Cliquer ici pour charger le fichier dans le player" : $tmp = "Click here to load the file in the player"; break;
       case "Temps de cache (en seconde) des imagettes" : $tmp = "Duration of cache (in second) for thumbs"; break;
       case "F-Manager": $tmp="F-Manager"; break;
+      case "Gestionnaire de fichiers": $tmp="File Manager"; break;
 
       default: $tmp = "Translation error [** $phrase **]"; break;
    }

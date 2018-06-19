@@ -253,8 +253,9 @@ function translate_pass1($phrase) {
    case "Option: ": $tmp="&#x9009;&#x9879; : "; break;
    case "Allow other users to view my email address": $tmp="&#x5141;&#x8BB8;&#x5176;&#x4ED6;&#x6CE8;&#x518C;&#x7528;&#x6237;&#x770B;&#x89C1;&#x6211;&#x7684;email&#x5730;&#x5740;"; break;
    case "(Password will be sent to the email address you enter.)": $tmp="&#xFF08;&#x5BC6;&#x7801;&#x4F1A;&#x53D1;&#x9001;&#x81F3;&#x60A8;&#x6240;&#x63D0;&#x4F9B;&#x7684;Email&#x5730;&#x5740;.&#xFF09;"; break;
-   case "Notice: Account preferences are cookie based.": $tmp="&#x6CE8;&#x610F;&#xFF1A;&#x5E10;&#x53F7;&#x53C2;&#x6570;&#x9009;&#x62E9;&#x662F;&#x57FA;&#x4E8E;cookie&#x7684;&#x3002;"; break;
-   case "As a registered user you can:": $tmp="&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x6CE8;&#x518C;&#x7528;&#x6237;&#x60A8;&#x53EF;&#x4EE5;&#xFF1A;"; break;
+   case "Notice": $tmp="&#x901A;&#x77E5;"; break;
+   case "Account preferences are cookie based.": $tmp="&#x5E10;&#x6237;&#x9996;&#x9009;&#x9879;&#x662F;&#x57FA;&#x4E8E;Cookie&#x7684;&#x3002;"; break;
+   case "As a registered user you can": $tmp="&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x6CE8;&#x518C;&#x7528;&#x6237;&#x60A8;&#x53EF;&#x4EE5;&#xFF1A;"; break;
    case "Post comments with your name": $tmp="&#x7528;&#x60A8;&#x7684;&#x6CE8;&#x518C;&#x540D;&#x5B57;&#x53D1;&#x8868;&#x8BC4;&#x8BBA;"; break;
    case "Send news with your name": $tmp="&#x7528;&#x60A8;&#x7684;&#x6CE8;&#x518C;&#x540D;&#x5B57;&#x53D1;&#x9001;&#x65B0;&#x95FB;"; break;
    case "Have a personal box in the Home": $tmp="&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x4E2A;&#x4EBA;&#x7AD9;&#x5185;&#x4FE1;&#x7BB1;"; break;
@@ -264,6 +265,7 @@ function translate_pass1($phrase) {
    case "Select different themes": $tmp="&#x9009;&#x62E9;&#x4E0D;&#x540C;&#x7684;&#x4E3B;&#x9898;&#x6837;&#x5F0F;"; break;
    case "some other cool stuff...": $tmp="&#x7BA1;&#x7406;&#x5176;&#x4ED6;&#x7684;&#x9009;&#x9879;&#x548C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;"; break;
    case "We don't sell/give to others your personal info.": $tmp="&#x6211;&#x4EEC;&#x4E0D;&#x4F1A;&#x628A;&#x60A8;&#x7684;&#x4E2A;&#x4EBA;&#x4FE1;&#x606F;&#x9500;&#x552E;&#x6216;&#x63D0;&#x4F9B;&#x7ED9;&#x5176;&#x4ED6;&#x4EBA;&#x3002;"; break;
+   case "No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.": $tmp="&#x6CA1;&#x95EE;&#x9898;&#x3002; &#x53EA;&#x9700;&#x8F93;&#x5165;&#x60A8;&#x7684;&#x6635;&#x79F0;&#xFF0C;&#x60A8;&#x60F3;&#x8981;&#x7684;&#x65B0;&#x5BC6;&#x7801;&#xFF0C;&#x7136;&#x540E;&#x70B9;&#x51FB;&#x53D1;&#x9001;&#x6309;&#x94AE;&#x5373;&#x53EF;&#x63A5;&#x6536;&#x5E26;&#x6709;&#x786E;&#x8BA4;&#x7801;&#x7684;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x3002;"; break;
    case "Sorry, no corresponding user info was found": $tmp="&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x7528;&#x6237;&#x4FE1;&#x606F;&#x3002;"; break;
    case "The user account": $tmp="&#x7528;&#x6237;&#x5E10;&#x53F7;"; break;
    case "at": $tmp="&#x5728;"; break;
@@ -340,11 +342,11 @@ function translate_pass1($phrase) {
    case "You are not allowed to post in this forum": $tmp="&#x60A8;&#x4E0D;&#x80FD;&#x5728;&#x672C;&#x8BBA;&#x575B;&#x53D1;&#x8A00;"; break;
    case "back": $tmp="&#x8FD4;&#x56DE;"; break;
    case "Subject: ": $tmp="&#x4E3B;&#x9898; : "; break;
-   case "Message Icon: ": $tmp="&#x6D88;&#x606F;&#x56FE;&#x6807; : "; break;
-   case "Message: ": $tmp="&#x7559;&#x8A00; : "; break;
+   case "Message Icon": $tmp="&#x6D88;&#x606F;&#x56FE;&#x6807;"; break;
+   case "Message": $tmp="&#x7559;&#x8A00;"; break;
    case "On": $tmp="&#x5F00;"; break;
    case "Off": $tmp=" &#x5173;"; break;
-   case "Options: ": $tmp="&#x9009;&#x9879; : "; break;
+   case "Options": $tmp="&#x9009;&#x9879;"; break;
    case "Disable HTML on this Post": $tmp="&#x5728;&#x672C;&#x8D34;&#x4E2D;&#x7981;&#x7528;HTML"; break;
    case "This can be altered or added in your profile": $tmp="&#x672C;&#x9879;&#x53EF;&#x4EE5;&#x5728;&#x4F60;&#x7684;&#x4E2A;&#x4EBA;&#x53C2;&#x6570;&#x4E2D;&#x6DFB;&#x52A0;&#x6216;&#x64A4;&#x6D88;"; break;
    case "Notify by email when replies are posted": $tmp="&#x5F53;&#x6709;&#x56DE;&#x590D;&#x65F6;&#x5C06;&#x901A;&#x8FC7;email&#x5F97;&#x5230;&#x901A;&#x77E5;"; break;
@@ -399,6 +401,7 @@ function translate_pass1($phrase) {
    case "Survey": $tmp="&#x8C03;&#x67E5;"; break;
    case "Past Surveys": $tmp="&#x4EE5;&#x524D;&#x7684;&#x8C03;&#x67E5;"; break;
    case "Votes: ": $tmp="&#x7968;&#x6570; : "; break;
+   case "Vote": $tmp="&#x7968;&#x6570;"; break;
    case "comments:": $tmp="&#x8BC4;&#x8BBA; : "; break;
    case "You already voted today!": $tmp="&#x60A8;&#x4ECA;&#x5929;&#x5DF2;&#x7ECF;&#x5BF9;&#x8BE5;&#x8C03;&#x67E5;&#x6295;&#x7968;&#x4E86; !"; break;
    case "Results": $tmp="&#x7ED3;&#x679C;"; break;
@@ -580,8 +583,8 @@ function translate_pass1($phrase) {
    case "Send Story to a Friend": $tmp="&#x53D1;&#x9001;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x7ED9;&#x670B;&#x53CB;"; break;
    case "You will send the story": $tmp="&#x60A8;&#x5C06;&#x53D1;&#x9001;&#x8BE5;&#x6587;&#x7AE0;"; break;
    case "to a specified friend:": $tmp="&#x53D1;&#x9001;&#x7ED9;&#x8FD9;&#x4E2A;&#x670B;&#x53CB; : "; break;
-   case "Friend Name: ": $tmp="&#x670B;&#x53CB;&#x59D3;&#x540D; : "; break;
-   case "Friend Email: ": $tmp="&#x670B;&#x53CB;&#x96FB;&#x90F5; : "; break;
+   case "Friend Name": $tmp="&#x670B;&#x53CB;&#x59D3;&#x540D;"; break;
+   case "Friend Email": $tmp="&#x670B;&#x53CB;&#x96FB;&#x90F5;"; break;
    case "Send": $tmp="&#x9001;&#x51FA;"; break;
    case "Interesting Article at": $tmp="&#x4E00;&#x7BC7;&#x7279;&#x522B;&#x7684;&#x6587;&#x7AE0;&#x5728;&#x4EE5;&#x4E0B;&#x7F51;&#x5740;"; break;
    case "Your Friend": $tmp="&#x60A8;&#x7684;&#x670B;&#x53CB;"; break;
@@ -651,7 +654,7 @@ function translate_pass1($phrase) {
    case "Next Messages": $tmp="&#x4E0B;&#x4E00;&#x6761;&#x6D88;&#x606F;"; break;
    case "Reply Posted.": $tmp="&#x8D34;&#x7684;&#x56DE;&#x590D;"; break;
    case "You must type a message to post.": $tmp="&#x60A8;&#x5FC5;&#x987B;&#x8F93;&#x5165;&#x4E00;&#x6761;&#x4FE1;&#x606F;&#x4EE5;&#x5F20;&#x8D34;"; break;
-   case "Post Reply in Topic:": $tmp="&#x8D34;&#x7ED9;&#x8BE5;&#x4E3B;&#x9898;&#x7684;&#x56DE;&#x590D;"; break;
+   case "Post Reply in Topic": $tmp="&#x8D34;&#x7ED9;&#x8BE5;&#x4E3B;&#x9898;&#x7684;&#x56DE;&#x590D;"; break;
    case "You are not allowed to reply in this forum": $tmp="&#x60A8;&#x6CA1;&#x6709;&#x88AB;&#x6388;&#x6743;&#x5728;&#x8BE5;&#x8BBA;&#x575B;&#x56DE;&#x590D;&#x3002;"; break;
    case "wrote:": $tmp="&#x5199;&#x9053; :"; break;
    case "Topic Review": $tmp="&#x70ED;&#x95E8;&#x4E3B;&#x9898;"; break;
@@ -951,6 +954,7 @@ function translate_pass1($phrase) {
    case "Add to mailing list": $tmp = "&#x6DFB;&#x52A0;&#x5230;&#x90AE;&#x4EF6;&#x5217;&#x8868;"; break;
    case "Connection allowed": $tmp = "&#x8FDE;&#x63A5;&#x662F;&#x5141;&#x8BB8;&#x7684;"; break;
    case "Connection not allowed": $tmp = "&#x8FDE;&#x63A5;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x7684;"; break;
+   case "Connection": $tmp="&#x8FDE;&#x63A5;"; break;
    case "0": $tmp="&#x96F6;"; break;
    case "1": $tmp="&#x4E00;"; break;
    case "2": $tmp="&#x4E8C;"; break;

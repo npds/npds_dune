@@ -417,7 +417,7 @@ function adm_translate($phrase) {
   case "Derniers": $tmp="Ultimos"; break;
   case "Editer l'Article d'ID : ": $tmp="Edicion del articulo ID:"; break;
   case "Ajouter une nouvelle Rubrique": $tmp="Añadir nueva rubrica"; break;
-  case "Nom de la Rubrique : ": $tmp="Nombre de rubrica:"; break;
+  case "Nom de la Rubrique": $tmp="Nombre de rubrica"; break;
   case "Image pour la Rubrique : ": $tmp="Imagen de la rubrica:"; break;
   case "(exemple : tonial.png)": $tmp="(Ejemplo: opinion.gif)"; break;
   case "Ajouter une Rubrique": $tmp="Añadir una rubrica!"; break;
@@ -786,7 +786,7 @@ function adm_translate($phrase) {
   case "Publications connexes": $tmp="Publicaciones conexas"; break;
   case "Ajouter une publication": $tmp="Añadir una publicación"; break;
   case "Editer une publication": $tmp="Editar una publicación"; break;
-  case "Effacer la publication :": $tmp="Delete a publication:"; break;
+  case "Effacer la publication :": $tmp="Eliminar la publicación:"; break;
   case "Etes-vous certain de vouloir effacer cette publication ?": $tmp="¿Esta seguro de querer borrar esta publicación?"; break;
   case "Droits de publication": $tmp="Derechos de publicación"; break;
   case "publication(s) attachée(s)": $tmp="publicacion(es) vinculada(s)"; break;
@@ -798,7 +798,7 @@ function adm_translate($phrase) {
   case "Publication(s) en en attente de validation": $tmp="Publicaciones en en espera de validación"; break;
   case "Ajouter une nouvelle Sous-Rubrique": $tmp="Añadir una nueva Subdivisión de rúbrica"; break;
   case "Nom de la Sous-Rubrique : ": $tmp="Nombre de la Subdivisión de rúbrica:"; break;
-  case "Image pour la Sous-Rubrique": $tmp="Imagen para la Subdivisión de rúbrica:"; break;
+  case "Image pour la Sous-Rubrique": $tmp="Imagen para la Subdivisión de rúbrica"; break;
   case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Una vez que habrá validado esta publicación, será integrada en base temporal, y se avisará al administrador. Leera esta publicación y la pondrá en lÌnea cuanto antes. Es normal que por el momento, esta publicación no aparezca en la estructura"; break;
   case "Mettre à jour": $tmp="Actualizar"; break;
   case "Publier": $tmp="Publicar"; break;
@@ -939,7 +939,7 @@ function adm_translate($phrase) {
   case 'META-LANG': $tmp='META-LANG'; break;
   case 'Logs': $tmp='Logs'; break;
   case 'Gestion modules': $tmp='Modules management'; break;
-  case 'Liste des catégories': $tmp='lista de categorías'; break;
+  case 'Liste des catégories': $tmp='Lista de categorías'; break;
   case 'Ajouter une catégorie': $tmp='Añadir una categoría'; break;
   case 'Editer la catégorie': $tmp='Editar la categoría'; break;
   case 'Editer une catégorie': $tmp='Editar una categoría'; break;
@@ -957,13 +957,13 @@ function adm_translate($phrase) {
   case 'Url': $tmp='Url'; break;
   case 'Retour en arrière': $tmp='Back'; break;
   case 'Publication(s) en attente de validation': $tmp='Publication(s) waiting for publication'; break;
-  case 'Liste des rubriques': $tmp='Sections list'; break;
-  case 'Sous-rubrique': $tmp='Sub-section'; break;
-  case "Rubrique": $tmp="Section"; break;
-  case "Editer la sous-rubrique": $tmp="Edit the sub-section"; break;
-  case "Supprimer la sous-rubrique": $tmp="Delete the sub-section"; break;
-  case "Editer la rubrique": $tmp="Edit the section"; break;
-  case "Supprimer la rubrique": $tmp="Delete section"; break;
+  case 'Liste des rubriques': $tmp='Rúbricas lista'; break;
+  case 'Sous-rubrique': $tmp='Subdivisiones de rúbrica'; break;
+  case "Rubrique": $tmp="Rúbrica"; break;
+  case "Editer la sous-rubrique": $tmp="Editar la subdivisione de rúbrica"; break;
+  case "Supprimer la sous-rubrique": $tmp="Borrar la subdivisione de rúbrica"; break;
+  case "Editer la rubrique": $tmp="Editar la rúbrica"; break;
+  case "Supprimer la rubrique": $tmp="Borrar la rúbrica"; break;
   case "Liste des liens": $tmp="Links list"; break;
   case "Gestion des forums": $tmp="Foros gestión"; break;
   case "Voir les forums de cette catégorie": $tmp="Mostrar el foro de esta categoría"; break;
