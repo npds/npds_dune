@@ -1110,13 +1110,13 @@ function ordremodule() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Changer l'ordre")." ".adm_translate("des")." ".adm_translate("rubriques").'</h3>
+   <h3 class="mb-3">'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("rubriques").'</h3>
    <form action="admin.php" method="post" name="adminForm">
       <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead class="">
             <tr>
-               <th data-sortable="true">'.adm_translate("Rubriques").'</th>
-               <th data-sortable="true">'.adm_translate("Index").'</th>
+               <th data-sortable="true" class="n-t-col-xs-9">'.adm_translate("Rubriques").'</th>
+               <th data-sortable="true" class="n-t-col-xs-3">'.adm_translate("Index").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -1125,12 +1125,12 @@ function ordremodule() {
    while(list($rubid, $rubname, $ordre) = sql_fetch_row($result)) {
       $i++;
       echo '<tr>
-               <td width="80%"><label for="ordre['.$i.']">'.aff_langue($rubname).'</label></td>
-               <td width="20%">
-               <div class="form-group">
-                  <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
-                  <input type="number" class="form-control" id="ordre['.$i.']" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
-               </div>
+               <td><label for="ordre'.$i.'">'.aff_langue($rubname).'</label></td>
+               <td>
+                  <div class="form-group">
+                     <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
+                     <input type="number" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
+                  </div>
                </td>
            </tr>';
       }
@@ -1174,8 +1174,13 @@ function ordrechapitre() {
       $i++;
       echo '
             <tr>
-              <td>'.aff_langue($secname).'</td>
-              <td><div class="form-group"><input type="hidden" name="secid['.$i.']" value="'.$secid.'" /><input type="number" class="form-control" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="9999" /></div></td>
+              <td><label for="ordre'.$i.'">'.aff_langue($secname).'</label></td>
+              <td>
+                 <div class="form-group">
+                    <input type="hidden" name="secid['.$i.']" value="'.$secid.'" />
+                    <input type="number" class="form-control" name="ordre['.$i.']" id="ordre'.$i.'" value="'.$ordre.'" min="0" max="9999" />
+                 </div>
+              </td>
            </tr>';
    }
    echo '
@@ -1217,9 +1222,13 @@ function ordrecours() {
       $i++;
       echo '
             <tr>
-               <td>'.aff_langue($title).'</td>
-               <td><input type="hidden" name="artid['.$i.']" value="'.$artid.'" />
-               <input type="text" name="ordre['.$i.']" value="'.$ordre.'" /></td>
+               <td><label for="ordre'.$i.'">'.aff_langue($title).'</label></td>
+               <td>
+                 <div class="form-group">
+                     <input type="hidden" name="artid['.$i.']" value="'.$artid.'" />
+                     <input type="text" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" />
+                  </div>
+               </td>
             </tr>';
    }
    echo '
@@ -1231,21 +1240,12 @@ function ordrecours() {
          <input type="button" class="btn btn-secondary" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
       </div>
    </form>';
-   include("footer.php");
+   adminfoot('fv','','','');
 }
 function updateordre($rubid, $artid, $secid, $op, $ordre) {
    global $NPDS_Prefix, $radminsuper;
    if ($radminsuper!=1) {
       Header("Location: admin.php?op=sections");
-   }
-
-   if ($op=="majchapitre") {
-      $i=count($secid);
-      for ($j = 1; $j < ($i+1); $j++) {
-         $sec = $secid[$j];
-         $ord = $ordre[$j];
-         $result=sql_query("UPDATE ".$NPDS_Prefix."sections SET ordre='$ord' WHERE secid='$sec'");
-      }
    }
    if ($op=="majmodule") {
       $i=count($rubid);
@@ -1253,6 +1253,14 @@ function updateordre($rubid, $artid, $secid, $op, $ordre) {
          $rub = $rubid[$j];
          $ord = $ordre[$j];
          $result=sql_query("UPDATE ".$NPDS_Prefix."rubriques SET ordre='$ord' WHERE rubid='$rub'");
+      }
+   }
+   if ($op=="majchapitre") {
+      $i=count($secid);
+      for ($j = 1; $j < ($i+1); $j++) {
+         $sec = $secid[$j];
+         $ord = $ordre[$j];
+         $result=sql_query("UPDATE ".$NPDS_Prefix."sections SET ordre='$ord' WHERE secid='$sec'");
       }
    }
    if ($op=="majcours") {
@@ -1382,9 +1390,6 @@ function updaterights($chng_aid, $maxindex, $creation, $publication, $modificati
 // Fonctions DROIT des AUTEURS
 
 settype($Mmembers,'array');
-settype($artid,'integer');
-settype($secid,'integer');
-//settype($rubid,'integer');// hot hot
 settype($suppression,'array');
 settype($modification,'array');
 settype($publication,'array');
@@ -1415,9 +1420,9 @@ switch ($op) {
    case "ordrechapitre":      ordrechapitre(); break;
    case "ordrecours":         ordrecours(); break;
 
-   case "majmodule":          updateordre($rubid, $artid, $secid, $op, $ordre); break;
-   case "majchapitre":        updateordre($rubid, $artid, $secid, $op, $ordre); break;
-   case "majcours":           updateordre($rubid, $artid, $secid, $op, $ordre); break;
+   case 'majmodule':          updateordre($rubid, '', '', $op, $ordre); break;
+   case 'majchapitre':        updateordre('', '', $secid, $op, $ordre); break;
+   case 'majcours':           updateordre('', $artid,'', $op, $ordre); break;
 
    case "publishcompat":      publishcompat($article); break;
    case "updatecompat":       updatecompat($article, $admin_rub, $idx); break;
