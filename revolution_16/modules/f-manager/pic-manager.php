@@ -70,16 +70,15 @@ function fma_filter($type, $filename, $Extension) {
 function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
-   //var_dump($type);//notice sur $type f ...coriace ...le tableau $ficlimit_fma est celui des répertoires?..
-   if ($type=='a') {
+   if ($type=='a')
       $autorise_arbo=$access_fma;
-   }
-   if ($type=='d') {
+   if ($type=='d')
       $autorise_arbo=$dirlimit_fma[$dir];
-   }
-   if ($type=='f') {
+   //==> notice sur $type f ...coriace .....à suivre ?  and array_key_exists($dir, $ficlimit_fma)
+   if ($type=='f')
       $autorise_arbo=$ficlimit_fma[$dir];
-   }
+//   else $autorise_arbo='';
+   //<== notice sur $type f ...coriace .....à suivre ?
 
    if ($autorise_arbo) {
       $auto_dir='';
@@ -274,6 +273,9 @@ while ($obj->NextDir()) {
          $subdirs.='
          <td><small>'.$obj->ConvertSize($sizeofDir).'</small></td>';
       }
+      else
+         $subdirs.='
+         <td><small>#NA</small></td>';
       $subdirs.='
       </tr>';
    }
@@ -404,7 +406,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_classempty','collapse',$Xcontent);
    $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
    if ($uniq_fma)
-      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-folder-o fa-lg"></i></span><span class="d-none d-sm-inline">File manager</span></a>',$Xcontent);
+      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-folder-o fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Gestionnaire de fichiers").'</span></a>',$Xcontent);
    else
       $Xcontent=str_replace('_fileM','',$Xcontent);
 
@@ -441,6 +443,11 @@ if ($inclusion) {
       include ("themes/$Default_Theme/html/modules/f-manager/head.html");
       echo "\n";
    }
+   else if (file_exists("themes/default/html/modules/f-manager/head.html")) {
+      echo "\n";
+      include ("themes/default/html/modules/f-manager/head.html");
+      echo "\n";
+   }
 
    echo meta_lang(aff_langue($Xcontent));
 
@@ -450,13 +457,17 @@ if ($inclusion) {
       include ("themes/$Default_Theme/html/modules/f-manager/foot.html");
       echo "\n";
    }
+   else if (file_exists("themes/default/html/modules/f-manager/foot.html")) {
+      echo "\n";
+      include ("themes/default/html/modules/f-manager/foot.html");
+      echo "\n";
+   }
 
-   if (!$NPDS_fma) {
+   if (!$NPDS_fma)
       echo '
       </body>
    </html>';
-   } else {
+   else
       include ("footer.php");
-   }
 }
 ?>
