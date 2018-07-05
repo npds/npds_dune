@@ -892,7 +892,7 @@ function translate_pass1($phrase) {
    case "favourite": $tmp="favorito"; break;
    case "All to develop": $tmp="Descomprimir todo"; break;
    case "All to gather": $tmp="Comprimir todo"; break;
-   case "Site map": $tmp="Plan de la p&aacute;gina  Web"; break;
+   case "Site map": $tmp="Plan de la p&aacute;gina Web"; break;
    case "Archives": $tmp="Archivos"; break;
    case "You must accept the terms of use of this website": $tmp="Para ser aceptado, tiene que aceptar las condiciones de uso de este sitio web"; break;
    case "Solved": $tmp="Resuelto"; break;
