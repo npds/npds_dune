@@ -1137,8 +1137,7 @@ function ordremodule() {
    echo '
          </tbody>
       </table>
-      <br />
-      <div class="form-group">
+      <div class="form-group mt-3">
          <input type="hidden" name="i" value="'.$i.'" />
          <input type="hidden" name="op" value="majmodule" />
          <button type="submit" class="btn btn-primary" >'.adm_translate("Valider").'</button>
@@ -1226,7 +1225,7 @@ function ordrecours() {
                <td>
                  <div class="form-group">
                      <input type="hidden" name="artid['.$i.']" value="'.$artid.'" />
-                     <input type="text" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" />
+                     <input type="number" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'"  min="0" max="9999" />
                   </div>
                </td>
             </tr>';
@@ -1395,39 +1394,39 @@ settype($modification,'array');
 settype($publication,'array');
 
 switch ($op) {
-   case "new_rub_section":    new_rub_section($type); break;
-   case "sections":           sections(); break;
-   case "sectionedit":        sectionedit($secid); break;
-   case "sectionmake":        sectionmake($secname, $image, $members, $Mmembers, $rubref, $introd); break;
-   case "sectiondelete":      sectiondelete($secid, $ok); break;
-   case "sectionchange":      sectionchange($secid, $secname, $image, $members, $Mmembers, $rubref, $introd); break;
+   case 'new_rub_section':    new_rub_section($type); break;
+   case 'sections':           sections(); break;
+   case 'sectionedit':        sectionedit($secid); break;
+   case 'sectionmake':        sectionmake($secname, $image, $members, $Mmembers, $rubref, $introd); break;
+   case 'sectiondelete':      sectiondelete($secid, $ok); break;
+   case 'sectionchange':      sectionchange($secid, $secname, $image, $members, $Mmembers, $rubref, $introd); break;
 
-   case "rubriquedit":        rubriquedit($rubid); break;
-   case "rubriquemake":       rubriquemake($rubname, $introc); break;
-   case "rubriquedelete":     rubriquedelete($rubid, $ok); break;
-   case "rubriquechange":     rubriquechange($rubid,$rubname,$introc,$enligne); break;
+   case 'rubriquedit':        rubriquedit($rubid); break;
+   case 'rubriquemake':       rubriquemake($rubname, $introc); break;
+   case 'rubriquedelete':     rubriquedelete($rubid, $ok); break;
+   case 'rubriquechange':     rubriquechange($rubid,$rubname,$introc,$enligne); break;
 
-   case "secarticleadd":      secarticleadd($secid, $title, $content, $autho, $members, $Mmembers); break;
-   case "secartedit":         secartedit($artid); break;
-   case "secartchange":       secartchange($artid, $secid, $title, $content, $members, $Mmembers); break;
-   case "secartchangeup":     secartchangeup($artid, $secid, $title, $content, $members, $Mmembers); break;
-   case "secartdelete":       secartdelete($artid, $ok); break;
-   case "secartpublish":      secartpublish($artid, $secid, $title, $content, $author, $members, $Mmembers); break;
-   case "secartupdate":       secartupdate($artid); break;
-   case "secartdelete2":      secartdelete2($artid, $ok); break;
+   case 'secarticleadd':      secarticleadd($secid, $title, $content, $autho, $members, $Mmembers); break;
+   case 'secartedit':         secartedit($artid); break;
+   case 'secartchange':       secartchange($artid, $secid, $title, $content, $members, $Mmembers); break;
+   case 'secartchangeup':     secartchangeup($artid, $secid, $title, $content, $members, $Mmembers); break;
+   case 'secartdelete':       secartdelete($artid, $ok); break;
+   case 'secartpublish':      secartpublish($artid, $secid, $title, $content, $author, $members, $Mmembers); break;
+   case 'secartupdate':       secartupdate($artid); break;
+   case 'secartdelete2':      secartdelete2($artid, $ok); break;
 
-   case "ordremodule":        ordremodule(); break;
-   case "ordrechapitre":      ordrechapitre(); break;
-   case "ordrecours":         ordrecours(); break;
+   case 'ordremodule':        ordremodule(); break;
+   case 'ordrechapitre':      ordrechapitre(); break;
+   case 'ordrecours':         ordrecours(); break;
 
    case 'majmodule':          updateordre($rubid, '', '', $op, $ordre); break;
    case 'majchapitre':        updateordre('', '', $secid, $op, $ordre); break;
    case 'majcours':           updateordre('', $artid,'', $op, $ordre); break;
 
-   case "publishcompat":      publishcompat($article); break;
-   case "updatecompat":       updatecompat($article, $admin_rub, $idx); break;
+   case 'publishcompat':      publishcompat($article); break;
+   case 'updatecompat':       updatecompat($article, $admin_rub, $idx); break;
 
-   case "droitauteurs":       publishrights($author); break;
-   case "updatedroitauteurs": updaterights($chng_aid, $maxindex, $creation, $publication, $modification, $suppression); break;
+   case 'droitauteurs':       publishrights($author); break;
+   case 'updatedroitauteurs': updaterights($chng_aid, $maxindex, $creation, $publication, $modification, $suppression); break;
 }
 ?>
