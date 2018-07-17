@@ -1,40 +1,33 @@
 <style type="text/css">
+#photo {
+  text-align: center;
+  width: 100%;
+}
 #photo .imagethumb a {
-  height: 170px;
+  height: 175px;
   width:  175px;
   padding: 10px;
   margin: 6px;
-  
-  border: 1px solid #777;
-  background: #E6E7E2;
-
+  border: 1px solid var(--primary);
+  background: var(--light);
   float: left;
   line-height: 0px;
   text-align: center;
 }
-
+#photo .imagethumb a:hover {
+  border: 1px solid var(--primary);
+  background: var(--dark);
+}
 div.mp3 {
   height: 110px;
   width:  150px;
   padding: 10px;
   margin-bottom: 5px;
-
   float: left;
   line-height: 12px;
   text-align: left;
-
   border: 1px solid #000;
   background: #CACDC2;
-}
-
-#photo .imagethumb a:hover {
-  border: 1px solid #000;
-  background: #CACDC2;
-}
-
-#photo {
-  text-align: center;
-  width: 100%;
 }
 </style>
 <ul class="nav nav-tabs mb-4 d-flex flex-wrap">
@@ -45,7 +38,7 @@ div.mp3 {
     _fileM
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="#"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">Pic manager</span></a>
+    <a class="nav-link active" href="#"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">[french]Images manager[/french][english]Pictures Manager[/english][chinese]&#x56FE;&#x7247;&#x7BA1;&#x7406;&#x5458;[/chinese][spanish]Gerente de fotos[/spanish][german]Bilder Manager[/german]</span></a>
   </li>
   <li class="nav-item">
     _refresh
@@ -54,15 +47,15 @@ div.mp3 {
 <p class="lead">
    <strong>_back</strong>
 </p>
-<div class="my-2"><span class="text-muted align-middle"><i class="fa fa-folder fa-2x"></i>&nbsp;_nb_subdir [french]r&eacute;pertoire(s)[/french][english]directory(ies)[/english] </span></div>
+<div class="my-2"><span class="text-muted"><i class="fa fa-folder-open fa-2x align-middle"></i>&nbsp;_nb_subdir [french]r&eacute;pertoire(s)[/french][english]directory(ies)[/english][chinese]&#x76EE;&#x5F55;[/chinese][spanish]directorio(s)[/spanish][german]Verzeichnis(se)[/german]</span></div>
 
 <table class="mb-3 _classempty" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-classes="table table-sm table-no-bordered table-hover">
    <thead class="collapse" >
       <tr>
          <th data-halign="center" data-align="center">ico.</th>
-         <th data-halign="center" data-align="center">Name</th>
-         <th data-halign="center" data-align="right">Date</th>
-         <th data-halign="center" data-align="center">Poids</th>
+         <th data-halign="center" data-align="center">[french]Nom[/french][english]Name[/english][chinese]&#x540D;&#x79F0;[/chinese][spanish]Nombre[/spanish][german]Name[/german]</th>
+         <th data-halign="center" data-align="right">[french]Date[/french][english]Date[/english][chinese]&#x65E5;&#x671F;[/chinese][spanish]Fecha[/spanish][german]Datum[/german]</th>
+         <th data-halign="center" data-align="center">[french]Poids[/french][english]Size[/english][chinese]&#x5927;&#x5C0F;[/chinese][spanish]Tama&#xF1;o[/spanish][german]Gr&#xF6;&#xDF;e[/german]</th>
       </tr>
    </thead>
    <tbody>
