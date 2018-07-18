@@ -507,35 +507,34 @@ function userinfo($uname) {
                      scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
                   };
 
-               //==> carte du bloc
-               if (document.getElementById("map_bloc")) {
-
-                  map_b = new google.maps.Map(mapdivbl,{
-                     center: new google.maps.LatLng(45, 0),
-                     zoom :3,
-                     zoomControl:false,
-                     streetViewControl:false,
-                     mapTypeControl: false,
-                     disableDoubleClickZoom: true 
-                  });
-                  map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-                  function createMarkerB(point_b) {
-                     var marker_b = new google.maps.Marker({
-                        position: point_b,
-                        map: map_b,
-                        icon: icon_bl
-                     })
-                     return marker_b;
-                 }
-                    //== Fonction qui traite le fichier JSON ==
-                  $.getJSON("modules/geoloc/include/data.json", {}, function(data){
-                     $.each(data.markers, function(i, item){
-                        var point_b = new google.maps.LatLng(item.lat,item.lng);
-                        var marker_b = createMarkerB(point_b);
+                  //==> carte du bloc
+                  if (document.getElementById("map_bloc")) {
+                     map_b = new google.maps.Map(mapdivbl,{
+                        center: new google.maps.LatLng(45, 0),
+                        zoom :3,
+                        zoomControl:false,
+                        streetViewControl:false,
+                        mapTypeControl: false,
+                        disableDoubleClickZoom: true 
                      });
-                  });
-               };
-               //<== carte du bloc
+                     map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
+                     function createMarkerB(point_b) {
+                        var marker_b = new google.maps.Marker({
+                           position: point_b,
+                           map: map_b,
+                           icon: icon_bl
+                        })
+                        return marker_b;
+                    }
+                       //== Fonction qui traite le fichier JSON ==
+                     $.getJSON("modules/geoloc/include/data.json", {}, function(data){
+                        $.each(data.markers, function(i, item){
+                           var point_b = new google.maps.LatLng(item.lat,item.lng);
+                           var marker_b = createMarkerB(point_b);
+                        });
+                     });
+                  };
+                  //<== carte du bloc
 
                   map_u = new google.maps.Map(mapdivu,{
                      center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend[$ch_lon].'),

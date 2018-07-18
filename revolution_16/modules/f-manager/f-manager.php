@@ -863,11 +863,19 @@ while (false!==($file = readdir($handle))) {
    }
 }
 closedir($handle);
-$att_icon_default="<img src=\"images/upload/file_types/unknown.gif\" alt=\"\" />";
+//$att_icon_default="<img src=\"images/upload/file_types/unknown.gif\" alt=\"\" />";
+$att_icon_default='
+      <span class="fa-stack">
+        <i class="fa fa-file fa-stack-2x text-muted"></i>
+        <span class="fa-stack-1x filetype-text ">?</span>
+      </span>';
+
+
+
 $att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" alt=\"\" />";
 $att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
 
-$att_icon_search="<img src=\"images/upload/file_types/search.gif\" alt=\"\" />";
+$att_icon_search='<i class="fa fa-search fa-lg"></i>';
 
 $suppM=fma_translate("Supprimer");
 $renaM=fma_translate("Renommer");
@@ -1053,7 +1061,7 @@ if (file_exists($infos_fma)) {
       <input type="hidden" name="op" value="upload" />
       <div class="form-group">
          <span class="help-block">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></span>
-         <input class="form-control" name="userfile" type="file" size="50" value="" />
+         <input class="form-control" name="userfile" type="file" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
    </form>';
@@ -1066,7 +1074,7 @@ if (file_exists($infos_fma)) {
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="createdir" />
       <div class="form-group">
-         <input class="form-control" name="userdir" type="text" size="50" value="" />
+         <input class="form-control" name="userdir" type="text" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
    </form>';
@@ -1079,7 +1087,7 @@ if (file_exists($infos_fma)) {
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="createfile" />
       <div class="form-group">
-         <input class="form-control" name="userfile" type="text" size="50" value="" />
+         <input class="form-control" name="userfile" type="text" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
    </form>';
@@ -1176,9 +1184,9 @@ if ($inclusion) {
       $Xcontent=str_replace('_infos','',$Xcontent);
    if ($dirpres_fma[5]) {
       if ($uniq_fma)
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-image fa-lg" title="'.fma_translate("Pic-Manager").'" data-toggle="tooltip" data-placement="bottom"></i></span><span class="d-none d-sm-inline">'.fma_translate("Pic-Manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-image fa-lg" title="'.fma_translate("Images manager").'" data-toggle="tooltip" data-placement="bottom"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
       else
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Pic-Manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
    } else
       $Xcontent=str_replace('_picM','',$Xcontent);
 
@@ -1221,6 +1229,11 @@ if ($inclusion) {
       include ("themes/$Default_Theme/html/modules/f-manager/head.html");
       echo "\n";
    }
+   else if (file_exists("themes/default/html/modules/f-manager/head.html")) {
+      echo "\n";
+      include ("themes/default/html/modules/f-manager/head.html");
+      echo "\n";
+   }
 
    ?>
    <script type="text/javascript">
@@ -1250,6 +1263,11 @@ if ($inclusion) {
    if (file_exists("themes/$Default_Theme/html/modules/f-manager/foot.html")) {
       echo "\n";
       include ("themes/$Default_Theme/html/modules/f-manager/foot.html");
+      echo "\n";
+   }
+   else if (file_exists("themes/default/html/modules/f-manager/foot.html")) {
+      echo "\n";
+      include ("themes/default/html/modules/f-manager/foot.html");
       echo "\n";
    }
 

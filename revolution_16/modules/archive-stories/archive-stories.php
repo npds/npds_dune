@@ -31,14 +31,14 @@ if (!function_exists("Mysql_Connexion"))
          echo $arch_titre;
       echo '
    <hr />
-   <table id ="lst_art_arch" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+   <table id ="lst_art_arch" data-toggle="table"  data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
             <th data-sortable="true" data-halign="center" class="n-t-col-xs-4">'.translate("Articles").'</th>
             <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">'.translate("reads").'</th>
             <th data-halign="center" data-align="right">'.translate("Posted on").'</th>
-            <th data-sortable="true" data-halign="center" data-align="right">'.translate("Author").'</th>
-            <th data-halign="center" data-align="right" class="n-t-col-xs-2">'.translate("Functions").'</th>
+            <th data-sortable="true" data-halign="center" data-align="left">'.translate("Author").'</th>
+            <th data-halign="center" data-align="center" class="n-t-col-xs-2">'.translate("Functions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -73,7 +73,7 @@ if (!function_exists("Mysql_Connexion"))
             list($cattitle) = sql_fetch_row(sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'"));
         }
         $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" data-placement="left"></i></a>';
-        $sendF = '<a class="ml-3" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
+        $sendF = '<a class="ml-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
         $sid = $s_sid;
         if ($catid != 0) {
             $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
@@ -91,14 +91,14 @@ if (!function_exists("Mysql_Connexion"))
            <td><a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue($title).'</a></td>
            <td>'.$counter.'</td>
            <td><small>'.$datetime.'</small></td>
-           <td><a href="user.php?op=userinfo&amp;uname='.$informant.'" >'.$informant.'</a></td>
+           <td>'.userpopover($informant,40).' '.$informant.'</td>
            <td>'.$printP.$sendF.'</td>
         </tr>';
       }
       echo '
          </tbody>
       </table>
-      <div class="d-flex my-2 justify-content-between flex-wrap">
+      <div class="d-flex my-3 justify-content-between flex-wrap">
       <ul class="pagination pagination-sm">
          <li class="page-item disabled"><a class="page-link" href="#" >'.translate("Nb of articles").' '.$count.' </a></li>
          <li class="page-item disabled"><a class="page-link" href="#" >'.$nbPages.' '.translate("pages").'</a></li>
