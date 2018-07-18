@@ -41,6 +41,22 @@ table{table-layout: fixed;}
   max-width:48px;
   max-height:48px;
 }
+.n-ava-64 {
+  max-width:64px;
+  max-height:64px;
+}
+.n-ava-48 {
+  max-width:48px;
+  max-height:48px;
+}
+.n-ava-40 {
+  max-width:40px;
+  max-height:40px;
+}
+.n-ava-36 {
+  max-width:36px;
+  max-height:36px;
+}
 .n-smil {
   width:24px;
   height:24px;
@@ -131,7 +147,6 @@ table{table-layout: fixed;}
   }
 }
 
-/
 .dropdown:hover .dropdown-menu {
   display: block;
   margin-top: 0;
@@ -208,8 +223,8 @@ div .pull-right.search input.form-control{
   border-left: 0.25rem solid #eceeef;
 }
 
-.form-control-label {
-  font-weight: 500;
+.col-form-label {
+  font-weight: 400;
 }
 
 /* ombre sur tout les icones
@@ -409,8 +424,25 @@ ui-menu-item-wrapper {
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
+ 
+/* 
 .fixed-table-footer, .fixed-table-header {
-  height: 0px;
+  height: 1px;
+  border:1px;
+}
+
+.fixed-table-container{border-top:0px;}
+ */ 
+ 
+.bootstrap-table .table{
+border-bottom:0px;
+}
+
+
+.card-views .card-view 
+{
+    margin-bottom: .25rem;
+    margin-top: .25rem;
 }
 /* idem grid BS pour largeur d'élément*/
 .n-t-col-xs-0-5 {
@@ -1729,3 +1761,29 @@ a.tooltip_ws:hover em span {
 input[required='required'] {
 border: 1px solid ;
 }
+
+
+/* ==> personalisation responsivité des colonnes de card */
+
+@media (min-width: 576px) and (max-width: 640px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+@media (min-width: 760px) and (max-width: 991px) {
+.card-columns {
+ column-count: 4;
+ }
+}
+@media (min-width: 991px) and (max-width: 1080px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+
+
+@media (min-width: 1200px) { card-columns {
+ column-count: 3;
+ }}
+/* <== personalisation responsivité des colonnes de card */
+
