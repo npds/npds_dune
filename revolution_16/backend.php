@@ -64,7 +64,7 @@ function fab_feed($type,$filename,$timeout) {
       $item->link = $nuke_url."/article.php?sid=$sid";
       $item->description = meta_lang(preview_local_langue($backend_language, $hometext));
       $item->descriptionHtmlSyndicated = true;
-      $item->date = convertdateTOtimestamp($time)+($gmt*3600);
+      $item->date = convertdateTOtimestamp($time)+((integer)$gmt*3600);
       $item->source = $nuke_url;
       $item->author = $aid;
 
