@@ -1307,7 +1307,7 @@ function savejournal($uid, $journal, $datetime){
          $journalentry = $journal;
          $journalentry .= '<br /><br />';
          global $gmt;
-         $journalentry .= date(translate("dateinternal"),time()+($gmt*3600));
+         $journalentry .= date(translate("dateinternal"),time()+((integer)$gmt*3600));
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journalentry' WHERE uid='$uid'");
       } else {
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journal' WHERE uid='$uid'");

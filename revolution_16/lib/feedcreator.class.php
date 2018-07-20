@@ -630,7 +630,7 @@ class FeedDate {
     */
    function unix() {
       global $gmt;
-      return $this->unix+(3600*$gmt);
+      return $this->unix+(3600*(integer)$gmt);
    }
 }
 

@@ -2260,10 +2260,10 @@ function adminblock() {
 function ephemblock() {
    global $NPDS_Prefix, $gmt;
    $cnt=0;
-   $eday=date("d",time()+($gmt*3600));
-   $emonth =date("m",time()+($gmt*3600));
+   $eday=date("d",time()+((integer)$gmt*3600));
+   $emonth =date("m",time()+((integer)$gmt*3600));
    $result = sql_query("SELECT yid, content FROM ".$NPDS_Prefix."ephem WHERE did='$eday' AND mid='$emonth' ORDER BY yid ASC");
-   $boxstuff = "<div>".translate("One Day like Today...")."</div>";
+   $boxstuff = '<div>'.translate("One Day like Today...").'</div>';
    while (list($yid, $content) = sql_fetch_row($result)) {
       if ($cnt==1)
          $boxstuff .= "\n<br />\n";

@@ -43,7 +43,7 @@ function ForumMaintMarkTopics() {
       forumerror('0001');
    } else {
       $resultF=sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums ORDER BY forum_id ASC");
-      $time_actu=time()+($gmt*3600);
+      $time_actu=time()+((integer)$gmt*3600);
       while (list($forum_id)=sql_fetch_row($resultF)) {
          echo '
          <tr>
