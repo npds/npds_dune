@@ -185,7 +185,7 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
       }
       $message = str_replace('\n','<br />', $message);
       global $gmt;
-      $time = date(translate("dateinternal"),time()+($gmt*3600));
+      $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
       $pasfin=false;
       $count=0;
       include_once("language/lang-multi.php");

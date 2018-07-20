@@ -605,7 +605,7 @@ class FeedDate {
    function rfc822() {
       global $gmt;
       //return gmdate("r",$this->unix);
-      $date = gmdate("D, d M Y H:i:s", $this->unix+(3600*$gmt));
+      $date = gmdate("D, d M Y H:i:s", $this->unix+(3600*(integer)$gmt));
       if (TIME_ZONE!="") $date .= " ".str_replace(":","",TIME_ZONE);
       return $date;
    }
@@ -617,7 +617,7 @@ class FeedDate {
     */
    function iso8601() {
       global $gmt;
-      $date = gmdate("Y-m-d\TH:i:sO",$this->unix+(3600*$gmt));
+      $date = gmdate("Y-m-d\TH:i:sO",$this->unix+(3600*(integer)$gmt));
       $date = substr($date,0,22) . ':' . substr($date,-2);
       if (TIME_ZONE!="") $date = str_replace("+00:00",TIME_ZONE,$date);
       return $date;
@@ -630,7 +630,7 @@ class FeedDate {
     */
    function unix() {
       global $gmt;
-      return $this->unix+(3600*$gmt);
+      return $this->unix+(3600*(integer)$gmt);
    }
 }
 

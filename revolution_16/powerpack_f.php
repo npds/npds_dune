@@ -47,7 +47,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
        forumerror('0016');
     } else {
        global $gmt;
-       $time = date(translate("dateinternal"),time()+($gmt*3600));
+       $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
        include_once("language/lang-multi.php");
        $subject=removeHack($subject);
        $message=str_replace("\n","<br />", $message);

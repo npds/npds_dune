@@ -334,7 +334,7 @@ function EmailStats($login, $cid, $bid) {
             $left = $imptotal-$impmade;
          }
          global $sitename, $gmt;
-         $fecha = date(translate("dateinternal"),time()+($gmt*3600));
+         $fecha = date(translate("dateinternal"),time()+((integer)$gmt*3600));
          $subject = translate("Advertising Statistics").' : '.$sitename;
          $message  = "Client : $name\n".translate("Banner")." ID : $bid\n".translate("Banner")." Image : $imageurl\n".translate("Banner")." URL : $clickurl\n\n";
          $message .= "Impressions ".translate("Purchased")." : $imptotal\nImpressions ".translate("Maded")." : $impmade\nImpressions ".translate("Lefted")." : $left\nClicks ".translate("Received")." : $clicks\nClicks ".translate("Percent")." : $percent%\n\n";

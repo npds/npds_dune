@@ -465,7 +465,7 @@ function publishcompat($article) {
    if ($enligne == 0) { $online = adm_translate("Hors Ligne");$cla="danger"; } else if ($enligne == 1) { $online = adm_translate("En Ligne");$cla="success"; }
    echo '
       <div class="list-group-item">
-         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#lst_'.$rubid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.aff_langue($rubname).'<span class="badge badge-'.$cla.' ml-auto">'.$online.'</span>
+         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#lst_'.$rubid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.aff_langue($rubname).'<span class="badge badge-'.$cla.' float-right">'.$online.'</span>
       </div>';
       if ($radminsuper==1) {
          $result2 = sql_query("SELECT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
@@ -504,7 +504,7 @@ function publishcompat($article) {
          <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>&nbsp;<input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arrière").'" />
       </div>
    </form>';
-   include("footer.php");
+   adminfoot('','','','');
 }
 function updatecompat($article, $admin_rub, $idx) {
    global $NPDS_Prefix;
