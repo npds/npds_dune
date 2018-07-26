@@ -14,6 +14,7 @@
 /*  Revision : 2004-08-10 Version: 1.2 / SQL support by Dev             */
 /*  Revision : 2006-01-28 Version: 1.3 / .common support by Dev         */
 /*  Revision : 2009-03-12 Version: 1.4 / clean_limit mods by Dev        */
+/*  Revision : 2018 Version: 1.5 / support php 7                        */
 /************************************************************************/
 include_once('cache.config.php');
 include_once('cache.timings.php');
@@ -31,7 +32,8 @@ class cacheManager{
    var $genereting_output;
    var $site_overload;
 
-   function cacheManager() {
+   public function __construct()
+    {
       global $CACHE_CONFIG;
 
       $this->genereting_output = 0;
@@ -61,6 +63,9 @@ class cacheManager{
       if (($CACHE_CONFIG['run_cleanup']==1) and (!$this->site_overload)) {
          $this->cacheCleanup();
       }
+   }
+   public function cacheManager() {
+      self::__construct();
    }
 
    function startCachingPage() {
@@ -189,7 +194,7 @@ class cacheManager{
    }
 
    function cacheCleanup() {
-      // Cette fonction n'est plus adaptée au nombre de fichiers manipulé par SuperCache
+      // Cette fonction n'est plus adaptÃ©e au nombre de fichiers manipulÃ© par SuperCache
       global $CACHE_CONFIG;
 
       srand((double)microtime()*1000000);
@@ -237,7 +242,7 @@ class cacheManager{
       $dh = opendir($CACHE_CONFIG['data_dir']);
       while(false!==($filename = readdir($dh))) {
          if ($filename === '.' OR $filename === '..') continue;
-         // Le fichier appartient-il à l'utilisateur connecté ?
+         // Le fichier appartient-il Ã  l'utilisateur connectÃ© ?
          if (substr($filename,0,strlen($cookie[1]))==$cookie[1]) {
             // Le calcul md5 fournit une chaine de 32 chars donc si ce n'est pas 32 c'est que c'est un homonyme ...
             $filename_final=explode(".",$filename);

@@ -71,7 +71,7 @@ echo '<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">';// en
          </tr>';
       else
          echo '
-            <td valign="top" align="left">'.split_string_without_space(aff_langue($description), 15).'</td>
+            <td valign="top" align="left">'.aff_langue($description).'</td>
          </tr>';
       $ibid++;
    }

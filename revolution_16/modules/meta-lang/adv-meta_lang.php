@@ -85,6 +85,7 @@ function charg_metalang() {
    }
 
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+      settype($glossaire,'array');
       $result=sql_query("SELECT def, content, type_meta, type_uri, uri FROM ".$NPDS_Prefix."metalang WHERE type_meta='mot' OR type_meta='meta' OR type_meta='smil'");
       while (list($def,$content,$type_meta,$type_uri,$uri)=sql_fetch_row($result)) {
          // la syntaxe est presque la même que pour les blocs (on n'utilise que la racine de l'URI)
