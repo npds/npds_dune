@@ -921,7 +921,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
       $xtext = stripslashes(FixQuotes($xtext));
       $name = stripslashes(FixQuotes($name));
       $email = stripslashes(FixQuotes($email));
-      sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,'')");
+      sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,0)");
       if ($new==1) {
          sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
          if ($email!='') {
