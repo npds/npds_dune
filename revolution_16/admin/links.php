@@ -782,9 +782,9 @@ function LinksModCat($cat) {
    <h3>'.adm_translate("Modifier la Catégorie")." - ".adm_translate("Nom de la Catégorie : ").aff_langue($ctitle).'</h3>
    <form action="admin.php" method="get">
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Nom de la Sous-catégorie").'</label>
+         <label class="col-form-label col-sm-4 " for="titlesouscat">'.adm_translate("Nom de la Sous-catégorie").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="title" value="'.$stitle.'" maxlength="50">
+            <input class="form-control" type="text" id="titlesouscat" name="title" value="'.$stitle.'" maxlength="50">
          </div>
       </div>
       <div class="form-group row">
@@ -794,7 +794,7 @@ function LinksModCat($cat) {
             <input type="hidden" name="sid" value="'.$cat[1].'">
             <input type="hidden" name="op" value="LinksModCatS">
             <button class="btn btn-primary col-6" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger col-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <a href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger col-6"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
@@ -829,8 +829,8 @@ function LinksDelCat($cid, $sid, $sub, $ok=0) {
       }
    Header("Location: admin.php?op=links");
    } else
-      message_error("<span class=\"rouge\"><b>".adm_translate("ATTENTION : Etes-vous sûr de vouloir effacer cette Catégorie et tous ses Liens ?")."</b></span><br /><br />
-      [ <a href=\"admin.php?op=LinksDelCat&amp;cid=$cid&amp;sid=$sid&amp;sub=$sub&amp;ok=1\" class=\"rouge\">".adm_translate("Oui")."</a> | <a href=\"admin.php?op=links\" class=\"noir\">".adm_translate("Non")."</a> ]");
+      message_error('<div class="alert alert-danger">'.adm_translate("ATTENTION : Etes-vous sûr de vouloir effacer cette Catégorie et tous ses Liens ?").'</div><br />
+      <a class="btn btn-danger mr-2" href="admin.php?op=LinksDelCat&amp;cid='.$cid.'&amp;sid='.$sid.'&amp;sub='.$sub.'&amp;ok=1" >'.adm_translate("Oui").'</a>');
 }
 
 function LinksDelNew($lid) {
@@ -921,7 +921,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
       $xtext = stripslashes(FixQuotes($xtext));
       $name = stripslashes(FixQuotes($name));
       $email = stripslashes(FixQuotes($email));
-      sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,'')");
+      sql_query("INSERT INTO ".$NPDS_Prefix."links_links VALUES (NULL, '$cat[0]', '$cat[1]', '$title', '$url', '$xtext', now(), '$name', '$email', '0','$submitter',0,0,0,0)");
       if ($new==1) {
          sql_query("DELETE FROM ".$NPDS_Prefix."links_newlink WHERE lid='$lid'");
          if ($email!='') {

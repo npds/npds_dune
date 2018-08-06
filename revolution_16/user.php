@@ -327,20 +327,20 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
          if (($system==1) or ($memberpass)) {
             echo '
             <h2>'.translate("User").'</h2>
-            <h2><i class="fa fa-user"></i>&nbsp;Inscription</h2>';
-                echo "<p class=\"lead\">".translate("Your Password is: ")."<strong>$makepass</strong></p>";
-                echo "<p class=\"lead\">".translate("You can change it after you login at")." : <a href=\"user.php?op=login&uname=$uname&pass=$makepass\"><strong>$sitename</strong></a></p>";
-             
+            <hr />
+            <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
+            <p class="lead">'.translate("Your Password is: ").'<strong>'.$makepass.'</strong></p>
+            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><strong>'.$sitename.'</strong></a></p>';
           } else {
-             $message = "".translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")."\n".translate("-Nickname: ")." $uname\n".translate("-Password: ")." $makepass\n\n";
+             $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")."\n".translate("-Nickname: ")." $uname\n".translate("-Password: ")." $makepass\n\n";
              include ("signat.php");
              $subject="".translate("User Password for")." $uname";
              send_email($email, $subject, $message, "", true, "html");
 
             echo '
-      <h2>'.translate("User").'</h2>
-      <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
-      <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("You are now registered. You should receive your password at the email account you provided.").'</div>';
+            <h2>'.translate("User").'</h2>
+            <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
+            <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("You are now registered. You should receive your password at the email account you provided.").'</div>';
           }
           //------------------------------------------------
           if (file_exists("modules/include/new_user.inc")) {

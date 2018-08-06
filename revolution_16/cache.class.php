@@ -105,22 +105,20 @@ class cacheManager{
    }
 
    function checkCache($request,$refresh) {
-      global $CACHE_CONFIG;
-      global $user, $language;
+      global $CACHE_CONFIG, $user, $language;
 
       if (!$CACHE_CONFIG['non_differentiate']) {
-         if (isset($user)) {
-            $cookie = explode(":", base64_decode($user));
-         } else {
-            $cookie[1]="";
-         }
+         if (isset($user) and $user!='') {
+            $cookie = explode(':', base64_decode($user));
+            $cookie=$cookie[1];
+         } else
+            $cookie='';
       }
       // the .common is used for non differentiate cache page (same page for user and anonymous)
-      if (substr($request,-7)==".common") {
-         $cookie[1]="";
-      }
+      if (substr($request,-7)=='.common')
+         $cookie='';
 
-      $filename = $CACHE_CONFIG['data_dir'].$cookie[1].md5($request).".".$language;
+      $filename = $CACHE_CONFIG['data_dir'].$cookie.md5($request).'.'.$language;
       // Overload
       if ($this->site_overload)
          $refresh=$refresh*2;
@@ -131,40 +129,35 @@ class cacheManager{
                $data = fread($fp = fopen($filename, 'r'), filesize($filename));
                fclose($fp);
                return($data);
-            } else {
-               return("");
-            }
+            } else
+               return('');
          } else
-            return("");
-      } else {
-         return("");
-      }
+            return('');
+      } else
+         return('');
    }
 
    function insertIntoCache($content, $request) {
-      global $CACHE_CONFIG;
-      global $user, $language;
+      global $CACHE_CONFIG, $user, $language;
 
       if (!$CACHE_CONFIG['non_differentiate']) {
-         if (isset($user)) {
+         if (isset($user) and $user!='') {
             $cookie = explode(":", base64_decode($user));
-         } else {
-            $cookie[1]="";
-         }
+            $cookie=$cookie[1];
+         } else
+            $cookie='';
       }
       // the .common is used for non differentiate cache page (same page for user and anonymous)
-      if (substr($request,-7)==".common") {
-         $cookie[1]="";
-      }
+      if (substr($request,-7)=='.common')
+         $cookie='';
 
-      if (substr($request,0,5)=="objet") {
+      if (substr($request,0,5)=='objet') {
          $request=substr($request,5);
          $affich=false;
-      } else {
+      } else
          $affich=true;
-      }
 
-      $nombre = $CACHE_CONFIG['data_dir'].$cookie[1].md5($request).".".$language;
+      $nombre = $CACHE_CONFIG['data_dir'].$cookie.md5($request).'.'.$language;
 
       if ($fp = fopen($nombre, 'w')) {
          flock($fp, LOCK_EX);

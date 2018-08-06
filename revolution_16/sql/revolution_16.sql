@@ -1020,7 +1020,7 @@ CREATE TABLE users (
   user_intrest varchar(150) DEFAULT NULL,
   user_sig varchar(255) DEFAULT NULL,
   user_viewemail tinyint(2) DEFAULT NULL,
-  user_theme int(3) DEFAULT NULL,
+  user_theme varchar(255) DEFAULT NULL,
   user_journal text NOT NULL,
   pass varchar(40) NOT NULL DEFAULT '',
   storynum tinyint(4) NOT NULL DEFAULT '10',

@@ -45,7 +45,8 @@ $sql_nbREQ=0;
    }
 // Erreur survenue
    function sql_error() {
-      return @mysqli_error();
+      global $dblink;
+      return mysqli_error($dblink);
    }
 // Exécution de requête
    function sql_query($sql) {

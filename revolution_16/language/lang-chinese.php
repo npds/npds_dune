@@ -321,6 +321,7 @@ function translate_pass1($phrase) {
    case "Poster": $tmp="&#x53D1;&#x8868;&#x8005;"; break;
    case "Views": $tmp="&#x9605;&#x8BFB;"; break;
    case "Last Posts": $tmp="&#x6700;&#x540E;&#x53D1;&#x8868;"; break;
+   case "Last Post": $tmp="&#x6700;&#x540E;&#x53D1;&#x8868;"; break;
    case "There are no topics for this forum. ": $tmp="&#x8FD9;&#x4E2A;&#x8BBA;&#x575B;&#x76EE;&#x524D;&#x6CA1;&#x6709;&#x5728;&#x8BA8;&#x8BBA;&#x7684;&#x8BDD;&#x9898;. "; break;
    case "You can post one here.": $tmp="&#x60A8;&#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x5F20;&#x8D34;&#x4E00;&#x4E2A;&#x4E3B;&#x9898;."; break;
    case "Mark all Topics to Read": $tmp="&#x628A;&#x6240;&#x6709;&#x7684;&#x4E3B;&#x9898;&#x6807;&#x8BB0;&#x4E3A;&#x5DF2;&#x8BFB;"; break;
