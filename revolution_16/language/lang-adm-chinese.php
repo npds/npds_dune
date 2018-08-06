@@ -277,7 +277,7 @@ function adm_translate($phrase) {
   case "Seuil pour les Sujet 'chauds'": $tmp="热门主题的界限"; break;
   case "Nombre de contributions par page": $tmp="每页显示发表数:"; break;
   case "(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)": $tmp=" (一个主题的每页中可显示的帖子数目)"; break;
-  case "Sujets par forum :": $tmp="各论坛的主题"; break;
+  case "Sujets par forum": $tmp="各论坛的主题"; break;
   case "(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)": $tmp="(一个论坛的每页中可显示的主题数目)"; break;
   case "Changer": $tmp="改变"; break;
   case "Catégories de Forum": $tmp="论坛的类别"; break;

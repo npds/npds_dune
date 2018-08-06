@@ -277,7 +277,7 @@ function adm_translate($phrase) {
   case "Seuil pour les Sujet 'chauds'": $tmp="Límite para que un tema sea ' Popular ':"; break;
   case "Nombre de contributions par page": $tmp="Cantidad de contribuciones por página:"; break;
   case "(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)": $tmp="(Es la cantidad de contribuciones indicadas por cada página relativa a un Tema)"; break;
-  case "Sujets par forum :": $tmp="Temas por foro :"; break;
+  case "Sujets par forum": $tmp="Temas por foro"; break;
   case "(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)": $tmp="(Es la cantidad de temas indicados por cada página relativa a un Foro)"; break;
   case "Changer": $tmp="Cambiar"; break;
   case "Catégories de Forum": $tmp="Categorias de los foros"; break;

@@ -324,6 +324,7 @@ function translate_pass1($phrase) {
    case "Poster": $tmp="Autor"; break;
    case "Views": $tmp="Lecturas"; break;
    case "Last Posts": $tmp="Ultimas publicaciones"; break;
+   case "Last Post": $tmp="Ultima publicacion"; break;
    case "There are no topics for this forum. ": $tmp="No hay ning&uacute;n Asunto para este foro. "; break;
    case "You can post one here.": $tmp="Puede publicar uno aqu&iacute;"; break;
    case "Mark all Topics to Read": $tmp="Marcar todos los asuntos como leidos"; break;

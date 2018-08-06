@@ -277,7 +277,7 @@ function adm_translate($phrase) {
   case "Seuil pour les Sujet 'chauds'": $tmp="Hot Topic Threshold"; break;
   case "Nombre de contributions par page": $tmp="Posts per Page"; break;
   case "(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)": $tmp="(This is the number of posts per topic that will be displayed per page of a topic)"; break;
-  case "Sujets par forum :": $tmp="Topics per Forum:"; break;
+  case "Sujets par forum": $tmp="Topics per Forum"; break;
   case "(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)": $tmp="(This is the number of topics per forum that will be displayed per page of a forum)"; break;
   case "Changer": $tmp="Change"; break;
   case "Catégories de Forum": $tmp="Forum Categories"; break;
