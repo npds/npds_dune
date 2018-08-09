@@ -54,6 +54,9 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    //en attente implémentation pour notice
    settype($tbox_width,'integer');
    settype($tbox_height,'integer');
+
+   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admtwi.html';
+   GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '<hr />';
    if ($npds_twi!==1) 
@@ -66,7 +69,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    echo '
    <h3 class="mb-3">'.twi_trad('Configuration du module npds_twi').'</h3>
    <span class="text-danger">*</span> '.twi_trad('requis').'
-   <form action="admin.php" method="post">
+   <form id="twitterset" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-6" for="npds_twi_arti">'.twi_trad('Activation de la publication auto des articles').'</label>
          <div class="col-sm-6 my-2">
@@ -163,7 +166,6 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
      </td>
     </tr>
     -->';
-   
    echo '
       <div class="form-group row">
          <div class="col-sm-12">
@@ -176,11 +178,12 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
       </div>
    </form>
    <div class="text-right">Version : '.$npds_twi_versus.'</div>';
-   adminfoot('fv','','','');
+    $arg1='
+      var formulid = ["twitterset"];';
+   adminfoot('fv','',$arg1,'');
 }
 
 function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height, $class_sty_1, $class_sty_2, $ModPath, $ModStart) {
-   
 
    //==> modifie le fichier de configuration
    $file_conf = fopen("modules/$ModPath/twi_conf.php", "w+");
@@ -199,28 +202,28 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/* twi_conf.php file 2015 by Jean Pierre Barbary (jpb)                  */\n";
    $content .= "/* dev team :                                                           */\n";
    $content .= "/************************************************************************/\n";
-   if (!$npds_twi_arti) {$npds_twi_arti=0;}
-   $content .= "\$npds_twi_arti = $npds_twi_arti; // activation publication auto des news sur twitter \n";
-   if (!$npds_twi_post) {$npds_twi_post=0;}
-   $content .= "\$npds_twi_post = $npds_twi_post; // activation publication auto des posts sur twitter \n";
-   if (!$npds_twi_urshort) {$npds_twi_urshort=0;}
-   $content .= "\$npds_twi_urshort = $npds_twi_urshort; // activation du raccourciceur d'url \n";
-   $content .= "\$consumer_key = \"$consumer_key\"; //  \n";
-   $content .= "\$consumer_secret = \"$consumer_secret\"; //  \n";
-   $content .= "\$oauth_token = \"$oauth_token\"; //  \n";
-   $content .= "\$oauth_token_secret = \"$oauth_token_secret\"; //  \n";
+   if (!$npds_twi_arti) $npds_twi_arti=0;
+   $content .= "\$npds_twi_arti = $npds_twi_arti; // activation publication auto des news sur twitter\n";
+   if (!$npds_twi_post) $npds_twi_post=0;
+   $content .= "\$npds_twi_post = $npds_twi_post; // activation publication auto des posts sur twitter\n";
+   if (!$npds_twi_urshort) $npds_twi_urshort=0;
+   $content .= "\$npds_twi_urshort = $npds_twi_urshort; // activation du raccourciceur d'url\n";
+   $content .= "\$consumer_key = \"$consumer_key\"; //\n";
+   $content .= "\$consumer_secret = \"$consumer_secret\"; //\n";
+   $content .= "\$oauth_token = \"$oauth_token\"; //\n";
+   $content .= "\$oauth_token_secret = \"$oauth_token_secret\"; //\n";
    $content .= "// interface bloc \n";
-   $content .= "\$tbox_width = \"$tbox_width\"; // largeur de la tweet box \n";
-   $content .= "\$tbox_height = \"$tbox_height\"; // hauteur de la tweet box \n";
+   $content .= "\$tbox_width = \"$tbox_width\"; // largeur de la tweet box\n";
+   $content .= "\$tbox_height = \"$tbox_height\"; // hauteur de la tweet box\n";
    $content .= "// style \n";
-   $content .= "\$class_sty_1 = \"$class_sty_1\"; //titre de la page \n";
-   $content .= "\$class_sty_2 = \"$class_sty_2\"; //sous-titre de la page \n";
+   $content .= "\$class_sty_1 = \"$class_sty_1\"; // titre de la page\n";
+   $content .= "\$class_sty_2 = \"$class_sty_2\"; // sous-titre de la page\n";
    $content .= "\$npds_twi_versus = \"v.1.0\";\n";
    $content .= "?>";
    fwrite($file_conf, $content);
    fclose($file_conf);
    //<== modifie le fichier de configuration
-   
+
   //==> modifie le fichier controleur
   $file_controleur='';
   //     if (file_exists('modules/'.$ModPath.'/twi_conf.php'))
