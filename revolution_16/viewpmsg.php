@@ -94,7 +94,7 @@ include("auth.php");
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center">
                      <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="" />
-                        <label class="custom-control-label bg-danger" for="allbox"></label>
+                        <label class="custom-control-label" for="allbox">&nbsp;&nbsp;</label>
                      </div>
                   </th>
                   <th class="n-t-col-xs-1" data-align="center" ><i class="fa fa-long-arrow-down"></i></th>';
@@ -119,7 +119,7 @@ include("auth.php");
                   <td>
                      <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" id="msg_id'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
-                        <label class="custom-control-label bg-danger" for="msg_id'.$count.'"></label>
+                        <label class="custom-control-label" for="msg_id'.$count.'">&nbsp;&nbsp;</label>
                      </div>
                   </td>';
          if ($myrow['read_msg'] == "1")
@@ -146,7 +146,7 @@ include("auth.php");
             echo $sitename;
          echo '</td>
                   <td>'.aff_langue($myrow['subject']).'</td>
-                  <td align="center" width="20%">'.$myrow['msg_time'].'</td>
+                  <td class="small">'.$myrow['msg_time'].'</td>
                </tr>';
          $tempo[$myrow['dossier']]=$tempo[$myrow['dossier']]+1;
          $count++;
@@ -184,7 +184,7 @@ include("auth.php");
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
                      <div class="custom-control custom-checkbox">
                         <input class="custom-control-input is-invalid" id="allbox_b" name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" />
-                        <label class="custom-control-label" for="allbox_b"></label>
+                        <label class="custom-control-label" for="allbox_b">&nbsp;</label>
                      </div>
                   </th>';
       if ($smilies) 
@@ -212,7 +212,7 @@ include("auth.php");
                <td>
                   <div class="custom-control custom-checkbox">
                      <input class="custom-control-input is-invalid" type="checkbox" onclick="CheckCheckAllB();" id="msg_idB'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
-                     <label class="custom-control-label text-danger" for="msg_idB'.$count.'"></label>
+                     <label class="custom-control-label text-danger" for="msg_idB'.$count.'">&nbsp;</label>
                   </div>
                </td>';
          if ($smilies) {
