@@ -1,4 +1,4 @@
-// Lumen 4.0.0
+// Lumen 4.1.3
 // Bootswatch
 
 
@@ -23,8 +23,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
 }
 
 .bg-dark {
-  background-color: $gray-200 !important;
-  border-color: darken($gray-200, 5%);
+  border-color: darken($dark, 5%);
 }
 
 .bg-light {
@@ -116,6 +115,7 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
 
 .table {
 
+  &-primary,
   &-success,
   &-info,
   &-warning,
@@ -126,6 +126,30 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
   .thead-dark th {
     background-color: $primary;
     border-color: $primary;
+  }
+
+  &-primary {
+    &, > th, > td {
+      background-color: $primary;
+    }
+  }
+
+  &-secondary {
+    &, > th, > td {
+      background-color: $secondary;
+    }
+  }
+
+  &-light {
+    &, > th, > td {
+      background-color: $light;
+    }
+  }
+
+  &-dark {
+    &, > th, > td {
+      background-color: $dark;
+    }
   }
 
   &-success {
@@ -152,7 +176,37 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
     }
   }
 
+  &-active {
+    &, > th, > td {
+      background-color: $table-active-bg;
+    }
+  }
+
   &-hover {
+
+    .table-primary:hover {
+      &, > th, > td {
+        background-color: darken($primary, 5%);
+      }
+    }
+
+    .table-secondary:hover {
+      &, > th, > td {
+        background-color: darken($secondary, 5%);
+      }
+    }
+
+    .table-light:hover {
+      &, > th, > td {
+        background-color: darken($light, 5%);
+      }
+    }
+
+    .table-dark:hover {
+      &, > th, > td {
+        background-color: darken($dark, 5%);
+      }
+    }
 
     .table-success:hover {
       &, > th, > td {
@@ -175,6 +229,12 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
     .table-warning:hover {
       &, > th, > td {
         background-color: darken($warning, 5%);
+      }
+    }
+
+    .table-active:hover {
+      &, > th, > td {
+        background-color: $table-active-bg;
       }
     }
 
@@ -212,8 +272,10 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
     }
 
     &:not(.disabled):hover,
-    &:not(.disabled):focus {
+    &:not(.disabled):focus,
+    &.active {
       padding-bottom: calc(0.5em + 6px);
+      border-bottom-color: transparent;
       margin-top: 0;
     }
   }
@@ -410,13 +472,6 @@ a.list-group-item {
   }
 }
 
-.card {
-
-  &.bg-dark {
-    background-color: $gray-700 !important;
-  }
-}
-
 .jumbotron {
   border: 1px solid $gray-200;
   box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.05);
@@ -426,5 +481,10 @@ a.list-group-item {
 
   .close {
     color: $black;
+
+    &:not(:disabled):not(.disabled):hover,
+    &:not(:disabled):not(.disabled):focus {
+      color: $black;
+    }
   }
 }

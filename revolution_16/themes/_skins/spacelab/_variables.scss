@@ -1,4 +1,4 @@
-// Spacelab 4.0.0
+// Spacelab 4.1.3
 // Bootswatch
 
 //
@@ -34,8 +34,10 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
+$light:         $gray-200 !default;
 $dark:          $gray-800 !default;
+
+$yiq-contrasted-threshold: 200 !default;
 
 // Body
 
