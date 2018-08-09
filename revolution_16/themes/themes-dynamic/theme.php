@@ -188,8 +188,8 @@ function userpopover($who,$dim) {
    $result=sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname ='$who'");
    include_once('functions.php');
    if (sql_num_rows($result)) {
-   $temp_user = get_userdata($who);
-   $socialnetworks=array(); $posterdata_extend=array();$res_id=array(); $my_rs='';
+      $temp_user = get_userdata($who);
+      $socialnetworks=array(); $posterdata_extend=array();$res_id=array(); $my_rs='';
       if (!$short_user) {
          if($temp_user['uid']!= 1) {
             $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
@@ -207,9 +207,9 @@ function userpopover($who,$dim) {
                      foreach($res_id as $y1) {
                         $k = array_search( $y1[0],$v1);
                         if (false !== $k) {
-                           $my_rs.='<a class="mr-3 " href="';
+                           $my_rs.='<a class="mr-2 " href="';
                            if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                           $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary mb-2"></i></a> ';
+                           $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
                            break;
                         } 
                         else $my_rs.='';
@@ -242,7 +242,7 @@ function userpopover($who,$dim) {
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group">'.$useroutils.'</div><div class="text-center mt-3">'.$my_rs.'</div>\'></i><img data-html="true" title="" data-toggle="tooltip" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
+   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" /></a>';
 
    return $userpop;
    }

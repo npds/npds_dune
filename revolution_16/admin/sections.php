@@ -149,11 +149,10 @@ function sections() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
-   if ($radminsuper==1) {
+   if ($radminsuper==1)
       $result = sql_query("SELECT rubid, rubname, enligne, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
-   } else {
+   else
       $result = sql_query("SELECT distinct rubriques.rubid, rubriques.rubname, rubriques.enligne, rubriques.ordre FROM ".$NPDS_Prefix."rubriques, ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE rubriques.rubid=sections.rubid AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' ORDER BY ordre");
-   }
    $nb_rub=@sql_num_rows($result);
 
    echo '
@@ -190,11 +189,10 @@ function sections() {
          <a href="" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-right">'.$href1.$href2.$href3.'</span>
       </div>';
 
-         if ($radminsuper==1) {
+         if ($radminsuper==1)
             $result2 = sql_query("SELECT DISTINCT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
-         } else {
+         else
             $result2 = sql_query("SELECT DISTINCT sections.secid, sections.secname FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' ORDER BY ordre");
-         }
 
          if (sql_num_rows($result2) > 0) {
             echo '
@@ -211,9 +209,11 @@ function sections() {
 
                echo '
                <div class="list-group-item d-flex">';
-               if (sql_num_rows($result3) > 0) echo'
+               if (sql_num_rows($result3) > 0) 
+                  echo'
                   <a href="" class="arrow-toggle text-primary " data-toggle="collapse" data-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>';
-               else echo'<span class=""> - </span>';
+               else 
+                  echo'<span class=""> - </span>';
                echo' 
                   &nbsp;
                '.$secname.'&nbsp;
@@ -226,7 +226,6 @@ function sections() {
               echo '</span>
               </div>';
 
-//               $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
                if (sql_num_rows($result3) > 0) {
                   $ibid=true;
                   echo '
@@ -240,15 +239,14 @@ function sections() {
                   echo '</li>';
                   while (list($artid, $title) = sql_fetch_row($result3)) {
                      if ($title=='') $title=adm_translate("Sans titre");
-                     echo '
+                        echo '
                      <li class="list-group-item list-group-item-action d-flex"><span class="ml-4">'.aff_langue($title).'</span>
                         <span class="ml-auto">
                            <a href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;prev=1"><i class="fa fa-eye fa-lg"></i></a>&nbsp;
                            <a href="admin.php?op=secartedit&amp;artid='.$artid.'" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
-                     if (($droit_pub==7) or ($droit_pub==4)) {
+                     if (($droit_pub==7) or ($droit_pub==4))
                         echo '
                            <a href="admin.php?op=secartdelete&amp;artid='.$artid.'" class="text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a>';
-                     }
                      echo '
                         </span>
                      </li>';
@@ -268,7 +266,7 @@ function sections() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="artid">ID</label>
             <div class="col-sm-8">
-               <input type="number" class="form-control" name="artid" min="0" max="999999999" />
+               <input type="number" class="form-control" id="artid" name="artid" min="0" max="999999999" />
             </div>
          </div>
          <input type="hidden" name="op" value="secartedit" />
@@ -307,7 +305,7 @@ function sections() {
          <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />
          </div>
          </form>';
-
+// ca c'est pas bon incomplet
          if ($radminsuper!=1) {
             echo '<p>'.adm_translate("Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais. Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.").'</p>';
          }
@@ -357,20 +355,20 @@ function new_rub_section($type) {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
+   $arg1='';
    if ($type=='sec') {
       echo '
       <hr />
       <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</h3>
-      <form action="admin.php" method="post" name="adminForm">
+      <form action="admin.php" method="post" id="newsection" name="adminForm">
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="rubref">';
-      if ($radminsuper==1) {
+               <select class="custom-select form-control" id="rubref" name="rubref">';
+      if ($radminsuper==1)
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
-      } else {
+      else
          $result = sql_query("SELECT distinct rubriques.rubid, rubriques.rubname FROM ".$NPDS_Prefix."rubriques, ".$NPDS_Prefix."publisujet WHERE publisujet.aid='$aid' ORDER BY ordre");
-      }
       while (list($rubid, $rubname) = sql_fetch_row($result)) {
          echo '
                   <option value="'.$rubid.'">'.aff_langue($rubname).'</option>';
@@ -387,7 +385,7 @@ function new_rub_section($type) {
          </div>
          <div class="form-group">
             <label class="col-form-label" for="secname">'.adm_translate("Titre").'</label>
-            <textarea id="secname" class="form-control" name="secname" maxlength="255" rows="2" required="required"></textarea>
+            <textarea  class="form-control" id="secname" name="secname" maxlength="255" rows="2" required="required"></textarea>
             <span class="help-block text-right"><span id="countcar_secname"></span></span>
          </div>
          <div class="form-group">
@@ -404,22 +402,26 @@ function new_rub_section($type) {
          <button class="btn btn-secondary col-sm-6 col-12 col-md-4" type="button" onclick="javascript:history.back()">'.adm_translate("Retour en arrière").'</button>
       </div>
       </form>';
+      $arg1='
+         var formulid = ["newsection"];
+         inpandfieldlen("secname",255);';
+
    } else if ($type=="rub") {
       if ($radminsuper==1) {
          echo '
          <hr />
          <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Rubrique").'</h3>
-         <form action="admin.php" method="post" name="adminForm">
+         <form action="admin.php" method="post" id="newrub" name="adminForm">
             <div class="form-group">
                <label class="col-form-label" for="rubname">'.adm_translate("Nom de la Rubrique").'</label>
-               <textarea id="rubname" class="textbox_no_mceEditor form-control" name="rubname" rows="2" maxlength="255" required="required"></textarea>
-               <span class="help-block text-right"><span id="countcar_rubname"></span></span>
+               <textarea class="form-control" id="rubname" name="rubname" rows="2" maxlength="255" required="required"></textarea>
+               <span class="help-block text-right" id="countcar_rubname"></span>
             </div>
             <div class="form-group">
                <label class="col-form-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
-               <textarea class="tin form-control" name="introc" rows="30" ></textarea>
+               <textarea class="tin form-control" id="introc" name="introc" rows="30" ></textarea>
             </div>';
-         echo aff_editeur("introc","false");
+         echo aff_editeur('introc','');
          echo '
             <div class="form-group">
                <input type="hidden" name="op" value="rubriquemake" />
@@ -427,20 +429,14 @@ function new_rub_section($type) {
                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">'.adm_translate("Retour en arrière").'</button>
             </div>
          </form>';
+         $arg1='
+         var formulid = ["newrub"];
+         inpandfieldlen("rubname",255);';
       } else {
          redirect_url("admin.php?op=sections");
       }
    }
-echo '
-      <script type="text/javascript">
-      //<![CDATA[
-         $(document).ready(function() {
-            inpandfieldlen("rubname",255);
-            inpandfieldlen("secname",255);
-         });
-      //]]>
-      </script>';
-   adminfoot('fv','','','');
+   adminfoot('fv','',$arg1,'');
 }
 
 // Fonction publications connexes
@@ -545,23 +541,23 @@ function rubriquedit($rubid) {
    if ($number)
       echo '<span class="badge badge-secondary">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
-         <form action="admin.php" method="post" name="adminForm">
+         <form id="rubriquedit" action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="rubname">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
-               <textarea id="rubname" class="form-control" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
+               <textarea class="form-control" id="rubname" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
                <span class="help-block text-right"><span id="countcar_rubname"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="introc">'.adm_translate("Texte d'introduction").'</label>
             <div class="col-sm-12">
-               <textarea name="introc" class="tin form-control" rows="30" >'.$intro.'</textarea>
+               <textarea class="tin form-control" id="introc" name="introc" rows="30" >'.$intro.'</textarea>
             </div>
          </div>
          '.aff_editeur('introc','').'
          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="enligne">'.adm_translate("En Ligne").'</label>';
+            <label class="col-form-label col-sm-3 pt-0" for="enligne">'.adm_translate("En Ligne").'</label>';
    if ($radminsuper==1) {
       if ($enligne==1) {
          $sel1 = 'checked="checked"'; $sel2 = '';
@@ -589,15 +585,11 @@ function rubriquedit($rubid) {
                <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
             </div>
          </div>
-      </form>
-      <script type="text/javascript">
-      //<![CDATA[
-         $(document).ready(function() {
-            inpandfieldlen("rubname",255);
-         });
-      //]]>
-      </script>';
-      adminfoot('fv','','','');
+      </form>';
+  $arg1='
+   var formulid = ["rubriquedit"];
+   inpandfieldlen("rubname",255);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function rubriquemake($rubname, $introc) {
@@ -642,12 +634,12 @@ function sectionedit($secid) {
    if ($number)
       echo '<span class="badge badge-secondary">'.$number.' </span>&nbsp;'.adm_translate("publication(s) attachée(s)");
    echo '
-         <form action="admin.php" method="post" name="adminForm">
+         <form id="sectionsedit" action="admin.php" method="post" name="adminForm">
          <div class="form-group">
             <label class="col-form-label" for="rubref">'.adm_translate("Rubriques").'</label>';
    if ($radminsuper==1) {
       echo '
-      <select class="custom-select form-control" name="rubref">';
+      <select class="custom-select form-control" id="rubref" name="rubref">';
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
          while(list($rubid, $rubname) = sql_fetch_row($result)) {
             if ($rubref==$rubid) {$sel='selected="selected"';} else {$sel='';}
@@ -687,16 +679,13 @@ function sectionedit($secid) {
    }
    echo '
    <input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("secname",255);
-         inpandfieldlen("image",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+  $arg1='
+   var formulid = ["sectionsedit"];
+   inpandfieldlen("secname",255);
+   inpandfieldlen("image",255);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 function sectionmake($secname, $image, $members, $Mmembers, $rubref, $introd) {
    global $NPDS_Prefix;
@@ -754,7 +743,7 @@ function secartedit($artid) {
    $title = stripslashes($title);
    $content = stripslashes($content);
    echo '
-      <form action="admin.php" method="post" name="adminForm">
+      <form action="admin.php" method="post" id="secartedit" name="adminForm">
          <input type="hidden" name="artid" value="'.$artid.'" />
          <input type="hidden" name="op" value="secartchange" />
          <div class="form-group row">
@@ -774,19 +763,19 @@ function secartedit($artid) {
             </div>
          </div>';
    if ($tmp_autorise)
-      echo "<a href=\"admin.php?op=publishcompat&amp;article=$artid\" class=\"noir\">".adm_translate("Publications connexes")."</a>";
+      echo '<a href="admin.php?op=publishcompat&amp;article='.$artid.'">'.adm_translate("Publications connexes").'</a>';
 
   echo'
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
-               <textarea class="form-control" name="title" rows="2">'.$title.'</textarea>
+               <textarea class="form-control" id="title" name="title" rows="2">'.$title.'</textarea>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
             <div class="col-sm-12">
-               <textarea class="tin form-control" name="content" rows="30" >'.$content.'</textarea>
+               <textarea class="tin form-control" id="content" name="content" rows="30" >'.$content.'</textarea>
             </div>
          </div>';
    echo aff_editeur('content','');
@@ -817,23 +806,31 @@ function secartupdate($artid) {
       $debut = '
    <div class="alert alert-info">'.adm_translate("Vos droits de publications vous permettent de mettre à jour ou de supprimer ce contenu mais pas de la mettre en ligne sur le site.").'</div>';
       $fin = '
-      <select class="custom-select" name="op">
-         <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
-         <option value="secartdelete2">'.adm_translate("Supprimer").'</option>
-      </select>
+      <div class="form-group row">
+         <div class="col-12">
+            <select class="custom-select" name="op">
+               <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
+               <option value="secartdelete2">'.adm_translate("Supprimer").'</option>
+            </select>
+         </div>
+      </div>
       <input type="submit" class="btn btn-primary" name="submit" value="'.adm_translate("Ok").'" />';
    }
    $testpubli = sql_query("SELECT type FROM ".$NPDS_Prefix."publisujet WHERE secid2='$secid' AND aid='$aid' AND type='2'");
    list($test_publi)=sql_fetch_row($testpubli);
    if (($test_publi==2) or ($radminsuper==1)) {
       $debut = '
-      <div class="alert alert-info">'.adm_translate("Vos droits de publications vous permettent de mettre à jour, de supprimer ou de le mettre en ligne sur le site ce contenu.").'<br /></div>';
+      <div class="alert alert-success">'.adm_translate("Vos droits de publications vous permettent de mettre à jour, de supprimer ou de le mettre en ligne sur le site ce contenu.").'<br /></div>';
       $fin = '
-      <select class="custom-select" name="op">
-         <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
-         <option value="secartdelete2">'.adm_translate("Supprimer").'</option>
-         <option value="secartpublish">'.adm_translate("Publier").'</option>
-      </select>
+      <div class="form-group row">
+         <div class="col-12">
+            <select class="custom-select" name="op">
+               <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
+               <option value="secartdelete2">'.adm_translate("Supprimer").'</option>
+               <option value="secartpublish">'.adm_translate("Publier").'</option>
+            </select>
+         </div>
+      </div>
       <input type="submit" class="btn btn-primary" name="submit" value="'.adm_translate("Ok").'" />';
    }
    $fin.='&nbsp;<input class="btn btn-secondary" type="button" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />';
@@ -847,7 +844,7 @@ function secartupdate($artid) {
    $title = stripslashes($title);
    $content = stripslashes($content);
    echo '
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="secartupdate" action="admin.php" method="post" name="adminForm">
       <input type="hidden" name="artid" value="'.$artid.'" />
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
@@ -868,13 +865,13 @@ function secartupdate($artid) {
       <div class="form-group row">
          <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
          <div class=" col-12">
-            <textarea class="form-control" name="title" rows="2">'.$title.'</textarea>
+            <textarea class="form-control" id="title" name="title" rows="2">'.$title.'</textarea>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
          <div class=" col-12">
-            <textarea class="tin form-control" name="content" rows="30">'.$content.'</textarea>
+            <textarea class="tin form-control" id="content" name="content" rows="30">'.$content.'</textarea>
          </div>
       </div>
             '.aff_editeur('content','');
@@ -882,8 +879,7 @@ function secartupdate($artid) {
       echo $fin;
       echo '
       </form>';
-
-   include("footer.php");
+   adminfoot('','','','');
 }
 function secarticleadd($secid, $title, $content, $autho, $members, $Mmembers) {
    global $NPDS_Prefix;
@@ -1000,10 +996,11 @@ function rubriquedelete($rubid, $ok=0) {
       echo '
       <hr />
       <h3 class="mb-3 text-danger">'.adm_translate("Effacer la Rubrique : ").'<span class="text-muted">'.aff_langue($rubname).'</span></h3>
-         <p class="alert alert-danger"><strong>'.adm_translate("Etes-vous sûr de vouloir effacer cette Rubrique ?").'</strong><br /><br />
+      <div class="alert alert-danger">
+         <strong>'.adm_translate("Etes-vous sûr de vouloir effacer cette Rubrique ?").'</strong><br /><br />
          <a class="btn btn-danger btn-sm" href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" href="admin.php?op=sections" role="button">'.adm_translate("Non").'</a>
-      </p>';
-      include("footer.php");
+      </div>';
+   adminfoot('','','','');
    }
 }
 function sectiondelete($secid, $ok=0) {
@@ -1035,11 +1032,11 @@ function sectiondelete($secid, $ok=0) {
       echo '
       <hr />
       <h3 class="mb-3 text-danger">'.adm_translate("Effacer la sous-rubrique : ").'<span class="text-muted">'.aff_langue($secname).'</span></h3>
-      <p class="alert alert-danger">
+      <div class="alert alert-danger">
          <strong>'.adm_translate("Etes-vous sûr de vouloir effacer cette sous-rubrique ?").'</strong><br /><br />
          <a class="btn btn-danger btn-sm" href="admin.php?op=sectiondelete&amp;secid='.$secid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" role="button" href="admin.php?op=sections" >'.adm_translate("Non").'</a>
-      </p>';
-      include("footer.php");
+      </div>';
+   adminfoot('','','','');
    }
 }
 function secartdelete($artid,$ok=0) {
@@ -1102,37 +1099,52 @@ function secartdelete2($artid, $ok=0) {
 // Fonctions de classement
 function ordremodule() {
    global $hlpfile, $radminsuper, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
-   if ($radminsuper <> 1) {
+   if ($radminsuper <> 1)
       Header("Location: admin.php?op=sections");
-   }
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
+   /////////data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons"
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("rubriques").'</h3>
-   <form action="admin.php" method="post" name="adminForm">
-      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
-         <thead class="">
+   <form action="admin.php" method="post" id="ordremodule" name="adminForm">
+      <table class="table table-borderless table-sm table-hover table-striped">
+         <thead>
             <tr>
-               <th data-sortable="true" class="n-t-col-xs-9">'.adm_translate("Rubriques").'</th>
-               <th data-sortable="true" class="n-t-col-xs-3">'.adm_translate("Index").'</th>
+               <th data-sortable="true" class="n-t-col-xs-2">'.adm_translate("Index").'</th>
+               <th data-sortable="true" class="n-t-col-xs-10">'.adm_translate("Rubriques").'</th>
             </tr>
          </thead>
          <tbody>';
    $result = sql_query("SELECT rubid, rubname, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
-   $i = 0;
+   $numrow=sql_num_rows($result);
+   $i = 0; $fv_parametres='';
    while(list($rubid, $rubname, $ordre) = sql_fetch_row($result)) {
       $i++;
       echo '<tr>
-               <td><label for="ordre'.$i.'">'.aff_langue($rubname).'</label></td>
                <td>
-                  <div class="form-group">
+                  <div class="form-group mb-0">
                      <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
-                     <input type="number" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" min="0" max="999" />
+                     <input type="text" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" maxlength="3" required="required" />
                   </div>
                </td>
+               <td><label class="col-form-label" for="ordre'.$i.'">'.aff_langue($rubname).'</label></td>
            </tr>';
+      $fv_parametres .='
+         "ordre['.$i.']": {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,3}$/,
+               message: "0-9"
+            },
+            between: {
+               min: 1,
+               max: '.$numrow.',
+               message: "1 ... '.$numrow.'"
+            }
+         }
+      },';
       }
    echo '
          </tbody>
@@ -1144,7 +1156,9 @@ function ordremodule() {
          <button class="btn btn-secondary" onclick="javascript:history.back()" >'.adm_translate("Retour en arrière").'</button>
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+      var formulid = ["ordremodule"];';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 function ordrechapitre() {
    global $rubname, $rubid, $NPDS_Prefix, $hlpfile, $radminsuper, $f_meta_nom, $f_titre, $adminimg;
@@ -1157,31 +1171,46 @@ function ordrechapitre() {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").' '.adm_translate("dans").' / <span class="text-muted">'.$rubname.'</span></h3>
-   <form action="admin.php" method="post" name="adminForm">
-      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <form action="admin.php" method="post" id="ordrechapitre" name="adminForm">
+      <table class="table table-borderless table-sm table-hover table-striped">
          <thead>
             <tr>
-               <th data-sortable="true" class="n-t-col-xs-9">'.adm_translate("Sous-rubriques").'</th>
-               <th data-sortable="true" class="n-t-col-xs-3">'.adm_translate("Index").'</th>
+              <th data-sortable="true" class="n-t-col-xs-2">'.adm_translate("Index").'</th>
+              <th data-sortable="true" class="n-t-col-xs-10">'.adm_translate("Sous-rubriques").'</th>
             </tr>
          </thead>
          <tbody>';
 
    $result = sql_query("SELECT secid, secname, ordre FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
-   $i=0;
+   $i = 0; $fv_parametres='';
+   $numrow=sql_num_rows($result);
    while(list($secid, $secname, $ordre) = sql_fetch_row($result)) {
       $i++;
       echo '
             <tr>
-              <td><label for="ordre'.$i.'">'.aff_langue($secname).'</label></td>
               <td>
-                 <div class="form-group">
+                 <div class="form-group mb-0">
                     <input type="hidden" name="secid['.$i.']" value="'.$secid.'" />
-                    <input type="number" class="form-control" name="ordre['.$i.']" id="ordre'.$i.'" value="'.$ordre.'" min="0" max="9999" />
+                    <input type="text" class="form-control" name="ordre['.$i.']" id="ordre'.$i.'" value="'.$ordre.'" maxlength="3" required="required" />
                  </div>
               </td>
+              <td><label class="col-form-label" for="ordre'.$i.'">'.aff_langue($secname).'</label></td>
            </tr>';
-   }
+      $fv_parametres .='
+         "ordre['.$i.']": {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,3}$/,
+               message: "0-9"
+            },
+            between: {
+               min: 1,
+               max: '.$numrow.',
+               message: "1 ... '.$numrow.'"
+            }
+         }
+      },';
+      }
    echo '
          </tbody>
       </table>
@@ -1191,13 +1220,14 @@ function ordrechapitre() {
          <button class="btn btn-secondary" onclick="javascript:history.back()" >'.adm_translate("Retour en arrière").' </button>
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+      var formulid = ["ordrechapitre"];';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 function ordrecours() {
    global $secid, $hlpfile, $radminsuper, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
-   if ($radminsuper <> 1) {
+   if ($radminsuper <> 1)
       Header("Location: admin.php?op=sections");
-   }
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
@@ -1206,29 +1236,44 @@ function ordrecours() {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").' / '.aff_langue($secname).'</h3>
-   <form action="admin.php" method="post" name="adminForm">
-      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <form id="ordrecours" action="admin.php" method="post" name="adminForm">
+      <table class="table table-borderless table-sm table-hover table-striped">
          <thead>
             <tr>
-               <th data-sortable="true" class="n-t-col-xs-9">'.adm_translate("Publications").'</th>
-               <th data-sortable="true" class="n-t-col-xs-3">'.adm_translate("Index").'</th>
+               <th data-sortable="true" class="n-t-col-xs-2">'.adm_translate("Index").'</th>
+               <th data-sortable="true" class="n-t-col-xs-10">'.adm_translate("Publications").'</th>
             </tr>
          </thead>
          <tbody>';
    $result = sql_query("SELECT artid, title, ordre FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
-   $i=0;
+   $numrow=sql_num_rows($result);
+   $i = 0; $fv_parametres='';
    while(list($artid, $title, $ordre) = sql_fetch_row($result)) {
       $i++;
       echo '
             <tr>
-               <td><label for="ordre'.$i.'">'.aff_langue($title).'</label></td>
                <td>
-                 <div class="form-group">
+                 <div class="form-group mb-0">
                      <input type="hidden" name="artid['.$i.']" value="'.$artid.'" />
-                     <input type="number" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'"  min="0" max="9999" />
+                     <input type="text" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'"  maxlength="4" required="required" />
                   </div>
                </td>
+               <td><label class="col-form-label" for="ordre'.$i.'">'.aff_langue($title).'</label></td>
             </tr>';
+      $fv_parametres .='
+         "ordre['.$i.']": {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,4}$/,
+               message: "0-9"
+            },
+            between: {
+               min: 1,
+               max: '.$numrow.',
+               message: "1 ... '.$numrow.'"
+            }
+         }
+      },';
    }
    echo '
          </tbody>
@@ -1239,7 +1284,9 @@ function ordrecours() {
          <input type="button" class="btn btn-secondary" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+      var formulid = ["ordrecours"];';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 function updateordre($rubid, $artid, $secid, $op, $ordre) {
    global $NPDS_Prefix, $radminsuper;
@@ -1292,7 +1339,7 @@ function publishrights($author) {
    $i = 0; $scrr=''; $scrsr='';
    while(list($rubid, $rubname) = sql_fetch_row($result1)) {
       echo '
-         <table data-toggle="table" data-striped="true"  data-icons-prefix="fa" data-icons="icons">
+         <table data-classes="" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
             <thead>
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center"><input id="ckbrall_'.$rubid.'" type="checkbox" /></th>
@@ -1362,12 +1409,9 @@ function publishrights($author) {
 }
 
 function updaterights($chng_aid, $maxindex, $creation, $publication, $modification, $suppression) {
-   global $NPDS_Prefix;
-
-   global $radminsuper;
-   if ($radminsuper!=1) {
+   global $NPDS_Prefix, $radminsuper;
+   if ($radminsuper!=1)
       Header("Location: admin.php?op=sections");
-   }
 
    $result=sql_query("DELETE FROM ".$NPDS_Prefix."publisujet WHERE aid='$chng_aid'");
    for ($j = 1; $j < ($maxindex+1); $j++) {
@@ -1392,6 +1436,7 @@ settype($Mmembers,'array');
 settype($suppression,'array');
 settype($modification,'array');
 settype($publication,'array');
+settype($ok,'integer');
 
 switch ($op) {
    case 'new_rub_section':    new_rub_section($type); break;

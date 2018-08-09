@@ -416,7 +416,7 @@ INSERT INTO lblocks VALUES (12, '[french]Carte[/french][english]Map[/english][ch
 
 CREATE TABLE links_categories (
   cid int(11) NOT NULL AUTO_INCREMENT,
-  title varchar(250) DEFAULT NULL,
+  title varchar(255) DEFAULT NULL,
   cdescription text NOT NULL,
   PRIMARY KEY (cid)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
@@ -437,7 +437,7 @@ CREATE TABLE links_links (
   cid int(11) NOT NULL DEFAULT '0',
   sid int(11) NOT NULL DEFAULT '0',
   title varchar(100) NOT NULL DEFAULT '',
-  url varchar(100) NOT NULL DEFAULT '',
+  url varchar(255) NOT NULL DEFAULT '',
   description text NOT NULL,
   date datetime DEFAULT NULL,
   name varchar(60) NOT NULL DEFAULT '',

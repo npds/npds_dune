@@ -57,11 +57,11 @@ function ForumAdmin() {
        </tbody>
    </table>
    <h3 class="my-3">'.adm_translate("Ajouter une catégorie").'</h3>
-   <form action="admin.php" method="post">
+   <form id="forumaddcat" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="catagories">'.adm_translate("Nom").'</label>
          <div class="col-sm-8">
-            <textarea class="form-control" type="text" name="catagories" id="catagories" rows="3" required="required"></textarea>
+            <textarea class="form-control" name="catagories" id="catagories" rows="3" required="required"></textarea>
          </div>
       </div>
       <div class="form-group row">
@@ -71,7 +71,9 @@ function ForumAdmin() {
          </div>
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+   var formulid = ["forumaddcat"];';
+   adminfoot('fv','',$arg1,'');
 }
 
 function ForumGo($cat_id) {
@@ -166,36 +168,36 @@ function ForumGo($cat_id) {
       </tbody>
    </table>
    <h3 class="my-3">'.adm_translate("Ajouter plus de Forum pour").' '.$ctg.'</h3>
-   <form action="admin.php" method="post">
+   <form id="fadaddforu" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_index">'.adm_translate("Index").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="number" name="forum_index" max="9999" />
+            <input class="form-control" type="text" id="forum_index" name="forum_index" max="9999" />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="forum_name" name="forum_name" maxlength="150" required="required" />
-            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="pull-right" id="countcar_forum_name"></span></span>
+            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="float-right" id="countcar_forum_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_desc">'.adm_translate("Description").'</label>
          <div class="col-sm-8">
-            <textarea class="form-control" name="forum_desc" rows="5"></textarea>
+            <textarea class="form-control" id="forum_desc" name="forum_desc" rows="5"></textarea>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_mod">'.adm_translate("Modérateur(s)").'</label>
          <div class="col-sm-8">
-            <input id="l_forum_mod" class="form-control" type="text" name="forum_mod" required="required" />
+            <input id="l_forum_mod" class="form-control" type="text" id="forum_mod" name="forum_mod" required="required" />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="forum_access">
+            <select class="custom-select form-control" id="forum_access" name="forum_access">
                <option value="0">'.adm_translate("Publication Anonyme autorisée").'</option>
                <option value="1">'.adm_translate("Utilisateur enregistré uniquement").'</option>
                <option value="2">'.adm_translate("Modérateurs uniquement").'</option>
@@ -206,7 +208,7 @@ function ForumGo($cat_id) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_type">'.adm_translate("Type").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="forum_type" id="forum_type">
+            <select class="custom-select form-control" id="forum_type" name="forum_type" >
                <option value="0">'.adm_translate("Public").'</option>
                <option value="1">'.adm_translate("Privé").'</option>
                <option value="5">PHP Script + '.adm_translate("Groupe").'</option>
@@ -217,12 +219,25 @@ function ForumGo($cat_id) {
             </select>
          </div>
       </div>
+      <div class="form-group row d-none" id="the_multi_input">
+         <label id="labmulti" class="col-form-label col-sm-4" for="forum_pass"></label>
+         <div class="col-sm-8">
+            <input class="form-control" type="text" id="forum_pass" name="forum_pass" value="" required="required" />
+            <span id="help_forum_pass" class="help-block"><span class="float-right" id="countcar_forum_pass"></span></span>
+         </div>
+      </div>
+
+      
+      
+      
+      
+      
       <div class="form-group row" id="the_multi_input_lol">
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="arbre">
+            <select class="custom-select form-control" id="arbre" name="arbre">
                <option value="0">'.adm_translate("Standard").'</option>
                <option value="1">'.adm_translate("Arbre").'</option>
             </select>
@@ -231,7 +246,7 @@ function ForumGo($cat_id) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="attachement">'.adm_translate("Attachement").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="attachement">
+            <select class="custom-select form-control" id="attachement" name="attachement">
                <option value="0">'.adm_translate("Non").'</option>
                <option value="1">'.adm_translate("Oui").'</option>
             </select>
@@ -247,45 +262,70 @@ function ForumGo($cat_id) {
       </div>
     </form>';
    echo auto_complete_multi ('modera','uname','users','l_forum_mod','WHERE uid<>1');
-   echo'
-   <script type="text/javascript">
-   //<![CDATA[
-      var inp = $("#the_multi_input_lol");
-      var htmh="",htmhe="",htmf="",lab="",inp_para="";
-      htmh +=\'            <label class="col-form-label col-sm-4" for="forum_pass">\'
-      htmhe +=\'</label>\n\';
-      htmhe +=\'            <div class="col-sm-8">\n\';
-      htmf +=\'            </div>\n\';
-      var select = $("#forum_type");
+   $arg1='
+   var formulid=["fadaddforu"];
+   inpandfieldlen("forum_name",150);
+   inpandfieldlen("forum_pass",60);';
+   $fv_parametres='
+   forum_index: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9](\d{0,3})$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999,
+            message: "1 ... 9999"
+         }
+      }
+   },
+   !###!
+   
+      var 
+      inpOri = $("#the_multi_input"),
+      helptext = $("#help_forum_pass"),
+      labelo = $("#labmulti"),
+      select = $("#forum_type"),
+      pat ="^[2-9](\\\d{0,2})$";
       select.change(function(){
          var type = $(this).val();
          switch (type) {
             case "1":
-            lab="'.adm_translate("Mot de Passe").'";
-            inp_para=\'<input class="form-control" type="password" name="forum_pass" id="forum_pass" maxlength="60" required="required" />\n\';
-            inp.html(htmh+lab+htmhe+inp_para+htmf);
+               inpOri.removeClass("d-none").addClass("d-flex");
+               $("#forum_pass").attr("value","");
+               $("#forum_pass").attr("type","password");
+               helptext.html("<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+               labelo.html("'.adm_translate("Mot de Passe").'");
             break;
             case "7": case"5":
-            lab="'.adm_translate("Groupe ID").'";
-            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required" />\n\';
-            inp.html(htmh+lab+htmhe+inp_para+htmf);
+               $("#forum_pass").attr("value","");
+               $("#forum_pass").attr("type","text");
+               $("#forum_pass").attr("pattern",pat);
+               inpOri.removeClass("d-none").addClass("d-flex")
+               helptext.html("2...126<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+               labelo.html("'.adm_translate("Groupe ID").'");
             break;
             case "8":
-            lab="'.adm_translate("Fichier de formulaire").'";
-            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass" />\n<span class="help-block">=> modules/sform/forum</span>\n\';
-            inp.html(htmh+lab+htmhe+inp_para+htmf);
+               $("#forum_pass").attr("value","");
+               inpOri.removeClass("d-none").addClass("d-flex")
+               helptext.html("=> modules/sform/forum<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+               labelo.html("'.adm_translate("Fichier de formulaire").'");
             break;
             default:
-            inp.html("");
+               inpOri.removeClass("d-flex").addClass("d-none");
+               $("#forum_pass").attr("value","");
             break;
          }
-      }).change();
-      $(document).ready(function() {
-         inpandfieldlen("forum_name",150);
-      });
-   //]]>
-   </script>';
-    adminfoot('fv','','','');
+      })
+            .on("change", function(e) {
+            fvitem.revalidateField("forum_pass");
+        });
+
+   
+   ';
+
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function ForumGoEdit($forum_id, $ctg) {
@@ -299,25 +339,25 @@ function ForumGoEdit($forum_id, $ctg) {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer").' : <span class="text-muted">'.$forum_name.'</span></h3>
-   <form id="fad_editforu" action="admin.php" method="post">
+   <form id="fadeditforu" action="admin.php" method="post">
    <input type="hidden" name="forum_id" value="'.$forum_id.'" />
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_index">'.adm_translate("Index").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="number" name="forum_index" max="9999" value="'.$forum_index.'" />
+            <input class="form-control" type="text" id="forum_index" name="forum_index" value="'.$forum_index.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="forum_name" name="forum_name" value="'.$forum_name.'" />
-            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span id="countcar_forum_name"></span></span>
+            <input class="form-control" type="text" id="forum_name" name="forum_name" value="'.$forum_name.'" required="required" />
+            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="float-right" id="countcar_forum_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_desc">'.adm_translate("Description").'</label>
          <div class="col-sm-8">
-            <textarea class="form-control" name="forum_desc" rows="5">'.$forum_desc.'</textarea>
+            <textarea class="form-control" id="forum_desc" name="forum_desc" rows="5">'.$forum_desc.'</textarea>
          </div>
       </div>
       <div class="form-group row">
@@ -325,18 +365,18 @@ function ForumGoEdit($forum_id, $ctg) {
    $moderator=str_replace(' ',',',get_moderator($forum_mod));
    echo '
          <div class="col-sm-8">
-            <input id="forum_mod" class="form-control" type="text" name="forum_mod" value="'.$moderator.'," />
+            <input id="forum_mod" class="form-control" type="text" id="forum_mod" name="forum_mod" value="'.$moderator.'," />
          </div>
       </div>';
    echo '
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum_access">'.adm_translate("Niveau d'accès").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="forum_access">';
-   if ($forum_access == 0) { $sel0=' selected="selected"'; }
-   if ($forum_access == 1) { $sel1=' selected="selected"'; }
-   if ($forum_access == 2) { $sel2=' selected="selected"'; }
-   if ($forum_access == 9) { $sel9=' selected="selected"'; }
+            <select class="custom-select form-control" id="forum_access" name="forum_access">';
+   if ($forum_access == 0) $sel0=' selected="selected"';
+   if ($forum_access == 1) $sel1=' selected="selected"';
+   if ($forum_access == 2) $sel2=' selected="selected"';
+   if ($forum_access == 9) $sel9=' selected="selected"';
    echo '
                <option value="0"'.$sel0.'>'.adm_translate("Publication Anonyme autorisée").'</option>
                <option value="1"'.$sel1.'>'.adm_translate("Utilisateur enregistré uniquement").'</option>
@@ -348,7 +388,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="cat_id">'.adm_translate("Catégories").' </label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="cat_id">';
+            <select class="custom-select form-control" id="cat_id" name="cat_id">';
    $result = sql_query("SELECT cat_id, cat_title FROM ".$NPDS_Prefix."catagories");
    while(list($cat_id, $cat_title) = sql_fetch_row($result)) {
       if ($cat_id == $cat_id_1) {
@@ -375,6 +415,36 @@ function ForumGoEdit($forum_id, $ctg) {
    if ($forum_type == 8) $sel8=' selected="selected"'; else $sel8='';
    if ($forum_type == 9) $sel9=' selected="selected"'; else $sel9='';
 
+   $lana='';$dinp='d-none';
+   $attinp ='type="text" ';
+   $helpinp='';
+   switch($forum_type){
+   case '1':
+      $dinp='d-flex';
+      $lana='Mot de Passe';
+      $attinp =' type="password" maxlength="60"';
+      $helpinp='';
+   break;
+   case '5':
+      $dinp='d-flex';
+      $lana='Groupe ID';
+      $attinp =' type="text" pattern="^[2-9](\d{0,2})$" data-fv-regexp___message="2...126" min="2" data-fv-greater-than___inclusive="true" data-fv-greater-than___message="> 2"';
+      $helpinp='';
+   break;
+   case '7':
+      $dinp='d-flex';
+      $lana='Groupe ID';
+      $attinp =' type="text" pattern="^[2-9](\d{0,2})$" data-fv-regexp___message="2...126" min="2" data-fv-greater-than___inclusive="true" data-fv-greater-than___message="> 2"';
+      $helpinp='';
+   break;
+   case '8':
+      $dinp='d-flex';
+      $lana='Fichier de formulaire';
+      $attinp ='type="text" maxlength="60"';
+      $helpinp='=> modules/sform/forum';
+   break;
+   }
+
    echo '
                <option value="0"'.$sel0.'>'.adm_translate("Public").'</option>
                <option value="1"'.$sel1.'>'.adm_translate("Privé").'</option>
@@ -386,12 +456,17 @@ function ForumGoEdit($forum_id, $ctg) {
             </select>
          </div>
       </div>
-      <div class="form-group row" id="the_multi_input_lol">
+      <div class="form-group row '.$dinp.'" id="the_multi_input">
+         <label id="labmulti" class="col-form-label col-sm-4" for="forum_pass">'.adm_translate($lana).'</label>
+         <div class="col-sm-8">
+            <input class="form-control" '.$attinp.' id="forum_pass" name="forum_pass" value="'.$forum_pass.'" required="required" />
+            <span id="help_forum_pass" class="help-block">'.$helpinp.'<span class="float-right" id="countcar_forum_pass"></span></span>
+         </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="arbre">'.adm_translate("Mode").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="arbre">';
+            <select class="custom-select form-control" id="arbre" name="arbre">';
    if ($arbre)
       echo '
                <option value="0">'.adm_translate("Standard").'</option>
@@ -408,7 +483,7 @@ function ForumGoEdit($forum_id, $ctg) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="attachement">'.adm_translate("Attachement").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="attachement">';
+            <select class="custom-select form-control" id="attachement" name="attachement">';
    if ($attachement)
       echo '
                <option value="0">'.adm_translate("Non").'</option>
@@ -430,47 +505,68 @@ function ForumGoEdit($forum_id, $ctg) {
       </div>
    </form>';
    echo auto_complete_multi ('modera','uname','users','forum_mod','WHERE uid<>1');
-   echo'
-   <script type="text/javascript">
-   //<![CDATA[
-      var inp = $("#the_multi_input_lol");
-      var htmh="",htmhe="",htmf="",lab="",inp_para="";
-      htmh +=\'            <label class="col-form-label col-sm-4" for="forum_pass">\'
-      htmhe +=\'</label>\n\';
-      htmhe +=\'            <div class="col-sm-8">\n\';
-      htmf +=\'            </div>\n\';
-      var select = $("#forum_type");
+   $arg1='
+   var formulid=["fadeditforu"];
+   inpandfieldlen("forum_name",150);
+   inpandfieldlen("forum_pass",60);';
+   
+   $fv_parametres='
+   forum_index: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9](\d{0,3})$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999,
+            message: "1 ... 9999"
+         }
+      }
+   },!###!
+
+      var 
+      inpOri = $("#the_multi_input"),
+      helptext = $("#help_forum_pass"),
+      labelo = $("#labmulti"),
+      select = $("#forum_type"),
+      pat ="^[2-9](\\\d{0,2})$";
+
       select.change(function(){
          var type = $(this).val();
          switch (type) {
             case "1":
-            lab="'.adm_translate("Mot de Passe").'";
-            inp_para=\'<input class="form-control" type="password" name="forum_pass" id="forum_pass" maxlength="60" required="required" />\n\';
-            inp.html(htmh+lab+htmhe+inp_para+htmf);
+               inpOri.removeClass("d-none").addClass("d-flex");
+               $("#forum_pass").attr("value","");
+               $("#forum_pass").attr("type","password");
+               helptext.html("<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+               labelo.html("'.adm_translate("Mot de Passe").'");
             break;
             case "7": case"5":
-            lab="'.adm_translate("Groupe ID").'";
-            inp_para=\'<input class="form-control" type="number" name="forum_pass" id="forum_pass" required="required" value="'.$forum_pass.'" />\n\';
-            inp.html(htmh+lab+htmhe+inp_para+htmf);
+               $("#forum_pass").attr("value","");
+               $("#forum_pass").attr("type","text");
+               $("#forum_pass").attr("pattern",pat);
+               inpOri.removeClass("d-none").addClass("d-flex")
+               helptext.html("2...126<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+               labelo.html("'.adm_translate("Groupe ID").'");
             break;
             case "8":
-            lab="'.adm_translate("Fichier de formulaire").'";
-            inp_para=\'<input class="form-control" type="text" name="forum_pass" id="forum_pass" value="'.$forum_pass.'"/>\n<span class="help-block">=> modules/sform/forum</span>\n\';
-            inp.html(htmh+lab+htmhe+inp_para+htmf);
+               $("#forum_pass").attr("value","");
+               inpOri.removeClass("d-none").addClass("d-flex")
+               helptext.html("=> modules/sform/forum<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+               labelo.html("'.adm_translate("Fichier de formulaire").'");
             break;
             default:
-            inp.html("");
+               inpOri.removeClass("d-flex").addClass("d-none");
+               $("#forum_pass").attr("value","");
             break;
          }
-      }).change();
-      $(document).ready(function() {
-         inpandfieldlen("forum_name",150);
-//         inpandfieldlen("add_name",50);
-      });
-   //]]>
-   </script>';
-
-   adminfoot('fv','','','');
+      })
+      .on("change", function(e) {
+            fvitem.revalidateField("forum_pass");
+        });
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function ForumCatEdit($cat_id) {
@@ -483,17 +579,17 @@ function ForumCatEdit($cat_id) {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer la catégorie").'</h3>
-   <form action="admin.php" method="post">
+   <form id="phpbbforumedcat" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="cat_id">ID</label>
          <div class="col-sm-8">
-            <input class="form-control" type="number" name="cat_id" id="cat_id" value="'.$cat_id.'" required="required" />
+            <input class="form-control" type="text" name="cat_id" id="cat_id" value="'.$cat_id.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="cat_title">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="cat_title" value="'.StripSlashes($cat_title).'" required="required"/>
+            <input class="form-control" type="text" id="cat_title" name="cat_title" value="'.StripSlashes($cat_title).'" required="required" />
          </div>
       </div>
       <div class="form-group row">
@@ -504,7 +600,23 @@ function ForumCatEdit($cat_id) {
          </div>
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $fv_parametres='
+   cat_id: {
+      validators: {
+         regexp: {
+            regexp:/^(-|[1-9])(\d{0,10})$/,
+            message: "0-9"
+         },
+         between: {
+            min: -2147483648,
+            max: 2147483647,
+            message: "-2147483648 ... 2147483647"
+         }
+      }
+   },';
+   $arg1='
+   var formulid=["phpbbforumedcat"];';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function ForumCatSave($old_catid, $cat_id, $cat_title) {
@@ -564,12 +676,10 @@ function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_
 }
 
 function ForumCatAdd($catagories) {
-    global $NPDS_Prefix;
-
-    sql_query("INSERT INTO ".$NPDS_Prefix."catagories VALUES (NULL, '$catagories')");
-
-    global $aid; Ecr_Log("security", "AddForumCat($catagories) by AID : $aid", '');
-    Header("Location: admin.php?op=ForumAdmin");
+   global $NPDS_Prefix;
+   sql_query("INSERT INTO ".$NPDS_Prefix."catagories VALUES (NULL, '$catagories')");
+   global $aid; Ecr_Log('security', "AddForumCat($catagories) by AID : $aid", '');
+   Header("Location: admin.php?op=ForumAdmin");
 }
 
 function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg) {

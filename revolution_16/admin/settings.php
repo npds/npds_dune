@@ -28,7 +28,7 @@ function Configure() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <form id="fad_pref" action="admin.php" method="post">
+   <form id="settingspref" action="admin.php" method="post">
    <fieldset>
       <legend><a class="tog" id="show_info_gene" title="'.adm_translate("Replier la liste").'"><i id="i_info_gene" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Informations générales du site").'</legend>
       <div id="info_gene" class="adminsidefield card card-body mb-3" style="display:none;">
@@ -68,13 +68,13 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xadmin_cook_duration">'.adm_translate("Durée de vie en heure du cookie Admin").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="number" name="xadmin_cook_duration" value="'.$admin_cook_duration.'" min="0" max="9999999999" required="required" />
+               <input class="form-control js-dig10" id="xadmin_cook_duration" type="text" name="xadmin_cook_duration" value="'.$admin_cook_duration.'" min="1" maxlength="10" required="required" />
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xuser_cook_duration">'.adm_translate("Durée de vie en heure du cookie User").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="number" name="xuser_cook_duration" value="'.$user_cook_duration.'" min="0" max="9999999999" required="required" />
+               <input class="form-control js-dig10" id="xuser_cook_duration" type="text" name="xuser_cook_duration" value="'.$user_cook_duration.'" min="1" maxlength="10" required="required" />
             </div>
          </div>
          <div class="form-group row">
@@ -122,25 +122,25 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xtop">'.adm_translate("Nombre d'éléments dans la page top").'</label> 
             <div class="col-sm-8">
-               <input class="form-control" type="number" name="xtop" value="'.$top.'" min="0" max="9999" />
+               <input class="form-control js-dig4" id="xtop" type="text" name="xtop" value="'.$top.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xstoryhome">'.adm_translate("Nombre d'articles en page principale").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="number" name="xstoryhome" value="'.$storyhome.'" min="0" max="9999" />
+               <input class="form-control js-dig4" id="xstoryhome".type="text" name="xstoryhome" value="'.$storyhome.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xoldnum">'.adm_translate("Nombre d'articles dans le bloc des anciens articles").'</label>
             <div class="col-sm-8">
-                <input class="form-control" type="number" name="xoldnum" value="'.$oldnum.'" min="0" max="9999" />
+                <input class="form-control js-dig4" id="xoldnum" type="text" name="xoldnum" value="'.$oldnum.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xanonymous">'.adm_translate("Nom d'utilisateur anonyme").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="xanonymous" id="xanonymous" value="'.$anonymous.'" maxlength="25" />
+               <input class="form-control" id="xanonymous" type="text" name="xanonymous" value="'.$anonymous.'" maxlength="25" />
                <span class="help-block text-right" id="countcar_xanonymous"></span>
             </div>
          </div>
@@ -208,7 +208,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="xDefault_Theme">';
+               <select class="custom-select form-control" id="xDefault_Theme" name="xDefault_Theme">';
    include("themes/list.php");
    $themelist = explode(" ", $themelist);
    for ($i=0; $i < sizeof($themelist); $i++) {
@@ -233,7 +233,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="xlanguage">';
+               <select class="custom-select form-control" id="xlanguage" name="xlanguage">';
     include("manuels/list.php");
     $languageslist = explode(' ', $languageslist);
     for ($i=0; $i < sizeof($languageslist); $i++) {
@@ -277,25 +277,61 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="xlever" id="xlever" value="'.$lever.'" size="6" maxlength="5" required="required" />
-               <span class="help-block">(HH:MM)</span>
-               <span class="help-block text-right" id="countcar_xlever"></span>
+               <input class="form-control js-hhmm" type="text" name="xlever" id="xlever" value="'.$lever.'" maxlength="5" required="required" />
+               <span class="help-block">(HH:MM)<span class="float-right ml-1" id="countcar_xlever"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
-               <span class="help-block">(HH:MM)</span>
-               <span class="help-block text-right" id="countcar_xcoucher"></span>
+               <input class="form-control js-hhmm" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
+               <span class="help-block">(HH:MM)<span class="float-right ml-1" id="countcar_xcoucher"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="xgmt">GMT</label>
+            <label class="col-form-label col-sm-4" for="xgmt">UTC</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="xgmt" id="xgmt" value="'.$gmt.'" maxlength="3" />
-               <span class="help-block">(+- x)</span>
-               <span class="help-block text-right" id="countcar_xgmt"></span>
+               <select class="custom-select form-control" id="xgmt" name="xgmt">
+                  <option value="'.$gmt.'" selected="selected">'.$gmt.'</option>
+                  <option value="-1">UTC-01:00</option>
+                  <option value="-2">UTC-02:00</option>
+                  <option value="-3">UTC-03:00</option>
+                  <option value="-3.5">UTC-03:30</option>
+                  <option value="-4">UTC-04:00</option>
+                  <option value="-5">UTC-05:00</option>
+                  <option value="-6">UTC-06:00</option>
+                  <option value="-7">UTC-07:00</option>
+                  <option value="-8">UTC-08:00</option>
+                  <option value="-9">UTC-09:00</option>
+                  <option value="-9.5">UTC-09:30</option>
+                  <option value="-10">UTC-10:00</option>
+                  <option value="-11">UTC-11:00</option>
+                  <option value="-12">UTC-12:00</option>
+                  <option value="0">UTC±00:00</option>
+                  <option value="+1">UTC+01:00</option>
+                  <option value="+2">UTC+02:00</option>
+                  <option value="+3">UTC+03:00</option>
+                  <option value="+3.5">UTC+03:30</option>
+                  <option value="+4">UTC+04:00</option>
+                  <option value="+4.5">UTC+04:30</option>
+                  <option value="+5">UTC+05:00</option>
+                  <option value="+5.5">UTC+05:30</option>
+                  <option value="+5.75">UTC+05:45</option>
+                  <option value="+6">UTC+06:00</option>
+                  <option value="+6.5">UTC+06:30</option>
+                  <option value="+7">UTC+07:00</option>
+                  <option value="+8">UTC+08:00</option>
+                  <option value="+8.75">UTC+08:45</option>
+                  <option value="+9">UTC+09:00</option>
+                  <option value="+9.5">UTC+09:30</option>
+                  <option value="+10">UTC+10:00</option>
+                  <option value="+10.5">UTC+10:30</option>
+                  <option value="+11">UTC+11:00</option>
+                  <option value="+12">UTC+12:00</option>
+                  <option value="+12.75">UTC+12:45</option>
+                  <option value="+13">UTC+13:00</option>
+                  <option value="+14">UTC+14:00</option>
+               </select>
             </div>
          </div>
       </div>
@@ -343,25 +379,25 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="xfoot1">'.adm_translate("Ligne 1").'</label>
             <div class="col-sm-12">
-               <textarea class="form-control" name="xfoot1" rows="5">'.htmlentities(stripslashes($foot1),ENT_QUOTES,cur_charset).'</textarea>
+               <textarea class="form-control" id="xfoot1" name="xfoot1" rows="5">'.htmlentities(stripslashes($foot1),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="xfoot2">'.adm_translate("Ligne 2").'</label>
             <div class="col-sm-12">
-               <textarea class="form-control" name="xfoot2" rows="5">'.htmlentities(stripslashes($foot2),ENT_QUOTES,cur_charset).'</textarea>
+               <textarea class="form-control" id="xfoot2" name="xfoot2" rows="5">'.htmlentities(stripslashes($foot2),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="xfoot3">'.adm_translate("Ligne 3").'</label>
             <div class="col-sm-12">
-               <textarea class="form-control col-sm-12" name="xfoot3" rows="5">'.htmlentities(stripslashes($foot3),ENT_QUOTES,cur_charset).'</textarea>
+               <textarea class="form-control col-sm-12" id="xfoot3" name="xfoot3" rows="5">'.htmlentities(stripslashes($foot3),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="xfoot4">'.adm_translate("Ligne 4").'</label>
             <div class="col-sm-12">
-               <textarea class="form-control" name="xfoot4" rows="5">'.htmlentities(stripslashes($foot4),ENT_QUOTES,cur_charset).'</textarea>
+               <textarea class="form-control" id="xfoot4" name="xfoot4" rows="5">'.htmlentities(stripslashes($foot4),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
       </div>
@@ -398,13 +434,13 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xbackend_width">'.adm_translate("Largeur de l'image du backend").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="number" name="xbackend_width" value="'.$backend_width.'" min="0" max="9999" />
+               <input class="form-control" type="number" id="xbackend_width" name="xbackend_width" value="'.$backend_width.'" min="0" max="9999" />
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xbackend_height">'.adm_translate("Hauteur de l'image du backend").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="number" name="xbackend_height" value="'.$backend_height.'" min="0" max="9999" />
+               <input class="form-control" type="number" id="xbackend_height" name="xbackend_height" value="'.$backend_height.'" min="0" max="9999" />
             </div>
          </div>
          <div class="form-group row">
@@ -468,7 +504,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xperpage">'.adm_translate("Nombre de liens par page").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xperpage">
+               <select class="custom-select form-control" id="xperpage" name="xperpage">
                   <option  value="'.$perpage.'" selected="selected">'.$perpage.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -482,7 +518,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xpopular">'.adm_translate("Nombre de clics sur un lien pour qu'il soit populaire").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xpopular">
+               <select class="custom-select form-control" id="xpopular" name="xpopular">
                   <option value="'.$popular.'" selected="selected">'.$popular.'</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -496,7 +532,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xnewlinks">'.adm_translate("Nombre de Liens 'Nouveaux'").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xnewlinks">
+               <select class="custom-select form-control" id="xnewlinks" name="xnewlinks">
                   <option value="'.$newlinks.'" selected="selected">'.$newlinks.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -510,7 +546,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xtoplinks">'.adm_translate("Nombre de Liens 'Meilleur'").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xtoplinks">
+               <select class="custom-select form-control" id="xtoplinks" name="xtoplinks">
                   <option value="'.$toplinks.'" selected="selected">'.$toplinks.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -524,7 +560,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xlinksresults">'.adm_translate("Nombre de liens dans les résultats des recherches").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xlinksresults">
+               <select class="custom-select form-control" id="xlinksresults" name="xlinksresults">
                   <option value="'.$linksresults.'" selected="selected">'.$linksresults.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -625,7 +661,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="xEmailFooter">'.adm_translate("Pied").' '.adm_translate("de").' Email</label> 
             <div class="col-sm-12">
-               <textarea class="form-control" name="xEmailFooter" cols="45" rows="8">'.$message.'</textarea>
+               <textarea class="form-control" id="xEmailFooter" name="xEmailFooter" cols="45" rows="8">'.$message.'</textarea>
             </div>
          </div>
          <div class="form-group row">
@@ -661,7 +697,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xnotify_message">'.adm_translate("Message de l'E-mail").'</label>
             <div class="col-sm-8">
-               <textarea class="form-control" name="xnotify_message" cols="45" rows="8">'.$notify_message.'</textarea>
+               <textarea class="form-control" id="xnotify_message" name="xnotify_message" cols="45" rows="8">'.$notify_message.'</textarea>
             </div>
          </div>
          <div class="form-group row">
@@ -684,7 +720,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-7" for="xmoderate">'.adm_translate("Type de modération").'</label>
             <div class="col-sm-5">
-               <select class="custom-select form-control" name="xmoderate">';
+               <select class="custom-select form-control" id="xmoderate" name="xmoderate">';
    if ($moderate==1) {
       echo '
                   <option value="1" selected="selected">'.adm_translate("Modération par l'Administrateur").'</option>
@@ -726,7 +762,7 @@ function Configure() {
             <div class="col-sm-5">';
    if ($troll_limit=='') $troll_limit="6";
    echo '
-               <input class="form-control" type="number" name="xtroll_limit" value="'.$troll_limit.'" min="0" max="99999" required="required" />
+               <input class="form-control" id="xtroll_limit" type="text" name="xtroll_limit" value="'.$troll_limit.'" min="1" maxlength="3" required="required" />
             </div>
          </div>
       </div>
@@ -742,7 +778,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les sondages").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xmaxOptions">
+               <select class="custom-select form-control" id="xmaxOptions" name="xmaxOptions">
                   <option value="'.$maxOptions.'">'.$maxOptions.'</option>
                   <option value="10">10</option>
                   <option value="12">12</option>
@@ -858,7 +894,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xsite_font">'.adm_translate("Polices du site").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="xsite_font" value="'.$site_font.'" size="50" maxlength="100" />
+               <input class="form-control" type="text" id="xsite_font" name="xsite_font" value="'.$site_font.'" size="50" maxlength="100" />
             </div>
          </div>
       </div>
@@ -874,7 +910,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xadmart">'.adm_translate("Nombres d'articles en mode administration").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xadmart">
+               <select class="custom-select form-control" id="xadmart" name="xadmart">
                   <option value="'.$admart.'">'.$admart.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -887,7 +923,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xminpass">'.adm_translate("Longueur minimum du mot de passe des utilisateurs").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xminpass">
+               <select class="custom-select form-control" id="xminpass" name="xminpass">
                   <option value="'.$minpass.'">'.$minpass.'</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -900,7 +936,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xshow_user">'.adm_translate("Nombre d'utilisateurs listés").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xshow_user">
+               <select class="custom-select form-control" id="xshow_user" name="xshow_user">
                   <option value="'.$show_user.'">'.$show_user.'</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -930,7 +966,7 @@ function Configure() {
             <div class="col-sm-4">';
    if (!$avatar_size) $avatar_size="60*80";
    echo '
-               <input class="form-control" type="text" name="xavatar_size" value="'.$avatar_size.'" size="11" maxlength="10" />
+               <input class="form-control" type="text" id="xavatar_size" name="xavatar_size" value="'.$avatar_size.'" size="11" maxlength="10" />
             </div>
          </div>
          <div class="form-group row">
@@ -1051,7 +1087,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xhttprefmax">'.adm_translate("Combien de référants au maximum").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xhttprefmax">
+               <select class="custom-select form-control" id="xhttprefmax" name="xhttprefmax">
                   <option value="'.$httprefmax.'">'.$httprefmax.'</option>
                   <option value="100">100</option>
                   <option value="250">250</option>
@@ -1082,7 +1118,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xdownload_cat">'.adm_translate("Rubrique de téléchargement").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" name="xdownload_cat">
+               <select class="custom-select form-control" id="xdownload_cat" name="xdownload_cat">
                   <option value="'.$download_cat.'">'.aff_langue($download_cat).'</option>';
    $result = sql_query("SELECT distinct dcategory FROM ".$NPDS_Prefix."downloads");
    while (list($category) = sql_fetch_row($result)) {
@@ -1190,16 +1226,16 @@ function Configure() {
    <div class="form-group row">
       <label class="col-form-label col-sm-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
-         <select class="custom-select form-control" name="xsavemysql_size">
+         <select class="custom-select form-control" id="xsavemysql_size" name="xsavemysql_size">
             <option value="256" '.$sel_size256.'>256 Ko</option>
             <option value="512" '.$sel_size512.'>512 Ko</option>
             <option value="1024" '.$sel_size1024.'>1024 Ko</option>
          </select>
       </div>
    </div>';
-    if (!$savemysql_mode) {
+    if (!$savemysql_mode)
        $savemysql_mode='1';
-    } else {
+    else {
        if ($savemysql_mode=='1') $type_save1='selected="selected"'; else $type_save1='';
        if ($savemysql_mode=='2') $type_save2='selected="selected"'; else $type_save2='';
        if ($savemysql_mode=='3') $type_save3='selected="selected"'; else $type_save3='';
@@ -1208,7 +1244,7 @@ function Configure() {
    <div class="form-group row">
       <label class="col-form-label col-sm-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
-         <select class="custom-select form-control" name="xsavemysql_mode">
+         <select class="custom-select form-control" id="xsavemysql_mode" name="xsavemysql_mode">
             <option value="1" '.$type_save1.'>'.adm_translate("Toute tables. Fichier envoyé au navigateur. Pas de limite de taille").'</option>
             <option value="2" '.$type_save2.'>'.adm_translate("Fichiers dans /slogs. table par table, tables non scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
             <option value="3" '.$type_save3.'>'.adm_translate("Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
@@ -1243,37 +1279,73 @@ function Configure() {
    <div class="form-group">
       <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
    </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("xsitename",100);
-         inpandfieldlen("xTitlesitename",100);
-         inpandfieldlen("xnuke_url",200);
-         inpandfieldlen("xsite_logo",255);
-         inpandfieldlen("xslogan",100);
-         inpandfieldlen("xstartdate",30);
-         inpandfieldlen("xanonymous",25);
-         inpandfieldlen("xstart_page",100);
-         inpandfieldlen("xlocale",100);
-         inpandfieldlen("xlever",5);
-         inpandfieldlen("xcoucher",5);
-         inpandfieldlen("xgmt",5);
-         inpandfieldlen("xbackend_title",100);
-         inpandfieldlen("xbackend_language",10);
-         inpandfieldlen("xbackend_image",200);
-         inpandfieldlen("xadminmail",100);
-         inpandfieldlen("xnotify_email",100);
-         inpandfieldlen("xnotify_from",100);
-         inpandfieldlen("xnotify_subject",100);
-         inpandfieldlen("xtipath",100);
-         inpandfieldlen("xuserimg",100);
-         inpandfieldlen("xadminimg",100);
-         inpandfieldlen("xadmf_ext",3);
-      });
-   //]]>
-   </script>';
+   </form>';
    $fv_parametres = '
+      xadmin_cook_duration: {
+      validators: {
+         regexp: {
+            regexp:/^\d{1,10}$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999999999,
+            message: "1 ... 9999999999"
+         }
+      }
+   },
+   xuser_cook_duration: {
+      validators: {
+         regexp: {
+            regexp:/^\d{1,10}$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999999999,
+            message: "1 ... 9999999999"
+         }
+      }
+   },
+   xtop: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9]\d{0,4}$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999,
+            message: "1 ... 9999"
+         }
+      }
+   },
+   xstoryhome: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9]\d{0,4}$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999,
+            message: "1 ... 9999"
+         }
+      }
+   },
+   xoldnum: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9]\d{0,4}$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 9999,
+            message: "1 ... 9999"
+         }
+      }
+   },
    xmyIP: {
       validators: {
          ip: {
@@ -1286,7 +1358,7 @@ function Configure() {
          regexp: {
             regexp: /^(2[0-3]|[0-1][0-9]):([0-5][0-9])$/,
             message: "00:00"
-        }
+         }
       }
    },
    xcoucher: {
@@ -1294,11 +1366,49 @@ function Configure() {
          regexp: {
             regexp: /^(2[0-3]|[0-1][0-9]):([0-5][0-9])$/,
             message: "00:00"
-        }
+         }
+      }
+   },
+   xtroll_limit: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9](\d{0,2})$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 999,
+            message: "1 ... 999"
+         }
       }
    },
    ';
-    adminfoot('fv',$fv_parametres,'','');
+  $arg1='
+   var formulid = ["settingspref"];
+   inpandfieldlen("xsitename",100);
+   inpandfieldlen("xTitlesitename",100);
+   inpandfieldlen("xnuke_url",200);
+   inpandfieldlen("xsite_logo",255);
+   inpandfieldlen("xslogan",100);
+   inpandfieldlen("xstartdate",30);
+   inpandfieldlen("xanonymous",25);
+   inpandfieldlen("xstart_page",100);
+   inpandfieldlen("xlocale",100);
+   inpandfieldlen("xlever",5);
+   inpandfieldlen("xcoucher",5);
+   inpandfieldlen("xgmt",5);
+   inpandfieldlen("xbackend_title",100);
+   inpandfieldlen("xbackend_language",10);
+   inpandfieldlen("xbackend_image",200);
+   inpandfieldlen("xadminmail",100);
+   inpandfieldlen("xnotify_email",100);
+   inpandfieldlen("xnotify_from",100);
+   inpandfieldlen("xnotify_subject",100);
+   inpandfieldlen("xtipath",100);
+   inpandfieldlen("xuserimg",100);
+   inpandfieldlen("xadminimg",100);
+   inpandfieldlen("xadmf_ext",3);';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 switch ($op) {

@@ -41,17 +41,16 @@ settype($op,'string');
 if (($op=="mark") and ($forum)) {
    if ($user) {
       $userX = base64_decode($user);
-      $userR = explode(":", $userX);
+      $userR = explode(':', $userX);
       $resultT=sql_query("SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' ORDER BY topic_id ASC");
       $time_actu = time()+((integer)$gmt*3600);
       while (list($topic_id)=sql_fetch_row($resultT)) {
          $r=sql_query("SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='$topic_id'");
          if ($r) {
-            if (!list($rid)=sql_fetch_row($r)) {
+            if (!list($rid)=sql_fetch_row($r))
                $r=sql_query("INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum', '$topic_id', '$userR[0]', $time_actu, '1')");
-            } else {
+            else
                $r=sql_query("UPDATE ".$NPDS_Prefix."forum_read SET last_read='$time_actu', status='1' WHERE rid='$rid'");
-            }
          }
       }
       header("location: forum.php");
@@ -94,7 +93,7 @@ if (($myrow['forum_type'] == 5) or ($myrow['forum_type'] == 7)) {
       $Forum_passwd=$myrow['forum_pass'];
 }
 
-if ($myrow['forum_type'] == 8) {$Forum_passwd=$myrow['forum_pass'];} else {settype($Forum_passwd,'string');}
+if ($myrow['forum_type'] == 8) $Forum_passwd=$myrow['forum_pass']; else settype($Forum_passwd,'string');
 
 // Forum ARBRE
 if ($myrow['arbre'])
@@ -103,46 +102,48 @@ else
    $hrefX='viewtopic.php';
 
 if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or ($Forum_passwd != $myrow['forum_pass'])) ) {
-    include('header.php');
-
-   echo '<p class="lead">'.translate("Moderated By: ").'';
-    $moderator_data=explode(" ",$moderator);
-    for ($i = 0; $i < count($moderator_data); $i++) {
-       $modera = get_userdata($moderator[$i]);
-          if ($modera['user_avatar'] != '') {
-             if (stristr($modera['user_avatar'],"users_private")) {
-                $imgtmp=$modera['user_avatar'];
-             } else {
-                if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-             }
-          }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
-    }
-   echo '</p>';
-    echo '
-   <p class="lead">
-      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
-   </p>';
-
+   include('header.php');
    echo '
-      <form action="viewforum.php" method="post">
-         <div class="form-group">
-            <div class="text-center">
-               <label class="form-control-label">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
-            </div>
-            <div class="row">
-               <div class="col-sm-4 ml-sm-auto">
-                  <input class="form-control" type="password" name="Forum_passwd"  placeholder="'.translate("Password").'" />
+   <h3 class="mb-3">'.stripslashes($forum_name).'</h3>
+      <p class="lead">'.translate("Moderated By: ").'';
+   $moderator_data=explode(' ',$moderator);
+   for ($i = 0; $i < count($moderator_data); $i++) {
+      $modera = get_userdata($moderator_data[$i]);
+      if ($modera['user_avatar'] != '') {
+         if (stristr($modera['user_avatar'],"users_private"))
+            $imgtmp=$modera['user_avatar'];
+         else {
+            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+         }
+      }
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+   }
+   echo '</p>';
+   echo '
+      <p class="lead">
+         <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
+      </p>
+      <div class="card p-3">
+         <form id="privforumentry" action="viewforum.php" method="post">
+            <div class="form-group row">
+               <label class="col-form-label col-sm-12" for="forum_pass">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
+               <div class="col-sm-12">
+                  <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Password").'" required="required"/>
+                  <span class="help-block text-right" id="countcar_forum_pass"></span>
                </div>
             </div>
-         </div>
-            <input type="hidden" name="forum" value="'.$forum.'" />
-            <div class="text-center">
-               <button type="submit" class="btn btn-primary" name="submit" title="'.translate("Submit").'"><i class="fa fa-check"></i></button>&nbsp;
-               <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh"></i></button>
-         </div>
-      </form>';
-   }
+               <input type="hidden" name="forum" value="'.$forum.'" />
+               <div class="form-group">
+                  <button type="submit" class="btn btn-primary mr-2" name="submitpass" title="'.translate("Submit").'"><i class="fa fa-check mr-1"></i>'.translate("Submit").'</button>
+                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh mr-1"></i>'.translate("Clear").'</button>
+            </div>
+         </form>
+      </div>';
+         $arg1='
+         var formulid=["privforumentry"];
+         inpandfieldlen("forum_pass",60);';
+   adminfoot('fv','',$arg1,'');
+}
    
    //::ICI 
    elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
@@ -228,7 +229,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
                <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
                <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
-               <th data-sortable="true" data-align="right" ><i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
+               <th data-align="right" >'.translate("Last Posts").'<i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
             </tr>
          </thead>
          <tbody>';
@@ -319,7 +320,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                </tr>';
             } else {
                echo '
-                  <td>'.get_last_post($myrow['topic_id'],"topic","infos",$Mmod).'</td>
+                  <td class="small">'.get_last_post($myrow['topic_id'],"topic","infos",$Mmod).'</td>
                </tr>';
             }
          }
@@ -402,12 +403,11 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          </div>
       </div>
    </form>';
+   include("footer.php");
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingBlock($cache_clef);
-   }
-} else {
+} else
    header("location: forum.php");
-}
-include("footer.php");
+
 ?>

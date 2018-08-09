@@ -30,7 +30,7 @@ function topicsmanager() {
    if (sql_num_rows($result) > 0) {
       echo '
    <hr />
-   <h3 class="my-3">'.adm_translate("Sujets actifs").'</h3>
+   <h3 class="my-3">'.adm_translate("Sujets actifs").'<span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span></h3>
    <div class="card-columns">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
@@ -56,7 +56,7 @@ function topicsmanager() {
     </div>
    <hr />
    <h3 class="my-4">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
-   <form action="admin.php" method="post">
+   <form action="admin.php" method="post" id="topicmake">
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
          <div class="col-sm-8">
@@ -146,21 +146,18 @@ function topicsmanager() {
    },
 
 ';
-   echo '
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("topicname",20);
-         inpandfieldlen("topictext",250);
-         inpandfieldlen("topicimage",20);
-         inpandfieldlen("topicadmin",255);
-      });
-   //]]>
-   </script>';
+
+   $arg1='
+   var formulid = ["topicmake"];
+   inpandfieldlen("topicname",20);
+   inpandfieldlen("topictext",250);
+   inpandfieldlen("topicimage",20);
+   inpandfieldlen("topicadmin",255);
+   ';
    echo auto_complete_multi('admin','aid','authors','topicadmin','');
 
    sql_free_result($result);
-   adminfoot('fv',$fv_parametres,'','');
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function topicedit($topicid) {
@@ -178,7 +175,7 @@ function topicedit($topicid) {
    <div class="card card-body my-4 py-3"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
    }
    echo '
-   <form action="admin.php" method="post">
+   <form action="admin.php" method="post" id="topicchange">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="topicname">'.adm_translate("Intitulé").'</label>
@@ -239,18 +236,7 @@ function topicedit($topicid) {
             <button class="btn btn-secondary" onclick="javascript:document.location.href=\'admin.php?op=topicsmanager\'">'.adm_translate("Retour en arrière").'</button>
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("topicname",20);
-         inpandfieldlen("topictext",250);
-         inpandfieldlen("topicimage",20);
-         inpandfieldlen("name",30);
-         inpandfieldlen("url",200);
-      });
-   //]]>
-   </script>';
+   </form>';
 /*
    <form id="fad_deltop" action="admin.php" method="post">
        <input type="hidden" name="topicid" value="'.$topicid.'" />
@@ -322,8 +308,16 @@ function topicedit($topicid) {
          }
       }
    },';
+      $arg1='
+   var formulid = ["topicchange"];
+   inpandfieldlen("topicname",20);
+   inpandfieldlen("topictext",250);
+   inpandfieldlen("topicimage",20);
+   inpandfieldlen("name",30);
+   inpandfieldlen("url",200);
+   ';
    echo auto_complete_multi('admin','aid','authors','topicadmin','');
-   adminfoot('fv',$fv_parametres,'','');
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function relatededit($tid, $rid) {

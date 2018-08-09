@@ -78,7 +78,7 @@ function main() {
    include("cache.timings.php");
    echo '
       <hr />
-      <form id="fad_cache" action="admin.php" method="post">
+      <form id="overloadcacheadm" action="admin.php" method="post">
       <fieldset>
       <legend>'.adm_translate("Activation").'</legend>
          <div class="form-group">
@@ -110,44 +110,46 @@ function main() {
       echo '
       <fieldset>
       <legend>'.adm_translate("Temps de rétention en secondes").'</legend>
-      <div class="form-group">
-        <div class="row">
-            <div class=" col-sm-4 col-12">
-               <label for="xt_index"><code>index.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_index" name="xt_index" value="'.$CACHE_TIMINGS['index.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 300</span>
-            </div>
-            <div class=" col-sm-4 col-12">
-               <label for="xt_article"><code>article.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_article" name="xt_article" value="'.$CACHE_TIMINGS['article.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 300</span>
-            </div>
-            <div class=" col-sm-4 col-12">
-               <label for="xt_sections"><code>sections.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_sections" name="xt_sections" value="'.$CACHE_TIMINGS['sections.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 300</span>
-            </div>
-            </div>
-         <div class="row">
-            <div class=" col-sm-4 col-12">
-               <label for="xt_faq"><code>faq.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_faq" name="xt_faq" value="'.$CACHE_TIMINGS['faq.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 86400</span>
-            </div>
-            <div class=" col-sm-4 col-12">
-               <label for="xt_links"><code>links.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_links" name="xt_links" value="'.$CACHE_TIMINGS['links.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 28800</span>
-            </div>
-            <div class=" col-sm-4 col-12">
-               <label for="xt_forum"><code>forum.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_forum" name="xt_forum" value="'.$CACHE_TIMINGS['forum.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 3600</span>
-            </div>
-            </div>
-         <div class="row">
-            <div class=" col-sm-4 col-12">
-               <label for="xt_memberlist"><code>memberlist.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_memberlist" name="xt_memberlist" value="'.$CACHE_TIMINGS['memberslist.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 1800</span>
-            </div>
-            <div class=" col-sm-4 col-12">
-               <label for="xt_modules"><code>modules.php</code></label>
-               <input class="form-control" type="number" min="0" id="xt_modules" name="xt_modules" value="'.$CACHE_TIMINGS['modules.php'].'" required="required" data-fv-row=".col-md-4" /><span class="help-block">Def : 3600</span>
-            </div>
+      <div class="form-group row">
+         <div class=" col-sm-4 col-12">
+            <label for="xt_index"><code>index.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_index" name="xt_index" value="'.$CACHE_TIMINGS['index.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 300<span class="float-right ml-1" id="countcar_xt_index"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_article"><code>article.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_article" name="xt_article" value="'.$CACHE_TIMINGS['article.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 300<span class="float-right ml-1" id="countcar_xt_article"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_sections"><code>sections.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_sections" name="xt_sections" value="'.$CACHE_TIMINGS['sections.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 300<span class="float-right ml-1" id="countcar_xt_sections"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_faq"><code>faq.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_faq" name="xt_faq" value="'.$CACHE_TIMINGS['faq.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 86400<span class="float-right ml-1" id="countcar_xt_faq"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_links"><code>links.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_links" name="xt_links" value="'.$CACHE_TIMINGS['links.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 28800<span class="float-right ml-1" id="countcar_xt_links"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_forum"><code>forum.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_forum" name="xt_forum" value="'.$CACHE_TIMINGS['forum.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 3600<span class="float-right ml-1" id="countcar_xt_forum"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_memberlist"><code>memberlist.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_memberlist" name="xt_memberlist" value="'.$CACHE_TIMINGS['memberslist.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 1800<span class="float-right ml-1" id="countcar_xt_memberlist"></span></span>
+         </div>
+         <div class=" col-sm-4 col-12">
+            <label for="xt_modules"><code>modules.php</code></label>
+            <input class="form-control js-cachetime" type="text" id="xt_modules" name="xt_modules" value="'.$CACHE_TIMINGS['modules.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
+            <span class="help-block">Def : 3600<span class="float-right ml-1" id="countcar_xt_modules"></span></span>
          </div>
       </div>
       </fieldset>
@@ -167,7 +169,84 @@ function main() {
          </div>
          <input type="hidden" name="op" value="supercache_empty" />
       </form>';
-   adminfoot('fv','','','');
+   $fv_parametres='
+      xt_index: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_article: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_sections: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_faq: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_links: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_forum: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_memberlist: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      xt_modules: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+   ';
+  $arg1='
+   var formulid = ["overloadcacheadm"];
+   inpandfieldlen("xt_index",6);
+   inpandfieldlen("xt_article",6);
+   inpandfieldlen("xt_sections",6);
+   inpandfieldlen("xt_faq",6);
+   inpandfieldlen("xt_links",6);
+   inpandfieldlen("xt_forum",6);
+   inpandfieldlen("xt_memberlist",6);
+   inpandfieldlen("xt_modules",6);
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 switch ($op) {

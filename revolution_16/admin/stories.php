@@ -84,7 +84,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="Mmembers">'.$tmp_groupe.'</select>
+            <select class="custom-select form-control" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
       </div>';
 }
@@ -96,7 +96,7 @@ function SelectCategory($cat) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="catid">';
+            <select class="custom-select form-control" id="catid" name="catid">';
    if ($cat == 0) $sel = 'selected="selected"';
    else $sel = '';
    echo '
@@ -130,12 +130,12 @@ function AddCategory () {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
-   <form id="adm_ad_cat" action="admin.php" method="post">
+   <form id="storiesaddcat" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-sm-12 col-form-label" for="title">'.adm_translate("Nom").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="title" name="title" maxlength="255" required="required" />
-            <span class="help-block text-right"><span id="countcar_title"></span></span>
+            <span class="help-block text-right id="countcar_title"></span>
          </div>
       </div>
       <input type="hidden" name="op" value="SaveCategory" />
@@ -144,15 +144,11 @@ function AddCategory () {
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("title",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+   var formulid = ["storiesaddcat"];
+   inpandfieldlen("title",255);';
+   adminfoot('fv','',$arg1,'');
 }
 function SaveCategory($title) {
    global $NPDS_Prefix, $aid, $f_meta_nom, $adminimg;
@@ -165,11 +161,11 @@ function SaveCategory($title) {
 
    $title = preg_replace('#"#', '', $title);
    $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
-   if ($check) {
+   if ($check)
       $what1 = '<div class="alert alert-danger lead" role="alert">'.adm_translate("Cette Catégorie existe déjà !").'<br /><a href="javascript:history.go(-1)" class="btn btn-secondary  mt-2">'.adm_translate("Retour en arrière, pour changer le Nom").'</a></div>';
-   } else {
-   $what1 = '<div class="alert alert-success lead" role="alert">'.adm_translate("Nouvelle Catégorie ajoutée").'</div>';
-   $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories_cat VALUES (NULL, '$title', '0')");
+   else {
+      $what1 = '<div class="alert alert-success lead" role="alert">'.adm_translate("Nouvelle Catégorie ajoutée").'</div>';
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories_cat VALUES (NULL, '$title', '0')");
    }
    include ("header.php");
    GraphicAdmin('');
@@ -204,7 +200,7 @@ function EditCategory($catid) {
       <div class="form-group row">
          <label class="col-form-label col-sm-12" for="catid">'.adm_translate("Sélectionner une Catégorie").'</label>
          <div class="col-sm-12">
-            <select class="custom-select form-control" name="catid">';
+            <select class="custom-select form-control" id="catid" name="catid">';
       echo '
                <option name="catid" value="0">'.adm_translate("Articles").'</option>';
       while(list($catid, $title) = sql_fetch_row($selcat)) {
@@ -222,13 +218,15 @@ function EditCategory($catid) {
         </div>
      </div>
    </form>';
+   adminfoot('','','','');
    } else {
       echo '
-   <form action="admin.php" method="post">
+   <form id="storieseditcat" action="admin.php" method="post">
       <div class="form-group row">
       <label class="col-form-label col-sm-12" for="title">'.adm_translate("Nom").'</label>
          <div class="col-sm-12">
-            <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" required="required"/>
+            <input class="form-control" type="text" id="title" name="title" maxlength="255" value="'.$title.'" required="required"/>
+            <span class="help-block text-right" id="countcar_title"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -239,30 +237,32 @@ function EditCategory($catid) {
         </div>
      </div>
    </form>';
+   $arg1='
+   var formulid = ["storieseditcat"];
+   inpandfieldlen("title",255);';
+   adminfoot('fv','',$arg1,'');
    }
-   adminfoot('','','','');
 }
 function SaveEditCategory($catid, $title) {
-    global $NPDS_Prefix;
-
-    $title = preg_replace('#"#', '', $title);
-    $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
-    if ($check) {
-        $what1 = adm_translate("Cette Catégorie existe déjà !");
-        $what2 = '[ <a href="javascript:history.go(-2)" class="noir">'.adm_translate("Retour en arrière, pour changer le Nom").'</a> ]';
-    } else {
-        $what1 = adm_translate("Catégorie sauvegardée");
-        $what2 = '[ <a href="admin.php" class="noir">'.adm_translate("Retour à l'index d'administration").'</a> ]';
-        $result = sql_query("UPDATE ".$NPDS_Prefix."stories_cat SET title='$title' WHERE catid='$catid'");
-        global $aid; Ecr_Log("security", "SaveEditCategory($catid, $title) by AID : $aid", "");
-    }
-    include ("header.php");
-    GraphicAdmin("");
-
-    echo '<p align="center"><b>'.$what1.'</b><br /><br />';
-    echo $what2.'</p><br />';
-
-    include("footer.php");
+   global $NPDS_Prefix, $aid, $f_meta_nom, $adminimg;
+   $f_titre = adm_translate("Articles");
+   $title = preg_replace('#"#', '', $title);
+   $check = sql_num_rows(sql_query("SELECT catid FROM ".$NPDS_Prefix."stories_cat WHERE title='$title'"));
+   if ($check) {
+      $what1 = '<div class="alert alert-danger lead" role="alert">'.adm_translate("Cette Catégorie existe déjà !").'<br /><a href="javascript:history.go(-2)" class="btn btn-secondary  mt-2">'.adm_translate("Retour en arrière, pour changer le Nom").'</a></div>';
+   } else {
+      $what1 = '<div class="alert alert-success lead" role="alert">'.adm_translate("Catégorie sauvegardée").'</div>';
+      $result = sql_query("UPDATE ".$NPDS_Prefix."stories_cat SET title='$title' WHERE catid='$catid'");
+      global $aid; Ecr_Log("security", "SaveEditCategory($catid, $title) by AID : $aid", "");
+   }
+   include ("header.php");
+   GraphicAdmin('');
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   echo '
+   <hr />
+   <h3 class="mb-3">'.adm_translate("Edition des Catégories").'</h3>
+   '.$what1;
+   adminfoot('','','','');
 }
 
 function DelCategory($cat) {
@@ -459,7 +459,7 @@ function displayStory ($qid) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" name="topic">';
+            <select class="custom-select form-control" id="topic" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -717,9 +717,8 @@ function editStory ($sid) {
    admindroits($aid,$f_meta_nom);
    //<== controle droit
 
-   if (($sid=='') or ($sid=='0')) {
+   if (($sid=='') or ($sid=='0'))
       header("location: admin.php");
-   }
 
    $hlpfile = "manuels/$language/newarticle.html";
 
@@ -734,15 +733,15 @@ function editStory ($sid) {
    $affiche=false;
    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
-   if ($radminsuper) {
+   if ($radminsuper)
       $affiche=true;
-   } else {
+   else {
       $topicadminX=explode(',',$topicadmin);
       for ($i = 0; $i < count($topicadminX); $i++) {
          if (trim($topicadminX[$i])==$aid) $affiche=true;
       }
    }
-   if (!$affiche) { header("location: admin.php");}
+   if (!$affiche) header("location: admin.php");
    $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
@@ -765,13 +764,13 @@ function editStory ($sid) {
    echo code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
    echo '
    </div>';
-
    echo '
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="editstory" action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="subject" name="subject" size="50" value="'.$subject.'" />
+            <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" maxlength="255" required="required" />
+            <span class="help-block text-right" id="countcar_subject"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -816,7 +815,7 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte complet").'</label>
          <div class="col-12">
-            <textarea class="tin form-control"  rows="25" name="bodytext" >'.$bodytext.'</textarea>
+            <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
          </div>
       </div>';
    echo aff_editeur("bodytext", "true");
@@ -824,7 +823,7 @@ function editStory ($sid) {
       <div class="form-group row">
          <label class="col-form-label col-12" for="notes">'.adm_translate("Notes").'</label>
          <div class="col-12">
-            <textarea class="tin form-control"  rows="7" id="notes" name="notes" >'.$notes.'</textarea>
+            <textarea class="tin form-control" rows="7" id="notes" name="notes" >'.$notes.'</textarea>
          </div>
       </div>';
    echo aff_editeur('notes', '');
@@ -867,7 +866,10 @@ function editStory ($sid) {
          </div>
       </div>
    </form>';
-   adminfoot('','','','');
+   $arg1='
+   var formulid = ["editstory"];
+   inpandfieldlen("subject",255);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function deleteStory($qid) {
@@ -988,18 +990,18 @@ function adminStory() {
 
    echo '
    <hr />
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="storiesnewart" action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="subject" id="subject" value="" maxlength="255" required="required" />
-            <span class="help-block text-right"><span id="countcar_subject"></span></span>
+            <span class="help-block text-right" id="countcar_subject"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-         <select class="custom-select form-control" name="topic">';
+         <select class="custom-select form-control" id="topic" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
 //probablement ici aussi mettre les droits pour les gestionnaires de topics ??
    if ($radminsuper) echo '
@@ -1031,7 +1033,7 @@ function adminStory() {
       <div class="form-group row">
          <label class="col-form-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
          <div class="col-12">
-            <textarea class="tin form-control" rows="25" name="hometext">'.$hometext.'</textarea>
+            <textarea class="tin form-control" rows="25" id="hometext" name="hometext">'.$hometext.'</textarea>
          </div>
       </div>';
    echo aff_editeur('hometext', '');
@@ -1039,7 +1041,7 @@ function adminStory() {
       <div class="form-group row">
          <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
          <div class="col-12">
-            <textarea class="tin form-control"  rows="25" name="bodytext" >'.$bodytext.'</textarea>
+            <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
          </div>
       </div>';
    echo aff_editeur('bodytext', '');
@@ -1052,15 +1054,11 @@ function adminStory() {
              <input class="btn btn-primary" type="submit" name="preview" value="'.adm_translate("Prévisualiser").'" />
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("subject",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+   var formulid = ["storiesnewart"];
+   inpandfieldlen("subject",255);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
@@ -1099,7 +1097,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    echo '
    <hr />
    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="storiespreviswart" action="admin.php" method="post" name="adminForm">
       <label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label> 
       '.aff_localzone_langue("local_user_language").'
       <div class="card card-body mb-3">';
@@ -1118,13 +1116,13 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
             <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="subject" id="subject" value="'.$subject.'" maxlength="255" required="required" />
-               <span class="help-block text-right"><span id="countcar_subject"></span></span>
+               <span class="help-block text-right" id="countcar_subject"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="topic">';
+               <select class="custom-select form-control" id="topic" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                   <option value="">'.adm_translate("Tous les Sujets").'</option>';
@@ -1184,15 +1182,11 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
              <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("subject",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+   var formulid = ["storiespreviswart"];
+   inpandfieldlen("subject",255);';
+   adminfoot('fv','',$arg1,'');
 }
 settype($catid,'integer');
 switch ($op) {

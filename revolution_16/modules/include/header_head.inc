@@ -9,6 +9,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
+define('CITRON','tarteaucitron');
 
 // since NPDS Rev 16 this ressources are required dont remove //
 echo '
@@ -23,4 +24,28 @@ echo '
 <link rel="stylesheet" href="lib/jquery-ui.min.css">';
 echo '
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />'; // table
+echo '
+<link rel="stylesheet" href="lib/css/prism.css" />
+<script type="text/javascript" src="lib/js/jquery.min.js"></script>
+';
+
+if(defined('CITRON')){
+echo '
+<script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
+<script type="text/javascript" src="/lib/tarteaucitron/tarteaucitron.js"></script>
+<script type="text/javascript">
+   //<![CDATA[
+   tarteaucitron.init({
+       "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
+       "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
+       "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
+       "adblocker": false, /* Afficher un message si un adblocker est détecté */
+       "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
+       "cookieslist": true, /* Afficher la liste des cookies installés ? */
+       "removeCredit": true, /* supprimer le lien vers la source ? */
+       "cookieDomain": "labo.infocapagde.com" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
+   });
+   //]]
+</script>'; //RGPD tool
+}
 ?>

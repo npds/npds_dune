@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='email_user';
 $f_titre = adm_translate("Diffusion d'un Message Interne");
 //==> controle droit
@@ -29,13 +29,13 @@ function email_user() {
        adminhead ($f_meta_nom, $f_titre, $adminimg);
        echo '
       <hr />
-      <form id="fad_emailuser" action="admin.php" method="post" name="AdmMI">
+      <form id="emailuseradm" action="admin.php" method="post" name="AdmMI">
          <fieldset>
             <legend>'.adm_translate("Message").'</legend>
             <input type="hidden" name="op" value="send_email_to_user" />
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="expediteur">'.adm_translate("Expédier en tant").'</label>
-               <div class="col-sm-8 my-2">
+               <div id="expediteur" class="col-sm-8 my-2">
                   <div class="custom-control custom-radio custom-control-inline">
                      <input class="custom-control-input" type="radio" id="adm" name="expediteur" value="1" checked="checked" />
                      <label class="custom-control-label" for="adm">'.adm_translate("qu'administrateur").'</label>
@@ -49,7 +49,7 @@ function email_user() {
             <div id="div_username" class="form-group row">
                <label class="col-form-label col-sm-4" for="username">'.adm_translate("Utilisateur").'</label>
                <div class="col-sm-8">
-                  <input id="username" class="form-control" type="text" name="username" value="" />
+                  <input  class="form-control" type="text" id="username" name="username" value="" />
                </div>
             </div>
             <div id="div_groupe" class="form-group row">
@@ -78,14 +78,14 @@ function email_user() {
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="subject">'.adm_translate("Sujet").'</label>
                <div class="col-sm-8">
-                  <input id="subject" class="form-control" type="text" maxlength="100" name="subject" />
+                  <input  class="form-control" type="text" maxlength="100" id="subject" name="subject" required="required" />
                   <span class="help-block text-right"><span id="countcar_subject"></span></span>
                </div>
             </div>
             <div class="form-group row">
                <label class="col-form-label col-sm-12" for="message">'.adm_translate("Corps de message").'</label>
                <div class="col-sm-12">
-                  <textarea id="message" class="tin form-control" rows="25" name="message"></textarea>
+                  <textarea class="tin form-control" rows="25" id="message" name="message" required="required"></textarea>
                </div>
             </div>';
       echo aff_editeur('AdmMI', '');
@@ -129,31 +129,30 @@ function email_user() {
         $("#div_all").removeClass("collapse in");
     }
    });
-    
-      $(document).ready(function() {
-         inpandfieldlen("subject",100);
-      });
    //]]>
    </script>';
+   $arg1='
+   var formulid = ["emailuseradm"];
+   inpandfieldlen("subject",100);
+   ';
    echo auto_complete ('membre','uname','users','username','86400');
-   adminfoot('fv','','','');
+   adminfoot('fv','',$arg1,'');
 }
 
 function send_email_to_user($username, $subject, $message, $all, $groupe, $expediteur) {
    global $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
 
    if ($subject!='') {
-      if ($expediteur==1) {
+      if ($expediteur==1)
          $emetteur=1;
-      } else {
+      else {
          global $user;
          if ($user) {
             $userX = base64_decode($user);
             $userdata = explode(':', $userX);
             $emetteur=$userdata[0];
-         } else {
+         } else
             $emetteur=1;
-         }
       }
       if ($all) {
          $result=sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users");
@@ -167,9 +166,8 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
                $tab_groupe=explode(',',$groupeX);
                if ($tab_groupe) {
                   foreach($tab_groupe as $groupevalue) {
-                     if ($groupevalue==$groupe) {
+                     if ($groupevalue==$groupe)
                         $tab_to_userid[]=$to_userid.':'.$user_langue;
-                     }
                   }
                }
             }
@@ -180,9 +178,8 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
             }
          }
       }
-      if (($subject=='') or ($message=='')) {
+      if (($subject=='') or ($message==''))
          header("location: admin.php");
-      }
       $message = str_replace('\n','<br />', $message);
       global $gmt;
       $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
@@ -195,9 +192,8 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
          if (($to_userid != '') and ($to_userid != 1)) {
             $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, FROM_userid, to_userid, msg_time, msg_text) ";
             $sql .= "VALUES ('$image', '$subject', '$emetteur', '$to_userid', '$time', '$message')";
-            if ($resultX = sql_query($sql)) {
+            if ($resultX = sql_query($sql))
                $pasfin=true;
-            }
               // A copy in email if necessary
               global $nuke_url, $subscribe;
               if ($subscribe) {
@@ -220,13 +216,12 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />';
-   if ($pasfin) {
-   echo '
+   if ($pasfin)
+      echo '
    <div class="alert alert-success"><strong>"'.stripslashes($subject).'"</strong> '.adm_translate("a été envoyée").'.</div>';
-   } else {
-   echo '
+   else
+      echo '
    <div class="alert alert-danger"><strong>"'.stripslashes($subject).'"</strong>' .adm_translate("n'a pas été envoyée").'.</div>';
-   }
    adminfoot('','','','');
 }
 

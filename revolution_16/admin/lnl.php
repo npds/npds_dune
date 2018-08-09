@@ -196,19 +196,19 @@ Function Add_Body() {
    echo '
    <hr />
    <h3 class="mb-2">'.adm_translate("Corps de message").'</h3>
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="lnlbody" action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="html">'.adm_translate("Format de données").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="number" min="0" max="1" value="1" name="html" required="required" />
+               <input class="form-control" id="html" type="number" min="0" max="1" step="1" value="1" name="html" required="required" />
                <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
             <div class="col-sm-12">
-               <textarea class="tin form-control" rows="30" name="xtext" ></textarea>
+               <textarea class="tin form-control" id="xtext" rows="30" name="xtext" ></textarea>
             </div>
          </div>';
    global $tiny_mce_relurl;
@@ -222,7 +222,20 @@ Function Add_Body() {
          </div>
       </fieldset>
    </form>';
-   adminfoot('fv','','','');
+   $fv_parametres='
+     html: {
+      validators: {
+          regexp: {
+            regexp:/[0-1]$/,
+            message: "0 | 1"
+          }
+      }
+   },
+   ';
+   $arg1='
+   var formulid = ["lnlbody"];
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 Function Add_Body_Submit($Ytext, $Yhtml) {
@@ -278,20 +291,20 @@ Function Add_Header_Footer($ibid) {
    echo '
       <hr />
       <h3 class="mb-2">'.ucfirst(adm_translate("$ti")).'</h3>
-      <form action="admin.php" method="post" name="adminForm">
+      <form id="lnlheadfooter" action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group">
                <label class="col-form-label" for="html">'.adm_translate("Format de données").'</label>
                <div>
-                  <input class="form-control" type="number" min="0" max="1" value="1" name="html" required="required" />
+                  <input class="form-control" id="html" type="number" min="0" max="1" value="1" name="html" required="required" />
                   <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
                </div>
             </div>
          <div class="form-group">
-               <label class="col-form-label" for="xtext">'.adm_translate("Texte").'</label>
-               <div>
-                  <textarea class="form-control" rows="20" name="xtext" ></textarea>
-               </div>
+            <label class="col-form-label" for="xtext">'.adm_translate("Texte").'</label>
+            <div>
+               <textarea class="form-control" id="xtext" rows="20" name="xtext" ></textarea>
+            </div>
          </div>
          <div class="form-group">';
    global $tiny_mce_relurl;
@@ -303,7 +316,21 @@ Function Add_Header_Footer($ibid) {
          </div>
       </fieldset>
    </form>';
-   adminfoot('fv','','','');
+   $fv_parametres='
+     html: {
+      validators: {
+          regexp: {
+            regexp:/[0-1]$/,
+            message: "0 | 1"
+          }
+      }
+   },
+   ';
+   $arg1='
+   var formulid = ["lnlheadfooter"];
+   ';
+   
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 Function Add_Header_Footer_Submit($ibid, $xtext, $xhtml) {
@@ -335,60 +362,62 @@ function main() {
    echo '
    <hr />
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
-   <form action="admin.php" method="post">
-   <div class="form-row">
-      <div class="col">
-         <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
-         <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
+   <form id="ltesto" action="admin.php" method="post">
+      <div class="row">
+         <div class="form-group col-sm-4">
+            <label class="col-form-label" for="testXheader">'.adm_translate("Entête").'</label>
+            <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" max="11" />
+         </div>
+         <div class="form-group col-sm-4">
+            <label class="col-form-label" for="testXbody">'.adm_translate("Corps").'</label>
+            <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
+         </div>
+         <div class="form-group col-sm-4">
+            <label class="col-form-label" for="testXfooter">'.adm_translate("Pied").'</label>
+            <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" max="11" />
+         </div>
+         <div class="form-group col-sm-12">
+            <input type="hidden" name="op" value="lnl_Test" />
+            <button class="btn btn-primary my-3" type="submit">'.adm_translate("Valider").'</button>
+         </div>
       </div>
-      <div class="col">
-         <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
-         <input class="form-control" type="number" name="Xbody" id="Xbody" max="11" />
-      </div>
-      <div class="col">
-         <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
-         <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
-      </div>
-   </div>
-      <input type="hidden" name="op" value="lnl_Test" />
-      <button class="btn btn-primary my-3" type="submit">'.adm_translate("Valider").'</button>
    </form>
    <hr />
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
-   <form action="admin.php" method="post">
-      <div class="form-row">
-         <div class="col">
+   <form id="lsendo" action="admin.php" method="post">
+      <div class="row">
+         <div class="form-group col-sm-4">
             <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
             <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
          </div>
-         <div class="col">
+         <div class="form-group col-sm-4">
             <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
-            <input class="form-control" type="number" name="Xbody" id="Xbody" max="11" />
+            <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" max="11" />
          </div>
-         <div class="col">
+         <div class="form-group col-sm-4">
             <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
             <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
          </div>
-      </div>
-      <div class="form-group">
-         <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
-         <input class="form-control" type="text" max="255" id="Xsubject" name="Xsubject" />
-      </div>
-      <hr />
-      <div class="form-group">
-         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" value="All" checked="checked" id="tous" name="Xtype" />
-            <label class="custom-control-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
+         <div class="form-group col-sm-12">
+            <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
+            <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
+            <span class="help-block text-right"><span id="countcar_Xsubject"></span></span>
          </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" value="Mbr" id="mem" name="Xtype" />
-            <label class="custom-control-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
-         </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" value="Out" id="prosp" name="Xtype" />
-            <label class="custom-control-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
-         </div>
-      </div>';
+         <hr />
+         <div class="form-group col-sm-12">
+            <div class="custom-control custom-radio custom-control-inline">
+               <input type="radio" class="custom-control-input" value="All" checked="checked" id="tous" name="Xtype" />
+               <label class="custom-control-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+               <input type="radio" class="custom-control-input" value="Mbr" id="mem" name="Xtype" />
+               <label class="custom-control-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+               <input type="radio" class="custom-control-input" value="Out" id="prosp" name="Xtype" />
+               <label class="custom-control-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
+            </div>
+         </div>';
       $mX=liste_group();
       $tmp_groupe='';
       while (list($groupe_id, $groupe_name)=each($mX)) {
@@ -397,15 +426,30 @@ function main() {
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
       }
       echo '
-      <div class="form-group">
-         <select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>
-      </div>
-      <input type="hidden" name="op" value="lnl_Send" />
-      <div class="form-group">
-         <input class="btn btn-primary" type="submit" value="'.adm_translate("Valider").'" />
+         <div class="form-group col-sm-12">
+            <select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>
+         </div>
+         <input type="hidden" name="op" value="lnl_Send" />
+         <div class="form-group col-sm-12">
+            <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
+         </div>
       </div>
       </form>';
-   adminfoot('','','','');
+      $fv_parametres='
+        Xbody: {
+         validators: {
+             regexp: {
+               regexp:/^\d{1,11}$/,
+               message: "0 | 1"
+             }
+         }
+      },
+      ';
+      $arg1='
+      var formulid = ["ltesto","lsendo"];
+      inpandfieldlen("Xsubject",255);
+      ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function Del_Question($retour,$param) {

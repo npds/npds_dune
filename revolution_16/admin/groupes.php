@@ -305,12 +305,13 @@ function membre_add($gp) {
    echo '
    <hr />
    <h3>'.adm_translate("Ajouter des membres").' / '.adm_translate("Groupe").' : '.$gp.'</h3>
-   <form id="form_ad_mb_gr" class="admform" action="admin.php" method="post">
+   <form id="groupesaddmb" class="admform" action="admin.php" method="post">
       <fieldset>
          <legend><i class="fa fa-users fa-2x text-muted"></i></legend>
          <div class="form-group">
             <label class="col-form-label" for="luname">'.adm_translate("Liste des membres").'</label>
-            <input type="text" class="form-control" id="luname" name="luname" maxlength="255" value="" />
+            <input type="text" class="form-control" id="luname" name="luname" maxlength="255" value="" required="required" />
+            <span class="help-block text-right"><span id="countcar_luname"></span></span>
          </div>
          <input type="hidden" name="op" value="membre_add_finish" />
          <input type="hidden" name="groupe_id" value="'.$gp.'" />
@@ -319,8 +320,12 @@ function membre_add($gp) {
          </div>
       </fieldset>
    </form>';
+   $arg1='
+   var formulid = ["groupesaddmb"];
+   inpandfieldlen("luname",255);
+   ';
    echo auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'');
-   adminfoot('fv','','','');
+   adminfoot('fv','',$arg1,'');
 }
 function membre_add_finish($groupe_id, $luname) {
    global $NPDS_Prefix;
@@ -449,7 +454,7 @@ function groupe_edit($groupe_id) {
       <hr />
       <h3>'.adm_translate("Créer un groupe.").'</h3>';
    echo '
-   <form class="admform" id="form_aded_gr" action="admin.php" method="post">
+   <form class="admform" id="groupesaddmod" action="admin.php" method="post">
       <fieldset>
          <legend><i class="fa fa-group fa-2x text-muted"></i></legend>'."\n";
    if ($groupe_id!='groupe_add')
@@ -460,14 +465,16 @@ function groupe_edit($groupe_id) {
             <label for="inp_gr_id" class="admform">ID</label>
             <input id="inp_gr_id" type="number" min="2" max="126" class="form-control" name="groupe_id" value="" required="required"/><span class="help-block">(2...126)</span>
          </div>';
-      echo '
+   echo '
          <div class="form-group">
-            <label class="col-form-label" for="inp_gr_na">'.adm_translate("Nom").'</label>
-            <input id="inp_gr_na" type="text" class="form-control" name="groupe_name" maxlength="30" value="'.$result['groupe_name'].'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
+            <label class="col-form-label" for="grname">'.adm_translate("Nom").'</label>
+            <input type="text" class="form-control" id="grname" name="groupe_name" maxlength="30" value="'.$result['groupe_name'].'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
+            <span class="help-block text-right"><span id="countcar_grname"></span></span>
          </div>
          <div class="form-group">
-            <label class="col-form-label" for="groupe_description">'.adm_translate("Description").'</label>
-            <textarea class="form-control" name="groupe_description" id="groupe_description" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">'.$result['groupe_description'].'</textarea>
+            <label class="col-form-label" for="grdesc">'.adm_translate("Description").'</label>
+            <textarea class="form-control" name="groupe_description" id="grdesc" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">'.$result['groupe_description'].'</textarea>
+            <span class="help-block text-right"><span id="countcar_grdesc"></span></span>
          </div>';
    if ($groupe_id != 'groupe_add')
       echo '
@@ -481,11 +488,15 @@ function groupe_edit($groupe_id) {
          </div>
       </fieldset>
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+   var formulid = ["groupesaddmod"];
+   inpandfieldlen("grname",30);
+   inpandfieldlen("grdesc",255);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 function groupe_maj() {
-   global $hlpfile, $NPDS_Prefix;
-   global $groupe_id, $groupe_name, $groupe_description, $sub_op;
+   global $hlpfile, $NPDS_Prefix, $groupe_id, $groupe_name, $groupe_description, $sub_op;
 
    if ($sub_op==adm_translate("Sauver les modifications")) {
       sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_name='$groupe_name', groupe_description='$groupe_description' WHERE groupe_id='$groupe_id'");
@@ -505,9 +516,8 @@ function groupe_maj() {
             }
          }
       }
-      if ($maj_ok) {
+      if ($maj_ok)
          groupe_delete($groupe_id);
-      }
    }
    Header("Location: admin.php?op=groupes");
 }

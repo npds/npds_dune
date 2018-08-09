@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='blocks';
 $f_titre = adm_translate('Gestion des blocs');
 //==> controle droit
@@ -33,13 +33,12 @@ function groupe($groupe) {
             if (($groupe_id==$groupevalue) and ($groupe_id!=0)) {$selectionne=1;}
          }
       }
-      if ($selectionne==1) {
+      if ($selectionne==1)
          $str.='
          <option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>';
-      } else {
+      else
          $str.='
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
-      }
       $nbg++;
    }
    if ($nbg>5) {$nbg=5;}
@@ -343,10 +342,10 @@ function blocks() {
             $funct=adm_translate("Sans nom").$funct;
          }
          if ($Sactif) 
-         echo '
+            echo '
          <tr class="table-success mw-100">'; 
          else 
-         echo '
+            echo '
          <tr class="table-danger class="mw-100">';
          echo '
             <td align="left">';
@@ -463,7 +462,7 @@ function blocks() {
    echo '
    <hr />
    <h3>'.adm_translate("Créer un nouveau Bloc").'</h3>
-   <form id="fad_newblock" action="admin.php" method="post" name="adminForm">
+   <form id="blocknewblock" action="admin.php" method="post" name="adminForm">
       <div class="row">
          <div class="col-md-8">
             <fieldset>
@@ -544,7 +543,10 @@ function blocks() {
         </div>
      </div>
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+      var formulid = ["blocknewblock"];
+';
+   adminfoot('fv','',$arg1,'');
 }
 
 switch ($op) {

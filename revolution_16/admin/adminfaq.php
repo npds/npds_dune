@@ -50,7 +50,7 @@ function FaqAdmin() {
    </table>
    <hr />
    <h3 class="mb-3">'.adm_translate("Ajouter une catégorie").'</h3>
-   <form id="fad_faqcatad" action="admin.php" method="post">
+   <form id="adminfaqcatad" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
@@ -66,15 +66,12 @@ function FaqAdmin() {
             </div>
          </div>
       </fieldset>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("categories",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';  
+      $arg1='
+      var formulid = ["adminfaqcatad"];
+      inpandfieldlen("categories",255);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function FaqCatGo($id_cat) {
@@ -101,7 +98,7 @@ function FaqCatGo($id_cat) {
    <hr />
    <h3 class="mb-3">'.$faq_cat.'</h3>
    <h4>'.adm_translate("Ajouter une question réponse").'</h4>
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="adminfaqquest" action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="question">'.adm_translate("Question").'</label>
@@ -135,7 +132,6 @@ function FaqCatGo($id_cat) {
    <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            inpandfieldlen("question",255);
             var topid="";
             $(".topi").hover(function(){
                topid = $(this).parent().attr("id");
@@ -148,7 +144,11 @@ function FaqCatGo($id_cat) {
         });
       //]]>
    </script>';
-   adminfoot('fv','','','');
+   $arg1='
+      var formulid = ["adminfaqquest"];
+      inpandfieldlen("question",255);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function FaqCatEdit($id_cat) {
@@ -162,7 +162,7 @@ function FaqCatEdit($id_cat) {
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer la catégorie").'</h3>
    <h4><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'">'.$categories.'</a></h4>
-   <form id="fad_faqcated" action="admin.php" method="post">
+   <form id="adminfaqcated" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
@@ -180,15 +180,12 @@ function FaqCatEdit($id_cat) {
             </div>
          </div>
       </fieldset>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("categories",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+      var formulid = ["adminfaqcated"];
+      inpandfieldlen("categories",255);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function FaqCatGoEdit($id) {
@@ -215,9 +212,9 @@ function FaqCatGoEdit($id) {
    echo '<p>'.meta_lang(preview_local_langue($local_user_language, $answer)).'</p>
    </div>';
 
-    echo '
+   echo '
    <h4>'.adm_translate("Editer Question & Réponse").'</h4>
-   <form action="admin.php" method="post" name="adminForm">
+   <form id="adminfaqquested" action="admin.php" method="post" name="adminForm">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-12" for="question">'.adm_translate("Question").'</label>
@@ -242,15 +239,12 @@ function FaqCatGoEdit($id) {
             </div>
          </div>
       </fieldset>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("question",255);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+      var formulid = ["adminfaqquested"];
+      inpandfieldlen("question",255);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function FaqCatSave($old_id_cat, $id_cat, $categories) {
