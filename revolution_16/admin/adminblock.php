@@ -32,7 +32,7 @@ function ablock() {
    if (sql_num_rows($result) > 0) {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
-         <form id="fad_ablock" action="admin.php" method="post">
+         <form id="adminblock" action="admin.php" method="post">
             <div class="form-group row">
                <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class="col-12">
@@ -52,17 +52,14 @@ function ablock() {
                   <button class="btn btn-outline-primary btn-block col-12" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>
             </div>
-         </form>
-         <script type="text/javascript">
-         //<![CDATA[
-            $(document).ready(function() {
-               inpandfieldlen("title",250);
-            });
-         //]]>
-         </script>';
+         </form>';
+      $arg1='
+   var formulid = ["adminblock"];
+   inpandfieldlen("title",255);
+   ';
       }
    }
-   adminfoot('fv','','','');
+   adminfoot('fv','',$arg1,'');
 }
 
 function changeablock($title, $content) {

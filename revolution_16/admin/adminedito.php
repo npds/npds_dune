@@ -41,6 +41,8 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             </div>
          </fieldset>
       </form>';
+   adminfoot('','','','');
+
    } else {
       if ($edito_type=='G') {
          $edito_typeL=' '.adm_translate("Anonyme");
@@ -53,7 +55,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       }
       if (!$contentJ and !$contentN and !strpos($contents,'[/jour]')) $contentJ=$contents;
       echo '
-      <form id="fad_edi_mod" action="admin.php" method="post" name="adminForm">
+      <form id="admineditomod" action="admin.php" method="post" name="adminForm">
          <fieldset>
          <legend>'.adm_translate("Edito").' :'.$edito_typeL.'</legend>
          <div class="form-group row">
@@ -114,8 +116,23 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       </div>
       </fieldset>
       </form>';
+   $arg1='
+   var formulid = ["admineditomod"];
+   ';
+   $fv_parametres='
+      aff_jours: {
+      validators: {
+         digits: {
+            message: "This must be a number"
+         }
+      }
+   },
+
+   
+   
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
    }
-   adminfoot('fv','','','');
 }
 
 function edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, $aff_nuit) {
