@@ -84,7 +84,7 @@ function get_last_post($id, $type, $cmd, $Mmod) {
          $val=translate("No posts");
       else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
-         $val='<span class="small">'.convertdate($myrow[0]).' <a href="user.php?op=userinfo&amp;uname='.$rowQ1[0]['uname'].'" >'.$rowQ1[0]['uname'].'</a></span>';
+         $val=convertdate($myrow[0]).' '.userpopover($rowQ1[0]['uname'],40);
       }
    }
    sql_free_result($result);
@@ -726,9 +726,8 @@ function forum($rowQ1) {
                   if (($myrow['forum_type'] == "7") or ($myrow['forum_type'] == "5")){
                      $ok_affich=groupe_forum($myrow['forum_pass'], $tab_groupe);
                      if ( (isset($admin)) and ($adminforum==1) ) $ok_affich=true;// to see when admin mais pas assez precis
-                  } else {
+                  } else
                      $ok_affich=true;
-                  }
                   if ($ok_affich) {
                      if ($title_aff) {
                         $title = stripslashes($row['cat_title']);
@@ -801,21 +800,21 @@ function forum($rowQ1) {
                      if (($subscribe) and ($user)) {
                         if (!$redirect) {
                          $ibid.='
-                         <span class="d-flex w-100 mt-1">
+                         <span class="d-flex w-100 mt-1" >
                            <span class="custom-control custom-checkbox">';
                            if ($tab_subscribe[$myrow['forum_id']])
                               $ibid.='
-                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" checked="checked" title="" data-toggle="tooltip" />';
+                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" checked="checked" />';
                            else
                               $ibid.='
-                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right" />';
+                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" />';
                             $ibid.='
-                               <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'"></label>
+                               <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right">&nbsp;&nbsp;</label>
                             </span>
                          </span>';
                         }
                      }
-                        $ibid.='<span class="ml-auto">'.$last_post.'</span>';
+                        $ibid.='<span class="d-flex w-100 justify-content-end"><span class="small">'.translate("Last Post").' : '.$last_post.'</span></span>';
                      } else
                         $ibid.='';
                   }
