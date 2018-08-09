@@ -1,4 +1,4 @@
-// Materia 4.0.0
+// Materia 4.1.3
 // Bootswatch
 
 //
@@ -37,6 +37,8 @@ $danger:        $red !default;
 $light:         $white !default;
 $dark:          $gray-800 !default;
 
+$yiq-contrasted-threshold:  170 !default;
+
 // Body
 
 $body-color:    $gray-700 !default;
@@ -51,16 +53,26 @@ $font-weight-base: 400 !default;
 
 // Buttons
 
-$input-btn-padding-y:       1rem !default;
+$input-btn-padding-y:       0.8rem !default;
 $input-btn-padding-x:       1rem !default;
 
 // Forms
+
+$input-padding-y:                1rem !default;
+$input-padding-x:                0 !default;
+
+$input-padding-y-sm:             $font-size-base !default;
+$input-padding-x-sm:             0 !default;
+
+$input-padding-y-lg:             ($font-size-base * 1.25) !default;
+$input-padding-x-lg:             0 !default;
 
 $input-bg:                       transparent !default;
 $input-disabled-bg:              transparent !default;
 
 $input-color:                    $gray-600 !default;
 $input-border-color:             transparent !default;
+$input-border-width:             0rem !default;
 
 $input-border-radius:            0 !default;
 $input-border-radius-lg:         0 !default;
@@ -69,6 +81,18 @@ $input-border-radius-sm:         0 !default;
 $input-placeholder-color:        rgba(0,0,0,0.4) !default;
 
 $input-group-addon-bg:           transparent !default;
+
+$custom-control-gutter:          1.75rem !default;
+
+$custom-control-indicator-focus-box-shadow: 0 !default;
+
+$custom-control-indicator-size:  1.25rem !default;
+$custom-control-indicator-bg:    $white;
+$custom-checkbox-indicator-border-radius: 2px !default;
+
+$custom-control-indicator-disabled-bg: $gray-100 !default;
+
+$custom-radio-indicator-icon-checked: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='4' fill='%232196F3'/%3E%3C/svg%3E") !default;
 
 // Navs
 
@@ -98,7 +122,7 @@ $modal-content-border-color:        transparent !default;
 
 // Progress bars
 
-$progress-height:               6px !default;
+$progress-height:               0.375rem !default;
 $progress-border-radius:        0 !default;
 
 // Close

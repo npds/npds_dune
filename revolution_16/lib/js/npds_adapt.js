@@ -6,10 +6,13 @@
       // ==> choix icon boostrap table //
          window.icons = {
             refresh: 'fa-refresh fa-lg',
-            toggle: 'fa-toggle-on fa-lg',
-            columns: 'fa-th-list fa-lg',
+            toggle: 'fa-toggle-on',
+            toggleOff: 'fa-toggle-off',
+            toggleOn: 'fa-toggle-on',
+            columns: 'fa-th-list',
             detailOpen: 'fa-plus-square-o',
-            detailClose: 'fa-minus-square-o'
+            detailClose: 'fa-minus-square-o',
+            fullscreen: "fa-arrows-alt"
          };
       // <== choix icon boostrap table //
 

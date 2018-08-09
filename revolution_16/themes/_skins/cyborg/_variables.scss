@@ -1,4 +1,4 @@
-// Cyborg 4.0.0
+// Cyborg 4.1.3
 // Bootswatch
 
 //
@@ -34,8 +34,8 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-800 !default;
+$light:         $gray-800 !default;
+$dark:          $gray-400 !default;
 
 
 // Body
@@ -80,7 +80,11 @@ $input-disabled-bg:              $gray-400 !default;
 
 $input-border-color:             transparent !default;
 
-$input-group-addon-bg:           $gray-700 !default;
+$input-group-addon-color:           $white !default;
+$input-group-addon-bg:              $gray-700 !default;
+
+$custom-file-color:                 $white !default;
+$custom-file-border-color:          $gray-700 !default;
 
 // Dropdowns
 
@@ -163,3 +167,7 @@ $breadcrumb-bg:                 $gray-700 !default;
 
 $close-color:                 $white !default;
 $close-text-shadow:           none !default;
+
+// Code
+
+$pre-color:                         inherit !default;
