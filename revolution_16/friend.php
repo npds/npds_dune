@@ -29,7 +29,7 @@ function FriendSend($sid, $archive) {
    <h2><i class="fa fa-at fa-lg text-muted"></i>&nbsp;'.translate("Send Story to a Friend").'</h2>
    <hr />
    <p class="lead">'.translate("You will send the story").' : <strong>'.aff_langue($title).'</strong></p>
-   <form action="friend.php" method="post">
+   <form id="friendsendstory" action="friend.php" method="post">
       <input type="hidden" name="sid" value="'.$sid.'" />';
    global $user;
    $yn=''; $ye='';
@@ -76,18 +76,15 @@ function FriendSend($sid, $archive) {
             <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-   $(document).ready(function() {
-      inpandfieldlen("yname",100);
-      inpandfieldlen("ymail",100);
-      inpandfieldlen("fname",100);
-      inpandfieldlen("fmail",100);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+  $arg1='
+   var formulid = ["friendsendstory"];
+   inpandfieldlen("yname",100);
+   inpandfieldlen("ymail",100);
+   inpandfieldlen("fname",100);
+   inpandfieldlen("fmail",100);
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question, $asb_reponse) {
@@ -157,7 +154,7 @@ function RecommendSite() {
    <div class="card card-body">
    <h2>'.translate("Recommend this Site to a Friend").'</h2>
    <hr />
-   <form action="friend.php" method="post">
+   <form id="friendrecomsite" action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="yname">'.translate("Your Name").'</label>
@@ -193,25 +190,21 @@ function RecommendSite() {
             <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-   $(document).ready(function() {
-      inpandfieldlen("yname",100);
-      inpandfieldlen("ymail",100);
-      inpandfieldlen("fname",100);
-      inpandfieldlen("fmail",100);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+  $arg1='
+   var formulid = ["friendrecomsite"];
+   inpandfieldlen("yname",100);
+   inpandfieldlen("ymail",100);
+   inpandfieldlen("fname",100);
+   inpandfieldlen("fmail",100);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    global $user;
    if (!$user) {
       //anti_spambot
-      if (!R_spambot($asb_question, $asb_reponse, "")) {
+      if (!R_spambot($asb_question, $asb_reponse, '')) {
          Ecr_Log('security', "Friend Anti-Spam : name=".$yname." / mail=".$ymail, '');
          redirect_url("index.php");
          die();
@@ -231,30 +224,28 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    $stop=false;
    if ((!$fmail) || ($fmail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$fmail))) $stop = true;
    if ((!$ymail) || ($ymail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$ymail))) $stop = true;
-   if (!$stop) {
+   if (!$stop)
       send_email($fmail, $subject, $message, $ymail, false,'html');
-   } else {
+   else
      $fname='';
-   }
    Header("Location: friend.php?op=SiteSent&fname=$fname");
 }
 
 function SiteSent($fname) {
    include ('header.php');
-   if ($fname=='') {
+   if ($fname=='')
       echo '
          <div class="alert alert-danger lead" role="alert">
             <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
             '.translate("ERROR: Invalid email").'
          </div>';
-   } else {
+   else
       echo '
       <div class="alert alert-success lead" role="alert">
          <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
          '.translate("The reference to our site has been sent to").' '.$fname.', <br />
          <strong>'.translate("Thanks for recommend us!").'</strong>
       </div>';
-   }
    include ('footer.php');
 }
 

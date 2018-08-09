@@ -31,7 +31,6 @@ settype($send,'string');
 settype($sig,'string');
 settype($copie,'string');
 
-
 if ($cancel) {
    if ($full_interface!='short')
       header("Location: viewpmsg.php");
@@ -218,8 +217,7 @@ else {
       <h2><a href="viewpmsg.php"><i class="mr-2 fa fa-inbox"></i></a>'.translate("Private Message").'</h2>
       <hr />
       <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
-         translate("All registered users can post private messages.").'</blockquote>
-      <form action="replypmsg.php" method="post" name="coolsus">';
+         translate("All registered users can post private messages.").'</blockquote>';
       settype($submitP,'string');
       if ($submitP) {
          echo '
@@ -242,6 +240,7 @@ else {
             echo '<hr />';
          }
          echo '
+         <form id="pmessage" action="replypmsg.php" method="post" name="coolsus">
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="to_user">'.translate("Recipient").'</label>
             <div class="col-sm-9">';
@@ -280,7 +279,8 @@ else {
          settype($subject,'string');
          if ($subject) {$tmp=StripSlashes($subject);} else {if ($reply) $tmp="Re: ".StripSlashes($row['subject']); else $tmp='';}
          echo '
-               <input class="form-control" type="text" id="subject" name="subject" value="'.$tmp.'" maxlength="100" required="required"/>
+               <input class="form-control" type="text" id="subject" name="subject" value="'.$tmp.'" maxlength="100" required="required" />
+               <span class="help-block" id ="countcar_subject"></span>
             </div>
          </div>';
          settype($image_subject,'string');
@@ -396,7 +396,7 @@ else {
             echo '
             <input type="hidden" name="reply" value="1" />';
          echo '
-            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />&nbsp;';
+            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" />&nbsp;';
          if ($reply)
             echo '
             <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Cancel Reply").'" />';
@@ -409,9 +409,12 @@ else {
          </div>
       </div>
    </form>';
-   adminfoot('fv','','','no');
-         if ($full_interface!='short')
-            include('footer.php');
+   $arg1='
+   var formulid=["pmessage"]
+   inpandfieldlen("subject",100);';
+   adminfoot('','',$arg1,'foo');
+//         if ($full_interface!='short')
+//            include('footer.php');
       }
    }
 ?>
