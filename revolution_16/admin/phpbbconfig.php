@@ -12,7 +12,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='ForumConfigAdmin';
 $f_titre = adm_translate('Configuration des Forums');
 //==> controle droit
@@ -33,7 +33,7 @@ function ForumConfigAdmin() {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Configuration des Forums").'</h3>
-   <form id="fad_forumconf" action="admin.php" method="post">
+   <form id="phpbbconfigforum" action="admin.php" method="post">
       <div class="row">
          <label class="col-form-label col-sm-5" for="allow_html">'.adm_translate("Autoriser le HTML").'</label>
          <div class="col-sm-7 my-2">';
@@ -85,31 +85,29 @@ function ForumConfigAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-5" for="hot_threshold">'.adm_translate("Seuil pour les Sujet 'chauds'").'</label>
          <div class="col-sm-7">
-            <input class="form-control" type="number" min="0" id="hot_threshold" name="hot_threshold" value="'.$hot_threshold.'" />
+            <input class="form-control" type="text" min="0" id="hot_threshold" name="hot_threshold" maxlength="6" value="'.$hot_threshold.'" />
+            <span class="help-block text-right" id="countcar_hot_threshold"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-5" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
          <div class="col-sm-7">
-            <input class="form-control" type="number" min="0" id="posts_per_page" name="posts_per_page" value="'.$posts_per_page.'" />
-         </div>
-         <div class="col-sm-7 ml-sm-auto">
-            <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'</span>
+            <input class="form-control" type="text" min="0" id="posts_per_page" name="posts_per_page" maxlength="6" value="'.$posts_per_page.'" />
+            <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'<span class="float-right ml-1" id="countcar_posts_per_page"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-5" for="topics_per_page">'.adm_translate("Sujets par forum :").'</label>
+         <label class="col-form-label col-sm-5" for="topics_per_page">'.adm_translate("Sujets par forum").'</label>
          <div class="col-sm-7">
-            <input class="form-control" type="number" min="0" id="topics_per_page" name="topics_per_page" size="4" value="'.$topics_per_page.'" />
-         </div>
-         <div class="col-sm-7 ml-sm-auto">
-            <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'</span>
+            <input class="form-control" type="text" min="0" id="topics_per_page" name="topics_per_page" maxlength="6" value="'.$topics_per_page.'" />
+            <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'<span class="float-right ml-1" id="countcar_topics_per_page"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-5" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
          <div class="col-sm-7">
-            <input class="form-control" type="number" min="0" id="anti_flood" name="anti_flood" value="'.$anti_flood.'" />
+            <input class="form-control" type="text" min="0" id="anti_flood" name="anti_flood" maxlength="6" value="'.$anti_flood.'" />
+            <span class="help-block text-right" id="countcar_anti_flood"></span>
          </div>
       </div>
       <div class="row">
@@ -162,30 +160,81 @@ function ForumConfigAdmin() {
       </div>
       <div class="form-group">
          <label class="col-form-label" for="rank1">'.adm_translate("Texte pour le rôle").' 1 </label>
-         <textarea class="form-control" name="rank1" rows="3" maxlength="255">'.$rank1.'</textarea>
+         <textarea class="form-control" id="rank1" name="rank1" rows="3" maxlength="255">'.$rank1.'</textarea>
+         <span class="help-block text-right" id="countcar_rank1"></span>
       </div>
       <div class="form-group">
          <label class="col-form-label" for="rank2">'.adm_translate("Texte pour le rôle").' 2 </label>
-         <textarea class="form-control" name="rank2" rows="3" maxlength="255">'.$rank2.'</textarea>
+         <textarea class="form-control" id="rank2" name="rank2" rows="3" maxlength="255">'.$rank2.'</textarea>
+         <span class="help-block text-right" id="countcar_rank2"></span>
       </div>
       <div class="form-group">
          <label class="col-form-label" for="rank3">'.adm_translate("Texte pour le rôle").' 3 </label>
-         <textarea class="form-control" name="rank3" rows="3" maxlength="255">'.$rank3.'</textarea>
+         <textarea class="form-control" id="rank3" name="rank3" rows="3" maxlength="255">'.$rank3.'</textarea>
+         <span class="help-block text-right" id="countcar_rank3"></span>
       </div>
       <div class="form-group">
          <label class="col-form-label" for="rank4">'.adm_translate("Texte pour le rôle").' 4 </label>
-         <textarea class="form-control" name="rank4" rows="3" maxlength="255">'.$rank4.'</textarea>
+         <textarea class="form-control" id="rank4" name="rank4" rows="3" maxlength="255">'.$rank4.'</textarea>
+         <span class="help-block text-right" id="countcar_rank4"></span>
       </div>
       <div class="form-group">
          <label class="col-form-label" for="rank5">'.adm_translate("Texte pour le rôle").' 5 </label>
-         <textarea class="form-control" name="rank5" rows="3" maxlength="255">'.$rank5.'</textarea>
+         <textarea class="form-control" id="rank5" name="rank5" rows="3" maxlength="255">'.$rank5.'</textarea>
+         <span class="help-block text-right" id="countcar_rank5"></span>
       </div>
       <input type="hidden" name="op" value="ForumConfigChange" />
       <div class="form-group">
          <button class="btn btn-primary" type="submit">'.adm_translate("Changer").'</button>
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $fv_parametres='
+      hot_threshold: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      posts_per_page: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      topics_per_page: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+      anti_flood: {
+         validators: {
+            regexp: {
+               regexp:/^\d{1,6}$/,
+               message: "0-9"
+            }
+         }
+      },
+   ';
+  $arg1='
+   var formulid = ["phpbbconfigforum"];
+   inpandfieldlen("posts_per_page",255);
+   inpandfieldlen("hot_threshold",255);
+   inpandfieldlen("topics_per_page",255);
+   inpandfieldlen("anti_flood",255);
+   inpandfieldlen("rank1",255);
+   inpandfieldlen("rank2",255);
+   inpandfieldlen("rank3",255);
+   inpandfieldlen("rank4",255);
+   inpandfieldlen("rank5",255);
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function ForumConfigChange($allow_html,$allow_bbcode,$allow_sig,$posts_per_page,$hot_threshold,$topics_per_page,$allow_upload_forum,$allow_forum_hide,$rank1,$rank2,$rank3,$rank4,$rank5,$anti_flood,$solved) {

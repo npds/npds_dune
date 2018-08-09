@@ -182,11 +182,11 @@ function DownloadAdmin() {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Ajouter un Téléchargement").'</h3>
-   <form action="admin.php" method="post" name="adminForm">
+   <form action="admin.php" method="post" id="downloadadd" name="adminForm">
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="durl" name="durl" maxlength="255" required="required" />
+            <input class="form-control" type="url" id="durl" name="durl" maxlength="255" required="required" />
    &nbsp;<a href="javascript:void(0);" onclick="window.open(\'admin.php?op=FileManagerDisplay\', \'wdir\', \'width=650, height=450, menubar=no, location=no, directories=no, status=no, copyhistory=no, toolbar=no, scrollbars=yes, resizable=yes\');">
    <span class="">['.adm_translate("Parcourir").']</span></a>
             <span class="help-block text-right"><span id="countcar_durl"></span></span>
@@ -195,7 +195,7 @@ function DownloadAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dcounter">'.adm_translate("Compteur").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="number" name="dcounter" maxlength="30" />
+            <input class="form-control" type="number" id="dcounter" name="dcounter" maxlength="30" />
          </div>
       </div>
       <div class="form-group row">
@@ -215,7 +215,7 @@ function DownloadAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dfilesize">'.adm_translate("Taille de fichier").' (bytes)</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="dfilesize" maxlength="31" />
+            <input class="form-control" type="text" id="dfilesize" name="dfilesize" maxlength="31" />
          </div>
       </div>
       <div class="form-group row">
@@ -251,14 +251,14 @@ function DownloadAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" name="xtext" rows="20" ></textarea>
+            <textarea class="tin form-control" id="xtext" name="xtext" rows="20" ></textarea>
          </div>
       </div>
       '.aff_editeur('xtext','').'
       <fieldset>
          <legend>'.adm_translate("Droits").'</legend>';
          droits('');
-         echo '
+   echo '
       </fieldset>
       <input type="hidden" name="op" value="DownloadAdd" />
       <div class="form-group row">
@@ -266,10 +266,9 @@ function DownloadAdmin() {
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
+   </form>';
+   $arg1='
+         var formulid = ["downloadadd"];
          inpandfieldlen("durl",255);
          inpandfieldlen("dfilename",255);
          inpandfieldlen("dver",6);
@@ -277,10 +276,8 @@ function DownloadAdmin() {
          inpandfieldlen("dweb",255);
          inpandfieldlen("duser",30);
          inpandfieldlen("dcategory",250);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function DownloadEdit($did) {
@@ -294,7 +291,7 @@ function DownloadEdit($did) {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer un Téléchargement").'</h3>
-   <form action="admin.php" method="post" name="adminForm">
+   <form action="admin.php" method="post" id="downloaded" name="adminForm">
       <input type="hidden" name="did" value="'.$did.'" />
       <input type="hidden" name="dcounter" value="'.$dcounter.'" />
       <div class="form-group row">
@@ -321,7 +318,7 @@ function DownloadEdit($did) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dfilesize">'.adm_translate("Taille de fichier").' (bytes)</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" name="dfilesize" value="'.$dfilesize.'" maxlength="31" />
+            <input class="form-control" type="text" id="dfilesize" name="dfilesize" value="'.$dfilesize.'" maxlength="31" />
          </div>
       </div>
       <div class="form-group row">
@@ -359,7 +356,7 @@ function DownloadEdit($did) {
       <div class="form-group row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" name="xtext" rows="20" >'.$ddescription.'</textarea>
+            <textarea class="tin form-control" id="xtext" name="xtext" rows="20" >'.$ddescription.'</textarea>
          </div>
       </div>
       '.aff_editeur('xtext','');
@@ -384,21 +381,18 @@ function DownloadEdit($did) {
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("durl",255);
-         inpandfieldlen("dfilename",255);
-         inpandfieldlen("dver",6);
-         inpandfieldlen("dfilesize",31);
-         inpandfieldlen("dweb",255);
-         inpandfieldlen("duser",30);
-         inpandfieldlen("dcategory",250);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+      var formulid = ["downloaded"];
+      inpandfieldlen("durl",255);
+      inpandfieldlen("dfilename",255);
+      inpandfieldlen("dver",6);
+      inpandfieldlen("dfilesize",31);
+      inpandfieldlen("dweb",255);
+      inpandfieldlen("duser",30);
+      inpandfieldlen("dcategory",250);
+';
+   adminfoot('fv','',$arg1,'');
 }
 
 function DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $ddate, $dver, $dcategory, $sdcategory, $description, $privs, $Mprivs) {

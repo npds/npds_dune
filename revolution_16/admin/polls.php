@@ -60,7 +60,7 @@ function poll_createPoll() {
       </table>
       <hr />
       <h3 class="mb-3">'.adm_translate("Créer un nouveau Sondage").'</h3>
-      <form action="admin.php" method="post">
+      <form id="pollssondagenew" action="admin.php" method="post">
          <input type="hidden" name="op" value="createPosted" />
          <div class="form-group row">
             <label class="col-form-label col-sm-3 " for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
@@ -70,12 +70,14 @@ function poll_createPoll() {
                <span class="help-block text-right"><span id="countcar_pollTitle"></span></span>
             </div>
          </div>';
+   $requi='';
    for ($i = 1; $i <= $maxOptions; $i++) {
+      if($i<3) $requi=' required="required" '; else $requi='';
       echo '
             <div class="form-group row">
                <label class="col-form-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
                <div class="col-sm-9" >
-                  <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" />
+                  <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" '.$requi.' />
                   <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
                </div>
             </div>';
@@ -95,20 +97,15 @@ function poll_createPoll() {
                </div>
             </div>
          </fieldset>
-      </form>
-      <script type="text/javascript">
-      //<![CDATA[
-         $(document).ready(function() {
-            inpandfieldlen("pollTitle",100)';
-            for ($i = 1; $i <= $maxOptions; $i++) {
-            echo '
-            inpandfieldlen("optionText'.$i.'",255)';
-            }
-            echo '
-         });
-      //]]>
-      </script>';
-   adminfoot('fv','','','');
+      </form>';
+   $arg1='
+   var formulid = ["pollssondagenew"];
+   inpandfieldlen("pollTitle",100)';
+   for ($i = 1; $i <= $maxOptions; $i++) {
+      $arg1.= '
+   inpandfieldlen("optionText'.$i.'",255)';
+   }
+   adminfoot('fv','',$arg1,'');
 }
 
 function poll_createPosted() {
@@ -244,7 +241,7 @@ function poll_editPollPosted() {
       echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Edition des sondages").'</h3>
-   <form method="post" action="admin.php">
+   <form id="pollssondageed" method="post" action="admin.php">
       <input type="hidden" name="op" value="SendEditPoll">
       <input type="hidden" name="pollID" value="'.$id.'" />
       <div class="form-group row">
@@ -255,13 +252,15 @@ function poll_editPollPosted() {
             <span class="help-block text-right"><span id="countcar_pollTitle"></span></span>
          </div>
       </div>';
+      $requi='';
          for ($i = 1; $i <= $maxOptions; $i++) {
+            if($i<3) $requi=' required="required" '; else $requi='';
          list($optionText, $voteID, $pollType) = sql_fetch_row($result);
          echo '
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
          <div class="col-sm-9 ">
-            <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" />
+            <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" '.$requi.' />
             <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
          </div>
       </div>';
@@ -294,23 +293,17 @@ function poll_editPollPosted() {
             <button class="btn btn-primary" type="submit">Ok</button>
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("pollTitle",100)';
-         for ($i = 1; $i <= $maxOptions; $i++) {
-         echo '
-         inpandfieldlen("optionText'.$i.'",255)';
-         }
-         echo '
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
-   } else {
+   </form>';
+      $arg1='
+   var formulid = ["pollssondageed"];
+   inpandfieldlen("pollTitle",100)';
+      for ($i = 1; $i <= $maxOptions; $i++) {
+         $arg1.= '
+      inpandfieldlen("optionText'.$i.'",255)';
+      }
+      adminfoot('fv','',$arg1,'');
+   } else
       header("location: admin.php?op=editpoll");
-   }
 }
 
 function poll_SendEditPoll() {
