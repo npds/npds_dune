@@ -35,7 +35,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
    echo'
    <hr />
    <h3 mb-3>'.adm_translate("Paramètres").'</h3>
-   <form id="archive_adm" class="form-horizontal" action="admin.php" method="post">
+   <form id="archiveadm" class="form-horizontal" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
@@ -61,13 +61,13 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
             <div class="col-sm-8">
-              <input id="maxcount" class="form-control" type="number" name="maxcount" value="'.$maxcount.'" min="0" max="500" required="required" />
+              <input class="form-control" type="text" id="maxcount" name="maxcount" value="'.$maxcount.'" min="0" max="500" maxlength="3" required="required" />
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
             <div class="col-sm-8">
-              <input id="retcache" class="form-control" type="number" name="retcache" value="'.$retcache.'" min="0" required="required" />
+              <input class="form-control" type="text" id="retcache" name="retcache" value="'.$retcache.'" min="0" maxlength="7" required="required" />
                <span class="help-block text-right">'.adm_translate("Temps de rétention en secondes").'</span>
             </div>
          </div>
@@ -85,8 +85,34 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
    </form>
    <hr />
    <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fa fa-external-link fa-lg mr-1" title="Voir le module en mode utilisation." data-toggle="tooltip" data-placement="right"></i>Voir le module en mode utilisation.</a>';
-   $arg1='inpandfieldlen("arch_titre",400);';
-   adminfoot('fv','',$arg1,'');
+   
+   $fv_parametres='
+   maxcount: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9](\d{0,2})$/,
+            message: "0-9"
+         },
+         between: {
+            min: 0,
+            max: 500,
+            message: "1 ... 500"
+         }
+      }
+   },
+   retcache: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9]\d{0,6}$/,
+            message: "0-9"
+         }
+      }
+   },
+   ';
+   $arg1='
+   var formulid=["archiveadm"];
+   inpandfieldlen("arch_titre",400);';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPath, $ModStart) {
