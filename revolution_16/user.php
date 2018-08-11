@@ -1087,11 +1087,11 @@ function edithome() {
    }
    echo '
    <h2 class="mb-3">'.translate("Change the home").'</h2>
-   <form action="user.php" method="post">
+   <form id="changehome" action="user.php" method="post">
    <div class="form-group row">
-      <label class="form-control-label col-sm-7" for="storynum">'.translate("News number in the Home").' (max. 127) :</label>
+      <label class="col-form-label col-sm-7" for="storynum">'.translate("News number in the Home").' (max. 127) :</label>
       <div class="col-sm-5">
-         <input class="form-control" type="number" min="0" max="127" id="storynum" name="storynum" value="'.$userinfo['storynum'].'" />
+         <input class="form-control" type="text" min="0" max="127" id="storynum" name="storynum" maxlength="3" value="'.$userinfo['storynum'].'" />
       </div>
    </div>';
    if ($userinfo['ublockon']==1) $sel = 'checked="checked"';
@@ -1124,6 +1124,26 @@ function edithome() {
          </div>
       </div>
    </form>';
+   $fv_parametres='
+   storynum: {
+      validators: {
+         regexp: {
+            regexp:/^[1-9](\d{0,2})$/,
+            message: "0-9"
+         },
+         between: {
+            min: 1,
+            max: 127,
+            message: "1 ... 127"
+         }
+      }
+   },';
+   $arg1='
+   var formulid=["changehome"];
+//   inpandfieldlen("arch_titre",400);';
+   adminfoot('fv',$fv_parametres,$arg1,'');
+   
+   
    include ("footer.php");
 }
 function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
