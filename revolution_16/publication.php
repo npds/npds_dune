@@ -60,7 +60,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
          </div>
-            <input type="text" class="form-control" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+            <input type="text" class="form-control" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
           <div class="input-group-prepend">
              <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
           </div>
@@ -74,7 +74,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
          </div>
-         <input type="text" class="form-control" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+         <input type="text" class="form-control" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
          </div>
