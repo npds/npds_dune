@@ -193,13 +193,6 @@ a:active, a:hover {
   padding:0.4rem;
 }
 
-/* ==> toggle systeme identique au navbar mais pour les col */
-
-@media (max-width: 991px) {
-  .n-c {display:none;}
-}
-/* <== toggle systeme identique au navbar mais pour les col */
-
 #col_LB ul, #col_RB ul{
   list-style: none;
   padding-left:0px;
