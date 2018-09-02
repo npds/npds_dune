@@ -321,7 +321,6 @@ function ForumGo($cat_id) {
             .on("change", function(e) {
             fvitem.revalidateField("forum_pass");
         });
-
    
    ';
 
