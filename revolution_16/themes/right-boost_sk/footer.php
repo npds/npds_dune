@@ -29,7 +29,7 @@ switch ($pdst)
    default:
       echo '
       </div>
-      <div id="col_LB" class="n-c col-lg-4">';
+      <div id="col_LB" class="collapse show col-lg-4">';
          leftblocks();
          rightblocks();
       echo '

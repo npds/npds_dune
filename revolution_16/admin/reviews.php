@@ -85,7 +85,7 @@ function reviews() {
                <div class="input-group-prepend date" id="datePicker">
                   <span class="input-group-text"><i class="fa fa-calendar-check-o fa-lg"></i></span>
                </div>
-               <input class="form-control" type="text" id="date" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+               <input class="form-control" type="text" id="date" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
             </div>
          </div>
       </div>

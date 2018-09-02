@@ -19,6 +19,18 @@
                $this.text(translator.get('Moins de contenu'));
             }
          });
-         });
+         if (matchMedia) {
+            const mq = window.matchMedia("(max-width: 991px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+         }
+         function WidthChange(mq) {
+            if (mq.matches) {
+               $("#col_LB, #col_RB").removeClass("show")
+            } else {
+               $("#col_LB, #col_RB").addClass("show")
+            }
+         }
+      });
       //]]
       </script>

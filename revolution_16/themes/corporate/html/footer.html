@@ -4,28 +4,28 @@
          <div class="container-fluid">
             <div class="row">
                <div class="col-sm-5 footer-blurb-item">
-                  <h3><span class="glyphicon glyphicon-fire"></span> Dynamically Procrastinate</h3>
+                  <h3><span class="glyphicon glyphicon-fire"></span> Premier Titre</h3>
                   <p>!sc_infos!
                   <br />!sc_infos_else!
                   <br />!msg_foot!
                   </p>
                </div>
                <div class="col-sm-4 footer-blurb-item">
-                  <h3><span class="glyphicon glyphicon-cloud-upload"></span> Efficiently Unleash</h3>
-                  <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. </p>
-                  <p><a class="btn btn-default" href="#">Unleash</a></p>
+                  <h3><span class="glyphicon glyphicon-cloud-upload"></span> Second Titre</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mollis commodo nunc, ut viverra nisi malesuada non. Donec quam mauris, finibus sed imperdiet id, semper id velit. </p>
+                  <p><a class="btn btn-light" href="#">Bouton-light</a></p>
                </div>
                <div class="col-sm-3 footer-blurb-item">
-                  <h3><span class="glyphicon glyphicon-leaf"></span> Completely Synergize</h3>
-                  <p>Professionally cultivate one-to-one customer service with robust ideas. Completely synergize resource taxing relationships via premier niche markets. Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
-                  <p><a class="btn btn-default" href="#">Synergize</a></p>
+                  <h3><span class="glyphicon glyphicon-leaf"></span> Troisième Titre</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mollis commodo nunc, ut viverra nisi malesuada non. Donec quam mauris, finibus sed imperdiet id, semper id velit. Proin vestibulum mollis nulla vel dignissim. Aliquam vestibulum posuere metus sit amet pulvinar.</p>
+                  <p><a class="btn btn-light" href="#">Bouton-light</a></p>
                </div>
             </div><!-- /.row -->
          </div>
       </div>
       <div class="small-print">
          <div class="container">
-            <p><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact</a></p>
+            <p><a href="#">Exemple Lien 1</a> | <a href="#">Lien 2</a> | <a href="#">Contact</a></p>
             <p>Copyright &copy; Example.com 2015 </p>
          </div>
       </div>
@@ -45,7 +45,19 @@
                   $this.text(translator.get('Moins de contenu'));
                }
             });
-            });
+            if (matchMedia) {
+               const mq = window.matchMedia("(max-width: 991px)");
+               mq.addListener(WidthChange);
+               WidthChange(mq);
+            }
+            function WidthChange(mq) {
+               if (mq.matches) {
+                  $("#col_LB, #col_RB").removeClass("show")
+               } else {
+                  $("#col_LB, #col_RB").addClass("show")
+               }
+            }
+         });
          //]]
       </script>
    </footer>
