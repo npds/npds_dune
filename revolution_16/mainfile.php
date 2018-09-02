@@ -3272,6 +3272,5 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
          include ('footer.php');
       break;
    }
-   
 }
 ?>
