@@ -3064,13 +3064,15 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    $scri_js.='
    <script type="text/javascript">
    //<![CDATA[
-   '.$list_json;
-   if($id_inpu !='')
+      $(function() {
+      '.$list_json;
+      if($id_inpu !='')
+         $scri_js .= '
+      $( "#'.$id_inpu.'" ).autocomplete({
+         source: '.$nom_array_js.'
+       });';
       $scri_js .= '
-   $( "#'.$id_inpu.'" ).autocomplete({
-      source: '.$nom_array_js.'
-    });';
-   $scri_js .= '
+      });
    //]]>
    </script>';
    return ($scri_js);
@@ -3152,22 +3154,6 @@ function language_iso($l,$s,$c) {
     if (($l==1) and ($c!==1)) $ietf=$iso_lang;
     return ($ietf);
 }
-/*
-   <script type="text/javascript" src="lib/formvalidation/dist/js/formValidation.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/language/'.language_iso(1,"_",1).'.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/framework/bootstrap4.min.js"></script>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation1.2.0/dist/js/FormValidation.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation1.2.0/dist/js/locales/'.language_iso(1,"_",1).'.js"></script>
-   <script type="text/javascript" src="lib/formvalidation1.2.0/dist/js/plugins/Bootstrap.min.js"></script>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
-
-
-
-
-*/
 
 #autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>js pur au début du script js,  $foo =='' ==> </div> et inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
@@ -3184,12 +3170,9 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    //<![CDATA[
    '.$arg1.'
    var diff;
-   
    document.addEventListener("DOMContentLoaded", function(e) {
    
    formulid.forEach(function(item, index, array) {
-   
-      //eval("fv" + index + "=\'\'");
       const fvitem = FormValidation.formValidation(
          document.getElementById(item),{
             locale: "'.language_iso(1,"_",1).'",
@@ -3232,7 +3215,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
 });
       
 /*      
-      .on("success.validator.fv", function(e, data) {
+      .on("core.validator.validated", function(e, data) {
       // The password passes the callback validator
       // voir si on a plus de champs mot de passe : changer par un array de champs ...
       if ((data.field === "add_pwd" || data.field === "chng_pwd" || data.field === "pass" || data.field === "add_pass") && data.validator === "callback") {
@@ -3274,9 +3257,6 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
          }
          }
       });
-      
-      
-   })
    
    */
    //]]>
