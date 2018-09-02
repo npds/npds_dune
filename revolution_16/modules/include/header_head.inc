@@ -30,7 +30,8 @@ echo '
 ';
 
 if(defined('CITRON')){
-echo '
+   if (function_exists('language_iso'))
+      echo '
 <script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
 <script type="text/javascript" src="/lib/tarteaucitron/tarteaucitron.js"></script>
 <script type="text/javascript">
