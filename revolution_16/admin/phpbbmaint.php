@@ -68,12 +68,12 @@ function ForumMaintMarkTopics() {
    echo '
    </tbody>
    </table>';
-   sql_free_result;
+   sql_free_result();
    adminfoot('','','','');
 }
 
 function ForumMaintTopics($before,$forum_name) {
-   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $parse;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -81,52 +81,42 @@ function ForumMaintTopics($before,$forum_name) {
    echo '
    <hr />
    <h3 class="text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>';
-    if ($before!='') {
-        echo '&nbsp;<span class="text-danger">< '.$before.'</span>';
-       $add_sql="and topic_time<'$before'";
-       $topic_check=' checked="checked"';
-    } else {
-       $add_sql='';
-       $topic_check='';
-    }
-    if ($forum_name!='')
-       $add_sql2="WHERE forum_name='$forum_name'";
-    else
-       $add_sql2='';
+   if ($before!='') {
+      echo '&nbsp;<span class="text-danger">< '.$before.'</span>';
+      $add_sql="and topic_time<'$before'";
+      $topic_check=' checked="checked"';
+   } else {
+      $add_sql='';
+      $topic_check='';
+   }
+   if ($forum_name!='')
+      $add_sql2="WHERE forum_name='$forum_name'";
+   else
+      $add_sql2='';
 
-   echo '<form action="admin.php" method="post">';
-    echo "<table>\n";
-    $resultF=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums $add_sql2 ORDER BY forum_id ASC");
-    while (list($forum_id, $forum_name)=sql_fetch_row($resultF)) {
-       $rowcolor = tablos();
-       echo "<tr $rowcolor><td align=\"left\"><b>$forum_name</b></td>";
+   echo '
+   <form action="admin.php" method="post">';
+   $resultF=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums $add_sql2 ORDER BY forum_id ASC");
+   while (list($forum_id, $forum_name)=sql_fetch_row($resultF)) {
+      echo '
+       <h4>'.$forum_name.'</h4>';
        $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
-       $ibid=0;
        while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
-          if ($parse==0) {
+          if ($parse==0)
              $tt =  FixQuotes($topic_title);
-          } else {
+          else
              $tt =  stripslashes($topic_title);
-          }
-          if ($ibid==20) {
-             echo "</tr><tr><td>&nbsp;</td>";
-             $ibid=0;
-          }
-          $ibid++;
-          echo "<td align=\"center\"><a href=\"admin.php?op=MaintForumTopicDetail&amp;topic=$topic_id&amp;topic_title=".urlencode($tt)."\" title=\"$tt\" class=\"noir\">$topic_id</a><br />
-          <input class=\"texbox\" type=\"checkbox\" name=\"topics[$topic_id]\" $topic_check /></td>";
+          echo '<a href="admin.php?op=MaintForumTopicDetail&amp;topic='.$topic_id.'&amp;topic_title="'.urlencode($tt).'" title="'.$tt.'" >'.$topic_id.'</a>
+          <input type="checkbox" name="topics['.$topic_id.']" '.$topic_check.' />';
        }
-       if ($ibid<20)
-          echo "<td colspan=\"".(20-$ibid)."\">&nbsp;</td>";
     }
     echo '
-    </tr>
-    </table>
-    <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />';
-    echo "
-    <input class=\"btn btn-danger\" type=\"submit\" name=\"Topics_Del\" value=\"".adm_translate("Supprimer massivement les Topics")."\" />";
-    echo '</form>';
-    sql_free_result;
+    <div class="form-group>"
+       <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />
+       <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Supprimer massivement les Topics").'" />
+   </div>
+    </form>';
+    sql_free_result();
     adminfoot('','','','');
 }
 
@@ -135,14 +125,16 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '
-   <h3>'.adm_translate("Supprimer massivement les Topics").'</h3>
-   <form action="admin.php" method="post">';
-   $resultTT=sql_query("SELECT post_text, post_time FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' ORDER BY post_time DESC limit 0,1");
+   $resultTT=sql_query("SELECT post_text, post_time FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' ORDER BY post_time DESC LIMIT 0,1");
    list($post_text, $post_time)=sql_fetch_row($resultTT);
-   echo "<input type=\"hidden\" name=\"op\" value=\"ForumMaintTopicSup\" /><input type=\"hidden\" name=\"topic\" value=\"$topic\" />";
+   echo '
+   <h3 class="mb-3">'.adm_translate("Supprimer massivement les Topics").'</h3>
+   <form action="admin.php" method="post">
+      <input type="hidden" name="op" value="ForumMaintTopicSup" />
+      <input type="hidden" name="topic" value="'.$topic.'" />';
    echo "<b>Topic : $topic | ".stripslashes($topic_title)."</b> | ";
-   echo "<input class=\"btn btn-danger\" type=\"submit\" name=\"Topics_Del\" value=\"".adm_translate("Effacer")."\" /><hr noshade=\"noshade\" class=\"ongl\" />";
+   echo "<input class=\"btn btn-danger\" type=\"submit\" name=\"Topics_Del\" value=\"".adm_translate("Effacer")."\" />
+   <hr noshade=\"noshade\" class=\"ongl\" />";
    echo '[ '.convertdate($post_time).' ]<br /><br />';
    echo stripslashes($post_text);
    echo '</form>';
@@ -166,7 +158,7 @@ function ForumMaintTopicMassiveSup($topics) {
              control_efface_post("forum_npds","",$topic_id,"");
           }
        }
-       sql_free_result;
+       sql_free_result();
     }
     Q_Clean();
     header("location: admin.php?op=MaintForumAdmin");
@@ -183,7 +175,7 @@ function ForumMaintTopicSup($topic) {
     $sql = "DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic'";
     if (!$r = sql_query($sql))
        forumerror('0001');
-    sql_free_result;
+    sql_free_result();
     control_efface_post("forum_npds","",$topic,"");
     Q_Clean();
     header("location: admin.php?op=MaintForumTopics");
@@ -197,7 +189,7 @@ function SynchroForum() {
     while (list($topi_cid, $foru_mid)=sql_fetch_row($result1)) {
       sql_query("UPDATE ".$NPDS_Prefix."posts SET forum_id='$foru_mid' WHERE topic_id='$topi_cid' and forum_id>0");
     }
-    sql_free_result;
+    sql_free_result();
 
     // table forum_read et contenu des topic
     if (!$result1 = sql_query("SELECT topicid, uid, rid FROM ".$NPDS_Prefix."forum_read ORDER BY topicid ASC"))
@@ -214,7 +206,7 @@ function SynchroForum() {
           }
        }
     }
-    sql_free_result;
+    sql_free_result();
     header("location: admin.php?op=MaintForumAdmin");
 }
 
@@ -225,13 +217,13 @@ function MergeForum() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr/>
-   <h3>'.adm_translate("Fusionner des forums").'</h3>
+   <h3 class="mb-3">'.adm_translate("Fusionner des forums").'</h3>
    <form id="fad_mergeforum" action="admin.php" method="post">
       <fieldset>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="oriforum">';
+               <select class="custom-select form-control" id="oriforum" name="oriforum">';
    $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id";
    if ($result = sql_query($sql)) {
       if ($myrow = sql_fetch_assoc($result)) {
@@ -254,7 +246,7 @@ function MergeForum() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="destforum">';
+               <select class="custom-select form-control" id="destforum" name="destforum">';
     if ($result = sql_query($sql)) {
        if ($myrow = sql_fetch_assoc($result)) {
           do {
@@ -281,7 +273,7 @@ function MergeForum() {
          </div>
       </fieldset>
    </form>';
-    sql_free_result;
+    sql_free_result();
     adminfoot('','','','');
 }
 function MergeForumAction($oriforum,$destforum) {
@@ -298,7 +290,7 @@ function MergeForumAction($oriforum,$destforum) {
        forumerror('0001');
     $sql = "UPDATE $upload_table SET forum_id='$destforum' WHERE apli='forum_npds' and forum_id='$oriforum'";
     sql_query($sql);
-    sql_free_result;
+    sql_free_result();
     Q_Clean();
     header("location: admin.php?op=MaintForumAdmin");
 }
@@ -310,43 +302,47 @@ function ForumMaintAdmin() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Maintenance des Forums").'</h3>';
+   <h3 class="mb-3">'.adm_translate("Maintenance des Forums").'</h3>';
    // Mark Topics, Synchro Forum_read table, Merge Forums
    echo '
    <div class="row">
       <div class="col-12">
          <form id="fad_forumaction" action="admin.php" method="post">
             <input type="hidden" name="op" value="MaintForumMarkTopics" />
-            <button class="btn btn-primary btn-block btn-lg" type="submit" name="Topics_Mark"><i class="fa fa-check-square-o fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
+            <button class="btn btn-primary btn-block mt-1" type="submit" name="Topics_Mark"><i class="fa fa-check-square-o fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
          </form>
       </div>
       <div class="col-12">
          <form action="admin.php" method="post">
             <input type="hidden" name="op" value="SynchroForum" />
-            <button class="btn btn-primary btn-block btn-lg" type="submit" name="Synchro_Forum"><i class="fa fa-refresh fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
+            <button class="btn btn-primary btn-block mt-1 " type="submit" name="Synchro_Forum"><i class="fa fa-refresh fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
          </form>
       </div>
       <div class="col-12">
          <form action="admin.php" method="post">
             <input type="hidden" name="op" value="MergeForum" />
-            <button class="btn btn-primary btn-block btn-lg" type="submit" name="Merge_Forum"><i class="fa fa-compress fa-lg"></i>&nbsp;'.adm_translate("Fusionner des forums").'</button>
+            <button class="btn btn-primary btn-block mt-1" type="submit" name="Merge_Forum"><i class="fa fa-compress fa-lg"></i>&nbsp;'.adm_translate("Fusionner des forums").'</button>
          </form>
       </div>
    </div>
-   <br />
-   <form id="fad_forumdelete" action="admin.php" method="post">
-      <legend>'.adm_translate("Supprimer massivement les Topics").'</legend>
+   <h3 class="my-3">'.adm_translate("Supprimer massivement les Topics").'</h3>
+   <form id="faddeletetop" action="admin.php" method="post" autocomplete="nope" >
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
+         <label class="col-form-label col-sm-4" for="titreforum">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="forum_name" id="forum_name" maxlength="150" />
+            <input type="text" class="form-control" name="forum_name" id="titreforum" maxlength="150" autocomplete="nope" placeholder="   " />
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="before">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
-            <div id="embeddingDatePicker"></div>
-            <input type="hidden" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" />
+            <div class="input-group">
+               <div class="input-group-prepend date" id="datePicker">
+                  <span class="input-group-text"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+               </div>
+               <input type="text" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+            </div>
+            <span class="help-block text-right">Avant cette date !</span>
          </div>
       </div>
       <div class="form-group row">
@@ -356,40 +352,21 @@ function ForumMaintAdmin() {
          </div>
       </div>
    </form>
+   <script type="text/javascript">
+      //<![CDATA[
+         $(document).ready(function() {
+            $("<link>")
+               .appendTo("head")
+               .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+         });
+      //]]>
+   </script>
    <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" ></script>
    <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" ></script>
-   <script>
-   $(document).ready(function() {
-      $("<link>")
-         .appendTo("head")
-         .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-       $("#embeddingDatePicker")
-        .datepicker({
-            format: "yyyy-mm-dd",
-            language:"'.language_iso(1,'','').'",
-            title:"Avant cette date"
-        })
-        .on("changeDate", function(e) {
-            $("#before").val($("#embeddingDatePicker").datepicker("getFormattedDate"));
-            $("#fad_forumdelete").formValidation("revalidateField", "before");
-        });
-   });
-   </script>';
-   $fv_parametres ='
-            before: {
-                excluded: false,
-                validators: {
-                    notEmpty: {
-                        message: "The date is required"
-                    },
-                    date: {
-                        format: "YYYY-MM-DD",
-                        message: "The date is not a valid"
-                    }
-                }
-            },';
-
-   echo auto_complete("forname","forum_name","forums","forum_name","86400");
-   adminfoot('fv',$fv_parametres,'','');
+';
+   $arg1 ='
+   var formulid = ["faddeletetop"];';
+   echo auto_complete("forname","forum_name","forums","titreforum","86400");
+   adminfoot('fv','',$arg1,'');
 }
 ?>
