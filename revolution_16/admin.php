@@ -59,19 +59,19 @@ function login() {
    <h1>'.adm_translate("Administration").'</h1>
    <div id ="adm_men">
       <div class="men_tit">
-         <h2><img class="adm_img vam" src="'.$adminimg.'login.png" />&nbsp;<a href="admin.php" class="">'.adm_translate("Connexion").'</a></h2>
+         <h2 class="mb-3"><img class="adm_img vam" src="'.$adminimg.'login.png" />&nbsp;<a href="admin.php">'.adm_translate("Connexion").'</a></h2>
       </div>
-      <form action="admin.php" method="post" name="adminlogin">
+      <form action="admin.php" method="post" id="adminlogin" name="adminlogin">
          <fieldset>
             <div class="form-group row">
-               <label class="control-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
+               <label class="col-form-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
                <div class="col-sm-8">
                   <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
                   <span class="help-block text-right"><span id="countcar_aid"></span></span>
                </div>
             </div>
             <div class="form-group row">
-               <label class="control-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
+               <label class="col-form-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
                <div class="col-sm-8">
                   <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
                   <span class="help-block text-right"><span id="countcar_pwd"></span></span>
@@ -94,7 +94,10 @@ function login() {
       });
       //]]>
       </script>';
-   adminfoot('fv','','','');
+      $arg1='
+      var formulid =["adminlogin"];
+      ';
+   adminfoot('fv','',$arg1,'');
 }
 
 function GraphicAdmin($hlpfile) {
