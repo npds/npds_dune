@@ -121,9 +121,9 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
    $out_template = 0;
    if ($aff) {
       echo '
-         <a class="mr-3" href="#" data-toggle="modal" data-target="#'.$did.'" title="'.translate("File Information").'" data-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
+         <a class="mr-3" href="#" data-toggle="modal" data-target="#mo'.$did.'" title="'.translate("File Information").'" data-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
          <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Download Now!").'" data-toggle="tooltip"><i class="fa fa-download fa-2x"></i></a>
-        <div class="modal fade" id="'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
+        <div class="modal fade" id="mo'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
             <div class="modal-dialog">
                <div class="modal-content">
                   <div class="modal-header">
