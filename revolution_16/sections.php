@@ -68,7 +68,8 @@ function listsections($rubric) {
             $aff.='
          <a class="ml-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-right">#NEW#<span class="badge badge-secondary" title="'.translate("Sub-section").'" data-toggle="tooltip" data-placement="left">'.$nb_section.'</span></span>
       </h3>';
-            if ($intro!='') {$aff.='<p class="text-muted">'.aff_langue($intro).'</p>';};
+            if ($intro!='')
+               $aff.='<p class="text-muted">'.aff_langue($intro).'</p>';
             $aff.= '
       <div id="rub-'.$rubid.'" class="collapse" >';
             while (list($secid, $secname, $image, $userlevel, $intro) = sql_fetch_row($result2)) {
@@ -82,7 +83,7 @@ function listsections($rubric) {
             <h4 class="mb-2">';
             if($nb_art!==0)
                $aff.='
-               <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;';
+               <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-up"></i></a>&nbsp;';
                   $aff1= aff_langue($secname).'<span class=" float-right">#NEW#<span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></span>';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
@@ -91,11 +92,9 @@ function listsections($rubric) {
                   }
                      $aff1.='
             </h4>';
-                  if ($intro!='') {
+                  if ($intro!='')
                      $aff1.='<p class="">'.aff_langue($intro).'</p>';
-                  }
-
-                     $aff2='
+                  $aff2='
             <div id="sec'.$secid.'" class="collapse show">
                <div class="">';
                   $noartid=false;
@@ -105,11 +104,10 @@ function listsections($rubric) {
                      if ($okprintLV2) {
                         $noartid=true;
                         $nouveau='oo';
-                        if ((time()-$timestamp)<(86400*7)) {
+                        if ((time()-$timestamp)<(86400*7))
                            $nouveau='';
-                        }
                         $aff2.='<a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a><span class="float-right"><small>'.translate("read:").' '.$counter.' '.translate("times").'</small>';
-                        if ($nouveau=="") {
+                        if ($nouveau=='') {
                            $aff2.='<i class="fa fa-star-o ml-3 text-success"></i>';
                            $aff1 = str_replace('#NEW#','<span class="mr-2 badge badge-success animated faa-flash">N</span>',$aff1);
                            $aff = str_replace('#NEW#','<span class="mr-2 badge badge-success animated faa-flash">N</span>',$aff);
@@ -137,9 +135,8 @@ function listsections($rubric) {
 */
       sql_free_result($result);
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingPage();
-   }
    include ('footer.php');
 }
 
@@ -161,9 +158,8 @@ function listarticles($secid) {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
+   } else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       $okprint1=autorisation_section($userlevel);
       if ($okprint1) {
@@ -213,14 +209,12 @@ function listarticles($secid) {
          echo '
          <a class="btn btn-secondary" href="sections.php">'.translate("Return to Sections Index").'</a>';
 */
-      } else {
+      } else
          redirect_url("sections.php");
-      }
       sql_free_result($result);
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingPage();
-   }
    include ('footer.php');
 }
 

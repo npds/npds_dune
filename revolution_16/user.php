@@ -1139,12 +1139,8 @@ function edithome() {
       }
    },';
    $arg1='
-   var formulid=["changehome"];
-//   inpandfieldlen("arch_titre",400);';
+   var formulid=["changehome"];';
    adminfoot('fv',$fv_parametres,$arg1,'');
-   
-   
-   include ("footer.php");
 }
 function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
     global $NPDS_Prefix, $user;
@@ -1162,9 +1158,8 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
         $cache_obj = new cacheManager();
         $cache_obj->UsercacheCleanup();
         Header("Location: user.php?op=edithome");
-    } else {
+    } else
         Header("Location: index.php");
-    }
 }
 
 function chgtheme() {
@@ -1217,6 +1212,7 @@ function chgtheme() {
          <div class="col-sm-7">
             <select class="custom-select form-control" id="skin" name="skin">';
    $cookie=cookiedecode($user);
+
    foreach ($skins as $k => $v) {
       echo '
                <option value="'.$skins[$k]['name'].'" ';
@@ -1277,9 +1273,8 @@ function savetheme($uid, $theme, $skin) {
       $cache_obj = new cacheManager();
       $cache_obj->UsercacheCleanup();
       Header("Location: user.php");
-   } else {
+   } else
       Header("Location: index.php");
-   }
 }
 
 function editjournal(){
