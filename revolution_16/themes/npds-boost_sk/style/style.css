@@ -119,7 +119,7 @@ table{table-layout: fixed;}
 /* ==> adaptation menu */
 
 @media (min-width: 768px) {
-  .page-header {
+  .page-header, .datepicker {
     margin: 53px 0 20px;
     padding:1rem;
   }
@@ -145,6 +145,9 @@ table{table-layout: fixed;}
     margin: 1.5rem 0 20px;
     padding:1rem;display:none;
   }
+  .datepicker{
+   margin: 4rem 0 20px;
+}
 }
 
 .dropdown:hover .dropdown-menu {
@@ -155,7 +158,6 @@ table{table-layout: fixed;}
 ul.dropdown-menu {
   margin-top: 0;
 }
-
 
 /* <== adaptation menu */
 
@@ -199,13 +201,6 @@ ul.dropdown-menu {
 .card-block-small {
   padding:0.4rem;
 }
-
-/* ==> toggle systeme identique au navbar mais pour les col */
-
-@media (max-width: 991px) {
-  .n-c {display:none;}
-}
-/* <== toggle systeme identique au navbar mais pour les col */
 
 #col_LB ul, #col_RB ul{
   list-style: none;
@@ -517,9 +512,11 @@ form .form-control-feedback:hover {
   cursor: pointer;
 }
 
+/* 
 .datepicker {
   width:320px;
 }
+ */
 .datepicker-inline {
   width:100%;
 }
@@ -1761,7 +1758,9 @@ a.tooltip_ws:hover em span {
 input[required='required'] {
 border: 1px solid ;
 }
-
+textarea[required='required'] {
+border: 1px solid ;
+}
 
 /* ==> personalisation responsivité des colonnes de card */
 
