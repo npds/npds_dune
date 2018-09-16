@@ -21,7 +21,7 @@ CREATE TABLE appli_log (
   al_id int(11) NOT NULL DEFAULT '0',
   al_name varchar(255) DEFAULT NULL,
   al_subid int(11) NOT NULL DEFAULT '0',
-  al_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  al_date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   al_uid int(11) NOT NULL DEFAULT '0',
   al_data text,
   al_ip varchar(19) NOT NULL DEFAULT '',
@@ -178,7 +178,7 @@ CREATE TABLE downloads (
   durl varchar(255) DEFAULT NULL,
   dfilename varchar(255) DEFAULT NULL,
   dfilesize bigint(15) unsigned DEFAULT NULL,
-  ddate date NOT NULL DEFAULT '0000-00-00',
+  ddate date NOT NULL DEFAULT '1000-01-01',
   dweb varchar(255) DEFAULT NULL,
   duser varchar(30) DEFAULT NULL,
   dver varchar(6) DEFAULT NULL,
@@ -426,7 +426,7 @@ INSERT INTO links_categories VALUES (1, 'Mod&eacute;le', '');
 CREATE TABLE links_editorials (
   linkid int(11) NOT NULL DEFAULT '0',
   adminid varchar(60) NOT NULL DEFAULT '',
-  editorialtimestamp datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  editorialtimestamp datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   editorialtext text NOT NULL,
   editorialtitle varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (linkid)
@@ -506,7 +506,7 @@ CREATE TABLE lnl_head_foot (
 CREATE TABLE lnl_outside_users (
   email varchar(60) NOT NULL DEFAULT '',
   host_name varchar(60) DEFAULT NULL,
-  date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (email)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -518,7 +518,7 @@ CREATE TABLE lnl_send (
   footer int(11) NOT NULL DEFAULT '0',
   number_send int(11) NOT NULL DEFAULT '0',
   type_send char(3) NOT NULL DEFAULT 'ALL',
-  date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
@@ -837,7 +837,7 @@ CREATE TABLE related (
 
 CREATE TABLE reviews (
   id int(10) NOT NULL AUTO_INCREMENT,
-  date date NOT NULL DEFAULT '0000-00-00',
+  date date NOT NULL,
   title varchar(150) NOT NULL DEFAULT '',
   text text NOT NULL,
   reviewer varchar(20) DEFAULT NULL,
