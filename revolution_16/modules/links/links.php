@@ -7,7 +7,7 @@
 /*                                                                      */
 /* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
 /*                                                                      */
-/* New Links.php Module with SFROM extentions                           */
+/* New Links.php Module with SFORM extentions                           */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -51,7 +51,7 @@ function SearchForm() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="topicL" >'.translate("Select Topic").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="topicL">';
+               <select class="custom-select form-control" id="topicL" name="topicL">';
       $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
       echo '
                   <option value="">'.translate("All Topics").'</option>';
@@ -92,28 +92,23 @@ function autorise_mod($lid,$aff) {
       $result = sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$Xadmin[0]'");
       list($radminsuper) = sql_fetch_row($result);
       if ($radminsuper==1) {// faut remettre le controle des droits probablement pour les admin qui ont le droit link ??!!
-         if ($aff) {
+         if ($aff)
             echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
-         }
          return(true);
-      } else {
+      } else
          return(false);
-      }
    } elseif ($user!='') {
       global $cookie;
       $resultX=sql_query("SELECT submitter FROM ".$links_DB."links_links WHERE submitter='$cookie[1]' AND lid='$lid'");
       list($submitter) = sql_fetch_row($resultX);
       if ($submitter==$cookie[1]) {
-         if ($aff) {
+         if ($aff)
             echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
-         }
          return(true);
-      } else {
+      } else
          return(false);
-      }
-   } else {
+   } else
       return(false);
-   }
 }
 
 function index() {
@@ -125,11 +120,9 @@ function index() {
    if ($SuperCache) {
       $cache_obj = new cacheManager();
       $cache_obj->startCachingPage();
-   } else {
+   } else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
-      
       $mainlink = 'in_l';
       menu($mainlink);
 
@@ -256,7 +249,7 @@ function viewlink($cid, $min, $orderby, $show) {
          }
          $affsouscat .= '
       </ul>';
-      if ($numrows_lst != 0)
+      if ($numrows != 0)
          echo $affsouscat;
 
       $orderbyTrans = convertorderbytrans($orderby);
@@ -278,12 +271,10 @@ function viewlink($cid, $min, $orderby, $show) {
 
       if ($linkpageremainder != 0) {
          $linkpages = ceil($linkpagesint);
-         if ($totalselectedlinks < $perpage) {
+         if ($totalselectedlinks < $perpage)
             $linkpageremainder = 0;
-         }
-      } else {
+      } else
          $linkpages = $linkpagesint;
-      }
 
    $nbPages = ceil($totalselectedlinks/$perpage);
    $current = 1;
@@ -498,7 +489,7 @@ function viewlinkeditorial($lid, $ttitle) {
          echo '
          <h4>'.aff_langue($editorialtitle).'</h4>
          <p><span class="text-muted small">'.translate("Editorial by").' '.$adminid.' - '.$formatted_date.'</span></p>
-         <hr noshade="noshade" />'.aff_langue($editorialtext);
+         <hr/>'.aff_langue($editorialtext);
       }
    }
    else
