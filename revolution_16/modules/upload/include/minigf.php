@@ -3,6 +3,7 @@
 <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script type="text/javascript" src="lib/js/bootbox.min.js"></script>
 <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
 
 <script type="text/javascript">
@@ -61,7 +62,7 @@ function deleteFile(f) {
   }
   if (sel == false) {
     f.actiontype.value='';
-    alert(htmlDecode("<?php echo upload_translate("Vous devez tout d'abord choisir la Pièce jointe à supprimer")?>"));
+    bootbox.alert(htmlDecode("<?php echo upload_translate("Vous devez tout d'abord choisir la Pièce jointe à supprimer")?>"));
     return false;
   } else {
     if (window.confirm(htmlDecode("<?php echo upload_translate("Supprimer les fichiers sélectionnés ?")?>")) ) {
@@ -87,15 +88,27 @@ function uploadFile(f) {
     uniqueSubmit(f);
   } else {
     f.actiontype.value='';
-    alert (htmlDecode("<?php echo upload_translate('Vous devez sélectionner un fichier')?>"));
+    bootbox.alert (htmlDecode("<?php echo upload_translate('Vous devez sélectionner un fichier')?>"));
    f.pcfile.focus();
   }
 }
+/* 
 function confirmSendFile(f) {
-  if (window.confirm("<?php echo upload_translate('Joindre le fichier maintenant ?')?>") ) {
+  if (window.confirm("<?php echo upload_translate('Joindre le fichier maintenant ?')?>")) {
     uploadFile(f);
   }
 }
+ */
+
+function confirmSendFile(f) {
+   bootbox.confirm("<?php echo upload_translate('Joindre le fichier maintenant ?')?>",
+      function(result) {
+      if (result === true) {
+         uploadFile(f);
+       }
+   }); 
+}
+
 //]]>
 </script>
 
@@ -184,7 +197,7 @@ function confirmSendFile(f) {
       if ($Mmod) {
          $visu_button='<button class="btn btn-outline-primary btn-sm btn-block" onclick="visibleFile(this.form);">'.upload_translate("Adapter").'<span class="d-none d-xl-inline"> '.upload_translate("Visibilité").'</span></button>';
       }
-      if ($ibid=theme_image("upload/arrow.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/upload/arrow.gif";}
+
       $att_table.='
          </tbody>
       </table>
@@ -202,7 +215,7 @@ function confirmSendFile(f) {
       <div class="form-group row">
          <label class="col-form-label col-sm-3">'.upload_translate("Fichier joint").'</label>
          <div class="col-sm-9">
-            <input type="file" class="form-control" name="pcfile" size="30" onchange="confirmSendFile(this.form);" />
+            <input type="file" class="form-control" id="pcfile" name="pcfile" size="30" onchange="confirmSendFile(this.form);" />
          </div>
       </div>
       <div class="form-group row">

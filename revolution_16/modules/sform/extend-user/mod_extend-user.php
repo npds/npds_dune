@@ -26,4 +26,5 @@ $m->add_url("user.php");
 include($sform_path."extend-user/mod_formulaire.php");
 /************************************************/
 echo $m->print_form('');
+adminfoot('fv',$fv_parametres,$arg1,'no')
 ?>

@@ -21,7 +21,7 @@ global $language, $NPDS_Prefix;
 $hlpfile = "manuels/$language/weblinks.html";
 
 // valeur du pas de pagination
-$rupture=4;//100
+$rupture=100;//100
 
 function links() {
    global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
@@ -1007,6 +1007,10 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
       message_error('<div class="alert alert-success"><strong>'.adm_translate("Nouveau Lien ajouté dans la base de données").'</strong></div>');
    }
 }
+
+settype($op,'string');
+settype($sid,'integer');
+settype($ok,'integer');
 
 switch ($op) {
    case 'links':
