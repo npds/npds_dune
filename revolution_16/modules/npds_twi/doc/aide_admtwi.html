@@ -11,24 +11,29 @@
 Ce module n&eacute;cessite l'ouverture d'un compte twitter et la cr&eacute;ation d'une application Twitter pour l'utilisation des APIs sur votre site.<br />
 - Si vous n'avez <b>PAS</b> ces &eacute;l&eacute;ments, suivez la proc&eacute;dure ci-dessous.<br />
 <br />
-<h4>Proc&eacute;dure Twitter :</h4>
-1. Inscrivez vous <a href="http://twitter.com/">ICI</a>.<br />
+<h4>Proc&eacute;dure Twitter</h4>
+1. Inscrivez vous sur twitter en tant qu'utilisateur <a href="http://twitter.com/">ICI</a>.<br />
 <br />
+1.1 Inscrivez vous en tant que développeur <a href="https://developer.twitter.com/">ICI</a>.<br />
+<br />
+
 2. Cr&eacute;ez l'application :<br />
-2.1 Cr&eacute;ez l'application (passerelle entre NPDS et Twitter) <a href=\"https://dev.twitter.com/apps/new\">ICI</a> :<br />
-Pendant la cr&eacute;ation de l'application, pour les non-anglophones, les infos &agrave; renseigner sont les suivantes :<br />
-- Name : Nom au choix de votre application (Exemple, \"Passerelle NPDS-Twi\". Seule restriction : Ne doit pas contenir le mot \"twitter\")<br />
-- Description : Idem, saisie libre. Par exemple : \"Passerelle NPDS-Twitter\"<br />
-- WebSite : l'url du site sur lequel vous installez npds_twi<br />
-- Callback URL : Facultatif. Vous pouvez mettre la m&ecirc;me url que pour WebSite.<br />
+2.1 Cr&eacute;ez l'application (passerelle entre NPDS et Twitter) <a href="https://developer.twitter.com/en/apps/create">ICI</a> :<br />
+Pendant la cr&eacute;ation de l'application, pour les non-anglophones, les infos REQUISES &agrave; renseigner sont les suivantes :<br />
+- App Name : Nom au choix de votre application (Exemple, <code>"Passerelle NPDS-Twi"</code>. Seule restriction : Ne doit pas contenir le mot "twitter")<br />
+- Application description : Idem, saisie libre. Par exemple : "Passerelle NPDS-Twitter"<br />
+- Tell us how this app will be used : Par exemple : "This application will be used to automatically publish tweets when there is new publication in our CCMS."<br />
+- Website URL : l'url du site sur lequel vous installez npds_twi<br />
+
+- Les autres champs sont facultatifs. .<br />
 <br />
 2.2 Param&eacute;trage de l'application Twitter :<br />
-- Une fois l'application cr&eacute;&eacute;e, allez dans l'onglet \"Settings\" de l'application.<br />
-- Dans la section \"Application type\", pour le param&egrave;tre \"Access\", cochez \"Read and write\".<br />
-- Cliquez sur \"Update this Twitter application's settings\" pour valider.<br />
-- Cliquez sur l'onglet \"Details\"<br />
-- Cliquez sur \"Create my access token\". Si c'est d&eacute;j&agrave; le cas, cliquez sur \"Recreate my access token\"<br />
-Attention! Cela va modifier les clefs \"Access token\". Si vous les avez dÈj‡ saisies prÈcÈdemment dans npds_twi, il faut les ressaisir.<br />
+- Une fois l'application cr&eacute;&eacute;e, allez dans l'onglet "Permissions" de l'application.<br />
+- Dans la section "Application type", pour le param&egrave;tre "Access", cochez "Read and write".<br />
+- Cliquez sur "Update this Twitter application's settings" pour valider.<br />
+- Cliquez sur l'onglet "Details"<br />
+- Cliquez sur "Create my access token". Si c'est d&eacute;j&agrave; le cas, cliquez sur "Recreate my access token"<br />
+Attention! Cela va modifier les clefs "Access token". Si vous les avez d&eacute;j&agrave; saisies pr&eacute;c&eacute;demment dans npds_twi, il faut les ressaisir.<br />
 <br />
 3. R&eacute;cup&eacute;rez vos clefs et jetons (requis pour le paramr&eacute;trage de votre module).<br />
 <br />
@@ -40,7 +45,7 @@ Attention! Cela va modifier les clefs \"Access token\". Si vous les avez dÈj‡
 <br />
 5. Continuez l'installation automatique de la passerelle.<br />
 <br />
-6. Une fois l'installation termin&eacute;e, rendez-vous dans les prÈfÈrences de NPDS, et v&eacute;rifiez <br />
+6. Une fois l'installation termin&eacute;e, rendez-vous dans les pr&eacute;f&eacute;rences de NPDS, et v&eacute;rifiez <br />
 dans les r&eacute;glages de R&eacute;seaux Sociaux que twitter est bien activ&eacute;.<br />
 <br />
 Notes :<br /> 
@@ -55,23 +60,28 @@ This module requires to open a twitter account and to create a Twitter applicati
 - If you have <b>not</b> these elements, follow the procedure below.<br />
 <br />
 Twitter procedure:<br />
-1. Register <a href=\"http://twitter.com/\">HERE</a><br />
+1. Register as user <a href="http://twitter.com/">HERE</a><br />
+<br />
+1.1 Register as developer <a href="https://developer.twitter.com/">ICI</a>.<br />
 <br />
 2. Create the application:<br />
-2.1 Create the application (bridge between NPDS and Twitter) <a href=\"https://dev.twitter.com/apps/new\">HERE</a>:<br />
+2.1 Create the application (bridge between NPDS and Twitter) <a href="https://developer.twitter.com/en/apps/create">HERE</a>:<br />
 During the creation of the application, informations to enter are:<br />
-- Name: Name of your choice for your application (example, \"NDPS-Twi bridge.\" Only one restriction: Must not contain the word \"twitter\")<br />
-- Description: Same, free entry. For example: \"bridge NPDS-Twitter\"<br />
-- WebSite: the url of the site on which you install npds_twi<br />
-- Callback URL: Optional. You can put the same url as WebSite.<br />
+
+- App Name: Name of your choice for your application (example, "NDPS-Twi bridge." Only one restriction: Must not contain the word "twitter")<br />
+- Application description: Same, free entry. For example: "bridge NPDS-Twitter"<br />
+- Website URL: the url of the site on which you install npds_twi<br />
+- Tell us how this app will be used: for example : "This application will be used to automatically publish tweets when there is new publication in our CCMS."<br />
+
+- The others fields are not required. .<br />
 <br />
 2.2 Setting the twitter application:<br />
-- Once the application is created, go to the \"Settings\" tab of the application.<br />
-- In the \"Application type\" section, for the parameter \"Access\", check \"Read and write.\"<br />
-- Click on \"Update this Twitter application's settings\" to confirm.<br />
-- Cliquez on the \"Details\" tab.<br />
-- Click on \"Create my access token\". If this is already done, then click on \"Recreate my access token\"<br />
-Warning! This will change the keys \"Access token\". If you have already entered them earlier in npds_twi, you must have to re-enter.<br />
+- Once the application is created, go to the "Settings" tab of the application.<br />
+- In the "Application type" section, for the parameter "Access", check "Read and write."<br />
+- Click on "Update this Twitter application's settings" to confirm.<br />
+- Cliquez on the "Details" tab.<br />
+- Click on "Create my access token". If this is already done, then click on \"Recreate my access token\"<br />
+Warning! This will change the keys "Access token". If you have already entered them earlier in npds_twi, you must have to re-enter.<br />
 <br />
 3. Grab your keys and tokens (required for setting up your module).<br />
 <br />

@@ -29,7 +29,7 @@ if ($npds_twi===1) {
    $connection->host = "https://api.twitter.com/1.1/";
    
    /* parametres */
-   $max_twi=140;
+   $max_twi=280;
    $dif_len=0;
    $query_art_short='';// raccourci pour les articles
    $query_topi_short='';// raccourci pour les posts
