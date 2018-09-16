@@ -27,7 +27,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) { die(); }
    $Titlesitename="META-LANG";
    include("meta/meta.php");
 //   echo import_css($tmp_theme, $language, $site_font, "","");
-echo '<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">';// en dur lol en attendant
+echo '<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">';// en dur lol en attendant
    global $NPDS_Prefix;
    $Q = sql_query("SELECT def, content, type_meta, type_uri, uri, description FROM ".$NPDS_Prefix."metalang ORDER BY 'type_meta','def' ASC");
    echo '
