@@ -73,7 +73,7 @@ if (!array_key_exists(1,$setup)) $setup[1]='';
 // Full Theme
 if ($tiny_mce_theme=='full') {
    $tmp.= "
-            plugins : ['advlist autolink lists link image charmap print preview hr anchor pagebreak','searchreplace wordcount visualblocks visualchars code fullscreen','insertdatetime media nonbreaking save table contextmenu directionality','emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome'],
+            plugins : ['advlist autolink lists link image charmap print preview hr anchor pagebreak','searchreplace wordcount visualblocks visualchars code','insertdatetime media nonbreaking save table contextmenu directionality','emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome'],
             image_class_list : [{title: 'Responsive', value: 'img_fluid'}],
             style_formats_merge : true,
             style_formats : [

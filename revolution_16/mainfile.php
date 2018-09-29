@@ -1803,6 +1803,7 @@ function aff_editeur($Xzone, $Xactiv) {
       $(document).ready(function() {
          tinymce.init({
             selector: 'textarea.tin',
+            branding:false,
             height: 300,
             theme : 'modern',
             language : '".language_iso(1,'','')."',";
@@ -1817,15 +1818,13 @@ function aff_editeur($Xzone, $Xactiv) {
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
          }
       } else {
-         if ($Xzone!='custom') {
+         if ($Xzone!='custom')
             $tmp_Xzone.=$Xzone.',';
-         } else {
+         else
             $tmp_Xzone.=$Xactiv.',';
-         }
       }
-   } else {
+   } else
       $tmp='';
-   }
    return ($tmp);
 }
 #autodoc utf8_java($ibid) : Encode une chaine UF8 au format javascript - JPB 2005
