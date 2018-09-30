@@ -103,13 +103,14 @@ function etape_4() {
                   </form>
                </div>
             </div>';
-   $fieldlength = '
-            inpandfieldlen("new_dbhost",80);
-            inpandfieldlen("new_dbuname",80);
-            inpandfieldlen("new_dbpass",80);
-            inpandfieldlen("new_dbname",80);
-            inpandfieldlen("new_NPDS_Prefix",10);
-            inpandfieldlen("new_adminmail",60);';
-   formval('fv','',$fieldlength,'1');
+   $arg1 = '
+   var formulid = ["parameters"]
+   inpandfieldlen("new_dbhost",80);
+   inpandfieldlen("new_dbuname",80);
+   inpandfieldlen("new_dbpass",80);
+   inpandfieldlen("new_dbname",80);
+   inpandfieldlen("new_NPDS_Prefix",10);
+   inpandfieldlen("new_adminmail",60);';
+   formval('fv','',$arg1,'1');
 }
 ?>

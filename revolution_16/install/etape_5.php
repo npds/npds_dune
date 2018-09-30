@@ -87,11 +87,12 @@ function etape_5() {
                </form>
             </div>
          </div>';
-   $fieldlength = '
-            inpandfieldlen("new_nuke_url",80);
-            inpandfieldlen("new_sitename",80);
-            inpandfieldlen("new_Titlesitename",80);
-            inpandfieldlen("new_slogan",80);';
-   formval('fv','',$fieldlength,'1');
+   $arg1 = '
+   var formulid = ["others_parameters"]
+   inpandfieldlen("new_nuke_url",80);
+   inpandfieldlen("new_sitename",80);
+   inpandfieldlen("new_Titlesitename",80);
+   inpandfieldlen("new_slogan",80);';
+   formval('fv','',$arg1,'1');
 }
 ?>

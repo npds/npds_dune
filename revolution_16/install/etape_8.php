@@ -78,7 +78,7 @@ function etape_8() {
                         <label class="col-form-label" for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
                         <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
-                        <small>'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</small>
+                        <span class="d-block text-help small w-100">'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</span>
                      </div>
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />
@@ -90,12 +90,13 @@ function etape_8() {
                   </form>
                </div>
             </div>';
-   $fieldlength = '
-            inpandfieldlen("new_racine",60);
-            inpandfieldlen("new_rep_upload",60);
-            inpandfieldlen("new_rep_cache",60);
-            inpandfieldlen("new_rep_log",60);
-            inpandfieldlen("new_url_upload",60);';
-   formval('fv','',$fieldlength,'1');
+   $arg1 = '
+   var formulid = ["upload_module"]
+   inpandfieldlen("new_racine",60);
+   inpandfieldlen("new_rep_upload",60);
+   inpandfieldlen("new_rep_cache",60);
+   inpandfieldlen("new_rep_log",60);
+   inpandfieldlen("new_url_upload",60);';
+   formval('fv','',$arg1,'1');
 }
 ?>
