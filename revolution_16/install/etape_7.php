@@ -58,42 +58,33 @@ function etape_7() {
    $parametres='
          adminpass1: {
             validators: {
-               callback: {
-                  callback: function(value, validator, $field) {
-                     var score = 0;
-                     if (value === "") {
-                        return {
-                           valid: true,
-                           score: null
-                        };
-                     }
-                     // Check the password strength
-                     score += ((value.length >= 8) ? 1 : -1);
-                     if (/[A-Z]/.test(value)) {score += 1;}
-                     if (/[a-z]/.test(value)) {score += 1;}
-                     if (/[0-9]/.test(value)) {score += 1;}
-                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-                     return {
-                     valid: true,
-                     score: score    // We will get the score later
-                     };
-                  }
-               }
+               checkPassword: {
+                  message: "The password is too weak"
+               },
             }
          },
          adminpass2: {
             validators: {
                 identical: {
-                    field: "adminpass1",
-                    message: "The password and its confirm are not the same"
+                  compare: function() {
+                 return admin_password.querySelector(\'[name="adminpass1"]\').value;
+                },
+               message: "Les deux mots de passe ne sont pas identiques."
                 }
             }
-         },';
 
-   $fieldlength = '
-            inpandfieldlen("adminlogin",40);
-            inpandfieldlen("adminpass1",40);
-            inpandfieldlen("adminpass2",40);';
-   formval('fv',$parametres,$fieldlength,'1');
+         }
+         !###!
+         admin_password.querySelector(\'[name="adminpass1"]\').addEventListener("input", function() {
+            fvitem.revalidateField("adminpass2");
+         });
+';
+
+   $arg1 = '
+   var formulid = ["admin_password"]
+   inpandfieldlen("adminlogin",40);
+   inpandfieldlen("adminpass1",40);
+   inpandfieldlen("adminpass2",40);';
+   formval('fv',$parametres,$arg1,'1');
 }
 ?>

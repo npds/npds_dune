@@ -246,6 +246,186 @@ function language_iso($l,$s,$c) {
     return ($ietf);
 }
 
+function formval($fv,$fv_parametres,$arg1,$foo) {
+   if ($fv=='fv') {
+      if($fv_parametres!='') $fv_parametres = explode('!###!',$fv_parametres);
+      echo '
+   <script type="text/javascript" src="lib/js/es6-shim.min.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/FormValidation.full.min.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/locales/'.language_iso(1,"_",1).'.min.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/Bootstrap.min.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/L10n.min.js"></script>
+   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
+   <script type="text/javascript">
+   //<![CDATA[
+   '.$arg1.'
+   var diff;
+   document.addEventListener("DOMContentLoaded", function(e) {
+      const strongPassword = function() {
+        return {
+            validate: function(input) {
+               var score=0;
+               const value = input.value;
+               if (value === "") {
+                  return {
+                     valid: true,
+                     score:null,
+                  };
+               }
+               if (value === value.toLowerCase()) {
+                  return {
+                     valid: false,
+                     message: "Le mot de passe doit contenir au moins un caractère en majuscule.",
+                     score: score-1,
+                  };
+               }
+               if (value === value.toUpperCase()) {
+                  return {
+                     valid: false,
+                     message: "Le mot de passe doit contenir au moins un caractère en minuscule.",
+                     score: score-1,
+                  };
+               }
+               if (value.search(/[0-9]/) < 0) {
+                  return {
+                     valid: false,
+                     message: "Le mot de passe doit contenir au moins un chiffre.",
+                     score: score-1,
+                  };
+               }
+               if (value.search(/[!#$%&^~*_]/) < 0) {
+                  return {
+                     valid: false,
+                     message: "Le mot de passe doit contenir au moins un caractère non numérique et non alphabétique.",
+                     score: score-1,
+                  };
+               }
+               if (value.length < 8) {
+                  return {
+                     valid: false,
+                     message: "Le mot de passe doit contenir plus de 8 caractères.",
+                     score: score-1,
+                  };
+               }
+
+               score += ((value.length >= 8) ? 1 : -1);
+               if (/[A-Z]/.test(value)) score += 1;
+               if (/[a-z]/.test(value)) score += 1; 
+               if (/[0-9]/.test(value)) score += 1;
+               if (/[!#$%&^~*_]/.test(value)) score += 1; 
+               return {
+                  valid: true,
+                  score: score,
+               };
+            },
+         };
+      };
+
+    // Register new validator named checkPassword
+    FormValidation.validators.checkPassword = strongPassword;
+   
+   formulid.forEach(function(item, index, array) {
+      const fvitem = FormValidation.formValidation(
+         document.getElementById(item),{
+            locale: "'.language_iso(1,"_",1).'",
+            localization: FormValidation.locales.'.language_iso(1,"_",1).',
+         fields: {
+         ';
+   if($fv_parametres!='')
+      echo '
+            '.$fv_parametres[0];
+   echo '
+         },
+         plugins: {
+            declarative: new FormValidation.plugins.Declarative({
+               html5Input: true,
+            }),
+            trigger: new FormValidation.plugins.Trigger(),
+            submitButton: new FormValidation.plugins.SubmitButton(),
+            defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+            bootstrap: new FormValidation.plugins.Bootstrap(),
+            icon: new FormValidation.plugins.Icon({
+               valid: "fa fa-check",
+               invalid: "fa fa-times",
+               validating: "fa fa-refresh",
+               onPlaced: function(e) {
+                  e.iconElement.addEventListener("click", function() {
+                     fvitem.resetField(e.field);
+                  });
+               },
+            }),
+         },
+
+      })
+
+      .on("core.validator.validated", function(e) {
+      // The password passes the callback validator
+      // voir si on a plus de champs mot de passe : changer par un array de champs ...
+      if ((e.field === "adminpass1") && e.validator === "checkPassword") {
+         // Get the score
+         var score = e.result.score,$pass_level=$("#pass-level"),
+             $bar = $("#passwordMeter_cont");
+
+         switch (true) {
+           case (score === null):
+               $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
+               $bar.attr("value","0");
+               break;
+           case (score <= 1):
+               $bar.html("").css("width", "25%").removeClass().addClass("progress-bar bg-danger");
+               $bar.attr("aria-valuenow","25");
+               $bar.attr("value","25");
+               $pass_level.html("Tr&#xE8;s faible").removeClass().addClass("help-block text-right text-danger");
+               break;
+           case (score > 0 && score <= 2):
+               $bar.html("").css("width", "50%").removeClass().addClass("progress-bar bg-warning");
+               $bar.attr("aria-valuenow","50");
+               $bar.attr("value","50");
+               $pass_level.html("Faible").removeClass().addClass("help-block text-right text-warning");
+               break;
+           case (score > 2 && score <= 4):
+               $bar.html("").css("width", "75%").removeClass().addClass("progress-bar bg-info");
+               $bar.attr("aria-valuenow","75");
+               $bar.attr("value","75");
+               $pass_level.html("Moyen").removeClass().addClass("help-block text-right text-info");
+               break;
+           case (score > 4):
+               $bar.html("").css("width", "100%").removeClass().addClass("progress-bar bg-success");
+               $bar_cont.attr("aria-valuenow","100");
+               $bar_cont.attr("value","100").removeClass().addClass("progress-bar bg-success");
+               $pass_level.html("Fort").removeClass().addClass("help-block text-right text-success");
+               break;
+           default:
+               break;
+         }
+         }
+      });
+      ;';
+      if($fv_parametres!='')
+         if(array_key_exists(1, $fv_parametres))
+            echo '
+               '.$fv_parametres[1];
+   echo '
+   })
+   });
+   //]]>
+   </script>';
+   }
+   switch($foo) {
+      case '' :
+         echo '
+      </div>';
+         include ('footer.php');
+      break;
+      case 'foo' :
+         include ('footer.php');
+      break;
+   }
+}
+
+
+
+/*
 #autodoc formval($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>inutilisé,  $foo =='' ==> </div> et inclusion footer.php
 function formval($fv,$fv_parametres,$arg1,$foo) {
 if ($fv=='fv') {
@@ -340,4 +520,5 @@ if ($foo=='') {
 </div>';
 }
 }
+*/
 ?>
