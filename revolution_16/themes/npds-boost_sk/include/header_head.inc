@@ -9,8 +9,4 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-
-echo '
-<link rel="stylesheet" href="lib/css/prism.css" />
-<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
 ?>

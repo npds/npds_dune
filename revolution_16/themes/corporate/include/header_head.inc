@@ -11,7 +11,5 @@
 /************************************************************************/
 
 echo '
-<link rel="stylesheet" href="themes/corporate/style/custom.css" />
-<link rel="stylesheet" href="lib/css/prism.css" />
-<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
+<link rel="stylesheet" href="themes/corporate/style/custom.css" />';
 ?>
