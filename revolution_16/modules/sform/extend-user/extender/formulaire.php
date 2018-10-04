@@ -56,10 +56,10 @@ $m->add_extender('C1', '', '<span class="help-block"><span class="float-right" i
 $m->add_field('C2',aff_langue('[french]Code postal[/french][english]Postal code[/english][spanish]C&#xF3;digo postal[/spanish][german]Postleitzahl[/german]'), $C2, 'text',false,5,'','');
 $m->add_extender('C2', '', '<span class="help-block"><span class="float-right" id="countcar_C2"></span></span>');
 
-$m->add_extra('<div id="embeddingDatePicker">');
+//$m->add_extra('<div class="input-group date">');
 $m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english][spanish]Fecha de nacimiento[/spanish][german]Geburtsdatum[/german]'),$T1,'date','',false,20);
 $m->add_extender('T1', '','<span class="help-block">JJ/MM/AAAA</span>');
-$m->add_extra('</div>');
+//$m->add_extra('</div>');
 
 $m->add_extra('<div class="form-group row collapse">');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'text',false);
@@ -77,6 +77,30 @@ reset($fieldrest);
 while (list($k, $v) = each($fieldrest)) {
    $m->add_field($v,$v,'','hidden',false);
 }
+
+
+/*
+$m->add_extra('
+      <script type="text/javascript">
+      //<![CDATA[
+         $(document).ready(function() {
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+
+            $("#embeddingDatePicker input").datepicker({
+               format: "dd/mm/yyyy",
+               autoclose: "true",
+               language:"'.language_iso(1,'','').'"
+            })
+            .on("changeDate", function(e) {
+               $("#register").formValidation("revalidateField", "T1");
+            })
+
+            
+
+         })
+      //]]>
+      </script>');
+*/
 
 // Si vous avez besoin des champs ci-dessous - les définir selon vos besoins - sinon les laisser en hidden
 /*

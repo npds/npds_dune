@@ -50,7 +50,7 @@ $m->add_field('add_name', adm_translate("Nom"),$chng_name,'text',false,60,'','')
 $m->add_extender('add_name', '', '<span class="help-block"><span class="float-right" id="countcar_add_name"></span></span>');
 
 $m->add_field('add_email', adm_translate("E-mail"),$chng_email,'email',true,60,'','');
-$m->add_extender('add_email', '', '<span class="help-block"><span class="float-right" id="countcar_add_email"></span></span>');
+$m->add_extender('add_email', '', '<span class="help-block text-right" id="countcar_add_email"></span>');
 
 $m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),$chng_femail,'email',false,60,'','');
 $m->add_extender('add_femail', '', '<span class="help-block"><span class="float-right" id="countcar_add_femail"></span></span>');
@@ -178,15 +178,12 @@ if ($chng_avatar!='')
    $m->add_field('add_avatar','',$chng_avatar,'hidden',false);
 else
    $m->add_field('add_avatar','','blank.gif','hidden',false);
-
-$m->add_extra('
-      <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto" >');
-// Submit bouton
-$m->add_field('Submit','',adm_translate("Valider"),'submit',false);
 include_once('modules/geoloc/geoloc_conf.php');
 
 $m->add_extra('
+      <div class="form-group row">
+         <div class="col-sm-8 ml-sm-auto" >
+            <button type="submit" class="btn btn-primary">'.translate("Submit").'</button>
          </div>
       </div>');
 $m->add_extra('
@@ -204,7 +201,6 @@ $m->add_extra('
             .on("changeDate", function(e) {
                $("#register").formValidation("revalidateField", "T1");
             });
-
             inpandfieldlen("add_uname",25);
             inpandfieldlen("add_name",60);
             inpandfieldlen("add_email",60);
@@ -222,6 +218,8 @@ $m->add_extra('
          });
       //]]>
       </script>');
+$arg1 ='
+      var formulid = ["Register"]';
 $fv_parametres ='
          T1: {
             excluded: false,
@@ -234,6 +232,9 @@ $fv_parametres ='
          },
          add_pass: {
             validators: {
+               checkPassword: {
+                  message: "The password is too weak"
+               },
                callback: {
                   callback: function(value, validator, $field) {
                      var score = 0;
@@ -255,14 +256,17 @@ $fv_parametres ='
                      };
                   }
                }
+
             }
          },
          add_pass2: {
             validators: {
-                identical: {
-                    field: "add_pass",
-                    message: "The password and its confirm are not the same"
-                }
+               identical: {
+                  compare: function() {
+                     return register.querySelector(\'[name="add_pass"]\').value;
+                  },
+                  message: "The password and its confirm are not the same"
+               }
             }
          },
          '.$ch_lat.': {
@@ -282,7 +286,11 @@ $fv_parametres ='
                   message: "The longitude must be between -180.0 and 180.0"
                }
             }
-         },';
-$m->add_extra(adminfoot('fv',$fv_parametres,'','1'));
+         },
+         !###!
+         register.querySelector(\'[name="add_pass"]\').addEventListener("input", function() {
+            fvitem.revalidateField("add_pass2");
+         });';
+$m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
 // ----------------------------------------------------------------
 ?>
