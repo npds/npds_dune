@@ -90,20 +90,9 @@ $m->add_extra('
       </div>
       <br />');
 $m->add_extra('
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-            $("#embeddingDatePicker input").datepicker({
-               format: "dd/mm/yyyy",
-               autoclose: "true",
-               language:"'.language_iso(1,'','').'"
-            })
-            .on("changeDate", function(e) {
-               $("#register").formValidation("revalidateField", "T1");
-            })
             
             inpandfieldlen("name",60);
             inpandfieldlen("email",60);
@@ -124,6 +113,7 @@ $m->add_extra('
       //]]>
       </script>');
       $fv_parametres ='
+/*
          T1: {
             excluded: false,
             validators: {
@@ -133,6 +123,8 @@ $m->add_extra('
                }
             }
          },
+*/
+/*
          pass: {
             validators: {
                callback: {
@@ -166,6 +158,7 @@ $m->add_extra('
                 }
             }
          },
+*/
        '.$ch_lat.': {
             validators: {
                between: {
@@ -184,8 +177,11 @@ $m->add_extra('
                }
             }
          },';
+         $arg1='
+               var formulid = ["register"];
+         '
       
-      $m->add_extra(adminfoot('fv',$fv_parametres,'','1'));
+//      $m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
 
 // ----------------------------------------------------------------
 ?>

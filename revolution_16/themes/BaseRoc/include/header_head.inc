@@ -12,6 +12,5 @@
 
 echo '
 <link rel="stylesheet" href="themes/BaseRoc/style/rocssti-fr.css" />
-<link rel="stylesheet" href="lib/css/prism.css" />
-<script type="text/javascript" src="lib/js/jquery.min.js"></script>';
+';
 ?>

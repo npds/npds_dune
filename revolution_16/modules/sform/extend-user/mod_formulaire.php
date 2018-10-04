@@ -104,7 +104,7 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
 $m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 20px;"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></div>');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 1rem;"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></div>');
 $m->add_extender('pass', '', '<span class="help-block"><span class="float-right" id="countcar_pass"></span></span>');
 
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
@@ -123,22 +123,36 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 $m->add_field('op','','saveuser','hidden',false);
 $m->add_field('uname','',$userinfo['uname'],'hidden',false);
 $m->add_field('uid','',$userinfo['uid'],'hidden',false);
-// Submit bouton
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto" >');
-$m->add_field('Submit','',translate('Submit'),'submit',false);
+         <div class="col-sm-8 ml-sm-auto" >
+            <button type="submit" class="btn btn-primary">'.translate("Submit").'</button>');
 include_once('modules/geoloc/geoloc_conf.php');
 $m->add_extra('
          </div>
       </div>');
 $m->add_extra('
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
+      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" async="async" ></script>
+
       <script type="text/javascript">
       //<![CDATA[
-
          $(document).ready(function() {
+            inpandfieldlen("name",60);
+            inpandfieldlen("email",60);
+            inpandfieldlen("femail",60);
+            inpandfieldlen("url",100);
+            inpandfieldlen("user_from",100);
+            inpandfieldlen("user_occ",100);
+            inpandfieldlen("user_intrest",150);
+            inpandfieldlen("bio",255);
+            inpandfieldlen("user_sig",255);
+            inpandfieldlen("pass",40);
+            inpandfieldlen("vpass",40);
+            inpandfieldlen("C2",40);
+            inpandfieldlen("C1",100);
+            inpandfieldlen("T1",40);
+
             $("#reset_ava").on("click", function(e) {
                var $el = $("#B1");
                $el.wrap("<form>").closest("form").get(0).reset();
@@ -163,35 +177,27 @@ $m->add_extra('
             $("#user_avatar").prop("disabled", "disabled");
             $("#avatar,#tonewavatar").hide();
          });
-      
-         $(document).ready(function() {
+
             $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-            $("#embeddingDatePicker input").datepicker({
+      
+
+/*
+         $(document).ready(function() {
+            $("#T1").datepicker({
                format: "dd/mm/yyyy",
                autoclose: "true",
                language:"'.language_iso(1,'','').'"
             })
-            .on("changeDate", function(e) {
-               $("#register").formValidation("revalidateField", "T1");
-            });
-         
-            inpandfieldlen("name",60);
-            inpandfieldlen("email",60);
-            inpandfieldlen("femail",60);
-            inpandfieldlen("url",100);
-            inpandfieldlen("user_from",100);
-            inpandfieldlen("user_occ",100);
-            inpandfieldlen("user_intrest",150);
-            inpandfieldlen("bio",255);
-            inpandfieldlen("user_sig",255);
-            inpandfieldlen("pass",40);
-            inpandfieldlen("vpass",40);
-            inpandfieldlen("C2",40);
-            inpandfieldlen("C1",100);
-            inpandfieldlen("T1",40);
          });
+*/
+
       //]]>
-      </script>');
+      </script>
+      ');
+      
+$arg1 ='
+      var formulid = ["Register"];
+';
 $fv_parametres ='
          B1: {
              validators: {
@@ -214,39 +220,28 @@ $fv_parametres ='
          },
          pass: {
             validators: {
-               callback: {
-                  callback: function(value, validator, $field) {
-                     var score = 0;
-                     if (value === "") {
-                        return {
-                           valid: true,
-                           score: null
-                        };
-                     }
-                     // Check the password strength
-                     score += ((value.length >= 8) ? 1 : -1);
-                     if (/[A-Z]/.test(value)) {score += 1;}
-                     if (/[a-z]/.test(value)) {score += 1;}
-                     if (/[0-9]/.test(value)) {score += 1;}
-                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-                     return {
-                     valid: true,
-                     score: score    // We will get the score later
-                     };
-                  }
-               }
+               checkPassword: {
+                  message: "Le mot de passe est trop simple."
+               },
             }
          },
          vpass: {
             validators: {
                 identical: {
-                    field: "pass",
-                    message: "The password and its confirm are not the same"
+                  compare: function() {
+                 return register.querySelector(\'[name="pass"]\').value;
+                },
+               message: "The password and its confirm are not the same"
                 }
             }
          },
        '.$ch_lat.': {
             validators: {
+            numeric: {
+                   message: "The value is not a number",
+                   thousandsSeparator: "",
+                   decimalSeparator: "."
+               },
                between: {
                   min: -90,
                   max: 90,
@@ -256,14 +251,33 @@ $fv_parametres ='
          },
          '.$ch_lon.': {
             validators: {
+            numeric: {
+                   message: "The value is not a number",
+                   thousandsSeparator: "",
+                   decimalSeparator: "."
+               },
                between: {
                   min: -180,
                   max: 180,
                   message: "The longitude must be between -180.0 and 180.0"
                }
             }
-         },';
-$m->add_extra(adminfoot('fv',$fv_parametres,'','1'));
+         }
+         !###!
+         register.querySelector(\'[name="pass"]\').addEventListener("input", function() {
+            fvitem.revalidateField("vpass");
+         });
 
+         $("#T1")
+        .datepicker({
+            format: "dd/mm/yyyy",
+            autoclose: "true",
+            language:"'.language_iso(1,'','').'"
+        })
+        .on("changeDate", function(e) {
+            fvitem.revalidateField("T1");
+        });
+         ';
+adminfoot('fv',$fv_parametres,$arg1,'no');
 // ----------------------------------------------------------------
 ?>
