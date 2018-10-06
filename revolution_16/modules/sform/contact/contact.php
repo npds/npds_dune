@@ -18,7 +18,7 @@ include_once($sform_path.'sform.php');
 global $m;
 $m=new form_handler();
 //********************
-$m->add_form_title('CONTACT');
+$m->add_form_title('contact');
 $m->add_form_method('post');
 $m->add_form_check('true');
 $m->add_mess(utf8_java("[french] * d&#x00E9;signe un champ obligatoire [/french][english] * indicate a required field [/english]"));

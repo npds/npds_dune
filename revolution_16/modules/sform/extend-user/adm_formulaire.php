@@ -185,22 +185,10 @@ $m->add_extra('
          <div class="col-sm-8 ml-sm-auto" >
             <button type="submit" class="btn btn-primary">'.translate("Submit").'</button>
          </div>
-      </div>');
-$m->add_extra('
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" async="async" ></script>
+      </div>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-            $("#embeddingDatePicker input").datepicker({
-               format: "dd/mm/yyyy",
-               autoclose: "true",
-               language:"'.language_iso(1,'','').'"
-            })
-            .on("changeDate", function(e) {
-               $("#register").formValidation("revalidateField", "T1");
-            });
             inpandfieldlen("add_uname",25);
             inpandfieldlen("add_name",60);
             inpandfieldlen("add_email",60);
@@ -256,7 +244,6 @@ $fv_parametres ='
                      };
                   }
                }
-
             }
          },
          add_pass2: {
@@ -274,7 +261,7 @@ $fv_parametres ='
                between: {
                   min: -90,
                   max: 90,
-                  message: "The latitude must be between -90.0 and 90.0"
+                  message: "La latitude doit être entre -90.0 and 90.0"
                }
             }
          },
@@ -283,14 +270,21 @@ $fv_parametres ='
                between: {
                   min: -180,
                   max: 180,
-                  message: "The longitude must be between -180.0 and 180.0"
+                  message: "La longitude doit être entre -180.0 and 180.0"
                }
             }
          },
          !###!
          register.querySelector(\'[name="add_pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("add_pass2");
-         });';
+         });
+         flatpickr("#T1", {
+            maxDate:"today",
+            minDate:"'.date("Y-m-d",(time()-3784320000)).'",
+            dateFormat:"d/m/Y",
+            "locale": "'.language_iso(1,'','').'",
+         });
+         ';
 $m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
 // ----------------------------------------------------------------
 ?>

@@ -557,7 +557,7 @@ class form_handler {
           } else {
             $str.='
             <div class="col-sm-8">';
-            $str.='<input class="form-control" id="'.$this->form_fields[$i]['name'].'" type="text" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" data-provide="datepicker" data-date-autoclose="true"  data-date-language="'.language_iso(1,'','').'" />';
+            $str.='<input class="form-control" id="'.$this->form_fields[$i]['name'].'" type="text" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />';
           }
           if ($num_extender!='no') {
              $str.=$this->form_fields[$num_extender]['html'];

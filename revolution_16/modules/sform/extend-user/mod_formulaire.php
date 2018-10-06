@@ -123,18 +123,13 @@ if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
 $m->add_field('op','','saveuser','hidden',false);
 $m->add_field('uname','',$userinfo['uname'],'hidden',false);
 $m->add_field('uid','',$userinfo['uid'],'hidden',false);
+include_once('modules/geoloc/geoloc_conf.php');
 $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >
-            <button type="submit" class="btn btn-primary">'.translate("Submit").'</button>');
-include_once('modules/geoloc/geoloc_conf.php');
-$m->add_extra('
+            <button type="submit" class="btn btn-primary">'.translate("Submit").'</button>
          </div>
-      </div>');
-$m->add_extra('
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" async="async"></script>
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" async="async" ></script>
-
+      </div>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
@@ -177,24 +172,9 @@ $m->add_extra('
             $("#user_avatar").prop("disabled", "disabled");
             $("#avatar,#tonewavatar").hide();
          });
-
-            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-      
-
-/*
-         $(document).ready(function() {
-            $("#T1").datepicker({
-               format: "dd/mm/yyyy",
-               autoclose: "true",
-               language:"'.language_iso(1,'','').'"
-            })
-         });
-*/
-
       //]]>
       </script>
       ');
-      
 $arg1 ='
       var formulid = ["Register"];
 ';
@@ -267,16 +247,12 @@ $fv_parametres ='
          register.querySelector(\'[name="pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("vpass");
          });
-
-         $("#T1")
-        .datepicker({
-            format: "dd/mm/yyyy",
-            autoclose: "true",
-            language:"'.language_iso(1,'','').'"
-        })
-        .on("changeDate", function(e) {
-            fvitem.revalidateField("T1");
-        });
+         flatpickr("#T1", {
+            maxDate:"today",
+            minDate:"'.date("Y-m-d",(time()-3784320000)).'",
+            dateFormat:"d/m/Y",
+            "locale": "'.language_iso(1,'','').'",
+         });
          ';
 adminfoot('fv',$fv_parametres,$arg1,'no');
 // ----------------------------------------------------------------

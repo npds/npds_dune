@@ -78,29 +78,16 @@ while (list($k, $v) = each($fieldrest)) {
    $m->add_field($v,$v,'','hidden',false);
 }
 
-
-/*
 $m->add_extra('
+      <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
+      <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-
-            $("#embeddingDatePicker input").datepicker({
-               format: "dd/mm/yyyy",
-               autoclose: "true",
-               language:"'.language_iso(1,'','').'"
-            })
-            .on("changeDate", function(e) {
-               $("#register").formValidation("revalidateField", "T1");
-            })
-
-            
-
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/flatpickr.min.css"});
          })
       //]]>
       </script>');
-*/
 
 // Si vous avez besoin des champs ci-dessous - les définir selon vos besoins - sinon les laisser en hidden
 /*
