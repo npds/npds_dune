@@ -12,7 +12,7 @@
 /************************************************************************/
 $m->add_title(translate("Registration"));
 $m->add_mess(translate("* for mandatory field"));
-$m->add_form_field_size(50);
+//$m->add_form_field_size(50);
 
 $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
 $m->add_field('name', translate("Real Name"),$name,'text',false,60,'','');
@@ -93,7 +93,6 @@ $m->add_extra('
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            
             inpandfieldlen("name",60);
             inpandfieldlen("email",60);
             inpandfieldlen("femail",60);
@@ -108,7 +107,6 @@ $m->add_extra('
             inpandfieldlen("C2",40);
             inpandfieldlen("C1",100);
             inpandfieldlen("T1",40);
-
          })
       //]]>
       </script>');
@@ -180,8 +178,6 @@ $m->add_extra('
          $arg1='
                var formulid = ["register"];
          '
-      
-//      $m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
 
 // ----------------------------------------------------------------
 ?>
