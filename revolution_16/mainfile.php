@@ -3184,40 +3184,36 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                if (value === value.toLowerCase()) {
                   return {
                      valid: false,
-                     message: "The password must contain at least one upper case character",
+                     message: "Le mot de passe doit contenir au moins un caractère en majuscule.",
                      score: score-1,
                   };
                }
                if (value === value.toUpperCase()) {
                   return {
                      valid: false,
-                     message: "The password must contain at least one lower case character",
-                                          score: score-1,
-
+                     message: "Le mot de passe doit contenir au moins un caractère en minuscule.",
+                     score: score-1,
                   };
                }
                if (value.search(/[0-9]/) < 0) {
                   return {
                      valid: false,
-                     message: "The password must contain at least one digit",
-                                          score: score-1,
-
+                     message: "Le mot de passe doit contenir au moins un chiffre.",
+                     score: score-1,
                   };
                }
                if (value.search(/[!#$%&^~*_]/) < 0) {
                   return {
                      valid: false,
-                     message: "The password must contain at least one non alpha numeric character",
-                                          score: score-1,
-
+                     message: "Le mot de passe doit contenir au moins un caractère non numérique et non alphabétique.",
+                     score: score-1,
                   };
                }
                if (value.length < 8) {
                   return {
                      valid: false,
-                     message: "The password must be more than 8 characters long",
-                                                               score: score-1,
-
+                     message: "Le mot de passe doit contenir plus de 8 caractères.",
+                     score: score-1,
                   };
                }
 
