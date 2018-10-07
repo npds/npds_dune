@@ -252,25 +252,30 @@ $fv_parametres ='
                   compare: function() {
                      return register.querySelector(\'[name="add_pass"]\').value;
                   },
-                  message: "The password and its confirm are not the same"
                }
             }
          },
          '.$ch_lat.': {
             validators: {
+               numeric: {
+                   thousandsSeparator: "",
+                   decimalSeparator: "."
+               },
                between: {
                   min: -90,
                   max: 90,
-                  message: "La latitude doit être entre -90.0 and 90.0"
                }
             }
          },
          '.$ch_lon.': {
             validators: {
+               numeric: {
+                   thousandsSeparator: "",
+                   decimalSeparator: "."
+               },
                between: {
                   min: -180,
                   max: 180,
-                  message: "La longitude doit être entre -180.0 and 180.0"
                }
             }
          },
@@ -279,6 +284,8 @@ $fv_parametres ='
             fvitem.revalidateField("add_pass2");
          });
          flatpickr("#T1", {
+            altInput: true,
+            altFormat: "l j F Y",
             maxDate:"today",
             minDate:"'.date("Y-m-d",(time()-3784320000)).'",
             dateFormat:"d/m/Y",

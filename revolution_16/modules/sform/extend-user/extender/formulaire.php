@@ -84,7 +84,7 @@ $m->add_extra('
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/flatpickr.min.css"});
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
          })
       //]]>
       </script>');
