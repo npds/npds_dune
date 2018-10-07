@@ -60,7 +60,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
          </div>
-            <input type="text" class="form-control" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+            <input type="text" class="form-control flatpi" id="dd_pub" name="dd_pub" value="'.$dd_pub.'"  />
           <div class="input-group-prepend">
              <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
           </div>
@@ -74,33 +74,37 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
          </div>
-         <input type="text" class="form-control" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+         <input type="text" class="form-control flatpi" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" />
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
          </div>
           <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
       </div>
    </div>
+   
+   <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
+   <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
+   <script type="text/javascript" src="lib/js/bootstrap-clockpicker.min.js" async="async"></script>
    <script type="text/javascript">
    //<![CDATA[
-      $(document).ready(function() {
-         $("<link>")
-            .appendTo("head")
-            .attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
-         $("<link>")
-            .appendTo("head")
-            .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-         $("#dh_pub,#fh_pub").clockpicker({
-            placement: "bottom",
-            align: "right",
-            autoclose: "true"
-         });
+   $(document).ready(function() {
+      $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
+      $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
+      $("#dh_pub,#fh_pub").clockpicker({
+      placement: "bottom",
+      align: "right",
+      autoclose: "true"
       });
+   })
+   flatpickr(".flatpi", {
+   altInput: true,
+   altFormat: "l j F Y",
+   dateFormat:"Y-m-d",
+   "locale": "'.language_iso(1,'','').'",
+   });
    //]]>
    </script>
-   <script type="text/javascript" src="lib/js/bootstrap-clockpicker.min.js" async="async"></script>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" ></script>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" ></script>
+
    <div class="form-group row">
       <div class="col-md-5">
          <label class="col-form-label">'.translate("Auto Delete the New at End Date").'</label>
