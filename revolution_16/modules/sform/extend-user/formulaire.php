@@ -58,7 +58,7 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 // --- MEMBER-PASS
 if ($memberpass) {
    $m->add_field('pass', translate("Password"),'','password',true,40,'','');
-   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 10px;"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></div></div>');
+   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></div></div>');
    $m->add_field('vpass', translate("Retype Password"),'','password',true,40,'','');
 }
 

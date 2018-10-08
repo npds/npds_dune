@@ -123,7 +123,7 @@ if ($chng_user_viewemail) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres utilisateurs à voir son adresse E-mail"), 1, false, $checked);
 
 $m->add_field('add_url','URL',$chng_url,'url',false,100,'','');
-$m->add_extender('add_url', '', '<span class="help-block"><span class="float-right" id="countcar_add_url"></span></span>');
+$m->add_extender('add_url', '', '<span class="help-block text-right" id="countcar_add_url"></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($chng_send_email==1) {$checked=true;} else {$checked=false;}
@@ -133,31 +133,31 @@ $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $
 // ---- SUBSCRIBE and INVISIBLE
 
 $m->add_field('add_user_from', adm_translate("Situation géographique"),$chng_user_from,'text',false,100,'','');
-$m->add_extender('add_user_from', '', '<span class="help-block"><span class="float-right" id="countcar_add_user_from"></span></span>');
+$m->add_extender('add_user_from', '', '<span class="help-block text-right" id="countcar_add_user_from"></span>');
 
 $m->add_field('add_user_occ', adm_translate("Activité"),$chng_user_occ,'text',false,100,'','');
-$m->add_extender('add_user_occ', '', '<span class="help-block"><span class="float-right" id="countcar_add_user_occ"></span></span>');
+$m->add_extender('add_user_occ', '', '<span class="help-block text-right" id="countcar_add_user_occ"></span>');
 
 $m->add_field('add_user_intrest', adm_translate("Centres d'intérêt"),$chng_user_intrest,'text',false,150,'','');
-$m->add_extender('add_user_intrest', '', '<span class="help-block"><span class="float-right" id="countcar_add_user_intrest"></span></span>');
+$m->add_extender('add_user_intrest', '', '<span class="help-block text-right" id="countcar_add_user_intrest"></span>');
 
 if ($attach==1) $checked=true; else $checked=false;
 $m->add_checkbox('attach',adm_translate("Afficher signature"), 1, false, $checked);
 $m->add_field('add_user_sig', adm_translate("Signature"),$chng_user_sig,'textarea',false,255,7,'','');
-$m->add_extender('add_user_sig', '', '<span class="help-block"><span class="float-right" id="countcar_add_user_sig"></span></span>');
+$m->add_extender('add_user_sig', '', '<span class="help-block text-right" id="countcar_add_user_sig"></span>');
 
 $m->add_field('add_bio',adm_translate("Informations supplémentaires"),$chng_bio,'textarea',false,255,7,'','');
-$m->add_extender('add_bio', '', '<span class="help-block"><span class="float-right" id="countcar_add_bio"></span></span>');
+$m->add_extender('add_bio', '', '<span class="help-block text-right" id="countcar_add_bio" ></span>');
 
 $requi='';
 if ($op=="ModifyUser") $requi=false; else $requi=true;
-$m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',$requi,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></div>');
-$m->add_extender('add_pass', '', '<span class="help-block"><span class="float-right" id="countcar_add_pass"></span></span>');
+$m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',$requi,'40','','');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
+$m->add_extender('add_pass', '', '<span class="help-block text-right" id="countcar_add_pass"></span>');
 
 if ($op=="ModifyUser") {
-   $m->add_field('add_pass2', adm_translate("Entrez à nouveau le Mot de Passe")."&nbsp;<span style=\"font-size: 10px;\">".adm_translate("(seulement pour modifications)")."</span>",'','password',false,40,'','');
-   $m->add_extender('add_pass2', '', '<span class="help-block"><span class="float-right" id="countcar_add_pass2"></span></span>');
+   $m->add_field('add_pass2', adm_translate("Entrez à nouveau le Mot de Passe").'&nbsp;<span class="small">'.adm_translate("(seulement pour modifications)").'</span>','','password',false,40,'','');
+   $m->add_extender('add_pass2', '', '<span class="help-block text-right" id="countcar_add_pass2"></span>');
 }
 // --- EXTENDER
 if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
@@ -223,29 +223,10 @@ $fv_parametres ='
                checkPassword: {
                   message: "The password is too weak"
                },
-               callback: {
-                  callback: function(value, validator, $field) {
-                     var score = 0;
-                     if (value === "") {
-                        return {
-                           valid: true,
-                           score: null
-                        };
-                     }
-                     // Check the password strength
-                     score += ((value.length >= 8) ? 1 : -1);
-                     if (/[A-Z]/.test(value)) {score += 1;}
-                     if (/[a-z]/.test(value)) {score += 1;}
-                     if (/[0-9]/.test(value)) {score += 1;}
-                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-                     return {
-                     valid: true,
-                     score: score    // We will get the score later
-                     };
-                  }
-               }
             }
-         },
+         },';
+if ($op=="ModifyUser")
+   $fv_parametres .='
          add_pass2: {
             validators: {
                identical: {
@@ -254,7 +235,8 @@ $fv_parametres ='
                   },
                }
             }
-         },
+         },';
+$fv_parametres .='
          '.$ch_lat.': {
             validators: {
                numeric: {
@@ -279,10 +261,13 @@ $fv_parametres ='
                }
             }
          },
-         !###!
+         !###!';
+if ($op=="ModifyUser")
+   $fv_parametres .='
          register.querySelector(\'[name="add_pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("add_pass2");
-         });
+         });';
+   $fv_parametres .='
          flatpickr("#T1", {
             altInput: true,
             altFormat: "l j F Y",

@@ -164,11 +164,10 @@ if ($supadm==1) echo'
             <label class="col-form-label col-sm-4 " for="add_pwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
                <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-               <span class="help-block text-right"><span id="countcar_add_pwd"></span></span>
-                  <div class="progress">
-                     <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div>
-                  </div>
-               <span id="pass-level" class="help-block text-right"></span>
+               <span class="help-block text-right" id="countcar_add_pwd"></span>
+               <div class="progress" style="height: 0.2rem;">
+                  <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+               </div>
             </div>
          </div>
          <div class="form-group row">
@@ -211,25 +210,27 @@ if ($supadm==1) echo'
          <input type="hidden" name="op" value="AddAuthor" />
       </fieldset>
    </form>
-   '.$scri_check.'
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("add_aid",30);
-         inpandfieldlen("add_name",50);
-         inpandfieldlen("add_email",60);
-         inpandfieldlen("add_url",60);
-         inpandfieldlen("add_pwd",12);
-      });
-   //]]>
-   </script>';
+   '.$scri_check;
+   $arg1 ='
+      var formulid = ["nou_adm"];
+      '.auto_complete ('admin', 'aid', 'authors', '', '0').'
+      '.auto_complete ('adminname', 'name', 'authors', '', '0').'
+      inpandfieldlen("add_aid",30);
+      inpandfieldlen("add_name",50);
+      inpandfieldlen("add_email",60);
+      inpandfieldlen("add_url",60);
+      inpandfieldlen("add_pwd",12);
+      ';
    $fv_parametres = '
    add_aid: {
       validators: {
          callback: {
             message: "Ce surnom n\'est pas disponible",
-            callback: function(value, validator, $field) {
-            return $.inArray(value, admin) == -1;
+            callback: function(input) {
+               if($.inArray(input.value, admin) !== -1)
+                  return false;
+               else
+                  return true;
             }
          }
       }
@@ -238,47 +239,25 @@ if ($supadm==1) echo'
       validators: {
          callback: {
             message: "Ce nom n\'est pas disponible",
-            callback: function(value, validator, $field) {
-               return $.inArray(value, adminname) == -1;
+            callback: function(input) {
+               if($.inArray(input.value, adminname) !== -1)
+                  return false;
+               else
+                  return true;
             }
          }
       }
    },
    add_pwd: {
       validators: {
-         notEmpty: {
-            message: "The password is required and cannot be empty"
+         checkPassword: {
+            message: "The password is too weak"
          },
-         callback: {
-            callback: function(value, validator, $field) {
-               var score = 0;
-               if (value === "") {
-                  return {
-                     valid: true,
-                     score: null
-                  };
-               }
-               // Check the password strength
-               score += ((value.length >= 8) ? 1 : -1);
-               // The password contains uppercase character
-               if (/[A-Z]/.test(value)) {score += 1;}
-               // The password contains uppercase character
-               if (/[a-z]/.test(value)) {score += 1;}
-               // The password contains number
-               if (/[0-9]/.test(value)) {score += 1;}
-               // The password contains special characters
-               if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-               return {
-               valid: true,
-               score: score    // We will get the score later
-               };
-            }
-         }
       }
    },';
-   echo auto_complete ('admin', 'aid', 'authors', '', '0');
-   echo auto_complete ('adminname', 'name', 'authors', '', '0');
-   adminfoot('fv',$fv_parametres,'','');
+   
+   
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function modifyadmin($chng_aid) {
@@ -359,11 +338,10 @@ function modifyadmin($chng_aid) {
             <label class="col-form-label col-sm-4" for="chng_pwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
                <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
-               <span class="help-block text-right"><span id="countcar_chng_pwd"></span></span>
-                  <div class="progress">
-                     <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 20px;"></div>
+               <span class="help-block text-right" id="countcar_chng_pwd"></span>
+                  <div class="progress" style="height: 0.2rem;">
+                     <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                   </div>
-               <span id="pass-level" class="help-block text-right"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -415,58 +393,37 @@ function modifyadmin($chng_aid) {
       </fieldset>
    </form>';
    echo $scri_check;
-   echo '
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
+$arg1 ='
+      var formulid = ["mod_adm"]
          inpandfieldlen("chng_name",50);
          inpandfieldlen("chng_email",60);
          inpandfieldlen("chng_url",60);
          inpandfieldlen("chng_pwd",12);
          inpandfieldlen("chng_pwd2",12);
-      });
-   //]]>
-   </script>';
+      ';
    $fv_parametres = '
    chng_pwd: {
       validators: {
-         callback: {
-            callback: function(value, validator, $field) {
-               var score = 0;
-               if (value === "") {
-                  return {
-                     valid: true,
-                     score: null
-                  };
-               }
-               // Check the password strength
-               score += ((value.length >= 8) ? 1 : -1);
-               // The password contains uppercase character
-               if (/[A-Z]/.test(value)) {score += 1;}
-               // The password contains uppercase character
-               if (/[a-z]/.test(value)) {score += 1;}
-               // The password contains number
-               if (/[0-9]/.test(value)) {score += 1;}
-               // The password contains special characters
-               if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-               return {
-               valid: true,
-               score: score    // We will get the score later
-               };
-            }
-         }
+         checkPassword: {
+            message: "The password is too weak"
+         },
       }
    },
    chng_pwd2: {
       validators: {
-          identical: {
-              field: "chng_pwd",
-              message: "The password and its confirm are not the same"
-          }
+         identical: {
+            compare: function() {
+               return mod_adm.querySelector(\'[name="chng_pwd"]\').value;
+            },
+         }
       }
    },
+   !###!
+   mod_adm.querySelector(\'[name="chng_pwd"]\').addEventListener("input", function() {
+      fvitem.revalidateField("chng_pwd2");
+   });
    ';
-   adminfoot('fv',$fv_parametres,'','');
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function deletedroits($del_dr_aid) {
