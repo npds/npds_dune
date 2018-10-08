@@ -10,7 +10,7 @@
 /************************************************************************/
 /* Dont modify this file if you dont know what you do                   */
 /************************************************************************/
-global $NPDS_Prefix;
+global $NPDS_Prefix,$minpass;
 
 $m->add_title(translate("User"));
 $m->add_mess(translate("* for mandatory field"));
@@ -86,11 +86,11 @@ if ($smilies) {
 // ---- AVATAR
 
 $m->add_field('user_from', translate("Your Location"),$userinfo['user_from'],'text',false,100,'','');
-$m->add_extender('user_from', '', '<span class="help-block"><span class="float-right" id="countcar_user_from"></span></span>');
+$m->add_extender('user_from', '', '<span class="help-block text-right" id="countcar_user_from"></span>');
 $m->add_field('user_occ', translate("Your Occupation"),$userinfo['user_occ'],'text',false,100,'','');
-$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-right" id="countcar_user_occ"></span></span>');
+$m->add_extender('user_occ', '', '<span class="help-block text-right" id="countcar_user_occ"></span>');
 $m->add_field('user_intrest', translate("Your Interest"),$userinfo['user_intrest'],'text',false,150,'','');
-$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-right" id="countcar_user_intrest"></span></span>');
+$m->add_extender('user_intrest', '', '<span class="help-block text-right" id="countcar_user_intrest"></span>');
 
 // ---- SIGNATURE
 $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='".$userinfo['uid']."'");
@@ -104,11 +104,11 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 $m->add_field('bio',translate("Extra Info"),$userinfo['bio'],'textarea',false,255,4,'','');
 $m->add_extender('bio', '', '<span class="help-block">'.translate("(255 characters max. Type what others can know about yourself)").'<span class="float-right" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Password"),'','password',false,40,'','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 1rem;"><div id="passwordMeter_cont" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></div>');
-$m->add_extender('pass', '', '<span class="help-block"><span class="float-right" id="countcar_pass"></span></span>');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
+$m->add_extender('pass', '', '<span class="help-block text-right" id="countcar_pass"></span>');
 
 $m->add_field('vpass', translate("Retype Password"),'','password',false,40,'','');
-$m->add_extender('vpass', '', '<span class="help-block"><span class="float-right" id="countcar_vpass"></span></span>');
+$m->add_extender('vpass', '', '<span class="help-block text-right" id="countcar_vpass"></span>');
 
 
 // --- EXTENDER

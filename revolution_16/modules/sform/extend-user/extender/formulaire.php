@@ -51,10 +51,10 @@ if(!isset($M2)) $M2='';
 $m->add_comment(aff_langue('<div class="row"><p class="lead">[french]En savoir plus[/french][english]More[/english][spanish]M&#xE1;s[/spanish][german]Mehr[/german]</p></div>'));
 
 $m->add_field('C1', aff_langue('[french]Activit&#x00E9; professionnelle[/french][english]Professional activity[/english][spanish]Actividad profesional[/spanish][german]Berufliche T&#xE4;tigkeit[/german]'),$C1,'text',false,100,'','');
-$m->add_extender('C1', '', '<span class="help-block"><span class="float-right" id="countcar_C1"></span></span>');
+$m->add_extender('C1', '', '<span class="help-block text-right" id="countcar_C1"></span>');
 
 $m->add_field('C2',aff_langue('[french]Code postal[/french][english]Postal code[/english][spanish]C&#xF3;digo postal[/spanish][german]Postleitzahl[/german]'), $C2, 'text',false,5,'','');
-$m->add_extender('C2', '', '<span class="help-block"><span class="float-right" id="countcar_C2"></span></span>');
+$m->add_extender('C2', '', '<span class="help-block text-right" id="countcar_C2"></span>');
 
 //$m->add_extra('<div class="input-group date">');
 $m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english][spanish]Fecha de nacimiento[/spanish][german]Geburtsdatum[/german]'),$T1,'date','',false,20);

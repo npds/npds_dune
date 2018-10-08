@@ -1050,10 +1050,9 @@ if ($cmd_ibid) $files.='
 if (file_exists($infos_fma)) {
    $infos=aff_langue(join('',file($infos_fma)));
 }
-
 // Form
    $upload_file ='
-   <form enctype="multipart/form-data" method="post" action="modules.php">
+   <form id="uploadfichier" enctype="multipart/form-data" method="post" action="modules.php" lang="'.language_iso(1,'','').'">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />
       <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
@@ -1061,10 +1060,31 @@ if (file_exists($infos_fma)) {
       <input type="hidden" name="op" value="upload" />
       <div class="form-group">
          <span class="help-block">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></span>
-         <input class="form-control" name="userfile" type="file" value="" />
+         <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend" onclick="reset2($(\'#userfile\'),\'\');">
+               <div class="input-group-text"><i class="fa fa-refresh"></i></div>
+            </div>
+            <div class="custom-file">
+               <input type="file" class="custom-file-input" name="userfile" id="userfile" />
+               <label id="lab" class="custom-file-label" for="userfile">'.fma_translate("Sélectionner votre fichier").'</label>
+            </div>
+         </div>
       </div>
-      <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
-   </form>';
+      <button class="btn btn-primary" type="submit" name="ok" >'.fma_translate("Ok").'</button>
+   </form>
+   <script type="text/javascript">
+      //<![CDATA[
+         $(".custom-file-input").on("change",function(){
+            $(this).next(".custom-file-label").addClass("selected").html($(this).val().split(\'\\\\\').pop());
+         });
+         window.reset2 = function (e,f) {
+            e.wrap("<form>").closest("form").get(0).reset();
+            e.unwrap();
+            event.preventDefault();
+            $("#lab"+f).html("'.fma_translate("Sélectionner votre fichier").'")
+         };
+      //]]>
+   </script>';
 
    $create_dir ='
    <form method="post" action="modules.php">

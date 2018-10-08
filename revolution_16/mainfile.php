@@ -3045,7 +3045,7 @@ function import_css ($tmp_theme, $language, $site_font, $css_pages_ref, $css) {
    return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css)));
 }
 
-#autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un pseudo array js à partir de la requete sql et implente un auto complete pour l'input (dependence : jquery.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requête
+#autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un array js à partir de la requete sql et implente un auto complete pour l'input (dependence : jquery.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requête. Si $id_inpu n'est pas défini retourne un array js.
 function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
    global $NPDS_Prefix;
 
@@ -3060,6 +3060,10 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    $list_json= rtrim($list_json,',');
    $list_json.='];';
    $scri_js ='';
+   if($id_inpu =='') {
+      $scri_js .=$list_json;
+   }
+   else {
    $scri_js.='
    <script type="text/javascript">
    //<![CDATA[
@@ -3074,6 +3078,7 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
       });
    //]]>
    </script>';
+   }
    return ($scri_js);
 }
 
@@ -3156,6 +3161,7 @@ function language_iso($l,$s,$c) {
 
 #autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>js pur au début du script js, $foo =='' ==> </div> et inclusion footer.php $foo =='foo' ==> inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
+   global $minpass;
    if ($fv=='fv') {
       if($fv_parametres!='') $fv_parametres = explode('!###!',$fv_parametres);
       echo '
@@ -3171,6 +3177,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    var diff;
    document.addEventListener("DOMContentLoaded", function(e) {
       const strongPassword = function() {
+      const bar = $("#passwordMeter_cont");
         return {
             validate: function(input) {
                var score=0;
@@ -3182,42 +3189,42 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                   };
                }
                if (value === value.toLowerCase()) {
+                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
                      message: "Le mot de passe doit contenir au moins un caractère en majuscule.",
-                     score: score-1,
-                  };
+                   };
                }
                if (value === value.toUpperCase()) {
+                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
                      message: "Le mot de passe doit contenir au moins un caractère en minuscule.",
-                     score: score-1,
                   };
                }
                if (value.search(/[0-9]/) < 0) {
+                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
                      message: "Le mot de passe doit contenir au moins un chiffre.",
-                     score: score-1,
                   };
                }
                if (value.search(/[!#$%&^~*_]/) < 0) {
+                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
                      message: "Le mot de passe doit contenir au moins un caractère non numérique et non alphabétique.",
-                     score: score-1,
                   };
                }
                if (value.length < 8) {
+                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
                      message: "Le mot de passe doit contenir plus de 8 caractères.",
-                     score: score-1,
                   };
                }
 
-               score += ((value.length >= 8) ? 1 : -1);
+               score += ((value.length >= '.$minpass.') ? 1 : -1);
                if (/[A-Z]/.test(value)) score += 1;
                if (/[a-z]/.test(value)) score += 1; 
                if (/[0-9]/.test(value)) score += 1;
@@ -3268,45 +3275,24 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
       })
 
       .on("core.validator.validated", function(e) {
-      // The password passes the callback validator
       // voir si on a plus de champs mot de passe : changer par un array de champs ...
-      if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass") && e.validator === "checkPassword") {
+         if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass") && e.validator === "checkPassword") {
          // Get the score
-         var score = e.result.score,$pass_level=$("#pass-level"),
-             $bar = $("#passwordMeter_cont");
-
-         switch (true) {
-           case (score === null):
-               $bar.html("").css("width", "0%").removeClass().addClass("progress-bar");
-               $bar.attr("value","0");
+            score = e.result.score;
+            const bar = $("#passwordMeter_cont");
+            switch (true) {
+               case (score === null):
+                  bar.css("width", "100%").removeClass().addClass("progress-bar bg-danger");
+                  bar.attr("value","100");
                break;
-           case (score <= 1):
-               $bar.html("").css("width", "25%").removeClass().addClass("progress-bar bg-danger");
-               $bar.attr("aria-valuenow","25");
-               $bar.attr("value","25");
-               $pass_level.html("Tr&#xE8;s faible").removeClass().addClass("help-block text-right text-danger");
+               case (score > 4):
+                  bar.css("width", "100%").removeClass().addClass("progress-bar bg-success");
+                  bar.attr("aria-valuenow","100");
+                  bar.attr("value","100").removeClass().addClass("progress-bar bg-success");
                break;
-           case (score > 0 && score <= 2):
-               $bar.html("").css("width", "50%").removeClass().addClass("progress-bar bg-warning");
-               $bar.attr("aria-valuenow","50");
-               $bar.attr("value","50");
-               $pass_level.html("Faible").removeClass().addClass("help-block text-right text-warning");
+               default:
                break;
-           case (score > 2 && score <= 4):
-               $bar.html("").css("width", "75%").removeClass().addClass("progress-bar bg-info");
-               $bar.attr("aria-valuenow","75");
-               $bar.attr("value","75");
-               $pass_level.html("Moyen").removeClass().addClass("help-block text-right text-info");
-               break;
-           case (score > 4):
-               $bar.html("").css("width", "100%").removeClass().addClass("progress-bar bg-success");
-               $bar_cont.attr("aria-valuenow","100");
-               $bar_cont.attr("value","100").removeClass().addClass("progress-bar bg-success");
-               $pass_level.html("Fort").removeClass().addClass("help-block text-right text-success");
-               break;
-           default:
-               break;
-         }
+            }
          }
       });
       ;';
