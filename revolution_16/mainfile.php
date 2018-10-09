@@ -2096,7 +2096,7 @@ function Site_Activ() {
    $who_online='
    <p class="text-center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul class="list-group mb-3" id="site_active">
-     <li class="my-1">'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh($membres).'</span></li>
+     <li class="my-1">'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh(($membres-1)).'</span></li>
      <li class="my-1">'.translate("Nb of articles").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totala).'</span></li>
      <li class="my-1">'.translate("Nb of forums").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalc).'</span></li>
      <li class="my-1">'.translate("Nb of topics").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totald).'</span></li>
@@ -2108,10 +2108,9 @@ function Site_Activ() {
    <p class="text-center"><a href="top.php"><img src="'.$imgtmp.'" alt="'.translate("Top").' '.$top.'" /></a>&nbsp;&nbsp;';
       if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
       $who_online .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistics").'" /></a></p>';
-   } else {
+   } else
       $who_online .= '
    <p class="text-center"><a href="top.php">'.translate("Top").' '.$top.'</a>&nbsp;&nbsp;<a href="stats.php" >'.translate("Statistics").'</a></p>';
-   }
    global $block_title;
    if ($block_title=='')
       $title=translate("Web Activity");
