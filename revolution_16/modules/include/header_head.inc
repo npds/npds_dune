@@ -44,7 +44,7 @@ if(defined('CITRON')){
        "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
        "cookieslist": true, /* Afficher la liste des cookies installés ? */
        "removeCredit": true, /* supprimer le lien vers la source ? */
-       "cookieDomain": "labo.infocapagde.com" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
+       "cookieDomain": "" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
    });
    //]]
 </script>'; //RGPD tool
