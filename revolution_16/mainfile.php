@@ -2096,7 +2096,7 @@ function Site_Activ() {
    $who_online='
    <p class="text-center">'.translate("Pages showed since").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul class="list-group mb-3" id="site_active">
-     <li class="my-1">'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh($membres).'</span></li>
+     <li class="my-1">'.translate("Nb of members").' <span class="badge badge-pill badge-secondary float-right">'.wrh(($membres-1)).'</span></li>
      <li class="my-1">'.translate("Nb of articles").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totala).'</span></li>
      <li class="my-1">'.translate("Nb of forums").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totalc).'</span></li>
      <li class="my-1">'.translate("Nb of topics").' <span class="badge badge-pill badge-secondary float-right">'.wrh($totald).'</span></li>
@@ -2108,10 +2108,9 @@ function Site_Activ() {
    <p class="text-center"><a href="top.php"><img src="'.$imgtmp.'" alt="'.translate("Top").' '.$top.'" /></a>&nbsp;&nbsp;';
       if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
       $who_online .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistics").'" /></a></p>';
-   } else {
+   } else
       $who_online .= '
    <p class="text-center"><a href="top.php">'.translate("Top").' '.$top.'</a>&nbsp;&nbsp;<a href="stats.php" >'.translate("Statistics").'</a></p>';
-   }
    global $block_title;
    if ($block_title=='')
       $title=translate("Web Activity");
@@ -2168,7 +2167,11 @@ function lnlbox() {
       $title=translate("NewsLetter");
    else
       $title=$block_title;
-      $boxstuff = '
+/*
+   $arg1='
+      var formulid = ["lnlblock"]';
+*/
+   $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
             <div class="form-group">
                <select name="op" class=" custom-select form-control">
@@ -2177,8 +2180,8 @@ function lnlbox() {
                </select>
             </div>
             <div class="form-group">
-               <label for="email">'.translate("Your email").'</label>
-               <input type="email" name="email" maxlength="60" class="form-control" />
+               <label for="email_block">'.translate("Your email").'</label>
+               <input type="email" id="email_block" name="email" maxlength="60" class="form-control" />
             </div>
             <p><span class="help-block">'.translate("Sign up now to receive our lastest infos.").'</span></p>
             <div class="form-group row">
@@ -2501,11 +2504,10 @@ function category() {
          if ($numrows > 0) {
             $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
-            if ($cat == $catid) {
+            if ($cat == $catid)
                $boxstuff .= '<li><strong>'.aff_langue($title).'</strong></li>';
-            } else {
-               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-toggle="tooltip" title="'.formatTimestamp($time).'">'.aff_langue($title).'</a></li>';
-            }
+            else 
+               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-html="true" data-toggle="tooltip" data-placement="right" title="'.translate("Last Post").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>';
          }
       }
       $boxstuff .= '</ul>';
@@ -2531,7 +2533,6 @@ function headlines($hid='', $block=true) {
    }
    while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
       $boxtitle = $sitename;
-    
       $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
       $cache_time = 1200;//3600 origine
       $items = 0;
