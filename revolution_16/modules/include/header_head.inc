@@ -21,7 +21,7 @@ echo '
 echo '
 <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />'; // form control
 echo '
-<link rel="stylesheet" href="lib/jquery-ui.min.css">';
+<link rel="stylesheet" href="lib/jquery-ui.min.css" />';
 echo '
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />'; // table
 echo '
@@ -33,7 +33,7 @@ if(defined('CITRON')){
    if (function_exists('language_iso'))
       echo '
 <script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
-<script type="text/javascript" src="/lib/tarteaucitron/tarteaucitron.js"></script>
+<script type="text/javascript" src="lib/tarteaucitron/tarteaucitron.js"></script>
 <script type="text/javascript">
    //<![CDATA[
    tarteaucitron.init({
