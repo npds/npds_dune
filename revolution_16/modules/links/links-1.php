@@ -43,14 +43,14 @@ function AddLink() {
             <span class="help-block">'.translate("Submit a unique link only once.").'<br />'.translate("All links are posted pending verification.").'<br />'.translate("Username and IP are recorded, so please don't abuse the system.").'</span>
          </div>
       </div>
-      <form method="post" action="modules.php" name="adminForm">
+      <form id="addlink" method="post" action="modules.php" name="adminForm">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="title">'.translate("Title").'</label>
             <div class="col-sm-9">
                <input class="form-control" type="text" id="title" name="title" maxlength="100" required="required" />
-               <span class="help-block text-right"><span id="countcar_title"></span></span>
+               <span class="help-block text-right" id="countcar_title"></span>
            </div>
         </div>';
         global $links_url;
@@ -60,7 +60,7 @@ function AddLink() {
             <label class="col-form-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
                <input class="form-control" type="url" id="url" name="url" maxlength="100" value="http://" required="required" />
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-right" id="countcar_url"></span>
            </div>
         </div>';
         $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -88,7 +88,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="topicL">'.translate("Topics").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" name="topicL">';
+               <select class="custom-select form-control" id="topicL" name="topicL">';
            $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
            echo '
                   <option value="">'.translate("All Topics").'</option>';
@@ -121,6 +121,7 @@ function AddLink() {
             <label class="col-form-label col-sm-3" for="email">'.translate("Your Email").'</label>
             <div class="col-sm-9">
                <input type="email" class="form-control" id="email" name="email" maxlength="60" required="required" />
+               <span class="help-block text-right" id="countcar_email"></span>
             </div>
          </div>';
         echo Q_spambot();
@@ -132,19 +133,17 @@ function AddLink() {
             </div>
          </div>
       </form>
-         </div>
-         <div>
-      <script type="text/javascript">
-         //<![CDATA[
-            $(document).ready(function() {
-               inpandfieldlen("title",100);
-               inpandfieldlen("url",100);
-            });
-         //]]>
-      </script>
-      </div>';
+      </div>
+   <div>
+</div>';
+      $arg1='
+      var formulid = ["addlink"];
+      inpandfieldlen("title",100);
+      inpandfieldlen("url",100);
+      inpandfieldlen("email",60);
+      ';
       SearchForm();
-      adminfoot('fv','','','1');
+      adminfoot('fv','',$arg1,'1');
       include("footer.php");
    } else {
       echo '
