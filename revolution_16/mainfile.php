@@ -2167,7 +2167,11 @@ function lnlbox() {
       $title=translate("NewsLetter");
    else
       $title=$block_title;
-      $boxstuff = '
+/*
+   $arg1='
+      var formulid = ["lnlblock"]';
+*/
+   $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
             <div class="form-group">
                <select name="op" class=" custom-select form-control">
@@ -2176,8 +2180,8 @@ function lnlbox() {
                </select>
             </div>
             <div class="form-group">
-               <label for="email">'.translate("Your email").'</label>
-               <input type="email" name="email" maxlength="60" class="form-control" />
+               <label for="email_block">'.translate("Your email").'</label>
+               <input type="email" id="email_block" name="email" maxlength="60" class="form-control" />
             </div>
             <p><span class="help-block">'.translate("Sign up now to receive our lastest infos.").'</span></p>
             <div class="form-group row">
@@ -2500,11 +2504,10 @@ function category() {
          if ($numrows > 0) {
             $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
-            if ($cat == $catid) {
+            if ($cat == $catid)
                $boxstuff .= '<li><strong>'.aff_langue($title).'</strong></li>';
-            } else {
-               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-toggle="tooltip" title="'.formatTimestamp($time).'">'.aff_langue($title).'</a></li>';
-            }
+            else 
+               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-html="true" data-toggle="tooltip" data-placement="right" title="'.translate("Last Post").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>';
          }
       }
       $boxstuff .= '</ul>';
@@ -2530,7 +2533,6 @@ function headlines($hid='', $block=true) {
    }
    while (list($sitename, $url, $headlinesurl, $hid) = sql_fetch_row($result)) {
       $boxtitle = $sitename;
-    
       $cache_file = 'cache/'.preg_replace('[^a-z0-9]','',strtolower($sitename)).'_'.$hid.'.cache';
       $cache_time = 1200;//3600 origine
       $items = 0;
