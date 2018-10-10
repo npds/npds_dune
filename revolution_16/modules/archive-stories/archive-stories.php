@@ -18,7 +18,7 @@ if (!function_exists("Mysql_Connexion"))
    include_once('functions.php');
    include ("modules/$ModPath/archive-stories.conf.php");
    include ("modules/$ModPath/cache.timings.php");
-   if (!isset($start)) {$start=0;}
+   if (!isset($start)) $start=0;
    include("header.php");
    // Include cache manager
    if ($SuperCache) {
@@ -31,10 +31,10 @@ if (!function_exists("Mysql_Connexion"))
          echo $arch_titre;
       echo '
    <hr />
-   <table id ="lst_art_arch" data-toggle="table"  data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+   <table id ="lst_art_arch" data-toggle="table"  data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-buttons-class="outline-secondary " data-icons="icons">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center" class="n-t-col-xs-4">'.translate("Articles").'</th>
+            <th data-sortable="true" data-sorter="htmlSorter" data-halign="center" class="n-t-col-xs-4">'.translate("Articles").'</th>
             <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">'.translate("reads").'</th>
             <th data-halign="center" data-align="right">'.translate("Posted on").'</th>
             <th data-sortable="true" data-halign="center" data-align="left">'.translate("Author").'</th>
@@ -67,28 +67,28 @@ if (!function_exists("Mysql_Connexion"))
       $story_limit=0;
 
       while (($story_limit<$maxcount) and ($story_limit<sizeof($xtab))) {
-        list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
-        $story_limit++;
-        if ($catid!=0) {
-            list($cattitle) = sql_fetch_row(sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'"));
-        }
-        $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" data-placement="left"></i></a>';
-        $sendF = '<a class="ml-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
-        $sid = $s_sid;
-        if ($catid != 0) {
+         list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
+         $story_limit++;
+         if ($catid!=0)
+         list($cattitle) = sql_fetch_row(sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'"));
+         $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" data-placement="left"></i></a>';
+         $sendF = '<a class="ml-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" data-placement="left" ></i></a>';
+         $sid = $s_sid;
+         if ($catid != 0) {
             $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
             list($title1) = sql_fetch_row($resultm);
-            $title = "<a href=\"article.php?sid=$sid&amp;archive=$arch\" >$title</a> [ <a href=\"index.php?op=newindex&amp;catid=$catid\" class=\"ongl\">$title1</a> ]";
-        }
-        setlocale (LC_TIME, aff_langue($locale));
-        preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-        $datetime = strftime("%d-%m-%Y %H:%M:%S", mktime($datetime[4]+(integer)$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-        if (cur_charset!="utf-8") {
-           $datetime = ucfirst($datetime);
-        }
-        echo '
+            $title = '<a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue(ucfirst($title)).'</a> [ <a href="index.php?op=newindex&amp;catid='.$catid.'">'.aff_langue($title1).'</a> ]';
+         }
+         else
+            $title = '<a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue(ucfirst($title)).'</a>';
+         setlocale (LC_TIME, aff_langue($locale));
+         preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
+         $datetime = strftime("%d-%m-%Y %H:%M:%S", mktime($datetime[4]+(integer)$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
+         if (cur_charset!="utf-8")
+            $datetime = ucfirst($datetime);
+         echo '
         <tr>
-           <td><a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue($title).'</a></td>
+           <td>'.$title.'</td>
            <td>'.$counter.'</td>
            <td><small>'.$datetime.'</small></td>
            <td>'.userpopover($informant,40).' '.$informant.'</td>
