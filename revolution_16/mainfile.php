@@ -3272,13 +3272,10 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                },
             }),
          },
-
       })
-
       .on("core.validator.validated", function(e) {
       // voir si on a plus de champs mot de passe : changer par un array de champs ...
          if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass") && e.validator === "checkPassword") {
-         // Get the score
             score = e.result.score;
             const bar = $("#passwordMeter_cont");
             switch (true) {
@@ -3295,8 +3292,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                break;
             }
          }
-      });
-      ;';
+      });';
       if($fv_parametres!='')
          if(array_key_exists(1, $fv_parametres))
             echo '
