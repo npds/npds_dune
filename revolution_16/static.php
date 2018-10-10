@@ -28,6 +28,8 @@
 /*     0 : blocs de Gauche ET pas de blocs Droite (no right blocks)     */
 /*     1 : blocs de Gauche ET blocs de Droite (the two)                 */
 /*     2 : pas de blocs Gauche ET blocs de Droite (no left blocks)      */
+/*     et plus ou moins : suivant la capacité de la variable $pdst      */
+/*     dans le thème utilisé                                            */
 /*                                                                      */
 /* metalang (0=inactif - défaut | 1=actif) :                            */
 /*    l'interprétation meta-lang, [code] ... [/code] et Multi-langue    */
@@ -47,14 +49,15 @@ if (!function_exists("Mysql_Connexion"))
    $pdst=$npds;
    $remp='';
    include ("header.php");
-   echo '<div id="static_cont">';
+   echo '
+   <div id="static_cont">';
    if (($op!='') and ($op)) {
       // Troll Control for security
-      if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta"))  {
+      if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta")) {
          if (file_exists("static/$op")) {
-            if (!$metalang and !$nl) {
+            if (!$metalang and !$nl)
                include ("static/$op");
-            } else {
+            else {
                ob_start();
                  include ("static/$op");
                  $remp=ob_get_contents();
@@ -65,17 +68,21 @@ if (!function_exists("Mysql_Connexion"))
                   $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,cur_charset)));
                echo $remp;
             }
-            echo '<p><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" title="'.translate("Printer Friendly Page").'"><i class="fa fa-2x fa-print"></i></a></p>';
+            echo '
+      <div class=" my-3"><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" data-toggle="tooltip" data-placement="right" title="'.translate("Printer Friendly Page").'"><i class="fa fa-2x fa-print"></i></a></div>';
 
             // Si vous voulez tracer les appels au pages statiques : supprimer les // devant la ligne ci-dessous
             // Ecr_Log("security", "static/$op", "");
-         } else {
-            echo "<p class=\"text-danger text-center\">".translate("Please enter information according to the specifications")."</p>";
          }
-      } else {
-         echo "<p class=\"text-danger text-center\">".translate("Please enter information according to the specifications")."</p>";
-      }
+         else
+            echo '
+      <div class="alert alert-danger">'.translate("Please enter information according to the specifications").'</div>';
+      } 
+      else
+         echo '
+      <div class="alert alert-danger">'.translate("Please enter information according to the specifications").'</div>';
    }
-   echo '</div>';
+   echo '
+   </div>';
    include ("footer.php");
 ?>

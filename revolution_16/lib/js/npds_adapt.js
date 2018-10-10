@@ -15,7 +15,16 @@
             fullscreen: "fa-arrows-alt"
          };
       // <== choix icon boostrap table //
-
+      // ==> tri boostrap table //
+         function htmlSorter(a, b) {
+            var a = $(a).text();
+            var b = $(b).text();
+            if (a < b) return -1;
+            if (a > b) return 1;
+            return 0;
+         }
+      // <== tri boostrap table //
+      
          $(document).ready(function(){
             // responsive old data
             $('.article_texte img,.ibid_descr img').addClass('img-fluid');

@@ -185,7 +185,7 @@ function BannersAdmin() {
    if ($numrows>0) {
    echo '
    <hr />
-   <h3 class="my-2">'.adm_translate("Ajouter une nouvelle bannière").'</h3>
+   <h3 class="my-3">'.adm_translate("Ajouter une nouvelle bannière").'</h3>
    <span class="help-block">'.adm_translate("Pour les bannières Javascript, saisir seulement le code javascript dans la zone URL du clic et laisser la zone image vide.").'</span>
    <span class="help-block">'.adm_translate("Pour les bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier .txt (fichier de code php) dans la zone URL du clic et laisser la zone image vide.").'</span>
    <form id="bannersnewbanner" action="admin.php" method="post">
@@ -241,41 +241,41 @@ function BannersAdmin() {
    // Add Client
    echo '
    <hr />
-   <h3 class="my-2">'.adm_translate("Ajouter un nouvel Annonceur").'</h3>
+   <h3 class="my-3">'.adm_translate("Ajouter un nouvel Annonceur").'</h3>
    <form id="bannersnewanno" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="name" name="name" maxlength="60" required="required" />
-            <span class="help-block text-right"><span id="countcar_name"></span></span>
+            <span class="help-block text-right" id="countcar_name"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="contact" name="contact" maxlength="60" required="required" />
-            <span class="help-block text-right"><span id="countcar_contact"></span></span>
+            <span class="help-block text-right" id="countcar_contact"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" id="email" name="email" maxlength="60" required="required" />
-            <span class="help-block text-right"><span id="countcar_email"></span></span>
+            <span class="help-block text-right" id="countcar_email"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="login" name="login" maxlength="10" required="required" />
-            <span class="help-block text-right"><span id="countcar_login"></span></span>
+            <span class="help-block text-right" id="countcar_login"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="password" id="passwd" name="passwd" maxlength="10" required="required" />
-            <span class="help-block text-right"><span id="countcar_passwd"></span></span>
+            <span class="help-block text-right" id="countcar_passwd"></span>
          </div>
       </div>
       <div class="form-group row">

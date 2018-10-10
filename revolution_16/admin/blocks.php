@@ -461,29 +461,30 @@ function blocks() {
    }
    echo '
    <hr />
-   <h3>'.adm_translate("Créer un nouveau Bloc").'</h3>
+   <h3 class="my-3">'.adm_translate("Créer un nouveau Bloc").'</h3>
    <form id="blocknewblock" action="admin.php" method="post" name="adminForm">
       <div class="row">
          <div class="col-md-8">
             <fieldset>
                <legend>'.adm_translate("Contenu").'</legend>
                <div class="form-group row">
-                  <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
+                  <label class="col-form-label col-sm-12" for="nblock_title">'.adm_translate("Titre").'</label>
                   <div class="col-sm-12">
-                     <input class="form-control" type="text" name="title" id="title" maxlength="255" />
+                     <input class="form-control" type="text" name="title" id="nblock_title" maxlength="255" />
+                     <span class="help-block text-right" id="countcar_nblock_title"></span>
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Contenu").'</label>
+                  <label class="col-form-label col-sm-12" for="nblock_xtext">'.adm_translate("Contenu").'</label>
                   <div class="col-sm-12">
-                     <textarea class="form-control" name="xtext" id="xtext" rows="5"></textarea>
+                     <textarea class="form-control" name="xtext" id="nblock_xtext" rows="5"></textarea>
                      <span class="help-block"><a href="javascript:void(0);" onclick="window.open(\'autodoc.php?op=blocs\', \'windocu\', \'width=720, height=400, resizable=yes,menubar=no,location=no,directories=no,status=no,copyhistory=no,toolbar=no,scrollbars=yes\');">'.adm_translate("Manuel en ligne").'</a></span>
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="col-form-label col-sm-12" for="Baide">'.adm_translate("Aide en ligne").'</label>
+                  <label class="col-form-label col-sm-12" for="nblock_Baide">'.adm_translate("Aide en ligne").'</label>
                   <div class="col-sm-12">
-                     <textarea class="form-control" rows="2" name="Baide" id="Baide"></textarea>
+                     <textarea class="form-control" rows="2" name="Baide" id="nblock_Baide"></textarea>
                   </div>
                </div>
             </fieldset>
@@ -496,12 +497,12 @@ function blocks() {
                <label class="col-form-label col-sm-12" for="op">'.adm_translate("Position").'</label>
                <div class="col-sm-12">
                   <div class="custom-control custom-radio">
-                     <input type="radio" id="opL" name="op" value="makelblock" checked="checked" class="custom-control-input"/>
-                     <label class="custom-control-label" for="opL">'.adm_translate("Créer un Bloc gauche").'</label>
+                     <input type="radio" id="nblock_opL" name="op" value="makelblock" checked="checked" class="custom-control-input"/>
+                     <label class="custom-control-label" for="nblock_opL">'.adm_translate("Créer un Bloc gauche").'</label>
                   </div>
                   <div class="custom-control custom-radio">
-                     <input type="radio" id="opR" name="op" value="makerblock" class="custom-control-input"/>
-                     <label class="custom-control-label" for="opR">'.adm_translate("Créer un Bloc droite").'</label>
+                     <input type="radio" id="nblock_opR" name="op" value="makerblock" class="custom-control-input"/>
+                     <label class="custom-control-label" for="nblock_opR">'.adm_translate("Créer un Bloc droite").'</label>
                   </div>
                </div>
             </div>
@@ -510,27 +511,27 @@ function blocks() {
             <fieldset>
                <legend>'.adm_translate("Paramètres").'</legend>
                <div class="form-group row">
-                  <label class="col-form-label col-sm-12" for="index">Index</label>
+                  <label class="col-form-label col-sm-12" for="nblock_index">Index</label>
                   <div class="col-sm-12">
-                     <input class="form-control" type="number" name="index" id="index" min="0" max="9999" />
+                     <input class="form-control" type="number" name="index" id="nblock_index" min="0" max="9999" />
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="col-form-label col-sm-12" for="Scache">'.adm_translate("Rétention").'</label>
+                  <label class="col-form-label col-sm-12" for="nblock_Scache">'.adm_translate("Rétention").'</label>
                   <div class="col-sm-12">
-                     <input class="form-control" type="number" name="Scache" id="Scache" min="0" max="99999" value="60" />
+                     <input class="form-control" type="number" name="Scache" id="nblock_Scache" min="0" max="99999" value="60" />
                      <span class="help-block">'.adm_translate("Chaque bloc peut utiliser SuperCache. La valeur du délai de rétention 0 indique que le bloc ne sera pas caché (obligatoire pour le bloc function#adminblock).").'</span>
                   </div>
                </div>
                <div class="form-group row">
                   <div class="col-sm-12">
                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="SHTML" id="SHTML" value="ON" />
-                        <label class="custom-control-label" for="SHTML">HTML</label>
+                        <input class="custom-control-input" type="checkbox" name="SHTML" id="nblock_shtml" value="ON" />
+                        <label class="custom-control-label" for="nblock_shtml">HTML</label>
                      </div>
                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="CSS" id="CSS" value="ON" />
-                        <label class="custom-control-label" for="CSS">CSS</label>
+                        <input class="custom-control-input" type="checkbox" name="CSS" id="nblock_css" value="ON" />
+                        <label class="custom-control-label" for="nblock_css">CSS</label>
                      </div>
                   </div>
                </div>
@@ -545,6 +546,8 @@ function blocks() {
    </form>';
    $arg1='
       var formulid = ["blocknewblock"];
+      inpandfieldlen("nblock_title",255);
+
 ';
    adminfoot('fv','',$arg1,'');
 }
