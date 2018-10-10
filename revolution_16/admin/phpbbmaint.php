@@ -99,23 +99,31 @@ function ForumMaintTopics($before,$forum_name) {
    $resultF=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums $add_sql2 ORDER BY forum_id ASC");
    while (list($forum_id, $forum_name)=sql_fetch_row($resultF)) {
       echo '
-       <h4>'.$forum_name.'</h4>';
+       <h4>'.$forum_name.'</h4>
+       <div class="form-group border p-4">';
        $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
        while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
           if ($parse==0)
              $tt =  FixQuotes($topic_title);
           else
              $tt =  stripslashes($topic_title);
-          echo '<a href="admin.php?op=MaintForumTopicDetail&amp;topic='.$topic_id.'&amp;topic_title="'.urlencode($tt).'" title="'.$tt.'" >'.$topic_id.'</a>
-          <input type="checkbox" name="topics['.$topic_id.']" '.$topic_check.' />';
+             
+         $oo = urlencode($tt);
+          echo '
+         <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" name="topics['.$topic_id.']" id="topics'.$topic_id.'" '.$topic_check.'/>
+            <label class="custom-control-label" for="topics'.$topic_id.'"><a href="admin.php?op=MaintForumTopicDetail&amp;topic='.$topic_id.'&amp;topic_title='.$tt.'" data-toggle="tooltip" title="'.$tt.'" >'.$topic_id.'</a></label>
+         </div>';
        }
+       echo '
+       </div>';
     }
     echo '
-    <div class="form-group>"
-       <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />
-       <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Supprimer massivement les Topics").'" />
-   </div>
-    </form>';
+       <div class="form-group>"
+          <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />
+          <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Supprimer massivement les Topics").'" />
+      </div>
+   </form>';
     sql_free_result();
     adminfoot('','','','');
 }
@@ -128,16 +136,19 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    $resultTT=sql_query("SELECT post_text, post_time FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' ORDER BY post_time DESC LIMIT 0,1");
    list($post_text, $post_time)=sql_fetch_row($resultTT);
    echo '
-   <h3 class="mb-3">'.adm_translate("Supprimer massivement les Topics").'</h3>
+   <hr />
+   <h3 class="mb-3 text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>
+   <div class="lead">Topic : '.$topic.' | '.stripslashes($topic_title).'</div>
+   <div class="card p-4 my-3 border-danger">
+   <p class="text-right small text-muted">[ '.convertdate($post_time).' ]</p>
+   '.stripslashes($post_text).'
+   </div>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="ForumMaintTopicSup" />
-      <input type="hidden" name="topic" value="'.$topic.'" />';
-   echo "<b>Topic : $topic | ".stripslashes($topic_title)."</b> | ";
-   echo "<input class=\"btn btn-danger\" type=\"submit\" name=\"Topics_Del\" value=\"".adm_translate("Effacer")."\" />
-   <hr noshade=\"noshade\" class=\"ongl\" />";
-   echo '[ '.convertdate($post_time).' ]<br /><br />';
-   echo stripslashes($post_text);
-   echo '</form>';
+      <input type="hidden" name="topic" value="'.$topic.'" />
+      <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Effacer").'" />
+   </form>
+';
    adminfoot('','','','');
 }
 
@@ -337,10 +348,10 @@ function ForumMaintAdmin() {
          <label class="col-form-label col-sm-4" for="before">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend date" id="datePicker">
-                  <span class="input-group-text"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+               <div class="input-group-prepend date " id="datePicker">
+                  <span class="input-group-text bg-light"><i class="fa fa-calendar-check-o fa-lg"></i></span>
                </div>
-               <input type="text" class="form-control" name="before" id="before" value="" maxlength="11" placeholder="AAAA-MM-JJ" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+               <input type="text" class="form-control" name="before" id="before" />
             </div>
             <span class="help-block text-right">Avant cette date !</span>
          </div>
@@ -352,17 +363,21 @@ function ForumMaintAdmin() {
          </div>
       </div>
    </form>
+   <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
+   <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
    <script type="text/javascript">
-      //<![CDATA[
-         $(document).ready(function() {
-            $("<link>")
-               .appendTo("head")
-               .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-         });
-      //]]>
+   //<![CDATA[
+      $(document).ready(function() {
+         $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
+      })
+      flatpickr("#before", {
+         altInput: true,
+         altFormat: "l j F Y",
+         dateFormat:"Y-m-d",
+         "locale": "'.language_iso(1,'','').'",
+      });
+   //]]>
    </script>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" ></script>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" ></script>
 ';
    $arg1 ='
    var formulid = ["faddeletetop"];';
