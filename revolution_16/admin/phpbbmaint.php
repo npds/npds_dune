@@ -370,18 +370,24 @@ function ForumMaintAdmin() {
       $(document).ready(function() {
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
       })
+   //]]>
+   </script>';
+   $fv_parametres ='
+      before:{},
+      !###!
       flatpickr("#before", {
          altInput: true,
          altFormat: "l j F Y",
          dateFormat:"Y-m-d",
          "locale": "'.language_iso(1,'','').'",
+         onChange: function() {
+            fvitem.revalidateField(\'before\');
+         }
       });
-   //]]>
-   </script>
-';
+   ';
    $arg1 ='
    var formulid = ["faddeletetop"];';
    echo auto_complete("forname","forum_name","forums","titreforum","86400");
-   adminfoot('fv','',$arg1,'');
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 ?>
