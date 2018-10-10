@@ -375,13 +375,13 @@ function reviews($field, $order) {
 
    if ($numresults > 0) {
       echo '
-      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th data-align="center">
                   <a href="reviews.php?op=sort&amp;field=date&amp;order=ASC"><i class="fa fa-sort-amount-asc"></i></a> '.translate("Date").' <a href="reviews.php?op=sort&amp;field=date&amp;order=DESC"><i class="fa fa-sort-amount-desc"></i></a>
                </th>
-               <th data-align="left" data-halign="center" data-sortable="true">
+               <th data-align="left" data-halign="center" data-sortable="true" data-sorter="htmlSorter">
                   <a href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-asc"></i></a> '.translate("Title").' <a href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-desc"></i></a>
                </th>
                <th data-align="center" data-sortable="true">
@@ -407,7 +407,7 @@ function reviews($field, $order) {
          echo '
             <tr>
                <td>'.f_date ($date).'</td>
-               <td><div>'.$title.'<a href="reviews.php?op=showcontent&amp;id='.$id.'"><span class="float-right"><i class="fa fa-external-link fa-lg ml-1"></i></a></span></div></td>
+               <td><a href="reviews.php?op=showcontent&amp;id='.$id.'">'.ucfirst($title).'</a></td>
                <td>';
          if ($reviewer != '') echo $reviewer;
          echo '</td>
@@ -537,7 +537,7 @@ function mod_review($id) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="date_modrev">'.translate("Date").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control w-100" id="date_modrev" name="date" value="'.$date.'" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+            <input type="text" class="form-control w-100" id="date_modrev" name="date" value="'.$date.'" />
          </div>
       </div>
       <div class="form-group row">
@@ -619,27 +619,18 @@ function mod_review($id) {
          </div>
       </div>
       </form>
+      <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
+      <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
       <script type="text/javascript">
       //<![CDATA[
          $(document).ready(function() {
-            $("<link>")
-               .appendTo("head")
-               .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
-         });
+            $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
+         })
+         
       //]]>
-      </script>
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" ></script>
-      <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js" ></script>';
+      </script>';
       $fv_parametres = '
-      date: {
-         validators: {
-            notEmpty: {
-         },
-            date: {
-               format: "YYYY-MM-DD",
-            }
-         }
-      },
+      date:{},
       hits: {
          validators: {
             regexp: {
@@ -654,9 +645,15 @@ function mod_review($id) {
          }
       },
       !###!
-      $("[name=\'date\']").on("changeDate", function(e) {
-            fvitem.revalidateField("date");
-        });
+      flatpickr("#date_modrev", {
+         altInput: true,
+         altFormat: "l j F Y",
+         dateFormat:"Y-m-d",
+         "locale": "'.language_iso(1,'','').'",
+         onChange: function() {
+            fvitem.revalidateField(\'date\');
+         }
+      });
       ';
       $arg1 ='
       var formulid = ["modreview"];
