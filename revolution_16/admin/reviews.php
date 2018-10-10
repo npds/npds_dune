@@ -69,7 +69,6 @@ function reviews() {
    $numrows = sql_num_rows($result);
    echo '<h3>'.adm_translate("Critiques en attente de validation").'<span class="badge badge-danger float-right">'.$numrows.'</span></h3>';
    $jsfvc='';$jsfvf='';
-   //$numrows=0; /// to remove debug
    if ($numrows>0) {
       while(list($id, $date, $title, $text, $reviewer, $email, $score, $url, $url_title) = sql_fetch_row($result)) {
          $title = stripslashes($title);
@@ -79,13 +78,13 @@ function reviews() {
    <form id="reviewsaddcr'.$id.'" action="admin.php" method="post">
    <input type="hidden" name="id" value="'.$id.'" />
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="date">'.adm_translate("Date").'</label>
+         <label class="col-form-label col-sm-4" for="reviewdate">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend date" id="datePicker">
+               <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar-check-o fa-lg"></i></span>
                </div>
-               <input class="form-control" type="text" id="date" name="date" value="'.$date.'" maxlength="10" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" data-date-language="'.language_iso(1,'','').'" />
+               <input class="form-control reviewdate-js" type="text" id="reviewdate" name="date" value="'.$date.'" maxlength="10" required="required" />
             </div>
          </div>
       </div>
@@ -168,18 +167,22 @@ function reviews() {
          var formulid = ["reviewspagecfg"'.$jsfvf.'];
          inpandfieldlen("tit_cri",100);'.$jsfvc;
 
-      echo'
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-   <script type="text/javascript" src="lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.language_iso(1,"","").'.min.js"></script>
+      echo '
+   <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
+   <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
    <script type="text/javascript">
-      //<![CDATA[
+   //<![CDATA[
       $(document).ready(function() {
-         $("<link>")
-            .appendTo("head")
-            .attr({type: "text/css", rel: "stylesheet",href: "lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"});
+         $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
+      })
+      flatpickr(".reviewdate-js", {
+         altInput: true,
+         altFormat: "l j F Y",
+         dateFormat:"Y-m-d",
+         "locale": "'.language_iso(1,'','').'",
       });
-      //]]>
-      </script>';
+   //]]>
+   </script>';
    } else {
       echo '
       <div class="alert alert-success my-3">'.adm_translate("Aucune critique à ajouter").'</div>';
@@ -191,7 +194,7 @@ function reviews() {
    <hr />
    <p><a href="reviews.php?op=write_review" >'.adm_translate("Cliquer ici pour proposer une Critique.").'</a></p>
    <hr />
-   <h3>'.adm_translate("Effacer / Modifier une Critique").'</h3>
+   <h3 class="my-3">'.adm_translate("Effacer / Modifier une Critique").'</h3>
    <div class="alert alert-success">'
    .adm_translate("Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur").' <a href="reviews.php" >reviews.php</a> '.adm_translate("en tant qu'Administrateur.").'
    </div>';
