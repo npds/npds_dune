@@ -39,24 +39,21 @@ function fma_filter($type, $filename, $Extension) {
    $error='';
    if ($type=="f") $filename=removeHack($filename);
    $filename=preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($filename));
-   $filename=str_replace("..","",$filename);
+   $filename=str_replace('..','',$filename);
 
    // Liste des extensions autorisées
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
    if (($suffix!='') or ($type=='d')) {
       if ((in_array($suffix,$Extension)) or ($Extension[0]=='*') or $type=='d') {
          // Fichiers interdits en fonction de qui est connecté
-         if (fma_autorise($type, $filename)) {
+         if (fma_autorise($type, $filename))
             $autorise=true;
-         } else {
+         else
             $error=fma_translate("Fichier interdit");
-         }
-      } else {
+      } else
          $error=fma_translate("Type de fichier interdit");
-      }
-   } else {
+   } else
       $error=fma_translate("Fichier interdit");
-   }
    $tab[]=$autorise;
    $tab[]=$error;
    $tab[]=$filename;
@@ -267,7 +264,7 @@ switch ($op) {
             }
          }
       }
-      break;
+   break;
 
    // Répertoires
    case 'createdir':
@@ -285,7 +282,7 @@ switch ($op) {
          } else
             $Err=$auto[1];
       }
-      break;
+   break;
    case 'renamedir':
       if ($dircmd_fma[1]) {
          $auto=fma_filter('d', $att_name, $obj->Extension);
@@ -311,11 +308,10 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'renamedir-save':
       if ($dircmd_fma[1]) {
          // origine
@@ -325,19 +321,16 @@ switch ($op) {
             $autoD=fma_filter('d', $renamefile, $obj->Extension);
             if ($autoD[0]) {
                $auto[3]=decrypt($browse);
-               if (!$obj->Rename($auto[3].'/'.$auto[2],$auto[3].'/'.$autoD[2])) {
+               if (!$obj->Rename($auto[3].'/'.$auto[2],$auto[3].'/'.$autoD[2]))
                   $Err=$obj->Errors;
-               } else {
+               else
                   Ecr_Log('security','Rename Directory', $log_dir.'/'.$autoD[2].' IP=>'.getip());
-               }
-            } else {
+            } else
                $Err=$autoD[1];
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
 
    case 'removedir':
       if ($dircmd_fma[2]) {
@@ -366,7 +359,7 @@ switch ($op) {
          } else
             $Err=$auto[1];
       }
-      break;
+   break;
    case 'removedir-save':
       if ($dircmd_fma[2]) {
          $auto=fma_filter('d', $att_name, $obj->Extension);
@@ -381,7 +374,7 @@ switch ($op) {
          } else
             $Err=$auto[1];
       }
-      break;
+   break;
 
    case 'chmoddir':
       if ($dircmd_fma[3]) {
@@ -413,7 +406,7 @@ switch ($op) {
          else
             $Err=$auto[1];
       }
-      break;
+   break;
    case 'chmoddir-save':
       if ($dircmd_fma[3]) {
          $auto=fma_filter('d', $att_name, $obj->Extension);
@@ -430,23 +423,21 @@ switch ($op) {
          else
          $Err=$auto[1];
       }
-      break;
+   break;
 
    // Fichiers
    case 'createfile':
       if ($ficcmd_fma[0]) {
          $auto=fma_filter('f', $userfile, $obj->Extension);
          if ($auto[0]) {
-            if (!$obj->Create('f',$base.'/'.$auto[2])) {
+            if (!$obj->Create('f',$base.'/'.$auto[2]))
                $Err=$obj->Errors;
-            } else {
+            else
                Ecr_Log('security','Create File', $log_dir.'/'.$userfile.' IP=>'.getip());
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'renamefile':
       if ($ficcmd_fma[1]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -472,11 +463,10 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'renamefile-save':
       if ($ficcmd_fma[1]) {
          // origine
@@ -486,19 +476,16 @@ switch ($op) {
             $autoD=fma_filter('f', $renamefile, $obj->Extension);
             if ($autoD[0]) {
                $auto[3]=decrypt($browse);
-               if (!$obj->Rename($auto[3].'/'.$auto[2],$auto[3].'/'.$autoD[2])) {
+               if (!$obj->Rename($auto[3].'/'.$auto[2],$auto[3].'/'.$autoD[2]))
                   $Err=$obj->Errors;
-               } else {
+               else
                   Ecr_Log('security','Rename File', $log_dir.'/'.$autoD[2].' IP=>'.getip());
-               }
-            } else {
+            } else
                $Err=$autoD[1];
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'movefile':
       if ($ficcmd_fma[1]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -529,13 +516,12 @@ switch ($op) {
                   while (list(,$rep)=each($arb)) {
                      if ($rep!='') {
                         $rep2=str_replace($basedir_fma,'',$rep);
-                        if (fma_autorise('d',basename($rep))) {
+                        if (fma_autorise('d',basename($rep)))
                            $move_file.='
                         <option value="'.$rep2.'">'.str_replace('/',' / ',$rep2).'</option>';
-                        }
                      }
                   }
-               $move_file.='
+                  $move_file.='
                      </select>
                   </div>
                   <div class="form-group">
@@ -543,11 +529,10 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'movefile-save':
       if ($ficcmd_fma[1]) {
          // origine
@@ -555,16 +540,14 @@ switch ($op) {
          if ($auto[0]) {
             // destination
             $auto[3]=decrypt($browse);
-            if (!$obj->Move($auto[3].'/'.$auto[2],$basedir_fma.$movefile."/".$auto[2])) {
+            if (!$obj->Move($auto[3].'/'.$auto[2],$basedir_fma.$movefile."/".$auto[2]))
                $Err=$obj->Errors;
-            } else {
+            else
                Ecr_Log('security','Move File', $log_dir.'/'.$auto[2].' TO '.$movefile.'/'.$auto[2].' IP=>'.getip());
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'copyfile-save':
       if ($ficcmd_fma[1]) {
          // origine
@@ -572,16 +555,14 @@ switch ($op) {
          if ($auto[0]) {
             // destination
             $auto[3]=decrypt($browse);
-            if (!$obj->Copy($auto[3].'/'.$auto[2],$basedir_fma.$movefile.'/'.$auto[2])) {
+            if (!$obj->Copy($auto[3].'/'.$auto[2],$basedir_fma.$movefile.'/'.$auto[2]))
                $Err=$obj->Errors;
-            } else {
+            else
                Ecr_Log('security','Copy File', $log_dir.'/'.$auto[2].' TO '.$movefile.'/'.$auto[2].' IP=>'.getip());
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'removefile':
       if ($ficcmd_fma[2]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -592,11 +573,11 @@ switch ($op) {
                $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
                $remove_file ='
                <form method="post" action="modules.php">
-                  <input type="hidden" name="ModPath" value="$ModPath" />
-                  <input type="hidden" name="ModStart" value="$ModStart" />
-                  <input type="hidden" name="FmaRep" value="$FmaRep" />
-                  <input type="hidden" name="browse" value="$browse" />
-                  <input type="hidden" name="att_name" value="$att_name" />
+                  <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+                  <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+                  <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
+                  <input type="hidden" name="browse" value="'.$browse.'" />
+                  <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="removefile-save" />
                   <div class="form-group lead">
                      '.fma_translate("Confirmez-vous la suppression de").' <code>'.extend_ascii($auto[2]).'</code>
@@ -606,26 +587,23 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'removefile-save':
       if ($ficcmd_fma[2]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
          if ($auto[0]) {
             $auto[3]=decrypt($browse);
-            if (!$obj->Remove($auto[3].'/'.$auto[2])) {
+            if (!$obj->Remove($auto[3].'/'.$auto[2]))
                $Err=$obj->Errors;
-            } else {
+            else
                Ecr_Log('security','Delete File', $log_dir.'/'.$auto[2].' IP=>'.getip());
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'chmodfile':
       if ($ficcmd_fma[3]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -652,11 +630,10 @@ switch ($op) {
                   </div>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'chmodfile-save':
       if ($ficcmd_fma[3]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -664,18 +641,16 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                settype($chmodfile,"integer");
-               if (!$obj->ChgPerms($auto[3].'/'.$auto[2],$chmodfile)) {
+               if (!$obj->ChgPerms($auto[3].'/'.$auto[2],$chmodfile))
                   $Err=$obj->Errors;
-               } else {
+               else
                   Ecr_Log('security','Chmod File', $log_dir.'/'.$auto[2].' IP=>'.getip());
-               }
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
       $op='';
-      break;
+   break;
    case 'editfile':
       if ($ficcmd_fma[4]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -712,11 +687,10 @@ switch ($op) {
                   <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
                </form>';
             }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
-      break;
+   break;
    case 'editfile-save':
       if ($ficcmd_fma[4]) {
          $auto=fma_filter('f', $att_name, $obj->Extension);
@@ -731,15 +705,13 @@ switch ($op) {
                   fclose($fp);
                   Ecr_Log('security','Edit File', $log_dir.'/'.$auto[2].' IP=>'.getip());
                }
-            } else {
+            } else
                Ecr_Log('security','Edit File forbidden', $log_dir.'/'.$auto[2].' IP=>'.getip());
-            }
-         } else {
+         } else
             $Err=$auto[1];
-         }
       }
       $op='';
-      break;
+   break;
    case 'pict':
       $auto=fma_filter('d', $att_name, $obj->Extension);
       if ($auto[0]) {
@@ -779,10 +751,9 @@ switch ($op) {
                </div>
             </form>';
          }
-      } else {
+      } else
          $Err=$auto[1];
-      }
-      break;
+   break;
    case 'pict-save':
       $auto=fma_filter('d', $att_name, $obj->Extension);
       if ($auto[0]) {
@@ -863,18 +834,13 @@ while (false!==($file = readdir($handle))) {
    }
 }
 closedir($handle);
-//$att_icon_default="<img src=\"images/upload/file_types/unknown.gif\" alt=\"\" />";
 $att_icon_default='
       <span class="fa-stack">
         <i class="fa fa-file fa-stack-2x text-muted"></i>
         <span class="fa-stack-1x filetype-text ">?</span>
       </span>';
-
-
-
 $att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" alt=\"\" />";
 $att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
-
 $att_icon_search='<i class="fa fa-search fa-lg"></i>';
 
 $suppM=fma_translate("Supprimer");
@@ -1047,9 +1013,9 @@ if ($cmd_ibid) $files.='
    }
 }
 
-if (file_exists($infos_fma)) {
+if (file_exists($infos_fma))
    $infos=aff_langue(join('',file($infos_fma)));
-}
+   
 // Form
    $upload_file ='
    <form id="uploadfichier" enctype="multipart/form-data" method="post" action="modules.php" lang="'.language_iso(1,'','').'">
@@ -1166,7 +1132,7 @@ if ($inclusion) {
    if ($dircmd_fma[0])
       $Xcontent=str_replace('_cre_dir',$create_dir,$Xcontent);
    else {
-      $Xcontent=str_replace('_classempty','collapse',$Xcontent);
+      $Xcontent=str_replace('_classcredirno','collapse',$Xcontent);
       $Xcontent=str_replace('<div id="cre_dir">','<div id="cre_dir" style="display: none;">',$Xcontent);
       $Xcontent=str_replace('_cre_dir','',$Xcontent);
    }
@@ -1183,7 +1149,9 @@ if ($inclusion) {
       $Xcontent=str_replace('_upl_file',$upload_file,$Xcontent);
       $Xcontent=str_replace('_cre_file',$create_file,$Xcontent);
    } else {
+      $Xcontent=str_replace('_classuplfileno','collapse',$Xcontent);
       $Xcontent=str_replace('<div id="upl_file">','<div id="upl_file" style="display: none;">',$Xcontent);
+      $Xcontent=str_replace('_classcrefileno','collapse',$Xcontent);
       $Xcontent=str_replace('<div id="cre_file">','<div id="cre_file" style="display: none;">',$Xcontent);
       $Xcontent=str_replace('_upl_file','',$Xcontent);
       $Xcontent=str_replace('_cre_file','',$Xcontent);
@@ -1195,9 +1163,10 @@ if ($inclusion) {
    $Xcontent=str_replace('_mov_file',$move_file,$Xcontent);
 
    if (isset($Err))
-      $Xcontent=str_replace('_error',$Err,$Xcontent);
+      $Xcontent=str_replace('_error','<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$Err.'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>',$Xcontent);
    else
       $Xcontent=str_replace('_error','',$Xcontent);
+
    if (isset($infos))
       $Xcontent=str_replace('_infos',$infos,$Xcontent);
    else
