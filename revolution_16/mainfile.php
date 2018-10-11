@@ -1316,8 +1316,8 @@ function autorisation_block($Xcontent) {
 function autorisation($auto) {
    global $user, $admin;
    $affich=false;
-   if (($auto==-1) and (!$user)) {$affich=true;}
-   if (($auto==1) and (isset($user))) {$affich=true;}
+   if (($auto==-1) and (!$user)) $affich=true;
+   if (($auto==1) and (isset($user))) $affich=true;
    if ($auto>1) {
       $tab_groupe=valid_group($user);
       if ($tab_groupe) {
@@ -1329,8 +1329,8 @@ function autorisation($auto) {
          }
       }
    }
-   if ($auto==0) {$affich=true;}
-   if (($auto==-127) and ($admin)) {$affich=true;}
+   if ($auto==0) $affich=true;
+   if (($auto==-127) and ($admin)) $affich=true;
    return ($affich);
 }
 #autodoc getTopics($s_sid) : Retourne le nom, l'image et le texte d'un topic ou False
@@ -2668,9 +2668,8 @@ function headlines($hid='', $block=true) {
       if ($block) {
          themesidebox($boxtitle, $boxstuff);
          $boxstuff='';
-      } else {
+      } else
          return ($boxstuff);
-      }
    }
 }
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
@@ -2844,13 +2843,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       }
       $timex=false;
       for ($i = 1; $i <= $tab[0]; $i++) {
-         if ($tab[$i]['username']==$uname) {
+         if ($tab[$i]['username']==$uname)
             $timex=time()-$tab[$i]['time'];
-         }
       }
-      if (($timex!==false) and ($timex<60)) {
+      if (($timex!==false) and ($timex<60))
          $conn= '<i class="fa fa-plug faa-flash animated text-primary" title="'.$uname.' '.translate('is connected !').'" data-toggle="tooltip" ></i>';
-      }
       $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />';
       $li_mb.= '
             <li class="list-group-item list-group-item-action d-flex flex-row p-2">
@@ -2886,7 +2883,6 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $content.='
       <hr /><div class="">'.$lst_for_tog.'<i class="fa fa-list-alt fa-2x text-muted ml-3 align-middle" title="'.translate("Group").'('.$gr.'): '.translate("forum").'." data-toggle="tooltip" ></i>&nbsp;<a class="text-uppercase" href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</div>'."\n";
    }
-   //<= Forum
    //=> wspad
    if ($rsql['groupe_pad'] == 1) {
       settype($lst_doc,'string');
@@ -2927,34 +2923,26 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       <hr />
       <div class="mb-2">'.$lst_blocnote_tog.$lst_blocnote.'</div>';
    }
-   //=> bloc-notes
+   //<= bloc-notes
    
 $content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap text-center">';
    //=> Filemanager
-   if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php')) {
+   if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php'))
       $content.='<a class="mx-2" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
-   }
-   //<= Filemanager
    //=> Minisite
-   if ($rsql['groupe_mns'] == 1) {
+   if ($rsql['groupe_mns'] == 1)
       $content.='<a class="mx-2" href="minisite.php?op=groupe/'.$gr.'" target="_blank" title= "'.translate("Mini-Web site").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-desktop fa-2x"></i></a>';
-   }
-   //<= Minisite
    //=> Chat
    settype($chat_img,'string');
    if ($rsql['groupe_chat'] == 1) {
       $PopUp = JavaPopUp("chat.php?id=$gr&amp;auto=".encrypt(serialize ($gr)),"chat".$gr,380,480);
-      if (array_key_exists('chat_info_'.$gr, $_COOKIE)) {
+      if (array_key_exists('chat_info_'.$gr, $_COOKIE))
          if ($_COOKIE['chat_info_'.$gr]) $chat_img='faa-pulse animated faa-slow';
-      }
-         $content.='<a class="mx-2" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x '.$chat_img.'"></i></a>';
+      $content.='<a class="mx-2" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Open a chat for the group.").'" data-toggle="tooltip" data-placement="right" ><i class="fa fa-comments fa-2x '.$chat_img.'"></i></a>';
    }
-   //<= Chat
    //=> admin
-   if (autorisation(-127)) {
+   if (autorisation(-127))
       $content.='<a class="mx-2" href="admin.php?op=groupes" ><i title="'.translate("Groups setting.").'" data-toggle="tooltip" class="fa fa-cogs fa-2x"></i></a>';
-   }
-   //<= admin
    $content.='</div>
    </div>';
    return ($content);
@@ -3160,7 +3148,7 @@ function language_iso($l,$s,$c) {
     return ($ietf);
 }
 
-#autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres, fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> parametres particuliers pour differents input (objet js ex :   xxx: {},...), $arg1=>js pur au début du script js, $foo =='' ==> </div> et inclusion footer.php $foo =='foo' ==> inclusion footer.php
+#autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres (js), fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> éléments de l'objet fields differents input (objet js ex :   xxx: {},...) si !###! est trouvé dans la variable la partie du code suivant sera inclu à la fin de la fonction d'initialisation, $arg1=>js pur au début du script js, $foo =='' ==> </div> et inclusion footer.php $foo =='foo' ==> inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    global $minpass;
    if ($fv=='fv') {
@@ -3177,6 +3165,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    '.$arg1.'
    var diff;
    document.addEventListener("DOMContentLoaded", function(e) {
+      // validateur pour mots de passe
       const strongPassword = function() {
       const bar = $("#passwordMeter_cont");
         return {
@@ -3237,10 +3226,9 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
             },
          };
       };
-
-    // Register new validator named checkPassword
+    // enregistré comme nouveau validateur nommé checkPassword
     FormValidation.validators.checkPassword = strongPassword;
-   
+
    formulid.forEach(function(item, index, array) {
       const fvitem = FormValidation.formValidation(
          document.getElementById(item),{
