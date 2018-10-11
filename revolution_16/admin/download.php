@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='DownloadAdmin';
 $f_titre = adm_translate('Téléchargements');
 //==> controle droit
@@ -30,7 +30,7 @@ function groupe($groupe) {
       $selectionne=0;
       if ($les_groupes) {
          foreach ($les_groupes as $groupevalue) {
-            if (($groupe_id==$groupevalue) and ($groupe_id!=0)) {$selectionne=1;}
+            if (($groupe_id==$groupevalue) and ($groupe_id!=0)) $selectionne=1;
          }
       }
       if ($selectionne==1)
@@ -44,7 +44,7 @@ function groupe($groupe) {
    if ($nbg>5) $nbg=5;
    // si on veux traiter groupe multiple multiple="multiple"  et name="Mprivs"
    return ('
-   <select multiple="multiple" class="form-control" id="mpri" name="Mprivs[]" size="'.$nbg.'">
+   <select multiple="multiple" class="custom-select" id="mpri" name="Mprivs[]" size="'.$nbg.'">
    '.$str.'
    </select>');
 }
@@ -112,7 +112,7 @@ function DownloadAdmin() {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Catégories").'</h3>';
+   <h3 class="my-3">'.adm_translate("Catégories").'</h3>';
    $pseudocatid ='';
    while(list($dcategory) = sql_fetch_row($resultX)) {
       $pseudocatid++;
@@ -121,7 +121,7 @@ function DownloadAdmin() {
       '.aff_langue(stripslashes($dcategory)).'</h4>';
       echo '
    <div class="mb-3" id="cat_'.$pseudocatid.'" style="display:none;">
-   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+   <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
             <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
@@ -132,39 +132,38 @@ function DownloadAdmin() {
             <th data-halign="center" data-align="center">'.adm_translate("Ver.").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Taille de fichier").'</th>
             <th data-halign="center" >'.adm_translate("Date").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
        $result = sql_query("SELECT did, dcounter, durl, dfilename, dfilesize, ddate, dver, perms FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY did ASC");
        while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dver, $dperm) = sql_fetch_row($result)) {
+          if ($dperm==0) $dperm='<span title="'.adm_translate("Anonymes").'<br />'.adm_translate("Membres").'<br />'.adm_translate("Administrateurs").'" data-toggle="tooltip" data-html="true"><i class="fa fa-user-o fa-lg"></i><i class="fa fa-user fa-lg"></i><i class="fa fa-cogs"></i></span>';
+          if ($dperm==1) $dperm='<span title="'.adm_translate("Membres").'" data-toggle="tooltip"><i class="fa fa-user fa-lg"></i></span>';
+          if ($dperm>=1) $dperm='<span title="'.adm_translate("Groupes").'" data-toggle="tooltip"><i class="fa fa-users fa-lg"></i></span>';
+          if ($dperm==-127) $dperm='<span title="'.adm_translate("Administrateurs").'" data-toggle="tooltip"><i class="fa fa-user fa-lg"></i><i class="fa fa-cogs"></i></span>';
+          if ($dperm==-1) $dperm='<span title="'.adm_translate("Anonymes").'"  data-toggle="tooltip"><i class="fa fa-user-o fa-lg"></i></span>';
           echo '
-            <tr>
-               <td>'.$did.'</td>
-               <td>'.$dcounter.'</td>';
-          if ($dperm==0) {$dperm='Al';}
-          if ($dperm>=1) {$dperm='Mb';}
-          if ($dperm==-127) {$dperm='Ad';}
-          if ($dperm==-1) {$dperm='An';}
-          echo '
-               <td>'.$dperm.'</td>
-               <td><a href="'.$durl.'" title="'.adm_translate("Téléchargements").'" data-toggle="tooltip"><i class="fa fa-download fa-2x"></i></a></td>
-               <td>'.$dfilename.'</td>
-               <td>'.$dver.'</td>
-               <td>';
-                  $Fichier = new FileManagement;
-                if ($dfilesize!=0) {
-               echo $Fichier->file_size_auto($durl, 2);
-                } else {
-                echo $Fichier->file_size_auto($durl, 2);
-                }
-                echo '</td>
-                <td>'.$ddate.'</td>
-                <td>
-                   <a href="admin.php?op=DownloadEdit&amp;did='.$did.'" title="'.adm_translate("Editer").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>&nbsp;
-                   <a href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=0" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
-                </td>
-               </tr>';
+         <tr>
+            <td>'.$did.'</td>
+            <td>'.$dcounter.'</td>
+            <td>'.$dperm.'</td>
+            <td><a href="'.$durl.'" title="'.adm_translate("Téléchargements").'<br />'.$durl.'" data-toggle="tooltip" data-html="true"><i class="fa fa-download fa-2x"></i></a></td>
+            <td>'.$dfilename.'</td>
+            <td><span class="small">'.$dver.'</span></td>
+            <td><span class="small">';
+         $Fichier = new FileManagement;
+         if ($dfilesize!=0)
+            echo $Fichier->file_size_auto($durl, 2);
+         else
+            echo $Fichier->file_size_auto($durl, 2);
+                echo '</span></td>
+            <td class="small">'.$ddate.'</td>
+            <td>
+               <a href="admin.php?op=DownloadEdit&amp;did='.$did.'" title="'.adm_translate("Editer").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>&nbsp;
+               <a href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=0" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+            </td>
+            </tr>';
        }
        echo '
       </tbody>
@@ -186,10 +185,10 @@ function DownloadAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="url" id="durl" name="durl" maxlength="255" required="required" />
+            <input class="form-control" type="text" id="durl" name="durl" maxlength="255" required="required" />
    &nbsp;<a href="javascript:void(0);" onclick="window.open(\'admin.php?op=FileManagerDisplay\', \'wdir\', \'width=650, height=450, menubar=no, location=no, directories=no, status=no, copyhistory=no, toolbar=no, scrollbars=yes, resizable=yes\');">
    <span class="">['.adm_translate("Parcourir").']</span></a>
-            <span class="help-block text-right"><span id="countcar_durl"></span></span>
+            <span class="help-block text-right" id="countcar_durl"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -202,14 +201,14 @@ function DownloadAdmin() {
          <label class="col-form-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" id="dfilename" name="dfilename" maxlength="255" required="required" />
-               <span class="help-block text-right"><span id="countcar_dfilename"></span></span>
+               <span class="help-block text-right" id="countcar_dfilename"></span>
             </div>
          </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dver" id="dver" maxlength="6" />
-            <span class="help-block text-right"><span id="countcar_dver"></span></span>
+            <span class="help-block text-right" id="countcar_dver"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -222,21 +221,21 @@ function DownloadAdmin() {
          <label class="col-form-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dweb" name="dweb" maxlength="255" />
-            <span class="help-block text-right"><span id="countcar_dweb"></span></span>
+            <span class="help-block text-right" id="countcar_dweb"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="duser" name="duser" maxlength="30" />
-            <span class="help-block text-right"><span id="countcar_duser"></span></span>
+            <span class="help-block text-right" id="countcar_duser"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dcategory">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dcategory" name="dcategory" maxlength="250" />
-            <span class="help-block text-right"><span id="countcar_dcategory"></span></span>
+            <span class="help-block text-right" id="countcar_dcategory"></span>
             <select class="custom-select form-control" name="sdcategory">';
    $result = sql_query("SELECT DISTINCT dcategory FROM ".$NPDS_Prefix."downloads ORDER BY dcategory");
    while (list($dcategory) = sql_fetch_row($result)) {
@@ -263,7 +262,7 @@ function DownloadAdmin() {
       <input type="hidden" name="op" value="DownloadAdd" />
       <div class="form-group row">
          <div class="col-sm-12">
-            <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />
+            <button class="btn btn-primary" type="submit">'.adm_translate("Ajouter").'</button>
          </div>
       </div>
    </form>';
@@ -298,21 +297,21 @@ function DownloadEdit($did) {
          <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="durl" name="durl" value="'.$durl.'" maxlength="255" required="required" />
-            <span class="help-block text-right"><span id="countcar_durl"></span></span>
+            <span class="help-block text-right" id="countcar_durl"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dfilename">'.adm_translate("Nom de fichier").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dfilename" name="dfilename" id="dfilename" value="'.$dfilename.'" maxlength="255" required="required" />
-            <span class="help-block text-right"><span id="countcar_dfilename"></span></span>
+            <span class="help-block text-right" id="countcar_dfilename"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="dver">'.adm_translate("Version").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="dver" id="dver" value="'.$dver.'" maxlength="6" />
-            <span class="help-block text-right"><span id="countcar_dver"></span></span>
+            <span class="help-block text-right" id="countcar_dver"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -325,14 +324,14 @@ function DownloadEdit($did) {
          <label class="col-form-label col-sm-4" for="dweb">'.adm_translate("Propriétaire de la page Web").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="dweb" name="dweb" value="'.$dweb.'" maxlength="255" />
-            <span class="help-block text-right"><span id="countcar_dweb"></span></span>
+            <span class="help-block text-right" id="countcar_dweb"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="duser">'.adm_translate("Propriétaire").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="duser" name="duser" value="'.$duser.'" maxlength="30" />
-            <span class="help-block text-right"><span id="countcar_duser"></span></span>
+            <span class="help-block text-right" id="countcar_duser"></span>
          </div>
       </div>
       <div class="form-group row">
