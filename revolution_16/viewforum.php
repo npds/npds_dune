@@ -220,16 +220,16 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($myrow = sql_fetch_assoc($result)) {
       echo '
       <h4 class="my-2">'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
-      <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="n-t-col-xs-1" data-align="center"></th>
-               <th class="" data-sortable="true">'.translate("Topic").'&nbsp;&nbsp;</th>
+               <th class="" data-sortable="true" data-sorter="htmlSorter">'.translate("Topic").'&nbsp;&nbsp;</th>
                <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
                <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
                <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
-               <th data-align="right" >'.translate("Last Posts").'<i class="fa fa-calendar-o fa-lg text-muted" title="'.translate("Date").'" data-toggle="tooltip" ></i></th>
+               <th data-align="right" >'.translate("Last Posts").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -287,11 +287,12 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             $topic_title = stripslashes($myrow['topic_title']);
             if (!stristr($topic_title,'<a href=')) {
                $last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum";
-               echo "<td>&nbsp;<a href=\"".$last_post_url."\" >$topic_title</a></td>";
+               echo '
+               <td><a href="'.$last_post_url.'" >'.ucfirst($topic_title).'</a></td>';
                $Sredirection=false;
             } else {
                echo '
-               <td>&nbsp;'.$topic_title.'</td>';
+               <td>'.$topic_title.'</td>';
                $Sredirection=true;
             }
 

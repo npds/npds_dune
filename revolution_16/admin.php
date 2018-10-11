@@ -241,13 +241,6 @@ $ibid = explode('|',$v);
    // traiter
    //<== Pour les modules
 
-
-
-
-
-
-
-
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    // on prend tout ce qui a une interface 
@@ -521,11 +514,11 @@ function adminMain($deja_affiches) {
 
    if ($nbre_articles) {
       echo '
-      <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <table id ="lst_art_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-buttons-class="outline-secondary" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">ID</th>
-               <th data-halign="center" class="n-t-col-xs-5">'.adm_translate("Titre").'</th>
+               <th data-halign="center" data-sortable="true" data-sorter="htmlSorter" class="n-t-col-xs-5">'.adm_translate("Titre").'</th>
                <th data-sortable="true" data-halign="center" class="n-t-col-xs-4">'.adm_translate("Sujet").'</th>
                <th data-halign="center" data-align="center" class="n-t-col-xs-2">'.adm_translate("Fonctions").'</th>
             </tr>
@@ -560,7 +553,7 @@ function adminMain($deja_affiches) {
             echo $title.' <i>(archive)</i>';
          else {
             if ($affiche) {
-               echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.$title.'</a>';
+               echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.ucfirst($title).'</a>';
                if($ihome==1)
                   echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
                else

@@ -23,7 +23,16 @@ function geninfo($did,$out_template) {
    settype($out_template, 'integer');
    $result = sql_query("SELECT dcounter, durl, dfilename, dfilesize, ddate, dweb, duser, dver, dcategory, ddescription, perms FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
    list($dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcategory, $ddescription, $dperm) = sql_fetch_row($result);
-   $okfile=autorisation($dperm);
+
+   $okfile=false;
+   if(!stristr($dperm,',')) $okfile=autorisation($dperm);
+   else {
+      $ibidperm=explode(',',$dperm);
+      foreach($ibidperm as $v) {
+         if (autorisation($v)) {$okfile=true; break;}
+      }
+   }
+
    if ($okfile) {
       $title=$dfilename;
       if ($out_template==1) {
@@ -60,9 +69,9 @@ function geninfo($did,$out_template) {
          </div>';
          include('footer.php');
       }
-   } else {
-      Header("Location: download.php");
    }
+else
+   Header("Location: download.php");
 }
 
 function tlist() {
@@ -196,15 +205,15 @@ function SortLinks($dcategory, $sortby) {
 }
 
 function listdownloads ($dcategory, $sortby, $sortorder) {
-  global $perpage, $page, $download_cat, $user, $NPDS_Prefix;
+   global $perpage, $page, $download_cat, $user, $NPDS_Prefix;
 
-  if ($dcategory == '') { $dcategory = addslashes($download_cat); }
-  if (!$sortby) { $sortby = "dfilename"; }
-  if (($sortorder!="ASC") && ($sortorder!="DESC")) {
-     $sortorder = "ASC";
-  }
-echo '<p class="lead">';
-  echo translate("Display filtered with")."&nbsp;<i>";
+   if ($dcategory == '') $dcategory = addslashes($download_cat);
+   if (!$sortby) $sortby = 'dfilename';
+   if (($sortorder!="ASC") && ($sortorder!="DESC"))
+      $sortorder = "ASC";
+   echo '
+<p class="lead">';
+   echo translate("Display filtered with")."&nbsp;<i>";
   if ($dcategory==translate("All"))
      echo '<b>'.translate("All").'</b>';
   else
@@ -233,7 +242,7 @@ echo '<p class="lead">';
  
   echo '
    <table class="table table-hover mb-3 table-sm" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
-data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
+data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">';
   sortlinks($dcategory, $sortby);
   echo '
       <tbody>';
@@ -280,14 +289,13 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
       $okfile='';
       if(!stristr($dperm,',')) $okfile=autorisation($dperm);
       else {
-         $ibid=explode(',',$dperm);
-         foreach($ibid as $v) {
+         $ibidperm=explode(',',$dperm);
+         foreach($ibidperm as $v) {
             if(autorisation($v)==true) {$okfile=true; break;}
          }
       };
-
       echo '
-         <tr class="">
+         <tr>
             <td class="text-center">';
       if ($okfile==true)
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
@@ -298,26 +306,28 @@ data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">';
       echo '</td>
             <td class="text-center">'.$Fichier->Affiche_Extention('webfont').'</td>
             <td>';
-      if ($okfile==true) {
+      if ($okfile==true)
          echo '<a href="download.php?op=mydown&amp;did='.$did.'" target="_blank">'.$dfilename.'</a>';
-      } else {
+      else
          echo '<span class="text-danger"><i class="fa fa-ban fa-lg mr-1"></i>...</span>';
-      }
       echo '</td>
-            <td>';
-            if ($dfilesize!=0) {
-               echo $FichX->file_size_auto($durl, 2);
-            } else {
-               echo $FichX->file_size_auto($durl, 2);
-            }
-            echo '</td>
+            <td class="small text-center">';
+      if ($dfilesize!=0)
+         echo $FichX->file_size_auto($durl, 2);
+      else
+         echo $FichX->file_size_auto($durl, 2);
+      echo '</td>
             <td>'.aff_langue(stripslashes($dcat)).'</td>
-            <td>'.convertdate($ddate).'</td>
-            <td class="text-center">'.$dver.'</td>
-            <td class="text-center">'.wrh($dcounter).'</td>';
-      if ((($okfile==true) and $user) or autorisation(-127)) {
+            <td class="small text-center">'.convertdate($ddate).'</td>
+            <td class="small text-center">'.$dver.'</td>
+            <td class="small text-center">'.wrh($dcounter).'</td>';
+      if ($user!='' or autorisation(-127)) {
          echo '
-            <td><a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-lg fa-chain-broken"></i></a></td>';
+            <td>';
+         if ( ($okfile==true and $user!='') or autorisation(-127))
+            echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-lg fa-chain-broken"></i></a>';
+         echo '
+            </td>';
       }
       echo '
          </tr>';
