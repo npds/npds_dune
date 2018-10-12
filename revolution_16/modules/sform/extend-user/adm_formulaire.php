@@ -99,36 +99,36 @@ $nbg=0;
       $selectionne=0;
       if ($les_groupes) {
          foreach ($les_groupes as $groupevalue) {
-            if (($groupe_id==$groupevalue) and ($groupe_id!=0)) {$selectionne=1;}
+            if (($groupe_id==$groupevalue) and ($groupe_id!=0)) $selectionne=1;
          }
       }
-      if ($selectionne==1) {$tmp_groupe[$groupe_id]['selected']=true;}
+      if ($selectionne==1) $tmp_groupe[$groupe_id]['selected']=true;
       $nbg++;
    }
-if ($nbg>7) {$nbg=7;}
+if ($nbg>7) $nbg=7;
 $m->add_select('add_group', adm_translate("Groupe"), $tmp_groupe, false, $nbg, true);
 // ---- Groupes
 
-if ($open_user) {$checked=true;} else {$checked=false;}
+if ($open_user) $checked=true; else $checked=false;
 $m->add_checkbox('add_open_user',adm_translate("Autoriser la connexion"), 1, false, $checked);
 if ($mns) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('add_mns',adm_translate("Activer son MiniSite"), 1, false, $checked);
 
 // LNL
-if ($user_lnl) {$checked=true;} else {$checked=false;}
+if ($user_lnl) $checked=true; else $checked=false;
 $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, false, $checked);
 // LNL
 
-if ($chng_user_viewemail) {$checked=true;} else {$checked=false;}
+if ($chng_user_viewemail) $checked=true; else $checked=false;
 $m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres utilisateurs à voir son adresse E-mail"), 1, false, $checked);
 
 $m->add_field('add_url','URL',$chng_url,'url',false,100,'','');
 $m->add_extender('add_url', '', '<span class="help-block text-right" id="countcar_add_url"></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
-if ($chng_send_email==1) {$checked=true;} else {$checked=false;}
+if ($chng_send_email==1) $checked=true; else $checked=false;
 $m->add_checkbox('add_send_email',adm_translate("M'envoyer un Mel lorsque qu'un Msg Int. arrive"), 1, false, $checked);
-if ($chng_is_visible==1) {$checked=false;} else {$checked=true;}
+if ($chng_is_visible==1) $checked=false; else $checked=true;
 $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $checked);
 // ---- SUBSCRIBE and INVISIBLE
 
@@ -160,9 +160,8 @@ if ($op=="ModifyUser") {
    $m->add_extender('add_pass2', '', '<span class="help-block text-right" id="countcar_add_pass2"></span>');
 }
 // --- EXTENDER
-if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
+if (file_exists("modules/sform/extend-user/extender/formulaire.php"))
    include("modules/sform/extend-user/extender/formulaire.php");
-}
 // --- EXTENDER
 
 // ----------------------------------------------------------------
@@ -267,7 +266,7 @@ if ($op=="ModifyUser")
          register.querySelector(\'[name="add_pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("add_pass2");
          });';
-   $fv_parametres .='
+$fv_parametres .='
          flatpickr("#T1", {
             altInput: true,
             altFormat: "l j F Y",
