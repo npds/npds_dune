@@ -70,25 +70,30 @@ function fma_filter($type, $filename, $Extension) {
 function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
+   /* ==> 
+   was notice on if($type f) in some case ...Coriace ..... 
+   add set type de la variable $autorise_arbo=false;
+   controle de l'index dans le array and array_key_exists($dir, $ficlimit_fma))
+   et if(isset($autorise_arbo)) au lieu de if($autorise_arbo)
+   cohérence de la correction et de ses implications encore incertaine
+   à suivre !!
+   <==*/
+   $autorise_arbo=false;
    if ($type=='a')
       $autorise_arbo=$access_fma;
    if ($type=='d')
       $autorise_arbo=$dirlimit_fma[$dir];
-   //==> notice sur $type f ...coriace .....à suivre ?  and array_key_exists($dir, $ficlimit_fma)
-   if ($type=='f')
+   if ($type=='f' and array_key_exists($dir, $ficlimit_fma))
       $autorise_arbo=$ficlimit_fma[$dir];
-//   else $autorise_arbo='';
-   //<== notice sur $type f ...coriace .....à suivre ?
-
-   if ($autorise_arbo) {
+   if (isset($autorise_arbo)) {
       $auto_dir='';
-      if (($autorise_arbo=='membre') and ($user)) {
+      if (($autorise_arbo=='membre') and ($user))
          $auto_dir=true;
-      } elseif (($autorise_arbo=='anonyme') and (!$user)) {
+      elseif (($autorise_arbo=='anonyme') and (!$user))
          $auto_dir=true;
-      } elseif (($autorise_arbo=='admin') and ($admin)) {
+      elseif (($autorise_arbo=='admin') and ($admin))
          $auto_dir=true;
-      } elseif (($autorise_arbo!='membre') and ($autorise_arbo!='anonyme') and ($autorise_arbo!='admin') and ($user)) {
+      elseif (($autorise_arbo!='membre') and ($autorise_arbo!='anonyme') and ($autorise_arbo!='admin') and ($user)) {
          $tab_groupe=valid_group($user);
          if ($tab_groupe) {
             foreach($tab_groupe as $groupevalue) {
@@ -111,9 +116,8 @@ function fma_autorise($type, $dir) {
             }
          }
       }
-   } else {
+   } else
       $auto_dir=true;
-   }
    if ($auto_dir!=true) {
       if ($type=='d')
          $dir_minuscptr++;
@@ -187,33 +191,27 @@ if ($FmaRep) {
             $theme_fma=$themeG_fma;
             $fic_minuscptr=0;
             $dir_minuscptr=0;
-         } else {
+         } else
             Access_Error();
-         }
-      } else {
+      } else
          Access_Error();
-      }
-   } else {
+   } else
       Access_Error();
-   }
-} else {
+} else
    Access_Error();
-}
 
 if ($browse!='') {
    $ibid=rawurldecode(decrypt($browse));
-   if (substr(@php_uname(),0,7) == "Windows") {
+   if (substr(@php_uname(),0,7) == "Windows")
       $ibid=preg_replace('#[\*\?"<>|]#i','', $ibid);
-   } else {
+   else
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
-   }
    $ibid=str_replace('..','',$ibid);
    // contraint ‡ rester dans la zone de repertoire dÈfinie
    $ibid=$basedir_fma.substr($ibid,strlen($basedir_fma));
    $base=$ibid;
-} else {
+} else
    $base = $basedir_fma;
-}
 
 // initialisation de la classe
 $obj= new Navigator();
