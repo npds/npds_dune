@@ -3263,7 +3263,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
       })
       .on("core.validator.validated", function(e) {
       // voir si on a plus de champs mot de passe : changer par un array de champs ...
-         if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass") && e.validator === "checkPassword") {
+         if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass" || e.field === "code") && e.validator === "checkPassword") {
             score = e.result.score;
             const bar = $("#passwordMeter_cont");
             switch (true) {
