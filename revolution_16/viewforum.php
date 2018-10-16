@@ -233,7 +233,6 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             </tr>
          </thead>
          <tbody>';
-
       do {
          echo '
             <tr>';
