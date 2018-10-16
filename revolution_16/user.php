@@ -755,54 +755,69 @@ function ForgetPassword() {
    <div class="card card-body">
    <div  class="alert alert-danger text-center">'.translate("Lost your Password?").'</div>
    <div  class="alert alert-success text-center">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</div>
-   <form action="user.php" method="post">
+   <form id="forgetpassword" action="user.php" method="post">
       <div class="form-group row">
-         <label for="inputuser" class="col-sm-3 form-control-label">'.translate("Nickname").'</label>
+         <label for="inputuser" class="col-sm-3 col-form-label">'.translate("Nickname").'</label>
          <div class="col-sm-9">
-            <input type="text" class="form-control"  name="uname" id="inputuser" placeholder="'.translate("Nickname").'" />
+            <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label for="inputPassuser" class="col-sm-3 form-control-label">'.translate("Password").'</label>
+         <label for="inputpassuser" class="col-sm-3 col-form-label">'.translate("Password").'</label>
          <div class="col-sm-9">
-            <input type="password" class="form-control" name="code" id="inputPassuser" placeholder="'.translate("Password").'" />
+            <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Password").'" required="required" />
          </div>
       </div>
-         <input type="hidden" name="op" value="mailpasswd" />
-         <div class="form-group row">
+      <div class="form-group row">
+         <div class="col-sm-9 ml-sm-auto" >
+            <div class="progress" style="height: 0.2rem;">
+               <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+            </div>
+         </div>
+      </div>
+      <input type="hidden" name="op" value="mailpasswd" />
+      <div class="form-group row">
          <div class="col-sm-9 ml-sm-auto">
-            <input class="btn btn-primary" type="submit" value ="'.translate("Send").'"  />
+            <input class="btn btn-primary" type="submit" value ="'.translate("Send").'" />
          </div>
       </div>
    </form>
    </div>';
+   $fv_parametres ='
+      code: {
+         validators: {
+            checkPassword: {
+               message: "Le mot de passe est trop simple."
+            },
+         }
+      },';
+   $arg1 ='
+      var formulid = ["forgetpassword"];';
+   adminfoot('fv',$fv_parametres,$arg1,'foo');
    include ('footer.php');
 }
 
 function mail_password($uname, $code) {
-    global $NPDS_Prefix;
-    global $sitename, $nuke_url;
+    global $NPDS_Prefix, $sitename, $nuke_url;
     $uname=removeHack(stripslashes(htmlspecialchars(urldecode($uname),ENT_QUOTES,cur_charset)));
     $result = sql_query("SELECT uname,email,pass FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
     $tmp_result=sql_fetch_row($result);
-    if (!$tmp_result) {
+    if (!$tmp_result)
        message_error(translate("Sorry, no corresponding user info was found")."<br /><br />",'');
-    } else {
+    else {
        $host_name = getip();
        list($uname,$email, $pass) = $tmp_result;
        // On envoie une URL avec dans le contenu : username, email, le MD5 du passwd retenu et le timestamp
        $url="$nuke_url/user.php?op=validpasswd&code=".urlencode(encrypt($uname)."#fpwd#".encryptK($email."#fpwd#".$code."#fpwd#".time(),$pass));
 
-       $message = "".translate("The user account")." '$uname' ".translate("at")." $sitename ".translate("has this email associated with it.")."\n\n";
+       $message = translate("The user account").' '.$uname.' '.translate("at").' '.$sitename.' '.translate("has this email associated with it.")."\n\n";
        $message.= translate("A web user from")." $host_name ".translate("has just requested a Confirmation to change the password.")."\n\n".translate("Your Confirmation URL is:")." <a href=\"$url\">$url</a> \n\n".translate("If you didn't ask for this, don't worry. Just delete this Email.")."\n\n";
        include("signat.php");
 
        $subject=translate("Confirmation Code for").' '.$uname;
 
        send_email($email, $subject, $message, '', true, 'html');
-
        message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'</div>');
-
        Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }
 }
