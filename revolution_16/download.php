@@ -114,15 +114,15 @@ function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
 }
 
 function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
-     echo '
+   echo '
          <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-asc" ></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
          <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-desc" ></i></a>';
 }
 
 function dl_tableheader () {
-  echo '</td>
-  <td>';
+   echo '</td>
+   <td>';
 }
 
 function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
@@ -159,7 +159,7 @@ function SortLinks($dcategory, $sortby) {
       <thead>
          <tr>
             <th class="text-center">'.translate("Functions").'</th>
-            <th class="text-center n-t-col-xs-1">'.translate("Type").'</th>
+            <th class="text-center n-t-col-xs-1" data-sortable="true" data-sorter="htmlSorter">'.translate("Type").'</th>
             <th class="text-center">';
    if ($sortby == 'dfilename' OR !$sortby)
       act_dl_tableheader($dcategory, $sortby, "dfilename", "Name");
@@ -214,45 +214,44 @@ function listdownloads ($dcategory, $sortby, $sortorder) {
    echo '
 <p class="lead">';
    echo translate("Display filtered with")."&nbsp;<i>";
-  if ($dcategory==translate("All"))
-     echo '<b>'.translate("All").'</b>';
-  else
-     echo '<b>'.aff_langue(stripslashes($dcategory)).'</b>';
-  echo '</i>&nbsp;'.translate("sorted by").'&nbsp;';
+   if ($dcategory==translate("All"))
+      echo '<b>'.translate("All").'</b>';
+   else
+      echo '<b>'.aff_langue(stripslashes($dcategory)).'</b>';
+   echo '</i>&nbsp;'.translate("sorted by").'&nbsp;';
 
-  // Shiney SQL Injection 11/2011
-  $sortby2='';
-  if ($sortby == 'dfilename')
-    $sortby2 = translate("Name")."";
-  if ($sortby == 'dfilesize')
-    $sortby2 = translate("File Size")."";
-  if ($sortby == 'dcategory')
-    $sortby2 = translate("Category")."";
-  if ($sortby == 'ddate')
-    $sortby2 = translate("Creation Date")."";
-  if ($sortby == 'dver')
-    $sortby2 = translate("Version")."";
-  if ($sortby == 'dcounter')
-    $sortby2 = translate("Downloads")."";
-  // Shiney SQL Injection 11/2011
-  if ($sortby2=='')
-     $sortby = 'dfilename';
-  echo translate("of").'&nbsp;<i><b>'.$sortby2.'</b></i>
-  </p>';
- 
-  echo '
+   // Shiney SQL Injection 11/2011
+   $sortby2='';
+   if ($sortby == 'dfilename')
+      $sortby2 = translate("Name")."";
+   if ($sortby == 'dfilesize')
+      $sortby2 = translate("File Size")."";
+   if ($sortby == 'dcategory')
+      $sortby2 = translate("Category")."";
+   if ($sortby == 'ddate')
+      $sortby2 = translate("Creation Date")."";
+   if ($sortby == 'dver')
+      $sortby2 = translate("Version")."";
+   if ($sortby == 'dcounter')
+      $sortby2 = translate("Downloads")."";
+   // Shiney SQL Injection 11/2011
+   if ($sortby2=='')
+      $sortby = 'dfilename';
+   echo translate("of").'&nbsp;<i><b>'.$sortby2.'</b></i>
+</p>';
+
+   echo '
    <table class="table table-hover mb-3 table-sm" id ="lst_downlo" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true"
 data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">';
-  sortlinks($dcategory, $sortby);
-  echo '
+   sortlinks($dcategory, $sortby);
+   echo '
       <tbody>';
-  if ($dcategory==translate("All")) {
-    $sql="SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads";
-  } else {
-    $sql="SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."'";
-  }
-  $result = sql_query($sql);
-  list($total) =  sql_fetch_row($result);
+   if ($dcategory==translate("All"))
+      $sql="SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads";
+   else
+      $sql="SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."'";
+   $result = sql_query($sql);
+   list($total) =  sql_fetch_row($result);
 //
   if ($total>$perpage) {
     $pages=ceil($total/$perpage);
@@ -267,20 +266,19 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
 //  
    $nbPages = ceil($total/$perpage);
    $current = 1;
-   if ($page >= 1) {
+   if ($page >= 1)
       $current=$page;
-   } else if ($page < 1) {
+   else if ($page < 1)
       $current=1;
-   } else {
+   else
       $current = $nbPages;
-   }
 
-  settype($offset, 'integer');
-  settype($perpage, 'integer');
-  if ($dcategory==translate("All"))
-    $sql="SELECT * FROM ".$NPDS_Prefix."downloads ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
-  else
-    $sql="SELECT * FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
+   settype($offset, 'integer');
+   settype($perpage, 'integer');
+   if ($dcategory==translate("All"))
+      $sql="SELECT * FROM ".$NPDS_Prefix."downloads ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
+   else
+      $sql="SELECT * FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY $sortby $sortorder LIMIT $offset,$perpage";
 
    $result = sql_query($sql);
    while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcat, $ddescription, $dperm) = sql_fetch_row($result)) {
@@ -341,21 +339,20 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
 }
 
 function main() {
-  global $dcategory, $sortby, $sortorder, $sitename;
-  $dcategory  = removeHack(stripslashes(htmlspecialchars(urldecode($dcategory),ENT_QUOTES,cur_charset))); // electrobug
-  $dcategory=str_replace("&#039;","\'",$dcategory);
-  $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,cur_charset))); // electrobug
+   global $dcategory, $sortby, $sortorder, $sitename;
+   $dcategory  = removeHack(stripslashes(htmlspecialchars(urldecode($dcategory),ENT_QUOTES,cur_charset))); // electrobug
+   $dcategory=str_replace("&#039;","\'",$dcategory);
+   $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,cur_charset))); // electrobug
 
-  include("header.php");
-  echo '
-  <h2>'.translate("Download Section").'</h2>
-  <hr />';
-  tlist();
-  if ($dcategory!=translate("No category")) {
+   include("header.php");
+   echo '
+   <h2>'.translate("Download Section").'</h2>
+   <hr />';
+   tlist();
+   if ($dcategory!=translate("No category"))
      listdownloads($dcategory, $sortby, $sortorder);
-  }
-  if (file_exists("static/download.ban.txt")) {
-   include("static/download.ban.txt");}
+   if (file_exists("static/download.ban.txt"))
+      include("static/download.ban.txt");
    include("footer.php");
 }
 
@@ -372,7 +369,6 @@ function transferfile($did) {
    <div class="lead alert alert-danger">'.translate("There is no such file...").'</div>';
       include("footer.php");
    } else {
-   
       if(stristr($dperm,',')) {
          $ibid=explode(',',$dperm);
          foreach($ibid as $v) {
@@ -386,39 +382,36 @@ function transferfile($did) {
          }
          if($aut==false) Header("Location: download.php");
       } else {
-        if (autorisation($dperm)) {
-           $dcounter++;
-           sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter' WHERE did='$did'");
-           header("location: ".str_replace(basename($durl),rawurlencode(basename($durl)), $durl));
-        } else {
-           Header("Location: download.php");
-        }
-     }
-  }
+         if (autorisation($dperm)) {
+            $dcounter++;
+            sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter' WHERE did='$did'");
+            header("location: ".str_replace(basename($durl),rawurlencode(basename($durl)), $durl));
+         } else
+            Header("Location: download.php");
+      }
+   }
 }
 
 function broken($did) {
-  global $user, $cookie;
+   global $user, $cookie;
 
-  settype($did, 'integer');
-  if ($user) {
-     if ($did) {
-        global $notify_email, $notify_message, $notify_from, $nuke_url;
-        settype ($did, "integer");
-        $message=$nuke_url."\n\n".translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
-        send_email($notify_email, translate("Report Broken Link"), $message, $notify_from , false, "text");
-        include("header.php");
-        echo '
+   settype($did, 'integer');
+   if ($user) {
+      if ($did) {
+         global $notify_email, $notify_message, $notify_from, $nuke_url;
+         settype ($did, "integer");
+         $message=$nuke_url."\n\n".translate("downloads")." ID : $did\n\n".translate("Submitter")." $cookie[1] / IP : ".getip();
+         send_email($notify_email, translate("Report Broken Link"), $message, $notify_from , false, "text");
+         include("header.php");
+         echo '
         <div class="alert alert-success">
            <p class="lead">'.translate("For security reasons your user name and IP address will also be temporarily recorded.").'<br />'.translate("Thanks for this information. We'll look into your request shortly.").'</p>
         </div>';
-        include("footer.php");
-     } else {
-        Header("Location: download.php");
-     }
-  } else {
+         include("footer.php");
+      } else
+         Header("Location: download.php");
+   } else
     Header("Location: download.php");
-  }
 }
 
 settype($op,'string');
