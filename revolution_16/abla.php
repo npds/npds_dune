@@ -165,8 +165,14 @@ if ($admin) {
       $num_dow++;
       echo '
          <tr>
-            <td><span class="text-danger">'.$xdownload[$num_dow][1].'</span> -/- '.$dfilename.' : </td>
-            <td><span class="text-danger">'.$xdownload[$num_dow][2].'</span> -/- '.$dcounter.'</td>
+            <td><span class="text-danger">';
+      if (array_key_exists($num_dow, $xdownload))
+         echo $xdownload[$num_dow][1];
+      echo '</span> -/- '.$dfilename.'</td>
+            <td><span class="text-danger">';
+      if (array_key_exists($num_dow, $xdownload))
+            echo $xdownload[$num_dow][2];
+      echo '</span> -/- '.$dcounter.'</td>
          </tr>';
       $xfile.="\$xdownload[$num_dow][1] = \"$dfilename\";\n";
       $xfile.="\$xdownload[$num_dow][2] = \"$dcounter\";\n";
