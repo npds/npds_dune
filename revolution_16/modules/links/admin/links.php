@@ -33,30 +33,45 @@ if(autorisation(-127)) {
 else
    Access_Error();
 
+
 function helpwindow() {
    global $hlpfile;
-   $scri ='
+   echo '
    <script type="text/javascript">
    //<![CDATA[
-   function openwindow(){
+      function openwindow() {
       window.open ("'.$hlpfile.'","Help","toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400");
    }
    //]]>
    </script>';
-   return $scri;
 }
 
 function links() {
-   global $ModPath, $ModStart, $links_DB, $admin, $language, $NPDS_Prefix;
+   global $ModPath, $ModStart, $links_DB, $admin, $language, $NPDS_Prefix, $hlpfile;
    include ("header.php");
-   echo helpwindow();
+
+/*
+   echo '
+   <script type="text/javascript">
+   //<![CDATA[
+   var e;
+    function ouvrewindow() {
+      e = window.open("'.$hlpfile.'","Help","toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400");
+   };
+   //]]>
+   </script>';
+*/
+
+
+
+   helpwindow();
 
    $result=sql_query("SELECT * FROM ".$links_DB."links_links");
    $numrows = sql_num_rows($result);
    echo '
    <h2>'.translate("Links").'<span class="badge badge-secondary mx-2 float-right" title="DB : '.$links_DB.translate("There are").' '.$numrows.' '.translate("Links in our Database").'" data-toggle="tooltip">'.$numrows.'</span></h2>
    <hr class="mb-0" />
-   <div class="text-right mt-1 mb-2"><a class="" href="javascript:openwindow();" >'.translate("Online Manual").'</a><i class="fa fa-cogs ml-3 fa-lg text-muted"></i></div>';
+   <div class="text-right mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Online Manual").'</a><i class="fa fa-cogs ml-3 fa-lg text-muted"></i></div>';
    echo '
    <nav aria-label="breadcrumb">
       <ol class="breadcrumb">';
@@ -537,7 +552,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
                <select class="custom-select form-control" name="topicL">';
           $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
           echo '
-                  <option value="">'.translate("All Topics").'</option>';
+                  <option value="0">'.translate("All Topics").'</option>';
           while(list($topicid, $topics) = sql_fetch_row($toplist)) {
               if ($topicid==$topicid_card) $sel = 'selected="selected"';
               echo '

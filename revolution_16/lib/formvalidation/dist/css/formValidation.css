@@ -447,3 +447,9 @@
     top: 0; }
   .fv-plugins-uikit.uk-form-stacked .fv-no-label .fv-plugins-icon-check {
     top: -11px; }
+
+.fv-plugins-wizard--step {
+  display: none; }
+
+.fv-plugins-wizard--active {
+  display: block; }
