@@ -54,66 +54,61 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
 
    if($dd_pub!=-1 and $dh_pub!=-1)
       echo '
-   <div class="form-group row">
-      <label class="col-form-label col-md-5">'.translate("Start Date for this New").'</label>
-      <div class="input-group input-daterange col-md-7">
+   <div class="form-row">
+      <label class="col-form-label col-sm-4">'.translate("Start Date for this New").'</label>
+      <div class="col-sm-5 mb-3">
+         <input type="text" class="form-control flatpi" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" />
+      </div>
+      <div class="input-group col-sm-3 mb-3">
          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
-         </div>
-            <input type="text" class="form-control flatpi" id="dd_pub" name="dd_pub" value="'.$dd_pub.'"  />
-          <div class="input-group-prepend">
              <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
-          </div>
-          <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
+         </div>
+      <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
       </div>
    </div>';
    echo '
-   <div class="form-group row">
-      <label class="col-form-label col-md-5">'.translate("End Date for this New").'</label>
-      <div class="input-group input-daterange col-md-7">
-         <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-calendar-o fa-lg"></i></span>
-         </div>
+   <div class="form-row">
+      <label class="col-form-label col-sm-4">'.translate("End Date for this New").'</label>
+      <div class="col-sm-5 mb-3">
          <input type="text" class="form-control flatpi" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" />
+      </div>
+      <div class="input-group col-sm-3 mb-3">
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
          </div>
-          <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
+         <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
       </div>
    </div>
-   
    <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
    <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
    <script type="text/javascript" src="lib/js/bootstrap-clockpicker.min.js" async="async"></script>
    <script type="text/javascript">
    //<![CDATA[
-   $(document).ready(function() {
-      $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
-      $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
-      $("#dh_pub,#fh_pub").clockpicker({
-      placement: "bottom",
-      align: "right",
-      autoclose: "true"
+      $(document).ready(function() {
+         $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
+         $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
+         $("#dh_pub,#fh_pub").clockpicker({
+         placement: "bottom",
+         align: "right",
+         autoclose: "true"
+         });
+      })
+      const fp = flatpickr(".flatpi", {
+         altInput: true,
+         altFormat: "l j F Y",
+         dateFormat:"Y-m-d",
+         "locale": "'.language_iso(1,'','').'",
       });
-   })
-   flatpickr(".flatpi", {
-   altInput: true,
-   altFormat: "l j F Y",
-   dateFormat:"Y-m-d",
-   "locale": "'.language_iso(1,'','').'",
-   });
    //]]>
    </script>
 
    <div class="form-group row">
-      <div class="col-md-5">
-         <label class="col-form-label">'.translate("Auto Delete the New at End Date").'</label>
-      </div>';
+      <label class="col-form-label col-sm-4">'.translate("Auto Delete the New at End Date").'</label>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';
       else $sel1='checked="checked"';
       echo '
-      <div class="col-md-7 my-2">
+      <div class="col-sm-8 my-2">
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
             <label class="custom-control-label" for="epur_y">'.translate("Yes").'</label>
