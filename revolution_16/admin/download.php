@@ -401,18 +401,16 @@ function DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $du
          $privs = implode(',', $Mprivs);
    }
     $sdcategory=addslashes($sdcategory);
-    if (!$dcategory) {
+    if (!$dcategory)
        $dcategory = $sdcategory;
-    } else {
+    else
        $dcategory=addslashes($dcategory);
-    }
     $description=addslashes($description);
     if ($ddate=="yes") {
        $time = date("Y-m-d");
        sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter', durl='$durl', dfilename='$dfilename', dfilesize='$dfilesize', ddate='$time', dweb='$dweb', duser='$duser', dver='$dver', dcategory='$dcategory', ddescription='$description', perms='$privs' WHERE did='$did'");
-    } else {
+    } else
        sql_query("UPDATE ".$NPDS_Prefix."downloads SET dcounter='$dcounter', durl='$durl', dfilename='$dfilename', dfilesize='$dfilesize', dweb='$dweb', duser='$duser', dver='$dver', dcategory='$dcategory', ddescription='$description', perms='$privs' WHERE did='$did'");
-    }
     Header("Location: admin.php?op=DownloadAdmin");
 }
 
@@ -434,7 +432,7 @@ function DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $d
 }
 
 function DownloadDel($did, $ok=0) {
-global $NPDS_Prefix;
+global $NPDS_Prefix, $f_meta_nom;
    if ($ok==1) {
       sql_query("DELETE FROM ".$NPDS_Prefix."downloads WHERE did='$did'");
       Header("Location: admin.php?op=DownloadAdmin");
@@ -446,7 +444,6 @@ global $NPDS_Prefix;
 
    echo' 
        <div class="alert alert-danger">
-           <button class="close" data-dismiss="alert">×</button>
            <strong>'.adm_translate("ATTENTION : êtes-vous sûr de vouloir supprimer ce fichier téléchargeable ?").'</strong>
        </div>
        <a class="btn btn-danger" href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=1" >'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary" href="admin.php?op=DownloadAdmin" >'.adm_translate("Non").'</a>';
