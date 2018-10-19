@@ -95,8 +95,7 @@ function autorise_mod($lid,$aff) {
          if ($aff)
             echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modify").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          return(true);
-      } else
-         return(false);
+      }
    } elseif ($user!='') {
       global $cookie;
       $resultX=sql_query("SELECT submitter FROM ".$links_DB."links_links WHERE submitter='$cookie[1]' AND lid='$lid'");

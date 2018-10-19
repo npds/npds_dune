@@ -939,27 +939,31 @@ function LinksListModRequests() {
       global $links_topic;
       if ($links_topic)
          echo '
-            <strong>'.translate("Topic").' :</strong> <span'.clformodif($oritopic,$topic).'>'.$topic.'</span><br/>';
+            <strong>'.translate("Topic").' :</strong> <span'.clformodif($oritopic,$topic).'>'.$topic.'</span><br />';
       echo '
-            <strong>'.translate("Cat:").'</strong> <span'.clformodif($origcidtitle,$cidtitle).'>'.$cidtitle.'</span><br/>
-            <strong>'.translate("Subcat:").'</strong> <span'.clformodif($origsidtitle,$sidtitle).'>'.$sidtitle.'</span><br/>';
+            <strong>'.translate("Cat:").'</strong> <span'.clformodif($origcidtitle,$cidtitle).'>'.$cidtitle.'</span><br />
+            <strong>'.translate("Subcat:").'</strong> <span'.clformodif($origsidtitle,$sidtitle).'>'.$sidtitle.'</span><br />';
          
       if ($owneremail=='')
          echo '
-            <strong>'.translate("Owner").': </strong> <span'.clformodif($origsidtitle,$sidtitle).'>'.$owner.'</span><br/>';
+            <strong>'.translate("Owner").': </strong> <span>'.$owner.'</span><br />';
       else
-         echo '<strong>'.translate("Owner").' : </strong><a href="mailto:'.$owneremail.'" >'.$owner.'</span><br/>';
+         echo '<strong>'.translate("Owner").' : </strong><a href="mailto:'.$owneremail.'" >'.$owner.'</span><br />';
 
       echo '
          </div>
       </div>
    </div>';
-          if ($modifysubmitteremail=='')
-             echo "<td align=\"left\" class=\"ongl\" width=\"30%\">".translate("Submitter")." :  $modifysubmitter</td>";
-          else
-             echo "<td align=\"left\" class=\"ongl\" width=\"30%\">".translate("Submitter")." :  <a href=\"mailto:$modifysubmitteremail\" class=\"noir\">$modifysubmitter</a></td>";
+    if ($modifysubmitteremail=='')
+       echo translate("Submitter").' : '.$modifysubmitter;
+    else
+       echo translate("Submitter").' :  <a href="mailto:'.$modifysubmitteremail.'">'.$modifysubmitter.'</a>';
 
-          echo '<div class="form-group"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksChangeModRequests&amp;requestid='.$requestid.'" class="btn btn-primary btn-sm">'.translate("Accept").'</a> <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksChangeIgnoreRequests&amp;requestid='.$requestid.'" class="btn btn-secondary btn-sm">'.translate("Ignore").'</a></div>
+    echo '
+       <div class="form-group">
+          <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksChangeModRequests&amp;requestid='.$requestid.'" class="btn btn-primary btn-sm">'.translate("Accept").'</a>
+          <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksChangeIgnoreRequests&amp;requestid='.$requestid.'" class="btn btn-secondary btn-sm">'.translate("Ignore").'</a>
+       </div>
    </div>';
    }
    sql_free_result();

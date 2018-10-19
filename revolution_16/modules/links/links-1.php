@@ -177,9 +177,8 @@ function Add($title, $url, $name, $cat, $description, $email, $topicL, $asb_ques
    if (isset($user)) {
       global $cookie;
       $submitter = $cookie[1];
-   } else {
+   } else
       $submitter = $anonymous;
-   }
    if ($title=='') {
       error_head('alert-danger');
       echo translate("ERROR: You need to type a TITLE for your URL!").'<br />';
@@ -229,11 +228,10 @@ function links_search($query, $topicL, $min, $max, $offset) {
    if (file_exists($filen)) {include($filen);}
    $query = removeHack(stripslashes(htmlspecialchars($query,ENT_QUOTES,cur_charset))); // Romano et NoSP
 
-   if ($topicL!='') {
+   if ($topicL!='')
       $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE topicid_card='$topicL' AND (title LIKE '%$query%' OR description LIKE '%$query%') ORDER BY lid ASC LIMIT $min,$offset");
-   } else {
+   else
       $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY lid ASC LIMIT $min,$offset");
-   }
    if ($result) {
       $link_fiche_detail='';
       include_once("modules/$ModPath/links-view.php");
