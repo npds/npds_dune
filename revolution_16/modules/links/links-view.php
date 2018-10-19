@@ -25,24 +25,21 @@ global $NPDS_Prefix;
                $title=preg_replace("#$query#", "<b>$query</b>", $title);
                $affichT=true;
             }
-         } else {
+         } else
             $affichT=true;
-         }
          if (strcasecmp($description,strip_tags($description))==0) {
             if ($description!=preg_replace("#$query#", "<b>$query</b>", $description)) {
                $description=preg_replace("#$query#", "<b>$query</b>", $description);
                $affichD=true;
             }
-         } else {
+         } else
             $affichD=true;
-         }
          if ($affichT or $affichD)
             $affich=true;
          else
             $affich=false;
-      } else {
+      } else
          $affich=true;
-      }
 
       if ($affich) {
          $title = stripslashes($title); $description = stripslashes($description);

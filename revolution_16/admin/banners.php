@@ -29,7 +29,7 @@ function BannersAdmin() {
    echo '
    <hr />
    <h3>'.adm_translate("Bannières actives").'</h3>
-   <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-detail-view="true" data-icons="icons" data-icons-prefix="fa">
+   <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("ID").'</th>
@@ -72,7 +72,7 @@ function BannersAdmin() {
    echo '
    <hr />
    <h3>'.adm_translate("Bannières inactives").'</h3>
-   <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
+   <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("ID").'</th>
@@ -113,7 +113,7 @@ function BannersAdmin() {
    </table>
    <hr />
    <h3>'.adm_translate("Bannières terminées").'</h3>
-   <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
+   <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("ID").'</th>
@@ -150,7 +150,7 @@ function BannersAdmin() {
    </table>
    <hr />
    <h3>'.adm_translate("Annonceurs faisant de la publicité").'</h3>
-   <table id="tad_banannon" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tad_banannon" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-toggle="true" data-show-columns="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("ID").'</th>

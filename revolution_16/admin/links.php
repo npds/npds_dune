@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 $f_meta_nom ='links';
 $f_titre = 'Liens';
 //==> controle droit
@@ -40,7 +40,7 @@ function links() {
    <hr />
    <h3>'.adm_translate("Liens").' <span class="">'.$numrows.'</span></h3>' ;
    echo '[ <a href="admin.php?op=LinksListBrokenLinks">'.adm_translate("Soumission de Liens brisés").' ('.$totalbrokenlinks.')</a> -
-   <a href="admin.php?op=LinksListModRequests" class="noir">'.adm_translate("Proposition de modifications de Liens").' ('.$totalmodrequests.')</a> ]';
+   <a href="admin.php?op=LinksListModRequests">'.adm_translate("Proposition de modifications de Liens").' ('.$totalmodrequests.')</a> ]';
 
    $result = sql_query("SELECT lid, cid, sid, title, url, description, name, email, submitter FROM ".$NPDS_Prefix."links_newlink ORDER BY lid ASC LIMIT 0,1");
    $numrows = sql_num_rows($result);
@@ -334,13 +334,13 @@ function links() {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Liste des liens").' <span class="badge badge-secondary pull-right">'.$numrow.'</span></h3>
-   <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">ID</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate('Titre').'</th>
-            <th data-sortable="true" data-halign="center" >URL</th>
-            <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.adm_translate('Fonctions').'</th>
+            <th data-sortable="true" data-sorter="htmlSorter" data-halign="center" >URL</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center" data-align="right">'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>';
@@ -354,11 +354,10 @@ function links() {
          <tr>
             <td>'.$lid.'</td>
             <td>'.$title.'</td>
-            <td>'.$url.'</td>
+            <td><a href="'.$url.'" target="_blank">'.$url.'</a></td>
             <td>
-               <a href="admin.php?op=LinksModLink&amp;lid='.$lid.'" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;
-               <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>&nbsp;
-               <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="text-danger"><i class="fa fa-trash-o fa-lg"></i></a>
+               <a href="admin.php?op=LinksModLink&amp;lid='.$lid.'" ><i class="fa fa-edit fa-lg"></i></a>
+               <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="text-danger"><i class="fa fa-trash-o fa-lg ml-3"></i></a>
             </td>
          </tr>';
    }
@@ -619,7 +618,7 @@ function LinksListBrokenLinks() {
    <div class="alert alert-success lead">'.adm_translate("Aucun lien brisé rapporté.").'</div>';
    } else {
       echo '
-   <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-4" data-sortable="true" data-halign="center" >'.adm_translate("Liens").'</th>
@@ -641,24 +640,24 @@ function LinksListBrokenLinks() {
          list($owneremail)=sql_fetch_row($result4);
          echo '
          <tr>
-            <td><div>'.$title.'&nbsp;<span class="pull-right"><a href="'.$url.'" target="_blank" ><i class="fa fa-external-link fa-lg"></i></a></span></div></td>';
+            <td><div>'.$title.'&nbsp;<span class="float-right"><a href="'.$url.'" target="_blank" ><i class="fa fa-external-link fa-lg"></i></a></span></div></td>';
          if ($email=='')
             echo '
             <td>'.$modifysubmitter;
          else
             echo '
-            <td><div>'.$modifysubmitter.'&nbsp;<span class="pull-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
+            <td><div>'.$modifysubmitter.'&nbsp;<span class="float-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
          echo '</td>';
          if ($owneremail=='')
             echo '
              <td>'.$owner;
          else
             echo '
-             <td><div>'.$owner.'&nbsp;<span class="pull-right"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
+             <td><div>'.$owner.'&nbsp;<span class="float-right"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
          echo '
             </td>
-            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip"></i></a></td>
-            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
       }
    }
@@ -689,10 +688,12 @@ function LinksListModRequests() {
    if ($totalmodrequests==0)
       header("location: admin.php?op=links");
    include ("header.php");
+   $x_mod='';$x_ori='';
+   function clformodif($x_ori,$x_mod){
+      if ($x_ori != $x_mod) return ' class="text-danger" ';
+   }
    GraphicAdmin($hlpfile);
-   echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tr><td class=\"header\">\n";
-   echo adm_translate("Requête de modification d'un Lien Utilisateur")." ($totalmodrequests)";
-   echo "</td></tr></table>\n";
+   echo '<h3 class="my-3">'.adm_translate("Requête de modification d'un Lien Utilisateur").'<span class="badge badge-danger float-right">'.$totalmodrequests.'</span></h3>';
    while(list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter)=sql_fetch_row($resultLink)) {
       $result2 = sql_query("SELECT cid, sid, title, url, description, submitter FROM ".$NPDS_Prefix."links_links WHERE lid='$lid'");
       list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner)=sql_fetch_row($result2);
@@ -713,44 +714,69 @@ function LinksListModRequests() {
       if ($owner=='') $owner='administration';
       if ($origsidtitle=='') $origsidtitle= '-----';
       if ($sidtitle=='') $sidtitle= '-----';
-       echo "<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n";
-       $rowcolor=tablos();
-       echo "<tr $rowcolor><td><hr noshade class=\"ongl\">
-             <table width=\"100%\"><tr>
-             <td valign=\"top\" width=\"45%\"><span class=\"noir\"><b>".adm_translate("Original")."</b></span></td>
-             <td rowspan=\"5\" valign=\"top\" align=\"left\" valign=\"top\"><span class=\"noir\"><b>".adm_translate("Description:")."</b></span><br />$origdescription</td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("Titre :")." $origtitle</td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("URL : ")." <a href=\"$origurl\" target=\"_blank\" class=\"noir\">$origurl</a></td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("Catégorie :")." $origcidtitle</td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("Sous-catégorie :")." $origsidtitle</td></tr>
-             </table>
-             </td></tr>";
-       $rowcolor=tablos();
-       echo "<tr $rowcolor><td>
-             <table width=\"100%\"><tr>
-             <td valign=\"top\" width=\"45%\"><b>".adm_translate("Proposé")."</b></td>
-             <td rowspan=\"5\" valign=\"top\" align=\"left\" valign=\"top\"><span class=\"noir\"><b>".adm_translate("Description:")."</b></span><br />$description</td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("Titre :")." $title</td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("URL : ")." <a href=\"$url\" target=\"_blank\" class=\"noir\">$url</a></td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("Catégorie :")." $cidtitle</td></tr>
-             <tr><td valign=\"top\" width=\"45%\">".adm_translate("Sous-catégorie :")." $sidtitle</td></tr>
-             </table>
-             </td></tr>";
-       echo "</table>";
-       echo "<table width=\"100%\" callspacing=\"0\" cellpadding=\"0\" border=\"0\"><tr><td class=\"header\">\n";
-       if ($modifysubmitteremail=="") {
-          echo adm_translate("Auteur")." :  $modifysubmitter</td>";
-       } else {
-          echo adm_translate("Auteur")." : <a href=\"mailto:$modifysubmitteremail\" class=\"box\">$modifysubmitter</a></td>";
-       }
-       echo "<td class=\"header\">";
-       if ($owneremail=="") {
-          echo adm_translate("Propriétaire")." :  $owner</td>";
-       } else {
-          echo adm_translate("Propriétaire")." : <a href=\"mailto:$owneremail\" class=\"box\">$owner</a></td>";
-       }
-       echo "<td align=\"right\">[ <a href=\"admin.php?op=LinksChangeModRequests&amp;requestid=$requestid\" class=\"rouge\">".adm_translate("Accepter")."</a> | <a href=\"admin.php?op=LinksChangeIgnoreRequests&amp;requestid=$requestid\" class=\"noir\">".adm_translate("Ignorer")."</a> ]</td>
-       </tr></table><hr noshade class=\"ongl\"><br />\n";
+      
+      echo '
+   <div class="card-deck-wrapper mt-3">
+     <div class="card-deck">
+       <div class="card card-body">
+         <h4 class="card-title">'.adm_translate("Original").'</h4>
+         <div class="card-text">
+            <strong>'.adm_translate("Description:").'</strong> <div>'.$origdescription.'</div>
+            <strong>'.adm_translate("Titre :").'</strong> '.$origtitle.'<br />
+            <strong>'.adm_translate("URL : ").'</strong> <a href="'.$origurl.'" target="_blank" >'.$origurl.'</a><br />';
+      global $links_topic;
+      if ($links_topic)
+         echo '
+            <strong>'.adm_translate("Topic").' :</strong> '.$oritopic.'<br />';
+      echo '
+            <strong>'.adm_translate("Catégorie :").'</strong> '.$origcidtitle.'<br />
+            <strong>'.adm_translate("Sous-catégorie :").'</strong> '.$origsidtitle.'<br />';
+
+      if ($owneremail=='')
+         echo '
+            <strong>'.adm_translate("Propriétaire").':</strong> <span'.clformodif($origsidtitle,$sidtitle).'>'.$owner.'</span><br />';
+            else
+         echo '
+            <strong>'.adm_translate("Propriétaire").':</strong> <a href="mailto:'.$owneremail.'">'.$owner.'</a></span><br />';
+
+      echo '
+         </div>
+      </div>
+      <div class="card card-body border-danger">
+         <h4 class="card-title">'.adm_translate("Proposé").'</h4>
+         <div class="card-text">
+            <strong>'.adm_translate("Description:").'</strong><div'.clformodif($origdescription,$description).'>'.$description.'</div>
+            <strong>'.adm_translate("Titre :").'</strong> <span'.clformodif($origtitle,$title).'>'.$title.'</span><br />
+            <strong>'.adm_translate("URL : ").'</strong> <span'.clformodif($origurl,$url).'><a href="'.$url.'" target="_blank" >'.$url.'</a></span><br />';
+      global $links_topic;
+      if ($links_topic)
+         echo '
+            <strong>'.adm_translate("Topic").' :</strong> '.$oritopic.'<br />';
+      echo '
+             <strong>'.adm_translate("Catégorie :").'</strong> <span'.clformodif($origcidtitle,$cidtitle).'>'.$cidtitle.'</span><br />
+             <strong>'.adm_translate("Sous-catégorie :").'</strong> <span'.clformodif($origsidtitle,$sidtitle).'>'.$sidtitle.'</span><br />';
+       if ($owneremail=='')
+         echo '
+            <strong>'.adm_translate("Propriétaire").' : </strong> <span>'.$owner.'</span><br />';
+       else
+         echo '
+            <strong>'.adm_translate("Propriétaire").' :  </strong> <span><a href="mailto:'.$owneremail.'" >'.$owner.'</span><br />';
+      echo '
+         </div>
+      </div>
+   </div>';
+       if ($modifysubmitteremail=='')
+          echo adm_translate("Auteur").' : '.$modifysubmitter;
+       else
+          echo adm_translate("Auteur").' : <a href="mailto:'.$modifysubmitteremail.'">'.$modifysubmitter.'</a>';
+
+    echo '
+       <div class="form-group">
+          <a href="admin.php?op=LinksChangeModRequests&amp;requestid='.$requestid.'" class="btn btn-primary btn-sm">'.adm_translate("Accepter").'</a>
+          <a href="admin.php?op=LinksChangeIgnoreRequests&amp;requestid='.$requestid.'" class="btn btn-secondary btn-sm">'.adm_translate("Ignorer").'</a>
+      </div>
+   </div>';
+
     }
     include ("footer.php");
 }

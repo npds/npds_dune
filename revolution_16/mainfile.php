@@ -1806,6 +1806,7 @@ function aff_editeur($Xzone, $Xactiv) {
             branding:false,
             height: 300,
             theme : 'modern',
+            mobile: { theme: 'mobile' },
             language : '".language_iso(1,'','')."',";
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
@@ -1814,9 +1815,8 @@ function aff_editeur($Xzone, $Xactiv) {
       //]]>
       </script>';
             }
-         } else {
+         } else
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
-         }
       } else {
          if ($Xzone!='custom')
             $tmp_Xzone.=$Xzone.',';
