@@ -37,6 +37,8 @@ $danger:        $red !default;
 $light:         lighten($gray-200, 25%) !default;
 $dark:          $gray-200 !default;
 
+$yiq-contrasted-threshold:  185 !default;
+
 // Body
 
 $body-bg:                   #2B3E50 !default;
@@ -59,6 +61,8 @@ $table-accent-bg:             rgba($white,.05) !default;
 $table-hover-bg:              rgba($white,.075) !default;
 
 $table-border-color:          rgba($black,.15) !default;
+
+$table-head-bg:               $light !default;
 
 $table-dark-bg:               $light !default;
 $table-dark-border-color:     $gray-200 !default;
