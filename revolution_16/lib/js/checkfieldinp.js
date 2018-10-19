@@ -1,7 +1,7 @@
 /************************************************************************/
 /* DUNE by NPDS - admin prototype                                       */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2014 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /* file : checkfieldinp.js                                              */
 /* version : beta                                                       */
 /* jpb 2015                                                             */
@@ -47,13 +47,10 @@ inpandfieldlen = function(inpid,fieldlen) {
        }
        return nby;
    }
-//   $restcharinp = $('<span id="countcar_'+inpid+'"></span>');
-//   $("#"+inpid).parent().append($restcharinp);
 
    $("#"+inpid).on("input", function() {
-
       var str= $("#"+inpid).val(), carleng = str.length, strl= countUtf8(str);
-      if(strl===fieldlen) {$("#"+inpid).attr("maxlength",carleng);}
+//      if(strl===fieldlen) {$("#"+inpid).attr("maxlength",carleng);}
       if(strl>fieldlen) {
          bootbox.alert("Your text is to long i cut it for you ;-) ==> Caracteres : " + carleng + " soit " + strl +"bytes");
          for (i = strl; i > (fieldlen+1); i--) { 
@@ -63,9 +60,9 @@ inpandfieldlen = function(inpid,fieldlen) {
             strl= countUtf8(str);
          }
       }
-         $("#countcar_"+inpid).text(fieldlen-strl);
+      $("#countcar_"+inpid).text(fieldlen-strl);
 
-      if(strl<fieldlen) {$("#"+inpid).attr("maxlength",fieldlen);}
+//      if(strl<fieldlen) {$("#"+inpid).attr("maxlength",fieldlen);}
    // debug
    console.log("car dans input ==> "+carleng);
    console.log("car en byte ==> "+strl);
