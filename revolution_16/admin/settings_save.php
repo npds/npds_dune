@@ -562,7 +562,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"v.16.0.2-beta\";\n";
+    $content .= "\$Version_Num = \"v.16.0.3-beta\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
     $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";
