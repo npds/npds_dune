@@ -3043,17 +3043,19 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    $res = Q_select("SELECT ".$nom_champ." FROM ".$NPDS_Prefix.$nom_tabl,$temps_cache);
    while (list(,$ar_data)=each($res)) {
       foreach ($ar_data as $val_champ) {
-         $list_json.='"'.$val_champ.'",';
+         if($id_inpu =='')
+            $list_json.='"'.base64_encode($val_champ).'",';
+         else
+            $list_json.='"'.$val_champ.'",';
       }
    }
    $list_json= rtrim($list_json,',');
    $list_json.='];';
    $scri_js ='';
-   if($id_inpu =='') {
-      $scri_js .=$list_json;
-   }
+   if($id_inpu =='')
+      $scri_js .= $list_json;
    else {
-   $scri_js.='
+      $scri_js.='
    <script type="text/javascript">
    //<![CDATA[
       $(function() {
