@@ -107,8 +107,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             message: "0-9"
          }
       }
-   },
-   ';
+   },';
    $arg1='
    var formulid=["archiveadm"];
    inpandfieldlen("arch_titre",400);';
