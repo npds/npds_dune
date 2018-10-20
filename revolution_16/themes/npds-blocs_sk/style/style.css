@@ -1770,17 +1770,50 @@ a.tooltip_ws:hover em span {
 input[required='required'] {
 border: 1px solid ;
 }
+textarea[required='required'] {
+border: 1px solid ;
+}
 
+.custom-file-input:lang(fr) ~ .custom-file-label::after {
+    content: "Choisir ..."
+}
+.custom-file-input:lang(es) ~ .custom-file-label::after {
+    content: "Elegir ..."
+}
+.custom-file-input:lang(de) ~ .custom-file-label::after {
+    content: "Wählen ..."
+}
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Browse ..."
+}
+.custom-file-input:lang(zh) ~ .custom-file-label::after {
+    content: "选择 ..."
+}
 
+.n-irl {
+   max-width: 100%;
+    height: auto;
+}
 /* ==> personalisation responsivité des colonnes de card */
 
-@media (min-width: 576px) and (max-width: 767.98px) {
-   .card-columns {
-       column-count: 2;
-   }
+@media (min-width: 576px) and (max-width: 640px) {
+.card-columns {
+ column-count: 2;
+ }
 }
-@media (min-width: 992px) {
-   .card-columns {
-       column-count: 4;
-   }
+@media (min-width: 760px) and (max-width: 991px) {
+.card-columns {
+ column-count: 4;
+ }
 }
+@media (min-width: 991px) and (max-width: 1080px) {
+.card-columns {
+ column-count: 2;
+ }
+}
+
+
+@media (min-width: 1200px) { card-columns {
+ column-count: 3;
+ }}
+/* <== personalisation responsivité des colonnes de card */
