@@ -176,8 +176,7 @@ $m->add_extra('
       </script>
       ');
 $arg1 ='
-      var formulid = ["Register"];
-';
+      var formulid = ["Register"];';
 $fv_parametres ='
          B1: {
              validators: {
@@ -214,8 +213,12 @@ $fv_parametres ='
                 }
             }
          },
-       '.$ch_lat.': {
+         '.$ch_lat.': {
             validators: {
+               regexp: {
+                  regexp: /^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
+                  message: "La latitude doit être entre -90.0 and 90.0"
+               },
                numeric: {
                    thousandsSeparator: "",
                    decimalSeparator: "."
@@ -223,11 +226,16 @@ $fv_parametres ='
                between: {
                   min: -90,
                   max: 90,
+                  message: "La latitude doit être entre -90.0 and 90.0"
                }
             }
          },
          '.$ch_lon.': {
             validators: {
+               regexp: {
+                  regexp: /^[-]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/,
+                  message: "La longitude doit être entre -180.0 and 180.0"
+               },
                numeric: {
                    thousandsSeparator: "",
                    decimalSeparator: "."
@@ -235,9 +243,10 @@ $fv_parametres ='
                between: {
                   min: -180,
                   max: 180,
+                  message: "La longitude doit être entre -180.0 and 180.0"
                }
             }
-         }
+         },
          !###!
          register.querySelector(\'[name="pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("vpass");
