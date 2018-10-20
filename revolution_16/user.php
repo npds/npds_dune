@@ -158,7 +158,7 @@ function Only_NewUser() {
       include ("modules/sform/extend-user/extend-user.php");
       echo '
    </div>';
-   $fv_parametres = '
+/*   $fv_parametres = '
    add_aid: {
       validators: {
          callback: {
@@ -215,11 +215,10 @@ function Only_NewUser() {
          }
       }
    },';
-
-   adminfoot('fv',$fv_parametres,'','');
-   } else {
+*/
+   adminfoot('fv',$fv_parametres,$arg1,'');
+   } else
       header("location: user.php");
-   }
 }
 function hidden_form() {
    global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;

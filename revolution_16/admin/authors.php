@@ -227,7 +227,7 @@ if ($supadm==1) echo'
          callback: {
             message: "Ce surnom n\'est pas disponible",
             callback: function(input) {
-               if($.inArray(input.value, admin) !== -1)
+               if($.inArray(btoa(input.value), admin) !== -1)
                   return false;
                else
                   return true;
@@ -240,7 +240,7 @@ if ($supadm==1) echo'
          callback: {
             message: "Ce nom n\'est pas disponible",
             callback: function(input) {
-               if($.inArray(input.value, adminname) !== -1)
+               if($.inArray(btoa(input.value), adminname) !== -1)
                   return false;
                else
                   return true;
@@ -255,7 +255,6 @@ if ($supadm==1) echo'
          },
       }
    },';
-   
    
    adminfoot('fv',$fv_parametres,$arg1,'');
 }

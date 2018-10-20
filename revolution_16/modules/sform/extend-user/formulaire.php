@@ -58,7 +58,7 @@ $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 cha
 // --- MEMBER-PASS
 if ($memberpass) {
    $m->add_field('pass', translate("Password"),'','password',true,40,'','');
-   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></div></div>');
+   $m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
    $m->add_field('vpass', translate("Retype Password"),'','password',true,40,'','');
 }
 
@@ -104,80 +104,97 @@ $m->add_extra('
             inpandfieldlen("user_sig",255);
             inpandfieldlen("pass",40);
             inpandfieldlen("vpass",40);
-            inpandfieldlen("C2",40);
+            inpandfieldlen("C2",5);
             inpandfieldlen("C1",100);
             inpandfieldlen("T1",40);
          })
       //]]>
       </script>');
+      /*
+      test encodage de l'input : btoa(input.value) dans la recherche dans tableau is ok from IE9
+      encodé en php dans la fonction autocomplete du mainfile ...
+      */
       $fv_parametres ='
-/*
-         T1: {
-            excluded: false,
+         uname: {
             validators: {
-               date: {
-                  format: "DD/MM/YYYY",
-                  message: "The date is not a valid"
+               callback: {
+                  message: "Ce surnom n\'est pas disponible",
+                  callback: function(input) {
+                     if($.inArray(btoa(input.value), aruser) !== -1)
+                        return false;
+                     else
+                        return true;
+                  }
                }
             }
          },
-*/
-/*
          pass: {
             validators: {
-               callback: {
-                  callback: function(value, validator, $field) {
-                     var score = 0;
-                     if (value === "") {
-                        return {
-                           valid: true,
-                           score: null
-                        };
-                     }
-                     // Check the password strength
-                     score += ((value.length >= 8) ? 1 : -1);
-                     if (/[A-Z]/.test(value)) {score += 1;}
-                     if (/[a-z]/.test(value)) {score += 1;}
-                     if (/[0-9]/.test(value)) {score += 1;}
-                     if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-                     return {
-                     valid: true,
-                     score: score    // We will get the score later
-                     };
-                  }
-               }
+               checkPassword: {
+                  message: "Le mot de passe est trop simple."
+               },
             }
          },
          vpass: {
             validators: {
                 identical: {
-                    field: "pass",
-                    message: "The password and its confirm are not the same"
+                  compare: function() {
+                 return register.querySelector(\'[name="pass"]\').value;
+                },
                 }
             }
          },
-*/
-       '.$ch_lat.': {
+         '.$ch_lat.': {
             validators: {
+               regexp: {
+                  regexp: /^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
+                  message: "La latitude doit être entre -90.0 and 90.0"
+               },
+               numeric: {
+                   thousandsSeparator: "",
+                   decimalSeparator: "."
+               },
                between: {
                   min: -90,
                   max: 90,
-                  message: "The latitude must be between -90.0 and 90.0"
+                  message: "La latitude doit être entre -90.0 and 90.0"
                }
             }
          },
          '.$ch_lon.': {
             validators: {
+               regexp: {
+                  regexp: /^[-]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/,
+                  message: "La longitude doit être entre -180.0 and 180.0"
+               },
+               numeric: {
+                   thousandsSeparator: "",
+                   decimalSeparator: "."
+               },
                between: {
                   min: -180,
                   max: 180,
-                  message: "The longitude must be between -180.0 and 180.0"
+                  message: "La longitude doit être entre -180.0 and 180.0"
                }
             }
-         },';
+         },
+         !###!
+         register.querySelector(\'[name="pass"]\').addEventListener("input", function() {
+            fvitem.revalidateField("vpass");
+         });
+         flatpickr("#T1", {
+            altInput: true,
+            altFormat: "l j F Y",
+            maxDate:"today",
+            minDate:"'.date("Y-m-d",(time()-3784320000)).'",
+            dateFormat:"d/m/Y",
+            "locale": "'.language_iso(1,'','').'",
+         });
+         ';
          $arg1='
-               var formulid = ["register"];
-         '
+         var formulid = ["register"];
+         '.auto_complete ('aruser', 'uname', 'users', '', '0')
+                  ;
 
 // ----------------------------------------------------------------
 ?>
