@@ -123,7 +123,7 @@ function GraphicAdmin($hlpfile) {
       $f_mes[]=$SQM['fretour_h'];
    }
    */
-   
+   /*   
    //==> recuperation
    $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    $messages_npds = explode("\n", $messagerie_npds);
@@ -156,7 +156,7 @@ function GraphicAdmin($hlpfile) {
          $o++;
       }
    }
-   
+   */   
    
 /*$o=0;
 foreach($mess as $v){
@@ -308,7 +308,6 @@ $ibid = explode('|',$v);
       $ca=array_unique($cat_n);
       $ca=array_pop($ca);
    }
-   //if($cat_n) $ca=array_pop(array_unique($cat_n));
 
    $bloc_foncts .= '
    </ul>

@@ -158,64 +158,6 @@ function Only_NewUser() {
       include ("modules/sform/extend-user/extend-user.php");
       echo '
    </div>';
-/*   $fv_parametres = '
-   add_aid: {
-      validators: {
-         callback: {
-            message: "Ce surnom n\'est pas disponible",
-            callback: function(value, validator, $field) {
-            return $.inArray(value, admin) == -1;
-            }
-         }
-      }
-   },
-   add_name: {
-      validators: {
-         callback: {
-            message: "Ce nom n\'est pas disponible",
-            callback: function(value, validator, $field) {
-               return $.inArray(value, adminname) == -1;
-            }
-         }
-      }
-   },
-   add_email: {
-   },
-   add_url: {
-   },
-   pass: {
-      validators: {
-         notEmpty: {
-            message: "The password is required and cannot be empty"
-         },
-         callback: {
-            callback: function(value, validator, $field) {
-               var score = 0;
-               if (value === "") {
-                  return {
-                     valid: true,
-                     score: null
-                  };
-               }
-               // Check the password strength
-               score += ((value.length >= 8) ? 1 : -1);
-               // The password contains uppercase character
-               if (/[A-Z]/.test(value)) {score += 1;}
-               // The password contains uppercase character
-               if (/[a-z]/.test(value)) {score += 1;}
-               // The password contains number
-               if (/[0-9]/.test(value)) {score += 1;}
-               // The password contains special characters
-               if (/[!#$%&^~*_]/.test(value)) {score += 1;}
-               return {
-               valid: true,
-               score: score    // We will get the score later
-               };
-            }
-         }
-      }
-   },';
-*/
    adminfoot('fv',$fv_parametres,$arg1,'');
    } else
       header("location: user.php");
@@ -912,7 +854,7 @@ function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuor
 function login($uname, $pass) {
    global $NPDS_Prefix, $setinfo, $system;
    settype($skin,'string');
-   $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
+   $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname LIKE BINARY '$uname'");
    if (sql_num_rows($result)==1) {
       $setinfo = sql_fetch_assoc($result);
       $result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$setinfo['uid']."'");

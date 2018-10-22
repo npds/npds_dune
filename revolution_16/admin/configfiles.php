@@ -29,12 +29,12 @@ function ConfigFiles($contents, $files) {
    if ($contents=='') {
       echo '
    <hr />
-   <table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tad_cfile" data-toggle="table" data-striped="true" data-show-toggle="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th class="n-t-col-xs-4" data-halign="center" data-align="center" >'.adm_translate('Nom').'</th>
             <th class="n-t-col-xs-6" data-halign="center" >'.adm_translate('Description').'</th>
-            <th class="n-t-col-xs-2" data-halign="center" data-align="right" >'.adm_translate('Fonctions').'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center" >'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>
@@ -46,7 +46,7 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier est appelé avant que de commencer la génération de la page HTML").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=header_before"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=header_before"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
+                <a href="admin.php?op=delete_configfile&amp;file=header_before"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -54,7 +54,6 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier est appelé entre le HEAD et /HEAD lors de la génération de la page HTML").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=header_head"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=header_head"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -62,7 +61,7 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier est appelé dans l'évèment ONLOAD de la balise BODY => JAVASCRIPT").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=body_onload"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=body_onload"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
+                <a href="admin.php?op=delete_configfile&amp;file=body_onload"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -70,7 +69,7 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier est appelé à la fin du header du thème").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=header_after"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=header_after"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
+                <a href="admin.php?op=delete_configfile&amp;file=header_after"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -78,14 +77,14 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier est appelé avant le début du footer du thème").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=footer_before"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=footer_before"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a></td>
+                <a href="admin.php?op=delete_configfile&amp;file=footer_before"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a></td>
         </tr>
         <tr>
             <td><code>footer_after.inc</code></td>
             <td>'.adm_translate("Ce fichier est appelé après la fin de la génération de la page HTML").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=footer_after"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=footer_after"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
+                <a href="admin.php?op=delete_configfile&amp;file=footer_after"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -93,7 +92,7 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier permet d'envoyer un MI personnalisé lorsqu'un nouveau membre s'inscrit").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=new_user"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=new_user"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
+                <a href="admin.php?op=delete_configfile&amp;file=new_user"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -101,7 +100,7 @@ function ConfigFiles($contents, $files) {
             <td>'.adm_translate("Ce fichier permet l'affichage d'informations complémentaires dans la page de login").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=user"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-                <a href="admin.php?op=delete_configfile&amp;file=user"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
+                <a href="admin.php?op=delete_configfile&amp;file=user"><i class="fa fa-trash-o fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>
             </td>
         </tr>
         <tr>
@@ -129,13 +128,13 @@ function ConfigFiles($contents, $files) {
    } else {
       echo '
       <hr />
-      <h3>'.adm_translate("Modification de").' : <span class="text-muted">'.$files.'</span></h3>
+      <h3 class="my-3">'.adm_translate("Modification de").' : <span class="text-muted">'.$files.'</span></h3>
       <form action="admin.php?op=ConfigFiles_save" method="post">
          <code><textarea class="form-control" name="Xtxt" rows="20" cols="70">';
       echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
       echo '</textarea></code>
          <input type="hidden" name="Xfiles" value="'.$files.'" />
-         <div class="form-group">
+         <div class="form-group mt-3">
             <button class="btn btn-primary" type="submit" name="confirm">'.adm_translate("Sauver les modifications").'</button> 
             <button href="admin.php?op=ConfigFiles" class="btn btn-secondary">'.adm_translate("Abandonner").'</button>
         </div>

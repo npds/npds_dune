@@ -69,19 +69,12 @@ echo '
       </div>
    </li>
 </ul>';
-
-/*
-   if ($FileUpload!=$FileSecure) {
-      echo "<a href=\"".$ThisFile."&subop=upload\">".SessionLog_translate("Liste des Logs")." : ".SessionLog_translate("TELECHARGEMENT")."</a>";
-   }
-*/
-
-   // Voir les sessions
+// Voir les sessions
    if ($subop=='session') {
       echo '
       <br />
       <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code></h3>
-      <table id="tad_ses" class="table table-sm" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+      <table id="tad_ses" class="table table-sm" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th class="n-t-col-xs-1" data-halign="center" data-align="center" data-sortable="true">'.SessionLog_translate("Nom").'</th>
