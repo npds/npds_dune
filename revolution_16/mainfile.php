@@ -912,7 +912,7 @@ function prepa_aff_news($op,$catid,$marqeur) {
       list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[$story_limit];
       $story_limit++;
       $printP = '<a href="print.php?sid='.$s_sid.'" class="mr-3" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip" ><i class="fa fa-lg fa-print"></i></a>&nbsp;';
-      $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" class="mr-3" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-envelope-o"></i></a>';
+      $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$s_sid.'" class="mr-3" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip" ><i class="fa fa-lg fa-at"></i></a>';
       getTopics($s_sid);
       $title = aff_langue(stripslashes($title));
       $hometext = aff_langue(stripslashes($hometext));
