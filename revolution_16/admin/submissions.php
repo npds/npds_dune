@@ -37,14 +37,14 @@ function submissions() {
       echo '
    <hr />
    <h3>'.adm_translate("Nouveaux Articles postés").'<span class="badge badge-danger float-right">'.sql_num_rows($result).'</span></h3>
-   <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center"><i class="fa fa-user fa-lg"></i></th>
-            <th data-sortable="true" data-halign="center">'.adm_translate("Sujet").'</th>
-            <th data-sortable="true" data-halign="center">'.adm_translate("Titre").'</th>
-            <th data-sortable="true" data-halign="center">'.adm_translate("Date").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th data-halign="center"><i class="fa fa-user fa-lg"></i></th>
+            <th data-sortable="true" data-sorter="htmlSorter" data-halign="center">'.adm_translate("Sujet").'</th>
+            <th data-sortable="true" data-sorter="htmlSorter" data-halign="center">'.adm_translate("Titre").'</th>
+            <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -63,21 +63,21 @@ function submissions() {
          }
          echo '
          <tr>
-            <td>'.$uname.'</td>
+            <td>'.userpopover($uname,'40').' '.$uname.'</td>
             <td>';
          if ($subject=='') $subject=adm_translate("Aucun Sujet");
          $subject= aff_langue($subject);
          if ($affiche)
             echo '<img class=" " src="images/topics/'.$topicimage.'" height="30" width="30" alt="avatar" />&nbsp;<a href="admin.php?op=topicedit&amp;topicid='.$topic.'" class="adm_tooltip">'.aff_langue($topictext).'</a></td>
-             <td align="left"><a href="admin.php?op=DisplayStory&amp;qid='.$qid.'">'.$subject.'</a></td>';
+             <td align="left"><a href="admin.php?op=DisplayStory&amp;qid='.$qid.'">'.ucfirst($subject).'</a></td>';
          else
             echo aff_langue($topictext).'</td>
-            <td align="left"><i>'.$subject.'</i></td>';
+            <td><i>'.ucfirst($subject).'</i></td>';
          echo '
-             <td align="right">'.formatTimestamp($timestamp).'</td>';
+             <td class="small">'.formatTimestamp($timestamp).'</td>';
          if ($affiche)
             echo '
-             <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip" ></i></a>&nbsp;<a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
+             <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip" ></i></a><a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="fa fa-trash-o fa-lg ml-3" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
          </tr>';
          else
             echo '
