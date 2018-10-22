@@ -187,7 +187,7 @@ if ($admin) {
             <th>'.translate("Forum").'</th>
             <th class="n-t-col-xs-2 text-center">'.translate("Topics").'</th>
             <th class="n-t-col-xs-2 text-center">'.translate("Posts").'</th>
-            <th class="text-right">'.translate("Last Posts").'</th>
+            <th class="n-t-col-xs-3 text-right">'.translate("Last Posts").'</th>
          </tr>
       </thead>';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."catagories ORDER BY cat_id");
@@ -212,13 +212,22 @@ if ($admin) {
             $xfile.="\$xforum[$num_for][2] = $total_topics;\n";
             $desc = stripslashes($myrow['forum_desc']);
             echo '
-               <td><a tabindex="0" class="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="'.$desc.'"><i class="fa fa-lg fa-file-text-o mr-2"></i></a><a href="viewforum.php?forum='.$myrow['forum_id'].'" ><span class="text-danger">'.$xforum[$num_for][1].'</span> -/- '.$name.' </a></td>
-               <td class="text-center"><span class="text-danger">'.$xforum[$num_for][2].'</span> -/- '.$total_topics.'</td>';
+               <td><a tabindex="0" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="'.$desc.'"><i class="fa fa-lg fa-file-text-o mr-2"></i></a><a href="viewforum.php?forum='.$myrow['forum_id'].'" ><span class="text-danger">';
+            if (array_key_exists($num_for, $xforum))
+               echo $xforum[$num_for][1];
+            echo '</span> -/- '.$name.' </a></td>
+               <td class="text-center"><span class="text-danger">';
+            if (array_key_exists($num_for, $xforum))
+               echo $xforum[$num_for][2];
+            echo '</span> -/- '.$total_topics.'</td>';
             $total_posts = get_total_posts($myrow['forum_id'], "", "forum",false);
             $xfile.="\$xforum[$num_for][3] = $total_posts;\n";
             echo '
-            <td class="text-center"><span class="text-danger">'.$xforum[$num_for][3].'</span> -/- '.$total_posts.'</td>
-            <td class="text-right">'.$last_post.'</td>';
+            <td class="text-center"><span class="text-danger">';
+            if (array_key_exists($num_for, $xforum))
+               echo $xforum[$num_for][3];
+            echo '</span> -/- '.$total_posts.'</td>
+            <td class="text-right small">'.$last_post.'</td>';
          } while($myrow = sql_fetch_assoc($sub_result));
       }
    }
