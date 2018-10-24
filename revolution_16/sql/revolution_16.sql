@@ -793,7 +793,7 @@ CREATE TABLE queue (
   subject varchar(255) NOT NULL DEFAULT '',
   story text,
   bodytext mediumtext,
-  timestamp datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  timestamp datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   topic varchar(20) NOT NULL DEFAULT 'Linux',
   date_debval datetime DEFAULT NULL,
   date_finval datetime DEFAULT NULL,
