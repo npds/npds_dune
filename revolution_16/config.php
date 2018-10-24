@@ -216,7 +216,7 @@ $notify = 1;
 $notify_email = "webmaster@site.fr";
 $notify_subject = "Nouvelle soumission";
 $notify_message = "Le site a recu une nouvelle soumission !";
-$notify_from = "";
+$notify_from = "webmaster@site.fr";
 
 ######################################################################
 # Survey/Polls Config
