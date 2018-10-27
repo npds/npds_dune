@@ -83,7 +83,7 @@ function fma_autorise($type, $dir) {
       $autorise_arbo=$access_fma;
    if ($type=='d')
       $autorise_arbo=$dirlimit_fma[$dir];
-   if ($type=='f' and array_key_exists($dir, $ficlimit_fma))
+   if ($type=='f')
       $autorise_arbo=$ficlimit_fma[$dir];
    if (isset($autorise_arbo)) {
       $auto_dir='';
@@ -150,31 +150,43 @@ function imagesize($name, $Max_thumb) {
    return ($s_img);
 }
 function CreateThumb($Image, $Source, $Destination, $Max, $ext) {
-   $src='';
-   if ($ext=='gif') {
-      if (function_exists('imagecreatefromgif'))
-         $src=@imagecreatefromgif($Source.'/'.$Image);
-   } else {
-      if (function_exists('imagecreatefromjpeg'))
-         $src=@imagecreatefromjpeg($Source.'/'.$Image);
+   switch ($ext) {
+      case (preg_match('/jpeg|jpg/i', $ext) ? true : false) :
+         if (function_exists('imagecreatefromjpeg'))
+            $src=@imagecreatefromjpeg($Source.$Image);
+      break;
+      case (preg_match('/gif/i', $ext) ? true : false) :
+         if (function_exists('imagecreatefromgif'))
+            $src=@imagecreatefromgif($Source.$Image);
+      break;
+      case (preg_match('/png/i', $ext) ? true : false) :
+         if (function_exists('imagecreatefrompng'))
+            $src=@imagecreatefrompng($Source.$Image);
+      break;
    }
+
    $size = imagesize($Source.'/'.$Image, $Max);
    $h_i = $size['hauteur'][0]; //hauteur
    $w_i = $size['largeur'][0]; //largeur
 
    if ($src) {
-      if (function_exists('imagecreatetruecolor')) {
+      if (function_exists('imagecreatetruecolor'))
          $im = @imagecreatetruecolor($w_i, $h_i);
-      } else {
+      else
          $im = @imagecreate($w_i, $h_i);
-      }
 
       @imagecopyresized($im, $src, 0, 0, 0, 0, $w_i, $h_i, $size['largeur'][1], $size['hauteur'][1]);
       @imageinterlace ($im,1);
-      if ($ext=='gif') {
-         @imagegif($im, $Destination.$Image);
-      } else {
-         @imagejpeg($im, $Destination.$Image, 75);
+      switch ($ext) {
+         case (preg_match('/jpeg|jpg/i', $ext) ? true : false) :
+            @imagejpeg($im, $Destination.$Image, 100);
+         break;
+         case (preg_match('/gif/i', $ext) ? true : false) :
+            @imagegif($im, $Destination.$Image);
+         break;
+         case (preg_match('/png/i', $ext) ? true : false) :
+            @imagepng($im, $Destination.$Image, 6);
+         break;
       }
       @chmod($Dest.$Image,0766);
       $size['gene-img'][0]=true;
@@ -311,19 +323,17 @@ if ($Max_thumb>0) {
                               $cache=true;
                               $image=imagesize($obj->FieldName, $Max_thumb);
                               $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt).'#fma#'.encrypt($cache_prefix.'.'.$obj->FieldName)));
-                           } else {
+                           } else
                               $cache=false;
-                           }
-                        } else {
+                        } else
                            $cache=false;
-                        }
-                     } else {
+                     } else
                         $cache=false;
-                     }
                      if (!$cache) {
                         $image=CreateThumb($obj->FieldName, $cur_nav, $rep_cache.$cache_prefix.'.', $Max_thumb, $suf);
-                        if ($image['gene-img'][0]==true)
-                           $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt).'#fma#'.encrypt($cache_prefix.'.'.$obj->FieldName)));
+                        if(array_key_exists('gene-img', $image))
+                           if ($image['gene-img'][0]==true)
+                              $imagette=rawurlencode(encrypt(rawurldecode($rep_cache_encrypt).'#fma#'.encrypt($cache_prefix.'.'.$obj->FieldName)));
                      }
                   } else {
                      $image=imagesize($curn_nav.$obj->FieldName, $Max_thumb);
@@ -360,7 +370,7 @@ if ($Max_thumb>0) {
                      $files.="<a href=\"$PopUp\" target=\"_blank\">";
                      $files.="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4\,0\,2\,0\" $img_size><param name=\"quality\" value=\"high\"><param name=\"src\" value=\"$PopUp\"><embed src=\"$PopUp\" quality=\"high\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" $img_size></embed></object>";
                      $files.="</a>\n</div>";
-                     break;
+                  break;
 
                   case "mp3":
                      $PopUp="getfile.php?att_id=$ibid&amp;apli=f-manager";
@@ -374,7 +384,7 @@ if ($Max_thumb>0) {
                      <param name=\"FlashVars\" value=\"showstop=1&amp;showinfo=1&amp;showvolume=1\" />
                      </object></div>";
                      $files.="</a>\n</div>";
-                     break;
+                  break;
                }
             }
          }
