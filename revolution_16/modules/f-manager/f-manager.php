@@ -768,6 +768,7 @@ switch ($op) {
       }
       else
          $Err=$auto[1];
+   break;
    case 'searchfile':
       $resp=$obj->SearchFile($base,$filesearch);
       if ($resp) {
@@ -882,13 +883,13 @@ while ($obj->NextDir()) {
       $subdirs.='
          <td>';
       if ($dircmd_fma[1])
-         $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg ml-1" title="'.$renaM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg" title="'.$renaM.'" data-toggle="tooltip"></i></a>';
       if ($dircmd_fma[3])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-pencil fa-lg ml-1" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-pencil fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
       if ($dirpres_fma[5])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="fa fa-image fa-lg ml-1" title="'.$pictM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="fa fa-image fa-lg ml-2" title="'.$pictM.'" data-toggle="tooltip"></i></a>';
       if ($dircmd_fma[2])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-trash-o fa-lg text-danger ml-1" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-trash-o fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
       $subdirs.='</td>
       </tr>';
 
