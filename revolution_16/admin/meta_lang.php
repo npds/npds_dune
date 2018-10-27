@@ -369,7 +369,6 @@ function Creat_Meta_Lang() {
    $arg1='
    var formulid = ["metalangcreat"];
    inpandfieldlen("def",50);
-   inpandfieldlen("content",255);
    inpandfieldlen("uri",255);
    ';
    adminfoot('fv','',$arg1,'');
