@@ -30,13 +30,13 @@ function poll_createPoll() {
    echo '
       <hr />
         <h3 class="mb-3">'.adm_translate("Liste des sondages").'</h3>
-        <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+        <table id="tad_pool" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
          <thead>
             <tr>
                <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">ID</th>
                <th data-sortable="true" data-halign="center">'.adm_translate("Intitulé du Sondage").'</th>
                <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Vote").'</th>
-               <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.adm_translate("Fonctions").'</th>
+               <th class="n-t-col-xs-2" data-halign="center" data-align="center">'.adm_translate("Fonctions").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -49,7 +49,7 @@ function poll_createPoll() {
                <td>'.$object["voters"].'</td>
                <td>
                   <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-toggle="tooltip"></i></a>
-                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger ml-2" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
                </td>
             </tr>';
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='".$object["pollID"]."'");
