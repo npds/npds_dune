@@ -33,7 +33,7 @@ function etape_7() {
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="adminpass1">'.ins_translate('Mot de passe').'</label>
-                        <input class="form-control" type="password" name="adminpass1" id="adminpass1" minlength="'.$minpass.'" maxlength="40" required="required" />
+                        <input class="form-control" type="password" name="adminpass1" id="adminpass1" minlength="'.$minpass.'" maxlength="20" required="required" />
                         <div class="w-100 mt-2">
                            <div class="progress" style="height: 10px;">
                               <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
@@ -43,7 +43,7 @@ function etape_7() {
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="adminpass2">'.ins_translate("Une seconde fois").'</label>
-                        <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="40" required="required" />
+                        <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="20" required="required" />
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ml-auto" id="countcar_adminpass2"></div></div>
                      </div>
                      <div class="form-group row">
@@ -83,8 +83,8 @@ function etape_7() {
    $arg1 = '
    var formulid = ["admin_password"]
    inpandfieldlen("adminlogin",40);
-   inpandfieldlen("adminpass1",40);
-   inpandfieldlen("adminpass2",40);';
+   inpandfieldlen("adminpass1",20);
+   inpandfieldlen("adminpass2",20);';
    formval('fv',$parametres,$arg1,'1');
 }
 ?>
