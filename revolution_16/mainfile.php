@@ -1461,7 +1461,7 @@ function pollMain($pollID,$pollClose) {
          $boxContent .= '
             <div class="custom-control custom-radio">
                <input class="custom-control-input" type="radio" id="voteID'.$j.'" name="voteID" value="'.$object['voteID'].'" />
-               <label class="custom-control-label" for="voteID'.$j.'" >'.aff_langue($object['optionText']).'</label>
+               <label class="custom-control-label d-block" for="voteID'.$j.'" >'.aff_langue($object['optionText']).'</label>
             </div>';
          $sum = $sum + $object['optionCount'];
          $j++; 
@@ -3236,8 +3236,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
          document.getElementById(item),{
             locale: "'.language_iso(1,"_",1).'",
             localization: FormValidation.locales.'.language_iso(1,"_",1).',
-         fields: {
-         ';
+         fields: {';
    if($fv_parametres!='')
       echo '
             '.$fv_parametres[0];
