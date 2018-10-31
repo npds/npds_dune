@@ -86,7 +86,7 @@ include("auth.php");
 
       echo '
       <form name="prvmsg" method="get" action="replypmsg.php" onkeypress="return event.keyCode != 13;">
-         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-search="true" data-search-align="left"
+         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa" data-search="true" data-search-align="left"
                data-buttons-align="left"
                data-toolbar-align="left">
             <thead class="thead-default">
@@ -178,7 +178,7 @@ include("auth.php");
       <div class="card card-body mt-3">
       <h2><a href="replypmsg.php?send=1" title="'.translate("Write a new Private Message").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Private Message")." - </span>".translate("Outbox").'<span class="badge badge-secondary float-right">'.$total_messages.'</span></h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
-         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+         <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
             <thead class="thead-default">
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
