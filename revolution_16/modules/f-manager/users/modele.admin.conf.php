@@ -157,7 +157,7 @@
 // ----------
    // Vous pouvez spécifier les fichiers de theme utilisés par ce fichier de configuration
    // fichier du theme général
-   $themeG_fma="f-manager-banque.html";
+   $themeG_fma="f-manager.html";
    // fichier utilisé lors des actions (delete, edit, ...)
    $themeC_fma="f-manager-cmd.html";
 
