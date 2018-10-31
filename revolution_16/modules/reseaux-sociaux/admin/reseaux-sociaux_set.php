@@ -34,7 +34,7 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    echo '
    <hr />
    <h3><a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=AddReseaux"><i class="fa fa-plus-square"></i></a>&nbsp;'.adm_translate("Ajouter").'</h3>
-   <table id ="lst_rs_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
+   <table id ="lst_rs_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
       <thead>
          <tr>
             <th class="n-t-col-xs-3" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Nom").'</th>
@@ -60,7 +60,7 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    echo '
       </tbody>
    </table>';
-   adminfoot('fv','','','');
+   adminfoot('','','','');
 }
 
 function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop) {
@@ -76,7 +76,7 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer").'</h3>';
    echo '
-   <form id="reseaux_adm" action="admin.php" method="post">
+   <form id="reseauxadm" action="admin.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="rs_id">'.adm_translate("Nom").'</label>
          <div class="col-sm-9">
@@ -108,17 +108,13 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
             <input type="hidden" name="adm_img_mod" value="1" />
          </div>
       </div>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-   $(document).ready(function() {
+   </form>';
+   $arg1='
+      var formulid = ["reseauxadm"];
       inpandfieldlen("rs_id",50);
       inpandfieldlen("rs_url",100);
-      inpandfieldlen("rs_ico",40);
-   })
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+      inpandfieldlen("rs_ico",40);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
