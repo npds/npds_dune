@@ -97,7 +97,7 @@ function displayadmins() {
    echo '
    <hr />
    <h3>'.adm_translate("Les administrateurs").'</h3>
-   <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tab_adm" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
             <th data-sortable="true" data-halign="center">'.adm_translate('Nom').'</th>
@@ -163,7 +163,7 @@ if ($supadm==1) echo'
          <div class="form-group row">
             <label class="col-form-label col-sm-4 " for="add_pwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
-               <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
+               <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
                <span class="help-block text-right" id="countcar_add_pwd"></span>
                <div class="progress" style="height: 0.2rem;">
                   <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
@@ -219,7 +219,7 @@ if ($supadm==1) echo'
       inpandfieldlen("add_name",50);
       inpandfieldlen("add_email",60);
       inpandfieldlen("add_url",60);
-      inpandfieldlen("add_pwd",12);
+      inpandfieldlen("add_pwd",20);
       ';
    $fv_parametres = '
    add_aid: {
@@ -268,8 +268,8 @@ function modifyadmin($chng_aid) {
    <hr />
    <h3>'.adm_translate("Actualiser l'administrateur").' : <span class="text-muted">'.$chng_aid.'</span></h3>';
 
-   $result = sql_query("SELECT aid, name, url, email, pwd, radminfilem, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
-   list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminfilem, $chng_radminsuper) = sql_fetch_row($result);
+   $result = sql_query("SELECT aid, name, url, email, pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
+   list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminsuper) = sql_fetch_row($result);
 
    if ($chng_radminsuper==1)
       $supadm_inp = ' checked="checked"';
@@ -336,7 +336,7 @@ function modifyadmin($chng_aid) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="chng_pwd">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
-               <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
+               <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
                <span class="help-block text-right" id="countcar_chng_pwd"></span>
                   <div class="progress" style="height: 0.2rem;">
                      <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
@@ -346,7 +346,7 @@ function modifyadmin($chng_aid) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="chng_pwd2">'.adm_translate("Mot de Passe").'</label>
             <div class="col-sm-8">
-               <input id="chng_pwd2" class="form-control" type="password" name="chng_pwd2" maxlength="12" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
+               <input id="chng_pwd2" class="form-control" type="password" name="chng_pwd2" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
                <span class="help-block text-right"><span id="countcar_chng_pwd2"></span></span>
             </div>
          </div>
@@ -397,8 +397,8 @@ $arg1 ='
          inpandfieldlen("chng_name",50);
          inpandfieldlen("chng_email",60);
          inpandfieldlen("chng_url",60);
-         inpandfieldlen("chng_pwd",12);
-         inpandfieldlen("chng_pwd2",12);
+         inpandfieldlen("chng_pwd",20);
+         inpandfieldlen("chng_pwd2",20);
       ';
    $fv_parametres = '
    chng_pwd: {
@@ -437,24 +437,22 @@ function updatedroits($chng_aid) {
    }
 }
 
-function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5) {
-   global $NPDS_Prefix, $modu;
+function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5, $ad_d_27) {
+   global $NPDS_Prefix;
 
-    if (!($chng_aid && $chng_name && $chng_email))
-       Header("Location: admin.php?op=mod_authors");
-
+   if (!($chng_aid && $chng_name && $chng_email))
+      Header("Location: admin.php?op=mod_authors");
     // Gestion du fichier pour filemanager
-    $result=sql_query("SELECT radminfilem,radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
-    list($ori_radminfilem, $ori_radminsuper) = sql_fetch_row($result);
-    if ($ori_radminsuper and !$chng_radminsuper)
-       @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
-    if (!$ori_radminsuper and $chng_radminsuper)
-       @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
-
-    if ($ori_radminfilem and !$chng_radminfilem)
-       @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
-    if (!$ori_radminfilem and $chng_radminfilem)
-       @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
+   $result=sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
+   list($ori_radminsuper) = sql_fetch_row($result);
+   if ($ori_radminsuper and !$chng_radminsuper)
+      @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
+   if (!$ori_radminsuper and $chng_radminsuper)
+      @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
+  if(file_exists("modules/f-manager/users/".strtolower($chng_aid).".conf.php") and $ad_d_27!='27')
+    @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
+  if(!file_exists("modules/f-manager/users/".strtolower($chng_aid).".conf.php") and $ad_d_27!='')
+    @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
 
     if ($chng_pwd2 != '') {
        if($chng_pwd != $chng_pwd2) {
@@ -466,20 +464,18 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
           exit;
        }
        global $system_md5;
-       if (($system_md5) or ($temp_system_md5)) {
+       if (($system_md5) or ($temp_system_md5))
           $chng_pwd=crypt($chng_pwd2,$chng_pwd);
-       }
-       if ($chng_radminsuper==1) {
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminfilem='0', radminsuper='$chng_radminsuper', pwd='$chng_pwd' WHERE aid='$chng_aid'");
-       } else {
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminfilem='$chng_radminfilem', radminsuper='0', pwd='$chng_pwd' WHERE aid='$chng_aid'");
-       }
+       if ($chng_radminsuper==1)
+          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper', pwd='$chng_pwd' WHERE aid='$chng_aid'");
+       else
+          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0', pwd='$chng_pwd' WHERE aid='$chng_aid'");
     } else {
        if ($chng_radminsuper==1) {
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminfilem='0', radminsuper='$chng_radminsuper' WHERE aid='$chng_aid'");
+          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper' WHERE aid='$chng_aid'");
           deletedroits($chng_aid);
        } else {
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminfilem='$chng_radminfilem', radminsuper='0' WHERE aid='$chng_aid'");
+          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0' WHERE aid='$chng_aid'");
           deletedroits($chng_aid);
           updatedroits($chng_aid);
        }
@@ -504,7 +500,7 @@ switch ($op) {
       modifyadmin($chng_aid);
    break;
    case 'UpdateAuthor':
-      updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminfilem, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5);
+      updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5, $ad_d_27);
    break;
    case 'AddAuthor':
       if (!($add_aid && $add_name && $add_email && $add_pwd)) {
@@ -517,10 +513,10 @@ switch ($op) {
       }
       if ($system_md5)
          $add_pwdX=crypt($add_pwd,$add_pwdX);
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','$add_radminfilem', '$add_radminsuper')");
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','0', '$add_radminsuper')");
       updatedroits($add_aid);
       // Copie du fichier pour filemanager
-      if ($add_radminsuper or $add_radminfilem)
+      if ($add_radminsuper or $ad_d_27!='')
          @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($add_aid).".conf.php");
       global $aid; Ecr_Log('security', "AddAuthor($add_aid) by AID : $aid", '');
       Header("Location: admin.php?op=mod_authors");
