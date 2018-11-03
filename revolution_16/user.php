@@ -243,11 +243,10 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
    $stop=userCheck($uname, $email);
    if (!$stop) {
       include("header.php");
-      if (!$memberpass) {
+      if (!$memberpass)
          $makepass=makepass();
-      } else {
+      else
          $makepass=$pass;
-      }
       if (!$system)
          $cryptpass=crypt($makepass,$makepass);
       else
@@ -294,18 +293,14 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
              sql_query($sql);
           }
           //------------------------------------------------
-//modif debut envoyer un mel à l'admin
-   send_email($adminmail,"Inscription sur $sitename","Infos :
-      Nom : $name
-      ID : $uname
-      Password : $makepass
-      Email : $email", false,"text");
-//modif pour envoyer un mel à l'admin
-       }
-       include("footer.php");
-    } else {
-       message_error($stop, "finish");
-    }
+         send_email($adminmail,"Inscription sur $sitename","Infos :
+            Nom : $name
+            ID : $uname
+            Email : $email", false,"text");
+         }
+         include("footer.php");
+   } else
+      message_error($stop, 'finish');
 }
 
 function userinfo($uname) {
@@ -854,7 +849,7 @@ function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuor
 function login($uname, $pass) {
    global $NPDS_Prefix, $setinfo, $system;
    settype($skin,'string');
-   $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname LIKE BINARY '$uname'");
+   $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname = '$uname'");
    if (sql_num_rows($result)==1) {
       $setinfo = sql_fetch_assoc($result);
       $result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$setinfo['uid']."'");
