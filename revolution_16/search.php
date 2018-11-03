@@ -72,7 +72,7 @@ if (!function_exists("Mysql_Connexion"))
          <option value="">'.translate("All Topics").'</option>';
    $sel='';
    while(list($topicid, $topics) = sql_fetch_row($toplist)) {
-      if ($topicid==$topic) {$sel = 'selected="selected" ';}
+      if ($topicid==$topic) $sel = 'selected="selected" ';
       echo '
          <option '.$sel.' value="'.$topicid.'">'.substr_replace(aff_langue($topics),'...',25,-1).'</option>';
       $sel ='';
@@ -87,7 +87,7 @@ if (!function_exists("Mysql_Connexion"))
    settype($category,"integer");
    $sel='';
    while (list($catid, $title) = sql_fetch_row($catlist)) {
-      if ($catid==$category) { $sel = 'selected="selected" '; }
+      if ($catid==$category) $sel = 'selected="selected" ';
       echo '
          <option '.$sel.' value="'.$catid.'">'.aff_langue($title).'</option>';
       $sel = '';
@@ -104,7 +104,7 @@ if (!function_exists("Mysql_Connexion"))
    settype($author,'string');
    $sel='';
    while (list($authors) = sql_fetch_row($thing)) {
-      if ($authors==$author) { $sel = 'selected="selected" '; }
+      if ($authors==$author) $sel = 'selected="selected" ';
       echo '
          <option '.$sel.' value="'.$authors.'">'.$authors.'</option>';
       $sel = '';
@@ -114,19 +114,19 @@ if (!function_exists("Mysql_Connexion"))
    </div>';
    settype($days,'integer');
    $sel1=''; $sel2=''; $sel3=''; $sel4=''; $sel5=''; $sel6='';
-   if ($days == '0') {
+   if ($days == '0')
       $sel1 = 'selected="selected"';
-   } elseif ($days == "7") {
+   elseif ($days == "7")
       $sel2 = 'selected="selected"';
-   } elseif ($days == "14") {
+   elseif ($days == "14")
       $sel3 = 'selected="selected"';
-   } elseif ($days == "30") {
+   elseif ($days == "30")
       $sel4 = 'selected="selected"';
-   } elseif ($days == "60") {
+   elseif ($days == "60")
       $sel5 = 'selected="selected"';
-   } elseif ($days == "90") {
+   elseif ($days == "90")
       $sel6 = 'selected="selected"';
-   }
+
    echo '
       <div class="form-group">
          <select class="custom-select form-control" name="days">
@@ -183,17 +183,16 @@ if (!function_exists("Mysql_Connexion"))
    settype($min,'integer');
    settype($offset,'integer');
    if ($type=="stories" OR $type=="archive" OR !$type) {
-      if ($category > 0) {
+      if ($category > 0)
          $categ = "AND catid='$category' ";
-      } elseif ($category == 0) {
+      elseif ($category == 0)
          $categ = '';
-      }
-      if ($type=='stories' OR !$type) {
+      if ($type=='stories' OR !$type)
          $q = "SELECT s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome FROM ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a WHERE s.archive='0' AND s.aid=a.aid $categ";
-      } else {
+      else
          $q = "SELECT s.sid, s.aid, s.title, s.time, a.url, s.topic, s.informant, s.ihome FROM ".$NPDS_Prefix."stories s, ".$NPDS_Prefix."authors a WHERE s.archive='1' AND s.aid=a.aid $categ";
-      }
-      if (isset($query)) $q .= "AND (s.title LIKE '%$query_title%' OR s.hometext LIKE '%$query_body%' OR s.bodytext LIKE '%$query_body%' OR s.notes LIKE '%$query_body%') ";
+      if (isset($query)) 
+         $q .= "AND (s.title LIKE '%$query_title%' OR s.hometext LIKE '%$query_body%' OR s.bodytext LIKE '%$query_body%' OR s.notes LIKE '%$query_body%') ";
       // Membre OU Auteur
       if ($member!='')
          $q .= "AND s.informant='$member' ";
@@ -279,11 +278,11 @@ if (!function_exists("Mysql_Connexion"))
       echo '</p>';
 
    // reviews
-   } elseif ($type=='reviews') {
+   }
+   elseif ($type=='reviews') {
       $result = sql_query("SELECT id, title, text, reviewer FROM ".$NPDS_Prefix."reviews WHERE (title LIKE '%$query_title%' OR text LIKE '%$query_body%') ORDER BY date DESC LIMIT $min,$offset");
-      if ($result) {
+      if ($result)
          $nrows  = sql_num_rows($result);
-      }
       $x=0;
       if ($nrows>0) {
          echo '
@@ -326,7 +325,9 @@ if (!function_exists("Mysql_Connexion"))
          </ul>
       </p>';
    // sections
-   } elseif ($type=='sections') {
+   }
+   elseif ($type=='sections') {
+      $t='';
       $result = sql_query("SELECT artid, secid, title, content FROM ".$NPDS_Prefix."seccont WHERE (title LIKE '%$query_title%' OR content LIKE '%$query_body%') ORDER BY artid DESC LIMIT $min,$offset");
       if ($result)
          $nrows  = sql_num_rows($result);
@@ -358,32 +359,29 @@ if (!function_exists("Mysql_Connexion"))
             echo '
          </tbody>
       </table>';
-         if ($x==0) {
+         if ($x==0)
             echo '
       <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
-         }
-      } else {
+      } else
       echo '
       <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
-      }
       $prev=$min-$offset;
       echo '
       <p align="left">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
-      if ($prev>=0) {
+      if ($prev>=0)
          echo '
             <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("previous matches").'</a></li>';
-      }
-      if ($x>=($offset-1)) {
+      if ($x>=($offset-1))
          echo '
             <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'">'.translate("next matches").'</a></li>';
-      }
       echo '
          </ul>
       </p>';
    // users
-   } elseif ($type=='users') {
+   }
+   elseif ($type=='users') {
       if (($member_list and $user) or $admin) {
          $result = sql_query("SELECT uname, name FROM ".$NPDS_Prefix."users WHERE (uname LIKE '%$query_title%' OR name LIKE '%$query_title%' OR bio LIKE '%$query_title%') ORDER BY uname ASC LIMIT $min,$offset");
          if ($result) {$nrows  = sql_num_rows($result);}
@@ -399,7 +397,7 @@ if (!function_exists("Mysql_Connexion"))
          <tbody>';
             while (list($uname, $name) = sql_fetch_row($result)) {
                $furl = "user.php?op=userinfo&amp;uname=$uname";
-               if ($name=='') {$name = translate("No name entered");}
+               if ($name=='') $name = translate("No name entered");
                echo '
                <tr>
                   <td><a href="'.$furl.'"><i class="fa fa-user text-muted mr-2"></i>'.$uname.'</a> ('.$name.')</td>

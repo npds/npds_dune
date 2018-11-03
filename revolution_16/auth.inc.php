@@ -33,7 +33,7 @@ function Admin_alert($motif) {
 
 if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
    if ($aid!='' and $pwd!='') {
-      $result=sql_query("SELECT pwd FROM ".$NPDS_Prefix."authors WHERE aid LIKE BINARY '$aid'");
+      $result=sql_query("SELECT pwd FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
       if (!$result)
          Admin_Alert("DB not ready #1 : $aid");
       else {
@@ -66,7 +66,7 @@ if (isset($admin) and ($admin!='')) {
    $AIpwd = $Xadmin[1];
    if ($aid=='' or $AIpwd=='')
       Admin_Alert('Null Aid or Passwd');
-   $result=sql_query("SELECT pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid LIKE BINARY '$aid'");
+   $result=sql_query("SELECT pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid = '$aid'");
    if (!$result)
       Admin_Alert("DB not ready #2 : $aid / $AIpwd");
    else {
