@@ -179,6 +179,15 @@ function Minisites($chng_mns,$chng_uname) {
 
 function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, $chng_femail, $chng_user_from, $chng_user_occ, $chng_user_intrest, $chng_user_viewemail, $chng_avatar, $chng_user_sig, $chng_bio, $chng_pass, $chng_pass2, $level, $open_user, $chng_groupe, $chng_send_email, $chng_is_visible, $chng_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar, $chng_rank, $chng_lnl) {
    global $NPDS_Prefix;
+   if(sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid!='$chng_uid' AND uname='$chng_uname'")) > 0) {
+         global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         adminhead ($f_meta_nom, $f_titre, $adminimg);
+         echo error_handler(adm_translate("ERREUR : cet identifiant est déjà utilisé").'<br />');
+         adminfoot('','','','');
+         return;
+   }
    $tmp = 0;
    if ($chng_pass2 != '') {
       if ($chng_pass != $chng_pass2) {
@@ -186,7 +195,7 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
          include("header.php");
          GraphicAdmin($hlpfile);
          adminhead ($f_meta_nom, $f_titre, $adminimg);
-         echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
+         echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez").'<br />');
          adminfoot('','','','');
          return;
       }
@@ -208,20 +217,18 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
    if ($tmp==1) {
       global $system;
-      if (!$system) {
+      if (!$system)
          $cpass = crypt($chng_pass,$chng_pass);
-      } else {
+      else
          $cpass=$chng_pass;
-      }
       sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', pass='$cpass', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
    }
-   if ($chng_user_viewemail) {
+   if ($chng_user_viewemail)
       $attach = 1;
-   } else {
+   else
      $attach = 0;
-   }
-   if ($open_user=='') {$open_user=0;}
-   if (preg_match('#[a-zA-Z_]#',$chng_groupe)) {$chng_groupe='';}
+   if ($open_user=='') $open_user=0;
+   if (preg_match('#[a-zA-Z_]#',$chng_groupe)) $chng_groupe='';
    if ($chng_groupe!='') {
       $tab_groupe=explode(',',$chng_groupe);
       if ($tab_groupe) {
@@ -235,7 +242,7 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
    sql_query("UPDATE ".$NPDS_Prefix."users_status SET attachsig='$attach', level='$level', open='$open_user', groupe='$chng_groupe', rank='$chng_rank' WHERE uid='$chng_uid'");
    sql_query("UPDATE ".$NPDS_Prefix."users_extend SET C1='$C1', C2='$C2', C3='$C3', C4='$C4', C5='$C5', C6='$C6', C7='$C7', C8='$C8', M1='$M1', M2='$M2', T1='$T1', T2='$T2', B1='$B1' WHERE uid='$chng_uid'");
    
-   global $aid; Ecr_Log("security", "UpdateUser($chng_uid, $chng_uname) by AID : $aid", "");
+   global $aid; Ecr_Log('security', "UpdateUser($chng_uid, $chng_uname) by AID : $aid", '');
 
    global $referer;
    if ($referer!="memberslist.php")
@@ -387,13 +394,21 @@ switch ($op) {
       settype($B1,'string');
       settype($raz_avatar,'integer');
       settype($add_send_email,'string');
-
+       if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'")) > 0) {
+         global $hlpfile;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         adminhead ($f_meta_nom, $f_titre, $adminimg);
+         echo error_handler('<i class="fa fa-exclamation mr-2"></i>'.adm_translate("ERREUR : cet identifiant est déjà utilisé").'<br />');
+         adminfoot('','','','');
+         return;
+      }
       if (!($add_uname && $add_email && $add_pass) or (preg_match('#[^a-zA-Z0-9_-]#',$add_uname))) {
          global $hlpfile;
          include("header.php");
          GraphicAdmin($hlpfile);
          adminhead ($f_meta_nom, $f_titre, $adminimg);
-         echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");// ce message n'est pas très précis ..
+         echo error_handler(adm_translate("Vous devez remplir tous les Champs").'<br />');// ce message n'est pas très précis ..
          adminfoot('','','','');
          return;
       }

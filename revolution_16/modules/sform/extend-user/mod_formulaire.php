@@ -14,7 +14,7 @@ global $NPDS_Prefix,$minpass;
 
 $m->add_title(translate("User"));
 $m->add_mess(translate("* for mandatory field"));
-$m->add_form_field_size(50);
+//$m->add_form_field_size(50);
 
 $m->add_field('name', translate("Real Name").' '.translate("(optional)"),$userinfo['name'],'text',false,60,'','');
 $m->add_extender('name', '', '<span class="help-block"><span class="float-right" id="countcar_name"></span></span>');
@@ -112,9 +112,8 @@ $m->add_extender('vpass', '', '<span class="help-block text-right" id="countcar_
 
 
 // --- EXTENDER
-if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
+if (file_exists("modules/sform/extend-user/extender/formulaire.php"))
    include("modules/sform/extend-user/extender/formulaire.php");
-}
 // --- EXTENDER
 
 // ----------------------------------------------------------------
@@ -176,77 +175,81 @@ $m->add_extra('
       </script>
       ');
 $arg1 ='
-      var formulid = ["Register"];';
+      var formulid = ["register"];';
 $fv_parametres ='
-         B1: {
-             validators: {
-                 file: {
-                     extension: "jpeg,jpg,png,gif",
-                     type: "image/jpeg,image/png,image/gif",
-                     maxSize: '.$taille_fichier.',
-                     message: "The selected file is not valid"
-                 }
+/*      B1: {
+          validators: {
+              file: {
+                  extension: "jpeg,jpg,png,gif",
+                  type: "image/jpeg,image/png,image/gif",
+                  maxSize: '.$taille_fichier.',
+                  message: "The selected file is not valid"
+              }
+          }
+      },
+
+
+      T1: {
+         excluded: false,
+         validators: {
+            date: {
+               format: "DD/MM/YYYY",
+               message: "The date is not a valid"
+            }
+         }
+      },
+*/
+
+      pass: {
+         validators: {
+            checkPassword: {
+               message: "Le mot de passe est trop simple."
+            },
+         }
+      },
+      vpass: {
+         validators: {
+             identical: {
+               compare: function() {
+              return register.querySelector(\'[name="pass"]\').value;
+             },
              }
-         },
-         T1: {
-            excluded: false,
-            validators: {
-               date: {
-                  format: "DD/MM/YYYY",
-                  message: "The date is not a valid"
-               }
+         }
+      },
+      '.$ch_lat.': {
+         validators: {
+            regexp: {
+               regexp: /^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
+               message: "La latitude doit être entre -90.0 and 90.0"
+            },
+            numeric: {
+                thousandsSeparator: "",
+                decimalSeparator: "."
+            },
+            between: {
+               min: -90,
+               max: 90,
+               message: "La latitude doit être entre -90.0 and 90.0"
             }
-         },
-         pass: {
-            validators: {
-               checkPassword: {
-                  message: "Le mot de passe est trop simple."
-               },
+         }
+      },
+      '.$ch_lon.': {
+         validators: {
+            regexp: {
+               regexp: /^[-]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/,
+               message: "La longitude doit être entre -180.0 and 180.0"
+            },
+            numeric: {
+                thousandsSeparator: "",
+                decimalSeparator: "."
+            },
+            between: {
+               min: -180,
+               max: 180,
+               message: "La longitude doit être entre -180.0 and 180.0"
             }
-         },
-         vpass: {
-            validators: {
-                identical: {
-                  compare: function() {
-                 return register.querySelector(\'[name="pass"]\').value;
-                },
-                }
-            }
-         },
-         '.$ch_lat.': {
-            validators: {
-               regexp: {
-                  regexp: /^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
-                  message: "La latitude doit être entre -90.0 and 90.0"
-               },
-               numeric: {
-                   thousandsSeparator: "",
-                   decimalSeparator: "."
-               },
-               between: {
-                  min: -90,
-                  max: 90,
-                  message: "La latitude doit être entre -90.0 and 90.0"
-               }
-            }
-         },
-         '.$ch_lon.': {
-            validators: {
-               regexp: {
-                  regexp: /^[-]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/,
-                  message: "La longitude doit être entre -180.0 and 180.0"
-               },
-               numeric: {
-                   thousandsSeparator: "",
-                   decimalSeparator: "."
-               },
-               between: {
-                  min: -180,
-                  max: 180,
-                  message: "La longitude doit être entre -180.0 and 180.0"
-               }
-            }
-         },
+         }
+      },
          !###!
          register.querySelector(\'[name="pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("vpass");
@@ -260,6 +263,7 @@ $fv_parametres ='
             "locale": "'.language_iso(1,'','').'",
          });
          ';
-adminfoot('fv',$fv_parametres,$arg1,'no');
+$m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
+
 // ----------------------------------------------------------------
 ?>

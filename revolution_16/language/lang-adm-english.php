@@ -1012,6 +1012,7 @@ function adm_translate($phrase) {
   case "Utilisateur(s) en attente de validation": $tmp="User(s) awaiting validation"; break;
   case "Identifiant": $tmp="Nickname"; break;
   case "Page(s)": $tmp="Page(s)"; break;
+  case "ERREUR : cet identifiant est déjà utilisé": $tmp="ERROR: Nickname taken"; break;
 
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }

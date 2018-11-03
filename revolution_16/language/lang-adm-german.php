@@ -1012,6 +1012,7 @@ function adm_translate($phrase) {
   case "Utilisateur(s) en attente de validation": $tmp="Benutzer warten auf Bestätigung"; break;
   case "Identifiant": $tmp="Spitzname"; break;
   case "Page(s)": $tmp="Seite(n)"; break;
+  case "ERREUR : cet identifiant est déjà utilisé": $tmp="Fehler : Der Nickname ist schon vergeben"; break;
 
   default: $tmp="Es gibt keine Übersetzung [** $phrase **]"; break;
   }
