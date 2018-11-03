@@ -298,7 +298,7 @@ function print_form($bg) {
    }
     // todo utilisation de tabindex dans les input
    $str.='
-      <fieldset id="'.$this->form_title.'">
+      <fieldset>
          <legend class="mb-4">'.$this->title.'</legend>';
 
    for($i=0;$i<count($this->form_fields);$i++){
@@ -371,20 +371,20 @@ function print_form($bg) {
             break;
 
             case 'checkbox':
-               $str.='<div class="form-group row">';
-   /*
-            $str.='
-            <div class="form-group row">
-               <label class="col-form-label col-sm-4 " for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
-            $str.=($this->form_fields[$i]['obligation'])? '&nbsp;<span class="text-danger">*</span></label>' : '</label>';
-   */
+               $requi='';
+               if ($this->form_fields[$i]['obligation'])
+                  $requi= 'required="required"';
                $str.='
+            <div class="form-group row">
                <div class="col-sm-8 ml-sm-auto">
                   <div class="custom-control custom-checkbox">
-                     <input class="custom-control-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'"';
+                     <input class="custom-control-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" '.$requi;
                $str.=($this->form_fields[$i]['checked'])? ' checked="checked" />' : ' />';
                $str.= '
-                     <label class="custom-control-label" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
+                     <label class="custom-control-label" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
+               if ($this->form_fields[$i]['obligation'])
+                  $str.='<span class="text-danger"> *</span>';
+               $str.= '</label>
                   </div>';
                if ($num_extender!='no')
                   $str.=$this->form_fields[$num_extender]['html'];
