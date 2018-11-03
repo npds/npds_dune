@@ -19,7 +19,7 @@ $m=new form_handler();
 $m->add_form_title("Register");
 $m->add_form_id('register');
 $m->add_form_method("post");
-$m->add_form_check("true");
+$m->add_form_check("false");
 $m->add_url("user.php");
 
 /************************************************/

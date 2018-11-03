@@ -206,7 +206,7 @@ $m->add_extra('
       //]]>
       </script>');
 $arg1 ='
-      var formulid = ["Register"]';
+      var formulid = ["Register"];';
 $fv_parametres ='
          T1: {
             excluded: false,
@@ -230,40 +230,50 @@ if ($op=="ModifyUser")
             validators: {
                identical: {
                   compare: function() {
-                     return register.querySelector(\'[name="add_pass"]\').value;
+                     return Register.querySelector(\'[name="add_pass"]\').value;
                   },
                }
             }
          },';
 $fv_parametres .='
-         '.$ch_lat.': {
-            validators: {
-               numeric: {
-                   thousandsSeparator: "",
-                   decimalSeparator: "."
-               },
-               between: {
-                  min: -90,
-                  max: 90,
-               }
+      '.$ch_lat.': {
+         validators: {
+            regexp: {
+               regexp: /^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
+               message: "La latitude doit être entre -90.0 and 90.0"
+            },
+            numeric: {
+                thousandsSeparator: "",
+                decimalSeparator: "."
+            },
+            between: {
+               min: -90,
+               max: 90,
+               message: "La latitude doit être entre -90.0 and 90.0"
             }
-         },
-         '.$ch_lon.': {
-            validators: {
-               numeric: {
-                   thousandsSeparator: "",
-                   decimalSeparator: "."
-               },
-               between: {
-                  min: -180,
-                  max: 180,
-               }
+         }
+      },
+      '.$ch_lon.': {
+         validators: {
+            regexp: {
+               regexp: /^[-]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/,
+               message: "La longitude doit être entre -180.0 and 180.0"
+            },
+            numeric: {
+                thousandsSeparator: "",
+                decimalSeparator: "."
+            },
+            between: {
+               min: -180,
+               max: 180,
+               message: "La longitude doit être entre -180.0 and 180.0"
             }
-         },
+         }
+      },
          !###!';
 if ($op=="ModifyUser")
    $fv_parametres .='
-         register.querySelector(\'[name="add_pass"]\').addEventListener("input", function() {
+         Register.querySelector(\'[name="add_pass"]\').addEventListener("input", function() {
             fvitem.revalidateField("add_pass2");
          });';
 $fv_parametres .='

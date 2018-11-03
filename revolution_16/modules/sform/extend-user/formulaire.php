@@ -12,7 +12,6 @@
 /************************************************************************/
 $m->add_title(translate("Registration"));
 $m->add_mess(translate("* for mandatory field"));
-//$m->add_form_field_size(50);
 
 $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
 $m->add_field('name', translate("Real Name"),$name,'text',false,60,'','');
@@ -36,7 +35,7 @@ if ($smilies) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
          $tmp_tempo[$file]['en']=$file;
          $tmp_tempo[$file]['selected']=false;
-         if ($file=='blank.gif') {$tmp_tempo[$file]['selected']=true;}
+         if ($file=='blank.gif') $tmp_tempo[$file]['selected']=true;
    }
    $m->add_select('user_avatar', translate("Your Avatar"), $tmp_tempo, false, '', false);
    $m->add_extender('user_avatar', 'onkeyup="showimage();" onchange="showimage();"', '<img class="img-thumbnail n-ava mt-3" src="'.$direktori.'/blank.gif" name="avatar" alt="avatar" />');
@@ -66,19 +65,19 @@ if ($memberpass) {
 
 // --- CHARTE du SITE
 $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), "1", false, true);
-$m->add_checkbox('charte','<a href="static.php?op=charte.html" target="_blank" class="text-danger">'.translate("You must accept the terms of use of this website").'</a>', "1", false, false);
+$m->add_checkbox('charte','<a href="static.php?op=charte.html" target="_blank">'.translate("You must accept the terms of use of this website").'</a>', "1", true, false);
 // --- CHARTE du SITE
 
 // --- EXTENDER
-if (file_exists("modules/sform/extend-user/extender/formulaire.php")) {
+if (file_exists("modules/sform/extend-user/extender/formulaire.php"))
    include("modules/sform/extend-user/extender/formulaire.php");
-}
 // --- EXTENDER
 
 // ----------------------------------------------------------------
 // CES CHAMPS sont indispensables --- Don't remove these fields
 // Champ Hidden
 $m->add_field('op','','new user','hidden',false);
+/*
 $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >');
@@ -89,6 +88,13 @@ $m->add_extra('
          </div>
       </div>
       <br />');
+*/
+$m->add_extra('
+      <div class="form-group row">
+         <div class="col-sm-8 ml-sm-auto" >
+            <button class="btn btn-primary" type="submit">'.translate("Submit").'</button>
+         </div>
+      </div>');
 $m->add_extra('
       <script type="text/javascript">
       //<![CDATA[
@@ -193,8 +199,7 @@ $m->add_extra('
          ';
          $arg1='
          var formulid = ["register"];
-         '.auto_complete ('aruser', 'uname', 'users', '', '0')
-                  ;
+         '.auto_complete ('aruser', 'uname', 'users', '', '0');
 
 // ----------------------------------------------------------------
 ?>
