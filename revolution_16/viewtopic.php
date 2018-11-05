@@ -65,9 +65,10 @@ if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) )
 
 if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
+   if(isset($user)){
    $tab_groupe=valid_group($user);// en ano et admin $user n'existe pas ?  notice ....
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
-
+   }
    //:: ici 
    if ( (!$ok_affiche) and ($adminforum==0) )
       header("location: forum.php");
