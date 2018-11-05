@@ -268,9 +268,10 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             echo '
             <h2>'.translate("User").'</h2>
             <hr />
-            <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
+            <h2><i class="fa fa-user mr-2"></i>'.translate("Registration").'</h2>
             <p class="lead">'.translate("Your Password is: ").'<strong>'.$makepass.'</strong></p>
-            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><strong>'.$sitename.'</strong></a></p>';
+            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fa fa-sign-in fa-lg"></i><strong>'.$sitename.'</strong></a></p>';
+//la send mail too
           } else {
              $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")."\n".translate("-Nickname: ")." $uname\n".translate("-Password: ")." $makepass\n\n";
              include ("signat.php");
