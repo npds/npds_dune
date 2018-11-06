@@ -16,7 +16,6 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-include('modules/geoloc/geoloc_locip.php');
 
 if ($SuperCache)
    $cache_obj = new cacheManager();
@@ -41,26 +40,26 @@ global $NPDS_Prefix, $adminforum;
 //<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
 
    if (isset($arbre) and ($arbre=='1')) $url_ret="viewtopicH.php"; else $url_ret="viewtopic.php";
-
-   $Mmod=false;
-   $userX = base64_decode($user);
-   $userdata = explode(':', $userX);
-   settype($forum, 'integer');
-   $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
-   if (!$rowQ1)
-      forumerror('0001');
-   list(,$myrow) = each($rowQ1);
-   $moderator=explode(' ',get_moderator($myrow['forum_moderator']));
-   for ($i = 0; $i < count($moderator); $i++) {
-       if (($userdata[1] == $moderator[$i])) {
-          if (user_is_moderator($userdata[0],$userdata[2],$myrow['forum_access']))
-             $Mmod=true;
-          break;
-       }
+   if($mode!='viewip') {
+      $Mmod=false;
+      $userX = base64_decode($user);
+      $userdata = explode(':', $userX);
+      settype($forum, 'integer');
+      $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
+      if (!$rowQ1)
+         forumerror('0001');
+      list(,$myrow) = each($rowQ1);
+      $moderator=explode(' ',get_moderator($myrow['forum_moderator']));
+      for ($i = 0; $i < count($moderator); $i++) {
+          if (($userdata[1] == $moderator[$i])) {
+             if (user_is_moderator($userdata[0],$userdata[2],$myrow['forum_access']))
+                $Mmod=true;
+             break;
+          }
+      }
+      if ((!$Mmod) and ($adminforum==0))
+         forumerror('0007');
    }
-   if ((!$Mmod) and ($adminforum==0))
-      forumerror('0007');
-
    if ((isset($submit)) and ($mode=='move')) {
       $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$newforum' WHERE topic_id='$topic'";
       if (!$r = sql_query($sql))
@@ -83,7 +82,7 @@ global $NPDS_Prefix, $adminforum;
       Q_Clean();
       include("footer.php");
    } else {
-      if (($Mmod) or ($adminforum==1)) {
+      if ((isset($Mmod) and $Mmod===true) or ($adminforum==1)) {
          switch ($mode) {
             case 'move':
                include("header.php");
@@ -124,7 +123,7 @@ global $NPDS_Prefix, $adminforum;
          </div>
       </form>';
                include("footer.php");
-               break;
+            break;
             case 'del':
                $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'";
                if (!$result = sql_query($sql))
@@ -137,13 +136,13 @@ global $NPDS_Prefix, $adminforum;
                   forumerror('0001');
                control_efface_post ("forum_npds", "",$topic,"");
                header("location: viewforum.php?forum=$forum");
-               break;
+            break;
             case 'lock':
                $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_status=1 WHERE topic_id='$topic'";
                if (!$r = sql_query($sql))
                   forumerror('0011');
                header("location: $url_ret?topic=$topic&forum=$forum");
-               break;
+            break;
             case 'unlock':
                $topic_title='';
                $sql = "SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic'";
@@ -153,15 +152,17 @@ global $NPDS_Prefix, $adminforum;
                if (!$r = sql_query($sql))
                   forumerror('0012');
                header("location: $url_ret?topic=$topic&forum=$forum");
-               break;
+            break;
             case 'first':
                $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_status = '1', topic_first='0' WHERE topic_id = '$topic'";
                if (!$r = sql_query($sql))
                   forumerror('0011');
                header("location: $url_ret?topic=$topic&forum=$forum");
-               break;
+            break;
             case 'viewip':
                include("header.php");
+               include('modules/geoloc/geoloc_locip.php');
+
                $sql = "SELECT u.uname, p.poster_ip, p.poster_dns FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."posts p WHERE p.post_id = '$post' AND u.uid = p.poster_id";
                if (!$r = sql_query($sql))
                   forumerror('0013');
@@ -184,7 +185,7 @@ global $NPDS_Prefix, $adminforum;
       </div>
       <a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$forum.'" class="btn btn-secondary">'.translate("Go Back").'</a>';
                include("footer.php");
-               break;
+            break;
             case 'banip':
                $sql = "SELECT p.poster_ip FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."posts p WHERE p.post_id = '$post' AND u.uid = p.poster_id";
                if (!$r = sql_query($sql))
@@ -193,17 +194,19 @@ global $NPDS_Prefix, $adminforum;
                   forumerror('0014');
                L_spambot($m['poster_ip'],"ban");
                header("location: $url_ret?topic=$topic&forum=$forum");
-               break;
+            break;
             case 'aff':
                $sql = "UPDATE ".$NPDS_Prefix."posts SET post_aff = '$ordre' WHERE post_id = '$post'";
                sql_query($sql);
                header("location: $url_ret?topic=$topic&forum=$forum");
-               break;
+            break;
          }
       } else {
          include("header.php");
-         echo "<p align=\"center\">".translate("You are not the moderator of this forum therefor you cannot perform this function.")."<br /><br />";
-         echo "<a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a></p>";
+         echo '
+         <div class="alert alert-danger">'.translate("You are not the moderator of this forum therefor you cannot perform this function.").'<br />
+            <a class="btn btn-secondary" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>
+         </div>';
          include("footer.php");
       }
    }
