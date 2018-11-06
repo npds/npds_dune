@@ -279,6 +279,7 @@ function translate_pass1($phrase) {
    case "mail_password: could not update user entry. Contact the Administrator": $tmp="La funci&oacute;n Mail_Password no puede actualizar la base de datos. Contacte con el Webmaster."; break;
    case "Password for": $tmp="Contrase&ntilde;a para"; break;
    case "mailed.": $tmp="enviada."; break;
+   case "Your Confirmation URL is expired": $tmp="Su URL de confirmaci&oacute;n ha caducado"; break;
    case "If you didn't ask for this, don't worry. Just delete this Email.": $tmp="Si usted no pidi&oacute; nada, no se preocupe. no tenga cuenta de este correo. "; break;
    case "has just requested a Confirmation Code to change the password.": $tmp="viene de pedir un c&oacute;digo de confirmaci&oacute;n para cambiar la contrase&ntilde;a."; break;
    case "Confirmation Code for": $tmp="Confirmaci&oacute;n de c&oacute;digo para"; break;

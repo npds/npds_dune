@@ -279,6 +279,7 @@ function translate_pass1($phrase) {
    case "mailed.": $tmp="&#x5DF2;&#x5BC4;&#x51FA;&#x3002;"; break;
    case "If you didn't ask for this, don't worry. Just delete this Email.": $tmp="&#x5982;&#x679C;&#x60A8;&#x6CA1;&#x6709;&#x8981;&#x6C42;&#x5B83;&#xFF0C;&#x522B;&#x62C5;&#x5FC3;&#xFF0C;&#x53EA;&#x8981;&#x5220;&#x9664;&#x8FD9;&#x5C01;Email&#x5C31;&#x884C;&#x4E86;&#x3002; "; break;
    case "has just requested a Confirmation Code to change the password.": $tmp="&#x521A;&#x624D;&#x8BF7;&#x6C42;&#x4E86;&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x5DF2;&#x4FEE;&#x6539;&#x5BC6;&#x7801;&#x3002;"; break;
+   case "Your Confirmation URL is expired": $tmp="&#24744;&#30340;&#30830;&#35748;&#32593;&#22336;&#24050;&#36807;&#26399;"; break;
    case "Confirmation Code for": $tmp="&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x7ED9;"; break;
    case "(optional)": $tmp="(&#x53EF;&#x9009;&#x9879;)"; break;
    case "Real Email": $tmp="&#x60A8;&#x7684;&#x771F;&#x5B9E;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;"; break;

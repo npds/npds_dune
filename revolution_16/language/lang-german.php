@@ -280,6 +280,7 @@ function translate_pass1($phrase) {
    case "Password for": $tmp="Passwort für"; break;
    case "mailed.": $tmp="gesendet per E-mail."; break;
    case "Your Confirmation URL is:": $tmp="Ihre URL für die Bestätigung ist :"; break;
+   case "Your Confirmation URL is expired": $tmp="Ihre Best&auml;tigungs-URL ist abgelaufen"; break;
    case "If you didn't ask for this, don't worry. Just delete this Email.": $tmp="Wenn Sie diese Anfrage nicht gestellt haben, seien Sie bitte nicht verärgert. Bitte löschen Sie die E-mail "; break;
    case "has just requested a Confirmation to change the password.": $tmp="Hat eine Anfrage für ein neues Passwort gestellt."; break;
    case "Confirmation Code for": $tmp="Konfirmation des Code für"; break;
