@@ -138,17 +138,17 @@ function DownloadAdmin() {
       <tbody>';
        $result = sql_query("SELECT did, dcounter, durl, dfilename, dfilesize, ddate, dver, perms FROM ".$NPDS_Prefix."downloads WHERE dcategory='".addslashes($dcategory)."' ORDER BY did ASC");
        while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dver, $dperm) = sql_fetch_row($result)) {
-          if ($dperm==0) $dperm='<span title="'.adm_translate("Anonymes").'<br />'.adm_translate("Membres").'<br />'.adm_translate("Administrateurs").'" data-toggle="tooltip" data-html="true"><i class="fa fa-user-o fa-lg"></i><i class="fa fa-user fa-lg"></i><i class="fa fa-cogs"></i></span>';
-          if ($dperm==1) $dperm='<span title="'.adm_translate("Membres").'" data-toggle="tooltip"><i class="fa fa-user fa-lg"></i></span>';
-          if ($dperm>=1) $dperm='<span title="'.adm_translate("Groupes").'" data-toggle="tooltip"><i class="fa fa-users fa-lg"></i></span>';
-          if ($dperm==-127) $dperm='<span title="'.adm_translate("Administrateurs").'" data-toggle="tooltip"><i class="fa fa-user fa-lg"></i><i class="fa fa-cogs"></i></span>';
-          if ($dperm==-1) $dperm='<span title="'.adm_translate("Anonymes").'"  data-toggle="tooltip"><i class="fa fa-user-o fa-lg"></i></span>';
+          if ($dperm==0) $dperm='<span title="'.adm_translate("Anonymes").'<br />'.adm_translate("Membres").'<br />'.adm_translate("Administrateurs").'" data-toggle="tooltip" data-placement="right" data-html="true"><i class="fa fa-user-o fa-lg"></i><i class="fa fa-user fa-lg"></i><i class="fa fa-cogs"></i></span>';
+          if ($dperm==1) $dperm='<span title="'.adm_translate("Membres").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-user fa-lg"></i></span>';
+          if ($dperm>=1) $dperm='<span title="'.adm_translate("Groupes").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-users fa-lg"></i></span>';
+          if ($dperm==-127) $dperm='<span title="'.adm_translate("Administrateurs").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-user fa-lg"></i><i class="fa fa-cogs"></i></span>';
+          if ($dperm==-1) $dperm='<span title="'.adm_translate("Anonymes").'"  data-toggle="tooltip" data-placement="right"><i class="fa fa-user-o fa-lg"></i></span>';
           echo '
          <tr>
             <td>'.$did.'</td>
             <td>'.$dcounter.'</td>
             <td>'.$dperm.'</td>
-            <td><a href="'.$durl.'" title="'.adm_translate("Téléchargements").'<br />'.$durl.'" data-toggle="tooltip" data-html="true"><i class="fa fa-download fa-2x"></i></a></td>
+            <td><a href="'.$durl.'" title="'.adm_translate("Téléchargements").'<br />'.$durl.'" data-toggle="tooltip" data-placement="right" data-html="true"><i class="fa fa-download fa-2x"></i></a></td>
             <td>'.$dfilename.'</td>
             <td><span class="small">'.$dver.'</span></td>
             <td><span class="small">';
@@ -160,8 +160,8 @@ function DownloadAdmin() {
                 echo '</span></td>
             <td class="small">'.$ddate.'</td>
             <td>
-               <a href="admin.php?op=DownloadEdit&amp;did='.$did.'" title="'.adm_translate("Editer").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>&nbsp;
-               <a href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=0" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+               <a href="admin.php?op=DownloadEdit&amp;did='.$did.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit fa-lg"></i></a>
+               <a href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=0" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-trash-o fa-lg text-danger ml-2"></i></a>
             </td>
             </tr>';
        }
