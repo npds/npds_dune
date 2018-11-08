@@ -40,15 +40,14 @@ if ($admin) {
 
    include("abla.log.php");
    $timex=time()-$xdate;
-   if ($timex>=86400) {
+   if ($timex>=86400)
       $timex=round($timex/86400).' '.translate("Day(s)");
-   } elseif ($timex>=3600) {
+   elseif ($timex>=3600)
       $timex=round($timex/3600).' '.translate("Hour(s)");
-   } elseif ($timex>=60) {
+   elseif ($timex>=60)
       $timex=round($timex/60).' '.translate("Minut(s)");
-   } else {
+   else
       $timex=$timex.' '.translate("Second(s)");
-   }
    echo '
    <hr />
    <p class="lead mb-3">'.translate("General Stats").' - '.translate("Past Stat").' : '.$timex.' </p>
@@ -161,6 +160,7 @@ if ($admin) {
       <tbody>';
    $num_dow=0;
    $result = sql_query("SELECT dcounter, dfilename FROM ".$NPDS_Prefix."downloads");
+   settype($xdownload,'array');
    while(list($dcounter, $dfilename) = sql_fetch_row($result)) {
       $num_dow++;
       echo '
