@@ -291,9 +291,25 @@ function ForumGo($cat_id) {
    var 
    inpOri = $("#the_multi_input"),
    helptext = $("#help_forum_pass"),
+   oo = $("#forum_type").val(),
    labelo = $("#labmulti");
    const form  = document.getElementById("fadaddforu");
    const impu = document.getElementById("forum_pass");
+   switch (oo){
+      case "1":
+         fvitem.enableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").enableValidator("forum_pass","stringLength")
+      break;
+      case "5": case "7":
+         fvitem.enableValidator("forum_pass","notEmpty").enableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
+      break;
+      case "8":
+         fvitem.enableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
+      break;
+      default:
+         fvitem.disableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
+      break;
+   }
+   
 
    form.querySelector(\'[name="forum_type"]\').addEventListener("change", function(e) {
       switch (e.target.value) {
