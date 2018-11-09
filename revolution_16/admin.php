@@ -425,7 +425,7 @@ $ibid = explode('|',$v);
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
-            btn_hide.attr('title','".adm_translate("Déplier la liste")."');
+            btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
             i_id.attr('class','fa fa-caret-down fa-lg text-primary mr-1');
         }
        });
