@@ -111,119 +111,119 @@ if (!function_exists("Mysql_Connexion"))
          </tr>
       </thead>
       <tbody>';
-   if ($ibid=theme_image("stats/explorer.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/explorer.gif";}
+   if ($ibid=theme_image("stats/explorer.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/explorer.gif";
    echo '
          <tr>
-            <td > MSIE <img src="'.$imgtmp.'" alt="MSIE_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="MSIE_ico" /> MSIE </td>
             <td>
                <div class="text-center small">'.$msie[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$msie[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$msie[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($msie[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/firefox.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/firefox.gif";}
+   if ($ibid=theme_image("stats/firefox.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/firefox.gif";
       echo '
          <tr>
-            <td> Mozilla <img src="'.$imgtmp.'" alt="Mozilla_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="Mozilla_ico" /> Mozilla </td>
             <td>
                <div class="text-center small">'.$netscape[1].' %</div>
-                  <div class="progress">
+                  <div class="progress bg-light">
                      <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$netscape[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$netscape[1].'%; height:1rem;"></div>
                   </div>
             </td>
             <td> '.wrh($netscape[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/opera.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/opera.gif";}
+   if ($ibid=theme_image("stats/opera.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/opera.gif";
      echo '
          <tr>
-            <td> Opera <img src="'.$imgtmp.'" alt="Opera_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="Opera_ico" /> Opera </td>
             <td>
                <div class="text-center small">'.$opera[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$opera[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$opera[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($opera[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/chrome.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/chrome.gif";}
+   if ($ibid=theme_image("stats/chrome.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/chrome.gif";
       echo '
          <tr>
-            <td> Chrome <img src="'.$imgtmp.'" alt="Chrome_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="Chrome_ico" /> Chrome </td>
             <td>
                <div class="text-center small">'.$chrome[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$chrome[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$chrome[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($chrome[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/safari.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/safari.gif";}
+   if ($ibid=theme_image("stats/safari.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/safari.gif";
       echo '
          <tr>
-            <td> Safari <img src="'.$imgtmp.'" alt="Safari_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="Safari_ico" /> Safari </td>
             <td>
                <div class="text-center small">'.$safari[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$safari[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$safari[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($safari[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/webtv.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/webtv.gif";}
+   if ($ibid=theme_image("stats/webtv.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/webtv.gif";
       echo '
          <tr>
-            <td> WebTV <img src="'.$imgtmp.'"  alt="WebTV_ico" /></td>
+            <td><img src="'.$imgtmp.'"  alt="WebTV_ico" /> WebTV </td>
             <td>
                <div class="text-center small">'.$webtv[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$webtv[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$webtv[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($webtv[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/konqueror.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/konqueror.gif";}
+   if ($ibid=theme_image("stats/konqueror.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/konqueror.gif";
       echo '
          <tr>
-            <td> Konqueror <img src="'.$imgtmp.'" alt="Konqueror_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="Konqueror_ico" /> Konqueror </td>
             <td>
                <div class="text-center small">'.$konqueror[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$konqueror[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$konqueror[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($konqueror[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/lynx.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/lynx.gif";}
+   if ($ibid=theme_image("stats/lynx.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/lynx.gif";
       echo '
          <tr>
-            <td> Lynx <img src="'.$imgtmp.'" alt="Lynx_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="Lynx_ico" /> Lynx </td>
             <td>
                <div class="text-center small">'.$lynx[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$lynx[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$lynx[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($lynx[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/altavista.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/altavista.gif";}
+   if ($ibid=theme_image("stats/altavista.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/altavista.gif";
       echo '
          <tr>
-            <td> '.translate("Search Engines").' <img src="'.$imgtmp.'" alt="'.translate("Search Engines").'_ico" /></td>
+            <td><img src="'.$imgtmp.'" alt="'.translate("Search Engines").'_ico" /> '.translate("Search Engines").' </td>
             <td>
                <div class="text-center small">'.$bot[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$bot[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$bot[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($bot[0]).'</td>
          </tr>
          <tr>
-            <td> '.translate("Unknown").' <i class="fa fa-question fa-3x"></i></td>
+            <td><i class="fa fa-question fa-3x align-middle"></i> '.translate("Unknown").' </td>
             <td>
                <div class="text-center small">'.$b_other[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$b_other[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$b_other[1].'%; height:1rem;"></div>
                </div>
             </td>
@@ -242,143 +242,143 @@ if (!function_exists("Mysql_Connexion"))
          </tr>
       </thead>
       <tbody>';
-   if ($ibid=theme_image("stats/windows.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/windows.gif";}
+   if ($ibid=theme_image("stats/windows.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/windows.gif";
       echo '
          <tr>
             <td ><img src="'.$imgtmp.'"  alt="Windows" />&nbsp;Windows</td>
             <td>
                <div class="text-center small">'.$windows[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$windows[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$windows[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($windows[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/linux.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/linux.gif";}
+   if ($ibid=theme_image("stats/linux.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/linux.gif";
       echo '
          <tr>
             <td ><img src="'.$imgtmp.'"  alt="Linux" />&nbsp;Linux</td>
             <td>
                <div class="text-center small">'.$linux[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$linux[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$linux[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($linux[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/mac.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/mac.gif";}
+   if ($ibid=theme_image("stats/mac.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/mac.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="Mac/PPC" />&nbsp;Mac/PPC</td>
             <td>
                <div class="text-center small">'.$mac[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$mac[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$mac[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($mac[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/bsd.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/bsd.gif";}
+   if ($ibid=theme_image("stats/bsd.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/bsd.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="FreeBSD" />&nbsp;FreeBSD</td>
             <td>
                <div class="text-center small">'.$freebsd[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$freebsd[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$freebsd[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($freebsd[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/sun.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/sun.gif";}
+   if ($ibid=theme_image("stats/sun.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/sun.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="SunOS" />&nbsp;SunOS</td>
             <td>
                <div class="text-center small">'.$sunos[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$sunos[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$sunos[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($sunos[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/irix.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/irix.gif";}
+   if ($ibid=theme_image("stats/irix.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/irix.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="IRIX" />&nbsp;IRIX</td>
             <td>
                <div class="text-center small">'.$irix[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$irix[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$irix[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($irix[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/be.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/be.gif";}
+   if ($ibid=theme_image("stats/be.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/be.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="BeOS" />&nbsp;BeOS</td>
             <td>
                <div class="text-center small">'.$beos[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$beos[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$beos[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($beos[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/os2.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/os2.gif";}
+   if ($ibid=theme_image("stats/os2.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/os2.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="OS/2" />&nbsp;OS/2</td>
             <td>
                <div class="text-center small">'.$os2[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$os2[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$os2[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($os2[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/aix.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/aix.gif";}
+   if ($ibid=theme_image("stats/aix.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/aix.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="AIX" />&nbsp;AIX</td>
             <td>
                <div class="text-center small">'.$aix[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$aix[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$aix[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($aix[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/android.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/android.gif";}
+   if ($ibid=theme_image("stats/android.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/android.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Android" />&nbsp;Android</td>
             <td>
                <div class="text-center small">'.$andro[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$andro[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$andro[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($andro[0]).'</td>
          </tr>';
-   if ($ibid=theme_image("stats/ios.gif")) {$imgtmp=$ibid;} else { $imgtmp="images/stats/ios.gif";}
+   if ($ibid=theme_image("stats/ios.gif")) $imgtmp=$ibid; else $imgtmp="images/stats/ios.gif";
       echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Ios" /> Ios</td>
             <td>
                <div class="text-center small">'.$ios[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$ios[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$ios[1].'%; height:1rem;"></div>
                </div>
             </td>
             <td>'.wrh($ios[0]).'</td>
          </tr>
          <tr>
-            <td><i class="fa fa-question fa-3x"></i>&nbsp;'.translate("Unknown").'</td>
+            <td><i class="fa fa-question fa-3x align-middle"></i>&nbsp;'.translate("Unknown").'</td>
             <td>
                <div class="text-center small">'.$os_other[1].' %</div>
-               <div class="progress">
+               <div class="progress bg-light">
                   <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="'.$os_other[1].'" aria-valuemin="0" aria-valuemax="100" style="width:'.$os_other[1].'%; height:1rem;"></div>
                </div>
             </td>
@@ -386,14 +386,13 @@ if (!function_exists("Mysql_Connexion"))
          </tr>
       </tbody>
    </table>
-   <br />
-   <h3>'.translate("Theme(s)").'</h3>
+   <h3 class="my-4">'.translate("Theme(s)").'</h3>
    <table data-toggle="table" data-striped="true">
       <thead>
       <tr>
-         <th data-sortable="true">'.translate("Theme(s)").'</th>
-         <th>'.translate("Number of users per theme").'</th>
-         <th>'.translate("Status").'</th>
+         <th data-sortable="true" data-halign="center">'.translate("Theme(s)").'</th>
+         <th data-halign="center" data-align="right">'.translate("Number of users per theme").'</th>
+         <th data-halign="center">'.translate("Status").'</th>
       </tr>
       </thead>
       <tbody>';
@@ -402,24 +401,24 @@ if (!function_exists("Mysql_Connexion"))
    global $Default_Theme;
    while(list($themelist)=sql_fetch_row($resultX)) {
       if ($themelist!='') {
-         if (is_dir("themes/$themelist")) {$D_exist='';} else {$D_exist="<span class=\"rouge\">".translate("There is no such file...")."</span>";}
+         if (is_dir("themes/$themelist")) $D_exist=''; else $D_exist='<span class="text-danger">'.translate("There is no such file...").'</span>';
          if ($themelist==$Default_Theme) {
             $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
-            if ($result) {$themeD1 = sql_num_rows($result);} else {$themeD1=0;}
+            if ($result) $themeD1 = sql_num_rows($result); else $themeD1=0;
             $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme=''");
-            if ($result) {$themeD2 = sql_num_rows($result);}else {$themeD2=0;}
-            echo "
+            if ($result) $themeD2 = sql_num_rows($result); else $themeD2=0;
+            echo '
             <tr>
-               <td nowrap=\"nowrap\">&nbsp;$themelist <b>(".translate("Default").")</b></td>
-               <td align=\"center\"><b>".wrh(($themeD1+$themeD2))."</b></td>
-               <td>$D_exist</td>
-            </tr>";
+               <td nowrap="nowrap">&nbsp;'.$themelist.' <b>('.translate("Default").')</b></td>
+               <td align="center"><b>'.wrh(($themeD1+$themeD2)).'</b></td>
+               <td>'.$D_exist.'</td>
+            </tr>';
          } else {
             $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
             if ($result) {$themeU = sql_num_rows($result);} else {$themeU=0;}
             echo '
             <tr>
-               <td>&nbsp;'.$themelist.' :</td>
+               <td>&nbsp;'.$themelist.'</td>
                <td><b>'.wrh($themeU).'</b></td>
                <td>'.$D_exist.'</td>
             </tr>';
@@ -429,30 +428,29 @@ if (!function_exists("Mysql_Connexion"))
    echo '
       </tbody>
    </table>';
-   echo '<br />';
 
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
-   if ($result) {$unum = sql_num_rows($result)-1;} else {$unum=0;}
+   if ($result) $unum = sql_num_rows($result)-1; else $unum=0;
    $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
-   if ($result) {$snum = sql_num_rows($result);} else {$snum=0;}
+   if ($result) $snum = sql_num_rows($result); else $snum=0;
    $result = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors");
-   if ($result) {$anum = sql_num_rows($result);} else {$anum=0;}
+   if ($result) $anum = sql_num_rows($result); else $anum=0;
    $result = sql_query("SELECT post_id FROM ".$NPDS_Prefix."posts WHERE forum_id<0");
-   if ($result) {$cnum = sql_num_rows($result);} else {$cnum=0;}
+   if ($result) $cnum = sql_num_rows($result); else $cnum=0;
    $result = sql_query("SELECT secid FROM ".$NPDS_Prefix."sections");
-   if ($result) {$secnum = sql_num_rows($result);} else {$secnum=0;}
+   if ($result) $secnum = sql_num_rows($result); else $secnum=0;
    $result = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont");
-   if ($result) {$secanum = sql_num_rows($result);} else {$secanum=0;}
+   if ($result) $secanum = sql_num_rows($result); else $secanum=0;
    $result = sql_query("SELECT gid FROM ".$NPDS_Prefix."queue");
-   if ($result) {$subnum = sql_num_rows($result);} else {$subnum=0;}
+   if ($result) $subnum = sql_num_rows($result); else $subnum=0;
    $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics");
-   if ($result) {$tnum = sql_num_rows($result);} else {$tnum=0;}
+   if ($result) $tnum = sql_num_rows($result); else $tnum=0;
    $result = sql_query("SELECT lid FROM ".$NPDS_Prefix."links_links");
-   if ($result) {$links = sql_num_rows($result);} else {$links=0;}
+   if ($result) $links = sql_num_rows($result); else $links=0;
    $result = sql_query("SELECT cid FROM ".$NPDS_Prefix."links_categories");
-   if ($result) {$cat1 = sql_num_rows($result);} else {$cat1=0;}
+   if ($result) $cat1 = sql_num_rows($result); else $cat1=0;
    $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."links_subcategories");
-   if ($result) {$cat2 = sql_num_rows($result);} else {$cat2=0;}
+   if ($result) $cat2 = sql_num_rows($result); else $cat2=0;
    $cat = $cat1+$cat2;
 
    echo '
@@ -460,23 +458,23 @@ if (!function_exists("Mysql_Connexion"))
    <ul class="list-group">
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Registered Users: ").' <span class="badge badge-secondary ml-auto">'.wrh($unum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fa fa-pencil fa-lg text-muted"></i>&nbsp;'.translate("Active Authors: ").' <span class="badge badge-secondary ml-auto">'.wrh($anum).' </span></li>';
-   if ($ibid=theme_image("stats/postnew.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/postnew.png";}
+   if ($ibid=theme_image("stats/postnew.png")) $imgtmp=$ibid; else $imgtmp="images/admin/postnew.png";
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Stories Published: ").' <span class="badge badge-secondary ml-auto">'.wrh($snum).' </span></li>';
-   if ($ibid=theme_image("stats/topicsman.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/topicsman.png";}
+   if ($ibid=theme_image("stats/topicsman.png")) $imgtmp=$ibid; else $imgtmp="images/admin/topicsman.png";
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Active Topics: ").' <span class="badge badge-secondary ml-auto">'.wrh($tnum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Comments Posted: ").' <span class="badge badge-secondary ml-auto">'.wrh($cnum).' </span></li>';
-   if ($ibid=theme_image("stats/sections.png")) {$imgtmpS=$ibid;} else { $imgtmpS="images/admin/sections.png";}
+   if ($ibid=theme_image("stats/sections.png")) $imgtmpS=$ibid; else $imgtmpS="images/admin/sections.png";
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmpS.'" alt="" />&nbsp;'.translate("Special Sections: ").' <span class="badge badge-secondary ml-auto">'.wrh($secnum).' </span></li>';
-   if ($ibid=theme_image("stats/sections.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/sections.png";}
+   if ($ibid=theme_image("stats/sections.png")) $imgtmp=$ibid; else $imgtmp="images/admin/sections.png";
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles in Sections: ").' <span class="badge badge-secondary ml-auto">'.wrh($secanum).' </span></li>';
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Links in Web Links: ").' <span class="badge badge-secondary ml-auto">'.wrh($links).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Categories in Web Links: ").' <span class="badge badge-secondary ml-auto">'.wrh($cat).' </span></li>';
-   if ($ibid=theme_image("stats/submissions.png")) {$imgtmp=$ibid;} else { $imgtmp="images/admin/submissions.png";}
+   if ($ibid=theme_image("stats/submissions.png")) $imgtmp=$ibid; else $imgtmp="images/admin/submissions.png";
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'"  alt="" />&nbsp;'.translate("News Waiting to be Published: ").' <span class="badge badge-secondary ml-auto">'.wrh($subnum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Num <span class="badge badge-danger ml-auto">'.$Version_Num.'</span></li>
@@ -484,7 +482,7 @@ if (!function_exists("Mysql_Connexion"))
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Sub <span class="badge badge-danger ml-auto">'.$Version_Sub.'</span></li>
    </ul>
    <br />
-   <p align="center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';
+   <p class="text-center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';
 
 include("footer.php");
 ?>
