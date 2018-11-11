@@ -42,20 +42,22 @@ global $NPDS_Prefix, $adminforum;
    if (isset($arbre) and ($arbre=='1')) $url_ret="viewtopicH.php"; else $url_ret="viewtopic.php";
    if($mode!='viewip') {
       $Mmod=false;
-      $userX = base64_decode($user);
-      $userdata = explode(':', $userX);
-      settype($forum, 'integer');
-      $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
-      if (!$rowQ1)
-         forumerror('0001');
-      list(,$myrow) = each($rowQ1);
-      $moderator=explode(' ',get_moderator($myrow['forum_moderator']));
-      for ($i = 0; $i < count($moderator); $i++) {
-          if (($userdata[1] == $moderator[$i])) {
-             if (user_is_moderator($userdata[0],$userdata[2],$myrow['forum_access']))
-                $Mmod=true;
-             break;
-          }
+      if(isset($user)) {
+         $userX = base64_decode($user);
+         $userdata = explode(':', $userX);
+         settype($forum, 'integer');
+         $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
+         if (!$rowQ1)
+            forumerror('0001');
+         list(,$myrow) = each($rowQ1);
+         $moderator=explode(' ',get_moderator($myrow['forum_moderator']));
+         for ($i = 0; $i < count($moderator); $i++) {
+             if (($userdata[1] == $moderator[$i])) {
+                if (user_is_moderator($userdata[0],$userdata[2],$myrow['forum_access']))
+                   $Mmod=true;
+                break;
+             }
+         }
       }
       if ((!$Mmod) and ($adminforum==0))
          forumerror('0007');
