@@ -17,7 +17,7 @@ echo '
 echo '
 <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />'; // framework
 echo '
-<link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />'; // develop
+<link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />'; // developpement
 echo '
 <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />'; // form control
 echo '
@@ -37,13 +37,19 @@ if(defined('CITRON')){
 <script type="text/javascript">
    //<![CDATA[
    tarteaucitron.init({
+       "privacyUrl": "", /* Privacy policy url */
        "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
-       "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
+       "cookieName": "tartaucitron", /* Cookie name */
        "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
-       "adblocker": false, /* Afficher un message si un adblocker est détecté */
        "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
        "cookieslist": true, /* Afficher la liste des cookies installés ? */
+       "adblocker": false, /* Afficher un message si un adblocker est détecté */
+       "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+       "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
+       "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
        "removeCredit": true, /* supprimer le lien vers la source ? */
+       "moreInfoLink": true, /* Show more info link */
+       "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
        "cookieDomain": "" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
    });
    //]]
