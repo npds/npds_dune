@@ -811,16 +811,15 @@ function print_form($bg) {
   function aff_response($bg,$retour='',$action='') {
     // modif Field en lieu et place des $GLOBALS ....
    settype($str,'string');
-    for($i=0;$i<count($this->form_fields);$i++){
+    for($i=0;$i<count($this->form_fields);$i++) {
       if (array_key_exists('name',$this->form_fields[$i])) {
          $num_extender=$this->interro_fields($this->form_fields[$i]['name']."extender");
-         if (array_key_exists($this->form_fields[$i]['name'], $GLOBALS)) {
+         if (array_key_exists($this->form_fields[$i]['name'], $GLOBALS))
             $field=$GLOBALS[$this->form_fields[$i]['name']];
-         } else
+         else
             $field='';
-      } else {
+      } else
          $num_extender='no';
-      }
       if (array_key_exists('type',$this->form_fields[$i])) {
          switch($this->form_fields[$i]['type']) {
             case 'text': case 'email': case 'url': case 'number':
@@ -851,31 +850,27 @@ function print_form($bg) {
          case 'textarea':
           $str.='<br />'.$this->form_fields[$i]['en'];
           $str.='<br /><strong>'.stripslashes(str_replace(chr(13).chr(10),'<br />',$field)).'&nbsp;</strong>';
-          if ($num_extender!='no') {
+          if ($num_extender!='no')
              $str.=' '.$this->form_fields[$num_extender]['html'];
-          }
           break;
 
          case 'select':
           $str.='<br />'.$this->form_fields[$i]['en'];
-          if ( is_array($field) ){
+          if ( is_array($field) ) {
              for ($j=0;$j<count($field);$j++){
-                $str.="<strong>".$this->form_fields[$i]['value'][ $field[$j] ]['en'].'&nbsp;</strong><br />';
+                $str.='<strong>'.$this->form_fields[$i]['value'][ $field[$j] ]['en'].'&nbsp;</strong><br />';
             }
-          } else {
+          } else
             $str.='&nbsp;<strong>'.$this->form_fields[$i]['value'][ $field ]['en'].'&nbsp;</strong>';
-          }
-          if ($num_extender!='no') {
+          if ($num_extender!='no')
              $str.=' '.$this->form_fields[$num_extender]['html'];
-          }
           break;
 
          case 'radio':
           $str.='<br />'.$this->form_fields[$i]['en'];
           $str.='&nbsp;<strong>'.$this->form_fields[$i]['value'][ $field ]['en'].'&nbsp;</strong>';
-          if ($num_extender!='no') {
+          if ($num_extender!='no')
              $str.=' '.$this->form_fields[$num_extender]['html'];
-          }
           break;
 
          case 'comment':
@@ -905,11 +900,10 @@ function print_form($bg) {
     }
     $str.='';
 
-    if ($retour!='not_echo') {
+    if ($retour!='not_echo')
        echo $str;
-    } else {
+    else
        return $str;
-    }
   }
 
   /**************************************************************************************/
