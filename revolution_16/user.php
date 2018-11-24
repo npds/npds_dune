@@ -34,7 +34,7 @@ function message_error($ibid,$op) {
 }
 function message_pass($ibid) {
    include("header.php");
-   echo '<span class="text-success">'.$ibid.'</span>';
+   echo $ibid;
    include("footer.php");
 }
 function nav($mns) {
@@ -99,11 +99,10 @@ function makePass() {
    $syllable_array=explode(',', $syllables);
    srand((double)microtime()*1000000);
    for ($count=1;$count<=4;$count++) {
-      if (rand()%10 == 1) {
+      if (rand()%10 == 1)
          $makepass .= sprintf("%0.0f",(rand()%50)+1);
-      } else {
+      else
          $makepass .= sprintf("%s",$syllable_array[rand()%62]);
-      }
    }
    return($makepass);
 }
@@ -270,13 +269,38 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             <hr />
             <h2><i class="fa fa-user mr-2"></i>'.translate("Registration").'</h2>
             <p class="lead">'.translate("Your Password is: ").'<strong>'.$makepass.'</strong></p>
-            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fa fa-sign-in fa-lg"></i><strong>'.$sitename.'</strong></a></p>';
-//la send mail too
+            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fa fa-sign-in fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
+
+            $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")." : \n\n";
+            $message .=
+            translate("User ID").' : '.$uname."\n".
+            translate("Real Email").' : '.$email."\n";
+            if($name!='') 
+               $message .= translate("Real Name").' : '.$name."\n";
+            if($user_from!='') 
+               $message .= translate("Your Location").' : '.$user_from."\n";
+            if($user_occ!='') 
+               $message .= translate("Your Occupation").' : '.$user_occ."\n";
+            if($user_intrest!='') 
+               $message .= translate("Your Interest").' : '.$user_intrest."\n";
+            if($user_sig!='') 
+               $message .= translate("Signature").' : '.$user_sig."\n";
+            if(isset($C1) and $C1!='')
+               $message .= aff_langue('[french]Activit&#x00E9; professionnelle[/french][english]Professional activity[/english][spanish]Actividad profesional[/spanish][german]Berufliche T&#xE4;tigkeit[/german]').' : '.$C1."\n";
+            if(isset($C2) and $C2!='')
+               $message .= aff_langue('[french]Code postal[/french][english]Postal code[/english][spanish]C&#xF3;digo postal[/spanish][german]Postleitzahl[/german]').' : '.$C2."\n";
+            if(isset($T1) and $T1!='')
+               $message .= aff_langue('[french]Date de naissance[/french][english]Birth date[/english][spanish]Fecha de nacimiento[/spanish][german]Geburtsdatum[/german]').' : '.$T1."\n";
+            $message .= "\n\n\n".aff_langue("[french]Conform&eacute;ment aux articles 38 et suivants de la loi fran&ccedil;aise n&deg; 78-17 du 6 janvier 1978 relative &agrave; l'informatique, aux fichiers et aux libert&eacute;s, tout membre dispose d&rsquo; un droit d&rsquo;acc&egrave;s, peut obtenir communication, rectification et/ou suppression des informations le concernant.[/french][english]In accordance with Articles 38 et seq. Of the French law n &deg; 78-17 of January 6, 1978 relating to data processing, files and freedoms, any member has a right of access, can obtain communication, rectification and / or deletion of information about him.[/english][chinese]&#26681;&#25454;1978&#24180;1&#26376;6&#26085;&#20851;&#20110;&#25968;&#25454;&#22788;&#29702;&#65292;&#26723;&#26696;&#21644;&#33258;&#30001;&#30340;&#27861;&#22269;78-17&#21495;&#27861;&#24459;&#65292;&#20219;&#20309;&#25104;&#21592;&#37117;&#26377;&#26435;&#36827;&#20837;&#65292;&#21487;&#20197;&#33719;&#24471;&#36890;&#20449;&#65292;&#32416;&#27491;&#21644;/&#25110; &#21024;&#38500;&#26377;&#20851;&#20182;&#30340;&#20449;&#24687;&#12290;[/chinese][spanish]De conformidad con los art&iacute;culos 38 y siguientes de la ley francesa n &deg; 78-17 del 6 de enero de 1978, relativa al procesamiento de datos, archivos y libertades, cualquier miembro tiene derecho de acceso, puede obtener comunicaci&oacute;n, rectificaci&oacute;n y / o supresi&oacute;n de informaci&oacute;n sobre &eacute;l.[/spanish][german]Gem&auml;&szlig; den Artikeln 38 ff. Des franz&ouml;sischen Gesetzes Nr. 78-17 vom 6. Januar 1978 in Bezug auf Datenverarbeitung, Akten und Freiheiten hat jedes Mitglied ein Recht auf Zugang, kann Kommunikation, Berichtigung und / oder L&ouml;schung von Informationen &uuml;ber ihn.[/german]");
+            $message .= "\n\n\n".aff_langue("[french]Ce message et les pi&egrave;ces jointes sont confidentiels et &eacute;tablis &agrave; l'attention exclusive de leur destinataire (aux adresses sp&eacute;cifiques auxquelles il a &eacute;t&eacute; adress&eacute;). Si vous n'&ecirc;tes pas le destinataire de ce message, vous devez imm&eacute;diatement en avertir l'exp&eacute;diteur et supprimer ce message et les pi&egrave;ces jointes de votre syst&egrave;me.[/french][english]This message and any attachments are confidential and intended to be received only by the addressee. If you are not the intended recipient, please notify immediately the sender by reply and delete the message and any attachments from your system.[/english][chinese]&#27492;&#28040;&#24687;&#21644;&#20219;&#20309;&#38468;&#20214;&#37117;&#26159;&#20445;&#23494;&#30340;&#65292;&#24182;&#19988;&#25171;&#31639;&#30001;&#25910;&#20214;&#20154;&#25509;&#25910;&#12290; &#22914;&#26524;&#24744;&#19981;&#26159;&#39044;&#26399;&#25910;&#20214;&#20154;&#65292;&#35831;&#31435;&#21363;&#36890;&#30693;&#21457;&#20214;&#20154;&#24182;&#22238;&#22797;&#37038;&#20214;&#21644;&#31995;&#32479;&#20013;&#30340;&#25152;&#26377;&#38468;&#20214;&#12290;[/chinese][spanish]Este mensaje y cualquier adjunto son confidenciales y est&aacute;n destinados a ser recibidos por el destinatario. Si no es el destinatario deseado, notif&iacute;quelo al remitente de inmediato y responda al mensaje y cualquier archivo adjunto de su sistema.[/spanish][german]Diese Nachricht und alle Anh&auml;nge sind vertraulich und sollen vom Empf&auml;nger empfangen werden. Wenn Sie nicht der beabsichtigte Empf&auml;nger sind, benachrichtigen Sie bitte sofort den Absender und antworten Sie auf die Nachricht und alle Anlagen von Ihrem System.[/german]")."\n\n\n";
+            include ("signat.php");
+            $subject= translate("Registration")." $uname";
+            send_email($email, $subject, $message, '', true, 'html');
           } else {
              $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")."\n".translate("-Nickname: ")." $uname\n".translate("-Password: ")." $makepass\n\n";
              include ("signat.php");
-             $subject="".translate("User Password for")." $uname";
-             send_email($email, $subject, $message, "", true, "html");
+             $subject= translate("User Password for")." $uname";
+             send_email($email, $subject, $message, '', true, 'html');
 
             echo '
             <h2>'.translate("User").'</h2>
@@ -771,36 +795,43 @@ function valid_password ($code) {
          include("header.php");
          echo '
       <p class="lead">'.translate("Lost your Password?").'</p>
-      <p>'.translate("To valid your new password request, just re-type it.").'</p>
-      <form action="user.php" method="post">
-         <div class="form-group row">
-         <label class="form-control-label col-sm-3">'.translate("Password").'</label>
-         <div class="col-sm-5">
-            <input type="password" class="form-control" name="passwd" placeholder="'.translate("Password").'" />
+      <div class="card border rounded p-3">
+         <div class="row">
+            <div class="col-sm-7">
+               <div class="blockquote">'.translate("To valid your new password request, just re-type it.").'<br />'.translate("Your Password is: ").' <strong>'.$ibid[1].'</strong></div>
+            </div>
+            <div class="col-sm-5">
+               <form id="lostpassword" action="user.php" method="post">
+                  <div class="form-group row">
+                     <label class="col-form-label col-sm-12" for="passwd">'.translate("Password").'</label>
+                     <div class="col-sm-12">
+                        <input type="password" class="form-control" name="passwd" placeholder="'.$ibid[1].'" required="required" />
+                     </div>
+                  </div>
+                  <input type="hidden" name="op" value="updatepasswd" />
+                  <input type="hidden" name="code" value="'.$code.'" />
+                  <div class="form-group row">
+                     <div class="col-sm-12">
+                        <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
+                     </div>
+                  </div>
+               </form>
+            </div>
          </div>
-         </div>
-         <input type="hidden" name="op" value="updatepasswd" />
-         <input type="hidden" name="code" value="'.$code.'" />
-         <div class="form-group row">
-         <div class="col-sm-1">
-         <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
-         </div>
-         </div>
-      </form>';
+      </div>';
          include ("footer.php");
       } else {
-         message_pass(translate("Error"));
+         message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").'</div>');
          Ecr_Log('security', 'Lost_password_valid NOK Mail not match : '.$ibid[0], '');
       }
    } else {
-      message_pass(translate("Error"));
+      message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").'</div>');
       Ecr_Log('security', 'Lost_password_valid NOK Bad hash : '.$ibid[0], '');
    }
 }
 
 function update_password ($code, $passwd) {
     global $system, $NPDS_Prefix;
-
     $ibid=explode("#fpwd#",$code);
     $uname=urlencode(decrypt($ibid[0]));
     $result = sql_query("SELECT email,pass FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
@@ -817,22 +848,22 @@ function update_password ($code, $passwd) {
                 else
                    $cryptpass=$ibid[1];
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
-                message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'</div>');
+                message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'<i class="fa fa-sign-in fa-lg ml-2"></i></a></div>');
                 Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
              } else {
-                message_pass(translate("Error"));
+                message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").' : '.translate("Both passwords are different. They need to be identical.").'</div>');
                 Ecr_Log('security', 'Lost_password_update Password not match : '.$uname, '');
              }
           } else {
-             message_pass(translate("Error"));
+             message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").' : '.translate("Your Confirmation URL is expired").' > 24 h</div>');
              Ecr_Log('security', 'Lost_password_update NOK Time > 24H00 : '.$uname, '');
           }
        } else {
-          message_pass(translate("Error"));
+          message_pass('<div class="alert alert-danger lead text-center">'.translate("ERROR: Invalid email").'</div>');
           Ecr_Log('security', 'Lost_password_update NOK Mail not match : '.$uname, '');
        }
     } else {
-       message_pass(translate("Error"));
+       message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").'</div>');
        Ecr_Log('security', 'Lost_password_update NOK Empty Mail or bad user : '.$uname, '');
     }
 }
@@ -1158,17 +1189,18 @@ function chgtheme() {
    }
    closedir($handle);
    asort($skins);
+   $cookie=cookiedecode($user);
       echo '
       <div class="form-group row" id="skin_choice">
          <label class="col-form-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
          <div class="col-sm-7">
             <select class="custom-select form-control" id="skin" name="skin">';
-   $cookie=cookiedecode($user);
-
    foreach ($skins as $k => $v) {
+   //si le cookie est vide alors on select le default
       echo '
                <option value="'.$skins[$k]['name'].'" ';
       if ($skins[$k]['name'] == $cookie[11]) echo 'selected="selected"';
+      else if($cookie[11]=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
       echo '>'.$skins[$k]['name'].'</option>';
    }
       echo '
