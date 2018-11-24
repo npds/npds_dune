@@ -294,72 +294,64 @@ switch ($op) {
             $fp=fopen("modules/include/header_before.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/header_before.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'header_head') {
          if (file_exists("modules/include/header_head.inc")) {
             $fp=fopen("modules/include/header_head.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/header_head.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'body_onload') {
          if (file_exists("modules/include/body_onload.inc")) {
             $fp=fopen("modules/include/body_onload.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/body_onload.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'header_after') {
          if (file_exists("modules/include/header_after.inc")) {
             $fp=fopen("modules/include/header_after.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/header_after.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'footer_before') {
          if (file_exists("modules/include/footer_before.inc")) {
             $fp=fopen("modules/include/footer_before.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/footer_before.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'footer_after') {
          if (file_exists("modules/include/footer_after.inc")) {
             $fp=fopen("modules/include/footer_after.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/footer_after.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'new_user') {
          if (file_exists("modules/include/new_user.inc")) {
             $fp=fopen("modules/include/new_user.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/new_user.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'user') {
          if (file_exists("modules/include/user.inc")) {
             $fp=fopen("modules/include/user.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/user.inc"));
             fclose($fp);
-         } else {
+         } else
             copy_sample($files);
-         }
       }
       elseif ($files == 'cache.config') {
          if (file_exists("cache.config.php")) {
