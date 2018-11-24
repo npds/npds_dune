@@ -260,7 +260,7 @@ function nonallowedUsers() {
    echo '
    <hr />
    <h3>'.adm_translate("Utilisateur(s) en attente de validation").'<span class="badge badge-secondary float-right">'.sql_num_rows($newsuti).'</span></h3>
-   <table class="table table-no-bordered table-sm " data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-show-columns="true">
+   <table class="table table-no-bordered table-sm " data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa" data-show-columns="true">
       <thead>
          <tr>
             <th data-halign="center" data-align="center" class="n-t-col-xs-1" ><i class="fa fa-user-o fa-lg mr-1 align-middle"></i>ID</th>
