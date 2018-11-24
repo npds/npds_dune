@@ -31,7 +31,7 @@ $m->add_field('ville', "[french]Ville[/french][english]City[/english]",$ville,'t
 $m->add_extender('ville', '', '<span class="help-block text-right" id="countcar_ville"></span>');
 $m->add_field('dpt', "[french]D&#xE9;partement[/french][english]Department[/english]",$dpt,'text',true,50,'','');
 $m->add_extender('dpt', '', '<span class="help-block text-right" id="countcar_dpt"></span>');
-$m->add_field('cpt', "[french]Code Postal[/french][english]Postal code[/english]",$cpt,'number',true,5,'',"0-9");
+$m->add_field('cpt', "[french]Code Postal[/french][english]Postal code[/english]",$cpt,'text',true,5,'','');
 $m->add_extender('cpt', '', '<span class="help-block text-right" id="countcar_cpt"></span>');
 $m->add_field('tel', "[french]Tel[/french][english]Phone[/english]",$tel,'text',true,25,'',"0-9extend");
 $m->add_extender('tel', '', '<span class="help-block text-right" id="countcar_tel"></span>');
@@ -46,6 +46,23 @@ $m->add_extender('act', '', '<span class="help-block text-right" id="countcar_ac
 $m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english]",$des,'textarea',false,430,10,'');
 $m->add_extender('des', '', '<span class="help-block text-right" id="countcar_des"></span>');
 
+
+/*
+$paywithcontrolcode =array('France','Germany');
+while (list ($key, $pay) = each ($paywithcontrolcode)) {
+            $tmp_tempo[$pay]['en']=$pay;
+//            if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
+      }
+
+
+
+
+$m->add_select('pays','',$tmp_tempo,'','',false);
+*/
+
+
+
+
 // ----------------------------------------------------------------
 // CES CHAMPS sont indispensables --- Don't remove these fields
 // Anti-Spam
@@ -54,9 +71,12 @@ $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Reset','',translate("Cancel"),'reset',false);
-$m->add_extra('&nbsp;');
-$m->add_field('','',"[french]Soumettre[/french][english]Submit[/english]",'submit',false);
+
+//$m->add_field('Soumettre','',translate("Cancel"),'submit',false);
+
+
 $m->add_extra('
+            <input class="btn btn-primary ml-2" type="submit" name="ok" value="[french]Soumettre[/french][english]Submit[/english]" />
          </div>
       </div>');
 $m->add_extra('
@@ -80,6 +100,12 @@ $m->add_extra('
 $arg1 ='
       var formulid = ["contact"];
 ';
-$m->add_extra(adminfoot('fv','',$arg1,'1'));
+
+$fv_parametres ='
+';
+
+
+
+$m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
 // ----------------------------------------------------------------
 ?>
