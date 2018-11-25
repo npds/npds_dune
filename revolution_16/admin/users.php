@@ -201,7 +201,17 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       }
       $tmp=1;
    }
-   
+   include_once('functions.php');
+   if(checkdnsmail($chng_email) === false) { 
+      global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo error_handler(adm_translate("Erreur : DNS ou serveur de mail incorrect").'<br />');
+      adminfoot('','','','');
+      return;
+   }
+
    $result = sql_query("SELECT mns FROM ".$NPDS_Prefix."users WHERE uid='$chng_uid'");
    list($tmp_mns)=sql_fetch_row($result);
    if ($tmp_mns==0 and $chng_mns==1)
@@ -409,6 +419,16 @@ switch ($op) {
          GraphicAdmin($hlpfile);
          adminhead ($f_meta_nom, $f_titre, $adminimg);
          echo error_handler(adm_translate("Vous devez remplir tous les Champs").'<br />');// ce message n'est pas très précis ..
+         adminfoot('','','','');
+         return;
+      }
+      include_once('functions.php');
+      if(checkdnsmail($add_email) === false) { 
+         global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         adminhead ($f_meta_nom, $f_titre, $adminimg);
+         echo error_handler(adm_translate("Erreur : DNS ou serveur de mail incorrect").'<br />');
          adminfoot('','','','');
          return;
       }

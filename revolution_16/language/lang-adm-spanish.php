@@ -1013,6 +1013,7 @@ function adm_translate($phrase) {
   case "Identifiant": $tmp="Apodo"; break;
   case "Page(s)": $tmp="página(s)";
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="Error : Esta identificación ya esta en uso"; break;
+  case "ERREUR : DNS ou serveur de mail incorrect": $tmp="Error: DNS o servidor de correo incorrecto"; break;
 
   default: $tmp="Necesita una traducción [** $phrase **]"; break;
  }

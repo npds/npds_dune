@@ -210,6 +210,7 @@ function translate_pass1($phrase) {
    case "There cannot be any spaces in the Nickname.": $tmp="&#x5462;&#x79F0;&#x4E2D;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x7A7A;&#x683C;&#x3002;"; break;
    case "ERROR: Nickname taken": $tmp="&#x9519;&#x8BEF;&#xFF1A;&#x8FD9;&#x4E2A;&#x5462;&#x79F0;&#x5DF2;&#x7ECF;&#x6709;&#x4EBA;&#x4F7F;&#x7528;&#x4E86;&#x3002;"; break;
    case "ERROR: Email address already registered": $tmp="&#x9519;&#x8BEF;: &#x5DF2;&#x7ECF;&#x6709;&#x4EBA;&#x7528;&#x8FD9;&#x4E2A;Email&#x6CE8;&#x518C;&#x8FC7;"; break;
+   case "ERROR: wrong DNS or mail server": $tmp="&#38169;&#35823;&#65306;DNS&#25110;&#19981;&#27491;&#30830;&#30340;&#37038;&#20214;&#26381;&#21153;&#22120;"; break;
    case "User ID": $tmp="&#x7528;&#x6237;ID"; break;
    case "Real Name": $tmp="&#x771F;&#x5B9E;&#x59D3;&#x540D;"; break;
    case "Identity": $tmp="&#x8EAB;&#x5206;"; break;

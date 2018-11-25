@@ -189,12 +189,17 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    if ($reviewer == '' || $email == '') {
       $error = 1;
       echo '<div class="alert alert-danger">'.translate("You must enter both your name and your email").'</div>';
-   } else if ($reviewer != "" && $email != "")
+   } else if ($reviewer != '' && $email != '') {
       if (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)) {
          $error = 1;
          echo '<div class="alert alert-danger">'.translate("Invalid email (eg: you@hotmail.com)").'</div>';
       }
-
+      include_once('functions.php');
+      if(checkdnsmail($email) === false) {
+         $error = 1;
+         echo '<div class="alert alert-danger">'.translate("ERROR: wrong DNS or mail server").'</div>';
+      }
+   }
    if ((($url_title != '' && $url =='') || ($url_title == "" && $url != "")) and (!$short_reviews)) {
       $error = 1;
       echo '<div class="alert alert-danger">'.translate("You must enter BOTH a link title and a related link or leave both blank").'</div>';
