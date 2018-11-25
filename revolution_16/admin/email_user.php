@@ -190,7 +190,7 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
          $to_tmp=explode(':',$tab_to_userid[$count]);
          $to_userid=$to_tmp[0];
          if (($to_userid != '') and ($to_userid != 1)) {
-            $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, FROM_userid, to_userid, msg_time, msg_text) ";
+            $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
             $sql .= "VALUES ('$image', '$subject', '$emetteur', '$to_userid', '$time', '$message')";
             if ($resultX = sql_query($sql))
                $pasfin=true;

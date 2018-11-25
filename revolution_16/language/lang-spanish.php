@@ -212,6 +212,7 @@ function translate_pass1($phrase) {
    case "There cannot be any spaces in the Nickname.": $tmp="No puede haber espacios en el apodo."; break;
    case "ERROR: Nickname taken": $tmp="Error : Esta identificaci&oacute;n ya esta en uso"; break;
    case "ERROR: Email address already registered": $tmp="Error :  este E-mail ya esta en uso"; break;
+   case "ERROR: wrong DNS or mail server": $tmp="Error: DNS o servidor de correo incorrecto"; break;
    case "User ID": $tmp="ID Usuario (Apodo)"; break;
    case "Real Name": $tmp="Su verdadera identidad"; break;
    case "Identity": $tmp="Identidad"; break;

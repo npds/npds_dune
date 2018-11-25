@@ -442,6 +442,15 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 
    if (!($chng_aid && $chng_name && $chng_email))
       Header("Location: admin.php?op=mod_authors");
+      include_once('functions.php');
+      if(checkdnsmail($chng_email) === false) {
+         global $hlpfile;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         echo error_handler(adm_translate("ERREUR : DNS ou serveur de mail incorrect").'<br />');
+         include("footer.php");
+         return;
+      }
     // Gestion du fichier pour filemanager
    $result=sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($ori_radminsuper) = sql_fetch_row($result);
@@ -486,7 +495,7 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 
 function error_handler($ibid) {
    echo '
-   <div class="alert alert-danger mb-1">
+   <div class="alert alert-danger mb-3">
    '.adm_translate("Merci d'entrer l'information en fonction des spécifications").'<br />'.$ibid.'
    </div>
    <a class="btn btn-outline-secondary" href="admin.php?op=mod_authors" >'.adm_translate("Retour en arrière").'</a>';
@@ -500,6 +509,9 @@ switch ($op) {
       modifyadmin($chng_aid);
    break;
    case 'UpdateAuthor':
+            settype( $temp_system_md5,'string');
+         settype( $chng_radminsuper,'string');
+
       updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5, $ad_d_27);
    break;
    case 'AddAuthor':
@@ -508,6 +520,15 @@ switch ($op) {
          include("header.php");
          GraphicAdmin($hlpfile);
          echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
+         include("footer.php");
+         return;
+      }
+      include_once('functions.php');
+      if(checkdnsmail($add_email) === false) {
+         global $hlpfile;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         echo error_handler(adm_translate("ERREUR : DNS ou serveur de mail incorrect").'<br />');
          include("footer.php");
          return;
       }

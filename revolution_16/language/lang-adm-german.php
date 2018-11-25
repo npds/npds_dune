@@ -1013,6 +1013,7 @@ function adm_translate($phrase) {
   case "Identifiant": $tmp="Spitzname"; break;
   case "Page(s)": $tmp="Seite(n)"; break;
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="Fehler : Der Nickname ist schon vergeben"; break;
+  case "ERREUR : DNS ou serveur de mail incorrect": $tmp="Fehler: DNS oder falscher Mailserver"; break;
 
   default: $tmp="Es gibt keine Übersetzung [** $phrase **]"; break;
   }

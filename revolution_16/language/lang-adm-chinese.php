@@ -1013,6 +1013,7 @@ function adm_translate($phrase) {
   case "Identifiant": $tmp="Nickname"; break;
   case "Page(s)": $tmp="页";
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="错误：这个呢称已经有人使用了。"; break;
+  case "ERREUR : DNS ou serveur de mail incorrect": $tmp="错误：DNS或不正确的邮件服务器"; break;
 
   default: $tmp="需要翻译稿 [** $phrase **]"; break;
  }

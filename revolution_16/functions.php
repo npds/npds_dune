@@ -1071,4 +1071,13 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
    return ($pagination);
 }
 
+#autodoc checkdnsmail($email) : Controle si le domaine existe et si il dispose d'un serveur de mail
+function checkdnsmail($email) {
+   $ibid = explode('@',$email);
+   if(!checkdnsrr($ibid[1],'MX'))
+      return false;
+   else
+      return true;
+}
+
 ?>

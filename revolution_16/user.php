@@ -68,11 +68,14 @@ function nav($mns) {
 
 function userCheck($uname, $email) {
    global $NPDS_Prefix;
+   include_once('functions.php');
    $stop='';
    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)))
       $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid email");
    if (strrpos($email,' ') > 0)
       $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Email addresses do not contain spaces.");
+   if(checkdnsmail($email) === false)
+      $stop = translate("ERROR: wrong DNS or mail server") .'!';
    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) 
       $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid Nickname");
    if (strlen($uname) > 25)
