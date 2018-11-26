@@ -19,19 +19,19 @@ global $m;
 $m=new form_handler();
 //********************
 $m->add_form_title('contact');
-$m->add_form_id('contact');
+$m->add_form_id('formcontact');
 $m->add_form_method('post');
 $m->add_form_check('false');
-$m->add_mess(utf8_java("[french] * d&#x00E9;signe un champ obligatoire [/french][english] * indicate a required field [/english]"));
-$m->add_submit_value('ok');
 $m->add_url('modules.php');
 $m->add_field('ModStart','',$ModStart,'hidden',false);
 $m->add_field('ModPath','',$ModPath,'hidden',false);
+$m->add_field('ok','','Soumettre','hidden',false);// not sure is good idea ..
 
 /************************************************/
 include($sform_path.'contact/formulaire.php');
 /************************************************/
 // Manage the <form>
+adminfoot('fv','',$arg1,'1');
 switch($ok) {//what case for other language ? doesnt work ?...
    case 'Soumettre':
    case 'Submit':
@@ -49,7 +49,7 @@ switch($ok) {//what case for other language ? doesnt work ?...
             send_email($notify_email,"Contact site",aff_langue($message),'','',"html");
             echo '
             <div class="alert alert-success">
-            '.aff_langue("[french]Votre demande est prise en compte. Nous y r&#xE9;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english][chinese]&#24744;&#30340;&#35831;&#27714;&#24050;&#34987;&#32771;&#34385;&#22312;&#20869;&#12290; &#25105;&#20204;&#20250;&#23613;&#24555;&#22238;&#22797;[/chinese][spanish]Su solicitud es tenida en cuenta. Le responderemos lo m&aacute;s r&aacute;pido posible.[/spanish][german]Ihre Anfrage wird ber&uuml;cksichtigt. Wir werden so schnell wie m&ouml;glich antworten[/german]").'
+            '.aff_langue("[french]Votre demande est prise en compte. Nous y r&eacute;pondrons au plus vite[/french][english]Your request is taken into account. We will answer it as fast as possible.[/english][chinese]&#24744;&#30340;&#35831;&#27714;&#24050;&#34987;&#32771;&#34385;&#22312;&#20869;&#12290; &#25105;&#20204;&#20250;&#23613;&#24555;&#22238;&#22797;[/chinese][spanish]Su solicitud es tenida en cuenta. Le responderemos lo m&aacute;s r&aacute;pido posible.[/spanish][german]Ihre Anfrage wird ber&uuml;cksichtigt. Wir werden so schnell wie m&ouml;glich antworten[/german]").'
             </div>';
             break;
          }
@@ -60,4 +60,5 @@ switch($ok) {//what case for other language ? doesnt work ?...
       echo aff_langue($m->print_form(''));
       break;
 }
+
 ?>
