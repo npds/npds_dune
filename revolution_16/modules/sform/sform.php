@@ -394,6 +394,10 @@ function print_form($bg) {
             break;
 
             case 'textarea':
+               $requi='';
+               if ($this->form_fields[$i]['obligation'])
+                  $requi= 'required="required"';
+
                $str.='
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
@@ -404,9 +408,10 @@ function print_form($bg) {
                }
                $str.='</label>';
                $txt_row=$this->form_fields[$i]['diviseur'];
-               $txt_col=( ($this->form_fields[$i]['size'] - ($this->form_fields[$i]['size'] % $txt_row)) / $txt_row);
-               $str.='<div class="col-sm-8"><textarea class="form-control" name="'.$this->form_fields[$i]['name'].'" id="'.$this->form_fields[$i]['name'].'"';
-               $str.='cols="'.$txt_col.'" rows="'.$txt_row.'">'.$this->form_fields[$i]['value'].'</textarea>';
+               //$txt_col=( ($this->form_fields[$i]['size'] - ($this->form_fields[$i]['size'] % $txt_row)) / $txt_row);
+               $str.='
+               <div class="col-sm-8">
+                  <textarea class="form-control" name="'.$this->form_fields[$i]['name'].'" id="'.$this->form_fields[$i]['name'].'" rows="'.$txt_row.'" '.$requi.'>'.$this->form_fields[$i]['value'].'</textarea>';
                if ($num_extender!='no')
                   $str.=$this->form_fields[$num_extender]['html'];
                $str.='
@@ -575,7 +580,8 @@ function print_form($bg) {
    if ($this->form_method!='')
        $str.='
    </form>';
-   if ($this->form_check!="false"){
+
+   if ($this->form_check!='false') { // cette condition n'est pas fonctionnelle
       $str.="<script type=\"text/javascript\">//<![CDATA[".CRLF;
       $str.="var f=document.forms['".$this->form_title."'];".CRLF;
       $str.="function check(){".CRLF;
@@ -588,6 +594,7 @@ function print_form($bg) {
       $str.="}}".CRLF;
       $str.="//]]></script>\n";
    }
+
    return $str;
 }
 

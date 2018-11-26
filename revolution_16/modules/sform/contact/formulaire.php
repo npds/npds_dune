@@ -43,25 +43,8 @@ $m->add_field('email', "[french]Adresse de messagerie[/french][english]Email add
 $m->add_extender('email', '', '<span class="help-block text-right" id="countcar_email"></span>');
 $m->add_field('act', "[french]Activit&#xE9;[/french][english]Activity[/english]",$act,'text',true,150,'','');
 $m->add_extender('act', '', '<span class="help-block text-right" id="countcar_act"></span>');
-$m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english]",$des,'textarea',false,430,10,'');
+$m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english]",$des,'textarea',true,430,10,'');
 $m->add_extender('des', '', '<span class="help-block text-right" id="countcar_des"></span>');
-
-
-/*
-$paywithcontrolcode =array('France','Germany');
-while (list ($key, $pay) = each ($paywithcontrolcode)) {
-            $tmp_tempo[$pay]['en']=$pay;
-//            if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
-      }
-
-
-
-
-$m->add_select('pays','',$tmp_tempo,'','',false);
-*/
-
-
-
 
 // ----------------------------------------------------------------
 // CES CHAMPS sont indispensables --- Don't remove these fields
@@ -71,12 +54,8 @@ $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('Reset','',translate("Cancel"),'reset',false);
-
-//$m->add_field('Soumettre','',translate("Cancel"),'submit',false);
-
-
 $m->add_extra('
-            <input class="btn btn-primary ml-2" type="submit" name="ok" value="[french]Soumettre[/french][english]Submit[/english]" />
+            <button class="btn btn-primary ml-2" type="submit">[french]Soumettre[/french][english]Submit[/english]</button>
          </div>
       </div>');
 $m->add_extra('
@@ -98,14 +77,7 @@ $m->add_extra('
       //]]>
       </script>');
 $arg1 ='
-      var formulid = ["contact"];
+      var formulid = ["formcontact"];
 ';
-
-$fv_parametres ='
-';
-
-
-
-$m->add_extra(adminfoot('fv',$fv_parametres,$arg1,'1'));
 // ----------------------------------------------------------------
 ?>
