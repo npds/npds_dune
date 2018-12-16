@@ -31,9 +31,11 @@ $m->add_field('url', translate("Your HomePage"),$userinfo['url'],'url',false,100
 $m->add_extender('url', '','<span class="help-block"><span class="float-right" id="countcar_url"></span></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
-if ($subscribe) {
-   if ($userinfo['send_email']==1) $checked=true; else $checked=false;
-   $m->add_checkbox('usend_email',translate("Send me an email when Internal Message arrive"), 1, false, $checked);
+include_once('functions.php');
+if ($subscribe)
+   if(isbadmailuser($userinfo['uid'])===false) {//proto
+      if ($userinfo['send_email']==1) $checked=true; else $checked=false;
+      $m->add_checkbox('usend_email',translate("Send me an email when Internal Message arrive"), 1, false, $checked);
 }
 if ($member_invisible) {
    if ($userinfo['is_visible']==1) $checked=false; else $checked=true;
@@ -42,8 +44,10 @@ if ($member_invisible) {
 // ---- SUBSCRIBE and INVISIBLE
 
 // LNL
-if ($userinfo['user_lnl']) {$checked=true;} else {$checked=false;}
-$m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, false, $checked);
+if(isbadmailuser($userinfo['uid'])===false) {//proto
+   if ($userinfo['user_lnl']) {$checked=true;} else {$checked=false;}
+   $m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, false, $checked);
+}
 // LNL
 
 // ---- AVATAR

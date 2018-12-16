@@ -75,7 +75,7 @@ function userCheck($uname, $email) {
    if (strrpos($email,' ') > 0)
       $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Email addresses do not contain spaces.");
    if(checkdnsmail($email) === false)
-      $stop = translate("ERROR: wrong DNS or mail server") .'!';
+      $stop = translate("ERROR: wrong DNS or mail server") .'!<br />';
    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) 
       $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid Nickname");
    if (strlen($uname) > 25)
@@ -960,14 +960,25 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
       elseif (($pass != '') && (strlen($pass) < $minpass))
          message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long").'<br />','');
       else {
-           $stop=userCheck('edituser', $email);
-           if (!$stop)  {
-              if ($bio) { $bio=FixQuotes(strip_tags($bio)); }
-              if ($attach) {$t = 1;} else {$t = 0;}
-              if ($user_viewemail) {$a = 1;} else {$a = 0;}
-              if ($usend_email) {$u = 1;} else {$u = 0;}
-              if ($uis_visible) {$v = 0;} else {$v = 1;}
-              if ($user_lnl) {$w = 1;} else {$w = 0;}
+         $stop=userCheck('edituser', $email);
+         if (!$stop) {
+            $contents='';
+            $filename = "users_private/usersbadmail.txt";
+            $handle = fopen($filename, "r");
+            if(filesize($filename)>0)
+               $contents = fread($handle, filesize($filename));
+            fclose($handle);
+            $re = '/#'.$uid.'\|(\d+)/m';
+            $maj=preg_replace($re, '', $contents);
+            $file = fopen("users_private/usersbadmail.txt", 'w');
+            fwrite($file,$maj);
+            fclose($file);
+            if ($bio) $bio=FixQuotes(strip_tags($bio));
+            if ($attach) {$t = 1;} else {$t = 0;}
+            if ($user_viewemail) {$a = 1;} else {$a = 0;}
+            if ($usend_email) {$u = 1;} else {$u = 0;}
+            if ($uis_visible) {$v = 0;} else {$v = 1;}
+            if ($user_lnl) {$w = 1;} else {$w = 0;}
 
               include_once("modules/upload/upload.conf.php");
               global $avatar_size;
@@ -1181,7 +1192,7 @@ function chgtheme() {
             </p>
          </div>
       </div>';
-      
+
    $skinable = substr($userinfo['theme'], -3);//no need ?
 
    $handle=opendir('themes/_skins');

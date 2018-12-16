@@ -749,8 +749,8 @@ function forum($rowQ1) {
 
                      $last_post = get_last_post($myrow['forum_id'], "forum","infos",$Mmod);
                      $ibid.='
-                     <p class="list-group-item list-group-item-action flex-column align-items-start">
-                        <span class="d-flex w-100 mt-1">';
+                              <p class="list-group-item list-group-item-action flex-column align-items-start">
+                                 <span class="d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
                         $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
                      else
@@ -761,14 +761,14 @@ function forum($rowQ1) {
                         $redirect=true;
                      else
                         $ibid.= '
-                        <a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
-                     if (!$redirect) {
-                     $ibid.='
-                           <span class="ml-auto"> 
-                              <span class="badge badge-secondary ml-1" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
-                              <span class="badge badge-secondary ml-1" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
-                           </span>
-                        </span>';}
+                                 <a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
+                     if (!$redirect)
+                        $ibid.='
+                                 <span class="ml-auto"> 
+                                    <span class="badge badge-secondary ml-1" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+                                    <span class="badge badge-secondary ml-1" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
+                                 </span>
+                              </span>';
 
                      $desc = stripslashes(meta_lang($myrow['forum_desc']));
                      if($desc!='')
@@ -799,19 +799,21 @@ function forum($rowQ1) {
                      // Subscribe
                      if (($subscribe) and ($user)) {
                         if (!$redirect) {
-                         $ibid.='
+                           if(isbadmailuser($userR[0])===false) {//proto
+                              $ibid.='
                          <span class="d-flex w-100 mt-1" >
                            <span class="custom-control custom-checkbox">';
-                           if ($tab_subscribe[$myrow['forum_id']])
-                              $ibid.='
+                              if ($tab_subscribe[$myrow['forum_id']])
+                                 $ibid.='
                               <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" checked="checked" />';
-                           else
-                              $ibid.='
+                              else
+                                 $ibid.='
                               <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" />';
                             $ibid.='
                                <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right">&nbsp;&nbsp;</label>
                             </span>
                          </span>';
+                           }
                         }
                      }
                         $ibid.='<span class="d-flex w-100 justify-content-end"><span class="small">'.translate("Last Post").' : '.$last_post.'</span></span>';
@@ -828,11 +830,13 @@ function forum($rowQ1) {
       }
    }
     if (($subscribe) and ($user) and ($ok_affich)) {
-      $ibid.='
+      if(isbadmailuser($userR[0])===false) {//proto
+         $ibid.='
       <div class="custom-control custom-checkbox mt-1">
          <input class="custom-control-input" type="checkbox" id="ckball_f" />
          <label class="custom-control-label text-muted" for="ckball_f" id="ckb_status_f">Tout cocher</label>
       </div>';
+      }
     }
    return ($ibid);
 }
@@ -1078,6 +1082,19 @@ function checkdnsmail($email) {
       return false;
    else
       return true;
+}
+#autodoc isbadmailuser($utilisateur) : utilisateur dans le fichier des mails incorrect true or false 
+function isbadmailuser($utilisateur) {
+   $contents='';
+   $filename = "users_private/usersbadmail.txt";
+   $handle = fopen($filename, "r");
+   if(filesize($filename)>0)
+      $contents = fread($handle, filesize($filename));
+   fclose($handle);
+   if(strstr($contents, '#'.$utilisateur.'|'))
+      return true;
+   else
+      return false;
 }
 
 ?>
