@@ -975,6 +975,7 @@ if ($admintest) {
       case 'extractUserCSV':
       case 'unsubUser':
       case 'nonallowed_users':
+      case 'checkdnsmail_users':
          include("admin/users.php");
       break;
       // SONDAGES
