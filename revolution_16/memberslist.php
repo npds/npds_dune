@@ -303,7 +303,7 @@ if ( $letter != 'front' ) {
          }
          $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
          list($open_user) = sql_fetch_row($op_result);
-         $clnoconnect ='';
+         $clconnect ='';
          if ( ($open_user==1 and $user) || ($admin) ) {
             if ($open_user==0) {
                $clconnect ='danger';
@@ -330,7 +330,11 @@ if ( $letter != 'front' ) {
             ';
          if ($sortby!='user_from ASC') {
             if ($admin) {
-               echo '
+               if(isbadmailuser($temp_user['uid'])===true)
+                  echo '
+            <td class="table-danger"><small>'.$temp_user['email'].'</small></td>';
+               else
+                  echo '
             <td><small>'.preg_anti_spam($temp_user['email']).'</small></td>';
             } else {
                if ($temp_user['user_viewemail']) {
@@ -398,7 +402,7 @@ if ( $letter != 'front' ) {
          <div class="mt-3 lead align-middle">
             <span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("users found for").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("users shown").').
          </div>
-         <ul class="pagination pagination-sm my-3">';
+         <ul class="pagination pagination-sm my-3 flex-wrap">';
          $total_pages = ceil($num_rows_per_order / $pagesize);
          $prev_page = $page - 1;
          if ( $prev_page > 0 ) {
