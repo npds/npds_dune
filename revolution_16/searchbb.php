@@ -143,6 +143,7 @@ settype($term,'string');
 
    $query = "SELECT u.uid, f.forum_id, p.topic_id, p.post_id, u.uname, p.post_time, t.topic_title, f.forum_name, f.forum_type, f.forum_pass, f.arbre FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u, ".$NPDS_Prefix."forums f, ".$NPDS_Prefix."forumtopics t";
    if (isset($term)&&$term!='') {
+      $andor='';
       $terms = explode(' ',stripslashes(removeHack(trim($term))));
       $addquery = "( (p.post_text LIKE '%$terms[0]%' OR strcmp(soundex(p.post_text), soundex('$terms[0]'))=0)";
       if (isset($addterms)) {
