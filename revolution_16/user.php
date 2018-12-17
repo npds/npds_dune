@@ -408,7 +408,7 @@ function userinfo($uname) {
    <div class="d-flex flex-row flex-wrap">
       <div class="mr-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
       <div class="align-self-center">
-         <h2>'.translate("User").'<span class="text-muted ml-1">'.$uname.'</span></h2>';
+         <h2>'.translate("User").'<span class="d-inline-block text-muted ml-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
       echo $useroutils;
    echo $my_rs;
