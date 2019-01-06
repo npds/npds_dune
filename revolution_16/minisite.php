@@ -340,14 +340,20 @@ function convert_ressources ($Xcontent) {
             <script type="text/javascript">
                //<![CDATA[
                tarteaucitron.init({
-                   "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
-                   "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
-                   "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
-                   "adblocker": false, /* Afficher un message si un adblocker est détecté */
-                   "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
-                   "cookieslist": true, /* Afficher la liste des cookies installés ? */
-                   "removeCredit": true, /* supprimer le lien vers la source ? */
-                   "cookieDomain": "labo.infocapagde.com" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
+                  "privacyUrl": "", /* Privacy policy url */
+                  "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
+                  "cookieName": "tartaucitron", /* Cookie name */
+                  "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
+                  "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
+                  "cookieslist": true, /* Afficher la liste des cookies installés ? */
+                  "adblocker": false, /* Afficher un message si un adblocker est détecté */
+                  "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+                  "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
+                  "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+                  "removeCredit": true, /* supprimer le lien vers la source ? */
+                  "moreInfoLink": true, /* Show more info link */
+                  "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+                  "cookieDomain": "" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
                });
                //]]
             </script>';
