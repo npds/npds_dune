@@ -81,7 +81,7 @@ function deleterblock($id) {
    Header("Location: admin.php?op=blocks");
 }
 
-settype($css,'string');
+settype($css,'integer');
 settype($Mmember,'string');
 settype($Sactif,'string');
 settype($SHTML,'string');
