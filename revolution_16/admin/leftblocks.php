@@ -33,7 +33,6 @@ function makelblock($title, $content, $members, $Mmember, $Lindex, $Scache, $BLa
    if ($SHTML!='ON')
       $content = strip_tags(str_replace('<br />','\n',$content));
    sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL,'$title','$content','$members', '$Lindex', '$Scache', '1','$css', '$BLaide')");
-
    global $aid; Ecr_Log('security', "MakeLeftBlock($title) by AID : $aid", "");
    Header("Location: admin.php?op=blocks");
 }
@@ -84,7 +83,7 @@ function deletelblock($id) {
    Header("Location: admin.php?op=blocks");
 }
 
-settype($css,'string');
+settype($css,'integer');
 settype($Mmember,'string');
 settype($Sactif,'string');
 settype($SHTML,'string');
