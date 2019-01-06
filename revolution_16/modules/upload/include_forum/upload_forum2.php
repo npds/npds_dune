@@ -54,19 +54,19 @@ global $Titlesitename;
       if (array_key_exists(11,$cookie)) $skin=$cookie[11];
    }
    echo '
-   <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />';
+         <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />';
    if($skin!='') {
       echo '
-   <link rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
-   <link rel="stylesheet" href="themes/_skins/'.$skin.'/extra.css" />';
+         <link rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
+         <link rel="stylesheet" href="themes/_skins/'.$skin.'/extra.css" />';
    } else 
       echo ' 
-   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
+         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
    echo '
-   <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
+         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
    echo import_css($theme, $language, $site_font, '','');
    echo '
-   </head>
+      </head>
    <body>';
 
    // Moderator
@@ -104,12 +104,10 @@ function forum_upload() {
    list($sum)=sql_fetch_row(sql_query("SELECT SUM(att_size ) FROM $upload_table WHERE apli = '$apli' && post_id = '$IdPost'"));
 
    // gestion du quota de place d'un post
-   if (($MAX_FILE_SIZE_TOTAL - $sum)<$MAX_FILE_SIZE) {
+   if (($MAX_FILE_SIZE_TOTAL - $sum)<$MAX_FILE_SIZE)
       $MAX_FILE_SIZE = $MAX_FILE_SIZE_TOTAL - $sum;
-   }
    include "modules/upload/include/fileupload.php";
-//   $thanks_msg='';
-settype($thanks_msg,'string');
+   settype($thanks_msg,'string');
 
    // Récupération des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;
