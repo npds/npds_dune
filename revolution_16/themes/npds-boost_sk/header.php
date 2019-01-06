@@ -97,7 +97,7 @@ break;
 case '1':
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="n-c col-lg-3">';
+         <div id="col_LB" class="collapse show col-lg-3">';
      leftblocks();
    echo '
          </div>
@@ -110,13 +110,13 @@ break;
 case '3':
    colsyst('#col_LB');
    echo '
-      <div id="col_LB" class="n-c col-lg-3">';
+      <div id="col_LB" class="collapse show col-lg-3">';
    leftblocks();
    echo '
       </div>';
    colsyst('#col_RB');
    echo' 
-      <div id="col_RB" class="n-c col-lg-3">';
+      <div id="col_RB" class="collapse show col-lg-3">';
    rightblocks();
    echo '
       </div>
@@ -129,7 +129,7 @@ break;
 case '5':
    colsyst('#col_RB');
    echo '
-      <div id="col_RB" class="n-c col-lg-3">';
+      <div id="col_RB" class="collapse show col-lg-3">';
    rightblocks();
    echo '
       </div>
@@ -138,7 +138,7 @@ break;
 default:
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="n-c col-lg-3">';
+         <div id="col_LB" class="collapse show col-lg-3">';
    leftblocks();
    echo '
          </div>

@@ -21,7 +21,7 @@ switch ($pdst) {
    case '2':
       echo '
     </div>
-    <div id="col_RB" class="col-sm-3">';
+    <div id="col_RB" class="col-md-3 col-sm-12">';
         leftblocks();
         rightblocks();
       echo '
@@ -31,7 +31,7 @@ switch ($pdst) {
    default :
       echo '
     </div>
-    <div id="col_RB" class="col-sm-3">';
+    <div id="col_RB" class="col-md-3 col-sm-12">';
         leftblocks();
         rightblocks();
       echo '

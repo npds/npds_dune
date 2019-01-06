@@ -36,12 +36,10 @@ function load_mimetypes () {
 function getAttachments ($apli, $post_id, $att_id=0, $Mmod=0 ) {
    global $upload_table;
    $query = "SELECT att_id, att_name, att_type, att_size, att_path, inline, compteur, visible FROM $upload_table WHERE apli='$apli' && post_id='$post_id'";
-   if ($att_id>0) {
+   if ($att_id>0)
        $query .= " AND att_id=$att_id";
-   }
-   if (!$Mmod) {
+   if (!$Mmod)
        $query .= " AND visible=1";
-   }
    $query .= " ORDER BY att_type,att_name";
    $result = sql_query($query);
    $i=0;
@@ -93,9 +91,8 @@ function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $in
    $stamp = time();
    $sql = "INSERT INTO $upload_table VALUES ('', '$IdPost', '$IdTopic','$IdForum', '$stamp', '$name', '$type', '$size', '$path', '1', '$apli', '0', '$visible_forum')";
    $ret = sql_query($sql);
-   if (!$ret) {
+   if (!$ret)
       return -1;
-   }
    return sql_last_id ();
 }
 /************************************************************************/

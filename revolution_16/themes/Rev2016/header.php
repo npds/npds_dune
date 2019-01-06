@@ -70,11 +70,11 @@ $ContainerGlobal='
       break;
       case '2':
         echo '
-     <div id="col_princ" class="col-sm-9">';
+     <div id="col_princ" class="col-md-9">';
       break;
       default:
         echo '
-     <div id="col_princ" class="col-sm-9">';
+     <div id="col_princ" class="col-md-9">';
       break;
    }
 ?>
