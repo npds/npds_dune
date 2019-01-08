@@ -105,7 +105,7 @@ function sousrub_select($secid) {
       if ($radminsuper==1) {
          $result2 = sql_query("SELECT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
       } else {
-         $result2 = sql_query("SELECT distinct sections.secid, sections.secname FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' and sections.secid=publisujet.secid2 and publisujet.aid='$aid' and publisujet.type='1' ORDER BY ordre");
+         $result2 = sql_query("SELECT distinct sections.secid, sections.secname, sections.ordre FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' and sections.secid=publisujet.secid2 and publisujet.aid='$aid' and publisujet.type='1' ORDER BY ordre");
       }
       while(list($secid2, $secname) = sql_fetch_row($result2)) {
          $secname=aff_langue($secname);
@@ -190,9 +190,9 @@ function sections() {
       </div>';
 
          if ($radminsuper==1)
-            $result2 = sql_query("SELECT DISTINCT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
+            $result2 = sql_query("SELECT DISTINCT secid, secname, ordre FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
          else
-            $result2 = sql_query("SELECT DISTINCT sections.secid, sections.secname FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' ORDER BY ordre");
+            $result2 = sql_query("SELECT DISTINCT sections.secid, sections.secname, sections.ordre FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' ORDER BY ordre");
 
          if (sql_num_rows($result2) > 0) {
             echo '
@@ -368,7 +368,7 @@ function new_rub_section($type) {
       if ($radminsuper==1)
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
       else
-         $result = sql_query("SELECT distinct rubriques.rubid, rubriques.rubname FROM ".$NPDS_Prefix."rubriques, ".$NPDS_Prefix."publisujet WHERE publisujet.aid='$aid' ORDER BY ordre");
+         $result = sql_query("SELECT distinct rubriques.rubid, rubriques.rubname, rubriques.ordre FROM ".$NPDS_Prefix."rubriques, ".$NPDS_Prefix."publisujet WHERE publisujet.aid='$aid' ORDER BY ordre");
       while (list($rubid, $rubname) = sql_fetch_row($result)) {
          echo '
                   <option value="'.$rubid.'">'.aff_langue($rubname).'</option>';
@@ -466,7 +466,7 @@ function publishcompat($article) {
       if ($radminsuper==1) {
          $result2 = sql_query("SELECT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
       } else {
-         $result2 = sql_query("SELECT DISTINCT sections.secid, sections.secname FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' AND publisujet.type='1' ORDER BY ordre");
+         $result2 = sql_query("SELECT DISTINCT sections.secid, sections.secname, sections.ordre FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' AND publisujet.type='1' ORDER BY ordre");
       }
       if (sql_num_rows($result2) > 0) {
          echo '

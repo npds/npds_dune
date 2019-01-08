@@ -11,7 +11,7 @@
 /*                                                                      */
 /* NPDS : Net Portal Dynamic System                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
 /*                                                                      */
 /* v2.0 for NPDS 16 jpb 2016                                            */
 /* This program is free software. You can redistribute it and/or modify */
@@ -30,7 +30,7 @@ $name_module = "marquetapage";
 #autodoc Si le fichier doit être créé, n'oubliez pas les < ? php et ? > !!! (sans espace!).
 #autodoc Synopsis: $list_fich = array(array("nom_fichier1","nom_fichier2"), array("contenu_fchier1","contenu_fichier2"));
 
-$list_fich = array(array(""), array(""));
+$list_fich = array(array(''), array(''));
 
 
 #autodoc $sql = array(""): Si votre module doit exécuter une ou plusieurs requêtes SQL, tapez vos requêtes ici.
