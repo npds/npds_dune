@@ -3,6 +3,7 @@
 FeedCreator class v2.0 -
 Mods for NPDS SABLE: time, date, encoding and some other things
 Mods for NPDS REv 13: support for PHP 5.5.x and other things
+Mods for NPDS REv 16: support for PHP 7.x and other things
 
 originally (c) Kai Blankenhorn
 www.bitfolge.de
@@ -200,10 +201,13 @@ class FeedHtmlField {
     * Creates a new instance of FeedHtmlField.
     * @param  $string: if given, sets the rawFieldContent property
     */
-   function FeedHtmlField($parFieldContent) {
-      if ($parFieldContent) {
+
+   public function __construct($parFieldContent) {
+      if ($parFieldContent)
          $this->rawFieldContent = $parFieldContent;
-      }
+   }
+   public function FeedHtmlField($parFieldContent) {
+      self::__construct($parFieldContent);
    }
 
    /**
@@ -550,7 +554,8 @@ class FeedDate {
     * Accepts RFC 822, ISO 8601 date formats as well as unix time stamps.
     * @param mixed $dateString optional the date this FeedDate will represent. If not specified, the current date and time is used.
     */
-   function FeedDate($dateString="") {
+
+   public function __construct($dateString="") {
       if ($dateString=="") $dateString = date("r");
 
       if (is_integer($dateString)) {
@@ -595,6 +600,9 @@ class FeedDate {
          return;
       }
       $this->unix = 0;
+   }
+   public function FeedDate($dateString="") {
+      self::__construct($dateString="");
    }
 
    /**
@@ -722,9 +730,12 @@ class RSSCreator091 extends FeedCreator {
     */
    var $RSSVersion;
 
-   function RSSCreator091() {
+   public function __construct() {
       $this->_setRSSVersion("0.91");
       $this->contentType = "application/rss+xml";
+   }
+      public function RSSCreator091() {
+      self::__construct();
    }
 
    /**
@@ -845,10 +856,12 @@ class RSSCreator091 extends FeedCreator {
  * @author Kai Blankenhorn <kaib@bitfolge.de>
  */
 class RSSCreator20 extends RSSCreator091 {
-
-    function RSSCreator20() {
+   public function __construct() {
         parent::_setRSSVersion("2.0");
-    }
+   }
+   public function RSSCreator20() {
+      self::__construct();
+   }
 }
 
 /**
@@ -869,9 +882,12 @@ class RSSCreator20 extends RSSCreator091 {
  */
 class AtomCreator03 extends FeedCreator {
 
-   function AtomCreator03() {
+   public function __construct() {
       $this->contentType = "application/atom+xml";
       $this->encoding = "utf-8";
+   }
+   public function AtomCreator03() {
+      self::__construct();
    }
 
    function createFeed() {
@@ -935,9 +951,12 @@ class AtomCreator03 extends FeedCreator {
  */
 class MBOXCreator extends FeedCreator {
 
-   function MBOXCreator() {
+   public function __construct() {
       $this->contentType = "text/plain";
       $this->encoding = "ISO-8859-15";
+   }
+   public function MBOXCreator() {
+      self::__construct();
    }
 
    function qp_enc($input = "", $line_max = 76) {
@@ -1019,8 +1038,11 @@ class MBOXCreator extends FeedCreator {
  */
 class OPMLCreator extends FeedCreator {
 
-   function OPMLCreator() {
+   public function __construct() {
       $this->encoding = "utf-8";
+   }
+   public function OPMLCreator() {
+      self::__construct();
    }
 
    function createFeed() {
