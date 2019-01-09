@@ -101,7 +101,7 @@ $not_admin_count = 1;
 $Default_Theme = "npds-boost_sk";
 $Start_Page = "index.php?op=edito";
 $foot1 = "<a href=\"admin.php\" ><i class=\"fa fa-cogs fa-2x mr-3 align-middle\" title=\"Admin\" data-toggle=\"tooltip\"></i></a>
- <a href=\"http://www.mozilla-europe.org/fr/products/firefox/\" target=\"_blank\"><i class=\"fa fa-firefox fa-2x  mr-1 align-middle\"  title=\"get Firefox\" data-toggle=\"tooltip\"></i></a>
+ <a href=\"https://www.mozilla.org/fr/\" target=\"_blank\"><i class=\"fa fa-firefox fa-2x  mr-1 align-middle\"  title=\"get Firefox\" data-toggle=\"tooltip\"></i></a>
  <a href=\"static.php?op=charte.html&amp;npds=0\">Charte</a> 
  - <a href=\"modules.php?ModPath=contact&amp;ModStart=contact\" class=\"mr-3\">Contact</a> 
  <a href=\"backend.php\" target=\"_blank\" ><i class=\"fa fa-rss fa-2x  mr-3 align-middle\" title=\"RSS 1.0\" data-toggle=\"tooltip\"></i></a>&nbsp;
@@ -317,7 +317,7 @@ $tiny_mce = true;
 
 $NPDS_Prefix = "";
 $NPDS_Key = "";
-$Version_Num = "v.16.0.3-beta";
+$Version_Num = "v.16.0";
 $Version_Id = "NPDS";
 $Version_Sub = "REvolution";
 
