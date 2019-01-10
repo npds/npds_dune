@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -79,12 +79,28 @@ function session_manage() {
             if(file_contents_exist($file_path)) {
                $loc = file_get_contents($file_path);
                $loc_obj = json_decode($loc);
+               // here we have to check if empty for each variable
                if($loc_obj) {
-                  $pay=removeHack($loc_obj->country_name);
-                  $codepay=removeHack($loc_obj->country);
-                  $vi=removeHack($loc_obj->city);
-                  $lat=(float)$loc_obj->latitude;
-                  $long=(float)$loc_obj->longitude;
+                  if (!empty($loc_obj->country_name))
+                     $pay=removeHack($loc_obj->country_name);
+                  else 
+                     $pay='';
+                  if (!empty($loc_obj->country))
+                     $codepay=removeHack($loc_obj->country);
+                  else 
+                     $codepay='';
+                  if (!empty($loc_obj->city))
+                     $vi=removeHack($loc_obj->city);
+                  else
+                     $vi='';
+                  if (!empty($loc_obj->latitude))
+                     $lat=(float)$loc_obj->latitude;
+                  else
+                     $lat='';
+                  if (!empty($loc_obj->longitude))
+                     $long=(float)$loc_obj->longitude;
+                  else
+                     $long='';
                   sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
                   sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                }
