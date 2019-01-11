@@ -5,7 +5,7 @@
 /*                                                                      */
 /* monmodule : moi 2016                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,11 +14,11 @@
 
 function monmodule_translate($phrase) {
  switch ($phrase) {
-   case "Français" : $tmp = "Liste der Sessions"; break;
-   case "Anglais" : $tmp = "Name"; break;
-   case "Allemand" : $tmp = "@IP"; break;
-   case "Espagnol" : $tmp = "entschlossen @IP"; break;
-   case "Chinois" : $tmp = "entschlossen @IP"; break;
+   case "Français" : $tmp = "法国"; break;
+   case "Anglais" : $tmp = "英语"; break;
+   case "Allemand" : $tmp = "德国"; break;
+   case "Espagnol" : $tmp = "西班牙语"; break;
+   case "Chinois" : $tmp = "中国"; break;
 
    default: $tmp = "需要翻译稿 [** $phrase **]"; break;
  }
