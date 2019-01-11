@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -183,13 +183,13 @@ function Minisites($chng_mns,$chng_uname) {
 function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, $chng_femail, $chng_user_from, $chng_user_occ, $chng_user_intrest, $chng_user_viewemail, $chng_avatar, $chng_user_sig, $chng_bio, $chng_pass, $chng_pass2, $level, $open_user, $chng_groupe, $chng_send_email, $chng_is_visible, $chng_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar, $chng_rank, $chng_lnl) {
    global $NPDS_Prefix;
    if(sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid!='$chng_uid' AND uname='$chng_uname'")) > 0) {
-         global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
-         include("header.php");
-         GraphicAdmin($hlpfile);
-         adminhead ($f_meta_nom, $f_titre, $adminimg);
-         echo error_handler(adm_translate("ERREUR : cet identifiant est déjà utilisé").'<br />');
-         adminfoot('','','','');
-         return;
+      global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo error_handler(adm_translate("ERREUR : cet identifiant est déjà utilisé").'<br />');
+      adminfoot('','','','');
+      return;
    }
    $tmp = 0;
    if ($chng_pass2 != '') {
