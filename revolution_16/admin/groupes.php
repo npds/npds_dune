@@ -5,14 +5,14 @@
 /*                                                                      */
 /* BIG mod by JPB for NPDS-WS                                           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='groupes';
 $f_titre = adm_translate('Gestion des groupes');
 
@@ -129,7 +129,7 @@ function group_liste() {
          $lst_user_json='';
          $result=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp'"));
          echo '
-         <div id="bloc_gr_'.$gp.'" class="row border rounded ml-1 p-sm-2 px-0 mb-2 w-100">
+         <div id="bloc_gr_'.$gp.'" class="row border rounded ml-1 p-2 px-0 mb-2 w-100">
             <div class="col-lg-4 ">
                <span>'.$gp.'</span>
                <i class="fa fa-users fa-2x text-muted"></i><h4 class="my-2">'.aff_langue($result['groupe_name']).'</h4><p>'.aff_langue($result['groupe_description']);
@@ -223,7 +223,7 @@ function group_liste() {
          //==> menu groupe
          echo '
          </div>
-         <div class="col-lg-3 list-group-item px-0 mt-2">
+         <div class="col-lg-3 list-group-item px-0 mt-2 mt-md-0">
             <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-pencil fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="javascript:void(0);" onclick="bootbox.alert(\''.adm_translate("Avant de supprimer le groupe").' '.$gp.' '.adm_translate("vous devez supprimer TOUS ses membres !").'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-trash-o fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-user-plus fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=bloc_groupe_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Créer le bloc WS").' ('.$gp.')" data-toggle="tooltip"  ><i class="fa fa-clone fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
          if ($result['groupe_pad']==1)
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=pad_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("Désactiver PAD du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-edit fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
@@ -269,7 +269,7 @@ function group_liste() {
       if ($gpA) {
          $lst_gr_json.='\'mbgr_'.$gp.'\': { gp: \''.$gp.'\'},';
          echo '
-         <div class="row border rounded ml-1 p-sm-2 px-0 mb-2 w-100">
+         <div class="row border rounded ml-1 p-2 px-0 mb-2 w-100">
             <div id="bloc_gr_'.$gp.'" class="col-lg-5">
                <span class="text-danger">'.$gp.'</span>
                <i class="fa fa-users fa-2x text-muted"></i>
