@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) { Access_Error(); }
+if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
 $f_meta_nom ='autoStory';
 $f_titre = adm_translate("Articles programmés");
 //==> controle droit
@@ -77,8 +77,9 @@ function puthome($ihome) {
    $mX=liste_group();
    $tmp_groupe='';
    $Mmembers='';
+//   foreach($mX as $groupe_id => $groupe_name){
    while (list($groupe_id, $groupe_name)=each($mX)) {
-      if ($groupe_id=='0') {$groupe_id='';}
+      if ($groupe_id=='0') $groupe_id='';
       if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
       $tmp_groupe.='
       <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';

@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011 and cast MySql engine type        */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -302,22 +302,17 @@ function nmig_AlertBloc($blocs) {
 
 function nmig_WriteBloc($blocs,$posbloc) {
    include("header.php");
-   global $ModInstall, $display;
-   global $NPDS_Prefix;
+   global $ModInstall, $display, $NPDS_Prefix;
    $display = '<div class="">';
    if ($posbloc) {
-      if ($blocs[2] == "") {
+      if ($blocs[2] == '')
          $blocs[2] = $blocs[3];
-      }
-      if ($posbloc == "l") {
-         $posblocM = "L";
-      }
-      if ($posbloc == "r") {
-         $posblocM = "R";
-      }
+      if ($posbloc == 'l')
+         $posblocM = 'L';
+      if ($posbloc == 'r')
+         $posblocM = 'R';
       for ($i = 0; $i < count($blocs[0]) && !isset($erreur); $i++) {
-
-         sql_query("INSERT INTO ".$NPDS_Prefix.$posbloc."blocks (`id`, `title`, `content`, `member`, `".$posblocM."index`, `cache`, `actif`, `aide`) VALUES ('', '".$blocs[0][$i]."', '".$blocs[1][$i]."', '".$blocs[2][$i]."', '".$blocs[4][$i]."', '".$blocs[5][$i]."', '".$blocs[6][$i]."', '".$blocs[7][$i]."');") or $erreur = sql_error();
+         sql_query("INSERT INTO ".$NPDS_Prefix.$posbloc."blocks (`id`, `title`, `content`, `member`, `".$posblocM."index`, `cache`, `actif`, `aide`) VALUES (0, '".$blocs[0][$i]."', '".$blocs[1][$i]."', '".$blocs[2][$i]."', '".$blocs[4][$i]."', '".$blocs[5][$i]."', '".$blocs[6][$i]."', '".$blocs[7][$i]."');") or $erreur = sql_error();
       }
       if (isset($erreur)) {
          $display .= adm_translate("Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :");
