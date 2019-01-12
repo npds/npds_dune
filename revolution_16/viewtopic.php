@@ -398,7 +398,7 @@ include('header.php');
       } else {
          $message=str_replace('[addsig]', '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
          echo '<div class="card-text fo-post-mes">';
-         echo $message;
+         echo aff_langue($message);
          echo '</div>';
       }
       if ($allow_upload_forum and ($att>0)) {
