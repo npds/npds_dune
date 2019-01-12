@@ -142,7 +142,7 @@ include('header.php');
    <a name="topofpage"></a>
    <p class="lead">
       <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
-      <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_subject.'
+      <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($topic_subject).'
    </p>
    <h3 class="mb-3">';
    if ($forum_access!=9) {
@@ -161,7 +161,7 @@ include('header.php');
          aff_pub($lock_state,$topic,$forum,$mod);
    }
 
-   echo $topic_subject.'<span class="text-muted ml-1">#'.$topic.'</span>';
+   echo aff_langue($topic_subject).'<span class="text-muted ml-1">#'.$topic.'</span>';
    if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
