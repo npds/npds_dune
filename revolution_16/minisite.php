@@ -336,7 +336,7 @@ function convert_ressources ($Xcontent) {
          if(defined('CITRON')){
             echo '
             <script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
-            <script type="text/javascript" src="/lib/tarteaucitron/tarteaucitron.js"></script>
+            <script type="text/javascript" src="lib/tarteaucitron/tarteaucitron.js"></script>
             <script type="text/javascript">
                //<![CDATA[
                tarteaucitron.init({
