@@ -51,7 +51,7 @@ function ShowHeader() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -137,7 +137,7 @@ function ShowBody() {
          <td>'.$ref.'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -267,7 +267,7 @@ function ShowFooter() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
    }
    echo '
