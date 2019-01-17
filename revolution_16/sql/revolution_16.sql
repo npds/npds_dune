@@ -268,7 +268,7 @@ INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, f
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(31, 'MetaTagAdmin', 31, '', 1, 1, '', '', 'MétaTAGs', 'metatags', 'href="admin.php?op=MetaTagAdmin"', 5, 'Système', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(32, 'MetaLangAdmin', 32, '', 1, 1, '', '', 'META-LANG', 'metalang', 'href="admin.php?op=Meta-LangAdmin"', 5, 'Système', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(33, 'setban', 33, '', 1, 1, '', '', 'IP', 'ipban', 'href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=ipban&amp;ModStart=setban"', 5, 'Système', 0);
-INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(34, 'session_log', 1, '', 1, 1, '', '', 'Logs', 'logs', 'href="admin.php?op=Extend-Admin-SubModule&ModPath=session-log&ModStart=session-log"', 5, 'Système', 0);
+INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(34, 'session_log', 34, '', 1, 1, '', '', 'Logs', 'logs', 'href="admin.php?op=Extend-Admin-SubModule&ModPath=session-log&ModStart=session-log"', 5, 'Système', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(35, 'reviews', 20, '', 1, 1, '0', 'Critique en atttente de validation.', 'Critiques', 'reviews', 'href="admin.php?op=reviews"', 9, 'Alerte', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(36, 'mes_npds_versus', 36, '', 1, 1, '', 'Une nouvelle version est disponible ! Cliquez pour acc&#xE9;der &#xE0; la zone de t&#xE9;l&#xE9;chargement de NPDS.', '', 'message_npds', '', 9, 'Alerte', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(37, 'autoStory', 2, '', 1, 1, '1', 'articles sont programm&eacute;s pour la publication.', 'Auto-Articles', 'autonews', 'href="admin.php?op=autoStory"', 9, 'Alerte', 0);
@@ -927,9 +927,9 @@ INSERT INTO sections VALUES (2, 'En instance', '', '0', 2, NULL, 0, 0);
 INSERT INTO sections VALUES (3, 'Modifications des th&egrave;mes', '', '', 3, '', 1, 0);
 
 CREATE TABLE session (
-  username varchar(25) NOT NULL DEFAULT '',
+  username varchar(54) NOT NULL DEFAULT '',
   time varchar(14) NOT NULL DEFAULT '',
-  host_addr varchar(20) NOT NULL DEFAULT '',
+  host_addr varchar(54) NOT NULL DEFAULT '',
   guest int(1) NOT NULL DEFAULT '0',
   uri varchar(255) NOT NULL DEFAULT '',
   agent varchar(255) DEFAULT NULL,
