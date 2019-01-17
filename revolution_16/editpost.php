@@ -162,9 +162,9 @@ if ($submitS) {
       if ($Mmod)
          echo '
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="subject">'.translate("Title").'</label>
+            <label class="col-form-label col-sm-12" for="subject">'.translate("Title").'</label>
             <div class="col-sm-12">
-               <input class="form-control textbox_standard" type="text" id="subject" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
+               <input class="form-control" type="text" id="subject" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
             </div>
          </div>';
       else {
@@ -177,7 +177,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="d-none d-sm-block form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
+         <label class="col-form-label col-sm-12">'.translate("Message Icon").'</label>
          <div class="col-sm-12">
             <div class="border rounded pt-2 px-2 n-fond_subject">
             '.emotion_add($image_subject).'
@@ -187,7 +187,7 @@ if ($submitS) {
    }
    echo '
       <div class="form-group row">
-         <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>';
+         <label class="col-form-label col-sm-12" for="message">'.translate("Message").'</label>';
    if ($allow_bbcode)
       $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
    echo '
@@ -223,7 +223,7 @@ if ($submitS) {
          $sethtml='';
    echo '
    <div class="form-group row">
-      <label class="form-control-label col-sm-12">'.translate("Options").'</label>
+      <label class="col-form-label col-sm-12">'.translate("Options").'</label>
       <div class="col-sm-12">
          <div class="checkbox">
             <div class="custom-control custom-checkbox text-danger">
