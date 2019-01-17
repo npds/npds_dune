@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,7 +21,7 @@ echo '
 echo '
 <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />'; // form control
 echo '
-<link rel="stylesheet" href="lib/jquery-ui.min.css" />';
+<link rel="stylesheet" href="lib/jquery-ui.min.css" />'; // interface
 echo '
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />'; // table
 echo '
