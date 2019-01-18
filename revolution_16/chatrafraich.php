@@ -3,15 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-}
 
 // chatbox avec salon privatif - on utilise id pour filtrer les messages -> id = l'id du groupe au sens autorisation de NPDS (-127,-1,0,1,2...126))
 settype ($id,'integer');
@@ -24,7 +23,7 @@ settype($aff_entetes,'integer');
 settype($connectes,'integer');
 
    // Savoir si le 'connecté' a le droit à ce chat ?
-   if (!autorisation($id)) { die(); }
+   if (!autorisation($id)) die();
 
    if (isset($user)) {
       if ($cookie[9]=='') $cookie[9]=$Default_Theme;

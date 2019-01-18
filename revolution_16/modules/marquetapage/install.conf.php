@@ -11,7 +11,7 @@
 /*                                                                      */
 /* NPDS : Net Portal Dynamic System                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* v2.0 for NPDS 16 jpb 2016                                            */
 /* This program is free software. You can redistribute it and/or modify */
@@ -21,9 +21,10 @@
 /************************************************************************/
 
 #autodoc $name_module: Nom du module
-
 $name_module = "marquetapage";
 
+#autodoc $path_adm_module: chemin depuis $ModInstall #required si admin avec interface
+$path_adm_module = 'admin/monmodule_admin';
 
 #autodoc $list_fich : Modifications de fichiers: Dans le premier tableau, tapez le nom du fichier
 #autodoc et dans le deuxième, A LA MEME POSITION D'INDEX QUE LE PREMIER, tapez le code à insérer dans le fichier.
@@ -41,7 +42,8 @@ global $NPDS_Prefix;
 $sql = array("CREATE TABLE ".$NPDS_Prefix."marquetapage (uid int(11) NOT NULL default '0',
  uri varchar(255) NOT NULL default '',
  topic varchar(255) NOT NULL default '',
- PRIMARY KEY (uid,uri),KEY uid (uid)) type=MyISAM");
+ PRIMARY KEY (uid,uri),
+ KEY uid (uid)) ENGINE=MyISAM DEFAULT CHARSET=utf8");
 
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
