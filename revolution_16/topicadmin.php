@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
