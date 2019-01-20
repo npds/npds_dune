@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
@@ -32,17 +32,15 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
             $realip = $_SERVER['HTTP_X_FORWARDED_FOR'];
          } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $realip = $_SERVER['HTTP_CLIENT_IP'];
-         } else {
+         } else
             $realip = $_SERVER['REMOTE_ADDR'];
-         }
        } else {
          if ( getenv('HTTP_X_FORWARDED_FOR') ) {
             $realip = getenv('HTTP_X_FORWARDED_FOR');
          } elseif (getenv('HTTP_CLIENT_IP')) {
             $realip = getenv('HTTP_CLIENT_IP');
-         } else {
+         } else
             $realip = getenv('REMOTE_ADDR');
-         }
        }
        if (strpos($realip, ",")>0) {
           $realip=substr($realip,0,strpos($realip, ",")-1);
@@ -77,7 +75,7 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
        $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
     }
     if (is_array($tab_spam)) {
-       if (in_array(getip().":5",$tab_spam)) {
+       if (in_array(getip().":5",$tab_spam)) { //this not work for IPv6
           access_denied();
        }
     }
@@ -96,24 +94,32 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
     // include url_protect Bad Words and create the filter function
     include ("modules/include/url_protect.php");
 
-    function url_protect($arr,$key) {
-       global $bad_uri_content;
-       reset($bad_uri_content);
-       $ibid=true;
+   function url_protect($arr,$key) {
+      global $bad_uri_content;
+      reset($bad_uri_content);//no need now ?
+      $ibid=true;
 
-       // mieux faire face aux techniques d'évasion de code : base64_decode(utf8_decode(bin2hex($arr))));
-       $arr=rawurldecode($arr);
-       $RQ_tmp=strtolower($arr);
-       $RQ_tmp_large=strtolower($key)."=".$RQ_tmp;
-       
-       while($uri_content=each($bad_uri_content)) {
-          $pos=strpos($RQ_tmp,$uri_content[1]);
-          $pos_large=strpos($RQ_tmp_large,$uri_content[1]);
-          if (($pos!==false) OR ($pos_large!==false)) {
-             access_denied();
-          }
-       }
-    }
+      // mieux faire face aux techniques d'évasion de code : base64_decode(utf8_decode(bin2hex($arr))));
+      $arr=rawurldecode($arr);
+      $RQ_tmp=strtolower($arr);
+      $RQ_tmp_large=strtolower($key)."=".$RQ_tmp;
+      //==> proposition de correction à suivre de près ... seems ok
+      if(in_array($RQ_tmp, $bad_uri_content) OR in_array($RQ_tmp_large, $bad_uri_content))
+         access_denied();
+      //<== proposition de correction à suivre de près ... seems ok
+
+      /*
+      //==> old version
+      while($uri_content=each($bad_uri_content)) {
+         $pos=strpos($RQ_tmp,$uri_content[1]);
+         $pos_large=strpos($RQ_tmp_large,$uri_content[1]);
+         if (($pos!==false) OR ($pos_large!==false)) {
+            access_denied();
+         }
+      }
+      //<== old version
+      */
+   }
 
     // Get values, slash, filter and extract
     if (!empty($_GET)) {

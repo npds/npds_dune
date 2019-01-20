@@ -4,16 +4,16 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* api NPDS proto 01                                                    */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion")) {
+//if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
-}
+//}
 
 function stripslashes_deep($value) {
    $value = is_array($value) ?
@@ -31,7 +31,7 @@ while($ap_user = sql_fetch_assoc($res)){
 $ap_users[]=$ap_user;
 }
 print '{"user":'.json_encode( $ap_users ).'}';
-//echo $_GET['jsoncallback'].'('.$ap_users.')';
+echo $_GET['jsoncallback'].'('.$ap_users.')';
 }
 
 function api_getgroups() {
