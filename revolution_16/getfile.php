@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
 /* =========================                                            */
 /* Snipe 2003                                                           */
 /*                                                                      */

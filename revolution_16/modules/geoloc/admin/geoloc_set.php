@@ -5,7 +5,7 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -859,14 +859,14 @@ function SaveSetgeoloc($api_key, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
    $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module geoloc version 3.0                                            */\n";
-   $content .= "/* geoloc_conf.php file 2008-2018 by Jean Pierre Barbary (jpb)          */\n";
+   $content .= "/* geoloc_conf.php file 2008-2019 by Jean Pierre Barbary (jpb)          */\n";
    $content .= "/* dev team : Philippe Revilliod (Phr)                                  */\n";
    $content .= "/************************************************************************/\n";
    $content .= "\$api_key = \"$api_key\"; // clef api google \n";
