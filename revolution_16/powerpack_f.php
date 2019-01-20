@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,9 +14,9 @@ if (!function_exists("Mysql_Connexion"))
 
 #autodoc Form_instant_message($to_userid) : Ouvre la page d'envoi d'un MI (Message Interne)
 function Form_instant_message($to_userid) {
-    include ("header.php");
-    write_short_private_message(removeHack($to_userid));
-    include ("footer.php");
+   include ("header.php");
+   write_short_private_message(removeHack($to_userid));
+   include ("footer.php");
 }
 
 #autodoc online_members () : liste des membres connect&eacute;s <br /> Retourne un tableau dont la position 0 est le nombre, puis la liste des username | time <br />Appel : $xx=online_members(); puis $xx[x]['username'] $xx[x]['time'] ...

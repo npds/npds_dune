@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -98,8 +98,7 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
       }
    }
 
-   global $sitename, $nuke_url;
-   global $NPDS_Prefix;
+   global $sitename, $nuke_url, $NPDS_Prefix;
    settype($sid,'integer');
    settype($archive, 'integer');
    $result2=sql_query("SELECT title, time, topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");

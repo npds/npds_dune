@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,9 +23,8 @@ function viewbanner() {
       if ($numrows>0) {
          mt_srand((double)microtime()*1000000);
          $bannum = mt_rand(0, $numrows);
-      } else {
+      } else
          break;
-      }
       $bresult2 = sql_query("SELECT bid, userlevel FROM ".$NPDS_Prefix."banner WHERE userlevel!='9' LIMIT $bannum,1");
       list($bid, $userlevel) = sql_fetch_row($bresult2);
       if ($userlevel==0) {
