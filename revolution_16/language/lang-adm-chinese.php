@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /* Translated by :  Zhang Yingzhu                                       */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -1014,6 +1014,14 @@ function adm_translate($phrase) {
   case "Page(s)": $tmp="页";
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="错误：这个呢称已经有人使用了。"; break;
   case "ERREUR : DNS ou serveur de mail incorrect": $tmp="错误：DNS或不正确的邮件服务器"; break;
+  case "Contrôler les serveurs de mail de tous les utilisateurs": $tmp="检查所有用户的电子邮件服务器"; break;
+  case "Serveurs de mail incorrects": $tmp="邮件服务器无效"; break;
+  case "Contrôle des serveurs de mails": $tmp="控制邮件服务器"; break;
+  case "Serveurs de mails contrôlés": $tmp="已检查的邮件服务器"; break;
+  case "DNS ou serveur de mail incorrect": $tmp="DNS或不正确的邮件服务器"; break;
+  case "Toutes les souscriptions de ces utilisateurs ont été suspendues.": $tmp="这些用户的所有订阅都已暂停。"; break;
+  case "Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.": $tmp="已发送私人消息，但未在60天内回复此消息，这些用户将无法再连接到该网站。"; break;
+
 
   default: $tmp="需要翻译稿 [** $phrase **]"; break;
  }
