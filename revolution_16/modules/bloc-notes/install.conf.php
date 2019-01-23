@@ -11,7 +11,7 @@
 /*                                                                      */
 /* NPDS : Net Portal Dynamic System                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* v2.0 for NPDS 16 jpb 2016                                            */
 /* This program is free software. You can redistribute it and/or modify */
@@ -20,8 +20,9 @@
 /*                                                                      */
 /************************************************************************/
 global $ModInstall;
+
 #autodoc $name_module: Nom du module
-$name_module = "bloc-notes";
+$name_module = 'bloc-notes';
 
 #autodoc $path_adm_module: chemin depuis $ModInstall #required si admin avec interface
 $path_adm_module = '';
@@ -39,7 +40,11 @@ $list_fich = array(array(''), array(''));
 #autodoc Synopsis: $sql = array("requête_sql_1","requête_sql_2");
 
 global $NPDS_Prefix;
-$sql = array("CREATE TABLE ".$NPDS_Prefix."blocnotes (bnid tinytext NOT NULL,texte text,PRIMARY KEY  (bnid(32))) type=MyISAM",
+$sql = array("CREATE TABLE ".$NPDS_Prefix."blocnotes (
+   bnid tinytext NOT NULL,
+   texte text,
+   PRIMARY KEY  (bnid(32))) 
+   ENGINE=MyISAM DEFAULT CHARSET=utf8",
   "INSERT INTO ".$NPDS_Prefix."metalang VALUES ('!blocnote!', 'function MM_blocnote(\$arg) {\r\n      global \$REQUEST_URI;\r\n      if (!stristr(\$REQUEST_URI,\"admin.php\")) {\r\n         return(@oneblock(\$arg,\"RB\"));\r\n      } else {\r\n         return(\"\");\r\n      }\r\n}',
   'meta',
   '-',
@@ -52,7 +57,7 @@ $sql = array("CREATE TABLE ".$NPDS_Prefix."blocnotes (bnid tinytext NOT NULL,tex
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
 #autodoc Configuration des blocs
 
-$blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""));
+$blocs = array(array(''), array(''), array(''), array(''), array(''), array(''), array(''), array(''), array(''));
 
 
 #autodoc $txtdeb : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera au début de l'install
