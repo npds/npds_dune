@@ -5,17 +5,17 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-#autodoc blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $gifbgcolor="") : Bloc blocnotes<br />=> syntaxe :
-#autodoc : function#blocnotes<br />params#shared OU context (partagé ou contextuel), nom_du_bloc OU le texte : $username (nom du bloc=nom du membre ou de l'admin), largeur (en % ou en pixel), nb de ligne de la textarea, couleur du fond du gif (vide=transparent, sinon RVB)<br />
-#autodoc : function#blocnotes<br />params#shared,TNT,150 (blocnote partagé s'appelant TNT de largeur 150 pixel)
-function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $gifbgcolor="", $affiche=true) {
+#autodoc blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $bnclass="") : Bloc blocnotes<br />=> syntaxe :
+#autodoc : function#blocnotes<br />params#shared OU context (partagé ou contextuel), nom_du_bloc OU le texte : $username (nom du bloc=nom du membre ou de l'admin), classe du form, nb de ligne de la textarea, classe pour la zone de saisie (textarea)<br />
+#autodoc : function#blocnotes<br />params#shared,TNT (blocnote partagé s'appelant TNT)
+function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBlocNote='5', $bnclass='', $affiche=true) {
    global $REQUEST_URI;
    $aff='';
    settype($block_title,'string');
@@ -31,28 +31,26 @@ function blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $n
          global $cookie, $admin;
          $nomBlocNote=$cookie[1];
          $cur_admin=explode(':',base64_decode($admin));
-         if ($cur_admin) {
+         if ($cur_admin)
             $nomBlocNote=$cur_admin[0];
-         }
       }
-      if (stristr($REQUEST_URI,"article.php")) {
+      if (stristr($REQUEST_URI,"article.php"))
          $bnid=md5($nomBlocNote.substr($REQUEST_URI,0,strpos($REQUEST_URI,"&")));
-      } else {
+      else
          $bnid=md5($nomBlocNote.$REQUEST_URI);
-      }
-   } else {
+   } else
       $nomBlocNote='';
-   }
+
    if ($nomBlocNote) {
       global $theme;
-   if ($block_title=='')
-      $title=$nomBlocNote;
-   else
-      $title=$block_title;
+      if ($block_title=='')
+         $title=$nomBlocNote;
+      else
+         $title=$block_title;
       $aff.= '
-            <form method="post" action="modules.php?ModPath=bloc-notes&amp;ModStart=blocnotes" name="A'.$bnid.'">
+         <form class="'.$largeur.'" method="post" action="modules.php?ModPath=bloc-notes&amp;ModStart=blocnotes" name="A'.$bnid.'">
             <div class="form-group">
-               <textarea class="form-control" cols="20" rows="'.$nblBlocNote.'" name="texteBlocNote" id="texteBlocNote_'.$bnid.'"></textarea>
+               <textarea class="form-control '.$bnclass.'" rows="'.$nblBlocNote.'" name="texteBlocNote" id="texteBlocNote_'.$bnid.'" placeholder="..."></textarea>
             </div>
             <div class="form-group">
                <input type="hidden" name="uriBlocNote" value="'.urlencode($REQUEST_URI).'" />
