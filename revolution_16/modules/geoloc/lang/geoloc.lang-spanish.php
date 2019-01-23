@@ -119,7 +119,7 @@ function geoloc_translate($phrase) {
       case "Géocodage": $tmp="Geocodificación"; break;
       case "Géocodage a échoué pour la raison suivante": $tmp="Error de geocodificación por la siguiente razón"; break;
       case "Géocoder": $tmp="Geocodificación"; break;
-
+      case "Voir ou masquer les IP": $tmp="Mostrar u ocultar direcciones IP"; break;
       default: $tmp = "Ser necesario traducir [** $phrase **]"; break;
    }
    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

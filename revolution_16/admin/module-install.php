@@ -123,9 +123,11 @@ function nmig_AlertSql($sql,$tables) {
 
 // e4
 
-function nmig_WriteSql($sql,$tables) {
+function nmig_WriteSql($sql,$tables, $path_adm_module, $name_module, $affich, $icon) {
+//var_dump($tables);//
    include("header.php");
-   global $ModInstall, $display, $NPDS_Prefix;
+   global $ModInstall, $display, $NPDS_Prefix, $path_adm_module,$name_module, $affich, $icon;
+   $reqsql='';
 //   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
 $type_engine= 5;// à revoir
    $display = '
@@ -138,6 +140,8 @@ $type_engine= 5;// à revoir
       if ($type_engine>=5)
          $sql[$i] = preg_replace('#TYPE=MyISAM#i', 'ENGINE=MyISAM', $sql[$i]);
       sql_query($sql[$i]) or $erreur = sql_error();
+      
+      
    }
    if (isset($erreur)) {
       $display .= '
@@ -150,9 +154,20 @@ $type_engine= 5;// à revoir
       }
       $display .= $reqsql;
       $display .= "<br />\n";
-   } else
+   } else {
+      if ($path_adm_module!='') {
+      //controle si on a pas déja la fonction (si oui on efface sinon on renseigne)
+         $ck = sql_query("SELECT fnom FROM ".$NPDS_Prefix."fonctions WHERE fnom = '".$name_module."'");
+         if($ck)
+            sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$name_module."'");
+         sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', 0, '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 6, 'Modules', 0)") or sql_error();
+         $ibid = sql_last_id();
+         sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fdroits1 = ".$ibid." WHERE fid=".$ibid."");
+      }
+   
       $display .= '<p class="text-success"><strong>'.adm_translate("La configuration de la base de données MySql a réussie !").'</strong></p>';
-   $display .= '
+
+}   $display .= '
    </div><div style="text-align: center;">
    <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
    </div><br />
@@ -195,7 +210,7 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
          fclose($file);
          $file_created = 1;
       }
-      if ($list_fich[0][$i] == "admin/extend-modules.txt" || $list_fich[0][$i] == "modules/include/body_onload.inc") {
+      if ($list_fich[0][$i] == "modules/include/body_onload.inc") {
          $file = fopen($list_fich[0][$i], "r");
          $txtconfig = fread($file,filesize($list_fich[0][$i]));
          fclose($file);
@@ -417,7 +432,12 @@ function nmig_clean($name_module) {
          $licence_file = "modules/".$ModInstall."/licence-".$language.".txt";
       else 
          $licence_file = "modules/".$ModInstall."/licence-english.txt";
+
       settype($nmig,'string');
+      settype($icon,'string');
+      settype($affich,'string');
+
+
 //      settype($tables,'string');
       switch($nmig) {
          case 'e2':
@@ -425,31 +445,31 @@ function nmig_clean($name_module) {
          break;
          case 'e3':
             if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql,$tables);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>"; }
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e4':
-            if (isset($sql[0]) && $sql[0] != '') nmig_WriteSql($sql,$tables);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>"; }
+            if (isset($sql[0]) && $sql[0] != '') nmig_WriteSql($sql, $tables, $path_adm_module, $name_module, $affich, $icon);
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e5':
             if (isset($list_fich) && count($list_fich[0]) && $list_fich[0][0] != '') nmig_AlertConfig($list_fich);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>"; }
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>";
          break;
          case 'e6':
             if (isset($list_fich) && count($list_fich[0])) nmig_WriteConfig($list_fich, $try_Chmod);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>"; }
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>";
          break;
          case 'e7':
             if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_AlertBloc($blocs);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>"; }
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>";
          break;
          case 'e8':
             if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_WriteBloc($blocs, $posbloc);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>"; }
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>";
          break;
          case 'e9':
             if (isset($txtfin) && $txtfin != '') nmig_txt($txtfin);
-            else { echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e10\";\n//]]>\n</script>"; }
+            else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e10\";\n//]]>\n</script>";
          break;
          case 'e10':
             if (!isset($end_link) || $end_link == '') $end_link = "admin.php?op=modules";
@@ -460,25 +480,60 @@ function nmig_clean($name_module) {
          break;
       }
    } elseif ($ModInstall == '' && $ModDesinstall != '') {
+      if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
+         include("modules/".$ModDesinstall."/install.conf.php");
+/*
+         preg_match('#^CREATE TABLE (\w+)#',$sql[0],$r);
+         var_dump($r[1]);
+*/
+         // we get the name of the tables a tester avec table prefixé
+         settype($ta,'array');
+         settype($ta,'array');
+         foreach ($sql as $v) {
+            if(preg_match('#^CREATE TABLE (\w+)#',$v,$r))
+               $ta[]=$r[1];
+         }
+         var_dump($ta);
+      }
+   
       if ($subop == "desinst") {
          include("header.php");
          list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
-         $result = sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
+         sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
          sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_fon_fid=".$fid."");
-         $res = sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
+//         var_dump($ta);
+         if(isset($ta)){
+            foreach ($ta as $v) {
+               sql_query("DROP TABLE IF EXISTS `$NPDS_Prefix$v`;");
+            }
+         }
+         
          redirect_url("admin.php?op=modules");
       }
       include("header.php");
+//      var_dump($sql);
       $display = '
          <hr />
-         <h4 class="text-danger">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>
+         <h4 class="text-danger">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>';
+         if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
+            $display .='
+            <div class="alert alert-danger">
+            </div>
+            <div class="text-center mb-3">
+               <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Désinstaller le module").'</a>
+            </div>';
+         }
+      else {
+      $display .= '
          <p><strong>'.adm_translate("La désinstallation automatique des modules n'est pas prise en charge à l'heure actuelle.").'</strong>
          <p>'.adm_translate("Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.").'
          <p>'.adm_translate("Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".").'</p>
       <div class="text-center mb-3">
          <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Marquer le module comme désinstallé").'</a>
       </div>
-      '.nmig_copyright();
+      ';}
+      $display .= nmig_copyright();
    }
 
       GraphicAdmin($hlpfile);

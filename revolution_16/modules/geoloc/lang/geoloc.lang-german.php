@@ -116,6 +116,7 @@ function geoloc_translate($phrase) {
       case "Géocodage": $tmp="Geocoding"; break;
       case "Géocodage a échoué pour la raison suivante": $tmp="Geocodierung ist aus folgendem Grund fehlgeschlagen"; break;
       case "Géocoder": $tmp="Geotag"; break;
+      case "Voir ou masquer les IP": $tmp="IP-Adressen anzeigen oder ausblenden"; break;
 
       default: $tmp = "Es ist notwendig zu übersetzen [** $phrase **]"; break;
    }

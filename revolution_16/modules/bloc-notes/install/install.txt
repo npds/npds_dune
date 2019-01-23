@@ -20,12 +20,12 @@
 ## 2. Copier le contenu de l'archive dans ce dossier (modules/bloc-notes)
 ## 3. CREER la nouvelle table blocnotes via le fichier blocnotes.sql ainsi que le nouveau meta-mot
 ##
-## INSTALLATION AUTOMATIQUE:
+## INSTALLATION AUTOMATIQUE (recommandé !):
 ## 1. Exécutez les étapes 1. et 2. de l'installation manuelle
 ## 2. Rendez-vous dans la section "Gestion des modules" dans l'administration et cliquez sur "Installer le module" en face de "Bloc-note"
 ##
 ## CONFIGURATION
-## Via le système de bloc et la feuille de style
+## Via le système de bloc et les paramètres
 ##
 ## UTILISATION
 ## Le système de bloc-notes comporte deux mode différents :
@@ -44,9 +44,9 @@
 ##  params#param1, param2, param3(optionnel), param4(optionnel), param5(optionnel)
 ##   - param1 : shared OU context 
 ##   - param2 : nom_du_bloc OU le texte : $username (dans ce cas : nom du bloc=nom du membre ou de l'admin)
-##   - param3 : largeur (en % ou en pixel), par défaut 100%
-##   - param4 : nb de ligne de la zone de saisie, par défaut 5
-##   - param5 : couleur du fond sous le GIF / couleur RVB (FFFFFF par exemple), par dÈfaut transparent
+##   - param3 : classe(s) pour le formulaire
+##   - param4 : nb de ligne de la zone de saisie, par défaut 5 (donc la hauteur de votre bloc note)
+##   - param5 : classe(s) pour la zone de saisie
 ## 
 ## Bloc-notes PARTAGES (SHARED)
 ## par principe un bloc-notes "shared" est accessible sur l'ensemble du site, mais il y a deux formes de bloc-notes shared :
@@ -85,18 +85,18 @@
 ##   bloc-notes partagé et associé à un utilisateur/admin :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
-##     params#shared,$username,100%,8,FFFFFF
+##     params#shared,$username,,8,bg-danger
 ##
 ##
 ##   bloc-notes contextuel et nommé :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
-##     params#context,NPDS,100%
+##     params#context,NPDS
 ##
 ##   bloc-notes contextuel et associé à un utilisateur/admin :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
-##     params#shared,$username,100%,8,FFFFFF
+##     params#shared,$username,,8,bg-light
 ##
 #######################################################################################
 ##
