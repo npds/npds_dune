@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : npds-boost_sk 2015 by jpb                                    */
+/* Theme : npds-blocs_sk 2018 by jpb                                    */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */

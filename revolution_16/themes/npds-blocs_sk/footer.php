@@ -4,7 +4,7 @@
 /*======================================================================*/
 /* This theme use the NPDS theme-dynamic engine (Meta-Lang)             */
 /*                                                                      */
-/* Theme : npds-blocs_sk 2018 by jpb                                    */
+/* Theme : npds-blocs_sk 2019 by jpb                                    */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,7 +22,7 @@ switch ($pdst) {
    case '0':
       echo '
          </div>
-         <div id="allblocs" style="padding-top:3.8rem;">
+         <div class="col-12" id="allblocs" style="padding-top:3.8rem;">
             <div class="text-right" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
