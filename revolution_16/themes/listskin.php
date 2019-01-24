@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -36,20 +36,22 @@
    switch ($skinametitre) {
       case 'cyborg':
       case 'solar':
+      case 'superhero':
          $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
       break;
       case 'lumen':
-      case 'journal':
       case 'materia':
          $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
       break;
       case 'simplex':
       case 'litera':
       case 'spacelab':
+      case 'journal':
+      case 'lux':
          $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly minty pulse sandstone slate united yeti yeren default
       break;
    }
 
@@ -61,6 +63,7 @@
       <title>NPDS <?php echo $skinametitre; ?> skin by Bootswatch</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <link rel="shortcut icon" href="../../../../images/favicon.ico" type="image/x-icon">
       <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="bootstrap.min.css" />
       <link rel="stylesheet" href="../assets/css/custom.min.css" />

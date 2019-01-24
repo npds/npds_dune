@@ -26,9 +26,8 @@ function admindroits($aid,$f_meta_nom) {
       $foncts[] = $data[0];
       $supers[] = $data[1];
    }
-   if ((!in_array('1', $supers)) AND (!in_array($f_meta_nom, $foncts))) {
+   if ((!in_array('1', $supers)) AND (!in_array($f_meta_nom, $foncts)))
       Access_Error();
-   }
    $radminsuper = $supers[0];
 }
 

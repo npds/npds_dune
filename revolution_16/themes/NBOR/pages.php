@@ -3,7 +3,7 @@
 /* Theme for NPDS / Net Portal Dynamic System                           */
 /* =====================================================================*/
 /*                                                                      */
-/* Theme : "ecolo" version 2009 par jpb/phr,jireck,canasson             */
+/* Theme : "NBOR" version 2016 par bmag                                 */
 /* This theme use the NPDS theme-dynamic engine (DynaMot)               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
