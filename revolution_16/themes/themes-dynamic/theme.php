@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -108,7 +108,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    else $nextArt='';
 
    $printP = '<a href="print.php?sid='.$id.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-2x fa-print"></i></a>';
-   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip"><i class="fa fa-lg fa-envelope-o"></i></a>';
+   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip"><i class="fa fa-2x fa-at"></i></a>';
 
    if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
    $timage=$imgtmp;
