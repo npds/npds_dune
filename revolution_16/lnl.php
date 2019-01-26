@@ -15,46 +15,52 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 function SuserCheck($email) {
-    global $NPDS_Prefix, $stop;
-    $stop='';
-    if ((!$email) || ($email=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) $stop = translate("ERROR: Invalid email")."<br />";
-    if (strrpos($email,' ') > 0) $stop = translate("ERROR: Email addresses do not contain spaces.")."<br />";
-    if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
-       $stop = translate("ERROR: Email address already registered")."<br />";
-    }
+   global $NPDS_Prefix, $stop;
+   include_once('functions.php');
+   $stop='';
+   if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) 
+      $stop = translate("ERROR: Invalid email");
+   if (strrpos($email,' ') > 0) 
+      $stop = translate("ERROR: Email addresses do not contain spaces.");
+   if(checkdnsmail($email) === false)
+      $stop = translate("ERROR: wrong DNS or mail server");
+    if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0)
+       $stop = translate("ERROR: Email address already registered");
     if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'")) > 0) {
-       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email' AND status='NOK'")) >0) {
+       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email' AND status='NOK'")) >0)
           sql_query("DELETE FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'");
-       } else {
-          $stop = translate("ERROR: Email address already registered")."<br />";
-       }
+       else
+          $stop = translate("ERROR: Email address already registered");
     }
     return($stop);
 }
 
 function error_handler($ibid) {
-   opentable();
-   echo translate("Please enter information according to the specifications")."<br /><br />";
-   echo "$ibid<br /><a href=\"index.php\" class=\"noir\">".translate("Go Back")."</a>";
-   closetable();
+   echo '
+   <h2>'.translate("NewsLetter").'</h2>
+   <hr />
+   <p class="lead mb-2">'.translate("Please enter information according to the specifications").'</p>
+   <div class="alert alert-danger">'.$ibid.'</div>
+   <a href="index.php" class="btn btn-outline-secondary">'.translate("Go Back").'</a>';
 }
 
 function subscribe($var) {
-   if ($var!="") {
+   if ($var!='') {
       include("header.php");
-      opentable();
-      echo "<form action=\"lnl.php\" method=\"POST\">";
-      echo translate("Manage your subscribes")." : <b>".$var."</b><br /><br />";
-      echo Q_spambot()."<br /><br />";
-      echo "<input type=\"hidden\" name=\"email\" value=\"$var\" />";
-      echo "<input type=\"hidden\" name=\"op\" value=\"subscribeOK\" />";
-      echo "<input type=\"submit\" class=\"bouton_standard\" value=\"".translate("Submit")."\" />&nbsp;&nbsp;&nbsp;&nbsp;";
-      echo "<a href=\"index.php\" class=\"noir\">".translate("Go Back")."</a></form>\n";
-      closetable();
+      echo '
+      <h2>'.translate("NewsLetter").'</h2>
+      <hr />
+      <p class="lead mb-2">'.translate("Manage your subscribes").' : <strong>'.$var.'</strong></p>
+      <form action="lnl.php" method="POST">
+         '.Q_spambot().'
+         <input type="hidden" name="email" value="'.$var.'" />
+         <input type="hidden" name="op" value="subscribeOK" />
+         <input type="submit" class="btn btn-outline-primary mr-2" value="'.translate("Submit").'" />
+         <a href="index.php" class="btn btn-outline-secondary">'.translate("Go Back").'</a>
+      </form>';
       include("footer.php");
-   }  else {
+   }  else
       header("location: index.php");
-   }
 }
 
 function subscribe_ok($xemail) {
@@ -76,7 +82,7 @@ function subscribe_ok($xemail) {
             $message = "".translate("Thank you for taking the time to record you in or DataBase.")."\n\n";
             $message .= "".translate("For Unsubscribe, please goto")." :\n $nuke_url/lnl.php?op=unsubscribe&email=$xemail\n\n";
             include("signat.php");
-            send_email($xemail, $subject, $message, "", true, "text");
+            send_email($xemail, $subject, $message, '', true, 'text');
             opentable();
             echo translate("Thank you for taking the time to record you in or DataBase.")."<br /><br />";
             echo "<a href=\"index.php\" class=\"noir\">".translate("Go Back")."</a>";
@@ -132,7 +138,6 @@ switch ($op) {
    case 'subscribe':
       subscribe($email);
    break;
-
    case 'subscribeOK':
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse,"")) {
@@ -142,7 +147,6 @@ switch ($op) {
       }
       subscribe_ok($email);
    break;
-
    case 'unsubscribe':
       unsubscribe($email);
    break;
