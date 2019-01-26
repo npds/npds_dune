@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -135,7 +135,7 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    $content .= "/*                                                                      */\n";
    $content .= "/* Reseaux-sociaux Add-On ... ver. 1.0                                  */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
