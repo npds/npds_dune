@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -92,13 +92,10 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 /*****************************************************/
 function load_mimetypes () {
    global $mimetypes, $mimetype_default, $mime_dspinl, $mime_dspfmt, $mime_renderers, $att_icons, $att_icon_default, $att_icon_multiple;
-   if (defined ('ATT_DSP_LINK')) {
+   if (defined ('ATT_DSP_LINK'))
       return;
-   }
-
-   if (file_exists("modules/upload/include/mimetypes.php") ) {
+   if (file_exists("modules/upload/include/mimetypes.php") )
       include ("modules/upload/include/mimetypes.php");
-   }
 }
 
 function editeur_upload() {
