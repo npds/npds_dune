@@ -5,33 +5,43 @@
     * @version 1.0.1
     * @name HTML_TO_DOC
     */
-    
+
    /**
     * Convert HTML to MS Word file
     * @author Harish Chauhan
     * @version 1.0.0
     * @name HTML_TO_DOC
     */
-   
-   class HTML_TO_DOC
-   {
-      var $docFile="";
-      var $title="";
-      var $htmlHead="";
-      var $htmlBody="";
-      
+
+   class HTML_TO_DOC {
+      var $docFile='';
+      var $title='';
+      var $htmlHead='';
+      var $htmlBody='';
       
       /**
        * Constructor
        *
        * @return void
        */
-      function HTML_TO_DOC()
-      {
+
+      public function HTML_TO_DOC() {
+         self::__construct();
+      }
+
+      public function __construct(){
+         $this->title="Untitled Document";
+         $this->htmlHead='';
+         $this->htmlBody='';
+      }
+
+/*
+      function HTML_TO_DOC() {
          $this->title="Untitled Document";
          $this->htmlHead="";
          $this->htmlBody="";
       }
+*/
       
       /**
        * Set the document file name
@@ -39,17 +49,15 @@
        * @param String $docfile 
        */
       
-      function setDocFileName($docfile)
-      {
+      function setDocFileName($docfile) {
          //echo 'setDocFileName Entered.<br>';
          $this->docFile=$docfile;
          if(!preg_match("/\.doc$/i",$this->docFile))
             $this->docFile.=".doc";
-         return;     
+         return;
       }
       
-      function setTitle($title)
-      {
+      function setTitle($title) {
          //echo 'setTitle Entered.<br>';
          $this->title=$title;
       }
@@ -59,8 +67,7 @@
        *
        * @return String
        */
-      function getHeader()
-      {
+      function getHeader() {
          //echo 'getHeader Entered.<br>';
          $return  = <<<EOH
           <html xmlns:v="urn:schemas-microsoft-com:vml"
@@ -149,8 +156,7 @@ EOH;
        *
        * @return String
        */
-      function getFotter()
-      {
+      function getFotter() {
          //echo 'getFotter Entered.<br>';
          return "</body></html>";
       }
@@ -164,8 +170,7 @@ EOH;
        * @return boolean 
        */
       
-      function createDocFromURL($url,$file,$download=false)
-      {
+      function createDocFromURL($url,$file,$download=false) {
          //echo 'createDocFromURL Entered.<br>';
          if(!preg_match("/^http:/",$url))
             $url="http://".$url;
@@ -185,20 +190,19 @@ EOH;
        * @return boolean 
        */
       
-      function createDoc($html,$file,$download=false)
-      {
+      function createDoc($html,$file,$download=false) {
          //echo 'createDoc Entered.<br>';
-         if(is_file($html))
+
+         if(is_file($html))// ?? can not be too long $html est il juste ??? et pourquoi ???
             $html=@file_get_contents($html);
-         
+
          $this->_parseHtml($html);
          $this->setDocFileName($file);
          $doc=$this->getHeader();
          $doc.=$this->htmlBody;
          $doc.=$this->getFotter();
-                     
-         if($download)
-         {
+
+         if($download) {
             //$this->write_file($this->docFile,$doc);
             header("Cache-Control: ");// leave blank to avoid IE errors
             header("Pragma: ");// leave blank to avoid IE errors
@@ -208,9 +212,7 @@ EOH;
             return true;
          }
          else 
-         {
             return $this->write_file($this->docFile,$doc);
-         }
       }
       
       /**
@@ -221,8 +223,7 @@ EOH;
        * @access Private
        */
       
-      function _parseHtml($html)
-      {
+      function _parseHtml($html) {
          //echo '_parseHtml Entered.<br>';
          $html=preg_replace("/<!DOCTYPE((.|\n)*?)>/ims","",$html);
          $html=preg_replace("/<script((.|\n)*?)>((.|\n)*?)<\/script>/ims","",$html);
@@ -249,13 +250,11 @@ EOH;
        * @access boolean True on success else false
        */
       
-      function write_file($file,$content,$mode="w")
-      {
+      function write_file($file,$content,$mode="w") {
          //echo 'write_file entered!<br>';
          $fp=@fopen($file,$mode);
-         if(!is_resource($fp)){
+         if(!is_resource($fp))
             return false;
-         }
          fwrite($fp,$content);
          fclose($fp);
          return true;
