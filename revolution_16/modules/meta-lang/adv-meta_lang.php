@@ -2,21 +2,21 @@
 /************************************************************************/
 /* DUNE by NPDS / META-LANG engine                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2017 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-// Cette fonction doit être utilisée pour filtrer les arguments des requêtes SQL et est
-// automatiquement appelée par META-LANG lors de passage de paramêtres
+// Cette fonction doit Ãªtre utilisÃ©e pour filtrer les arguments des requÃªtes SQL et est
+// automatiquement appelÃ©e par META-LANG lors de passage de paramÃ¨tres
 function arg_filter($arg) {
    $arg = removeHack(stripslashes(htmlspecialchars(urldecode($arg),ENT_QUOTES,cur_charset)));
    return ($arg);
 }
 
-// Cette fonction est utilisée pour intégrer des smilies et comme service pour theme_img()
+// Cette fonction est utilisÃ©e pour intÃ©grer des smilies et comme service pour theme_img()
 function MM_img($ibid) {
    $ibid=arg_filter($ibid);
    $ibidX=theme_image($ibid);
@@ -61,18 +61,16 @@ function charg($funct,$arguments) {
 }
 
 function match_uri($racine, $R_uri)  {
-   $tab_uri=explode(" ",$R_uri);
+   $tab_uri=explode(' ',$R_uri);
    while (list(,$RR_uri)=each($tab_uri)) {
-      if ($racine==$RR_uri) {
+      if ($racine==$RR_uri)
          return (true);
-      }
    }
    return (false);
 }
 
 function charg_metalang() {
-   global $SuperCache, $CACHE_TIMINGS, $REQUEST_URI;
-   global $NPDS_Prefix;
+   global $SuperCache, $CACHE_TIMINGS, $REQUEST_URI, $NPDS_Prefix;
 
    if ($SuperCache) {
       $racine=parse_url(basename($REQUEST_URI));
@@ -80,21 +78,20 @@ function charg_metalang() {
       $CACHE_TIMINGS[$cache_clef]=86400;
       $cache_obj = new cacheManager();
       $glossaire=$cache_obj->startCachingObjet($cache_clef);
-   } else {
+   } else
       $cache_obj = new SuperCacheEmpty();
-   }
 
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       settype($glossaire,'array');
       $result=sql_query("SELECT def, content, type_meta, type_uri, uri FROM ".$NPDS_Prefix."metalang WHERE type_meta='mot' OR type_meta='meta' OR type_meta='smil'");
       while (list($def,$content,$type_meta,$type_uri,$uri)=sql_fetch_row($result)) {
-         // la syntaxe est presque la même que pour les blocs (on n'utilise que la racine de l'URI)
-         // si type_uri="-" / uri site les URIs où les meta-mot NE seront PAS actifs (tous sauf ...)
-         // si type_uri="+" / uri site les URI où les meta-mot seront actifs (seulement ...)
-         // Le séparateur entre les URI est l'ESPACE
+         // la syntaxe est presque la mÃªme que pour les blocs (on n'utilise que la racine de l'URI)
+         // si type_uri="-" / uri site les URIs oÃ¹ les meta-mot NE seront PAS actifs (tous sauf ...)
+         // si type_uri="+" / uri site les URI oÃ¹ les meta-mot seront actifs (seulement ...)
+         // Le sÃ©parateur entre les URI est l'ESPACE
          // => Exemples : index.php user.php forum.php static.php
 
-         if ($uri!="") {
+         if ($uri!='') {
             $match=match_uri($racine['path'], $uri);
             if (($match and $type_uri=="+") or (!$match and $type_uri=="-")) {
                $glossaire[$def]['content']=$content;
@@ -106,18 +103,16 @@ function charg_metalang() {
          }
       }
    }
-   if ($SuperCache) {
+   if ($SuperCache)
       $cache_obj->endCachingObjet($cache_clef,$glossaire);
-   }
    return ($glossaire);
 }
 
 function ana_args($arg) {
-   if (substr($arg,-1)=="\"") {
-      $arguments[0]=str_replace("\"","",$arg);
-   } else {
-      $arguments = explode(",",$arg);
-   }
+   if (substr($arg,-1)=="\"")
+      $arguments[0]=str_replace("\"",'',$arg);
+   else
+      $arguments = explode(',',$arg);
    return ($arguments);
 }
 
@@ -144,9 +139,8 @@ function meta_lang($Xcontent) {
       $Xcontent.=" ";
       // for compatibility only with old dyna-theme !
       $Xcontent.="!theme! !bgcolor1! !bgcolor2! !bgcolor3! !bgcolor4! !bgcolor5! !bgcolor6! !textcolor1! !textcolor2! ";
-   } else {
+   } else
       return($Ycontent);
-   }
 
    $text=array_unique(explode(" ", $Xcontent));
    $Xcontent=$Ycontent;
@@ -154,20 +148,20 @@ function meta_lang($Xcontent) {
 
    $tab=array();
    while ($word=each($text)) {
-      // longueur minimale du mot : 2 semble un bon compromis sauf pour les smilies ... (1 est donc le choix par défaut)
+      // longueur minimale du mot : 2 semble un bon compromis sauf pour les smilies ... (1 est donc le choix par dÃ©faut)
       if (strlen($word[1])>1) {
          $op=0; $arguments=""; $cmd="";
          $car_deb=substr($word[1],0,1);
          $car_fin=substr($word[1],-1);
 
-         // entité HTML
+         // entitÃ© HTML
          if ($car_deb!="&" and $car_fin!=";") {
             // Mot 'pure'
             if (($car_fin=="." or $car_fin=="," or $car_fin==";" or $car_fin=="?" or $car_fin==":") AND ($word[1]!="...")) {
                $op=1;
                $Rword=substr($word[1],0,-1);
             }
-            // peut être une fonction
+            // peut Ãªtre une fonction
             if ($car_fin==")") {
                $ibid=strpos($word[1],"(");
                if ($ibid) {
@@ -180,7 +174,7 @@ function meta_lang($Xcontent) {
                   $Rword=substr($word[1],0,-1);
                }
             }
-            // peut être un mot encadré par deux balises
+            // peut Ãªtre un mot encadrÃ© par deux balises
             if (($car_deb=="[" and $car_fin=="]" and $word[1]!="[code]") or ($car_deb=="{" and $car_fin=="}")) {
                $op=5;
                $Rword=substr($word[1],1,-1);
@@ -198,10 +192,9 @@ function meta_lang($Xcontent) {
             $op=4;
             $Rword=substr($Rword,0,-1);
          }
-
-         if ($op==0) {
+         if ($op==0)
             $Rword=$word[1];
-         }
+
          // --- REMPLACEMENTS
          $type_meta="";
          if (array_key_exists($Rword,$meta_glossaire)) {
@@ -215,7 +208,7 @@ function meta_lang($Xcontent) {
          } else {
             $Cword=$Rword;
          }
-         // Cword est un meta-mot ? (il en reste qui n'ont pas été interprétés par la passe du dessus ... ceux avec params !)
+         // Cword est un meta-mot ? (il en reste qui n'ont pas Ã©tÃ© interprÃ©tÃ©s par la passe du dessus ... ceux avec params !)
          if (substr($Cword,0,1)=="!") {
             $car_meta=strpos($Cword,"!",1);
             if ($car_meta) {
@@ -226,8 +219,8 @@ function meta_lang($Xcontent) {
                   $Cword=$meta_glossaire["!".$Rword."!"]['content'];
                   $type_meta=$meta_glossaire["!".$Rword."!"]['type'];
                } else {
-                  $Cword="";
-                  $type_meta="";
+                  $Cword='';
+                  $type_meta='';
                }
             }
          }
@@ -243,49 +236,44 @@ function meta_lang($Xcontent) {
          // Cword commence par function ?
          if (substr($Cword,0,9)=="function ") {
             $Rword="MM_".str_replace("!","",$Rword);
-            if (!function_exists($Rword)) {
+            if (!function_exists($Rword))
                @eval($Cword);
-            }
             $Cword=charg($Rword,$arguments);
             $Rword=$word[1];
          }
 
          // si le mot se termine par ^ : on supprime ^ | cela permet d'assurer la protection d'un mot (intouchable)
-         if ($car_fin=="^") {
+         if ($car_fin=="^")
             $Cword=substr($Cword,0,-1)."&nbsp;";
-          }
 
-         // si c'est un meta : remplacement identique à str_replace
-         if ($type_meta=="meta") {
+         // si c'est un meta : remplacement identique Ã  str_replace
+         if ($type_meta=="meta")
             $tab[$Rword]=$Cword;
-         } else {
+         else {
             if ($car_fin==substr($Rword,-1)) $car_fin=" ";
             $tab[$Rword.$car_fin]=$Cword.$car_fin;
          }
 
-         if ($NPDS_debug and $admin) {
+         if ($NPDS_debug and $admin)
             $NPDS_debug_str.="=> $word[1]<br />";
-         }
       }
    }
    $Xcontent=strtr($Xcontent,$tab);
 
-   // Avons-nous quelque chose à supprimer (balise !delete! .... !/!) ?
+   // Avons-nous quelque chose Ã  supprimer (balise !delete! .... !/!) ?
    while (strstr($Xcontent,"!delete!")) {
       $deb=strpos($Xcontent,"!delete!",0);
       $fin=strpos($Xcontent,"!/!",$deb+8);
-      if ($fin) {
+      if ($fin)
          $Xcontent=str_replace(substr($Xcontent,$deb,($fin+3)-$deb),"",$Xcontent);
-      } else {
+      else
          $Xcontent=str_replace("!delete!","",$Xcontent);
-      }
    }
    $Xcontent=str_replace("!/!","",$Xcontent);
 
    // traitement [code] ... [/code]
-   if (strstr($Xcontent,"[code]")) {
+   if (strstr($Xcontent,"[code]"))
       $Xcontent=aff_code($Xcontent);
-   }
 
    $NPDS_debug_cycle++;
    return ($Xcontent);
