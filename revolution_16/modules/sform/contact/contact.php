@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS Contact Example .                            */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,7 +32,7 @@ include($sform_path.'contact/formulaire.php');
 /************************************************/
 // Manage the <form>
 adminfoot('fv','',$arg1,'1');
-switch($ok) {//what case for other language ? doesnt work ?...
+switch($ok) {// !!!what case for other language ? doesnt work ?...
    case 'Soumettre':
    case 'Submit':
       settype($message,'string');

@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -43,12 +43,11 @@ switch($link_fiche_detail) {
          echo aff_langue($m->print_form("class=\"ligna\""));
       } else
          redirect_url($m->url);
-      break;
+   break;
 
    default:
-      if ($m->sform_read_mysql($browse_key)) {
+      if ($m->sform_read_mysql($browse_key))
          echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=fiche_detail&amp;lid='.$browse_key.'" ><i class="fa fa-info fa-lg" title="'.translate("Additional Details").'" data-toggle="tooltip"></i></a>';
-      }
-      break;
+   break;
 }
 ?>
