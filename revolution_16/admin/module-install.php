@@ -482,48 +482,104 @@ function nmig_clean($name_module) {
    } elseif ($ModInstall == '' && $ModDesinstall != '') {
       if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
          include("modules/".$ModDesinstall."/install.conf.php");
-/*
-         preg_match('#^CREATE TABLE (\w+)#',$sql[0],$r);
-         var_dump($r[1]);
-*/
-         // we get the name of the tables a tester avec table prefixé
-         settype($ta,'array');
-         settype($ta,'array');
+
+//  var_dump($blocs[1][0]);
+         // we get the name of the tables !! a tester avec table prefixé
+         settype($tabcreated,'array');
+         settype($tabinsert,'array');
+         settype($othertabinsert,'array');
+
          foreach ($sql as $v) {
-            if(preg_match('#^CREATE TABLE (\w+)#',$v,$r))
-               $ta[]=$r[1];
+            if(preg_match('#^CREATE TABLE (\w+)#',$v,$rt))
+               $tabcreated[]=$rt[1];
+            if(preg_match('#^INSERT INTO (\w+)#',$v,$ri)) {
+               $tabinsert[]=$ri[1];
+               preg_match("#\sVALUES\s+\('(.[^']+)',\s+#",$v,$met);
+               var_dump($met[1]);
+            }
          }
-         var_dump($ta);
+         foreach ($tabinsert as $v) {
+            if(!in_array($v,$tabcreated))
+               $othertabinsert[]=$v;
+         }
+         if($blocs[1][0]!='') {
+         preg_match('#^(include\#.[^\\|\s]+)#',$blocs[1][0],$rb);
+            $tabsblocs=$rb[1];
+         }
+         else 
+            $tabsblocs='include#modules/'.$ModDesinstall.'/';
+         $lbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '$tabsblocs%'"));
+         $rbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '$tabsblocs%'"));
+      
+               var_dump($othertabinsert);
+
       }
-   
+      //nettoyage
       if ($subop == "desinst") {
          include("header.php");
          list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
          sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
          sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_fon_fid=".$fid."");
          sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
-//         var_dump($ta);
-         if(isset($ta)){
-            foreach ($ta as $v) {
+
+         if(isset($tabcreated)){
+            foreach ($tabcreated as $v) {
                sql_query("DROP TABLE IF EXISTS `$NPDS_Prefix$v`;");
             }
          }
-         
+/*
+         if(count($othertabinsert)>0){
+            foreach ($othertabinsert as $v) {
+            if($v='metalang') {
+            preg_match('
+            \sVALUES\s+\('(.[^']+)',\s+'
+               sql_query("DELETE FROM ".$NPDS_Prefix."metalang WHERE def=;");
+               }
+            }
+         }
+*/
+// nettoyage blocs         
+         if($tabsblocs!='') {
+            sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '".$tabsblocs."%'");
+            sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '".$tabsblocs."%'");
+         }
          redirect_url("admin.php?op=modules");
       }
       include("header.php");
-//      var_dump($sql);
       $display = '
          <hr />
-         <h4 class="text-danger">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>';
-         if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
-            $display .='
-            <div class="alert alert-danger">
-            </div>
-            <div class="text-center mb-3">
-               <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Désinstaller le module").'</a>
-            </div>';
+         <h4 class="text-danger mb-3">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>';
+      if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
+         $display .='
+         <div class="alert alert-danger">Cette opération est irréversible elle va affecter votre base de donnée par la suppression de table(s) ou/et de ligne et la suppression ou modification de certains fichiers.<br /><br />'; 
+         if(isset($tabcreated)) {
+            $v='';
+            $display.='<strong>Suppression de table(s)</strong><ul>';
+               foreach ($tabcreated as $v){
+                  $display.='<li>'.$NPDS_Prefix.$v.'</li>';
+               }
+            $display .='</ul>';
          }
+         if(count($othertabinsert)>0 or $tabsblocs!='') {
+            $v='';
+            $display.='<strong>Modification de données dans table(s)</strong><ul>';
+               foreach ($othertabinsert as $v){
+                  $display.='<li>'.$NPDS_Prefix.$v.'</li>';
+               }
+               if($lbmod>0)
+                  $display.='<li>lblocs</li>';
+               if($rbmod>0)
+                  $display.='<li>rblocs</li>';
+            $display .='</ul>';
+         }
+
+
+         $display .='
+         </div>
+         <div class="text-center mb-3">
+            <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Désinstaller le module").'</a>
+         </div>';
+      }
       else {
       $display .= '
          <p><strong>'.adm_translate("La désinstallation automatique des modules n'est pas prise en charge à l'heure actuelle.").'</strong>
