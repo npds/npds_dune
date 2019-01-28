@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -63,7 +63,7 @@ $content .= "/******************************************************************
 $content .= "/* DUNE by NPDS                                                         */\n";
 $content .= "/* ===========================                                          */\n";
 $content .= "/*                                                                      */\n";
-$content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
+$content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
 $content .= "/* IZ-Xinstall version : 1.2.0                                          */\n";
 $content .= "/*                                                                      */\n";
 $content .= "/* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */\n";
