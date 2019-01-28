@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -53,8 +53,8 @@ function AddLink() {
                <span class="help-block text-right" id="countcar_title"></span>
            </div>
         </div>';
-        global $links_url;
-        if (($links_url) or ($links_url==-1))
+      global $links_url;
+      if (($links_url) or ($links_url==-1))
         echo'
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="url">URL</label>

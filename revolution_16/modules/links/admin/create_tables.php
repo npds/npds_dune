@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions : Create Table            */
 /*                                                                      */
@@ -35,7 +35,7 @@ include("header.php");
    $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_editorials (
      linkid int(11) NOT NULL default '0',
      adminid varchar(60) NOT NULL default '',
-     editorialtimestamp datetime NOT NULL default '0000-00-00 00:00:00',
+     editorialtimestamp datetime NOT NULL default '1000-01-01 00:00:00',
      editorialtext text NOT NULL,
      editorialtitle varchar(100) NOT NULL default '',
      PRIMARY KEY  (linkid)

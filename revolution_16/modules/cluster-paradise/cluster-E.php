@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Cluster Paradise - Manage Data-Cluster  / Mod by Tribal-Dolphin      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,24 +13,22 @@
 /************************************************************************/
 function V_secur_cluster($Xkey) {
    global $ModPath;
-   $ModPath=str_replace("..","",$ModPath);
+   $ModPath=str_replace('..','',$ModPath);
    $trouve=false;
    if (file_exists("modules/$ModPath/data-cluster-E.php")) {
       include("modules/$ModPath/data-cluster-E.php");
       $cpt=0;
       while (each($part) and !$trouve) {
-         if (md5($part[$cpt]["WWW"].$part[$cpt]["KEY"])==decryptK($Xkey,$part[$cpt]["KEY"])) {
+         if (md5($part[$cpt]["WWW"].$part[$cpt]["KEY"])==decryptK($Xkey,$part[$cpt]["KEY"]))
             $trouve=true;
-         } else {
+         else
             $cpt=$cpt+1;
-         }
       }
    }
-   if ($trouve) {
+   if ($trouve)
       return ($part[$cpt]);
-   } else {
+   else
       return (false);
-   }
 }
 
 if ($tmp=V_secur_cluster($key)) {
@@ -53,10 +51,10 @@ if ($tmp=V_secur_cluster($key)) {
       list($catid) = sql_fetch_row($result);
 
      // vérifie que le Topic existe : sinon met le Topic générique
-      $topic=decryptK(removeHack($Xtopic),$tmp['KEY']);    
+      $topic=decryptK(removeHack($Xtopic),$tmp['KEY']);
       $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics WHERE topictext='".addslashes($topic)."'");
       list($topicid) = sql_fetch_row($result);
-            
+
       // OK on fait la mise à jour
       if ($pasfinA and $pasfinB) {
          $subject=decryptK(removeHack($Xsubject),$tmp['KEY']);
@@ -66,10 +64,10 @@ if ($tmp=V_secur_cluster($key)) {
          $ihome=decryptK(removeHack($Xihome),$tmp['KEY']);
          $date_finval=decryptK(removeHack($Xdate_finval),$tmp['KEY']);
          $epur=decryptK(removeHack($Xepur),$tmp['KEY']);
-         
+
          // autonews ou pas ?
          $date_debval=decryptK(removeHack($Xdate_debval),$tmp['KEY']);
-         if ($date_debval=="") {
+         if ($date_debval=='') {
             $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topicid', '$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
             Ecr_Log("security", "Cluster Paradise : insert_stories ($subject - $date_finval) by AID : $aid", "");
             // Réseaux sociaux
@@ -80,16 +78,17 @@ if ($tmp=V_secur_cluster($key)) {
             $result = sql_query("INSERT INTO ".$NPDS_Prefix."autonews VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '$topicid', '$author', '$notes', '$ihome','$date_debval','$date_finval','$epur')");
             Ecr_Log("security", "Cluster Paradise : insert_autonews ($subject - $date_debval - $date_finval) by AID : $aid", "");
          }
-         
+
          sql_query("UPDATE ".$NPDS_Prefix."users SET counter=counter+1 WHERE uname='$author'");
          sql_query("UPDATE ".$NPDS_Prefix."authors SET counter=counter+1 WHERE aid='$aid'");
       }
    }
 }
 
-echo "<script type=\"text/javascript\">
+echo '
+   <script type="text/javascript">
      //<![CDATA[
-     self.close();
+        self.close();
      //]]>
-     </script>";
+   </script>';
  ?>

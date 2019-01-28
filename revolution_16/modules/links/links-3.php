@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -151,9 +151,8 @@ function brokenlink($lid) {
    if (isset($user)) {
       global $cookie;
       $ratinguser=$cookie[1];
-   } else {
+   } else
       $ratinguser=$anonymous;
-   }
    mainheader();
    echo '
    <h3>'.translate("Report Broken Link").'</h3>
@@ -179,9 +178,8 @@ function brokenlinkS($lid, $modifysubmitter) {
     if (isset($user)) {
        global $cookie;
        $ratinguser = $cookie[1];
-    } else {
+    } else
        $ratinguser = $anonymous;
-    }
     if ($modifysubmitter==$ratinguser) {
        settype($lid,'integer');
        sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, 0, 0, '', '', '', '$ratinguser', 1,'')");
