@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,8 +24,7 @@ if (file_exists("modules/comments/$file_name.conf.php"))
 else
    die();
 
-
-settype($forum,"integer");
+settype($forum,'integer');
 if ($forum>=0)
    die();
 
