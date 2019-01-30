@@ -555,7 +555,7 @@ class FeedDate {
     * @param mixed $dateString optional the date this FeedDate will represent. If not specified, the current date and time is used.
     */
 
-   public function __construct($dateString="") {
+   public function __construct($dateString='') {
       if ($dateString=="") $dateString = date("r");
 
       if (is_integer($dateString)) {
@@ -601,8 +601,8 @@ class FeedDate {
       }
       $this->unix = 0;
    }
-   public function FeedDate($dateString="") {
-      self::__construct($dateString="");
+   public function FeedDate($dateString='') {
+      self::__construct($dateString='');
    }
 
    /**

@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2010 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support                                               */
@@ -28,15 +28,14 @@ $sql_nbREQ=0;
    function sql_connect() {
       global $mysql_p, $dbhost, $dbuname, $dbpass, $dbname;
 
-      if (($mysql_p) or (!isset($mysql_p))) {
+      if (($mysql_p) or (!isset($mysql_p)))
          $dblink=@mysql_pconnect($dbhost, $dbuname, $dbpass);
-      } else {
+      else
          $dblink=@mysql_connect($dbhost, $dbuname, $dbpass);
-      }
 
-      if (!$dblink) {
+      if (!$dblink)
          return (false);
-      } else {
+      else {
          if (!@mysql_select_db($dbname, $dblink))
             return (false);
          else
