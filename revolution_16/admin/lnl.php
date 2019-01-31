@@ -366,7 +366,7 @@ function main() {
       <div class="row">
          <div class="form-group col-sm-4">
             <label class="col-form-label" for="testXheader">'.adm_translate("Entête").'</label>
-            <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" max="11" />
+            <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
          </div>
          <div class="form-group col-sm-4">
             <label class="col-form-label" for="testXbody">'.adm_translate("Corps").'</label>
@@ -374,7 +374,7 @@ function main() {
          </div>
          <div class="form-group col-sm-4">
             <label class="col-form-label" for="testXfooter">'.adm_translate("Pied").'</label>
-            <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" max="11" />
+            <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
          </div>
          <div class="form-group col-sm-12">
             <input type="hidden" name="op" value="lnl_Test" />
@@ -388,15 +388,15 @@ function main() {
       <div class="row">
          <div class="form-group col-sm-4">
             <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
-            <input class="form-control" type="number" name="Xheader" id="Xheader" max="11" />
+            <input class="form-control" type="number" name="Xheader" id="Xheader" />
          </div>
          <div class="form-group col-sm-4">
             <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
-            <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" max="11" />
+            <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
          </div>
          <div class="form-group col-sm-4">
             <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
-            <input class="form-control" type="number" name="Xfooter" id="Xfooter" max="11" />
+            <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
          </div>
          <div class="form-group col-sm-12">
             <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
