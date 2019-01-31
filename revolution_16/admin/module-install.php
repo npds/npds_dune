@@ -48,35 +48,39 @@ function nmig_copyright() {
 }
 
 // e1
-function nmig_Start($name_module,$txtdeb) {
+function nmig_Start($name_module, $txtdeb) {
    include("header.php");
    global $ModInstall, $display;
    $display = '
    <hr />
+   <div class="lead">'.$name_module.'</div>
+   <hr />
    <div class="">';
-   if (isset($txtdeb) && $txtdeb != "")
+   if (isset($txtdeb) && $txtdeb != '')
       $display .= aff_langue($txtdeb);
    else 
       $display .= '
-      <p><strong>'.adm_translate("Bonjour et bienvenue dans l'installation automatique du module").' "'.$name_module.'"</strong></p>
+      <p class="lead">'.adm_translate("Bonjour et bienvenue dans l'installation automatique du module").' "'.$name_module.'"</p>
       <p>'.adm_translate("Ce programme d'installation va configurer votre site internet pour utiliser ce module.").'</p>
       <p><em>'.adm_translate("Cliquez sur \"Etape suivante\" pour continuer.").'</em></p>';
    $display .= '
    </div>
-   <div style="text-align: center;">
+   <div class="text-center">
       <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e2" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
    </div>
    '.nmig_copyright();
 }
 
 // e2
-function nmig_License($licence_file) {
+function nmig_License($licence_file, $name_module) {
    include("header.php");
    global $ModInstall, $display;
    $myfile = fopen($licence_file,"r");
    $licence_text = fread($myfile, filesize($licence_file));
    fclose($myfile);
    $display = '
+   <hr />
+   <div class="lead">'.$name_module.'</div>
    <hr />
    <div class="mb-3">
       <p class="lead">'.adm_translate("L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :").'</p>
@@ -86,12 +90,10 @@ function nmig_License($licence_file) {
       </div>
    </div>
    '.nmig_copyright();
-
-      
 }
 //e3
 
-function nmig_AlertSql($sql,$tables) {
+function nmig_AlertSql($sql,$tables, $name_module) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
    $reqsql='';
@@ -103,18 +105,20 @@ function nmig_AlertSql($sql,$tables) {
       }
       if ($type_engine>=5)
          $sql[$i] = preg_replace('#TYPE=MyISAM#i', 'ENGINE=MyISAM', $sql[$i]);
-      $reqsql.='<code>'.$sql[$i].'</code><br />';
+      $reqsql.='<pre class="language-sql"><code class="language-sql">'.$sql[$i].'</code></pre><br />';
    }
    $display = '
    <hr />
+   <div class="lead">'.$name_module.'</div>
+   <hr />
    <div class="">
-      <p><strong>'.adm_translate("Le programme d'installation va maintenant exécuter le script SQL pour configurer la base de données MySql.").'</strong></p>
+      <p class="lead">'.adm_translate("Le programme d'installation va maintenant exécuter le script SQL pour configurer la base de données MySql.").'</p>
       <p>'.adm_translate("Si vous le souhaitez, vous pouvez exécuter ce script vous même, si vous souhaitez par exemple l'exécuter sur une autre base que celle du site. Dans ce cas, pensez à reparamétrer le fichier de configuration du module.").'</p>
       <p>'.adm_translate("Voici le script SQL :").'</p>
    </div>
    '.$reqsql.'
    <br />
-   <div style="text-align: center;">
+   <div class="text-center">
       <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e4" class="btn btn-primary">'.adm_translate("Configurer MySql").'</a>&nbsp;<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-danger">'.adm_translate("Sauter cette étape").'</a><br />
    </div>
    <br />
@@ -132,6 +136,8 @@ function nmig_WriteSql($sql,$tables, $path_adm_module, $name_module, $affich, $i
 $type_engine= 5;// à revoir
    $display = '
    <hr />
+   <div class="lead">'.$name_module.'</div>
+   <hr />
    <div class="">';
    for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
       for ($j = 0; $j < count($tables); $j++) {
@@ -145,12 +151,14 @@ $type_engine= 5;// à revoir
    }
    if (isset($erreur)) {
       $display .= '
-      <p class="text-danger">'.adm_translate("Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :").'</p>
-      <p><code>'.$erreur.'</code></p>
-      <p>'.adm_translate("Veuillez l'exécuter manuellement via phpMyAdmin.").'</p>
+      <div class="alert alert-danger">
+         <p>'.adm_translate("Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :").'</p>
+         <p><strong>'.$erreur.'</strong></p>
+         <p>'.adm_translate("Veuillez l'exécuter manuellement via phpMyAdmin.").'</p>
+      </div>
       <p>'.adm_translate("Voici le script SQL :").'</p>';
       for ($i = 0; $i < count($sql); $i++) {
-         $reqsql.='<code>'.$sql[$i].'</code><br />';
+         $reqsql.='<pre class="language-sql"><code class="language-sql">'.$sql[$i].'</code></pre><br />';
       }
       $display .= $reqsql;
       $display .= "<br />\n";
@@ -168,7 +176,8 @@ $type_engine= 5;// à revoir
       $display .= '<p class="text-success"><strong>'.adm_translate("La configuration de la base de données MySql a réussie !").'</strong></p>';
 
 }   $display .= '
-   </div><div style="text-align: center;">
+   </div>
+   <div class="text-center">
    <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
    </div><br />
    '.nmig_copyright();
@@ -283,13 +292,15 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
    </div><br />';
    $display .= nmig_copyright();
 }
-
 // e7
 
-function nmig_AlertBloc($blocs) {
+function nmig_AlertBloc($blocs, $name_module) {
    include("header.php");
    global $ModInstall, $display;
    $display = '
+   <hr />
+   <div class="lead">'.$name_module.'</div>
+   <hr />
    <div class="">
       <p>'.adm_translate("Vous pouvez choisir maintenant de créer automatiquement un(des) bloc(s) à droite ou à gauche. Cliquer sur \"Créer le(s) bloc(s) à gauche\" ou \"Créer le(s) bloc(s) à droite\" selon votre choix. (Vous pourrez changer leurs positions par la suite dans le panneau d'administration --> Blocs)").'</p>
       <p>'.adm_translate("Si vous préférez créer vous même le(s) bloc(s), cliquez sur 'Sauter cette étape et afficher le code du(des) bloc(s)' pour visualiser le code à taper dans le(s) bloc(s).").'</p>
@@ -315,10 +326,14 @@ function nmig_AlertBloc($blocs) {
 
 // e8
 
-function nmig_WriteBloc($blocs,$posbloc) {
+function nmig_WriteBloc($blocs, $posbloc, $name_module) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
-   $display = '<div class="">';
+   $display = '
+   <hr />
+   <div class="lead">'.$name_module.'</div>
+   <hr />
+   <div class="">';
    if ($posbloc) {
       if ($blocs[2] == '')
          $blocs[2] = $blocs[3];
@@ -345,10 +360,9 @@ function nmig_WriteBloc($blocs,$posbloc) {
          }
          $display .= ob_get_contents();
          ob_end_clean();
-      } else {
-         $display .= '<p class="text-success"><strong>'.adm_translate("La configuration du(des) bloc(s) a réussi !").'</strong></p>';
-         $display .= "<br />\n";
-      }
+      } else
+         $display .= '
+         <div class=" alert alert-success">'.adm_translate("La configuration du(des) bloc(s) a réussi !").'</div>';
    } else {
       $display .= '<p><strong>'.adm_translate("Vous avez choisi de configurer manuellement vos blocs. Voici le contenu de ceux-ci :").'</strong></p>';
       ob_start();
@@ -361,7 +375,7 @@ function nmig_WriteBloc($blocs,$posbloc) {
       ob_end_clean();
    }
    $display .= '
-   </div><br />
+   </div>
    <div style="text-align: center;">
       <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e9" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
    </div><br />
@@ -441,10 +455,10 @@ function nmig_clean($name_module) {
 //      settype($tables,'string');
       switch($nmig) {
          case 'e2':
-            nmig_License($licence_file);
+            nmig_License($licence_file,$name_module);
          break;
          case 'e3':
-            if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql,$tables);
+            if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql, $tables, $name_module);
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e4':
@@ -460,11 +474,11 @@ function nmig_clean($name_module) {
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e7\";\n//]]>\n</script>";
          break;
          case 'e7':
-            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_AlertBloc($blocs);
+            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_AlertBloc($blocs, $name_module);
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>";
          break;
          case 'e8':
-            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_WriteBloc($blocs, $posbloc);
+            if (isset($blocs) && count($blocs[0]) && $blocs[0][0] != '') nmig_WriteBloc($blocs, $posbloc, $name_module);
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e9\";\n//]]>\n</script>";
          break;
          case 'e9':
@@ -483,18 +497,23 @@ function nmig_clean($name_module) {
       if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
          include("modules/".$ModDesinstall."/install.conf.php");
 
-//  var_dump($blocs[1][0]);
+         //  var_dump($blocs[1][0]);
          // we get the name of the tables !! a tester avec table prefixé
          settype($tabcreated,'array');
          settype($tabinsert,'array');
          settype($othertabinsert,'array');
+         settype($modulemetamot,'array');
 
          foreach ($sql as $v) {
             if(preg_match('#^CREATE TABLE (\w+)#',$v,$rt))
                $tabcreated[]=$rt[1];
             if(preg_match('#^INSERT INTO (\w+)#',$v,$ri)) {
                $tabinsert[]=$ri[1];
-               preg_match("#\sVALUES\s+\('(.[^']+)',\s+#",$v,$met);
+               if($ri[1]=='metalang') { 
+                  preg_match("#\sVALUES\s+\('(.[^']+)',\s+#",$v,$met);
+                  $modulemetamot[]=$met[1];
+               // recupere la première valeur de VALUES pour cibler la def d'un metamot, pour les tables autres que metalang unimplemented ...
+               }
                var_dump($met[1]);
             }
          }
@@ -502,47 +521,44 @@ function nmig_clean($name_module) {
             if(!in_array($v,$tabcreated))
                $othertabinsert[]=$v;
          }
+         
+         //traitement des blocs avec fonctions de modules
          if($blocs[1][0]!='') {
-         preg_match('#^(include\#.[^\\|\s]+)#',$blocs[1][0],$rb);
+            preg_match('#^(include\#.[^\\|\s]+)#',$blocs[1][0],$rb);
             $tabsblocs=$rb[1];
          }
          else 
             $tabsblocs='include#modules/'.$ModDesinstall.'/';
          $lbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '$tabsblocs%'"));
          $rbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '$tabsblocs%'"));
-      
-               var_dump($othertabinsert);
-
       }
       //nettoyage
       if ($subop == "desinst") {
          include("header.php");
+         
          list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
-         sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
          sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_fon_fid=".$fid."");
          sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
-
-         if(isset($tabcreated)){
+         // nettoyage table(s) créé(s)
+         if(count($tabcreated)>0){
             foreach ($tabcreated as $v) {
                sql_query("DROP TABLE IF EXISTS `$NPDS_Prefix$v`;");
             }
          }
-/*
-         if(count($othertabinsert)>0){
-            foreach ($othertabinsert as $v) {
-            if($v='metalang') {
-            preg_match('
-            \sVALUES\s+\('(.[^']+)',\s+'
-               sql_query("DELETE FROM ".$NPDS_Prefix."metalang WHERE def=;");
-               }
+         // nettoyage metamot
+         if(count($modulemetamot)>0) {
+            foreach ($modulemetamot as $v) {
+               sql_query("DELETE FROM ".$NPDS_Prefix."metalang WHERE metalang.def='".$v."'");
             }
          }
-*/
-// nettoyage blocs         
+         // nettoyage blocs
          if($tabsblocs!='') {
             sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '".$tabsblocs."%'");
             sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '".$tabsblocs."%'");
          }
+         // maj etat d'installation
+         sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
+         
          redirect_url("admin.php?op=modules");
       }
       include("header.php");

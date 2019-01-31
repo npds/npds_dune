@@ -587,7 +587,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
     $content .= "# ===================================================\n";
     $content .= "#\n";
-    $content .= "# This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier\n";
+    $content .= "# This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier\n";
     $content .= "#\n";
     $content .= "# This module is to configure Footer of Email send By NPDS\n";
     $content .= "#\n";
