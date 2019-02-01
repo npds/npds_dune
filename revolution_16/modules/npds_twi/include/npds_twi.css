@@ -1,14 +1,14 @@
 @charset"utf-8"; 
-/*==> css for twitter imlementation in NPDS cms */
+/*==> css for twitter implementation in NPDS cms */
 
-/* utilisé dans metamot : twi_bloc_li */
+/* utilisÃˆ dans metamot : twi_bloc_li */
 .tweet {background-color:#E0E9EF;margin:5px;padding:5px;border:2px groove #1671AA;}
 .tweet .tweet-image {float: left;width: 55px;}
 .tweet .tweet-body {position:relative;left:5px;top:5px;}
 .tweet .username {color:#1671AA;font-weight:bold;}
 .tweet .hashtag {color:#BF777A;}
 
-/* css des widgets twitter utilisé dans metamot : twi_bloc_Re */
+/* css des widgets twitter utilisÃ© dans metamot : twi_bloc_Re */
 .twtr-widget {position:relative;font-size:12px!important;font-family:"lucida grande",lucida,tahoma,helvetica,arial,sans-serif!important;zoom:1;}
 .twtr-fullscreen {font-size:220%!important;}
 .twtr-fullscreen .twtr-new-results {_display:none!important;}
