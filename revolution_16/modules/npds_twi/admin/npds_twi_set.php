@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,7 +23,6 @@ $f_titre='npds_twi';
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 
-GraphicAdmin($hlpfile);
 global $adminimg;
    //en attente implémentation pour notice php généré
    settype($tbox_width,'integer');
@@ -43,6 +42,8 @@ global $adminimg;
 function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height) {
    if (file_exists('modules/'.$ModPath.'/twi_conf.php'))
       include ('modules/'.$ModPath.'/twi_conf.php');
+      $hlpfile = 'modules/'.$ModPath.'/doc/aide_admtwi.html';
+
    global $f_meta_nom, $f_titre, $adminimg, $npds_twi;
    $checkarti_y='';$checkarti_n='';$checkpost_y='';$checkpost_n='';$urshort_mr='';$urshort_ft='';$urshort_c='';
    if ($npds_twi_arti===1) $checkarti_y='checked="checked"'; else $checkarti_n='checked="checked"';
@@ -55,7 +56,6 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    settype($tbox_width,'integer');
    settype($tbox_height,'integer');
 
-   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admtwi.html';
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '<hr />';
@@ -192,7 +192,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/* DUNE by NPDS                                                         */\n";
    $content .= "/* ===========================                                          */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -235,7 +235,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -259,7 +259,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -280,24 +280,14 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
   //<== modifie le fichier controleur
 }
 
-/*
-function AfterSaveSettwi($ModPath, $ModStart) {
-   echo '<strong>Votre module est paramétré ou modifiez ci-dessous les paramètres nécessaires</strong>';
-}
-*/
-
 if ($admin) {
    settype($subop,'string');
    switch ($subop) {
       case "SaveSettwi":
       SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height, $class_sty_1, $class_sty_2, $ModPath, $ModStart);
-/*
-      case "AfterSaveSettwi":
-      AfterSaveSettwi($ModPath, $ModStart);
-*/
-      default:
+   default:
       Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height);
-      break;
+   break;
    }
 }
 ?>

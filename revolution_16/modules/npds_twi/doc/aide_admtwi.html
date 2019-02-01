@@ -43,17 +43,52 @@ Attention! Cela va modifier les clefs "Access token". Si vous les avez d&eacute;
 - Jeton d'acc&egrave;s pour Open Authentification (Access token)<br />
 - Jeton d'acc&egrave;s secret pour Open Authentification (Access token secret)<br />
 <br />
-5. Continuez l'installation automatique de la passerelle.<br />
 <br />
-6. Une fois l'installation termin&eacute;e, rendez-vous dans les pr&eacute;f&eacute;rences de NPDS, et v&eacute;rifiez <br />
-dans les r&eacute;glages de R&eacute;seaux Sociaux que twitter est bien activ&eacute;.<br />
+
+5. Allez à l'administration du module<br />
+
+/admin.php?op=Extend-Admin-SubModule&ModPath=npds_twi&ModStart=admin/npds_twi_set<br />
+
+- Un message vous informera si la publication est autorisé pour le site (par defaut à Non).
+(pour modifier cette autorisation supérieure suivez le lien)<br />
+/admin.php?op=Configure<br />
+Préferences > Configuration des infos en Backend & Réseaux Sociaux > activer Twitter<br />
+
+- Activez ou pas la publication des news sur twitter<br />
+- Choisissez un raccourciceur d'url<br />
+- Remplissez les 4 champs avec les paramètres twitter (cf4) ...<br />
 <br />
+
 Notes :<br /> 
 Si vous souhaitez utiliser npds_twi sur plusieurs sites NPDS, mais avec un seul compte twitter,<br />
 nous vous conseillons de cr&eacute;er une application twitter par site NPDS. Cela vous permettra d'avoir &agrave;<br />
 chaque fois les url WebSite et Callback correctement renseign&eacute;es.<br />
-<br />[/french]
-[english]&nbsp;<strong>Semiautomatic installation of the module npds_twi</strong></p>
+<br />
+
+Il existe trois solutions impl&eacute;ment&eacute;es pour raccourcir les urls sans passer par un service ext&eacute;rieur.
+Deux de ces solutions (cf.b cf.c) utilisent un fichier .htaccess l'autre est uniquement en php et native pour NPDS (cf.a)<br />
+
+a - La solution recommand&eacute;e (coch&eacute;e par d&eacute;faut) est : R&eacute;&eacute;criture d'url avec contr&ocirc;leur Npds.<br /><br />
+b - Si vous choisissez: R&eacute;&eacute;criture d'url avec mod_rewrite<br />
+Il vous faut modifier (ou cr&eacute;er s'il n'existe pas) le fichier .htaccess (&agrave; la racine de votre site) comme suit :<br />
+<code>
+RewriteEngine on<br />
+RewriteRule ^s([0-9]+)$ /article.php?sid=$1[L]
+</code>
+<br />
+Nota : la premi&egrave;re ligne est inutile si elle existe d&eacute;j&agrave; dans votre fichier, la deuxi&egrave;me ligne est requise.<br />
+<br />
+c - Si vous choisissez : R&eacute;&eacute;criture d'url avec ForceType
+Il vous faut modifier (ou cr&eacute;er s'il n'existe pas) le fichier .htaccess (&agrave; la racine de votre site) comme suit :<br />
+<code>
+&lt;FilesMatch "^s$"&gt;<br />
+ForceType application/x-httpd- php<br />
+SetHandler application/x-httpd-php<br />
+&lt;/FilesMatch&gt;<br />
+</code>
+
+
+<strong>Semiautomatic installation of the module npds_twi</strong></p>
 <br />
 This module requires to open a twitter account and to create a Twitter application for the use of the APIs on your site.<br />
 - If you already have these elements, pass directly to the point 6.<br />
@@ -98,13 +133,9 @@ Warning! This will change the keys "Access token". If you have already entered t
 notes:<br />
 If you want to use npds_twi on several NPDS sites, but with a single twitter account, you should create a twitter application<br />
 for each NPDS site. This will allow you to properly inform the callback url and WebSite url each time.<br />
-<br />[/english]
+<br />
 
          <center><img src="/images/admin/manuels.gif" alt="logo du manuel" /></center>
       </div>
    </body>
 </html>
-
-
-
-
