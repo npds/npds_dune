@@ -336,9 +336,9 @@ function checkdnsmailusers() {
    $wrongdnsmail=0;
    $arrayusers=array();
    $image='18.png';
-   $subject='Addresse Email incorrecte';
+   $subject=adm_translate("Votre adresse Email est incorrecte.");
    $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-   $message = 'Votre adresse Email est incorrecte. Tout vos abonnements vers cette adresse Email ont été suspendus.<br />Merci de nous refournir une adresse Email valide <a href="user.php?op=edituser">ICI</a>.<br /> ou <br /> de contacter administration du site <a href="mailto:'.$adminmail.'" target="_blank"><i class="fa fa-at fa-2x align-middle fa-fw"></i></span></a>. <br />Sans réponse de votre part sous 60 jours vous ne pourrez plus vous connecter en tant que membre sur ce site. <br />Puis votre compte pourra être supprimé.<br />';
+   $message = adm_translate("Votre adresse Email est incorrecte.").' ('.adm_translate("DNS ou serveur de mail incorrect").').<br />'.adm_translate("Tous vos abonnements vers cette adresse Email ont été suspendus.").'<br /><a href="user.php?op=edituser">'.adm_translate("Merci de fournir une nouvelle adresse Email valide.").' <i class="fa fa-user fa-2x align-middle fa-fw"></i></a><br />'.adm_translate("Sans réponse de votre part sous 60 jours vous ne pourrez plus vous connecter en tant que membre sur ce site.").' '.adm_translate("Puis votre compte pourra être supprimé.").'<br /><br />'.adm_translate("Contacter l'administration du site.").'<a href="mailto:'.$adminmail.'" target="_blank"><i class="fa fa-at fa-2x align-middle fa-fw"></i>';
    $output='';
    $contents='';
    $filename = "users_private/usersbadmail.txt";
@@ -348,7 +348,7 @@ function checkdnsmailusers() {
    fclose($handle);
    $datenvoi='';
    $datelimit='';
-   
+
    while(list($uid, $uname, $email) = sql_fetch_row($result)) {
       if(checkdnsmail($email) === true and isbadmailuser($uid)===true) {
          $re = '/#'.$uid.'\|(\d+)/m';
@@ -380,7 +380,7 @@ function checkdnsmailusers() {
             $datelimit= date('d/m/Y',$res[1]+5184000);
          }
          $wrongdnsmail++;
-         $output.= '<li>DNS ou serveur de mail incorrect pour : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-right"><i class="fa fa-envelope-o mr-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-right"><i class="fa fa-envelope-o mr-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
       }
    }
 
@@ -532,9 +532,8 @@ switch ($op) {
          if (is_dir($user_dir.'/mns')) {
             $dir = opendir($user_dir.'/mns');
             while(false!==($nom = readdir($dir))) {
-               if ($nom != '.' && $nom != '..' && $nom != '') {
+               if ($nom != '.' && $nom != '..' && $nom != '')
                   @unlink($user_dir.'/mns/'.$nom);
-               }
             }
             closedir($dir);
             @rmdir($user_dir.'/mns');
@@ -559,6 +558,19 @@ switch ($op) {
                sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_moderator='".implode (',',$tmp_moder)."' WHERE forum_id='$row[0]'");
             }
          }
+         // Mise à jour du fichier badmailuser
+         $contents='';
+         $filename = "users_private/usersbadmail.txt";
+         $handle = fopen($filename, "r");
+         if(filesize($filename)>0)
+            $contents = fread($handle, filesize($filename));
+         fclose($handle);
+         $re = '/#'.$del_uid.'\|(\d+)/m';
+         $maj=preg_replace($re, '', $contents);
+         $file = fopen("users_private/usersbadmail.txt", 'w');
+         fwrite($file,$maj);
+         fclose($file);
+
          global $aid; Ecr_Log('security', "DeleteUser($del_uid) by AID : $aid", '');
       }
       if ($referer!="memberslist.php")
