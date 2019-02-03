@@ -212,7 +212,7 @@ function BannersAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="url" id="imageurl" name="imageurl" maxlength="200" />
+            <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="200" />
             <span class="help-block text-right"><span id="countcar_imageurl"></span></span>
          </div>
       </div>
@@ -422,14 +422,14 @@ function BannerEdit($bid) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="number" id="impadded" name="impadded" min="0" max="99999999999" required="required" />
+            <input class="form-control" type="number" id="impadded" name="impadded" min="0" max="99999999999" required="required" value="'.$imptotal.'"/>
             <span class="help-block">'.adm_translate("Réservé : ").'<strong>'.$impressions.'</strong> '.adm_translate("Fait : ").'<strong>'.$impmade.'</strong></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="url" id="imageurl" name="imageurl" maxlength="200" value="'.$imageurl.'" />
+            <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="200" value="'.$imageurl.'" />
             <span class="help-block text-right"><span id="countcar_imageurl"></span></span>
          </div>
       </div>
@@ -580,9 +580,7 @@ function BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $
 }
 
 switch ($op) {
-   case 'BannersAdmin':
-      BannersAdmin();
-   break;
+   
    case 'BannersAdd':
       BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel);
    break;
@@ -610,6 +608,10 @@ switch ($op) {
    case 'BannerClientChange':
       BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd);
    break;
-//         default:BannersAdmin();break;
+   
+   case 'BannersAdmin':
+   default:
+      BannersAdmin();
+   break;
 }
 ?>
