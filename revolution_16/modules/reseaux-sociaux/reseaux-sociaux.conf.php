@@ -22,7 +22,6 @@
 $rs = [
 ['facebook','https://facebook.com/','facebook'],
 ['twitter','https://twitter.com/','twitter'],
-['google+','https://plus.google.com/','google-plus'],
 ['snapchat','https://www.snapchat.com/','snapchat'],
 ['linkedin','https://www.linkedin.com/in/','linkedin-square'],
 ['github','https://github.com/','github']
