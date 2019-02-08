@@ -2937,7 +2937,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-3 align-middle"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
       $lst_blocnote = '
       <div id="lst_blocnote_'.$gr.'" class="mt-3 collapse">
-      '.blocnotes("shared", 'WS-BN'.$gr,'100%','7','',false).'
+      '.blocnotes("shared", 'WS-BN'.$gr,'','7','bg-dark text-light',false).'
       </div>';
       $content.='
       <hr />
