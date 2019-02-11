@@ -20,7 +20,7 @@ settype($mob,'string');
 settype($email,'string');
 settype($act,'string');
 settype($des,'string');
-settype($ok,'string');
+settype($subok,'string');
 
 $m->add_title("[french]Contactez-nous[/french][english]Contact us[/english]");
 $m->add_field('nom', "[french]Nom / Raison Sociale[/french][english]Name/Corporate name[/english]",$nom,'text',true,150,'','');
@@ -39,7 +39,7 @@ $m->add_field('fax', "[french]Fax[/french][english]Fax[/english]",$fax,'text',fa
 $m->add_extender('fax', '', '<span class="help-block text-right" id="countcar_fax"></span>');
 $m->add_field('mob', "[french]Mobile[/french][english]Gsm[/english]",$mob,'text',false,25,'',"0-9extend");
 $m->add_extender('mob', '', '<span class="help-block text-right" id="countcar_mob"></span>');
-$m->add_field('email', "[french]Adresse de messagerie[/french][english]Email address[/english]",$email,'email',true,255,'','email');
+$m->add_field('email', "[french]Adresse de messagerie[/french][english]Email address[/english]",$email,'text',true,255,'','email');
 $m->add_extender('email', '', '<span class="help-block text-right" id="countcar_email"></span>');
 $m->add_field('act', "[french]Activit&#xE9;[/french][english]Activity[/english]",$act,'text',true,150,'','');
 $m->add_extender('act', '', '<span class="help-block text-right" id="countcar_act"></span>');
@@ -53,9 +53,10 @@ $m->add_Qspam();
 $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >');
-$m->add_field('Reset','',translate("Cancel"),'reset',false);
+$m->add_field('reset','',translate("Cancel"),'reset',false);
+$m->add_extra('&nbsp;');
+$m->add_field('','',"[french]Soumettre[/french][english]Submit[/english]",'submit',false);
 $m->add_extra('
-            <button class="btn btn-primary ml-2" type="submit">[french]Soumettre[/french][english]Submit[/english]</button>
          </div>
       </div>');
 $m->add_extra('
@@ -72,12 +73,9 @@ $m->add_extra('
             inpandfieldlen("mob",25);
             inpandfieldlen("email",255);
             inpandfieldlen("act",150);
-            inpandfieldlen("des",430);
+            inpandfieldlen("des",1024);
          });
       //]]>
       </script>');
-$arg1 ='
-      var formulid = ["formcontact"];
-';
 // ----------------------------------------------------------------
 ?>
