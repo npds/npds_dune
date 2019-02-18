@@ -70,15 +70,12 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
        }
     }
     
-    // First of all : Spam from IP / :5 indicate that the same IP has passed 6 times with status KO in the anti_spambot function
-    if (file_exists("slogs/spam.log")) {
+    // First of all : Spam from IP / |5 indicate that the same IP has passed 6 times with status KO in the anti_spambot function
+    if (file_exists("slogs/spam.log"))
        $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
-    }
-    if (is_array($tab_spam)) {
-       if (in_array(getip().":5",$tab_spam)) { //this not work for IPv6
+    if (is_array($tab_spam))
+       if (in_array(getip()."|5",$tab_spam))
           access_denied();
-       }
-    }
 
     if (get_magic_quotes_runtime()==1) {set_magic_quotes_runtime(0);}
     // To prevent SQL Injection when magic_quotes GPC is off 
