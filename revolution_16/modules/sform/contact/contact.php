@@ -25,15 +25,15 @@ $m->add_form_check('false');
 $m->add_url('modules.php');
 $m->add_field('ModStart','',$ModStart,'hidden',false);
 $m->add_field('ModPath','',$ModPath,'hidden',false);
-$m->add_field('ok','','Soumettre','hidden',false);// not sure is good idea ..
+$m->add_submit_value('subok');
+$m->add_field('subok','','Submit','hidden',false);
 
 /************************************************/
 include($sform_path.'contact/formulaire.php');
+adminfoot('fv','','var formulid = ["'.$m->form_id.'"];','1');
 /************************************************/
 // Manage the <form>
-adminfoot('fv','',$arg1,'1');
-switch($ok) {// !!!what case for other language ? doesnt work ?...
-   case 'Soumettre':
+switch($subok) {
    case 'Submit':
       settype($message,'string');
       settype($sformret,'string');
@@ -42,7 +42,7 @@ switch($ok) {// !!!what case for other language ? doesnt work ?...
          //anti_spambot
          if (!R_spambot($asb_question, $asb_reponse, $message)) {
             Ecr_Log('security', 'Contact', '');
-            $ok='';
+            $subok='';
          } else {
             $message=$m->aff_response('','not_echo','');
             global $notify_email;
@@ -54,11 +54,10 @@ switch($ok) {// !!!what case for other language ? doesnt work ?...
             break;
          }
       } else
-         $ok='';
+         $subok='';
 
    default:
       echo aff_langue($m->print_form(''));
       break;
 }
-
 ?>
