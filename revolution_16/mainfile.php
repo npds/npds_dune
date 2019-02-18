@@ -66,7 +66,7 @@ function session_manage() {
       //==> mod_geoloc
       $file_path = 'https://ipapi.co/'.$ip.'/json';
       $file = file("modules/geoloc/geoloc_conf.php");
-      if(strstr($file[24],'geo_ip = 1')) {
+      if(strstr($file[25],'geo_ip = 1')) {
          $ousursit='';
          global $ousursit;
          $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
@@ -79,30 +79,65 @@ function session_manage() {
             if(file_contents_exist($file_path)) {
                $loc = file_get_contents($file_path);
                $loc_obj = json_decode($loc);
-               // here we have to check if empty for each variable
                if($loc_obj) {
-                  if (!empty($loc_obj->country_name))
-                     $pay=removeHack($loc_obj->country_name);
-                  else 
-                     $pay='';
-                  if (!empty($loc_obj->country))
-                     $codepay=removeHack($loc_obj->country);
-                  else 
-                     $codepay='';
-                  if (!empty($loc_obj->city))
-                     $vi=removeHack($loc_obj->city);
-                  else
-                     $vi='';
-                  if (!empty($loc_obj->latitude))
-                     $lat=(float)$loc_obj->latitude;
-                  else
-                     $lat='';
-                  if (!empty($loc_obj->longitude))
-                     $long=(float)$loc_obj->longitude;
-                  else
-                     $long='';
-                  sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                  sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                  if(!property_exists($loc_obj, "error")) {
+                     if (!empty($loc_obj->country_name))
+                        $pay=removeHack($loc_obj->country_name);
+                     else 
+                        $pay='';
+                     if (!empty($loc_obj->country))
+                        $codepay=removeHack($loc_obj->country);
+                     else 
+                        $codepay='';
+                     if (!empty($loc_obj->city))
+                        $vi=removeHack($loc_obj->city);
+                     else
+                        $vi='';
+                     if (!empty($loc_obj->latitude))
+                        $lat=(float)$loc_obj->latitude;
+                     else
+                        $lat='';
+                     if (!empty($loc_obj->longitude))
+                        $long=(float)$loc_obj->longitude;
+                     else
+                        $long='';
+                     sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                     sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                  }
+                  // un  deuxieme provider de geolocalisation d'IP....
+                  else {
+                     $file_path = 'http://ip-api.com/json/'.$ip;
+                     if(file_contents_exist($file_path)) {
+                        $loc = file_get_contents($file_path);
+                        $loc_obj = json_decode($loc);
+                        if($loc_obj) {
+                           if ($loc_obj->status=='success') {
+                              if (!empty($loc_obj->country))
+                                 $pay=removeHack($loc_obj->country);
+                              else 
+                                 $pay='';
+                              if (!empty($loc_obj->countryCode))
+                                 $codepay=removeHack($loc_obj->countryCode);
+                              else 
+                                 $codepay='';
+                              if (!empty($loc_obj->city))
+                                 $vi=removeHack($loc_obj->city);
+                              else
+                                 $vi='';
+                              if (!empty($loc_obj->lat))
+                                 $lat=(float)$loc_obj->lat;
+                              else
+                                 $lat='';
+                              if (!empty($loc_obj->lon))
+                                 $long=(float)$loc_obj->lon;
+                              else
+                                 $long='';
+                              sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                              sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                           }
+                        }
+                     }
+                  }
                }
             }
          }
@@ -1955,31 +1990,31 @@ function L_spambot($ip, $status) {
       $ip=getip();
    if (file_exists("slogs/spam.log")) {
       $tab_spam=str_replace("\r\n",'',file("slogs/spam.log"));
-      if (in_array($ip.':1',$tab_spam))
+      if (in_array($ip.'|1',$tab_spam))
          $cpt_sup=2;
-      if (in_array($ip.':2',$tab_spam))
+      if (in_array($ip.'|2',$tab_spam))
          $cpt_sup=3;
-      if (in_array($ip.':3',$tab_spam))
+      if (in_array($ip.'|3',$tab_spam))
          $cpt_sup=4;
-      if (in_array($ip.':4',$tab_spam))
+      if (in_array($ip.'|4',$tab_spam))
          $cpt_sup=5;
    }
    if ($cpt_sup) {
       if ($status=="false") {
-         $tab_spam[array_search($ip.':'.($cpt_sup-1),$tab_spam)]=$ip.':'.$cpt_sup;
+         $tab_spam[array_search($ip.'|'.($cpt_sup-1),$tab_spam)]=$ip.'|'.$cpt_sup;
       } else if ($status=="ban") {
-         $tab_spam[array_search($ip.':'.($cpt_sup-1),$tab_spam)]=$ip.':5';
+         $tab_spam[array_search($ip.'|'.($cpt_sup-1),$tab_spam)]=$ip.'|5';
       } else {
-         $tab_spam[array_search($ip.':'.($cpt_sup-1),$tab_spam)]='';
+         $tab_spam[array_search($ip.'|'.($cpt_sup-1),$tab_spam)]='';
       }
       $maj_fic=true;
    } else {
       if ($status=="false") {
-         $tab_spam[]=$ip.':1';
+         $tab_spam[]=$ip.'|1';
          $maj_fic=true;
       } else if ($status=='ban') {
-         if (!in_array($ip.':5',$tab_spam)) {
-            $tab_spam[]=$ip.':5';
+         if (!in_array($ip.'|5',$tab_spam)) {
+            $tab_spam[]=$ip.'|5';
             $maj_fic=true;
          }
       }
@@ -2937,7 +2972,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-3 align-middle"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
       $lst_blocnote = '
       <div id="lst_blocnote_'.$gr.'" class="mt-3 collapse">
-      '.blocnotes("shared", 'WS-BN'.$gr,'100%','7','',false).'
+      '.blocnotes("shared", 'WS-BN'.$gr,'','7','bg-dark text-light',false).'
       </div>';
       $content.='
       <hr />
