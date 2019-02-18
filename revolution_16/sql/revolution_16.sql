@@ -749,7 +749,7 @@ CREATE TABLE posts (
   poster_id int(10) DEFAULT NULL,
   post_text text,
   post_time varchar(20) DEFAULT NULL,
-  poster_ip varchar(16) DEFAULT NULL,
+  poster_ip varchar(54) DEFAULT NULL,
   poster_dns text,
   post_aff tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (post_id),
