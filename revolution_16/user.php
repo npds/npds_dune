@@ -871,8 +871,8 @@ function update_password ($code, $passwd) {
     }
 }
 
-function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue, $skin) {
-   $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax:$skin");
+function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuorder, $setthold, $setnoscore, $setublockon, $settheme, $setcommentmax, $user_langue) {
+   $info = base64_encode("$setuid:$setuname:".md5($setpass).":$setstorynum:$setumode:$setuorder:$setthold:$setnoscore:$setublockon:$settheme:$setcommentmax");
    global $user_cook_duration;
    if ($user_cook_duration<=0) $user_cook_duration=1;
    $timeX=time()+(3600*$user_cook_duration);
@@ -883,7 +883,7 @@ function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuor
 
 function login($uname, $pass) {
    global $NPDS_Prefix, $setinfo, $system;
-   settype($skin,'string');
+
    $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname = '$uname'");
    if (sql_num_rows($result)==1) {
       $setinfo = sql_fetch_assoc($result);
@@ -910,14 +910,14 @@ function login($uname, $pass) {
                return;
             }
          }
-         docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
+         docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
       } else {
           if (!$system)
              $passwd=crypt($pass,$dbpass);
           else
              $passwd=$pass;
           if (strcmp($dbpass,$passwd)==0)
-             docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue'],$skin);
+             docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
           else {
              Header("Location: user.php?stop=1");
              return;
@@ -1075,12 +1075,12 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
 }
 
 function edithome() {
-   global $user, $Default_Theme;
+   global $user, $Default_Theme, $Default_skin;
    include ("header.php");
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
    if ($userinfo['theme']=='') {
-      $userinfo['theme'] = "$Default_Theme";
+      $userinfo['theme'] = "$Default_Theme+$Default_skin";
    }
    echo '
    <h2 class="mb-3">'.translate("Change the home").'</h2>
@@ -1150,7 +1150,7 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
         $ublock = FixQuotes($ublock);
         sql_query("UPDATE ".$NPDS_Prefix."users SET storynum='$storynum', ublockon='$ublockon', ublock='$ublock' WHERE uid='$uid'");
         $userinfo=getusrinfo($user);
-        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '',$skin);
+        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '');
         // Include cache manager for purge cache Page
         $cache_obj = new cacheManager();
         $cache_obj->UsercacheCleanup();
@@ -1163,26 +1163,31 @@ function chgtheme() {
    global $user;
    include ("header.php");
    $userinfo=getusrinfo($user);
+   
+   // nouvel version de la gestion des Themes et Skins
+   $ibid=explode('+', $userinfo['theme']);
+   $theme=$ibid[0];
+   if (array_key_exists(1, $ibid)) $skin=$ibid[1]; else $skin="";
+    	
    nav($userinfo['mns']);
    echo '
    <h2>'.translate("Change Theme").'</h2>
    <form role="form" action="user.php" method="post">
       <div class="form-group row">
-         <label class="col-form-label col-sm-5" for="theme">'.translate("Select One Theme").'</label>
+         <label class="col-form-label col-sm-5" for="theme_local">'.translate("Select One Theme").'</label>
          <div class="col-sm-7">
-            <select class="custom-select form-control" id="theme" name="theme">';
+            <select class="custom-select form-control" id="theme_local" name="theme_local">';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
    $thl= sizeof($themelist);
    for ($i=0; $i < $thl; $i++) {
-      if ($themelist[$i]!='') {
+      if ($themelist[$i]!='') {	  
          echo '
                <option value="'.$themelist[$i].'" ';
-         if ((($userinfo['theme']=='') && ($themelist[$i]==$Default_Theme)) || ($userinfo['theme']==$themelist[$i])) echo 'selected="selected"';
+         if ((($theme=='') && ($themelist[$i]==$Default_Theme)) || ($theme==$themelist[$i])) echo 'selected="selected"';
          echo '>'.$themelist[$i].'</option>';
       }
    }
-   if ($userinfo['theme']=='') $userinfo['theme'] = 'Default_Theme';
    echo '
             </select>
             <p class="help-block">
@@ -1193,8 +1198,6 @@ function chgtheme() {
          </div>
       </div>';
 
-   $skinable = substr($userinfo['theme'], -3);//no need ?
-
    $handle=opendir('themes/_skins');
    while (false!==($file = readdir($handle))) {
       if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
@@ -1203,18 +1206,16 @@ function chgtheme() {
    }
    closedir($handle);
    asort($skins);
-   $cookie=cookiedecode($user);
       echo '
       <div class="form-group row" id="skin_choice">
-         <label class="col-form-label col-sm-5" for="skin">'.translate("Select one skin").'</label>
+         <label class="col-form-label col-sm-5" for="skins">'.translate("Select one skin").'</label>
          <div class="col-sm-7">
-            <select class="custom-select form-control" id="skin" name="skin">';
+            <select class="custom-select form-control" id="skins" name="skins">';
    foreach ($skins as $k => $v) {
-   //si le cookie est vide alors on select le default
       echo '
                <option value="'.$skins[$k]['name'].'" ';
-      if ($skins[$k]['name'] == $cookie[11]) echo 'selected="selected"';
-      else if($cookie[11]=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
+      if ($skins[$k]['name'] == $skin) echo 'selected="selected"';
+      else if($skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
       echo '>'.$skins[$k]['name'].'</option>';
    }
       echo '
@@ -1236,12 +1237,12 @@ function chgtheme() {
    <script type="text/javascript">
    //<![CDATA[
    $(function () {
-      $("#theme").change(function () {
-         sk = $("#theme option:selected").text().substr(-3);
+      $("#theme_local").change(function () {
+         sk = $("#theme_local option:selected").text().substr(-3);
          if(sk=="_sk") {
             $("#skin_choice").removeClass("collapse");
-            $("#skin").change(function () {
-               sl = $("#skin option:selected").text();
+            $("#skins").change(function () {
+               sl = $("#skins option:selected").text();
                $("#skin_thumbnail").html(\'<a href="themes/_skins/\'+sl+\'" class="btn btn-outline-primary"><img class="img-fluid img-thumbnail" src="themes/_skins/\'+sl+\'/thumbnail.png" /></a>\');
             }).change();
          } else {
@@ -1256,17 +1257,17 @@ function chgtheme() {
    include ("footer.php");
 }
 
-function savetheme($uid, $theme, $skin) {
+function savetheme($uid, $theme) {
    global $NPDS_Prefix, $user;
-   $skinable = substr($theme, -3);
-   if($skinable!=='_sk') $skin='';
+     
    $cookie=cookiedecode($user);
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($vuid) = sql_fetch_row($result);
+   
    if ($uid == $vuid) {
       sql_query("UPDATE ".$NPDS_Prefix."users SET theme='$theme' WHERE uid='$uid'");
       $userinfo=getusrinfo($user);
-      docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'],'',$skin);
+      docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$theme,$userinfo['commentmax'],'');
       // Include cache manager for purge cache Page
       $cache_obj = new cacheManager();
       $cache_obj->UsercacheCleanup();
@@ -1428,7 +1429,8 @@ switch ($op) {
          Header("Location: index.php");
    break;
    case 'savetheme':
-      savetheme($uid, $theme, $skin);
+      if (substr($theme,-3)!="_sk") $skin="";
+      savetheme($uid, $theme_local."+".$skins);
    break;
    case 'editjournal':
       if ($user)

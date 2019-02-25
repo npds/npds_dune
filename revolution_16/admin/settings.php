@@ -128,7 +128,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xstoryhome">'.adm_translate("Nombre d'articles en page principale").'</label>
             <div class="col-sm-8">
-               <input class="form-control js-dig4" id="xstoryhome".type="text" name="xstoryhome" value="'.$storyhome.'" min="1" maxlength="4" required="required" />
+               <input class="form-control js-dig4" id="xstoryhome" type="text" name="xstoryhome" value="'.$storyhome.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
          <div class="form-group row">
@@ -223,6 +223,52 @@ function Configure() {
                </select>
             </div>
          </div>
+		 
+         <div class="form-group row" id="skin_choice">
+            <label class="col-form-label col-sm-4" for="xDefault_Skin">'.adm_translate("Skin d'affichage par défaut").'</label>
+            <div class="col-sm-8">
+               <select class="custom-select form-control" id="xDefault_Skin" name="xDefault_Skin">';
+    
+	// les skins disponibles
+	$handle=opendir('themes/_skins');
+    while (false!==($file = readdir($handle))) {
+		if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
+			$skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $file.'/thumbnail','preview'=> $file.'/','css'=> $file.'/bootstrap.css','cssMin'=> $file.'/bootstrap.min.css','cssxtra'=> $file.'/extra.css','scss'=> $file.'/_bootswatch.scss','scssVariables'=> $file.'/_variables.scss');
+		}
+	}	
+	closedir($handle);
+    if (!isset($Default_Skin)) $Default_Skin="";
+	asort($skins);
+	foreach ($skins as $k => $v) {
+		echo '
+               <option value="'.$skins[$k]['name'].'" ';
+		if ($skins[$k]['name'] == $Default_Skin) echo 'selected="selected"';
+		else if($Default_Skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
+		echo '>'.$skins[$k]['name'].'</option>';
+	}
+	
+	echo '
+    <script type="text/javascript">
+    //<![CDATA[
+    $(function () {
+      $("#xDefault_Theme").change(function () {
+         sk = $("#xDefault_Theme option:selected").text().substr(-3);
+         if(sk=="_sk") {
+            $("#skin_choice").removeClass("collapse");
+         } else {
+            $("#skin_choice").addClass("collapse");
+         }
+      })
+     .change();
+    });
+    //]]
+    </script>';
+	
+    echo '
+               </select>
+            </div>
+         </div>
+		 
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
             <div class="col-sm-8">
@@ -1417,7 +1463,7 @@ switch ($op) {
    break;
    case 'ConfigSave':
       include("admin/settings_save.php");
-      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xsite_font,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb);
+      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xsite_font,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin);
    break;
 }
 ?>
