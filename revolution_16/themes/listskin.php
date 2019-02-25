@@ -11,14 +11,6 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-   if (isset($user)) {
-      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
-      if (isset($theme)) $cookie[9]=$theme;
-      $tmp_theme=$cookie[9];
-      if (!$file=@opendir("themes/$cookie[9]"))
-         $tmp_theme=$Default_Theme;
-   } else
-      $tmp_theme=$Default_Theme;
    $optskins=array('');
    $handle=opendir('../../../themes/_skins');
    while (false!==($file = readdir($handle))) {
@@ -36,22 +28,20 @@
    switch ($skinametitre) {
       case 'cyborg':
       case 'solar':
-      case 'superhero':
          $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
       break;
       case 'lumen':
+      case 'journal':
       case 'materia':
          $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
       break;
       case 'simplex':
       case 'litera':
       case 'spacelab':
-      case 'journal':
-      case 'lux':
          $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly minty pulse sandstone slate united yeti yeren default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
       break;
    }
 
@@ -63,7 +53,6 @@
       <title>NPDS <?php echo $skinametitre; ?> skin by Bootswatch</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <link rel="shortcut icon" href="../../../../images/favicon.ico" type="image/x-icon">
       <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="bootstrap.min.css" />
       <link rel="stylesheet" href="../assets/css/custom.min.css" />
@@ -86,24 +75,12 @@
    </head>
    <body>
       <nav class="<?php echo $headerclasses; ?>">
-         <a class="navbar-brand" href="index.php" data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt&lt/i&gt"><span>NPDS 16</span></a>
-         <button href="#" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barnav">
-            <span class="navbar-toggler-icon"></span>
-         </button>
-
-            <div class="collapse navbar-collapse" id="barnav">
-               <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse" id="barnav">
+            <ul class="nav navbar-nav">
                   <li class="navbar-divider"></li>
                   <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
                   <li class="navbar-divider"></li>
-                  <li class="nav-item dropdown">
-                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Th&egrave;mes</a>
-                     <ul class="dropdown-menu" role="menu">
-                        <li><a class="dropdown-item disabled" href="#">npds-boost_sk</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item disabled" href="#">Autres th&egrave;mes npds</a></li>
-                     </ul>
-                  </li>
+                  <li class="nav-item"><a class="nav-link" href="../../../../user.php?op=chgtheme"><i class="fa fa-sign-out fa-lg"></i></a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
@@ -112,8 +89,6 @@
                         <?php echo $optskins; ?>
                      </div>
                   </li>
-                  <li class="navbar-divider"></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Aide</a></li>
                   <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">T&eacute;l&eacute;chargement</a>
