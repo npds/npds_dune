@@ -1015,6 +1015,20 @@ function adm_translate($phrase) {
   case "Page(s)": $tmp="Page(s)"; break;
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="ERROR: Nickname taken"; break;
   case "ERREUR : DNS ou serveur de mail incorrect": $tmp="ERROR : wrong DNS or mail server"; break;
+  case "Contrôler les serveurs de mail de tous les utilisateurs": $tmp="Check the email servers of all users"; break;
+  case "Serveurs de mail incorrects": $tmp="Invalid mail server"; break;
+  case "Contrôle des serveurs de mails": $tmp="Control of mail servers"; break;
+  case "Serveurs de mails contrôlés": $tmp="Checked Mail servers"; break;
+  case "DNS ou serveur de mail incorrect": $tmp="Invalid DNS or mail server"; break;
+  case "Toutes les souscriptions de ces utilisateurs ont été suspendues.": $tmp="All subscriptions from these users have been suspended."; break;
+  case "Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.": $tmp="A private message has been sent to them without reply to this message within 60 days these users will no longer be able to connect to the site."; break;
+
+  case "Votre adresse Email est incorrecte.": $tmp="Your email address is incorrect."; break;
+  case "Tous vos abonnements vers cette adresse Email ont été suspendus.": $tmp="All your subscriptions to this email address have been suspended."; break;
+  case "Merci de fournir une nouvelle adresse Email valide.": $tmp="Please provide a new valid email address."; break;
+  case "Sans réponse de votre part sous 60 jours vous ne pourrez plus vous connecter en tant que membre sur ce site.": $tmp="Without response from you within 60 days you will not be able to log in as a member on this site."; break;
+  case "Puis votre compte pourra être supprimé.": $tmp="Then your account can be deleted."; break;
+  case "Contacter l'administration du site.": $tmp="Contact the site administration"; break;
 
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
