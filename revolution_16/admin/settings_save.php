@@ -565,7 +565,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"v.16.0.3-beta\";\n";
+    $content .= "\$Version_Num = \"v.16\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
     $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";
@@ -590,7 +590,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
     $content .= "# ===================================================\n";
     $content .= "#\n";
-    $content .= "# This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier\n";
+    $content .= "# This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier\n";
     $content .= "#\n";
     $content .= "# This module is to configure Footer of Email send By NPDS\n";
     $content .= "#\n";
