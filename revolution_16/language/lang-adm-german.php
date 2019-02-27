@@ -319,6 +319,7 @@ function adm_translate($phrase) {
   case "Autoriser la création de news pour": $tmp="Allow the post of News"; break;
   case "Ne pas enregistrer les 'hits' des auteurs dans les statistiques": $tmp="Don't record the Admin's hits in stats"; break;
   case "Thème d'affichage par défaut": $tmp="Default Theme for your Site"; break;
+  case "Skin d'affichage par défaut": $tmp="Default Skin for your Site"; break;
   case "Page de démarrage": $tmp="Start Page"; break;
   case "Sélectionner la langue du site": $tmp="Select the Language for your Site"; break;
   case "Heure locale": $tmp="Local Time Format"; break;
@@ -1014,13 +1015,6 @@ function adm_translate($phrase) {
   case "Page(s)": $tmp="Seite(n)"; break;
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="Fehler : Der Nickname ist schon vergeben"; break;
   case "ERREUR : DNS ou serveur de mail incorrect": $tmp="Fehler: DNS oder falscher Mailserver"; break;
-  case "Contrôler les serveurs de mail de tous les utilisateurs": $tmp="Überprüfen Sie die E-Mail-Server aller Benutzer"; break;
-  case "Serveurs de mail incorrects": $tmp="Ungültiger Mailserver"; break;
-  case "Contrôle des serveurs de mails": $tmp="Kontrolle der Mailserver"; break;
-  case "Serveurs de mails contrôlés": $tmp="Geprüfte Mail-Server"; break;
-  case "DNS ou serveur de mail incorrect": $tmp="Ungültiger DNS oder Mail-Server"; break;
-  case "Toutes les souscriptions de ces utilisateurs ont été suspendues.": $tmp="Alle Abonnements dieser Benutzer wurden ausgesetzt."; break;
-  case "Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.": $tmp="Eine private Nachricht wurde innerhalb von 60 Tagen ohne Antwort auf diese Nachricht an diese Benutzer gesendet. Diese Benutzer können sich nicht mehr mit der Site verbinden."; break;
 
   default: $tmp="Es gibt keine Übersetzung [** $phrase **]"; break;
   }

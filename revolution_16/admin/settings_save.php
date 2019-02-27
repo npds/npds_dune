@@ -168,7 +168,7 @@ function MetaTagSave($filename, $tags) {
    return false;
 }
 
-function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xsite_font,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb) {
+function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xsite_font,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin) {
 
     include ("config.php");
     if ($xparse==0) {
@@ -316,6 +316,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "# \$mod_admin_news  Allow only Moderator and Admin to Post News? (1=Yes 0=No)\n";
     $content .= "# \$not_admin_count Don't record Admin's Hits in stats (1=Yes=>don't rec 0=No=>rec)\n";
     $content .= "# \$Default_Theme:  Default Theme for your site (See /themes directory for the complete list, case sensitive!)\n";
+    $content .= "# \$Default_Skin:   Default Skin for Theme ... with skins (See /themes/_skins directory for the complete list, case sensitive!)\n";
     $content .= "# \$Start_Page:     Default Page for your site (default : index.php but you can use : topics.php, links.php ...)\n";
     $content .= "# \$foot(x):        Messages for all footer pages (Can include HTML code)\n";
     $content .= "# \$anonymous:      Anonymous users Default Name\n";
@@ -341,6 +342,8 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$mod_admin_news = $xmod_admin_news;\n";
     $content .= "\$not_admin_count = $xnot_admin_count;\n";
     $content .= "\$Default_Theme = \"$xDefault_Theme\";\n";
+	if (substr($xDefault_Theme,-3)!="_sk") {$xDefault_Skin="";}
+       $content .= "\$Default_Skin = \"$xDefault_Skin\";\n";
     $content .= "\$Start_Page = \"$xstart_page\";\n";
     $content .= "\$foot1 = \"$xfoot1\";\n";
     $content .= "\$foot2 = \"$xfoot2\";\n";
@@ -562,7 +565,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"v.16.0\";\n";
+    $content .= "\$Version_Num = \"v.16\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
     $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";

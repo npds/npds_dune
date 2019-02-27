@@ -319,6 +319,7 @@ function adm_translate($phrase) {
   case "Autoriser la création de news pour": $tmp="Autorizar la creacion de noticias para"; break;
   case "Ne pas enregistrer les 'hits' des auteurs dans les statistiques ?": $tmp="NO registrar las visitas de los administradores en la página STATS"; break;
   case "Thème d'affichage par défaut": $tmp="Tema grafico por defecto :"; break;
+  case "Skin d'affichage par défaut": $tmp="Skin grafico por defecto :"; break;
   case "Page de démarrage": $tmp="Página de inicio"; break;
   case "Sélectionner la langue du site": $tmp="Seleccione el idioma para su sitio:"; break;
   case "Heure locale": $tmp="Formato de la hora local:"; break;
@@ -1014,13 +1015,6 @@ function adm_translate($phrase) {
   case "Page(s)": $tmp="página(s)";
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="Error : Esta identificación ya esta en uso"; break;
   case "ERREUR : DNS ou serveur de mail incorrect": $tmp="Error: DNS o servidor de correo incorrecto"; break;
-  case "Contrôler les serveurs de mail de tous les utilisateurs": $tmp="Controla los servidores de email de todos los usuarios."; break;
-  case "Serveurs de mail incorrects": $tmp="Servidor de correo no válido"; break;
-  case "Contrôle des serveurs de mails": $tmp="Control de servidores de correo."; break;
-  case "Serveurs de mails contrôlés": $tmp="Los servidores de correo controladas"; break;
-  case "DNS ou serveur de mail incorrect": $tmp="DNS o servidor de correo no válido"; break;
-  case "Toutes les souscriptions de ces utilisateurs ont été suspendues.": $tmp="Todas las suscripciones de estos usuarios han sido suspendidas."; break;
-  case "Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.": $tmp="Se les ha enviado un mensaje privado sin responder a este mensaje dentro de los 60 días que estos usuarios ya no podrán conectarse al sitio."; break;
 
   default: $tmp="Necesita una traducción [** $phrase **]"; break;
  }

@@ -10,11 +10,8 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-$time_end = microtime(true);
-$time = round($time_end - TIMESTART,3);
-
 //==> core required dont remove
-echo '
+   echo '
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js" async="async"></script>
@@ -54,9 +51,16 @@ if(!defined('GEO')) {
    }
 }
 // <== geoloc module
-if(isset($time_end))
-   echo '
-      <span class="small" id="build_time">'.aff_langue('[french]Temps :[/french][english]Time:[/english][german]Zeit in Sekunden[/german][spanish]Tiempo en segundos :[/spanish][chinese]&#x5728;&#x51E0;&#x79D2;&#x949F;&#x7684;&#x65F6;&#x95F4; :[/chinese] '.$time.' [french]seconde(s)[/french][english]second(s)[/english]').'</span>';
+
+// If you want to show the Time used to generate each page
+    /*
+	$time_end = microtime(true);
+    $time = round($time_end - TIMESTART,3);
+    echo '
+		<span class="small" id="build_time">'.aff_langue('[french]Temps :[/french][english]Time:[/english][german]Zeit in Sekunden[/german][spanish]Tiempo en segundos :[/spanish][chinese]&#x5728;&#x51E0;&#x79D2;&#x949F;&#x7684;&#x65F6;&#x95F4; :[/chinese] '.$time.' [french]seconde(s)[/french][english]second(s)[/english]').'</span>';
+	*/
+//
+
 echo '
    </footer>
 </div>
