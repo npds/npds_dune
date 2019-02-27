@@ -9,14 +9,6 @@
    <body>
       <div class="container">
          <h4>Paramètres système</h4>
-         <p>L'utilisation de ce module nécessite une clef d'api que vous devez vous procurer ici. (Et cette obtention de clef nécessite un compte goggle.)<br />
-         
-         <a href="https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr" target="_blank">https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr</a>
-         
-         (cette clef permettra l'affichage de 25000 carte par 24 heures)
-         <br />
-         <span class="text-danger">Le module est livré avec une clef générique que vous devez donc remplacer !..</span>
-         </p>
          
          <h5>Champ de table pour latitude et longitude</h5>
          <p>
@@ -24,19 +16,34 @@
          <h5>Géolocalisation des IP</h5>
          <p>
          Cette option permet d'activer ou de désactiver :
-          - le stockage dans la base de donnée des IP des visiteurs,leur géolocalisation le nombre de visite et leur position de visite sur le site 
+          - le stockage dans la base de donnée des IP des visiteurs,leur géolocalisation le nombre de visites et leur position de visite sur le site 
           - l'affichage de ces données dans l'interface
           cette option peut ralentir un peu le site et stocker au fil du temps beaucoup de donnée dans la base. Vous pouvez à tout moment vider la base.
           </p>
          <h4>Interface carte</h4>
+         
+         <p>L'utilisation de ce module peut nécessiter des clef d'api que vous devez vous procurer ici. (Et cette obtention de clef nécessite un compte goggle.)<br />
+         
+         <a href="https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr" target="_blank">https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr</a>
+         
+         <br />
+         <span class="text-danger">Le module est livré avec une clef générique que vous devez donc remplacer !..</span>
+         </p>
+         
+         
          <h5>Type de carte</h5>
-         <p>Vous pouvez définir ici le type d'affichage de la carte par défaut, parmi les 4 principaux types fournis par goggle</p>
-            <ul>
-               <li>ROADMAP : carte routière</li>
-               <li>SATELLITE : vue satellite</li>
-               <li>HYBRID : vue satellite + carte routière</li>
-               <li>TERRAIN : relief</li>
-            </ul>
+         <p>Vous pouvez définir ici le type d'affichage de la carte par défaut, en fonction des fournisseurs à votre disposition</p>
+         <ul>
+            <li>Plan (OpenStreetMap)</li>
+            <li>Plan" (Google)</li>
+            <li>Satellite et label (Google)</li>
+            <li>Satellite (Google)</li>
+            <li>Relief (Google)</li>
+            <li>Plan (Bing maps)</li>
+            <li>Satellite (Bing maps)</li>
+            <li>Satellite et label (Bing maps)</li>
+         </ul>
+
          <h5>Unité des coordonnées</h5>
          
          <p>Permet de définir l'affichage par défaut des coordonées</p>

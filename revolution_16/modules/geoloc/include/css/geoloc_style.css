@@ -1,10 +1,10 @@
 @charset"utf-8";
-/*==> module geoloc V3 2017 */
+/*==> module geoloc V4 2019 */
 /*==> general*/
 
 #map {
     position: relative;
-    height: 500px;
+    height: 540px;
 }
 #map_bloc {
      width: 100%;
@@ -12,7 +12,7 @@
 }
 #map-wrapper {
      position: relative;
-     height: 500px;
+     height: 540px;
      width: 100%;
 }
 
@@ -28,33 +28,17 @@
      filter : alpha(opacity=80);
      -moz-opacity : 0.8;
      opacity : 0.8;
+/* 
      background: white;
+ */
      position: absolute;
      top: 0;
      right: 0;
-/* 
-     width: 210px;
- */
-     height: 486px;
+     min-width: 300px;
+     height: 500px;
      overflow: auto;
 }
 
-
-/* 
-body.sidebar-right #map-wrapper { margin-right: 140px; }
-body.sidebar-right #sidebar { right: 0; }
-
-body.nosidebar #map-wrapper { margin: 0; }
-body.nosidebar #sidebar { display: none; }
-
-body.sidebar-right a#button-sidebar-show,
-body.nosidebar a#button-sidebar-hide { display: none; }
-
-cartinf #btn-infcar-hide{ display: none; }
-
-nocartinf a#btn-infcar-hide{ display: none; }
-
- */
 #alert {
      position: absolute;
      top: 50%;
@@ -96,7 +80,59 @@ display: block;
   text-transform :lowercase;
   text-transform : capitalize;
 }
-
+/* openlayers hack */
+.ol-full-screen {
+   top : 29em;
+   left : .5em;
+   right: 99.5em
+}
+      .ol-popup {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 320px;
+        opacity: 0.9;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
+      .ol_li {
+         max-height: 280px;
+         overflow:auto;
+      }
 
 /*<== module geoloc */
 

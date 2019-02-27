@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 3.0                                            */
+/* module geoloc version 4.0                                            */
 /* geoloc.lang-chinese.php file 2008-2019 by Jean Pierre Barbary (jpb)  */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
@@ -55,9 +55,6 @@ function geoloc_translate($phrase) {
       case "Les adresses IP sont enregistrées.": $tmp="您的IP地址已被登记"; break;
       case "Chargement en cours...Ou serveurs Google HS...Ou erreur...": $tmp="现在载入中...或Google服务器正在关闭...或错误..."; break;
       case "Hôte : ": $tmp="Host:"; break;
-      case "Javascript doit être activé pour utiliser les API de Google Maps.": $tmp="JavaScript must be enabled in order for you to use Google Maps API."; break;
-      case "Il semble qu'il soit désactivé ou que votre navigateur ne soit pas compatible.": $tmp="However, it seems JavaScript is either disabled or not supported by your browser."; break;
-      case "Activez Javascript en modifiant les options de votre navigateur et réessayez.": $tmp="To view Google Maps, enable JavaScript by changing your browser options, and then try again."; break;
       case "Zoom :": $tmp="Zoom:"; break;
       case "Zoom avant": $tmp="放大地图"; break;
       case "Zoom arrière": $tmp="Zoom out"; break;

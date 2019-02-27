@@ -25,9 +25,8 @@ function message_error($ibid,$op) {
          <input type="hidden" name="op" value="only_newuser" />
          <button class="btn btn-secondary mt-2" type="submit">'.translate("Go Back").'</button>
       </form>';
-   } else {
+   } else
       echo '<a class="btn btn-secondary mt-4" href="javascript:history.go(-1)" title="'.translate("Go Back").'">'.translate("Go Back").'</a>';
-   }
    echo '
    </div>';
    include("footer.php");
@@ -437,91 +436,115 @@ function userinfo($uname) {
    include("modules/sform/extend-user/aff_extend-user.php");
    echo '
          </div>';
+
+   //==> openlayers implementation
    if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
       if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
-         define('GEO_US', true);
          $content = '';
          $content .='
          <div class="col-md-6">
-            <div id="map_user" style="width:100%; height:400px;"></div>';
+            <div id="map_user" style="width:100%; height:400px;"><div id="ol_popup"></div></div>';
          $content .='
-            <script type="text/javascript">
+            <script type="module">
             //<![CDATA[
-               var 
-               map_u, map_b,
-               mapdivu = document.getElementById("map_user"),
-               mapdivbl = document.getElementById("map_bloc");
+               $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
 
-               function geoloc_init() {
-                  var 
-                  icon_u = {
-                     path: fontawesome.markers.USER,
-                     scale: '.$acg_sc.',
-                     strokeWeight: '.$acg_t_ep.',
-                     strokeColor: "'.$acg_t_co.'",
-                     strokeOpacity: '.$acg_t_op.',
-                     fillColor: "'.$acg_f_co.'",
-                     fillOpacity: '.$acg_f_op.'
-                  },
-                  icon_bl = {
-                     url: "'.$ch_img.$img_mbgb.'",
-                     size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-                     origin: new google.maps.Point(0, 0),
-                     anchor: new google.maps.Point(0, 0),
-                     scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-                  };
+               var iconFeature = new ol.Feature({
+                  geometry: new ol.geom.Point(
+                  ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].','.$posterdata_extend[$ch_lat].'])
+                  ),
+                  name: "'.$uname.'"
+               });
 
-                  //==> carte du bloc
-                  if (document.getElementById("map_bloc")) {
-                     map_b = new google.maps.Map(mapdivbl,{
-                        center: new google.maps.LatLng(45, 0),
-                        zoom :3,
-                        zoomControl:false,
-                        streetViewControl:false,
-                        mapTypeControl: false,
-                        disableDoubleClickZoom: true 
-                     });
-                     map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-                     function createMarkerB(point_b) {
-                        var marker_b = new google.maps.Marker({
-                           position: point_b,
-                           map: map_b,
-                           icon: icon_bl
-                        })
-                        return marker_b;
-                    }
-                       //== Fonction qui traite le fichier JSON ==
-                     $.getJSON("modules/geoloc/include/data.json", {}, function(data){
-                        $.each(data.markers, function(i, item){
-                           var point_b = new google.maps.LatLng(item.lat,item.lng);
-                           var marker_b = createMarkerB(point_b);
-                        });
-                     });
-                  };
-                  //<== carte du bloc
+               var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(({
+                  src: "'.$ch_img.$nm_img_mbcg.'"
+                  }))
+               });
+               iconFeature.setStyle(iconStyle);
+               var vectorSource = new ol.source.Vector({
+                  features: [iconFeature]
+               });
+               var vectorLayer = new ol.layer.Vector({
+                  source: vectorSource
+               });
 
-                  map_u = new google.maps.Map(mapdivu,{
-                     center: new google.maps.LatLng('.$posterdata_extend[$ch_lat].', '.$posterdata_extend[$ch_lon].'),
-                     zoom :7,
-                     zoomControl:true,
-                     streetViewControl:true,
-                     mapTypeControl: true,
-                     scrollwheel: false,
-                     disableDoubleClickZoom: true 
-                  });
-                  map_u.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-                  function createMarkerU(point_u) {
-                     var marker_u = new google.maps.Marker({
-                        position: point_u,
-                        map: map_u,
-                        title: "'.$uname.'",
-                        icon: icon_u
-                     })
-                     return marker_u;
-                  }
-                  var point_u = new google.maps.LatLng('.$posterdata_extend[$ch_lat].','.$posterdata_extend[$ch_lon].');
-                  var marker_u = createMarkerU(point_u);
-               }
+               var map = new ol.Map({
+                 target: "map_user",
+                 layers: [
+                   new ol.layer.Tile({
+                     source: new ol.source.OSM()
+                   })
+                 ],
+                 view: new ol.View({
+                   center: ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].', '.$posterdata_extend[$ch_lat].']),
+                   zoom: 12
+                 })
+               });
+               
+               //Adding a marker on the map
+/*
+               var marker = new ol.Feature({
+                 geometry: new ol.geom.Point(
+                   ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].','.$posterdata_extend[$ch_lat].'])
+                 ),  
+               });
+               var vectorSource = new ol.source.Vector({
+                 features: [marker]
+               });
+               var markerVectorLayer = new ol.layer.Vector({
+                 source: vectorSource,
+               });
+               map.addLayer(markerVectorLayer);
+*/
+
+               map.addLayer(vectorLayer);
+
+
+      var element = document.getElementById("ol_popup");
+      var popup = new ol.Overlay({
+        element: element,
+        positioning: "bottom-center",
+        stopEvent: false,
+        offset: [0, -20]
+      });
+      map.addOverlay(popup);
+
+ // display popup on click
+      map.on("click", function(evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel,
+          function(feature) {
+            return feature;
+          });
+        if (feature) {
+          var coordinates = feature.getGeometry().getCoordinates();
+          popup.setPosition(coordinates);
+          $(element).popover({
+            placement: "top",
+            html: true,
+            content: feature.get("name")
+          });
+          $(element).popover("show");
+        } else {
+          $(element).popover("hide");
+        }
+      });
+      // change mouse cursor when over marker
+      map.on("pointermove", function(e) {
+        if (e.dragging) {
+          $(element).popover("hide");
+          return;
+        }
+        var pixel = map.getEventPixel(e.originalEvent);
+/*
+        var hit = map.hasFeatureAtPixel(pixel);
+        map.getTarget().style.cursor = hit ? \'pointer\' : \'\';
+*/
+      });
+               // Create the graticule component
+                  var graticule = new ol.Graticule();
+                  graticule.setMap(map);
+
             //]]>
             </script>';
          $content .='
@@ -536,6 +559,7 @@ function userinfo($uname) {
          $content = aff_langue($content);
          echo $content;
    }
+   //<== openlayers implementation
 
    echo '
       </div>
@@ -1168,7 +1192,7 @@ function chgtheme() {
    $ibid=explode('+', $userinfo['theme']);
    $theme=$ibid[0];
    if (array_key_exists(1, $ibid)) $skin=$ibid[1]; else $skin="";
-    	
+
    nav($userinfo['mns']);
    echo '
    <h2>'.translate("Change Theme").'</h2>

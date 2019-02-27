@@ -11,57 +11,80 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 3.0                                            */
-/* geoloc_bloc.php file 2008-2019 by Jean Pierre Barbary (jpb)          */
-/* dev team : Philippe Revilliod (phr)                                  */
+/* module geoloc version 4.0                                            */
+/* geoloc_o_bloc.php file 2008-2019 by Jean Pierre Barbary (jpb)        */
 /************************************************************************/
 
-if(autorisation_block('include#modules/geoloc/geoloc_bloc.php') !='') define('GEO_BL',true);
+//if(autorisation_block('include#modules/geoloc/geoloc_bloc.php') !='') define('GEO_BL',true);
 
 $ModPath='geoloc';
 $content = '';
-include ('modules/'.$ModPath.'/geoloc_conf.php'); 
+include('modules/'.$ModPath.'/geoloc_conf.php');
+$source_fond='';
+switch ($cartyp_b) {
+   case 'OSM':
+      $source_fond='new ol.source.OSM()';
+   break;
+      case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
+         $source_fond='';
+      break;
+      case 'Road':case 'Aerial':case 'AerialWithLabels':
+         $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp_b.'"})';
+      break;
+      case 'mapbox':
+         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.natural-earth-hypso-bathy.json?secure",crossOrigin: "anonymous"})';
+      break;
+      case 'terrain':case 'toner':case 'watercolor':
+         $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
+      break;
+   default:
+   $source_fond='new ol.source.OSM()';
+}
+ 
 $content .='
-<div class="mb-2" id="map_bloc" style="width:100%; height:'.$h_b.'px;"></div>
+<div  class="mb-2" id="map_bloc_ol" style="width:100%; min-height:'.$h_b.'px;"></div>
 <script type="text/javascript">
 //<![CDATA[
-   var 
-   map_b,
-   mapdivbl = document.getElementById("map_bloc");
-   function geoloc_loadbloc() {
-      var icon_bl = {
-         url: "'.$ch_img.$img_mbgb.'",
-         size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(0, 0),
-         scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-      };
-      map_b = new google.maps.Map(mapdivbl,{
-         center: new google.maps.LatLng(45, 0),
-         zoom :3,
-         zoomControl:false,
-         streetViewControl:false,
-         mapTypeControl: false,
-         scrollwheel: false,
-         disableDoubleClickZoom: true 
-      });
-      map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-      function createMarkerB(point_b) {
-         var marker_b = new google.maps.Marker({
-            position: point_b,
-            map: map_b,
-            icon: icon_bl
+      $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+
+      var georefUser_icon = new ol.style.Style({
+         image: new ol.style.Icon({
+            src: "'.$ch_img.$img_mbgb.'",
+            imgSize:['.$w_ico_b.','.$h_ico_b.']
          })
-         return marker_b;
-      }
-      //== Fonction qui traite le fichier JSON ==
-      $.getJSON("modules/'.$ModPath.'/include/data.json", {}, function(data){
-         $.each(data.markers, function(i, item){
-            var point_b = new google.maps.LatLng(item.lat,item.lng);
-            var marker_b = createMarkerB(point_b);
-         });
       });
-    }
+
+      var georeferencedUsers = new ol.layer.Vector({
+         source: new ol.source.Vector({
+            url: "modules/geoloc/include/user.geojson",
+            format: new ol.format.GeoJSON()
+         }),
+         style: georefUser_icon
+      });
+      var attribution = new ol.control.Attribution({collapsible: false});
+      var map = new ol.Map({
+         controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
+         target: "map_bloc_ol",
+         layers: [
+         new ol.layer.Tile({
+            source: '.$source_fond.'
+          }),
+          georeferencedUsers
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([0, 45]),
+          zoom: '.$z_b.'
+        })
+      });
+
+      function checkSize() {
+        var small = map.getSize()[0] < 600;
+        attribution.setCollapsible(small);
+        attribution.setCollapsed(small);
+      }
+      window.addEventListener("resize", checkSize);
+      checkSize();
 //]]>
 </script>';
 

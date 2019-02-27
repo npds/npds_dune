@@ -11,9 +11,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 3.0                                            */
-/* geoloc_geoloc_loc.php file 2008-2019 by Jean Pierre Barbary (jpb)    */
-/* dev team : Philippe Revilliod (phr)                                  */
+/* module geoloc version 4.0                                            */
+/* geoloc_o_locip.php file 2008-2019 by Jean Pierre Barbary (jpb)       */
 /************************************************************************/
 
 #autodoc localiser_ip() : construit la carte pour l'ip géoréférencée ($iptoshow) à localiser
@@ -24,121 +23,68 @@ function localiser_ip($iptoshow) {
    if($geo_ip==1) {
       $ip_location = sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"".$iptoshow."\"");
       if (sql_num_rows($ip_location) !== 0) {
-         define('GEO_IP',true);
          $row = sql_fetch_assoc($ip_location);
          $aff_location .= '
       <div class="col-md-5">
-         <div id="map_ip" style="width:100%; height:240px;"></div>
+         <div id="map_ip" style="width:100%; min-height:240px;"></div>
       </div>
-
-      <script type="text/javascript">
+      <script type="module">
       //<![CDATA[
-         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
-         var 
-         map_ip, map_b,
-         mapdivip = document.getElementById("map_ip"),
-         mapdivbl = document.getElementById("map_bloc");
+         $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
+         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
 
-         function geoloc_init() {
-            var
-            icon_ip = {
-               url: "'.$ch_img.'ip_loc.svg",
-               size: new google.maps.Size(200, 200),
-               scaledSize: new google.maps.Size(200, 200),
-               anchor: new google.maps.Point(100,100),
-               origin: new google.maps.Point(0,0)
-            },
-            icon_bl = {
-               url: "'.$ch_img.$img_mbgb.'",
-               size: new google.maps.Size('.$w_ico_b.','.$h_ico_b.'),
-               origin: new google.maps.Point(0, 0),
-               anchor: new google.maps.Point(0, 0),
-               scaledSize: new google.maps.Size('.$w_ico_b.', '.$h_ico_b.')
-            },
-            icon_u = {
-               path: fontawesome.markers.DESKTOP,
-               scale: '.$acg_sc.',
-               strokeWeight: '.$acg_t_ep.',
-               strokeColor: "'.$acg_t_co.'",
-               strokeOpacity: '.$acg_t_op.',
-               fillColor: "red",
-               fillOpacity: '.$acg_f_op.',
-            };
 
-            //==> carte du bloc
-            if (document.getElementById("map_bloc")) {
-               map_b = new google.maps.Map(mapdivbl,{
-                  center: new google.maps.LatLng(45, 0),
-                  zoom :3,
-                  zoomControl:false,
-                  streetViewControl:false,
-                  mapTypeControl: false,
-                  disableDoubleClickZoom: true 
-               });
-               map_b.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-               function createMarkerB(point_b) {
-                  var marker_b = new google.maps.Marker({
-                     position: point_b,
-                     map: map_b,
-                     icon: icon_bl
-                  })
-                  return marker_b;
-               }
-               //== Fonction qui traite le fichier JSON ==
-               $.getJSON("modules/geoloc/include/data.json", {}, function(data){
-                  $.each(data.markers, function(i, item){
-                     var point_b = new google.maps.LatLng(item.lat,item.lng);
-                     var marker_b = createMarkerB(point_b);
-                  });
-               });
-            };
-            //<== carte du bloc
+      // Pour svg
+      function pointStyleFunction(feature, resolution) {
+        return  new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 30,
+            fill: new ol.style.Fill({color: "rgba(255, 0, 0, 0.1)"}),
+            stroke: new ol.style.Stroke({color: "red", width: 1})
+          })
+        });
+      }
 
-            map_ip = new google.maps.Map(mapdivip,{
-               center: new google.maps.LatLng('.$row['ip_lat'].', '.$row['ip_long'].'),
-               zoom :7,
-               zoomControl:true,
-               streetViewControl:true,
-               mapTypeControl: true,
-               scrollwheel: false,
-               disableDoubleClickZoom: true 
-            });
-            map_ip.setMapTypeId(google.maps.MapTypeId.'.$cartyp_b.');
-            function createMarkerU(point_u) {
-               var marker_u = new google.maps.Marker({
-                  position: point_u,
-                  map: map_ip,
-                  title: "'.$iptoshow.'",
-                  icon: icon_ip,
-                  optimized: false
-               })
-               return marker_u;
-            }
-            var point_u = new google.maps.LatLng('.$row['ip_lat'].','.$row['ip_long'].');
-            var marker_u = createMarkerU(point_u);
-            var myoverlay = new google.maps.OverlayView();
-            myoverlay.draw = function () {
-               this.getPanes().markerLayer.id="markerLayer";
-            };
-            myoverlay.setMap(map_ip);
-         }
+      var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].'])),
+        name: "IP"
+      });
+       var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(({
+          src: "'.$ch_img.'ip_loc.svg",
+          size:[100,100]
+        }))
+      });
+
+      var vectorSource = new ol.source.Vector({
+        features: [iconFeature]
+      });
+      var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: pointStyleFunction
+      });
+      
+      var Controls = new ol.control.defaults;
+
+      var map = new ol.Map({
+         controls: Controls.extend([
+            new ol.control.FullScreen()
+         ]),
+        target: "map_ip",
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+          vectorLayer
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].']),
+          zoom: 12
+        })
+      });
+
       //]]>
       </script>';
-      }
-      else {
-         $file_path = 'https://ipapi.co/'.$iptoshow.'/json';
-         if(file_contents_exist($file_path)) {
-            $loc = file_get_contents($file_path);
-            $loc_obj = json_decode($loc);
-            if($loc_obj) {
-               $pay=removeHack($loc_obj->country_name);
-               $codepay=removeHack($loc_obj->country);
-               $vi=removeHack($loc_obj->city);
-               $lat=(float)$loc_obj->latitude;
-               $long=(float)$loc_obj->longitude;
-               sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$iptoshow', '$pay', '$codepay', '$vi')");
-            }
-         }
       }
    }
    return $aff_location;
