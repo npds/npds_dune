@@ -219,35 +219,33 @@ function Configure() {
              echo '>'.$themelist[$i].'</option>';
       }
    }
-    echo '
+   echo '
                </select>
             </div>
          </div>
-		 
          <div class="form-group row" id="skin_choice">
             <label class="col-form-label col-sm-4" for="xDefault_Skin">'.adm_translate("Skin d'affichage par défaut").'</label>
             <div class="col-sm-8">
                <select class="custom-select form-control" id="xDefault_Skin" name="xDefault_Skin">';
-    
-	// les skins disponibles
-	$handle=opendir('themes/_skins');
-    while (false!==($file = readdir($handle))) {
-		if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
-			$skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $file.'/thumbnail','preview'=> $file.'/','css'=> $file.'/bootstrap.css','cssMin'=> $file.'/bootstrap.min.css','cssxtra'=> $file.'/extra.css','scss'=> $file.'/_bootswatch.scss','scssVariables'=> $file.'/_variables.scss');
-		}
-	}	
-	closedir($handle);
-    if (!isset($Default_Skin)) $Default_Skin="";
-	asort($skins);
-	foreach ($skins as $k => $v) {
-		echo '
-               <option value="'.$skins[$k]['name'].'" ';
-		if ($skins[$k]['name'] == $Default_Skin) echo 'selected="selected"';
-		else if($Default_Skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
-		echo '>'.$skins[$k]['name'].'</option>';
-	}
-	
-	echo '
+      // les skins disponibles
+      $handle=opendir('themes/_skins');
+       while (false!==($file = readdir($handle))) {
+         if ( ($file[0]!=='_') and (!strstr($file,'.')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
+            $skins[] = array('name'=> $file, 'description'=> '', 'thumbnail'=> $file.'/thumbnail','preview'=> $file.'/','css'=> $file.'/bootstrap.css','cssMin'=> $file.'/bootstrap.min.css','cssxtra'=> $file.'/extra.css','scss'=> $file.'/_bootswatch.scss','scssVariables'=> $file.'/_variables.scss');
+         }
+      }
+      closedir($handle);
+       if (!isset($Default_Skin)) $Default_Skin="";
+      asort($skins);
+      foreach ($skins as $k => $v) {
+         echo '
+                  <option value="'.$skins[$k]['name'].'" ';
+         if ($skins[$k]['name'] == $Default_Skin) echo 'selected="selected"';
+         else if($Default_Skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
+         echo '>'.$skins[$k]['name'].'</option>';
+      }
+   
+      echo '
     <script type="text/javascript">
     //<![CDATA[
     $(function () {
@@ -263,12 +261,11 @@ function Configure() {
     });
     //]]
     </script>';
-	
+
     echo '
                </select>
             </div>
          </div>
-		 
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
             <div class="col-sm-8">

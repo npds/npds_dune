@@ -100,7 +100,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       include "modules/include/header_head.inc";
       $hH = ob_get_contents();
       ob_end_clean();
-	  
+
       if ($skin!='') {
          $hH=str_replace ('lib/bootstrap/dist/css/bootstrap.min.css','themes/_skins/'.$skin.'/bootstrap.min.css',$hH);
          $hH=str_replace ('lib/bootstrap/dist/css/extra.css','themes/_skins/'.$skin.'/extra.css',$hH);
@@ -162,8 +162,8 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;  
    } else {
       $theme=$Default_Theme;
-	  $skin=$Default_Skin;
-	  $tmp_theme=$theme;
+      $skin=$Default_Skin;
+      $tmp_theme=$theme;
    }
    
    // LOAD pages.php and Go ...
