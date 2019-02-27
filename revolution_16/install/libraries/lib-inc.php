@@ -98,10 +98,10 @@ function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $
    $file[33] ="\$mysql_p = \"$new_mysql_p\";\n";
    $file[36] ="\$system = $new_system;\n";
    $file[37] ="\$system_md5 = $new_system_md5;\n";
-   $file[212]="\$adminmail = \"$new_adminmail\";\n";
-   $file[317]="\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
+   $file[214]="\$adminmail = \"$new_adminmail\";\n";
+   $file[319]="\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
    $NPDS_Key=uniqid("");
-   $file[318]="\$NPDS_Key = \"$NPDS_Key\";\n";
+   $file[320]="\$NPDS_Key = \"$NPDS_Key\";\n";
 
    $fic = fopen("config.php", "w");
       while(list($n,$ligne) = each($file)) {
@@ -125,12 +125,12 @@ function write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slo
    $new_nuke_url = FixQuotes($new_nuke_url);
 
    $file = file("config.php");
-   $file[89] ="\$sitename = \"$new_sitename\";\n";
-   $file[90] ="\$Titlesitename = \"$new_Titlesitename\";\n";
-   $file[91] ="\$nuke_url = \"$new_nuke_url\";\n";
-   $file[93] ="\$slogan = \"$new_slogan\";\n";
-   $file[94] ="\$startdate = \"$new_startdate\";\n";
-   $file[100] ="\$Default_Theme = \"$new_Default_Theme\";\n";
+   $file[90] ="\$sitename = \"$new_sitename\";\n";
+   $file[91] ="\$Titlesitename = \"$new_Titlesitename\";\n";
+   $file[92] ="\$nuke_url = \"$new_nuke_url\";\n";
+   $file[94] ="\$slogan = \"$new_slogan\";\n";
+   $file[95] ="\$startdate = \"$new_startdate\";\n";
+   $file[101] ="\$Default_Theme = \"$new_Default_Theme\";\n";
 
    $fic = fopen("config.php", "w");
       while(list($n,$ligne) = each($file)) {

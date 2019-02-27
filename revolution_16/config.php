@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier
 #
 # This module is to configure the main options for your site
 #
@@ -75,6 +75,7 @@ $system_md5 = 1;
 # $mod_admin_news  Allow only Moderator and Admin to Post News? (1=Yes 0=No)
 # $not_admin_count Don't record Admin's Hits in stats (1=Yes=>don't rec 0=No=>rec)
 # $Default_Theme:  Default Theme for your site (See /themes directory for the complete list, case sensitive!)
+# $Default_Skin:   Default Skin for Theme ... with skins (See /themes/_skins directory for the complete list, case sensitive!)
 # $Start_Page:     Default Page for your site (default : index.php but you can use : topics.php, links.php ...)
 # $foot(x):        Messages for all footer pages (Can include HTML code)
 # $anonymous:      Anonymous users Default Name
@@ -99,6 +100,7 @@ $moderate = 1;
 $mod_admin_news = 0;
 $not_admin_count = 1;
 $Default_Theme = "npds-boost_sk";
+$Default_Skin = "default";
 $Start_Page = "index.php?op=edito";
 $foot1 = "<a href=\"admin.php\" ><i class=\"fa fa-cogs fa-2x mr-3 align-middle\" title=\"Admin\" data-toggle=\"tooltip\"></i></a>
  <a href=\"https://www.mozilla.org/fr/\" target=\"_blank\"><i class=\"fa fa-firefox fa-2x  mr-1 align-middle\"  title=\"get Firefox\" data-toggle=\"tooltip\"></i></a>
@@ -172,7 +174,7 @@ $npds_fcb = 0;
 $language = "french";
 $multi_langue = false;
 $locale = "fr_FR.UTF8";
-$gmt = "";
+$gmt = "0";
 $lever = "08:00";
 $coucher = "20:00";
 
@@ -270,7 +272,7 @@ $httprefmax = 1000;
 # $AutoRegUser:      Allow automated new-user creation (sending email and allowed connection)
 # $short_review:     For transform reviews like "gold book" (1=Yes, 0=no)
 # $subscribe:        Allow your members to subscribe to topics, ... (1=Yes, 0=no)
-# $member_invisible: Allow users to hide from other users, ... (1=Yes, 0=no)
+# $member_invisible: Allow members to hide from other members, ... (1=Yes, 0=no)
 # $CloseRegUser:     Allow you to close New Member Registration (from Gawax Idea), ... (1=Yes, 0=no)
 # $memberpass:       Allow user to choose alone the password (1=Yes, 0=no)
 ######################################################################
