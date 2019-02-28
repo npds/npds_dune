@@ -12,11 +12,11 @@
 
 function ipban_translate($phrase) {
    switch ($phrase) {
-      case "Administration de l'IpBan": $tmp = "IpBan Administration"; break;
-      case "Liste des IP": $tmp = "IP list"; break;
-      case "Chaque ligne ne doit contenir qu'une adresse IP de la forme : a.b.c.d:X (ex : 168.192.1.1:5).": $tmp = "Each line contain only one IP Adress like: a.b.c.d:X (ex : 168.192.1.1:5)."; break;
-      case "Si X >= 5 alors l'accès sera refusé !": $tmp = "If X >= 5 then the access will be denied!"; break;
-      case "Ce fichier est mis à jour automatiquement par l'anti-spam de NPDS.": $tmp = "This file is updated by the NPDS anti-spam engine."; break;
+      case "Administration de l'IpBan": $tmp = "IpBan管理"; break;
+      case "Liste des IP": $tmp = "IP地址列表"; break;
+      case "Chaque ligne ne doit contenir qu'une adresse IP (v4 ou v6) de forme : a.b.c.d|X (ex. v4 : 168.192.1.1|5) ; 2001:0db8:0000:85a3:0000:0000:ac1f:8001|X (ex. v6 : 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5).": $tmp = "每行必须只包含一个IP地址（v4或v6） : a.b.c.d:X (例子 v4 : 168.192.1.1|5) ; 2001:0db8:0000:85a3:0000:0000:ac1f:8001|X (例子 v6 : 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5)."; break;
+      case "Si X >= 5 alors l'accès sera refusé !": $tmp = "如果X> = 5，那么访问将被拒绝！"; break;
+      case "Ce fichier est mis à jour automatiquement par l'anti-spam de NPDS.": $tmp = "NPDS反垃圾邮件会自动更新此文件。"; break;
       default: $tmp = "需要翻译稿 [** $phrase **]"; break;
    }
    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
