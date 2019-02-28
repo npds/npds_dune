@@ -28,6 +28,7 @@
    switch ($skinametitre) {
       case 'cyborg':
       case 'solar':
+      case 'superhero':
          $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
       break;
       case 'lumen':
@@ -41,7 +42,7 @@
          $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti yeren default
       break;
    }
 
