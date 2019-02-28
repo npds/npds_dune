@@ -4,7 +4,10 @@
    if ($user) {
       $username = $cookie[1];
       $ibix=explode('+', urldecode($cookie[9]));
-      $skinname = $ibix[1];
+      if(array_key_exists(1, $ibix))
+         $skinname = $ibix[1];
+      else
+         $skinname = "default";
    }
    else {
       $skinname = $Default_Skin;
