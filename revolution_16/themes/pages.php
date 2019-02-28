@@ -301,16 +301,10 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 // $PAGES['forum=1']['run']="user";
 
 global $language;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array('https://maps.google.com/maps/api/js?v=3.exp&amp;key='.$api_key.'&amp;language='.language_iso(1,'',0),"modules/geoloc/include/fontawesome-markers.min.js","modules/geoloc/include/markerclusterer.js");
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocation[/english]+|$title+";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array($nuke_url.'/lib/ol/ol.js');
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocation[/english][spanish]Geolocalizaci&oacute;n[/spanish][german]Geolocation[/german][chinese]&#22320;&#29702;&#20301;&#32622;[/chinese]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['run']="yes";
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['blocs']="-1";
-$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']=array($nuke_url.'/modules/geoloc/include/css/geoloc_style.css+');
-
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc_o*']['js']=array($nuke_url.'/lib/ol/ol.js',$nuke_url.'/modules/geoloc/include/fontawesome-markers.min.js');
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc_o*']['title']="[french]Openlayers npds[/french][english]Openlayers npds[/english]+|$title+";
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc_o*']['run']="yes";
-$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc_o*']['blocs']="-1";
-$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc_o*']['css']=array($nuke_url.'/lib/ol/ol.css+',$nuke_url.'/modules/geoloc/include/css/geoloc_style.css+');
+$PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['css']=array($nuke_url.'/lib/ol/ol.css+',$nuke_url.'/modules/geoloc/include/css/geoloc_style.css+');
 
 ?>
