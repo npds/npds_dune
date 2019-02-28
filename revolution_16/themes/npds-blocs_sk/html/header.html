@@ -1,32 +1,34 @@
 <?php
-   global $cookie, $anonymous, $NPDS_Prefix, $mns;
+   global $cookie, $anonymous, $NPDS_Prefix, $mns, $Default_Skin;
    $con='';$ava='';$cha='';$bal='';$menuser='';
    if ($user) {
       $username = $cookie[1];
-      $skinname = $cookie[11];
-      switch ($skinname) {
-         case 'cyborg':
-         case 'solar':
-            $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
-         break;
-         case 'lumen':
-         case 'journal':
-         case 'materia':
-            $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
-         break;
-         case 'simplex':
-         case 'litera':
-         case 'spacelab':
-            $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
-         break;
-         default :
-            $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate superhero united yeti yeren default
-         break;
-      }
+      $ibix=explode('+', urldecode($cookie[9]));
+      $skinname = $ibix[1];
    }
    else {
-      $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top';
+      $skinname = $Default_Skin;
       $username='';
+   }
+   switch ($skinname) {
+      case 'cyborg':
+      case 'solar':
+      case 'superhero':
+         $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
+      break;
+      case 'lumen':
+      case 'journal':
+      case 'materia':
+         $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
+      break;
+      case 'simplex':
+      case 'litera':
+      case 'spacelab':
+         $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
+      break;
+      default :
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti yeren default
+      break;
    }
    if (!isset($powerpack)) include_once ("powerpack.php");
 
