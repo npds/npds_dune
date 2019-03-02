@@ -149,17 +149,18 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    if (file_exists("modules/include/header_before.inc")) {include ("modules/include/header_before.inc");}
 
    // take the right theme location !
+   // nouvel version de la gestion des Themes et Skins
    global $Default_Theme, $Default_Skin, $user;
    if (isset($user)) {
       global $cookie;
-	  	  
-      // nouvel version de la gestion des Themes et Skins
-      $ibix=explode('+', urldecode($cookie[9]));
-      if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
-      if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin;
-
-      $tmp_theme=$theme;
-      if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;  
+      if($cookie[9] !='') {
+         $ibix=explode('+', urldecode($cookie[9]));
+         if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
+         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin;
+         $tmp_theme=$theme;
+         if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
+      } else 
+         $tmp_theme=$Default_Theme;
    } else {
       $theme=$Default_Theme;
       $skin=$Default_Skin;
