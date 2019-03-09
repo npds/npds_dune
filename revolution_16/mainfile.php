@@ -58,7 +58,7 @@ function file_contents_exist($url, $response_code = 200) {
 
 #autodoc session_manage() : Mise à jour la table session
 function session_manage() {
-   global $NPDS_Prefix, $cookie, $REQUEST_URI;
+   global $NPDS_Prefix, $cookie, $REQUEST_URI, $nuke_url;
 
    $guest=0;
    $ip=getip();
@@ -106,34 +106,36 @@ function session_manage() {
                   }
                   // un  deuxieme provider de geolocalisation d'IP....
                   else {
+                  if(!strstr($nuke_url,'https')) {
                      $file_path = 'http://ip-api.com/json/'.$ip;
                      if(file_contents_exist($file_path)) {
-                        $loc = file_get_contents($file_path);
-                        $loc_obj = json_decode($loc);
-                        if($loc_obj) {
-                           if ($loc_obj->status=='success') {
-                              if (!empty($loc_obj->country))
-                                 $pay=removeHack($loc_obj->country);
-                              else 
-                                 $pay='';
-                              if (!empty($loc_obj->countryCode))
-                                 $codepay=removeHack($loc_obj->countryCode);
-                              else 
-                                 $codepay='';
-                              if (!empty($loc_obj->city))
-                                 $vi=removeHack($loc_obj->city);
-                              else
-                                 $vi='';
-                              if (!empty($loc_obj->lat))
-                                 $lat=(float)$loc_obj->lat;
-                              else
-                                 $lat='';
-                              if (!empty($loc_obj->lon))
-                                 $long=(float)$loc_obj->lon;
-                              else
-                                 $long='';
-                              sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                              sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                           $loc = file_get_contents($file_path);
+                           $loc_obj = json_decode($loc);
+                           if($loc_obj) {
+                              if ($loc_obj->status=='success') {
+                                 if (!empty($loc_obj->country))
+                                    $pay=removeHack($loc_obj->country);
+                                 else 
+                                    $pay='';
+                                 if (!empty($loc_obj->countryCode))
+                                    $codepay=removeHack($loc_obj->countryCode);
+                                 else 
+                                    $codepay='';
+                                 if (!empty($loc_obj->city))
+                                    $vi=removeHack($loc_obj->city);
+                                 else
+                                    $vi='';
+                                 if (!empty($loc_obj->lat))
+                                    $lat=(float)$loc_obj->lat;
+                                 else
+                                    $lat='';
+                                 if (!empty($loc_obj->lon))
+                                    $long=(float)$loc_obj->lon;
+                                 else
+                                    $long='';
+                                 sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                                 sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                              }
                            }
                         }
                      }
