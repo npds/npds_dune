@@ -50,7 +50,7 @@ function get_total_posts($fid, $tid, $type, $Mmod) {
            $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid' $post_aff";
            break;
       case 'user':
-           forumerror(0031);
+           forumerror('0031');
    }
 
    if (!$result = sql_query($sql))
