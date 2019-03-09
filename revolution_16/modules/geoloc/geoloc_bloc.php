@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_o_bloc.php file 2008-2019 by Jean Pierre Barbary (jpb)        */
+/* geoloc_bloc.php file 2008-2019 by Jean Pierre Barbary (jpb)          */
 /************************************************************************/
 
 //if(autorisation_block('include#modules/geoloc/geoloc_bloc.php') !='') define('GEO_BL',true);
@@ -32,7 +32,10 @@ switch ($cartyp_b) {
          $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp_b.'"})';
       break;
       case 'mapbox':
-         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.natural-earth-hypso-bathy.json?secure",crossOrigin: "anonymous"})';
+         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.natural-earth-hypso-bathy.json"})';
+      break;
+      case 'cartegeo':
+         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.geography-class.json"})';
       break;
       case 'terrain':case 'toner':case 'watercolor':
          $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
@@ -42,7 +45,7 @@ switch ($cartyp_b) {
 }
  
 $content .='
-<div  class="mb-2" id="map_bloc_ol" style="width:100%; min-height:'.$h_b.'px;"></div>
+<div class="mb-2" id="map_bloc_ol" tabindex="200" style="width:100%; min-height:'.$h_b.'px;"></div>
 <script type="text/javascript">
 //<![CDATA[
       $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
@@ -62,8 +65,11 @@ $content .='
          }),
          style: georefUser_icon
       });
-      var attribution = new ol.control.Attribution({collapsible: false});
+      var attribution = new ol.control.Attribution({collapsible: true});
       var map = new ol.Map({
+         interactions: new ol.interaction.defaults({
+            constrainResolution: true, onFocusOnly: true
+         }),
          controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
          target: "map_bloc_ol",
          layers: [

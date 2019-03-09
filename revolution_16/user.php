@@ -443,12 +443,10 @@ function userinfo($uname) {
          $content = '';
          $content .='
          <div class="col-md-6">
-            <div id="map_user" style="width:100%; height:400px;"><div id="ol_popup"></div></div>';
-         $content .='
+            <div id="map_user" tabindex="300" style="width:100%; height:400px;"><div id="ol_popup"></div></div>
             <script type="module">
             //<![CDATA[
                $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
-
                var iconFeature = new ol.Feature({
                   geometry: new ol.geom.Point(
                   ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].','.$posterdata_extend[$ch_lat].'])
@@ -470,6 +468,9 @@ function userinfo($uname) {
                });
 
                var map = new ol.Map({
+                  interactions: new ol.interaction.defaults({
+                     constrainResolution: true, onFocusOnly: true
+                  }),
                  target: "map_user",
                  layers: [
                    new ol.layer.Tile({
@@ -536,10 +537,6 @@ function userinfo($uname) {
           return;
         }
         var pixel = map.getEventPixel(e.originalEvent);
-/*
-        var hit = map.hasFeatureAtPixel(pixel);
-        map.getTarget().style.cursor = hit ? \'pointer\' : \'\';
-*/
       });
                // Create the graticule component
                   var graticule = new ol.Graticule();

@@ -42,6 +42,9 @@ $tab_ip ='';
 $ip_o='';
 settype($op,'string');
 settype($ipnb,'integer');
+$date_jour = date('Y-m-d');
+//$jour = int()date('d');
+//var_dump($jour);
 
 // admin tools
 if(autorisation(-127)) {
@@ -383,19 +386,42 @@ $fond_provider=array(
    ['toner', geoloc_translate("Noir et blanc").' (Stamen)'],
    ['watercolor', geoloc_translate("Dessin").' (Stamen)'],
    ['terrain', geoloc_translate("Relief").' (Stamen)'],
-   ['mapbox', geoloc_translate("Relief").' (mapbox)'],
+   ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
+   ['geography-class', geoloc_translate("Carte").' (mapbox)'],
+   ['modisterra', geoloc_translate("Satellite").' (NASA)'],
    ['Road', geoloc_translate("Plan").' (Bing maps)'],
    ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
    ['ROADMAP', geoloc_translate("Plan").' (Google)'],
    ['SATELLITE', geoloc_translate("Satellite").' (Google)'],
    ['HYBRID', geoloc_translate("Satellite").' et label (Google)'],
-   ['TERRAIN', geoloc_translate("Relief").' (Google)']
+   ['TERRAIN', geoloc_translate("Relief").' (Google)'],
+   ['sat', geoloc_translate("Relief").' (ESRI)'],
+   
 );
 if($api_key=='') {unset($fond_provider[1],$fond_provider[2],$fond_provider[3],$fond_provider[4]);}
 if($api_key_bing=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7]);}
-//var_dump($fond_provider);
 
+   $fonts_svg=array(
+      ['user','uf007','Utilisateur'],
+      ['userCircle','uf2bd','Utilisateur en cercle'],
+      ['userCircle','uf2be','Utilisateur en cercle'],
+      ['users','uf0c0','Utilisateurs'],
+      ['heart','uf004','Coeur'],
+      ['thumbtack','uf08d','Punaise'],
+      ['circle','uf111','Cercle'],
+      ['camera','uf030','Appareil photo'],
+      ['anchor','uf13d','Ancre'],
+      ['mapMarker','uf041','Marqueur carte'],
+      ['plane','uf072','Avion'],
+      ['star','uf005','Etoile'],
+      ['home','uf015','Maison'],
+      ['flag','uf024','Drapeau'],
+      ['crosshairs','uf05b','Croix'],
+      ['asterisk','uf069','Astérisque'],
+      ['fire','uf06d','Flamme'],
+      ['comment','uf075','Commentaire']
+   );
 
 //==> construction js
 $ecr_scr = '
@@ -404,16 +430,13 @@ $ecr_scr = '
    var map;
    var user_markers={};// need to have on debug console
    var ano_markers={};
-
-
-
+   var dd = new Date().toISOString().split("T");
+   console.log(dd[0]);//debug
    function geoloc_load() {
    //==>  affichage des coordonnées à revoir pour réinverser ....
       var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: new ol.coordinate.createStringXY(4),
         projection: "EPSG:4326",
-        // comment the following two lines to have the mouse position
-        // be placed within the map.
         className: "custom-mouse-position",
         target: document.getElementById("mypoint"),
         undefinedHTML: "&nbsp;"
@@ -489,9 +512,16 @@ $ecr_scr = '
    }';
 
       if($mark_typ !==1) {
-         $ic_b_mbg ='<span title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="color:'.$mbg_f_co.';" class="fa fa-2x align-middle">&#x'.substr($f_mbg,1).'</span>';
-         $ic_b_mbgc ='<span title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$mbgc_f_co.';" class="fa fa-2x align-middle">&#x'.substr($f_mbg,1).'</span>';
-         $ic_b_acg ='<span title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="color:'.$acg_f_co.'; " class="fa fa-2x align-middle">&#x'.substr($f_mbg,1).'</span>';
+         $fafont=''; $fafont_js='';
+         foreach ($fonts_svg as $v) {
+            if($v[0]==$f_mbg) {
+               $fafont = '&#x'.substr($v[1],1).';';
+               $fafont_js= '\\'.$v[1];
+            } 
+         }
+         $ic_b_mbg ='<span title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbg_f_co.';" class="fa fa align-middle">'.$fafont.'</span>';
+         $ic_b_mbgc ='<span title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbgc_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
+         $ic_b_acg ='<span title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$acg_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
       }
       else {
          $ic_b_mbg ='<img src="'.$ch_img.$nm_img_mbg.'" title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé').'" /> ';
@@ -513,8 +543,8 @@ $ecr_scr = '
       }
       var iconUser = new ol.style.Style({
         text: new ol.style.Text({
-          text: "\\'.$f_mbg.'",
-          font: "normal 32px FontAwesome",
+          text: "'.$fafont_js.'",
+          font: "normal '.$mbg_sc.'px FontAwesome",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
           stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
@@ -522,8 +552,8 @@ $ecr_scr = '
       });
       var iconUserOn = new ol.style.Style({
         text: new ol.style.Text({
-          text: "\\'.$f_mbg.'",
-          font: "normal 32px FontAwesome",
+          text: "'.$fafont_js.'",
+          font: "normal '.$mbgc_sc.'px FontAwesome",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
           stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
@@ -531,8 +561,8 @@ $ecr_scr = '
       });
       var iconAnoOn = new ol.style.Style({
         text: new ol.style.Text({
-          text: "\\'.$f_mbg.'",
-          font: "normal 28px FontAwesome",
+          text: "'.$fafont_js.'",
+          font: "normal '.$acg_sc.'px FontAwesome",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
           stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
@@ -547,14 +577,14 @@ $ecr_scr = '
           src: "'.$ch_img.$nm_img_mbg.'",
            imgSize:['.$w_ico_b.','.$h_ico_b.']
         })
-      });
-      var iconUserOn = new ol.style.Style({
+      }),
+      iconUserOn = new ol.style.Style({
         image: new ol.style.Icon({
           src: "'.$ch_img.$nm_img_mbcg.'",
            imgSize:['.$w_ico_b.','.$h_ico_b.']
         })
-      });
-      var iconAnoOn = new ol.style.Style({
+      }),
+      iconAnoOn = new ol.style.Style({
         image: new ol.style.Icon({
           src: "'.$ch_img.$nm_img_acg.'",
            imgSize:['.$w_ico_b.','.$h_ico_b.']
@@ -615,28 +645,50 @@ $ecr_scr = '
              visible: false
           });';
 
-$source_fond=''; $max_r=''; $min_r='';
+$source_fond=''; $max_r=''; $min_r='';$layer_id='';
 switch ($cartyp) {
    case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
       $source_fond='';
+      $layer_id='';
    break;
    case 'Road': case 'Aerial': case 'AerialWithLabels':
       $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
       $max_r='40000';
       $min_r='0';
+      $layer_id= $cartyp;
    break;
-   case 'mapbox':
-      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.natural-earth-hypso-bathy.json?secure",crossOrigin: "anonymous"})';
+   case 'natural-earth-hypso-bathy': case 'geography-class':
+      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.'.$cartyp.'.json"})';
       $max_r='40000';
       $min_r='2000';
+      $layer_id= $cartyp;
    break;
    case 'terrain':case 'toner':case 'watercolor':
       $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
       $max_r='40000';
       $min_r='0';
+      $layer_id= $cartyp;
    break;
+   case 'sat':
+      $source_fond='';
+      $max_r='';
+      $min_r='';
+      $layer_id= $cartyp;
+   break;
+   case 'modisterra':
+      $source_fond='new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/2013-06-15/GoogleMapsCompatible_Level13/{z}/{y}/{x}.jpg"})';
+      $max_r='40000';
+      $min_r='0';
+      $layer_id= $cartyp;
+   break;
+   
+   
    default:
       $source_fond='new ol.source.OSM()';
+      $max_r='40000';
+      $min_r='0';
+      $layer_id= 'OSM';
+
 }
 
       $ecr_scr .='
@@ -685,21 +737,27 @@ switch ($cartyp) {
           return style;
         }
       });
-      
       // <== cluster experimental
+      
 
       var src_fond = '.$source_fond.',
           minR='.$min_r.',
           maxR='.$max_r.',
+          layer_id="'.$layer_id.'",
           fond_carte = new ol.layer.Tile({
+            id:layer_id,
             source: src_fond,
             minResolution: minR,
             maxResolution: maxR
           }),
           attribution = new ol.control.Attribution({collapsible: true});
+
       var map = new ol.Map({
-         controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen(), mousePositionControl]),
-         target: "map",
+         interactions: new ol.interaction.defaults({
+            constrainResolution: true, onFocusOnly: true
+         }),
+         controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen(), mousePositionControl, new ol.control.ScaleLine]),
+         target: document.getElementById("map"),
          layers: [
             fond_carte,
             user_markers,
@@ -710,11 +768,32 @@ switch ($cartyp) {
          ],
          view: new ol.View({
             center: ol.proj.fromLonLat([13, 46]),
-            zoom: 5
+            zoom: 5,
+            minZoom:2
          })
       });
       map.addOverlay(popup);
+      var zoomslider = new ol.control.ZoomSlider();
+      map.addControl(zoomslider);
+      var graticule = new ol.Graticule({showLabels:false});
+      //graticule.setMap(map);
+
       
+
+      var button = document.createElement("button");
+      button.innerHTML = "&#xf0d7";
+      var sidebarSwitch = function(e) {
+         if($("#sidebar").hasClass("show")) {$("#sidebar").collapse("toggle")} else{$("#sidebar").collapse("show")}
+      };
+      button.addEventListener("click", sidebarSwitch, true);
+      var element = document.createElement("div");
+      element.className = "ol-sidebar ol-unselectable ol-control fa";
+      element.appendChild(button);
+      var sidebarControl = new ol.control.Control({
+          element: element
+      });
+      map.addControl(sidebarControl);
+
 ////////
 
       var select = null; // ref to currently selected interaction
@@ -736,12 +815,12 @@ switch ($cartyp) {
 
 /////
 
-//          map.addInteraction(selectAltClick);
+////          map.addInteraction(selectPointerMove);
 
 
 //==> construction sidebar
       var uOn_feat = src_userOn.getFeatures(),
-          sbuOn=\'<div id="sb_member_on" class="list-group my-3"><div class="list-group-item bg-light text-dark font-weight-light"><span class="">Membre géoréférencé en ligne</span><br/><a class="" data-toggle="collapse" href="#l_sb_memberon"><i class="fa fa-ellipsis-v fa-lg mx-2"></i></a><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$mbcg.'</span></span>'.$ic_b_mbgc.'<input class="ml-2" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" /></div><div class="collapse" id="l_sb_memberon">\';
+          sbuOn=\'<div id="sb_member_on" class="list-group my-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="" data-toggle="collapse" href="#l_sb_memberon"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" /><label class="custom-control-label" for="cbox">'.$ic_b_mbgc.' Membre en ligne</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$mbcg.'</span></span></div><div class="collapse" id="l_sb_memberon">\';
       for (var key in uOn_feat) {
          if (uOn_feat.hasOwnProperty(key)) {
             sbuOn += \'<a id="\'+ uOn_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ uOn_feat[key].id_ +\'\\\');return false;" class="sb_memberon list-group-item list-group-item-action py-1" href="#">'.$ic_b_mbgc.'<span class="ml-2">\' + uOn_feat[key].values_.pseudo + \'</span></a>\';
@@ -750,16 +829,16 @@ switch ($cartyp) {
       sbuOn += \'</div></div>\'
 
       var u_feat = src_user.getFeatures(),
-          sbu=\'<div id="sb_member" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light"><span class="">Membre géoréférencé</span><br /><a class="" data-toggle="collapse" href="#l_sb_member"><i class="fa fa-ellipsis-v fa-lg mx-2"></i></a><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$mbgr.'</span></span>'.$ic_b_mbg.'<input class="ml-2" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" /></div><div class="collapse" id="l_sb_member">\';
+          sbu=\'<div id="sb_member" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="" data-toggle="collapse" href="#l_sb_member"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" /><label class="custom-control-label" for="memberbox">'.$ic_b_mbg.' Membres</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$mbgr.'</span></span></div><div class="collapse" id="l_sb_member">\';
       for (var key in u_feat) {
          if (u_feat.hasOwnProperty(key)) {
-            sbu += \'<a id="\'+ u_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ u_feat[key].id_ +\'\\\');return false;" class="sb_member list-group-item py-1" >'.$ic_b_mbg.'<span class="ml-2">\' + u_feat[key].values_.pseudo + \'</span></a>\';
+            sbu += \'<a id="\'+ u_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ u_feat[key].id_ +\'\\\');return false;" class="sb_member list-group-item list-group-item-action py-1" >'.$ic_b_mbg.'<span class="ml-2">\' + u_feat[key].values_.pseudo + \'</span></a>\';
          }
       }
       sbu +=\'</div></div>\';
 
       var a_feat = src_anno.getFeatures(),i=0;
-      var sba=\'<div id="sb_ano" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light"><span class="">Anonyme</span><br /><a class="" data-toggle="collapse" href="#l_sb_ano"><i class="fa fa-ellipsis-v fa-lg mx-2"></i></a>'.$ic_b_acg.'<span class="h5"><span class="badge badge-danger badge-pill float-right">'.$acg.'</span></span><input class="ml-2" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" /></div><div class="collapse" id="l_sb_ano">\';
+      var sba=\'<div id="sb_ano" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_ano"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" /><label class="custom-control-label" for="acbox">'.$ic_b_acg.' Anonyme</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$acg.'</span></span></div><div class="collapse" id="l_sb_ano">\';
       for (var key in a_feat) {
          if (a_feat.hasOwnProperty(key)) {
             sba += \'<a id="\'+ a_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ a_feat[key].id_ +\'\\\');return false;" class="sb_ano list-group-item list-group-item-action py-1">'.$ic_b_acg.'<span class="ml-2"> Anonyme \' + i + \'</span></a>\';
@@ -772,7 +851,7 @@ switch ($cartyp) {
    if(autorisation(-127) and $geo_ip==1)
       $ecr_scr .='
       var i_feat = src_ip.getFeatures(),i=0;
-      sbi+=\'<div id="sb_ip" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light"><span class="">IP</span><br /><a class="link" data-toggle="collapse" href="#l_sb_ip"><i class="fa fa-ellipsis-v fa-lg mx-2"></i></a><span class="fa fa-desktop fa-lg text-muted mr-2"></span><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$ipnb.'</span></span><input class="ml-2" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" /></div><div class="collapse" id="l_sb_ip">\';
+      sbi+=\'<div id="sb_ip" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_ip"><i class="fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" /><label class="custom-control-label" for="ipbox"><span class="fa fa-desktop fa-lg text-muted"></span> IP</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$ipnb.'</span></span></div><div class="collapse" id="l_sb_ip">\';
       for (var key in i_feat) {
          if (i_feat.hasOwnProperty(key)) {
             sbi += \'<a id="\'+ i_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ i_feat[key].id_ +\'\\\');return false;" class="sb_ip list-group-item list-group-item-action py-1"><span class="fa fa-desktop fa-lg text-muted"></span><span class="ml-2 small">\'+ i_feat[key].values_.ip +\'</span></a>\';
@@ -795,7 +874,7 @@ if ($username !='') {
       $infooo = '<div id="newloc"><strong>'.geoloc_translate("Vous n\'êtes pas géoréférencé.").'</strong></div><br /><strong>'.geoloc_translate("Voulez vous le faire à cette position :").'</strong><br />';
       $mess_mb = geoloc_translate('Cliquer sur la carte pour définir votre géolocalisation.');
    }
-   $sb_georef.='   <div class="list-group-item list-group-item-action py-1"><div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="georefbox" /><label for="georefbox" class="custom-control-label">Définir ou modifier position</label></div><span class="help-block small muted">'.$mess_mb.'</span></div>';
+   $sb_georef.='   <div class="list-group-item list-group-item-action py-1"><div class="custom-control custom-switch"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate("Définir ou modifier votre position").'" id="georefbox" /><label for="georefbox" class="custom-control-label">'.geoloc_translate("Définir ou modifier votre position").'</label></div><span class="help-block small muted">'.$mess_mb.'</span></div>';
 
    $ecr_scr .= '
 //==> Georeferencement par user
@@ -821,6 +900,7 @@ if ($username !='') {
          $(element).popover("dispose");
          georef_popup.setPosition(coordinate);
          $(element).popover({
+            sanitize:false,
             placement: "top",
             animation: true,
             html: true,
@@ -846,24 +926,28 @@ if ($username !='') {
 else
    $mess_mb='';
 
-   
    $ecr_scr .='
       $("#sidebar").append(sbuOn+sba+sbu+sbi);
 //<== construction sidebar
 
 //==> comportement sidebar et layers
    $(document).ready(function () {
-   
-      centeronMe = function(u) { 
-      if(u.substr(0,1) == "i")
-         map.getView().setCenter(src_ip.idIndex_[u].values_.geometry.flatCoordinates);
-      if(u.substr(0,1) == "o")
-         map.getView().setCenter(src_userOn.idIndex_[u].values_.geometry.flatCoordinates);
-      if(u.substr(0,1) == "a")
-         map.getView().setCenter(src_anno.idIndex_[u].values_.geometry.flatCoordinates);
-      if(u.substr(0,1) == "u")
-         map.getView().setCenter(src_user.idIndex_[u].values_.geometry.flatCoordinates);
-      map.getView().setZoom(15);
+      centeronMe = function(u) {
+         $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
+         if(u.substr(0,1) == "i") {
+            map.getView().setCenter(src_ip.idIndex_[u].values_.geometry.flatCoordinates);
+         }
+         if(u.substr(0,1) == "o") {
+            map.getView().setCenter(src_userOn.idIndex_[u].values_.geometry.flatCoordinates);
+         }
+         if(u.substr(0,1) == "a") {
+            map.getView().setCenter(src_anno.idIndex_[u].values_.geometry.flatCoordinates);
+         }
+         if(u.substr(0,1) == "u") {
+            map.getView().setCenter(src_user.idIndex_[u].values_.geometry.flatCoordinates);
+         }
+         $("#"+u).addClass("animated faa-horizontal faa-slow" );
+         map.getView().setZoom(14);
       }
 
       $("#georefbox").change("click", function () {
@@ -889,7 +973,31 @@ else
          } 
       });
 
-   
+      $("#grillebox").change("click", function () {
+      console.log(graticule);
+         console.log(map.getLayers());
+         if(this.checked) {
+         
+         
+//         graticule = new ol.Graticule({showLabels:true});
+
+                        graticule.showLabels=true;
+            graticule.strokeStyle_.color_="rgba(0,0,0,0.2)";
+graticule.setMap(map);
+         }
+         else{
+         console.log("aaa"+graticule);
+//graticule = new ol.Graticule({showLabels:false});
+                        graticule.showLabels=false;
+
+graticule.setMap(map);
+            graticule.strokeStyle_.color_="rgba(0,0,0,0)";
+         }
+         });
+
+
+
+
       $("#cbox").change("click", function () {
          if(this.checked) {
             userOn_markers.setVisible(true);
@@ -936,29 +1044,80 @@ else
    });
 
    $("#cartyp").on("change", function() {
-         cartyp = $( "#cartyp option:selected" ).val();
+      cartyp = $( "#cartyp option:selected" ).val();
       switch (cartyp) {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
+            map.getLayers().array_[0].setProperties({"id":cartyp});
+            fond_carte.setMinResolution(1);
          break;
          case "ROADMAP":case "SATELLITE":case "TERRAIN":case "HYBRID":
             //map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
          break;
          case "Road":case "Aerial":case "AerialWithLabels":
             fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
+            map.getLayers().array_[0].setProperties({"id":cartyp});
+            fond_carte.setMinResolution(1);
          break;
-         case "mapbox":
-            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.natural-earth-hypso-bathy.json?secure",crossOrigin: "anonymous"}));
+         case "natural-earth-hypso-bathy": case "geography-class":
+            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox."+cartyp+".json"}));
             fond_carte.setMinResolution(2000);
             fond_carte.setMaxResolution(40000);
+            map.getLayers().array_[0].setProperties({"id":cartyp});
          break;
          case "terrain": case "toner": case "watercolor":
             fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
+            fond_carte.setMinResolution(0);
+            fond_carte.setMaxResolution(40000);
+            map.getLayers().array_[0].setProperties({"id":cartyp});
          break;
+         case "modisterra":
+//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+
+//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+
+
+//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2019-03-05/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
+
+//fond_carte.setSource(new ol.source.XYZ({url:"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2014-04-09/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
+            fond_carte.setMinResolution(2);
+            fond_carte.setMaxResolution(40000);
+            map.getLayers().array_[0].setProperties({"id":cartyp});
+         break;
+         
       }
    });
 
 //<== comportement sidebar et layers
+
+// ==> fallback de résolution
+   map.getView().on("propertychange", function(e) {
+      switch (e.key) {
+         case "resolution":
+            var idLayer = map.getLayers().array_[0].values_.id;
+         console.log(e.oldValue);//debug
+         console.log(map.getLayers().array_[0]);//debug
+         if((idLayer=="natural-earth-hypso-bathy" || idLayer=="geography-class") && e.oldValue<2000) {
+            fond_carte.setSource(new ol.source.OSM());
+            fond_carte.setProperties({"id":"OSM", "minResolution":"0", "maxResolution":"40000" });
+            $("#cartyp option[value=\'OSM\']").prop("selected", true);
+         }
+        break;
+      }
+   });
+// <== fallback de résolution
+// ==> opacité sur couche de base
+   $("#baselayeropacity").on("input change", function() {
+      map.getLayers().array_[0].setOpacity(parseFloat(this.value));
+   });
+// <== opacité sur couche de base
+// ==> date des images (nasa)
+   $("#nasaday").on("input change", function() {
+//      map.getLayers().array_[0].setOpacity(parseFloat(this.value));
+   });
+// <== opacité sur couche de base
+
 /*
 
 //==> Georeferencement par admin
@@ -991,102 +1150,9 @@ else
 //<== Georeferencement par admin
 */
 
-
 //==> les fenetres popup pour les markers
-
-      function pickRandomProperty() {
-        var prefix = ["bottom", "center", "top"];
-        var randPrefix = prefix[Math.floor(Math.random() * prefix.length)];
-        var suffix = ["left", "center", "right"];
-        var randSuffix = suffix[Math.floor(Math.random() * suffix.length)];
-        return randPrefix + "-" + randSuffix;
-      }
-
-      var container = document.getElementById("ol_popup");
-      var container_li = document.getElementById("ol_content");
-      
-/*
-      var displayFeatureInfo = function(pixel, coordinate) {
-         var features = [];
-         map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-            features.push(feature);
-        });
-         if (features.length > 0) {
-            var info = [];
-            for (var i = 0, ii = features.length; i < ii; ++i) {
-            
-            if(features[i].getId()) {
-                  if(features[i].getId().substr(0,1) == "u") {
-                  info.push(features[i].getId());
-                  info.push(features[i].get("pseudo"));
-                  info.push(features[i].get("ava"));
-                  info.push(features[i].get("lastvisit"));
-                  info.push(features[i].get("userlinks"));
-               }
-               if(features[i].getId().substr(0,1) == "o") {
-                  info.push(features[i].getId());
-                  info.push(features[i].get("pseudo"));
-                  info.push(features[i].get("ava"));
-                  info.push(features[i].get("userlinks"));
-                  info.push(features[i].get("social"));
-               }
-               if(features[i].getId().substr(0,1) == "a") {
-                  info.push(features[i].getId());
-                  info.push(features[i].get("ip"));
-                  info.push(features[i].get("ip_hostaddr"));
-                  info.push(features[i].get("ip_visitpage"));
-                  info.push(features[i].get("ip_visit"));
-                  info.push(features[i].get("ip_city"));
-                  info.push(features[i].get("ip_country"));
-                  info.push(features[i].get("ip_flagsrc"));
-                  info.push(features[i].get("ip_hote"));
-               }
-               if(features[i].getId().substr(0,1) == "i") {
-                  info.push(features[i].getId());
-                  info.push(features[i].get("ip"));
-                  info.push(features[i].get("visit"));
-               }
-               
-               }
-               
-            }
-            
-            if(info.length) {
-               if(info[0].substr(0,1) =="u") {
-                  container.innerHTML = \'<div class="text-right">\'+ info[4] +\'</div><hr><img class="mr-2 img-thumbnail n-ava" src="\'+ info[2] +\'" align="middle" /><span class="lead">\' + info[1] +\'</span><div class="my-2">'.geoloc_translate("Dernière visite").' : \' + info[3] +\'</div>\' || "(unknown)";
-               };
-               if(info[0].substr(0,1) =="o") {
-                  container.innerHTML = \'<div class="text-center">\'+ info[3] +\'</div><hr><img class="mr-2 img-thumbnail n-ava" src="\'+ info[2] +\'" align="middle" /><span class="lead">\' + info[1] +\'</span><hr /><div class="text-center">\'+ info[4] +\'</div>\' || "(unknown)";
-               };
-               if(info[0].substr(0,1) =="a") {
-                  container.innerHTML = \'<i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>'.geoloc_translate('Anonyme').' @ \'+ info[2] +\' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>\'+ info[8] +\'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> \' + info[3] +\'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + info[4] +\']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>\'+ info[5] +\'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>\'+ info[6] +\'<hr /><img src="\'+ info[7] +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
-               }
-               if(info[0].substr(0,1) =="i") {
-                  container.innerHTML = \'<i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i> @ \'+ info[1] +\'<hr /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + info[2] +\']<br /><hr />\' || "(unknown)";
-               }
-            }
-            
-            var randomPositioning = pickRandomProperty();
-            popup.setPositioning(randomPositioning);
-            popup.setPosition(coordinate);
-            $("#ol_popup").show();
-            $("#"+info[0]).addClass("animated faa-horizontal faa-slow" );
-         } else {
-            $("#ol_popup").hide();
-         }
-      };
-
-      map.on("click", function(evt) {
-         var coordinate = evt.coordinate;
-         $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
-         displayFeatureInfo(evt.pixel, coordinate);
-      });
-      
-      
-      */
-      
-   // a better logic ?..
-   var OpenPopup = function (evt) {
+  var container = document.getElementById("ol_popup"),
+      OpenPopup = function (evt) {
       $("#ol_popup").show();
       popup.setPosition(undefined);
       $(".sb_member, .sb_ano, .sb_memberon").removeClass("animated faa-horizontal faa-slow" );
@@ -1105,13 +1171,14 @@ else
                   container.innerHTML = \'<i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>'.geoloc_translate('Anonyme').' @ \' + feature.get("ip_hostaddr") + \' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>\'+ feature.get("ip_hote") +\'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> \' + feature.get("ip_visitpage") +\'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + feature.get("ip_visit") +\']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>\'+ feature.get("ip_city") +\'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>\'+ feature.get("ip_country") +\'<hr /><img src="\'+ feature.get("ip_flagsrc") +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
                }
             } else {
-                var cfeatures = feature.get("features");
+                var cfeatures = feature.get("features");console.log(cfeatures);
                 if (cfeatures.length > 1) {
                   var l_ip="";
                   l_ip += \'<div class="ol_li"><h4><i class="fa fa-desktop fa-lg text-muted mr-2 align-middle"></i>IP<span class="badge badge-secondary float-right">\'+cfeatures.length+\'</span></h4><hr />\';
                     container.innerHTML = \'\';
                     for (var i = 0; i < cfeatures.length; i++) {
-                        l_ip += \'<small>\' + cfeatures[i].get("ip") + \'</small><br />\';
+                    console.log(cfeatures[i].id_ );
+                        l_ip += \'<small><a href="#" onclick="centeronMe(\\\'\' + cfeatures[i].id_ + \'\\\')">\' + cfeatures[i].get("ip") + \'</small></a><br />\';
                     }
                     l_ip += \'</div>\'; 
                     $(container).append(l_ip);
@@ -1127,12 +1194,19 @@ else
       });
    };
    map.on("click", OpenPopup);
-
-   // a better logic ?..
-
 //<== les fenêtres popup pour les markers
 
-
+//==> changement etat pointeur sur les markers
+   map.on("pointermove", function(e) {
+        if (e.dragging) {
+          $(".popover").popover("dispose");
+          return;
+        }
+        var pixel = map.getEventPixel(e.originalEvent);
+        var hit = map.hasFeatureAtPixel(pixel);
+        map.getTarget().style.cursor = hit ? "pointer" : "";
+      });
+//<== changement etat pointeur sur les markers
 ';
 
 /*
@@ -1149,9 +1223,7 @@ $ecr_scr .= $mb_con_g;
 
 //<==
 $ecr_scr .= '
-   document.getElementById("mess_info").innerHTML = \''.$mess_mb.' '.$mess_adm.'\';
-   
-   
+   document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';
    ';
 
 if($op)
@@ -1272,7 +1344,6 @@ $ecr_scr .= '
       document.getElementById("mypoint").innerHTML = DMS_Lat+ " | "+ DMS_Lng;
    });
 
-
    var geocoder = new google.maps.Geocoder();
    document.getElementById("geocode_submit").addEventListener("click", function() {
       geocodeAddress(geocoder, map);
@@ -1284,15 +1355,16 @@ $ecr_scr .= '
       var small = map.getSize()[0] < 600;
       attribution.setCollapsible(small);
       attribution.setCollapsed(small);
+      if ($(".n-media-repere").css("color") == "rgb(255, 0, 0)" ){
+         $("#sidebar").removeClass("show");
+      } else {
+//         $("#sidebar").addClass("show");
+      }
    }
    window.addEventListener("resize", checkSize);
    checkSize();
 
 } //<= geoloc_load
-
-
-
-
 
 
    geocode_markers=[];
@@ -1360,21 +1432,18 @@ $(function(){
 });
 
 
-$(document).ready(function() {
-   checkSize();
-   $(window).resize(checkSize);
-});
-function checkSize(){
-   if ($(".n-media-repere").css("color") == "rgb(255, 0, 0)" ){
-      $("#sidebar").removeClass("show");
-   }
-}
-
-
-
 
 $(document.body).attr("onload", "geoloc_load()");
 
+/*
+
+            $(\'a[data-toggle="collapse"]\').click(function () {
+               $(this).find("i.toggle-icon").toggleClass(\'fa-caret-up fa-caret-down\',6000);
+            });
+
+*/
+
+//$(".page-header").hide();
 //]]>
 </script>';
 //<== construction js
@@ -1385,26 +1454,19 @@ include ('header.php');
 
 $affi='';
 $affi .= '
-<h3 class="mb-4">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right"><span class="badge badge-secondary mr-2" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span><span class="badge badge-danger" data-toggle="tooltip" title="'.geoloc_translate("En ligne").'">'.$total_connect.'</span></span></h3>
-<div class="card mb-4">
-   <div class="d-flex flex-row justify-content-start">
-      <div class="ml-auto p-2">
-         <span class="float-right"><button class="navbar-light navbar-toggler" href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="true" aria-controls="collapsesidebar"><span class="navbar-toggler-icon"></span></button></span>
-      </div>
-   </div>
-   <span class="n-media-repere"></span>
-
-   <div id="content">
+<span class="n-media-repere"></span>
+<h3 class="mt-4 mb-3">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right"><span class="badge badge-secondary mr-2" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span><span class="badge badge-danger" data-toggle="tooltip" title="'.geoloc_translate("En ligne").'">'.$total_connect.'</span></span></h3>
+<div class=" mb-4">
       <div id="map-wrapper" >
-         <div id="map">
+         <div id="map" tabindex="20">
             <div id="ol_popup" class="ol-popup"></div>
             <div style="display: none;">
                <div id="georefpopup"></div>
             </div>
          </div>
          <div id="sidebar" class= "collapse show col-sm-4 col-md-3 col-6 px-0">
-            <div id="sb_tools" class="list-group my-3">
-               <div class="list-group-item bg-light text-dark font-weight-light"><a class="link" data-toggle="collapse" href="#l_sb_tools"><i class="fa fa-ellipsis-v fa-lg mx-2"></i></a>Fonctions<span class="float-right">'.$lkadm.'</span></div>
+            <div id="sb_tools" class="list-group mb-3">
+               <div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_tools"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a>Fonctions<span class="float-right">'.$lkadm.'</span></div>
                <div class="collapse" id="l_sb_tools">
                   '.$sb_georef.'
                   <div class="list-group-item list-group-item-action py-1">
@@ -1420,17 +1482,16 @@ $affi .= '
          case '0': $affi .= '<optgroup label="OpenStreetMap">';break;
          case '1': $affi .= '<optgroup label="Stamen">';break;
          case '4': $affi .= '<optgroup label="Mapbox">';break;
-
-         case '5': if($api_key_bing==!'') $affi .= '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') $affi .= '<optgroup label="Google maps">';} break;
-         case '8': $affi .= '<optgroup label="Google maps">';break;
+         case '6': $affi .= '<optgroup label="NASA">';break;
+         
+         case '7': if($api_key_bing==!'') $affi .= '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') $affi .= '<optgroup label="Google maps">';} break;
+         case '10': $affi .= '<optgroup label="Google maps">';break;
       }
       $affi .=  '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '4': case '11': $affi .= '</optgroup>'; break;
+         case '0': case '3': case '6': case '13': $affi .= '</optgroup>'; break;
 
-//         case '3': if($api_key=='' and $api_key_bing=!'') $affi .= '</optgroup>'; break;
-//         case '4': if($api_key=!'') $affi .= '</optgroup>'; break;
 //         case '7': $affi .= '</optgroup>'; break;
 //         case '8': $affi .= '</optgroup>'; break;
          }
@@ -1438,8 +1499,23 @@ $affi .= '
    }
 $affi .= '
                            </select>
+                           <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity">
+                           <label class="mt-0 float-right small" for="baselayeropacity">Opacity</label>
+                           <div class="collapse"><input type="range" value="1" class="custom-range mt-1" min="0" max="7" step="1" id="nasaday">
+                           <label class="mt-0 float-right small" for="nasaday">Jour</label></div>
+
                         </div>
                      </div>
+                     <hr />
+                     <div>Couches utilitaires</div>
+                     <div class="custom-control custom-switch d-inline">
+                        <input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la grille').'" id="grillebox" />
+                        <label class="custom-control-label" for="grillebox">Grille</label>
+                     </div>
+                     
+                     
+                     
+                     
                   </div>
                </div>
             </div>
@@ -1448,7 +1524,6 @@ $affi .= '
       <div class=" p-2">
          <span class="small text-muted float-right" id="mypoint"></span>
       </div>
-   </div>
 
    <ul class="nav nav-tabs">
       <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
@@ -1495,8 +1570,7 @@ $affi .= '
       </div>
    </div>';
 //==> affichage des div contenants et écriture du script
-echo $affi;
-echo $ecr_scr;
+echo $affi.$ecr_scr;
 include ('footer.php');
 
 switch ($op) {

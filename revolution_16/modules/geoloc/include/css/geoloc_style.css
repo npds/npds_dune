@@ -25,14 +25,14 @@
 }
 
 #sidebar {
-     filter : alpha(opacity=80);
-     -moz-opacity : 0.8;
-     opacity : 0.8;
+     filter : alpha(opacity=90);
+     -moz-opacity : 0.9;
+     opacity : 0.9;
 /* 
      background: white;
  */
      position: absolute;
-     top: 0;
+     top: 40px;
      right: 0;
      min-width: 300px;
      height: 500px;
@@ -81,11 +81,23 @@ display: block;
   text-transform : capitalize;
 }
 /* openlayers hack */
-.ol-full-screen {
-   top : 29em;
-   left : .5em;
-   right: 99.5em
+
+.ol-control button, .ol-scale-line {
+background-color: var(--primary);
+opacity: 0.8;
 }
+.ol-full-screen {
+   right: 2.5em;
+}
+.ol-rotate {
+   right: 4.5em;
+   top: .5em;
+}
+.ol-sidebar {
+  top: .5em;
+  right: .5em;
+}
+
       .ol-popup {
         position: absolute;
         background-color: white;
@@ -130,9 +142,60 @@ display: block;
         content: "✖";
       }
       .ol_li {
-         max-height: 280px;
+         max-height: 180px;
          overflow:auto;
       }
+
+      #map .ol-zoom .ol-zoom-out {
+        margin-top: 204px;
+      }
+      #map .ol-zoomslider {
+        background-color: transparent;
+        top: 2.3em;
+      }
+      #map .ol-touch .ol-zoom .ol-zoom-out {
+        margin-top: 212px;
+      }
+      #map .ol-touch .ol-zoomslider {
+        top: 2.75em;
+      }
+      #map .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
+      #map .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+        top: 3px;
+      }
+
+      #map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
+      #map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+        top: 232px;
+      }
+
+/* 
+.fullscreen:-moz-full-screen {
+        height: 100%;
+      }
+      .fullscreen:-webkit-full-screen {
+        height: 100%;
+      }
+      .fullscreen:-ms-fullscreen {
+        height: 100%;
+      }
+
+      .fullscreen:fullscreen {
+        height: 100%;
+      }
+
+      .fullscreen {
+        margin-top: 10px;
+        width: 100%;
+        height: 400px;
+      }
+ */
+
+
+
+
+
+
 
 /*<== module geoloc */
 

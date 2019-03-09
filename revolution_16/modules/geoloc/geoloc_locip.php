@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_o_locip.php file 2008-2019 by Jean Pierre Barbary (jpb)       */
+/* geoloc_locip.php file 2008-2019 by Jean Pierre Barbary (jpb)         */
 /************************************************************************/
 
 #autodoc localiser_ip() : construit la carte pour l'ip géoréférencée ($iptoshow) à localiser
@@ -45,7 +45,7 @@ function localiser_ip($iptoshow) {
         });
       }
 
-      var iconFeature = new ol.Feature({
+      var ipPoint = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].'])),
         name: "IP"
       });
@@ -57,7 +57,7 @@ function localiser_ip($iptoshow) {
       });
 
       var vectorSource = new ol.source.Vector({
-        features: [iconFeature]
+        features: [ipPoint]
       });
       var vectorLayer = new ol.layer.Vector({
         source: vectorSource,
