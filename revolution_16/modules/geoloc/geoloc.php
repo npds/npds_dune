@@ -51,57 +51,9 @@ if(autorisation(-127)) {
 $mess_adm ='<p class="text-danger">'.geoloc_translate('Rappel : vous êtes en mode administrateur !').'</p>';
 $lkadm = '<a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set" title="'.geoloc_translate("Admin").'" data-toggle="tooltip"><i id="cogs" class="fa fa-cogs fa-lg"></i></a>';
 $infooo = geoloc_translate('Modification administrateur');
-$js_dragtrue ='draggable:true,';
-$js_dragfunc ='
-/*
-    google.maps.event.addListener(marker, "dragend", function(event) {
-        var myLatLng = event.latLng;
-        var lat = myLatLng.lat(); 
-        var lng = myLatLng.lng();
-        var id = marker.get("id");
-        var us = marker.get("us");
-        //=== creer un HTML DOM form element
-        var inputForm = document.createElement("form");
-        inputForm.setAttribute("action","");
-        inputForm.onsubmit = function() {updateMarker(lat,lng,"mod",id); return false;};
-        inputForm.innerHTML = \'<fieldset>\'
-        + \'<legend>\' + us + \' </legend>\'
-        + \'<span class="text-danger">'.$infooo.'</span>\'
-        + \'<div id="lalo"><span class="text-muted">'.geoloc_translate("Latitude").' : </span>\' + lat + \'<br /><span class="text-muted">'.geoloc_translate("Longitude").' : </span>\' + lng + \'</div>\'
-        + \'<input type="hidden" id="html" value="\' + id + \'" />\'
-        + \'<br />\'
-        + \'<button type="submit" class ="btn btn-primary btn-sm">'.geoloc_translate("Enregistrez").'</button>\'
-        + \'<input type="hidden" id="longitude" value="\' + lng + \'"/>\'
-        + \'<input type="hidden" id="latitude" value="\' + lat + \'"/>\'
-        + \'<input type="hidden" id="modgeo" value="mod"/>\'
-        + \'<input type="hidden" id="uid" value="id"/>\'
-        + \'</fieldset>\';
-        infoWindow.setContent(inputForm);
-        infoWindow.setPosition(myLatLng);
-        infoWindow.open(map);
-    });
+//$js_dragtrue ='draggable:true,';
+//$js_dragfunc ='';
 
-    var markers_temp = [];
-    google.maps.event.addListener(marker, "dragstart", function(event){
-        markers_temp.push(marker);
-        var myLatLng = event.latLng;
-        var marker_temp = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            icon: iconmb,
-            animation: google.maps.Animation.BOUNCE
-        });
-        marker_temp.setOpacity(0.3);
-        marker_temp.set("id", "temp_pos");
-        google.maps.event.addListener(infoWindow,"closeclick",function(currentMark){
-            marker_temp.setMap(null);
-            markers_temp[0].setPosition(myLatLng);
-        });
-    });
-*/
-
-
-';
    // IP géoréférencées
    if($geo_ip==1) {
       $affi_ip='';
@@ -509,7 +461,15 @@ $ecr_scr = '
       });
       iconFeature.setId(("ip"+i));
       src_ip.addFeature(iconFeature);
-   }';
+   }
+   
+   var src_countries = new ol.source.Vector({
+     url: "/modules/geoloc/include/countries.geojson",
+     format: new ol.format.GeoJSON()
+   });
+   
+   
+   ';
 
       if($mark_typ !==1) {
          $fafont=''; $fafont_js='';
@@ -621,7 +581,16 @@ $ecr_scr = '
           stroke: new ol.style.Stroke({color: "rgba(0, 0, 0, 100)", width: 0.1})
         })
       });
-
+      
+   var stylecountries = new ol.style.Style({
+      fill: new ol.style.Fill({
+         color: "rgba(255, 255, 255, 0.0)"
+      }),
+      stroke: new ol.style.Stroke({
+         color: "#319FD3",
+         width: 1
+      })
+   });
 
       var user_markers = new ol.layer.Vector({
             id: "utilisateurs",
@@ -643,7 +612,15 @@ $ecr_scr = '
              source: src_ip,
              style: iconIp,
              visible: false
-          });';
+          })
+         countries = new ol.layer.Vector({
+             id: "countries",
+             source: src_countries,
+             style: stylecountries,
+             visible: false
+          })
+          
+          ;';
 
 $source_fond=''; $max_r=''; $min_r='';$layer_id='';
 switch ($cartyp) {
@@ -764,7 +741,8 @@ switch ($cartyp) {
             userOn_markers,
             ano_markers,
             ip_markers,
-            ip_cluster
+            ip_cluster,
+            countries
          ],
          view: new ol.View({
             center: ol.proj.fromLonLat([13, 46]),
@@ -974,29 +952,22 @@ else
       });
 
       $("#grillebox").change("click", function () {
-      console.log(graticule);
-         console.log(map.getLayers());
+         console.log(graticule);// debug
+         console.log(map.getLayers());// debug
          if(this.checked) {
-         
-         
 //         graticule = new ol.Graticule({showLabels:true});
-
-                        graticule.showLabels=true;
+            graticule.showLabels=true;
             graticule.strokeStyle_.color_="rgba(0,0,0,0.2)";
-graticule.setMap(map);
+            graticule.setMap(map);
          }
          else{
-         console.log("aaa"+graticule);
+            console.log("aaa"+graticule);// debug
 //graticule = new ol.Graticule({showLabels:false});
-                        graticule.showLabels=false;
-
-graticule.setMap(map);
+            graticule.showLabels=false;
+            graticule.setMap(map);
             graticule.strokeStyle_.color_="rgba(0,0,0,0)";
          }
-         });
-
-
-
+      });
 
       $("#cbox").change("click", function () {
          if(this.checked) {
@@ -1045,6 +1016,7 @@ graticule.setMap(map);
 
    $("#cartyp").on("change", function() {
       cartyp = $( "#cartyp option:selected" ).val();
+      $("#dayslider").removeClass("show");
       switch (cartyp) {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
@@ -1072,20 +1044,33 @@ graticule.setMap(map);
             map.getLayers().array_[0].setProperties({"id":cartyp});
          break;
          case "modisterra":
+            $("#dayslider").addClass("show");
+            var datejour="'.$date_jour.'";
+            var today = new Date();
+        
+         
 //            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
-            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+
+            $("#nasaday").on("input change", function(event) {
+               var newDay = new Date(today.getTime());
+               newDay.setUTCDate(today.getUTCDate() + Number.parseInt(event.target.value));
+               datejour = newDay.toISOString().split("T")[0];
+               var datejourFr = datejour.split("-");
+               $("#dateimages").html(datejourFr[2]+"/"+datejourFr[1]+"/"+datejourFr[0]);
+               fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/ASTER_GDEM_Color_Index/default/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
+
+            });
 
 //            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
-
-
 //            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2019-03-05/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
+//            fond_carte.setSource(new ol.source.XYZ({url:"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2014-04-09/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
 
-//fond_carte.setSource(new ol.source.XYZ({url:"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2014-04-09/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
             fond_carte.setMinResolution(2);
             fond_carte.setMaxResolution(40000);
             map.getLayers().array_[0].setProperties({"id":cartyp});
          break;
-         
       }
    });
 
@@ -1096,25 +1081,19 @@ graticule.setMap(map);
       switch (e.key) {
          case "resolution":
             var idLayer = map.getLayers().array_[0].values_.id;
-         console.log(e.oldValue);//debug
-         console.log(map.getLayers().array_[0]);//debug
-         if((idLayer=="natural-earth-hypso-bathy" || idLayer=="geography-class") && e.oldValue<2000) {
-            fond_carte.setSource(new ol.source.OSM());
-            fond_carte.setProperties({"id":"OSM", "minResolution":"0", "maxResolution":"40000" });
-            $("#cartyp option[value=\'OSM\']").prop("selected", true);
-         }
-        break;
+            if((idLayer=="natural-earth-hypso-bathy" || idLayer=="geography-class") && e.oldValue<2000) {
+               fond_carte.setSource(new ol.source.OSM());
+               fond_carte.setProperties({"id":"OSM", "minResolution":"0", "maxResolution":"40000" });
+               $("#cartyp option[value=\'OSM\']").prop("selected", true);
+            }
+           break;
       }
    });
 // <== fallback de résolution
+
 // ==> opacité sur couche de base
    $("#baselayeropacity").on("input change", function() {
       map.getLayers().array_[0].setOpacity(parseFloat(this.value));
-   });
-// <== opacité sur couche de base
-// ==> date des images (nasa)
-   $("#nasaday").on("input change", function() {
-//      map.getLayers().array_[0].setOpacity(parseFloat(this.value));
    });
 // <== opacité sur couche de base
 
@@ -1171,13 +1150,12 @@ graticule.setMap(map);
                   container.innerHTML = \'<i class="fa fa-tv fa-2x text-muted mr-1 align-middle"></i>'.geoloc_translate('Anonyme').' @ \' + feature.get("ip_hostaddr") + \' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>\'+ feature.get("ip_hote") +\'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> \' + feature.get("ip_visitpage") +\'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + feature.get("ip_visit") +\']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>\'+ feature.get("ip_city") +\'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>\'+ feature.get("ip_country") +\'<hr /><img src="\'+ feature.get("ip_flagsrc") +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
                }
             } else {
-                var cfeatures = feature.get("features");console.log(cfeatures);
+                var cfeatures = feature.get("features");
                 if (cfeatures.length > 1) {
                   var l_ip="";
                   l_ip += \'<div class="ol_li"><h4><i class="fa fa-desktop fa-lg text-muted mr-2 align-middle"></i>IP<span class="badge badge-secondary float-right">\'+cfeatures.length+\'</span></h4><hr />\';
                     container.innerHTML = \'\';
                     for (var i = 0; i < cfeatures.length; i++) {
-                    console.log(cfeatures[i].id_ );
                         l_ip += \'<small><a href="#" onclick="centeronMe(\\\'\' + cfeatures[i].id_ + \'\\\')">\' + cfeatures[i].get("ip") + \'</small></a><br />\';
                     }
                     l_ip += \'</div>\'; 
@@ -1230,15 +1208,17 @@ if($op)
    if ($op[0]=='u') //pour zoom sur user back with u1
       $ecr_scr .= '
    map.getView().setCenter(src_user.idIndex_.'.$op.'.values_.geometry.flatCoordinates);
-   map.getView().setZoom(15);
-   ';
+   map.getView().setZoom(15);';
 
-if($op=='allip')
+if($op=='allip' and $geo_ip==1)
    $ecr_scr .= '
    ip_cluster.setVisible(true);
    user_markers.setVisible(false);
    ano_markers.setVisible(false);
-   userOn_markers.setVisible(false);';
+   userOn_markers.setVisible(false);
+   $("#acbox, #cbox, #memberbox").prop("checked", false);
+   $("#ipbox").prop("checked", "checked");
+   ';
 
 $ecr_scr .= '
 
@@ -1501,8 +1481,8 @@ $affi .= '
                            </select>
                            <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity">
                            <label class="mt-0 float-right small" for="baselayeropacity">Opacity</label>
-                           <div class="collapse"><input type="range" value="1" class="custom-range mt-1" min="0" max="7" step="1" id="nasaday">
-                           <label class="mt-0 float-right small" for="nasaday">Jour</label></div>
+                           <div id="dayslider" class="collapse"><input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday">
+                           <label id="dateimages" class="mt-0 float-right small" for="nasaday">'.$date_jour.'</label></div>
 
                         </div>
                      </div>
@@ -1512,10 +1492,11 @@ $affi .= '
                         <input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la grille').'" id="grillebox" />
                         <label class="custom-control-label" for="grillebox">Grille</label>
                      </div>
-                     
-                     
-                     
-                     
+                     <br />
+                     <div class="custom-control custom-switch d-inline">
+                        <input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la couche').'" id="coastandborder" />
+                        <label class="custom-control-label" for="coastandborder">Cotes et frontières</label>
+                     </div>
                   </div>
                </div>
             </div>

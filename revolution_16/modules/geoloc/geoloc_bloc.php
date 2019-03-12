@@ -25,21 +25,18 @@ switch ($cartyp_b) {
    case 'OSM':
       $source_fond='new ol.source.OSM()';
    break;
-      case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
-         $source_fond='';
-      break;
-      case 'Road':case 'Aerial':case 'AerialWithLabels':
-         $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp_b.'"})';
-      break;
-      case 'mapbox':
-         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.natural-earth-hypso-bathy.json"})';
-      break;
-      case 'cartegeo':
-         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.geography-class.json"})';
-      break;
-      case 'terrain':case 'toner':case 'watercolor':
-         $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
-      break;
+   case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
+      $source_fond='';
+   break;
+   case 'Road':case 'Aerial':case 'AerialWithLabels':
+      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp_b.'"})';
+   break;
+   case 'natural-earth-hypso-bathy': case 'geography-class':
+      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.'.$cartyp_b.'.json"})';
+   break;
+   case 'terrain':case 'toner':case 'watercolor':
+      $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
+   break;
    default:
    $source_fond='new ol.source.OSM()';
 }

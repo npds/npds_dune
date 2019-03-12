@@ -43,7 +43,6 @@ function vidip(){
 
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
-   if (file_exists('modules/'.$ModPath.'/geoloc_conf.php'))
    include ('modules/'.$ModPath.'/geoloc_conf.php');
    $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo.html';
 
@@ -61,34 +60,39 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $fonts_svg=array(
-      ['uf007','Utilisateur'],
-      ['uf2bd','Utilisateur en cercle'],
-      ['uf2be','Utilisateur en cercle'],
-      ['uf0c0','Utilisateurs'],
-      ['uf004','Coeur'],
-      ['uf08d','Punaise'],
-      ['uf111','Cercle'],
-      ['uf030','Appareil photo'],
-      ['uf13d','Ancre'],
-      ['uf041','Marqueur carte'],
-      ['uf072','Avion'],
-      ['uf005','Etoile'],
-      ['uf015','Maison'],
-      ['uf024','Drapeau'],
-      ['uf05b','Croix'],
-      ['uf069','Astérisque'],
-      ['uf06d','Flamme'],
-      ['uf075','Commentaire']
+      ['user','uf007','Utilisateur'],
+      ['userCircle','uf2bd','Utilisateur en cercle'],
+      ['userCircle','uf2be','Utilisateur en cercle'],
+      ['users','uf0c0','Utilisateurs'],
+      ['heart','uf004','Coeur'],
+      ['thumbtack','uf08d','Punaise'],
+      ['circle','uf111','Cercle'],
+      ['camera','uf030','Appareil photo'],
+      ['anchor','uf13d','Ancre'],
+      ['mapMarker','uf041','Marqueur carte'],
+      ['plane','uf072','Avion'],
+      ['star','uf005','Etoile'],
+      ['home','uf015','Maison'],
+      ['flag','uf024','Drapeau'],
+      ['crosshairs','uf05b','Croix'],
+      ['asterisk','uf069','Astérisque'],
+      ['fire','uf06d','Flamme'],
+      ['comment','uf075','Commentaire']
    );
    $fond_provider=array(
       ['OSM', geoloc_translate("Plan").' (OpenStreetMap)'],
+      ['toner', geoloc_translate("Noir et blanc").' (Stamen)'],
+      ['watercolor', geoloc_translate("Dessin").' (Stamen)'],
+      ['terrain', geoloc_translate("Relief").' (Stamen)'],
+      ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
+      ['geography-class', geoloc_translate("Carte").' (mapbox)'],
+      ['Road', geoloc_translate("Plan").' (Bing maps)'],
+      ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
+      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
       ['ROADMAP', geoloc_translate("Plan").' (Google)'],
       ['SATELLITE', geoloc_translate("Satellite").' (Google)'],
       ['HYBRID', geoloc_translate("Satellite").' et label (Google)'],
-      ['TERRAIN', geoloc_translate("Relief").' (Google)'],
-      ['Road', geoloc_translate("Plan").' (Bing maps)'],
-      ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
-      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)']
+      ['TERRAIN', geoloc_translate("Relief").' (Google)']
    );
 
    echo '
@@ -154,52 +158,41 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       </fieldset>
       <hr />
       <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
-               <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="api_key">'.geoloc_translate("Clef d'API").' Google</label>
-            <div class="col-sm-8">
-               <input type="text" class="form-control" name="api_key" id="api_key" placeholder="" value="'.$api_key.'"  />
-               <span class="help-block small muted">'.$api_key.'</span>
-            </div>
-         </div>';
-   if($api_key=='AIzaSyBc110e_3IYqvjmHAoG1zlmi_kG4eLr_ns') 
-      echo '
-         <div class="alert alert-danger">Attention : cette clef d\'API doit être remplacée par votre propre clef au plus tôt !</div>';
-   echo '
-         <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
-            <div class="col-sm-8">
-               <input type="text" class="form-control" name="api_key_bing" id="api_key_bing" placeholder="" value="'.$api_key_bing.'" />
-               <span class="help-block small muted">'.$api_key_bing.'</span>
-            </div>
-         </div>';
-   if($api_key_bing=='AsM7pmiTeScJTnXmkNmHVvFXrR1rke16t5NWTYPhbNnKf7_UOkHrH2pHg2ABfMOZ') 
-      echo '
-         <div class="alert alert-danger">Attention : cette clef d\'API doit être remplacée par votre propre clef au plus tôt !</div>';
-   echo '
-         <div class="row">
+      <div class="form-group row">
+         <label class="col-form-label col-sm-4" for="api_key">'.geoloc_translate("Clef d'API").' Google</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="api_key" id="api_key" placeholder="" value="'.$api_key.'"  />
+            <span class="help-block small muted">'.$api_key.'</span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="api_key_bing" id="api_key_bing" placeholder="" value="'.$api_key_bing.'" />
+            <span class="help-block small muted">'.$api_key_bing.'</span>
+         </div>
+      </div>
+      <div class="row">
          <div class="col-sm-8">
             <fieldset id="para_car" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
                <div class="form-group row ">
                   <label class="col-form-label col-sm-6" for="cartyp">'.geoloc_translate('Type de carte').'<span class="text-danger ml-1">*</span></label>
                   <div class="col-sm-6">
-                     <select class="custom-select form-control" name="cartyp" id="cartyp">
-';
+                     <select class="custom-select form-control" name="cartyp" id="cartyp">';
    $j=0;
    foreach ($fond_provider as $v) {
       if($v[0]==$cartyp) $sel='selected="selected"'; else $sel='';
       switch($j){
-         case '0': echo'
-                        <optgroup label="OpenStreetMap">';break;
-         case '1': echo'
-                        <optgroup label="Google maps">';break;
-         case '5': echo'
-                        <optgroup label="Bing maps">';break;
+         case '0': echo '<optgroup label="OpenStreetMap">';break;
+         case '1': echo '<optgroup label="Stamen">';break;
+         case '4': echo '<optgroup label="Mapbox">';break;
+         case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') echo '<optgroup label="Google maps">';} break;
+         case '9': echo '<optgroup label="Google maps">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0':case '4': case '7': echo'
-                        </optgroup>'; break;
+         case '0': case '3': case '5': case '12': echo '</optgroup>'; break;
          }
       $j++;
    }
@@ -288,13 +281,18 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <div class="form-group row">
                <label class="col-form-label col-sm-6" for="f_mbg">'.geoloc_translate('Marqueur font SVG').'<span class="text-danger ml-1">*</span></label>
                <div class="col-sm-6">
-                  <div class="input-group">
-                     <div id="vis_ic" class="input-group-prepend"></div>
+                  <div class="input-group">';
+                     $fafont='';
+               foreach ($fonts_svg as $v) {
+                  if($v[0]==$f_mbg) $fafont = '&#x'.substr($v[1],1).';'; 
+               }
+               echo'
+                     <div id="vis_ic" class="input-group-prepend"><span class="input-group-text"><span class="fa fa-lg id="fontchoice"">'.$fafont.'</span></div>
                      <select class="custom-select form-control input-lg" name="f_mbg" id="f_mbg">';
    foreach ($fonts_svg as $v) {
       if($v[0]==$f_mbg) $sel='selected="selected"'; else $sel='';
       echo '
-                         <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
+                         <option '.$sel.' value="'.$v[0].'">'.$v[2].'</option>';
    }
    echo '
                      </select>
@@ -303,13 +301,13 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             </div>
             <div class="form-group row">
                <div class="col-4">
-                  <div><span id="f_choice_mbg" class="fa fa-2x align-center" style="color:'.$mbg_f_co.';" >&#x'.substr($f_mbg,1).';</span>&nbsp;<span>'.geoloc_translate('Membre').'</span></div>
+                  <div><span id="f_choice_mbg" class="fa fa-2x align-center" style="color:'.$mbg_f_co.';" >'.$fafont.'</span>&nbsp;<span>'.geoloc_translate('Membre').'</span></div>
                </div>
                <div class="col-4">
-                  <div><i id="f_choice_mbgc" class="fa fa-2x align-center" style="color:'.$mbgc_f_co.';" >&#x'.substr($f_mbg,1).';</i>&nbsp;<span>'.geoloc_translate('Membre en ligne').'</span></div>
+                  <div><i id="f_choice_mbgc" class="fa fa-2x align-center" style="color:'.$mbgc_f_co.';" >'.$fafont.'</i>&nbsp;<span>'.geoloc_translate('Membre en ligne').'</span></div>
                </div>
                <div class="col-4">
-                  <div><i id="f_choice_acg" class="fa fa-2x align-center" style="color:'.$acg_f_co.';" >&#x'.substr($f_mbg,1).';</i>&nbsp;<span>'.geoloc_translate('Anonyme en ligne').'</span></div>
+                  <div><i id="f_choice_acg" class="fa fa-2x align-center" style="color:'.$acg_f_co.';" >'.$fafont.'</i>&nbsp;<span>'.geoloc_translate('Anonyme en ligne').'</span></div>
                </div>
             </div>
             <div class="row">
@@ -385,72 +383,124 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 bkmbg">
-                    <label class="col-form-label" for="mbg_t_op">'.geoloc_translate('Opacité du trait').'</label>
-                    <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_t_op" id="mbg_t_op" value="'.$mbg_t_op.'" required="required" />
-                </div>
-                <div class="col-4">
-                    <label class="col-form-label" for="mbgc_t_op">'.geoloc_translate('Opacité du trait').'</label>
-                    <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_t_op" id="mbgc_t_op" value="'.$mbgc_t_op.'" required="required" />
-                </div>
-                <div class="col-4" >
-                    <label class="col-form-label" for="acg_t_op">'.geoloc_translate('Opacité du trait').'</label>
-                    <input type="number" step="any" min="0" max="1" class="form-control" name="acg_t_op" id="acg_t_op" value="'.$acg_t_op.'" required="required" />
-                </div>
+               <div class="col-4 bkmbg">
+                  <label class="col-form-label" for="mbg_t_op">'.geoloc_translate('Opacité du trait').'</label>
+                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_t_op" id="mbg_t_op" value="'.$mbg_t_op.'" required="required" />
+               </div>
+               <div class="col-4">
+                  <label class="col-form-label" for="mbgc_t_op">'.geoloc_translate('Opacité du trait').'</label>
+                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_t_op" id="mbgc_t_op" value="'.$mbgc_t_op.'" required="required" />
+               </div>
+               <div class="col-4" >
+                  <label class="col-form-label" for="acg_t_op">'.geoloc_translate('Opacité du trait').'</label>
+                  <input type="number" step="any" min="0" max="1" class="form-control" name="acg_t_op" id="acg_t_op" value="'.$acg_t_op.'" required="required" />
+               </div>
             </div>
             <div class="row">
-                <div class="col-4 bkmbg">
-                    <label class="col-form-label" for="mbg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
-                    <input type="number" step="any" min="0" class="form-control" name="mbg_t_ep" id="mbg_t_ep" value="'.$mbg_t_ep.'" required="required" />
-                </div>
-                <div class="col-4">
-                    <label class="col-form-label" for="mbgc_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
-                    <input type="number" step="any" min="0" class="form-control" name="mbgc_t_ep" id="mbgc_t_ep" value="'.$mbgc_t_ep.'" required="required" />
-                </div>
-                <div class="col-4">
-                    <label class="col-form-label" for="acg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
-                    <input type="number" step="any" min="0" class="form-control" name="acg_t_ep" id="acg_t_ep" value="'.$acg_t_ep.'" required="required" />
-                </div>
+               <div class="col-4 bkmbg">
+                  <label class="col-form-label" for="mbg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
+                  <input type="number" step="any" min="0" class="form-control" name="mbg_t_ep" id="mbg_t_ep" value="'.$mbg_t_ep.'" required="required" />
+               </div>
+               <div class="col-4">
+                  <label class="col-form-label" for="mbgc_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
+                  <input type="number" step="any" min="0" class="form-control" name="mbgc_t_ep" id="mbgc_t_ep" value="'.$mbgc_t_ep.'" required="required" />
+               </div>
+               <div class="col-4">
+                  <label class="col-form-label" for="acg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
+                  <input type="number" step="any" min="0" class="form-control" name="acg_t_ep" id="acg_t_ep" value="'.$acg_t_ep.'" required="required" />
+               </div>
             </div>
             <div class="row">
-                <div class="col-4 bkmbg">
-                    <label class="col-form-label" for="mbg_sc">'.geoloc_translate('Echelle').'</label>
-                    <input type="number" step="any" min="0" max="3" class="form-control" name="mbg_sc" id="mbg_sc" placeholder="'.geoloc_translate('Echelle').'" value="'.$mbg_sc.'" required="required" />
+               <div class="col-4 bkmbg">
+                  <label class="col-form-label" for="mbg_sc">'.geoloc_translate('Echelle').'</label>
+                  <select class="custom-select form-control" name="mbg_sc" id="mbg_sc">
+                     <option>10</option>
+                     <option>11</option>
+                     <option>12</option>
+                     <option>14</option>
+                     <option>16</option>
+                     <option>18</option>
+                     <option>20</option>
+                     <option>22</option>
+                     <option>24</option>
+                     <option>26</option>
+                     <option>28</option>
+                     <option>30</option>
+                     <option>32</option>
+                     <option>36</option>
+                     <option>38</option>
+                     <option>40</option>
+                     <option selected="selected">'.$mbg_sc.'</option>
+                  </select>
                 </div>
                 <div class="col-4">
                     <label class="col-form-label" for="mbgc_sc">'.geoloc_translate('Echelle').'</label>
-                    <input type="number" step="any" min="0" max="3" class="form-control" name="mbgc_sc" id="mbgc_sc" placeholder="'.geoloc_translate('Echelle').'" value="'.$mbgc_sc.'" required="required" />
+                     <select class="custom-select form-control" name="mbgc_sc" id="mbgc_sc">
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>14</option>
+                        <option>16</option>
+                        <option>18</option>
+                        <option>20</option>
+                        <option>22</option>
+                        <option>24</option>
+                        <option>26</option>
+                        <option>28</option>
+                        <option>30</option>
+                        <option>32</option>
+                        <option>36</option>
+                        <option>38</option>
+                        <option>40</option>
+                        <option selected="selected">'.$mbgc_sc.'</option>
+                     </select>
                 </div>
                 <div class="col-4" >
-                    <label class="col-form-label" for="acg_sc">'.geoloc_translate('Echelle').'</label>
-                    <input type="number" step="any" min="0" max="3" class="form-control" name="acg_sc" id="acg_sc" placeholder="'.geoloc_translate('Echelle').'" value="'.$acg_sc.'" required="required" />
-                </div>
-            </div>
-        </fieldset>
-        <hr />
+                  <label class="col-form-label" for="acg_sc">'.geoloc_translate('Echelle').'</label>
+                     <select class="custom-select form-control" name="acg_sc" id="acg_sc">
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>14</option>
+                        <option>16</option>
+                        <option>18</option>
+                        <option>20</option>
+                        <option>22</option>
+                        <option>24</option>
+                        <option>26</option>
+                        <option>28</option>
+                        <option>30</option>
+                        <option>32</option>
+                        <option>36</option>
+                        <option>38</option>
+                        <option>40</option>
+                        <option selected="selected">'.$acg_sc.'</option>
+                     </select>
+                  </div>
+               </div>
+            </fieldset>
+   <hr />
    <h4 class="my-3">'.geoloc_translate('Interface bloc').'</h4>
    <fieldset class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
       <div class="form-group row">
          <label class="col-form-label col-sm-6" for="cartyp_b">'.geoloc_translate('Type de carte').'<span class="text-danger ml-1">*</span></label>
          <div class="col-sm-6">
-            <select class="custom-select form-control" name="cartyp_b" id="cartyp_b">
-';
+            <select class="custom-select form-control" name="cartyp_b" id="cartyp_b">';
    $j=0;
    foreach ($fond_provider as $v) {
-      if($v[0]==$cartypb) $sel='selected="selected"'; else $sel='';
+      if($v[0]==$cartyp_b) $sel='selected="selected"'; else $sel='';
       switch($j){
-         case '0': echo'
-                        <optgroup label="OpenStreetMap">';break;
-         case '1': echo'
-                        <optgroup label="Google maps">';break;
-         case '5': echo'
-                        <optgroup label="Bing maps">';break;
+         case '0': echo '<optgroup label="OpenStreetMap">';break;
+         case '1': echo '<optgroup label="Stamen">';break;
+         case '4': echo '<optgroup label="Mapbox">';break;
+         case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') echo '<optgroup label="Google maps">';} break;
+         case '9': echo '<optgroup label="Google maps">';break;
+
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0':case '4': case '7': echo'
-                        </optgroup>'; break;
+         case '0': case '3': case '5': case '12': echo '</optgroup>'; break;
          }
       $j++;
    }
@@ -535,38 +585,35 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
 </div>';
 $source_fond='';
 switch ($cartyp) {
-    case 'ROADMAP':
-      $source_fond='';
-        break;
-    case 'SATELLITE':
-      $source_fond='';
-        break;
-    case 'TERRAIN':
-      $source_fond='';
-        break;
-    case 'HYBRID':
-      $source_fond='';
-        break;
-    case 'Road':
-      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
-        break;
-    case 'Aerial':
-      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
-        break;
-    case 'AerialWithLabels':
-      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
-        break;
-
-    default:
+   case 'OSM':
       $source_fond='new ol.source.OSM()';
+   break;
+      case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
+         $source_fond='';
+      break;
+      case 'Road':case 'Aerial':case 'AerialWithLabels':
+         $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
+      break;
+      case 'natural-earth-hypso-bathy': case 'geography-class':
+         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.'.$cartyp.'.json"})';
+/*
+      case 'geography-class':
+         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.geography-class.json"})';
+*/
+      break;
+      case 'terrain':case 'toner':case 'watercolor':
+         $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
+      break;
+   default:
+   $source_fond='new ol.source.OSM()';
 }
-var_dump($cartyp);
    echo '
 <script type="text/javascript">
 //<![CDATA[
    $(document).ready(function() {
       $("head").append($("<script />").attr("src","lib/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"));
       $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
+      $("head").append($("<script />").attr({"type":"text/javascript","src":"modules/geoloc/include/fontawesome.js"}));
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
    });
 
@@ -598,51 +645,14 @@ $(document).ready(function() {
    });
 
 
-   $("#f_mbg").change(function() {
-      var str = $("#f_mbg option:selected").val();
-      str=str.substring(1,str.length);
-      $("#vis_ic").html(\'<span class="input-group-text"><span id="fontchoice" class="fa fa-lg">&#x\'+str+\';</span></span>\');
-      $("#f_choice_mbg,#f_choice_mbgc,#f_choice_acg").html("&#x"+str+";");
-   }).trigger("change");
-
 $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).change(function() {
-    w_ico_size = $("#w_ico").val();
-    h_ico_size = $("#h_ico").val();
-    i_path_mbg = $("#ch_img").val()+$("#nm_img_mbg").val();
-    i_path_mbcg = $("#ch_img").val()+$("#nm_img_mbcg").val();
-    i_path_acg = $("#ch_img").val()+$("#nm_img_acg").val();
-    f_pa = $("#f_mbg option:selected").val();
-    
-    
-/*
-    icon_cmbg.url=i_path_mbg;
-    icon_cmbg.size=new google.maps.Size(w_ico_size, h_ico_size);
-    icon_cmbg.scaledSize=new google.maps.Size(w_ico_size, h_ico_size);
-*/
-
-    icon_mbg_temp = {
-                    url: i_path_mbg,
-                    size: new google.maps.Size(w_ico_size, h_ico_size),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 0),
-                    scaledSize: new google.maps.Size(w_ico_size, h_ico_size)
-                    };
-  icon_mbgc_temp = {
-                    url: i_path_mbcg,
-                    size: new google.maps.Size(w_ico_size, h_ico_size),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 0),
-                    scaledSize: new google.maps.Size(w_ico_size, h_ico_size)
-                    };
-    icon_acg_temp = {
-                    url: i_path_acg,
-                    size: new google.maps.Size(w_ico_size, h_ico_size),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 0),
-                    scaledSize: new google.maps.Size(w_ico_size, h_ico_size)
-                    };
-                  
-    }).trigger("change");
+   w_ico_size = $("#w_ico").val();
+   h_ico_size = $("#h_ico").val();
+   i_path_mbg = $("#ch_img").val()+$("#nm_img_mbg").val();
+   i_path_mbcg = $("#ch_img").val()+$("#nm_img_mbcg").val();
+   i_path_acg = $("#ch_img").val()+$("#nm_img_acg").val();
+   f_pa = $("#f_mbg option:selected").val();
+}).trigger("change");
  
     $(".pickcol_fmb, .pickcol_fmbc, .pickcol_fac, .pickcol_tmb, .pickcol_tmbc, .pickcol_tac").colorpicker({format:"rgb"});
 
@@ -703,7 +713,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
       }));
       mark_cmbg_svg.setStyle(new ol.style.Style({
         text: new ol.style.Text({
-          text: "\\'.$f_mbg.'",
+          text: fa("'.$f_mbg.'"),
           font: "normal 32px FontAwesome",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
@@ -712,7 +722,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
       }));
       mark_cmbgc_svg.setStyle(new ol.style.Style({
         text: new ol.style.Text({
-          text: "\\'.$f_mbg.'",
+          text: fa("'.$f_mbg.'"),
           font: "normal 32px FontAwesome",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
@@ -721,7 +731,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
       }));
       mark_acg_svg.setStyle(new ol.style.Style({
         text: new ol.style.Text({
-          text: "\\'.$f_mbg.'",
+          text: fa("'.$f_mbg.'"),
           font: "normal 28px FontAwesome",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
@@ -742,6 +752,9 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
 
       var attribution = new ol.control.Attribution({collapsible: true});
       var map = new ol.Map({
+         interactions: new ol.interaction.defaults({
+            constrainResolution: true, onFocusOnly: true
+         }),
          controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
          target: "map_conf",
          layers: [
@@ -756,9 +769,6 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
 
     var coul_temp;
 
-
-
-        
 
 /*
 "Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;.");
@@ -799,54 +809,98 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
       $("#v_img_mbcg").html("<img width=\"22\" height=\"22\" alt=\"'.geoloc_translate('Image membre géoréférencé en ligne').'\" src=\""+$("#ch_img").val()+$("#nm_img_mbcg").val()+"\" />");
       $("#v_img_acg").html("<img width=\"22\" height=\"22\" alt=\"'.geoloc_translate('Image anonyme géoréférencé en ligne').'\" src=\""+$("#ch_img").val()+$("#nm_img_acg").val()+"\" />");
    })
-var oo ="\\\";
-//==> change font
-   $("#f_mbg").change(function(event) {
-      var f_pa = $("#f_mbg option:selected").val();
-      console.log(f_pa);
-      var fc= $("#mbg_f_co").val();
-var oo="\uf108";
-      mark_cmbg_svg.setStyle(new ol.style.Style({
-        text: new ol.style.Text({
-          text: oo,
-          font: "normal 32px FontAwesome",
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: fc}),
-          stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
-        })
-      }));
 
-/*
-      mark_cmbg_svg.setIcon(icon_mbg_svg);
-      mark_cmbgc_svg.setIcon(icon_cmbg_svg);
-      mark_acg_svg.setIcon(icon_cacg_svg);
-*/
-      
+
+var changestyle = function(m,f_fa,fc,tc,sc) {
+   m.setStyle(new ol.style.Style({
+     text: new ol.style.Text({
+       text: fa(f_fa),
+       font: "normal "+sc+"px FontAwesome",
+       bottom: "Bottom",
+       fill: new ol.style.Fill({color: fc}),
+       stroke: new ol.style.Stroke({color: tc, width: '.$mbg_t_ep.'})
+     })
+   }));
+}
+
+//==> change font on the map
+   $("#f_mbg").change(function(event) {
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc_m = $("#mbg_f_co").val();
+      var fc_mo = $("#mbgc_f_co").val();
+      var fc_a = $("#acg_f_co").val();
+      var tc_m = $("#mbg_t_co").val();
+      var tc_mo = $("#mbgc_t_co").val();
+      var tc_a = $("#acg_t_co").val();
+      var sc_m = $("#mbg_sc option:selected").val();
+      var sc_mo = $("#mbgc_sc option:selected").val();
+      var sc_a = $("#acg_sc option:selected").val();
+
+      changestyle(mark_cmbg_svg,f_fa,fc=fc_m,tc=tc_m,sc=sc_m);
+      changestyle(mark_cmbgc_svg,f_fa,fc=fc_mo,tc=tc_mo,sc=sc_mo);
+      changestyle(mark_acg_svg,f_fa,fc=fc_a,tc=tc_a,sc=sc_a);
+      $("#f_choice_mbg,#f_choice_mbgc,#f_choice_acg").html(fa(f_fa));
+      $("#vis_ic").html(\'<span class="input-group-text"><span id="fontchoice" class="fa fa-lg">\'+fa(f_fa)+\'</span></span>\');
    })
 
 
    $("#ch_img, #img_mbgb").change(function() {
       $("#v_img_mbgb").html("<img width=\"22\" height=\"22\" alt=\"'.geoloc_translate('Image membre géoréférencé').'\" src=\""+$("#ch_img").val()+$("#img_mbgb").val()+"\" />");
    })
-
-
-
-
-
-
-/*   
+//==> aux changements de taille
     $("#mbg_sc").change(function() {
-        icon_mbg_svg.scale = Number($("#mbg_sc").val());
-        mark_cmbg_svg.setIcon(icon_mbg_svg);
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc = $("#mbg_f_co").val();
+      var tc = $("#mbg_t_co").val();
+      var sc = $("#mbg_sc option:selected").val();
+      changestyle(mark_cmbg_svg,f_fa,fc,tc,sc);
     });
-    $("#mbgc_sc").change(function() {
-        icon_cmbg_svg.scale = Number($("#mbgc_sc").val());
-        mark_cmbgc_svg.setIcon(icon_cmbg_svg);
-    });
-    $("#acg_sc").change(function() {
-        icon_cacg_svg.scale = Number($("#acg_sc").val());
-        mark_acg_svg.setIcon(icon_cacg_svg);
-    });
+   $("#mbgc_sc").change(function() {
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc = $("#mbgc_f_co").val();
+      var tc = $("#mbgc_t_co").val();
+      var sc = $("#mbgc_sc option:selected").val();
+      changestyle(mark_cmbgc_svg,f_fa,fc,tc,sc);
+   });
+   $("#acg_sc").change(function() {
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc = $("#acg_f_co").val();
+      var tc = $("#acg_t_co").val();
+      var sc = $("#acg_sc option:selected").val();
+      changestyle(mark_acg_svg,f_fa,fc,tc,sc);
+   });
+//<== aux changements de taille
+
+//==> aux changements de couleurs fond
+   $("#mbg_f_co").change(function(){
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc = $("#mbg_f_co").val();
+      var tc = $("#mbg_t_co").val();
+      var sc = $("#mbg_sc option:selected").val();
+      changestyle(mark_cmbg_svg,f_fa,fc,tc,sc);
+      $("#f_choice_mbg").attr("style","color:"+fc);
+   });
+   $("#mbgc_f_co").change(function(){
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc = $("#mbgc_f_co").val();
+      var tc = $("#mbgc_t_co").val();
+      var sc = $("#mbgc_sc option:selected").val();
+      changestyle(mark_cmbgc_svg,f_fa,fc,tc,sc);
+      $("#f_choice_mbgc").attr("style","color:"+fc);
+   });
+   $("#acg_f_co").change(function(){
+      var f_fa = $("#f_mbg option:selected").val();
+      var fc = $("#acg_f_co").val();
+      var tc = $("#acg_t_co").val();
+      var sc = $("#acg_sc option:selected").val();
+      changestyle(mark_acg_svg,f_fa,fc,tc,sc);
+      $("#f_choice_acg").attr("style","color:"+fc);
+   });
+//<== aux changements de couleurs fond
+   
+   
+ /*
+
 
     $("#mbg_f_op").change(function() {
         icon_mbg_svg.fillOpacity = Number($("#mbg_f_op").val());
@@ -886,45 +940,10 @@ var oo="\uf108";
         icon_cacg_svg.strokeWeight = Number($("#acg_t_ep").val());
         mark_acg_svg.setIcon(icon_cacg_svg);
     });
-
-
-
 */
 
-$("#mbg_f_co").change(function(){
-   var coul = $("#mbg_f_co").val();
-   $("#f_choice_mbg").attr("style","color:"+coul);
-})
-$("#mbgc_f_co").change(function(){
-   var coul = $("#mbgc_f_co").val();
-   $("#f_choice_mbgc").attr("style","color:"+coul);
-})
-$("#acg_f_co").change(function(){
-//   var coul = $("#acg_f_co").val();
-   $("#f_choice_acg").attr("style","color:"+$("#acg_f_co").val());
-})
 
 
-/*
-    $(".pickcol_fmb").colorpicker().on("changeColor", function(event){
-        var coul = event.color.toHex();
-        $("#f_choice_mbg").attr("style","color:"+coul);
-        icon_mbg_svg.fillColor=coul;
-        mark_cmbg_svg.setIcon(icon_mbg_svg);
-    });
-    $(".pickcol_fmbc").colorpicker().on("changeColor.colorpicker", function(event){
-        var coul = event.color.toHex()
-        $("#f_choice_mbgc").attr("style","color:"+coul);
-        icon_cmbg_svg.fillColor=coul;
-        mark_cmbgc_svg.setIcon(icon_cmbg_svg);
-    });
-    $(".pickcol_fac").colorpicker().on("changeColor.colorpicker", function(event){
-        var coul = event.color.toHex()
-        $("#f_choice_acg").attr("style","color:"+coul);
-        icon_cacg_svg.fillColor=coul;
-        mark_acg_svg.setIcon(icon_cacg_svg);
-    });
-*/    
     $(".pickcol_tmb").colorpicker().on("changeColor.colorpicker", function(event){
         var coul = event.color.toHex()
         icon_mbg_svg.strokeColor=coul;
@@ -941,8 +960,8 @@ $("#acg_f_co").change(function(){
         mark_acg_svg.setIcon(icon_cacg_svg);
     });
 
-   $("#cartyp").change(function() {
-      cartyp = $( "#cartyp option:selected" ).val();
+   $("#cartyp").on("change", function() {
+         cartyp = $( "#cartyp option:selected" ).val();
       switch (cartyp) {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
@@ -953,9 +972,14 @@ $("#acg_f_co").change(function(){
          case "Road":case "Aerial":case "AerialWithLabels":
             fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
          break;
+         case "natural-earth-hypso-bathy": case "geography-class":
+            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox."+cartyp+".json"}));
+         break;
+         case "terrain": case "toner": case "watercolor":
+            fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
+         break;
       }
-   })
-    
+   });
 
 });
 }
