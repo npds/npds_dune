@@ -102,7 +102,7 @@ function SelectCategory($cat) {
    echo '
                <option name="catid" value="0" '.$sel.'>'.adm_translate("Articles").'</option>';
    while(list($catidX, $title) = sql_fetch_row($selcat)) {
-      if ($catidX==$cat) $sel = 'selected';
+      if ($catidX==$cat) $sel = 'selected="selected"';
       else $sel = '';
       echo '
                <option name="catid" value="'.$catidX.'" '.$sel.'>'.aff_langue($title).'</option>';
@@ -135,7 +135,7 @@ function AddCategory () {
          <label class="col-sm-12 col-form-label" for="title">'.adm_translate("Nom").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="title" name="title" maxlength="255" required="required" />
-            <span class="help-block text-right id="countcar_title"></span>
+            <span class="help-block text-right" id="countcar_title"></span>
          </div>
       </div>
       <input type="hidden" name="op" value="SaveCategory" />
