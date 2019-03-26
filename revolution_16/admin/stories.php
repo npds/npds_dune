@@ -1189,6 +1189,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    adminfoot('fv','',$arg1,'');
 }
 settype($catid,'integer');
+
 switch ($op) {
    case 'EditCategory':
       EditCategory($catid);
@@ -1218,6 +1219,10 @@ switch ($op) {
       previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    break;
    case 'PostStory':
+      settype($notes,'string');
+      settype($date_debval,'string');
+      settype($date_finval,'string');
+      settype($qid,'integer');
       if (!$date_debval) 
          $date_debval = $dd_pub.' '.$dh_pub.':01';
       if (!$date_finval) 
