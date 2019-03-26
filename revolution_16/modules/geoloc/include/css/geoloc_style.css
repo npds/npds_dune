@@ -16,7 +16,6 @@
      width: 100%;
 }
 
-
 /* 
 .n-media-repere {color:green;};
  */
@@ -32,7 +31,7 @@
      background: white;
  */
      position: absolute;
-     top: 40px;
+     top: 46px;
      right: 0;
      min-width: 300px;
      height: 500px;
@@ -83,8 +82,8 @@ display: block;
 /* openlayers hack */
 
 .ol-control button, .ol-scale-line {
-background-color: var(--primary);
-opacity: 0.8;
+   background-color: var(--primary);
+   opacity: 0.8;
 }
 .ol-full-screen {
    right: 2.5em;
