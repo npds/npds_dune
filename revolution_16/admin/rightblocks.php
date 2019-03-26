@@ -82,7 +82,7 @@ function deleterblock($id) {
 }
 
 settype($css,'integer');
-settype($Mmember,'string');
+//settype($Mmember,'string');
 settype($Sactif,'string');
 settype($SHTML,'string');
 
