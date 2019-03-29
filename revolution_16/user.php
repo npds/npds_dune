@@ -1202,7 +1202,7 @@ function chgtheme() {
    $themelist = explode(' ', $themelist);
    $thl= sizeof($themelist);
    for ($i=0; $i < $thl; $i++) {
-      if ($themelist[$i]!='') {	  
+      if ($themelist[$i]!='') {
          echo '
                <option value="'.$themelist[$i].'" ';
          if ((($theme=='') && ($themelist[$i]==$Default_Theme)) || ($theme==$themelist[$i])) echo 'selected="selected"';
@@ -1450,7 +1450,8 @@ switch ($op) {
          Header("Location: index.php");
    break;
    case 'savetheme':
-      if (substr($theme,-3)!="_sk") $skin="";
+      if (substr($theme,-3)!="_sk")
+         $skin='';
       savetheme($uid, $theme_local."+".$skins);
    break;
    case 'editjournal':

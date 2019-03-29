@@ -31,13 +31,15 @@ function foot() {
       $user2 = base64_decode($user);
       $cookie = explode(':', $user2);
       if ($cookie[9]=='') $cookie[9]=$Default_Theme;
-      if (!$file=@opendir("themes/$cookie[9]")) 
+
+      $ibix=explode('+', urldecode($cookie[9]));
+      if (!$file=@opendir("themes/$ibix[0]")) 
          include("themes/$Default_Theme/footer.php");
       else
-         include("themes/$cookie[9]/footer.php");
+         include("themes/$ibix[0]/footer.php");
    } else 
-         include("themes/$Default_Theme/footer.php");
-   if ($user) $cookie9 = $cookie[9];
+      include("themes/$Default_Theme/footer.php");
+   if ($user) $cookie9 = $ibix[0];
 }
 
    global $tiny_mce, $cookie9, $Default_Theme;
