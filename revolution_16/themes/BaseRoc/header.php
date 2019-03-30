@@ -19,7 +19,7 @@ $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'")
 $nb_bld_actif = sql_num_rows($bld_actif);
 
 /*
-La variable $pdst permet de gérer le nombre et la disposition des colonnes
+La variable $pdst permet de g√©rer le nombre et la disposition des colonnes
  "-1" -> col_princ
  "0"  -> col_LB + col_princ
  "1"  -> col_LB + col_princ + col_RB
@@ -29,7 +29,7 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
  "5"  -> col_RB + col_princ
  "6"  -> col_princ + col_LB
  
- La gestion de ce paramètre s'effectue dans le fichier "pages.php" du dossier "themes
+ La gestion de ce param√®tre s'effectue dans le fichier "pages.php" du dossier "themes
 
  Nomination des div :
  col_princ contient le contenu principal
@@ -59,8 +59,8 @@ if ($nb_bld_actif == 0) {
     }
 }
 
-// ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
-// le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
+// ContainerGlobal permet de transmettre √† Theme-Dynamic un √©l√©ment de personnalisation avant
+// le chargement de header.html / Si vide alors la class body est charg√©e par d√©faut par TD
 $ContainerGlobal='
 <div id="container">';
 
@@ -73,7 +73,7 @@ $ContainerGlobal='
    
 /************************************************************************/
 /*     Le corps de page de votre Site - En dessous du Header            */
-/*     On Ouvre les Différent Blocs en Fonction de la Variable $pdst    */
+/*     On Ouvre les Diff√©rent Blocs en Fonction de la Variable $pdst    */
 /*                         Le corps englobe :                           */
 /*                 col_LB + col_princ + col_RB                          */
 /*           Si Aucune variable pdst dans pages.php                     */
