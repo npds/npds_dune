@@ -1158,26 +1158,26 @@ function edithome() {
    },';
    $arg1='
    var formulid=["changehome"];';
-   adminfoot('fv',$fv_parametres,$arg1,'');
+   adminfoot('fv',$fv_parametres,$arg1,'foo');
 }
 function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
-    global $NPDS_Prefix, $user;
-    $cookie=cookiedecode($user);
-    $check = $cookie[1];
-    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$check'");
-    list($vuid) = sql_fetch_row($result);
-    if (($check == $uname) AND ($uid == $vuid)) {
-        if ($ublockon) $ublockon=1; else $ublockon=0;
-        $ublock = FixQuotes($ublock);
-        sql_query("UPDATE ".$NPDS_Prefix."users SET storynum='$storynum', ublockon='$ublockon', ublock='$ublock' WHERE uid='$uid'");
-        $userinfo=getusrinfo($user);
-        docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '');
-        // Include cache manager for purge cache Page
-        $cache_obj = new cacheManager();
-        $cache_obj->UsercacheCleanup();
-        Header("Location: user.php?op=edithome");
-    } else
-        Header("Location: index.php");
+   global $NPDS_Prefix, $user;
+   $cookie=cookiedecode($user);
+   $check = $cookie[1];
+   $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$check'");
+   list($vuid) = sql_fetch_row($result);
+   if (($check == $uname) AND ($uid == $vuid)) {
+      if ($ublockon) $ublockon=1; else $ublockon=0;
+      $ublock = FixQuotes($ublock);
+      sql_query("UPDATE ".$NPDS_Prefix."users SET storynum='$storynum', ublockon='$ublockon', ublock='$ublock' WHERE uid='$uid'");
+      $userinfo=getusrinfo($user);
+      docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '');
+      // Include cache manager for purge cache Page
+      $cache_obj = new cacheManager();
+      $cache_obj->UsercacheCleanup();
+      Header("Location: user.php?op=edithome");
+   } else
+   Header("Location: index.php");
 }
 
 function chgtheme() {
@@ -1188,7 +1188,7 @@ function chgtheme() {
    // nouvel version de la gestion des Themes et Skins
    $ibid=explode('+', $userinfo['theme']);
    $theme=$ibid[0];
-   if (array_key_exists(1, $ibid)) $skin=$ibid[1]; else $skin="";
+   if (array_key_exists(1, $ibid)) $skin=$ibid[1]; else $skin='';
 
    nav($userinfo['mns']);
    echo '
