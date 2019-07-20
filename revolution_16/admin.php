@@ -388,7 +388,7 @@ $ibid = explode('|',$v);
 
       //==>date d'expiration connection admin
       $(function () {
-         var dae = Cookies.get('adm_exp')*1000,
+         var dae = getCookie('adm_exp')*1000,
           dajs = new Date(dae);
 
       $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
