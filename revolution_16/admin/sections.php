@@ -97,16 +97,15 @@ function sousrub_select($secid) {
    $ok_pub=false;
    $tmp='
          <select name="secid" class="custom-select form-control">';
-   $result = sql_query("SELECT distinct rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
+   $result = sql_query("SELECT distinct rubid, rubname, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    while(list($rubid, $rubname) = sql_fetch_row($result)) {
       $rubname = aff_langue($rubname);
       $tmp.='
             <optgroup label="'.aff_langue($rubname).'">';
-      if ($radminsuper==1) {
-         $result2 = sql_query("SELECT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
-      } else {
+      if ($radminsuper==1)
+         $result2 = sql_query("SELECT secid, secname, ordre FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
+      else
          $result2 = sql_query("SELECT distinct sections.secid, sections.secname, sections.ordre FROM ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE sections.rubid='$rubid' and sections.secid=publisujet.secid2 and publisujet.aid='$aid' and publisujet.type='1' ORDER BY ordre");
-      }
       while(list($secid2, $secname) = sql_fetch_row($result2)) {
          $secname=aff_langue($secname);
          $secname = substr($secname, 0, 50);
