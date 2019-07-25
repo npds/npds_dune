@@ -72,7 +72,7 @@ $infooo = geoloc_translate('Modification administrateur');
             //construction marker ip géoréférencés
             $ip_o .= 'ip_features.push([['.$ip_lg.','.$ip_lt.'], "'.urldecode($ip_ip1).'","'.$ip_visite.'"]);';
             $tab_ip .='
-         <p class="list-group-item list-group-item-action flex-column align-items-start">
+         <p class="col p-2 m-1 border rounded flex-column align-items-start list-group-item-action">
             <span class="d-flex w-100 mt-1">
             <span><img class=" img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_country1.'"> '.urldecode($ip_ip1).'</span>
             <span class="ml-auto">
@@ -187,16 +187,13 @@ while ($row = sql_fetch_array($membre)) {
 
       $mbr_geo_off .= '
       [['.$us_long.','.$us_lat.'], "u'.$us_uid.'","'. addslashes($us_uname) .'","'.$av_ch.'","'.$visit.'","'.addslashes($imm).'"],';
-
-//      $mbr_geo_off .= 'mbr_features.push([['.$us_long.','.$us_lat.'], "u'.$us_uid.'","'. addslashes($us_uname) .'","'.$av_ch.'","'.$visit.'","'.addslashes($imm).'"]);';
       $mbr_geo_off_v .= '
-   u'.$us_uid.' = ol.proj.transform(['.$us_long.', '.$us_lat.'], "EPSG:4326", "EPSG:3857");';
-
+   var u'.$us_uid.' = ol.proj.transform(['.$us_long.', '.$us_lat.'], "EPSG:4326", "EPSG:3857");';
    }
    $k++;
 }
 $mbr_geo_off = trim($mbr_geo_off,',').'
-   ],';
+   ];';
 
 
 if ($mbgr == 0)
@@ -349,16 +346,18 @@ $fond_provider=array(
    ['Road', geoloc_translate("Plan").' (Bing maps)'],
    ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
+/*
    ['ROADMAP', geoloc_translate("Plan").' (Google)'],
    ['SATELLITE', geoloc_translate("Satellite").' (Google)'],
    ['HYBRID', geoloc_translate("Satellite").' et label (Google)'],
    ['TERRAIN', geoloc_translate("Relief").' (Google)'],
    ['sat', geoloc_translate("Relief").' (ESRI)'],
+*/
    
 );
 if($api_key=='') {unset($fond_provider[1],$fond_provider[2],$fond_provider[3],$fond_provider[4]);}
 if($api_key_bing=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7]);}
-
+// var_dump($fond_provider);
    $fonts_svg=array(
       ['user','uf007','Utilisateur'],
       ['userCircle','uf2bd','Utilisateur en cercle'],
@@ -639,7 +638,7 @@ switch ($cartyp) {
       $layer_id= $cartyp;
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.'.$cartyp.'.json"})';
+      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp.'.json?access_token='.$api_key_mapbox.'"})';
       $max_r='40000';
       $min_r='2000';
       $layer_id= $cartyp;
@@ -1153,7 +1152,7 @@ else
             fond_carte.setMinResolution(1);
          break;
          case "natural-earth-hypso-bathy": case "geography-class":
-            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox."+cartyp+".json"}));
+            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox."+cartyp+".json?access_token='.$api_key_mapbox.'"}));
             fond_carte.setMinResolution(2000);
             fond_carte.setMaxResolution(40000);
             map.getLayers().array_[0].setProperties({"id":cartyp});
@@ -1323,7 +1322,7 @@ $ecr_scr .= $mb_con_g;
 //<==
 $ecr_scr .= '
    document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';
-   ';
+';
 
 if($op)
    if ($op[0]=='u') //pour zoom sur user back with u1
@@ -1575,7 +1574,6 @@ $affi .= '
                         <label class="col-form-label col-sm-12" for="cartyp">'.geoloc_translate('Type de carte').'</label>
                         <div class="col-sm-12">
                            <select class="custom-select form-control" name="cartyp" id="cartyp">';
-                           
    $j=0;
    foreach ($fond_provider as $v) {
       if($v[0]==$cartyp) $sel='selected="selected"'; else $sel='';
@@ -1602,9 +1600,10 @@ $affi .= '
                            </select>
                            <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity">
                            <label class="mt-0 float-right small" for="baselayeropacity">Opacity</label>
-                           <div id="dayslider" class="collapse"><input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday">
-                           <label id="dateimages" class="mt-0 float-right small" for="nasaday">'.$date_jour.'</label></div>
-
+                           <div id="dayslider" class="collapse">
+                              <input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday">
+                              <label id="dateimages" class="mt-0 float-right small" for="nasaday">'.$date_jour.'</label>
+                           </div>
                         </div>
                      </div>
                      <hr />
@@ -1623,19 +1622,18 @@ $affi .= '
             </div>
          </div>
       </div>
-      <div class=" p-2">
+      <div class=" pt-1">
          <span class="small text-muted float-right" id="mypoint"></span>
       </div>
-
-   <ul class="nav nav-tabs">
-      <li class="nav-item"><a class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
+      <ul class="nav nav-tabs mt-4">
+         <li class="nav-item"><a id="messinfo-tab" class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
+         <li class="nav-item"><a id="geocodage-tab" class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li>
+         <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
 if(autorisation(-127) and $geo_ip==1)
    $affi .= '
-      <li class="nav-item"><a class="nav-link " href="#geolocalisation" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Ip liste").'</span></a></li>';
+         <li class="nav-item"><a id="iplist-tab" class="nav-link " href="#geolocalisation" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Ip liste").'</span></a></li>';
 $affi .= '
-   </ul>
+      </ul>
    <div class="tab-content">
       <div class="tab-pane fade show active" id="infocart">
          <div id="mess_info" class=" col-12 mt-3"></div>
@@ -1662,7 +1660,7 @@ $affi .= '
                <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />
             </div>
          </div>
-         <div class="n-filtrable">
+         <div class="n-filtrable row mx-0">
             '.$tab_ip.'
          </div>
       </div>
