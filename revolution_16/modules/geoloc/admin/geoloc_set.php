@@ -32,6 +32,7 @@ $f_titre= geoloc_translate("Configuration du module Geoloc");
    settype($cartyp,'string');
    settype($ch_lat,'string');
    settype($ch_lon,'string');
+   settype($api_key_ipdata,'string');
 
 
 function vidip(){
@@ -41,7 +42,7 @@ function vidip(){
       sql_query( "ALTER TABLE ".$NPDS_Prefix."ip_loc AUTO_INCREMENT = 0;");
 }
 
-function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip) {
+function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
    include ('modules/'.$ModPath.'/geoloc_conf.php');
    $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo.html';
@@ -88,11 +89,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['geography-class', geoloc_translate("Carte").' (mapbox)'],
       ['Road', geoloc_translate("Plan").' (Bing maps)'],
       ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
-      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
-      ['ROADMAP', geoloc_translate("Plan").' (Google)'],
-      ['SATELLITE', geoloc_translate("Satellite").' (Google)'],
-      ['HYBRID', geoloc_translate("Satellite").' et label (Google)'],
-      ['TERRAIN', geoloc_translate("Relief").' (Google)']
+      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)']
    );
 
    echo '
@@ -153,6 +150,13 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             </div>
          </div>
          <div class="form-group row">
+         <label class="col-form-label col-sm-4" for="api_key_ipdata">'.geoloc_translate("Clef d'API").' Ipdata</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="api_key_ipdata" id="api_key_ipdata" placeholder="" value="'.$api_key_ipdata.'" />
+            <span class="help-block small muted">'.$api_key_ipdata.'</span>
+         </div>
+         </div>
+         <div class="form-group row">
             <div class="col-sm-12"><span class="form-control-label">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].'</span> <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span></div>
          </div>
       </fieldset>
@@ -172,6 +176,13 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <span class="help-block small muted">'.$api_key_bing.'</span>
          </div>
       </div>
+      <div class="form-group row">
+         <label class="col-form-label col-sm-4" for="api_key_mapbox">'.geoloc_translate("Clef d'API").' Mapbox</label>
+         <div class="col-sm-8">
+            <input type="text" class="form-control" name="api_key_mapbox" id="api_key_mapbox" placeholder="" value="'.$api_key_mapbox.'" />
+            <span class="help-block small muted">'.$api_key_mapbox.'</span>
+         </div>
+      </div>
       <div class="row">
          <div class="col-sm-8">
             <fieldset id="para_car" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
@@ -187,12 +198,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          case '1': echo '<optgroup label="Stamen">';break;
          case '4': echo '<optgroup label="Mapbox">';break;
          case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') echo '<optgroup label="Google maps">';} break;
-         case '9': echo '<optgroup label="Google maps">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '5': case '12': echo '</optgroup>'; break;
+         case '0': case '3': case '5': case '8': echo '</optgroup>'; break;
          }
       $j++;
    }
@@ -588,22 +598,18 @@ switch ($cartyp) {
    case 'OSM':
       $source_fond='new ol.source.OSM()';
    break;
-      case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
-         $source_fond='';
-      break;
-      case 'Road':case 'Aerial':case 'AerialWithLabels':
-         $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
-      break;
-      case 'natural-earth-hypso-bathy': case 'geography-class':
-         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.'.$cartyp.'.json"})';
-/*
-      case 'geography-class':
-         $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox.geography-class.json"})';
-*/
-      break;
-      case 'terrain':case 'toner':case 'watercolor':
-         $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
-      break;
+   case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
+      $source_fond='';
+   break;
+   case 'Road':case 'Aerial':case 'AerialWithLabels':
+      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
+   break;
+   case 'natural-earth-hypso-bathy': case 'geography-class':
+      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'"})';
+   break;
+   case 'terrain':case 'toner':case 'watercolor':
+      $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
+   break;
    default:
    $source_fond='new ol.source.OSM()';
 }
@@ -654,91 +660,68 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    f_pa = $("#f_mbg option:selected").val();
 }).trigger("change");
  
-    $(".pickcol_fmb, .pickcol_fmbc, .pickcol_fac, .pickcol_tmb, .pickcol_tmbc, .pickcol_tac").colorpicker({format:"rgb"});
+   $(".pickcol_fmb, .pickcol_fmbc, .pickcol_fac, .pickcol_tmb, .pickcol_tmbc, .pickcol_tac").colorpicker({format:"rgb"});
+   var 
+      map_c,
+      w_ico_size,
+      h_ico_size,
+      mark_cmbg,
+      cartyp,
+      mark_cmbg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([12, 48]))}),
+      mark_cmbgc = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([6, 45]))}),
+      mark_cacg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([12, 40]))}),
+      mark_cmbg_svg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([10, 10]))}),
+      mark_cmbgc_svg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([1, 47]))}),
+      mark_acg_svg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([5, 60]))});
 
-        var 
-        map_c, w_ico_size, h_ico_size, mark_cmbg, cartyp, pAth,mark_acg_svg,
-
-            icon_cmbg = {
-                        url: "'.$ch_img.$nm_img_mbg.'",
-                        size: new google.maps.Size('.$w_ico.','.$h_ico.'),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(0, 0),
-                        scaledSize: new google.maps.Size('.$w_ico.', '.$h_ico.')
-                        },
-            icon_cmbgc= {
-                        url: "'.$ch_img.$nm_img_mbcg.'",
-                        size: new google.maps.Size('.$w_ico.','.$h_ico.'),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(0, 0),
-                        scaledSize: new google.maps.Size('.$w_ico.', '.$h_ico.')
-                        },
-            icon_cacg = {
-                        url: "'.$ch_img.$nm_img_acg.'",
-                        size: new google.maps.Size('.$w_ico.','.$h_ico.'),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(0, 0),
-                        scaledSize: new google.maps.Size('.$w_ico.', '.$h_ico.')
-                        }
-
-;
-
-      var mark_cmbg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([12, 48]))});
-      var mark_cmbgc = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([6, 45]))});
-      var mark_cacg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([12, 40]))});
-      var mark_cmbg_svg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([10, 10]))});
-      var mark_cmbgc_svg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([1, 47]))});
-      var mark_acg_svg = new ol.Feature({geometry: new ol.geom.Point(ol.proj.fromLonLat([5, 60]))});
-
-      mark_cmbg.setStyle(new ol.style.Style({
-         image: new ol.style.Icon({
-            crossOrigin: "anonymous",
-            src: "'.$ch_img.$nm_img_mbg.'",
-            imgSize:['.$w_ico_b.','.$h_ico_b.']
-         })
-      }));
-      mark_cmbgc.setStyle(new ol.style.Style({
-         image: new ol.style.Icon({
-            crossOrigin: "anonymous",
-            src: "'.$ch_img.$nm_img_mbcg.'",
-            imgSize:['.$w_ico_b.','.$h_ico_b.']
-         })
-      }));
-      mark_cacg.setStyle(new ol.style.Style({
-         image: new ol.style.Icon({
-            crossOrigin: "anonymous",
-            src: "'.$ch_img.$nm_img_acg.'",
-            imgSize:['.$w_ico_b.','.$h_ico_b.']
-         })
-      }));
-      mark_cmbg_svg.setStyle(new ol.style.Style({
-        text: new ol.style.Text({
-          text: fa("'.$f_mbg.'"),
-          font: "normal 32px FontAwesome",
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
-          stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
-        })
-      }));
-      mark_cmbgc_svg.setStyle(new ol.style.Style({
-        text: new ol.style.Text({
-          text: fa("'.$f_mbg.'"),
-          font: "normal 32px FontAwesome",
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
-          stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
-        })
-      }));
-      mark_acg_svg.setStyle(new ol.style.Style({
-        text: new ol.style.Text({
-          text: fa("'.$f_mbg.'"),
-          font: "normal 28px FontAwesome",
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
-          stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
-        })
-      }));
-      
+   mark_cmbg.setStyle(new ol.style.Style({
+      image: new ol.style.Icon({
+         crossOrigin: "anonymous",
+         src: "'.$ch_img.$nm_img_mbg.'",
+         imgSize:['.$w_ico_b.','.$h_ico_b.']
+      })
+   }));
+   mark_cmbgc.setStyle(new ol.style.Style({
+      image: new ol.style.Icon({
+         crossOrigin: "anonymous",
+         src: "'.$ch_img.$nm_img_mbcg.'",
+         imgSize:['.$w_ico_b.','.$h_ico_b.']
+      })
+   }));
+   mark_cacg.setStyle(new ol.style.Style({
+      image: new ol.style.Icon({
+         crossOrigin: "anonymous",
+         src: "'.$ch_img.$nm_img_acg.'",
+         imgSize:['.$w_ico_b.','.$h_ico_b.']
+      })
+   }));
+   mark_cmbg_svg.setStyle(new ol.style.Style({
+     text: new ol.style.Text({
+       text: fa("'.$f_mbg.'"),
+       font: "normal 32px FontAwesome",
+       bottom: "Bottom",
+       fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
+       stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
+     })
+   }));
+   mark_cmbgc_svg.setStyle(new ol.style.Style({
+     text: new ol.style.Text({
+       text: fa("'.$f_mbg.'"),
+       font: "normal 32px FontAwesome",
+       bottom: "Bottom",
+       fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
+       stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
+     })
+   }));
+   mark_acg_svg.setStyle(new ol.style.Style({
+     text: new ol.style.Text({
+       text: fa("'.$f_mbg.'"),
+       font: "normal 28px FontAwesome",
+       bottom: "Bottom",
+       fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
+       stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
+     })
+   }));
 
       var src_markers = new ol.source.Vector({
         features: [mark_cmbg, mark_cmbgc, mark_cacg, mark_cmbg_svg, mark_cmbgc_svg, mark_acg_svg]
@@ -825,16 +808,17 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
 
 //==> change font on the map
    $("#f_mbg").change(function(event) {
-      var f_fa = $("#f_mbg option:selected").val();
-      var fc_m = $("#mbg_f_co").val();
-      var fc_mo = $("#mbgc_f_co").val();
-      var fc_a = $("#acg_f_co").val();
-      var tc_m = $("#mbg_t_co").val();
-      var tc_mo = $("#mbgc_t_co").val();
-      var tc_a = $("#acg_t_co").val();
-      var sc_m = $("#mbg_sc option:selected").val();
-      var sc_mo = $("#mbgc_sc option:selected").val();
-      var sc_a = $("#acg_sc option:selected").val();
+      var
+         f_fa = $("#f_mbg option:selected").val(),
+         fc_m = $("#mbg_f_co").val(),
+         fc_mo = $("#mbgc_f_co").val(),
+         fc_a = $("#acg_f_co").val(),
+         tc_m = $("#mbg_t_co").val(),
+         tc_mo = $("#mbgc_t_co").val(),
+         tc_a = $("#acg_t_co").val(),
+         sc_m = $("#mbg_sc option:selected").val(),
+         sc_mo = $("#mbgc_sc option:selected").val(),
+         sc_a = $("#acg_sc option:selected").val();
 
       changestyle(mark_cmbg_svg,f_fa,fc=fc_m,tc=tc_m,sc=sc_m);
       changestyle(mark_cmbgc_svg,f_fa,fc=fc_mo,tc=tc_mo,sc=sc_mo);
@@ -897,8 +881,6 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
       $("#f_choice_acg").attr("style","color:"+fc);
    });
 //<== aux changements de couleurs fond
-   
-   
  /*
 
 
@@ -966,9 +948,6 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
          break;
-         case "ROADMAP":case "SATELLITE":case "TERRAIN":case "HYBRID":
-            //map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-         break;
          case "Road":case "Aerial":case "AerialWithLabels":
             fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
          break;
@@ -984,7 +963,7 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
 });
 }
 
-//window.onload = geoloc_conf;
+window.onload = geoloc_conf;
 
 //]]>
 </script>';
@@ -992,9 +971,10 @@ adminfoot('','','','');
 
 }
 
-function SaveSetgeoloc($api_key, $api_key_bing, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
-   //==> modifie le fichier de configuration
-   $file_conf = fopen("modules/$ModPath/geoloc_conf.php", "w+");
+function SaveSetgeoloc($api_key, $api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
+
+//==> modifie le fichier de configuration
+   $file_conf = fopen("modules/geoloc/geoloc_conf.php", "w+");
    $content = "<?php \n";
    $content .= "/************************************************************************/\n";
    $content .= "/* DUNE by NPDS                                                         */\n";
@@ -1014,6 +994,7 @@ function SaveSetgeoloc($api_key, $api_key_bing, $ch_lat, $ch_lon, $cartyp, $geo_
    $content .= "/************************************************************************/\n";
    $content .= "\$api_key = \"$api_key\"; // clef api google \n";
    $content .= "\$api_key_bing = \"$api_key_bing\"; // clef api bing maps \n";
+   $content .= "\$api_key_mapbox = \"$api_key_mapbox\"; // clef api mapbox \n";
    $content .= "\$ch_lat = \"$ch_lat\"; // Champ lat dans sql \n";
    $content .= "\$ch_lon = \"$ch_lon\"; // Champ long dans sql \n";
    $content .= "// interface carte \n";
@@ -1021,6 +1002,7 @@ function SaveSetgeoloc($api_key, $api_key_bing, $ch_lat, $ch_lon, $cartyp, $geo_
    $content .= "\$co_unit = \"$co_unit\"; // Coordinates Units\n";
    $content .= "\$ch_img = \"$ch_img\"; // Chemin des images \n";
    $content .= "\$geo_ip = $geo_ip; // Autorisation de géolocalisation des IP \n";
+   $content .= "\$api_key_ipdata = \"$api_key_ipdata\"; // Clef API pour provider IP \n";
    $content .= "\$nm_img_acg = \"$nm_img_acg\"; // Nom fichier image anonyme géoréférencé en ligne \n";
    $content .= "\$nm_img_mbcg = \"$nm_img_mbcg\"; // Nom fichier image membre géoréférencé en ligne \n";
    $content .= "\$nm_img_mbg = \"$nm_img_mbg\"; // Nom fichier image membre géoréférencé \n";
@@ -1067,11 +1049,11 @@ if ($admin) {
           Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
       break;
       case 'SaveSetgeoloc':
-         SaveSetgeoloc($api_key, $api_key_bing, $ch_lat, $ch_lon, $cartyp, $geo_ip, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
-         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
+         SaveSetgeoloc($api_key, $api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
       break;
       default:
-         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
       break;
    }
 }
