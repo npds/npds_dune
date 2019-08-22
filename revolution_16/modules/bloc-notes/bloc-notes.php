@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-#autodoc blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="100%", $nblBlocNote="5", $bnclass="") : Bloc blocnotes<br />=> syntaxe :
+#autodoc blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="", $nblBlocNote="5", $bnclass="") : Bloc blocnotes<br />=> syntaxe :
 #autodoc : function#blocnotes<br />params#shared OU context (partagé ou contextuel), nom_du_bloc OU le texte : $username (nom du bloc=nom du membre ou de l'admin), classe du form, nb de ligne de la textarea, classe pour la zone de saisie (textarea)<br />
 #autodoc : function#blocnotes<br />params#shared,TNT (blocnote partagé s'appelant TNT)
 function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBlocNote='5', $bnclass='', $affiche=true) {

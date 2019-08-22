@@ -28,7 +28,7 @@
 ## Via le système de bloc et les paramètres
 ##
 ## UTILISATION
-## Le système de bloc-notes comporte deux mode différents :
+## Le système de bloc-notes comporte deux modes différents :
 ## - le mode bloc-notes partagé
 ## - le mode bloc-notes contextuel 
 ##
@@ -44,9 +44,9 @@
 ##  params#param1, param2, param3(optionnel), param4(optionnel), param5(optionnel)
 ##   - param1 : shared OU context 
 ##   - param2 : nom_du_bloc OU le texte : $username (dans ce cas : nom du bloc=nom du membre ou de l'admin)
-##   - param3 : classe(s) pour le formulaire
+##   - param3 : classe(s) pour le formulaire (vide par defaut)
 ##   - param4 : nb de ligne de la zone de saisie, par défaut 5 (donc la hauteur de votre bloc note)
-##   - param5 : classe(s) pour la zone de saisie
+##   - param5 : classe(s) pour la zone de saisie (vide par defaut)
 ## 
 ## Bloc-notes PARTAGES (SHARED)
 ## par principe un bloc-notes "shared" est accessible sur l'ensemble du site, mais il y a deux formes de bloc-notes shared :
@@ -80,13 +80,12 @@
 ##   bloc-notes partagé et nommé :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
-##     params#shared,TNT,100%
+##     params#shared,TNT
 ##
 ##   bloc-notes partagé et associé à un utilisateur/admin :
 ##     include#modules/bloc-notes/bloc-notes.php
 ##     function#blocnotes
 ##     params#shared,$username,,8,bg-danger
-##
 ##
 ##   bloc-notes contextuel et nommé :
 ##     include#modules/bloc-notes/bloc-notes.php
