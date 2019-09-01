@@ -163,13 +163,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       <hr />
       <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="api_key">'.geoloc_translate("Clef d'API").' Google</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" name="api_key" id="api_key" placeholder="" value="'.$api_key.'"  />
-            <span class="help-block small muted">'.$api_key.'</span>
-         </div>
-      </div>
-      <div class="form-group row">
          <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="api_key_bing" id="api_key_bing" placeholder="" value="'.$api_key_bing.'" />
@@ -197,7 +190,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          case '0': echo '<optgroup label="OpenStreetMap">';break;
          case '1': echo '<optgroup label="Stamen">';break;
          case '4': echo '<optgroup label="Mapbox">';break;
-         case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') echo '<optgroup label="Google maps">';} break;
+         case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
@@ -952,7 +945,7 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
             fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
          break;
          case "natural-earth-hypso-bathy": case "geography-class":
-            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v3/mapbox."+cartyp+".json"}));
+            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox."+cartyp+".json?access_token='.$api_key_mapbox.'"}));
          break;
          case "terrain": case "toner": case "watercolor":
             fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
@@ -971,7 +964,7 @@ adminfoot('','','','');
 
 }
 
-function SaveSetgeoloc($api_key, $api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
+function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
 
 //==> modifie le fichier de configuration
    $file_conf = fopen("modules/geoloc/geoloc_conf.php", "w+");
@@ -982,17 +975,16 @@ function SaveSetgeoloc($api_key, $api_key_bing, $api_key_mapbox, $ch_lat, $ch_lo
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-".date('Y')." by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
    $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module geoloc version 4.0                                            */\n";
-   $content .= "/* geoloc_conf.php file 2008-2019 by Jean Pierre Barbary (jpb)          */\n";
+   $content .= "/* geoloc_conf.php file 2008-".date('Y')." by Jean Pierre Barbary (jpb)          */\n";
    $content .= "/* dev team : Philippe Revilliod (Phr)                                  */\n";
    $content .= "/************************************************************************/\n";
-   $content .= "\$api_key = \"$api_key\"; // clef api google \n";
    $content .= "\$api_key_bing = \"$api_key_bing\"; // clef api bing maps \n";
    $content .= "\$api_key_mapbox = \"$api_key_mapbox\"; // clef api mapbox \n";
    $content .= "\$ch_lat = \"$ch_lat\"; // Champ lat dans sql \n";
@@ -1049,7 +1041,7 @@ if ($admin) {
           Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
       break;
       case 'SaveSetgeoloc':
-         SaveSetgeoloc($api_key, $api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
+         SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
       break;
       default:
