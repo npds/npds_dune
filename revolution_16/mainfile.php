@@ -65,7 +65,12 @@ function session_manage() {
    $username=$cookie[1];
       //==> mod_geoloc
       include("modules/geoloc/geoloc_conf.php");
-      $file_path = array('https://ipapi.co/'.$ip.'/json', 'https://api.ipdata.co/'.$ip.'?api-key='.$api_key_ipdata,'http://ip-api.com/json/'.$ip);
+      $file_path = array(
+      'https://ipapi.co/'.$ip.'/json',
+      'https://api.ipdata.co/'.$ip.'?api-key='.$api_key_ipdata,
+      'https://extreme-ip-lookup.com/json/'.$ip,
+      'http://ip-api.com/json/'.$ip
+      );
       $file = file("modules/geoloc/geoloc_conf.php");
       if(strstr($file[25],'geo_ip = 1')) {
          $ousursit='';
@@ -136,6 +141,37 @@ function session_manage() {
                               $lat='';
                            if (!empty($loc_obj->longitude))
                               $long=(float)$loc_obj->longitude;
+                           else
+                              $long='';
+                           sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                           sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                        }
+                     }
+                  }
+                  if($ibid==false) {
+                     if(file_contents_exist($file_path[2])) {
+                        $loc = file_get_contents($file_path[2]);
+                        $loc_obj = json_decode($loc);
+                        if ($loc_obj->status=='success') {
+                           $ibid=true;
+                           if (!empty($loc_obj->country))
+                              $pay=removeHack($loc_obj->country);
+                           else 
+                              $pay='';
+                           if (!empty($loc_obj->countryCode))
+                              $codepay=removeHack($loc_obj->countryCode);
+                           else 
+                              $codepay='';
+                           if (!empty($loc_obj->city))
+                              $vi=removeHack($loc_obj->city);
+                           else
+                              $vi='';
+                           if (!empty($loc_obj->lat))
+                              $lat=(float)$loc_obj->lat;
+                           else
+                              $lat='';
+                           if (!empty($loc_obj->lon))
+                              $long=(float)$loc_obj->lon;
                            else
                               $long='';
                            sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
@@ -1224,12 +1260,14 @@ function fab_block($title, $member, $content, $Xcache) {
          $R_content=false;
          $tab_pref=parse_url($page_ref);
          $racine_page=$tab_pref['path'];
-         $tab_pref=explode('&',$tab_pref['query']);
+         if(array_key_exists('query', $tab_pref))
+            $tab_pref=explode('&',$tab_pref['query']);
          while (list(,$RR_uri)=each($tab_uri)) {
             $tab_puri=parse_url($RR_uri);
-            $racine_uri=$tab_puri['path'];
+            $racine_uri=$tab_puri['path'];//var_dump($racine_uri);var_dump($racine_page);
             if ($racine_page==$racine_uri) {
-               $tab_puri=explode('&',$tab_puri['query']);
+               if(array_key_exists('query', $tab_puri))
+                  $tab_puri=explode('&',$tab_puri['query']);
                while (list($idx,$RRR_uri)=each($tab_puri)) {
                   if (substr($RRR_uri,-1)=="*") {
                      // si le token contient *
@@ -1335,24 +1373,21 @@ function oneblock($Xid, $Xblock) {
 function Pre_fab_block($Xid, $Xblock) {
     global $NPDS_Prefix, $htvar; // modif Jireck
     if ($Xid) {
-      if ($Xblock=='RB') {
+      if ($Xblock=='RB')
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks WHERE id='$Xid'");
-      } else {
+      else
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks WHERE id='$Xid'");
-      }
     } else {
-      if ($Xblock=='RB') {
+      if ($Xblock=='RB')
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
-      } else {
+      else
          $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks ORDER BY Lindex ASC");
-      }
     }
     global $bloc_side;
-    if ($Xblock=='RB') {
+    if ($Xblock=='RB')
       $bloc_side='RIGHT';
-    } else {
+    else
       $bloc_side='LEFT';
-    }
     while (list($title, $content, $member, $cache, $actif, $id, $css)=sql_fetch_row($result)) {
       if (($actif) or ($Xid)) {
          if ($css==1){
@@ -2785,15 +2820,14 @@ function bloc_langue() {
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {
-   global $NPDS_Prefix;
-   global $language, $user;
+   global $NPDS_Prefix, $language, $user;
    $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'divers' ORDER BY ordre");
    $boxstuff = '<ul>';
    while (list($rubid, $rubname) = sql_fetch_row($result)) {
       $title=aff_langue($rubname);
       $result2 = sql_query("SELECT secid, secname, userlevel FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
       $boxstuff.='<li><strong>'.$title.'</strong></li>';
-      $ibid++;
+      //$ibid++;//??? only for notice ???
       while (list($secid, $secname, $userlevel) = sql_fetch_row($result2)) {
          $query3 = "SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'";
          $result3 = sql_query($query3);
@@ -3293,7 +3327,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                      message: "Le mot de passe doit contenir au moins un chiffre.",
                   };
                }
-               if (value.search(/[!#$%&^~*_]/) < 0) {
+               if (value.search(/[@\+\-!#$%&^~*_]/) < 0) {
                   bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
@@ -3312,7 +3346,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                if (/[A-Z]/.test(value)) score += 1;
                if (/[a-z]/.test(value)) score += 1; 
                if (/[0-9]/.test(value)) score += 1;
-               if (/[!#$%&^~*_]/.test(value)) score += 1; 
+               if (/[@\+\-!#$%&^~*_]/.test(value)) score += 1; 
                return {
                   valid: true,
                   score: score,
