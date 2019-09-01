@@ -38,6 +38,7 @@ function geoloc_translate($phrase) {
       case "IP non géoréférencé en ligne": $tmp="Ungeoreferenced IP on line"; break;
       case "Vous n'êtes pas géoréférencé.": $tmp="You have not geolocation."; break;
       case "Voulez vous le faire à cette position :": $tmp="Would you get one at this position:"; break;
+      case "Définir ou modifier position.": $tmp="Define or change your location."; break;
       case "Cliquer sur la carte pour définir votre géolocalisation.": $tmp="Click the map to define your geolocation."; break;
       case "Cliquer sur la carte pour modifier votre position.": $tmp="Click the map to change your geolocation."; break;
       case "Coordonnées enregistrées :": $tmp="Registered coordinates:"; break;

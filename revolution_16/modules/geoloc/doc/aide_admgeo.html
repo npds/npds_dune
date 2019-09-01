@@ -15,14 +15,31 @@
          Présentent les champs disponibles dans la base de données pour le stockage des latitudes et longitudes des membres du site. </p>
          <h5>Géolocalisation des IP</h5>
          <p>
-         Cette option permet d'activer ou de désactiver :
-          - le stockage dans la base de donnée des IP des visiteurs,leur géolocalisation le nombre de visites et leur position de visite sur le site 
-          - l'affichage de ces données dans l'interface
-          cette option peut ralentir un peu le site et stocker au fil du temps beaucoup de donnée dans la base. Vous pouvez à tout moment vider la base.
-          </p>
+         Cette option permet d'activer ou de désactiver :<br />
+          - le stockage dans la base de donnée des IP des visiteurs,leur géolocalisation le nombre de visites et leur position de visite sur le site<br />
+          - l'affichage de ces données dans l'interface<br />
+          cette option peut ralentir un peu le site et stocker au fil du temps beaucoup de données dans la base. Vous pouvez à tout moment vider la base.<br />
+         </p>
+         <p>
+         Comment ça marche :<br />
+         Le géoréférencement de l'ip est fourni par différents fournisseurs et vient compléter la base de données du site. <br />
+         On utilise 4 fournisseurs de geolocalisation d'ip :<br />
+         <a href="https://ipapi.co" target="_blank">https://ipapi.co</a> ==> max 1000 requêtes par jour, 30 000 par mois<br />
+         <a href="https://api.ipdata.co" target="_blank">https://api.ipdata.co</a> => necessite une clef d'api  ==> max 1 500 requêtes par jour<br />
+         <a href="https://extreme-ip-lookup.com" target="_blank">https://extreme-ip-lookup.com</a> ==> max 20 requêtes par minute, 50 000 par mois<br />
+         <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> max 150 requêtes par minute (banissement)<br />
+         Tous ces fournisseurs ont une limite d'utilisation gratuite d'ou leur nombre pour pouvoir assurer un fonctionnement continu restant dans la gratuité...<br />
+         </p>
+          
+         <h5>Clef d'API Ipdata</h5>
+         <p>
+         Cette clef est facultative elle permet d'utiliser les données de ipdata.co vous pouvez l'obtenir ici :<br />
+         <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
+         </p>
+          
          <h4>Interface carte</h4>
          
-         <p>L'utilisation de ce module peut nécessiter des clef d'api que vous devez vous procurer ici. (Et cette obtention de clef nécessite un compte goggle.)<br />
+         <p>L'utilisation de ce module peut nécessiter des clefs d'api.<br />
          
          <a href="https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr" target="_blank">https://developers.google.com/maps/documentation/geocoding/get-api-key?hl=fr</a>
          
@@ -35,10 +52,6 @@
          <p>Vous pouvez définir ici le type d'affichage de la carte par défaut, en fonction des fournisseurs à votre disposition</p>
          <ul>
             <li>Plan (OpenStreetMap)</li>
-            <li>Plan" (Google)</li>
-            <li>Satellite et label (Google)</li>
-            <li>Satellite (Google)</li>
-            <li>Relief (Google)</li>
             <li>Plan (Bing maps)</li>
             <li>Satellite (Bing maps)</li>
             <li>Satellite et label (Bing maps)</li>
