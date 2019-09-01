@@ -995,25 +995,24 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
             fwrite($file,$maj);
             fclose($file);
             if ($bio) $bio=FixQuotes(strip_tags($bio));
-            if ($attach) {$t = 1;} else {$t = 0;}
-            if ($user_viewemail) {$a = 1;} else {$a = 0;}
-            if ($usend_email) {$u = 1;} else {$u = 0;}
-            if ($uis_visible) {$v = 0;} else {$v = 1;}
-            if ($user_lnl) {$w = 1;} else {$w = 0;}
+            if ($attach) $t = 1; else $t = 0;
+            if ($user_viewemail) $a = 1; else $a = 0;
+            if ($usend_email) $u = 1; else $u = 0;
+            if ($uis_visible) $v = 0; else $v = 1;
+            if ($user_lnl) $w = 1; else $w = 0;
 
               include_once("modules/upload/upload.conf.php");
               global $avatar_size;
               if (!$avatar_size) {$avatar_size='80*100';}
               $avatar_limit=explode("*",$avatar_size);
-              if ($DOCUMENTROOT!='') {
+              if ($DOCUMENTROOT!='')
                  $rep=$DOCUMENTROOT;
-              } else {
+              else {
                  global $DOCUMENT_ROOT;
-                 if ($DOCUMENT_ROOT) {
+                 if ($DOCUMENT_ROOT)
                     $rep=$DOCUMENT_ROOT;
-                 } else {
+                 else
                     $rep=$_SERVER['DOCUMENT_ROOT'];
-                 }
               }
               if ($B1!='none') {
                  global $language;
@@ -1035,13 +1034,13 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                              if (@mkdir($rep.$user_dir,0777)) {
                                 $fp = fopen($rep.$user_dir.'index.html', 'w');
                                 fclose($fp);
-                             } else {
-                                $user_dir=$racine.'/users_private/';
                              }
+                             else
+                                $user_dir=$racine.'/users_private/';
                           }
-                       } else {
-                          $user_dir=$racine.'/users_private/';
                        }
+                       else
+                          $user_dir=$racine.'/users_private/';
                        if ($upload->saveAs($uname.'.'.$suffix ,$rep.$user_dir, 'B1',true)) {
                           $old_user_avatar=$user_avatar;
                           $user_avatar=$user_dir.$uname.'.'.$suffix;
@@ -1061,7 +1060,6 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
                  }
                  $user_avatar='blank.gif';
               }
-
               if ($pass!='') {
                  cookiedecode($user);
                  if (!$system)
