@@ -1652,11 +1652,11 @@ function fab_edito() {
    $affich=false;
    $Xibid=strstr($Xcontents,'aff_jours');
    if ($Xibid) {
-      parse_str($Xibid);
-      if (($aff_date+($aff_jours*86400))-time()>0) {
+      parse_str($Xibid,$Xibidout);
+      if (($Xibidout['aff_date']+($Xibidout['aff_jours']*86400))-time()>0) {
          $affichJ=false; $affichN=false;
-         if ((NightDay()=='Jour') and ($aff_jour=='checked')) {$affichJ=true;}
-         if ((NightDay()=='Nuit') and ($aff_nuit=='checked')) {$affichN=true;}
+         if ((NightDay()=='Jour') and ($Xibidout['aff_jour']=='checked')) $affichJ=true;
+         if ((NightDay()=='Nuit') and ($Xibidout['aff_nuit']=='checked')) $affichN=true;
       }
       $XcontentsT=substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
       $contentJ=substr($XcontentsT,strpos($XcontentsT,"[jour]")+6,strpos($XcontentsT,"[/jour]")-6);
