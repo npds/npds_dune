@@ -340,24 +340,19 @@ $fond_provider=array(
    ['toner', geoloc_translate("Noir et blanc").' (Stamen)'],
    ['watercolor', geoloc_translate("Dessin").' (Stamen)'],
    ['terrain', geoloc_translate("Relief").' (Stamen)'],
+   ['modisterra', geoloc_translate("Satellite").' (NASA)'],
    ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
    ['geography-class', geoloc_translate("Carte").' (mapbox)'],
-   ['modisterra', geoloc_translate("Satellite").' (NASA)'],
    ['Road', geoloc_translate("Plan").' (Bing maps)'],
    ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
-/*
-   ['ROADMAP', geoloc_translate("Plan").' (Google)'],
-   ['SATELLITE', geoloc_translate("Satellite").' (Google)'],
-   ['HYBRID', geoloc_translate("Satellite").' et label (Google)'],
-   ['TERRAIN', geoloc_translate("Relief").' (Google)'],
-   ['sat', geoloc_translate("Relief").' (ESRI)'],
-*/
-   
 );
-if($api_key=='') {unset($fond_provider[1],$fond_provider[2],$fond_provider[3],$fond_provider[4]);}
-if($api_key_bing=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7]);}
-// var_dump($fond_provider);
+if($api_key_bing=='' and $api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);}
+elseif($api_key_bing=='') {unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);}
+elseif($api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6]);}
+
+
+ var_dump($fond_provider);
    $fonts_svg=array(
       ['user','uf007','Utilisateur'],
       ['userCircle','uf2bd','Utilisateur en cercle'],
@@ -470,8 +465,6 @@ $ecr_scr = '
      url: "/modules/geoloc/include/countries.geojson",
      format: new ol.format.GeoJSON()
    });
-   
-   
    ';
 
       if($mark_typ !==1) {
@@ -983,9 +976,7 @@ else
         }
         return l;
       }
-      
-      
-      
+
 //==> comportement sidebar et layers
    $(document).ready(function () {
       centeronMe = function(u) {
@@ -1032,8 +1023,6 @@ else
 
          });
 */
-        
-        
          map.getView().setZoom(17);
       }
 
@@ -1531,17 +1520,11 @@ $(function(){
       });
 });
 
-
-
 $(document.body).attr("onload", "geoloc_load()");
 
-
-
-            $(\'a[data-toggle="collapse"]\').click(function () {
-               $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
-            });
-
-
+   $(\'a[data-toggle="collapse"]\').click(function () {
+      $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
+   });
 
 //$(".page-header").hide();
 //]]>
@@ -1580,20 +1563,17 @@ $affi .= '
       switch($j){
          case '0': $affi .= '<optgroup label="OpenStreetMap">';break;
          case '1': $affi .= '<optgroup label="Stamen">';break;
-         case '4': $affi .= '<optgroup label="Mapbox">';break;
-         case '6': $affi .= '<optgroup label="NASA">';break;
-         
-         case '7': if($api_key_bing==!'') $affi .= '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') $affi .= '<optgroup label="Google maps">';} break;
-         case '10': $affi .= '<optgroup label="Google maps">';break;
+         case '4': $affi .= '<optgroup label="NASA">';break;
+         case '5': if($api_key_mapbox==!'') $affi .= '<optgroup label="Mapbox">'; elseif($api_key_bing==!'') $affi .= '<optgroup label="Bing maps">'; break;
+         case '7': if($api_key_bing==!'' and $api_key_mapbox!=='') $affi .= '<optgroup label="Bing maps">'; break;
       }
       $affi .=  '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '6': case '13': $affi .= '</optgroup>'; break;
-
-//         case '7': $affi .= '</optgroup>'; break;
-//         case '8': $affi .= '</optgroup>'; break;
-         }
+         case '0': case '3': case '4': case '9': $affi .= '</optgroup>'; break;
+         case '6': if($api_key_mapbox==!'') $affi .= '</optgroup>'; break;
+         case '7': if($api_key_mapbox=='' and $api_key_bing==!'') $affi .= '</optgroup>'; break;
+      }
       $j++;
    }
 $affi .= '
@@ -1631,7 +1611,7 @@ $affi .= '
          <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
 if(autorisation(-127) and $geo_ip==1)
    $affi .= '
-         <li class="nav-item"><a id="iplist-tab" class="nav-link " href="#geolocalisation" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Ip liste").'</span></a></li>';
+         <li class="nav-item"><a id="iplist-tab" class="nav-link " href="#ipgeolocalisation" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Ip liste").'</span></a></li>';
 $affi .= '
       </ul>
    <div class="tab-content">
@@ -1650,7 +1630,7 @@ $affi .= '
             </div>
          </div>
       </div>
-      <div class="tab-pane fade mt-2" id="geolocalisation">
+      <div class="tab-pane fade mt-2" id="ipgeolocalisation">
          <h5 class="mt-3">
             <i title="'.geoloc_translate('IP géoréférencées').'" data-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg mr-2 align-middle"></i>
             <span class="badge badge-secondary mr-2 float-right">'.$ipnb.'</span>
