@@ -331,12 +331,14 @@ function membre_add_finish($groupe_id, $luname) {
    global $NPDS_Prefix;
    include('powerpack_f.php');
    $image='18.png';
+   $r = sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='".$groupe_id."'");
+   list($gn)=sql_fetch_row($r);
    $luname=rtrim ( $luname ,', ');
    $luname=str_replace(' ','',$luname);
    $list_membres=explode(',',$luname);
    $nbremembres=count($list_membres);
-   $subject=adm_translate('Nouvelles du groupe');
-   $message=adm_translate('Vous faites désormais partie des membres du groupe').' '.$groupe_id.'.';
+   $subject=adm_translate('Nouvelles du groupe').' '.$gn;
+   $message=adm_translate('Vous faites désormais partie des membres du groupe').' : '.$gn.' ['.$groupe_id.'].';
    $copie='';
    $from_userid=1;
 
@@ -370,6 +372,9 @@ function retiredugroupe($groupe_id, $uid, $uname) {
    global $NPDS_Prefix;
    include('powerpack_f.php');
    $image='18.png';
+   $r = sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='".$groupe_id."'");
+   list($gn)=sql_fetch_row($r);
+
    $pat='#^\b'.$uid.'\b$#';
    $mes_sys='';
    $q='';
@@ -392,8 +397,8 @@ function retiredugroupe($groupe_id, $uid, $uname) {
       };
    
       $resultat=sql_query("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$uid'");
-      $subject=adm_translate('Nouvelles du groupe');
-      $message=adm_translate('Vous ne faites plus partie des membres du groupe').' '.$groupe_id.'.';
+      $subject=adm_translate('Nouvelles du groupe').' '.$gn;
+      $message=adm_translate('Vous ne faites plus partie des membres du groupe').' : '.$gn.' ['.$groupe_id.'].';
       $copie='';
       $from_userid=1;
       $to_userid=$uname;
