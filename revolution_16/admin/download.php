@@ -427,7 +427,7 @@ function DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $d
     $description=addslashes($description);
     $time = date("Y-m-d");
     if (($durl) and ($dfilename))
-       sql_query("INSERT INTO ".$NPDS_Prefix."downloads VALUES (NULL, '$dcounter', '$durl', '$dfilename', '$dfilesize', '$time', '$dweb', '$duser', '$dver', '$dcategory', '$description', '$privs')");
+       sql_query("INSERT INTO ".$NPDS_Prefix."downloads VALUES ('0', '0', '$durl', '$dfilename', '0', '$time', '$dweb', '$duser', '$dver', '$dcategory', '$description', '$privs')");
     Header("Location: admin.php?op=DownloadAdmin");
 }
 
