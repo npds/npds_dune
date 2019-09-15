@@ -558,7 +558,7 @@ function nmig_clean($name_module) {
          }
          // maj etat d'installation
          sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
-         
+
          redirect_url("admin.php?op=modules");
       }
       include("header.php");
@@ -588,7 +588,6 @@ function nmig_clean($name_module) {
                   $display.='<li>rblocs</li>';
             $display .='</ul>';
          }
-
 
          $display .='
          </div>
