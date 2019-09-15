@@ -53,9 +53,8 @@ function ForumMaintMarkTopics() {
          while (list($topic_id)=sql_fetch_row($resultT)) {
             $resultU=sql_query("SELECT uid FROM ".$NPDS_Prefix."users ORDER BY uid DESC");
             while (list($uid)=sql_fetch_row($resultU)) {
-               if ($uid>1) {
+               if ($uid>1)
                   $r=sql_query("INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum_id', '$topic_id', '$uid', '$time_actu', '1')");
-               }
             }
          echo $topic_id.' ';
          }
@@ -155,7 +154,7 @@ function ForumMaintTopicDetail($topic, $topic_title) {
 function ForumMaintTopicMassiveSup($topics) {
     global $NPDS_Prefix;
     if ($topics) {
-       while (list($topic_id,$value)=each($topics)) {
+       foreach($topics as $topic_id => $value) {
           if ($value=='on') {
              $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topic_id'";
              if (!$result = sql_query($sql))
@@ -206,15 +205,13 @@ function SynchroForum() {
     if (!$result1 = sql_query("SELECT topicid, uid, rid FROM ".$NPDS_Prefix."forum_read ORDER BY topicid ASC"))
        forumerror('0009');
     while (list($topicid, $uid, $rid)=sql_fetch_row($result1)) {
-       if (($topicid.$uid)==$tmp) {
+       if (($topicid.$uid)==$tmp)
           $resultD = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid' and uid='$uid' and rid='$rid'");
-       }
        $tmp=$topicid.$uid;
        if ($result2 = sql_query("SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topicid'")) {
           list($topic_id)=sql_fetch_row($result2);
-          if (!$topic_id) {
+          if (!$topic_id)
              $result3 = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid'");
-          }
        }
     }
     sql_free_result();
@@ -242,14 +239,12 @@ function MergeForum() {
             echo '
                   <option value="'.$myrow['forum_id'].'">'.$myrow['forum_name'].'</option>';
          } while($myrow = sql_fetch_assoc($result));
-         } else {
+         } else
             echo '
                   <option value="-1">'.translate("No More Forums").'</option>';
-         }
-      } else {
+      } else
          echo '
                   <option value="-1">Database Error</option>';
-      }
     echo '
                </select>
             </div>
@@ -264,14 +259,12 @@ function MergeForum() {
              echo '
                   <option value="'.$myrow['forum_id'].'">'.$myrow['forum_name'].'</option>';
           } while($myrow = sql_fetch_assoc($result));
-       } else {
+       } else
           echo '
                   <option value="-1">'.translate("No More Forums").'</option>';
-       }
-    } else {
+    } else
        echo '
                   <option value="-1">Database Error</option>';
-    }
     echo '
                </select>
             </div>

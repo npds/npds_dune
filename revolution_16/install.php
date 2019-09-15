@@ -61,7 +61,7 @@ if($stage == 1) {
    $file = file("config.php");
    $file[173] ="\$language = \"$langue\";\n";
    $fic = fopen("config.php", "w");
-      while(list($n,$ligne) = each($file)) {
+      foreach($file as $n => $ligne) {
          fwrite($fic, $ligne);
    }
    fclose($fic);

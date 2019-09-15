@@ -62,8 +62,7 @@ admindroits($aid,$f_meta_nom);
             $index[$kname] = array();
          $index[$kname][] = $row['Column_name'];
       }
-      while(list($x, $columns) = @each($index))
-      {
+      foreach($index as $x => $columns) {
          $schema_create .= ",$crlf";
          if($x == "PRIMARY")
             $schema_create .= " PRIMARY KEY (".implode($columns, ", ").")";
@@ -125,11 +124,8 @@ admindroits($aid,$f_meta_nom);
       $tables = sql_list_tables($dbname);
       $num_tables = sql_num_rows($tables);
       if($num_tables == 0)
-      {
          echo "&nbsp;".adm_translate("Aucune table n'a été trouvée")."\n";
-      }
-      else
-      {
+      else {
          $heure_jour = date("H:i");
          $data = "# ========================================================$crlf"
             ."# $crlf"
@@ -137,8 +133,7 @@ admindroits($aid,$f_meta_nom);
             ."# ".adm_translate("Effectuée le")." ".$date_jour." : ".$heure_jour." ".adm_translate("par")." ".$name." $crlf"
             ."# $crlf"
             ."# ========================================================$crlf";
-         while($row = sql_fetch_row($tables))
-         {
+         while($row = sql_fetch_row($tables)) {
             $table = $row[0];
             $data .= "$crlf"
                ."# --------------------------------------------------------$crlf"
@@ -239,8 +234,7 @@ admindroits($aid,$f_meta_nom);
                }
             }
          }
-         if ( strlen($data1) > 0)
-         {
+         if ( strlen($data1) > 0) {
             send_tofile($data0.$data1,$repertoire,$filename."-".sprintf("%03d", $ifile),"sql",$MSos);
             $data1="";
             $ifile++;
@@ -285,5 +279,4 @@ admindroits($aid,$f_meta_nom);
          header("Location: index.php");
          break;
    }
-
 ?>

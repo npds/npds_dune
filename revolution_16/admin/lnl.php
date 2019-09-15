@@ -420,7 +420,7 @@ function main() {
          </div>';
       $mX=liste_group();
       $tmp_groupe='';
-      while (list($groupe_id, $groupe_name)=each($mX)) {
+      foreach($mX as $groupe_id => $groupe_name) {
          if ($groupe_id=='0') $groupe_id='';
          $tmp_groupe.='
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
@@ -744,7 +744,7 @@ switch ($op) {
                      }
                   }
                }
-               $fonction="each";
+               $fonction="each";///???gloups
                if (is_array($result)) $boucle=true; else $boucle=false;
             } else {
                $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND u.user_lnl='1'");
@@ -754,7 +754,7 @@ switch ($op) {
                $boucle=true;
             }
             if ($boucle) {
-               while (list($bidon, $email) = $fonction($result)) {
+               while (list($bidon, $email) = $fonction($result)) {///???gloups réinterprété comme each .. ???
                   if (($email!="Anonyme") or ($email!="Anonymous")) {
                      if ($email!='') {
                         if (($message!='') and ($subject!='')) {
@@ -788,7 +788,7 @@ switch ($op) {
               }
             }
          }
-         if ($chartmp=='') {$chartmp="$Xtype : $deb / $nrows";}
+         if ($chartmp=='') $chartmp="$Xtype : $deb / $nrows";
          include("meta/meta.php");
          echo "<script type=\"text/javascript\">
                //<![CDATA[
@@ -798,10 +798,13 @@ switch ($op) {
                setTimeout(\"redirect()\",10000);
                //]]>
                </script>";
-         echo "</head>\n<body style=\"background-color: #FFFFFF;\"><br /><p align=\"center\" style=\"font-size: 12px; font-family: Arial; font-weight: bold; color: black;\">";
+         echo "</head>
+         <body style=\"background-color: #FFFFFF;\"><br /><p align=\"center\" style=\"font-size: 12px; font-family: Arial; font-weight: bold; color: black;\">";
          echo adm_translate("Transmission LNL en cours")." => ".$chartmp;
-         echo "<br /><br />NPDS - Portal System";
-         echo "</p></body></html>";
+         echo '<br /><br />NPDS - Portal System
+               </p>
+            </body>
+         </html>';
          break;
 
    default:

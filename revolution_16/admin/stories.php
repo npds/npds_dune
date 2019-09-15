@@ -73,12 +73,11 @@ function puthome($ihome) {
     $mX=liste_group();
     $tmp_groupe='';
     settype($Mmembers,'integer');
-    while (list($groupe_id, $groupe_name)=each($mX)) {
+    foreach($mX as $groupe_id => $groupe_name){
        if ($groupe_id=='0') $groupe_id='';
        if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
        $tmp_groupe.='
        <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
-//      $nbg++;
     }
    echo '
       <div class="form-group row">
@@ -1223,6 +1222,9 @@ switch ($op) {
       settype($date_debval,'string');
       settype($date_finval,'string');
       settype($qid,'integer');
+
+      settype($uid,'string');//
+      
       if (!$date_debval) 
          $date_debval = $dd_pub.' '.$dh_pub.':01';
       if (!$date_finval) 

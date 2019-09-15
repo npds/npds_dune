@@ -125,7 +125,7 @@ function group_liste() {
    $lst_gr_json='';
    if ($one_gp) {
       sort($tab_groupeIII);
-      while (list($bidon,$gp)=each($tab_groupeIII)) {
+      foreach($tab_groupeIII as $bidon => $gp){
          $lst_user_json='';
          $result=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp'"));
          echo '
@@ -147,9 +147,8 @@ function group_liste() {
          $lst_uidna_json='';
          
          //==> liste membres du groupe
-//         $lst_gr_json='';
          echo '<ul id="lst_mb_gr_'.$gp.'" style ="display:none; padding-left:0px; -webkit-padding-start: 0px;">';
-         while (list($bidon,$uidX)=each($tab_groupe)) {
+         foreach($tab_groupe as $bidon => $uidX ){
             if ($uidX) {
                list($uname,$user_avatar)=sql_fetch_row(sql_query("SELECT uname, user_avatar FROM ".$NPDS_Prefix."users WHERE uid='$uidX'"));
                $lst_user_json.= $uname.',';
@@ -261,9 +260,8 @@ function group_liste() {
    while (list($gp, $gp_name, $gp_description)=sql_fetch_row($result)) {
       $gpA=true;
       if ($tab_groupeIII) {
-         reset ($tab_groupeIII);
-         while (list($bidon,$gpU)=each($tab_groupeIII)) {
-            if ($gp==$gpU) {$gpA=false;}
+         foreach($tab_groupeIII as $bidon => $gpU ){
+            if ($gp==$gpU) $gpA=false;
          }
       }
       if ($gpA) {
@@ -421,7 +419,7 @@ function retiredugroupe($groupe_id, $uid, $uname) {
 function retiredugroupe_all($groupe_id,$tab_groupe) {
    global $NPDS_Prefix;
    $tab_groupe=explode ( ',', $tab_groupe );
-   while (list($bidon,$uidZ)=each($tab_groupe)) {
+   foreach($tab_groupe as $bidon => $uidZ){
       if ($uidZ) {
          // a rajouter enlever modérateur forum
          $resultat=sql_query("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$uidZ'");
@@ -552,7 +550,7 @@ function workspace_create($groupe_id) {
    $file = file('modules/f-manager/users/groupe_'.$groupe_id.'.conf.php');
    $file[29] ="   \$access_fma = \"$groupe_id\";\n";
    $fic = fopen('modules/f-manager/users/groupe_'.$groupe_id.'.conf.php', "w");
-   while (list($n,$ligne) = each($file)) {
+   foreach($file as $n => $ligne){
       fwrite($fic, $ligne);
    }
    fclose($fic);
@@ -560,11 +558,10 @@ function workspace_create($groupe_id) {
    include ("modules/upload/upload.conf.php");
    if ($DOCUMENTROOT=='') {
       global $DOCUMENT_ROOT;
-      if ($DOCUMENT_ROOT) {
+      if ($DOCUMENT_ROOT)
          $DOCUMENTROOT=$DOCUMENT_ROOT;
-      } else {
+      else
          $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-      }
    }
    $user_dir=$DOCUMENTROOT.$racine.'/users_private/groupe/'.$groupe_id;
 
@@ -575,10 +572,9 @@ function workspace_create($groupe_id) {
    $handle=opendir($DOCUMENTROOT.$directory);
    while (false!==($file = readdir($handle))) $filelist[] = $file;
    asort($filelist);
-   while (list ($key, $file) = each ($filelist)) {
-      if ($file<>'.' and $file<>'..') {
+   foreach($filelist as $key => $file) {
+      if ($file<>'.' and $file<>'..')
          @copy($DOCUMENTROOT.$directory.'/'.$file, $repertoire.'/'.$file);
-      }
    }
    closedir($handle);
    unset ($filelist);
@@ -590,10 +586,9 @@ function workspace_create($groupe_id) {
    $handle=opendir($DOCUMENTROOT.$directory);
    while (false!==($file = readdir($handle))) $filelist[] = $file;
    asort($filelist);
-   while (list ($key, $file) = each ($filelist)) {
-      if ($file<>'.' and $file<>'..') {
+   foreach($filelist as $key => $file) {
+      if ($file<>'.' and $file<>'..')
          @copy($DOCUMENTROOT.$directory.'/'.$file, $repertoire.'/'.$file);
-      }
    }
    closedir($handle);
    unset ($filelist);
@@ -704,11 +699,10 @@ function groupe_mns_create($groupe_id) {
 
    if ($DOCUMENTROOT=='') {
       global $DOCUMENT_ROOT;
-      if ($DOCUMENT_ROOT) {
+      if ($DOCUMENT_ROOT)
          $DOCUMENTROOT=$DOCUMENT_ROOT;
-      } else {
+      else
          $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-      }
    }
    $user_dir=$DOCUMENTROOT.$racine.'/users_private/groupe/'.$groupe_id;
    $repertoire=$user_dir.'/mns';
@@ -741,10 +735,9 @@ function groupe_mns_create($groupe_id) {
    $handle=opendir($DOCUMENTROOT.$directory);
    while (false!==($file = readdir($handle))) $filelist[] = $file;
    asort($filelist);
-   while (list ($key, $file) = each ($filelist)) {
-      if ($file<>'.' and $file<>'..') {
+   foreach($filelist as $key => $file){
+      if ($file<>'.' and $file<>'..')
          @copy($DOCUMENTROOT.$directory.'/'.$file, $repertoire.'/'.$file);
-      }
    }
    closedir($handle);
    unset ($filelist);

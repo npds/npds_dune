@@ -22,7 +22,7 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
    $file[33] ="\$mysql_p = 1;\n";
    $file[34] ="\$mysql_i = 1;\n";
    $fic = fopen("config.php", "w");
-   while(list($n,$ligne) = each($file)) {
+   foreach($file as $n => $ligne) {
       fwrite($fic, $ligne);
    }
    fclose($fic);
@@ -104,8 +104,8 @@ function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $
    $file[320]="\$NPDS_Key = \"$NPDS_Key\";\n";
 
    $fic = fopen("config.php", "w");
-      while(list($n,$ligne) = each($file)) {
-         fwrite($fic, $ligne);
+   foreach($file as $n => $ligne) {
+      fwrite($fic, $ligne);
    }
    fclose($fic);
 
@@ -133,8 +133,8 @@ function write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slo
    $file[101] ="\$Default_Theme = \"$new_Default_Theme\";\n";
 
    $fic = fopen("config.php", "w");
-      while(list($n,$ligne) = each($file)) {
-         fwrite($fic, $ligne);
+   foreach($file as $n => $ligne) {
+      fwrite($fic, $ligne);
    }
    fclose($fic);
 
@@ -153,48 +153,32 @@ function msg_erreur($message) {
    die();
 }
 
-function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix)
-{
+function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    include_once('config.php');
    global $system, $system_md5, $minpass, $stage7_ok, $NPDS_Prefix;
-   if ($adminlogin != '')
-   {
+   if ($adminlogin != '') {
       if($adminpass1 != $adminpass2)
-      {
          $stage7_ok = 2;
-      }
-      else
-      {
+      else {
          if(strlen($adminpass1) < $minpass)
-         {
             $stage7_ok = 2;
-         }
-         else
-         {
+         else {
             $stage7_ok = 1;
             if($system_md5)
-            {
                $adminpwd = crypt($adminpass2, $adminpass1);
-            }
             else
-            {
                $adminpwd = $adminpass1;
-            }
             sql_connect();
             $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd' WHERE radminsuper='1'");
             copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
 
             if(!$result1)
-            {
                $stage7_ok = 0;
-            }
          }
       }
    }
    else
-   {
       $stage7_ok = 2;
-   }
    return($stage7_ok);
 }
 
@@ -214,8 +198,8 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    $file[40] = "\$url_upload = \"$new_url_upload\";\n";
 
    $fic = fopen("modules/upload/upload.conf.php", "w");
-      while(list($n,$ligne) = each($file)) {
-         fwrite($fic, $ligne);
+   foreach($file as $n => $ligne) {
+      fwrite($fic, $ligne);
    }
    fclose($fic);
    $stage8_ok = 1;
