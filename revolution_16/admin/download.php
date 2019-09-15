@@ -26,7 +26,7 @@ function groupe($groupe) {
    $les_groupes=explode(',',$groupe);
    $mX=liste_group();
    $nbg=0; $str='';
-   while (list($groupe_id, $groupe_name)=each($mX)) {
+   foreach($mX as $groupe_id => $groupe_name) {
       $selectionne=0;
       if ($les_groupes) {
          foreach ($les_groupes as $groupevalue) {

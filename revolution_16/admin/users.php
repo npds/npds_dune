@@ -170,7 +170,7 @@ function Minisites($chng_mns,$chng_uname) {
       $handle=opendir($DOCUMENTROOT.$directory);
       while (false!==($file = readdir($handle))) $filelist[] = $file;
       asort($filelist);
-      while (list ($key, $file) = each ($filelist)) {
+      foreach($filelist as $key => $file) {
          if ($file<>'.' and $file<>'..')
             @copy($DOCUMENTROOT.$directory.'/'.$file, $repertoire.'/'.$file);
       }

@@ -14,8 +14,8 @@
 function GetMetaTags($filename) {
    if (file_exists($filename)) {
       $temp = file($filename);
-      while($line = each($temp)) {
-         $aline = trim(stripslashes($line['value']));
+      foreach($temp as $line) {
+         $aline = trim(stripslashes($line));
          if (preg_match("#<meta (name|http-equiv)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
             $regs[2] = strtolower($regs[2]);
             $tags[$regs[2]] = $regs[3];

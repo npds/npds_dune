@@ -77,8 +77,7 @@ function puthome($ihome) {
    $mX=liste_group();
    $tmp_groupe='';
    $Mmembers='';
-//   foreach($mX as $groupe_id => $groupe_name){
-   while (list($groupe_id, $groupe_name)=each($mX)) {
+   foreach($mX as $groupe_id => $groupe_name){
       if ($groupe_id=='0') $groupe_id='';
       if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
       $tmp_groupe.='
