@@ -185,16 +185,16 @@ switch ($op) {
            $Xcontents='Edito ...';
         } else {
            $ibid=strstr($Xcontents,'aff_jours');
-           parse_str($ibid);
+           parse_str($ibid,$Xibidout);
         }
-        if ($aff_jours) {
+        if ($Xibidout['aff_jours']) {
            $Xcontents=substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
         } else {
-           $aff_jours=20;
-           $aff_jour='checked="checked"';
-           $aff_nuit='checked="checked"';
+           $Xibidout['aff_jours']=20;
+           $Xibidout['aff_jour']='checked="checked"';
+           $Xibidout['aff_nuit']='checked="checked"';
         }
-        edito($edito_type, $Xcontents, $aff_jours, $aff_jour, $aff_nuit);
+        edito($edito_type, $Xcontents, $Xibidout['aff_jours'], $Xibidout['aff_jour'], $Xibidout['aff_nuit']);
         break;
     default:
         edito('','','','','');
