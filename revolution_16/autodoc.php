@@ -60,7 +60,7 @@ function autodoc($fichier, $paragraphe) {
           </tr>
          </thead>
          <tbody>';
-   while ( list($line_num, $line)=each($fcontents) ) {
+   foreach($fcontents as $line_num => $line ) {
       if ($paragraphe!='') {
          if (strstr($line,"#autodoc:<$paragraphe>")) {
             $line='';

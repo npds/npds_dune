@@ -279,9 +279,9 @@ function convert_ressources ($Xcontent) {
             $userdata=get_userdata($op);
             if ($userdata['mns']==true) {
                $affich=true;
-               if (stristr($userdata['user_avatar'],"users_private")) {
+               if (stristr($userdata['user_avatar'],"users_private"))
                   $direktori='';
-               } else {
+               else {
                   global $theme;
                   $direktori='images/forum/avatar/';
                   if (function_exists("theme_image")) {
@@ -304,16 +304,15 @@ function convert_ressources ($Xcontent) {
                $avatar_mns='users_private/'.$op.'/groupe.png';
                function adm_translate(){};
                $gX=liste_group();
-               while (list($g_id, $g_name)=each($gX)) {
+               foreach($gX as $g_id => $g_name) {
                   if ($g_id==basename($op)) $gr_name= $g_name;
                }
             }
             $tabgp=valid_group($user);
             if (is_array($tabgp)) {
                foreach($tabgp as $auto) {
-                  if ($auto==basename($op)) {
+                  if ($auto==basename($op))
                      $adminblog=true;
-                  }
                }
             }
          }

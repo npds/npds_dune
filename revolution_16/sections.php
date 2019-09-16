@@ -17,7 +17,7 @@ if (!function_exists("Mysql_Connexion"))
 function autorisation_section($userlevel) {
    $okprint=false;
    $tmp_auto=explode(',',$userlevel);
-   while (list(,$userlevel)=each($tmp_auto)) {
+   foreach($tmp_auto as $userlevel ){
       $okprint=autorisation($userlevel);
       if ($okprint) break;
    }
@@ -233,13 +233,14 @@ function viewarticle($artid, $page) {
    list($secid, $secname, $rubid) = sql_fetch_row(sql_query("SELECT secid, secname, rubid FROM ".$NPDS_Prefix."sections WHERE secid='$secid'"));
    list($rubname) = sql_fetch_row(sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubid'"));
    $tmp_auto=explode(',',$userlevel);
-   while (list(,$userlevel)=each($tmp_auto)) {
+   foreach($tmp_auto as $userlevel ){
       $okprint=autorisation_section($userlevel);
       if ($okprint) break;
    }
    if ($okprint) {
          $pindex=substr(substr($page,5),0,-1);
-         if ($pindex!='') {$pindex=translate("Page").' '.$pindex;}
+         if ($pindex!='')
+            $pindex=translate("Page").' '.$pindex;
          if ($sections_chemin==1)
             $chemin='<span class="lead"><a href="sections.php">Index</a>&nbsp;/&nbsp;<a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a>&nbsp;/&nbsp;<a href="sections.php?op=listarticles&amp;secid='.$secid.'">'.aff_langue($secname).'</a></span>'; 
          $title=aff_langue($title);
@@ -249,9 +250,8 @@ function viewarticle($artid, $page) {
       if ($SuperCache) {
          $cache_obj = new cacheManager();
          $cache_obj->startCachingPage();
-      } else {
+      } else
          $cache_obj = new SuperCacheEmpty();
-      }
       if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
          $words = sizeof(explode(' ', $Xcontent));
          if ($prev==1) {echo '<input type="button" value="'.translate("Back to console").'" onclick="javascript:history.back()" /><br /><br />';}

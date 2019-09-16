@@ -35,7 +35,7 @@ function alpha() {
    $alphabet = array (translate("All"), "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",translate("Other"));
    $num = count($alphabet) - 1;
    $counter = 0;
-   while (list(, $ltr) = each($alphabet)) {
+   foreach($alphabet as $ltr) {
       echo '<a href="memberslist.php?letter='.$ltr.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'">'.$ltr.'</a>';
       if ( $counter != $num )
          echo ' | ';
@@ -56,11 +56,10 @@ function alpha() {
 }
 
 function unique($ibid) {
-   while (list(,$to_user) = each($ibid)) {
+   foreach ($ibid as $to_user) {
       settype($Xto_user,'array');
-      if (!array_key_exists($to_user,$Xto_user)) {
+      if (!array_key_exists($to_user,$Xto_user))
          $Xto_user[$to_user]=$to_user;
-      }
    }
    return ($Xto_user);
 }
