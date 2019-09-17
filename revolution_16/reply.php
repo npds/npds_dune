@@ -31,7 +31,7 @@ if ($cancel)
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
    forumerror('0001');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
 $forum_name = $myrow['forum_name'];
 $forum_access = $myrow['forum_access'];
 $forum_type=$myrow['forum_type'];

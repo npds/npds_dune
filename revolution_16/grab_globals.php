@@ -183,11 +183,11 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
     }
 
     if (!empty($_FILES)) {
-       while (list($key,$value)=each($_FILES)) {
+      foreach ($_FILES as $key => $value) {
           $$key=$value['tmp_name'];
        }
     } else if (!empty($HTTP_POST_FILES)) {
-       while (list($key,$value)=each($HTTP_POST_FILES)) {
+       foreach ($HTTP_POST_FILES as $key => $value) {
           $$key=$value['tmp_name'];
       }
     }

@@ -63,7 +63,8 @@ settype($forum, "integer");
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
    forumerror('0002');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
+
 $forum_name = stripslashes($myrow['forum_name']);
 $moderator=get_moderator($myrow['forum_moderator']);
 $forum_access=$myrow['forum_access'];
@@ -354,7 +355,6 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    echo '<div class="mb-2"></div>'.paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, 1, $topics_per_page, $start);
 
    echo searchblock();
-//      if ($myrow = sql_fetch_assoc($result)) 
    echo '
    <blockquote class="blockquote my-3">';
    if($user)
@@ -409,5 +409,4 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       $cache_obj->endCachingBlock($cache_clef);
 } else
    header("location: forum.php");
-
 ?>

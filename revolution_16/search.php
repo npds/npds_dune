@@ -304,10 +304,9 @@
       echo '
          </tbody>
       </table>';
-      } else {
+      } else
          echo '
       <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
-      }
       $prev=$min-$offset;
       echo '
       <p align="left">
@@ -343,9 +342,9 @@
          <tbody>';
          while (list($artid, $secid, $title, $content) = sql_fetch_row($result)) {
             $rowQ2=Q_Select ("SELECT secname, rubid FROM ".$NPDS_Prefix."sections WHERE secid='$secid'", 3600);
-            list(,$row2) = each($rowQ2);
+            $row2 = $rowQ2[0];
             $rowQ3=Q_Select ("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='".$row2['rubid']."'", 3600);
-            list(,$row3) = each($rowQ3);
+            $row3 = $rowQ3[0];
             if ($row3['rubname']!='Divers' AND $row3['rubname']!='Presse-papiers') {
                $surl = "sections.php?op=listarticles&amp;secid=$secid";
                $furl = "sections.php?op=viewarticle&amp;artid=$artid";

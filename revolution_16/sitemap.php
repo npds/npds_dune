@@ -42,7 +42,7 @@ function sitemapforum($prio) {
 function sitemaparticle($prio) {
     global $NPDS_Prefix, $nuke_url;
     $tmp='';
-    
+
     $result = sql_query("SELECT sid,time FROM ".$NPDS_Prefix."stories WHERE ihome='0' AND archive='0' ORDER BY sid");
     while (list($sid, $time) = sql_fetch_row($result)) {
        // Articles
@@ -67,9 +67,9 @@ function sitemaprub($prio) {
     $tmp .= "<changefreq>weekly</changefreq>\n";
     $tmp .= "<priority>$prio</priority>\n";
     $tmp .= "</url>\n\n";
-    
+
     $result = sql_query("SELECT artid, timestamp FROM ".$NPDS_Prefix."seccont WHERE userlevel='0' ORDER BY artid");
-    while (list($artid, $timestamp) = sql_fetch_row($result)) {   
+    while (list($artid, $timestamp) = sql_fetch_row($result)) {
        // Rubriques
        $tmp .= "<url>\n";
        $tmp .= "<loc>$nuke_url/sections.php?op=viewarticle&amp;artid=$artid</loc>\n";
@@ -108,7 +108,7 @@ function sitemapdown($prio) {
 function sitemapothers($PAGES) {
    global $nuke_url;
    $tmp='';
-   while (list($name,$loc)= each($PAGES)) {
+   foreach($PAGES as $name => $loc) {
       if (array_key_exists('sitemap',$PAGES[$name])) {
          if (($PAGES[$name]['run']=="yes") and ($name!="article.php") and ($name!="forum.php") and ($name!="sections.php") and ($name!="download.php")) {
             $tmp .= "<url>\n";
@@ -119,7 +119,7 @@ function sitemapothers($PAGES) {
             $tmp .= "</url>\n\n";
          }
       }
-   }   
+   }
    return ($tmp);
 }
 
@@ -139,7 +139,7 @@ function sitemap_create($PAGES, $filename) {
 
    if (array_key_exists('sitemap',$PAGES['sections.php']))
       $ibid.=sitemaprub($PAGES['sections.php']['sitemap']);
-      
+
    if (array_key_exists('sitemap',$PAGES['download.php']))
       $ibid.=sitemapdown($PAGES['download.php']['sitemap']);
 
@@ -149,7 +149,7 @@ function sitemap_create($PAGES, $filename) {
    $file=fopen($filename, "w");
    fwrite($file, $ibid);
    fclose($file);
-    
+
    Ecr_Log("sitemap", "sitemap generated : ".date("H:i:s", time()), "");
 }
 

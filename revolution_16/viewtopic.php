@@ -49,12 +49,12 @@ settype($pages,'integer');//
 $rowQ1=Q_Select ("SELECT forum_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'", 3600);
 if (!$rowQ1)
    forumerror('0001');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
 $forum=$myrow['forum_id'];
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
    forumerror('0001');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
 $forum_name = $myrow['forum_name'];
 $mod = $myrow['forum_moderator'];
 $forum_type=$myrow['forum_type'];
@@ -66,8 +66,8 @@ if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) )
 if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
    if(isset($user)){
-   $tab_groupe=valid_group($user);// en ano et admin $user n'existe pas ?  notice ....
-   $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
+      $tab_groupe=valid_group($user);// en ano et admin $user n'existe pas ?  notice ....
+      $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
    }
    //:: ici 
    if ( (!$ok_affiche) and ($adminforum==0) )

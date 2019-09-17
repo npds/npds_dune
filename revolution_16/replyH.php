@@ -31,24 +31,20 @@ if ($cancel)
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
    forumerror('0001');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
 $forum_name = $myrow['forum_name'];
 $forum_access = $myrow['forum_access'];
 $forum_type=$myrow['forum_type'];
 $mod=$myrow['forum_moderator'];
 
-if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) ) {
+if ( ($forum_type == 1) and ($Forum_passwd != $myrow['forum_pass']) )
    header("Location: forum.php");
-}
-if ($forum_access==9) {
+if ($forum_access==9)
    header("Location: forum.php");
-}
-if (is_locked($topic)) {
+if (is_locked($topic))
    forumerror('0025');
-}
-if (!does_exists($forum, "forum") || !does_exists($topic, "topic")) {
+if (!does_exists($forum, "forum") || !does_exists($topic, "topic"))
    forumerror('0026');
-}
 
 settype($submitS,'string');
 settype($stop,'integer');
@@ -132,28 +128,23 @@ if ($submitS) {
       $message = addslashes($message);
       $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns, post_idH) VALUES ('$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname', $post)";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0020');
-      } else {
+      else
          $IdPost=sql_last_id();
-      }
       $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_time = '$time', current_poster = '".$userdata['uid']."' WHERE topic_id = '$topic'";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0020');
-      }
       $sql = "UPDATE ".$NPDS_Prefix."forum_read SET status='0' where topicid = '$topic' and uid <> '".$userdata['uid']."'";
-      if (!$r = sql_query($sql)) {
+      if (!$r = sql_query($sql))
          forumerror('0001');
-      }
       $sql = "UPDATE ".$NPDS_Prefix."users_status SET posts=posts+1 WHERE (uid = '".$userdata['uid']."')";
       $result = sql_query($sql);
-      if (!$result) {
+      if (!$result)
          forumerror('0029');
-      }
       $sql = "SELECT t.topic_notify, u.email, u.uname, u.uid, u.user_langue FROM ".$NPDS_Prefix."forumtopics t, ".$NPDS_Prefix."users u WHERE t.topic_id = '$topic' AND t.topic_poster = u.uid";
-      if (!$result = sql_query($sql)) {
+      if (!$result = sql_query($sql))
          forumerror('0022');
-      }
       $m = sql_fetch_assoc($result);
       $sauf = '';
       if ( ($m['topic_notify'] == 1) && ($m['uname'] != $userdata['uname']) ) {
@@ -184,16 +175,13 @@ if ($submitS) {
       }
       redirect_url("viewtopicH.php?forum=$forum&topic=$topic");
    } else {
-      opentable();
       echo "<p align=\"center\">".translate("You must type a message to post.")."<br /><br />";
       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
-      closetable();
    }
 } else {
    include('header.php');
-   if ($allow_bbcode==1) {
+   if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
-   }
 
    list($topic_title, $topic_status) = sql_fetch_row(sql_query("select topic_title, topic_status from ".$NPDS_Prefix."forumtopics where topic_id='$topic'"));
    $userX = base64_decode($user);
@@ -201,7 +189,7 @@ if ($submitS) {
    $moderator = get_moderator($mod);
    $moderator=explode(' ',$moderator);
    $Mmod=false;
-   
+
       echo '
    <p class="lead">
       <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;

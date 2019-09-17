@@ -32,7 +32,7 @@ function ancre($forum_id,$topic_id,$post_id,$posts_per_page) {
    if (!$rowQ1)
       forumerror('0015');
    $i=0;
-   while (list(,$row) = each($rowQ1)) {
+   foreach($rowQ1 as $row) {
       if ($row['post_id']==$post_id)
          break;
       $i++;
@@ -87,7 +87,7 @@ settype($term,'string');
    $rowQ1=Q_Select ("SELECT forum_name,forum_id FROM ".$NPDS_Prefix."forums", 3600);
    if (!$rowQ1)
       forumerror('0015');
-   while (list(,$row) = each($rowQ1)) {
+   foreach($rowQ1 as $row) {
       echo '
                <option value="'.$row['forum_id'].'">'.$row['forum_name'].'</option>';
    }

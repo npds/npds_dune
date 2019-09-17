@@ -43,9 +43,9 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
     $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_userid'");
     list($to_useridx, $user_languex) = sql_fetch_row($res);
 
-    if ($to_useridx == "") {
+    if ($to_useridx == '')
        forumerror('0016');
-    } else {
+    else {
        global $gmt;
        $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
        include_once("language/lang-multi.php");
@@ -54,15 +54,13 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
        $message=addslashes(removeHack($message));
        $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
        $sql .= "VALUES ('$image', '$subject', '$from_userid', '$to_useridx', '$time', '$message')";
-       if (!$result = sql_query($sql)) {
+       if (!$result = sql_query($sql))
           forumerror('0020');
-       }
        if ($copie) {
           $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
           $sql .= "VALUES ('$image', '$subject', '$from_userid', '$to_useridx', '$time', '$message', '1', '1')";
-          if (!$result = sql_query($sql)) {
+          if (!$result = sql_query($sql))
              forumerror('0020');
-          }
        }
        global $subscribe, $nuke_url;
        if ($subscribe) {
@@ -167,11 +165,10 @@ function instant_members_message() {
       $rank1='';
       for ($i = 1; $i <= $ibid[0]; $i++) {
           $timex=time()-$ibid[$i]['time'];
-          if ($timex>=60) {
+          if ($timex>=60)
              $timex='<i class="fa fa-plug text-muted" title="'.$ibid[$i]['username'].' '.translate("is not connected !").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;';
-          } else {
+          else
              $timex='<i class="fa fa-plug faa-flash animated text-primary" title="'.$ibid[$i]['username'].' '.translate("is connected !").'" data-toggle="tooltip" data-placement="right" ></i>&nbsp;';
-          }
           global $member_invisible;
           if ($member_invisible) {
              if ($admin)
@@ -182,20 +179,19 @@ function instant_members_message() {
                 else
                    $and="AND is_visible=1";
              }
-          } else {
+          } else
              $and='';
-          }
           $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".$ibid[$i]['username']."' $and");
           list($userid)=sql_fetch_row($result);
           if ($userid) {
              $rowQ1=Q_Select("SELECT rank FROM ".$NPDS_Prefix."users_status WHERE uid='$userid'", 3600);
-             list(,$myrow) = each($rowQ1);
+             $myrow=$rowQ1[0];
              $rank=$myrow['rank'];
              $tmpR='';
              if ($rank) {
                 if ($rank1=='') {
                    if ($rowQ2 = Q_Select("SELECT rank1, rank2, rank3, rank4, rank5 FROM ".$NPDS_Prefix."config",86400)) {
-                      list(,$myrow) = each($rowQ2);
+                      $myrow=$rowQ2[0];
                       $rank1 = $myrow['rank1'];
                       $rank2 = $myrow['rank2'];
                       $rank3 = $myrow['rank3'];
@@ -206,9 +202,8 @@ function instant_members_message() {
                 if ($ibidR=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibidR;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
                 $messR='rank'.$rank;
                 $tmpR="<img src=\"".$imgtmpA."\" border=\"0\" alt=\"".aff_langue($$messR)."\" title=\"".aff_langue($$messR)."\" />";
-             } else {
+             } else
                 $tmpR='&nbsp;';
-             }
              $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND read_msg='0' AND type_msg='0'"));
              if ($new_messages>0) {
                 $PopUp=JavaPopUp("readpmsg_imm.php?op=new_msg","IMM",600,500);
@@ -306,7 +301,7 @@ function makeChatBox($pour) {
          $thing.='<ul>';
          foreach($auto as $autovalue) {
             $result=Q_select("SELECT groupe_id, groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$autovalue'",3600);
-            list(,$autovalueX) = each ($result);
+            $autovalueX = $result[0];
             $PopUp = JavaPopUp("chat.php?id=".$autovalueX['groupe_id']."&auto=".encrypt(serialize($autovalueX['groupe_id'])),"chat".$autovalueX['groupe_id'],380,480);
             $thing.="<li><a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">".$autovalueX['groupe_name']."</a>";
 
@@ -364,17 +359,14 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
           $ok_affich=false;
           $tab_groupe=valid_group($user);
           $ok_affich=groupe_forum($row[7], $tab_groupe);
-       } else {
+       } else
           $ok_affich=true;
-       }
        if ($ok_affich) {
           $forumid = $row[0];
           $forumname = $row[1];
           $forum_desc =$row[2];
-          if ($hr) {
-                $boxstuff .= '<li><hr /></li>';
-          }
-
+          if ($hr)
+             $boxstuff .= '<li><hr /></li>';
           if ($parse==0) {
              $forumname = FixQuotes($forumname);
              $forum_desc = FixQuotes($forum_desc);
@@ -407,7 +399,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
               if ($displayposter) {
                  $posterid = $topicrow[2];
                  $RowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid = '$posterid'",3600);
-                 list(,$myrow) = each($RowQ1);
+                 $myrow=$RowQ1[0];
                  $postername = $myrow['uname'];
               }
               if ($parse==0) {
@@ -420,7 +412,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
               $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge badge-secondary mx-2" title="'.translate("Replies").'" data-toggle="tooltip" data-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
               if ($displayposter) $boxstuff .= $decoration.'<span class="ml-1">'.$postername.'</span>';
               $boxstuff .= '</li>';
-               $topics++;
+              $topics++;
           }
        }
     }

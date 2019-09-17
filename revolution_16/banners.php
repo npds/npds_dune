@@ -42,7 +42,7 @@ function viewbanner() {
    // Le risque est de sortir sans un BID valide
    if (!isset($bid)) {
       $rowQ1=Q_Select("SELECT bid FROM ".$NPDS_Prefix."banner WHERE userlevel='0' LIMIT 0,1",86400);
-      list(,$myrow)=each($rowQ1);
+      $myrow=$rowQ1[0];
       $bid=$myrow['bid'];
       $okprint=true;
    }

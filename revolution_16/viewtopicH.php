@@ -29,13 +29,13 @@ if ($allow_upload_forum)
 $rowQ1=Q_Select ("SELECT forum_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'", 3600);
 if (!$rowQ1)
    forumerror('0001');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
 $forum=$myrow['forum_id'];
 
 $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
    forumerror('0001');
-list(,$myrow) = each($rowQ1);
+$myrow=$rowQ1[0];
 $forum_name = $myrow['forum_name'];
 $mod = $myrow['forum_moderator'];
 $forum_type=$myrow['forum_type'];
@@ -47,9 +47,8 @@ if (($forum_type == 5) or ($forum_type == 7)) {
    $ok_affiche=false;
    $tab_groupe=valid_group($user);
    $ok_affiche=groupe_forum($myrow['forum_pass'], $tab_groupe);
-   if (!$ok_affiche) {
+   if (!$ok_affiche)
       redirect_url("forum.php");
-   }
 }
 if (($forum_type==9) and (!$user))
    redirect_url("forum.php");
@@ -104,11 +103,11 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
    global $smilies,$theme,$forum,$forum_type,$allow_bbcode,$allow_to_post,$forum_access,$Mmod,$topic,$lock_state, $userdata;
    global $allow_upload_forum, $att, $anonymous, $short_user, $last_read, $toggle;
    settype($result,'string');
-   
+
    $my_rsos=array();$count=0;
       settype($idtog,'integer');
    $list=$table[$parcat];
-   while(list($key,$val)=each($list)) {
+   foreach($list as $key => $val) {
       $myrow=unserialize($val);
       if ($level!='0') {
          if ($level==1) {
