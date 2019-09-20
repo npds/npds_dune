@@ -351,8 +351,6 @@ if($api_key_bing=='' and $api_key_mapbox=='') {unset($fond_provider[5],$fond_pro
 elseif($api_key_bing=='') {unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);}
 elseif($api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6]);}
 
-
- var_dump($fond_provider);
    $fonts_svg=array(
       ['user','uf007','Utilisateur'],
       ['userCircle','uf2bd','Utilisateur en cercle'],
