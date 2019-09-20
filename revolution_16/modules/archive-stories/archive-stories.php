@@ -5,7 +5,7 @@
 /*                                                                      */
 /* From ALL STORIES Add-On ... ver. 1.4.1a                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -31,7 +31,7 @@ if (!function_exists("Mysql_Connexion"))
          echo $arch_titre;
       echo '
    <hr />
-   <table id ="lst_art_arch" data-toggle="table"  data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-buttons-class="outline-secondary " data-icons="icons">
+   <table id ="lst_art_arch" data-toggle="table"  data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-buttons-class="outline-secondary" data-icons="icons">
       <thead>
          <tr>
             <th data-sortable="true" data-sorter="htmlSorter" data-halign="center" class="n-t-col-xs-4">'.translate("Articles").'</th>
@@ -45,7 +45,7 @@ if (!function_exists("Mysql_Connexion"))
 
       if (!isset($count)) {
          $result0 = Q_select("SELECT COUNT(sid) AS count FROM ".$NPDS_Prefix."stories WHERE archive='$arch'",3600);
-         list(,$count)=each($result0);
+         $count= $result0[0];
          $count=$count['count'];
       }
       

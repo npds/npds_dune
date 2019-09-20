@@ -74,7 +74,7 @@ else {
       include_once("language/lang-multi.php");
       if (strstr($to_user,',')) {
          $tempo=explode(',',$to_user);
-         while (list(,$to_user) = each($tempo)) {
+         foreach($tempo as $to_user) {
             $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_user'");
             list($to_userid, $user_langue) = sql_fetch_row($res);
             if (($to_userid != '') and ($to_userid != 1)) {
@@ -185,6 +185,7 @@ else {
          $tmp_theme=$Default_Theme;
       include("themes/$tmp_theme/theme.php");
       include("meta/meta.php");
+      include("modules/include/header_before.inc");
       include("modules/include/header_head.inc");
       echo import_css($tmp_theme, $language, $site_font, '','');
       echo '
@@ -412,9 +413,9 @@ else {
    $arg1='
    var formulid=["pmessage"]
    inpandfieldlen("subject",100);';
+
+
    adminfoot('','',$arg1,'foo');
-//         if ($full_interface!='short')
-//            include('footer.php');
       }
    }
 ?>

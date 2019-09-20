@@ -51,8 +51,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    $row = sql_fetch_array($result);
 
    $ar_fields=array('C3','C4','C5','C6','C7','C8');
-   reset($ar_fields);
-   while (list($k, $v) = each($ar_fields)) {
+   foreach($ar_fields as $k => $v){
       $req='';
       $req=sql_query("SELECT $v FROM users_extend WHERE $v !=''");
       if(!sql_num_rows($req)) $dispofield[]=$v;
@@ -104,8 +103,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <div class="col-sm-6">
                <select class="custom-select form-control" name="ch_lat" id="ch_lat">
                   <option selected="selected">'.$ch_lat.'</option>';
-   reset($dispofield);
-   while (list($ke, $va) = each($dispofield)) {
+   foreach($dispofield as $ke => $va) {
       echo '
                   <option>'.$va.'</option>';
    }
@@ -118,8 +116,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <div class="col-sm-6">
                <select class="custom-select form-control" name="ch_lon" id="ch_lon">
                   <option selected="selected">'.$ch_lon.'</option>';
-   reset($dispofield);
-   while (list($ke, $va) = each($dispofield)) {
+   foreach($dispofield as $ke => $va) {
       echo '
                   <option>'.$va.'</option>';
    }
@@ -623,6 +620,13 @@ function geoloc_conf() {
    h_ico_size = $("#h_ico").val();
 
 $(document).ready(function() {
+
+/*
+   $( "#api_key_bing").change(function() {
+      if($("#api_key_bing").val()!="") {console.log($("#api_key_bing").val())}; 
+   });
+*/
+
    if(img_svg.checked) {$("#para_ima input").prop("readonly", true), $("#para_svg input").prop("readonly", false), $("#f_mbg").prop("disabled", false)}
    if(img_img.checked) {$("#para_svg input").prop("readonly", true), $("#f_mbg").prop("disabled", true)}
 
