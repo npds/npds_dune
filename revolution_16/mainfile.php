@@ -939,7 +939,9 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    // Astuce pour afficher le nb de News correct même si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
    $row_Q2 = Q_select("SELECT COUNT(groupe_id) AS total FROM ".$NPDS_Prefix."groupes",86400);
-   list(,$NumG)=each($row_Q2);
+//   list(,$NumG)=each($row_Q2);
+   $NumG=$row_Q2[0];
+
    if ($NumG['total']<2) $coef=2; else $coef=$NumG['total'];
    settype($storynum,"integer");
    if ($type_req=='index') {
@@ -968,28 +970,27 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
       $Znum=$oldnum;
    }
    $ibid=0; settype($tab,'array');
-   while(list(,$myrow) = each($result)) {
+
+  foreach($result as $myrow) {
+//   while(list(,$myrow) = each($result)) {
       $s_sid=$myrow['sid'];
       $catid=$myrow['catid'];
       $ihome=$myrow['ihome'];
       if(array_key_exists('time', $myrow))
          $time=$myrow['time'];
       if ($ibid==$Znum) {break;}
-      if ($type_req=="libre") {$catid=0;}
-      if ($type_req=="archive") {$ihome=0;}
+      if ($type_req=="libre") $catid=0;
+      if ($type_req=="archive") $ihome=0;
       if (ctrl_aff($ihome, $catid)) {
-         if (($type_req=="index") or ($type_req=="libre")) {
+         if (($type_req=="index") or ($type_req=="libre"))
             $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
-         }
-         if ($type_req=="archive") {
+         if ($type_req=="archive")
             $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='1'");
-         }
-         if ($type_req=="old_news") {
+         if ($type_req=="old_news")
             $result2 = sql_query("SELECT sid, title, time, comments, counter FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
-         }
-         if (($type_req=="big_story") or ($type_req=="big_topic")) {
+         if (($type_req=="big_story") or ($type_req=="big_topic"))
             $result2 = sql_query("SELECT sid, title FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
-         }
+
          $tab[$ibid]=sql_fetch_row($result2);
          if (is_array($tab[$ibid])) {
             $ibid++;
@@ -1096,7 +1097,7 @@ function valid_group($xuser) {
    if ($xuser) {
       $userdata = explode(':',base64_decode($xuser));
       $user_temp=Q_select("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='$userdata[0]'",3600);
-      list(,$groupe) = each($user_temp);
+      $groupe=$user_temp[0];
       $tab_groupe=explode(',',$groupe['groupe']);
    } else
       $tab_groupe='';
@@ -1227,9 +1228,8 @@ function fab_block($title, $member, $content, $Xcache) {
       $CACHE_TIMINGS[$cache_clef]=$Xcache;
       $cache_obj = new cacheManager();
       $cache_obj->startCachingBlock($cache_clef);
-   } else {
+   } else
       $cache_obj = new SuperCacheEmpty();
-   }
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache) or ($Xcache==0)) {
       global $user, $admin;
       // For including CLASS AND URI in Block
@@ -1238,16 +1238,16 @@ function fab_block($title, $member, $content, $Xcache) {
       if (stristr($content,'class-') or stristr($content,'uri')) {
          $tmp=explode("\n",$content);
          $content='';
-         while(list($id,$class)=each($tmp)) {
+         foreach($tmp as $id => $class) {
             $temp=explode("#",$class);
-            if ($temp[0]=="class-title") {
+            if ($temp[0]=="class-title")
                $B_class_title=str_replace("\r","",$temp[1]);
-            } else if ($temp[0]=="class-content") {
+            else if ($temp[0]=="class-content")
                $B_class_content=str_replace("\r","",$temp[1]);
-            } else if ($temp[0]=="uri") {
+            else if ($temp[0]=="uri")
                $R_uri=str_replace("\r",'',$temp[1]);
-            } else {
-               if ($content!='') {$content.="\n ";}
+            else {
+               if ($content!='') $content.="\n ";
                $content.=str_replace("\r",'',$class);
             }
          }
@@ -1262,34 +1262,32 @@ function fab_block($title, $member, $content, $Xcache) {
          $racine_page=$tab_pref['path'];
          if(array_key_exists('query', $tab_pref))
             $tab_pref=explode('&',$tab_pref['query']);
-         while (list(,$RR_uri)=each($tab_uri)) {
+         foreach($tab_uri as $RR_uri) {
             $tab_puri=parse_url($RR_uri);
             $racine_uri=$tab_puri['path'];//var_dump($racine_uri);var_dump($racine_page);
             if ($racine_page==$racine_uri) {
                if(array_key_exists('query', $tab_puri))
                   $tab_puri=explode('&',$tab_puri['query']);
-               while (list($idx,$RRR_uri)=each($tab_puri)) {
+               foreach($tab_puri as $idx => $RRR_uri) {
                   if (substr($RRR_uri,-1)=="*") {
                      // si le token contient *
                      if (substr($RRR_uri,0,strpos($RRR_uri,"="))==substr($tab_pref[$idx],0,strpos($tab_pref[$idx],"=")))
                         $R_content=true;
                   } else {
-                     // sinon
-                     if ($RRR_uri!=$tab_pref[$idx]) {
+                     if ($RRR_uri!=$tab_pref[$idx])
                         $R_content=false;
-                     } else {
+                     else
                         $R_content=true;
-                     }
                   }
                }
             }
+            if ($R_content==true) break;
          }
          if (!$R_content) $content='';
       }
       // For Javascript in Block
-      if (!stristr($content,'javascript')) {
+      if (!stristr($content,'javascript'))
          $content = nl2br($content);
-      }
       // For including externale file in block / the return MUST BE in $content
       if (stristr($content,'include#')) {
          $Xcontent=false;
@@ -1687,7 +1685,8 @@ function aff_langue($ibid) {
    reset ($tab_llangue);
    $ok_language=false;
    $trouve_language=false;
-   while (list($bidon, $lang)=each($tab_llangue)) {
+
+   foreach($tab_llangue as $key => $lang) {
       $pasfin=true; $pos_deb=false; $abs_pos_deb=false; $pos_fin=false;
       while ($pasfin) {
          // tags [langue] et [/langue]
@@ -1717,13 +1716,11 @@ function aff_langue($ibid) {
                else
                   $ibid=str_replace("[$lang]".$fragment."[/$lang]", translate($fragment), $ibid);
             }
-         } else {
+         } else
             $pasfin=false;
-         }
       }
-      if ($ok_language) {
+      if ($ok_language)
          $trouve_language=true;
-      }
    }
    return ($ibid);
 }
@@ -1738,12 +1735,12 @@ function make_tab_langue() {
 #autodoc aff_localzone_langue($ibid) : Charge une zone de formulaire de selection de la langue
 function aff_localzone_langue($ibid) {
    global $tab_langue;
-   reset ($tab_langue);
+//   reset ($tab_langue);
    $M_langue= '
    <div class="form-group">
       <select name="'.$ibid.'" class="custom-select form-control" onchange="this.form.submit()">
          <option value="">'.translate("Select a language").'</option>';
-   while (list($bidon, $langue)=each($tab_langue)) {
+   foreach($tab_langue as $bidon => $langue) {
       $M_langue.='
             <option value="'.$langue.'">'.$langue.'</option>';
    }
@@ -1954,15 +1951,14 @@ function aff_editeur($Xzone, $Xactiv) {
 function utf8_java($ibid) {
    // UTF8 = &#x4EB4;&#x6B63;&#7578; / javascript = \u4EB4\u6B63\u.dechex(7578)
    $tmp=explode ('&#',$ibid);
-   while(list(,$bidon)=each($tmp)) {
+   foreach($tmp as $bidon) {
       if ($bidon) {
          $bidon=substr($bidon,0,strpos($bidon,";"));
          $hex=strpos($bidon,'x');
-         if ($hex===false) {
+         if ($hex===false)
             $ibid=str_replace('&#'.$bidon.';','\\u'.dechex($bidon),$ibid);
-         } else {
+         else
             $ibid=str_replace('&#'.$bidon.';','\\u'.substr($bidon,1),$ibid);
-         }
       }
    }
    return ($ibid);
@@ -2093,7 +2089,7 @@ function L_spambot($ip, $status) {
    }
    if ($maj_fic) {
       $file = fopen("slogs/spam.log", "w");
-      while (list ($key, $val) = each ($tab_spam)) {
+      foreach($tab_spam as $key => $val) {
          if ($val)
             fwrite($file, $val."\r\n");
       }
@@ -2250,15 +2246,16 @@ function online() {
       $username = $ip;
       $guest = 1;
    }
+   else
+      $guest = 0;
    $past = time()-300;
    sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < '$past'");
    $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$username'");
    $ctime = time();
-   if ($row = sql_fetch_row($result)) {
+   if ($row = sql_fetch_row($result))
       sql_query("UPDATE ".$NPDS_Prefix."session SET username='$username', time='$ctime', host_addr='$ip', guest='$guest' WHERE username='$username'");
-   } else {
+   else
       sql_query("INSERT INTO ".$NPDS_Prefix."session (username, time, host_addr, guest) VALUES ('$username', '$ctime', '$ip', '$guest')");
-   }
    $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session WHERE guest=1");
    $guest_online_num = sql_num_rows($result);
    $result = sql_query("SELECT username FROM ".$NPDS_Prefix."session WHERE guest=0");
@@ -2269,13 +2266,12 @@ function online() {
    if ($user) {
       $content .= '<br />'.translate("You are logged as").' <strong>'.$username.'</strong>.<br />';
       $result = Q_select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'", 86400);
-      list(,$uid) = each($result);
+      $uid = $result[0];
       $result2 = sql_query("SELECT to_userid FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$uid['uid']."' AND type_msg='0'");
       $numrow = sql_num_rows($result2);
       $content .= translate("You have").' <a href="viewpmsg.php"><span class="badge badge-primary">'.$numrow.'</span></a> '.translate("private message(s).").'</p>';
-   } else {
+   } else
       $content .= '<br />'.translate("You can register for free by clicking").' <a href="user.php?op=only_newuser">'.translate("here").'</a></p>';
-   }
    global $block_title;
    if ($block_title=='')
       $title=translate("Who's Online");
@@ -2440,7 +2436,7 @@ function userblock() {
    global $NPDS_Prefix, $user,$cookie;
    if (($user) AND ($cookie[8])) {
       $getblock = Q_select("SELECT ublock FROM ".$NPDS_Prefix."users WHERE uid='$cookie[0]'",86400);
-      list(,$ublock) = each($getblock);
+      $ublock = $getblock[0];
       global $block_title;
       if ($block_title=='')
          $title=translate("Menu for").' '.$cookie[1];
@@ -2835,7 +2831,7 @@ function bloc_rubrique() {
          if ($nb_article>0) {
             $boxstuff.='<ul>';
             $tmp_auto=explode(',',$userlevel);
-            while (list(,$userlevel)=each($tmp_auto)) {
+            foreach($tmp_auto as $userlevel) {
                $okprintLV1=autorisation($userlevel);
                if ($okprintLV1) break;
             }
@@ -3167,7 +3163,7 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    $list_json='';
    $list_json.='var '.$nom_array_js.' = [';
    $res = Q_select("SELECT ".$nom_champ." FROM ".$NPDS_Prefix.$nom_tabl,$temps_cache);
-   while (list(,$ar_data)=each($res)) {
+   foreach($res as $ar_data) {
       foreach ($ar_data as $val_champ) {
          if($id_inpu =='')
             $list_json.='"'.base64_encode($val_champ).'",';
@@ -3205,7 +3201,7 @@ function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $r
 
    $list_json='';
    $list_json.= $nom_array_js.' = [';
-   $res = sql_query("select ".$nom_champ." from ".$NPDS_Prefix.$nom_tabl." ".$req);
+   $res = sql_query("SELECT ".$nom_champ." FROM ".$NPDS_Prefix.$nom_tabl." ".$req);
    while (list($nom_champ) = sql_fetch_row($res)) {
       $list_json.='\''.$nom_champ.'\',';
    }
