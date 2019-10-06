@@ -67,9 +67,8 @@ function fma_autorise($type, $dir) {
 
    $autorise_arbo=false;
 
-   if ($type=='a') {
+   if ($type=='a')
       $autorise_arbo=$access_fma;
-   }
    if ($type=='d') {
       if (is_array($dirlimit_fma)) {
          if (array_key_exists($dir,$dirlimit_fma))
@@ -96,7 +95,7 @@ function fma_autorise($type, $dir) {
          if ($tab_groupe) {
             foreach($tab_groupe as $groupevalue) {
                $tab_auto=explode(',',$autorise_arbo);
-               while (list(,$gp)=each($tab_auto)) {
+               foreach($tab_auto as $gp) {
                   if ($gp>0) {
                      if ($groupevalue==$gp) {
                         $auto_dir=true;
@@ -180,7 +179,8 @@ if ($FmaRep) {
          $tab_groupe=valid_group($user);
          if ($tab_groupe) {
             // si j'ai au moins un groupe est ce que celui-ci dispose d'un fichier de configuration ?  - je m'arrête au premier groupe !
-            while (list(,$gp)=each($tab_groupe)) {
+            foreach($tab_groupe as $gp) {
+//            while (list(,$gp)=each($tab_groupe)) {
                $groupename=Q_select("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp' ORDER BY `groupe_id` ASC",3600);
                if (file_exists("modules/$ModPath/users/".$groupename[0]['groupe_name'].".conf.php")) {
                   $FmaRep=$groupename[0]['groupe_name'];
@@ -513,7 +513,7 @@ switch ($op) {
                   $move_file.='
                         <option value="">/</option>';
                   $arb=explode('|',$obj->GetDirArbo($basedir_fma));
-                  while (list(,$rep)=each($arb)) {
+                  foreach($arb as $rep) {
                      if ($rep!='') {
                         $rep2=str_replace($basedir_fma,'',$rep);
                         if (fma_autorise('d',basename($rep)))
@@ -775,12 +775,13 @@ switch ($op) {
          $resp=explode('|',$resp);
          array_pop($resp);
          $cpt=0;
-         while($fic_resp=each($resp)) {
+
+         foreach($resp as $fic_resp) {
             // on limite le retour au niveau immédiatement inférieur au rep courant
-            $rep_niv1=explode('/',str_replace($base,'',$fic_resp[1]));
+            $rep_niv1=explode('/',str_replace($base,'',$fic_resp));
             if (count($rep_niv1)<4) {
-               $dir_search=basename(dirname($fic_resp[1]));
-               $fic_search=basename($fic_resp[1]);
+               $dir_search=basename(dirname($fic_resp));
+               $fic_search=basename($fic_resp);
                if (fma_autorise('d',$dir_search)) {
                   if (fma_autorise('f',$fic_search)) {
                      $tab_search[$cpt][0]=$dir_search;
@@ -896,7 +897,7 @@ while ($obj->NextDir()) {
       // Search Result for sub-directories
       if ($tab_search) {
          reset($tab_search);
-         while (list($l,$fic_resp)=each($tab_search)) {
+         foreach($tab_search as $l => $fic_resp) {
             if ($fic_resp[0]==$obj->FieldName) {
                $ibid=rawurlencode(encrypt(rawurldecode(encrypt($cur_nav.'/'.$fic_resp[0])).'#fma#'.encrypt($fic_resp[1])));
                $subdirs.='
@@ -1195,8 +1196,8 @@ if ($inclusion) {
       <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
       <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />';
-
-      echo ("<link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
+      echo ("
+      <link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
 
       global $tiny_mce;
       if ($tiny_mce) {

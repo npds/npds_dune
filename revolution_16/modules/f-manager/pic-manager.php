@@ -71,7 +71,7 @@ function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
    global $dir_minuscptr, $fic_minuscptr;
    /* ==> 
-   was notice on if($type f) in some case ...Coriace ..... 
+   was noticeSss on if($type f) in some case ...Coriace ..... 
    add set type de la variable $autorise_arbo=false;
    controle de l'index dans le array and array_key_exists($dir, $ficlimit_fma))
    et if(isset($autorise_arbo)) au lieu de if($autorise_arbo)
@@ -84,6 +84,7 @@ function fma_autorise($type, $dir) {
    if ($type=='d')
       $autorise_arbo=$dirlimit_fma[$dir];
    if ($type=='f')
+   if(array_key_exists($dir, $ficlimit_fma))
       $autorise_arbo=$ficlimit_fma[$dir];
    if (isset($autorise_arbo)) {
       $auto_dir='';
@@ -98,7 +99,7 @@ function fma_autorise($type, $dir) {
          if ($tab_groupe) {
             foreach($tab_groupe as $groupevalue) {
                $tab_auto=explode(',',$autorise_arbo);
-               while (list(,$gp)=each($tab_auto)) {
+               foreach($tab_auto as $gp) {
                   if ($gp>0) {
                      if ($groupevalue==$gp) {
                         $auto_dir=true;
