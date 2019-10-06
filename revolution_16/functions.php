@@ -25,15 +25,17 @@ function get_total_topics($forum_id) {
    sql_free_result($result);
    return($myrow['total']);
 }
-#autodoc get_contributeurs($fid, $tid) : Retourne un tableau des id des contributeurs du sujet
+#autodoc get_contributeurs($fid, $tid) : Retourne une chaine des id des contributeurs du sujet
 function get_contributeurs($fid, $tid) {
    global $NPDS_Prefix;
    $rowQ1=Q_Select("SELECT DISTINCT poster_id FROM ".$NPDS_Prefix."posts WHERE topic_id='$tid' AND forum_id='$fid'",2);
-   $myrow['poster_id']='';
-   while(list(,$poster_id) = each($rowQ1)) {
-      $myrow['poster_id'].= $poster_id['poster_id'].' ';
+   $posterids='';
+   foreach($rowQ1 as $contribs) {
+      foreach($contribs as $contrib) {
+         $posterids.= $contrib.' ';
+      }
    }
-   return(chop($myrow['poster_id']));
+   return(chop($posterids));
 }
 
 function get_total_posts($fid, $tid, $type, $Mmod) {
@@ -129,11 +131,21 @@ function get_moderator($user_id) {
       return("None");
 
    $rowQ1=Q_Select("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='$user_id'", 3600);
-   $myrow['uname']="";
+//   $myrow['uname']="";
+
+   $modslist='';
+   foreach($rowQ1 as $modnames) {
+      foreach($modnames as $modname) {
+         $modslist.= $modname.' ';
+      }
+   }
+/*
    while(list(,$uname) = each($rowQ1)) {
       $myrow['uname'].=$uname['uname']." ";
    }
    return(chop($myrow['uname']));
+*/
+   return(chop($modslist));
 }
 
 function user_is_moderator($uidX,$passwordX,$forum_accessX) {
@@ -429,7 +441,7 @@ function emotion_add($image_subject) {
    }
    asort($filelist);
    $temp=''; $j=0;
-   while (list ($key, $file) = each ($filelist)) {
+   foreach($filelist as $key => $file ) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
       $temp .='
          <div class="custom-control custom-radio custom-control-inline mb-3">';
@@ -710,16 +722,20 @@ function forum($rowQ1) {
    }
    // preparation du compteur total_post
    $rowQ0=Q_Select ("SELECT forum_id, COUNT(post_aff) AS total FROM ".$NPDS_Prefix."posts GROUP BY forum_id", 600);
-   while (list(,$row0)=each($rowQ0)) {
+   foreach($rowQ0 as $row0) {
+//   while (list(,$row0)=each($rowQ0)) {
       $tab_total_post[$row0['forum_id']]=$row0['total'];
    }
    $ibid='';
    if ($rowQ1) {
-      while (list(,$row) = each($rowQ1)) {
+//   var_dump($rowQ1);
+      foreach($rowQ1 as $row) {
+//      while (list(,$row) = each($rowQ1)) {
          $title_aff=true;
          $rowQ2=Q_Select ("SELECT * FROM ".$NPDS_Prefix."forums WHERE cat_id = '".$row['cat_id']."' AND SUBSTRING(forum_name,1,3)!='<!>' ORDER BY forum_index,forum_id", 21600);
          if ($rowQ2) {
-            while(list(,$myrow) = each($rowQ2)) {
+            foreach($rowQ2 as $myrow) {
+//            while(list(,$myrow) = each($rowQ2)) {
                // Gestion des Forums Cachés aux non-membres
                if (($myrow['forum_type'] != "9") or ($userR)) {
                   // Gestion des Forums réservés à un groupe de membre
@@ -875,13 +891,12 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
       $pagination .= '
       <nav>
       <ul class="pagination pagination-sm d-flex flex-wrap">';
-      if ($current == 2) {
+      if ($current == 2)
          $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
-      } elseif ($current > 2) {
+      elseif ($current > 2)
          $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
-      } else {
+      else
          $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
-      }
 
       /*
        * Début affichage des pages, l'exemple reprend le cas de 3 numéros de pages adjacents (par défaut) de chaque côté du numéro courant

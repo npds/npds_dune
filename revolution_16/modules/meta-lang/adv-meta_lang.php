@@ -34,7 +34,6 @@ function MM_img($ibid) {
 function charg($funct,$arguments) {
    if (is_array($arguments)) {
       array_walk($arguments,'arg_filter');
-
       $nbr=count($arguments);
       switch ($nbr) {
         case 1:
@@ -54,15 +53,15 @@ function charg($funct,$arguments) {
         case 8:
            $cmd=$funct($arguments[0],$arguments[1],$arguments[2],$arguments[3],$arguments[4],$arguments[5],$arguments[6],$arguments[7]); break;
       }
-   } else {
+   } else
       $cmd=$funct();
-   }
    return($cmd);
 }
 
 function match_uri($racine, $R_uri)  {
    $tab_uri=explode(' ',$R_uri);
-   while (list(,$RR_uri)=each($tab_uri)) {
+   foreach($tab_uri as $RR_uri){
+//   while (list(,$RR_uri)=each($tab_uri)) {
       if ($racine==$RR_uri)
          return (true);
    }
@@ -147,53 +146,55 @@ function meta_lang($Xcontent) {
    // Fin d'analyse / restauration du contenu original
 
    $tab=array();
-   while ($word=each($text)) {
+
+   foreach($text as $word) {
+//   while ($word=each($text)) { // code original + suppression de l'indice de la variable $word !
       // longueur minimale du mot : 2 semble un bon compromis sauf pour les smilies ... (1 est donc le choix par défaut)
-      if (strlen($word[1])>1) {
+      if (strlen($word)>1) {
          $op=0; $arguments=""; $cmd="";
-         $car_deb=substr($word[1],0,1);
-         $car_fin=substr($word[1],-1);
+         $car_deb=substr($word,0,1);
+         $car_fin=substr($word,-1);
 
          // entité HTML
          if ($car_deb!="&" and $car_fin!=";") {
             // Mot 'pure'
-            if (($car_fin=="." or $car_fin=="," or $car_fin==";" or $car_fin=="?" or $car_fin==":") AND ($word[1]!="...")) {
+            if (($car_fin=="." or $car_fin=="," or $car_fin==";" or $car_fin=="?" or $car_fin==":") AND ($word!="...")) {
                $op=1;
-               $Rword=substr($word[1],0,-1);
+               $Rword=substr($word,0,-1);
             }
             // peut être une fonction
             if ($car_fin==")") {
-               $ibid=strpos($word[1],"(");
+               $ibid=strpos($word,"(");
                if ($ibid) {
                   $op=2;
-                  $Rword=substr($word[1],0,$ibid);
-                  $arg=substr($word[1],$ibid+1,strlen($word[1])-($ibid+2));
+                  $Rword=substr($word,0,$ibid);
+                  $arg=substr($word,$ibid+1,strlen($word)-($ibid+2));
                   $arguments=ana_args($arg);
                } else {
                   $op=1;
-                  $Rword=substr($word[1],0,-1);
+                  $Rword=substr($word,0,-1);
                }
             }
             // peut être un mot encadré par deux balises
-            if (($car_deb=="[" and $car_fin=="]" and $word[1]!="[code]") or ($car_deb=="{" and $car_fin=="}")) {
+            if (($car_deb=="[" and $car_fin=="]" and $word!="[code]") or ($car_deb=="{" and $car_fin=="}")) {
                $op=5;
-               $Rword=substr($word[1],1,-1);
+               $Rword=substr($word,1,-1);
             }
          } else {
             $op=9;
-            $Rword=$word[1];
+            $Rword=$word;
          }
 
          if ($car_deb=="(" and $op!=2) {
             $op=3;
-            $Rword=substr($word[1],1);
+            $Rword=substr($word,1);
          }
          if ($op==3 and $car_fin==")") {
             $op=4;
             $Rword=substr($Rword,0,-1);
          }
          if ($op==0)
-            $Rword=$word[1];
+            $Rword=$word;
 
          // --- REMPLACEMENTS
          $type_meta="";
@@ -239,7 +240,7 @@ function meta_lang($Xcontent) {
             if (!function_exists($Rword))
                @eval($Cword);
             $Cword=charg($Rword,$arguments);
-            $Rword=$word[1];
+            $Rword=$word;
          }
 
          // si le mot se termine par ^ : on supprime ^ | cela permet d'assurer la protection d'un mot (intouchable)
@@ -255,7 +256,7 @@ function meta_lang($Xcontent) {
          }
 
          if ($NPDS_debug and $admin)
-            $NPDS_debug_str.="=> $word[1]<br />";
+            $NPDS_debug_str.="=> $word<br />";
       }
    }
    $Xcontent=strtr($Xcontent,$tab);
