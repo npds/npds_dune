@@ -401,7 +401,10 @@ if (!function_exists("Mysql_Connexion"))
    global $Default_Theme;
    while(list($themelist)=sql_fetch_row($resultX)) {
       if ($themelist!='') {
-         if (is_dir("themes/$themelist")) $D_exist=''; else $D_exist='<span class="text-danger">'.translate("There is no such file...").'</span>';
+      $ibix=explode('+',$themelist);
+      var_dump($ibix);
+      var_dump($Default_Theme);
+         if (is_dir("themes/$ibix[0]")) $T_exist=''; else $T_exist='<span class="text-danger">'.translate("There is no such file...").'</span>';
          if ($themelist==$Default_Theme) {
             $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
             if ($result) $themeD1 = sql_num_rows($result); else $themeD1=0;
@@ -409,18 +412,25 @@ if (!function_exists("Mysql_Connexion"))
             if ($result) $themeD2 = sql_num_rows($result); else $themeD2=0;
             echo '
             <tr>
-               <td nowrap="nowrap">&nbsp;'.$themelist.' <b>('.translate("Default").')</b></td>
-               <td align="center"><b>'.wrh(($themeD1+$themeD2)).'</b></td>
-               <td>'.$D_exist.'</td>
+               <td>'.$themelist.' <b>('.translate("Default").')</b></td>
+               <td><b>'.wrh(($themeD1+$themeD2)).'</b></td>
+               <td>'.$T_exist.'</td>
             </tr>';
          } else {
             $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
+
             if ($result) {$themeU = sql_num_rows($result);} else {$themeU=0;}
             echo '
-            <tr>
-               <td>&nbsp;'.$themelist.'</td>
+            <tr>';
+            if(substr($ibix[0],-3)=="_sk") 
+               echo '
+               <td>'.$themelist.'</td>';
+            else
+               echo '
+               <td>'.$ibix[0].'</td>';
+            echo '
                <td><b>'.wrh($themeU).'</b></td>
-               <td>'.$D_exist.'</td>
+               <td>'.$T_exist.'</td>
             </tr>';
          }
       }
