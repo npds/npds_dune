@@ -2,7 +2,7 @@
 ################################################################################################
 // Simple Form generator  SFORM / version 1.6 for DUNE
 // Class to manage several Form in a single database(MySql) in XML Format
-// P.Brunier 2001 - 2018
+// P.Brunier 2001 - 2019
 //
 // This program is free software. You can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,8 @@
 // dans un même FORMULAIRE des champs avec ET sans TinyMce / Rajout de l'anti_spambot
 ################################################################################################
 // Constante
-   define('CRLF', "\n", TRUE);
+//   define('CRLF', "\n", TRUE);
+   define('CRLF', "\n");
    if (!isset($sform_path))
       $sform_path='';
 ################################################################################################
@@ -53,7 +54,8 @@ class form_handler {
 
   function interro_array($ibid0,$ibid1) {
     $number='no';
-    while(list($key,$val)=each($ibid0) ){
+//    while(list($key,$val)=each($ibid0) ){
+    foreach($ibid0 as $key => $val) {
        if ($ibid1==$val['en']) {
           $number=$key;
           break;
@@ -448,7 +450,8 @@ function print_form($bg) {
                 if ($num_extender!='no')
                    $str.=' '.$this->form_fields[$num_extender]['javas'].' ';
                 $str.=($this->form_fields[$i]['size'] > 1)? " size=\"".$this->form_fields[$i]['size']."\">" : '>';
-                while(list($key,$val)=each($this->form_fields[$i]['value']) ){
+                foreach($this->form_fields[$i]['value'] as $key => $val) {
+//                while(list($key,$val)=each($this->form_fields[$i]['value']) ){
                   $str.='
                      <option value="'.$key.'"';
                   if(array_key_exists('selected', $val) and $val['selected']) 
@@ -471,7 +474,8 @@ function print_form($bg) {
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">';
-               while(list($key,$val)=each($this->form_fields[$i]['value']) ){
+               foreach($this->form_fields[$i]['value'] as $key => $val) {
+//               while(list($key,$val)=each($this->form_fields[$i]['value']) ){
                   $str.='
                   <input class="" type="radio" ';
                   if ($first_radio) {
@@ -1045,14 +1049,15 @@ function print_form($bg) {
   function sform_read_mysql($clef) {
      global $NPDS_Prefix;
 
-     if ($clef!="") {
+     if ($clef!='') {
         $clef=urldecode($clef);
         $result=sql_query("SELECT content FROM ".$NPDS_Prefix."sform WHERE id_form='".$this->form_title."' AND id_key='".$this->form_key."' AND key_value='".addslashes($clef)."' AND passwd='".$this->form_password_access."' ORDER BY key_value ASC");
         $tmp = sql_fetch_assoc($result);
         if ($tmp) {
            $ibid=explode("\n",$tmp['content']);
            settype($op,'string');
-           while (list($num,$line)=each($ibid)) {
+//           while (list($num,$line)=each($ibid)) {
+           foreach($ibid as $num => $line) {
               $op=$this->read_load_sform_data(stripslashes($line),$op);
            }
            return(true);
