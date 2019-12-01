@@ -43,6 +43,9 @@
             $('[data-toggle="tooltip"]').tooltip({container:'body'});
             $('[data-toggle="popover"]').popover();
             $('.popover-dismiss').popover({ trigger: 'click'})
+            // for openlayers
+            $('.ol-zoom-in, .ol-zoom-out').tooltip({placement: 'right'});
+            $('.ol-full-screen-false, .ol-rotate-reset, .ol-attribution button[title]').tooltip({placement: 'left'});
 
             // fix bug tooltip in table
             $('table').on('all.bs.table', function (e, name, args) {
