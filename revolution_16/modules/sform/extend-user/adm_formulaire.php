@@ -94,7 +94,8 @@ $m->add_select('chng_rank', adm_translate("Rôle de l'Utilisateur"), $tmp_tempo,
 $les_groupes=explode(',',$groupe);
 $mX=liste_group();
 $nbg=0;
-   while (list($groupe_id, $groupe_name)=each($mX)) {
+   foreach($mX as $groupe_id => $groupe_name) {
+//   while (list($groupe_id, $groupe_name)=each($mX)) {
       $tmp_groupe[$groupe_id]['en']=$groupe_name;
       $selectionne=0;
       if ($les_groupes) {

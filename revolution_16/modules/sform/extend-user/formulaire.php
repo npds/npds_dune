@@ -31,7 +31,8 @@ if ($smilies) {
    $handle=opendir($direktori);
    while (false!==($file = readdir($handle))) {$filelist[] = $file;}
    asort($filelist);
-   while (list ($key, $file) = each ($filelist)) {
+   foreach($filelist as $key => $file) {
+//   while (list ($key, $file) = each ($filelist)) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
          $tmp_tempo[$file]['en']=$file;
          $tmp_tempo[$file]['selected']=false;

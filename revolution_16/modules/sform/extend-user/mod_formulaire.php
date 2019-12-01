@@ -67,7 +67,8 @@ if ($smilies) {
          $filelist[] = $file;
       }
       asort($filelist);
-      while (list ($key, $file) = each ($filelist)) {
+      foreach($filelist as $key => $file) {
+//      while (list ($key, $file) = each ($filelist)) {
          if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
             $tmp_tempo[$file]['en']=$file;
             if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
