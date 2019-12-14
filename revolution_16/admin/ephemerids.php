@@ -136,7 +136,7 @@ function Ephemeridsmaintenance($did, $mid) {
          <tr>
             <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right" >'.adm_translate('Année').'</th>
             <th data-halign="center" >'.adm_translate('Description').'</th>
-            <th class="n-t-col-xs-2" data-halign="center" data-align="right" >'.adm_translate('Fonctions').'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center" >'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>';
@@ -146,7 +146,7 @@ function Ephemeridsmaintenance($did, $mid) {
          <tr>
             <td>'.$yid.'</td>
             <td>'.aff_langue($content).'</td>
-            <td><a href="admin.php?op=Ephemeridsedit&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a href="admin.php?op=Ephemeridsdel&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+            <td><a href="admin.php?op=Ephemeridsedit&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-2"></i></a>&nbsp;<a href="admin.php?op=Ephemeridsdel&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a>
          </tr>';
    }
    echo '

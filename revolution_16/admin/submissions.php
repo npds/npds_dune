@@ -77,7 +77,7 @@ function submissions() {
              <td class="small">'.formatTimestamp($timestamp).'</td>';
          if ($affiche)
             echo '
-             <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip" ></i></a><a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="fa fa-trash-o fa-lg ml-3" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
+             <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip" ></i></a><a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="far fa-trash-alt fa-lg ml-3" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
          </tr>';
          else
             echo '

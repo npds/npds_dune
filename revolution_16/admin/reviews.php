@@ -82,7 +82,7 @@ function reviews() {
          <div class="col-sm-8">
             <div class="input-group">
                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+                  <span class="input-group-text"><i class="far fa-calendar-check fa-lg"></i></span>
                </div>
                <input class="form-control reviewdate-js" type="text" id="reviewdate" name="date" value="'.$date.'" maxlength="10" required="required" />
             </div>

@@ -108,7 +108,7 @@ function SelectCategory($cat) {
     }
    echo '
             </select>
-            <p class="help-block text-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a></p>
+            <p class="help-block text-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg"></i></a></p>
          </div>
       </div>';
 }
@@ -421,7 +421,7 @@ function displayStory ($qid) {
       }
    }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -446,7 +446,7 @@ function displayStory ($qid) {
          <label class="col-sm-4 col-form-label" for="author">'.adm_translate("Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="author" name="author" value="'.$uname.'" />
-            <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank" title="'.adm_translate("Diffusion d'un Message Interne").'" data-toggle="tooltip"><i class="fa fa-envelope-o fa-lg"></i></a>
+            <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank" title="'.adm_translate("Diffusion d'un Message Interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-lg"></i></a>
          </div>
       </div>
       <div class="form-group row">
@@ -554,7 +554,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       }
    }
    if (!$affiche) { header("location: admin.php?op=submissions");}
-   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -741,7 +741,7 @@ function editStory ($sid) {
       }
    }
    if (!$affiche) header("location: admin.php");
-   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -1087,7 +1087,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    //==> controle droit
 //   admindroits($aid,$f_meta_nom); // à voir l'intégration avec les droits sur les topics ...
    //<== controle droit
-   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    GraphicAdmin($hlpfile);
    global $local_user_language;

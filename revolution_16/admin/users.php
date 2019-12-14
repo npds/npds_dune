@@ -380,7 +380,7 @@ function checkdnsmailusers() {
             $datelimit= date('d/m/Y',$res[1]+5184000);
          }
          $wrongdnsmail++;
-         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-right"><i class="fa fa-envelope-o mr-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-right"><i class="far fa-envelope mr-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
       }
    }
 
@@ -458,7 +458,7 @@ function checkdnsmailusers() {
             $dateenvoi=date('d/m/Y',$t[$row]);
             $datelimit= date('d/m/Y',$t[$row]+5184000);
             echo '
-            <li>'.adm_translate("DNS ou serveur de mail incorrect").' <i class="fa fa-user-o mr-1 "></i> : <a class="alert-link" href="admin.php?chng_uid='. $uids[$row].'&amp;op=modifyUser">'. $unames[$row].'</a><span class="float-right"><i class="fa fa-envelope-o mr-1 align-middle"></i><small>'.$dateenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+            <li>'.adm_translate("DNS ou serveur de mail incorrect").' <i class="fa fa-user-o mr-1 "></i> : <a class="alert-link" href="admin.php?chng_uid='. $uids[$row].'&amp;op=modifyUser">'. $unames[$row].'</a><span class="float-right"><i class="far fa-envelope mr-1 align-middle"></i><small>'.$dateenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
          }
          echo '
       </ul>';

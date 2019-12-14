@@ -176,7 +176,7 @@ function sections() {
          if ($radminsuper==1) {
             $href1='<a href="admin.php?op=rubriquedit&amp;rubid='.$rubid.'" title="'.adm_translate("Editer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg mr-2"></i>&nbsp;';
             $href2='</a>';
-            $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg"></i></a>';
+            $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash-alt fa-lg"></i></a>';
          } else {
             $href1=''; $href2=''; $href3='';
          }
@@ -220,7 +220,7 @@ function sections() {
                <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg mr-2"></i></a>
                <a class="" href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
               if (($droit_pub==7) or ($droit_pub==4)) {
-                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger ml-2"></i></a>';
+                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash-alt fa-lg text-danger ml-2"></i></a>';
               }
               echo '</span>
               </div>';
@@ -245,7 +245,7 @@ function sections() {
                            <a href="admin.php?op=secartedit&amp;artid='.$artid.'" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
                      if (($droit_pub==7) or ($droit_pub==4))
                         echo '
-                           <a href="admin.php?op=secartdelete&amp;artid='.$artid.'" class="text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg"></i></a>';
+                           <a href="admin.php?op=secartdelete&amp;artid='.$artid.'" class="text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg"></i></a>';
                      echo '
                         </span>
                      </li>';

@@ -313,13 +313,13 @@ function ForumMaintAdmin() {
       <div class="col-12">
          <form id="fad_forumaction" action="admin.php" method="post">
             <input type="hidden" name="op" value="MaintForumMarkTopics" />
-            <button class="btn btn-primary btn-block mt-1" type="submit" name="Topics_Mark"><i class="fa fa-check-square-o fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
+            <button class="btn btn-primary btn-block mt-1" type="submit" name="Topics_Mark"><i class="far fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Marquer tous les Topics comme lus").'</button>
          </form>
       </div>
       <div class="col-12">
          <form action="admin.php" method="post">
             <input type="hidden" name="op" value="SynchroForum" />
-            <button class="btn btn-primary btn-block mt-1 " type="submit" name="Synchro_Forum"><i class="fa fa-refresh fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
+            <button class="btn btn-primary btn-block mt-1 " type="submit" name="Synchro_Forum"><i class="fas fa-sync fa-lg"></i>&nbsp;'.adm_translate("Synchroniser les forums").'</button>
          </form>
       </div>
       <div class="col-12">
@@ -342,7 +342,7 @@ function ForumMaintAdmin() {
          <div class="col-sm-8">
             <div class="input-group">
                <div class="input-group-prepend date " id="datePicker">
-                  <span class="input-group-text bg-light"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+                  <span class="input-group-text bg-light"><i class="far fa-calendar-check fa-lg"></i></span>
                </div>
                <input type="text" class="form-control" name="before" id="before" />
             </div>

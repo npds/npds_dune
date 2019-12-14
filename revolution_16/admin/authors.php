@@ -118,9 +118,9 @@ if ($supadm==1) echo'
                <a href="mailto:'.$email.'"><i class="fa fa-at fa-lg" title="'.adm_translate("Envoyer un courriel à").' '.$a_aid.'" data-toggle="tooltip"></i></a>&nbsp;';
       if($url!='')
          echo'
-               <a href="'.$url.'"><i class="fa fa-external-link fa-lg" title="'.adm_translate("Visiter le site web").'" data-toggle="tooltip"></i></a>&nbsp;';
+               <a href="'.$url.'"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter le site web").'" data-toggle="tooltip"></i></a>&nbsp;';
          echo '
-               <a href="admin.php?op=deladmin&amp;del_aid='.$a_aid.'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer l'Auteur").'" data-toggle="tooltip" ></i></a>
+               <a href="admin.php?op=deladmin&amp;del_aid='.$a_aid.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer l'Auteur").'" data-toggle="tooltip" ></i></a>
             </td>
          </tr>';
    }

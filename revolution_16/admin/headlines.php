@@ -36,7 +36,7 @@ function HeadlinesAdmin() {
            <th data-sortable="true" data-halign="center" >'.adm_translate("Nom du site").'</th>
            <th data-sortable="true" data-halign="center" >'.adm_translate("URL").'</th>
            <th data-sortable="true" data-halign="center" data-align="right" >'.adm_translate("Etat").'</th>
-           <th class="n-t-col-xs-2" data-align="right" data-halign="center" >'.adm_translate("Fonctions").'</th>
+           <th class="n-t-col-xs-2" data-halign="center" data-align="center" >'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -56,8 +56,8 @@ function HeadlinesAdmin() {
             <td>'.$status.'</td>
             <td>
                <a href="admin.php?op=HeadlinesEdit&amp;hid='.$hid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg" title="'.adm_translate("Visiter").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=0" class="text-danger"><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
+               <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter").'" data-toggle="tooltip"></i></a>&nbsp;
+               <a href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=0" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
             </td>
          </tr>';
       }
@@ -141,14 +141,14 @@ function HeadlinesEdit($hid) {
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'&nbsp;<a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></label>
+            <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'&nbsp;<a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></label>
             <div class="col-sm-8">
                <input class="form-control" type="url" id="url" name="url" maxlength="100" value="'.$url.'" required="required" />
                <span class="help-block text-right"><span id="countcar_url"></span></span>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'&nbsp;<a href="'.$headlinesurl.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a></label>
+            <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'&nbsp;<a href="'.$headlinesurl.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="headlinesurl" id="headlinesurl" maxlength="200" value="'.$headlinesurl.'" required="required" />
                <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>

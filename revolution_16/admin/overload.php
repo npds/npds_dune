@@ -164,7 +164,7 @@ function main() {
       <form id="fad_cacheclean" action="admin.php" method="post">
          <div class="form-group row">
             <div class="col-12">
-               <button class="btn btn-outline-danger col-12 float-right text-right" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fa fa-trash-o fa-lg"></i></button>
+               <button class="btn btn-outline-danger col-12 float-right text-right" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="far fa-trash-alt fa-lg"></i></button>
             </div>
          </div>
          <input type="hidden" name="op" value="supercache_empty" />

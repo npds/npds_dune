@@ -49,7 +49,7 @@ function poll_createPoll() {
                <td>'.$object["voters"].'</td>
                <td>
                   <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-toggle="tooltip"></i></a>
-                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fa fa-trash-o fa-lg text-danger ml-2" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="far fa-trash-alt fa-lg text-danger ml-2" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
                </td>
             </tr>';
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='".$object["pollID"]."'");

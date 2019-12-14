@@ -69,7 +69,7 @@ function links() {
             <div class="input-group">
                <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>
+                    <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
                   </span>
                </div>
                <input class="form-control" id="urlenattente" type="url" name="url" value="'.$url.'" maxlength="255" required="required" />
@@ -333,7 +333,7 @@ function links() {
    $numrow=sql_num_rows($result);
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Liste des liens").' <span class="badge badge-secondary pull-right">'.$numrow.'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Liste des liens").' <span class="badge badge-secondary float-right">'.$numrow.'</span></h3>
    <table id="tad_link" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -356,8 +356,8 @@ function links() {
             <td>'.$title.'</td>
             <td><a href="'.$url.'" target="_blank">'.$url.'</a></td>
             <td>
-               <a href="admin.php?op=LinksModLink&amp;lid='.$lid.'" ><i class="fa fa-edit fa-lg"></i></a>
-               <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="text-danger"><i class="fa fa-trash-o fa-lg ml-3"></i></a>
+               <a href="admin.php?op=LinksModLink&amp;lid='.$lid.'" ><i class="fas fa-edit fa-lg"></i></a>
+               <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="text-danger"><i class="far fa-trash-alt fa-lg ml-3"></i></a>
             </td>
          </tr>';
    }
@@ -420,7 +420,7 @@ function LinksModLink($lid) {
             <div class="input-group">
                <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <a href="'.$url.'" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>
+                    <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
                   </span>
                </div>
                <input class="form-control" type="url" name="url" id="url" value="'.$url.'" maxlength="255" required="required" />
@@ -491,7 +491,7 @@ function LinksModLink($lid) {
          <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="LinksModLinkS" />
             <button type="submit" class="btn btn-primary" ><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").' </button>
-            <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
+            <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
@@ -550,7 +550,7 @@ function LinksModLink($lid) {
             <input type="hidden" name="linkid" value="'.$lid.'" />
             <input type="hidden" name="op" value="LinksModEditorial" />
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelEditorial&amp;linkid='.$lid.'" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button href="admin.php?op=LinksDelEditorial&amp;linkid='.$lid.'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>';
       }
@@ -607,10 +607,10 @@ function LinksListBrokenLinks() {
 
    echo '
    <hr />
-   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-danger pull-right">'.$totalbrokenlinks.'</span></h3>
+   <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-danger float-right">'.$totalbrokenlinks.'</span></h3>
    <div class="blockquote">
-      <i class="fa fa-trash-o fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
-      <i class="fa fa-trash-o fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'
+      <i class="far fa-trash-alt fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
+      <i class="far fa-trash-alt fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'
    </div>';
 
    if ($totalbrokenlinks==0) {
@@ -640,7 +640,7 @@ function LinksListBrokenLinks() {
          list($owneremail)=sql_fetch_row($result4);
          echo '
          <tr>
-            <td><div>'.$title.'&nbsp;<span class="float-right"><a href="'.$url.'" target="_blank" ><i class="fa fa-external-link fa-lg"></i></a></span></div></td>';
+            <td><div>'.$title.'&nbsp;<span class="float-right"><a href="'.$url.'" target="_blank" ><i class="fas fa-external-link-alt fa-lg"></i></a></span></div></td>';
          if ($email=='')
             echo '
             <td>'.$modifysubmitter;
@@ -656,8 +656,8 @@ function LinksListBrokenLinks() {
              <td><div>'.$owner.'&nbsp;<span class="float-right"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
          echo '
             </td>
-            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
-            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
       }
    }
@@ -859,7 +859,7 @@ function LinksModCat($cat) {
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="op" value="LinksModCatS">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>
    </form>';
@@ -887,7 +887,7 @@ function LinksModCat($cat) {
             <input type="hidden" name="sid" value="'.$cat[1].'">
             <input type="hidden" name="op" value="LinksModCatS">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <a href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
+            <a href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
