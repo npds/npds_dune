@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -12,9 +12,9 @@
 global $nuke_url, $multi_langue;
 
 if($multi_langue!==false) $tinylangmenu='npds_langue'; else $tinylangmenu='';
-// skin : "" ou "lightgray" ou "tundora" ou "xenmce" ou "pepper-grinder"
+// skin : "" ou "oxide-dark"
 $tmp.='
-            skin : "lightgray",
+              skin : "",
               template_popup_width: "800",
 
             templates : [
@@ -73,7 +73,12 @@ if (!array_key_exists(1,$setup)) $setup[1]='';
 // Full Theme
 if ($tiny_mce_theme=='full') {
    $tmp.= "
-            plugins : ['advlist autolink lists link image charmap print preview hr anchor pagebreak','searchreplace wordcount visualblocks visualchars code','insertdatetime media nonbreaking save table contextmenu directionality','emoticons template paste textcolor colorpicker textpattern imagetools npds fontawesome'],
+            plugins: 'autoresize print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons npds',
+            /*
+            free V5 plugins not used : 
+            quickbars ==> un peu compliqué ?...
+            fullpage ==> génère un template html (doc type head body ...) complet incompatible avec notre utilisation
+            */
             image_class_list : [{title: 'Responsive', value: 'img_fluid'}],
             style_formats_merge : true,
             style_formats : [
@@ -92,16 +97,17 @@ if ($tiny_mce_theme=='full') {
             }}],
             font_formats: 'Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats',
             fontsize_formats: '0.4rem 0.5rem 0.6rem 0.7rem 0.8rem 0.9rem 1rem 1.1rem 1.2rem 1.3rem 1.4rem 1.5rem 1.6rem 1.7rem 1.8rem 1.9rem 2rem',
-            toolbar : 'insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | mybutton npds_img npds_perso npds_mns npds_upl npds_metal npds_plug ".$tinylangmenu." fontawesome',";
+//            toolbar : ' insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent forecolor backcolor emoticons | link image | npds_langue | npds_img npds_perso npds_metal npds_upl npds_mns',
+  toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | npds_langue | npds_img npds_perso npds_metal npds_upl npds_mns',";
 
 } else if ($tiny_mce_theme=='short') {
    // Short Theme
    $tmp.=" 
-            plugins : ['autolink wordcount npds image link media paste'],
-            toolbar : 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_plug ".$tinylangmenu."',\n";
+            plugins : ['autoresize autolink wordcount image link media paste npds'],
+            toolbar : 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_metal ".$tinylangmenu."',\n";
 }
 $tmp.="
-            content_css : ' lib/font-awesome/css/font-awesome.min.css,lib/bootstrap/dist/css/bootstrap.min.css,editeur/tinymce/themes/advanced/npds.css',
+            content_css : ' lib/font-awesome/css/all.min.css,lib/bootstrap/dist/css/bootstrap.min.css,editeur/tinymce/themes/advanced/npds.css',
             extended_valid_elements : 'hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]',
             directionality: 'ltr',
             auto_focus: '".substr($tmp_Xzone,0,strpos($tmp_Xzone,",",0))."',
