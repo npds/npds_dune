@@ -422,9 +422,9 @@ function HTML_Add() {
                         <div class="dropdown-menu" aria-labelledby="typevideo">
                            <p class="dropdown-header">'.translate("Paste the video ID between the tags").' : <br />[video_yt]xxxx[/video_yt]<br />[video_vm]xxxx[/video_vm]<br />[video_dm]xxxx[/video_dm]</p>
                            <div class="dropdown-divider"></div>
-                           <a class="dropdown-item" href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');"><i class="fa fa-youtube fa-lg fa-fw mr-1"></i>Youtube</a>
-                           <a class="dropdown-item" href="javascript: addText(\'[video_vm]\',\'[/video_vm]\');"><i class="fa fa-vimeo fa-lg fa-fw mr-1"></i>Vimeo</a>
-                           <a class="dropdown-item" href="javascript: addText(\'[video_dm]\',\'[/video_dm]\');"><i class="fa fa-video-camera fa-fw fa-lg mr-1"></i>Dailymotion</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');"><i class="fab fa-youtube fa-lg fa-fw mr-1"></i>Youtube</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_vm]\',\'[/video_vm]\');"><i class="fab fa-vimeo fa-lg fa-fw mr-1"></i>Vimeo</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_dm]\',\'[/video_dm]\');"><i class="fas fa-video fa-fw fa-lg mr-1"></i>Dailymotion</a>
                         </div>
                      </div>
                   </div>';
@@ -728,14 +728,11 @@ function forum($rowQ1) {
    }
    $ibid='';
    if ($rowQ1) {
-//   var_dump($rowQ1);
       foreach($rowQ1 as $row) {
-//      while (list(,$row) = each($rowQ1)) {
          $title_aff=true;
          $rowQ2=Q_Select ("SELECT * FROM ".$NPDS_Prefix."forums WHERE cat_id = '".$row['cat_id']."' AND SUBSTRING(forum_name,1,3)!='<!>' ORDER BY forum_index,forum_id", 21600);
          if ($rowQ2) {
             foreach($rowQ2 as $myrow) {
-//            while(list(,$myrow) = each($rowQ2)) {
                // Gestion des Forums Cachés aux non-membres
                if (($myrow['forum_type'] != "9") or ($userR)) {
                   // Gestion des Forums réservés à un groupe de membre
@@ -765,12 +762,12 @@ function forum($rowQ1) {
 
                      $last_post = get_last_post($myrow['forum_id'], "forum","infos",$Mmod);
                      $ibid.='
-                              <p class="list-group-item list-group-item-action flex-column align-items-start">
+                              <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start">
                                  <span class="d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
                         $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
                      else
-                        $ibid.='<i class="fa fa-folder-o text-primary fa-lg mr-2 mt-1" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="far fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
                      $name = stripslashes($myrow['forum_name']);
                      $redirect=false;
                      if (strstr(strtoupper($name),"<a HREF"))

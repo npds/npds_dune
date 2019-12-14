@@ -329,7 +329,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
             icon: new FormValidation.plugins.Icon({
                valid: "fa fa-check",
                invalid: "fa fa-times",
-               validating: "fa fa-refresh",
+               validating: "fas fa-sync",
                onPlaced: function(e) {
                   e.iconElement.addEventListener("click", function() {
                      fvitem.resetField(e.field);

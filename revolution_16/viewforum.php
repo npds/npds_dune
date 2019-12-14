@@ -136,7 +136,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                <input type="hidden" name="forum" value="'.$forum.'" />
                <div class="form-group">
                   <button type="submit" class="btn btn-primary mr-2" name="submitpass" title="'.translate("Submit").'"><i class="fa fa-check mr-1"></i>'.translate("Submit").'</button>
-                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fa fa-refresh mr-1"></i>'.translate("Clear").'</button>
+                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fas fa-sync mr-1"></i>'.translate("Clear").'</button>
             </div>
          </form>
       </div>';
@@ -257,20 +257,20 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='".$myrow['topic_id']."' AND status!='0'";
                if ($replys >= $hot_threshold) {
                   if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text faa-shake animated"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>';
                   else
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
                } else {
                   if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text-o faa-shake animated"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>';
                   else
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-o"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
                }
             } else {
                if ($replys >= $hot_threshold)
-                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text"></i></a>';
+                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
                else
-                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-file-text-o"></i></a>';
+                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
             }
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
@@ -331,7 +331,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          </tbody>
       </table>';
       if ($user)
-         echo '<p class="mt-1"><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="fa fa-lg fa-check-square-o"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
+         echo '<p class="mt-1"><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="far fa-check-square fa-lg"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
    } else {
       if ($forum_access!=9)
          echo '
@@ -359,14 +359,14 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    <blockquote class="blockquote my-3">';
    if($user)
       echo'
-      <i class="fa fa-file-text-o fa-lg faa-shake animated text-primary"></i> = '.translate("New Posts since your last visit.").'<br />
-      <i class="fa fa-file-text fa-lg faa-shake animated text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-      <i class="fa fa-file-o fa-lg text-primary"></i> = '.translate("No New Posts since your last visit.").'<br />
-      <i class="fa fa-file fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />';
+      <i class="far fa-file-alt fa-lg faa-shake animated text-primary"></i> = '.translate("New Posts since your last visit.").'<br />
+      <i class="fas fa-file-alt fa-lg faa-shake animated text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+      <i class="far fa-file-alt fa-lg text-primary"></i> = '.translate("No New Posts since your last visit.").'<br />
+      <i class="fas fa-file-alt fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />';
    else
       echo '
-      <i class="fa fa-file-text fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-      <i class="fa fa-file-text-o fa-lg text-primary"></i> = '.translate("Posts").'.<br />';
+      <i class="fas fa-file-alt fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
+      <i class="far fa-file-alt fa-lg text-primary"></i> = '.translate("Posts").'.<br />';
    echo '
       <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
    </blockquote>';

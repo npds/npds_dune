@@ -115,7 +115,7 @@ function defaultDisplay() {
 
 function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="badge badge-secondary pull-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    $subject = stripslashes(str_replace('"','&quot;',(strip_tags($subject))));
    $story = stripslashes($story);

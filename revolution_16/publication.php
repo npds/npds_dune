@@ -61,7 +61,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
       </div>
       <div class="input-group col-sm-3 mb-3">
          <div class="input-group-prepend">
-             <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
+             <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
          </div>
       <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
       </div>
@@ -74,7 +74,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
       </div>
       <div class="input-group col-sm-3 mb-3">
          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-clock-o fa-lg"></i></span>
+            <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
          </div>
          <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
       </div>

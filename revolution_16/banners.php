@@ -42,7 +42,7 @@ function viewbanner() {
    // Le risque est de sortir sans un BID valide
    if (!isset($bid)) {
       $rowQ1=Q_Select("SELECT bid FROM ".$NPDS_Prefix."banner WHERE userlevel='0' LIMIT 0,1",86400);
-      $myrow=$rowQ1[0];
+      $myrow=$rowQ1[0];// erreur à l'install quand on n'a pas de banner dans la base ....
       $bid=$myrow['bid'];
       $okprint=true;
    }
@@ -93,7 +93,7 @@ function clientlogin() {
    header_page();
    echo '
       <div class="card card-body mb-3">
-      <h3 class="mb-4"><i class="fa fa-sign-in fa-lg mr-3"></i>'.translate("Connection").'</h3>
+      <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg mr-3"></i>'.translate("Connection").'</h3>
          <form action="banners.php" method="post">
             <fieldset>
                <div class="form-group row">
@@ -209,7 +209,7 @@ function bannerstats($login, $pass) {
                   <td>'.$left.'</td>
                   <td>'.$clicks.'</td>
                   <td>'.$percent.'%</td>
-                  <td><a href="banners.php?op=EmailStats&amp;login='.$login.'&amp;cid='.$cid.'&amp;bid='.$bid.'" ><i class="fa fa-envelope-o fa-lg mr-2" title="E-mail Stats"></i></a></td>
+                  <td><a href="banners.php?op=EmailStats&amp;login='.$login.'&amp;cid='.$cid.'&amp;bid='.$bid.'" ><i class="far fa-envelope fa-lg mr-2" title="E-mail Stats"></i></a></td>
                </tr>';
          }
          

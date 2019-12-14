@@ -43,7 +43,7 @@ function entete() {
       <meta name="resource-type" content="document" />
       <meta name="robots" content="none" />
       <meta name="generator" content="NPDS IZ-Xinstall" />
-      <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+      <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">

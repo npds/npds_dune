@@ -145,8 +145,8 @@ function show_imm($op) {
             echo '
             <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg mr-1"></i>'.translate("Reply").'</a>';
          echo '
-            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-check-square-o fa-lg"></i></a>
-            <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="far fa-check-square fa-lg"></i></a>
+            <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a>
          </div>
          </div>';
 

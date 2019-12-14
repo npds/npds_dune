@@ -212,7 +212,7 @@ if ($admin) {
             $xfile.="\$xforum[$num_for][2] = $total_topics;\n";
             $desc = stripslashes($myrow['forum_desc']);
             echo '
-               <td><a tabindex="0" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="'.$desc.'"><i class="fa fa-lg fa-file-text-o mr-2"></i></a><a href="viewforum.php?forum='.$myrow['forum_id'].'" ><span class="text-danger">';
+               <td><a tabindex="0" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="'.$desc.'"><i class="far fa-lg fa-file-alt mr-2"></i></a><a href="viewforum.php?forum='.$myrow['forum_id'].'" ><span class="text-danger">';
             if (array_key_exists($num_for, $xforum))
                echo $xforum[$num_for][1];
             echo '</span> -/- '.$name.' </a></td>

@@ -313,7 +313,7 @@ if ($submitS) {
       echo '
                   <textarea class="form-control" '.$xJava.' name="message" rows="15" >'.$message.'</textarea>
                   <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>
@@ -377,7 +377,7 @@ if ($submitS) {
             <input type="hidden" name="topic" value="'.$topic.'" />
             <input type="hidden" name="post" value="'.$post.'" />
             <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />'.translate("Submit").'</button>&nbsp;
-            <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fa fa-close fa-lg"></i>'.translate("Cancel Post").'</button>
+            <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fas fa-times fa-lg"></i>'.translate("Cancel Post").'</button>
          </div>
       </div>';
    } else {

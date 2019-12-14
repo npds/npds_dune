@@ -146,7 +146,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                         if (false !== $k) {
                            $my_rs.='<a class="mr-3" href="';
                            if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                           $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
+                           $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-2x text-primary"></i></a> ';
                            break;
                         } 
                         else $my_rs.='';
@@ -164,14 +164,14 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
          if ($posterdata['uid']!= 1)
-            $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-envelope-o fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
          if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend))
             if ($posterdata_extend[$ch_lat] !='')
-               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
          if ($posterdata['url']!='')
-            $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-external-link fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
          if ($posterdata['mns'])
              $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
       }
@@ -280,7 +280,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          echo '
                <div class="d-flex justify-content-between pr-4 border-top">
                   <div class="border-right" style="margin-left:3rem"></div>
-                  <a data-toggle="collapse" href="#tog_'.$idtog.'z" aria-expanded="false" aria-controls=""><i class="togglearbr-icon fa fa-level-down fa-2x"></i></a>
+                  <a data-toggle="collapse" href="#tog_'.$idtog.'z" aria-expanded="false" aria-controls=""><i class="togglearbr-icon fas fa-level-down-alt fa-2x"></i></a>
                </div>
                <div id="tog_'.$idtog.'z" class="collapse">';
          $result.= makebranch($key,$table,$level+1,$maxlevel,$max_post_id,$clas,$idtog);
@@ -505,7 +505,7 @@ $r_to='';$n_to='';
                <a class="nav-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fa fa-share fa-lg d-md-none" title="'.translate("Move this Topic").'" data-toggle="tooltip" ></i><span class="ml-2 d-none d-md-inline">'.translate("Move this Topic").'</span></a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fa fa-level-up fa-lg d-md-none"  title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Make this Topic the first one").'</span></a>
+               <a class="nav-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fas fa-level-up-alt fa-lg d-md-none"  title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Make this Topic the first one").'</span></a>
             </li>
             <li class="nav-item">
                <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fa fa-remove fa-lg d-md-none"  title="'.translate("Delete this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Delete this Topic").'</span></a>

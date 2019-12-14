@@ -323,7 +323,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
          echo '
             <td>';
          if ( ($okfile==true and $user!='') or autorisation(-127))
-            echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-lg fa-chain-broken"></i></a>';
+            echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fas fa-lg fa-unlink"></i></a>';
          echo '
             </td>';
       }

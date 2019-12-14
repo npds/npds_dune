@@ -321,7 +321,7 @@ $ibid = explode('|',$v);
    echo "
    <script type=\"text/javascript\">
    //<![CDATA[
-/* 
+   /* 
    $( document ).ready(function () {
       $( '#lst_men_main ul' ).each(function() {
          var idi= $(this).attr('id'),
@@ -390,6 +390,9 @@ $ibid = explode('|',$v);
       $(function () {
          var dae = Cookies.get('adm_exp')*1000,
           dajs = new Date(dae);
+          
+                     console.log(Cookies.get('adm_exp'));
+
 
       $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
 
@@ -445,7 +448,7 @@ $ibid = explode('|',$v);
          </div>
          <div id="adm_men_man" class="col-6 col-lg-6 men_man text-right">
             <ul class="liste" id="lst_men_top">
-               <li data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fa fa-sign-out fa-2x"></i></a></li>';
+               <li data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fas fa-sign-out-alt fa-2x"></i></a></li>';
    if ($hlpfile) {
       $adm_ent .='
               <li class="ml-2" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
@@ -464,7 +467,6 @@ $ibid = explode('|',$v);
       <div id ="mes_perm" class="contenair-fluid text-muted" >
           <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
       </div>';
-
       echo $adm_ent;
      if ($short_menu_admin!=false) {
         echo '</div>';
@@ -571,8 +573,8 @@ function adminMain($deja_affiches) {
          if ($affiche)
             echo '</td>
             <td>
-            <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fa fa-trash-o fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
+            <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fas fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
+            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
          else
             echo '</td>
             <td>';
