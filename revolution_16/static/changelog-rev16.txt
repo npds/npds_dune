@@ -1,37 +1,43 @@
-changelog-rev16  [ révision : 38 - jpb /11-6-2017 10:53 ]
-- NPDS REvolution 16 - 
-v.16.0.6-alpha
+changelog-rev16.0  [ révision : 39 - jpb /13-12-2019 ]
+
+Depuis une version 13 voici les principaux changements.
+
 Implémentations majeures impactant sur tout le portail :
 - intégration en backend d'un framework : Bootsrap 4 #requis
-ayant pour conséquence :
-intégration de Jquery 3.x (implémentation) #requis
-abandon de la librairie YUI (désimplémentation)
+   ayant pour conséquence :
+      intégration de Jquery 3.x (implémentation)  #requis
+      abandon de la librairie YUI (désimplémentation)
  
-- intégration des webfont fontawesome version courante  4.7.0 (soutien et remplacement de l'iconographie du cms) #requis
+- intégration des webfont fontawesome version courante (free) :
+   (soutien et remplacement de l'iconographie du cms) #requis
 - abandon de la librairie toggle-div (désimplémentation)
 - responsive design
-réécriture de presque TOUS  les fichiers du portail (suppression des mise en pages tabulaires) et implémentation de classes (pour grilles/grid) ces classes sont celles de bootstrap4 MAIS elle peuvent très bien se comporter comme des classes génériques à clôner ou modifier en cas de changement de framework..) 
+   réécriture de presque TOUS les fichiers du portail (suppression des mise en pages tabulaires) et implémentation de classes (pour grilles/grid) ces classes sont celles de bootstrap4 MAIS elle peuvent très bien se comporter comme des classes génériques à clôner ou modifier en cas de changement de framework..) 
  
-Administration
+## ==> ADMINISTRATION
 
 - passage en full utf-8
-tous les fichiers (script et langue) sont en utf-8 : la sortie des fichiers langues est donc en utf-8 transformé si nécessaire en entités html
+   tous les fichiers (script et langue) sont en utf-8 : la sortie des fichiers langues est donc en utf-8 transformé si nécessaire en entités html
+- nouveaux système de droits appliqué au fonctions
+   stockage des fonctions et des droits dans 2 nouvelles tables de la bd
+   abandon du mecanisme géré par extend-modules.txt 
+   administration des modules recentralisé pour profiter de la puissance du nouveau système de droits aux fonctions 
+      modification des entêtes des fichiers admin des modules (inclusion de la fonction qui gère les droits)
+      modification des fichiers install_conf des modules avec install auto et admin qui doivent envoyer une requete d'identification à la table fonctions
+- système d'alerte/notification de tache d'administration :
+   centralisé et disponible dans le bloc admin
+- contrôle des serveurs mails :
+   lors des entrées d'adresse email dans le portail
+   en admin possibilité de contrôler toutes les adresses mails des utilisateurs déjà stockées. En cas de défaut l'utilisateur sera prévenu (MP) toutes les ressources envoyant des emails vers cette adresse seront suspendues.
 
-- Modules impact
-l'administration des modules est recentralisé pour profiter de la puissance du nouveau système de droits aux fonctions 
-cela signifie :
-abandon du mecanisme géré par extend-modules.txt 
-modification des entêtes des fichiers admin des modules (inclusion de la fonction qui gère les droits)
-
-modification des fichiers install_conf des modules avec install auto et admin qui doivent envoyer une requete d'identification à la table fonctions
+## <== ADMINISTRATION
  
 Corrections :
 - lib mysqli
-   # ajout de la connection persistante et globalisation de $dblink dans la fonction sql_connect() car variable non disponible dans certain contexte (install auto)
-   # correction fonction sql_num_fields (utilisée dans savemysql)
+   ajout de la connection persistante et globalisation de $dblink dans la fonction sql_connect() car variable non disponible dans certain contexte (install auto)
+   correction fonction sql_num_fields (utilisée dans savemysql)
 - lib mysql
    # ajout des fonctions clones de (mysql || mysqli_select_db)
-
 
 - bug (Rev13) état de l'icone témoin de connection ne fonctionnait pas dans les blocs groupes
 - bug (Rev13)  headlines  (la lib feed creator avait changé mais pas la construction du bloc headline) 
@@ -44,75 +50,94 @@ Corrections :
 
 Evolutions 
 
-- install auto v.1.2
+Installation automatique de modules :
+- install auto en v.1.2
    - utilisation des lib (mysql ou mysqli) pour support php7
    - ajout support langue espagnol
    - compatibilité php7 (ereg=>preg)
    - option d'installation rapide
    - interface
+   - désinstallation automatique (prototype)
 
 - intégration côté client d'un contrôle des form
+   utilisation de formValidation
+
 - suppression des commentaires relatifs à un sondage quand on supprime le sondage. 
 - chargement de footer_after.inc à partir du thème
 modification du fichier footer.php pour pouvoir charger (comme pour les modules) si il existe le fichier footer_after.inc ceci permet de placer ici les js (...de second niveau) nécessaires ==> chargement plus rapide de la page 
 
-THEMES
+## ==> THEMES
+- 8 themes disponibles dont 3 "skinable" (22 skins)
+   ce qui donne donc 74 visualisations différentes du portail possible 
 
-Implémentation des skins de Thème pour l'utilisateur
-
-interface user.php
-
-un theme skinable doit avoir le suffixe _sk
-==> stockage dans le cookie user infos en 11 position
-architecture :
-les feuilles de style doivent se trouver dans le dossier themes/_skins/'monskin'/bootstrap.min.css
-
-un theme et toute son infrastructure peut donc supporter les skins
+- Implémentation des skins de Thème pour l'utilisateur et l'administrateur
+   un theme skinable doit avoir le suffixe _sk
+   les feuilles de style doivent se trouver dans le dossier themes/_skins/'monskin'/bootstrap.min.css
+   un theme et toute son infrastructure peut donc supporter les skins
 
 modules/include/header_head.inc ==> [chargement du framework en backend avec CSS par defaut]
 ===>
 si l'utilisateur choisit un skin dans header.php on remodifie le(s) lien(s) CSS relatif au Framework en lui appliquant deux css du framework customisé (bootstrap.min.css, extra.css)
 
-note : on peut maintenant avoir des dossiers thèmes non visible par les utilisateurs (pour travaux et désactivation) pour désactiver il suffit de faire précéder le nom du dossier theme par _
+- note :
+   on peut maintenant avoir des dossiers thèmes non visible par les utilisateurs (pour travaux et désactivation) pour désactiver il suffit de faire précéder le nom du dossier theme par _
 
-ajout d'une landing page : offre la possibilité d'avoir un header.html alternatif sur la page d'accueil (défini pour le site), par l'ajout d'un fichier themes/montheme/html/header_landing.html , si ce fichier existe alors il sera chargé pour la page d'accueil en lieu et place du header.html.
+- ajout d'une landing page : 
+   offre la possibilité d'avoir un header.html alternatif sur la page d'accueil (défini pour le site), par l'ajout d'un fichier themes/montheme/html/header_landing.html , si ce fichier existe alors il sera chargé pour la page d'accueil en lieu et place du header.html.
+## <== THEMES
 
-adaptation pour tiny4 jquery et responsive
+## ==> SUPPORT DES LANGUAGES
+- Support compatibilité PHP 7.x
+   chasse au notice php (undefined variable, undefined offset, ...)
+   correction des fichiers où le nom d'une classe est identique à celui d'une fonction de cette classe
+   correction des preg utlisant le flag '##'e remplacement par callback
+   correction de new topic.php (encadrement des codes d'erreur forum par des simple quote) 
+   correction de la lib file.class.php (incompatible avec PHP7 objet incompatible?...)
+   correction de toutes les utilisation de each (big work)
+   correction des argument de définition des constantes
+   correction admin/banners.php
+      lignes 387 et 431 de admin/banners.php (REV 13) 
+      la variable $extrainfo est doublée dans les liste d'arguments de la fonction BannerClientChange() === page blanche !!!! 
+   correction modules/links/links-1.php 
+      ligne 101 (REV 13) 
+      la variable $name deux fois dans les arguments de fonction Add() 
+      === page blanche 
+    correction modules/links/links.php 
+      ligne 544 (REV 13) 
+      la variable $name deux fois dans les arguments de fonction Add() 
 
-- Support de PHP 7.x
-correction des preg utlisant le flag '##'e remplacement par callback
- correction de new topic.php (encadrement des codes d'erreur forum par des simple quote) 
- correction de la lib file.class.php (incompatible avec PHP7 objet incompatible?...) ... 
-### download.php 
-### admin/download.php 
-### upload.func.forum.php 
-### upload_forum2.php 
-### minigf.php 
+- Support compatibilité MYSQL 5.7 +
+   modification de certaine valeur par default dans la bd
+   modification dans les fichiers de requetes où le type de valeur ne correspond pas à celui attendu dans la base ... 
+   typage precis des entrées dans la bd en fonctions des types définis dans la bd : (on manque encore de test ...)
 
-admin/banners.php 
-lignes 387 et 431 de admin/banners.php (REV 13) 
-la variable $extrainfo est doublée dans les liste d'arguments de la fonction BannerClientChange() === page blanche !!!! 
+- Support IPV6
+   pour session log anti spam banIP etc ... 
+   (reste à traiter le cas des adresse IPV4 encapsulé dans une IPV6)
+## <== SUPPORT DES LANGUAGES
 
-modules/links/links-1.php 
-ligne 101 (REV 13) 
-la variable $name deux fois dans les arguments de fonction Add() 
-=== page blanche 
-
-modules/links/links.php 
-ligne 544 (REV 13) 
-la variable $name deux fois dans les arguments de fonction Add() 
- 
 - Tinymce 
+   version courante
+   adaptation de l'implémentation
+   ajout de commande pour les métamots
+   modification des templates (responsives)
 
-version courante 4.5.5
-adaptation de l'implémentation
-ajout de commande pour les métamots
-ajout plugins pour font awesome
-modification des templates (responsives)
- 
-- inside code php
-mise en majuscule des instruction mySQL
-écriture à double indentation (3 espaces) PHP / html / js
-généralisation des simple quotes (le plus souvent)
-augmentation de la longueur des chaines de sorties réduction des concaténations courtes.
-chasse au notice php (undefined variable, undefined offset, ...)
+## ==> DIVERS
+- Remplacement des licences GNU GPL de version 2 par la version 3
+## <== DIVERS
+
+## ==> RGPD
+- intégration d'un outil de consentement des services utilisés et des cookies déposés par ces services (tarteaucitron)
+## <== RGPD
+
+## ==> GEOLOC
+inclusion dans le core du module de géolocalisation
+## <== GEOLOC
+
+## ==> INSIDE CODE
+   mise en majuscule des instruction mySQL
+   écriture à double indentation (3 espaces) PHP / html / js
+   généralisation des simple quotes (le plus souvent)
+   augmentation de la longueur des chaines de sorties réduction des concaténations courtes.
+   ecriture des js avec le support de jquery ou en js pur
+## <== INSIDE CODE
