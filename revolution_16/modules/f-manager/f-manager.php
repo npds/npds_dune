@@ -886,11 +886,11 @@ while ($obj->NextDir()) {
       if ($dircmd_fma[1])
          $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg" title="'.$renaM.'" data-toggle="tooltip"></i></a>';
       if ($dircmd_fma[3])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-pencil fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
       if ($dirpres_fma[5])
          $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="fa fa-image fa-lg ml-2" title="'.$pictM.'" data-toggle="tooltip"></i></a>';
       if ($dircmd_fma[2])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-trash-o fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
       $subdirs.='</td>
       </tr>';
 
@@ -934,6 +934,7 @@ while ($obj->NextFile()) {
          <td width="3%" align="center">';
          if ($tab_search) {
             reset($tab_search);
+            // notice pour le each ...
             while ( (list($l,$fic_resp)=each($tab_search)) and (!$ico_search)) {
                if ($fic_resp[1]==$obj->FieldName) {
                   array_splice($tab_search,$l,1);
@@ -943,7 +944,7 @@ while ($obj->NextFile()) {
             }
          }
          if (!$ico_search) {
-            if (($obj->FieldView=='jpg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png'))
+            if (($obj->FieldView=='jpg') or ($obj->FieldView=='jpeg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png'))
                $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" />";
             else {
                if (isset($att_icons[$obj->FieldView]))
@@ -1000,14 +1001,14 @@ while ($obj->NextFile()) {
          $tabW=explode(' ',$extension_Edit_fma);
          $suffix = strtoLower(substr(strrchr( $obj->FieldName, '.' ), 1 ));
          if (in_array($suffix,$tabW))
-            $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-pencil fa-lg ml-2" title="'.$editM.'" data-toggle="tooltip"></i></a>';
+            $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$editM.'" data-toggle="tooltip"></i></a>';
       }
       if ($ficcmd_fma[5])
          $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-share-square-o fa-lg ml-2" title="'.$moveM.'" data-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[3])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-pencil fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
       if ($ficcmd_fma[2])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-trash-o fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
 if ($cmd_ibid) $files.='
          <td>'.$cmd_ibid.'</td>';
       $files.='
@@ -1030,7 +1031,7 @@ if (file_exists($infos_fma))
          <span class="help-block">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></span>
          <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend" onclick="reset2($(\'#userfile\'),\'\');">
-               <div class="input-group-text"><i class="fa fa-refresh"></i></div>
+               <div class="input-group-text"><i class="fas fa-sync"></i></div>
             </div>
             <div class="custom-file">
                <input type="file" class="custom-file-input" name="userfile" id="userfile" />
@@ -1115,7 +1116,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><i class="fa fa-home fa-lg"></i></a>',$Xcontent);
    
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="d-sm-none"><i class="fa fa-refresh la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="d-sm-none"><i class="fas fa-sync la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace('_size',$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
@@ -1192,7 +1193,7 @@ if ($inclusion) {
       include("meta/meta.php");
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-      <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+      <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
       <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
       <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />';
