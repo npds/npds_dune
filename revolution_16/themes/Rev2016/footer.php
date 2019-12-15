@@ -21,21 +21,21 @@ switch ($pdst) {
    case '2':
       echo '
     </div>
-    <div id="col_RB" class="col-md-3 col-sm-12">';
-        leftblocks();
-        rightblocks();
+       <div id="col_RB" class="col-md-3 col-sm-12">';
+           leftblocks();
+           rightblocks();
       echo '
-    </div>
+       </div>
     </div>';
    break;
    default :
       echo '
     </div>
-    <div id="col_RB" class="col-md-3 col-sm-12">';
-        leftblocks();
-        rightblocks();
+       <div id="col_RB" class="col-md-3 col-sm-12">';
+           leftblocks();
+           rightblocks();
       echo '
-    </div>
+       </div>
     </div>';
    break;
 }
