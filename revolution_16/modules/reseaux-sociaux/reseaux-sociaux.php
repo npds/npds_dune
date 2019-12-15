@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -53,8 +53,8 @@ function ListReseaux($ModPath, $ModStart) {
       <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
       <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
    <h3 class="mt-3">'.rs_translate("Réseaux sociaux").'</h3>
    <div class="help-block">'.rs_translate("Liste des réseaux sociaux mis à disposition par l'administrateur.").'</div>
@@ -66,7 +66,7 @@ function ListReseaux($ModPath, $ModStart) {
          <div class="col-sm-3 col-6">
             <div class="card mb-4">
                <div class="card-body text-center">
-               <i class="fa fa-'.$v1[2].' fa-2x text-primary"></i></br>'.$v1[0].'
+               <i class="fab fa-'.$v1[2].' fa-2x text-primary"></i></br>'.$v1[0].'
                </div>
             </div>
         </div>';
@@ -112,7 +112,7 @@ function EditReseaux($ModPath, $ModStart) {
       <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
       <li class="nav-item"><a class="nav-link active" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
    <h3 class="mt-1">'.rs_translate("Réseaux sociaux").'</h3>
    <div>
@@ -137,7 +137,7 @@ function EditReseaux($ModPath, $ModStart) {
    echo '
    <div class="col-sm-6">
    <fieldset>
-   <legend><i class="fa fa-'.$v1[2].' fa-2x text-primary mr-2"></i>'.$v1[0].'</legend>
+   <legend><i class="fab fa-'.$v1[2].' fa-2x text-primary mr-2 align-middle"></i>'.$v1[0].'</legend>
       <div class="form-group row">
          <label class="col-form-label col-sm-12" for="rs_uid'.$i.'">'.rs_translate("Identifiant").'</label>
          <div class="col-sm-12">
