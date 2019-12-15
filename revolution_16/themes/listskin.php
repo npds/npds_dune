@@ -54,7 +54,7 @@
       <title>NPDS <?php echo $skinametitre; ?> skin by Bootswatch</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
       <link rel="stylesheet" href="bootstrap.min.css" />
       <link rel="stylesheet" href="../assets/css/custom.min.css" />
       <style>
@@ -76,13 +76,14 @@
    </head>
    <body>
       <nav class="<?php echo $headerclasses; ?>">
+        <a class="navbar-brand" href="#">NPDS skins</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="barnav">
             <ul class="nav navbar-nav">
-                  <li class="navbar-divider"></li>
                   <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
-                  <li class="navbar-divider"></li>
-                  <li class="nav-item"><a class="nav-link" href="../../../../user.php?op=chgtheme"><i class="fa fa-sign-out fa-lg"></i></a></li>
-                  <li class="navbar-divider"></li>
+                  <li class="nav-item"><a class="nav-link" href="../../../../user.php?op=chgtheme"><i class="fas fa-paint-brush fa-lg"></i></a></li>
                   <li class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
                      <div class="dropdown-menu" aria-labelledby="skins"  role="menu">
@@ -90,7 +91,6 @@
                         <?php echo $optskins; ?>
                      </div>
                   </li>
-                  <li class="navbar-divider"></li>
                   <li class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">T&eacute;l&eacute;chargement</a>
                         <ul class="dropdown-menu">
@@ -107,44 +107,36 @@
                </ul>
             </div>
       </nav>
-      
-      
       <div class="container">
          <div class="" style="background-position: 0px -65px;">
             <div class="page-header" id="banner">
-              <div class="row">
-                <div class="col-lg-8 col-md-7 col-sm-6">
-                  <h1><?php echo ucfirst($skinametitre); ?></h1>
-                  <p class="lead">Nice skin for NPDS Cms</p>
-                </div>
-                <div class="col-lg-4 col-md-5 col-sm-6">
-                  <div class="sponsor">
+               <div class="row d-flex align-items-center">
+                  <div class="col-md-4 mb-3">
+                     <h1><?php echo ucfirst($skinametitre); ?></h1>
+                     <p class="lead">Nice skin for NPDS Cms</p>
                       <img class="img-fluid" src="../../../../themes/npds-boost_sk/images/header.png" alt="npds" />
                   </div>
-                </div>
+                  <div class="col-md-4 mb-3"></div>
+                  <div class="col-md-4">
+                     <div class="list-group">
+                        <a class="list-group-item list-group-item-action" href="#navbars">Barre de navigation</a>
+                        <a class="list-group-item list-group-item-action" href="#buttons">Boutons</a>
+                        <a class="list-group-item list-group-item-action" href="#typography">Typographie</a>
+                        <a class="list-group-item list-group-item-action" href="#tables">Tableaux</a>
+                        <a class="list-group-item list-group-item-action" href="#forms">Formulaire</a>
+                        <a class="list-group-item list-group-item-action" href="#navs">Navs</a>
+                        <a class="list-group-item list-group-item-action" href="#indicators">Indicateurs</a>
+                        <a class="list-group-item list-group-item-action" href="#progress">Barre de progression</a>
+                        <a class="list-group-item list-group-item-action" href="#containers">Conteneurs</a>
+                        <a class="list-group-item list-group-item-action" href="#dialogs">Dialogues</a>
+                     </div>
+                 </div>
               </div>
             </div>
          </div>
       </div>
       <div class="container">
 
-        <div class="row">
-          <div class="col-lg-3 col-md-3 col-sm-4">
-            <div class="list-group table-of-contents">
-              <a class="list-group-item list-group-item-action" href="#navbars">Navbars</a>
-              <a class="list-group-item list-group-item-action" href="#buttons">Buttons</a>
-              <a class="list-group-item list-group-item-action" href="#typography">Typography</a>
-              <a class="list-group-item list-group-item-action" href="#tables">Tables</a>
-              <a class="list-group-item list-group-item-action" href="#forms">Forms</a>
-              <a class="list-group-item list-group-item-action" href="#navs">Navs</a>
-              <a class="list-group-item list-group-item-action" href="#indicators">Indicators</a>
-              <a class="list-group-item list-group-item-action" href="#progress">Progress</a>
-              <a class="list-group-item list-group-item-action" href="#containers">Containers</a>
-              <a class="list-group-item list-group-item-action" href="#dialogs">Dialogs</a>
-            </div>
-          </div>
-        </div>
-        
       <!-- Navbar
       ================================================== -->
       <div class="bs-docs-section clearfix">
@@ -689,6 +681,11 @@
                       </label>
                     </div>
                   </fieldset>
+                  <fieldset class="form-group">
+                     <legend>Sliders</legend>
+                     <label for="customRange1">Example range</label>
+                     <input type="range" class="custom-range" id="customRange1">
+                   </fieldset>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </fieldset>
               </form>
@@ -781,6 +778,17 @@
                     <label class="custom-control-label" for="customCheck2">Disabled custom checkbox</label>
                   </div>
                 </div>
+                <div class="form-group">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+                    <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+                  </div>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" disabled="" id="customSwitch2">
+                    <label class="custom-control-label" for="customSwitch2">Disabled switch element</label>
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <select class="custom-select">
                     <option selected="">Open this select menu</option>
