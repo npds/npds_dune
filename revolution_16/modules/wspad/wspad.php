@@ -162,14 +162,14 @@ function Liste_Page() {
          <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-toggle="collapse" data-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
             <span class="float-right">
                <a href="#" data-toggle="modal" data-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>&nbsp;
+               <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-toggle="tooltip"><i class="far fa-trash-alt"></i></a>&nbsp;
             </span>
          </h4>
          <div id="lst_page_'.$pgibid.'" class="collapse" style ="padding-left:10px;">';
          $result2=sql_query("SELECT modtime, editedby, ranq, verrou FROM ".$NPDS_Prefix."wspad WHERE page='$page' AND member='$groupe' ORDER BY ranq ASC");
          
          $aff.='
-         <table class=" table-sm" data-toggle="table" data-striped="true">
+         <table class=" table-sm" data-toggle="table" data-striped="true" data-mobile-responsive="true" >
             <thead>
                <tr>
                   <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Rev.").'</th>
@@ -203,7 +203,7 @@ function Liste_Page() {
                <tr>
                   <td>'.$ibid.$ranq.'</td>
                   <td><div style="float: left; margin-top: 2px; width: 1rem; height: 1.5rem; background-color: '.$couleur[hexfromchr($editedby)].';"></div>&nbsp;'.$editedby.'</td>
-                  <td>'.date(translate("dateinternal"),$modtime+((integer)$gmt*3600)).'</td>';
+                  <td class="small">'.date(translate("dateinternal"),$modtime+((integer)$gmt*3600)).'</td>';
             // voir la révision du ranq x
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
             $aff.='
@@ -367,7 +367,7 @@ switch($op) {
      $content=removeHack(stripslashes(FixQuotes($content)));
      $auteur=removeHack(stripslashes(FixQuotes($auteur)));
      $row=sql_fetch_assoc(sql_query("SELECT MAX(ranq) AS ranq FROM ".$NPDS_Prefix."wspad WHERE page='$page' AND member='$groupe'"));
-     $result = sql_query("INSERT INTO ".$NPDS_Prefix."wspad VALUES ('', '$page', '$content', '".time()."', '$auteur', '".($row['ranq']+1)."', '$groupe','')");
+     $result = sql_query("INSERT INTO ".$NPDS_Prefix."wspad VALUES ('0', '$page', '$content', '".time()."', '$auteur', '".($row['ranq']+1)."', '$groupe','')");
      sql_query("UPDATE ".$NPDS_Prefix."wspad SET verrou='' WHERE verrou='$auteur'");
      @unlink("modules/$ModPath/locks/$page-vgp-$groupe.txt");
      $mess=wspad_trans("révision")." ".($row['ranq']+1)." ".wspad_trans("sauvegardée");
