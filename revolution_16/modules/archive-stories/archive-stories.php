@@ -48,7 +48,7 @@ if (!function_exists("Mysql_Connexion"))
          $count= $result0[0];
          $count=$count['count'];
       }
-      
+
    $nbPages = ceil($count/$maxcount);
    $current = 1;
    if ($start >= 1)
