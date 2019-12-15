@@ -342,7 +342,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$mod_admin_news = $xmod_admin_news;\n";
     $content .= "\$not_admin_count = $xnot_admin_count;\n";
     $content .= "\$Default_Theme = \"$xDefault_Theme\";\n";
-	if (substr($xDefault_Theme,-3)!="_sk") {$xDefault_Skin="";}
+   if (substr($xDefault_Theme,-3)!="_sk") {$xDefault_Skin="";}
        $content .= "\$Default_Skin = \"$xDefault_Skin\";\n";
     $content .= "\$Start_Page = \"$xstart_page\";\n";
     $content .= "\$foot1 = \"$xfoot1\";\n";
@@ -565,7 +565,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"v.16\";\n";
+    $content .= "\$Version_Num = \"v.16.1\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
     $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";
