@@ -35,27 +35,19 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
       switch ($actiontype) {
       case 'upload' :
          $ret=editeur_upload();
+         $js='';
          if ($ret!='') {
             $suffix=strtoLower(substr(strrchr($ret,'.'),1));
-            if ($suffix=='gif' or  $suffix=='jpg' or $suffix=='png') {
-            echo "
-            <script type=\"text/javascript\">
-            //<![CDATA[
-               parent.tinymce.activeEditor.selection.setContent('<img class=\"img-fluid\" src=\"$ret\" alt=".basename($ret)." />');
-            //]]>
-            </script>";
+            if ($suffix=='gif' or  $suffix=='jpg' or  $suffix=='jpeg' or $suffix=='png') {
+               $js .= "parent.tinymce.activeEditor.selection.setContent('<img class=\"img-fluid\" src=\"$ret\" alt=".basename($ret)." />');";
             } else {
-                echo "<script type=\"text/javascript\">
-                //<![CDATA[
-                parent.tinymce.activeEditor.selection.setContent('<a href=\"$ret\" target=\"_blank\" class=\"noir\">".basename($ret)."</a>');
-                //]]>
-                </script>";
+               $js .= "parent.tinymce.activeEditor.selection.setContent('<a href=\"$ret\" target=\"_blank\">".basename($ret)."</a>');";
             }
          }
          echo "<script type=\"text/javascript\">
                //<![CDATA[
+               ".$js."
                top.tinymce.activeEditor.windowManager.close();
-//               top.close();
                //]]>
                </script>";
          die();
@@ -64,7 +56,7 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
    }
    echo '
    <body topmargin="3" leftmargin="3" rightmargin="3">
-      <div class="card card-body">
+      <div class="card card-body mx-2 mt-3">
          <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="formEdit">
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />
