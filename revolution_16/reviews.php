@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2018 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -497,7 +497,7 @@ function showcontent($id) {
                <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
             </li>
             <li class="page-item">
-               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Delete").'" data-toggle="tooltip" ><i class="fa fa-lg fa-trash-o" ></i></a>
+               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Delete").'" data-toggle="tooltip" ><i class="far fa-trash-alt fa-lg" ></i></a>
             </li>
          </ul>
       </nav>';
