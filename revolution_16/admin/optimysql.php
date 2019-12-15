@@ -40,7 +40,7 @@
    } else {
       $last_opti= adm_translate("Dernière optimisation effectuée le")." : ".$dateopt." ".adm_translate(" à ")." ".$houropt."<br />\n";
    }
-   
+
    $tot_data = 0;
    $tot_idx = 0;
    $tot_all = 0;
@@ -63,7 +63,7 @@
          $resultat = sql_query("OPTIMIZE TABLE ".$row['Name']." ");
          if ($gain == 0)
             $li_tab_opti.= '
-            <tr>
+            <tr class="table-success">
                <td align="right">'.$row['Name'].'</td>
                <td align="right">'.$total.' Ko</td>
                <td align="center">'.adm_translate("optimisée").'</td>
@@ -71,7 +71,7 @@
             </tr>';
           else
              $li_tab_opti.= '
-             <tr>
+             <tr class="table-danger">
                 <td align="right">'.$row['Name'].'</td>
                 <td align="right">'.$total.' Ko</td>
                 <td class="text-danger" align="center">'.adm_translate("non optimisée").'</td>
@@ -95,16 +95,17 @@
 
    // Affichage
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   echo '<hr />'.adm_translate("Optimisation effectuée").' : '.adm_translate("Gain total réalisé").' '.$total_gain.' Ko</br>';
+   echo '<hr /><p class="lead">'.adm_translate("Optimisation effectuée").' : '.adm_translate("Gain total réalisé").' '.$total_gain.' Ko</br>';
    echo $last_opti;
-   echo "<p>".adm_translate("A ce jour, vous avez effectué ")." ".$countopt." optimisation(s) ".adm_translate(" et réalisé un gain global de ")." ".$gainopt." Ko.</p>\n";
-   echo'<table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   echo '
+   '.adm_translate("A ce jour, vous avez effectué ").' '.$countopt.' optimisation(s) '.adm_translate(" et réalisé un gain global de ").' '.$gainopt.' Ko.</p>
+   <table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
    <thead>
        <tr>
-           <th data-sortable="true" align="center">'.adm_translate('Table').'</th>
-           <th align="center">'.adm_translate('Taille actuelle').'</th>
-           <th data-sortable="true" align="center">'.adm_translate('Etat').'</th>
-           <th align="center">'.adm_translate('Gain réalisable').'</th>
+           <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate('Table').'</th>
+           <th data-halign="center" data-align="center">'.adm_translate('Taille actuelle').'</th>
+           <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate('Etat').'</th>
+           <th data-halign="center" date-align="center">'.adm_translate('Gain réalisable').'</th>
        </tr>
    </thead>
    <tfoot>
