@@ -46,21 +46,21 @@ function nav($mns) {
 
    echo '
    <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fas fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
+      <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fas fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link '.$ed_h.'" href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ch_t.'" href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="fa fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fa fa-sign-out fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+      <li class="nav-item"><a class="nav-link '.$ed_h.'" href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
+      <li class="nav-item"><a class="nav-link '.$ch_t.'" href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fas fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fas fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
    </ul>
    <div class="mt-3"></div>';
 }
@@ -271,7 +271,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             <hr />
             <h2><i class="fa fa-user mr-2"></i>'.translate("Registration").'</h2>
             <p class="lead">'.translate("Your Password is: ").'<strong>'.$makepass.'</strong></p>
-            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fa fa-sign-in fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
+            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fas fa-sign-in-alt fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
 
             $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")." : \n\n";
             $message .=
@@ -383,7 +383,7 @@ function userinfo($uname) {
                if (false !== $k) {
                   $my_rs.='<a class="mr-3" href="';
                   if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                  $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x"></i></a> ';
+                  $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-2x"></i></a> ';
                   break;
                } 
                else $my_rs.='';
@@ -395,13 +395,13 @@ function userinfo($uname) {
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
    if (($user) and ($uid!=1))
-      $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="fa fa-2x fa-envelope-o" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['femail']!='')
       $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['url']!='')
-      $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fa fa-2x fa-external-link" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['mns'])
-       $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-2x fa-desktop" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
+       $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
@@ -443,7 +443,9 @@ function userinfo($uname) {
          $content = '';
          $content .='
          <div class="col-md-6">
-            <div id="map_user" tabindex="300" style="width:100%; height:400px;"><div id="ol_popup"></div></div>
+            <div id="map_user" tabindex="300" style="width:100%; height:400px;">
+               <div id="ol_popup"></div>
+            </div>
             <script type="module">
             //<![CDATA[
                $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
@@ -484,21 +486,6 @@ function userinfo($uname) {
                });
                
                //Adding a marker on the map
-/*
-               var marker = new ol.Feature({
-                 geometry: new ol.geom.Point(
-                   ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].','.$posterdata_extend[$ch_lat].'])
-                 ),  
-               });
-               var vectorSource = new ol.source.Vector({
-                 features: [marker]
-               });
-               var markerVectorLayer = new ol.layer.Vector({
-                 source: vectorSource,
-               });
-               map.addLayer(markerVectorLayer);
-*/
-
                map.addLayer(vectorLayer);
 
 
@@ -565,7 +552,7 @@ function userinfo($uname) {
       echo '
       <br />
       <h4>'.translate("Online journal for").' '.$uname.'.</h4>
-      <div id="online_user_journal" class="card card-body mb-3">'.$user_journal.'</div>';
+      <div id="online_user_journal" class="card card-body mb-3">'.meta_lang($user_journal).'</div>';
    $file='';
    $handle=opendir('modules/comments');
    while (false!==($file = readdir($handle))) {
@@ -649,7 +636,7 @@ function userinfo($uname) {
             else
                $image = '<a title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
          $content .='
-         <p class="list-group-item list-group-item-action flex-column align-items-start" >
+         <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
             <span class="d-flex w-100 mt-1">
             <span>'.$post_time.'</span>
             <span class="ml-auto">
@@ -685,7 +672,7 @@ function main($user) {
             <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
          </div>
           <div class="card card-body">
-          <h3><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
+          <h3><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
           <form action="user.php" method="post" name="userlogin">
              <div class="form-group row">
                <label for="inputuser" class="col-form-label col-sm-4">'.translate("Nickname").'</label>
@@ -872,7 +859,7 @@ function update_password ($code, $passwd) {
                 else
                    $cryptpass=$ibid[1];
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
-                message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'<i class="fa fa-sign-in fa-lg ml-2"></i></a></div>');
+                message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'<i class="fas fa-sign-in-alt fa-lg ml-2"></i></a></div>');
                 Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
              } else {
                 message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").' : '.translate("Both passwords are different. They need to be identical.").'</div>');
