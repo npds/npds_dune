@@ -209,10 +209,6 @@ ul.dropdown-menu {
   padding-left:0px;
 }
 
-/*recherche js dans tableau*/
-div .pull-right.search input.form-control{
-  background-color: rgba(2, 117, 216, 0.07);
-}
 .blockquote {
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
