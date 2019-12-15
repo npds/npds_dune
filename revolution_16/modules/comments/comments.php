@@ -254,7 +254,7 @@ if ($mycount) {
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
             </li>
             <li class="page-item">
-               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Delete comments.").'" data-toggle="tooltip"><i class="fa fa-remove fa-lg" ></i></a>
+               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Delete comments.").'" data-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
             </li>
          </ul>
       </nav>';

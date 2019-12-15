@@ -508,7 +508,7 @@ $r_to='';$n_to='';
                <a class="nav-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fas fa-level-up-alt fa-lg d-md-none"  title="'.translate("Make this Topic the first one").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Make this Topic the first one").'</span></a>
             </li>
             <li class="nav-item">
-               <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fa fa-remove fa-lg d-md-none"  title="'.translate("Delete this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Delete this Topic").'</span></a>
+               <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1"><i class="fas fa-times fa-lg d-md-none"  title="'.translate("Delete this Topic").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Delete this Topic").'</span></a>
             </li>
          </ul>';
    }

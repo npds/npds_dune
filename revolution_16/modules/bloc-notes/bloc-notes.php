@@ -59,7 +59,7 @@ function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBl
                <div class="row">
                   <div class="col-12">
                      <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check mr-1"></i>'.translate("Submit").'</button>
-                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fa fa-remove mr-1"></i>'.translate("Delete").'</button>
+                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times mr-1"></i>'.translate("Delete").'</button>
                   </div>
                </div>
             </div>
