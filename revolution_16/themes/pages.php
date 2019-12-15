@@ -123,7 +123,7 @@ $PAGES['user.php']['blocs']="0";
 $PAGES['user.php']['run']="yes";
 $PAGES['user.php']['TinyMce']=1;
 $PAGES['user.php']['TinyMce-theme']="short";
-$PAGES['user.php']['css']=array($nuke_url."lib/ol/ol.css+",$nuke_url."lib/leaflet/leaflet.css+");
+$PAGES['user.php']['css']=array($nuke_url."lib/ol/ol.css+");
 
 
 $PAGES['memberslist.php']['title']="[french]Liste des membres[/french][english]Members list[/english][spanish]Lista de Miembros[/spanish][german]Mitglieder[/german][chinese]&#x4F1A;&#x5458;&#x5217;&#x8868;[/chinese]+";
