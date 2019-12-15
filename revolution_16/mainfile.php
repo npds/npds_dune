@@ -1056,13 +1056,13 @@ function prepa_aff_news($op,$catid,$marqeur) {
       }
       if ($comments==0) {
          $morelink[2]=0;
-         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="fa fa-comment-o fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
+         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="far fa-comment fa-lg" title="'.translate("comments?").'" data-toggle="tooltip"></i></a>';
        } elseif ($comments==1) {
          $morelink[2]=$comments;
-         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="fa fa-comment-o fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
+         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3"><i class="far fa-comment fa-lg" title="'.translate("comment").'" data-toggle="tooltip"></i></a>';
        } else {
          $morelink[2]=$comments;
-         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3" ><i class="fa fa-comment-o fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
+         $morelink[3]='<a href="article.php?sid='.$s_sid.'" class="mr-3" ><i class="far fa-comment fa-lg" title="'.translate("comments").'" data-toggle="tooltip"></i></a>';
        }
        $morelink[4]=$printP;
        $morelink[5]=$sendF;
@@ -1925,7 +1925,7 @@ function aff_editeur($Xzone, $Xactiv) {
             selector: 'textarea.tin',
             branding:false,
             height: 300,
-            theme : 'modern',
+            theme : 'silver',
             mobile: { theme: 'mobile' },
             language : '".language_iso(1,'','')."',";
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
@@ -2372,7 +2372,7 @@ function adminblock() {
       '.$bloc_foncts_A.'<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Clear Chat DB").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>
       </div>
       <div class="mt-3">
-         <small class="text-muted"><i class="fa fa-user fa-2x align-middle"></i> '.$aid.'</small>
+         <small class="text-muted"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
       </div>';
    themesidebox($title, $content);
    }
@@ -2885,7 +2885,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $content.='
    <div id="bloc_ws_'.$gr.'" class="">'."\n";
    if ($t_gr==1) 
-      $content.= '<img src="images/admin/ws/groupe.gif" class="img-fluid mx-auto d-block rounded" title="ID:'.$gr.'" alt="'.translate("Group").'" />  <span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
+      $content.= '<span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
       $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Group").'" />';
@@ -2921,7 +2921,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
                   if (false !== $k) {
                      $my_rs.='<a class="mr-2" href="';
                      if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
-                     $my_rs.= '" target="_blank"><i class="fa fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
+                     $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
                      break;
                   } 
                   else $my_rs.='';
@@ -2940,16 +2940,16 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($uid!= 1 and $uid!='')
          $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$uname.'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Profile").'</span></a>';
       if ($uid!= 1)
-         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="fa fa-2x fa-envelope-o align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Message").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$uname.'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="far fa-2x fa-envelope align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Message").'</span></a>';
       if ($femail!='')
-         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($femail,1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Email").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($femail,1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fas fa-at fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Email").'</span></a>';
       if ($url!='')
-         $useroutils .= '<a class="list-group-item text-primary" href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fa fa-2x fa-external-link align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary" href="'.$url.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fas fa-2x fa-external-link-alt align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Visit this Website").'</span></a>';
       if ($mns)
          $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$uname.'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
       if (!$short_user)
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$uid.'" title="'.translate("Location").'" ><i class="fa fa-map-marker fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Location").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$uid.'" title="'.translate("Location").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-sm-inline">'.translate("Location").'</span></a>';
 
       $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate('is not connected !').'" data-toggle="tooltip" ></i>';
       if (!$user_avatar)
@@ -2988,7 +2988,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    //<== liste des membres
 
    //=> Forum
-   $lst_for='';
+   $lst_for='';$lst_for_tog='';$nb_for_gr='';
    if ($rsql['groupe_forum'] == 1) {
       $res_forum=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_pass REGEXP '$gr'");
       $nb_foru=sql_num_rows ($res_forum);
@@ -3036,7 +3036,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-sticky-note-o fa-2x text-muted ml-3 align-middle"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
+      $lst_blocnote_tog ='<a data-toggle="collapse" data-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Show list").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="far fa-sticky-note fa-2x text-muted ml-3 align-middle"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
       $lst_blocnote = '
       <div id="lst_blocnote_'.$gr.'" class="mt-3 collapse">
       '.blocnotes("shared", 'WS-BN'.$gr,'','7','bg-dark text-light',false).'
@@ -3047,7 +3047,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    }
    //<= bloc-notes
    
-$content.='<div class="card card-body d-flex flex-row mt-3 flex-wrap text-center">';
+$content.='<div class="px-1 card card-body d-flex flex-row mt-3 flex-wrap text-center">';
    //=> Filemanager
    if (file_exists('modules/f-manager/users/groupe_'.$gr.'.conf.php'))
       $content.='<a class="mx-2" href="modules.php?ModPath=f-manager&amp;ModStart=f-manager&amp;FmaRep=groupe_'.$gr.'" title="'.translate("File manager").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-folder fa-2x"></i></a>'."\n";
@@ -3375,13 +3375,14 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
             icon: new FormValidation.plugins.Icon({
                valid: "fa fa-check",
                invalid: "fa fa-times",
-               validating: "fa fa-refresh",
+               validating: "fa fa-sync",
                onPlaced: function(e) {
                   e.iconElement.addEventListener("click", function() {
                      fvitem.resetField(e.field);
                   });
                },
             }),
+
          },
       })
       .on("core.validator.validated", function(e) {
