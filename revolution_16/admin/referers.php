@@ -44,7 +44,7 @@ function hreferer($filter) {
          <div class="clearfix"></div>
       </div>
    </form>
-   <table id ="tad_refe" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <table id ="tad_refe" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa" data-buttons-class="outline-secondary">
    <thead>
       <tr>
          <th data-sortable="true" data-halign="center">Url</th>
