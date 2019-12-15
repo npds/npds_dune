@@ -49,10 +49,10 @@ global $NPDS_Prefix;
             <div class="card-body ibid_descr">';
          if ($url=='')
             echo '
-               <h4 class="text-muted"><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title);
+               <h4 class="text-muted"><i class="fas fa-external-link-alt"></i>&nbsp;'.aff_langue($title);
          else
             echo '
-               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" ><i class="fa fa-external-link"></i>&nbsp;'.aff_langue($title).'</a>';
+               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" ><i class="fas fa-external-link-alt"></i>&nbsp;'.aff_langue($title).'</a>';
          
          echo '&nbsp;'.newlinkgraphic($datetime, $time).'</h4>';
 
@@ -89,7 +89,7 @@ global $NPDS_Prefix;
                <span class="ml-auto">';
             if ($url!='') {
                echo '
-                  <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fa fa-chain-broken fa-lg"></i></a>';
+                  <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fas fa-unlink fa-lg"></i></a>';
             }
             // Advance infos via the class sform.php
             $browse_key=$lid;

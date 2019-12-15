@@ -38,7 +38,7 @@
 
    if (autorisation(-1)) {
       $con = '!nb_online! - <a href="user.php">Se connecter</a>';
-      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fa fa-sign-in fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
+      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
       $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x text-muted"></i></a>';
    } elseif (autorisation(1)) {
       $menuser .='
@@ -73,7 +73,7 @@
          $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Private Message").' <span class=\'badge-pill badge-danger ml-2\'>'.$nbmes.'</span>" data-html="true" data-toggle="tooltip" data-placement="right"></i></a></li>';
 
       $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" title="'.translate("Your account").'" data-toggle="tooltip" data-placement="right" /></a><li class="dropdown-divider"></li>';
-      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fa fa-sign-out fa-lg text-danger"></i>'.translate("Logout").'</a>';
+      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger"></i>'.translate("Logout").'</a>';
    }
 ?>
 

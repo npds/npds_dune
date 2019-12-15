@@ -13,7 +13,7 @@ define('CITRON','tarteaucitron');
 
 // since NPDS Rev 16 this ressources are required dont remove //
 echo '
-<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />'; // web font
+<link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />'; // web font V5
 echo '
 <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />'; // framework
 echo '
@@ -21,7 +21,7 @@ echo '
 echo '
 <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />'; // form control
 echo '
-<link rel="stylesheet" href="lib/jquery-ui.min.css" />'; // interface
+<link rel="stylesheet" href="lib/jquery-ui.min.css" />';//interface
 echo '
 <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />'; // table
 echo '

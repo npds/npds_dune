@@ -48,7 +48,7 @@ function action_log($ThisFile,$logtype) {
       <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at mr-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
       <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times mr-1 fa-lg"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fa fa-trash-o mr-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="far fa-trash-alt mr-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
    return $task;
 }
 

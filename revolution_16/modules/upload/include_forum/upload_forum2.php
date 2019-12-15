@@ -54,7 +54,7 @@ global $Titlesitename;
       if (array_key_exists(11,$cookie)) $skin=$cookie[11];
    }
    echo '
-         <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />';
+         <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />';
    if($skin!='') {
       echo '
          <link rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css" />

@@ -985,8 +985,8 @@ function LinksListBrokenLinks() {
    <hr class="mb-0"/>
    <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg"></i></a></div>
    <div class="blockquote">
-      <i class="fa fa-trash-o fa-lg text-primary mr-2"></i>'.translate("Ignore (Deletes all requests for a given link)").'<br />
-      <i class="fa fa-trash-o fa-lg text-danger mr-2"></i>'.translate("Delete (Deletes broken link and requests for a given link)").'
+      <i class="far fa-trash-alt fa-lg text-primary mr-2"></i>'.translate("Ignore (Deletes all requests for a given link)").'<br />
+      <i class="far fa-trash-alt fa-lg text-danger mr-2"></i>'.translate("Delete (Deletes broken link and requests for a given link)").'
    </div>
    <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -1010,13 +1010,13 @@ function LinksListBrokenLinks() {
           list($owneremail)=sql_fetch_row($result4);
           echo '
          <tr>
-            <td><div>'.$title.'&nbsp;<span class="pull-right"><a href="'.$url.'"  target="_blank"><i class="fa fa-external-link fa-lg"></i></a></span></div></td>';
+            <td><div>'.$title.'&nbsp;<span class="float-right"><a href="'.$url.'"  target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></span></div></td>';
           if ($email=='') 
             echo '
             <td>'.$modifysubmitter;
           else 
             echo '
-            <td><div>'.$modifysubmitter.'&nbsp;<span class="pull-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
+            <td><div>'.$modifysubmitter.'&nbsp;<span class="float-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
           echo '</td>';
           if ($owneremail=='')
              echo '
@@ -1025,8 +1025,8 @@ function LinksListBrokenLinks() {
             echo '
             <td><a href="mailto:'.$owneremail.'" >'.$owner.'</a>';
           echo '</td>
-            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o fa-lg" title="'.translate("Ignore").'" data-toggle="tooltip"></i></a></td>
-            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fa fa-trash-o text-danger fa-lg" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt fa-lg" title="'.translate("Ignore").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt text-danger fa-lg" title="'.translate("Delete").'" data-toggle="tooltip"></i></a></td>
          </tr>';
        }
        echo '

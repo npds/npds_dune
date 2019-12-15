@@ -154,7 +154,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-12"><span class="form-control-label">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].'</span> <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="fa fa-trash-o fa-lg text-danger"></i></a></span></div>
+            <div class="col-sm-12"><span class="form-control-label">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].'</span> <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash-alt fa-lg text-danger"></i></a></span></div>
          </div>
       </fieldset>
       <hr />
@@ -695,7 +695,8 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    mark_cmbg_svg.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa("'.$f_mbg.'"),
-       font: "normal 32px FontAwesome",
+//       font: "normal 32px FontAwesome",
+       font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
        stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
@@ -704,7 +705,8 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    mark_cmbgc_svg.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa("'.$f_mbg.'"),
-       font: "normal 32px FontAwesome",
+//       font: "normal 32px FontAwesome",
+      font: "900 '.$mbgc_sc.'px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
        stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
@@ -713,7 +715,9 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    mark_acg_svg.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa("'.$f_mbg.'"),
-       font: "normal 28px FontAwesome",
+//       font: "normal 28px FontAwesome",
+              font: "900 '.$acg_sc.'px \'Font Awesome 5 Free\'",
+
        bottom: "Bottom",
        fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
        stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
@@ -795,7 +799,8 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
    m.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa(f_fa),
-       font: "normal "+sc+"px FontAwesome",
+//       font: "normal "+sc+"px FontAwesome",
+       font: "900 "+sc+"px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: fc}),
        stroke: new ol.style.Stroke({color: tc, width: '.$mbg_t_ep.'})

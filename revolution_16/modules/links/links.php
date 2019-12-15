@@ -148,7 +148,7 @@ function index() {
                $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
                $cnumrows= sql_num_rows($cresult3);
                echo '
-               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-secondary pull-right">'.$cnumrows.'</span></h5>';
+               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-secondary float-right">'.$cnumrows.'</span></h5>';
             }
             echo '
             </td>
@@ -407,9 +407,9 @@ function categorynewlinkgraphic($cat) {
 }
 
 function popgraphics($count) {
-   if ($count<1) echo '<span class="btn btn-danger btn-sm pull-right" title="'.translate("New Links in this Category Added Today").'" data-toggle="tooltip" data-placement="left">N</span>';
-   if ($count<=3 && $count>=1) echo '<span class="btn btn-success btn-sm pull-right" title="'.translate("New Links in this Category Added in the last 3 days").'" data-toggle="tooltip" data-placement="left">N</span>';
-   if ($count<=7 && $count>3) echo '<span class="btn btn-infos btn-sm pull-right" title="'.translate("New Links in this Category Added this week").'" data-toggle="tooltip" data-placement="left">N</span>';
+   if ($count<1) echo '<span class="btn btn-danger btn-sm float-right" title="'.translate("New Links in this Category Added Today").'" data-toggle="tooltip" data-placement="left">N</span>';
+   if ($count<=3 && $count>=1) echo '<span class="btn btn-success btn-sm float-right" title="'.translate("New Links in this Category Added in the last 3 days").'" data-toggle="tooltip" data-placement="left">N</span>';
+   if ($count<=7 && $count>3) echo '<span class="btn btn-infos btn-sm float-right" title="'.translate("New Links in this Category Added this week").'" data-toggle="tooltip" data-placement="left">N</span>';
 }
 
 function newlinkgraphic($datetime, $time) {
@@ -424,7 +424,7 @@ function detecteditorial($lid, $ttitle) {
    global $ModPath, $ModStart, $links_DB;
    $resulted2 = sql_query("SELECT adminid FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
    $recordexist = sql_num_rows($resulted2);
-   if ($recordexist != 0) echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="fa fa-sticky-note-o fa-lg" title="'.translate("EDITO").'" data-toggle="tooltip"></i></a>';
+   if ($recordexist != 0) echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="far fa-sticky-note fa-lg" title="'.translate("EDITO").'" data-toggle="tooltip"></i></a>';
 }
 
 //Reusable Link Sorting Functions
@@ -478,7 +478,7 @@ function viewlinkeditorial($lid, $ttitle) {
       <span class="text-muted">'.aff_langue($displaytitle).'</span>';
    if ($url!='')
       echo '
-      <span class="pull-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-external-link"></i></a></span>';
+      <span class="float-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip" data-placement="left"><i class="fas fa-external-link-alt"></i></a></span>';
    echo '
    </h3>';
    if ($recordexist!= 0) {

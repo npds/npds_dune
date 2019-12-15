@@ -68,7 +68,6 @@ if ($smilies) {
       }
       asort($filelist);
       foreach($filelist as $key => $file) {
-//      while (list ($key, $file) = each ($filelist)) {
          if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
             $tmp_tempo[$file]['en']=$file;
             if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
@@ -83,7 +82,7 @@ if ($smilies) {
    $taille_fichier=8192;
    if (!$avatar_size) $avatar_size='80*100';
    $m->add_upload('B1', '', '30', $taille_fichier);
-   $m->add_extender('B1', '', '<span class="small text-primary"><i id="reset_ava" class="fa fa-refresh fa-lg mr-2"></i>Réinitialiser le selectionneur de fichier</span><span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octets et <strong>'.$avatar_size.'</strong> pixels</span>');
+   $m->add_extender('B1', '', '<span class="small text-primary"><i id="reset_ava" class="fas fa-sync fa-lg mr-2"></i>Réinitialiser le selectionneur de fichier</span><span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octets et <strong>'.$avatar_size.'</strong> pixels</span>');
 
    $m->add_checkbox('raz_avatar',translate("Re-activate the standard'avatars"), 1, false, false);
    // ----------------------------------------------------------------------------------------------

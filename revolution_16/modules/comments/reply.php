@@ -135,7 +135,7 @@ if (isset($submitS)) {
       redirect_url("$url_ret");
    } else {
       echo '
-   <h2><i class="fa fa-comment-o text-muted fa-lg mr-2"></i>'.translate("Comment").'</h2>
+   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Comment").'</h2>
    <hr />
    <div class="alert alert-danger" >'.translate("You must type a message to post.").'</div>
    <p><a href="javascript:history.go(-1)" class="btn btn-primary">'.translate("Go Back").'</a></p>';
@@ -145,7 +145,7 @@ if (isset($submitS)) {
    if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
    echo '
-   <h2><i class="fa fa-comment-o text-muted fa-lg mr-2"></i>'.translate("Comment").'</h2>
+   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Comment").'</h2>
    <hr />';
    if ($formulaire=='')
       echo '
@@ -257,7 +257,7 @@ if (isset($submitS)) {
                <div class="card-body">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.stripslashes($reply).'</textarea>
                   <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>

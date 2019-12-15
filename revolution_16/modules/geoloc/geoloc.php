@@ -169,9 +169,9 @@ while ($row = sql_fetch_array($membre)) {
       //=== menu fenetre info
       $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-lg mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
       if ($user)
-         $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="fa fa-envelope-o fa-lg mr-2"></i></a>';
+         $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="far fa-envelope fa-lg mr-2"></i></a>';
       if ($us_url != '')
-         $imm .= '<a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fa fa-external-link fa-lg mr-2"></i></a>';
+         $imm .= '<a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fas fa-external-link-alt fa-lg mr-2"></i></a>';
       if ($us_mns != '')
          $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-lg mr-2"></i></a>';
  
@@ -264,7 +264,7 @@ while ($row = sql_fetch_array($result)) {
             foreach($res_id as $y1) {
                $k = array_search( $y1[0],$v1);
                if (false !== $k) {
-                  $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fa fa-'.$v1[2].' fa-2x text-primary mr-2"></i></a>&nbsp;';
+                  $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fab fa-'.$v1[2].' fa-2x text-primary mr-2"></i></a>&nbsp;';
                   break;
                } 
                else $my_rs.='';
@@ -280,9 +280,9 @@ while ($row = sql_fetch_array($result)) {
       //=== menu fenetre info
       $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
       if ($user)
-         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="Envoyez moi un message interne"><i class="fa fa-envelope-o fa-2x mr-2"></i></a>';
+         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="Envoyez moi un message interne"><i class="far fa-envelope fa-2x mr-2"></i></a>';
       if ($us_url != '')
-         $imm .= ' <a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fa fa-external-link fa-2x mr-2"></i></a>';
+         $imm .= ' <a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fas fa-external-link-alt fa-2x mr-2"></i></a>';
       if ($us_mns != '')
          $imm .='&nbsp;<a href="minisite.php?op='.$users_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
 
@@ -498,7 +498,9 @@ $ecr_scr = '
       var iconUser = new ol.style.Style({
         text: new ol.style.Text({
           text: "'.$fafont_js.'",
-          font: "normal '.$mbg_sc.'px FontAwesome",
+//          font: "normal '.$mbg_sc.'px FontAwesome",
+                    font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
           stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
@@ -507,7 +509,9 @@ $ecr_scr = '
       var iconUserOn = new ol.style.Style({
         text: new ol.style.Text({
           text: "'.$fafont_js.'",
-          font: "normal '.$mbgc_sc.'px FontAwesome",
+//          font: "normal '.$mbgc_sc.'px FontAwesome",
+                    font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
           stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
@@ -516,7 +520,9 @@ $ecr_scr = '
       var iconAnoOn = new ol.style.Style({
         text: new ol.style.Text({
           text: "'.$fafont_js.'",
-          font: "normal '.$acg_sc.'px FontAwesome",
+//          font: "normal '.$acg_sc.'px FontAwesome",
+                    font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
           stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
@@ -569,7 +575,7 @@ $ecr_scr = '
       var iconGeoref = new ol.style.Style({
         text: new ol.style.Text({
           text: "\uf192",
-          font: "normal 32px FontAwesome",
+          font: "900 18px \'Font Awesome 5 Free\'",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "rgba(255, 0, 0, 90)"}),
           stroke: new ol.style.Stroke({color: "rgba(0, 0, 0, 100)", width: 0.1})
@@ -1605,7 +1611,7 @@ $affi .= '
       </div>
       <ul class="nav nav-tabs mt-4">
          <li class="nav-item"><a id="messinfo-tab" class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
-         <li class="nav-item"><a id="geocodage-tab" class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-map-marker fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li>
+         <li class="nav-item"><a id="geocodage-tab" class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fas fa-map-marker-alt fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li>
          <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
 if(autorisation(-127) and $geo_ip==1)
    $affi .= '
@@ -1624,7 +1630,7 @@ $affi .= '
                   <button id="geocode_submit" class="btn btn-primary" type="button">'.geoloc_translate("Géocoder").'</button>
                </span>
                <input id="address" type="textbox" class="form-control" placeholder="'.geoloc_translate("Entrez une adresse").'..." />
-               <span class="input-group-btn"><button class="btn btn-outline-danger" type="button" id="trash" onclick="deleteMarkers_geo();"><i class="fa fa-trash-o fa-lg"></i></button></span>
+               <span class="input-group-btn"><button class="btn btn-outline-danger" type="button" id="trash" onclick="deleteMarkers_geo();"><i class="far fa-trash-alt fa-lg"></i></button></span>
             </div>
          </div>
       </div>
