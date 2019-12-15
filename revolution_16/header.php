@@ -18,6 +18,7 @@ if (!function_exists("Mysql_Connexion")) {
 
 settype($m_keywords, 'string');
 settype($m_description, 'string');
+$skin='';
 
 function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords) {
    global $slogan, $site_font, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
