@@ -50,10 +50,10 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
          <tr>
             <td>'.$v1[0].'</td>
             <td>'.$v1[1].'</td>
-            <td><i class="fa fa-'.$v1[2].' fa-2x text-muted align-middle"></i></td>
+            <td><i class="fab fa-'.$v1[2].' fa-2x text-muted align-middle"></i></td>
             <td>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-2x mr-2 align-middle" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-trash-o fa-2x text-danger align-middle" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg mr-2 align-middle" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="far fa-trash-alt fa-lg text-danger align-middle" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
             </td>
         </tr>';
    }
@@ -135,7 +135,7 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    $content .= "/*                                                                      */\n";
    $content .= "/* Reseaux-sociaux Add-On ... ver. 1.0                                  */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-".date('Y')." by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
