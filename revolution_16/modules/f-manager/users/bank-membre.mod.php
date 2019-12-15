@@ -15,12 +15,12 @@
 
 if (($obj->FieldView=="jpg") or ($obj->FieldView=="gif") or ($obj->FieldView=="png")) {
    if ($tiny_mce)
-       $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img class=img-fluid src=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." />');\"";
+       $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img class=img-fluid src=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." />'); top.tinymce.activeEditor.windowManager.close();\"";
    else
       $url_modifier="\"#\"";
 } else {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." target=_blank>".$obj->FieldName."</a>');\"";
+      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." target=_blank>".$obj->FieldName."</a>'); top.tinymce.activeEditor.windowManager.close();\"";
    else
       $url_modifier="\"".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)."\"";
 }

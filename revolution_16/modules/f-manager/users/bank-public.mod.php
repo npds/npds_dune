@@ -15,12 +15,12 @@
 
 if (($obj->FieldView=="jpg") or ($obj->FieldView=="gif") or ($obj->FieldView=="png")) {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img class=img-fluid src=getfile.php?att_id=$ibid&amp;apli=f-manager />');\"";
+      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img class=img-fluid src=getfile.php?att_id=$ibid&amp;apli=f-manager />'); top.tinymce.activeEditor.windowManager.close();\"";
    else
       $url_modifier="\"#\"";
 } else {
    if ($tiny_mce)
-      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>');\"";
+      $url_modifier="\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=getfile.php?att_id=$ibid&amp;apli=f-manager target=_blank>".$obj->FieldName."</a>'); top.tinymce.activeEditor.windowManager.close();\"";
    else
       $url_modifier="\"getfile.php?att_id=$ibid&amp;apli=f-manager\"";
 }
