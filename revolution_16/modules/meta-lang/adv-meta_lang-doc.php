@@ -51,7 +51,8 @@ echo '<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">';/
          $cur_type=$type_meta;
       }
          if ($tiny_mce)
-            $def_modifier="<a href=\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent(' ".$def." ');\" >$def</a>";
+            $def_modifier="<a href=\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent(' ".$def." ');top.tinymce.activeEditor.windowManager.close();
+\" >$def</a>";
          else 
             $def_modifier=$def;
       echo '
