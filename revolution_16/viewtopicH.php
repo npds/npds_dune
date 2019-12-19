@@ -119,10 +119,8 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
             $clas ='collapse show';
          }
       }
-      else {
+      else
          $idtog = ($level+1).($count+1);
-//            $clas ='collapse show';
-      }
 
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       $posts = $posterdata['posts'];
@@ -219,7 +217,9 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if ($last_read!='') {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !="0" AND $userdata[0]!=$myrow['poster_id']) {
-            echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
+            //echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
+            echo '
+                     <span class="mr-2 badge badge-success animated faa-flash">NEW</span>';
          }
       }
       echo '
@@ -229,11 +229,10 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          $message = smilie($message);
          $message = aff_video_yt($message);
       }
-      if (($forum_type=='6') or ($forum_type=='5')) {
+      if (($forum_type=='6') or ($forum_type=='5'))
          highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
-      } else {
+      else
          echo str_replace('[addsig]', '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
-      }
       if ($att>0) {
          $post_id=$myrow['post_id'];
          echo '<div class="card-text">';

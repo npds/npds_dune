@@ -356,7 +356,6 @@ include('header.php');
                if ($ibid=theme_image('forum/avatar/'.$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$posterdata['user_avatar'];}
          }
 //         echo '<div style="position:absolute; top:1rem;">'.userpopover($posterdata['uname'],64).'</div>';
-
           echo '
           <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
          }
@@ -378,8 +377,8 @@ include('header.php');
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
-            echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />
-            ';
+            //echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
+            echo '<span class="mr-2 badge badge-success animated faa-flash">NEW</span>';
          }
       }
 
@@ -420,9 +419,8 @@ include('header.php');
       if ($forum_access==0) {
          $allow_to_post=true;
       } elseif ($forum_access==1) {
-         if (isset($user)) {
+         if (isset($user))
             $allow_to_post=true;
-         }
       } elseif ($forum_access==2) {
          if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
             $allow_to_post=true;
