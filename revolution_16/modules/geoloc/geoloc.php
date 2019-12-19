@@ -497,9 +497,8 @@ $ecr_scr = '
       }
       var iconUser = new ol.style.Style({
         text: new ol.style.Text({
-          text: "'.$fafont_js.'",
-//          font: "normal '.$mbg_sc.'px FontAwesome",
-                    font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+         text: "'.$fafont_js.'",
+         font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
 
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
@@ -508,9 +507,8 @@ $ecr_scr = '
       });
       var iconUserOn = new ol.style.Style({
         text: new ol.style.Text({
-          text: "'.$fafont_js.'",
-//          font: "normal '.$mbgc_sc.'px FontAwesome",
-                    font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+         text: "'.$fafont_js.'",
+         font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
 
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
@@ -520,8 +518,7 @@ $ecr_scr = '
       var iconAnoOn = new ol.style.Style({
         text: new ol.style.Text({
           text: "'.$fafont_js.'",
-//          font: "normal '.$acg_sc.'px FontAwesome",
-                    font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+         font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
 
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
@@ -566,7 +563,7 @@ $ecr_scr = '
       var iconIp = new ol.style.Style({
         text: new ol.style.Text({
           text: "\uf108",
-          font: "normal 24px FontAwesome",
+          font: "900 24px \'Font Awesome 5 Free\'",
           bottom: "Bottom",
           fill: new ol.style.Fill({color: "rgba(0, 0, 0,0.5)"}),
           stroke: new ol.style.Stroke({color: "rgba(0, 0, 0,0.5)", width: 0.2})
@@ -581,7 +578,7 @@ $ecr_scr = '
           stroke: new ol.style.Stroke({color: "rgba(0, 0, 0, 100)", width: 0.1})
         })
       });
-      
+
    var stylecountries = new ol.style.Style({
       fill: new ol.style.Fill({
          color: "rgba(255, 255, 255, 0.1)"
@@ -697,7 +694,7 @@ switch ($cartyp) {
                     }),
                     text: new ol.style.Text({
                       text: "\uf108 "+size.toString(),
-                      font: "normal 10px FontAwesome",
+                      font: "900 10px \'Font Awesome 5 Free\'",
                       fill: new ol.style.Fill({
                         color: "#fff"
                       })
