@@ -263,8 +263,7 @@ function isAllowedFile ($filename, $mimetype) {
       $allowed_extensions = explode(' ', $bn_allowed_extensions);
       if (is_array($allowed_extensions)) {
          $found = FALSE;
-         reset ($allowed_extensions);
-         while ( list (,$goodext) = each($allowed_extensions) ) {
+         foreach($allowed_extensions as $goodext) {
             if ($ext == $goodext) {
                $found = TRUE;
                break;
@@ -281,11 +280,9 @@ function isAllowedFile ($filename, $mimetype) {
    if (!empty ($bn_banned_extensions)) {
       $banned_extensions = explode(' ', $bn_banned_extensions);
       if (is_array($banned_extensions)) {
-         reset ($banned_extensions);
-         while ( list (,$badext) = each($banned_extensions) ) {
-            if ($ext == $badext) {
+         foreach($banned_extensions as $badext) {
+            if ($ext == $badext)
                return FALSE;
-            }
          }
       }
    }
@@ -300,8 +297,7 @@ function isAllowedFile ($filename, $mimetype) {
       $allowed_mimetypes = explode(' ', $bn_allowed_mimetypes);
       if (is_array($allowed_mimetypes)) {
          $found = FALSE;
-         reset ($allowed_mimetypes);
-         while ( list (,$mt) = each($allowed_mimetypes) ) {
+         foreach($allowed_mimetypes as $mt) {
             list ($good_type, $good_subtype) = explode ('/', $mt);
             if ($type == $good_type) {
                if ( ($good_subtype == '*') || ($subtype == $good_subtype) ) {
@@ -310,9 +306,8 @@ function isAllowedFile ($filename, $mimetype) {
                }
             }
          }
-         if (!$found) {
+         if (!$found)
             return FALSE;
-         }
       }
    }
 
@@ -321,8 +316,7 @@ function isAllowedFile ($filename, $mimetype) {
    if (!empty ($bn_banned_mimetypes)) {
       $banned_mimetypes = explode(' ', $bn_banned_mimetypes);
       if (is_array($banned_mimetypes)) {
-         reset ($banned_mimetypes);
-         while ( list (,$mt) = each($banned_mimetypes) ) {
+         foreach($banned_mimetypes as $mt) {
             list ($bad_type, $bad_subtype) = explode ('/', $mt);
             if ($type == $bad_type) {
                if (($bad_subtype == '*') || ($subtype == $bad_subtype)) {
