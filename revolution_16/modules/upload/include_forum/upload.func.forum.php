@@ -66,8 +66,7 @@ function getListBox ($name, $items, $selected='', $multiple=0, $onChange='') {
                <select class="custom-select form-control-sm" name="%s%s"%s%s>', $name, ($multiple == 1)?'[]':'',
                 ($multiple == 1)?' multiple':'', $oc);
    if (is_array($items)) {
-      reset ($items);
-      while (list($k, $v) = each($items)) {
+      foreach($items as $k => $v) {
          $p .= sprintf(' 
                   <option value="%s"%s>%s</option>', $k, strcmp($selected,$k)?'':' selected="selected"', $v);
       }
@@ -296,11 +295,11 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
 function word_wrap ($string, $cols = 80, $prefix = '') {
    $t_lines = explode("\n", $string);
    $outlines = '';
-   while (list(, $thisline) = each($t_lines)) {
+   foreach($t_lines as $thisline) {
       if (strlen($thisline) > $cols) {
          $newline = '';
          $t_l_lines = explode(' ', $thisline);
-         while (list(, $thisword) = each($t_l_lines)) {
+         foreach($t_l_lines as $thisword) {
             while ((strlen($thisword) + strlen($prefix)) > $cols) {
                $cur_pos = 0;
                $outlines .= $prefix;
@@ -314,14 +313,12 @@ function word_wrap ($string, $cols = 80, $prefix = '') {
             if ((strlen($newline) + strlen($thisword)) > $cols) {
                $outlines .= $prefix.$newline."\n";
                $newline = $thisword.' ';
-            } else {
+            } else
                $newline .= $thisword.' ';
-            }
          }
          $outlines .= $prefix.$newline."\n";
-      } else {
+      } else
          $outlines .= $prefix.$thisline."\n";
-      }
    }
    return $outlines;
 }
@@ -361,8 +358,7 @@ function delete($del_att){
 function update_inline($inline_att) {
    global $upload_table;
    if (is_array ($inline_att) ) {
-      reset($inline_att);
-      while (list($id, $mode) = each($inline_att)) {
+      foreach($inline_att as $id => $mode) {
          $sql = "UPDATE $upload_table SET inline='$mode' WHERE att_id=$id";
          sql_query($sql);
       }
