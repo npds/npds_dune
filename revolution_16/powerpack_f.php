@@ -38,38 +38,38 @@ function online_members () {
 
 #autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Ins&egrave;re un MI dans la base et le cas Èch&eacute;ant envoi un mail
 function writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) {
-    global $NPDS_Prefix;
+   global $NPDS_Prefix;
 
-    $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_userid'");
-    list($to_useridx, $user_languex) = sql_fetch_row($res);
+   $res = sql_query("SELECT uid, user_langue FROM ".$NPDS_Prefix."users WHERE uname='$to_userid'");
+   list($to_useridx, $user_languex) = sql_fetch_row($res);
 
-    if ($to_useridx == '')
-       forumerror('0016');
-    else {
-       global $gmt;
-       $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-       include_once("language/lang-multi.php");
-       $subject=removeHack($subject);
-       $message=str_replace("\n","<br />", $message);
-       $message=addslashes(removeHack($message));
-       $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
-       $sql .= "VALUES ('$image', '$subject', '$from_userid', '$to_useridx', '$time', '$message')";
-       if (!$result = sql_query($sql))
-          forumerror('0020');
-       if ($copie) {
-          $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
-          $sql .= "VALUES ('$image', '$subject', '$from_userid', '$to_useridx', '$time', '$message', '1', '1')";
-          if (!$result = sql_query($sql))
-             forumerror('0020');
-       }
-       global $subscribe, $nuke_url;
-       if ($subscribe) {
-          $sujet=translate_ml($user_languex, "Vous avez un nouveau message.");
-          $message=translate_ml($user_languex, "Bonjour").",<br /><br /><a href=\"$nuke_url/viewpmsg.php\">".translate_ml($user_languex, "Cliquez ici pour lire votre nouveau message.")."</a><br /><br />";
-          include("signat.php");
-          copy_to_email($to_useridx,$sujet,$message);
-       }
-    }
+   if ($to_useridx == '')
+      forumerror('0016');
+   else {
+      global $gmt;
+      $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+      include_once("language/lang-multi.php");
+      $subject=removeHack($subject);
+      $message=str_replace("\n","<br />", $message);
+      $message=addslashes(removeHack($message));
+      $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
+      $sql .= "VALUES ('$image', '$subject', '$from_userid', '$to_useridx', '$time', '$message')";
+      if (!$result = sql_query($sql))
+         forumerror('0020');
+      if ($copie) {
+         $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text, type_msg, read_msg) ";
+         $sql .= "VALUES ('$image', '$subject', '$from_userid', '$to_useridx', '$time', '$message', '1', '1')";
+         if (!$result = sql_query($sql))
+            forumerror('0020');
+      }
+      global $subscribe, $nuke_url, $sitename;
+      if ($subscribe) {
+         $sujet=translate_ml($user_languex, "Notification message privé.").'['.$from_userid.'] / '.$sitename;
+         $message = $time.'<br />'.translate_ml($user_languex, "Bonjour").'<br />'.translate_ml($user_languex, "Vous avez un nouveau message.").'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_languex, "Cliquez ici pour lire votre nouveau message.").'</a><br />';
+         include("signat.php");
+         copy_to_email($to_useridx,$sujet,stripslashes($message));
+      }
+   }
 }
 
 #autodoc write_short_private_message($to_userid) : Formulaire d'&eacute;criture d'un MI
@@ -217,7 +217,7 @@ function instant_members_message() {
                    $PopUp=JavaPopUp("readpmsg_imm.php?op=msg","IMM",600,500);
                    $PopUp='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');">';
                    if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon='';}
-                   $icon.='<i class="fa fa-envelope-open-o fa-lg " title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
+                   $icon.='<i class="far fa-envelope-open fa-lg " title="'.translate("New").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
                 } else {
                    $icon='&nbsp;';
                 }

@@ -88,14 +88,14 @@ else {
                   if (!$result = sql_query($sql))
                      forumerror('0020');
                }
-               global $nuke_url, $subscribe;
+               global $nuke_url, $subscribe, $sitename;;
                if ($subscribe) {
-                  $old_message=$message;
-                  $sujet=translate_ml($user_langue, "Vous avez un nouveau message.");
-                  $message=translate_ml($user_langue, "Bonjour").",<br /><br /><a href=\"$nuke_url/viewpmsg.php\">".translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.")."</a><br /><br />";
+                  $old_message=$message; // what this
+                  $sujet=translate_ml($user_langue, "Notification message privé.").'['.$usermore['uname'].'] / '.$sitename;
+                  $message=translate_ml($user_langue, "Bonjour").'<br />'.translate_ml($user_langue, "Vous avez un nouveau message.").'<br />'.$time.'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.").'</a><br /><br />';
                   include("signat.php");
-                  copy_to_email($to_userid,$sujet,$message);
-                  $message=$old_message;
+                  copy_to_email($to_userid,$sujet,stripslashes($message));
+                  $message=$old_message; // what this
                }
             }
          }
@@ -116,12 +116,12 @@ else {
                if (!$result = sql_query($sql))
                   forumerror('0020');
             }
-            global $nuke_url, $subscribe;
+            global $nuke_url, $subscribe, $sitename;
             if ($subscribe) {
-               $sujet=translate_ml($user_langue, 'Vous avez un nouveau message.');
-               $message=translate_ml($user_langue, "Bonjour").",<br /><br /><a href=\"$nuke_url/viewpmsg.php\">".translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.")."</a><br /><br />";
+               $sujet=translate_ml($user_langue, "Notification message privé.").'['.$usermore['uname'].'] / '.$sitename;
+               $message=translate_ml($user_langue, "Bonjour").'<br />'.translate_ml($user_langue, "Vous avez un nouveau message.").'<br />'.$time.'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.").'</a><br /><br />';
                include("signat.php");
-               copy_to_email($to_userid,$sujet,$message);
+               copy_to_email($to_userid,$sujet,stripslashes($message));
             }
          }
       }
@@ -303,9 +303,9 @@ else {
             <div class="card">
                <div class="card-header">';
          if ($allow_html == 1)
-            echo '<span class="text-success pull-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+            echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
          else
-            echo '<span class="text-danger pull-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+            echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
          echo '
             </div>
             <div class="card-body">';
@@ -342,7 +342,7 @@ else {
          echo '
          </textarea>
          <span class="help-block text-right">
-            <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fa fa-close " ></i></button>
+            <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
             <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
          </span>
                </div>
