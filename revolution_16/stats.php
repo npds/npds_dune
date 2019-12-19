@@ -402,8 +402,8 @@ if (!function_exists("Mysql_Connexion"))
    while(list($themelist)=sql_fetch_row($resultX)) {
       if ($themelist!='') {
       $ibix=explode('+',$themelist);
-      var_dump($ibix);
-      var_dump($Default_Theme);
+//      var_dump($ibix);
+//      var_dump($Default_Theme);
          if (is_dir("themes/$ibix[0]")) $T_exist=''; else $T_exist='<span class="text-danger">'.translate("There is no such file...").'</span>';
          if ($themelist==$Default_Theme) {
             $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
@@ -467,7 +467,7 @@ if (!function_exists("Mysql_Connexion"))
    <h3 class="my-4">'.translate("Miscelaneous Stats").'</h3>
    <ul class="list-group">
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Registered Users: ").' <span class="badge badge-secondary ml-auto">'.wrh($unum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fa fa-pencil fa-lg text-muted"></i>&nbsp;'.translate("Active Authors: ").' <span class="badge badge-secondary ml-auto">'.wrh($anum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fas fa-pencil-alt fa-lg text-muted"></i>&nbsp;'.translate("Active Authors: ").' <span class="badge badge-secondary ml-auto">'.wrh($anum).' </span></li>';
    if ($ibid=theme_image("stats/postnew.png")) $imgtmp=$ibid; else $imgtmp="images/admin/postnew.png";
    echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Stories Published: ").' <span class="badge badge-secondary ml-auto">'.wrh($snum).' </span></li>';
