@@ -32,15 +32,17 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
             $realip = $_SERVER['HTTP_X_FORWARDED_FOR'];
          } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $realip = $_SERVER['HTTP_CLIENT_IP'];
-         } else
+         } else {
             $realip = $_SERVER['REMOTE_ADDR'];
+         }
        } else {
          if ( getenv('HTTP_X_FORWARDED_FOR') ) {
             $realip = getenv('HTTP_X_FORWARDED_FOR');
          } elseif (getenv('HTTP_CLIENT_IP')) {
             $realip = getenv('HTTP_CLIENT_IP');
-         } else
+         } else {
             $realip = getenv('REMOTE_ADDR');
+         }
        }
        if (strpos($realip, ",")>0) {
           $realip=substr($realip,0,strpos($realip, ",")-1);
@@ -73,9 +75,19 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
     // First of all : Spam from IP / |5 indicate that the same IP has passed 6 times with status KO in the anti_spambot function
     if (file_exists("slogs/spam.log"))
        $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
-    if (is_array($tab_spam))
+    if (is_array($tab_spam)) {
+      $ipadr = getip();
+      $ip4detail = explode('.', $ipadr);//pour IPV4
+      $ip6detail = explode(':', $ipadr);//pour IPV6
        if (in_array(getip()."|5",$tab_spam))
           access_denied();
+      //=> nous pouvons bannir une plage d'adresse ip en V4 (dans l'admin IPban sous forme x.x.%|5 ou x.x.x.%|5)
+       if (in_array($ip4detail[0].'.'.$ip4detail[1].'.%|5',$tab_spam))
+          access_denied();
+       if (in_array($ip4detail[0].'.'.$ip4detail[1].'.'.$ip4detail[2].'.%|5',$tab_spam))
+          access_denied();
+      //<= nous pouvons bannir une plage d'adresse ip en V4
+      }
 
     if (get_magic_quotes_runtime()==1) {set_magic_quotes_runtime(0);}
     // To prevent SQL Injection when magic_quotes GPC is off 
