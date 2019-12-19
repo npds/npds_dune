@@ -31,7 +31,7 @@ include("auth.php");
 
    echo '
    <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="far fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
       <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
    if (($userdata['mns']==1) and ($autorise_upload_p)) {
@@ -73,7 +73,7 @@ include("auth.php");
       if (!$dossier) {$ibid="and dossier='...'";}
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
-      if (!$resultID) forumerror(0005);
+      if (!$resultID) forumerror('0005');
 
       if (!$total_messages = sql_num_rows($resultID)) {
          echo '
@@ -81,7 +81,8 @@ include("auth.php");
          '.translate("You don't have any Messages.").'
       </div>';
          $display=0;
-      } else {
+      }
+      else {
          $display=1;
 
       echo '
@@ -93,7 +94,7 @@ include("auth.php");
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center">
                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="" />
+                        <input class="custom-control-input is-invalid" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="" />
                         <label class="custom-control-label" for="allbox">&nbsp;&nbsp;</label>
                      </div>
                   </th>
@@ -118,7 +119,7 @@ include("auth.php");
                <tr>
                   <td>
                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" onclick="CheckCheckAll();" id="msg_id'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                        <input class="custom-control-input is-invalid" type="checkbox" onclick="CheckCheckAll();" id="msg_id'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
                         <label class="custom-control-label" for="msg_id'.$count.'">&nbsp;&nbsp;</label>
                      </div>
                   </td>';
@@ -171,7 +172,7 @@ include("auth.php");
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE from_userid = '".$userdata['uid']."' AND type_msg='1' ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID)
-         forumerror(0005);
+         forumerror('0005');
       $total_messages = sql_num_rows($resultID);
 
       echo '
