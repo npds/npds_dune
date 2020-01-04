@@ -46,9 +46,9 @@ function geninfo($did,$out_template) {
       echo '
                <p><strong>'.translate("File Size").' : </strong>';
       $Fichier = new File($durl);
-      $objZF    =    new FileManagement;
+      $objZF = new FileManagement;
       if ($dfilesize!=0)
-         echo $dfilesize;
+         echo $objZF->file_size_format($dfilesize, 1);
       else
          echo $objZF->file_size_auto($durl, 2);
       echo '</p>
@@ -280,7 +280,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
    $result = sql_query($sql);
    while(list($did, $dcounter, $durl, $dfilename, $dfilesize, $ddate, $dweb, $duser, $dver, $dcat, $ddescription, $dperm) = sql_fetch_row($result)) {
       $Fichier = new File($durl);// keep for extension
-      $FichX = new FileManagement; // essai class
+      $FichX = new FileManagement;
       $okfile='';
       if(!stristr($dperm,',')) $okfile=autorisation($dperm);
       else {
@@ -308,7 +308,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
       echo '</td>
             <td class="small text-center">';
       if ($dfilesize!=0)
-         echo $dfilesize;
+         echo $FichX->file_size_format($dfilesize, 1);
       else
          echo $FichX->file_size_auto($durl, 2);
       echo '</td>
