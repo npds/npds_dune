@@ -47,13 +47,10 @@ function geninfo($did,$out_template) {
                <p><strong>'.translate("File Size").' : </strong>';
       $Fichier = new File($durl);
       $objZF    =    new FileManagement;
-      if ($dfilesize!=0) {
+      if ($dfilesize!=0)
+         echo $dfilesize
+      else
          echo $objZF->file_size_auto($durl, 2);
-//         echo $Fichier->Pretty_Size($dfilesize);//maybe keep for lower php version
-      } else {
-//         echo $Fichier->Affiche_Size();//maybe keep for lower php version
-         echo $objZF->file_size_auto($durl, 2);
-      }
       echo '</p>
                <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
                <p><strong>'.translate("Upload Date").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
@@ -311,7 +308,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
       echo '</td>
             <td class="small text-center">';
       if ($dfilesize!=0)
-         echo $FichX->file_size_auto($durl, 2);
+         echo $dfilesize;
       else
          echo $FichX->file_size_auto($durl, 2);
       echo '</td>
