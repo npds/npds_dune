@@ -48,7 +48,7 @@ function geninfo($did,$out_template) {
       $Fichier = new File($durl);
       $objZF    =    new FileManagement;
       if ($dfilesize!=0)
-         echo $dfilesize
+         echo $dfilesize;
       else
          echo $objZF->file_size_auto($durl, 2);
       echo '</p>
