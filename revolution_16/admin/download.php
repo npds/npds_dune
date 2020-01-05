@@ -154,10 +154,10 @@ function DownloadAdmin() {
             <td><span class="small">';
          $Fichier = new FileManagement;
          if ($dfilesize!=0)
-            echo $Fichier->file_size_auto($durl, 2);
+            echo $Fichier->file_size_format($dfilesize, 1);
          else
             echo $Fichier->file_size_auto($durl, 2);
-                echo '</span></td>
+         echo '</span></td>
             <td class="small">'.$ddate.'</td>
             <td>
                <a href="admin.php?op=DownloadEdit&amp;did='.$did.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit fa-lg"></i></a>
