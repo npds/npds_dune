@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -32,7 +32,7 @@ function etape_5() {
                   <form id="others_parameters" name="others_parameters" method="post" action="install.php">
                   <div class="form-group row">
                      <label class="col-form-label" for="new_nuke_url">'.ins_translate('Adresse (URL) de votre site').'</label>
-                     <input class="form-control" type="url" name="new_nuke_url" id="new_nuke_url" maxlength="80" value="'.$nuke_url.'" required="required" />
+                     <input class="form-control" type="url" name="new_nuke_url" id="new_nuke_url" maxlength="80" value="'.$nuke_url.'" required="required" data-fv-uri___allow-local="true" />
                      <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Exemples :').' http://www.monsite.com | http://www.monsite.com/npds | http://127.0.0.1/</div><div class="ml-auto" id="countcar_new_nuke_url"></div></div>
                   </div>
                   <div class="form-group row">
