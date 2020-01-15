@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -71,15 +71,17 @@ function defaultDisplay() {
          <label class="col-form-label col-sm-3" for="topic">'.translate("Topic").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" name="topic">';
-   $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+   $toplist = sql_query("SELECT topicid, topicname, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Select Topic").'</option>';
    settype($topic,'string');
    settype($sel,'string');
-   while (list($topicid, $topics) = sql_fetch_row($toplist)) {
-      if ($topicid==$topic) { $sel = 'selected="selected" '; }
+   while (list($topicid, $topiname, $topics) = sql_fetch_row($toplist)) {
+      if ($topicid==$topic) $sel = 'selected="selected" ';
       echo '
-               <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
+               <option '.$sel.' value="'.$topicid.'">';
+      if($topics!='') echo aff_langue($topics); else echo $topiname;
+      echo '</option>';
       $sel = '';
    }
    echo '
