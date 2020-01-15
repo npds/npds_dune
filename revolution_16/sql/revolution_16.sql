@@ -792,7 +792,7 @@ CREATE TABLE queue (
   uid mediumint(9) NOT NULL DEFAULT '0',
   uname varchar(40) NOT NULL DEFAULT '',
   subject varchar(255) NOT NULL DEFAULT '',
-  story text,
+  story mediumtext,
   bodytext mediumtext,
   timestamp datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   topic varchar(20) NOT NULL DEFAULT 'Linux',
