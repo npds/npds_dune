@@ -2,7 +2,7 @@
 ################################################################################################
 // Simple Form generator  SFORM / version 1.6 for DUNE
 // Class to manage several Form in a single database(MySql) in XML Format
-// P.Brunier 2001 - 2019
+// P.Brunier 2001 - 2020
 //
 // This program is free software. You can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -54,7 +54,6 @@ class form_handler {
 
   function interro_array($ibid0,$ibid1) {
     $number='no';
-//    while(list($key,$val)=each($ibid0) ){
     foreach($ibid0 as $key => $val) {
        if ($ibid1==$val['en']) {
           $number=$key;
@@ -451,7 +450,6 @@ function print_form($bg) {
                    $str.=' '.$this->form_fields[$num_extender]['javas'].' ';
                 $str.=($this->form_fields[$i]['size'] > 1)? " size=\"".$this->form_fields[$i]['size']."\">" : '>';
                 foreach($this->form_fields[$i]['value'] as $key => $val) {
-//                while(list($key,$val)=each($this->form_fields[$i]['value']) ){
                   $str.='
                      <option value="'.$key.'"';
                   if(array_key_exists('selected', $val) and $val['selected']) 
@@ -475,7 +473,6 @@ function print_form($bg) {
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">';
                foreach($this->form_fields[$i]['value'] as $key => $val) {
-//               while(list($key,$val)=each($this->form_fields[$i]['value']) ){
                   $str.='
                   <input class="" type="radio" ';
                   if ($first_radio) {
@@ -562,18 +559,25 @@ function print_form($bg) {
 
             case 'upload':
                $str.='
-            <div class="form-group row">
+            <div id="avava" class="form-group row" lang="'.language_iso(1,'','').'">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">
-                  <input class="form-control" id="'.$this->form_fields[$i]['name'].'" type="file" name="'.$this->form_fields[$i]['name'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />
-                  <input type="hidden" name="MAX_FILE_SIZE" value="'.$this->form_fields[$i]['file_size'].'" />';
+                  <div class="input-group mb-2 mr-sm-2">
+                     <div class="input-group-prepend" onclick="reset2($(\'#'.$this->form_fields[$i]['name'].'\'),\'\');">
+                        <div class="input-group-text"><i class="fas fa-sync"></i></div>
+                     </div>
+                     <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="'.$this->form_fields[$i]['name'].'"  name="'.$this->form_fields[$i]['name'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />
+                        <label id="lab" class="custom-file-label" for="'.$this->form_fields[$i]['name'].'">Selectionner votre fichier</label>
+                     </div>
+                  </div>
+               <input type="hidden" name="MAX_FILE_SIZE" value="'.$this->form_fields[$i]['file_size'].'" />';
                if ($num_extender!='no')
                   $str.=$this->form_fields[$num_extender]['html'];
                $str.='
                </div>
             </div>';
             break;
-
             default:
             break;
          }
