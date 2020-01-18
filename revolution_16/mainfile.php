@@ -3382,7 +3382,6 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                   });
                },
             }),
-
          },
       })
       .on("core.validator.validated", function(e) {
@@ -3404,6 +3403,14 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                break;
             }
          }
+        if (e.field === "B1" && e.validator === "promise") {
+            //const preview = document.getElementById("avatarPreview");
+            if (e.result.valid && e.result.meta && e.result.meta.source) {
+                $("#ava_perso").removeClass("border-danger").addClass("border-success")
+            } else if (!e.result.valid) {
+               $("#ava_perso").addClass("border-danger")
+            }
+        }
       });';
       if($fv_parametres!='')
          if(array_key_exists(1, $fv_parametres))
