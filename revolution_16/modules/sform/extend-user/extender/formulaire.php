@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -65,7 +65,6 @@ $geofield = array($ch_lat,$ch_lon);
 $fieldrest = array_diff($fielddispo, $geofield);
 //reset($fieldrest);
 foreach($fieldrest as $k => $v) {
-//while (list($k, $v) = each($fieldrest)) {
    $m->add_field($v,$v,'','hidden',false);
 }
 
