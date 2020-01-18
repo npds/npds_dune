@@ -54,7 +54,8 @@ if(isbadmailuser($userinfo['uid'])===false) {//proto
 if ($smilies) {
    if (stristr($userinfo['user_avatar'],"users_private")) {
       $m->add_field('user_avatar',translate("Your Avatar"), $userinfo['user_avatar'],'show-hidden',false,30,'','');
-      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="Your next avatar" />');
+      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="Your next avatar" />
+');
    } else {
       global $theme;
       $direktori="images/forum/avatar";
@@ -68,7 +69,7 @@ if ($smilies) {
       }
       asort($filelist);
       foreach($filelist as $key => $file) {
-         if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
+         if (!preg_match('#\.gif|\.jpg|\.jpeg|\.png$#i', $file)) continue;
             $tmp_tempo[$file]['en']=$file;
             if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
       }
@@ -83,9 +84,10 @@ if ($smilies) {
 
    $taille_fichier = 81920;
    if (!$avatar_size) $avatar_size='80*100';
+   $avatar_wh = explode('*',$avatar_size);
    $m->add_upload('B1', '', '30', $taille_fichier);
-   $m->add_extender('B1', '', '<span class="small text-primary"><i id="reset_ava" class="fas fa-sync fa-lg mr-2"></i>Réinitialiser le selectionneur de fichier</span><span class="help-block">taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octets et <strong>'.$avatar_size.'</strong> pixels</span>');
-
+   $m->add_extender('B1', '', '<span class="help-block text-right">Taille maximum du fichier image :&nbsp;=>&nbsp;<strong>'.$taille_fichier.'</strong> octets et <strong>'.$avatar_size.'</strong> pixels</span>');
+   $m->add_extra('<div id="avatarPreview" class="preview"></div>');
    $m->add_checkbox('raz_avatar',translate("Re-activate the standard'avatars"), 1, false, false);
    // ----------------------------------------------------------------------------------------------
 }
@@ -129,6 +131,10 @@ $m->add_field('op','','saveuser','hidden',false);
 $m->add_field('uname','',$userinfo['uname'],'hidden',false);
 $m->add_field('uid','',$userinfo['uid'],'hidden',false);
 include_once('modules/geoloc/geoloc_conf.php');
+// --- CONSENTEMENT
+$m->add_checkbox('consent',aff_langue('[french]En soumettant ce formulaire j\'accepte que les informations saisies soient exploit&#xE9;es dans le cadre de l\'utilisation et du fonctionnement de ce site.[/french][english]By submitting this form, I accept that the information entered will be used in the context of the use and operation of this website.[/english][spanish]Al enviar este formulario, acepto que la informaci&oacute;n ingresada se utilizar&aacute; en el contexto del uso y funcionamiento de este sitio web.[/spanish][german]Mit dem Absenden dieses Formulars erkl&auml;re ich mich damit einverstanden, dass die eingegebenen Informationen im Rahmen der Nutzung und des Betriebs dieser Website verwendet werden.[/german][chinese]&#x63D0;&#x4EA4;&#x6B64;&#x8868;&#x683C;&#x5373;&#x8868;&#x793A;&#x6211;&#x63A5;&#x53D7;&#x6240;&#x8F93;&#x5165;&#x7684;&#x4FE1;&#x606F;&#x5C06;&#x5728;&#x672C;&#x7F51;&#x7AD9;&#x7684;&#x4F7F;&#x7528;&#x548C;&#x64CD;&#x4F5C;&#x8303;&#x56F4;&#x5185;&#x4F7F;&#x7528;&#x3002;[/chinese]'), "1", true, false);
+// --- CONSENTEMENT
+
 $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >
@@ -152,13 +158,6 @@ $m->add_extra('
             inpandfieldlen("C2",40);
             inpandfieldlen("C1",100);
             inpandfieldlen("T1",40);
-
-            $("#reset_ava").on("click", function(e) {
-               var $el = $("#B1");
-               $el.wrap("<form>").closest("form").get(0).reset();
-               $(".ava-meca").hide();
-               $("#user_avatar").prop("disabled", false);
-           });
          });
          $(".ava-meca, #avatar, #tonewavatar").hide();
          function readURL(input) {
@@ -171,41 +170,90 @@ $m->add_extra('
             }
             reader.readAsDataURL(input.files[0]);
          }
+
          $("#B1").change(function() {
             readURL(this);
             $("#user_avatar option[value=\''.$userinfo['user_avatar'].'\']").prop("selected", true);
             $("#user_avatar").prop("disabled", "disabled");
             $("#avatar,#tonewavatar").hide();
+            $("#lab").addClass("selected").html($(this).val().split(\'\\\\\').pop());
+            $("#avava .fv-plugins-message-container").removeClass("d-none").addClass("d-block");
          });
+
+         window.reset2 = function (e,f) {
+            e.wrap("<form>").closest("form").get(0).reset();
+            e.unwrap();
+            event.preventDefault();
+            $("#lab").html("Sélectionner votre fichier");
+            $("#B1").removeClass("is-valid is-invalid");
+            $("#user_avatar option[value=\''.$userinfo['user_avatar'].'\']").prop("selected", true);
+            $("#user_avatar").prop("disabled", false);
+            $("#avava").removeClass("fv-plugins-icon-container has-success");
+            $(".ava-meca").hide();
+            $("#avava .fv-plugins-message-container").addClass("d-none").removeClass("d-block");
+         };
+
       //]]>
       </script>
       ');
+$m->add_extra(aff_langue('
+      <div class="form-group row">
+         <div class="col-sm-8 ml-sm-auto small" >
+[french]Pour conna&icirc;tre et exercer vos droits notamment de retrait de votre consentement &agrave; l\'utilisation des donn&eacute;es collect&eacute;es veuillez consulter notre <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">politique de confidentialit&eacute;</a>.[/french][english]To know and exercise your rights, in particular to withdraw your consent to the use of the data collected, please consult our <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">privacy policy</a>.[/english][spanish]Para conocer y ejercer sus derechos, en particular para retirar su consentimiento para el uso de los datos recopilados, consulte nuestra <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">pol&iacute;tica de privacidad</a>.[/spanish][german]Um Ihre Rechte zu kennen und auszu&uuml;ben, insbesondere um Ihre Einwilligung zur Nutzung der erhobenen Daten zu widerrufen, konsultieren Sie bitte unsere <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">Datenschutzerkl&auml;rung</a>.[/german][chinese]&#x8981;&#x4E86;&#x89E3;&#x5E76;&#x884C;&#x4F7F;&#x60A8;&#x7684;&#x6743;&#x5229;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x8981;&#x64A4;&#x56DE;&#x60A8;&#x5BF9;&#x6240;&#x6536;&#x96C6;&#x6570;&#x636E;&#x7684;&#x4F7F;&#x7528;&#x7684;&#x540C;&#x610F;&#xFF0C;&#x8BF7;&#x67E5;&#x9605;&#x6211;&#x4EEC;<a href="static.php?op=politiqueconf.html&#x26;npds=1&#x26;metalang=1">&#x7684;&#x9690;&#x79C1;&#x653F;&#x7B56;</a>&#x3002;[/chinese]
+         </div>
+      </div>'));
 $arg1 ='
       var formulid = ["register"];';
 $fv_parametres ='
-/*      B1: {
+
+      B1: {
           validators: {
               file: {
                   extension: "jpeg,jpg,png,gif",
                   type: "image/jpeg,image/png,image/gif",
                   maxSize: '.$taille_fichier.',
-                  message: "The selected file is not valid"
-              }
+                  message: "Type ou/et poids ou/et extension de fichier incorrect"
+              },
+             promise: {
+                   promise: function (input) {
+                       return new Promise(function(resolve, reject) {
+                           const files = input.element.files
+                           if (!files.length || typeof FileReader === "undefined") {
+                               resolve({
+                                   valid: true
+                               });
+                           }
+                           const img = new Image();
+                           img.addEventListener("load", function() {
+                               const w = this.width;
+                               const h = this.height;
+
+                               resolve({
+                                   valid: (w <= '.$avatar_wh[0].' && h <= '.$avatar_wh[1].'),
+                                   message: "Dimension(s) incorrecte(s) largeur > '.$avatar_wh[0].' px ou/et hauteur > '.$avatar_wh[1].' px !",
+                                   meta: {
+                                       source: img.src,    // We will use it later to show the preview
+                                       width: w,
+                                       height: h,
+                                   },
+                               });
+                           });
+                           img.addEventListener("error", function() {
+                               reject({
+                                   valid: false,
+                                   message: "Please choose an image",
+                               });
+                           });
+                           const reader = new FileReader();
+                           reader.readAsDataURL(files[0]);
+                           reader.addEventListener("loadend", function(e) {
+                               img.src = e.target.result;
+                           });
+                       });
+                   }
+               },
           }
       },
-
-
-      T1: {
-         excluded: false,
-         validators: {
-            date: {
-               format: "DD/MM/YYYY",
-               message: "The date is not a valid"
-            }
-         }
-      },
-*/
-
       pass: {
          validators: {
             checkPassword: {
