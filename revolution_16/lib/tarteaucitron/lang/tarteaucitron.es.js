@@ -1,5 +1,6 @@
 /*global tarteaucitron */
 tarteaucitron.lang = {
+    "middleBarHead": "☝ 🍪",
     "adblock": "¡Hola! Este sitio web es transparente y te da la opción de activar los servicios de terceros.",
     "adblock_call": "Por favor deshabilita tu AdBlocker para empezar a personalizar los servicios.",
     "reload": "Actualizar esta página",
@@ -28,7 +29,7 @@ tarteaucitron.lang = {
     "useNoCookie": "Este servicio no ha instalado ninguna cookie.",
     "more": "Leer más",
     "source": "Ver sitio web oficial",
-    "credit": "Gestor de cookies realizada por tarteaucitron.js",
+    "credit": "Gestor de cookies realizado por tarteaucitron.js",
 
     "toggleInfoBox": "Mostrar/ocultar información sobre almacenamiento de cookies",
     "title": "Panel de gestión de cookies",

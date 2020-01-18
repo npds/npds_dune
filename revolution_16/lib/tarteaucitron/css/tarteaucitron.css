@@ -97,7 +97,7 @@ div#tarteaucitronServices {
         top: 0 !important;
         width: 100% !important;
     }
-    
+
     #tarteaucitron .tarteaucitronBorder {
         border: 0 !important;
     }
@@ -157,9 +157,7 @@ div#tarteaucitronServices {
 #tarteaucitron a {
     color: var(--primary);
     font-size: 0.8rem;
-/* 
-    font-weight: 700;
- */
+/*font-weight: 700;*/
     text-decoration: none;
 }
 
@@ -314,17 +312,15 @@ div#tarteaucitronServices {
 #tarteaucitron #tarteaucitronServices .tarteaucitronTitle button, 
 #tarteaucitron #tarteaucitronInfo, 
 #tarteaucitron #tarteaucitronServices .tarteaucitronDetails {
-    background: var(--primary);
     color: var(--white);
     display: inline-block;
     font-size: 1.1rem;
-/* 
-    font-weight: 700;
- */
+/*font-weight: 700;*/
     margin: 20px 0px 0px;
     padding: 5px 20px;
     text-align: left;
     width: auto;
+    background: var(--primary);
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronMainLine .tarteaucitronName a,
@@ -365,6 +361,7 @@ div#tarteaucitronServices {
 
 #tarteaucitron #tarteaucitronInfo a {
     color: var(--white);
+   /*text-decoration: underline;*/
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine:hover {
@@ -372,13 +369,19 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine {
-/* 
-    background: rgba(51, 51, 51, 0.1);
- */
+/* background: rgba(51, 51, 51, 0.1);*/
     border-left: 5px solid transparent;
     margin: 0;
     overflow: hidden;
     padding: 15px 5px;
+}
+
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsAllowed {
+    border-color: var(--success);
+}
+
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsDenied {
+    border-color: var(--danger);
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronMainLine {
@@ -409,13 +412,11 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronName {
-    display: inline-block;
-    float: left;
-    margin-left: 10px;
-    text-align: left;
-/* 
-    width: 50%;
- */
+   display: inline-block;
+   float: left;
+   margin-left: 10px;
+   text-align: left;
+   /* width: 50%;*/
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronName a:hover {
@@ -431,7 +432,19 @@ div#tarteaucitronServices {
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronAllow,
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronDeny,
 .tac_activate .tarteaucitronAllow {
-    background: var(--secondary);
+    background: var(--danger);
+    border-radius: 4px;
+    color: var(--white);
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    border: 0;
+}
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronAsk .tarteaucitronAllow {
+    background: var(--success);
     border-radius: 4px;
     color: var(--white);
     cursor: pointer;
@@ -443,10 +456,29 @@ div#tarteaucitronServices {
     border: 0;
 }
 
+
+
+
+
+#tarteaucitron #tarteaucitronServices #tarteaucitronAllAllowed.tarteaucitronIsSelected {
+    background-color: var(--success);
+    opacity: 1;
+}
+#tarteaucitron #tarteaucitronServices #tarteaucitronAllDenied.tarteaucitronIsSelected {
+    background-color: var(--danger);
+    opacity: 1;
+}
+
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsAllowed .tarteaucitronAllow {
+    background-color: var(--success);
+}
+#tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsDenied .tarteaucitronDeny {
+    background-color:var(--danger);
+}
+
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine .tarteaucitronName .tarteaucitronListCookies {
-/* 
-    color: var(--dark);
- */    font-size: 0.8rem;
+/* color: var(--dark);*/
+    font-size: 0.8rem;
 }
 
 #tarteaucitron .tarteaucitronH3 {
@@ -488,6 +520,8 @@ div#tarteaucitronServices {
     width: 100%;
 }
 
+#tarteaucitronAlertBig #tarteaucitronPrivacyUrl,
+#tarteaucitronAlertBig #tarteaucitronPrivacyUrlDialog,
 #tarteaucitronAlertBig #tarteaucitronDisclaimerAlert,
 #tarteaucitronAlertBig #tarteaucitronDisclaimerAlert strong {
     font: 0.9rem;
@@ -498,7 +532,8 @@ div#tarteaucitronServices {
     font-weight: 700;
 }
 
-#tarteaucitronAlertBig #tarteaucitronPrivacyUrl {
+#tarteaucitronAlertBig #tarteaucitronPrivacyUrl,
+#tarteaucitronAlertBig #tarteaucitronPrivacyUrlDialog {
     cursor: pointer;
 }
 
@@ -621,9 +656,7 @@ div#tarteaucitronServices {
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesList {
     background: var(--white);
     border: 0.5px solid var(--primary);
-/* 
-    color: var(--secondary);
- */
+/* color: var(--secondary);*/
     font-size: 0.7rem;
     height: auto;
     overflow: auto;
@@ -631,9 +664,7 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesList b {
-/* 
-    color: var(--secondary);
- */
+/* color: var(--secondary);*/
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesTitle {
@@ -649,9 +680,7 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesList .tarteaucitronCookiesListMain {
-/* 
-    background: rgba(51, 51, 51, 0.1);
- */
+/* background: rgba(51, 51, 51, 0.1);*/
     background: var(--white);
     padding: 7px 5px 10px;
     word-wrap: break-word;
@@ -660,11 +689,7 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesList .tarteaucitronCookiesListMain:hover {
-/* 
-    background: rgba(51, 51, 51, 0.1);
- */
-        background: var(--light);
-
+    background: var(--light);
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesList .tarteaucitronCookiesListMain a {
@@ -682,9 +707,7 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesListContainer #tarteaucitronCookiesList .tarteaucitronCookiesListMain .tarteaucitronCookiesListRight {
-/* 
-    color: var(--secondary);
- */
+/*color: var(--secondary);*/
     display: inline-block;
     font-size: 11px;
     margin-left: 10%;
@@ -744,13 +767,13 @@ div.amazon_product {
 }.tarteaucitronIsDenied .tarteaucitronDeny {
     opacity: 1!important;
 }
-.tarteaucitronLine .tarteaucitronAllow, .tarteaucitronLine .tarteaucitronAllow {
+.tarteaucitronLine .tarteaucitronAllow, .tarteaucitronLine .tarteaucitronDeny {
     opacity: 0.4;
 }
 
 div#tarteaucitronInfo {
     display: block!important;
-    position: initial!important;
+    position: relative !important;
     text-align: center!important;
     max-width: 80%!important;
     padding: 15px 0!important;
