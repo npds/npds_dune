@@ -50,7 +50,9 @@ if(defined('CITRON')){
        "removeCredit": true, /* supprimer le lien vers la source ? */
        "moreInfoLink": true, /* Show more info link */
        "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
-       "cookieDomain": "" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
+       "cookieDomain": "", /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
+       "readmoreLink": "static.php?op=politiqueconf.html&npds=1&metalang=1" /* Change the default readmore link */
+
    });
    //]]
 </script>'; //RGPD tool
