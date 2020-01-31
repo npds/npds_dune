@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -63,7 +63,7 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    adminfoot('','','','');
 }
 
-function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop) {
+function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop, $old_id) {
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
    adminhead($f_meta_nom, $f_titre, $adminimg);
@@ -87,7 +87,7 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
          <div class="col-sm-9">
-            <input class="form-control" type="text" id="rs_url" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
+            <input class="form-control" type="url" id="rs_url" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
             <span class="help-block text-right"><span id="countcar_rs_url"></span></span>
          </div>
       </div>
@@ -106,6 +106,7 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />
             <input type="hidden" name="subop" value="SaveSetReseaux" />
             <input type="hidden" name="adm_img_mod" value="1" />
+            <input type="hidden" name="old_id" value="'.urldecode($rs_id).'" />
          </div>
       </div>
    </form>';
@@ -117,17 +118,22 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
    adminfoot('fv','',$arg1,'');
 }
 
-function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
+function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $old_id) {
    if (file_exists("modules/$ModPath/reseaux-sociaux.conf.php"))
       include ("modules/$ModPath/reseaux-sociaux.conf.php");
    $newar = array($rs_id,$rs_url,$rs_ico);
    $newrs = array();
+   $j=0;
+   foreach ($rs as $v1) {
+      if(in_array($old_id,$v1,true)) unset($rs[$j]);
+      $j++;
+   }
    foreach ($rs as $v1) {
       if(!in_array($rs_id,$v1,true)) $newrs[]=$v1;
    }
    if($subop!=='DeleteReseaux') $newrs[]=$newar;
 
-   $file = fopen("modules/$ModPath/reseaux-sociaux.conf.php", "w");
+   $file = fopen("modules/$ModPath/reseaux-sociaux.conf.php", "w+");
    $content = "<?php \n";
    $content .= "/************************************************************************/\n";
    $content .= "/* DUNE by NPDS                                                         */\n";
@@ -167,21 +173,22 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop) {
    settype($rs_id,'string');
    settype($rs_url,'string');
    settype($rs_ico,'string');
+   settype($old_id,'string');
 
    switch ($subop) {
       case "SaveSetReseaux":
-         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
+         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $old_id);
          ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
       break;
       case "DeleteReseaux":
-         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop);
+         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $old_id);
          ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
       break;
       case "AddReseaux":
-         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);
+         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop,$old_id);
       break;
       case "EditReseaux":
-         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop);break;
+         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop, $old_id);break;
          ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
       default:
          ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
