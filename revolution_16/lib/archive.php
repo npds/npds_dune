@@ -9,6 +9,7 @@
  | Modified by M. PASCAL aKa EBH (plan.net@free.fr)
  | Modified by Developpeur (developpeur@npds.org)
  | Corrected by Developpeur for Sable Evolution
+ | Corrected by jpb for REvolution 16 php > 7
  +--------------------------------------------------
  | Email bugs/suggestions to darksnoopy@shaw.ca
  +--------------------------------------------------
@@ -87,11 +88,9 @@
  | Both functions will return a string containing any errors
  +------------------------------------------------------------*/
 
-class gzfile extends archive
-{
+class gzfile extends archive {
    var $gzdata = "";
-   function addfile($data,$filename=null,$comment=null)
-   {
+   function addfile($data,$filename=null,$comment=null) {
       $flags = bindec("000".(!empty($comment)? "1" : "0").(!empty($filename)? "1" : "0")."000");
       $this->gzdata .= pack("C1C1C1C1VC1C1",0x1f,0x8b,8,$flags,time(),2,0xFF);
       if(!empty($filename)) { $this->gzdata .= "$filename\0"; }
@@ -99,18 +98,16 @@ class gzfile extends archive
       $this->gzdata .= gzdeflate($data);
       $this->gzdata .= pack("VV",crc32($data),strlen($data));
    }
-   function extract($data)
-   {
+   function extract($data) {
       $id = unpack("H2id1/H2id2",substr($data,0,2));
-      if($id['id1'] != "1f" || $id['id2'] != "8b") { return $this->error("Données non valide."); }
+      if($id['id1'] != "1f" || $id['id2'] != "8b") { return $this->error("DonnÃ©es non valide."); }
       $temp = unpack("Cflags",substr($data,2,1));
       $temp = decbin($temp['flags']);
       if($temp & 0x8) { $flags['name'] = 1; }
       if($temp & 0x4) { $flags['comment'] = 1; }
       $offset = 10;
       $filename = "";
-      while(!empty($flags['name']))
-      {
+      while(!empty($flags['name'])) {
          $char = substr($data,$offset,1);
          $offset++;
          if($char == "\0") { break; }
@@ -118,8 +115,7 @@ class gzfile extends archive
       }
       if($filename == "") { $filename = "file"; }
       $comment = "";
-      while(!empty($flags['comment']))
-      {
+      while(!empty($flags['comment'])) {
          $char = substr($data,$offset,1);
          $offset++;
          if($char == "\0") { break; }
@@ -129,15 +125,13 @@ class gzfile extends archive
       $crc32 = $temp['crc32'];
       $isize = $temp['isize'];
       $data = gzinflate(substr($data,$offset,strlen($data)-8-$offset));
-      if($crc32 != crc32($data)) { return $this->error("Erreur de contrôle"); }
+      if($crc32 != crc32($data)) { return $this->error("Erreur de contrÃ´le"); }
       return array('filename'=>$filename,'comment'=>$comment,'size'=>$isize,'data'=>$data);
    }
-   function arc_getdata()
-   {
+   function arc_getdata() {
       return $this->gzdata;
    }
-   function filedownload($filename)
-   {
+   function filedownload($filename) {
       @header("Content-Type: application/x-gzip; name=\"$filename\"");
       @header("Content-Disposition: attachment; filename=\"$filename\"");
       @header("Pragma: no-cache");
@@ -145,8 +139,7 @@ class gzfile extends archive
       print($this->arc_getdata());
    }
 }
-class zipfile extends archive
-{
+class zipfile extends archive {
    var $cwd = "./";
    var $comment = "";
    var $level = 9;
@@ -156,8 +149,8 @@ class zipfile extends archive
    var $replacetime = 0;
    var $central = array();
    var $zipdata = array();
-   function zipfile($cwd="./",$flags=array())
-   {
+
+   public function __construct($cwd="./",$flags=array()) {
       $this->cwd = $cwd;
       if(isset($flags['time'])) { $this->replacetime = $flags['time']; }
       if(isset($flags['recursesd'])) { $this->recursesd = $flags['recursesd']; }
@@ -166,8 +159,11 @@ class zipfile extends archive
       if(isset($flags['comment'])) { $this->comment = $flags['comment']; }
       $this->archive($flags);
    }
-   function addfile($data,$filename,$flags=array())
-   {
+   public function zipfile() {
+      self::__construct();
+   }
+
+   function addfile($data,$filename,$flags=array()) {
       if($this->storepath != 1) { $filename = strstr($filename,"/")? substr($filename,strrpos($filename,"/")+1) : $filename; }
       else { $filename = preg_replace("/^(\.{1,2}(\/|\\\))+/","",$filename); }
       $mtime = !empty($this->replacetime)? getdate($this->replacetime) : (isset($flags['time'])? getdate($flags['time']) : getdate());
@@ -182,12 +178,10 @@ class zipfile extends archive
       $this->central[] = "\x50\x4b\x01\x02\x00\x00\x14\x00\x00\x00\x08\x00".$mtime.pack("VVVvvvvvVV",$crc32,$complength,$normlength,strlen($filename),0x00,0x00,0x00,0x00,0x0000,$this->offset).$filename;
       $this->offset = strlen(implode("",$this->zipdata));
    }
-   function addfiles($filelist)
-   {
+   function addfiles($filelist) {
       $pwd = getcwd();
       @chdir($this->cwd);
-      foreach($filelist as $current)
-      {
+      foreach($filelist as $current) {
          if(!@file_exists($current)) { continue; }
          $stat = stat($current);
          if($fp = @fopen($current,"rb"))
@@ -205,14 +199,12 @@ class zipfile extends archive
       }
       @chdir($pwd);
    }
-   function arc_getdata()
-   {
+   function arc_getdata() {
       $central = implode("",$this->central);
       $zipdata = implode("",$this->zipdata);
       return $zipdata.$central."\x50\x4b\x05\x06\x00\x00\x00\x00".pack("vvVVv",sizeof($this->central),sizeof($this->central),strlen($central),strlen($zipdata),strlen($this->comment)).$this->comment;
    }
-   function filedownload($filename)
-   {
+   function filedownload($filename) {
       @header("Content-Type: application/zip; name=\"$filename\"");
       @header("Content-Disposition: attachment; filename=\"$filename\"");
       @header("Pragma: no-cache");
@@ -220,51 +212,43 @@ class zipfile extends archive
       print($this->arc_getdata());
    }
 }
-class archive
-{
+class archive {
    var $overwrite = 0;
    var $defaultperms   = 0644;
-   function archive($flags=array())
-   {
+
+   public function __construct($flags=array()) {
       if(isset($flags['overwrite'])) { $this->overwrite = $flags['overwrite']; }
       if(isset($flags['defaultperms'])) { $this->defaultperms = $flags['defaultperms']; }
    }
-   function adddirectories($dirlist)
-   {
+   public function archive() {
+      self::__construct();
+   }
+   function adddirectories($dirlist) {
       $pwd = getcwd();
       @chdir($this->cwd);
       $filelist = array();
-      foreach($dirlist as $current)
-      {
-         if(@is_dir($current))
-         {
+      foreach($dirlist as $current) {
+         if(@is_dir($current)) {
             $temp = $this->parsedirectories($current);
             foreach($temp as $filename) { $filelist[] = $filename; }
          }
-         elseif(@file_exists($current))
-         {
+         elseif(@file_exists($current)) {
             $filelist[] = $current;
          }
       }
       @chdir($pwd);
       $this->addfiles($filelist);
    }
-   function parsedirectories($dirname)
-   {
+   function parsedirectories($dirname) {
       $filelist = array();
       $dir = @opendir($dirname);
-      while(false!==($file = readdir($dir)))
-      {
+      while(false!==($file = readdir($dir))) {
          if($file == "." || $file == ".." || $file == "default.html" || $file == "index.html")
-         {
             continue;
-         }
-         elseif(@is_dir($dirname."/".$file))
-         {
+         elseif(@is_dir($dirname."/".$file)) {
             if($this->recursesd != 1) { continue; }
             $temp = $this->parsedirectories($dirname."/".$file);
-            foreach($temp as $file2)
-            {
+            foreach($temp as $file2) {
                $filelist[] = $file2;
             }
          }
@@ -276,26 +260,19 @@ class archive
       @closedir($dir);
       return $filelist;
    }
-   function filewrite($filename,$perms=null)
-   {
-      if($this->overwrite != 1 && @file_exists($filename)) { return $this->error("Le fichier $filename existe déjà."); }
+   function filewrite($filename,$perms=null) {
+      if($this->overwrite != 1 && @file_exists($filename)) { return $this->error("Le fichier $filename existe dÃ©jÃ ."); }
       if(@file_exists($filename)) { @unlink($filename); }
       $fp = @fopen($filename,"wb");
       if(!fwrite($fp,$this->arc_getdata()))
-      {
-         return $this->error("Impossible d'écrire les données dans le fichier $filename.");
-      }
+         return $this->error("Impossible d'Ã©crire les donnÃ©es dans le fichier $filename.");
       @fclose($fp);
       if(!isset($perms))
-      {
          $perms = $this->defaultperms;
-      }
       @chmod($filename,$perms);
    }
-   function extractfile($filename)
-   {
-      if($fp = @fopen($filename,"rb"))
-      {
+   function extractfile($filename) {
+      if($fp = @fopen($filename,"rb")) {
          if (filesize($filename)>0)
             return $this->extract(fread($fp,filesize($filename)));
          else
@@ -303,12 +280,9 @@ class archive
          @fclose($fp);
       }
       else
-      {
          return $this->error("Impossible d'ouvrir le fichier $filename.");
-      }
    }
-   function error($error)
-   {
+   function error($error) {
       $this->errors[] = $error;
       return 0;
    }
@@ -339,11 +313,11 @@ function send_file($line,$filename,$extension,$MSos) {
    }
    if ($compressed) {
       if ($MSos) {
-          $arc = new zipfile();
-          $filez = $filename.".zip";
+         $arc = new zipfile();
+         $filez = $filename.".zip";
       } else {
-          $arc = new gzfile();
-          $filez = $filename.".gz";
+         $arc = new gzfile();
+         $filez = $filename.".gz";
       }
       $arc->addfile($line, $filename.".".$extension, "");
       $arc->arc_getdata();

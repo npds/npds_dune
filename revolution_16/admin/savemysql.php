@@ -31,7 +31,7 @@ admindroits($aid,$f_meta_nom);
 
    function get_table_def($table) {
       global $dbname, $crlf, $crlf2;
-
+      settype($index, 'array');
       $k = 0;
       $result = sql_query("SELECT * FROM $table LIMIT 1");
       $count = sql_num_fields($result);
@@ -40,8 +40,7 @@ admindroits($aid,$f_meta_nom);
       $schema_create .= "DROP TABLE IF EXISTS $table;$crlf";
       $schema_create .= "CREATE TABLE $table ($crlf";
       $result = sql_query("SHOW FIELDS FROM $table");
-      while($row = sql_fetch_assoc($result))
-      {
+      while($row = sql_fetch_assoc($result)) {
          $schema_create .= " ".$row['Field']." ".$row['Type'];
          if(isset($row['Default']) && (!empty($row['Default']) || $row['Default'] == "0"))
             $schema_create .= " DEFAULT '".$row['Default']."'";
@@ -53,8 +52,7 @@ admindroits($aid,$f_meta_nom);
          $k++;
       }
       $result = sql_query("SHOW KEYS FROM $table");
-      while($row = sql_fetch_assoc($result))
-      {
+      while($row = sql_fetch_assoc($result)) {
          $kname = $row['Key_name'];
          if(($kname != "PRIMARY") && ($row['Non_unique'] == 0))
             $kname="UNIQUE|$kname";
