@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -107,7 +107,7 @@ function displayadmins() {
       </thead>
       <tbody>';
    while(list($a_aid, $name, $url, $email, $supadm) = sql_fetch_row($result)) {
-if ($supadm==1) echo'
+      if ($supadm==1) echo'
          <tr class="table-danger">'; else echo'
          <tr>';
       echo '
@@ -442,55 +442,55 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
 
    if (!($chng_aid && $chng_name && $chng_email))
       Header("Location: admin.php?op=mod_authors");
-      include_once('functions.php');
-      if(checkdnsmail($chng_email) === false) {
-         global $hlpfile;
-         include("header.php");
-         GraphicAdmin($hlpfile);
-         echo error_handler(adm_translate("ERREUR : DNS ou serveur de mail incorrect").'<br />');
-         include("footer.php");
-         return;
-      }
-    // Gestion du fichier pour filemanager
+   include_once('functions.php');
+   if(checkdnsmail($chng_email) === false) {
+      global $hlpfile;
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      echo error_handler(adm_translate("ERREUR : DNS ou serveur de mail incorrect").'<br />');
+      include("footer.php");
+      return;
+   }
+   // Gestion du fichier pour filemanager
    $result=sql_query("SELECT radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($ori_radminsuper) = sql_fetch_row($result);
    if ($ori_radminsuper and !$chng_radminsuper)
       @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
    if (!$ori_radminsuper and $chng_radminsuper)
       @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
-  if(file_exists("modules/f-manager/users/".strtolower($chng_aid).".conf.php") and $ad_d_27!='27')
-    @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
-  if(!file_exists("modules/f-manager/users/".strtolower($chng_aid).".conf.php") and $ad_d_27!='')
-    @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
+   if(file_exists("modules/f-manager/users/".strtolower($chng_aid).".conf.php") and $ad_d_27!='27')
+      @unlink("modules/f-manager/users/".strtolower($chng_aid).".conf.php");
+   if(!file_exists("modules/f-manager/users/".strtolower($chng_aid).".conf.php") and $ad_d_27!='')
+      @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($chng_aid).".conf.php");
 
-    if ($chng_pwd2 != '') {
-       if($chng_pwd != $chng_pwd2) {
-          global $hlpfile;
-          include("header.php");
-          GraphicAdmin($hlpfile);
-          echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
-          include("footer.php");
-          exit;
-       }
-       global $system_md5;
-       if (($system_md5) or ($temp_system_md5))
-          $chng_pwd=crypt($chng_pwd2,$chng_pwd);
-       if ($chng_radminsuper==1)
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper', pwd='$chng_pwd' WHERE aid='$chng_aid'");
-       else
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0', pwd='$chng_pwd' WHERE aid='$chng_aid'");
-    } else {
-       if ($chng_radminsuper==1) {
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper' WHERE aid='$chng_aid'");
-          deletedroits($chng_aid);
-       } else {
-          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0' WHERE aid='$chng_aid'");
-          deletedroits($chng_aid);
-          updatedroits($chng_aid);
-       }
-    }
-    global $aid; Ecr_Log('security', "ModifyAuthor($chng_name) by AID : $aid", '');
-    Header("Location: admin.php?op=mod_authors");
+   if ($chng_pwd2 != '') {
+      if($chng_pwd != $chng_pwd2) {
+         global $hlpfile;
+         include("header.php");
+         GraphicAdmin($hlpfile);
+         echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
+         include("footer.php");
+         exit;
+      }
+      global $system_md5;
+      if (($system_md5) or ($temp_system_md5))
+         $chng_pwd=crypt($chng_pwd2,$chng_pwd);
+      if ($chng_radminsuper==1)
+         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper', pwd='$chng_pwd' WHERE aid='$chng_aid'");
+      else
+         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0', pwd='$chng_pwd' WHERE aid='$chng_aid'");
+   } else {
+      if ($chng_radminsuper==1) {
+         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper' WHERE aid='$chng_aid'");
+         deletedroits($chng_aid);
+      } else {
+            $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0' WHERE aid='$chng_aid'");
+            deletedroits($chng_aid);
+            updatedroits($chng_aid);
+      }
+   }
+   global $aid; Ecr_Log('security', "ModifyAuthor($chng_name) by AID : $aid", '');
+   Header("Location: admin.php?op=mod_authors");
 }
 
 function error_handler($ibid) {
@@ -509,9 +509,8 @@ switch ($op) {
       modifyadmin($chng_aid);
    break;
    case 'UpdateAuthor':
-            settype( $temp_system_md5,'string');
-         settype( $chng_radminsuper,'string');
-
+      settype( $temp_system_md5,'string');
+      settype( $chng_radminsuper,'string');
       updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5, $ad_d_27);
    break;
    case 'AddAuthor':
