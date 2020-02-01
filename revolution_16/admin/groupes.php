@@ -498,8 +498,8 @@ function groupe_edit($groupe_id) {
    ';
    adminfoot('fv','',$arg1,'');
 }
-function groupe_maj() {
-   global $hlpfile, $NPDS_Prefix, $groupe_id, $groupe_name, $groupe_description, $sub_op;
+function groupe_maj($sub_op) {
+   global $hlpfile, $NPDS_Prefix, $groupe_id, $groupe_name, $groupe_description;
 
    if ($sub_op==adm_translate("Sauver les modifications")) {
       sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_name='$groupe_name', groupe_description='$groupe_description' WHERE groupe_id='$groupe_id'");
@@ -877,7 +877,7 @@ switch ($op) {
       groupe_edit($groupe_id);
    break;
    case 'groupe_maj':
-      groupe_maj();
+      groupe_maj($sub_op);
    break;
    case 'groupe_add':
       groupe_edit("groupe_add");
