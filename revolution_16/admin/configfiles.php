@@ -217,7 +217,7 @@ function delete_configfile($fileX) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <div class="alert alert-danger" role="alert">
-      <p><strong>'.adm_translate("Supprimer le fichier").' '.$fileX.' ? </strong><br /><br /><button class="btn btn-danger btn-sm" href="admin.php?op=ConfigFiles_delete&amp;file='.$fileX.'">'.adm_translate("Oui").'</button>&nbsp;&nbsp;<button class="btn btn-secondary btn-sm" href="admin.php?op=ConfigFiles" >'.adm_translate("Non").'</button></p>
+      <p><strong>'.adm_translate("Supprimer le fichier").' '.$fileX.' ? </strong><br /><br /><a class="btn btn-danger btn-sm" href="admin.php?op=ConfigFiles_delete&amp;file='.$fileX.'">'.adm_translate("Oui").'</a>&nbsp;&nbsp;<a class="btn btn-secondary btn-sm" href="admin.php?op=ConfigFiles" >'.adm_translate("Non").'</a></p>
    </div>';
    adminfoot('','','','');
 }
