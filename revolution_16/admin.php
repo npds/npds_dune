@@ -135,7 +135,6 @@ function GraphicAdmin($hlpfile) {
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."' WHERE fid='36'");
    $mess=array_slice($messages_npds, 1);
    if(empty($mess)) {
-//       var_dump($zz);
       //si pas de message on nettoie la base
       sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
       sql_query("ALTER TABLE ".$NPDS_Prefix."fonctions AUTO_INCREMENT = (SELECT MAX(fid)+1 FROM ".$NPDS_Prefix."fonctions)");
@@ -150,7 +149,6 @@ function GraphicAdmin($hlpfile) {
          else 
             $fico='flag_green';
 
-//         var_dump($ibid);
 //         sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1');\n");
          $o++;
       }
@@ -176,13 +174,11 @@ $ibid = explode('|',$v);
       for ($i=0;$i<count($mess);$i++) {
          $ibid = explode('|',$mess[$i]);
          $mes_x[$i]=$ibid;
-//         var_dump($ibid[$i]);
 
          if($mes_x[0] = 'Note') $fico='flag_red';
          else $fico='flag_green';
 
          if (in_array ($ibid[$i][1],$f_mes,true)) {//si on trouve le contenu du fichier dans la requete
-//          var_dump($ibid[$i]);
 
             $k=(array_search ($ibid[$i][1], $f_mes));
             unset ($f_mes[$k]);
