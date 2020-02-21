@@ -1125,7 +1125,7 @@ function ordremodule() {
                <td>
                   <div class="form-group mb-0">
                      <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
-                     <input type="text" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" maxlength="3" required="required" />
+                     <input type="text" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" maxlength="4" required="required" />
                   </div>
                </td>
                <td><label class="col-form-label" for="ordre'.$i.'">'.aff_langue($rubname).'</label></td>
@@ -1134,13 +1134,8 @@ function ordremodule() {
          "ordre['.$i.']": {
          validators: {
             regexp: {
-               regexp:/^\d{1,3}$/,
+               regexp:/^\d{1,4}$/,
                message: "0-9"
-            },
-            between: {
-               min: 1,
-               max: '.$numrow.',
-               message: "1 ... '.$numrow.'"
             }
          }
       },';
