@@ -1,25 +1,9 @@
- groupe_text() <!-- pour des articles uniquement visibles par les membres -->
 <div class="article_bloc mb-3"> 
 <h2> !N_titre! </h2><br />
 <div class="article_texte"> !N_texte! </div>
 <div class="pied_art">Publi&eacute; le : !N_date! <br /> </div>
 </div>
-<div class="card">
-	<div class="row p-2">
-         <div class="col-sm-6 "> !N_previous_article! !N_next_article!  </div>
-         <div class="col-sm-6 text-right">!N_friend!  &nbsp;&nbsp;&nbsp;&nbsp; !N_print!</div>
-	 </div>
- </div>
- 
- !/!
- 
- no_groupe_text()
- <div class="card text-center m-4">
- <div class="card-body">
-Pour lire ce contenu vous devez être connecter en tant que Membre.</br></br>
-
-<p>  !member!</p>
-</div>
-</div>
-
- !/!
+   <div class="d-flex justify-content-start mt-1"style="background-color: #f8f7f1;">
+     <div class="py-2">!N_previous_article!</div>
+     <div class="ml-auto py-2">!N_next_article!</div>
+   </div>
