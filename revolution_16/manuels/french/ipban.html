@@ -2,7 +2,7 @@
 <html>
    <head>
       <meta charset="utf-8" />
-      <title>Administration - IP</title>
+      <title>Administration - IPban</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
@@ -14,11 +14,15 @@
                <li class="breadcrumb-item"><a href="admin.html">Administration</a></li>
                <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">Menu</a></li>
                <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
-               <li class="breadcrumb-item active" aria-current="page" >IP</li>
+               <li class="breadcrumb-item active" aria-current="page" >IPban</li>
             </ol>
          </nav>
-         <h3 class="mb-3">Administration - IP</h3>
-         <p>A r&eacute;diger...</p>
+         <h3 class="mb-3">Administration - IPban</h3>
+         <p>Ce module du core permet de visualiser les IP bannis ou en cours de banissement par l'antispam de npds. Il permet aussi de bannir manuellement des IP (v4 ou v6) ou des plages d'IP (v4).</p>
+         <p>
+         Chaque ligne ne doit contenir qu'une adresse IP (v4 ou v6) de forme :<br /> a.b.c.d|X (ex. v4 : 168.192.1.1|5) ;<br />a:b:c:d:e:f:g:h|X (ex. v6 : 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5).<br />
+         <sapn class="text-danger">Si X >= 5 alors cette adresse IP est bannie et l'accès sera refusé !</span></p>
+         <p>Vous pouvez aussi bannir des plages d'adresse IP (v4) sous cette forme :<br /> x.x.%|5 ou x.x.x.%|5</p>
          <div class="text-center my-3"><img src="../../images/admin/manuels.gif" alt="logo" /></div>
       </div>
    </body>

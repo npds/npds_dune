@@ -1,64 +1,48 @@
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Administration - Filemanager</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
-<style>
-body {
-background-color: #f5f5f5;
-}
-</style>
-</head>
-<body>
-<div class="container">
-
-<h3>
-<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
-  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
-  <li><a href="men_syst.html">Syst&egrave;me</a></li>
-  <li class="active">Filemanager</li>
-</ol>
-</h3>
-
-<p>F-manager est un des &eacute;l&eacute;ments importants de NPDS. Il est &agrave; la fois gestionnaire de fichiers, outils de t&eacute;l&eacute;chargements, solutions d'affichages multim&eacute;dia.</p>
-
-<p>F-manager est un module du CORE install&eacute; de base et n'est donc pas d&eacute;s-installable. A la base de sa configuration on trouve un fichier de param&eacute;trage dans modules/f-manager/users.</p>
-
-<p>En terme d'utilisation, f-manager permet de naviguer dans une arborescence, de t&eacute;l&eacute;charger des fichiers et plus g&eacute;n&eacute;ralement de g&eacute;rer vos r&eacute;pertoires et vos fichiers.</p> 
-
-<p>Une fonction particuli&egrave;rement utile est la possibilit&eacute; de rechercher un fichier par son nom, une partie de son nom (le d&eacute;but, le milieu, la fin) dans le r&eacute;pertoire courant et dans le premier niveau de sous-r&eacute;pertoire.</p> 
-
-<p>F-manager est capable de supporter bien des usages et ce dans bien des situations en raison du fichier de configuration qui est un fichier &eacute;crit en PHP.</p> 
-
-<h4>Comment f-manager est utilisé dans NPDS ?</h4> 
-
-<p><strong>Dans l'administration de NPDS chaque administrateur qui est cr&eacute;&eacute;, via l'interface, dispose automatiquement de f-manager.</strong><br />
-Un fichier xxxx.conf.php, xxxx &eacute;tant son pseudo, se trouve dans /modules/f-manager/users. Le mod&egrave;le qui est utilis&eacute; se nomme admin.modele.conf.php<br />
-
-Par d&eacute;faut le mod&egrave;le est assez ouvert mais vous pouvez limiter cela en configurant le fichier de l'admin dont vous souhaitez r&eacute;duire les droits.</p> 
-
-<p class="text-danger"><strong>Si f-manager ne marche pas pour un admin, vous avez le message Access Denied. C'est certainement que le fichier xxxx.conf.php n'existe pas.</strong></p>
-
-<p>Le gestionnaire de t&eacute;l&eacute;chargements utilise aussi f-manager pour afficher la liste des fichiers disponibles sur votre site.<br />
-Il y a 2 fichiers : download.conf.php et download.mod.php (ce fichier permet de modifier l'action de clic sur un fichier sélectionn&eacute;)?</p>
-
-<p>Dans la r&eacute;daction des articles, rubriques, PAD, &agrave; travers TinyMce f-manager est utilis&eacute; :
-<div class="card card-body">
-<ul class="p-l-1">
-<li>La banque des images partag&eacute;es</li>
-<li>La banque de vos images et documents</li>
-<li>Dans le cas ou vous travaillez sur des documents d'un groupe, la banque de vos images et documents est celle du groupe et non la v&ocirc;tre.</li>
-<li>La banque des images et documents disponibles dans votre minisite.</li>
-<li>Pour la gestion de votre minisite ou de celui d'un groupe.</li>
-</ul>
-</div>
-</p>
-<p>F-manager est l'interface complet de gestion et d'&eacute;dition des fichiers et documents de votre espace personnel ou celui de votre groupe de travail.</p>
-
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</div>
-<br />
-</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Filemanager</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="admin.html">Administration</a></li>
+               <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Filemanager</li>
+            </ol>
+         </nav>
+         <h3 class="mb-3">Administration - Filemanager</h3>
+         <p>F-manager est un des &eacute;l&eacute;ments importants de NPDS. Il est &agrave; la fois gestionnaire de fichiers, outils de t&eacute;l&eacute;chargements, solutions d'affichages multim&eacute;dia.</p>
+         <p>F-manager est un module du CORE install&eacute; de base et n'est donc pas d&eacute;s-installable. A la base de sa configuration on trouve un fichier de param&eacute;trage dans modules/f-manager/users.</p>
+         <p>En terme d'utilisation, f-manager permet de naviguer dans une arborescence, de t&eacute;l&eacute;charger des fichiers et plus g&eacute;n&eacute;ralement de g&eacute;rer vos r&eacute;pertoires et vos fichiers.</p> 
+         <p>Une fonction particuli&egrave;rement utile est la possibilit&eacute; de rechercher un fichier par son nom, une partie de son nom (le d&eacute;but, le milieu, la fin) dans le r&eacute;pertoire courant et dans le premier niveau de sous-r&eacute;pertoire.</p> 
+         <p>F-manager est capable de supporter bien des usages et ce dans bien des situations en raison du fichier de configuration qui est un fichier &eacute;crit en PHP.</p> 
+         <h4>Comment f-manager est utilisé dans NPDS ?</h4> 
+         <p><strong>Dans l'administration de NPDS chaque administrateur qui est cr&eacute;&eacute;, via l'interface, dispose automatiquement de f-manager.</strong><br />
+         Un fichier xxxx.conf.php, xxxx &eacute;tant son pseudo, se trouve dans /modules/f-manager/users. Le mod&egrave;le qui est utilis&eacute; se nomme admin.modele.conf.php<br />
+         Par d&eacute;faut le mod&egrave;le est assez ouvert mais vous pouvez limiter cela en configurant le fichier de l'admin dont vous souhaitez r&eacute;duire les droits.</p> 
+         <p class="text-danger"><strong>Si f-manager ne marche pas pour un admin, vous avez le message Access Denied. C'est certainement que le fichier xxxx.conf.php n'existe pas.</strong></p>
+         <p>Le gestionnaire de t&eacute;l&eacute;chargements utilise aussi f-manager pour afficher la liste des fichiers disponibles sur votre site.<br />
+         Il y a 2 fichiers : download.conf.php et download.mod.php (ce fichier permet de modifier l'action de clic sur un fichier sélectionn&eacute;)?</p>
+         <p>Dans la r&eacute;daction des articles, rubriques, PAD, &agrave; travers TinyMce f-manager est utilis&eacute; :
+            <div class="card card-body">
+               <ul class="pl-3">
+                  <li>La banque des images partag&eacute;es</li>
+                  <li>La banque de vos images et documents</li>
+                  <li>Dans le cas ou vous travaillez sur des documents d'un groupe, la banque de vos images et documents est celle du groupe et non la v&ocirc;tre.</li>
+                  <li>La banque des images et documents disponibles dans votre minisite.</li>
+                  <li>Pour la gestion de votre minisite ou de celui d'un groupe.</li>
+               </ul>
+            </div>
+         </p>
+         <p>F-manager est l'interface complet de gestion et d'&eacute;dition des fichiers et documents de votre espace personnel ou celui de votre groupe de travail.</p>
+         <div class="text-center my-3"><img src="../../images/admin/manuels.gif" alt="logo" /></div>
+      </div>
+   </body>
 </html>
