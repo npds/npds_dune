@@ -6,7 +6,7 @@
 /* Manage other configuration and customisation files                   */
 /* by Hotfirenet 2004                                                   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -109,11 +109,6 @@ function ConfigFiles($contents, $files) {
             <td><a href="admin.php?op=ConfigFiles_load&amp;files=cache.config"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a></td>
         </tr>
         <tr>
-            <td><code>upload.conf.php</code></td>
-            <td>'.adm_translate("Ce fichier permet la configuration des fonctions d'upload").' ( /modules/upload/ )</td>
-            <td><a href="admin.php?op=ConfigFiles_load&amp;files=upload.conf"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a></td>
-        </tr>
-        <tr>
             <td><code>robots.txt</code></td>
             <td>( / )</td>
             <td><a href="admin.php?op=ConfigFiles_load&amp;files=robots"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a></td>
@@ -187,11 +182,6 @@ function ConfigFiles_save($Xtxt, $Xfiles) {
    }
    elseif ($Xfiles == "cache.config") {
       $fp=fopen("cache.config.php","w");
-      fputs($fp,stripslashes($Xtxt));
-      fclose($fp);
-   }
-   elseif ($Xfiles == "upload.conf") {
-      $fp=fopen("modules/upload/upload.conf.php","w");
       fputs($fp,stripslashes($Xtxt));
       fclose($fp);
    }
@@ -357,13 +347,6 @@ switch ($op) {
          if (file_exists("cache.config.php")) {
             $fp=fopen("cache.config.php","r");
             $Xcontents=fread($fp,filesize("cache.config.php"));
-            fclose($fp);
-         }
-      }
-      elseif ($files == 'upload.conf') {
-         if (file_exists("modules/upload/upload.conf.php")) {
-            $fp=fopen("modules/upload/upload.conf.php","r");
-            $Xcontents=fread($fp,filesize("modules/upload/upload.conf.php"));
             fclose($fp);
          }
       }
