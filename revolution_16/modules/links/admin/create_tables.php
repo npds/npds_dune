@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions : Create Table            */
 /*                                                                      */
@@ -48,7 +48,7 @@ include("header.php");
      cid int(11) NOT NULL default '0',
      sid int(11) NOT NULL default '0',
      title varchar(100) NOT NULL default '',
-     url varchar(100) NOT NULL default '',
+     url varchar(255) NOT NULL default '',
      description text NOT NULL,
      date datetime default NULL,
      name varchar(60) NOT NULL default '',
@@ -70,7 +70,7 @@ include("header.php");
      cid int(11) NOT NULL default '0',
      sid int(11) NOT NULL default '0',
      title varchar(100) NOT NULL default '',
-     url varchar(100) NOT NULL default '',
+     url varchar(255) NOT NULL default '',
      description text NOT NULL,
      modifysubmitter varchar(60) NOT NULL default '',
      brokenlink int(3) NOT NULL default '0',
@@ -86,7 +86,7 @@ include("header.php");
      cid int(11) NOT NULL default '0',
      sid int(11) NOT NULL default '0',
      title varchar(100) NOT NULL default '',
-     url varchar(100) NOT NULL default '',
+     url varchar(255) NOT NULL default '',
      description text NOT NULL,
      name varchar(60) NOT NULL default '',
      email varchar(60) NOT NULL default '',

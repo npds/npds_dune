@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -59,7 +59,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
-               <input class="form-control" type="url" id="url" name="url" maxlength="100" value="http://" required="required" />
+               <input class="form-control" type="url" id="url" name="url" maxlength="255" value="http://" required="required" />
                <span class="help-block text-right" id="countcar_url"></span>
            </div>
         </div>';
@@ -139,7 +139,7 @@ function AddLink() {
       $arg1='
       var formulid = ["addlink"];
       inpandfieldlen("title",100);
-      inpandfieldlen("url",100);
+      inpandfieldlen("url",255);
       inpandfieldlen("email",60);
       ';
       SearchForm();

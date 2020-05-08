@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFORM extentions                           */
 /*                                                                      */
@@ -122,7 +122,7 @@ function links() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="urllinkvalid">URL</label>
             <div class="col-sm-9">
-                <input class="form-control" type="url" id="urllinkvalid" name="url" value="'.$url.'" maxlength="100" /> <a href="'.$url.'" target="_blank" >'.translate("Visit").'</a>
+                <input class="form-control" type="url" id="urllinkvalid" name="url" value="'.$url.'" maxlength="255" /> <a href="'.$url.'" target="_blank" >'.translate("Visit").'</a>
             </div>
          </div>';
           $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -239,7 +239,7 @@ function links() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="urllinkadd">URL</label>
             <div class="col-sm-9">
-               <input class="form-control" type="url" id="urllinkadd" name="url" maxlength="100" value="http://" required="required" />
+               <input class="form-control" type="url" id="urllinkadd" name="url" maxlength="255" value="http://" required="required" />
             </div>
          </div>';
        $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -513,7 +513,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="url">URL</label>
             <div class="col-sm-8">
-               <input class="form-control" type="text" name="url" value="'.$url.'" maxlength="100" /><a href="'.$url.'" target="_blank" >'.translate("Visit").'</a>
+               <input class="form-control" type="text" name="url" value="'.$url.'" maxlength="255" /><a href="'.$url.'" target="_blank" >'.translate("Visit").'</a>
             </div>
          </div>';
        $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
