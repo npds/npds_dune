@@ -1,11 +1,38 @@
 changelog-rev16.1  [ révision : 40 - jpb /14-5-2020 ]
+(non exhaustif...)
+
+- Corrections suite au retour dans forums et tests
+   - dysfonctionnement  de la mise à jour des résaux sociaux en admin
+   - dysfonctionnement  de la mise à jour des groupes en admin
+   - boutons non fonctionnels dans l'édition des fichiers de configuration en admin
+   - type de valeur incompatible avec mysql > 5 dans newsletter en admin
+   - contrôles dans la gestion des sections en admin
+   - attribution des droits sur les blocs défaillant en admin
+   - absence d'affichage des sujet dans submit.php
+   - calcul de la taille des fichiers dans download.php
+   - ajout de possibilité d' url locale dans contrôle formulaire dans installation auto #493 
 
 
+-  Evolutions
+   - interface admin pour configuration upload
+   - ajout d'extension de  types de fichier
+   - bannissement de plage d'adresse ip en V4 (dans ipban) admin ...
+   - RGPD ajout fichier politique confidentailité  liens  et case à cocher d'acceptation dans formulaires ...
+   - revisite du process de choix et de contrôle des avatar perso
+   - augmentation de la longueur des champs url du module link dans les formulaires et dans la base 
 
+- Doc
+  - mise à jour des manuels admins ...(en cours)
 
-
-
-
+- Mises à jour des libs externes :
+  -  fontawesome 5
+  -  tinymce 5
+  -  bootbox 5.4
+  -  formvalidation 1.5.0
+  -  tarteaucitron
+  -  openlayer
+  -  jquery 3.5
+  -  bootstrap 4.5
 
 
 changelog-rev16.0  [ révision : 39 - jpb /13-12-2019 ]
