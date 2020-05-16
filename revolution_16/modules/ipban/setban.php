@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -18,7 +18,7 @@ admindroits($aid,$f_meta_nom);
 include ("modules/$ModPath/lang/ipban.lang-$language.php");
 $f_titre = ipban_translate("Administration de l'IpBan");
 settype($hlpfile,'string');
-
+$hlpfile='manuels/'.$language.'/ipban.html';
 function ConfigureBan($ModPath, $ModStart) {
 global $f_meta_nom, $f_titre, $adminimg,$language, $hlpfile;
 settype($ip_ban,'string');
@@ -34,7 +34,7 @@ settype($ip_ban,'string');
 echo '
    <hr />
       <div class="card card-body mb-3">
-         '.ipban_translate("Chaque ligne ne doit contenir qu'une adresse IP (v4 ou v6) de forme : a.b.c.d|X (ex. v4 : 168.192.1.1|5) ; 2001:0db8:0000:85a3:0000:0000:ac1f:8001|X (ex. v6 : 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5).").'<br />
+         '.ipban_translate("Chaque ligne ne doit contenir qu'une adresse IP (v4 ou v6) de forme : a.b.c.d|X (ex. v4 : 168.192.1.1|5) ; a:b:c:d:e:f:g:h|X (ex. v6 : 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5).").'<br />
          <span class="text-danger lead">'.ipban_translate("Si X >= 5 alors l'accès sera refusé !").'</span><br />
          '.ipban_translate("Ce fichier est mis à jour automatiquement par l'anti-spam de NPDS.").'
       </div>
