@@ -340,7 +340,7 @@ function Page($page, $ranq) {
    <div id="mess" class="alert alert-success" role="alert">test debug'.$mess.'</div>
    <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformcont">
    <div class="form-group">
-      <textarea class="tin form-control" rows="30" name="content" ><div class="mceNonEditable">'.$row['content'].'</div></textarea>
+      <textarea class="tin form-control" rows="30" name="content" ><div class="mceEditable">'.$row['content'].'</div></textarea>
    </div>';
    echo aff_editeur('content', '');
    if ($edition)
