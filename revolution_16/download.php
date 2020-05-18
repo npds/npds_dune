@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -105,16 +105,16 @@ function tlist() {
 
 function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
    echo '
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-asc"></i></a>&nbsp;
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-down"></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-desc"></i></a>';
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-up"></i></a>';
 }
 
 function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
    echo '
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-asc" ></i></a>&nbsp;
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Ascending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-down" ></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-desc" ></i></a>';
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Descending").'" data-toggle="tooltip"><i class="fa fa-sort-amount-up" ></i></a>';
 }
 
 function dl_tableheader () {

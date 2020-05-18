@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Major changes from ALAT 2004-2005                                    */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -163,7 +163,7 @@ function sections() {
       <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
    if ($radminsuper==1) 
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-desc fa-lg mr-1"></i>'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("rubriques").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg mr-1"></i>'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("rubriques").'</a></li>';
    echo '
    </ul>';
 
@@ -198,7 +198,7 @@ function sections() {
             <div id="srub'.$i.'" class=" mb-3 collapse show">
                <div class="list-group-item d-flex">&nbsp;<strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1)
-                  echo '<span class="ml-auto"><span class="badge badge-secondary mr-2">'.sql_num_rows($result2).'</span><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
+                  echo '<span class="ml-auto"><span class="badge badge-secondary mr-2">'.sql_num_rows($result2).'</span><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                echo '</div>';
 
            while (list($secid, $secname) = sql_fetch_row($result2)) {
@@ -233,7 +233,7 @@ function sections() {
                   <span class="badge badge-secondary ml-4">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
                   if ($radminsuper==1) {
                      echo '
-                  <span class="ml-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").'" data-toggle="tooltip" data-placement="left">&nbsp;<i class="fa fa-sort-amount-desc fa-lg"></i></a></span>';
+                  <span class="ml-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre").' '.adm_translate("des").' '.adm_translate("publications").'" data-toggle="tooltip" data-placement="left">&nbsp;<i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                   }
                   echo '</li>';
                   while (list($artid, $title) = sql_fetch_row($result3)) {
