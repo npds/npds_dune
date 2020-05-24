@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2020 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
@@ -49,7 +49,7 @@ global $NPDS_Prefix, $adminforum;
          $rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
          if (!$rowQ1)
             forumerror('0001');
-         list(,$myrow) = each($rowQ1);
+         $myrow=$rowQ1[0];
          $moderator=explode(' ',get_moderator($myrow['forum_moderator']));
          for ($i = 0; $i < count($moderator); $i++) {
              if (($userdata[1] == $moderator[$i])) {
@@ -76,11 +76,13 @@ global $NPDS_Prefix, $adminforum;
       sql_query($sql);
       $sql = "SELECT arbre FROM ".$NPDS_Prefix."forums WHERE forum_id='$newforum'";
       $arbre=sql_fetch_assoc(sql_query($sql));
-      if ($arbre['arbre']) {$url_ret="viewtopicH.php";} else {$url_ret="viewtopic.php";}
+      if ($arbre['arbre']) $url_ret="viewtopicH.php"; else $url_ret="viewtopic.php";
       include("header.php");
-      opentable();
-      echo "<p align=\"center\" class=\"noir\">".translate("The topic has been moved.")."</p><br /> - <a href=\"$url_ret?topic=$topic&amp;forum=$newforum\" class=\"noir\">".translate("Click here to view the updated topic.")."</a><br /><br /> - <a href=\"forum.php\" class=\"noir\">".translate("Click here to return to the forum index.")."</a>";
-      closetable();
+      echo'
+      <div class="alert alert-success">
+      <h4 class="alert-heading">'.translate("The topic has been moved.").'</h4>
+      <hr /><a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$newforum.'" class="alert-link">'.translate("Click here to view the updated topic.").'</a><br /><a href="forum.php" class="alert-link">'.translate("Click here to return to the forum index.").'</a>
+      </div>';
       Q_Clean();
       include("footer.php");
    } else {
@@ -178,7 +180,7 @@ global $NPDS_Prefix, $adminforum;
             <div class="col mb-3">
               <span class="text-muted">'.translate("Nickname: ").'</span><span class="">'.$m['uname'].'</span><br />
               <span class="text-muted">'.translate("User IP: ").'</span><span class="">'.$m['poster_ip'].' => <a class="text-danger" href="topicadmin.php?mode=banip&topic='.$topic.'&post='.$post.'&forum='.$forum.'&arbre='.$arbre.'" >'.translate("Ban this @IP").'</a></span><br />
-              <span class=" text-muted">'.translate("User DNS: ").'</span><span class="">'.$m['poster_dns'].'</span><br />
+              <span class="text-muted">'.translate("User DNS: ").'</span><span class="">'.$m['poster_dns'].'</span><br />
               <span class="text-muted">GeoTool : </span><span class=""><a href="http://www.ip-tracker.org/?ip='.$m['poster_ip'].'" target="_blank" >IP tracker</a><br />
             </div>';
                echo localiser_ip($iptoshow=$m['poster_ip']);
