@@ -83,7 +83,7 @@ function get_last_post($id, $type, $cmd, $Mmod) {
 
    if ($cmd=='infos') {
       if (!$myrow = sql_fetch_row($result))
-         $val=translate("No posts");
+         $val=translate("Rien");
       else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
          $val=convertdate($myrow[0]).' '.userpopover($rowQ1[0]['uname'],40);
@@ -334,7 +334,7 @@ function aff_video_yt($ibid) {
 function putitems_more() {
    global $theme,$tmp_theme;
    if (stristr($_SERVER['PHP_SELF'],"more_emoticon.php")) $theme=$tmp_theme;
-   echo '<p align="center">'.translate("Click on Smilies to insert it on your Message").'</p>';
+   echo '<p align="center">'.translate("Cliquez pour insérer des émoticons dans votre message").'</p>';
    if ($ibid=theme_image("forum/smilies/more/smilies.php"))
    {$imgtmp="themes/$theme/images/forum/smilies/more/";} 
    else 
@@ -378,24 +378,24 @@ function putitems() {
       else 
          $imgtmp="images/forum/smilies/more/";
       if (file_exists($imgtmp."smilies.php"))
-         echo '&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("More smilies").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
+         echo '&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("Plus d'émoticons").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
 //   }
 }
 
 function HTML_Add() {
    $affich = '
                   <div>
-                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Bold").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italic").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Underline").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Gras").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italique").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Souligné").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2"></i></a>
                      <a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-left").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text center").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text align-right").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Text justified").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Unordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Ordered list").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2"></i></a>
-                     <div class="dropdown d-inline mr-2" title="'.translate("Web link").'" data-toggle="tooltip" data-placement="left">
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à gauche").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte centré").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à droite").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte justifié").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Liste non ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Liste ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2"></i></a>
+                     <div class="dropdown d-inline mr-2" title="'.translate("Lien web").'" data-toggle="tooltip" data-placement="left">
                         <a class=" dropdown-toggle" href="#" role="button" id="protocoletype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-link fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="protocoletype">
                            <a class="dropdown-item" href="javascript: addText(\' http://\',\'\');">http</a>
@@ -404,7 +404,7 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\' sftp://\',\'\');">sftp</a>
                         </div>
                      </div>
-                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Table").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>
+                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Tableau").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>
                      <div class="dropdown d-inline mr-2" title="'.translate("Code").'" data-toggle="tooltip" data-placement="left">
                         <a class=" dropdown-toggle" href="#" role="button" id="codeclasslanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-code fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="codeclasslanguage">
@@ -417,10 +417,10 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code sql]\',\'[/code]&lt;/pre&gt;\');">SQL</a>
                         </div>
                      </div>
-                     <div class="dropdown d-inline mr-2" title="'.translate("Videos").'" data-toggle="tooltip" data-placement="left">
+                     <div class="dropdown d-inline mr-2" title="'.translate("Vidéos").'" data-toggle="tooltip" data-placement="left">
                         <a class=" dropdown-toggle" href="#" role="button" id="typevideo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-film fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="typevideo">
-                           <p class="dropdown-header">'.translate("Paste the video ID between the tags").' : <br />[video_yt]xxxx[/video_yt]<br />[video_vm]xxxx[/video_vm]<br />[video_dm]xxxx[/video_dm]</p>
+                           <p class="dropdown-header">'.translate("Coller l'ID de votre vidéo entre les deux balises").' : <br />[video_yt]xxxx[/video_yt]<br />[video_vm]xxxx[/video_vm]<br />[video_dm]xxxx[/video_dm]</p>
                            <div class="dropdown-divider"></div>
                            <a class="dropdown-item" href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');"><i class="fab fa-youtube fa-lg fa-fw mr-1"></i>Youtube</a>
                            <a class="dropdown-item" href="javascript: addText(\'[video_vm]\',\'[/video_vm]\');"><i class="fab fa-vimeo fa-lg fa-fw mr-1"></i>Vimeo</a>
@@ -487,11 +487,11 @@ function searchblock() {
             <input type="hidden" name="addterm" value="any" />
             <input type="hidden" name="sortby" value="0" />
             <div class="">
-               <label class="sr-only" for="term">'.translate('Search').'</label>
-               <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Search').'">
+               <label class="sr-only" for="term">'.translate('Recherche').'</label>
+               <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'">
             </div>
             <div class=" ml-2">
-               <button type="submit" class="btn btn-outline-primary">'.translate("Submit").'</button>
+               <button type="submit" class="btn btn-outline-primary">'.translate("Valider").'</button>
             </div>
          </form>
       </div>';
@@ -526,80 +526,80 @@ function member_qualif($poster, $posts, $rank) {
 function forumerror($e_code) {
    global $sitename, $header;
    if ($e_code == "0001")
-      $error_msg = translate("Could not connect to the forums database.");
+      $error_msg = translate("Pas de connexion à la base forums.");
    if ($e_code == "0002")
-      $error_msg = translate("The forum you selected does not exist. Please go back and try again.");
+      $error_msg = translate("Le forum sélectionné n'existe pas.");
    if ($e_code == "0004")
-      $error_msg = translate("Could not query the topics database.");
+      $error_msg = translate("Pas de connexion à la base topics.");
    if ($e_code == "0005")
-      $error_msg = translate("Error getting messages from the database.");
+      $error_msg = translate("Erreur lors de la récupération des messages depuis la base.");
    if ($e_code == "0006")
-      $error_msg = translate("Please enter the Nickname and the Password.");
+      $error_msg = translate("Entrer votre pseudonyme et votre mot de passe.");
    if ($e_code == "0007")
-      $error_msg = translate("You are not the Moderator of this forum therefore you can't perform this function.");
+      $error_msg = translate("Vous n'êtes pas le modérateur de ce forum, vous ne pouvez utiliser cette fonction.");
    if ($e_code == "0008")
-      $error_msg = translate("You did not enter the correct password, please go back and try again.");
+      $error_msg = translate("Mot de passe erroné, refaites un essai.");
    if ($e_code == "0009")
-      $error_msg = translate("Could not remove posts from the database.");
+      $error_msg = translate("Suppression du message impossible.");
    if ($e_code == "0010")
-      $error_msg = translate("Could not move selected topic to selected forum. Please go back and try again.");
+      $error_msg = translate("Impossible de déplacer le topic dans le Forum, refaites un essai.");
    if ($e_code == "0011")
-      $error_msg = translate("Could not lock the selected topic. Please go back and try again.");
+      $error_msg = translate("Impossible de verrouiller le topic, refaites un essai.");
    if ($e_code == "0012")
-      $error_msg = translate("Could not unlock the selected topic. Please go back and try again.");
+      $error_msg = translate("Impossible de déverrouiller le topic, refaites un essai.");
    if ($e_code == "0013")
-      $error_msg = translate("Could not query the database.")."<br />Error: sql_error()";
+      $error_msg = translate("Impossible d'interroger la base.")."<br />Error: sql_error()";
    if ($e_code == "0014")
-      $error_msg = translate("No such user or post in the database.");
+      $error_msg = translate("Utilisateur ou message inexistant dans la base.");
    if ($e_code == "0015")
-      $error_msg = translate("Search Engine was unable to query the forums database.");
+      $error_msg = translate("Le moteur de recherche ne trouve pas la base forum.");
    if ($e_code == "0016")
-      $error_msg = translate("That user does not exist. Please go back and search again.");
+      $error_msg = translate("Cet utilisateur n'existe pas, refaites un essai.");
    if ($e_code == "0017")
-      $error_msg = translate("You must type a subject to post. You can't post an empty subject. Go back and enter the subject");
+      $error_msg = translate("Vous devez obligatoirement saisir un sujet, refaites un essai.");
    if ($e_code == "0018")
-      $error_msg = translate("You must choose message icon to post. Go back and choose message icon.");
+      $error_msg = translate("Vous devez choisir un icône pour votre message, refaites un essai.");
    if ($e_code == "0019")
-      $error_msg = translate("You must type a message to post. You can't post an empty message. Go back and enter a message.");
+      $error_msg = translate("Message vide interdit, refaites un essai.");
    if ($e_code == "0020")
-      $error_msg = translate("Could not enter data into the database. Please go back and try again.");
+      $error_msg = translate("Mise à jour de la base impossible, refaites un essai.");
    if ($e_code == "0021")
-      $error_msg = translate("Can't delete the selected message.");
+      $error_msg = translate("Suppression du message sélectionné impossible.");
    if ($e_code == "0022")
-      $error_msg = translate("An error ocurred while querying the database.");
+      $error_msg = translate("Une erreur est survenue lors de l'interrogation de la base.");
    if ($e_code == "0023")
-      $error_msg = translate("Selected message was not found in the forum database.");
+      $error_msg = translate("Le message sélectionné n'existe pas dans la base forum.");
    if ($e_code == "0024")
-      $error_msg = translate("You can't reply to that message. It wasn't sent to you.");
+      $error_msg = translate("Vous ne pouvez répondre à ce message, vous n'en êtes pas le destinataire.");
    if ($e_code == "0025")
-      $error_msg = translate("You can't post a reply to this topic, it has been locked. Contact the administrator if you have any question.");
+      $error_msg = translate("Vous ne pouvez répondre à ce topic il est verrouillé. Contacter l'administrateur du site.");
    if ($e_code == "0026")
-      $error_msg = translate("The forum or topic you are attempting to post to does not exist. Please try again.");
+      $error_msg = translate("Le forum ou le topic que vous tentez de publier n'existe pas, refaites un essai.");
    if ($e_code == "0027")
-      $error_msg = translate("You must enter your username and password. Go back and do so.");
+      $error_msg = translate("Vous devez vous identifier.");
    if ($e_code == "0028")
-      $error_msg = translate("You have entered an incorrect password. Go back and try again.");
+      $error_msg = translate("Mot de passe erroné, refaites un essai.");
    if ($e_code == "0029")
-      $error_msg = translate("Couldn't update post count.");
+      $error_msg = translate("Mise à jour du compteur des envois impossible.");
    if ($e_code == "0030")
-      $error_msg = translate("The forum you are attempting to post to does not exist. Please try again.");
+      $error_msg = translate("Le forum dans lequel vous tentez de publier n'existe pas, merci de recommencez");
    if ($e_code == "0031")
       return(0);
    if ($e_code == "0035")
-      $error_msg = translate("You can't edit a post that's not yours.");
+      $error_msg = translate("Vous ne pouvez éditer ce message, vous n'en êtes pas le destinataire.");
    if ($e_code == "0036")
-      $error_msg = translate("You do not have permission to edit this post.");
+      $error_msg = translate("Vous n'avez pas l'autorisation d'éditer ce message.");
    if ($e_code == "0037")
-      $error_msg = translate("You did not supply the correct password or do not have permission to edit this post. Please go back and try again.");
+      $error_msg = translate("Votre mot de passe est erroné ou vous n'avez pas l'autorisation d'éditer ce message, refaites un essai.");
    if ($e_code == "0101")
-      $error_msg = translate("You can't reply to that message.");
+      $error_msg = translate("Vous ne pouvez répondre à ce message.");
    if (!isset($header))
       include("header.php");
    echo '
-   <div class="alert alert-danger"><strong>'.$sitename.'<br />'.translate("Forum Error").'</strong><br />';
-   echo translate("Error Code:").' '.$e_code.'<br /><br />';
+   <div class="alert alert-danger"><strong>'.$sitename.'<br />'.translate("Erreur du forum").'</strong><br />';
+   echo translate("Code d'erreur :").' '.$e_code.'<br /><br />';
    echo $error_msg.'<br /><br />';
-   echo '<a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Go Back").'</a><br /></div>';
+   echo '<a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Retour en arrière").'</a><br /></div>';
    include("footer.php");
    die('');
 }
@@ -669,13 +669,13 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
       list($time90)=sql_fetch_row(sql_query ($sql.$timebase.$sql2));
       if ($time90>($paramAFX*2)) {
          Ecr_Log("security", "Forum Anti-Flood : ".$compte, '');
-         forumerror(translate("You are not allowed to post in this forum"));
+         forumerror(translate("Vous n'êtes pas autorisé à participer à ce forum"));
       } else {
          $timebase=date("Y-m-d H:i",time()+($gmtX*3600)-1800);
          list($time30)=sql_fetch_row(sql_query($sql.$timebase.$sql2));
          if ($time30>$paramAFX) {
             Ecr_Log("security", "Forum Anti-Flood : ".$compte, '');
-            forumerror(translate("You are not allowed to post in this forum"));
+            forumerror(translate("Vous n'êtes pas autorisé à participer à ce forum"));
          }
       }
    }
@@ -765,9 +765,9 @@ function forum($rowQ1) {
                               <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start">
                                  <span class="d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
-                        $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Aucune nouvelle contribution depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
                      else
-                        $ibid.='<i class="far fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("No New Posts since your last visit.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="far fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Aucune nouvelle contribution depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
                      $name = stripslashes($myrow['forum_name']);
                      $redirect=false;
                      if (strstr(strtoupper($name),"<a HREF"))
@@ -778,8 +778,8 @@ function forum($rowQ1) {
                      if (!$redirect)
                         $ibid.='
                                  <span class="ml-auto"> 
-                                    <span class="badge badge-secondary ml-1" title="'.translate("Posts").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
-                                    <span class="badge badge-secondary ml-1" title="'.translate("Topics").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
+                                    <span class="badge badge-secondary ml-1" title="'.translate("Contributions").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+                                    <span class="badge badge-secondary ml-1" title="'.translate("Sujets").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
                                  </span>
                               </span>';
 
@@ -789,25 +789,25 @@ function forum($rowQ1) {
                      if (!$redirect) {
                         $ibid.='<span class="d-flex w-100 mt-1"> [ ';
                         if ($myrow['forum_access']=="0" && $myrow['forum_type']=="0")
-                           $ibid.=translate("Free for All");
+                           $ibid.=translate("Accessible à tous");
                         if ($myrow['forum_type'] == "1")
-                           $ibid.=translate("Private");
+                           $ibid.=translate("Privé");
                         if ($myrow['forum_type'] == "5")
-                           $ibid.="PHP Script + ".translate("Group");
+                           $ibid.="PHP Script + ".translate("Groupe");
                         if ($myrow['forum_type'] == "6")
                            $ibid.="PHP Script";
                         if ($myrow['forum_type'] == "7")
-                           $ibid.=translate("Group");
+                           $ibid.=translate("Groupe");
                         if ($myrow['forum_type'] == "8")
-                           $ibid.=translate("Extended Text");
+                           $ibid.=translate("Texte étendu");
                         if ($myrow['forum_type'] == "9")
-                           $ibid.=translate("Hidden");
+                           $ibid.=translate("Caché");
                         if ($myrow['forum_access']=="1" && $myrow['forum_type'] == "0")
-                           $ibid.=translate("Registered User");
+                           $ibid.=translate("Utilisateur enregistré");
                         if ($myrow['forum_access']=="2" && $myrow['forum_type'] == "0")
-                           $ibid.=translate("Moderator");
+                           $ibid.=translate("Modérateur");
                         if ($myrow['forum_access']=="9")
-                           $ibid.='<span class="text-danger mx-2"><i class="fa fa-lock mr-2"></i>'.translate("Closed").'</span>';
+                           $ibid.='<span class="text-danger mx-2"><i class="fa fa-lock mr-2"></i>'.translate("Fermé").'</span>';
                         $ibid.=' ] </span>';
                      // Subscribe
                      if (($subscribe) and ($user)) {
@@ -823,13 +823,13 @@ function forum($rowQ1) {
                                  $ibid.='
                               <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" />';
                             $ibid.='
-                               <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'" title="'.translate("Check me and click on OK button to receive an Email when is a new submission in this forum.").'" data-toggle="tooltip" data-placement="right">&nbsp;&nbsp;</label>
+                               <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'" title="'.translate("Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum.").'" data-toggle="tooltip" data-placement="right">&nbsp;&nbsp;</label>
                             </span>
                          </span>';
                            }
                         }
                      }
-                        $ibid.='<span class="d-flex w-100 justify-content-end"><span class="small">'.translate("Last Post").' : '.$last_post.'</span></span>';
+                        $ibid.='<span class="d-flex w-100 justify-content-end"><span class="small">'.translate("Dernière contribution").' : '.$last_post.'</span></span>';
                      } else
                         $ibid.='';
                   }
@@ -889,9 +889,9 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
       <nav>
       <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 2)
-         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
       elseif ($current > 2)
-         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
       else
          $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
 
@@ -970,7 +970,7 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
             <li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
       else
          $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Next Page").'" data-toggle="tooltip">►</a></li>';
+            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-toggle="tooltip">►</a></li>';
       $pagination .= '
       </ul>
    </nav>';
@@ -990,10 +990,10 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
       <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 1) {
          $pagination .= '
-         <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
+         <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
       } elseif ($current > 1) {
          $pagination .= '
-         <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Previous Page").'" data-toggle="tooltip">◄</a></li>';
+         <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
       } else {
          $pagination .= '
          <li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
@@ -1079,7 +1079,7 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
             <li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
       else
          $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Next Page").'" data-toggle="tooltip">►</a></li>';
+            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-toggle="tooltip">►</a></li>';
    $pagination .= '
       </ul>
    </nav>';

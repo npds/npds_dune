@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -73,7 +73,7 @@ function show_imm($op) {
          echo '
             <div class="card mb-3">
                <div class="card-body">
-               <h3>'.translate("Private Message").' '.translate("From");
+               <h3>'.translate("Message personnel").' '.translate("de");
 
          if ($posterdata['uid']==1) {
             global $sitename;
@@ -103,7 +103,7 @@ function show_imm($op) {
                echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />&nbsp;';
             }
          }
-         echo translate("Sent").' : '.$myrow['msg_time'].'&nbsp;&nbsp;&nbsp';
+         echo translate("Envoyé").' : '.$myrow['msg_time'].'&nbsp;&nbsp;&nbsp';
          echo '<h4>'.aff_langue($myrow['subject']).'</h4>';
          $message = stripslashes($myrow['msg_text']);
          if ($allow_bbcode) {
@@ -113,40 +113,18 @@ function show_imm($op) {
          $message = str_replace("[addsig]", "<br /><br />" . nl2br($posterdata['user_sig']), aff_langue($message));
          echo $message.'<br />';
 
-
          if ($posterdata['uid']<>1) {
-/*
-            echo '<hr />';
-            if ($ibid=theme_image("forum/icons/profile.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/profile.gif";}
-            echo "&nbsp;&nbsp<a href=\"user.php?op=userinfo&amp;uname=".$posterdata['uname']."\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />".translate("Profile")."</a>";
-
-            if ($posterdata["femail"]!="") {
-               if ($ibid=theme_image("forum/icons/email.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/email.gif";}
-               echo "&nbsp;&nbsp;<a href=\"mailto:".$posterdata['femail']."\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />".translate("Email")."</a>";
-            }
-
-            if ($posterdata['url']!="") {
-               if (strstr("http://", $posterdata['url']))
-                  $posterdata['url'] = "http://" . $posterdata['url'];
-               if ($ibid=theme_image("forum/icons/www_icon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/www_icon.gif";}
-               echo "&nbsp;&nbsp;<a href=\"".$posterdata['url']."\" class=\"noir\" target=\"_blank\"><img src=\"$imgtmp\" border=\"0\" alt=\"\" />www</a>";
-            }
-*/
-
-            if (!$short_user) {
-            
-               
-            }
+            if (!$short_user) {}
          }
          echo '
          </div>
          <div class="card-footer">';
          if ($posterdata['uid']<>1)
             echo '
-            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Reply").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg mr-1"></i>'.translate("Reply").'</a>';
+            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Répondre").'" data-toggle="tooltip"><i class="fa fa-reply fa-lg mr-1"></i>'.translate("Répondre").'</a>';
          echo '
-            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Read").'" data-toggle="tooltip"><i class="far fa-check-square fa-lg"></i></a>
-            <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a>
+            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Lu").'" data-toggle="tooltip"><i class="far fa-check-square fa-lg"></i></a>
+            <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Effacer").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a>
          </div>
          </div>';
 

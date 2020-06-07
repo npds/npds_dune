@@ -235,7 +235,7 @@ function MNSremoveHack($Xstring) {
      "'&#160;'i"=>'&nbsp;',
      "'.htaccess'i"=>"",
      "'!blog_editeur!'i"=>$blog_editor,
-     "'!l_blog_ajouterOK!'i"=>'<a class="list-group-item list-group-item-action" href="minisite.php?op='.$op.'&amp;action=A"><i class="fas fa-pencil-alt fa-lg mr-2"></i> '.translate("Add articles").'</a>',
+     "'!l_blog_ajouterOK!'i"=>'<a class="list-group-item list-group-item-action" href="minisite.php?op='.$op.'&amp;action=A"><i class="fas fa-pencil-alt fa-lg mr-2"></i> '.translate("Ajouter un article").'</a>',
      "'\<\?php'i"=>"&lt;?php",
      "'\<\?'i"=>"&lt;?",
      "'\?\>'i"=>"?&gt;",

@@ -55,7 +55,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    if($dd_pub!=-1 and $dh_pub!=-1)
       echo '
    <div class="form-row">
-      <label class="col-form-label col-sm-4">'.translate("Start Date for this New").'</label>
+      <label class="col-form-label col-sm-4">'.translate("Date de publication").'</label>
       <div class="col-sm-5 mb-3">
          <input type="text" class="form-control flatpi" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" />
       </div>
@@ -68,7 +68,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </div>';
    echo '
    <div class="form-row">
-      <label class="col-form-label col-sm-4">'.translate("End Date for this New").'</label>
+      <label class="col-form-label col-sm-4">'.translate("Date de fin de publication").'</label>
       <div class="col-sm-5 mb-3">
          <input type="text" class="form-control flatpi" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" />
       </div>
@@ -103,7 +103,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </script>
 
    <div class="form-group row">
-      <label class="col-form-label col-sm-4">'.translate("Auto Delete the New at End Date").'</label>';
+      <label class="col-form-label col-sm-4">'.translate("Epuration de la new à la fin de sa date de validité").'</label>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';
       else $sel1='checked="checked"';
@@ -111,11 +111,11 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
       <div class="col-sm-8 my-2">
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
-            <label class="custom-control-label" for="epur_y">'.translate("Yes").'</label>
+            <label class="custom-control-label" for="epur_y">'.translate("Oui").'</label>
          </div>
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="epur_n" name="epur" value="0" '.$sel2.' />
-            <label class="custom-control-label" for="epur_n">'.translate("No").'</label>
+            <label class="custom-control-label" for="epur_n">'.translate("Non").'</label>
          </div>
       </div>
    </div>

@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -75,7 +75,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    "'!N_titre!'i"=>$title,
    "'!N_texte!'i"=>$thetext,
    "'!N_id!'i"=>$id,
-   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Search in").'&nbsp;'.$topictext.'" /></a>',
+   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Rechercher dans").'&nbsp;'.$topictext.'" /></a>',
    "'!N_note!'i"=>$notes,
    "'!N_nb_lecture!'i"=>$counter,
    "'!N_suite!'i"=>$morel
@@ -102,13 +102,13 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    $Xcontent=ob_get_contents();
    ob_end_clean();
    if ($previous_sid)
-      $prevArt='<a href="article.php?sid='.$previous_sid.'&amp;archive='.$archive.'" ><i class="fa fa-chevron-left fa-lg mr-2" title="'.translate("Previous").'" data-toggle="tooltip"></i><span class="d-none d-sm-inline">'.translate("Previous").'</span></a>';
+      $prevArt='<a href="article.php?sid='.$previous_sid.'&amp;archive='.$archive.'" ><i class="fa fa-chevron-left fa-lg mr-2" title="'.translate("Précédent").'" data-toggle="tooltip"></i><span class="d-none d-sm-inline">'.translate("Précédent").'</span></a>';
    else $prevArt='';
-   if ($next_sid) $nextArt='<a href="article.php?sid='.$next_sid.'&amp;archive='.$archive.'" ><span class="d-none d-sm-inline">'.translate("Next").'</span><i class="fa fa-chevron-right fa-lg ml-2" title="'.translate("Next").'" data-toggle="tooltip"></i></a>';
+   if ($next_sid) $nextArt='<a href="article.php?sid='.$next_sid.'&amp;archive='.$archive.'" ><span class="d-none d-sm-inline">'.translate("Suivant").'</span><i class="fa fa-chevron-right fa-lg ml-2" title="'.translate("Suivant").'" data-toggle="tooltip"></i></a>';
    else $nextArt='';
 
-   $printP = '<a href="print.php?sid='.$id.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-2x fa-print"></i></a>';
-   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip"><i class="fa fa-2x fa-at"></i></a>';
+   $printP = '<a href="print.php?sid='.$id.'" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip"><i class="fa fa-2x fa-print"></i></a>';
+   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Envoyer cet article à un ami").'" data-toggle="tooltip"><i class="fa fa-2x fa-at"></i></a>';
 
    if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
    $timage=$imgtmp;
@@ -129,7 +129,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    "'!N_id!'i"=>$id,
    "'!N_previous_article!'i"=>$prevArt,
    "'!N_next_article!'i"=>$nextArt,
-   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Search in").'&nbsp;'.$topictext.'" /></a>',
+   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Rechercher dans").'&nbsp;'.$topictext.'" /></a>',
    "'!N_texte!'i"=>$thetext,
    "'!N_nb_lecture!'i"=>$counter
    );
@@ -223,20 +223,20 @@ function userpopover($who,$dim) {
    $useroutils = '';
    if($user or autorisation(-127)) {
       if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profile").'" ><i class="fa fa-2x fa-user align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Profile").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profil").'" ><i class="fa fa-2x fa-user align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Profil").'</span></a>';
       if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Send internal Message").'" ><i class="far fa-2x fa-envelope align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Message").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Envoyer un message interne").'" ><i class="far fa-2x fa-envelope align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Message").'</span></a>';
       if ($temp_user['femail']!='')
          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Email").'</span></a>';
       if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Location").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-2 d-none d-md-inline">'.translate("Location").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-2 d-none d-md-inline">'.translate("Localisation").'</span></a>';
       }
    }
    if ($temp_user['url']!='')
-      $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visit this Website").'"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+      $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visiter ce site web").'"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
    if ($temp_user['mns'])
-       $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" ><i class="fa fa-2x fa-desktop align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+       $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-2x fa-desktop align-middle fa-fw"></i><span class="ml-2 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
 
    if (stristr($temp_user['user_avatar'],'users_private')) 
       $imgtmp=$temp_user['user_avatar'];

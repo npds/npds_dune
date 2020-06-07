@@ -69,15 +69,15 @@ elseif ($moderate==2) {
                if (!$m = sql_fetch_assoc($r))
                   forumerror('0014');
                echo '
-      <h2 class="mb-3">'.translate("Comment").'</h2>
+      <h2 class="mb-3">'.translate("Commentaire").'</h2>
       <div class="card mb-3">
          <div class="card-body">
-            <h3 class="card-title mb-3">'.translate("Users IP and Account information").'</h3>
+            <h3 class="card-title mb-3">'.translate("Adresses IP et informations sur les utilisateurs").'</h3>
             <div class="row">
                <div class="col mb-3">
-                  <span class="text-muted">'.translate("Nickname: ").'</span> '.$m['uname'].'<br />
-                  <span class="text-muted">'.translate("User IP: ").'</span> '.$m['poster_ip'].'<br />
-                  <span class="text-muted">'.translate("User DNS: ").'</span> '.$m['poster_dns'].'<br />
+                  <span class="text-muted">'.translate("Identifiant : ").'</span> '.$m['uname'].'<br />
+                  <span class="text-muted">'.translate("Adresse IP de l'utilisateur : ").'</span> '.$m['poster_ip'].'<br />
+                  <span class="text-muted">'.translate("Adresse DNS de l'utilisateur : ").'</span> '.$m['poster_dns'].'<br />
                </div>';
                echo localiser_ip($iptoshow=$m['poster_ip']);
                echo '
@@ -91,7 +91,7 @@ elseif ($moderate==2) {
          </div>';
       echo '
       </div>
-      <p><a href="'.rawurldecode($url_ret).'" class="btn btn-secondary">'.translate("Go Back").'</a></p>';
+      <p><a href="'.rawurldecode($url_ret).'" class="btn btn-secondary">'.translate("Retour en arrière").'</a></p>';
                include("footer.php");
                break;
             case 'aff':
@@ -112,8 +112,8 @@ elseif ($moderate==2) {
    } else {
       include("header.php");
       echo '
-      <p class="text-center">'.translate("You are not the moderator of this forum therefor you cannot perform this function.").'<br /><br />
-      <a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Go Back").'</a></p>';
+      <p class="text-center">'.translate("Vous n'êtes pas identifié comme modérateur de ce forum. Opération interdite.").'<br /><br />
+      <a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Retour en arrière").'</a></p>';
       include("footer.php");
    }
 ?>

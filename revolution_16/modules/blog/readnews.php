@@ -78,13 +78,13 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=AOK">
             <div class="form-group row">
-               <label class="form-control-label col-sm-12" for="title">'.translate("Title").'</label>
+               <label class="form-control-label col-sm-12" for="title">'.translate("Titre").'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="text" name="title" />
                </div>
             </div>
             <div class="form-group row">
-               <label class="form-control-label col-sm-12" for="story">'.translate("Full Text").'</label>
+               <label class="form-control-label col-sm-12" for="story">'.translate("Texte complet").'</label>
                <div class="col-sm-12">
                   <textarea class="tin form-control" name="story" rows="25"></textarea>';
             $content.="&nbsp;!blog_editeur!";
@@ -93,7 +93,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             </div>
             <div class="form-group row">
                <div class="col-sm-12">
-                  <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" />
+                  <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
                </div>
             </div>
          </form>';
@@ -132,17 +132,17 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
             <div class="form-group">
-               <label class="form-control-label" for="title">'.translate("Title").'</label>
+               <label class="form-control-label" for="title">'.translate("Titre").'</label>
                <input class="form-control" type="text" name="title" value="'.$crtsplit[1].'" />
             </div>
             <div class="form-group">
-               <label class="form-control-label" for="story" >'.translate("Full Text").'</label>
+               <label class="form-control-label" for="story" >'.translate("Texte complet").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
       $content.='
             </div>
             <div class="form-group">
-               <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Submit").'" />
+               <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
             </div>
          </form>
          #v_yt#';
@@ -153,13 +153,13 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    $new_pages=false;
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode('!;!',$xnews[$i]);
-       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modify").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-1"></i></a>';
-       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Delete").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a>';
+       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modifier").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-1"></i></a>';
+       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Effacer").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a>';
        $content.= '
       <div class="card mb-3">
          <div class="card-body">
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
-            <h6 class="card-subtitle text-muted">'.translate("Posted on ").' '.$crtsplit[0].'</h6>
+            <h6 class="card-subtitle text-muted">'.translate("Posté le ").' '.$crtsplit[0].'</h6>
          </div>
          <div class=" card-body">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {

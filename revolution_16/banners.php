@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -97,22 +97,22 @@ function clientlogin() {
          <form action="banners.php" method="post">
             <fieldset>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-4" for="login">'.translate("Login").'</label>
+                  <label class="form-control-label col-sm-4" for="login">'.translate("Identifiant ").'</label>
                   <div class="col-sm-8">
                      <input class="form-control" type="text" id="login" name="login" maxlength="10" required="required" />
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="form-control-label col-sm-4" for="pass">'.translate("Password").'</label>
+                  <label class="form-control-label col-sm-4" for="pass">'.translate("Mot de passe").'</label>
                   <div class="col-sm-8">
                      <input class="form-control" type="password" id="pass" name="pass" maxlength="10" required="required" />
-                     <span class="help-block">'.translate("Please type your client informations").'</span>
+                     <span class="help-block">'.translate("Merci de saisir vos informations").'</span>
                   </div>
                </div>
                <div class="form-group row">
                   <div class="col-sm-8 ml-sm-auto">
                      <input type="hidden" name="op" value="Ok" />
-                     <button class="btn btn-primary col-sm-6 col-12" type="submit">'.translate("Submit").'</button>
+                     <button class="btn btn-primary col-sm-6 col-12" type="submit">'.translate("Valider").'</button>
                   </div>
                </div>
             </fieldset>
@@ -124,7 +124,7 @@ function clientlogin() {
 
 function IncorrectLogin() {
    header_page();
-   echo '<div class="alert alert-danger lead">'.translate("Incorrect Login!").'<br /><button class="btn btn-secondary mt-2" onclick="javascript:history.go(-1)" >'.translate("Go Back").'</button></div>';
+   echo '<div class="alert alert-danger lead">'.translate("Identifiant incorrect !").'<br /><button class="btn btn-secondary mt-2" onclick="javascript:history.go(-1)" >'.translate("Retour en arrière").'</button></div>';
    footer_page();
 }
 
@@ -152,7 +152,7 @@ function header_page() {
       <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-primary">
         <a class="navbar-brand" href="index.php">Home</a>
      </nav>
-         <h2 class="mt-4">'.translate("Advertising Statistics").' @ '.$Titlesitename.'</h2>
+         <h2 class="mt-4">'.translate("Bannières - Publicité").' @ '.$Titlesitename.'</h2>
          <p align="center">';
 }
 
@@ -174,17 +174,17 @@ function bannerstats($login, $pass) {
       if ($pass==$passwd) {
          header_page();
          echo '
-         <h3>'.translate ("Current Active Banners for").' '.$name.'</h3>
+         <h3>'.translate ("Bannières actives pour").' '.$name.'</h3>
          <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
             <thead>
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="right"  data-sortable="true">ID</th>
-                  <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Made").'</th>
+                  <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Réalisé").'</th>
                   <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Impressions").'</th>
-                  <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Imp. Left").'</th>
-                  <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Clicks").'</th>
-                  <th class="n-t-col-xs-1" data-halign="center" data-align="right" data-sortable="true">% '.translate("Clicks").'</th>
-                  <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.translate("Functions").'</th>
+                  <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Imp. restantes").'</th>
+                  <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Clics").'</th>
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="right" data-sortable="true">% '.translate("Clics").'</th>
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.translate("Fonctions").'</th>
                </tr>
             </thead>
             <tbody>';
@@ -197,7 +197,7 @@ function bannerstats($login, $pass) {
                $percent = substr(100 * $clicks / $impmade, 0, 5);
             }
             if ($imptotal==0) {
-               $left = translate("Unlimited");
+               $left = translate("Illimité");
             } else {
                $left = $imptotal-$impmade;
             }
@@ -234,14 +234,14 @@ function bannerstats($login, $pass) {
             echo '
             <h4 class="mb-2">Banner ID : '.$bid.'</h4>';
             if ($imageurl!='') {
-               echo '<p>'.translate("This Banners points to").' : <a href="'.aff_langue($clickurl).'" target="_Blank" >[ URL ]</a></p>';
+               echo '<p>'.translate("Cette bannière est affichée sur l'url").' : <a href="'.aff_langue($clickurl).'" target="_Blank" >[ URL ]</a></p>';
             }
             echo '
             <form action="banners.php" method="get">';
             if ($imageurl!='') {
                echo '
                <div class="form-group row">
-                  <label class="control-label col-sm-12" for="url">'.translate("Change").' URL</label>
+                  <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="url" maxlength="200" value="'.$clickurl.'" />
                   </div>
@@ -249,7 +249,7 @@ function bannerstats($login, $pass) {
             } else {
                echo '
                <div class="form-group row">
-                  <label class="control-label col-sm-12" for="url">'.translate("Change").' URL</label>
+                  <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, cur_charset).'" />
                   </div>
@@ -260,7 +260,7 @@ function bannerstats($login, $pass) {
             <input type="hidden" name="bid" value="'.$bid.'" />
             <input type="hidden" name="pass" value="'.$pass.'" />
             <input type="hidden" name="cid" value="'.$cid.'" />
-            <input class="btn btn-primary" type="submit" name="op" value="'.translate("Change").'" />
+            <input class="btn btn-primary" type="submit" name="op" value="'.translate("Changer").'" />
             </form>
             </p>
             </div>';
@@ -268,16 +268,16 @@ function bannerstats($login, $pass) {
          // Finnished Banners
          echo "<br />";
          echo '
-         <h3>'.translate("Banners Finished for").' '.$name.'</h3>
+         <h3>'.translate("Bannières terminées pour").' '.$name.'</h3>
          <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
             <thead>
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="right" data-sortable="true">ID</td>
                   <th data-halign="center" data-align="right" data-sortable="true">'.translate("Impressions").'</th>
-                  <th data-halign="center" data-align="right" data-sortable="true">'.translate("Clicks").'</th>
-                  <th class="n-t-col-xs-1" data-halign="center" data-align="right" data-sortable="true">% '.translate("Clicks").'</th>
-                  <th data-halign="center" data-align="right" data-sortable="true">'.translate("Start Date").'</th>
-                  <th data-halign="center" data-align="right" data-sortable="true">'.translate("End Date").'</th>
+                  <th data-halign="center" data-align="right" data-sortable="true">'.translate("Clics").'</th>
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="right" data-sortable="true">% '.translate("Clics").'</th>
+                  <th data-halign="center" data-align="right" data-sortable="true">'.translate("Date de début").'</th>
+                  <th data-halign="center" data-align="right" data-sortable="true">'.translate("Date de fin").'</th>
                </tr>
             </thead>
             <tbody>';
@@ -314,8 +314,8 @@ function EmailStats($login, $cid, $bid) {
       list($name, $email) = sql_fetch_row($result2);
       if ($email=='') {
          header_page();
-            echo "<p align=\"center\"><br />".translate("Statistics for Banner ID")." : $bid ".translate("can't be send because")."<br /><br />
-            ".translate("there isn't an email associated with client")." $name<br /><br /><a href=\"javascript:history.go(-1)\" >".translate("Go Back")."</a></p>";
+            echo "<p align=\"center\"><br />".translate("Les statistiques pour la bannières ID")." : $bid ".translate("ne peuvent pas être envoyées.")."<br /><br />
+            ".translate("Email non rempli pour : ")." $name<br /><br /><a href=\"javascript:history.go(-1)\" >".translate("Retour en arrière")."</a></p>";
          footer_page();
       } else {
          $result = sql_query("SELECT bid, imptotal, impmade, clicks, imageurl, clickurl, date FROM ".$NPDS_Prefix."banner WHERE bid='$bid' AND cid='$cid'");
@@ -327,17 +327,17 @@ function EmailStats($login, $cid, $bid) {
          }
 
          if ($imptotal==0) {
-            $left = translate("Unlimited");
-            $imptotal = translate("Unlimited");
+            $left = translate("Illimité");
+            $imptotal = translate("Illimité");
          } else {
             $left = $imptotal-$impmade;
          }
          global $sitename, $gmt;
          $fecha = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-         $subject = translate("Advertising Statistics").' : '.$sitename;
-         $message  = "Client : $name\n".translate("Banner")." ID : $bid\n".translate("Banner")." Image : $imageurl\n".translate("Banner")." URL : $clickurl\n\n";
-         $message .= "Impressions ".translate("Purchased")." : $imptotal\nImpressions ".translate("Maded")." : $impmade\nImpressions ".translate("Lefted")." : $left\nClicks ".translate("Received")." : $clicks\nClicks ".translate("Percent")." : $percent%\n\n";
-         $message .= translate("Report Generated on").' : '."$fecha\n\n";
+         $subject = translate("Bannières - Publicité").' : '.$sitename;
+         $message  = "Client : $name\n".translate("Bannière")." ID : $bid\n".translate("Bannière")." Image : $imageurl\n".translate("Bannière")." URL : $clickurl\n\n";
+         $message .= "Impressions ".translate("Réservées")." : $imptotal\nImpressions ".translate("Réalisées")." : $impmade\nImpressions ".translate("Restantes")." : $left\nClicks ".translate("Reçus")." : $clicks\nClicks ".translate("Pourcentage")." : $percent%\n\n";
+         $message .= translate("Rapport généré le").' : '."$fecha\n\n";
          include("signat.php");
 
          send_email($email, $subject, $message, '', true, 'text');
@@ -345,14 +345,14 @@ function EmailStats($login, $cid, $bid) {
          echo '
          <div class="jumbotron">
             <p>'.$fecha.'</p>
-            <p>'.translate("Statistics for Banner ID").' : '.$bid.' '.translate("has been send to").'</p>
+            <p>'.translate("Statistics for Banner ID").' : '.$bid.' '.translate("ont été envoyées.").'</p>
             <p>'.$email.' : Client : '.$name.'</p>
-            <p><a href="javascript:history.go(-1)" class="btn btn-primary btn-lg">'.translate("Go Back").'</a></p>
+            <p><a href="javascript:history.go(-1)" class="btn btn-primary btn-lg">'.translate("Retour en arrière").'</a></p>
          </div>';
       }
    } else {
       header_page();
-      echo "<p align=\"center\"><br />".translate("Incorrect Login!")."<br /><br />".translate("Please")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("login again")."</a></p>";
+      echo "<p align=\"center\"><br />".translate("Identifiant incorrect !")."<br /><br />".translate("Merci de")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("vous reconnecter.")."</a></p>";
    }
    footer_page();
 }
@@ -364,9 +364,9 @@ function change_banner_url_by_client($login, $pass, $cid, $bid, $url) {
     if (!empty($pass) AND $pass==$passwd) {
         sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
         sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
-        echo "<p align=\"center\"><br />".translate("You changed the URL")."<br /><br /><a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a></p>";
+        echo "<p align=\"center\"><br />".translate("Vous avez changé l'url de la bannière")."<br /><br /><a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Retour en arrière")."</a></p>";
     } else {
-        echo "<p align=\"center\"><br />".translate("Incorrect Login!")."<br /><br />".translate("Please")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("login again")."</a></p>";
+        echo "<p align=\"center\"><br />".translate("Identifiant incorrect !")."<br /><br />".translate("Merci de")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("vous reconnecter.")."</a></p>";
     }
     footer_page();
 }
@@ -381,7 +381,7 @@ switch ($op) {
    case 'Ok':
       bannerstats($login, $pass);
    break;
-   case translate('Change'):
+   case translate('Changer'):
       change_banner_url_by_client($login, $pass, $cid, $bid, $url);
    break;
    case 'EmailStats':

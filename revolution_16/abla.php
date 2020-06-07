@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@ include("functions.php");
 include("auth.php");
 
 $f_meta_nom ='abla';
-$f_titre = translate("Administration BlackBoard");
+$f_titre = translate("Tableau de bord");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -41,16 +41,16 @@ if ($admin) {
    include("abla.log.php");
    $timex=time()-$xdate;
    if ($timex>=86400)
-      $timex=round($timex/86400).' '.translate("Day(s)");
+      $timex=round($timex/86400).' '.translate("Jour(s)");
    elseif ($timex>=3600)
-      $timex=round($timex/3600).' '.translate("Hour(s)");
+      $timex=round($timex/3600).' '.translate("Heure(s)");
    elseif ($timex>=60)
-      $timex=round($timex/60).' '.translate("Minut(s)");
+      $timex=round($timex/60).' '.translate("Minute(s)");
    else
-      $timex=$timex.' '.translate("Second(s)");
+      $timex=$timex.' '.translate("Seconde(s)");
    echo '
    <hr />
-   <p class="lead mb-3">'.translate("General Stats").' - '.translate("Past Stat").' : '.$timex.' </p>
+   <p class="lead mb-3">'.translate("Statistiques générales").' - '.translate("Dernières stats").' : '.$timex.' </p>
    <table class="mb-2" data-toggle="table" data-classes="table mb-2">
       <thead class="collapse thead-default">
          <tr>
@@ -60,7 +60,7 @@ if ($admin) {
       </thead>
       <tbody>
          <tr>
-            <td>'.translate("Nb of Pages").' : </td>
+            <td>'.translate("Nb. pages vues").' : </td>
             <td>'.wrh($totalz).' (';
    if ($totalz>$xtotalz)
       echo '<span class="text-success">+';
@@ -71,7 +71,7 @@ if ($admin) {
    echo wrh($totalz-$xtotalz).'</span>)</td>
          </tr>
          <tr>
-            <td>'.translate("Nb of members").' : </td>
+            <td>'.translate("Nb. de membres").' : </td>
             <td>'.wrh($membres).' (';
    if ($membres>$xmembres)
       echo '<span class="text-success">+';
@@ -82,7 +82,7 @@ if ($admin) {
    echo wrh($membres-$xmembres).'</span>)</td>
          </tr>
          <tr>
-            <td>'.translate("Nb of articles").' : </td>
+            <td>'.translate("Nb. d'articles").' : </td>
             <td>'.wrh($totala).' (';
    if ($totala>$xtotala)
       echo '<span class="text-success">+';
@@ -93,7 +93,7 @@ if ($admin) {
    echo wrh($totala-$xtotala).'</span>)</td>
          </tr>
          <tr>
-            <td>'.translate("Nb of forums").' : </td>
+            <td>'.translate("Nb. de forums").' : </td>
             <td>'.wrh($totalc).' (';
    if ($totalc>$xtotalc)
       echo '<span class="text-success">+';
@@ -104,7 +104,7 @@ if ($admin) {
    echo wrh($totalc-$xtotalc).'</span>)</td>
          </tr>
          <tr>
-            <td>'.translate("Nb of topics").' : </td>
+            <td>'.translate("Nb. de sujets").' : </td>
             <td>'.wrh($totald).' (';
    if ($totald>$xtotald)
       echo '<span class="text-success">+';
@@ -115,7 +115,7 @@ if ($admin) {
    echo wrh($totald-$xtotald).'</span>)</td>
          </tr>
          <tr>
-            <td>'.translate("Nb of reviews").' : </td>
+            <td>'.translate("Nb. de critiques").' : </td>
             <td>'.wrh($totalb).' (';
    if ($totalb>$xtotalb)
       echo '<span class="text-success">+';
@@ -126,7 +126,7 @@ if ($admin) {
    echo wrh($totalb-$xtotalb).'</span>)</td>
          </tr>
          <tr>
-            <td>'.translate("Nb Outside Users for LNL").' : </td>
+            <td>'.translate("Nb abonnés à lettre infos").' : </td>
             <td>'.wrh($totalnl).' (';
    if ($totalnl>$xtotalnl)
       echo '<span class="text-success">+';
@@ -149,7 +149,7 @@ if ($admin) {
    echo '
       </tbody>
    </table>
-   <p class="lead my-3">'.translate("Download Stats").'</p>
+   <p class="lead my-3">'.translate("Statistiques des chargements").'</p>
    <table data-toggle="table" data-classes="table">
       <thead class=" thead-default">
          <tr>
@@ -185,9 +185,9 @@ if ($admin) {
       <thead class="">
          <tr>
             <th>'.translate("Forum").'</th>
-            <th class="n-t-col-xs-2 text-center">'.translate("Topics").'</th>
-            <th class="n-t-col-xs-2 text-center">'.translate("Posts").'</th>
-            <th class="n-t-col-xs-3 text-right">'.translate("Last Posts").'</th>
+            <th class="n-t-col-xs-2 text-center">'.translate("Sujets").'</th>
+            <th class="n-t-col-xs-2 text-center">'.translate("Contributions").'</th>
+            <th class="n-t-col-xs-3 text-right">'.translate("Dernières contributions").'</th>
          </tr>
       </thead>';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."catagories ORDER BY cat_id");

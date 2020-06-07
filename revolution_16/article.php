@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -59,7 +59,7 @@ if (!isset($sid) && !isset($tid))
          $title = '<a href="index.php?op=newindex&amp;catid='.$catid.'"><span>'.aff_langue($title1).'</span></a> : '.$title;
       }
 
-      $boxtitle=translate("Related Links");
+      $boxtitle=translate("Liens relatifs");
       $boxstuff='
       <ul>';
       $result=sql_query("SELECT name, url FROM ".$NPDS_Prefix."related WHERE tid='$topic'");
@@ -70,10 +70,10 @@ if (!isset($sid) && !isset($tid))
       $boxstuff .= '
       </ul>
       <ul>
-         <li><a href="search.php?topic='.$topic.'" >'.translate("More about").' '.aff_langue($topictext).'</a></li>
-         <li><a href="search.php?member='.$informant.'" >'.translate("News by").' '.$informant.'</a></li>
+         <li><a href="search.php?topic='.$topic.'" >'.translate("En savoir plus à propos de").' '.aff_langue($topictext).'</a></li>
+         <li><a href="search.php?member='.$informant.'" >'.translate("Article de").' '.$informant.'</a></li>
       </ul>
-      <div class="">'.translate("Most read story about").'&nbsp;&nbsp;'.aff_langue($topictext).' :</div>';
+      <div class="">'.translate("L'article le plus lu à propos de").'&nbsp;&nbsp;'.aff_langue($topictext).' :</div>';
 
       $xtab=news_aff("big_story","WHERE topic=$topic",0,1);
       list($topstory, $ttitle) = $xtab[0];
@@ -81,7 +81,7 @@ if (!isset($sid) && !isset($tid))
       <ul>
          <li><a href="article.php?sid='.$topstory.'" >'.aff_langue($ttitle).'</a></li>
       </ul>
-      <div class="">'.translate("Last news about").' '.aff_langue($topictext).' :</div>';
+      <div class="">'.translate("Les dernières nouvelles à propos de").' '.aff_langue($topictext).' :</div>';
 
       if (!$archive)
          $xtab=news_aff("libre","WHERE topic=$topic AND archive='0' ORDER BY sid DESC LIMIT 0,5",0,5);
@@ -101,8 +101,8 @@ if (!isset($sid) && !isset($tid))
       $boxstuff .='
       </ul>
       <p align="center">
-         <a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" ><i class="fa fa-print fa-lg mr-1" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"></i></a>
-         <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-lg fa-at" title="'.translate("Send this Story to a Friend").'" data-toggle="tooltip"></i></a>
+         <a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" ><i class="fa fa-print fa-lg mr-1" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip"></i></a>
+         <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-lg fa-at" title="'.translate("Envoyer cet article à un ami").'" data-toggle="tooltip"></i></a>
       </p>';
 
       if (!$archive) {

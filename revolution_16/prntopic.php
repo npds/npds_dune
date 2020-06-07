@@ -99,14 +99,14 @@ $lock_state = $myrow['topic_status'];
    else
       echo '<img class="img-fluid d-block mx-auto" src="images/'.$site_logo.'" alt="website logo" />';
 
-   echo '<p class="mt-4">'.translate("Forum Index").'&nbsp;&raquo;&nbsp;&raquo;&nbsp;';
+   echo '<p class="mt-4">'.translate("Index du forum").'&nbsp;&raquo;&nbsp;&raquo;&nbsp;';
    echo stripslashes($forum_name);
    echo '</p>';
 
    echo "
    <table border=\"0\" >
       <tr>
-         <td width=\"15%\"><hr />".translate("Author")."</td>
+         <td width=\"15%\"><hr />".translate("Auteur")."</td>
          <td><hr />$topic_subject</td>
       </tr>";
    if ($Mmod) {
@@ -163,7 +163,7 @@ $lock_state = $myrow['topic_status'];
    } else {
       echo "<img src=\"$imgtmpPI\" border=\"0\" alt=\"\" />";
    }
-   echo "&nbsp;&nbsp;".translate("Posted: ").convertdate($myrow['post_time']);
+   echo "&nbsp;&nbsp;".translate("Posté : ").convertdate($myrow['post_time']);
    echo "<br /><br />\n";
    $message=stripslashes($myrow['post_text']);
    if ($allow_bbcode) {
@@ -198,7 +198,7 @@ $lock_state = $myrow['topic_status'];
    echo '
           </div>
           <hr />
-          <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
+          <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
          <a href="'.$nuke_url.'">'.$nuke_url.'/viewtopic.php?topic='.$topic.'&forum='.$forum.'</a></p>
    ';
        echo '

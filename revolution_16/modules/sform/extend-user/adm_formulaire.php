@@ -117,7 +117,7 @@ $m->add_checkbox('add_mns',adm_translate("Activer son MiniSite"), 1, false, $che
 
 // LNL
 if ($user_lnl) $checked=true; else $checked=false;
-$m->add_checkbox('user_lnl',translate("Register to web site' mailing list"), 1, false, $checked);
+$m->add_checkbox('user_lnl',translate("S'inscrire à la liste de diffusion du site"), 1, false, $checked);
 // LNL
 
 if ($chng_user_viewemail) $checked=true; else $checked=false;

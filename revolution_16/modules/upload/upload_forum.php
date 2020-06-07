@@ -24,7 +24,7 @@ function win_upload($apli,$IdPost,$IdForum,$IdTopic,$typeL) {
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">'.translate("Files").'</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">'.translate("Fichiers").'</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                </div>
                <div class="modal-body"></div>
@@ -35,7 +35,7 @@ function win_upload($apli,$IdPost,$IdForum,$IdTopic,$typeL) {
          </div>
       </div>
       
-      <a class="mr-3" href="#themodal" data-remote="modules.php?ModPath=upload&ModStart=include_forum/upload_forum2&apli='.$apli.'&IdPost='.$IdPost.'&IdForum='.$IdForum.'&IdTopic='.$IdTopic.'" data-toggle="modal" data-target="#themodal" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>
+      <a class="mr-3" href="#themodal" data-remote="modules.php?ModPath=upload&ModStart=include_forum/upload_forum2&apli='.$apli.'&IdPost='.$IdPost.'&IdForum='.$IdForum.'&IdTopic='.$IdTopic.'" data-toggle="modal" data-target="#themodal" title="'.translate("Fichiers").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>
 
       
       <script type="text/javascript">

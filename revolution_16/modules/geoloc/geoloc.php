@@ -167,7 +167,7 @@ while ($row = sql_fetch_array($membre)) {
    if ($us_lat !='') {
       $mbgr++;
       //=== menu fenetre info
-      $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-lg mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
+      $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-lg mr-2" title="'.translate("Profil").'" data-toggle="tooltip"></i></a>';
       if ($user)
          $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="far fa-envelope fa-lg mr-2"></i></a>';
       if ($us_url != '')
@@ -278,7 +278,7 @@ while ($row = sql_fetch_array($result)) {
    if ($user_lat !='') { // c un membre géoréférencé
       $mbcg++;
       //=== menu fenetre info
-      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profile").'" data-toggle="tooltip"></i></a>';
+      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profil").'" data-toggle="tooltip"></i></a>';
       if ($user)
          $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="Envoyez moi un message interne"><i class="far fa-envelope fa-2x mr-2"></i></a>';
       if ($us_url != '')

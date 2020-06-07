@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -62,12 +62,12 @@ global $NPDS_Prefix;
             list($ctitle) = sql_fetch_row($result3);
             list($stitle) = sql_fetch_row($result4);
             if ($stitle=='') $slash = ''; else $slash = '/';
-            echo translate("Category: ")."<strong>".aff_langue($ctitle)."</strong> $slash <b>".aff_langue($stitle)."</b>";
+            echo translate("Catégorie : ")."<strong>".aff_langue($ctitle)."</strong> $slash <b>".aff_langue($stitle)."</b>";
          }
             global $links_topic;
             if ($links_topic and $topicid_card!=0) {
                list($topicLX)=sql_fetch_row(sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topicid_card'"));
-               echo '<br />'.translate("Topics").' : <strong>'.$topicLX.'</strong>';
+               echo '<br />'.translate("Sujets").' : <strong>'.$topicLX.'</strong>';
             }
          echo '
                <div class="ibid_descr "><p>'.aff_langue($description).'</p></div>';
@@ -77,7 +77,7 @@ global $NPDS_Prefix;
                if ($hits>$popular)
                   echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
                else
-                  echo '<span class="ml-auto">'.translate("Hits: ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
+                  echo '<span class="ml-auto">'.translate("Nb hits : ").'<span class=" badge badge-secondary">'.$hits.'</span></span>';
             echo '</div>';
             }
          echo '
@@ -85,18 +85,18 @@ global $NPDS_Prefix;
             <div class="card-footer d-flex justify-content-start">';
          $datetime=formatTimestampShort($time);
             echo '
-               <span class="small">'.translate("Added on: ").$datetime.'</span>
+               <span class="small">'.translate("Ajouté le : ").$datetime.'</span>
                <span class="ml-auto">';
             if ($url!='') {
                echo '
-                  <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Report Broken Link").'" data-toggle="tooltip"><i class="fas fa-unlink fa-lg"></i></a>';
+                  <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Rapporter un lien rompu").'" data-toggle="tooltip"><i class="fas fa-unlink fa-lg"></i></a>';
             }
             // Advance infos via the class sform.php
             $browse_key=$lid;
             include ("modules/sform/$ModPath/link_detail.php");
             detecteditorial($lid, urlencode($title));
             echo '
-                  <a class="mr-3" href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Printer Friendly Page").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+                  <a class="mr-3" href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
             autorise_mod($lid,true);
             echo '
                </span>

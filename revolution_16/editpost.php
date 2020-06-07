@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -66,9 +66,9 @@ if ($submitS) {
       $message = make_clickable($message);
       $message = af_cod($message);
       $message = str_replace("\n", "<br />", removeHack($message));
-      $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
+      $message .= '<div class="text-muted text-right small"><i class="fa fa-edit"></i>&nbsp;'.translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
    } else {
-      $message .= "\n\n".translate("This message was edited by")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600));
+      $message .= "\n\n".translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600));
    }
    $message = addslashes($message);
 
@@ -116,7 +116,7 @@ if ($submitS) {
          }
          redirect_url("$hrefX?topic=".$row['topic_id']."&forum=$forum");
       } else
-         echo '<div class="alert alert-danger">'.translate("Your post has NOT been deleted because one or more posts is already attached (TREE forum).").'</div>';
+         echo '<div class="alert alert-danger">'.translate("Votre contribution n'a pas été supprimée car au moins un post est encore rattaché (forum arbre).").'</div>';
    }
 } else {
    include("header.php");
@@ -157,19 +157,19 @@ if ($submitS) {
    if ( (($Mmod) or ($userdata[0]==$myrow['uid'])) and ($forum_access!=9) ) {
       echo '
       <div>
-      <h3>'.translate("Editing Post").' de <span class="text-muted">'.$myrow['uname'].'</span></h3>
+      <h3>'.translate("Edition de la soumission").' de <span class="text-muted">'.$myrow['uname'].'</span></h3>
       <hr />
       <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
          echo '
          <div class="form-group row">
-            <label class="col-form-label col-sm-12" for="subject">'.translate("Title").'</label>
+            <label class="col-form-label col-sm-12" for="subject">'.translate("Titre").'</label>
             <div class="col-sm-12">
                <input class="form-control" type="text" id="subject" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
             </div>
          </div>';
       else {
-         echo '<strong>'.translate("Editing Post").'</strong> : '.$title;
+         echo '<strong>'.translate("Edition de la soumission").'</strong> : '.$title;
          echo "<input type=\"hidden\" name=\"subject\" value=\"".htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset)."\" />";
       }
    } else
@@ -178,7 +178,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="d-none d-sm-block form-group row">
-         <label class="col-form-label col-sm-12">'.translate("Message Icon").'</label>
+         <label class="col-form-label col-sm-12">'.translate("Icone du message").'</label>
          <div class="col-sm-12">
             <div class="border rounded pt-2 px-2 n-fond_subject">
             '.emotion_add($image_subject).'
@@ -197,17 +197,17 @@ if ($submitS) {
                <div class="card-header">';
    if ($allow_html == 1)
       echo '
-                  <span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+                  <span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
       echo '
-                  <span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+                  <span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body pb-0">
                   <textarea class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
                   <div class="text-right my-3">
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" >'.translate("Preview").'</button>
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" >'.translate("Clear").'</button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" >'.translate("Prévisualiser").'</button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" >'.translate("Annuler").'</button>
                   </div>
                </div>
                <div class="card-footer text-muted">';
@@ -229,13 +229,13 @@ if ($submitS) {
          <div class="checkbox">
             <div class="custom-control custom-checkbox text-danger">
                <input class="custom-control-input" type="checkbox" id="delete_p" name="delete" />
-               <label class="custom-control-label" for="delete_p">'.translate("Delete this Post").'</label>
+               <label class="custom-control-label" for="delete_p">'.translate("Supprimer ce message").'</label>
             </div>
          </div>
          <div class="checkbox">
             <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-               <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+               <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
             </div>
          </div>
       </div>
@@ -249,7 +249,7 @@ if ($submitS) {
       <input type="hidden" name="arbre" value="'.$arbre.'" />
       <div class="form-group row">
          <div class="col-sm-12 ml-sm-auto ">
-            <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" >'.translate("Submit").'</button>&nbsp;
+            <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" >'.translate("Valider").'</button>&nbsp;
          </div>
       </div>
    </form>

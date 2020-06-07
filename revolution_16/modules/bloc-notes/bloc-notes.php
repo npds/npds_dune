@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -58,8 +58,8 @@ function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBl
                <input type="hidden" name="nomBlocNote" value="'.$nomBlocNote.'" />
                <div class="row">
                   <div class="col-12">
-                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check mr-1"></i>'.translate("Submit").'</button>
-                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times mr-1"></i>'.translate("Delete").'</button>
+                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check mr-1"></i>'.translate("Valider").'</button>
+                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times mr-1"></i>'.translate("Effacer").'</button>
                   </div>
                </div>
             </div>

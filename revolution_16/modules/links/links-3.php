@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -28,12 +28,12 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       $title = stripslashes($title);
       $description = stripslashes($description);
       echo '
-   <h3 class="my-3">'.translate("Request Link Modification").' : <span class="text-muted">'.$title.'</span></h3>
+   <h3 class="my-3">'.translate("Proposition de modification").' : <span class="text-muted">'.$title.'</span></h3>
    <form action="modules.php" method="post" name="adminForm">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="title">'.translate("Title").'</label>
+         <label class="col-form-label col-sm-3" for="title">'.translate("Titre").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="text" id="title" name="title" value="'.$title.'"  maxlength="100" required="required" />
          </div>
@@ -49,7 +49,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       </div>';
       echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="cat">'.translate("Category").'</label>
+         <label class="col-form-label col-sm-3" for="cat">'.translate("Catégorie").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" id="cat" name="cat">';
       $result2=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -76,14 +76,14 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       if ($links_topic) {
          echo'
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="topicL">'.translate("Topics").'</label>
+         <label class="col-form-label col-sm-3" for="topicL">'.translate("Sujets").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" id="topicL" name="topicL">';
          $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
          echo '
-               <option value="">'.translate("All Topics").'</option>';
+               <option value="">'.translate("Tous les sujets").'</option>';
          while(list($topicid, $topics) = sql_fetch_row($toplist)) {
-           if ($topicid==$topicid_card) { $sel = 'selected="selected" '; }
+           if ($topicid==$topicid_card) $sel = 'selected="selected" ';
            echo '
                <option value="'.$topicid.'" '.$sel.'>'.$topics.'</option>';
            $sel = '';
@@ -95,7 +95,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       }
       echo'
       <div class="form-group row">
-         <label class="col-form-label col-sm-12" for="xtext">'.translate("Description: (255 characters max)").'</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.translate("Description : (255 caractères max)").'</label>
          <div class="col-sm-12">
             <textarea class="form-control tin" id="xtext" name="xtext" rows="10">'.$description.'</textarea>
          </div>
@@ -107,7 +107,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
          <input type="hidden" name="modifysubmitter" value="'.$author.'" />
          <input type="hidden" name="op" value="modifylinkrequestS" />
          <div class="col-sm-12">
-            <input type="submit" class="btn btn-primary" value="'.translate("Send Request").'" />
+            <input type="submit" class="btn btn-primary" value="'.translate("Envoyer une demande").'" />
          </div>
       </div>
    </form>';
@@ -115,9 +115,8 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       include ("modules/sform/$ModPath/link_maj.php");
       adminfoot('fv','','','nodiv');
       include("footer.php");
-   } else {
+   } else
       header("Location: modules.php?ModStart=$ModStart&ModPath=$ModPath");
-   }
 }
 
 function modifylinkrequestS($lid, $cat, $title, $url, $description, $modifysubmitter, $topicL) {
@@ -135,10 +134,10 @@ function modifylinkrequestS($lid, $cat, $title, $url, $description, $modifysubmi
       global $ModPath, $ModStart;
       include("header.php");
       echo '
-      <h3 class="my-3">'.translate("Links").'</h3>
+      <h3 class="my-3">'.translate("Liens").'</h3>
       <hr />
-      <h4 class="my-3">'.translate("Request Link Modification").'</h4>
-      <div class="alert alert-success">'.translate("Thanks for this information. We'll look into your request shortly.").'</div>
+      <h4 class="my-3">'.translate("Proposition de modification").'</h4>
+      <div class="alert alert-success">'.translate("Merci pour cette information. Nous allons l'examiner dès que possible.").'</div>
       <a class="btn btn-primary" href="modules.php?ModPath=links&amp;ModStart=links">Index </a>';
       include("footer.php");
    }
@@ -155,11 +154,11 @@ function brokenlink($lid) {
       $ratinguser=$anonymous;
    mainheader();
    echo '
-   <h3>'.translate("Report Broken Link").'</h3>
+   <h3>'.translate("Rapporter un lien rompu").'</h3>
    <div class="alert alert-success my-3">
-          '.translate("Thank you for helping to maintain this directory's integrity.").'
+          '.translate("Merci de contribuer à la maintenance du site.").'
           <br />
-          <strong>'.translate("For security reasons your user name and IP address will also be temporarily recorded.").'</strong>
+          <strong>'.translate("Pour des raisons de sécurité, votre nom d'utilisateur et votre adresse IP vont être momentanément conservés.").'</strong>
           <br />
    </div>
    <form method="post" action="modules.php">
@@ -168,29 +167,29 @@ function brokenlink($lid) {
       <input type="hidden" name="lid" value="'.$lid.'" />
       <input type="hidden" name="modifysubmitter" value="'.$ratinguser.'" />
       <input type="hidden" name="op" value="brokenlinkS" />
-      <input type="submit" class="btn btn-success" value="'.translate("Report Broken Link").'" />
+      <input type="submit" class="btn btn-success" value="'.translate("Rapporter un lien rompu").'" />
    </form>';
-    include("footer.php");
+   include("footer.php");
 }
 
 function brokenlinkS($lid, $modifysubmitter) {
-    global $user, $links_DB, $ModPath, $ModStart;
-    if (isset($user)) {
-       global $cookie;
-       $ratinguser = $cookie[1];
-    } else
-       $ratinguser = $anonymous;
-    if ($modifysubmitter==$ratinguser) {
-       settype($lid,'integer');
-       sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, 0, 0, '', '', '', '$ratinguser', 1,'')");
-    }
-    include("header.php");
-    mainheader();
-    echo '
-    <h3>'.translate("Report Broken Link").'</h3>
+   global $user, $links_DB, $ModPath, $ModStart;
+   if (isset($user)) {
+      global $cookie;
+      $ratinguser = $cookie[1];
+   } else
+      $ratinguser = $anonymous;
+   if ($modifysubmitter==$ratinguser) {
+      settype($lid,'integer');
+      sql_query("INSERT INTO ".$links_DB."links_modrequest VALUES (NULL, $lid, 0, 0, '', '', '', '$ratinguser', 1,'')");
+   }
+   include("header.php");
+   mainheader();
+   echo '
+   <h3>'.translate("Rapporter un lien rompu").'</h3>
    <div class="alert alert-success my-3">
-   '.translate("Thanks for this information. We'll look into your request shortly.").'
+   '.translate("Merci pour cette information. Nous allons l'examiner dès que possible.").'
    </div>';
-    include("footer.php");
+   include("footer.php");
 }
 ?>

@@ -59,12 +59,12 @@ function PrintPage($oper, $DB, $nl, $sid) {
              $aff=false;
           }
        } else {
-         $remp='<div class="alert alert-danger">'.translate("Please enter information according to the specifications").'</div>';
+         $remp='<div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
          $aff=false;
        }
     }
     if ($aff==true) {
-       $Titlesitename='NPDS - '.translate("Printer Friendly Page").' / '.$title;
+       $Titlesitename='NPDS - '.translate("Page spéciale pour impression").' / '.$title;
        if (isset($time))
           formatTimestamp($time);
        include("meta/meta.php");
@@ -99,7 +99,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           echo '
              <span class="float-right text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
              <hr />
-             <h2 class="mb-3">'.translate("Topic:").' '.aff_langue($topictext).'</h2>
+             <h2 class="mb-3">'.translate("Sujet : ").' '.aff_langue($topictext).'</h2>
          </div>
          <div>'.$hometext.'<br /><br />';
           if ($bodytext!='') {
@@ -111,15 +111,15 @@ function PrintPage($oper, $DB, $nl, $sid) {
           if ($oper=='news') {
              echo '
              <hr />
-             <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
-             '.translate("The URL for this story is:").'
+             <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
+             '.translate("L'url pour cet article est : ").'
              <a href="'.$nuke_url.'/article.php?sid='.$sid.'">'.$nuke_url.'/article.php?sid='.$sid.'</a>
              </p>';
           } else {
              echo '
              <hr />
-             <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
-             '.translate("The URL for this story is:").'
+             <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
+             '.translate("L'url pour cet article est : ").'
              <a href="'.$nuke_url.'/article.php?sid='.$sid.'&amp;archive=1">'.$nuke_url.'/article.php?sid='.$sid.'&amp;archive=1</a>
              </p>';
           }
@@ -127,12 +127,12 @@ function PrintPage($oper, $DB, $nl, $sid) {
        if ($oper=='links') {
           echo '<span class="float-right text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
           if ($url!='') {
-             echo '<h2 class="mb-3">'.translate("Links").' : '.$url.'</h2>';
+             echo '<h2 class="mb-3">'.translate("Liens").' : '.$url.'</h2>';
           }
           echo '
           <div>'.aff_langue($description).'</div>
           <hr />
-          <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
+          <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
           <a href="'.$nuke_url.'">'.$nuke_url.'</a></p>';
        }
        if ($oper=='static') {
@@ -141,7 +141,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
              '.$remp.'
           </div>
           <hr />
-          <p class="text-center">'.translate("This article comes from").' '.$sitename.'<br />
+          <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
           <a href="'.$nuke_url.'/static.php?op='.$sid.'&npds=1">'.$nuke_url.'/static.php?op='.$sid.'&npds=1</a></p>';
        }
        echo '

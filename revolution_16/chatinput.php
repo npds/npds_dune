@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -65,11 +65,11 @@ include("functions.php");
    }
    $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
 
-   echo translate("You are logged in as").' <strong>'.$pseudo.'</strong>&nbsp;';
+   echo translate("Vous êtes connecté en tant que :").' <strong>'.$pseudo.'</strong>&nbsp;';
    echo '
             <input type="hidden" name="name" value="'.$pseudo.'" />
             <textarea class="form-control mb-3" type="text" rows="2" '.$xJava.' ></textarea>
-            <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Submit").'" />
+            <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Valider").'" />
          </form>
          <script type="text/javascript">
          //<![CDATA[

@@ -46,35 +46,35 @@ include('header.php');
 settype($term,'string');
    $term = removeHack(stripslashes(htmlspecialchars(urldecode($term),ENT_QUOTES,cur_charset))); // electrobug
    echo '
-   <h2>'.translate("Search in").' : Forums</h2>
+   <h2>'.translate("Rechercher dans").' : Forums</h2>
    <hr />
    <form name="search" action="'.$_SERVER['PHP_SELF'].'" method="post" class="mt-3">
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="term">'.translate("Keyword").'</label>
+         <label class="col-form-label col-sm-4" for="term">'.translate("Mot-clé").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="term" name="term" value="'.$term.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="only_solved">'.translate("Topic status").'</label>
+         <label class="col-form-label col-sm-4" for="only_solved">'.translate("Etat du topic").'</label>
          <div class="col-sm-8 pt-1">
             <div class="custom-control custom-checkbox">
                <input type="checkbox" id="only_solved" name="only_solved" class="custom-control-input" value="ON" />
-               <label class="custom-control-label" for="only_solved">'.translate("Solved").'</label>
+               <label class="custom-control-label" for="only_solved">'.translate("Résolu").'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="addterms">'.translate("Sort by").'</label>
+         <label class="col-form-label col-sm-4" for="addterms">'.translate("Classé par").'</label>
          <div class="col-sm-8">
             <div class="custom-controls-stacked">
                <div class="custom-control custom-radio mb-2">
                   <input type="radio" id="any" name="addterms" class="custom-control-input" value="any" checked="checked" />
-                  <label class="custom-control-label" for="any">'.translate("Search for ANY of the terms (Default)").'</label>
+                  <label class="custom-control-label" for="any">'.translate("Chercher n'importe quel terme (par défaut)").'</label>
                </div>
                <div class="custom-control custom-radio mb-2">
                   <input type="radio" id="all" name="addterms" class="custom-control-input" value="all" />
-                  <label class="custom-control-label" for="all">'.translate("Search for ALL of the terms").'</label>
+                  <label class="custom-control-label" for="all">'.translate("Chercher tous les mots").'</label>
                </div>
             </div>
          </div>
@@ -83,7 +83,7 @@ settype($term,'string');
          <label class="col-form-label col-sm-4" for="forum">'.translate("Forum").'</label>
          <div class="col-sm-8">
             <select class="form-control custom-select" name="forum" id="forum">
-               <option value="all">'.translate("Search All Forums").'</option>';
+               <option value="all">'.translate("Rechercher dans tous les forums").'</option>';
    $rowQ1=Q_Select ("SELECT forum_name,forum_id FROM ".$NPDS_Prefix."forums", 3600);
    if (!$rowQ1)
       forumerror('0015');
@@ -96,13 +96,13 @@ settype($term,'string');
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="username">'.translate("Author's Name").'</label>
+         <label class="col-form-label col-sm-4" for="username">'.translate("Nom d'auteur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="username" name="username" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="sortby">'.translate("Sort by").'</label>
+         <label class="col-form-label col-sm-4" for="sortby">'.translate("Classé par").'</label>
          <div class="col-sm-8">
             ';
    settype($sortby, "integer");
@@ -111,13 +111,13 @@ settype($term,'string');
                <input type="radio" name="sortby" id="sbpt" class="custom-control-input" value="0" ';
       if ($sortby=="0") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbpt">'.translate("Post Time").'</label>
+               <label class="custom-control-label" for="sbpt">'.translate("Heure de la soumission").'</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline  mt-2">
                <input type="radio" name="sortby" id="sbto" class="custom-control-input" value="1" ';
       if ($sortby=="1") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbto">'.translate("Topics").'</label>
+               <label class="custom-control-label" for="sbto">'.translate("Sujets").'</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline  mt-2">
                <input type="radio" name="sortby" id="sbfo" class="custom-control-input" value="2" ';
@@ -129,14 +129,14 @@ settype($term,'string');
                <input type="radio" name="sortby" id="sbau" class="custom-control-input" value="3" ';
       if ($sortby=="3") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbau">'.translate("Author").'</label>
+               <label class="custom-control-label" for="sbau">'.translate("Auteur").'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto">
-            <button class="btn btn-primary" type="submit" name="submit">&nbsp;'.translate("Search").'</button>&nbsp;&nbsp;
-            <button class="btn btn-secondary" type="reset" name="reset">'.translate("Clear").'</button>
+            <button class="btn btn-primary" type="submit" name="submit">&nbsp;'.translate("Recherche").'</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary" type="reset" name="reset">'.translate("Annuler").'</button>
          </div>
       </div>
    </form>';
@@ -204,7 +204,7 @@ settype($term,'string');
    if (!$row = sql_fetch_assoc($result)) {
       echo '
          <div class="alert alert-danger lead alert-dismissible fade show" role="alert">
-            '.translate("No records match that query. Please broaden your search.").'
+            '.translate("Aucune réponse pour les mots que vous cherchez. Elargissez votre recherche.").'
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -229,9 +229,9 @@ settype($term,'string');
             <tr>
                <th class="n-t-col-xs-1" data-halign="center" data-align="right">&nbsp;</th>
                <th data-halign="center" data-sortable="true" data-sorter="htmlSorter">'.translate("Forum").'</th>
-               <th data-halign="center" data-sortable="true" data-sorter="htmlSorter">'.translate("Topic").'</th>
-               <th data-halign="center" data-sortable="true">'.translate("Author").'</th>
-               <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.translate("Posted").'</th>
+               <th data-halign="center" data-sortable="true" data-sorter="htmlSorter">'.translate("Sujet").'</th>
+               <th data-halign="center" data-sortable="true">'.translate("Auteur").'</th>
+               <th class="n-t-col-xs-2" data-halign="center" data-align="right">'.translate("Posté").'</th>
             </tr>
          </thead>
          <tbody>';

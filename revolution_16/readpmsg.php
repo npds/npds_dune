@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -53,16 +53,16 @@ include('auth.php');
          }
       }
       $myrow['subject']=strip_tags($myrow['subject']);
-      if ($dossier=='All') $Xdossier=translate("All Topics"); else $Xdossier=StripSlashes($dossier);
+      if ($dossier=='All') $Xdossier=translate("Tous les sujets"); else $Xdossier=StripSlashes($dossier);
       echo '
-      <h3>'.translate("Private Message").'</h3>
+      <h3>'.translate("Message personnel").'</h3>
       <hr />';
       if (!sql_num_rows($resultID))
-         echo '<div class="alert alert-danger lead">'.translate("You don't have any Messages.").'</div>';
+         echo '<div class="alert alert-danger lead">'.translate("Vous n'avez aucun message.").'</div>';
       else {
          echo '
       <p class="lead">
-         <a href="viewpmsg.php">'.translate("Private Messages").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
+         <a href="viewpmsg.php">'.translate("Messages personnels").'</a>&nbsp;&raquo;&raquo;&nbsp;'.$Xdossier.'&nbsp;&raquo;&raquo;&nbsp;'.aff_langue($myrow['subject']).'
       </p>
       <div class="card mb-3">
          <div class="card-header">';
@@ -104,15 +104,15 @@ include('auth.php');
          $useroutils = '';
          $useroutils .= '<hr />';
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
          if ($posterdata['uid']!= 1)
-            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle "></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle "></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
             $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
          if ($posterdata['url']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fas fa-2x fa-external-link-alt align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-2x fa-external-link-alt align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
          if ($posterdata['mns'])
-             $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+             $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
       }
 
 
@@ -150,7 +150,7 @@ include('auth.php');
             </div>
             <div class="card-body">
                <div class="card-text pt-2">
-                  <div class="text-right small">'.translate("Sent").' : '.$myrow['msg_time'].'</div>
+                  <div class="text-right small">'.translate("Envoyé").' : '.$myrow['msg_time'].'</div>
                   <hr /><strong>'.aff_langue($myrow['subject']).'</strong><br />';
          $message = stripslashes($myrow['msg_text']);
          if ($allow_bbcode) {
@@ -176,47 +176,47 @@ include('auth.php');
             if ($posterdata['uid']<>1)
             echo '
             <li class="page-item">
-               <a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg mr-2"></i><span class="d-none d-md-inline">'.translate("Reply").'</span></a>
+               <a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg mr-2"></i><span class="d-none d-md-inline">'.translate("Répondre").'</span></a>
             </li>';
          }
          if ($previous >= 0) echo '
             <li class="page-item">
                <a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >
-                  <span class="d-none d-md-inline">'.translate("Previous Messages").'</span>
-                  <span class="d-md-none" title="'.translate("Previous Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Message précédent").'</span>
+                  <span class="d-md-none" title="'.translate("Message précédent").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
                </a>
             </li>';
          else echo '
             <li class="page-item">
                <a class="page-link disabled" href="#">
-                  <span class="d-none d-md-inline">'.translate("Previous Messages").'</span>
-                  <span class="d-md-none" title="'.translate("Previous Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Message précédent").'</span>
+                  <span class="d-md-none" title="'.translate("Message précédent").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
                </a>
             </li>';
          if ($next < $total_messages) echo '
             <li class="page-item" >
                <a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >
-                  <span class="d-none d-md-inline">'.translate("Next Messages").'</span>
-                  <span class="d-md-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Message suivant").'</span>
+                  <span class="d-md-none" title="'.translate("Message suivant").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
          else echo '
             <li class="page-item">
                <a class="page-link disabled" href="#">
-                  <span class="d-none d-md-inline">'.translate("Next Messages").'</span>
-                  <span class="d-md-none" title="'.translate("Next Messages").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
+                  <span class="d-none d-md-inline">'.translate("Message suivant").'</span>
+                  <span class="d-md-none" title="'.translate("Message suivant").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
          echo '
             <li class="page-item">
-               <a class="page-link" data-toggle="collapse" href="#sortbox"><i class="fa fa-cogs fa-lg" title="'.translate("Order your message").'" data-toggle="tooltip"></i></a>
+               <a class="page-link" data-toggle="collapse" href="#sortbox"><i class="fa fa-cogs fa-lg" title="'.translate("Classer ce message").'" data-toggle="tooltip"></i></a>
             </li>';
          if ($type!='outbox')
             echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Delete this Post").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a></li>';
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a></li>';
          else
             echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Delete this Post").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a></li>';
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a></li>';
          echo '
          </ul>';
 
@@ -226,10 +226,10 @@ include('auth.php');
             echo '
       <div class="collapse" id="sortbox">
          <div class="card card-body" >
-         <p class="lead">'.translate("Order your message").'</p>
+         <p class="lead">'.translate("Classer ce message").'</p>
             <form action="replypmsg.php" method="post">
                <div class="form-group row">
-                  <label class="col-form-label col-sm-4" for="dossier">'.translate("Topic").'</label>
+                  <label class="col-form-label col-sm-4" for="dossier">'.translate("Sujet").'</label>
                   <div class="col-sm-8">
                      <select class="custom-select form-control" id="dossier" name="dossier">';
                   while (list($dossier)=sql_fetch_row($result)) {
@@ -241,7 +241,7 @@ include('auth.php');
                   </div>
                </div>
                <div class="form-group row">
-                  <label class="col-form-label col-sm-4" for="nouveau_dossier">'.translate("New folder/topic").'</label>
+                  <label class="col-form-label col-sm-4" for="nouveau_dossier">'.translate("Nouveau dossier/sujet").'</label>
                   <div class="col-sm-8">
                      <input type="texte" class="form-control" id="nouveau_dossier" name="nouveau_dossier" value="" size="24" />
                   </div>

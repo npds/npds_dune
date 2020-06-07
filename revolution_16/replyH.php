@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -175,8 +175,8 @@ if ($submitS) {
       }
       redirect_url("viewtopicH.php?forum=$forum&topic=$topic");
    } else {
-      echo "<p align=\"center\">".translate("You must type a message to post.")."<br /><br />";
-      echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Go Back")."</a> ]</p>";
+      echo "<p align=\"center\">".translate("Vous devez taper un message à poster.")."<br /><br />";
+      echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Retour en arrière")."</a> ]</p>";
    }
 } else {
    include('header.php');
@@ -192,12 +192,12 @@ if ($submitS) {
 
       echo '
    <p class="lead">
-      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
+      <a href="forum.php">'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_title.'
    </p>
    <div class="card">
       <div class="card-block-small">
-            '.translate("Moderated By: ");
+            '.translate("Modéré par : ");
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -214,16 +214,16 @@ if ($submitS) {
    echo '
       </div>
    </div>
-   <h4 class="hidden-xs-down">'.translate("Post Reply in Topic").'</h4>
+   <h4 class="hidden-xs-down">'.translate("Poster une réponse dans le sujet").'</h4>
    <form action="replyH.php" method="post" name="coolsus">';
 
-   echo '<blockquote class="blockquote hidden-xs-down"><p>'.translate("About Posting:").'<br />';
+   echo '<blockquote class="blockquote hidden-xs-down"><p>'.translate("A propos des messages publiés :").'<br />';
    if ($forum_access == 0) {
-      echo translate("Anonymous users can post new topics and replies in this forum.");
+      echo translate("Les utilisateurs anonymes peuvent poster de nouveaux sujets et des réponses dans ce forum.");
    } else if($forum_access == 1) {
-      echo translate("All registered users can post new topics and replies to this forum.");
+      echo translate("Tous les utilisateurs enregistrés peuvent poster de nouveaux sujets et répondre dans ce forum.");
    } else if($forum_access == 2) {
-      echo translate("Only Moderators can post new topics and replies in this forum.");
+      echo translate("Seuls les modérateurs peuvent poster de nouveaux sujets et répondre dans ce forum.");
    }
    echo '</p></blockquote>';
 
@@ -254,7 +254,7 @@ if ($submitS) {
       }
    echo '
    <br />
-   <span class="lead">'.translate("Nickname: ");
+   <span class="lead">'.translate("Identifiant : ");
       if (isset($user))
          echo $userdata[1].'</span>';
       else
@@ -264,7 +264,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="hidden-xs-down form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
+         <label class="form-control-label col-sm-12">'.translate("Icone du message").'</label>
          <div class="col-sm-12">
             <div class="card card-body n-fond_subject d-flex flex-row flex-wrap">
             '.emotion_add($image_subject).'
@@ -279,9 +279,9 @@ if ($submitS) {
             <div class="card">
                <div class="card-header">';
    if ($allow_html == 1) {
-      echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
-      echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
             <div class="card-body">';
@@ -298,13 +298,13 @@ if ($submitS) {
             }
             $text = stripslashes($text);
             if ($m['post_time']!='' && $m['uname']!='') {
-              $reply = '<blockquote class="blockquote">'.translate("Quote").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
+              $reply = '<blockquote class="blockquote">'.translate("Citation").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
             } else {
                $reply = $text."\n";
             }
             $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si",'',$reply);
          } else {
-            $reply = translate("Error Connecting to DB")."\n";
+            $reply = translate("Erreur de connexion à la base de données")."\n";
          }
          $message = $reply;
       }
@@ -313,8 +313,8 @@ if ($submitS) {
       echo '
                   <textarea class="form-control" '.$xJava.' name="message" rows="15" >'.$message.'</textarea>
                   <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>
                <div class="card-footer text-muted">';
@@ -334,7 +334,7 @@ if ($submitS) {
             <div class="checkbox">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+                  <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>
             </div>';
       }
@@ -348,8 +348,8 @@ if ($submitS) {
             <div class="checkbox">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
-                  <label class="custom-control-label" for="sig">'.translate("Show signature").'</label>
-                  <small class="help-text">'.translate("This can be altered or added in your profile").'</small>
+                  <label class="custom-control-label" for="sig">'.translate("Afficher la signature").'</label>
+                  <small class="help-text">'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small>
                </div>
             </div>';
             }
@@ -362,7 +362,7 @@ if ($submitS) {
             <div class="checkbox">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="upload" name="upload" '.$up.' />
-                  <label class="custom-control-label" for="upload">'.translate("Upload file after send accepted").'</label>
+                  <label class="custom-control-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
                </div>
             </div>';
          }
@@ -376,13 +376,13 @@ if ($submitS) {
             <input type="hidden" name="forum" value="'.$forum.'" />
             <input type="hidden" name="topic" value="'.$topic.'" />
             <input type="hidden" name="post" value="'.$post.'" />
-            <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" accesskey="s" />'.translate("Submit").'</button>&nbsp;
-            <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" ><i class="fas fa-times fa-lg"></i>'.translate("Cancel Post").'</button>
+            <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" accesskey="s" />'.translate("Valider").'</button>&nbsp;
+            <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-toggle="tooltip" ><i class="fas fa-times fa-lg"></i>'.translate("Annuler la contribution").'</button>
          </div>
       </div>';
    } else {
       echo '
-      <div class="alert alert-danger">'.translate("You are not allowed to reply in this forum").'</div>';
+      <div class="alert alert-danger">'.translate("Vous n'êtes pas autorisé à participer à ce forum").'</div>';
    }
    echo '
    </form>';
