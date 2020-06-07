@@ -37,24 +37,24 @@
 
    if (autorisation(-1)) {
       $con = '!nb_online! - <a href="user.php">Se connecter</a>';
-      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connection").'</a>';
+      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</a>';
       $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x text-muted"></i></a>';
    } elseif (autorisation(1)) {
       $menuser .='
-      <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Edit User").'"  ><i class="fa fa-user fa-lg mr-2"></i>'.translate("Edit User").'</a></li>
-      <li><a class="dropdown-item" href="user.php?op=editjournal" title="'.translate("Edit Journal").'" ><i class="fa fa-edit fa-lg mr-2"></i>'.translate("Journal").'</a></li>';
+      <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Vous").'"  ><i class="fa fa-user fa-lg mr-2"></i>'.translate("Vous").'</a></li>
+      <li><a class="dropdown-item" href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" ><i class="fa fa-edit fa-lg mr-2"></i>'.translate("Journal").'</a></li>';
       include_once ("modules/upload/upload.conf.php");
       if (($mns) and ($autorise_upload_p)) {
          include ("modules/blog/upload_minisite.php");
          $PopUp=win_upload("popup");
          $menuser .= '
-         <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"><i class="fa fa-desktop fa-lg mr-2"></i>'.translate("Mini-Web site").'</a></li>';
+         <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"><i class="fa fa-desktop fa-lg mr-2"></i>'.translate("MiniSite").'</a></li>';
       }
       $menuser .= '
-      <li><a class="dropdown-item " href="user.php?op=edithome" title="'.translate("Change the home").'" ><i class="fa fa-edit fa-lg mr-2 "></i>'.translate("Page").'</a></li>
-      <li><a class="dropdown-item " href="user.php?op=chgtheme" title="'.translate("Change Theme").'" ><i class="fa fa-paint-brush fa-lg mr-2"></i>'.translate("Theme").'</a></li>
-      <li><a class="dropdown-item " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'" ><i class="fa fa-share-alt-square fa-lg mr-2"></i>'.translate("Social networks").'</a></li>
-      <li><a class="dropdown-item " href="viewpmsg.php" title="'.translate("Private Message").'" ><i class="fa fa-envelope fa-lg mr-2"></i>'.translate("Message").'</a></li>';
+      <li><a class="dropdown-item " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" ><i class="fa fa-edit fa-lg mr-2 "></i>'.translate("Page").'</a></li>
+      <li><a class="dropdown-item " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'" ><i class="fa fa-paint-brush fa-lg mr-2"></i>'.translate("Thème").'</a></li>
+      <li><a class="dropdown-item " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'" ><i class="fa fa-share-alt-square fa-lg mr-2"></i>'.translate("Réseaux sociaux").'</a></li>
+      <li><a class="dropdown-item " href="viewpmsg.php" title="'.translate("Message personnel").'" ><i class="fa fa-envelope fa-lg mr-2"></i>'.translate("Message").'</a></li>';
       settype($cookie[0], 'integer');
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
@@ -69,10 +69,10 @@
 
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
-         $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Private Message").' <span class=\'badge-pill badge-danger ml-2\'>'.$nbmes.'</span>" data-html="true" data-toggle="tooltip" data-placement="right"></i></a></li>';
+         $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Message personnel").' <span class=\'badge-pill badge-danger ml-2\'>'.$nbmes.'</span>" data-html="true" data-toggle="tooltip" data-placement="right"></i></a></li>';
 
-      $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" title="'.translate("Your account").'" data-toggle="tooltip" data-placement="right" /></a><li class="dropdown-divider"></li>';
-      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger"></i>'.translate("Logout").'</a>';
+      $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" title="'.translate("Votre compte").'" data-toggle="tooltip" data-placement="right" /></a><li class="dropdown-divider"></li>';
+      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger"></i>'.translate("Déconnexion").'</a>';
    }
 ?>
 
