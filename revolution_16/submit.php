@@ -48,32 +48,32 @@ function defaultDisplay() {
    if ($user) $userinfo=getusrinfo($user);
 
    echo '
-   <h2>'.translate("Submit News").'</h2>
+   <h2>'.translate("Proposer un article").'</h2>
    <hr />
    <form action="submit.php" method="post" name="adminForm">';
-   echo '<p class="lead"><strong>'.translate("Your Name").'</strong> : ';
+   echo '<p class="lead"><strong>'.translate("Votre nom").'</strong> : ';
    if ($user) {
-      echo '<a href="user.php">'.$userinfo['uname'].'</a> [ <a href="user.php?op=logout">'.translate("Logout").'</a> ]</p>
+      echo '<a href="user.php">'.$userinfo['uname'].'</a> [ <a href="user.php?op=logout">'.translate("Déconnexion").'</a> ]</p>
       <input type="hidden" name="name" value="'.$userinfo['name'].'" />';
    } else {
-      echo $anonymous. '[ <a href="user.php">'.translate("New User").'</a> ]</p>
+      echo $anonymous. '[ <a href="user.php">'.translate("Nouveau membre").'</a> ]</p>
       <input type="hidden" name="name" value="'.$anonymous.'" />';
    }
    echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="subject">'.translate("Title").' </label>
+         <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").' </label>
          <div class="col-sm-9">
             <input type="text" id="subject" name="subject" class="form-control">
-            <p class="help-block">'.translate ("Be Descriptive, Clear and Simple").'! '.translate("bad titles='Check This Out!' or 'An Article'.").'</p>
+            <p class="help-block">'.translate ("Faites simple").'! '.translate("Mais ne titrez pas -un article-, ou -à lire-,...").'</p>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="topic">'.translate("Topic").'</label>
+         <label class="col-form-label col-sm-3" for="topic">'.translate("Sujet").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topicname, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
-               <option value="">'.translate("Select Topic").'</option>';
+               <option value="">'.translate("Sélectionner un sujet").'</option>';
    settype($topic,'string');
    settype($sel,'string');
    while (list($topicid, $topiname, $topics) = sql_fetch_row($toplist)) {
@@ -89,7 +89,7 @@ function defaultDisplay() {
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-12" for="story" >'.translate("Intro Text").'</label>
+         <label class="col-form-label col-sm-12" for="story" >'.translate("Texte d'introduction").'</label>
          <div class="col-sm-12">
             <textarea class=" form-control tin" rows="25" id="story" name="story"></textarea>
          </div>
@@ -97,7 +97,7 @@ function defaultDisplay() {
    echo aff_editeur('story', '');
    echo'
       <div class="form-group row">
-         <label class="col-form-label col-sm-12" for="bodytext">'.translate("Full Text").'</label>
+         <label class="col-form-label col-sm-12" for="bodytext">'.translate("Texte complet").'</label>
          <div class="col-sm-12">
             <textarea class="form-control tin " rows="25" id="bodytext" name="bodytext"></textarea>
          </div>
@@ -107,8 +107,8 @@ function defaultDisplay() {
    echo '
       <div class="form-group row">
          <div class="col-sm-12">
-            <span class="help-block">'.translate("You must preview once before you can submit").'</span>
-            <input class="btn btn-outline-primary" type="submit" name="op" value="'.translate("Preview").'" />
+            <span class="help-block">'.translate("Vous devez prévisualiser avant de pouvoir envoyer").'</span>
+            <input class="btn btn-outline-primary" type="submit" name="op" value="'.translate("Prévisualiser").'" />
          </div>
       </div>
    </form>';
@@ -124,16 +124,16 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    $bodytext = stripslashes($bodytext);
 
    echo '
-   <h2>'.translate("Submit News").'</h2>
+   <h2>'.translate("Proposer un article").'</h2>
    <hr />
    <form action="submit.php" method="post" name="adminForm">
-      <p class="lead"><strong>'.translate("Your Name").'</strong> : '.$name.'</p>
+      <p class="lead"><strong>'.translate("Votre nom").'</strong> : '.$name.'</p>
       <input type="hidden" name="name" value="'.$name.'" />
       <div class="card card-body mb-4">';
 
    if ($topic=='') {
       $topicimage='all-topics.gif';
-      $warning = '<div class="alert alert-danger"><strong>'.translate("Select Topic").'</strong></div>';
+      $warning = '<div class="alert alert-danger"><strong>'.translate("Sélectionner un sujet").'</strong></div>';
    } else {
       $warning = '';
       $result = sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
@@ -155,18 +155,18 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    echo '
    </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="subject">'.translate("Title").'</label>
+         <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").'</label>
          <div class="col-sm-9">
             <input type="text" name="subject" class="form-control" value="'.$subject.'" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="topic">'.translate("Topic").'</label>
+         <label class="col-form-label col-sm-3" for="topic">'.translate("Sujet").'</label>
          <div class="col-sm-9">
             <select class="custom-select form-control" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
-               <option value="">'.translate("Select Topic").'</option>';
+               <option value="">'.translate("Sélectionner un sujet").'</option>';
    while (list($topicid, $topics) = sql_fetch_row($toplist)) {
       if ($topicid==$topic) { $sel = 'selected="selected" '; }
       echo '
@@ -179,15 +179,15 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-12" for="story">'.translate("Intro Text").'</label>
+         <label class="col-form-label col-sm-12" for="story">'.translate("Texte d'introduction").'</label>
          <div class="col-sm-12">
-            <span class="help-block">'.translate("HTML is fine, but double check those URLs and HTML tags!").'</span>
+            <span class="help-block">'.translate("Les spécialistes peuvent utiliser du HTML, mais attention aux erreurs").'</span>
             <textarea class="tin form-control" rows="25" name="story">'.$story.'</textarea>';
    echo aff_editeur('story', '');
    echo '</div>
       </div>
          <div class="form-group row">
-            <label class="col-form-label col-sm-12">'.translate("Full Text").'</label>
+            <label class="col-form-label col-sm-12">'.translate("Texte complet").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>
             </div>
@@ -198,7 +198,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    echo '
          <div class="form-group row">
             <div class="col-sm-12">
-               <input class="btn btn-secondary" type="submit" name="op" value="'.translate("Preview").'" />&nbsp;
+               <input class="btn btn-secondary" type="submit" name="op" value="'.translate("Prévisualiser").'" />&nbsp;
                <input class="btn btn-primary" type="submit" name="op" value="Ok" />
             </div>
          </div>
@@ -236,9 +236,9 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
       }
       include ('header.php');
       echo '
-      <h2>'.translate("Submit News").'</h2>
+      <h2>'.translate("Proposer un article").'</h2>
       <hr />
-      <div class="alert alert-success lead">'.translate("Thanks for your submission.").'</div>';
+      <div class="alert alert-success lead">'.translate("Merci pour votre contribution.").'</div>';
       include ('footer.php');
    } else {
       include ('header.php');
@@ -250,7 +250,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
 settype($op,'string');
 switch ($op) {
    case 'Preview':
-   case translate("Preview"):
+   case translate("Prévisualiser"):
       if ($user) {
          $userinfo=getusrinfo($user);
          $name=$userinfo['uname'];

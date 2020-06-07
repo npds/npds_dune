@@ -73,7 +73,7 @@ if (($op=="solved") and ($topic_id) and ($forum) and ($sec_clef)) {
    if ($user) {
       $local_sec_clef=md5($forum.$topic_id.md5($NPDS_Key));
       if ($local_sec_clef==$sec_clef) {
-         $sqlS = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_status='2', topic_title='[".translate("Solved")."] - ".removehack($topic_title)."' WHERE topic_id='$topic_id'";
+         $sqlS = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_status='2', topic_title='[".translate("Résolu")."] - ".removehack($topic_title)."' WHERE topic_id='$topic_id'";
          if (!$r = sql_query($sqlS))
             forumerror('0011');
       }
@@ -106,7 +106,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    include('header.php');
    echo '
    <h3 class="mb-3">'.stripslashes($forum_name).'</h3>
-      <p class="lead">'.translate("Moderated By: ").'';
+      <p class="lead">'.translate("Modéré par : ").'';
    $moderator_data=explode(' ',$moderator);
    for ($i = 0; $i < count($moderator_data); $i++) {
       $modera = get_userdata($moderator_data[$i]);
@@ -122,21 +122,21 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    echo '</p>';
    echo '
       <p class="lead">
-         <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
+         <a href="forum.php">'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
       </p>
       <div class="card p-3">
          <form id="privforumentry" action="viewforum.php" method="post">
             <div class="form-group row">
-               <label class="col-form-label col-sm-12" for="forum_pass">'.translate("This is a Private Forum. Please enter the password to gain access").'</label>
+               <label class="col-form-label col-sm-12" for="forum_pass">'.translate("Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder").'</label>
                <div class="col-sm-12">
-                  <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Password").'" required="required"/>
+                  <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Mot de passe").'" required="required"/>
                   <span class="help-block text-right" id="countcar_forum_pass"></span>
                </div>
             </div>
                <input type="hidden" name="forum" value="'.$forum.'" />
                <div class="form-group">
-                  <button type="submit" class="btn btn-primary mr-2" name="submitpass" title="'.translate("Submit").'"><i class="fa fa-check mr-1"></i>'.translate("Submit").'</button>
-                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Clear").'"><i class="fas fa-sync mr-1"></i>'.translate("Clear").'</button>
+                  <button type="submit" class="btn btn-primary mr-2" name="submitpass" title="'.translate("Valider").'"><i class="fa fa-check mr-1"></i>'.translate("Valider").'</button>
+                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Annuler").'"><i class="fas fa-sync mr-1"></i>'.translate("Annuler").'</button>
             </div>
          </form>
       </div>';
@@ -158,10 +158,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    if ($solved) {
       if (isset($closoled)) {
          $closol="and topic_status='2'";
-         $mess_closoled='<a href="viewforum.php?forum='.$forum.'">'.translate("Without").' '.translate("Solved").'</a>';
+         $mess_closoled='<a href="viewforum.php?forum='.$forum.'">'.translate("Sans").' '.translate("Résolu").'</a>';
       } else {
          $closol="and topic_status!='2'";
-         $mess_closoled='<a href="viewforum.php?forum='.$forum.'&amp;closoled=on">'.translate("Only").' '.translate("Solved").'</a>';
+         $mess_closoled='<a href="viewforum.php?forum='.$forum.'&amp;closoled=on">'.translate("Seulement").' '.translate("Résolu").'</a>';
       }
    } else {
       $closol=''; $mess_closoled='';
@@ -169,7 +169,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
 
    echo '
    <p class="lead">
-      <a href="forum.php" >'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
+      <a href="forum.php" >'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
    </p>
    <h3 class="mb-3">';
    if ($forum_access!=9) {
@@ -177,7 +177,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       if ($forum_access==2)
          if (!user_is_moderator($userR[0],$userR[2],$forum_access)) $allow_to_post = false;
       if ($allow_to_post)
-         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("New").'"><i class="fa fa-plus-square mr-2"></i><span class="d-none d-sm-inline">'.translate("New Topic").'<br /></span></a>';
+         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau").'"><i class="fa fa-plus-square mr-2"></i><span class="d-none d-sm-inline">'.translate("Nouveau sujet").'<br /></span></a>';
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
    </h3>';
@@ -187,7 +187,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       <div class="card mb-3">
          <div class="card-body p-2">
             <div class="d-flex ">
-               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ml-1 d-inline d-md-none" title="'.translate("Moderator(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Moderator(s)").'</span></div>
+               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ml-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
                <div class=" align-self-center mr-auto">';
                   $Mmod=false;
 
@@ -202,7 +202,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       }
       if ($user)
          if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Moderated By: ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    echo '
                </div>
@@ -220,17 +220,17 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
 
    if ($myrow = sql_fetch_assoc($result)) {
       echo '
-      <h4 class="my-2">'.translate("Topics").' <span class="text-muted">'.$mess_closoled.'</span></h4>
+      <h4 class="my-2">'.translate("Sujets").' <span class="text-muted">'.$mess_closoled.'</span></h4>
       <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="n-t-col-xs-1" data-align="center"></th>
-               <th class="" data-sortable="true" data-sorter="htmlSorter">'.translate("Topic").'&nbsp;&nbsp;</th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Replies").'" data-toggle="tooltip" ></i></th>
-               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Poster").'" data-toggle="tooltip"></i></th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Views").'" data-toggle="tooltip" ></i></th>
-               <th data-align="right" >'.translate("Last Posts").'</th>
+               <th class="" data-sortable="true" data-sorter="htmlSorter">'.translate("Sujet").'&nbsp;&nbsp;</th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Réponses").'" data-toggle="tooltip" ></i></th>
+               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Emetteur").'" data-toggle="tooltip"></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Lectures").'" data-toggle="tooltip" ></i></th>
+               <th data-align="right" >'.translate("Dernières contributions").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -257,20 +257,20 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='".$myrow['topic_id']."' AND status!='0'";
                if ($replys >= $hot_threshold) {
                   if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>';
                   else
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
                } else {
                   if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>';
                   else
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
+                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
                }
             } else {
                if ($replys >= $hot_threshold)
-                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
+                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
                else
-                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Last Posts").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
+                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
             }
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
@@ -306,7 +306,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                if (!$Mmod) {
                   echo '<td>&nbsp;</td>';
                } else {
-                  echo "<td>[ <a href=\"$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum\">".translate("Edit")."</a> ]</td>";
+                  echo "<td>[ <a href=\"$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum\">".translate("Editer")."</a> ]</td>";
                }
                echo '<td>&nbsp;</td>';
             } else {
@@ -331,11 +331,11 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          </tbody>
       </table>';
       if ($user)
-         echo '<p class="mt-1"><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="far fa-check-square fa-lg"></i></a>&nbsp;'.translate("Mark all Topics to Read").'</p>';
+         echo '<p class="mt-1"><a href="viewforum.php?op=mark&amp;forum='.$forum.'"><i class="far fa-check-square fa-lg"></i></a>&nbsp;'.translate("Marquer tous les messages comme lus").'</p>';
    } else {
       if ($forum_access!=9)
          echo '
-      <div class="alert alert-danger my-3">'.translate("There are no topics for this forum. ").'<br /><a href="newtopic.php?forum='.$forum.'" >'.translate("You can post one here.").'</a></div>';
+      <div class="alert alert-danger my-3">'.translate("Il n'y a aucun sujet pour ce forum. ").'<br /><a href="newtopic.php?forum='.$forum.'" >'.translate("Vous pouvez en poster un ici.").'</a></div>';
    }
 
    $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' $closol";
@@ -359,16 +359,16 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    <blockquote class="blockquote my-3">';
    if($user)
       echo'
-      <i class="far fa-file-alt fa-lg faa-shake animated text-primary"></i> = '.translate("New Posts since your last visit.").'<br />
-      <i class="fas fa-file-alt fa-lg faa-shake animated text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-      <i class="far fa-file-alt fa-lg text-primary"></i> = '.translate("No New Posts since your last visit.").'<br />
-      <i class="fas fa-file-alt fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />';
+      <i class="far fa-file-alt fa-lg faa-shake animated text-primary"></i> = '.translate("Les nouvelles contributions depuis votre dernière visite.").'<br />
+      <i class="fas fa-file-alt fa-lg faa-shake animated text-primary"></i> = '.translate("Plus de").' '.$hot_threshold.' '.translate("Contributions").'<br />
+      <i class="far fa-file-alt fa-lg text-primary"></i> = '.translate("Aucune nouvelle contribution depuis votre dernière visite.").'<br />
+      <i class="fas fa-file-alt fa-lg text-primary"></i> = '.translate("Plus de").' '.$hot_threshold.' '.translate("Contributions").'<br />';
    else
       echo '
-      <i class="fas fa-file-alt fa-lg text-primary"></i> = '.translate("More than").' '.$hot_threshold.' '.translate("Posts").'<br />
-      <i class="far fa-file-alt fa-lg text-primary"></i> = '.translate("Posts").'.<br />';
+      <i class="fas fa-file-alt fa-lg text-primary"></i> = '.translate("Plus de").' '.$hot_threshold.' '.translate("Contributions").'<br />
+      <i class="far fa-file-alt fa-lg text-primary"></i> = '.translate("Contributions").'.<br />';
    echo '
-      <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Topic is Locked - No new posts may be made in it").'<br />
+      <i class="fa fa-lock fa-lg text-danger"></i> = '.translate("Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.").'<br />
    </blockquote>';
    
    if ($SuperCache) {
@@ -381,10 +381,10 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
    <form class="my-3" action="viewforum.php" method="post">
       <div class="form-group row">
          <div class="col-12">
-            <label class="sr-only" for="forum">'.translate("Jump To: ").'</label>
+            <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
             <select class="form-control custom-select" name="forum" onchange="submit();">
-               <option value="index">'.translate("Jump To: ").'</option>
-               <option value="index">'.translate("Forum Index").'</option>';
+               <option value="index">'.translate("Sauter à : ").'</option>
+               <option value="index">'.translate("Index du forum").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
        if ($res = sql_query($sub_sql)) {
           while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {

@@ -155,7 +155,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="xed_nb_images">'.adm_translate("Nombre d'image").'</label>
+            <label class="col-form-label col-sm-4" for="xed_nb_images">'.adm_translate("Nombre d'images").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xed_nb_images" type="text" name="xed_nb_images" min="1" maxlength="3" value="'.$ed_nb_images.'" />
                <span class="help-block">Nombre d\'image par ligne dans l\'afficheur d\'image de l\'editeur HTML</span>

@@ -57,7 +57,7 @@ $m->add_checkbox('consent',aff_langue('[french]En soumettant ce formulaire j\'ac
 $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >');
-$m->add_field('reset','',translate("Cancel"),'reset',false);
+$m->add_field('reset','',translate("Annuler"),'reset',false);
 $m->add_extra('&nbsp;');
 $m->add_field('','',"[french]Soumettre[/french][english]Submit[/english]",'submit',false);
 $m->add_extra('

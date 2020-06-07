@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -34,7 +34,7 @@ function L_encrypt($txt) {
          $tmp_theme=$Default_Theme;
       }
       include("themes/$tmp_theme/theme.php");
-      $Titlesitename=translate("Bookmark");
+      $Titlesitename=translate("Carnet d'adresses");
       include("meta/meta.php");
       echo import_css($tmp_theme, $language, $site_font, "","");
       include("lib/formhelp.java.php");
@@ -72,7 +72,7 @@ function L_encrypt($txt) {
          echo '</table>';
       } else {
          echo "<table width=\"100%\"><tr><td>";
-         echo "<span class=\"noir\">".translate("You can upload a file carnet.txt in your Mini-Web site").".<br />".translate("The data structure of any line : name_of_the_member;email;comments")."</span>";
+         echo "<span class=\"noir\">".translate("Vous pouvez charger un fichier carnet.txt dans votre miniSite").".<br />".translate("The data structure of any line : name_of_the_member;email;comments")."</span>";
          echo "</td></tr></table>";
       }
       echo '

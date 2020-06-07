@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -180,9 +180,9 @@ if ($submitS) {
       redirect_url("viewforum.php?forum=$forum");
    } else {
       echo '
-   <h4 class="my-3">'.translate("Post Reply in Topic").'</h4>
-   <p class="alert alert-danger">'.translate("You must type a message to post.").'</p>
-   <a class="btn btn-outline-primary" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>';
+   <h4 class="my-3">'.translate("Poster une réponse dans le sujet").'</h4>
+   <p class="alert alert-danger">'.translate("Vous devez taper un message à poster.").'</p>
+   <a class="btn btn-outline-primary" href="javascript:history.go(-1)" >'.translate("Retour en arrière").'</a>';
    }
 } else {
    include('header.php');
@@ -213,12 +213,12 @@ if ($submitS) {
    
    echo '
    <p class="lead">
-      <a href="forum.php">'.translate("Forum Index").'</a>&nbsp;&raquo;&raquo;&nbsp;
+      <a href="forum.php">'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;
       <a href="viewforum.php?forum='.$forum.'">'.stripslashes($forum_name).'</a>&nbsp;&raquo;&raquo;&nbsp;'.$topic_title.'
    </p>
    <div class="card">
       <div class="card-body p-1">
-            '.translate("Moderator(s)");
+            '.translate("Modérateur(s)");
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -235,16 +235,16 @@ if ($submitS) {
    echo '
       </div>
    </div>
-   <h4 class="d-none d-sm-block my-3"><img width="48" height="48" class=" rounded-circle mr-3" src="'.$imgava.'" alt="" />'.translate("Post Reply in Topic").'</h4>
+   <h4 class="d-none d-sm-block my-3"><img width="48" height="48" class=" rounded-circle mr-3" src="'.$imgava.'" alt="" />'.translate("Poster une réponse dans le sujet").'</h4>
    <form action="reply.php" method="post" name="coolsus">';
 
-   echo '<blockquote class="blockquote d-none d-sm-block"><p>'.translate("About Posting:").'<br />';
+   echo '<blockquote class="blockquote d-none d-sm-block"><p>'.translate("A propos des messages publiés :").'<br />';
    if ($forum_access == 0)
-      echo translate("Anonymous users can post new topics and replies in this forum.");
+      echo translate("Les utilisateurs anonymes peuvent poster de nouveaux sujets et des réponses dans ce forum.");
    else if($forum_access == 1)
-      echo translate("All registered users can post new topics and replies to this forum.");
+      echo translate("Tous les utilisateurs enregistrés peuvent poster de nouveaux sujets et répondre dans ce forum.");
    else if($forum_access == 2)
-      echo translate("Only Moderators can post new topics and replies in this forum.");
+      echo translate("Seuls les modérateurs peuvent poster de nouveaux sujets et répondre dans ce forum.");
    echo '</blockquote>';
 
    $allow_to_reply=false;
@@ -283,7 +283,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="d-none d-sm-block form-group row">
-         <label class="form-control-label col-sm-12">'.translate("Message Icon").'</label>
+         <label class="form-control-label col-sm-12">'.translate("Icone du message").'</label>
          <div class="col-sm-12">
             <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
             '.emotion_add($image_subject).'
@@ -298,9 +298,9 @@ if ($submitS) {
             <div class="card">
                <div class="card-header">';
    if ($allow_html == 1)
-      echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
-      echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">';
@@ -318,13 +318,13 @@ if ($submitS) {
               $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
            $text = stripslashes($text);
            if ($m['post_time']!='' && $m['uname']!='') {
-              $reply = '<blockquote class="blockquote">'.translate("Quote").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
+              $reply = '<blockquote class="blockquote">'.translate("Citation").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
            } else {
               $reply = $text."\n";
            }
            $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si",'',$reply);
         } else {
-           $reply = translate("Error Connecting to DB")."\n";
+           $reply = translate("Erreur de connexion à la base de données")."\n";
         }
      }
      if (!isset($reply)) $reply=$message;
@@ -333,8 +333,8 @@ if ($submitS) {
       echo '
                   <textarea class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
                   <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>
                <div class="card-footer text-muted">';
@@ -354,7 +354,7 @@ if ($submitS) {
             <div class="checkbox my-2">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+                  <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>
             </div>';
       }
@@ -368,8 +368,8 @@ if ($submitS) {
             <div class="checkbox my-2">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
-                  <label class="custom-control-label" for="sig">'.translate("Show signature").'</label>
-                  <small class="help-block">'.translate("This can be altered or added in your profile").'</small>
+                  <label class="custom-control-label" for="sig">'.translate("Afficher la signature").'</label>
+                  <small class="help-block">'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small>
                </div>
             </div>';
            }
@@ -382,7 +382,7 @@ if ($submitS) {
             <div class="checkbox my-2">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="upload" name="upload" '.$up.' />
-                  <label class="custom-control-label" for="upload">'.translate("Upload file after send accepted").'</label>
+                  <label class="custom-control-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
                </div>
             </div>';
         }
@@ -395,18 +395,18 @@ if ($submitS) {
          <div class="col-sm-12">
             <input type="hidden" name="forum" value="'.$forum.'" />
             <input type="hidden" name="topic" value="'.$topic.'" />
-            <button class="btn btn-primary" type="submit" value="'.translate("Submit").'" name="submitS" accesskey="s" title="'.translate("Submit").'" data-toggle="tooltip" >'.translate("Submit").'</button>&nbsp;
-            <button class="btn btn-danger" type="submit" value="'.translate("Cancel Post").'" name="cancel" title="'.translate("Cancel Post").'" data-toggle="tooltip" >'.translate("Cancel Post").'</button>
+            <button class="btn btn-primary" type="submit" value="'.translate("Valider").'" name="submitS" accesskey="s" title="'.translate("Valider").'" data-toggle="tooltip" >'.translate("Valider").'</button>&nbsp;
+            <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-toggle="tooltip" >'.translate("Annuler la contribution").'</button>
          </div>
       </div>';
    } else
       echo '
-      <div class="alert alert-danger">'.translate("You are not allowed to reply in this forum").'</div>';
+      <div class="alert alert-danger">'.translate("Vous n'êtes pas autorisé à participer à ce forum").'</div>';
    echo '
    </form>';
    if ($allow_to_reply) {
       echo '
-      <h4 class="my-3">'.translate("Topic Review").'</h4>';
+      <h4 class="my-3">'.translate("Aperçu des sujets :").'</h4>';
       if ($Mmod) $post_aff='';
       else $post_aff=" AND post_aff='1' ";
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id DESC limit 0,10";
@@ -459,20 +459,20 @@ if ($submitS) {
             $useroutils .= '<hr />';
          if($user or autorisation(-127)) {
             if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
             if ($posterdata['uid']!= 1)
-               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
             if ($posterdata['femail']!='')
                $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
             if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
                if ($posterdata_extend[$ch_lat] !='')
-                  $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Location").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+                  $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
             }
          }
          if ($posterdata['url']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
          if ($posterdata['mns'])
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
 
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
@@ -502,7 +502,7 @@ if ($submitS) {
                   </span>
                </div>
                <div class="card-body">
-                  <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").convertdate($myrow['post_time']).'</span>
+                  <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
                   <div class="card-text pt-4">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {

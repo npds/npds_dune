@@ -106,7 +106,7 @@ include("header.php");
    $result = sql_query($sql_query);
    echo '.<br /><br />
    .: Cr&eacute;ation des tables termin&eacute; / Tables Creation Ended :.<br /><br />
-   <a href="modules.php?ModStart=links&amp;ModPath='.substr($ModPath,0,$pos).'" class="btn btn-secondary">'.translate("Go Back").'</a>
+   <a href="modules.php?ModStart=links&amp;ModPath='.substr($ModPath,0,$pos).'" class="btn btn-secondary">'.translate("Retour en arrière").'</a>
    </p>';
 
 include("footer.php");

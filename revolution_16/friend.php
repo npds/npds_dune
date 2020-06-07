@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -40,28 +40,28 @@ function FriendSend($sid, $archive) {
    }
    echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
+         <label class="col-form-label col-sm-4" for="fname">'.translate("Nom du destinataire").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
+         <label class="col-form-label col-sm-4" for="fmail">'.translate("Email du destinataire").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fmail"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="yname">'.translate("Your Name").'</label>
+         <label class="col-form-label col-sm-4" for="yname">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
+         <label class="col-form-label col-sm-4" for="ymail">'.translate("Votre Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span class="muted" id="countcar_ymail"></span></span>
@@ -73,7 +73,7 @@ function FriendSend($sid, $archive) {
    <input type="hidden" name="op" value="SendStory" />
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto">
-            <button type="submit" class="btn btn-primary" title="'.translate("Send").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
+            <button type="submit" class="btn btn-primary" title="'.translate("Envoyer").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
          </div>
       </div>
    </form>';
@@ -105,9 +105,9 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    list($title, $time, $topic) = sql_fetch_row($result2);
    $result3=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext) = sql_fetch_row($result3);
-   $subject = translate("Interesting Article at")." $sitename";
+   $subject = translate("Article intéressant sur")." $sitename";
    $fname=removeHack($fname);
-   $message = translate("Hello")." $fname :\n\n".translate("Your Friend")." $yname ".translate("considered the following article interesting and wanted to send it to you.")."\n\n".aff_langue($title)."\n".translate("Date:")." $time\n".translate("Topic:")." ".aff_langue($topictext)."\n\n".translate("The Article")." : <a href=\"$nuke_url/article.php?sid=$sid&amp;archive=$archive\">$nuke_url/article.php?sid=$sid&amp;archive=$archive</a>\n\n";
+   $message = translate("Bonjour")." $fname :\n\n".translate("Votre ami")." $yname ".translate("a trouvé cet article intéressant et a souhaité vous l'envoyer.")."\n\n".aff_langue($title)."\n".translate("Date :")." $time\n".translate("Sujet : ")." ".aff_langue($topictext)."\n\n".translate("L'article")." : <a href=\"$nuke_url/article.php?sid=$sid&amp;archive=$archive\">$nuke_url/article.php?sid=$sid&amp;archive=$archive</a>\n\n";
    include("signat.php");
    $fmail=removeHack($fmail);
    $subject=removeHack($subject);
@@ -133,9 +133,9 @@ function StorySent($title, $fname) {
    $title = urldecode($title);
    $fname = urldecode($fname);
    if ($fname=='')
-      echo '<div class="alert alert-danger">'.translate("ERROR: Invalid email").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Erreur : Email invalide").'</div>';
    else
-      echo '<div class="alert alert-success">'.translate("Story").' <strong>'.stripslashes($title).'</strong> '.translate("has been sent to").'&nbsp;'.$fname.'<br />'.translate("Thanks!").'</div>';
+      echo '<div class="alert alert-success">'.translate("L'article").' <strong>'.stripslashes($title).'</strong> '.translate("a été envoyé à").'&nbsp;'.$fname.'<br />'.translate("Merci").'</div>';
    include ("footer.php");
 }
 
@@ -151,33 +151,33 @@ function RecommendSite() {
    include ("header.php");
    echo '
    <div class="card card-body">
-   <h2>'.translate("Recommend this Site to a Friend").'</h2>
+   <h2>'.translate("Recommander ce site à un ami").'</h2>
    <hr />
    <form id="friendrecomsite" action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="yname">'.translate("Your Name").'</label>
+         <label class="col-form-label col-sm-4" for="yname">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="ymail">'.translate("Your Email").'</label>
+         <label class="col-form-label col-sm-4" for="ymail">'.translate("Votre Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_ymail"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fname">'.translate("Friend Name").'</label>
+         <label class="col-form-label col-sm-4" for="fname">'.translate("Nom du destinataire").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fmail">'.translate("Friend Email").'</label>
+         <label class="col-form-label col-sm-4" for="fmail">'.translate("Email du destinataire").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
             <span class="help-block text-right"><span class="muted" id="countcar_fmail"></span></span>
@@ -186,7 +186,7 @@ function RecommendSite() {
       '.Q_spambot().'
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Send").'</button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
          </div>
       </div>
    </form>';
@@ -211,9 +211,9 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    }
 
    global $sitename, $nuke_url;
-   $subject = translate("Interesting Site:")." $sitename";
+   $subject = translate("Site à découvrir : ")." $sitename";
    $fname=removeHack($fname);
-   $message = translate("Hello")." $fname :\n\n".translate("Your Friend")." $yname ".translate("considered our site")." $sitename ".translate("interesting and wanted to send it to you.")."\n\n$sitename : <a href=\"$nuke_url\">$nuke_url</a>\n\n";
+   $message = translate("Bonjour")." $fname :\n\n".translate("Votre ami")." $yname ".translate("a trouvé notre site")." $sitename ".translate("intéressant et a voulu vous le faire connaître.")."\n\n$sitename : <a href=\"$nuke_url\">$nuke_url</a>\n\n";
    include("signat.php");
    $fmail=removeHack($fmail);
    $subject=removeHack($subject);
@@ -236,14 +236,14 @@ function SiteSent($fname) {
       echo '
          <div class="alert alert-danger lead" role="alert">
             <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
-            '.translate("ERROR: Invalid email").'
+            '.translate("Erreur : Email invalide").'
          </div>';
    else
       echo '
       <div class="alert alert-success lead" role="alert">
          <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;
-         '.translate("The reference to our site has been sent to").' '.$fname.', <br />
-         <strong>'.translate("Thanks for recommend us!").'</strong>
+         '.translate("Nos références ont été envoyées à ").' '.$fname.', <br />
+         <strong>'.translate("Merci de nous avoir recommandé").'</strong>
       </div>';
    include ('footer.php');
 }

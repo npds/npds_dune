@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -26,16 +26,16 @@ if ($op!='userinfo') {
 
 if (($op=='userinfo') and ($user)) {
    global $act_uname;
-   $act_uname="<a href='powerpack.php?op=instant_message&amp;to_userid=$uname' title='".translate("Send internal Message")."'>$uname</a>";
-   $m->add_field('act_uname', translate("User ID"),$act_uname,'text',true,25,'','');
+   $act_uname="<a href='powerpack.php?op=instant_message&amp;to_userid=$uname' title='".translate("Envoyer un message interne")."'>$uname</a>";
+   $m->add_field('act_uname', translate("ID utilisateur (pseudo)"),$act_uname,'text',true,25,'','');
 } else
-   $m->add_field('uname', translate("User ID"),$uname,'text',true,25,'','');
+   $m->add_field('uname', translate("ID utilisateur (pseudo)"),$uname,'text',true,25,'','');
 
 if($name!='')
-   $m->add_field('name', translate("Identity"),$name,'text',false,60,'','');
+   $m->add_field('name', translate("Identité"),$name,'text',false,60,'','');
 
 if($email!='')
-   $m->add_field('email', translate("Real Email"),$email,'text',true,60,'','');
+   $m->add_field('email', translate("Véritable adresse Email"),$email,'text',true,60,'','');
 
 // if ($user_viewemail===1) $checked=true; else $checked=false;
 // $m->add_checkbox('user_viewemail',translate("Allow other users to view my email address"), 1, false, $checked);
@@ -45,16 +45,16 @@ settype($url,'string');
 
 if($url!='') {
    $url='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-   $m->add_field('url',  translate("HomePage"),$url,'text',false,100,'','');
+   $m->add_field('url',  translate("Page d'accueil"),$url,'text',false,100,'','');
 }
 if($user_from!='')
-   $m->add_field('user_from', translate("Location"),$user_from,'text',false,100,'','');
+   $m->add_field('user_from', translate("Localisation"),$user_from,'text',false,100,'','');
 if($user_occ!='')
-   $m->add_field('user_occ', translate("Occupation"),$user_occ,'text',false,100,'','');
+   $m->add_field('user_occ', translate("Votre activité"),$user_occ,'text',false,100,'','');
 if($user_intrest!='')
-   $m->add_field('user_intrest', translate("Interest"),$user_intrest,'text',false,150,'','');
+   $m->add_field('user_intrest', translate("Centres d'interêt"),$user_intrest,'text',false,150,'','');
 if ($op=='userinfo' and $bio!='')
-   $m->add_field('bio',translate("Extra Info"),$bio,'textarea',false,255,7,'','');
+   $m->add_field('bio',translate("Informations supplémentaires"),$bio,'textarea',false,255,7,'','');
 
 if ($op!="userinfo")
    if ($user_sig!='')

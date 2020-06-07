@@ -38,21 +38,21 @@ function write_review() {
    global $admin, $sitename, $user, $cookie, $short_review, $NPDS_Prefix;
    include ('header.php');
    echo '
-   <h2>'.translate("Write a Review").'</h2>
+   <h2>'.translate("Ecrire une critique").'</h2>
    <hr />
    <form id="writereview" method="post" action="reviews.php">
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="title_rev">'.translate("Product Title").'</label>
+         <label class="col-form-label col-sm-4" for="title_rev">'.translate("Objet").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="title_rev" name="title" rows="2" required="required" maxlength="150"></textarea>
             <span class="help-block text-right" id="countcar_title_rev"></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="text_rev">'.translate("Text").'</label>
+         <label class="col-form-label col-sm-4" for="text_rev">'.translate("Texte").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="text_rev" name="text" rows="15" required="required"></textarea>
-            <span class="help-block">'.translate("Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them.").'</span>
+            <span class="help-block">'.translate("Attention à votre expression écrite. Vous pouvez utiliser du code html si vous savez le faire").'</span>
          </div>
       </div>';
   
@@ -62,13 +62,13 @@ function write_review() {
 
       echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Your name").'</label>
+         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="reviewer_rev" name="reviewer" value="'.$uname.'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Your email").'</label>
+         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" maxlength="60" required="required" />
             <span class="help-block text-right" id="countcar_email_rev"></span>
@@ -77,13 +77,13 @@ function write_review() {
    } else {
       echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Your name").'</label>
+         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="reviewer_rev" name="reviewer" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Your email").'</label>
+         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="email_rev" name="email" maxlength="60" required="required" />
             <span class="help-block text-right" id="countcar_email_rev"></span>
@@ -92,7 +92,7 @@ function write_review() {
    }
       echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="score_rev">'.translate("Score").'</label>
+         <label class="col-form-label col-sm-4" for="score_rev">'.translate("Evaluation").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" id="score_rev" name="score">
                <option value="10">10</option>
@@ -106,33 +106,33 @@ function write_review() {
                <option value="2">2</option>
                <option value="1">1</option>
             </select>
-            <span class="help-block">'.translate("Select from 1=poor to 10=excelent.").'</span>
+            <span class="help-block">'.translate("Choisir entre 1 et 10 (1=nul 10=excellent)").'</span>
          </div>
       </div>';
 
    if (!$short_review) {
       echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="url_rev">'.translate("Related Link").'</label>
+         <label class="col-form-label col-sm-4" for="url_rev">'.translate("Lien relatif").'</label>
          <div class="col-sm-8">
             <input type="url" class="form-control" id="url_rev" name="url" maxlength="100" />
-            <span class="help-block">'.translate("Product Official Website. Make sure your URL starts by").' http(s)://<span class="float-right" id="countcar_url_rev"></span></span>
+            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-right" id="countcar_url_rev"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="url_title_rev">'.translate("Link title").'</label>
+         <label class="col-form-label col-sm-4" for="url_title_rev">'.translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="url_title_rev" name="url_title" maxlength="50" />
-            <span class="help-block">'.translate("Required if you have a related link, otherwise not required.").'<span class="float-right" id="countcar_url_title_rev"></span></span>
+            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-right" id="countcar_url_title_rev"></span></span>
          </div>
       </div>';
       if ($admin) {
          echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="cover_rev">'.translate("Image filename").'</label>
+         <label class="col-form-label col-sm-4" for="cover_rev">'.translate("Nom de fichier de l'image").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="cover_rev" name="cover" maxlength="50" />
-            <span class="help-block">'.translate("Name of the cover image, located in images/reviews/. Not required.").'<span class="float-right" id="countcar_cover_rev"></span></span>
+            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-right" id="countcar_cover_rev"></span></span>
          </div>
       </div>';
       }
@@ -141,9 +141,9 @@ function write_review() {
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="preview_review" />
-            <button type="submit" class="btn btn-primary" >'.translate("Preview").'</button>
-            <button type="button" onclick="history.go(-1)" class="btn btn-secondary" title="'.translate("Go Back").'">'.translate("Go Back").'</button>
-            <p class="help-block">'.translate("Please make sure that the information entered is 100% valid and uses proper grammar and capitalization. For instance, please do not enter your text in ALL CAPS, as it will be rejected.").'</p>
+            <button type="submit" class="btn btn-primary" >'.translate("Prévisualiser").'</button>
+            <button type="button" onclick="history.go(-1)" class="btn btn-secondary" title="'.translate("Retour en arrière").'">'.translate("Retour en arrière").'</button>
+            <p class="help-block">'.translate("Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté").'</p>
          </div>
       </div>
    </form>';
@@ -168,44 +168,44 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
 
    include ('header.php');
    echo '
-   <h2 class="mb-4">'.translate("Write a Review").'</h2>
+   <h2 class="mb-4">'.translate("Ecrire une critique").'</h2>
    <form method="post" action="reviews.php">';
    if ($title == '') {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("Invalid Title... can not be blank").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Titre non valide... Il ne peut pas être vide").'</div>';
    }
    if ($text == '') {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("Invalid review text... can not be blank").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Texte de critique non valide... Il ne peut pas être vide").'</div>';
    }
    if (($score < 1) || ($score > 10)) {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("Invalid score... must be between 1 and 10").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Note non valide... Elle doit se situer entre 1 et 10").'</div>';
    }
    if (($hits < 0) && ($id != 0)) {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("Hits must be a positive integer").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Le nombre de hits doit être un entier positif").'</div>';
    }
    if ($reviewer == '' || $email == '') {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("You must enter both your name and your email").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Vous devez entrer votre nom et votre adresse Email").'</div>';
    } else if ($reviewer != '' && $email != '') {
       if (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)) {
          $error = 1;
-         echo '<div class="alert alert-danger">'.translate("Invalid email (eg: you@hotmail.com)").'</div>';
+         echo '<div class="alert alert-danger">'.translate("Email non valide (ex.: prenom.nom@hotmail.com)").'</div>';
       }
       include_once('functions.php');
       if(checkdnsmail($email) === false) {
          $error = 1;
-         echo '<div class="alert alert-danger">'.translate("ERROR: wrong DNS or mail server").'</div>';
+         echo '<div class="alert alert-danger">'.translate("Erreur : DNS ou serveur de mail incorrect").'</div>';
       }
    }
    if ((($url_title != '' && $url =='') || ($url_title == "" && $url != "")) and (!$short_reviews)) {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("You must enter BOTH a link title and a related link or leave both blank").'</div>';
+      echo '<div class="alert alert-danger">'.translate("Vous devez entrer un titre de lien et une adresse relative, ou laisser les deux zones vides").'</div>';
    } else if (($url != "") && (!preg_match('#^http(s)?://#i',$url))) {
       $error = 1;
-      echo '<div class="alert alert-danger">'.translate("Product Official Website. Make sure your URL starts by").' http(s)://</div>';
+      echo '<div class="alert alert-danger">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://</div>';
    }
 
    if ($error == 1)
@@ -214,10 +214,10 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       global $gmt;
       $fdate=date(str_replace('%','',translate("linksdatestring")),time()+((integer)$gmt*3600));
 
-      echo translate("Waiting Reviews");
+      echo translate("Critiques");
 
       echo '
-      <br />'.translate("Added:").' '.$fdate.'
+      <br />'.translate("Ajouté :").' '.$fdate.'
       <hr />
       <h3>'.$title.'</h3>';
       if ($cover != '')
@@ -225,15 +225,15 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       echo $text;
       echo '
       <hr />
-      <strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.$email.'" target="_blank">'.$reviewer.'</a><br />
-      <strong>'.translate("Score:").'</strong>
+      <strong>'.translate("Le critique").' :</strong> <a href="mailto:'.$email.'" target="_blank">'.$reviewer.'</a><br />
+      <strong>'.translate("Note").'</strong>
       <span class="text-success">';
       display_score($score); 
       echo'</span>';
       if ($url != '')
-         echo '<br /><strong>'.translate("Related Link").' :</strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
+         echo '<br /><strong>'.translate("Lien relatif").' :</strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a>';
       if ($id != 0) {
-         echo '<br /><strong>'.translate("Review ID").' :</strong> '.$id.'<br />
+         echo '<br /><strong>'.translate("ID de la critique").' :</strong> '.$id.'<br />
          <strong>'.translate("Hits").' :</strong> '.$hits.'<br />';
       }
       $text = urlencode($text);
@@ -250,20 +250,20 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
             <input type="hidden" name="url_title" value="'.$url_title.'" />
             <input type="hidden" name="cover" value="'.$cover.'" />
             <input type="hidden" name="op" value="add_reviews" />
-            <p class="my-3">'.translate("Does this look right?").'</p>';
+            <p class="my-3">'.translate("Cela semble-t-il correct ?").'</p>';
       if (!$admin) echo Q_spambot();
       echo '
       <div class="form-group row">
          <div class="col-sm-12">
-            <input class="btn btn-primary" type="submit" value="'.translate("Yes").'" />&nbsp;
-            <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("No").'" />
+            <input class="btn btn-primary" type="submit" value="'.translate("Oui").'" />&nbsp;
+            <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("Non").'" />
          </div>
       </div>';
-      if ($id != 0) $word = translate("modified");
-      else $word = translate("added");
+      if ($id != 0) $word = translate("modifié");
+      else $word = translate("ajouté");
       if ($admin)
          echo '
-         <div class="alert alert-success"><strong>'.translate("Note:").'</strong> '.translate("Currently logged in as admin... this review will be").' '.$word.' '.translate("immediately").'.</div>';
+         <div class="alert alert-success"><strong>'.translate("Note :").'</strong> '.translate("Actuellement connecté en administrateur... Cette critique sera").' '.$word.' '.translate("immédiatement").'.</div>';
    }
    echo '
    </form>';
@@ -300,9 +300,9 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
       }
    }
    echo '
-   <h2>'.translate("Write a Review").'</h2>
+   <h2>'.translate("Ecrire une critique").'</h2>
    <hr />
-   <div class="alert alert-success">'.translate("Thanks for submitting this review").'';
+   <div class="alert alert-success">'.translate("Merci d'avoir posté cette critique").'';
    if ($id != 0)
       echo ' '.translate("modification");
    else
@@ -310,17 +310,17 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
    echo '<br />';
    if (($admin) && ($id == 0)) {
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
-      echo translate("It is now available in the reviews database.");
+      echo translate("Dès maintenant disponible dans la base de données des critiques.");
    } else if (($admin) && ($id != 0)) {
       sql_query("UPDATE ".$NPDS_Prefix."reviews SET date='$date', title='$title', text='$text', reviewer='$reviewer', email='$email', score='$score', cover='$cover', url='$url', url_title='$url_title', hits='$hits' WHERE id='$id'");
-      echo translate("It is now available in the reviews database.");
+      echo translate("Dès maintenant disponible dans la base de données des critiques.");
    } else {
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews_add VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$url', '$url_title')");
-      echo translate("The editors will look at your submission. It should be available soon!");
+      echo translate("Nous allons vérifier votre contribution. Elle devrait bientôt être disponible !");
    }
    echo '
    </div>
-   <a class="btn btn-secondary" href="reviews.php" title="'.translate("Back to Reviews Index").'"><i class="fa fa-lg fa-undo"></i>  '.translate("Back to Reviews Index").'</a>';
+   <a class="btn btn-secondary" href="reviews.php" title="'.translate("Retour à l'index des critiques").'"><i class="fa fa-lg fa-undo"></i>  '.translate("Retour à l'index des critiques").'</a>';
    include ("footer.php");
 }
 
@@ -352,24 +352,24 @@ function reviews($field, $order) {
    
 
    echo '
-   <h2>'.translate("Reviews").'<span class="badge badge-secondary float-right" title="'.$numresults.' '.translate("Total Review(s) found.").'" data-toggle="tooltip">'.$numresults.'</span></h2>
+   <h2>'.translate("Critiques").'<span class="badge badge-secondary float-right" title="'.$numresults.' '.translate("Critique(s) trouvée(s).").'" data-toggle="tooltip">'.$numresults.'</span></h2>
    <hr />
    <h3>'.aff_langue($r_title).'</h3>
    <p class="lead">'.aff_langue($r_description).'</p>
-   <h4><a href="reviews.php?op=write_review"><i class="fa fa-edit"></i></a>&nbsp;'.translate("Write a Review").'</h4><br />
+   <h4><a href="reviews.php?op=write_review"><i class="fa fa-edit"></i></a>&nbsp;'.translate("Ecrire une critique").'</h4><br />
    ';
    echo'
    <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <i class="fa fa-sort-amount-down mr-2"></i>'.translate("Reviews").'
+         <i class="fa fa-sort-amount-down mr-2"></i>'.translate("Critiques").'
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Date").'</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Date").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Title").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Title").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Posted by").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Posted by").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Titre").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Titre").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Posté par").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Posté par").'</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>Score</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>Score</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=ASC"><i class="fa fa-sort-amount-down"></i>Hits</a>
@@ -387,10 +387,10 @@ function reviews($field, $order) {
                   <a href="reviews.php?op=sort&amp;field=date&amp;order=ASC"><i class="fa fa-sort-amount-down"></i></a> '.translate("Date").' <a href="reviews.php?op=sort&amp;field=date&amp;order=DESC"><i class="fa fa-sort-amount-up"></i></a>
                </th>
                <th data-align="left" data-halign="center" data-sortable="true" data-sorter="htmlSorter">
-                  <a href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-down"></i></a> '.translate("Title").' <a href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-up"></i></a>
+                  <a href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-down"></i></a> '.translate("Titre").' <a href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-up"></i></a>
                </th>
                <th data-align="center" data-sortable="true">
-                  <a href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-down"></i></a> '.translate("Posted by").' <a href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up"></i></a>
+                  <a href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-down"></i></a> '.translate("Posté par").' <a href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up"></i></a>
                </th>
                <th class="n-t-col-xs-2" data-align="center" data-sortable="true">
                   <a href="reviews.php?op=sort&amp;field=score&amp;order=ASC"><i class="fa fa-sort-amount-down"></i></a> Score <a href="reviews.php?op=sort&amp;field=score&amp;order=DESC"><i class="fa fa-sort-amount-up"></i></a>
@@ -458,12 +458,12 @@ function showcontent($id) {
    $score = $myrow['score'];
 
    echo '
-   <h2>'.translate("Reviews").'</h2>
+   <h2>'.translate("Critiques").'</h2>
    <hr />
-   <a href="reviews.php">'.translate("Back to Reviews Index").'</a>
+   <a href="reviews.php">'.translate("Retour à l'index des critiques").'</a>
    <div class="card card-body my-3">
       <div class="card-text text-muted text-right small">
-   '.translate("Added:").' '.$fdate.'<br />
+   '.translate("Ajouté :").' '.$fdate.'<br />
       </div>
    <hr />
    <h3 class="mb-3">'.$title.'</h3><br />';
@@ -475,29 +475,29 @@ function showcontent($id) {
       <br /><br />
       <div class="card card-body mb-3">';
    if ($reviewer != '')
-      echo '<div class="mb-2"><strong>'.translate("Reviewer").' :</strong> <a href="mailto:'.anti_spam($email,1).'" >'.$reviewer.'</a></div>';
+      echo '<div class="mb-2"><strong>'.translate("Le critique").' :</strong> <a href="mailto:'.anti_spam($email,1).'" >'.$reviewer.'</a></div>';
    if ($score != '')
-      echo '<div class="mb-2"><strong>'.translate("Score:").' : </strong>';
+      echo '<div class="mb-2"><strong>'.translate("Note").' : </strong>';
    echo '<span class="text-success">';
    display_score($score);
    echo '</span>
    </div>';
    if ($url != '')
-      echo '<div class="mb-2"><strong>'.translate("Related Link").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a></div>';
-   echo '<div><strong>'.translate("Hits:").'</strong><span class="badge badge-secondary">'.$hits.'</span></div>
+      echo '<div class="mb-2"><strong>'.translate("Lien relatif").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a></div>';
+   echo '<div><strong>'.translate("Hits : ").'</strong><span class="badge badge-secondary">'.$hits.'</span></div>
       </div>';
    if ($admin)
       echo '
       <nav class="d-flex justify-content-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-lg-inline">'.translate("Administration Tools").'</span></a>
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-lg-inline">'.translate("Outils administrateur").'</span></a>
             </li>
             <li class="page-item">
-               <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Edit").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
+               <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
             </li>
             <li class="page-item">
-               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Delete").'" data-toggle="tooltip" ><i class="far fa-trash-alt fa-lg" ></i></a>
+               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Effacer").'" data-toggle="tooltip" ><i class="far fa-trash-alt fa-lg" ></i></a>
             </li>
          </ul>
       </nav>';
@@ -535,7 +535,7 @@ function mod_review($id) {
       $score = $myrow['score'];
 
    echo '
-   <h2 class="mb-4">'.translate("Review Modification").'</h2>
+   <h2 class="mb-4">'.translate("Modification d'une critique").'</h2>
    <hr />
    <form id="modreview" method="post" action="reviews.php?op=preview_review">
       <input type="hidden" name="id" value="'.$id.'">
@@ -546,20 +546,20 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="title_modrev">'.translate("Title").'</label>
+         <label class="col-form-label col-sm-4" for="title_modrev">'.translate("Titre").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="title_modrev" name="title" rows="2" required="required" maxlength="150">'.$title.'</textarea>
             <span class="help-block text-right" id="countcar_title_modrev"></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="text_modrev">'.translate("Text").'</label>
+         <label class="col-form-label col-sm-4" for="text_modrev">'.translate("Texte").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="text_modrev" name="text" rows="15" required="required">'.$text.'</textarea>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="reviewer_modrev">'.translate("Reviewer").'</label>
+         <label class="col-form-label col-sm-4" for="reviewer_modrev">'.translate("Le critique").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="reviewer_modrev" name="reviewer" value="'.$reviewer.'" required="required" maxlength="25"/>
             <span class="help-block text-right" id="countcar_reviewer_modrev"></span>
@@ -573,7 +573,7 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="score_modrev">'.translate("Score").'</label>
+         <label class="col-form-label col-sm-4" for="score_modrev">'.translate("Evaluation").'</label>
          <div class="col-sm-8">
             <select class="custom-select form-control" id="score_modrev" name="score">';
       $i=1;$sel='';
@@ -586,28 +586,28 @@ function mod_review($id) {
       while($i<=10);
       echo '
             </select>
-            <span class="help-block">'.translate("Select from 1=poor to 10=excelent.").'</span>
+            <span class="help-block">'.translate("Choisir entre 1 et 10 (1=nul 10=excellent)").'</span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="url_modrev">'.translate("Link").'</label>
+         <label class="col-form-label col-sm-4" for="url_modrev">'.translate("Lien").'</label>
          <div class="col-sm-8">
             <input type="url" class="form-control" id="url_modrev" name="url" maxlength="100" value="'.$url.'" />
-            <span class="help-block">'.translate("Product Official Website. Make sure your URL starts by").' http(s)://<span class="float-right" id="countcar_url_modrev"></span></span>
+            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-right" id="countcar_url_modrev"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="url_title_modrev">'.translate("Link title").'</label>
+         <label class="col-form-label col-sm-4" for="url_title_modrev">'.translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="url_title_modrev" name="url_title" value="'.$url_title.'"  maxlength="50" />
-            <span class="help-block">'.translate("Required if you have a related link, otherwise not required.").'<span class="float-right" id="countcar_url_title_modrev"></span></span>
+            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-right" id="countcar_url_title_modrev"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="cover_modrev">'.translate("Cover image").'</label>
+         <label class="col-form-label col-sm-4" for="cover_modrev">'.translate("Image de garde").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="cover_modrev" name="cover" value="'.$cover.'" maxlength="50"/>
-            <span class="help-block">'.translate("Name of the cover image, located in images/reviews/. Not required.").'<span class="float-right" id="countcar_cover_modrev"></span></span>
+            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-right" id="countcar_cover_modrev"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -619,8 +619,8 @@ function mod_review($id) {
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="preview_review" />
-            <input class="btn btn-primary col-12 mb-2" type="submit" value="'.translate("Preview Modifications").'" />
-            <input class="btn btn-secondary col-12" type="button" onclick="history.go(-1)" value="'.translate("Cancel").'" />
+            <input class="btn btn-primary col-12 mb-2" type="submit" value="'.translate("Prévisualiser les modifications").'" />
+            <input class="btn btn-secondary col-12" type="button" onclick="history.go(-1)" value="'.translate("Annuler").'" />
          </div>
       </div>
       </form>

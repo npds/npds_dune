@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -44,7 +44,7 @@ function mapsections() {
       echo '
          <h3>
             <a class="" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
-            <i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Sections").'
+            <i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Rubriques").'
             <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
          </h3>
       <div class="collapse" id="collapseSections">
@@ -65,7 +65,7 @@ function mapforum() {
     if ($tmp!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Forums!").'
+         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Forums").'
       </h3>
       <div class="collapse" id="collapseForums">
          <div class="card card-body">
@@ -89,7 +89,7 @@ function maptopics() {
     if ($lis_top!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Topics").'
+         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Sujets").'
          <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseTopics">
@@ -114,7 +114,7 @@ function mapcategories() {
    if ($lis_cat!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Categories").'
+         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Catégories").'
          <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseCategories">
@@ -139,7 +139,7 @@ function mapfaq() {
     if ($lis_faq!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ (Frequently Ask Question)").'
+         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ - Questions fréquentes").'
          <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseFaq">
@@ -164,7 +164,7 @@ if ($SuperCache) {
 
 if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
    echo '
-   <h2>'.translate("Site map").'</h2>
+   <h2>'.translate("Plan du site").'</h2>
    <hr />';
    mapsections();
    mapforum();

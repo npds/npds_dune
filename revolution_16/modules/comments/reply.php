@@ -135,17 +135,17 @@ if (isset($submitS)) {
       redirect_url("$url_ret");
    } else {
       echo '
-   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Comment").'</h2>
+   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Commentaire").'</h2>
    <hr />
-   <div class="alert alert-danger" >'.translate("You must type a message to post.").'</div>
-   <p><a href="javascript:history.go(-1)" class="btn btn-primary">'.translate("Go Back").'</a></p>';
+   <div class="alert alert-danger" >'.translate("Vous devez taper un message à poster.").'</div>
+   <p><a href="javascript:history.go(-1)" class="btn btn-primary">'.translate("Retour en arrière").'</a></p>';
    }
 } else {
    include('header.php');
    if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
    echo '
-   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Comment").'</h2>
+   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Commentaire").'</h2>
    <hr />';
    if ($formulaire=='')
       echo '
@@ -172,7 +172,7 @@ if (isset($submitS)) {
          $messageP=$message;
          $messageP=af_cod($messageP);
       echo '
-      <h4>'.translate("Preview").'</h4>
+      <h4>'.translate("Prévisualiser").'</h4>
       <div class="row">
          <div class="col-12">
             <div class="card">
@@ -192,7 +192,7 @@ if (isset($submitS)) {
                   &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$theposterdata['uname'].'</strong></span>
       </div>
       <div class="card-body">
-         <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Posted: ").$time.'</span>
+         <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
          <div id="post_preview" class="card-text pt-3">';
       $messageP=stripslashes($messageP);
       if (($forum_type=='6') or ($forum_type=='5'))
@@ -231,7 +231,7 @@ if (isset($submitS)) {
                $text = stripslashes($text);
                $text=desaf_cod($text);
                if ($m['post_time']!='' && $m['uname']!='')
-                  $reply = '<div class="blockquote">'.translate("Quote").' : <strong>'.$m['uname'].'</strong>'."\n".$text.'</div>';
+                  $reply = '<div class="blockquote">'.translate("Citation").' : <strong>'.$m['uname'].'</strong>'."\n".$text.'</div>';
                else
                     $reply = $text."\n";
             } else
@@ -248,17 +248,17 @@ if (isset($submitS)) {
                <div class="card-header">';
    if ($allow_html == 1)
       echo '
-                  <span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+                  <span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
       echo '
-                  <span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+                  <span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">
                   <textarea class="form-control" '.$xJava.' name="message" rows="12">'.stripslashes($reply).'</textarea>
                   <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
+                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
                   </span>
                </div>
                <div class="card-footer text-muted">';
@@ -278,7 +278,7 @@ if (isset($submitS)) {
             <div class="checkbox">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-                  <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+                  <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>
             </div>';
         }
@@ -291,9 +291,9 @@ if (isset($submitS)) {
             <div class="checkbox my-2">
                <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
-                  <label class="custom-control-label" for="sig"> '.translate("Show signature").'</label>
+                  <label class="custom-control-label" for="sig"> '.translate("Afficher la signature").'</label>
                </div>
-               <span class="help-block"><small>'.translate("This can be altered or added in your profile").'</small></span>
+               <span class="help-block"><small>'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small></span>
             </div>';
            }
         }
@@ -309,15 +309,15 @@ if (isset($submitS)) {
             <input type="hidden" name="topic" value="'.$topic.'" />
             <input type="hidden" name="file_name" value="'.$file_name.'" />
             <input type="hidden" name="archive" value="'.$archive.'" />
-            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" />
-            <input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Cancel Post").'" />
+            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" />
+            <input class="btn btn-danger" type="submit" name="cancel" value="'.translate("Annuler la contribution").'" />
          </div>
       </div>';
      }
    }
    else
      echo '
-     <div class="alert alert-danger">'.translate("You are not allowed to reply in this forum").'</div>';
+     <div class="alert alert-danger">'.translate("Vous n'êtes pas autorisé à participer à ce forum").'</div>';
 
    if ($formulaire=='')
       echo '
@@ -330,7 +330,7 @@ if (isset($submitS)) {
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum='$forum' ORDER BY post_id DESC LIMIT 0,10";
       $result = sql_query($sql);
       if (sql_num_rows($result)) {
-         echo translate("Topic Review");
+         echo translate("Aperçu des sujets :");
 
          while($myrow = sql_fetch_assoc($result)) {
 
@@ -354,7 +354,7 @@ if (isset($submitS)) {
                }
             }
 
-            echo "&nbsp;".translate("Posted: ").convertdate($myrow['post_time']);
+            echo "&nbsp;".translate("Posté : ").convertdate($myrow['post_time']);
             echo '<hr /> ';
             $message = stripslashes($myrow['post_text']);
             if ($allow_bbcode) {

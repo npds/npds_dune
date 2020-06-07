@@ -215,15 +215,15 @@ else {
             forumerror('0024');
       }
       echo '
-      <h2><a href="viewpmsg.php"><i class="mr-2 fa fa-inbox"></i></a>'.translate("Private Message").'</h2>
+      <h2><a href="viewpmsg.php"><i class="mr-2 fa fa-inbox"></i></a>'.translate("Message personnel").'</h2>
       <hr />
-      <blockquote class="blockquote">'.translate("About Posting:").'<br />'.
-         translate("All registered users can post private messages.").'</blockquote>';
+      <blockquote class="blockquote">'.translate("A propos des messages publiés :").'<br />'.
+         translate("Tous les utilisateurs enregistrés peuvent poster des messages privés.").'</blockquote>';
       settype($submitP,'string');
       if ($submitP) {
          echo '
          <hr />
-         <h3>'.translate("Preview").'</h3>
+         <h3>'.translate("Prévisualiser").'</h3>
          <p class="lead">'.StripSlashes($subject).'</p>';
          $Xmessage=$message=StripSlashes($message);
          if ($allow_html == 0 || isset($html)) $Xmessage = htmlspecialchars($Xmessage,ENT_COMPAT|ENT_HTML401,cur_charset);
@@ -243,7 +243,7 @@ else {
          echo '
          <form id="pmessage" action="replypmsg.php" method="post" name="coolsus">
          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="to_user">'.translate("Recipient").'</label>
+            <label class="col-form-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
             <div class="col-sm-9">';
          if ($reply)
             echo userpopover($fromuserdata['uname'],48).'
@@ -258,7 +258,7 @@ else {
          if (!$reply) {
             $carnet=JavaPopUp("carnet.php","CARNET",300,350);
             $carnet='<a href="javascript:void(0);" onclick="window.open('.$carnet.'); ">';
-            echo $carnet.'<span class="small">'.translate("Bookmark").'</span></a>';
+            echo $carnet.'<span class="small">'.translate("Carnet d'adresses").'</span></a>';
          }
          echo '
             </div>
@@ -270,12 +270,12 @@ else {
             <div class="col-sm-9 ml-auto">
             <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="copie" name="copie" '.$checked.' />
-               <label class="custom-control-label" for="copie"> '.translate("Send a copy to me").'</label>
+               <label class="custom-control-label" for="copie"> '.translate("Conserver une copie").'</label>
             </div>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-sm-12" for="subject">'.translate("Subject").'</label>
+            <label class="col-form-label col-sm-12" for="subject">'.translate("Sujet").'</label>
             <div class="col-sm-12">';
          settype($subject,'string');
          if ($subject) {$tmp=StripSlashes($subject);} else {if ($reply) $tmp="Re: ".StripSlashes($row['subject']); else $tmp='';}
@@ -288,7 +288,7 @@ else {
          if ($smilies) {
             echo '
          <div class="form-group row">
-            <label class="col-form-label col-sm-12">'.translate("Message Icon").'</label>
+            <label class="col-form-label col-sm-12">'.translate("Icone du message").'</label>
             <div class="col-sm-12">
                <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
                '.emotion_add($image_subject).'
@@ -303,9 +303,9 @@ else {
             <div class="card">
                <div class="card-header">';
          if ($allow_html == 1)
-            echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+            echo '<span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
          else
-            echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+            echo '<span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
          echo '
             </div>
             <div class="card-body">';
@@ -322,7 +322,7 @@ else {
                $text = str_replace("<BR>", "\n", $text);
                $text = stripslashes($text);
                if ($row['msg_time']!='' && $row['uname']!='')
-                  $Xreply = $row['msg_time'].', '.$row['uname'].' '.translate("wrote:")."\n$text\n";
+                  $Xreply = $row['msg_time'].', '.$row['uname'].' '.translate("a écrit :")."\n$text\n";
                else
                   $Xreply = $text;
                $Xreply = '
@@ -330,7 +330,7 @@ else {
                '.$Xreply.'
                </div>';
             } else
-               $Xreply = translate("Could not connect to the forums database.")."\n";
+               $Xreply = translate("Pas de connexion à la base forums.")."\n";
          } elseif ($message!='') {
             $Xreply = $message;
          }
@@ -342,8 +342,8 @@ else {
          echo '
          </textarea>
          <span class="help-block text-right">
-            <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Clear").'" title="'.translate("Clear").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-            <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Preview").'" name="submitP" title="'.translate("Preview").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+            <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
+            <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
          </span>
                </div>
                <div class="card-footer text-muted">';
@@ -363,7 +363,7 @@ else {
          <div class="col-sm-9 my-2">
             <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="html" name="html" '.$checked.' />
-               <label class="custom-control-label" for="html">'.translate("Disable HTML on this Post").'</label>
+               <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
             </div>';
          }
 
@@ -374,9 +374,9 @@ else {
             echo '
             <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$checked.' />
-               <label class="custom-control-label" for="sig">'.translate("Show signature").'</label>
+               <label class="custom-control-label" for="sig">'.translate("Afficher la signature").'</label>
             </div>
-            <small class="help-block">'.translate("This can be altered or added in your profile").'</small>';
+            <small class="help-block">'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small>';
          }
 
          settype($msg_id,'integer');
@@ -397,25 +397,24 @@ else {
             echo '
             <input type="hidden" name="reply" value="1" />';
          echo '
-            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Submit").'" />&nbsp;';
+            <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" />&nbsp;';
          if ($reply)
             echo '
-            <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Cancel Reply").'" />';
+            <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Annuler la réponse").'" />';
          else {
             echo '
-            <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Cancel Send").'" />';
+            <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Annuler l'envoi").'" />';
             echo auto_complete ('membre','uname','users','to_user','86400');
          }
          echo '
          </div>
       </div>
    </form>';
-   $arg1='
-   var formulid=["pmessage"]
-   inpandfieldlen("subject",100);';
+         $arg1='
+         var formulid=["pmessage"]
+         inpandfieldlen("subject",100);';
 
-
-   adminfoot('','',$arg1,'foo');
+         adminfoot('','',$arg1,'foo');
       }
    }
 ?>

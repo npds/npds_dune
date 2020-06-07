@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,17 +16,17 @@ if (!function_exists("Mysql_Connexion"))
 function message_error($ibid,$op) {
    include("header.php");
    echo '
-   <h2>'.translate("User").'</h2>
+   <h2>'.translate("Utilisateur").'</h2>
    <div class="alert alert-danger lead">';
    echo $ibid;
    if (($op=='only_newuser') or ($op=='new user') or ($op=='finish')) {
        hidden_form();
       echo '
          <input type="hidden" name="op" value="only_newuser" />
-         <button class="btn btn-secondary mt-2" type="submit">'.translate("Go Back").'</button>
+         <button class="btn btn-secondary mt-2" type="submit">'.translate("Retour en arrière").'</button>
       </form>';
    } else
-      echo '<a class="btn btn-secondary mt-4" href="javascript:history.go(-1)" title="'.translate("Go Back").'">'.translate("Go Back").'</a>';
+      echo '<a class="btn btn-secondary mt-4" href="javascript:history.go(-1)" title="'.translate("Retour en arrière").'">'.translate("Retour en arrière").'</a>';
    echo '
    </div>';
    include("footer.php");
@@ -46,21 +46,21 @@ function nav($mns) {
 
    echo '
    <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Edit User").'" data-toggle="tooltip" ><i class="fas fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Edit User").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Edit Journal").'" data-toggle="tooltip"><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Vous").'" data-toggle="tooltip" ><i class="fas fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Vous").'</span></a></li>
+      <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" data-toggle="tooltip"><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
    if (($mns) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Manage my Mini-Web site").'"  data-toggle="tooltip"><i class="fas fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Mini-Web site").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"  data-toggle="tooltip"><i class="fas fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Gérer votre miniSite").'</span></a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link '.$ed_h.'" href="user.php?op=edithome" title="'.translate("Change the home").'" data-toggle="tooltip" ><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ch_t.'" href="user.php?op=chgtheme" title="'.translate("Change Theme").'"  data-toggle="tooltip" ><i class="fas fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Theme").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Social networks").'"  data-toggle="tooltip" ><i class="fas fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Social networks").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Private Message").'"  data-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Logout").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Logout").'</span></a></li>
+      <li class="nav-item"><a class="nav-link '.$ed_h.'" href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" data-toggle="tooltip" ><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
+      <li class="nav-item"><a class="nav-link '.$ch_t.'" href="user.php?op=chgtheme" title="'.translate("Changer le thème").'"  data-toggle="tooltip" ><i class="fas fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Thème").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'"  data-toggle="tooltip" ><i class="fas fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Réseaux sociaux").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Message personnel").'"  data-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Déconnexion").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Déconnexion").'</span></a></li>
    </ul>
    <div class="mt-3"></div>';
 }
@@ -70,25 +70,25 @@ function userCheck($uname, $email) {
    include_once('functions.php');
    $stop='';
    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)))
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid email");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : Email invalide");
    if (strrpos($email,' ') > 0)
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Email addresses do not contain spaces.");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : une adresse Email ne peut pas contenir d'espaces");
    if(checkdnsmail($email) === false)
-      $stop = translate("ERROR: wrong DNS or mail server") .'!<br />';
+      $stop = translate("Erreur : DNS ou serveur de mail incorrect") .'!<br />';
    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) 
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Invalid Nickname");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : identifiant invalide");
    if (strlen($uname) > 25)
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Nickname is too long. It must be less than 25 characters.");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Votre surnom est trop long. Il doit faire moins de 25 caractères.");
    if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname))
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Name is reserved.");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : nom existant.");
    if (strrpos($uname,' ') > 0)
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("There cannot be any spaces in the Nickname.");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Il ne peut pas y avoir d'espace dans le surnom.");
    if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$uname'")) > 0) {
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Nickname taken");
+      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : cet identifiant est déjà utilisé");
    }
    if ($uname!='edituser') {
       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
-         $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("ERROR: Email address already registered");
+         $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : adresse Email déjà utilisée");
       }
    }
    return($stop);
@@ -133,25 +133,25 @@ function Only_NewUser() {
       showimage();
       echo '
    <div>
-   <h2 class="mb-3">'.translate("User").'</h2>
+   <h2 class="mb-3">'.translate("Utilisateur").'</h2>
    <div class="card card-body mb-3">
-      <h3>'.translate("Notice").'</h3>
+      <h3>'.translate("Notes").'</h3>
       <p>
-      '.translate("Account preferences are cookie based.").' '.translate("We don't sell/give to others your personal info.").' '.translate("As a registered user you can").' : 
+      '.translate("Les préférences de compte fonctionnent sur la base des cookies.").' '.translate("Nous ne vendons ni ne communiquons vos informations personnelles à autrui.").' '.translate("En tant qu'utilisateur enregistré vous pouvez").' : 
          <ul>
-            <li>'.translate("Post comments with your name").'</li>
-            <li>'.translate("Send news with your name").'</li>
-            <li>'.translate("Have a personal box in the Home").'</li>
-            <li>'.translate("Upload personal avatar").'</li>
-            <li>'.translate("Select how many news you want in the Home").'</li>
-            <li>'.translate("Customize the comments").'</li>
-            <li>'.translate("Select different themes").'</li>
-            <li>'.translate("some other cool stuff...").'</li>
+            <li>'.translate("Poster des commentaires signés").'</li>
+            <li>'.translate("Proposer des articles en votre nom").'</li>
+            <li>'.translate("Disposer d'un bloc que vous seul verrez dans le menu (pour spécialistes, nécessite du code html)").'</li>
+            <li>'.translate("Télécharger un avatar personnel").'</li>
+            <li>'.translate("Sélectionner le nombre de news que vous souhaitez voir apparaître sur la page principale.").'</li>
+            <li>'.translate("Personnaliser les commentaires").'</li>
+            <li>'.translate("Choisir un look différent pour le site (si plusieurs proposés)").'</li>
+            <li>'.translate("Gérer d'autres options et applications").'</li>
          </ul>
       </p>';
       if (!$memberpass) {
          echo '
-      <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("Password will be sent to the email address you enter.").'</div>';
+      <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("Le mot de passe vous sera envoyé à l'adresse Email indiquée.").'</div>';
       }
       echo '
    </div>
@@ -200,14 +200,14 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
    $stop=userCheck($uname, $email);
    if ($memberpass) {
       if ((isset($pass)) and ($pass != $vpass))
-         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.");
+         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Les mots de passe sont différents. Ils doivent être identiques.");
       elseif (strlen($pass) < $minpass)
-         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long");
+         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Désolé, votre mot de passe doit faire au moins").' <strong>'.$minpass.'</strong> '.translate("caractères");
    }
    if (!$stop) {
       include("header.php");
       echo '
-      <h2>'.translate("User").'</h2>
+      <h2>'.translate("Utilisateur").'</h2>
       <hr />
       <h3 class="mb-3"><i class="fa fa-user mr-2"></i>Votre fiche d\'inscription</h3>
       <div class="card">
@@ -221,15 +221,15 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
       if (!$charte)
          echo '
                <div class="alert alert-danger lead mt-3">
-                  <i class="fa fa-exclamation mr-2"></i>'.translate("You must accept the terms of use of this website").'
+                  <i class="fa fa-exclamation mr-2"></i>'.translate("Vous devez accepter la charte d'utilisation du site").'
                </div>
                <input type="hidden" name="op" value="only_newuser" />
-               <input class="btn btn-secondary mt-1" type="submit" value="'.translate("Go Back").'" />
+               <input class="btn btn-secondary mt-1" type="submit" value="'.translate("Retour en arrière").'" />
             </form>';
       else
          echo '
                <input type="hidden" name="op" value="finish" /><br />
-               <input class="btn btn-primary mt-2" type="submit" value="'.translate("Finish").'" />
+               <input class="btn btn-primary mt-2" type="submit" value="'.translate("Terminer").'" />
             </form>';
       include("footer.php");
    } else
@@ -267,24 +267,24 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       if ($result) {
          if (($system==1) or ($memberpass)) {
             echo '
-            <h2>'.translate("User").'</h2>
+            <h2>'.translate("Utilisateur").'</h2>
             <hr />
-            <h2><i class="fa fa-user mr-2"></i>'.translate("Registration").'</h2>
-            <p class="lead">'.translate("Your Password is: ").'<strong>'.$makepass.'</strong></p>
-            <p class="lead">'.translate("You can change it after you login at").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fas fa-sign-in-alt fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
+            <h2><i class="fa fa-user mr-2"></i>'.translate("Inscription").'</h2>
+            <p class="lead">'.translate("Votre mot de passe est : ").'<strong>'.$makepass.'</strong></p>
+            <p class="lead">'.translate("Vous pourrez le modifier après vous être connecté sur").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fas fa-sign-in-alt fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
 
-            $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")." : \n\n";
+            $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")." : \n\n";
             $message .=
-            translate("User ID").' : '.$uname."\n".
-            translate("Real Email").' : '.$email."\n";
+            translate("ID utilisateur (pseudo)").' : '.$uname."\n".
+            translate("Véritable adresse Email").' : '.$email."\n";
             if($name!='') 
-               $message .= translate("Real Name").' : '.$name."\n";
+               $message .= translate("Votre véritable identité").' : '.$name."\n";
             if($user_from!='') 
-               $message .= translate("Your Location").' : '.$user_from."\n";
+               $message .= translate("Votre situation géographique").' : '.$user_from."\n";
             if($user_occ!='') 
-               $message .= translate("Your Occupation").' : '.$user_occ."\n";
+               $message .= translate("Votre activité").' : '.$user_occ."\n";
             if($user_intrest!='') 
-               $message .= translate("Your Interest").' : '.$user_intrest."\n";
+               $message .= translate("Vos centres d'intérêt").' : '.$user_intrest."\n";
             if($user_sig!='') 
                $message .= translate("Signature").' : '.$user_sig."\n";
             if(isset($C1) and $C1!='')
@@ -296,18 +296,18 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             $message .= "\n\n\n".aff_langue("[french]Conform&eacute;ment aux articles 38 et suivants de la loi fran&ccedil;aise n&deg; 78-17 du 6 janvier 1978 relative &agrave; l'informatique, aux fichiers et aux libert&eacute;s, tout membre dispose d&rsquo; un droit d&rsquo;acc&egrave;s, peut obtenir communication, rectification et/ou suppression des informations le concernant.[/french][english]In accordance with Articles 38 et seq. Of the French law n &deg; 78-17 of January 6, 1978 relating to data processing, files and freedoms, any member has a right of access, can obtain communication, rectification and / or deletion of information about him.[/english][chinese]&#26681;&#25454;1978&#24180;1&#26376;6&#26085;&#20851;&#20110;&#25968;&#25454;&#22788;&#29702;&#65292;&#26723;&#26696;&#21644;&#33258;&#30001;&#30340;&#27861;&#22269;78-17&#21495;&#27861;&#24459;&#65292;&#20219;&#20309;&#25104;&#21592;&#37117;&#26377;&#26435;&#36827;&#20837;&#65292;&#21487;&#20197;&#33719;&#24471;&#36890;&#20449;&#65292;&#32416;&#27491;&#21644;/&#25110; &#21024;&#38500;&#26377;&#20851;&#20182;&#30340;&#20449;&#24687;&#12290;[/chinese][spanish]De conformidad con los art&iacute;culos 38 y siguientes de la ley francesa n &deg; 78-17 del 6 de enero de 1978, relativa al procesamiento de datos, archivos y libertades, cualquier miembro tiene derecho de acceso, puede obtener comunicaci&oacute;n, rectificaci&oacute;n y / o supresi&oacute;n de informaci&oacute;n sobre &eacute;l.[/spanish][german]Gem&auml;&szlig; den Artikeln 38 ff. Des franz&ouml;sischen Gesetzes Nr. 78-17 vom 6. Januar 1978 in Bezug auf Datenverarbeitung, Akten und Freiheiten hat jedes Mitglied ein Recht auf Zugang, kann Kommunikation, Berichtigung und / oder L&ouml;schung von Informationen &uuml;ber ihn.[/german]");
             $message .= "\n\n\n".aff_langue("[french]Ce message et les pi&egrave;ces jointes sont confidentiels et &eacute;tablis &agrave; l'attention exclusive de leur destinataire (aux adresses sp&eacute;cifiques auxquelles il a &eacute;t&eacute; adress&eacute;). Si vous n'&ecirc;tes pas le destinataire de ce message, vous devez imm&eacute;diatement en avertir l'exp&eacute;diteur et supprimer ce message et les pi&egrave;ces jointes de votre syst&egrave;me.[/french][english]This message and any attachments are confidential and intended to be received only by the addressee. If you are not the intended recipient, please notify immediately the sender by reply and delete the message and any attachments from your system.[/english][chinese]&#27492;&#28040;&#24687;&#21644;&#20219;&#20309;&#38468;&#20214;&#37117;&#26159;&#20445;&#23494;&#30340;&#65292;&#24182;&#19988;&#25171;&#31639;&#30001;&#25910;&#20214;&#20154;&#25509;&#25910;&#12290; &#22914;&#26524;&#24744;&#19981;&#26159;&#39044;&#26399;&#25910;&#20214;&#20154;&#65292;&#35831;&#31435;&#21363;&#36890;&#30693;&#21457;&#20214;&#20154;&#24182;&#22238;&#22797;&#37038;&#20214;&#21644;&#31995;&#32479;&#20013;&#30340;&#25152;&#26377;&#38468;&#20214;&#12290;[/chinese][spanish]Este mensaje y cualquier adjunto son confidenciales y est&aacute;n destinados a ser recibidos por el destinatario. Si no es el destinatario deseado, notif&iacute;quelo al remitente de inmediato y responda al mensaje y cualquier archivo adjunto de su sistema.[/spanish][german]Diese Nachricht und alle Anh&auml;nge sind vertraulich und sollen vom Empf&auml;nger empfangen werden. Wenn Sie nicht der beabsichtigte Empf&auml;nger sind, benachrichtigen Sie bitte sofort den Absender und antworten Sie auf die Nachricht und alle Anlagen von Ihrem System.[/german]")."\n\n\n";
             include ("signat.php");
-            $subject= translate("Registration")." $uname";
+            $subject= translate("Inscription")." $uname";
             send_email($email, $subject, $message, '', true, 'html');
           } else {
-             $message = translate("Welcome to")." $sitename !\n\n".translate("You or someone else has used your email account")." ($email) ".translate("to register an account at")." $sitename.\n\n".translate("The following is the member information:")."\n".translate("-Nickname: ")." $uname\n".translate("-Password: ")." $makepass\n\n";
+             $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")."\n".translate("-Identifiant : ")." $uname\n".translate("-Mot de passe : ")." $makepass\n\n";
              include ("signat.php");
-             $subject= translate("User Password for")." $uname";
+             $subject= translate("Mot de passe utilisateur pour")." $uname";
              send_email($email, $subject, $message, '', true, 'html');
 
             echo '
-            <h2>'.translate("User").'</h2>
+            <h2>'.translate("Utilisateur").'</h2>
             <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
-            <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("You are now registered. You should receive your password at the email account you provided.").'</div>';
+            <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("Vous êtes maintenant enregistré. Vous allez recevoir un code de confirmation dans votre boîte à lettres électronique.").'</div>';
           }
           //------------------------------------------------
           if (file_exists("modules/include/new_user.inc")) {
@@ -395,25 +395,25 @@ function userinfo($uname) {
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
    if (($user) and ($uid!=1))
-      $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Send internal Message").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['femail']!='')
       $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['url']!='')
-      $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visit this Website").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['mns'])
-       $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"></i></a>&nbsp;';
+       $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
       <div class="mr-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
       <div class="align-self-center">
-         <h2>'.translate("User").'<span class="d-inline-block text-muted ml-1">'.$uname.'</span></h2>';
+         <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ml-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
       echo $useroutils;
    echo $my_rs;
    if ($uname == $cookie[1])
       echo '
-         <p class="lead">'.translate("This is your personal page").'</p>';
+         <p class="lead">'.translate("Si vous souhaitez personnaliser un peu le site, c'est l'endroit indiqué. ").'</p>';
    echo '
       </div>
    </div>
@@ -551,7 +551,7 @@ function userinfo($uname) {
    if($uid!=1)
       echo '
       <br />
-      <h4>'.translate("Online journal for").' '.$uname.'.</h4>
+      <h4>'.translate("Journal en ligne de ").' '.$uname.'.</h4>
       <div id="online_user_journal" class="card card-body mb-3">'.meta_lang($user_journal).'</div>';
    $file='';
    $handle=opendir('modules/comments');
@@ -564,13 +564,13 @@ function userinfo($uname) {
    closedir($handle);
 
    echo '
-   <h4 class="my-3">'.translate("Last comments by").' '.$uname.'.</h4>
+   <h4 class="my-3">'.translate("Les derniers commentaires de").' '.$uname.'.</h4>
    <div id="last_comment_by" class="card card-body mb-3">';
    $url='';
    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
    while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
       $url=str_replace("#topic#",$topic_id,$filelist[$forum_id]);
-      echo '<p><a href="'.$url.'">'.translate("Posted: ").convertdate($post_time).'</a></p>';
+      echo '<p><a href="'.$url.'">'.translate("Posté : ").convertdate($post_time).'</a></p>';
       $message=smilie(stripslashes($post_text));
       $message = aff_video_yt($message);
       $message = str_replace('[addsig]','',$message);
@@ -581,7 +581,7 @@ function userinfo($uname) {
    }
    echo '
     </div>
-    <h4 class="my-3">'.translate("Last articles sent by").' '.$uname.'.</h4>
+    <h4 class="my-3">'.translate("Les derniers articles de").' '.$uname.'.</h4>
     <div id="last_article_by" class="card card-body mb-3">';
    $xtab=news_aff("libre", "WHERE informant='$uname' ORDER BY sid DESC LIMIT 10", '', 10);
    $story_limit=0;
@@ -596,7 +596,7 @@ function userinfo($uname) {
    }
    echo '
    </div>
-   <h4 class="my-3">'.translate("Last news submissions sent by").' '.$uname.'</h4>';
+   <h4 class="my-3">'.translate("Les dernières contributions de").' '.$uname.'</h4>';
    $nbp = 10;
    $content ='';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id > 0 AND poster_id=$uid ORDER BY post_time DESC LIMIT 0,50");
@@ -632,15 +632,15 @@ function userinfo($uname) {
          $replys = sql_num_rows($TableRep)-1;
          $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$cookie[0]' AND status != '0'";
             if (sql_num_rows(sql_query($sqlR))==0)
-               $image = '<a href="" title="'.translate("Not Read").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a>';
+               $image = '<a href="" title="'.translate("Non lu").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a>';
             else
-               $image = '<a title="'.translate("Read").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
+               $image = '<a title="'.translate("Lu").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
          $content .='
          <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
             <span class="d-flex w-100 mt-1">
             <span>'.$post_time.'</span>
             <span class="ml-auto">
-               <span class="badge badge-secondary ml-1" title="'.translate("Replies").'" data-toggle="tooltip" data-placement="left">'.$replys.'</span>
+               <span class="badge badge-secondary ml-1" title="'.translate("Réponses").'" data-toggle="tooltip" data-placement="left">'.$replys.'</span>
             </span>
          </span>
          <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ml-auto">'.$image.'</span></span>
@@ -661,36 +661,36 @@ function main($user) {
    global $stop, $smilies;
    if (!isset($user)) {
       include("header.php");
-      echo '<h2>'.translate("User").'</h2>';
+      echo '<h2>'.translate("Utilisateur").'</h2>';
       if ($stop==99)
-         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("User not yet allowed by Administrator").'</p>';
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Vous n'êtes pas encore autorisé à vous connecter.").'</p>';
       elseif ($stop)
-         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Incorrect Login!").'</p>';
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Identifiant incorrect !").'</p>';
       if (!$user) {
          echo '
          <div class="card card-body mb-3">
-            <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("New User").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("New User").'</a></h3>
+            <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("Nouveau membre").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("Nouveau membre").'</a></h3>
          </div>
           <div class="card card-body">
-          <h3><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connection").'</h3>
+          <h3><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</h3>
           <form action="user.php" method="post" name="userlogin">
              <div class="form-group row">
-               <label for="inputuser" class="col-form-label col-sm-4">'.translate("Nickname").'</label>
+               <label for="inputuser" class="col-form-label col-sm-4">'.translate("Identifiant").'</label>
                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'" required="required" />
+                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
                </div>
             </div>
             <div class="form-group row">
-               <label for="inputPassuser" class="col-form-label col-sm-4">'.translate("Password").'</label>
+               <label for="inputPassuser" class="col-form-label col-sm-4">'.translate("Mot de passe").'</label>
                <div class="col-sm-8">
-                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Password").'" required="required" />
-                  <span class="help-block small"><a href="user.php?op=forgetpassword" title="'.translate("Lost your Password?").'">'.translate("Lost your Password?").'</a></span>
+                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Mot de passe").'" required="required" />
+                  <span class="help-block small"><a href="user.php?op=forgetpassword" title="'.translate("Vous avez perdu votre mot de passe ?").'">'.translate("Vous avez perdu votre mot de passe ?").'</a></span>
                </div>
             </div>
             <input type="hidden" name="op" value="login" />
             <div class="form-group row">
                <div class="col-sm-8 ml-sm-auto">
-                  <button class="btn btn-primary" type="submit" title="'.translate("Submit").'">'.translate("Submit").'</button>
+                  <button class="btn btn-primary" type="submit" title="'.translate("Valider").'">'.translate("Valider").'</button>
                </div>
             </div>
          </form>
@@ -723,21 +723,21 @@ function logout() {
 function ForgetPassword() {
    include("header.php");
    echo '
-   <h2 class="mb-3">'.translate("User").'</h2>
+   <h2 class="mb-3">'.translate("Utilisateur").'</h2>
    <div class="card card-body">
-   <div  class="alert alert-danger text-center">'.translate("Lost your Password?").'</div>
-   <div  class="alert alert-success text-center">'.translate("No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code.").'</div>
+   <div  class="alert alert-danger text-center">'.translate("Vous avez perdu votre mot de passe ?").'</div>
+   <div  class="alert alert-success text-center">'.translate("Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.").'</div>
    <form id="forgetpassword" action="user.php" method="post">
       <div class="form-group row">
-         <label for="inputuser" class="col-sm-3 col-form-label">'.translate("Nickname").'</label>
+         <label for="inputuser" class="col-sm-3 col-form-label">'.translate("Identifiant").'</label>
          <div class="col-sm-9">
-            <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Nickname").'" required="required" />
+            <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
          </div>
       </div>
       <div class="form-group row">
-         <label for="inputpassuser" class="col-sm-3 col-form-label">'.translate("Password").'</label>
+         <label for="inputpassuser" class="col-sm-3 col-form-label">'.translate("Mot de passe").'</label>
          <div class="col-sm-9">
-            <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Password").'" required="required" />
+            <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Mot de passe").'" required="required" />
          </div>
       </div>
       <div class="form-group row">
@@ -750,7 +750,7 @@ function ForgetPassword() {
       <input type="hidden" name="op" value="mailpasswd" />
       <div class="form-group row">
          <div class="col-sm-9 ml-sm-auto">
-            <input class="btn btn-primary" type="submit" value ="'.translate("Send").'" />
+            <input class="btn btn-primary" type="submit" value ="'.translate("Envoyer").'" />
          </div>
       </div>
    </form>
@@ -775,21 +775,21 @@ function mail_password($uname, $code) {
     $result = sql_query("SELECT uname,email,pass FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
     $tmp_result=sql_fetch_row($result);
     if (!$tmp_result)
-       message_error(translate("Sorry, no corresponding user info was found")."<br /><br />",'');
+       message_error(translate("Désolé, aucune information correspondante pour cet utlilisateur n'a été trouvée")."<br /><br />",'');
     else {
        $host_name = getip();
        list($uname,$email, $pass) = $tmp_result;
        // On envoie une URL avec dans le contenu : username, email, le MD5 du passwd retenu et le timestamp
        $url="$nuke_url/user.php?op=validpasswd&code=".urlencode(encrypt($uname)."#fpwd#".encryptK($email."#fpwd#".$code."#fpwd#".time(),$pass));
 
-       $message = translate("The user account").' '.$uname.' '.translate("at").' '.$sitename.' '.translate("has this email associated with it.")."\n\n";
-       $message.= translate("A web user from")." $host_name ".translate("has just requested a Confirmation to change the password.")."\n\n".translate("Your Confirmation URL is:")." <a href=\"$url\">$url</a> \n\n".translate("If you didn't ask for this, don't worry. Just delete this Email.")."\n\n";
+       $message = translate("Le compte utilisateur").' '.$uname.' '.translate("at").' '.$sitename.' '.translate("est associé à votre Email.")."\n\n";
+       $message.= translate("Un utilisateur web ayant l'adresse IP ")." $host_name ".translate("vient de demander une confirmation pour changer de mot de passe.")."\n\n".translate("Votre url de confirmation est :")." <a href=\"$url\">$url</a> \n\n".translate("Si vous n'avez rien demandé, ne vous inquiétez pas. Effacez juste ce Email. ")."\n\n";
        include("signat.php");
 
-       $subject=translate("Confirmation Code for").' '.$uname;
+       $subject=translate("Confirmation du code pour").' '.$uname;
 
        send_email($email, $subject, $message, '', true, 'html');
-       message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation Code for").' '.$uname.' '.translate("mailed.").'</div>');
+       message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation du code pour").' '.$uname.' '.translate("envoyée par courrier.").'</div>');
        Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }
 }
@@ -805,16 +805,16 @@ function valid_password ($code) {
       if ($email==$ibid[0]) {
          include("header.php");
          echo '
-      <p class="lead">'.translate("Lost your Password?").'</p>
+      <p class="lead">'.translate("Vous avez perdu votre mot de passe ?").'</p>
       <div class="card border rounded p-3">
          <div class="row">
             <div class="col-sm-7">
-               <div class="blockquote">'.translate("To valid your new password request, just re-type it.").'<br />'.translate("Your Password is: ").' <strong>'.$ibid[1].'</strong></div>
+               <div class="blockquote">'.translate("Pour valider votre nouveau mot de passe, merci de le re-saisir.").'<br />'.translate("Votre mot de passe est : ").' <strong>'.$ibid[1].'</strong></div>
             </div>
             <div class="col-sm-5">
                <form id="lostpassword" action="user.php" method="post">
                   <div class="form-group row">
-                     <label class="col-form-label col-sm-12" for="passwd">'.translate("Password").'</label>
+                     <label class="col-form-label col-sm-12" for="passwd">'.translate("Mot de passe").'</label>
                      <div class="col-sm-12">
                         <input type="password" class="form-control" name="passwd" placeholder="'.$ibid[1].'" required="required" />
                      </div>
@@ -823,7 +823,7 @@ function valid_password ($code) {
                   <input type="hidden" name="code" value="'.$code.'" />
                   <div class="form-group row">
                      <div class="col-sm-12">
-                        <input class="btn btn-primary" type="submit" value="'.translate("Submit").'" />
+                        <input class="btn btn-primary" type="submit" value="'.translate("Valider").'" />
                      </div>
                   </div>
                </form>
@@ -832,11 +832,11 @@ function valid_password ($code) {
       </div>';
          include ("footer.php");
       } else {
-         message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").'</div>');
+         message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur").'</div>');
          Ecr_Log('security', 'Lost_password_valid NOK Mail not match : '.$ibid[0], '');
       }
    } else {
-      message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").'</div>');
+      message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur").'</div>');
       Ecr_Log('security', 'Lost_password_valid NOK Bad hash : '.$ibid[0], '');
    }
 }
@@ -859,22 +859,22 @@ function update_password ($code, $passwd) {
                 else
                    $cryptpass=$ibid[1];
                 sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
-                message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Password update, please re-connect you.").'<i class="fas fa-sign-in-alt fa-lg ml-2"></i></a></div>');
+                message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Mot de passe mis à jour. Merci de vous re-connecter").'<i class="fas fa-sign-in-alt fa-lg ml-2"></i></a></div>');
                 Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
              } else {
-                message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").' : '.translate("Both passwords are different. They need to be identical.").'</div>');
+                message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur").' : '.translate("Les mots de passe sont différents. Ils doivent être identiques.").'</div>');
                 Ecr_Log('security', 'Lost_password_update Password not match : '.$uname, '');
              }
           } else {
-             message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").' : '.translate("Your Confirmation URL is expired").' > 24 h</div>');
+             message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur").' : '.translate("Votre url de confirmation est expirée").' > 24 h</div>');
              Ecr_Log('security', 'Lost_password_update NOK Time > 24H00 : '.$uname, '');
           }
        } else {
-          message_pass('<div class="alert alert-danger lead text-center">'.translate("ERROR: Invalid email").'</div>');
+          message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur : Email invalide").'</div>');
           Ecr_Log('security', 'Lost_password_update NOK Mail not match : '.$uname, '');
        }
     } else {
-       message_pass('<div class="alert alert-danger lead text-center">'.translate("Error").'</div>');
+       message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur").'</div>');
        Ecr_Log('security', 'Lost_password_update NOK Empty Mail or bad user : '.$uname, '');
     }
 }
@@ -964,9 +964,9 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
    list($vuid, $vemail) = sql_fetch_row($result);
    if (($check == $uname) AND ($uid == $vuid)) {
       if ((isset($pass)) && ("$pass" != "$vpass"))
-         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Both passwords are different. They need to be identical.").'<br />','');
+         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Les mots de passe sont différents. Ils doivent être identiques.").'<br />','');
       elseif (($pass != '') && (strlen($pass) < $minpass))
-         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Sorry, your password must be at least").' <strong>'.$minpass.'</strong> '.translate("characters long").'<br />','');
+         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Désolé, votre mot de passe doit faire au moins").' <strong>'.$minpass.'</strong> '.translate("caractères").'<br />','');
       else {
          $stop=userCheck('edituser', $email);
          if (!$stop) {
@@ -1089,10 +1089,10 @@ function edithome() {
       $userinfo['theme'] = "$Default_Theme+$Default_skin";
    }
    echo '
-   <h2 class="mb-3">'.translate("Change the home").'</h2>
+   <h2 class="mb-3">'.translate("Editer votre page principale").'</h2>
    <form id="changehome" action="user.php" method="post">
    <div class="form-group row">
-      <label class="col-form-label col-sm-7" for="storynum">'.translate("News number in the Home").' (max. 127) :</label>
+      <label class="col-form-label col-sm-7" for="storynum">'.translate("Nombre d'articles sur la page principale").' (max. 127) :</label>
       <div class="col-sm-5">
          <input class="form-control" type="text" min="0" max="127" id="storynum" name="storynum" maxlength="3" value="'.$userinfo['storynum'].'" />
       </div>
@@ -1104,13 +1104,13 @@ function edithome() {
       <div class="col-sm-10">
          <div class="custom-control custom-checkbox">
             <input class="custom-control-input" type="checkbox" id="ublockon" name="ublockon" value="1" '.$sel.' />
-            <label class="custom-control-label" for="ublockon">'.translate("Activate Personal Menu").'</label>
+            <label class="custom-control-label" for="ublockon">'.translate("Activer votre menu personnel").'</label>
          </div>
       </div>
    </div>
    <ul>
-      <li>'.translate("Check this option and the following text will appear in the Home").'</li>
-      <li>'.translate("You can use HTML code to put links, for example").'</li>
+      <li>'.translate("Validez cette option et le texte suivant apparaîtra sur votre page d'accueil").'</li>
+      <li>'.translate("Vous pouvez utiliser du code html, pour créer un lien par exemple").'</li>
    </ul>
    <div class="form-group row">
       <div class="col-sm-12">
@@ -1123,7 +1123,7 @@ function edithome() {
          <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
          <input type="hidden" name="op" value="savehome" />
          <div class="col-sm-12">
-            <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+            <input class="btn btn-primary" type="submit" value="'.translate("Sauver les modifications").'" />
          </div>
       </div>
    </form>';
@@ -1177,10 +1177,10 @@ function chgtheme() {
 
    nav($userinfo['mns']);
    echo '
-   <h2>'.translate("Change Theme").'</h2>
+   <h2>'.translate("Changer le thème").'</h2>
    <form role="form" action="user.php" method="post">
       <div class="form-group row">
-         <label class="col-form-label col-sm-5" for="theme_local">'.translate("Select One Theme").'</label>
+         <label class="col-form-label col-sm-5" for="theme_local">'.translate("Sélectionnez un thème d'affichage").'</label>
          <div class="col-sm-7">
             <select class="custom-select form-control" id="theme_local" name="theme_local">';
    include("themes/list.php");
@@ -1197,9 +1197,9 @@ function chgtheme() {
    echo '
             </select>
             <p class="help-block">
-               <span>'.translate("This option will change the look for the whole site.").'</span> 
-               <span>'.translate("The changes will be valid only to you.").'</span> 
-               <span>'.translate("Each user can view the site with different theme.").'</span>
+               <span>'.translate("Cette option changera l'aspect du site.").'</span> 
+               <span>'.translate("Les modifications seront seulement valides pour vous.").'</span> 
+               <span>'.translate("Chaque utilisateur peut voir le site avec un thème graphique différent.").'</span>
             </p>
          </div>
       </div>';
@@ -1214,7 +1214,7 @@ function chgtheme() {
    asort($skins);
       echo '
       <div class="form-group row" id="skin_choice">
-         <label class="col-form-label col-sm-5" for="skins">'.translate("Select one skin").'</label>
+         <label class="col-form-label col-sm-5" for="skins">'.translate("Choisir une charte graphique").'</label>
          <div class="col-sm-7">
             <select class="custom-select form-control" id="skins" name="skins">';
    foreach ($skins as $k => $v) {
@@ -1236,7 +1236,7 @@ function chgtheme() {
             <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
             <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
             <input type="hidden" name="op" value="savetheme" />
-            <input class="btn btn-primary" type="submit" value="'.translate("Save Changes!").'" />
+            <input class="btn btn-primary" type="submit" value="'.translate("Sauver les modifications").'" />
          </div>
       </div>
    </form>
@@ -1288,7 +1288,7 @@ function editjournal(){
    $userinfo=getusrinfo($user);
    nav($userinfo['mns']);
    echo '
-   <h2 class="mb-3">'.translate("Edit your journal").'</h2>
+   <h2 class="mb-3">'.translate("Editer votre journal").'</h2>
    <form action="user.php" method="post" name="adminForm">
       <div class="form-group row">
          <div class="col-sm-12">
@@ -1303,13 +1303,13 @@ function editjournal(){
          <div class="col-12">
             <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="datetime" name="datetime" value="1" />
-               <label class="custom-control-label" for="datetime">'.translate("Add date and time stamp").'</label>
+               <label class="custom-control-label" for="datetime">'.translate("Ajouter la date et l'heure").'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-12">
-            <input class="btn btn-primary" type="submit" value="'.translate("Save Journal").'" />
+            <input class="btn btn-primary" type="submit" value="'.translate("Sauvez votre journal").'" />
          </div>
       </div>
    </form>';
@@ -1363,7 +1363,7 @@ switch ($op) {
          if (strlen($code)>=$minpass)
             mail_password($uname, $code);
          else
-            message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("You did not enter the correct password, please go back and try again.")."<br /><br />","");
+            message_error("<i class=\"fa fa-exclamation\"></i>&nbsp;".translate("Mot de passe erroné, refaites un essai.")."<br /><br />","");
       } else {
          main($user);
       }

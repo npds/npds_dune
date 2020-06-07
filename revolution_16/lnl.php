@@ -19,44 +19,44 @@ function SuserCheck($email) {
    include_once('functions.php');
    $stop='';
    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) 
-      $stop = translate("ERROR: Invalid email");
+      $stop = translate("Erreur : Email invalide");
    if (strrpos($email,' ') > 0) 
-      $stop = translate("ERROR: Email addresses do not contain spaces.");
+      $stop = translate("Erreur : une adresse Email ne peut pas contenir d'espaces");
    if(checkdnsmail($email) === false)
-      $stop = translate("ERROR: wrong DNS or mail server");
+      $stop = translate("Erreur : DNS ou serveur de mail incorrect");
     if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0)
-       $stop = translate("ERROR: Email address already registered");
+       $stop = translate("Erreur : adresse Email déjà utilisée");
     if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'")) > 0) {
        if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email' AND status='NOK'")) >0)
           sql_query("DELETE FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'");
        else
-          $stop = translate("ERROR: Email address already registered");
+          $stop = translate("Erreur : adresse Email déjà utilisée");
     }
     return($stop);
 }
 
 function error_handler($ibid) {
    echo '
-   <h2>'.translate("NewsLetter").'</h2>
+   <h2>'.translate("La lettre").'</h2>
    <hr />
-   <p class="lead mb-2">'.translate("Please enter information according to the specifications").'</p>
+   <p class="lead mb-2">'.translate("Merci d'entrer l'information en fonction des spécifications").'</p>
    <div class="alert alert-danger">'.$ibid.'</div>
-   <a href="index.php" class="btn btn-outline-secondary">'.translate("Go Back").'</a>';
+   <a href="index.php" class="btn btn-outline-secondary">'.translate("Retour en arrière").'</a>';
 }
 
 function subscribe($var) {
    if ($var!='') {
       include("header.php");
       echo '
-      <h2>'.translate("NewsLetter").'</h2>
+      <h2>'.translate("La lettre").'</h2>
       <hr />
-      <p class="lead mb-2">'.translate("Manage your subscribes").' : <strong>'.$var.'</strong></p>
+      <p class="lead mb-2">'.translate("Gestion de vos abonnements").' : <strong>'.$var.'</strong></p>
       <form action="lnl.php" method="POST">
          '.Q_spambot().'
          <input type="hidden" name="email" value="'.$var.'" />
          <input type="hidden" name="op" value="subscribeOK" />
-         <input type="submit" class="btn btn-outline-primary mr-2" value="'.translate("Submit").'" />
-         <a href="index.php" class="btn btn-outline-secondary">'.translate("Go Back").'</a>
+         <input type="submit" class="btn btn-outline-primary mr-2" value="'.translate("Valider").'" />
+         <a href="index.php" class="btn btn-outline-secondary">'.translate("Retour en arrière").'</a>
       </form>';
       include("footer.php");
    }  else
@@ -78,24 +78,24 @@ function subscribe_ok($xemail) {
             sql_query("INSERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
             // Email validation + url to unsubscribe
             global $sitename, $nuke_url;
-            $subject = "".translate("NewsLetter")." / $sitename";
-            $message = "".translate("Thank you for taking the time to record you in or DataBase.")."\n\n";
-            $message .= "".translate("For Unsubscribe, please goto")." :\n $nuke_url/lnl.php?op=unsubscribe&email=$xemail\n\n";
+            $subject = "".translate("La lettre")." / $sitename";
+            $message = "".translate("Merci d'avoir consacré du temps pour vous enregistrer.")."\n\n";
+            $message .= "".translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser")." :\n $nuke_url/lnl.php?op=unsubscribe&email=$xemail\n\n";
             include("signat.php");
             send_email($xemail, $subject, $message, '', true, 'text');
             opentable();
-            echo translate("Thank you for taking the time to record you in or DataBase.")."<br /><br />";
-            echo "<a href=\"index.php\" class=\"noir\">".translate("Go Back")."</a>";
+            echo translate("Merci d'avoir consacré du temps pour vous enregistrer.")."<br /><br />";
+            echo "<a href=\"index.php\" class=\"noir\">".translate("Retour en arrière")."</a>";
             closetable();
         } else {
-            $stop=translate("This account or IP has been temporarily disabled. This means that either this IP, or user account has been moderated down more than x times in the last few hours. If you think this is unfair, you should contact the admin.")."<br />";
+            $stop=translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.")."<br />";
             error_handler($stop);
         }
       } else {
          error_handler($stop);
       }
    } else {
-     error_handler(translate("Empty data not allowed.")."<br />");
+     error_handler(translate("Cette donnée ne doit pas être vide.")."<br />");
    }
    include("footer.php");
 }
@@ -115,13 +115,13 @@ function unsubscribe($xemail) {
             sql_query("UPDATE ".$NPDS_Prefix."lnl_outside_users SET status='NOK'  WHERE email='$xemail'");
             include("header.php");
             opentable();
-            echo translate("Thanks!")."<br /><br />";
-            echo "<a href=\"index.php\" class=\"noir\">".translate("Go Back")."</a>";
+            echo translate("Merci")."<br /><br />";
+            echo "<a href=\"index.php\" class=\"noir\">".translate("Retour en arrière")."</a>";
             closetable();
             include("footer.php");
          } else {
             include("header.php");
-            $stop=translate("This account or IP has been temporarily disabled. This means that either this IP, or user account has been moderated down more than x times in the last few hours. If you think this is unfair, you should contact the admin.")."<br />";
+            $stop=translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.")."<br />";
             error_handler($stop);
             include("footer.php");
          }

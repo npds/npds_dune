@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -35,20 +35,20 @@
       $result = sql_query("SELECT topicimage, topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
       list($topicimage, $topictext) = sql_fetch_row($result);
    } else {
-      $topictext = translate("All Topics");
+      $topictext = translate("Tous les sujets");
       $topicimage = "all-topics.gif";
    }
    settype($type,'string');
    if ($type == 'users')
-      echo '<h2 class="mb-3">'.translate("Search in Users Database").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Rechercher dans la base des utilisateurs").'</h2><hr />';
    elseif ($type == 'sections')
-      echo '<h2 class="mb-3">'.translate("Search in Sections").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Rechercher dans les rubriques").'</h2><hr />';
    elseif ($type == 'reviews')
-      echo '<h2 class="mb-3">'.translate("Search in Reviews").'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Rechercher dans les critiques").'</h2><hr />';
    elseif ($type == 'archive')
-      echo '<h2 class="mb-3">'.translate("Search in").' <span class="text-lowercase">'.translate("Archives").'</span></h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Rechercher dans").' <span class="text-lowercase">'.translate("Archives").'</span></h2><hr />';
    else
-      echo '<h2 class="mb-3">'.translate("Search in").' '.aff_langue($topictext).'</h2><hr />';
+      echo '<h2 class="mb-3">'.translate("Rechercher dans").' '.aff_langue($topictext).'</h2><hr />';
    echo '
    <form action="search.php" method="get">';
    /*
@@ -69,7 +69,7 @@
    echo '
    <div class="form-group">
       <select class="custom-select form-control" name="topic">
-         <option value="">'.translate("All Topics").'</option>';
+         <option value="">'.translate("Tous les sujets").'</option>';
    $sel='';
    while(list($topicid, $topics) = sql_fetch_row($toplist)) {
       if ($topicid==$topic) $sel = 'selected="selected" ';
@@ -100,7 +100,7 @@
    echo '
    <div class="form-group">
       <select class="custom-select form-control" name="author">
-         <option value="">'.translate("All Authors").'</option>';
+         <option value="">'.translate("Tous les auteurs").'</option>';
    settype($author,'string');
    $sel='';
    while (list($authors) = sql_fetch_row($thing)) {
@@ -130,12 +130,12 @@
    echo '
       <div class="form-group">
          <select class="custom-select form-control" name="days">
-            <option '.$sel1.' value="0">'.translate("All").'</option>
-            <option '.$sel2.' value="7">1 '.translate("week").'</option>
-            <option '.$sel3.' value="14">2 '.translate("weeks").'</option>
-            <option '.$sel4.' value="30">1 '.translate("month").'</option>
-            <option '.$sel5.' value="60">2 '.translate("months").'</option>
-            <option '.$sel6.' value="90">3 '.translate("months").'</option>
+            <option '.$sel1.' value="0">'.translate("Tous").'</option>
+            <option '.$sel2.' value="7">1 '.translate("semaine").'</option>
+            <option '.$sel3.' value="14">2 '.translate("semaines").'</option>
+            <option '.$sel4.' value="30">1 '.translate("mois").'</option>
+            <option '.$sel5.' value="60">2 '.translate("mois").'</option>
+            <option '.$sel6.' value="90">3 '.translate("mois").'</option>
          </select>
       </div>';
 
@@ -154,7 +154,7 @@
       <div class="form-group">
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="sto" name="type" value="stories" '.$sel1.' />
-            <label class="custom-control-label" for="sto">'.translate("Stories").'</label>
+            <label class="custom-control-label" for="sto">'.translate("Articles").'</label>
          </div>
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="arc" name="type" value="archive" '.$sel6.' />
@@ -164,19 +164,19 @@
       <div class="form-group">
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="sec" name="type" value="sections" '.$sel3.' />
-            <label class="custom-control-label" for="sec">'.translate("Sections").'</label>
+            <label class="custom-control-label" for="sec">'.translate("Rubriques").'</label>
          </div>
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="use" name="type" value="users" '.$sel4.' />
-            <label class="custom-control-label" for="use">'.translate("Users").'</label>
+            <label class="custom-control-label" for="use">'.translate("Utilisateurs").'</label>
          </div>
          <div class="custom-control custom-radio custom-control-inline">
             <input class="custom-control-input" type="radio" id="rev" name="type" value="reviews" '.$sel5.' />
-            <label class="custom-control-label" for="rev">'.translate("Reviews").'</label>
+            <label class="custom-control-label" for="rev">'.translate("Critiques").'</label>
          </div>
       </div>
       <div class="form-group">
-         <input class="btn btn-primary" type="submit" value="'.translate("Search").'" />
+         <input class="btn btn-primary" type="submit" value="'.translate("Recherche").'" />
       </div>
    </form>';
 
@@ -236,7 +236,7 @@
       <table id ="search_result" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th data-sortable="true">'.translate("Results").'</th>
+               <th data-sortable="true">'.translate("Résultats").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -250,7 +250,7 @@
          formatTimestamp($tab_sid[$i]['time']);
          echo '
             <tr>
-               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contributed by").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> :<br /><strong><a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a></strong><br /><span>'.translate("Posted by ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("on").' '.$datetime.'</td>
+               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contribution de").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> :<br /><strong><a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a></strong><br /><span>'.translate("Posté par ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("le").' '.$datetime.'</td>
             </tr>';
       }
       echo '
@@ -260,7 +260,7 @@
       if ($x==0) {
       echo '
          <div class="alert alert-danger lead" role="alert">
-            <i class="fa fa-exclamation-triangle fa-lg mr-2"></i>'.translate("No matches found to your query").' !
+            <i class="fa fa-exclamation-triangle fa-lg mr-2"></i>'.translate("Aucune correspondance à votre recherche n'a été trouvée").' !
          </div>';
       }
 
@@ -268,12 +268,12 @@
       echo '<br /><p align="left">('.translate("Total").' : '.$x.')&nbsp;&nbsp;';
       if ($prev>=0) {
          echo '<a href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'&amp;category='.$category.'&amp;member='.$member.'&amp;days='.$days.'">';
-         echo $offset.' '.translate("previous matches").'</a>';
+         echo $offset.' '.translate("réponses précédentes").'</a>';
       }
       if ($min+$increment<$x) {
          if ($prev>=0) echo "&nbsp;|&nbsp;";
          echo "<a href=\"search.php?author=$author&amp;topic=$t&amp;min=$max&amp;query=$query&amp;type=$type&amp;category=$category&amp;member=$member&amp;days=$days\">";
-         echo translate("next matches")."</a>";
+         echo translate("réponses suivantes")."</a>";
       }
       echo '</p>';
 
@@ -289,7 +289,7 @@
       <table id ="search_result" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th data-sortable="true">'.translate("Results").'</th>
+               <th data-sortable="true">'.translate("Résultats").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -297,7 +297,7 @@
             $furl = "reviews.php?op=showcontent&amp;id=$id";
             echo '
             <tr>
-               <td><a href="'.$furl.'">'.$title.'</a> '.translate("by").' <i class="fa fa-user text-muted"></i>&nbsp;'.$reviewer.'</td>
+               <td><a href="'.$furl.'">'.$title.'</a> '.translate("par").' <i class="fa fa-user text-muted"></i>&nbsp;'.$reviewer.'</td>
             </tr>';
             $x++;
          }
@@ -306,7 +306,7 @@
       </table>';
       } else
          echo '
-      <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
+      <div class="alert alert-danger lead">'.translate("Aucune correspondance à votre recherche n'a été trouvée").'</div>';
       $prev=$min-$offset;
       echo '
       <p align="left">
@@ -314,11 +314,11 @@
             <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
       if ($prev>=0) {
          echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'" >'.$offset.' '.translate("previous matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'" >'.$offset.' '.translate("réponses précédentes").'</a></li>';
       }
       if ($x>=($offset-1)) {
          echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("réponses suivantes").'</a></li>';
       }
       echo '
          </ul>
@@ -336,7 +336,7 @@
       <table id ="search_result" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th data-sortable="true">'.translate("Results").'</th>
+               <th data-sortable="true">'.translate("Résultats").'</th>
             </tr>
          </thead>
          <tbody>';
@@ -350,7 +350,7 @@
                $furl = "sections.php?op=viewarticle&amp;artid=$artid";
                echo '
             <tr>
-               <td><a href="'.$furl.'">'.aff_langue($title).'</a> '.translate("in the sub-section").' <a href="'.$surl.'">'.aff_langue($row2['secname']).'</a></td>
+               <td><a href="'.$furl.'">'.aff_langue($title).'</a> '.translate("dans la sous-rubrique").' <a href="'.$surl.'">'.aff_langue($row2['secname']).'</a></td>
             </tr>';
                $x++;
             }
@@ -360,10 +360,10 @@
       </table>';
          if ($x==0)
             echo '
-      <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
+      <div class="alert alert-danger lead">'.translate("Aucune correspondance à votre recherche n'a été trouvée").'</div>';
       } else
       echo '
-      <div class="alert alert-danger lead">'.translate("No matches found to your query").'</div>';
+      <div class="alert alert-danger lead">'.translate("Aucune correspondance à votre recherche n'a été trouvée").'</div>';
       $prev=$min-$offset;
       echo '
       <p align="left">
@@ -371,10 +371,10 @@
             <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
       if ($prev>=0)
          echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("previous matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("réponses précédentes").'</a></li>';
       if ($x>=($offset-1))
          echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'">'.translate("next matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'">'.translate("réponses suivantes").'</a></li>';
       echo '
          </ul>
       </p>';
@@ -390,13 +390,13 @@
       <table id ="search_result" data-toggle="table" data-striped="true" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
-               <th data-sortable="true">'.translate("Results").'</th>
+               <th data-sortable="true">'.translate("Résultats").'</th>
             </tr>
          </thead>
          <tbody>';
             while (list($uname, $name) = sql_fetch_row($result)) {
                $furl = "user.php?op=userinfo&amp;uname=$uname";
-               if ($name=='') $name = translate("No name entered");
+               if ($name=='') $name = translate("Aucun nom n'a été entré");
                echo '
                <tr>
                   <td><a href="'.$furl.'"><i class="fa fa-user text-muted mr-2"></i>'.$uname.'</a> ('.$name.')</td>
@@ -408,7 +408,7 @@
       </table>';
          } else
             echo '
-      <div class="alert alert-danger lead" role="alert">'.translate("No matches found to your query").'</div>';
+      <div class="alert alert-danger lead" role="alert">'.translate("Aucune correspondance à votre recherche n'a été trouvée").'</div>';
          $prev=$min-$offset;
          echo '
       <p align="left">
@@ -416,10 +416,10 @@
             <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
          if ($prev>=0)
             echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("previous matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("réponses précédentes").'</a></li>';
          if ($x>=($offset-1))
             echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("next matches").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("réponses suivantes").'</a></li>';
          echo '
          </ul>
       </p>';

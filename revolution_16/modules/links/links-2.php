@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -61,12 +61,12 @@ function NewLinks($newlinkshowdays) {
    echo '
    
    <div class="card card-body mb-3">
-   <h3>'.translate("New links").'</h3>
-   '.translate("Total new links: Last week").' : '.$allweeklinks.' -/- '.translate("Last 30 days").' : '.$allmonthlinks;
+   <h3>'.translate("Nouveaux liens").'</h3>
+   '.translate("Total des nouveaux liens pour la semaine dernière").' : '.$allweeklinks.' -/- '.translate("Pour les 30 derniers jours").' : '.$allmonthlinks;
 
    echo "<br />\n";
 
-    echo "<blockquote>".translate("Show:")." [<a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=7\" class=\"noir\">".translate("week")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=14\" class=\"noir\">2 ".translate("weeks")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=30\" class=\"noir\">30 ".translate("days")."</a>]</<blockquote>";
+    echo "<blockquote>".translate("Montrer :")." [<a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=7\" class=\"noir\">".translate("semaine")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=14\" class=\"noir\">2 ".translate("semaines")."</a>, <a href=\"modules.php?ModStart=$ModStart&ModPath=$ModPath&op=NewLinks&newlinkshowdays=30\" class=\"noir\">30 ".translate("jours")."</a>]</<blockquote>";
     $counter = 0;
     $allweeklinks = 0;
     echo '

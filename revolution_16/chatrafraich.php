@@ -86,9 +86,9 @@ settype($connectes,'integer');
    if (intval($connectes)!=$numofchatters) {
       $rafraich_connectes=1;
       if (($numofchatters==1) or ($numofchatters==0)) {
-         $nbre_connectes="'".$numofchatters." ".utf8_java(translate("person chatting right now."))." GP [$id]'";
+         $nbre_connectes="'".$numofchatters." ".utf8_java(translate("personne connectée."))." GP [$id]'";
       } else {
-         $nbre_connectes="'".$numofchatters." ".utf8_java(translate("people chatting right now."))." GP [$id]'";
+         $nbre_connectes="'".$numofchatters." ".utf8_java(translate("personnes connectées."))." GP [$id]'";
       }
    }
    $commande="self.location='chatrafraich.php?repere=$repere&aff_entetes=0&connectes=$numofchatters&id=$id&auto=$auto'";

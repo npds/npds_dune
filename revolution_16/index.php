@@ -174,7 +174,7 @@ function aff_news($op,$catid,$marqeur) {
       themeindex($aid, $informant, $datetime, $title, $counter, $topic, $hometext, $notes, $morelink, $topicname, $topicimage, $topictext, $s_id);
    }
 
-   $transl1=translate("Next Page");
+   $transl1=translate("Page suivante");
    $transl2=translate("Home");
    global $storyhome, $cookie;
    if (isset($cookie[3]))

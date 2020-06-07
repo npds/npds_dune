@@ -80,8 +80,8 @@ global $NPDS_Prefix, $adminforum;
       include("header.php");
       echo'
       <div class="alert alert-success">
-      <h4 class="alert-heading">'.translate("The topic has been moved.").'</h4>
-      <hr /><a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$newforum.'" class="alert-link">'.translate("Click here to view the updated topic.").'</a><br /><a href="forum.php" class="alert-link">'.translate("Click here to return to the forum index.").'</a>
+      <h4 class="alert-heading">'.translate("Le sujet a été déplacé.").'</h4>
+      <hr /><a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$newforum.'" class="alert-link">'.translate("Cliquez ici pour voir le nouveau sujet.").'</a><br /><a href="forum.php" class="alert-link">'.translate("Cliquez ici pour revenir à l'index des Forums.").'</a>
       </div>';
       Q_Clean();
       include("footer.php");
@@ -94,7 +94,7 @@ global $NPDS_Prefix, $adminforum;
       <h2>'.translate("Forum").'</h2>
       <form action="topicadmin.php" method="post">
          <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="newforum">'.translate("Move Topic To: ").'</label>
+            <label class="form-control-label col-sm-12" for="newforum">'.translate("Déplacer le sujet vers : ").'</label>
             <div class="col-sm-12">
                <select class="custom-select form-control" name="newforum">';
                $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_id!='$forum' ORDER BY cat_id,forum_index,forum_id";
@@ -106,7 +106,7 @@ global $NPDS_Prefix, $adminforum;
                      } while($myrow = sql_fetch_assoc($result));
                   } else {
                      echo '
-                     <option value="-1">'.translate("No More Forums").'</option>';
+                     <option value="-1">'.translate("Plus de forum").'</option>';
                   }
                } else {
                   echo '
@@ -122,7 +122,7 @@ global $NPDS_Prefix, $adminforum;
                <input type="hidden" name="topic" value="'.$topic.'" />
                <input type="hidden" name="forum" value="'.$forum.'" />
                <input type="hidden" name="arbre" value="'.$arbre.'" />
-               <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Move Topic").'" />
+               <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Déplacer le sujet").'" />
             </div>
          </div>
       </form>';
@@ -151,7 +151,7 @@ global $NPDS_Prefix, $adminforum;
                $topic_title='';
                $sql = "SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic'";
                $r=sql_fetch_assoc(sql_query($sql));
-               $topic_title=str_replace("[".translate("Solved")."] - ","",$r['topic_title']);
+               $topic_title=str_replace("[".translate("Résolu")."] - ","",$r['topic_title']);
                $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_status = '0', topic_first='1', topic_title='".addslashes ($topic_title)."' WHERE topic_id = '$topic'";
                if (!$r = sql_query($sql))
                   forumerror('0012');
@@ -175,19 +175,19 @@ global $NPDS_Prefix, $adminforum;
                echo '
       <h2 class="mb-3">'.translate("Forum").'</h2>
       <div class="card card-body mb-3">
-         <h3 class="card-title mb-3" >'.translate("Users IP and Account information").'</h3>
+         <h3 class="card-title mb-3" >'.translate("Adresses IP et informations sur les utilisateurs").'</h3>
          <div class="row">
             <div class="col mb-3">
-              <span class="text-muted">'.translate("Nickname: ").'</span><span class="">'.$m['uname'].'</span><br />
-              <span class="text-muted">'.translate("User IP: ").'</span><span class="">'.$m['poster_ip'].' => <a class="text-danger" href="topicadmin.php?mode=banip&topic='.$topic.'&post='.$post.'&forum='.$forum.'&arbre='.$arbre.'" >'.translate("Ban this @IP").'</a></span><br />
-              <span class="text-muted">'.translate("User DNS: ").'</span><span class="">'.$m['poster_dns'].'</span><br />
+              <span class="text-muted">'.translate("Identifiant : ").'</span><span class="">'.$m['uname'].'</span><br />
+              <span class="text-muted">'.translate("Adresse IP de l'utilisateur : ").'</span><span class="">'.$m['poster_ip'].' => <a class="text-danger" href="topicadmin.php?mode=banip&topic='.$topic.'&post='.$post.'&forum='.$forum.'&arbre='.$arbre.'" >'.translate("Bannir cette @Ip").'</a></span><br />
+              <span class="text-muted">'.translate("Adresse DNS de l'utilisateur : ").'</span><span class="">'.$m['poster_dns'].'</span><br />
               <span class="text-muted">GeoTool : </span><span class=""><a href="http://www.ip-tracker.org/?ip='.$m['poster_ip'].'" target="_blank" >IP tracker</a><br />
             </div>';
                echo localiser_ip($iptoshow=$m['poster_ip']);
                echo '
          </div>
       </div>
-      <a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$forum.'" class="btn btn-secondary">'.translate("Go Back").'</a>';
+      <a href="'.$url_ret.'?topic='.$topic.'&amp;forum='.$forum.'" class="btn btn-secondary">'.translate("Retour en arrière").'</a>';
                include("footer.php");
             break;
             case 'banip':
@@ -208,7 +208,7 @@ global $NPDS_Prefix, $adminforum;
       } else {
          include("header.php");
          echo '
-         <div class="alert alert-danger">'.translate("You are not the moderator of this forum therefor you cannot perform this function.").'<br />
+         <div class="alert alert-danger">'.translate("Vous n'êtes pas identifié comme modérateur de ce forum. Opération interdite.").'<br />
             <a class="btn btn-secondary" href="javascript:history.go(-1)" >'.translate("Go Back").'</a>
          </div>';
          include("footer.php");

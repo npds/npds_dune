@@ -44,7 +44,7 @@ elseif ($moderate==2) {
 
 function Caff_pub($topic, $file_name, $archive) {
    global $language;
-   $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Comment").'</a>';
+   $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
    return ($tmp);
 }
    if ($forum_access==0)
@@ -79,10 +79,10 @@ function Caff_pub($topic, $file_name, $archive) {
       <nav id="co-pagihaute">
          <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
             <li class="page-item">
-               <a class="page-link" href="#co-pagibasse"><i class="fa fa-angle-double-down" title="'.translate("Bottom page").'" data-toggle="tooltip"></i></a>
+               <a class="page-link" href="#co-pagibasse"><i class="fa fa-angle-double-down" title="'.translate("Bas de page").'" data-toggle="tooltip"></i></a>
             </li>
             <li class="page-item disabled">
-               <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
+               <a class="page-link" href="#" aria-label="'.translate("Commentaire(s)").'">'.$total.' '.translate("Commentaire(s)").'</a>
             </li>
             <li class="page-item disabled">
                <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
@@ -139,20 +139,20 @@ if ($mycount) {
       $useroutils = '';
       if($user or autorisation(-127)) {
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profile").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profile").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Send internal Message").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
          if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
             if ($posterdata_extend[$ch_lat] !='')
-               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Location").'" ><i class="fas fa-map-marker-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Location").'</span></a>';
+               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
          }
       }
       if ($posterdata['url']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visit this Website").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit this Website").'</span></a>';
+         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
       if ($posterdata['mns'])
-          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visit the Mini Web Site !").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visit the Mini Web Site !").'</span></a>';
+          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
 
       echo '
       <div class="row">
@@ -199,17 +199,17 @@ if ($mycount) {
                      <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
                      <div class=" col-sm-6 text-right">';
       if ($allow_to_post)
-         echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Comment").'" data-toggle="tooltip"><i class="far fa-comment fa-lg"></i></a>';
+         echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Commentaire").'" data-toggle="tooltip"><i class="far fa-comment fa-lg"></i></a>';
       if ($allow_to_post and $posterdata['uid']!='') {
          if ($formulaire=='') 
-            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Quote").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
+            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;post='.$myrow['post_id'].'&amp;citation=1&amp;archive='.$archive.'" title="'.translate("Citation").'" data-toggle="tooltip" ><i class="fa fa-lg fa-quote-left"></i></a>';
       }
       if ($Mmod) {
          echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="IP" data-toggle="tooltip"><i class="fa fa-lg fa-laptop"></i></a>';
          if (!$myrow['post_aff'])
-            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Show this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
+            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Afficher ce commentaire").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye text-danger"></i></a>';
          else
-            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Hide this comment").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
+            echo '<a class="mr-3" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Masquer ce commentaire").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-lg fa-eye-slash"></i></a>';
       }
       echo '
                      </div>
@@ -227,10 +227,10 @@ if ($mycount) {
          <nav id="co-pagibasse">
             <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
                <li class="page-item">
-                  <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Back to Top").'" data-toggle="tooltip"></i></a>
+                  <a class="page-link" href="#co-pagihaute"><i class="fa fa-angle-double-up" title="'.translate("Haut de page").'" data-toggle="tooltip"></i></a>
                </li>
                <li class="page-item disabled">
-                  <a class="page-link" href="#" aria-label="'.translate("Comments").'">'.$total.' '.translate("Comments").'</a>
+                  <a class="page-link" href="#" aria-label="'.translate("Commentaire(s)").'">'.$total.' '.translate("Commentaire(s)").'</a>
                </li>
                <li class="page-item disabled">
                   <a class="page-link"href="#" aria-label="'.translate("pages").'">'.$nbPages.' '.translate("pages").'</a>
@@ -245,16 +245,16 @@ if ($mycount) {
       echo '
       <nav class="text-right mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    echo '
-      <blockquote class="blockquote my-3">'.translate("The comments are owned by the poster. We aren't responsible for their content.").'</blockquote>';
+      <blockquote class="blockquote my-3">'.translate("Les commentaires sont la propriété de leurs auteurs. Nous ne sommes pas responsables de leur contenu.").'</blockquote>';
    if ($Mmod)
        echo '
       <nav class="text-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Administration Tools").'</a>
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Outils administrateur").'</a>
             </li>
             <li class="page-item">
-               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Delete comments.").'" data-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
+               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Effacer les commentaires.").'" data-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
             </li>
          </ul>
       </nav>';

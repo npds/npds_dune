@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -69,18 +69,18 @@ if (!function_exists("Mysql_Connexion"))
                echo $remp;
             }
             echo '
-      <div class=" my-3"><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" data-toggle="tooltip" data-placement="right" title="'.translate("Printer Friendly Page").'"><i class="fa fa-2x fa-print"></i></a></div>';
+      <div class=" my-3"><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" data-toggle="tooltip" data-placement="right" title="'.translate("Page spéciale pour impression").'"><i class="fa fa-2x fa-print"></i></a></div>';
 
             // Si vous voulez tracer les appels au pages statiques : supprimer les // devant la ligne ci-dessous
             // Ecr_Log("security", "static/$op", "");
          }
          else
             echo '
-      <div class="alert alert-danger">'.translate("Please enter information according to the specifications").'</div>';
+      <div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
       } 
       else
          echo '
-      <div class="alert alert-danger">'.translate("Please enter information according to the specifications").'</div>';
+      <div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
    }
    echo '
    </div>';

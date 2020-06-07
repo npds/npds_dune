@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,11 +17,11 @@ if (!function_exists("Mysql_Connexion"))
 function ShowFaq($id_cat, $categories) {
    global $sitename, $NPDS_Prefix;
    echo '
-   <h2 class="mb-4">'.translate("FAQ (Frequently Ask Question)").'</h2>
+   <h2 class="mb-4">'.translate("FAQ - Questions fréquentes").'</h2>
    <hr />
-   <h3 class="mb-3">'.translate("Category").' <span class="text-muted"># '.StripSlashes($categories).'</span></h3>
+   <h3 class="mb-3">'.translate("Catégorie").' <span class="text-muted"># '.StripSlashes($categories).'</span></h3>
    <p class="lead">
-      <a href="faq.php" title="'.translate("Back to FAQ Index").'" data-toggle="tooltip">Index</a>&nbsp;&raquo;&raquo;&nbsp;'.StripSlashes($categories).'
+      <a href="faq.php" title="'.translate("Retour à l'index FAQ").'" data-toggle="tooltip">Index</a>&nbsp;&raquo;&raquo;&nbsp;'.StripSlashes($categories).'
    </p>';
 
     $result = sql_query("SELECT id, id_cat, question, answer FROM ".$NPDS_Prefix."faqanswer WHERE id_cat='$id_cat'");
@@ -62,9 +62,9 @@ function ShowFaqAll($id_cat) {
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
        $result = sql_query("SELECT id_cat, categories FROM ".$NPDS_Prefix."faqcategories ORDER BY id_cat ASC");
        echo '
-       <h2 class="mb-4">'.translate("FAQ (Frequently Ask Question)").'</h2>
+       <h2 class="mb-4">'.translate("FAQ - Questions fréquentes").'</h2>
        <hr />
-       <h3 class="mb-3">'.translate("Categories").'<span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span></h3>
+       <h3 class="mb-3">'.translate("Catégories").'<span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span></h3>
        <div class="list-group">';
        while(list($id_cat, $categories) = sql_fetch_row($result)) {
           $catname = urlencode(aff_langue($categories));
