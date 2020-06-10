@@ -372,7 +372,7 @@ function PrintSecPage($artid) {
    echo '
       </head>
       <body>
-      <div max-width="640" class="container p-1 n-hyphenate">
+      <div id="print_sect" max-width="640" class="container p-1 n-hyphenate">
       <p class="text-center">';
    $pos = strpos($site_logo, "/");
    if ($pos)
@@ -398,6 +398,8 @@ function PrintSecPage($artid) {
          <a href="'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'">'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'</a>
          </p>
          </div>
+         <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+         <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
       </body>
    </html>';
 }

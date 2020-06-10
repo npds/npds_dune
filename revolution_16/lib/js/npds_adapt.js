@@ -28,7 +28,7 @@
          $(document).ready(function(){
             // responsive old data
             $('.article_texte img,.ibid_descr img').addClass('img-fluid');
-            $('#ban img,#art_preview img,#online_user_journal img,#art_sect img').addClass('img-fluid');
+            $('#ban img,#art_preview img,#online_user_journal img,#art_sect img,#print_sect img').addClass('img-fluid');
             $('iframe').addClass("embed-responsive-item");
 
             $('.fo-post-mes img').addClass('img-fluid');//not sure if usefull to late ...
