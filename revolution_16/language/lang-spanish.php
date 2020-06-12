@@ -577,6 +577,7 @@ function translate_pass1($phrase) {
    case "Membres": $tmp="miembros"; break;
    case "Menu de": $tmp="Menú de"; break;
    case "Merci d'avoir consacré du temps pour vous enregistrer.": $tmp="Gracias por tomar el tiempo de registrarse en este sitio web."; break;
+   case "Merci d'avoir modifié cette critique": $tmp="Gracias por editar esta reseña"; break;
    case "Merci d'avoir posté cette critique": $tmp="Gracias por someter su punto de vista"; break;
    case "Merci d'entrer l'information en fonction des spécifications": $tmp="Por favor, entre la información en acuerdo a las especificaciones"; break;
    case "Merci de contribuer à la maintenance du site.": $tmp="Gracias por contribuir al mantenimiento de este sitio web."; break;

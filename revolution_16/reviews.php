@@ -167,9 +167,14 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    $error='';
 
    include ('header.php');
+   if ($id != 0)
+      echo '
+      <h2 class="mb-4">'.translate("Modification d'une critique").'</h2>';
+   else
+      echo '
+      <h2 class="mb-4">'.translate("Ecrire une critique").'</h2>';
    echo '
-   <h2 class="mb-4">'.translate("Ecrire une critique").'</h2>
-   <form method="post" action="reviews.php">';
+   <form id="prevreview" method="post" action="reviews.php">';
    if ($title == '') {
       $error = 1;
       echo '<div class="alert alert-danger">'.translate("Titre non valide... Il ne peut pas être vide").'</div>';
@@ -214,12 +219,12 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       global $gmt;
       $fdate=date(str_replace('%','',translate("linksdatestring")),time()+((integer)$gmt*3600));
 
-      echo translate("Critiques");
+      echo translate("Critique");
 
       echo '
       <br />'.translate("Ajouté :").' '.$fdate.'
       <hr />
-      <h3>'.$title.'</h3>';
+      <h3>'.stripslashes($title).'</h3>';
       if ($cover != '')
          echo '<img class="img-fluid" src="images/reviews/'.$cover.'" alt="img_" />';
       echo $text;
@@ -252,11 +257,28 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
             <input type="hidden" name="op" value="add_reviews" />
             <p class="my-3">'.translate("Cela semble-t-il correct ?").'</p>';
       if (!$admin) echo Q_spambot();
+      $consent = '[french]Pour conna&icirc;tre et exercer vos droits notamment de retrait de votre consentement &agrave; l\'utilisation des donn&eacute;es collect&eacute;es veuillez consulter notre <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">politique de confidentialit&eacute;</a>.[/french][english]To know and exercise your rights, in particular to withdraw your consent to the use of the data collected, please consult our <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">privacy policy</a>.[/english][spanish]Para conocer y ejercer sus derechos, en particular para retirar su consentimiento para el uso de los datos recopilados, consulte nuestra <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">pol&iacute;tica de privacidad</a>.[/spanish][german]Um Ihre Rechte zu kennen und auszu&uuml;ben, insbesondere um Ihre Einwilligung zur Nutzung der erhobenen Daten zu widerrufen, konsultieren Sie bitte unsere <a href="static.php?op=politiqueconf.html&amp;npds=1&amp;metalang=1">Datenschutzerkl&auml;rung</a>.[/german][chinese]&#x8981;&#x4E86;&#x89E3;&#x5E76;&#x884C;&#x4F7F;&#x60A8;&#x7684;&#x6743;&#x5229;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x8981;&#x64A4;&#x56DE;&#x60A8;&#x5BF9;&#x6240;&#x6536;&#x96C6;&#x6570;&#x636E;&#x7684;&#x4F7F;&#x7528;&#x7684;&#x540C;&#x610F;&#xFF0C;&#x8BF7;&#x67E5;&#x9605;&#x6211;&#x4EEC;<a href="static.php?op=politiqueconf.html&#x26;npds=1&#x26;metalang=1">&#x7684;&#x9690;&#x79C1;&#x653F;&#x7B56;</a>&#x3002;[/chinese]';
+      $accept = "[french]En soumettant ce formulaire j'accepte que les informations saisies soient exploit&#xE9;es dans le cadre de l'utilisation et du fonctionnement de ce site.[/french][english]By submitting this form, I accept that the information entered will be used in the context of the use and operation of this website.[/english][spanish]Al enviar este formulario, acepto que la informaci&oacute;n ingresada se utilizar&aacute; en el contexto del uso y funcionamiento de este sitio web.[/spanish][german]Mit dem Absenden dieses Formulars erkl&auml;re ich mich damit einverstanden, dass die eingegebenen Informationen im Rahmen der Nutzung und des Betriebs dieser Website verwendet werden.[/german][chinese]&#x63D0;&#x4EA4;&#x6B64;&#x8868;&#x683C;&#x5373;&#x8868;&#x793A;&#x6211;&#x63A5;&#x53D7;&#x6240;&#x8F93;&#x5165;&#x7684;&#x4FE1;&#x606F;&#x5C06;&#x5728;&#x672C;&#x7F51;&#x7AD9;&#x7684;&#x4F7F;&#x7528;&#x548C;&#x64CD;&#x4F5C;&#x8303;&#x56F4;&#x5185;&#x4F7F;&#x7528;&#x3002;[/chinese]";
       echo '
+       <div class="form-group row">
+           <div class="col-sm-12">
+               <div class="custom-control custom-checkbox">
+                   <input class="custom-control-input" type="checkbox" id="consent" name="consent" value="1" required="required"/>
+                   <label class="custom-control-label" for="consent">'
+                       .aff_langue($accept).'
+                       <span class="text-danger"> *</span>
+                   </label>
+               </div>
+           </div>
+       </div>
       <div class="form-group row">
          <div class="col-sm-12">
             <input class="btn btn-primary" type="submit" value="'.translate("Oui").'" />&nbsp;
             <input class="btn btn-secondary" type="button" onclick="history.go(-1)" value="'.translate("Non").'" />
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col small" >'.aff_langue($consent).'
          </div>
       </div>';
       if ($id != 0) $word = translate("modifié");
@@ -267,7 +289,13 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    }
    echo '
    </form>';
-   include ("footer.php");
+   $arg1 ='
+      var formulid = ["prevreview"];';
+      
+   adminfoot('fv','',$arg1,'foo');
+
+   
+//   include ("footer.php");
 }
 
 function reversedate($myrow) {
@@ -299,14 +327,19 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
          die();
       }
    }
-   echo '
-   <h2>'.translate("Ecrire une critique").'</h2>
-   <hr />
-   <div class="alert alert-success">'.translate("Merci d'avoir posté cette critique").'';
    if ($id != 0)
-      echo ' '.translate("modification");
+      echo '
+      <h2>'.translate("Modification d'une critique").'</h2>';
    else
-      echo ', '.$reviewer;
+      echo '
+      <h2>'.translate("Ecrire une critique").'</h2>';
+   echo '
+   <hr />
+   <div class="alert alert-success">';
+   if ($id != 0)
+      echo translate("Merci d'avoir modifié cette critique").'.';
+   else
+      echo translate("Merci d'avoir posté cette critique").', '.$reviewer;
    echo '<br />';
    if (($admin) && ($id == 0)) {
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
