@@ -152,7 +152,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    // take the right theme location !
    // nouvel version de la gestion des Themes et Skins
    global $Default_Theme, $Default_Skin, $user;
-   if (isset($user)) {
+   if (isset($user) and $user!='') {
       global $cookie;
       if($cookie[9] !='') {
          $ibix=explode('+', urldecode($cookie[9]));
