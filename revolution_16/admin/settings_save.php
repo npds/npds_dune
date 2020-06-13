@@ -272,7 +272,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$dbname = \"$dbname\";\n";
     if (!isset($mysql_p)) {$mysql_p=1;}
     $content .= "\$mysql_p = $mysql_p;\n";
-    if (!isset($mysql_i)) {$mysql_i=0;}
+    if (!isset($mysql_i)) {$mysql_i=1;}
     $content .= "\$mysql_i = $mysql_i;\n";
     $content .= "# =======================\n";
     $content .= "\$system = $system;\n";

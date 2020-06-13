@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier
 #
 # This module is to configure the main options for your site
 #
@@ -32,7 +32,7 @@ $dbuname = "root";
 $dbpass = "";
 $dbname = "revolution";
 $mysql_p = 1;
-$mysql_i = 0;
+$mysql_i = 1;
 # =======================
 $system = 0;
 $system_md5 = 1;
