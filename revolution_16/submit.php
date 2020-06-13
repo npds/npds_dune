@@ -249,7 +249,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
 
 settype($op,'string');
 switch ($op) {
-   case 'Preview':
+   case 'Prévisualiser':
    case translate("Prévisualiser"):
       if ($user) {
          $userinfo=getusrinfo($user);
