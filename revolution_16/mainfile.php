@@ -37,6 +37,10 @@ function Mysql_Connexion() {
 }
 /****************/
 $dblink=Mysql_Connexion();
+if ($mysql_i==1)
+   mysqli_set_charset($dblink,"utf8mb4");
+else 
+   mysql_set_charset($dblink,"utf8mb4");
 $mainfile=1;
 require_once("auth.inc.php");
 if (isset($user)) $cookie=cookiedecode($user);
