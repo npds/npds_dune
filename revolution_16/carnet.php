@@ -72,7 +72,7 @@ function L_encrypt($txt) {
          echo '</table>';
       } else {
          echo "<table width=\"100%\"><tr><td>";
-         echo "<span class=\"noir\">".translate("Vous pouvez charger un fichier carnet.txt dans votre miniSite").".<br />".translate("The data structure of any line : name_of_the_member;email;comments")."</span>";
+         echo "<span>".translate("Vous pouvez charger un fichier carnet.txt dans votre miniSite").".<br />".translate("La structure de chaque ligne de ce fichier : nom_du_membre; adresse Email; commentaires")."</span>";
          echo "</td></tr></table>";
       }
       echo '

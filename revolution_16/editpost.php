@@ -72,7 +72,7 @@ if ($submitS) {
    }
    $message = addslashes($message);
 
-   if ($subject=='') $subject=translate("Untitled");
+   if ($subject=='') $subject=translate("Sans titre");
 
    // Forum ARBRE
    if ($arbre)
