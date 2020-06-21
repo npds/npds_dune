@@ -1,1 +1,7 @@
 /* extra css for cerulean */
+div.list-group-item.list-group-item-action.active h5 {
+color:white;
+}
+a.list-group-item.list-group-item-action.active h5 {
+color:white;
+}
