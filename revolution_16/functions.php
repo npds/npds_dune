@@ -747,11 +747,11 @@ function forum($rowQ1) {
                         if ((file_exists("themes/$theme/html/forum-cat".$row['cat_id'].".html")) OR (file_exists("themes/default/html/forum-cat".$row['cat_id'].".html")))
                            $ibid.='
                            <div class=" mt-3" id="catfo_'.$row['cat_id'].'" >
-                              <a class="list-group-item list-group-item-action active" href="forum.php?catid='.$row['cat_id'].'"><h5 class="list-group-item-heading" >'.$title.'</h5></a>';
+                              <a class="list-group-item list-group-item-action active" href="forum.php?catid='.$row['cat_id'].'"><h5>'.$title.'</h5></a>';
                         else
                            $ibid.='
                            <div class=" mt-3" id="catfo_'.$row['cat_id'].'">
-                              <div class="list-group-item list-group-item-action active"><h5 class="list-group-item-heading" >'.$title.'</h5></div>';
+                              <div class="list-group-item list-group-item-action active"><h5>'.$title.'</h5></div>';
                         $title_aff=false;
                      }
                      $forum_moderator=explode(' ',get_moderator($myrow['forum_moderator']));
