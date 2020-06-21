@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -53,8 +53,9 @@ function fma_translate($phrase) {
       case "Temps de cache (en seconde) des imagettes" : $tmp = "缩略图缓存时间（以秒为单位）"; break;
       case "F-Manager": $tmp="F-Manager"; break;
       case "Gestionnaire de fichiers": $tmp="文件管理器"; break;
+      case "Sélectionner votre fichier": $tmp="选择你的文件"; break;
 
-      default: $tmp = "Translation error [** $phrase **]"; break;
+      default: $tmp = "翻译错误 [** $phrase **]"; break;
    }
    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }
