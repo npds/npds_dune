@@ -1746,7 +1746,7 @@ function aff_localzone_langue($ibid) {
          <option value="">'.translate("Choisir une langue").'</option>';
    foreach($tab_langue as $bidon => $langue) {
       $M_langue.='
-            <option value="'.$langue.'">'.$langue.'</option>';
+            <option value="'.$langue.'">'.translate("$langue").'</option>';
    }
    $M_langue.='
             <option value="">- '.translate("Aucune langue").'</option>

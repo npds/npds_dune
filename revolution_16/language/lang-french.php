@@ -52,6 +52,11 @@ function translate_pass1($phrase) {
    case "October": $tmp="Octobre"; break;
    case "November": $tmp="Novembre"; break;
    case "December": $tmp="Décembre"; break;
+   case "english": $tmp="Anglais"; break;
+   case "french": $tmp="Français"; break;
+   case "spanish": $tmp="Espagnol"; break;
+   case "chinese": $tmp="Chinois"; break;
+   case "german": $tmp="Allemand"; break;
 
    case "0": $tmp="zéro"; break;
    case "1": $tmp="un"; break;
