@@ -19,30 +19,33 @@ function L_encrypt($txt) {
 }
 
    global $user, $Default_Theme;
-   if (!$user) {
+   if (!$user)
         Header("Location: user.php");
-   } else {
+   else {
       $userX = base64_decode($user);
       $userdata = explode(':', $userX);
       if ($userdata[9]!='') {
-         if (!$file=@opendir("themes/$userdata[9]")) {
+         if (!$file=@opendir("themes/$userdata[9]"))
             $tmp_theme=$Default_Theme;
-         } else {
+         else
             $tmp_theme=$userdata[9];
-         }
-      } else {
+      } else
          $tmp_theme=$Default_Theme;
-      }
+
       include("themes/$tmp_theme/theme.php");
       $Titlesitename=translate("Carnet d'adresses");
       include("meta/meta.php");
+      
+      echo '
+      <link id="bsth" rel="stylesheet" href="themes/_skins/default/bootstrap.min.css" />';
+
       echo import_css($tmp_theme, $language, $site_font, "","");
       include("lib/formhelp.java.php");
 
       $fic="users_private/".$userdata[1]."/mns/carnet.txt";
-      echo "\n
-   </head>\n
-   <body topmargin=\"2\" bottommargin=\"2\" leftmargin=\"2\" rightmargin=\"2\" style=\"background-color: #FFFFFF;\">";
+      echo '
+   </head>
+   <body class="p-4">';
       if (file_exists($fic)) {
          $fp=fopen($fic,"r");
             if (filesize($fic)>0)
@@ -55,26 +58,28 @@ function L_encrypt($txt) {
          } else {
             $contents=decryptK(substr($contents,5),substr($userdata[2],8,8));
          }
-         echo '<table width="100%">';
+         echo '
+         <div class="row">';
          $contents=explode("\n",$contents);
          foreach($contents as $tab) {
             $tabi=explode(';',$tab);
             if ($tabi[0]!='') {
-               $rowcolor=tablos();
-               echo "
-               <tr $rowcolor>
-               <td nowrap=\"nowrap\">&nbsp;<a href=\"javascript: DoAdd(1,'to_user','$tabi[0],')\";><b>$tabi[0]</b></a></td>
-               <td nowrap=\"nowrap\"><a href=\"mailto:$tabi[1]\" class=\"noir\"><b>$tabi[1]</a></td>
-               <td nowrap=\"nowrap\">$tabi[2]&nbsp;</td>
-               </tr>\n";
+               echo '
+               <div class="border col-md-4 mb-1 p-3">
+                  <a href="javascript: DoAdd(1,\'to_user\',\''.$tabi[0].',\')";><b>'.$tabi[0].'</b></a><br />
+                  <a href="mailto:'.$tabi['1'].'" >'.$tabi['1'].'</a><br />
+                  '.$tabi['2'].'
+               </div>';
             }
          }
-         echo '</table>';
-      } else {
-         echo "<table width=\"100%\"><tr><td>";
-         echo "<span>".translate("Vous pouvez charger un fichier carnet.txt dans votre miniSite").".<br />".translate("La structure de chaque ligne de ce fichier : nom_du_membre; adresse Email; commentaires")."</span>";
-         echo "</td></tr></table>";
-      }
+         echo '
+         </div>';
+      } else
+         echo '
+         <div class="alert alert-secondary text-break">
+            <span>'.translate("Vous pouvez charger un fichier carnet.txt dans votre miniSite").'.</span><br />
+            <span>'.translate("La structure de chaque ligne de ce fichier : nom_du_membre; adresse Email; commentaires").'</span>
+         </div>';
       echo '
    </body>
 </html>';
